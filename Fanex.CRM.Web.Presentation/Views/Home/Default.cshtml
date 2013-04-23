@@ -1,0 +1,111 @@
+﻿@using Fanex.CRM.Infrastructure.Configuration
+@using Fanex.CRM.Infrastructure.Common
+@using Fanex.CRM.Infrastructure.Extension
+@using Fanex.CRM.Entities
+
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>    
+    
+    <link href="@Url.Content("~/Scripts/smoothmenu/ddsmoothmenu.css")" rel="stylesheet" type="text/css" />    
+    <link href="@Url.Content("~/Content/Black2011/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Views/Home/Styles/default.css?ver=5")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="fullsize" class="fullsize">
+    </div>
+    <div style=" overflow:hidden;">
+        <div class="mainbox">
+            <img alt="" src="../Content/Black2011/Images/logo-crm.png" class="crm-logo" />
+            <div class="welcomebox" style="z-index: 100">Welcome <span class="text_org">@ViewBag.AccUsername</span></div>
+        </div>
+        <div class="header2">
+            <input type="button" onclick="leftright();" class="leftright" id="btnleftright" name="btnleftright" style="float:left; margin:4px 0 0 16px;" />
+            <input type="button" onclick="downup();" class="updown" id="btndownup" name="btndownup" style="float:left;" />
+            <div class="search">
+                <div class="">
+                    
+                    <table style="border-width: 0pt; border-collapse: collapse;">
+                        <tr>                            
+                            <td>                                                                
+                                <input type="text" id="txtuserName" class="inputSearch" onkeypress="return KeyPress(event);" onkeyup="return KeyPress(event);"
+                                value="Search..." name="txtuserName" onblur="on_Blur()" onfocus="on_Focus()"   autocomplete="off"/>
+                            </td>
+                            <td>
+                                <input type="button" class="searchSubmit" value=" " id="btnSendMsg" onclick="submitSearch();"/>
+                            </td>
+                            <td>
+                                <input id="isGuest" type="checkbox" style="margin:-4px 1px -4px 2px;" />                                
+                            </td>
+                            <td><span style="vertical-align:middle;color:White; font-size:8pt;">Guest</span></td>
+                            
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="qsfMenu" style="z-index: 20">
+                <div class="topmenu">
+                    @Html.Raw(ViewBag.TopMenu)
+                </div>
+            </div>
+        </div>
+        
+        <div class="contentbox">            
+            <div class="leftcontent" >
+                <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="" marginheight="0" frameborder="0" 
+                vspace="0" hspace="0" style="width: 273px; height:0px;" allowTransparency="true">
+                </iframe>
+            </div>
+                
+            <div id="rightcontent" class="rightcontent">
+                <iframe id="centerFr" name="centerFr" src="BlankPage" scrolling="auto" marginwidth="0"
+                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 0px;" allowTransparency="true">
+                </iframe>
+            </div>
+        </div>
+    </div>
+    
+    <div id="divErrorPoup" class="selector" style="display: none;"></div>
+
+    @{
+        int currentParentId = 0;
+        string userSearched = "";
+        bool isGuest = false;
+
+        SearchCustomerInfo searchUserSession = (SearchCustomerInfo)SessionExtension.GetSession(HttpContext.Current.Session,
+               Enumerations.Functions.CRMCustomer.SearchCustomerInfo.ToString());
+        if (searchUserSession != null)
+        {
+            userSearched = searchUserSession.UserName;
+            isGuest = searchUserSession.IsGuest;
+        }
+   }
+
+    <script language="javascript" type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var userSearch = '@userSearched';
+        var isGuestSearch = '@isGuest';
+        var accUrlDefault = '@Fanex.CRM.Infrastructure.Common.AppSetting.AccountingUrlDefault';
+        var userId = @Fanex.CRM.Web.Controllers.Helper.AppSession.CurrentUser.Id;
+
+        head.js("@Url.Content("~/Scripts/jquery.js")", function () {
+                head.js("@Url.Content("~/Scripts/json2.js")")
+                    .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.min.js")",
+                        "@Url.Content("~/Scripts/autocomplete/jquery.autocomplete.js")")
+                    .js("@Url.Content("~/Scripts/jquery.blockUI.1.33.js")")
+                    .js("@Url.Content("~/Scripts/BlockUI.js")")
+                    .js("@Url.Content("~/Scripts/common.js")")
+                    .js("@Url.Content("~/Scripts/dialogbox.js")")
+                    .js("@Url.Content("~/Scripts/showhidepopup.js")")
+                    .js("@Url.Content("~/Scripts/smoothmenu/ddsmoothmenu.js")",
+                        "@Url.Content("~/Views/Home/Scripts/AssignMenu.js")")
+                    .js("@Url.Content("~/Views/Home/Scripts/Main.js?ver=1")");
+            });   
+
+        setInterval('udpateOnlineStatus()', 20000);
+        
+    </script>
+</body>
+</html>

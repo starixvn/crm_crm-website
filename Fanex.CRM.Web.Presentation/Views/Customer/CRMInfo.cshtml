@@ -1,0 +1,243 @@
+﻿<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Customer Info </title>
+    <link href="@Url.Content("~/Content/Black2011/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Views/Customer/Styles/StyleSheet.css?ver=1")" rel="stylesheet" type="text/css" />
+</head>
+<body>  
+    
+    <div id="errmsg"></div>
+    <div style="width: 100%; text-align: center; display:none;" id="divContent">
+        <div id="left_panel">
+            <div class="box_line">
+            </div>
+            <div class="box_content">
+                <div class="spacing">
+                </div>
+                <!--upline box-->
+                <div class="box_content1">
+                    <table cellspacing="0" cellpadding="0" border="0" width="248px">
+                        <tbody id="tbodyUplineList">
+                             <script id="tmplUplineList" type="text/html">
+                                <tr class="">
+                                    <td width="25%" class="solid_left">
+                                        ${RoleName}
+                                    </td>
+                                    <td width="75%" class="solid_left">
+                                        <a class="text_blueLink" href="javascript:parent.submitSearch('${UserName}');">${UserName}</a>
+                                    </td>
+                               
+                                </tr>
+                               
+                            </script>  
+                        </tbody>
+                    </table>
+                </div>
+                <!--end upline box-->
+                <div class="spacing">
+                </div>
+                <!--customer detail-->
+                <div class="box_header">
+                    <div style="padding-top: 2px;">
+                        <div style="float: left; width: 220px; height:20px">
+                            <span title="" onmouseout="" onmouseover="" style="width: 210px; float:left; height:18px"
+                                id="box_02_headertext"></span>&nbsp;
+                            <span title="Show Detail" onclick="collapseInfo();" style="float: right;  margin-top: -19px;"
+                                    name="btnupdownCustInfo" id="btnupdownCustInfo"><img class="imgDownUp" src="../Views/Customer/Styles/Images/icon_down.gif" alt="collapse" /></span>
+
+                            </div>
+                        <div style="float:right; margin-right:5px; padding-top:1px"><input type="button" name="btnRefesh" value="" onclick="parent.submitSearch();" id="btnRefesh" class="btnReload" /></div>
+                    </div>
+                </div>
+                <div class="box_content1" id="custInfoDetal">
+                    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <tbody id="tbodyCustInfo">
+                            <script type="text/html" id="tmplCustInfo">                                 
+                                <tr class="solid_left">
+                                    <td style="width:70px">
+                                        Name:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${CustomerInfo.FirstName}&nbsp;${CustomerInfo.LastName}</span>
+                                    </td>
+                                </tr>
+                               <tr class="solid_left">
+                                    <td>
+                                        NickName:
+                                    </td>
+                                    <td>
+                                        <span class="text_red" id="vNickName">&nbsp;${NickName}</span>
+                                    </td>
+                                </tr>
+                                <tr class="solid_left">
+                                    <td>
+                                        Fax:
+                                    </td>
+                                    <td>
+                                        <span class="text_red" id="vCustFax">&nbsp;${CustomerInfo.Fax}</span>
+                                    </td>
+                                </tr>
+                                <tr class="solid_left">
+                                    <td>
+                                        Phone:
+                                    </td>
+                                    <td>
+                                        <span class="text_red" id="vCustPhone">&nbsp;${CustomerInfo.Phone}</span>
+                                    </td>
+                                </tr>
+                                <tr class="solid_left">
+                                    <td>
+                                        Mobile:
+                                    </td>
+                                    <td>
+                                        <span class="text_red" id="vCustMobile">&nbsp;${CustomerInfo.MobilePhone}</span>
+                                    </td>
+                                </tr>
+                                 <tr class="solid_left">
+                                    <td>
+                                        Email:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${CustomerInfo.Email}</span>
+                                    </td>
+                                </tr>
+                                <tr class="solid_left">
+                                    <td>
+                                        Skype:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${CustomerInfo.Skype}</span>
+                                    </td>
+                                </tr>
+                                <tr class="solid_left">
+                                    <td>
+                                        MSN:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${CustomerInfo.MSN}</span>
+                                    </td>
+                                </tr>
+                                 <tr class="solid_left">
+                                    <td>
+                                        Site:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${Site.Value}</span>
+                                    </td>
+                                </tr>
+                                  <tr class="solid_left">
+                                    <td>
+                                        Betting Code:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${BettingCode}</span>
+                                    </td>
+                                </tr>
+                                  <tr class="solid_left">
+                                    <td>
+                                        Ref Code 2:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${RefCode2}</span>
+                                    </td>
+                                </tr>
+                                 <tr class="solid_left">
+                                    <td>
+                                       Country:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${CountryName}</span>
+                                    </td>
+                                </tr>
+                                <tr class="solid_left">
+                                    <td>
+                                       PIC1:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${Pic1}</span>
+                                    </td>
+                                </tr>
+                                <tr class="solid_left">
+                                    <td>
+                                       PIC2:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${Pic2}</span>
+                                    </td>
+                                </tr>
+                                <tr class="solid_left">
+                                    <td>
+                                       PIC3:
+                                    </td>
+                                    <td>
+                                        <span class="text_red">&nbsp;${Pic3}</span>
+                                    </td>
+                                </tr>
+                            </script>
+                        </tbody>
+                    </table>
+                </div>
+                <!--end customer detail-->
+                <div class="spacing">
+                </div>
+                <!--box setting detail login onlinelist-->
+                <div class="box_header">
+                    <div class="left_tab" id="left_tab2">
+                        <ul>
+                           <li onclick="left_Tab2_Click(this,'box_05_content_1')" id="left_tab2_1" class="current">
+                            <a href="#"><span>Detail</span></a>
+                           </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+                <div id="box_05_contents" class="box_05_contents">
+                    <div id="box_05_content_1" class="tab_left_content">
+                       <div class="l detail_tab_content" id="divDetail">
+                            <script type="text/html" id="tmplDetail">
+                                <a target="centerFr" href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Customer/EditCRMInfo?custid=${Id}');"
+                                    class="button_left02">CRM Info</a><br />
+                                <a target="centerFr" href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/CustomerLastestFeedback?custid=${Id}&custName=${UserName}');"
+                                class="button_left02">Latest Feedback</a><br />
+                                <a target="centerFr" href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/ManageFeedback?custid=${Id}&custName=${UserName}');"
+                                    class="button_left02">Manage Feedback</a><br />
+                                <a target="centerFr" href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/AddFeedback?custId=${Id}&custName=${UserName}');"
+                                    class="button_left02">Add Feedback</a>
+                            </script>
+                        </div>
+                    </div>
+                   
+                </div>
+                <!--end box setting detail login onlinelist-->
+                <div class="spacing">
+                </div>
+            </div>
+            <div class="box_bottom">
+            </div>
+        </div>
+    </div>
+    
+    <div id="divPopup" class="selector" style="display: none; ">Do you want to search guest customer's information?</div>
+
+    <iframe height="0" frameborder="0" width="0" name="frmUpdate" id="frmUpdate"></iframe>
+        
+    <script language="javascript" type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var accId = @Fanex.CRM.Web.Controllers.Helper.AppSession.CurrentUser.Id;
+
+        head.js("@Url.Content("~/Scripts/jquery.js")", function () {
+                head.js("@Url.Content("~/Scripts/json2.js")")
+                    .js("@Url.Content("~/Scripts/jquery.json-1.3.js")")                    
+                    .js("@Url.Content("~/Scripts/jscookies.js")")
+                    .js("@Url.Content("~/Scripts/jquery.tmpl.js")")
+                    .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.min.js")")
+                    .js("@Url.Content("~/Scripts/common.js")")
+                    .js("@Url.Content("~/Scripts/showhidepopup.js")")                    
+                    .js("@Url.Content("~/Views/Customer/Scripts/CrmInfo.js?ver=1")");                                       
+                    
+            });   
+    </script>
+    
+</body>
+</html>

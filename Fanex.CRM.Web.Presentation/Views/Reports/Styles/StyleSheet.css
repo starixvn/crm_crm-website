@@ -1,0 +1,67 @@
+﻿select,input[type=text]{width:160px;}
+.editreview{float:right;}
+
+.icon-filter {
+    background: url("../../../Content/Black2011/images/error.gif") no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 14px;
+    width: 18px;
+}
+
+.btnreview{border:none 0px;text-align:right;font-weight:700;color:#fff;background:url(images/icn_view.png) no-repeat left;padding-left:16px;!padding-left:8px;padding-left\*:4px\9;cursor:pointer;height:18px;text-decoration:none;vertical-align:middle;vertical-align\*:middle\9;margin:0 2px 0 0;}
+.btnedit{border:none 0px;text-align:right;font-weight:700;color:#fff;background:url(images/icn_edit.png) no-repeat left; padding-left:16px;!padding-left:8px;padding-left\*:4px\9;cursor:pointer;height:18px;text-decoration:none;vertical-align:middle;vertical-align\*:middle\9;margin:0 2px 0 0;}
+.btnreview:hover,.btnedit:hover{color:#D66D35;}
+.verifycustomer{color:#618E11;height:18px;text-decoration:none;vertical-align:middle;background:url(images/sucess.gif) no-repeat left;padding-left:16px; font-weight:bold;}
+.noneverifycustomer{color:#EE0000;height:18px;text-decoration:none;vertical-align:middle;background:url(images/error.gif) no-repeat left;padding-left:16px;font-weight:bold;}
+.smallloading{background:url(images/ajax-loader.gif) no-repeat left;padding-left:16px;}
+.editerwrapper{text-align:left;background:#fff;border:1px solid #818181;height:200px; padding:2px; overflow:auto; width:auto;!width:100%;width\*:100%\9;}
+.lblediter{float:left;font-weight:bold;}
+#lblUserName{color:#EE0000;}
+.errormsg{color:#EE0000;height:18px;vertical-align:middle;background:url(images/warning.png) no-repeat right;padding:8px;margin-left:2px;}
+#lblEditedBy{font-style:italic; margin-left:6px;}
+.lnksubject
+{
+    background:url("Images/hp_notepad2_pen.png") no-repeat left top;
+    padding:2px 0px 2px 18px;
+    line-height:18px;
+    margin-bottom:2px;
+    }
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
+.ui-timepicker-div dl{ text-align: left; }
+.ui-timepicker-div dl dt{ height: 25px; }
+.ui-timepicker-div dl dd{ margin: -25px 0 10px 50px; }
+.ui-timepicker-div .ui_tpicker_hour div { padding-right: 2px; }
+.ui-timepicker-div .ui_tpicker_minute div { padding-right: 6px; }
+.ui-timepicker-div .ui_tpicker_second div { padding-right: 6px; }
+.ui-timepicker-div td { font-size: 80%; }
+
+/*css for datagridview*/
+.datagrid-header-inner table tr td{background:url(images/bg-nav-top-left.jpg) repeat-x;color:#fff;font-weight:bold;}
+.datagrid-header td.datagrid-header-over{background:url(images/bg-nav-top-left.jpg) repeat-x !important;}
+.datagrid-body-inner table {background-color:#fff;}
+.datagrid-body table{background-color:#fff;}
+.datagrid-body td{font-size:11px !important;} 
+.datagrid-header td{font-size:11px !important;}
+.pagination-page-list{width:50px !important;}
+.pagination-num {width:40px !important; padding:2px 0;}
+.pending td{background-color:#FBEC88;}
+.closed td{background-color:#ccc7ba;}
+.total td {
+    background-color: #858585;
+    color:#FFEEDD;
+}
+
+.footer td {
+    background-color: #D3E1C8;    
+}
+.child {
+    background: url("../../../Content/Black2011/Images/TreeViewImg.gif") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    vertical-align: middle;
+    height: 13px;
+    padding: 0 6px;
+    
+}
+
+.col58{   width:58px; white-space:normal; overflow:hidden;}

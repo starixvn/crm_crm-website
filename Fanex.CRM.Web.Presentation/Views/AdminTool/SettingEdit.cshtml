@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.css")" rel="stylesheet" type="text/css" />    
+</head>
+<body>
+    <div class="main" style="width: 450px">
+        <div class="maincontent">
+            <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
+                <tr>
+                    <td class="maincontent_headerL">
+                        <img class="maincontent_iconLeft" alt="" src="../Content/Black2011/Images/imgBg.png" />
+                    </td>
+                    <td class="maincontent_headerC">
+                        Edit Setting
+                    </td>
+                    <td class="maincontent_headerR">
+                    </td>
+                </tr>
+            </table>
+            <div class="bg_table" style="margin-top: 0px;">
+                <div id="dvSettingIns" style="border: 1px solid #65727B; background-color: White;">
+                    <div id="errMsg" class="errMsg">
+                    </div>
+                    <table id="tblSetting" class="tbllayout" style="border: none">
+                        <tr class="l">
+                            <td>
+                                Setting Name
+                            </td>
+                            <td>
+                                <input type="text" id="txtSettingName" name="txtSettingName" class="txt" />
+                            </td>
+                        </tr>
+                        <tr class="l">
+                            <td>
+                                Setting Value
+                            </td>
+                            <td>
+                                <input type="text" id="txtSettingValue" name="txtSettingValue" class="txt" />
+                            </td>
+                        </tr>
+                        <tr class="l">
+                            <td>
+                                Display Order
+                            </td>
+                            <td>
+                                <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="txt" onkeypress="return CheckDecNumber(event);" />
+                            </td>
+                        </tr>
+                        <tr class="c">
+                            <td colspan="2">
+                                <input type="button" class="btn" value="Submit" onclick="udpSetting();" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="userId" name="userId" value="@Fanex.CRM.Web.Controllers.Helper.AppSession.CurrentUser.Id" />
+    <script language="javascript" type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        head.js("@Url.Content("~/Scripts/jquery.js")", function () {
+                head.js("@Url.Content("~/Scripts/json2.js")")
+                    .js("@Url.Content("~/Scripts/common.js")")
+                    .js("@Url.Content("~/Scripts/showhidepopup.js")")
+                    .js("@Url.Content("~/Views/AdminTool/Scripts/SettingEdit.js?ver=1")");
+            });   
+    </script>
+</body>
+</html>

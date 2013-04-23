@@ -1,0 +1,185 @@
+<Configuration>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Securities/f:ISecurityService.cs" caret="0" fromTop="0" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Settings/f:ISettingService.cs" caret="0" fromTop="0" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Feedback/d:Scripts/f:addguestfeedback.js" caret="876" fromTop="24" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Feedbacks/f:FeedbackService.cs" caret="43370" fromTop="23" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Feedback/f:ManageFeedback.aspx" caret="10668" fromTop="46" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:App_Themes/d:Black2011/f:common.css" caret="1998" fromTop="24" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Feedback/d:Scripts/f:ManageFeedback.js" caret="0" fromTop="0" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:BootStrappers/f:UnityBootStrapper.cs" caret="0" fromTop="0" />
+      <File id="6A56FF00-9692-4348-B524-20EE45970A7B/d:Feedbacks/f:FeedbackService.cs" caret="6894" fromTop="33" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:Configurations/d:StoreProcedureGroup/f:User.config" caret="246" fromTop="5" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:IUserService.cs" caret="269" fromTop="9" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/f:web_appSettings.config" caret="260" fromTop="6" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:App_Code/f:AppSession.cs" caret="1670" fromTop="19" />
+      <File id="F363A545-C8EB-488C-8C9A-7832C32C4BEB/f:UserRepository.cs" caret="5144" fromTop="22" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:MainPage/d:Scripts/f:Main.js" caret="447" fromTop="18" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Feedback/d:Scripts/f:JScript.js" caret="0" fromTop="0" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Feedback/d:Scripts/f:editfeedback.js" caret="0" fromTop="0" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:Configurations/d:StoreProcedureGroup/f:Feedback.config" caret="389" fromTop="6" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="1393" fromTop="5" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:App_Code/f:PageBase.cs" caret="3439" fromTop="10" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Reports/d:Scripts/f:CasinoDailyStatistics.js" caret="0" fromTop="0" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Reports/f:DailyStatistic.aspx" caret="0" fromTop="0" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Reports/d:Scripts/f:DailyStatistic.js" caret="1254" fromTop="42" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:Configurations/f:MailSection.config" caret="771" fromTop="13" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:DirectLogin/f:ProcessAdminLogin.ashx" caret="821" fromTop="27" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/f:Web.config" caret="2835" fromTop="26" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="1072" fromTop="15" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:App_Code/f:PageBase.cs" caret="3439" fromTop="19" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="1572" fromTop="26" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="455" fromTop="12" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="2575" fromTop="29" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="539" fromTop="17" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="537" fromTop="16" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="1865" fromTop="10" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="2369" fromTop="36" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="1766" fromTop="5" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="1932" fromTop="10" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:App_Code/f:PageBase.cs" caret="3439" fromTop="9" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:IUserService.cs" caret="269" fromTop="9" />
+      <File id="E8AE1C0E-4C11-400F-BD4B-499C7C0F7190/d:Users/f:UserService.cs" caret="2573" fromTop="31" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:App_Code/f:PageBase.cs" caret="3439" fromTop="39" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/f:Web.config" caret="8094" fromTop="26" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/f:web_appSettings.config" caret="241" fromTop="6" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:App_Code/f:PageBase.cs" caret="3439" fromTop="10" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Feedback/d:Scripts/f:JScript.js" caret="0" fromTop="0" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:DirectLogin/f:ProcessAdminLogin.ashx" caret="2923" fromTop="39" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:MainPage/d:Scripts/f:Main.js" caret="0" fromTop="0" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:MainPage/d:Scripts/f:Main.js" caret="6422" fromTop="25" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:MainPage/d:Scripts/f:Main.js" caret="6446" fromTop="18" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Reports/d:Scripts/f:DailyStatistic.js" caret="514" fromTop="13" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Reports/d:Scripts/f:DailyStatistic.js" caret="926" fromTop="28" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Reports/d:Scripts/f:DailyStatistic.js" caret="3439" fromTop="42" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:CRM/d:Reports/d:Scripts/f:DailyStatistic.js" caret="1254" fromTop="42" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:DirectLogin/f:ProcessAdminLogin.ashx" caret="3333" fromTop="36" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:DirectLogin/f:ProcessAdminLogin.ashx" caret="821" fromTop="27" />
+      <File id="7C945E1D-3728-4DCD-8D68-E827E7144B0C/d:Configurations/f:MailSection.config" caret="771" fromTop="13" />
+    </RecentEdits>
+  </RecentFiles>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="CSharpCodeCompletionContext">
+      <Item value="public" priority="126" />
+      <Item value="class" priority="30" />
+      <Item value="Setting`0" priority="31" />
+      <Item value="DataMember" priority="63" />
+      <Item value="List" priority="95" />
+      <Item value="allSetting" priority="256" />
+      <Item value="AllSetting" priority="28" />
+      <Item value="return" priority="159" />
+      <Item value="new" priority="319" />
+      <Item value="List&lt;Setting&gt;" priority="86" />
+      <Item value="GetType`0" priority="31" />
+      <Item value="Accounting" priority="31" />
+      <Item value="AllSetting`0" priority="31" />
+      <Item value="settingService" priority="31" />
+      <Item value="Country`0" priority="31" />
+      <Item value="List&lt;Country&gt;" priority="28" />
+      <Item value="Site`0" priority="63" />
+      <Item value="sites" priority="64" />
+      <Item value="List&lt;Site&gt;" priority="57" />
+      <Item value="SelAllSite`0" priority="31" />
+      <Item value="Exception`0" priority="90" />
+      <Item value="Helper`0" priority="31" />
+      <Item value="ex" priority="61" />
+      <Item value="try" priority="63" />
+      <Item value="catch" priority="63" />
+      <Item value="static" priority="31" />
+      <Item value="int" priority="63" />
+      <Item value="HttpContext`0" priority="127" />
+      <Item value="SessionExtension`0" priority="127" />
+      <Item value="UserRepository" priority="86" />
+      <Item value="var" priority="31" />
+      <Item value="onUserId" priority="31" />
+      <Item value="AppSession`0" priority="63" />
+      <Item value="User" priority="31" />
+      <Item value="_repository" priority="32" />
+      <Item value="AppSetting`0" priority="31" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Sunplus.Accounting.CRM.Model.AllSetting">
+      <Item value="BetType" priority="26" />
+      <Item value="Title" priority="53" />
+      <Item value="Extension" priority="81" />
+      <Item value="Country" priority="53" />
+      <Item value="Site" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerable`1">
+      <Item value="ToList`1" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Sunplus.Accounting.CRM.Business.Settings.ISettingService">
+      <Item value="SelAllSetting`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="JavaScriptSpecificContext">
+      <Item value="alert" priority="109" />
+      <Item value="var" priority="32" />
+      <Item value="AllSetting" priority="10" />
+      <Item value="setting" priority="10" />
+      <Item value="function" priority="21" />
+      <Item value="for" priority="10" />
+      <Item value="if" priority="43" />
+      <Item value="data" priority="21" />
+      <Item value="id" priority="32" />
+      <Item value="currValue" priority="10" />
+      <Item value="else" priority="21" />
+      <Item value="$" priority="9" />
+      <Item value="false" priority="10" />
+      <Item value="true" priority="10" />
+    </ItemStatistics>
+    <ItemStatistics item="JavaScriptSpecificContextQualified">
+      <Item value="length" priority="8" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Sunplus.Accounting.CRM.Core.Helper.Helper">
+      <Item value="WriteLog`0" priority="50" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Exception">
+      <Item value="Message" priority="50" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Web.HttpContext">
+      <Item value="Current" priority="80" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Sunplus.Accounting.CRM.Core.Extension.SessionExtension">
+      <Item value="GetSession`0" priority="26" />
+      <Item value="AddSession`0" priority="53" />
+      <Item value="OnlineUserId" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Web.HttpContext">
+      <Item value="Session" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@DNAide.Core.CastAide">
+      <Item value="AsInt32`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Sunplus.Accounting.CRM.DataAccess.UserRepository">
+      <Item value="LoginAdminOnUser`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Sunplus.Accounting.CRM.Core.Common.AppSetting">
+      <Item value="TestAccount" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="AsxxCodeCompletionContext">
+      <Item value="WriteLog`0" priority="5" />
+      <Item value="ex" priority="7" />
+      <Item value="Message" priority="5" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+</Configuration>

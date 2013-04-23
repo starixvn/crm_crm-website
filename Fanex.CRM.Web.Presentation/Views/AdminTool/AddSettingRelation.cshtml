@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="main">
+        <div class="maincontent">
+            <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
+                <tr>
+                    <td class="maincontent_headerL">
+                        <img class="maincontent_iconLeft" alt="" src="../Content/Black2011/Images/imgBg.png" />
+                    </td>
+                    <td class="maincontent_headerC">
+                        Setting Relation Management
+                    </td>
+                    <td class="maincontent_headerR">
+                    </td>
+                </tr>
+            </table>
+            <div class="maincontent_box">
+                <div class="filterContent" style="width: 100.7%">
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                Add sub setting for <span id="spParent" class="b"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <script type="text/html" id="tplMainSetting">
+                                        <option value='${Type}'>${Type}</option>
+                                </script>
+                                Sub setting
+                                <select id="ddlMainSetting" name="ddlMainSetting" onchange="GetSettingRelationByName();" style="min-width:120px">
+                                </select>
+                            </td>
+                            <td>
+                                <input type="button" id="btnSearch" name="btnSearch" class="btn" value="Search" onclick="GetSettingRelationByName();" />
+                            </td>
+                        </tr>
+                        <tr class="l">
+                            <td colspan="2">
+                                <span id="errMsg"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="bg_table" style="padding-top: 2px">
+                    <div id="addsettingrelationgrid" class="freegrid hidden">                        
+                        <div class="free-cell free-top-left">
+                            <table class="grid-fixed-table free-cell-top-left">
+                                <thead>
+                                        <tr>
+                                            <th>
+                                                <div style="height: 30px; width: 400px;" class="table-cell">
+                                                    Setting</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                            </table>
+                        </div>         
+                        <div class="row_header_wrapper">               
+                            <div class="row_header row-headers-background">
+                                <table class="grid-fixed-table row_header_content" id="addsettingrelationheader">
+                                    <thead>
+                                            <tr>
+                                                <th>
+                                                    <div style="height: 30px; width: 400px;" class="table-cell">
+                                                        Setting</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col_header row-headers-background scroll-y">
+                            <div class="header-container">
+                                <table class="grid-fixed-table col_header_content">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div style="height: 30px; width: 400px;" class="table-cell">
+                                                    Setting</div>
+                                            </th>
+                                            <th>
+                                                <div style="height: 30px; width: 60px;" class="table-cell">
+                                                    Is Sub</div>
+                                            </th>
+                                            <th>
+                                                <div style="height: 30px; width: 60px;" class="table-cell">
+                                                    Order</div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="grid-container container">
+                            <table id="addsettingrelationbody" class="grid-fixed-table col_header_content">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div style="height: 30px; width: 400px;" class="table-cell">
+                                                Setting</div>
+                                        </th>
+                                        <th>
+                                            <div style="height: 30px; width: 60px;" class="table-cell">
+                                                Is Sub</div>
+                                        </th>
+                                        <th>
+                                            <div style="height: 30px; width: 60px;" class="table-cell">
+                                                Order</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>                        
+                    </div>
+
+                    <div style="padding-top: 5px">
+                        <input type="button" id="btnSubmit" name="btnSubmit" class="btn hidden" value="Submit"
+                            onclick="SetRelationSetting();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="userId" name="userId" value="@Fanex.CRM.Web.Controllers.Helper.AppSession.CurrentUser.Id" />
+    <script language="javascript" type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        head.js("@Url.Content("~/Scripts/jquery.js")", function () {
+                head.js("@Url.Content("~/Scripts/json2.js")")
+                    .js("@Url.Content("~/Scripts/jquery.tmpl.js")")
+                    .js("@Url.Content("~/Scripts/common.js")")
+                    .js("@Url.Content("~/Scripts/FanexGrid/FanexGrid.js")")
+                    .js("@Url.Content("~/Scripts/showhidepopup.js")")         
+                    .js("@Url.Content("~/Views/AdminTool/Scripts/AddSettingRelation.js?ver=4")");
+            });   
+    </script>
+</body>
+</html>

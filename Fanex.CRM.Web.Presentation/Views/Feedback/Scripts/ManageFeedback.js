@@ -1,0 +1,280 @@
+﻿//Contain the template
+var topwnd;
+var AllSetting;
+var maxHeightOfPopUp = ($(window).height() + 50)
+
+// -- Calendar --- //
+function SetupCalendar(arrDateValues, arrIds) {
+    
+    for (i = 0; i < arrIds.length; i++) {
+        if (arrDateValues[i] != null && arrDateValues[i] != "") {
+            $('#' + arrIds[i]).datepicker();
+            $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i]))); 
+        }
+    }
+};
+
+function loadSubItem(obj, target, currValue) {
+
+    if ($(obj).val() != "") {
+        if ($(obj).val() != "0") {
+            $.ajax({
+                type: "POST",
+                url: window.rootUrl + "AdminTool/GetSettingByParent",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: '{"parentId":' + $(obj).val() + '}',
+                success: function (rs) {
+                    $("#" + target).children().remove().end();
+                    if (rs != null && rs.length > 0) {
+                        $('<option value="0">All</option>').appendTo($("#" + target));
+                        $("#tmplOption").tmpl(rs).appendTo("#" + target);
+                        if (currValue != null) {
+                            $("#" + target + " option[value='" + currValue + "']").attr("selected", "selected");
+                        }
+                    }
+                    else {
+                        $('<option value="0">All</option>').appendTo($("#" + target));
+                    }
+                },
+                error: function () { }
+            });
+        }
+        else {
+            $("#" + target).children().remove().end();
+            $('<option value="0">All</option>').appendTo($("#" + target));
+        }
+    }
+};
+
+function openEditFeedback(url) {
+    try {
+        topwnd.OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
+            lastedFeedback.loadLastedFeedback(false);
+        });
+    } 
+    catch (e) {
+        OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
+            lastedFeedback.loadLastedFeedback(false);
+        });
+    }
+};
+                
+var pagerOpts = {
+    callback: null,
+    start_per_page: 100,
+    step_per_page: 100,
+    max_items_per_page: 500,
+    items_per_page: 100,
+    current_page: 1
+};
+
+var lastedFeedback = {
+    totalRows: 0,
+    pageIndex: 1,
+    pageSize: 100,
+    fDate: "",
+    tDate: "",
+    userName: "",
+    isGuest: false,
+    communicationId: 0,
+    mainCategoryId: 0,
+    subCategoryId: 0,
+    statusId: 0,
+    isReviewd: false,
+    responseId: 0,
+    gridHeight: 120,
+    initPager: function (total_items, items_per_page, current_page) {
+        pagerOpts.callback = lastedFeedback.pageSelectCallback;
+        pagerOpts.items_per_page = items_per_page;
+        pagerOpts.current_page = current_page;
+        $("#pagination").pagination(total_items, pagerOpts);
+    },
+    pageSelectCallback: function (page_index, _items_per_page, jq) {
+        var max_page = Math.ceil(lastedFeedback.totalRows / _items_per_page);
+        page_index = page_index < max_page ? page_index : max_page - 1;
+        lastedFeedback.pageIndex = page_index + 1;
+        lastedFeedback.pageSize = _items_per_page;
+        lastedFeedback.loadLastedFeedback(true);
+        return false;
+    },
+    loadLastedFeedback: function (loadOldData) {
+        if (!loadOldData) {
+            lastedFeedback.pageIndex = 1;
+        }
+
+        lastedFeedback.fDate = $('#txtfromdate').val();
+        lastedFeedback.tDate = $('#txttodate').val();
+        lastedFeedback.userName = $('#txtusername').val().trim();
+        lastedFeedback.isGuest = parseInt($("#ddlguest").val());
+        lastedFeedback.communicationId = parseInt($('#ddlcommunication').val());
+        lastedFeedback.mainCategoryId = parseInt($('#ddlcategory').val());
+        lastedFeedback.subCategoryId = parseInt($('#ddlsubcategory').val());
+        lastedFeedback.statusId = parseInt($('#ddlstatus').val());
+        lastedFeedback.isReviewd = parseInt($('#ddlIsReviewed').val());
+        lastedFeedback.responseId = parseInt($('#ddlCustomerReponse').val());
+
+        var data =
+	    {
+	        'fromDate': lastedFeedback.fDate,
+	        'toDate': lastedFeedback.tDate,
+	        'UserName': lastedFeedback.userName,
+	        'IsGuest': lastedFeedback.isGuest,
+	        'CommunicationID': lastedFeedback.communicationId,
+	        'MainCategoryID': lastedFeedback.mainCategoryId,
+	        'SubCategoryID': lastedFeedback.subCategoryId,
+	        'StatusID': lastedFeedback.statusId,
+	        'IsReviewed': lastedFeedback.isReviewd,
+	        'pageIndex': lastedFeedback.pageIndex,
+	        'pageSize': lastedFeedback.pageSize,
+	        'fromCache': loadOldData,
+	        'responseId': lastedFeedback.responseId
+	    };
+
+	    try { topwnd.BlockUI(); } catch (e) { }
+	    var mainreport = $("#lastedfeedbackgrid");
+	    $('#errmsg').html('');
+
+        $.ajax({
+            type: "POST",
+            url: window.rootUrl +"Feedback/GetFeedback",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(data),
+            success: function (rs) {
+                if (rs != null && rs.rows != null && rs.rows.length > 0) {
+                    var arr = [];
+                    var arrLeft = [];
+                    lastedFeedback.totalRows = parseInt(rs.total);
+                    for (var i = 0; i < rs.rows.length; i++) {
+                        arr.push(lastedFeedback.renderFeedbackRow(rs.rows[i]));
+                        arrLeft.push(lastedFeedback.renderFeedbackLeftRow(rs.rows[i]));
+                    }
+
+                    $("#latestfeedbackbody tbody").empty().append(arr.join(''));
+                    $("#latestfeedbackbodyHeader tbody").empty().append(arrLeft.join(''));
+
+                    var gridOpts = {
+                        tblContentId: 'latestfeedbackbody',
+                        manualCopyHeader: true,
+                        fullWidth: true,
+                        fullHeight: true,
+                        gridHeight: lastedFeedback.gridHeight,
+                        freezeWidth: 380,
+                        numberFreezeCol: 1
+                    };
+                    mainreport.removeClass("hidden").gridScroller(gridOpts);
+
+                    lastedFeedback.initPager(lastedFeedback.totalRows, lastedFeedback.pageSize, lastedFeedback.pageIndex - 1);
+                }
+                else {
+                    mainreport.addClass('hidden');
+                    $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
+                    $('#pagination').html('&nbsp;');
+                }
+            },
+            error: function () {
+                mainreport.addClass('hidden');
+                $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
+                $('#pagination').html('&nbsp;');
+            },
+            complete: function () {                
+                try { topwnd.UnBlockUI(); } catch (e) { }
+            }
+        });
+    },
+    renderFeedbackRow: function (row) {
+        var trStyle = '';
+        if (row.Status != null) {
+            trStyle = row.Status.toLowerCase() == 'pending' ? 'pending' : row.Status.toLowerCase() == 'closed' ? 'closed' : '';
+        }
+        var html = '<tr class="' + trStyle + '">\
+                       <td><div style="width:380px"><div class="lnksubject"><a class="desTooltip" href="JavaScript:void(0);"><b>' + row.Subject + '</b></a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b>&nbsp;on&nbsp;' + row.CreateDate + '<br>' + lastedFeedback.durationTimeFormat(row.DurationTime) + '<br>' + lastedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) + '</div></td>\
+                        <td><div class="c" style="width:130px">&nbsp;' + row.Username + '</div></td>\
+                        <td><div style="width:200px">' + row.MainCategory + '<br/>&nbsp;&nbsp;&nbsp;' + row.SubCategory + '</div></td>\
+                        <td><div class="c" style="width:50px">' + row.Status + '</div></td>\
+                        <td><div class="c" style="width:200px">&nbsp;' + row.RelatedUsername + '</div></td>\
+                </tr>';
+        return replaceSpaceForIE9(html);
+    },
+    renderFeedbackLeftRow: function (row) {
+        var trStyle = '';
+        if (row.Status != null) {
+            trStyle = row.Status.toLowerCase() == 'pending' ? 'pending' : row.Status.toLowerCase() == 'closed' ? 'closed' : '';
+        }
+        var html = '<tr class="' + trStyle + '">\
+                       <td><div style="width:380px"><div class="lnksubject"><a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' + row.ID + '&rep=2\', 1);" ><b>' + row.Subject + '</b></a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b> on ' + row.CreateDate + '<br>'+ lastedFeedback.durationTimeFormat(row.DurationTime) + '<br>'+ lastedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) + '</div></td>\
+                </tr>';
+        return html;
+    },
+    reviewerFormat: function (reviewer, reviewDate) {
+        var html = '';
+        if (reviewer != "") {
+            html = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed by&nbsp;<b>' + reviewer + '</b>&nbsp;on&nbsp;' + reviewDate + '<br>';
+        }
+        return html;
+    },
+    durationTimeFormat: function (time) {
+        var html = '';
+        if (time) {
+            html = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration:&nbsp;" + time;
+        }
+        return html;
+    },
+    loadManageFeedbackSettings: function () {
+        $.ajax({
+            type: "POST",
+            url: window.rootUrl + "AdminTool/SelAllSetting",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: '{"Id":' + 0 + '}',
+            success: function (setting) {
+                AllSetting = setting;
+                bindingSetting("ddlcommunication", setting.Communication, 0);
+                bindingSetting("ddlcategory", setting.Category, 0);
+                bindingSetting("ddlstatus", setting.Status, 0);
+                bindingSetting("ddlCustomerReponse", setting.Response, 0);
+
+                $("select#ddlstatus option[value='11004']").remove();
+
+            },
+            error:function(){}
+        });
+    }
+};
+
+
+head.ready(
+    function () {
+
+        var fdate, tdate;
+        fdate = new Date().goto(-1);
+        tdate = new Date();
+
+        var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
+
+        var arrIds = ['txtfromdate', 'txttodate'];
+
+        SetupCalendar(arrDateValues, arrIds);
+
+        var gridOpts = {
+            tblContentId: 'latestfeedbackbody',
+            isShowPager: true
+        };
+        $("#lastedfeedbackgrid").initGrid(gridOpts);
+
+        try { topwnd = findMainWindow(window); } catch (e) { }
+        lastedFeedback.loadManageFeedbackSettings();
+        $('#txtusername').val($.URLDecode(gup("custName")));
+
+        try { topwnd.UnBlockUI(); } catch (e) { }
+
+
+        $('body').mousedown(function (e) {
+            if (e.button == 1) {
+
+                return false
+            }
+        });
+    }
+);

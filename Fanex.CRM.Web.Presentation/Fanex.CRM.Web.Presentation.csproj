@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4BB79BA9-0D07-4478-AA13-9006AA2FB735}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.CRM.Web.View</RootNamespace>
+    <AssemblyName>Fanex.CRM.Web.View</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <SccProjectName>%24/Rome/CRM/Main/SourceMVC/Fanex.CRM.Web.Presentation</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>http://10.18.200.210:8080</SccAuxPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependency\Fanex\Couchbase.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Caching, Version=1.0.4456.33785, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data, Version=1.0.111.9, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=1.4.0.4468, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependency\NoSql\MongoDB\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.4.0.4468, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Dependency\NoSql\MongoDB\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_GlobalResources\ErrorMsg.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMsg.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Language.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Language.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Black2011\common.css" />
+    <Content Include="Content\Black2011\image.css" />
+    <Content Include="Content\Black2011\Images\accessDenied.gif" />
+    <Content Include="Content\Black2011\Images\ajax-loader.gif" />
+    <Content Include="Content\Black2011\Images\ajax_loader.gif" />
+    <Content Include="Content\Black2011\Images\arSub.gif" />
+    <Content Include="Content\Black2011\Images\arSub_hover.gif" />
+    <Content Include="Content\Black2011\Images\back.png" />
+    <Content Include="Content\Black2011\Images\bg-nav-top-left.jpg" />
+    <Content Include="Content\Black2011\Images\bg02_box01.jpg" />
+    <Content Include="Content\Black2011\Images\bg_checkbox.jpg" />
+    <Content Include="Content\Black2011\Images\bg_head_tb.jpg" />
+    <Content Include="Content\Black2011\Images\body.jpg" />
+    <Content Include="Content\Black2011\Images\Buttons\bg_btn.jpg" />
+    <Content Include="Content\Black2011\Images\Buttons\check.jpg" />
+    <Content Include="Content\Black2011\Images\Buttons\check_hover.jpg" />
+    <Content Include="Content\Black2011\Images\Buttons\icn_date.png" />
+    <Content Include="Content\Black2011\Images\Buttons\reload.png" />
+    <Content Include="Content\Black2011\Images\Buttons\uncheck.jpg" />
+    <Content Include="Content\Black2011\Images\Buttons\uncheck_hover.jpg" />
+    <Content Include="Content\Black2011\Images\button_icons.png" />
+    <Content Include="Content\Black2011\Images\calendar.gif" />
+    <Content Include="Content\Black2011\Images\calendar.jpg" />
+    <Content Include="Content\Black2011\Images\calendar1.gif" />
+    <Content Include="Content\Black2011\Images\calendar_disable.gif" />
+    <Content Include="Content\Black2011\Images\chart.gif" />
+    <Content Include="Content\Black2011\Images\close_16_16.gif" />
+    <Content Include="Content\Black2011\Images\C_content_tab.png" />
+    <Content Include="Content\Black2011\Images\de_01.gif" />
+    <Content Include="Content\Black2011\Images\de_01.jpg" />
+    <Content Include="Content\Black2011\Images\de_02.jpg" />
+    <Content Include="Content\Black2011\Images\document_a4_edit.png" />
+    <Content Include="Content\Black2011\Images\document_a4_remove.png" />
+    <Content Include="Content\Black2011\Images\emsg_1_1.gif" />
+    <Content Include="Content\Black2011\Images\emsg_1_2.gif" />
+    <Content Include="Content\Black2011\Images\emsg_1_3.gif" />
+    <Content Include="Content\Black2011\Images\emsg_2_1.gif" />
+    <Content Include="Content\Black2011\Images\emsg_2_2.gif" />
+    <Content Include="Content\Black2011\Images\emsg_3_1.gif" />
+    <Content Include="Content\Black2011\Images\emsg_3_2.gif" />
+    <Content Include="Content\Black2011\Images\emsg_3_3.gif" />
+    <Content Include="Content\Black2011\Images\error-icon.gif" />
+    <Content Include="Content\Black2011\Images\error.gif" />
+    <Content Include="Content\Black2011\Images\excel.gif" />
+    <Content Include="Content\Black2011\Images\excel_disable.gif" />
+    <Content Include="Content\Black2011\Images\expand.gif" />
+    <Content Include="Content\Black2011\Images\features.gif" />
+    <Content Include="Content\Black2011\Images\home_blue.png" />
+    <Content Include="Content\Black2011\Images\icn_add.png" />
+    <Content Include="Content\Black2011\Images\icn_del.png" />
+    <Content Include="Content\Black2011\Images\icn_edit.png" />
+    <Content Include="Content\Black2011\Images\icn_top.png" />
+    <Content Include="Content\Black2011\Images\icn_view.png" />
+    <Content Include="Content\Black2011\Images\ico1.png" />
+    <Content Include="Content\Black2011\Images\ico2.png" />
+    <Content Include="Content\Black2011\Images\icon-sprite.png" />
+    <Content Include="Content\Black2011\Images\iconslist.png" />
+    <Content Include="Content\Black2011\Images\icon_button02.gif" />
+    <Content Include="Content\Black2011\Images\icon_del.gif" />
+    <Content Include="Content\Black2011\Images\icon_down.gif" />
+    <Content Include="Content\Black2011\Images\icon_edit02.gif" />
+    <Content Include="Content\Black2011\Images\icon_up.gif" />
+    <Content Include="Content\Black2011\Images\ico_warning.png" />
+    <Content Include="Content\Black2011\Images\icRefresh.png" />
+    <Content Include="Content\Black2011\Images\icSettlement.gif" />
+    <Content Include="Content\Black2011\Images\imgBg.png" />
+    <Content Include="Content\Black2011\Images\loading100x100.gif" />
+    <Content Include="Content\Black2011\Images\logo-crm.png" />
+    <Content Include="Content\Black2011\Images\MainBg\1-happynewyear.jpg" />
+    <Content Include="Content\Black2011\Images\MainBg\2-happynewyear.png" />
+    <Content Include="Content\Black2011\Images\MainBg\header.jpg" />
+    <Content Include="Content\Black2011\Images\menu-sprite.png" />
+    <Content Include="Content\Black2011\Images\menudivide.gif" />
+    <Content Include="Content\Black2011\Images\menu_open.gif" />
+    <Content Include="Content\Black2011\Images\menu_open_right.gif" />
+    <Content Include="Content\Black2011\Images\News.png" />
+    <Content Include="Content\Black2011\Images\openclosedLeft.gif" />
+    <Content Include="Content\Black2011\Images\report_check.png" />
+    <Content Include="Content\Black2011\Images\scrollbar\osx_arrow_down.png" />
+    <Content Include="Content\Black2011\Images\scrollbar\osx_arrow_up.png" />
+    <Content Include="Content\Black2011\Images\scrollbar\osx_drag_bottom.png" />
+    <Content Include="Content\Black2011\Images\scrollbar\osx_drag_middle.png" />
+    <Content Include="Content\Black2011\Images\scrollbar\osx_drag_top.png" />
+    <Content Include="Content\Black2011\Images\scrollbar\osx_track.png" />
+    <Content Include="Content\Black2011\Images\sendmail-icon.png" />
+    <Content Include="Content\Black2011\Images\setting.png" />
+    <Content Include="Content\Black2011\Images\sprite.png" />
+    <Content Include="Content\Black2011\Images\sucess.gif" />
+    <Content Include="Content\Black2011\Images\TreeViewImg.gif" />
+    <Content Include="Content\Black2011\Images\udicon.gif" />
+    <Content Include="Content\Black2011\Images\view-detail.png" />
+    <Content Include="Content\Black2011\Images\view_ico.gif" />
+    <Content Include="Content\Black2011\Images\waiting7.gif" />
+    <Content Include="Content\Black2011\Images\WebResource.axd.png" />
+    <Content Include="Content\Black2011\Images\white-top-bottom.gif" />
+    <Content Include="Content\Black2011\input.css" />
+    <Content Include="Content\Black2011\Message.css" />
+    <Content Include="Content\Black2011\reportgrid.css" />
+    <Content Include="Content\Black2011\table.css" />
+    <Content Include="Configurations\StoreProcedure.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\autocomplete\autocomplete.js" />
+    <Content Include="Scripts\autocomplete\jquery.autocomplete.client.js" />
+    <Content Include="Scripts\autocomplete\jquery.autocomplete.js" />
+    <Content Include="Scripts\autocomplete\jquery.autocomplete.min.js" />
+    <Content Include="Scripts\autocomplete\jquery.highlight-3.js" />
+    <Content Include="Scripts\autocomplete\shadow.png" />
+    <Content Include="Scripts\autocomplete\styles.css" />
+    <Content Include="Scripts\BlockUI.js" />
+    <Content Include="Scripts\Chart\accchart.js" />
+    <Content Include="Scripts\Chart\highcharts.dev.js" />
+    <Content Include="Scripts\Chart\jchart.css" />
+    <Content Include="Scripts\Chart\jqchart.dev.js" />
+    <Content Include="Scripts\common.js" />
+    <Content Include="Scripts\dialogbox.js" />
+    <Content Include="Scripts\FanexGrid\images\chart.gif" />
+    <Content Include="Scripts\FanexGrid\images\expand.gif" />
+    <Content Include="Scripts\ForceNumberic.js" />
+    <Content Include="Scripts\gridscroller.js" />
+    <Content Include="Scripts\FanexGrid\FanexGrid.css" />
+    <Content Include="Scripts\FanexGrid\FanexGrid.js" />
+    <Content Include="Scripts\FanexGrid\images\ajax-loader.gif" />
+    <Content Include="Scripts\FanexGrid\images\back.png" />
+    <Content Include="Scripts\FanexGrid\images\bgtitle.png" />
+    <Content Include="Scripts\FanexGrid\images\bg_gloss_wave.png" />
+    <Content Include="Scripts\FanexGrid\images\email.png" />
+    <Content Include="Scripts\FanexGrid\images\icn_add.png" />
+    <Content Include="Scripts\FanexGrid\images\icn_del.png" />
+    <Content Include="Scripts\FanexGrid\images\icn_edit.png" />
+    <Content Include="Scripts\FanexGrid\images\refresh_icon.png" />
+    <Content Include="Scripts\FanexGrid\images\report_check.png" />
+    <Content Include="Scripts\FanexGrid\images\setting.png" />
+    <Content Include="Scripts\FanexGrid\images\sorting_asc.gif" />
+    <Content Include="Scripts\FanexGrid\images\sorting_bg.gif" />
+    <Content Include="Scripts\FanexGrid\images\sorting_desc.gif" />
+    <Content Include="Scripts\FanexGrid\images\white-top-bottom.gif" />
+    <Content Include="Scripts\head.load.min.js" />
+    <Content Include="Scripts\InputBox\close.gif" />
+    <Content Include="Scripts\InputBox\jquery.fcbkcomplete.js" />
+    <Content Include="Scripts\InputBox\jquery.fcbkcomplete.min.js" />
+    <Content Include="Scripts\InputBox\style.css" />
+    <Content Include="Scripts\jHtmlArea\jHtmlArea-0.7.0.js" />
+    <Content Include="Scripts\jHtmlArea\jHtmlArea.ColorPickerMenu-0.7.0.js" />
+    <Content Include="Scripts\jHtmlArea\jHtmlArea.ColorPickerMenu.css" />
+    <Content Include="Scripts\jHtmlArea\jHtmlArea.css" />
+    <Content Include="Scripts\jHtmlArea\jHtmlArea.png" />
+    <Content Include="Scripts\jHtmlArea\jHtmlArea_Toolbar_Group_BG.png" />
+    <Content Include="Scripts\jHtmlArea\jHtmlArea_Toolbar_Group__Btn_Select_BG.png" />
+    <Content Include="Scripts\Jlinq\data.js" />
+    <Content Include="Scripts\Jlinq\jlinq.jquery.js" />
+    <Content Include="Scripts\Jlinq\jlinq.js" />
+    <Content Include="Scripts\Jlinq\jlinq\jlinq.jquery.js" />
+    <Content Include="Scripts\Jlinq\jlinq\jlinq.js" />
+    <Content Include="Scripts\jquery-min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.14.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.6.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon-bk.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
+    <Content Include="Scripts\jquery.blockUI.1.33.js" />
+    <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.json-1.3.js" />
+    <Content Include="Scripts\jquery.number_format.js" />
+    <Content Include="Scripts\jquery.tmpl.js" />
+    <Content Include="Scripts\jquery.tmplPlus.js" />
+    <Content Include="Scripts\jscookies.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\Paging\icon_page.gif" />
+    <Content Include="Scripts\Paging\jpager.js" />
+    <Content Include="Scripts\Paging\jpagergopage.js" />
+    <Content Include="Scripts\Paging\pagination.css" />
+    <Content Include="Scripts\RegExpValidate.js" />
+    <Content Include="Scripts\showhidepopup.js" />
+    <Content Include="Scripts\smoothmenu\bottomShadownLeft.png" />
+    <Content Include="Scripts\smoothmenu\center.jpg" />
+    <Content Include="Scripts\smoothmenu\ddsmoothmenu-v.css" />
+    <Content Include="Scripts\smoothmenu\ddsmoothmenu.css" />
+    <Content Include="Scripts\smoothmenu\ddsmoothmenu.js" />
+    <Content Include="Scripts\smoothmenu\down.gif" />
+    <Content Include="Scripts\smoothmenu\icon_button02.gif" />
+    <Content Include="Scripts\smoothmenu\line.png" />
+    <Content Include="Scripts\smoothmenu\report_center.jpg" />
+    <Content Include="Scripts\smoothmenu\report_left.jpg" />
+    <Content Include="Scripts\smoothmenu\report_left.png" />
+    <Content Include="Scripts\smoothmenu\report_main-bg.gif" />
+    <Content Include="Scripts\smoothmenu\report_main-bg.png" />
+    <Content Include="Scripts\smoothmenu\report_right.gif" />
+    <Content Include="Scripts\smoothmenu\report_right.png" />
+    <Content Include="Scripts\smoothmenu\right.gif" />
+    <Content Include="Scripts\smoothmenu\rmRootExpand.png" />
+    <Content Include="Scripts\smoothmenu\rmRoundedLeft_rtl.png" />
+    <Content Include="Scripts\smoothmenu\rmRoundedRight_rtl.png" />
+    <Content Include="Scripts\smoothmenu\rmSprite.png" />
+    <Content Include="Scripts\smoothmenu\rmVSprite.png" />
+    <Content Include="Scripts\smoothmenu\ShadowRight.png" />
+    <Content Include="Scripts\smoothmenu\submenu-bg.png" />
+    <Content Include="Scripts\stdlib.js" />
+    <Content Include="Scripts\Timepicker.js" />
+    <Content Include="Scripts\Tipsy-Tooltip\jquery.tipsy.js" />
+    <Content Include="Scripts\Tipsy-Tooltip\tipsy.css" />
+    <Content Include="Views\AdminTool\Scripts\AddSettingRelation.js" />
+    <Content Include="Views\AdminTool\Scripts\SettingEdit.js" />
+    <Content Include="Views\AdminTool\Scripts\SettingInsert.js" />
+    <Content Include="Views\AdminTool\Scripts\SettingManage.js" />
+    <Content Include="Views\AdminTool\Scripts\SettingRelationManage.js" />
+    <Content Include="Views\AdminTool\Scripts\SubjectTemplateEdit.js" />
+    <Content Include="Views\AdminTool\Scripts\SubjectTemplateIns.js" />
+    <Content Include="Views\AdminTool\Scripts\SubjectTemplateManagement.js" />
+    <Content Include="Views\AdminTool\Styles\Images\icn_add.png" />
+    <Content Include="Views\AdminTool\Styles\Images\icn_del.png" />
+    <Content Include="Views\AdminTool\Styles\Images\icn_edit.png" />
+    <Content Include="Views\AdminTool\Styles\Images\TreeViewImg.gif" />
+    <Content Include="Views\AdminTool\Styles\StyleSheet.css" />
+    <Content Include="Views\Common\404Error.htm" />
+    <Content Include="Views\Customer\Scripts\CrmInfo.js" />
+    <Content Include="Views\Customer\Scripts\EditCustomerInfo.js" />
+    <Content Include="Views\Customer\Styles\Images\icon_button02.gif" />
+    <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
+    <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\bg02_box01.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\bg02_box01.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\bg_checkbox.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\box_02header.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\box_bottom.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\box_bottom.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\box_rp.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\icn_top.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\L_btn_left.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\L_btn_left_hover.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\L_tab_left.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left_hover.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\R_tab_left.png" />
+    <Content Include="Views\Customer\Styles\StyleSheet.css" />
+    <Content Include="Views\Feedback\Scripts\addfeedback.js" />
+    <Content Include="Views\Feedback\Scripts\addguestfeedback.js" />
+    <Content Include="Views\Feedback\Scripts\CustomerLastestFeedback.js" />
+    <Content Include="Views\Feedback\Scripts\DeletedFeedback.js" />
+    <Content Include="Views\Feedback\Scripts\editfeedback.js" />
+    <Content Include="Views\Feedback\Scripts\FeedbackCommon.js" />
+    <Content Include="Views\Feedback\Scripts\LastestFeedback.js" />
+    <Content Include="Views\Feedback\Scripts\ManageFeedback.js" />
+    <Content Include="Views\Feedback\Styles\Images\ajax-loader.gif" />
+    <Content Include="Views\Feedback\Styles\Images\bg-nav-top-left.jpg" />
+    <Content Include="Views\Feedback\Styles\Images\error.gif" />
+    <Content Include="Views\Feedback\Styles\Images\help.png" />
+    <Content Include="Views\Feedback\Styles\Images\hp_notepad2_pen.png" />
+    <Content Include="Views\Feedback\Styles\Images\icn_add.png" />
+    <Content Include="Views\Feedback\Styles\Images\icn_del.png" />
+    <Content Include="Views\Feedback\Styles\Images\icn_edit.png" />
+    <Content Include="Views\Feedback\Styles\Images\icn_view.png" />
+    <Content Include="Views\Feedback\Styles\Images\recover.jpg" />
+    <Content Include="Views\Feedback\Styles\Images\sucess.gif" />
+    <Content Include="Views\Feedback\Styles\Images\warning.png" />
+    <Content Include="Views\Feedback\Styles\StyleSheet.css" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_flat_30_cccccc_40x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_flat_50_5c5c5c_40x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_glass_20_555555_1x400.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_glass_40_0078a3_1x400.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_glass_40_f58400_1x400.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_glass_40_ffc73d_1x400.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_gloss-wave_25_333333_500x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_gloss-wave_25_504e4e_500x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_gloss-wave_25_555855_500x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_000000_1x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_4b4444_1x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_726e6e_1x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_808080_1x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_9c9c9c_1x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_30_f58400_1x100.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_4b8e0b_256x240.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_a83300_256x240.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Black2011\ui-darkness\jquery-ui-1.8.14.custom.css" />
+    <Content Include="Views\Home\Scripts\AssignMenu.js" />
+    <Content Include="Views\Home\Scripts\Main.js" />
+    <Content Include="Views\Home\Scripts\smoothmenu\ddsmoothmenu-v.css" />
+    <Content Include="Views\Home\Scripts\smoothmenu\ddsmoothmenu.css" />
+    <Content Include="Views\Home\Scripts\smoothmenu\ddsmoothmenu.js" />
+    <Content Include="Views\Home\Scripts\smoothmenu\down.gif" />
+    <Content Include="Views\Home\Scripts\smoothmenu\icon_button02.gif" />
+    <Content Include="Views\Home\Scripts\smoothmenu\L_main_btn.png" />
+    <Content Include="Views\Home\Scripts\smoothmenu\right.gif" />
+    <Content Include="Views\Home\Scripts\smoothmenu\R_main_btn.png" />
+    <Content Include="Views\Home\Styles\default.css" />
+    <Content Include="Views\Home\Styles\Images\arSub.gif" />
+    <Content Include="Views\Home\Styles\Images\arSub_hover.gif" />
+    <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
+    <Content Include="Views\Home\Styles\Images\Banner\bg_head_tb.jpg" />
+    <Content Include="Views\Home\Styles\Images\Banner\bg_menu.jpg" />
+    <Content Include="Views\Home\Styles\Images\Banner\down.gif" />
+    <Content Include="Views\Home\Styles\Images\Banner\down_up.png" />
+    <Content Include="Views\Home\Styles\Images\Banner\icn_user.png" />
+    <Content Include="Views\Home\Styles\Images\Banner\in.gif" />
+    <Content Include="Views\Home\Styles\Images\Banner\left_right.png" />
+    <Content Include="Views\Home\Styles\Images\Banner\logo.jpg" />
+    <Content Include="Views\Home\Styles\Images\Banner\L_main_btn.png" />
+    <Content Include="Views\Home\Styles\Images\Banner\out.gif" />
+    <Content Include="Views\Home\Styles\Images\Banner\right_left.png" />
+    <Content Include="Views\Home\Styles\Images\Banner\R_main_btn.png" />
+    <Content Include="Views\Home\Styles\Images\Banner\up.gif" />
+    <Content Include="Views\Home\Styles\Images\Banner\up_down.png" />
+    <Content Include="Views\Home\Styles\Images\icon_welcome.gif" />
+    <Content Include="Views\Reports\Scripts\CasinoDailyStatistics.js" />
+    <Content Include="Views\Reports\Scripts\CasinoWeeklyStatistics.js" />
+    <Content Include="Views\Reports\Scripts\DailyStatistic.js" />
+    <Content Include="Views\Reports\Scripts\FeedbackStatisticDetail.js" />
+    <Content Include="Views\Reports\Scripts\FeedbackStatistics.js" />
+    <Content Include="Views\Reports\Scripts\WeeklyStatistic.js" />
+    <Content Include="Views\Reports\Styles\easyui.css" />
+    <Content Include="Views\Reports\Styles\icon.css" />
+    <Content Include="Views\Reports\Styles\Images\bg-nav-top-left.jpg" />
+    <Content Include="Views\Reports\Styles\Images\datagrid_header_bg.gif" />
+    <Content Include="Views\Reports\Styles\Images\error.gif" />
+    <Content Include="Views\Reports\Styles\Images\hp_notepad2_pen.png" />
+    <Content Include="Views\Reports\Styles\Images\icn_add.png" />
+    <Content Include="Views\Reports\Styles\Images\icn_del.png" />
+    <Content Include="Views\Reports\Styles\Images\icn_edit.png" />
+    <Content Include="Views\Reports\Styles\Images\icn_view.png" />
+    <Content Include="Views\Reports\Styles\Images\sucess.gif" />
+    <Content Include="Views\Reports\Styles\Images\warning.png" />
+    <Content Include="Views\Reports\Styles\StyleSheet.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
+      <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
+      <Name>Fanex.CRM.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Web.Controllers\Fanex.CRM.Web.Controllers.csproj">
+      <Project>{4A20474E-2F9B-4308-AF20-2BA8D97128EB}</Project>
+      <Name>Fanex.CRM.Web.Controllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Web.Models\Fanex.CRM.Web.Models.csproj">
+      <Project>{7B14232B-04EC-486E-AABB-EE2AFAA7C700}</Project>
+      <Name>Fanex.CRM.Web.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\CasinoSection.config" />
+    <Content Include="Configurations\ConnectionStrings.config" />
+    <Content Include="Configurations\MailSection.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Footer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Account\SignIn.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Feedback\AddGuestFeedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Feedback\LastestFeedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Feedback\ManageFeedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Feedback\DeletedFeedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\FeedbackStatistics.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\DailyStatistic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\WeeklyStatistic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\CasinoDailyStatistics.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\CasinoWeeklyStatistics.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminTool\SettingManage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminTool\SettingRelation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminTool\SubjectTemplateManagement.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Common\AccessDenied.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ErrorMsg.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ErrorMsg.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Language.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Language.designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Default.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Customer\CRMInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Customer\EditCRMInfo.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Feedback\CustomerLastestFeedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Feedback\EditFeedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Feedback\AddFeedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\FeedbackStatisticDetail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminTool\AddSettingRelation.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminTool\SettingEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminTool\SettingIns.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminTool\SubjectTemplateEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminTool\SubjectTemplateIns.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IbcKeys\ibckeydec.snk" />
+    <None Include="IbcKeys\ibcpkey.snk" />
+    <Content Include="IbcKeys\Web.config" />
+    <Content Include="Views\Common\ErrorPage.cshtml" />
+    <Content Include="Views\Home\BlankPage.cshtml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59987</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

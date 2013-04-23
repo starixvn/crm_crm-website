@@ -1,0 +1,25 @@
+
+namespace Fanex.CRM.Infrastructure.Helper
+{
+    using System;
+    using System.Globalization;
+
+    public static class Constants
+    {
+        public static readonly DateTime ProductionDate = new DateTime(2008, 1, 11);
+
+        public static CultureInfo CurrentCulture
+        {
+            get
+            {
+                return CultureInfo.CurrentCulture;
+            }
+        }
+
+        public static class Systems
+        {
+            public const string CRM = "CRM";
+        }
+       
+    }
+}

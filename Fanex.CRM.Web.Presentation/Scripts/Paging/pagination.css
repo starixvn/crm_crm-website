@@ -1,0 +1,29 @@
+#pagination{margin: 0px 0px 0px 0px;color:#fff}
+#pagination a{text-decoration:none;color:#fff}
+#pagination a:hover{color:#D66D35;
+                    background-color: #2C302D;
+                    border-bottom: 1px solid #373B38;
+                    padding-bottom: 0;}
+#pagination a,#pagination span{display:block;float:left;margin-right:4px;line-height:14px;padding:0 4px}
+#pagination .current{float:left;color:#D66D35;font-weight:700;padding:0 4px;
+                     border-radius: 5px 5px 5px 5px;
+                    border-style: solid;
+                    border-width: 1px;
+                    padding: 0;}
+#pagination a.prev{width:16px;height:16px;background:url(../../Content/Black2011/Images/icon-sprite.png) -16px -192px;border:none 0;padding:0}
+#pagination a.prev:hover{background-position:-16px -224px;}
+#pagination a.next{width:16px;height:16px;background:url(../../Content/Black2011/Images/icon-sprite.png) -32px -192px;border:none 0;padding:0}
+#pagination a.next:hover{background-position:-32px -224px;}
+#pagination .current.prev{width:16px;height:16px;background:url(../../Content/Black2011/Images/icon-sprite.png) no-repeat -16px -208px;border:none 0;padding:0}
+#pagination .current.next{width:16px;height:16px;background:url(../../Content/Black2011/Images/icon-sprite.png) no-repeat -32px -208px;border:none 0;padding:0}
+#itemperpage{float:left;padding:0}
+
+#pagination span.itemperpage{padding:0}
+#pagination span.btnseparator{float:left;height:16px;margin:0 8px;padding:0!important}
+#pagination span.detailtext{float:right;margin:0px 6px 0px 0px;padding:0}
+
+
+#pagination .gotopage_box{border: solid 1px #7c98a4;padding:2px 2px; position:absolute; display:none; background:#fff; z-index:999; }
+#pagination .txt{width:40px !important;}
+#pagination .pagenav_ibtn {height:15px;margin-left:2px;}
+span.canchange,li.canchange,span.cannotchange{color:#A1C300;cursor:pointer;}
