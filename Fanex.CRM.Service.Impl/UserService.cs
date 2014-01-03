@@ -30,7 +30,7 @@
         {
             try
             {
-                return this._userRepository.GetUesrInfo(userName);
+                return this._userRepository.GetUserInfo(userName);
 
             }
             catch (Exception ex)

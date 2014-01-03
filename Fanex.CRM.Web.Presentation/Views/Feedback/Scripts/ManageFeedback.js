@@ -166,6 +166,7 @@ var lastedFeedback = {
                     mainreport.removeClass("hidden").gridScroller(gridOpts);
 
                     lastedFeedback.initPager(lastedFeedback.totalRows, lastedFeedback.pageSize, lastedFeedback.pageIndex - 1);
+                    reRenderGrid('lastedfeedbackgrid', 'latestfeedbackbodyHeader', 'latestfeedbackbody', lastedFeedback.gridHeight, 380, 1, 380);
                 }
                 else {
                     mainreport.addClass('hidden');
@@ -266,6 +267,7 @@ head.ready(
         try { topwnd = findMainWindow(window); } catch (e) { }
         lastedFeedback.loadManageFeedbackSettings();
         $('#txtusername').val($.URLDecode(gup("custName")));
+        $('#ddlguest').val($.URLDecode(gup("isGuest")));
 
         try { topwnd.UnBlockUI(); } catch (e) { }
 

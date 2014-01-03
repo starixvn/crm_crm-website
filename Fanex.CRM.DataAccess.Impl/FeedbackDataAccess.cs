@@ -1,20 +1,32 @@
-﻿namespace Fanex.CRM.DataAccess.Impl
+﻿// --------------------------------------------------------------------------
+// <copyright file="FeedbackDataAccess.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
+namespace Fanex.CRM.DataAccess.Impl
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using DNAide.Core;
     using Fanex.CRM.DataAccess.Interface;
     using Fanex.CRM.Entities;
     using Fanex.CRM.Entities.ViewModel;
     using Fanex.CRM.Infrastructure.Common;
-    using Fanex.Data;
     using Fanex.CRM.Infrastructure.Core;
+    using Fanex.Data;
 
-    public class FeedbackDataAccess :  IFeedbackDataAccess
+    /// <summary>
+    /// Feedback Data Access.
+    /// </summary>
+    public class FeedbackDataAccess : IFeedbackDataAccess
     {
-
         public bool Save(Feedback entity)
         {
             throw new NotImplementedException();
@@ -25,13 +37,20 @@
             throw new NotImplementedException();
         }
 
-        public Feedback GetById(int Id)
+        /// <summary>
+        /// Gets by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Get result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public Feedback GetById(int id)
         {
             var feedback = new Feedback();
-
             using (var obj = new ObjectDb("FeedbackSelByID", 500))
             {
-                obj.AddInParameter("feedbackid", DbType.Int32, Id);
+                obj.AddInParameter("feedbackid", DbType.Int32, id);
                 using (var reader = obj.ExecuteReader())
                 {
                     if (reader != null)
@@ -64,8 +83,8 @@
                                 LastName = reader.IsDBNull(reader.GetOrdinal("lastname")) ? string.Empty : reader.GetString(reader.GetOrdinal("lastname")),
                                 MobilePhone = reader.IsDBNull(reader.GetOrdinal("mobilephone")) ? string.Empty : reader.GetString(reader.GetOrdinal("mobilephone")),
                                 Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? string.Empty : reader.GetString(reader.GetOrdinal("phone")),
-                                Skype = reader["Skype"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("Skype")) : "",
-                                MSN = reader["msn"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("msn")) : ""
+                                Skype = reader["Skype"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("Skype")) : string.Empty,
+                                MSN = reader["msn"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("msn")) : string.Empty
                             };
 
                             feedback.Language = new Setting
@@ -84,14 +103,17 @@
                                 Username = reader.GetString(reader.GetOrdinal("creatorname"))
                             };
 
-                            if (reader["FeedbackDate"] != DBNull.Value)                            
+                            if (reader["FeedbackDate"] != DBNull.Value)
+                            {
                                 feedback.FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("feedbackdate")));
-                            
+                            }
+
                             feedback.ResolutionTime = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("resolutiondate")));
 
-                            if (reader["SolveDate"] != DBNull.Value)                            
+                            if (reader["SolveDate"] != DBNull.Value)
+                            {
                                 feedback.SolvedDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate")));
-                            
+                            }
 
                             feedback.Communication = new Setting
                             {
@@ -108,7 +130,6 @@
                                 Id = reader.GetInt32(reader.GetOrdinal("maincategoryid"))
                             };
 
-
                             feedback.SubCategory = new Setting
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("subcategoryid"))
@@ -119,12 +140,10 @@
                                 Id = reader.GetInt32(reader.GetOrdinal("SiteID"))
                             };
 
-
                             feedback.Role = new Setting
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("roleid"))
                             };
-
 
                             feedback.Product = new Setting
                             {
@@ -136,18 +155,15 @@
                                 Id = reader.GetInt32(reader.GetOrdinal("bettypeid"))
                             };
 
-
                             feedback.Response = new Setting
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("responseid"))
                             };
 
-
                             feedback.Status = new Setting
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("statusid"))
                             };
-
 
                             feedback.Description = reader.IsDBNull(reader.GetOrdinal("description"))
                                 ? string.Empty
@@ -175,7 +191,7 @@
                                 feedback.Reviewer = new User
                                 {
                                     Id = reviewerId,
-                                    Username = reader["ReviewerName"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("reviewername")) : ""
+                                    Username = reader["ReviewerName"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("reviewername")) : string.Empty
                                 };
                             }
 
@@ -184,16 +200,25 @@
                                 Id = 0,
                                 UserName = reader.GetString(reader.GetOrdinal("relatedCustomer"))
                             };
-
                         }
                     }
                 }
             }
-            
+
             return feedback;
         }
 
-        public bool AddGuestFeedback(Feedback entity, string Ip, ref Result result)
+        /// <summary>
+        /// Adds the guest feedback.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>Add result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public bool AddGuestFeedback(Feedback entity, string ip, ref Result result)
         {
             var numberOfRecordsAffected = -1;
             try
@@ -201,7 +226,6 @@
                 using (var obj = new ObjectDb("GuestFeedbackIns", 500))
                 {
                     var param = new Hashtable();
-
                     param.Add("userid", entity.Creator.Id);
                     param.Add("username", entity.Customer.UserName);
                     param.Add("creatorid", entity.Creator.Id);
@@ -243,8 +267,11 @@
                     param.Add("pic2", entity.Customer.Pic2);
                     param.Add("pic3", entity.Customer.Pic3);
                     if (entity.Reviewer.Id > 0)
+                    {
                         param.Add("reviewerid", entity.Reviewer.Id);
-                    param.Add("ip", Ip);
+                    }
+
+                    param.Add("ip", ip);
                     param.Add("errcode", 4);
                     param.Add("errmsg", 4000);
 
@@ -254,7 +281,6 @@
                     result.ErrCode = Convert.ToInt32(obj.GetParameterValue("errcode"));
                     result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
                 }
-
             }
             catch (Exception ex)
             {
@@ -262,10 +288,20 @@
                 result.ErrMsg = ex.Message;
             }
 
-            return (numberOfRecordsAffected > 0);
+            return numberOfRecordsAffected > 0;
         }
 
-        public bool AddFeedback(Feedback entity, string Ip, ref Result result)
+        /// <summary>
+        /// Adds the feedback.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>Add result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public bool AddFeedback(Feedback entity, string ip, ref Result result)
         {
             int numberOfRecordsAffected = -1;
             try
@@ -315,10 +351,12 @@
                     param.Add("pic2", entity.Customer.Pic2);
                     param.Add("pic3", entity.Customer.Pic3);
                     if (entity.Reviewer.Id > 0)
+                    {
                         param.Add("reviewerid", entity.Reviewer.Id);
+                    }
 
                     param.Add("isoverwrite", entity.IsOverrideCrmInfo);
-                    param.Add("ip", Ip);
+                    param.Add("ip", ip);
                     param.Add("errcode", 4);
                     param.Add("errmsg", 4000);
 
@@ -328,25 +366,35 @@
                     result.ErrCode = Convert.ToInt32(obj.GetParameterValue("errcode"));
                     result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
                 }
-
             }
             catch (Exception ex)
             {
                 result.ErrCode = -1;
                 result.ErrMsg = ex.Message;
             }
-            return (numberOfRecordsAffected > 0);
+
+            return numberOfRecordsAffected > 0;
         }
 
-        public bool EditFeedback(Feedback entity, int UserId, string Ip, ref Result result)
+        /// <summary>
+        /// Edits the feedback.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>Edit result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public bool EditFeedback(Feedback entity, int userId, string ip, ref Result result)
         {
-            
             var numberOfRecordsAffected = -1;
             using (var obj = new ObjectDb("FeedbackInfoUpd", 500))
             {
                 var param = new Hashtable();
                 param.Add("feedbackid", entity.Id);
-                param.Add("userid", UserId);
+                param.Add("userid", userId);
                 param.Add("custid", entity.Customer.Id);
                 param.Add("pic1", entity.Customer.Pic1);
                 param.Add("pic2", entity.Customer.Pic2);
@@ -377,27 +425,31 @@
                 param.Add("responseid", entity.Response.Id);
                 param.Add("statusid", entity.Status.Id);
 
-                param.Add("relatedcustid", (!string.IsNullOrEmpty(entity.RelatedCustomer.UserName) ? 
-                    (entity.RelatedCustomer.UserName.Equals("_") ? string.Empty : entity.RelatedCustomer.UserName): null));
+                var relatedUsername = !string.IsNullOrEmpty(entity.RelatedCustomer.UserName) ?
+                        (entity.RelatedCustomer.UserName.Equals("_") ?
+                        string.Empty :
+                        entity.RelatedCustomer.UserName) :
+                        null;
+                param.Add("relatedcustid", relatedUsername);
 
                 param.Add("subject", entity.Subject);
                 param.Add("description", entity.Description);
                 param.Add("solution", !string.IsNullOrEmpty(entity.Solution) ? entity.Solution : string.Empty);
 
                 param.Add("updatereviewedmode", entity.UpdateReviewMode);
-
                 param.Add("review", !string.IsNullOrEmpty(entity.Review) ? entity.Review : string.Empty);
-
                 if (entity.Reviewer.Id > 0)
                 {
                     param.Add("reviewerid", entity.Reviewer.Id);
                     param.Add("isreviewed", true);
                 }
                 else
+                {
                     param.Add("isreviewed", false);
+                }
 
                 param.Add("isoverwrite", entity.IsOverrideCrmInfo);
-                param.Add("ip", Ip);
+                param.Add("ip", ip);
                 param.Add("errcode", 4);
                 param.Add("errmsg", 4000);
                 obj.AssignParamValues(param);
@@ -407,21 +459,31 @@
                 result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
             }
 
-            return (numberOfRecordsAffected > 0);
+            return numberOfRecordsAffected > 0;
         }
 
+        /// <summary>
+        /// Gets the feedback by customer identifier.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date value.</param>
+        /// <returns>The feedback by customer identifier.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<Feedback> GetFeedbackByCustId(int custId, DateTime fromDate, DateTime toDate)
         {
             var lstFeedbacks = new List<Feedback>();
-
             using (var obj = new ObjectDb("FeedbackSelByDate", 500))
             {
                 var param = new Hashtable
-                    {
-                        { "custid", custId },
-                        { "fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(fromDate)},
-                        { "todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(toDate) }
-                    };
+                {
+                    { "custid", custId },
+                    { "fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(fromDate) },
+                    { "todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(toDate) }
+                };
+
                 obj.AssignParamValues(param);
                 using (var reader = obj.ExecuteReader())
                 {
@@ -449,14 +511,13 @@
                                     ? 0
                                     : reader.GetInt32(reader.GetOrdinal("titleid"))
                                 },
-                                Email = reader.IsDBNull(reader.GetOrdinal("email")) ? "" : reader.GetString(reader.GetOrdinal("email")),
-                                Fax = reader.IsDBNull(reader.GetOrdinal("fax")) ? "" : reader.GetString(reader.GetOrdinal("fax")),
-                                FirstName = reader.IsDBNull(reader.GetOrdinal("firstname")) ? "" : reader.GetString(reader.GetOrdinal("firstname")),
-                                LastName = reader.IsDBNull(reader.GetOrdinal("lastname")) ? "" : reader.GetString(reader.GetOrdinal("lastname")),
-                                MobilePhone = reader.IsDBNull(reader.GetOrdinal("mobilephone")) ? "" : reader.GetString(reader.GetOrdinal("mobilephone")),
-                                Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? "" : reader.GetString(reader.GetOrdinal("phone"))
+                                Email = reader.IsDBNull(reader.GetOrdinal("email")) ? string.Empty : reader.GetString(reader.GetOrdinal("email")),
+                                Fax = reader.IsDBNull(reader.GetOrdinal("fax")) ? string.Empty : reader.GetString(reader.GetOrdinal("fax")),
+                                FirstName = reader.IsDBNull(reader.GetOrdinal("firstname")) ? string.Empty : reader.GetString(reader.GetOrdinal("firstname")),
+                                LastName = reader.IsDBNull(reader.GetOrdinal("lastname")) ? string.Empty : reader.GetString(reader.GetOrdinal("lastname")),
+                                MobilePhone = reader.IsDBNull(reader.GetOrdinal("mobilephone")) ? string.Empty : reader.GetString(reader.GetOrdinal("mobilephone")),
+                                Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? string.Empty : reader.GetString(reader.GetOrdinal("phone"))
                             };
-
 
                             feedback.Language = new Setting
                             {
@@ -478,7 +539,6 @@
 
                             feedback.FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("feedbackdate")));
 
-
                             feedback.Communication = new Setting
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("communicationid"))
@@ -491,8 +551,7 @@
 
                             feedback.Category = new Setting
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("maincategoryid")),
-
+                                Id = reader.GetInt32(reader.GetOrdinal("maincategoryid"))
                             };
 
                             feedback.SubCategory = new Setting
@@ -556,9 +615,8 @@
                                 {
                                     Id = reviewerId,
                                     Username = reader.IsDBNull(reader.GetOrdinal("reviewername"))
-                                                   ? ""
+                                                   ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("reviewername")),
-
                                 };
                                 feedback.SolvedDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate")));
                             }
@@ -566,7 +624,6 @@
                             {
                                 feedback.Reviewer = new User
                                 {
-
                                     Id = 0,
                                     Username = string.Empty
                                 };
@@ -576,10 +633,9 @@
                             {
                                 Id = 0,
                                 UserName = reader.GetBoolean(reader.GetOrdinal("isRelated")) ?
-                                    (reader.IsDBNull(reader.GetOrdinal("username")) ? "" : reader.GetString(reader.GetOrdinal("username"))) :
-                                    (reader.IsDBNull(reader.GetOrdinal("relatedCustomer")) ? "" : reader.GetString(reader.GetOrdinal("relatedCustomer")))
+                                    (reader.IsDBNull(reader.GetOrdinal("username")) ? string.Empty : reader.GetString(reader.GetOrdinal("username"))) :
+                                    (reader.IsDBNull(reader.GetOrdinal("relatedCustomer")) ? string.Empty : reader.GetString(reader.GetOrdinal("relatedCustomer")))
                             };
-
                             lstFeedbacks.Add(feedback);
                         }
                     }
@@ -589,7 +645,34 @@
             return lstFeedbacks;
         }
 
-        public IEnumerable<Feedback> GetFeedback(DateTime fromDate, DateTime toDate, string userName, int isGuest, int communicationID, int mainCategoryID, int subCategoryID, int statusID, int isReviewed, int responseId)
+        /// <summary>
+        /// Gets the feedback.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date value.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="isGuest">The is guest.</param>
+        /// <param name="communicationID">The communication identifier.</param>
+        /// <param name="mainCategoryID">The main category identifier.</param>
+        /// <param name="subCategoryID">The sub category identifier.</param>
+        /// <param name="statusID">The status identifier.</param>
+        /// <param name="isReviewed">The is reviewed.</param>
+        /// <param name="responseId">The response identifier.</param>
+        /// <returns>The feedback.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public IEnumerable<Feedback> GetFeedback(
+            DateTime fromDate,
+            DateTime toDate,
+            string userName,
+            int isGuest,
+            int communicationID,
+            int mainCategoryID,
+            int subCategoryID,
+            int statusID,
+            int isReviewed,
+            int responseId)
         {
             var lstFeedbacks = new List<Feedback>();
             using (var obj = new ObjectDb("FeedbackGetLastest", 500))
@@ -599,29 +682,44 @@
                 param.Add("todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(toDate));
                 param.Add("username", userName);
                 if (isGuest >= 0)
-                    param.Add("isguest", (isGuest ==1));
-                
+                {
+                    param.Add("isguest", isGuest == 1);
+                }
+
                 if (communicationID > 0)
+                {
                     param.Add("communicationid", communicationID);
-                
+                }
+
                 if (mainCategoryID > 0)
+                {
                     param.Add("maincategoryid", mainCategoryID);
-                
+                }
+
                 if (subCategoryID > 0)
+                {
                     param.Add("subcategoryid", subCategoryID);
-                
+                }
+
                 if (statusID > 0)
+                {
                     param.Add("statusid", statusID);
-                
+                }
+
                 if (responseId > 0)
+                {
                     param.Add("responseid", responseId);
-                
+                }
+
                 if (isReviewed == 1)
+                {
                     param.Add("isreviewed", true);
-                
+                }
                 else if (isReviewed == -1)
+                {
                     param.Add("isreviewed", false);
-                
+                }
+
                 obj.AssignParamValues(param);
                 using (var reader = obj.ExecuteReader())
                 {
@@ -653,30 +751,29 @@
                                             },
                                     Email =
                                         reader.IsDBNull(reader.GetOrdinal("email"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("email")),
                                     Fax =
                                         reader.IsDBNull(reader.GetOrdinal("fax"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("fax")),
                                     FirstName =
                                         reader.IsDBNull(reader.GetOrdinal("firstname"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("firstname")),
                                     LastName =
                                         reader.IsDBNull(reader.GetOrdinal("lastname"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("lastname")),
                                     MobilePhone =
                                         reader.IsDBNull(reader.GetOrdinal("mobilephone"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("mobilephone")),
                                     Phone =
                                         reader.IsDBNull(reader.GetOrdinal("phone"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("phone"))
                                 };
-
 
                             feedback.Language = new Setting
                             {
@@ -693,7 +790,7 @@
                             feedback.Creator = new User
                             {
                                 Id = reader.IsDBNull(reader.GetOrdinal("creatorid")) ? 0 : reader.GetInt32(reader.GetOrdinal("creatorid")),
-                                Username = reader.IsDBNull(reader.GetOrdinal("creatorname")) ? "" : reader.GetString(reader.GetOrdinal("creatorname"))
+                                Username = reader.IsDBNull(reader.GetOrdinal("creatorname")) ? string.Empty : reader.GetString(reader.GetOrdinal("creatorname"))
                             };
 
                             feedback.FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("feedbackdate")));
@@ -776,16 +873,16 @@
                                 {
                                     Id = reviewerId,
                                     Username = reader.IsDBNull(reader.GetOrdinal("reviewername"))
-                                                   ? ""
+                                                   ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("reviewername"))
                                 };
+
                                 feedback.SolvedDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate")));
                             }
                             else
                             {
                                 feedback.Reviewer = new User
                                 {
-
                                     Id = 0,
                                     Username = string.Empty
                                 };
@@ -795,8 +892,8 @@
                             {
                                 Id = 0,
                                 UserName = reader.GetBoolean(reader.GetOrdinal("isRelated")) ?
-                                    (reader.IsDBNull(reader.GetOrdinal("username")) ? "" : reader.GetString(reader.GetOrdinal("username"))) :
-                                    (reader.IsDBNull(reader.GetOrdinal("relatedCustomer")) ? "" : reader.GetString(reader.GetOrdinal("relatedCustomer")))
+                                    (reader.IsDBNull(reader.GetOrdinal("username")) ? string.Empty : reader.GetString(reader.GetOrdinal("username"))) :
+                                    (reader.IsDBNull(reader.GetOrdinal("relatedCustomer")) ? string.Empty : reader.GetString(reader.GetOrdinal("relatedCustomer")))
                             };
 
                             lstFeedbacks.Add(feedback);
@@ -808,50 +905,58 @@
             return lstFeedbacks;
         }
 
+        /// <summary>
+        /// Gets the feedback statistic.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <returns>The feedback statistic.</returns>
         public DataTableCollection GetFeedbackStatistic(Params param)
         {
             DataTableCollection dataTables = null;
 
             using (var obj = new ObjectDb("FeedbackStatistics", 500))
             {
-                var p = new Hashtable
-                    {
-                        { "type", param.Type },
-                        { "fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(param.FromDate) },
-                        { "todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(param.ToDate) },
-                        {
-                            "fromduration",
-                            string.Format(
-                                "{0}:{1}:{2}:{3}",
-                                CastAide.AsInt32(param.FromDuration.Day),
-                                CastAide.AsInt32(param.FromDuration.Hour),
-                                CastAide.AsInt32(param.FromDuration.Minute),
-                                CastAide.AsInt32(param.FromDuration.Second))
-                            },
-                        {
-                            "toduration",
-                            string.Format(
-                                "{0}:{1}:{2}:{3}",
-                                CastAide.AsInt32(param.ToDuration.Day),
-                                CastAide.AsInt32(param.ToDuration.Hour),
-                                CastAide.AsInt32(param.ToDuration.Minute),
-                                CastAide.AsInt32(param.ToDuration.Second))
-                            }
-                    };
+                var p = new Hashtable();
+                p.Add("type", param.Type);
+                p.Add("fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(param.FromDate));
+                p.Add("todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(param.ToDate));
+                var fromDuration = string.Format(
+                    "{0}:{1}:{2}:{3}",
+                    CastAide.AsInt32(param.FromDuration.Day),
+                    CastAide.AsInt32(param.FromDuration.Hour),
+                    CastAide.AsInt32(param.FromDuration.Minute),
+                    CastAide.AsInt32(param.FromDuration.Second));
+                p.Add("fromduration", fromDuration);
+                var toDuration = string.Format(
+                    "{0}:{1}:{2}:{3}",
+                    CastAide.AsInt32(param.ToDuration.Day),
+                    CastAide.AsInt32(param.ToDuration.Hour),
+                    CastAide.AsInt32(param.ToDuration.Minute),
+                    CastAide.AsInt32(param.ToDuration.Second));
+                p.Add("toduration", toDuration);
                 obj.AssignParamValues(p);
                 var ds = obj.ExecuteDataSet();
-
                 if (ds.Tables.Count > 0)
+                {
                     dataTables = ds.Tables;
-                
+                }
             }
+
             return dataTables;
         }
 
+        /// <summary>
+        /// Gets the feedback statistic detail.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
+        /// <param name="totalRows">The total rows.</param>
+        /// <returns>The feedback statistic detail.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<Feedback> GetFeedbackStatisticDetail(Params param, ref int totalRows)
         {
             var lstFeedbacks = new List<Feedback>();
-
             using (var obj = new ObjectDb("Rpt_FeedbackStatisticDetails", 1200))
             {
                 var p = new Hashtable
@@ -891,7 +996,6 @@
                         {
                             var feedback = new Feedback();
                             feedback.Id = reader.GetInt32(reader.GetOrdinal("feedbackid"));
-
                             if (!reader.IsDBNull(reader.GetOrdinal("custid")))
                             {
                                 feedback.Customer = new Customer
@@ -913,30 +1017,29 @@
                                             },
                                     Email =
                                         reader.IsDBNull(reader.GetOrdinal("email"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("email")),
                                     Fax =
                                         reader.IsDBNull(reader.GetOrdinal("fax"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("fax")),
                                     FirstName =
                                         reader.IsDBNull(reader.GetOrdinal("firstname"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("firstname")),
                                     LastName =
                                         reader.IsDBNull(reader.GetOrdinal("lastname"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("lastname")),
                                     MobilePhone =
                                         reader.IsDBNull(reader.GetOrdinal("mobilephone"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("mobilephone")),
                                     Phone =
                                         reader.IsDBNull(reader.GetOrdinal("phone"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("phone"))
                                 };
-
 
                             feedback.Language = new Setting
                             {
@@ -947,7 +1050,7 @@
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("countryid"))
                             };
-                                                        
+
                             feedback.CreateDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("createdate")));
 
                             feedback.Creator = new User
@@ -958,7 +1061,7 @@
                                             : reader.GetInt32(reader.GetOrdinal("creatorid")),
                                     Username =
                                         reader.IsDBNull(reader.GetOrdinal("creatorname"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("creatorname"))
                                 };
 
@@ -980,7 +1083,6 @@
                             feedback.Category = new Setting
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("maincategoryid"))
-
                             };
 
                             feedback.SubCategory = new Setting
@@ -1044,16 +1146,16 @@
                                 {
                                     Id = reviewerId,
                                     Username = reader.IsDBNull(reader.GetOrdinal("reviewername"))
-                                                   ? ""
+                                                   ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("reviewername"))
                                 };
+
                                 feedback.SolvedDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate")));
                             }
                             else
                             {
                                 feedback.Reviewer = new User
                                 {
-
                                     Id = 0,
                                     Username = string.Empty
                                 };
@@ -1065,24 +1167,49 @@
                                     UserName =
                                         reader.GetBoolean(reader.GetOrdinal("isRelated"))
                                             ? (reader.IsDBNull(reader.GetOrdinal("username"))
-                                                   ? ""
+                                                   ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("username")))
                                             : (reader.IsDBNull(reader.GetOrdinal("relatedCustomer"))
-                                                   ? ""
+                                                   ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("relatedCustomer")))
                                 };
-
                             lstFeedbacks.Add(feedback);
                         }
-                        
+
                         totalRows = lstFeedbacks.Count;
                     }
                 }
             }
+
             return lstFeedbacks;
         }
 
-        public IEnumerable<Feedback> GetDeletedFeedback(DateTime fromDate, DateTime toDate, string userName, int isGuest, int communicationID, int mainCategoryID, int subCategoryID, int isReviewed, int responseId)
+        /// <summary>
+        /// Gets the deleted feedback.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date value.</param>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="isGuest">The is guest.</param>
+        /// <param name="communicationID">The communication identifier.</param>
+        /// <param name="mainCategoryID">The main category identifier.</param>
+        /// <param name="subCategoryID">The sub category identifier.</param>
+        /// <param name="isReviewed">The is reviewed.</param>
+        /// <param name="responseId">The response identifier.</param>
+        /// <returns>The deleted feedback.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public IEnumerable<Feedback> GetDeletedFeedback(
+            DateTime fromDate,
+            DateTime toDate,
+            string userName,
+            int isGuest,
+            int communicationID,
+            int mainCategoryID,
+            int subCategoryID,
+            int isReviewed,
+            int responseId)
         {
             var lstFeedbacks = new List<Feedback>();
 
@@ -1092,14 +1219,40 @@
                 param.Add("fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(fromDate));
                 param.Add("todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(toDate));
                 param.Add("username", userName);
-                if (isGuest >= 0) param.Add("isguest", (isGuest == 1));
-                if (communicationID > 0) param.Add("communicationid", communicationID);
-                if (mainCategoryID > 0) param.Add("maincategoryid", mainCategoryID);
-                if (subCategoryID > 0) param.Add("subcategoryid", subCategoryID);
-                if (responseId > 0) param.Add("responseid", responseId);
-                if (isReviewed == 1) param.Add("isreviewed", true);
-                else if (isReviewed == -1) param.Add("isreviewed", false);
-                
+                if (isGuest >= 0)
+                {
+                    param.Add("isguest", isGuest == 1);
+                }
+
+                if (communicationID > 0)
+                {
+                    param.Add("communicationid", communicationID);
+                }
+
+                if (mainCategoryID > 0)
+                {
+                    param.Add("maincategoryid", mainCategoryID);
+                }
+
+                if (subCategoryID > 0)
+                {
+                    param.Add("subcategoryid", subCategoryID);
+                }
+
+                if (responseId > 0)
+                {
+                    param.Add("responseid", responseId);
+                }
+
+                if (isReviewed == 1)
+                {
+                    param.Add("isreviewed", true);
+                }
+                else if (isReviewed == -1)
+                {
+                    param.Add("isreviewed", false);
+                }
+
                 obj.AssignParamValues(param);
                 using (var reader = obj.ExecuteReader())
                 {
@@ -1131,30 +1284,29 @@
                                     },
                                 Email =
                                     reader.IsDBNull(reader.GetOrdinal("email"))
-                                        ? ""
+                                        ? string.Empty
                                         : reader.GetString(reader.GetOrdinal("email")),
                                 Fax =
                                     reader.IsDBNull(reader.GetOrdinal("fax"))
-                                        ? ""
+                                        ? string.Empty
                                         : reader.GetString(reader.GetOrdinal("fax")),
                                 FirstName =
                                     reader.IsDBNull(reader.GetOrdinal("firstname"))
-                                        ? ""
+                                        ? string.Empty
                                         : reader.GetString(reader.GetOrdinal("firstname")),
                                 LastName =
                                     reader.IsDBNull(reader.GetOrdinal("lastname"))
-                                        ? ""
+                                        ? string.Empty
                                         : reader.GetString(reader.GetOrdinal("lastname")),
                                 MobilePhone =
                                     reader.IsDBNull(reader.GetOrdinal("mobilephone"))
-                                        ? ""
+                                        ? string.Empty
                                         : reader.GetString(reader.GetOrdinal("mobilephone")),
                                 Phone =
                                     reader.IsDBNull(reader.GetOrdinal("phone"))
-                                        ? ""
+                                        ? string.Empty
                                         : reader.GetString(reader.GetOrdinal("phone"))
                             };
-
 
                             feedback.Language = new Setting
                             {
@@ -1176,28 +1328,19 @@
                                         : reader.GetInt32(reader.GetOrdinal("creatorid")),
                                 Username =
                                     reader.IsDBNull(reader.GetOrdinal("creatorname"))
-                                        ? ""
+                                        ? string.Empty
                                         : reader.GetString(reader.GetOrdinal("creatorname"))
                             };
 
                             feedback.FeedbackDate =
                                 DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("feedbackdate")));
-
-
                             feedback.Communication = new Setting { Id = reader.GetInt32(reader.GetOrdinal("communicationid")) };
-
                             feedback.CsExtension = new Setting { Id = reader.GetInt32(reader.GetOrdinal("stationid")) };
-
                             feedback.Category = new Setting { Id = reader.GetInt32(reader.GetOrdinal("maincategoryid")) };
-
                             feedback.SubCategory = new Setting { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
-
                             feedback.Site = new Setting { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
-
                             feedback.Role = new Setting { Id = reader.GetInt32(reader.GetOrdinal("roleid")) };
-
                             feedback.Role = new Setting { Id = reader.GetOrdinal("productid") };
-
                             feedback.BetType = new Setting
                             {
                                 Id =
@@ -1207,21 +1350,16 @@
                             };
 
                             feedback.Response = new Setting { Id = reader.GetInt32(reader.GetOrdinal("responseid")) };
-
                             feedback.Status = new Setting { Id = reader.GetInt32(reader.GetOrdinal("statusid")) };
-
                             feedback.Subject = reader.IsDBNull(reader.GetOrdinal("subject"))
                                                    ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("subject"));
-
                             feedback.Description = reader.IsDBNull(reader.GetOrdinal("description"))
                                                        ? string.Empty
                                                        : reader.GetString(reader.GetOrdinal("description"));
-
                             feedback.Solution = reader.IsDBNull(reader.GetOrdinal("solution"))
                                                     ? string.Empty
                                                     : reader.GetString(reader.GetOrdinal("solution"));
-
                             feedback.Review = reader.IsDBNull(reader.GetOrdinal("review"))
                                                   ? string.Empty
                                                   : reader.GetString(reader.GetOrdinal("review"));
@@ -1229,7 +1367,6 @@
                             var reviewerId = reader.IsDBNull(reader.GetOrdinal("reviewerid"))
                                                  ? 0
                                                  : reader.GetInt32(reader.GetOrdinal("reviewerid"));
-
                             if (reviewerId > 0)
                             {
                                 feedback.Reviewer = new User
@@ -1237,16 +1374,16 @@
                                     Id = reviewerId,
                                     Username =
                                         reader.IsDBNull(reader.GetOrdinal("reviewername"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("reviewername"))
                                 };
+
                                 feedback.SolvedDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate")));
                             }
                             else
                             {
                                 feedback.Reviewer = new User
                                 {
-
                                     Id = 0,
                                     Username = string.Empty
                                 };
@@ -1257,12 +1394,12 @@
                                 Id = 0,
                                 UserName =
                                     reader.IsDBNull(reader.GetOrdinal("relatedCustomer"))
-                                        ? ""
+                                        ? string.Empty
                                         : reader.GetString(reader.GetOrdinal("relatedCustomer"))
                             };
+
                             lstFeedbacks.Add(feedback);
                         }
-                        
                     }
                 }
             }
@@ -1270,6 +1407,15 @@
             return lstFeedbacks;
         }
 
+        /// <summary>
+        /// Selects the top feedback by customer identifier.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="selectTop">The select top.</param>
+        /// <returns>The top feedback by customer identifier.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+             "SP2101:MethodMustNotContainMoreLinesThan",
+             Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<Feedback> SelTopFeedbackByCustId(int custId, int selectTop)
         {
             var lstFeedbacks = new List<Feedback>();
@@ -1290,12 +1436,13 @@
                             feedback.Id = reader.GetInt32(reader.GetOrdinal("feedbackid"));
 
                             if (!reader.IsDBNull(reader.GetOrdinal("custid")))
+                            {
                                 feedback.Customer = new Customer
                                     {
                                         Id = reader.GetInt32(reader.GetOrdinal("custid")),
                                         UserName = reader.GetString(reader.GetOrdinal("username")),
                                     };
-
+                            }
 
                             feedback.CustomerInfo = new CustomerInfo
                                 {
@@ -1309,30 +1456,29 @@
                                             },
                                     Email =
                                         reader.IsDBNull(reader.GetOrdinal("email"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("email")),
                                     Fax =
                                         reader.IsDBNull(reader.GetOrdinal("fax"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("fax")),
                                     FirstName =
                                         reader.IsDBNull(reader.GetOrdinal("firstname"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("firstname")),
                                     LastName =
                                         reader.IsDBNull(reader.GetOrdinal("lastname"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("lastname")),
                                     MobilePhone =
                                         reader.IsDBNull(reader.GetOrdinal("mobilephone"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("mobilephone")),
                                     Phone =
                                         reader.IsDBNull(reader.GetOrdinal("phone"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("phone"))
                                 };
-
 
                             feedback.Language = new Setting { Id = reader.GetInt32(reader.GetOrdinal("languageid")) };
                             feedback.Country = new Country { Id = reader.GetInt32(reader.GetOrdinal("countryid")) };
@@ -1350,48 +1496,33 @@
                                                           ? DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("resolutiondate")))
                                                           : null;
 
-                            feedback.Communication = new Setting
-                                { Id = reader.GetInt32(reader.GetOrdinal("communicationid")) };
-
+                            feedback.Communication = new Setting { Id = reader.GetInt32(reader.GetOrdinal("communicationid")) };
                             feedback.CsExtension = new Setting { Id = reader.GetInt32(reader.GetOrdinal("StationID")) };
-
-                            feedback.Category = new Setting
-                                { Id = reader.GetInt32(reader.GetOrdinal("maincategoryid")), };
-
-                            feedback.SubCategory = new Setting
-                                { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
-
+                            feedback.Category = new Setting { Id = reader.GetInt32(reader.GetOrdinal("maincategoryid")), };
+                            feedback.SubCategory = new Setting { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
                             feedback.Site = new Setting { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
-
                             feedback.Role = new Setting { Id = reader.GetInt32(reader.GetOrdinal("roleid")) };
-
                             feedback.Role = new Setting { Id = reader.GetOrdinal("productid") };
-
                             feedback.BetType = new Setting
-                                {
-                                    Id =
-                                        reader.IsDBNull(reader.GetOrdinal("bettypeid"))
-                                            ? 0
-                                            : reader.GetInt32(reader.GetOrdinal("bettypeid"))
-                                };
+                                 {
+                                     Id =
+                                         reader.IsDBNull(reader.GetOrdinal("bettypeid"))
+                                             ? 0
+                                             : reader.GetInt32(reader.GetOrdinal("bettypeid"))
+                                 };
 
                             var responseId = reader.GetInt32(reader.GetOrdinal("responseid"));
                             feedback.Response = new Setting { Id = responseId };
-
                             feedback.Status = new Setting { Id = reader.GetInt32(reader.GetOrdinal("statusid")) };
-
                             feedback.Subject = reader.IsDBNull(reader.GetOrdinal("subject"))
-                                                   ? string.Empty
-                                                   : reader.GetString(reader.GetOrdinal("subject"));
-
+                                                    ? string.Empty
+                                                    : reader.GetString(reader.GetOrdinal("subject"));
                             feedback.Description = reader.IsDBNull(reader.GetOrdinal("description"))
                                                        ? string.Empty
                                                        : reader.GetString(reader.GetOrdinal("description"));
-
                             feedback.Solution = reader.IsDBNull(reader.GetOrdinal("solution"))
                                                     ? string.Empty
                                                     : reader.GetString(reader.GetOrdinal("solution"));
-
                             feedback.Review = reader.IsDBNull(reader.GetOrdinal("review"))
                                                   ? string.Empty
                                                   : reader.GetString(reader.GetOrdinal("review"));
@@ -1407,7 +1538,7 @@
                                         Id = reviewerId,
                                         Username =
                                             reader.IsDBNull(reader.GetOrdinal("reviewername"))
-                                                ? ""
+                                                ? string.Empty
                                                 : reader.GetString(reader.GetOrdinal("reviewername")),
                                     };
                                 feedback.SolvedDate =
@@ -1424,10 +1555,10 @@
                                     UserName =
                                         reader.GetBoolean(reader.GetOrdinal("isRelated"))
                                             ? (reader.IsDBNull(reader.GetOrdinal("username"))
-                                                   ? ""
+                                                   ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("username")))
                                             : (reader.IsDBNull(reader.GetOrdinal("relatedCustomer"))
-                                                   ? ""
+                                                   ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("relatedCustomer")))
                                 };
 
@@ -1436,17 +1567,25 @@
                     }
                 }
             }
-            
+
             return lstFeedbacks;
         }
 
+        /// <summary>
+        /// Selects the top feedback.
+        /// </summary>
+        /// <param name="selectTop">The select top.</param>
+        /// <returns>The top feedback.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<Feedback> SelTopFeedback(int selectTop)
         {
             var lstFeedbacks = new List<Feedback>();
             using (var obj = new ObjectDb("FeedbackSelTopFeedback", 500))
             {
                 obj.AddInParameter("top", DbType.Int32, selectTop);
-                
+
                 using (var reader = obj.ExecuteReader())
                 {
                     if (reader != null)
@@ -1477,37 +1616,33 @@
                                             },
                                     Email =
                                         reader.IsDBNull(reader.GetOrdinal("email"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("email")),
                                     Fax =
                                         reader.IsDBNull(reader.GetOrdinal("fax"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("fax")),
                                     FirstName =
                                         reader.IsDBNull(reader.GetOrdinal("firstname"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("firstname")),
                                     LastName =
                                         reader.IsDBNull(reader.GetOrdinal("lastname"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("lastname")),
                                     MobilePhone =
                                         reader.IsDBNull(reader.GetOrdinal("mobilephone"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("mobilephone")),
                                     Phone =
                                         reader.IsDBNull(reader.GetOrdinal("phone"))
-                                            ? ""
+                                            ? string.Empty
                                             : reader.GetString(reader.GetOrdinal("phone"))
                                 };
 
-
                             feedback.Language = new Setting { Id = reader.GetInt32(reader.GetOrdinal("languageid")) };
-
                             feedback.Country = new Country { Id = reader.GetInt32(reader.GetOrdinal("countryid")) };
-
                             feedback.CreateDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("createdate")));
-
                             feedback.Creator = new User
                                 {
                                     Id = reader.GetInt32(reader.GetOrdinal("creatorid")),
@@ -1519,24 +1654,13 @@
                             feedback.ResolutionTime = !reader.IsDBNull(reader.GetOrdinal("resolutiondate"))
                                                           ? DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("resolutiondate")))
                                                           : null;
-
-                            feedback.Communication = new Setting
-                                { Id = reader.GetInt32(reader.GetOrdinal("communicationid")) };
-
+                            feedback.Communication = new Setting { Id = reader.GetInt32(reader.GetOrdinal("communicationid")) };
                             feedback.CsExtension = new Setting { Id = reader.GetInt32(reader.GetOrdinal("StationID")) };
-
-                            feedback.Category = new Setting
-                                { Id = reader.GetInt32(reader.GetOrdinal("maincategoryid")), };
-
-                            feedback.SubCategory = new Setting
-                                { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
-
+                            feedback.Category = new Setting { Id = reader.GetInt32(reader.GetOrdinal("maincategoryid")), };
+                            feedback.SubCategory = new Setting { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
                             feedback.Site = new Setting { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
-
                             feedback.Role = new Setting { Id = reader.GetInt32(reader.GetOrdinal("roleid")) };
-
                             feedback.Role = new Setting { Id = reader.GetOrdinal("productid") };
-
                             feedback.BetType = new Setting
                                 {
                                     Id =
@@ -1577,7 +1701,7 @@
                                         Id = reviewerId,
                                         Username =
                                             reader.IsDBNull(reader.GetOrdinal("reviewername"))
-                                                ? ""
+                                                ? string.Empty
                                                 : reader.GetString(reader.GetOrdinal("reviewername")),
                                     };
                                 feedback.SolvedDate =
@@ -1594,10 +1718,10 @@
                                     UserName =
                                         reader.GetBoolean(reader.GetOrdinal("isRelated"))
                                             ? (reader.IsDBNull(reader.GetOrdinal("username"))
-                                                   ? ""
+                                                   ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("username")))
                                             : (reader.IsDBNull(reader.GetOrdinal("relatedCustomer"))
-                                                   ? ""
+                                                   ? string.Empty
                                                    : reader.GetString(reader.GetOrdinal("relatedCustomer")))
                                 };
 
@@ -1606,9 +1730,17 @@
                     }
                 }
             }
+
             return lstFeedbacks;
         }
 
+        /// <summary>
+        /// Gets the IBC daily summary report.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date value.</param>
+        /// <param name="siteType">Type of the site.</param>
+        /// <returns>The IBC daily summary report.</returns>
         public DataSet GetIBCDailySummaryReport(DateTime fromDate, DateTime toDate, Enumerations.ReportTypes siteType)
         {
             var result = new DataSet();
@@ -1624,9 +1756,17 @@
                 obj.AssignParamValues(param);
                 result = obj.ExecuteDataSet();
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Gets the IBC daily detail report.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date value.</param>
+        /// <param name="siteType">Type of the site.</param>
+        /// <returns>The IBC daily detail report.</returns>
         public DataSet GetIBCDailyDetailReport(DateTime fromDate, DateTime toDate, Enumerations.ReportTypes siteType)
         {
             var result = new DataSet();
@@ -1641,9 +1781,16 @@
                 obj.AssignParamValues(param);
                 result = obj.ExecuteDataSet();
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Gets the licensee weekly summary report.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date value.</param>
+        /// <returns>The licensee weekly summary report.</returns>
         public DataSet GetLicenseeWeeklySummaryReport(DateTime fromDate, DateTime toDate)
         {
             var result = new DataSet();
@@ -1657,9 +1804,16 @@
                 obj.AssignParamValues(param);
                 result = obj.ExecuteDataSet();
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Gets the licensee weekly detail report.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date value.</param>
+        /// <returns>The licensee weekly detail report.</returns>
         public DataSet GetLicenseeWeeklyDetailReport(DateTime fromDate, DateTime toDate)
         {
             var result = new DataSet();
@@ -1673,9 +1827,17 @@
                 obj.AssignParamValues(param);
                 result = obj.ExecuteDataSet();
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Gets the casino daily summary report.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date value.</param>
+        /// <param name="reportType">Type of the report.</param>
+        /// <returns>The casino daily summary report.</returns>
         public DataSet GetCasinoDailySummaryReport(DateTime fromDate, DateTime toDate, int reportType)
         {
             var result = new DataSet();
@@ -1683,16 +1845,23 @@
             {
                 var param = new Hashtable
                     {
-                        { "fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(fromDate)},
-                        { "todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(toDate)},
-                        {"type", reportType}
+                        { "fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(fromDate) },
+                        { "todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(toDate) },
+                        { "type", reportType }
                     };
                 obj.AssignParamValues(param);
                 result = obj.ExecuteDataSet();
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Gets the casino daily detail report.
+        /// </summary>
+        /// <param name="fromDate">From date.</param>
+        /// <param name="toDate">To date value.</param>
+        /// <returns>The casino daily detail report.</returns>
         public DataSet GetCasinoDailyDetailReport(DateTime fromDate, DateTime toDate)
         {
             var result = new DataSet();
@@ -1700,28 +1869,40 @@
             {
                 var param = new Hashtable
                     {
-                        { "fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(fromDate)},
+                        { "fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(fromDate) },
                         { "todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(toDate) },
                     };
                 obj.AssignParamValues(param);
                 result = obj.ExecuteDataSet();
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Gets the feedback subject template items.
+        /// </summary>
+        /// <param name="templateId">The template identifier.</param>
+        /// <returns>The feedback subject template items.</returns>
         public DataSet GetFeedbackSubjectTemplateItems(int templateId = 0)
         {
-            var dsResult = new DataSet();
+            var datasetResut = new DataSet();
 
             using (var obj = new ObjectDb("FeedSubjectTemplateSelect", 500))
             {
                 var param = new Hashtable { { "templateid", templateId } };
                 obj.AssignParamValues(param);
-                dsResult = obj.ExecuteDataSet();
+                datasetResut = obj.ExecuteDataSet();
             }
-            return dsResult;
+
+            return datasetResut;
         }
 
+        /// <summary>
+        /// Adds the subject feedback template.
+        /// </summary>
+        /// <param name="subject">The subject.</param>
+        /// <returns>Add result.</returns>
         public Result AddSubjectFeedbackTemplate(string subject)
         {
             var result = new Result();
@@ -1742,9 +1923,16 @@
                 result.ErrCode = 300;
                 result.ErrMsg = ex.Message;
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Edits the subject feedback template.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="newSubject">The new subject.</param>
+        /// <returns>Edit result.</returns>
         public Result EditSubjectFeedbackTemplate(int id, string newSubject)
         {
             var result = new Result();
@@ -1752,8 +1940,7 @@
             {
                 using (var obj = new ObjectDb("FeedSubjectTemplateUpdate", 500))
                 {
-                    var param = new Hashtable
-                        { { "templateid", id }, { "subject", newSubject }, { "errcode", 4 }, { "errmsg", 4000 } };
+                    var param = new Hashtable { { "templateid", id }, { "subject", newSubject }, { "errcode", 4 }, { "errmsg", 4000 } };
                     obj.AssignParamValues(param);
                     obj.ExecuteNonQuery();
 
@@ -1766,9 +1953,15 @@
                 result.ErrCode = 300;
                 result.ErrMsg = ex.Message;
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Deletes the subject feedback template.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Delete result.</returns>
         public Result DeleteSubjectFeedbackTemplate(int id)
         {
             var result = new Result();
@@ -1789,6 +1982,7 @@
                 result.ErrCode = 300;
                 result.ErrMsg = ex.Message;
             }
+
             return result;
         }
 
@@ -1799,7 +1993,6 @@
                 var param = new Hashtable();
                 param.Add("username", userName);
                 obj.AssignParamValues(param);
-
                 return obj.ExecuteDataSet();
             }
         }

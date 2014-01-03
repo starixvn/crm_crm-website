@@ -1,23 +1,41 @@
-﻿namespace Fanex.CRM.DataAccess.Impl
+﻿// --------------------------------------------------------------------------
+// <copyright file="CustomerDataAccess.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
+namespace Fanex.CRM.DataAccess.Impl
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.DataAccess.Interface;
     using Fanex.CRM.Entities;
+    using Fanex.CRM.Infrastructure.Configuration;
     using Fanex.Data;
     using MongoDB.Bson;
     using MongoDB.Driver;
-    using Fanex.CRM.Infrastructure.Configuration;
     using MongoDB.Driver.Builders;
 
+    /// <summary>
+    /// Customer Data Access.
+    /// </summary>
     public class CustomerDataAccess : ICustomerDataAccess
     {
+        /// <summary>
+        /// Verifies the user name.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>Verify result.</returns>
         public List<RelatedCustomer> VerifyUserName(string userName)
         {
             var result = new List<RelatedCustomer>();
-            
+
             using (var obj = new ObjectDb("CustomerVerify"))
             {
                 obj.AddInParameter("username", DbType.String, userName);
@@ -37,13 +55,22 @@
                     }
                 }
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Finds the customer by identify.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
+        /// <returns>The customer by identify.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public Customer FindBy(int custId)
         {
             var customer = new Customer();
-            
+
             using (var obj = new ObjectDb("CustomerSel"))
             {
                 obj.AddInParameter("custid", DbType.Int32, custId);
@@ -51,10 +78,8 @@
                 {
                     if (reader != null)
                     {
-                        #region assign data
                         while (reader.Read())
                         {
-                            #region customer info
                             customer.CustomerInfo = new CustomerInfo
                             {
                                 Title =
@@ -99,9 +124,7 @@
                                         ? (reader["msn"] != null ? reader.GetString(reader.GetOrdinal("msn")) : string.Empty)
                                         : string.Empty
                             };
-                            #endregion
 
-                            #region custid & name
                             customer.Id = reader["CustId"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("CustId")) : 0;
                             customer.UserName = reader["UserName"] != DBNull.Value
                                                     ? reader.GetString(reader.GetOrdinal("UserName"))
@@ -110,18 +133,11 @@
                             customer.NickName = custId > 0 ? (reader["UserName2"] != DBNull.Value
                                                     ? reader.GetString(reader.GetOrdinal("UserName2"))
                                                     : string.Empty) : string.Empty;
-                            #endregion
 
-                            #region PIC
                             customer.Pic1 = reader["PIC1"] != DBNull.Value ? (reader["PIC1"] != null ? reader.GetString(reader.GetOrdinal("PIC1")) : string.Empty) : string.Empty;
                             customer.Pic2 = reader["PIC2"] != DBNull.Value ? (reader["PIC2"] != null ? reader.GetString(reader.GetOrdinal("PIC2")) : string.Empty) : string.Empty;
                             customer.Pic3 = reader["PIC3"] != DBNull.Value ? (reader["PIC3"] != null ? reader.GetString(reader.GetOrdinal("PIC3")) : string.Empty) : string.Empty;
-                            #endregion
-                            //-----remeber check it
-                            #region related customer
-                            #endregion
 
-                            #region Site info
                             customer.Site = new Setting
                             {
                                 Id =
@@ -129,9 +145,7 @@
                                         ? reader.GetInt32(reader["SiteID"] != null ? reader.GetOrdinal("SiteID") : 0)
                                         : 0
                             };
-                            #endregion
 
-                            #region bank info
                             customer.BankInfo = new BankInfo
                             {
                                 BankName =
@@ -159,9 +173,7 @@
                                         ? (reader["AccountHolderName"] != null ? reader.GetString(reader.GetOrdinal("AccountHolderName")) : string.Empty)
                                         : string.Empty
                             };
-                            #endregion
 
-                            #region creator info
                             customer.Creator = new User
                             {
                                 Id =
@@ -173,24 +185,18 @@
                                         ? (reader["CreatorName"] != null ? reader.GetString(reader.GetOrdinal("CreatorName")) : string.Empty)
                                         : string.Empty
                             };
-                            #endregion
 
-                            #region country info
                             customer.Country = reader["CountryID"] != DBNull.Value
                                 ? reader.GetInt32(reader["CountryID"] != null ? reader.GetOrdinal("CountryID") : 0)
                                                     : 0;
-                            #endregion
 
-                            #region Question & Answer
                             customer.Question = reader["Question"] != DBNull.Value
                                 ? (reader["Question"] != null ? reader.GetString(reader.GetOrdinal("Question")) : string.Empty)
                                                     : string.Empty;
                             customer.Answer = reader["Answer"] != DBNull.Value
                                 ? (reader["Answer"] != null ? reader.GetString(reader.GetOrdinal("Answer")) : string.Empty)
                                                   : string.Empty;
-                            #endregion
 
-                            #region others
                             customer.IsVip = reader["IsVIP"] != DBNull.Value ?
                                 (reader["IsVIP"] != null ? reader.GetBoolean(reader.GetOrdinal("IsVIP")) : false)
                                     : false;
@@ -215,9 +221,7 @@
                             customer.Language = reader["LanguageID"] != DBNull.Value
                                 ? reader.GetInt32(reader["LanguageID"] != null ? reader.GetOrdinal("LanguageID") : 0)
                                                     : 0;
-                            #endregion
                         }
-                        #endregion
                     }
                 }
             }
@@ -225,10 +229,19 @@
             return customer;
         }
 
+        /// <summary>
+        /// Finds the customer by username or guest indicator.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <param name="isGuest">If set to <c>true</c> [is guest].</param>
+        /// <returns>The customer by username or guest indicator.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public Customer FindBy(string userName, bool isGuest)
         {
             Customer customer = null;
-            
+
             using (var obj = new ObjectDb("CustomerSearch"))
             {
                 var param = new Hashtable();
@@ -241,19 +254,16 @@
                     {
                         while (reader.Read())
                         {
-                            #region assign data
                             customer = new Customer();
-                            #region customer info
                             customer.CustomerInfo = new CustomerInfo
                             {
                                 Title =
                                     new Setting
                                     {
-                                        Id =
-                                            reader["TitleID"] != DBNull.Value
-                                                ? reader.GetInt32(reader.GetOrdinal("TitleID"))
-                                                : 0,
-                                        Value = ""
+                                        Id = reader["TitleID"] != DBNull.Value ?
+                                            reader.GetInt32(reader.GetOrdinal("TitleID")) :
+                                            0,
+                                        Value = string.Empty
                                     },
 
                                 FirstName =
@@ -287,7 +297,7 @@
                                     ? reader.GetString(reader.GetOrdinal("msn"))
                                     : string.Empty
                             };
-                            #endregion
+
                             customer.UserName = reader["UserName"] != DBNull.Value
                                                     ? reader.GetString(reader.GetOrdinal("UserName"))
                                                     : string.Empty;
@@ -307,20 +317,15 @@
                             customer.RoleName = customer.RoleName;
                             customer.CountryName = reader["CountryName"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("CountryName")) : string.Empty;
 
-                            #region Site info
                             customer.Site = new Setting
                             {
                                 Id =
                                     reader["SiteID"] != DBNull.Value
                                         ? reader.GetInt32(reader.GetOrdinal("SiteID"))
                                         : 0,
-                                Value = ""
+                                Value = string.Empty
                             };
 
-                            #endregion
-
-
-                            #region bank info
                             customer.BankInfo = new BankInfo
                             {
                                 BankName =
@@ -344,18 +349,14 @@
                                         ? reader.GetString(reader.GetOrdinal("Wire_AccountNo"))
                                         : string.Empty
                             };
-                            #endregion
 
-                            #region creator info
                             customer.Creator = new User
                             {
-
                                 Username =
                                     reader["CreatorName"] != DBNull.Value
                                         ? reader.GetString(reader.GetOrdinal("CreatorName"))
                                         : string.Empty
                             };
-                            #endregion
 
                             customer.Question = reader["Question"] != DBNull.Value
                                                     ? reader.GetString(reader.GetOrdinal("Question"))
@@ -374,16 +375,19 @@
                             customer.RefCode2 = reader["RefCode2"] != DBNull.Value
                                                     ? reader.GetString(reader.GetOrdinal("RefCode2"))
                                                     : string.Empty;
-                        #endregion
                         }
                     }
                 }
             }
 
             return customer;
-            
         }
 
+        /// <summary>
+        /// Finds all up line.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
+        /// <returns>All up line.</returns>
         public List<Customer> FindAllUpline(int custId)
         {
             var listCustomerUpline = new List<Customer>();
@@ -413,14 +417,25 @@
                     }
                 }
             }
+
             return listCustomerUpline;
         }
 
+        /// <summary>
+        /// Updates the customer information.
+        /// </summary>
+        /// <param name="customer">The customer.</param>
+        /// <param name="isUpdateUserName">If set to <c>true</c> [is update user name].</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>Update result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public bool UpdateCustomerInfo(Customer customer, bool isUpdateUserName, string ip, ref Result result)
         {
             using (var obj = new ObjectDb("CustomerInfoUpd"))
             {
-                #region add params
                 var param = new Hashtable();
                 param.Add("userid", customer.Creator.Id);
                 param.Add("custid", customer.Id);
@@ -428,9 +443,15 @@
                 param.Add("firstname", customer.CustomerInfo.FirstName);
                 param.Add("lastname", customer.CustomerInfo.LastName);
                 if (customer.CustomerInfo.Title.Id > 0)
+                {
                     param.Add("titleid", customer.CustomerInfo.Title.Id);
+                }
+
                 if (customer.CustomerInfo.BirthDay != null)
+                {
                     param.Add("birthday", customer.CustomerInfo.BirthDay);
+                }
+
                 param.Add("languageid", customer.Language);
                 param.Add("phone", customer.CustomerInfo.Phone);
                 param.Add("mobilephone", customer.CustomerInfo.MobilePhone);
@@ -448,9 +469,14 @@
                 param.Add("countryid", customer.Country);
                 param.Add("isvip", customer.IsVip);
                 if (customer.RelatedCustomer.Id > 0)
+                {
                     param.Add("relatedcustid", customer.RelatedCustomer.Id);
+                }
+
                 if (customer.Site.Id > 0)
+                {
                     param.Add("siteid", customer.Site.Id);
+                }
 
                 param.Add("wire_bankname", customer.BankInfo.BankName);
                 param.Add("wire_bankaddress", customer.BankInfo.BankAddress);
@@ -467,7 +493,7 @@
 
                 param.Add("errcode", 4);
                 param.Add("errmsg", 4000);
-                #endregion
+
                 obj.AssignParamValues(param);
                 var isSuccess = obj.ExecuteNonQuery() > 0;
                 result.ErrCode = Convert.ToInt32(obj.GetParameterValue("errcode"));
@@ -476,28 +502,43 @@
             }
         }
 
-        public DataSet QueryUserName(int userID, string userName, bool isGuest)
+        /// <summary>
+        /// Queries the user name.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="username">Name of the user.</param>
+        /// <param name="isGuest">If set to <c>true</c> [is guest].</param>
+        /// <returns>The user name.</returns>
+        public DataSet QueryUserName(int userId, string username, bool isGuest)
         {
             using (var obj = new ObjectDb("autoSearchSuggest"))
             {
                 var param = new Hashtable();
-                param.Add("userid", userID);
-                param.Add("username", userName);
+                param.Add("userid", userId);
+                param.Add("username", username);
                 param.Add("isguest", isGuest);
                 obj.AssignParamValues(param);
 
                 return obj.ExecuteDataSet();
             }
-            
         }
-        public bool UpdateCustomerSearch(int userID, int custID, string userName, ref Result result)
+
+        /// <summary>
+        /// Updates the customer search.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="username">The username.</param>
+        /// <param name="result">The result.</param>
+        /// <returns>Update result.</returns>
+        public bool UpdateCustomerSearch(int userId, int custId, string username, ref Result result)
         {
             using (var obj = new ObjectDb("autoUpdateSearchSuggest"))
             {
                 var param = new Hashtable();
-                param.Add("userid", userID);
-                param.Add("custid", custID);
-                param.Add("username", userName);
+                param.Add("userid", userId);
+                param.Add("custid", custId);
+                param.Add("username", username);
                 obj.AssignParamValues(param);
 
                 var isSuccess = obj.ExecuteNonQuery() > 0;
@@ -505,7 +546,12 @@
             }
         }
 
-
+        /// <summary>
+        /// Automatic suggest customer information.
+        /// </summary>
+        /// <param name="customerName">Name of the customer.</param>
+        /// <param name="isGuest">If set to <c>true</c> [is guest].</param>
+        /// <returns>Suggest result.</returns>
         public MongoCursor<BsonDocument> CustomerAutoSuggest(string customerName, bool isGuest)
         {
             var server = MongoServer.Create(WebConfigApplicationSettings.MongoDbServer);
@@ -513,18 +559,34 @@
 
             IMongoQuery query = new QueryDocument();
             if (!string.IsNullOrEmpty(customerName))
+            {
                 query = Query.And(
                     query,
                     Query.Matches("UserName", new BsonRegularExpression(string.Format("{0}", customerName.Replace(".", "2_2")))),
-                    (!isGuest ? Query.GT("_id", BsonValue.Create(0)) : Query.LT("_id", BsonValue.Create(0))));
+                    !isGuest ? Query.GT("_id", BsonValue.Create(0)) : Query.LT("_id", BsonValue.Create(0)));
+            }
 
             if (string.IsNullOrEmpty(WebConfigApplicationSettings.MongoUserNameHintValue))
+            {
                 return crmDb.GetCollection(WebConfigApplicationSettings.MongoCustomerTable).Find(query).SetSortOrder(SortBy.Descending("SearchCount")).SetSkip(0).SetLimit(10);
+            }
             else
-                return crmDb.GetCollection(WebConfigApplicationSettings.MongoCustomerTable).Find(query).SetHint(WebConfigApplicationSettings.MongoUserNameHintValue).SetSortOrder(SortBy.Descending("SearchCount")).SetSkip(0).SetLimit(10);
-
+            {
+                return crmDb.GetCollection(WebConfigApplicationSettings.MongoCustomerTable)
+                    .Find(query)
+                    .SetHint(WebConfigApplicationSettings.MongoUserNameHintValue)
+                    .SetSortOrder(SortBy.Descending("SearchCount"))
+                    .SetSkip(0)
+                    .SetLimit(10);
+            }
         }
 
+        /// <summary>
+        /// Updates the customer search count value.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
+        /// <param name="customerName">Name of the customer.</param>
+        /// <returns>Update result.</returns>
         public bool UpdateCustomerSearchCountValue(int custId, string customerName)
         {
             var server = MongoServer.Create(WebConfigApplicationSettings.MongoDbServer);
@@ -552,6 +614,11 @@
             return false;
         }
 
+        /// <summary>
+        /// Adds the new customer.
+        /// </summary>
+        /// <param name="customerId">The customer identifier.</param>
+        /// <param name="customerName">Name of the customer.</param>
         public void AddNewCustomer(int customerId, string customerName)
         {
             var server = MongoServer.Create(WebConfigApplicationSettings.MongoDbServer);
@@ -560,9 +627,9 @@
             var customers = crmDb.GetCollection<BsonDocument>(WebConfigApplicationSettings.MongoCustomerTable);
             var customer = new BsonDocument()
             {
-                {"_id", customerId},
-                {"UserName", customerName.ToLower()},
-                {"SearchCount", 1}
+                { "_id", customerId },
+                { "UserName", customerName.ToLower() },
+                { "SearchCount", 1 }
             };
             customers.Insert(customer);
         }

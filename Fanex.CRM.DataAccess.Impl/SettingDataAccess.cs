@@ -1,18 +1,35 @@
-﻿namespace Fanex.CRM.DataAccess.Impl
+﻿// --------------------------------------------------------------------------
+// <copyright file="SettingDataAccess.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
+namespace Fanex.CRM.DataAccess.Impl
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using DNAide.Core;
     using Fanex.CRM.DataAccess.Interface;
     using Fanex.CRM.Entities;
     using Fanex.Data;
 
+    /// <summary>
+    /// Setting Data Access.
+    /// </summary>
     public class SettingDataAccess : ISettingDataAccess
     {
-
         #region IRepository<Setting,int> Members
 
+        /// <summary>
+        /// Saves the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Save result.</returns>
         public Result Save(Setting entity, string ip, int userId)
         {
             var result = new Result(0, string.Empty);
@@ -46,10 +63,19 @@
                 result.ErrCode = 105;
                 result.ErrMsg = exception.Message;
             }
+
             return result;
         }
 
-        public Result Add(Setting entity, string Ip, int userId, int parentId)
+        /// <summary>
+        /// Adds the specified entity.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns>Add result.</returns>
+        public Result Add(Setting entity, string ip, int userId, int parentId)
         {
             var result = new Result(0, string.Empty);
             try
@@ -62,7 +88,7 @@
                             { "settingname", entity.Type },
                             { "settingvalue", entity.Value },
                             { "displayorder", entity.DisplayOrder },
-                            { "ip", Ip },
+                            { "ip", ip },
                             { "parentid", parentId },
                             { "errcode", 4 },
                             { "errmsg", 4000 }
@@ -82,10 +108,18 @@
                 result.ErrCode = 105;
                 result.ErrMsg = exception.Message;
             }
+
             return result;
         }
 
-        public Result Remove(int Id, string Ip, int userId)
+        /// <summary>
+        /// Removes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Remove result.</returns>
+        public Result Remove(int id, string ip, int userId)
         {
             var result = new Result(0, string.Empty);
             try
@@ -95,8 +129,8 @@
                     var param = new Hashtable
                         {
                             { "userid", userId },
-                            { "settingid", Id },
-                            { "ip", Ip },
+                            { "settingid", id },
+                            { "ip", ip },
                             { "errcode", 4 },
                             { "errmsg", 4000 }
                         };
@@ -115,9 +149,14 @@
                 result.ErrCode = 105;
                 result.ErrMsg = exception.Message;
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Finds all settings.
+        /// </summary>
+        /// <returns>All settings.</returns>
         public IEnumerable<Setting> FindAll()
         {
             var allsetting = new List<Setting>();
@@ -145,8 +184,10 @@
             return allsetting;
         }
 
-
-
+        /// <summary>
+        /// Gets the setting relation.
+        /// </summary>
+        /// <returns>The setting relation.</returns>
         public IEnumerable<SettingRelation> GetSettingRelation()
         {
             var settingRelations = new List<SettingRelation>();
@@ -170,12 +211,18 @@
                     }
                 }
             }
+
             return settingRelations;
         }
 
         #endregion
 
-
+        /// <summary>
+        /// Gets the setting relation by name.
+        /// </summary>
+        /// <param name="settingName">Name of the setting.</param>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns>The setting relation by name.</returns>
         public IEnumerable<Setting> GetSettingRelationByName(string settingName, int parentId)
         {
             var allsetting = new List<Setting>();
@@ -205,7 +252,15 @@
             return allsetting;
         }
 
-
+        /// <summary>
+        /// Adds the specified setting identifier.
+        /// </summary>
+        /// <param name="settingId">The setting identifier.</param>
+        /// <param name="settingName">Name of the setting.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns>Add result.</returns>
         public Result Add(string settingId, string settingName, string ip, int userId, int parentId)
         {
             var result = new Result();
@@ -243,7 +298,14 @@
             return result;
         }
 
-
+        /// <summary>
+        /// Removes the specified setting identifier.
+        /// </summary>
+        /// <param name="settingId">The setting identifier.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns>Remove result.</returns>
         public Result Remove(int settingId, string ip, int userId, int parentId)
         {
             var result = new Result(0, string.Empty);
@@ -271,7 +333,6 @@
                         result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
                     }
                 }
-
             }
             catch (Exception exception)
             {

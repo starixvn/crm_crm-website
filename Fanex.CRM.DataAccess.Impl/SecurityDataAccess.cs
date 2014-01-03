@@ -1,4 +1,13 @@
-﻿namespace Fanex.CRM.DataAccess.Impl
+﻿// --------------------------------------------------------------------------
+// <copyright file="SecurityDataAccess.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
+namespace Fanex.CRM.DataAccess.Impl
 {
     using System;
     using System.Collections.Generic;
@@ -7,8 +16,16 @@
     using Fanex.CRM.Entities;
     using Fanex.Data;
 
-    public class SecurityDataAccess: ISecurityDataAccess
+    /// <summary>
+    /// Security Data Access.
+    /// </summary>
+    public class SecurityDataAccess : ISecurityDataAccess
     {
+        /// <summary>
+        /// Gets the customer roles.
+        /// </summary>
+        /// <param name="custId">The customer identifier.</param>
+        /// <returns>The customer roles.</returns>
         public List<Security> GetCustomerRoles(int custId)
         {
             var listCustRole = new List<Security>();
@@ -42,6 +59,7 @@
                     }
                 }
             }
+
             return listCustRole;
         }
     }
