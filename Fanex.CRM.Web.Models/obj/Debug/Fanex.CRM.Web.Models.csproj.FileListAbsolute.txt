@@ -1,0 +1,8 @@
+D:\NexcelProjects\GIT_Resources\CRM\crm\Fanex.CRM.Web.Models\bin\Fanex.CRM.Web.Models.dll
+D:\NexcelProjects\GIT_Resources\CRM\crm\Fanex.CRM.Web.Models\bin\Fanex.CRM.Web.Models.pdb
+D:\NexcelProjects\GIT_Resources\CRM\crm\Fanex.CRM.Web.Models\obj\Debug\Fanex.CRM.Web.Models.dll
+D:\NexcelProjects\GIT_Resources\CRM\crm\Fanex.CRM.Web.Models\obj\Debug\Fanex.CRM.Web.Models.pdb
+F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Web.Models\bin\Fanex.CRM.Web.Models.dll
+F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Web.Models\bin\Fanex.CRM.Web.Models.pdb
+F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Web.Models\obj\Debug\Fanex.CRM.Web.Models.dll
+F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Web.Models\obj\Debug\Fanex.CRM.Web.Models.pdb

@@ -1,13 +1,52 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="Customer.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
 namespace Fanex.CRM.Entities
 {
     using System;
     using System.Runtime.Serialization;
 
+    /// <summary>
+    /// Customer information.
+    /// </summary>
     [Serializable]
     [DataContract]
     public class Customer
     {
+        public enum CustomerRole
+        {
+            /// <summary>
+            /// The member.
+            /// </summary>
+            Member,
+
+            /// <summary>
+            /// The agent.
+            /// </summary>
+            Agent,
+
+            /// <summary>
+            /// The master.
+            /// </summary>
+            Master,
+
+            /// <summary>
+            /// The super.
+            /// </summary>
+            Super,
+
+            /// <summary>
+            /// The guest.
+            /// </summary>
+            Guest
+        }
+
         [DataMember]
         public int Id { get; set; }
         [DataMember]
@@ -69,11 +108,19 @@ namespace Fanex.CRM.Entities
 
         [DataMember]
         public int Language { get; set; }
-        
+
         [DataMember]
-        public string RoleName { 
-            get { return GetRoleName(RoleId); }
-            set { value = GetRoleName(RoleId); }
+        public string RoleName
+        {
+            get
+            {
+                return GetRoleName(RoleId);
+            }
+
+            set
+            {
+                value = GetRoleName(RoleId);
+            }
         }
 
         [DataMember]
@@ -82,6 +129,11 @@ namespace Fanex.CRM.Entities
         [DataMember]
         public string SpecialRemark { get; set; }
 
+        /// <summary>
+        /// Gets the name of the role.
+        /// </summary>
+        /// <param name="roleId">The role identifier.</param>
+        /// <returns>The name of the role.</returns>
         private string GetRoleName(int roleId)
         {
             switch (roleId)
@@ -102,34 +154,5 @@ namespace Fanex.CRM.Entities
                     return CustomerRole.Guest.ToString();
             }
         }
-
-        public enum CustomerRole
-        {
-            Member,
-            Agent,
-            Master,
-            Super,
-            Guest
-        }
-    }
-
-    [Serializable]
-    [DataContract]
-    public class RelatedCustomer
-    {
-        [DataMember]
-        public int CustId { get; set; }
-        [DataMember]
-        public string UserName { get; set; }
-    }
-
-    [Serializable]
-    [DataContract]
-    public class SearchCustomerInfo 
-    { 
-        [DataMember]
-        public string UserName { get; set; }
-        [DataMember]
-        public bool IsGuest { get; set; }
     }
 }

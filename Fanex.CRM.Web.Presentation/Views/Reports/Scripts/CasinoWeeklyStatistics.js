@@ -162,6 +162,8 @@ var casinoWeeklyDetail = {
     fromDate: '',
     toDate: '',
     gridHeight: 80,
+    freeWidth: 400,
+    freeCols: 5,
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = casinoWeeklyDetail.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
@@ -224,8 +226,8 @@ var casinoWeeklyDetail = {
                         fullWidth: true,
                         fullHeight: true,
                         gridHeight: casinoWeeklyDetail.gridHeight,
-                        freezeWidth: 270,
-                        numberFreezeCol: 3
+                        freezeWidth: casinoWeeklyDetail.freeWidth,
+                        numberFreezeCol: casinoWeeklyDetail.freeCols
                     };
                     mainreport.removeClass('hidden').gridScroller(gridOpts);
                     casinoWeeklyDetail.initPager(casinoWeeklyDetail.totalRows, casinoWeeklyDetail.pageSize, casinoWeeklyDetail.pageIndex - 1);
@@ -247,8 +249,10 @@ var casinoWeeklyDetail = {
         var compaints = replaceSpecialHtmlTag(row.Complaints);
         var solutions = replaceSpecialHtmlTag(row.Solution);
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width: 60px;">&nbsp;' + row.FeedbackDate + '</div></td>\
-            <td><div class="c" style="width: 60px;">&nbsp;' + row.FeedbackTime + '</div></td>\
+            <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
+            <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
+            <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
+            <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
             <td><div class="c" style="width: 140px;">&nbsp;' + row.CustomerName + '</div></td>\
             <td><div class="c" style="width: 100px;">&nbsp;' + row.Licensee + '</div></td>\
             <td><div class="c" style="width: 100px;">&nbsp;' + row.CommunicationTool.ContactBy + '</div></td>\
@@ -270,6 +274,8 @@ var casinoWeeklyDetail = {
         var html = '<tr class="' + css + '">\
             <td><div class="c" style="width: 60px;">' + row.FeedbackDate + '</div></td>\
             <td><div class="c" style="width: 60px;">' + row.FeedbackTime + '</div></td>\
+            <td><div class="c" style="width: 60px;">' + (new Date(row.ResolutionDate).format("h:i A")) + '</div></td>\
+            <td><div class="c" style="width: 60px;">' + row.Duration + '</div></td>\
             <td><div class="c" style="width: 140px;">' + row.CustomerName + '</div></td>\
         </tr>';
 
@@ -379,8 +385,8 @@ var casinoWeeklyDetail = {
             fullWidth: true,
             fullHeight: true,
             gridHeight: casinoWeeklyDetail.gridHeight,
-            freezeWidth: 270,
-            numberFreezeCol: 3
+            freezeWidth: casinoWeeklyDetail.freeWidth,
+            numberFreezeCol: casinoWeeklyDetail.freeCols
         };
         mainreport.gridScroller(gridOpts);
     },
@@ -391,6 +397,8 @@ var casinoWeeklyDetail = {
         var html = '<tr>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
             <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="alertboxerr"><div>There is no information.</div></div></td>\
         </tr>';
@@ -398,6 +406,8 @@ var casinoWeeklyDetail = {
         var mainreport = $('#weeklydetailgrid');
 
         $("#weeklydetailfirstcol tbody").empty().html('<tr>\
+            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td></tr>'
@@ -410,8 +420,8 @@ var casinoWeeklyDetail = {
             fullWidth: true,
             fullHeight: true,
             gridHeight: casinoWeeklyDetail.gridHeight,
-            freezeWidth: 270,
-            numberFreezeCol: 3
+            freezeWidth: casinoWeeklyDetail.freeWidth,
+            numberFreezeCol: casinoWeeklyDetail.freeCols
         };
         mainreport.removeClass("hidden").gridScroller(gridOpts);
     }

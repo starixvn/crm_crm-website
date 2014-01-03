@@ -1,5 +1,14 @@
-﻿namespace Fanex.CRM.Service.Impl
+﻿// --------------------------------------------------------------------------
+// <copyright file="Constants.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+
+namespace Fanex.CRM.Service.Impl
 {
+    /// <summary>
+    /// Constant Values.
+    /// </summary>
     internal class Constants
     {
         public const string AllSettingKey = "AllSettingKey_V2012";

@@ -1,4 +1,12 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="BaseController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
 namespace Fanex.CRM.Web.Controllers
 {
     using System;
@@ -14,22 +22,39 @@ namespace Fanex.CRM.Web.Controllers
     using Fanex.CRM.Service.Interface;
     using Fanex.CRM.Web.Controllers.Helper;
 
-    public class BaseController: Controller
+    /// <summary>
+    /// Base Controller.
+    /// </summary>
+    public class BaseController : Controller
     {
         private readonly IPermissionService _permissionService;
+
         private readonly IUserService _userService;
 
-        public BaseController() : this(null, null) { }
+        public BaseController()
+            : this(null, null)
+        {
+        }
+
         public BaseController(IPermissionService permissionService, IUserService userService)
         {
             _permissionService = permissionService ?? new PermissionService();
             _userService = userService ?? new UserService();
-
         }
-        #region private functions
+        
+        protected ActionResult ForceLogin()
+        {
+            return Redirect(Fanex.CRM.Infrastructure.Common.AppSetting.AccountingUrlDefault);
+        }
+
+        #region PrivateFunctions
+
+        /// <summary>
+        /// Called before the action method is invoked.
+        /// </summary>
+        /// <param name="filterContext">Information about the current request and action.</param>
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-
             if (AppSetting.IsLocalTest)
             {
                 GetSessionForLocalTest();
@@ -38,22 +63,24 @@ namespace Fanex.CRM.Web.Controllers
             {
                 var isOnline = _userService.CheckUserOnlineStatus();
                 if (isOnline.ErrCode != 0)
-                    ForceLogin();               
+                {
+                    ForceLogin();
+                }
             }
 
             if (!WebConfigApplicationSettings.NotAuthenticateAction.Contains(filterContext.ActionDescriptor.ActionName.ToLower()))
             {
-                if (AppSession.RoleAccess == null || AppSession.PageAccess == null || AppSession.CurrentUser == null)
+                if (AppSession.RoleAccess == null ||
+                    AppSession.PageAccess == null ||
+                    AppSession.CurrentUser == null)
                 {
                     System.Web.HttpContext.Current.Session.Clear();
                     var cookie = new HttpCookie(FormsAuthentication.FormsCookieName) { Expires = DateTime.Now.AddDays(-1) };
                     System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
                     FormsAuthentication.SignOut();
                     filterContext.Result = ForceLogin();
-
                 }
             }
-
 
             base.OnActionExecuting(filterContext);
         }
@@ -67,47 +94,49 @@ namespace Fanex.CRM.Web.Controllers
             }));
         }
 
-        protected ActionResult ForceLogin()
-        {
-            return Redirect(Fanex.CRM.Infrastructure.Common.AppSetting.AccountingUrlDefault);
-        }
+        /// <summary>
+        /// Gets the session for local test.
+        /// </summary>
         private void GetSessionForLocalTest()
         {
-            
             var userName = AppSetting.TestAccount;
             var sid = string.Empty;
 
-            #region get user info
             var user = new User();
             IUserService accountService = new UserService();
             user = accountService.GetUseInfo(userName);
             AppSession.CurrentUser = user;
             if (user == null)
+            {
                 ForceLogin();
-            #endregion
+            }
 
-            if (!string.IsNullOrEmpty(sid) && !string.IsNullOrEmpty(AppSession.UserSessionId) && !sid.Equals(AppSession.UserSessionId))
+            if (!string.IsNullOrEmpty(sid) &&
+                !string.IsNullOrEmpty(AppSession.UserSessionId) &&
+                !sid.Equals(AppSession.UserSessionId))
+            {
                 System.Web.HttpContext.Current.Session.Clear();
+            }
 
             if (!string.IsNullOrEmpty(sid))
+            {
                 AppSession.UserSessionId = sid;
+            }
 
             FormsAuthentication.SetAuthCookie(user.Username, false);
             if (AppSession.PageAccess == null || AppSession.RoleAccess == null)
             {
                 var userRoleAccess = new Dictionary<string, int>();
                 var userPageAccess = new Dictionary<string, int>();
-                
+
                 _userService.AssignRoles(user.Id, ref userRoleAccess, ref userPageAccess);
                 AppSession.PageAccess = userPageAccess;
                 AppSession.RoleAccess = userRoleAccess;
             }
-            
 
             AppSession.UserMenu = _userService.GetUserMenu(user.Id);
-
-            
         }
-        #endregion
+
+        #endregion PrivateFunctions
     }
 }
