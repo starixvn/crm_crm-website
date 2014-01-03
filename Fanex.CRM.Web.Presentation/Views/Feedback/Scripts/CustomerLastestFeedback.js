@@ -88,7 +88,7 @@ var topFeedback = {
                         numberFreezeCol: 1
                     };
                     mainreport.removeClass("hidden").gridScroller(gridOpts);
-                    reRenderGrid('lastedfeedbackgrid', 'latestfeedbackbodyHeader', 'latestfeedbackbody', 55, 400, 1, 400);
+
                     var getSmallestDate = new Date(topFeedback.getMinDate(rs.rows));
                     $('#txtfromdate').datepicker("setDate", getSmallestDate);
                     //----------------------------------------

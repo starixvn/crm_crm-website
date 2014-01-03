@@ -90,17 +90,14 @@ var topFeedback = {
                         numberFreezeCol: 1
                     };
                     mainreport.removeClass("hidden").gridScroller(gridOpts);
-                    reRenderGrid('lastedfeedbackgrid', 'latestfeedbackbodyHeader', 'latestfeedbackbody', 55, 400, 1, 400);
 
                     var getSmallestDate = new Date(topFeedback.getMinDate(rs.rows));
                     $('#txtfromdate').datepicker("setDate", getSmallestDate);
                     //----------------------------------------
-                    
                     $('#latestfeedbackbody tbody tr').each(function () {
                         tooltip($(this).find("td:first a").attr('id').replace('tooltip', ''));
                     });
                     //----------------------------------------
-                    
                 }
                 else {
                     mainreport.addClass('hidden');
@@ -122,7 +119,7 @@ var topFeedback = {
         var trStyle = '';
         if (row.Status != null)
             trStyle = row.Status.toLowerCase() == 'pending' ? 'pending' : row.Status.toLowerCase() == 'closed' ? 'closed' : '';
-
+            
         var html = '<tr class="' + trStyle + '">\
                        <td><div style="width:400px">\
                                 <div class="lnksubject"><a class="desTooltip" id = "tooltip' + i + '"  href="JavaScript:void(0);"\

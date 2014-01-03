@@ -200,13 +200,8 @@
                                     class="button_left02">CRM Info</a><br />
                                 <a target="centerFr" href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/CustomerLastestFeedback?custid=${Id}&custName=${UserName}');"
                                 class="button_left02">Latest Feedback</a><br />
-                                 {{if (Id > 0)}}
-                                <a target="centerFr" href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/ManageFeedback?custid=${Id}&custName=${UserName}&isGuest=0');" class="button_left02">Manage Feedback</a><br />
-                                {{else}}
-                                <a target="centerFr" href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/ManageFeedback?custid=${Id}&custName=${UserName}&isGuest=1');" class="button_left02">Manage Feedback</a><br />
-                                {{/if}}
-
-                                    
+                                <a target="centerFr" href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/ManageFeedback?custid=${Id}&custName=${UserName}');"
+                                    class="button_left02">Manage Feedback</a><br />
                                 <a target="centerFr" href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/AddFeedback?custId=${Id}&custName=${UserName}');"
                                     class="button_left02">Add Feedback</a>
                             </script>

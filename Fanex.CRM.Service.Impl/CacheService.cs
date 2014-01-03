@@ -1,84 +1,64 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CacheService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Service.Impl
+﻿namespace Fanex.CRM.Service.Impl
 {
     using System;
     using Fanex.Caching;
     using Fanex.CRM.Infrastructure.Logging;
 
-    /// <summary>
-    /// Caching service.
-    /// </summary>
     public static class CacheService
     {
-        private static readonly ICache Cache;
+
+        private static readonly ICache _cache;
 
         static CacheService()
         {
-            Cache = Caching.CacheService.CreateInstance(CacheType.MemCache);
+            _cache = Caching.CacheService.CreateInstance(CacheType.MemCache);
         }
 
-        /// <summary>
-        /// Getting cache value.
-        /// </summary>
-        /// <param name="key">Cache key.</param>
-        /// <returns>Return value.</returns>
         public static object Get(string key)
         {
             try
             {
-                return Cache.Get<object>(key);
+                return _cache.Get<object>(key);
             }
             catch (Exception exception)
             {
                 LogExtensions.ExceptionHandler(exception);
                 return null;
             }
+
         }
 
-        /// <summary>
-        /// Setting cache value.
-        /// </summary>
-        /// <param name="key">Cache key.</param>
-        /// <param name="value">The value that saving to cache.</param>
         public static void Set(string key, object value)
         {
             try
             {
-                Cache.Set(key, value);
+                _cache.Set(key, value);
             }
             catch (Exception exception)
             {
                 LogExtensions.ExceptionHandler(exception);
+
             }
-        }
-        
-        /// <summary>
-        /// Getting cache value.
-        /// </summary>
-        /// <typeparam name="T">Parameter type.</typeparam>
-        /// <param name="key">Cache key.</param>
-        /// <returns>Return value.</returns>
-        public static T Get<T>(string key)
-        {
-            return Cache.Get<T>(key);
+
         }
 
-        /// <summary>
-        /// Setting cache value.
-        /// </summary>
-        /// <typeparam name="T">Parameter type.</typeparam>
-        /// <param name="key">Cache key.</param>
-        /// <param name="value">Return value.</param>
+
+
+        public static T Get<T>(string key)
+        {
+
+            return _cache.Get<T>(key);
+
+
+        }
+
         public static void Set<T>(string key, T value)
         {
             try
             {
-                Cache.Set<T>(key, value);
+
+
+                _cache.Set<T>(key, value);
             }
             catch (Exception exception)
             {
@@ -86,43 +66,30 @@ namespace Fanex.CRM.Service.Impl
             }
         }
 
-        /// <summary>
-        /// Setting cache value.
-        /// </summary>
-        /// <param name="key">Cache key.</param>
-        /// <param name="value">The value that saving to cache.</param>
-        /// <param name="expire">Expire time.</param>
         public static void Set(string key, object value, TimeSpan expire)
         {
             try
             {
-                Cache.Set(key, value, expire);
+
+
+                _cache.Set(key, value, expire);
             }
             catch (Exception exception)
             {
                 LogExtensions.ExceptionHandler(exception);
+
             }
         }
 
-        /// <summary>
-        /// Setting cache value.
-        /// </summary>
-        /// <typeparam name="T">Parameter type.</typeparam>
-        /// <param name="key">Cache key.</param>
-        /// <param name="value">The value that saving to cache.</param>
-        /// <param name="expire">Expire time.</param>
         public static void Set<T>(string key, T value, TimeSpan expire)
         {
-            Cache.Set<T>(key, value, expire);
+            _cache.Set<T>(key, value, expire);
         }
 
-        /// <summary>
-        /// Removing the cache.
-        /// </summary>
-        /// <param name="key">Cache key.</param>
         public static void Delete(string key)
         {
-            Cache.Clear();
+            _cache.Clear();
         }
+
     }
 }

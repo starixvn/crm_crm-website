@@ -1,10 +1,4 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackService.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-
-namespace Fanex.CRM.Service.Impl
+﻿namespace Fanex.CRM.Service.Impl
 {
     using System;
     using System.Collections;
@@ -26,9 +20,6 @@ namespace Fanex.CRM.Service.Impl
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Interface;
 
-    /// <summary>
-    /// Feedback service.
-    /// </summary>
     public partial class FeedbackService : IFeedbackService
     {
         #region private variables
@@ -39,13 +30,16 @@ namespace Fanex.CRM.Service.Impl
         private string _DeletedFeedback = "crm.deletedfeedbacksessionkey";
         private string _LastedTopFeedbackByCustId = "crm.lastedtopfeedbackbycustid";
         private string _FeedbackStatisticSessionKey = "crm.feedbackstatisticsessionkey";
-        private string _LastedTopFeedback = "crm.lastedtopfeedback";        
+        private string _LastedTopFeedback = "crm.lastedtopfeedback";
+        
         private string _IbcDailySummary = "crm.ibcdailysummary";
         private string _IbcDailyDetail = "crm.ibcdailydetail";
         private string _licenseeDailyDetail = "crm.licenseedailydetail";
         private string _IbcDailyDetailNotMapped = "crm.ibcdailydetailnotmapped";
+
         private string _LicenseeDailyDetailNotMapped = "crm.ibcdailydetailnotmapped";
         private string _licenseeDailySummary = "crm.licenseedailysummary";
+
         private string _CasinoDailySummary = "crm.casinodailysummarystatistics";
         private string _CasinoDailyDetail = "crm.casinoweeklydetail";
         private string _CasinoDailyDetailNotMapped = "crm.casinoweeklydetailnotmapped";
@@ -55,12 +49,10 @@ namespace Fanex.CRM.Service.Impl
         private readonly ICountryService _countryService;
         private readonly IPermissionService _permissionService;
         #endregion
+        public FeedbackService() : this(null, null, null, null) { }
 
-        public FeedbackService() : this(null, null, null, null) 
-        { 
-        }
-
-        public FeedbackService(IFeedbackDataAccess repository, ISettingService settingService, ICountryService countryService, IPermissionService permissionService)
+        public FeedbackService(IFeedbackDataAccess repository, ISettingService settingService, 
+            ICountryService countryService, IPermissionService permissionService)
         {
             _repository = repository?? new FeedbackDataAccess();
             _settingService = settingService ?? new SettingService();
@@ -69,11 +61,6 @@ namespace Fanex.CRM.Service.Impl
         }
                
         #region get feedback by id
-        /// <summary>
-        /// Getting feedback by id.
-        /// </summary>
-        /// <param name="id">Feedback id.</param>
-        /// <returns>Return result.</returns>
         public Feedback GetById(int id)
         {
             Check.Argument.IsNotNegativeOrZero(id, "Id");
@@ -85,18 +72,13 @@ namespace Fanex.CRM.Service.Impl
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(string.Format("(Feedback GetById: {0}) - {1}", id, ex.Message));
             }
-
             return feedback;
         }
         #endregion
 
         #region add guest feedback
-        /// <summary>
-        /// Adding guest feedback.
-        /// </summary>
-        /// <param name="feedback">Feedback info.</param>
-        /// <returns>Return result.</returns>
         public Result AddGuestFeedback(Feedback feedback)
         {
             var ip = Helper.getClientIP();
@@ -112,7 +94,6 @@ namespace Fanex.CRM.Service.Impl
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoCreateFeedbackPermission");
                     return result;
                 }
-
                 if(feedback.Status.Id.Equals((int)Enumerations.Functions.CRMStatus.Deleted) &&
                     !_permissionService.GetHostPermission(Enumerations.Functions.Feedback.DeleteFeedback))
                 {
@@ -120,7 +101,6 @@ namespace Fanex.CRM.Service.Impl
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoDeletedFeedbackPermission");
                     return result;
                 }
-
                 if (!_permissionService.GetHostPermission(Enumerations.Functions.CRMCustomer.CustomerInfo))
                 {
                     result.ErrCode = (int)Enumerations.ErrorCode.UpdateCustomerInfo;
@@ -134,19 +114,28 @@ namespace Fanex.CRM.Service.Impl
             {
                 result.ErrCode = -100;
                 result.ErrMsg = ex.Message;
-                LogExtensions.ExceptionHandler(ex);
-            }
 
+                LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(
+                    string.Format("(AddGuestFeedback) -Error: {0}<br> - Creator: {1}<br> - CustomerId: " +
+                                  "{2}<br> - FB Title: {3}<br> - FB Id: {4}<br> - FB Description: {5}" +
+                                  "<br> - FB Solution: {6}<br> - FB Review: {7}<br> - Cust Info: " +
+                                  "<br>   + FName: {8}<br>   + LName: {9}<br>   + Phone: {10}" +
+                                  "<br>   + Fax: {11}<br>   + Skype: {12}<br>   + Mobile: {13}," +
+                                  "<br>   + Email: {14}<br>   + MSN: {15}", ex.Message,
+                                  feedback.Creator.Id, feedback.Customer.Id, feedback.Subject, feedback.Id,
+                                  feedback.Description, feedback.Solution, feedback.Review,
+                                  feedback.CustomerInfo.FirstName,
+                                  feedback.CustomerInfo.LastName, feedback.CustomerInfo.Phone, feedback.CustomerInfo.Fax,
+                                  feedback.CustomerInfo.Skype, feedback.CustomerInfo.MobilePhone,
+                                  feedback.CustomerInfo.Email,
+                                  feedback.CustomerInfo.MSN));
+            }
             return result;
         }
         #endregion
         
         #region add new feedback
-        /// <summary>
-        /// Adding new feedback.
-        /// </summary>
-        /// <param name="feedback">Feedback info.</param>
-        /// <returns>Return result.</returns>
         public Result AddFeedback(Feedback feedback)
         {
             var entity = feedback;
@@ -180,19 +169,28 @@ namespace Fanex.CRM.Service.Impl
             {
                 result.ErrCode = 100;
                 result.ErrMsg = ex.Message;
-                LogExtensions.ExceptionHandler(ex);
-            }
 
+                LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(
+                    string.Format("(AddFeedback) -Error: {0}<br> - Creator: {1}<br> - CustomerId: " +
+                                  "{2}<br> - FB Title: {3}<br> - FB Id: {4}<br> - FB Description: {5}" +
+                                  "<br> - FB Solution: {6}<br> - FB Review: {7}<br> - Cust Info: " +
+                                  "<br>   + FName: {8}<br>   + LName: {9}<br>   + Phone: {10}" +
+                                  "<br>   + Fax: {11}<br>   + Skype: {12}<br>   + Mobile: {13}," +
+                                  "<br>   + Email: {14}<br>   + MSN: {15}", ex.Message,
+                                  feedback.Creator.Id, feedback.Customer.Id, feedback.Subject, feedback.Id,
+                                  feedback.Description, feedback.Solution, feedback.Review,
+                                  feedback.CustomerInfo.FirstName,
+                                  feedback.CustomerInfo.LastName, feedback.CustomerInfo.Phone, feedback.CustomerInfo.Fax,
+                                  feedback.CustomerInfo.Skype, feedback.CustomerInfo.MobilePhone,
+                                  feedback.CustomerInfo.Email,
+                                  feedback.CustomerInfo.MSN));
+            }
             return result;
         }
         #endregion
 
         #region update feedback
-        /// <summary>
-        /// Updating feedback.
-        /// </summary>
-        /// <param name="feedback">Feedback info.</param>
-        /// <returns>Return result.</returns>
         public Result EditFeedback(Feedback feedback)
         {
             var entity = feedback;
@@ -220,30 +218,34 @@ namespace Fanex.CRM.Service.Impl
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoDeletedFeedbackPermission");
                     return result;
                 }
-
-                _repository.EditFeedback(entity, feedback.Creator.Id, ip, ref result);
+                _repository.EditFeedback(entity, feedback.Creator.Id, ip,ref result);
             }
             catch (Exception ex)
             {
                 result.ErrCode = -100;
                 result.ErrMsg = ex.Message;
-            }
 
+                LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(
+                    string.Format("(EditFeedback) -Error: {0}<br> - Creator: {1}<br> - CustomerId: " +
+                                  "{2}<br> - FB Title: {3}<br> - FB Id: {4}<br> - FB Description: {5}" +
+                                  "<br> - FB Solution: {6}<br> - FB Review: {7}<br> - Cust Info: " +
+                                  "<br>   + FName: {8}<br>   + LName: {9}<br>   + Phone: {10}" +
+                                  "<br>   + Fax: {11}<br>   + Skype: {12}<br>   + Mobile: {13}," +
+                                  "<br>   + Email: {14}<br>   + MSN: {15}", ex.Message,
+                                  feedback.Creator.Id, feedback.Customer.Id, feedback.Subject, feedback.Id,
+                                  feedback.Description, feedback.Solution, feedback.Review,
+                                  feedback.CustomerInfo.FirstName,
+                                  feedback.CustomerInfo.LastName, feedback.CustomerInfo.Phone, feedback.CustomerInfo.Fax,
+                                  feedback.CustomerInfo.Skype, feedback.CustomerInfo.MobilePhone,
+                                  feedback.CustomerInfo.Email,
+                                  feedback.CustomerInfo.MSN));
+            }
             return result;
         }
         #endregion
 
         #region select feedback by custid
-        /// <summary>
-        /// Select feedback by customer id.
-        /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date.</param>
-        /// <param name="pageIndex">Page index.</param>
-        /// <param name="pageSize">Page size.</param>
-        /// <param name="fromCache">From cache.</param>
-        /// <returns>Return result.</returns>
         public DataGridViewDTO SelFeedbackByCustId(int custId, string fromDate, string toDate, int pageIndex, int pageSize, bool fromCache)
         {
             IEnumerable<FeedbackView> lstFeedback = null;
@@ -263,41 +265,37 @@ namespace Fanex.CRM.Service.Impl
                 if (lstFeedback != null && lstFeedback.Count() > 0)
                 {
                     lstFeedbackPaging = lstFeedback.Select(c => c).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-
                     Parallel.ForEach(lstFeedbackPaging, feedback =>
                     {
                         feedback.MainCategory = _settingService.GetById(feedback.MainCategoryId).Value;
                         feedback.SubCategory = _settingService.GetById(feedback.SubCategoryId).Value;
-                        feedback.Status = _settingService.GetById(feedback.StatusId).Value;
+                        feedback.Status = _settingService.GetById(feedback.StatusId).Value;                                                
                     });
                 }
 
-                feedbackdto.Rows = lstFeedbackPaging;
-                feedbackdto.TotalItems = lstFeedback != null ? lstFeedback.Count() : 0;
-                feedbackdto.PageIndex = pageIndex;
+                feedbackdto.rows = lstFeedbackPaging;//.OrderBy(s => s.Id);
+                feedbackdto.total = lstFeedback != null ? lstFeedback.Count() : 0;
+                feedbackdto.pageindex = pageIndex;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-            }
+                Helper.SendMailErrorNotice(
+                    string.Format("(SelFeedbackByCustId) - Error: {0}<br> - Custid: {1}<br> - Date: {2} -> {3}",
+                                  ex.Message, custId, fromDate, toDate));
 
+            }
             return feedbackdto;
         }
 
-        /// <summary>
-        /// Select all feedback by customer id.
-        /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date.</param>
-        /// <returns>Return result.</returns>
         private List<FeedbackView> SelAllFeedbackByCustId(int custId, string fromDate, string toDate)
         {
             var lstFeedback = _repository.GetFeedbackByCustId(custId, CastAide.AsDateTime(fromDate), CastAide.AsDateTime(toDate)).ToList().ToList();
             var result = new List<FeedbackView>();
 
             if (lstFeedback != null && lstFeedback.Count > 0)
-            {                
+            {
+                
                 foreach (var feedback in lstFeedback)
                 {
                     result.Add(new FeedbackView()
@@ -320,26 +318,11 @@ namespace Fanex.CRM.Service.Impl
             }
 
             SessionExtension.AddSession(HttpContext.Current.Session, _LastedFeedbackByCustId, result);
-
             return result;
         }
         #endregion
 
         #region get latest feedback
-        /// <summary>
-        /// Getting latest feedback.
-        /// </summary>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date.</param>
-        /// <param name="userName">User name.</param>
-        /// <param name="isGuest">Is guest customer.</param>
-        /// <param name="communicationID">Communication ID.</param>
-        /// <param name="mainCategoryID">MainCategory ID.</param>
-        /// <param name="subCategoryID">SubCategory ID.</param>
-        /// <param name="statusID">Status ID.</param>
-        /// <param name="isReviewed">Is Reviewed.</param>
-        /// <param name="responseId">Response Id.</param>
-        /// <returns>Return result.</returns>
         private List<FeedbackView> SelAllLastedFeedback(string fromDate, string toDate, string userName, int isGuest, int communicationID, int mainCategoryID, int subCategoryID, int statusID, int isReviewed, int responseId)
         {
             var lstFeedback = _repository.GetFeedback(CastAide.AsDateTime(fromDate), CastAide.AsDateTime(toDate), userName, isGuest, communicationID, mainCategoryID, subCategoryID, statusID, isReviewed, responseId).ToList();
@@ -365,52 +348,34 @@ namespace Fanex.CRM.Service.Impl
                         RelatedUsername = feedback.RelatedCustomer.UserName,
                         CreateDate = feedback.CreateDate,
                         DurationTime = feedback.ResolutionTime != null ? GetResolvingTime(feedback.ResolutionTime, feedback.FeedbackDate) : ""
-                    });                    
+                    });
+                    
                 }
+
             }
 
             SessionExtension.AddSession(HttpContext.Current.Session, _LastedFeedback, result);
-
             return result;
         }
 
-        /// <summary>
-        /// Getting feedback.
-        /// </summary>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date.</param>
-        /// <param name="userName">User name.</param>
-        /// <param name="isGuest">Is guest customer.</param>
-        /// <param name="communicationID">Communication ID.</param>
-        /// <param name="mainCategoryID">MainCategory ID.</param>
-        /// <param name="subCategoryID">SubCategory ID.</param>
-        /// <param name="statusID">Status ID.</param>
-        /// <param name="isReviewed">Is Reviewed.</param>
-        /// <param name="responseId">Response Id.</param>
-        /// <param name="pageIndex">Page index.</param>
-        /// <param name="pageSize">Page size.</param>
-        /// <param name="fromCache">From cache.</param>
-        /// <returns>Return result.</returns>
         public DataGridViewDTO GetFeedback(string fromDate, string toDate, string userName, int isGuest, int communicationID, int mainCategoryID, int subCategoryID, int statusID, int isReviewed, int responseId, int pageIndex, int pageSize, bool fromCache)
         {
             var feedbackdto = new DataGridViewDTO();            
             try
             {
-                List<FeedbackView> listFeedback = null;
+                List<FeedbackView> lstFeedback = null;
                 if (fromCache)
                 {
-                    listFeedback = (List<FeedbackView>)SessionExtension.GetSession(HttpContext.Current.Session, _LastedFeedback) ??
+                    lstFeedback = (List<FeedbackView>)SessionExtension.GetSession(HttpContext.Current.Session, _LastedFeedback) ??
                         SelAllLastedFeedback(fromDate, toDate, userName, isGuest, communicationID, mainCategoryID, subCategoryID, statusID, isReviewed, responseId);
                 }
                 else
-                {
-                    listFeedback = SelAllLastedFeedback(fromDate, toDate, userName, isGuest, communicationID, mainCategoryID, subCategoryID, statusID, isReviewed, responseId);
-                }                    
+                    lstFeedback = SelAllLastedFeedback(fromDate, toDate, userName, isGuest, communicationID, mainCategoryID, subCategoryID, statusID, isReviewed, responseId);
 
                 var lstFeedbackPaging = new List<FeedbackView>();
-                if (listFeedback != null && listFeedback.Count() > 0)
+                if (lstFeedback != null && lstFeedback.Count() > 0)
                 {
-                    lstFeedbackPaging = listFeedback.Select(c => c).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+                    lstFeedbackPaging = lstFeedback.Select(c => c).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
 
                     Parallel.ForEach(lstFeedbackPaging, feedback =>
                     {
@@ -419,28 +384,26 @@ namespace Fanex.CRM.Service.Impl
                         feedback.Status = _settingService.GetById(feedback.StatusId).Value;
                     });
                 }
-                feedbackdto.Rows = lstFeedbackPaging;
-                feedbackdto.TotalItems = listFeedback != null ? listFeedback.Count() : 0;
-                feedbackdto.PageIndex = pageIndex;
+
+                feedbackdto.rows = lstFeedbackPaging;//.OrderBy(s => s.Id);
+                feedbackdto.total = lstFeedback != null ? lstFeedback.Count() : 0;
+                feedbackdto.pageindex = pageIndex;
             }
             catch(Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                
+                Helper.SendMailErrorNotice(
+                    string.Format(
+                        "(GetFeedback) - Error: {0}<br> - Username: {1}<br> - Date: {2} -> {3}<br> - IsGuest: {4}<br> - MainId: {5}<br> - SubId: {6}<br> - Status: {7}<br> - Review: {8}<br> - Response: {9}",
+                        ex.Message, userName, fromDate, toDate, isGuest, mainCategoryID, subCategoryID, statusID,
+                        isReviewed, responseId));
             }
-
             return feedbackdto;
         }
         #endregion
                 
         #region get feedbackstatistic
-        /// <summary>
-        /// Getting feedback statistic.
-        /// </summary>
-        /// <param name="param">Input parameters.</param>
-        /// <param name="columnName">Column name.</param>
-        /// <param name="columnId">Column Id.</param>
-        /// <param name="grandTotal">Grand total.</param>
-        /// <returns>Return result.</returns>
         private IEnumerable<FeedbackStatisticsGroup> GetFeedbackStatistic(Params param, ref ArrayList columnName, ref ArrayList columnId, ref FeedbackStatistics grandTotal)
         {
             const int startColNumber = 4;
@@ -448,9 +411,7 @@ namespace Fanex.CRM.Service.Impl
             var list = new List<FeedbackStatisticsGroup>();
 
             if (dataTables.Count < 2)
-            {
                 return list;
-            }                
 
             var dataTable = dataTables[0];
             var dataTableId = dataTables[1];
@@ -466,7 +427,7 @@ namespace Fanex.CRM.Service.Impl
                 {
                     columnId.Add(CastAide.AsInt32(dataTableId.Rows[i - startColNumber][0].ToString()));
                     columnName.Add(System.Web.HttpUtility.HtmlEncode(dataTable.Columns[i].ColumnName));
-                    dataTable.Columns[i].ColumnName = "ColumnName" + dataTable.Columns[i].ColumnName.Trim().Replace(" ", string.Empty);
+                    dataTable.Columns[i].ColumnName = "ColumnName" + dataTable.Columns[i].ColumnName.Trim().Replace(" ", "");
                 }
                 #endregion
 
@@ -519,7 +480,8 @@ namespace Fanex.CRM.Service.Impl
                     cells = new ArrayList();
                     for (var i = startColNumber; i < totalComlumns; i++)
                     {
-                        var total = getFeedbackByCategoryId.AsEnumerable().Sum(x => x.Field<int>(dataTable.Columns[i].ColumnName.Trim()));
+                        var total = getFeedbackByCategoryId.AsEnumerable().
+                            Sum(x => x.Field<int>(dataTable.Columns[i].ColumnName.Trim()));
 
                         cells.Add(total);
                     }
@@ -568,33 +530,22 @@ namespace Fanex.CRM.Service.Impl
             return list;
         }
 
-        /// <summary>
-        /// Select All Feedback Statistic.
-        /// </summary>
-        /// <param name="param">Input parameters.</param>
-        /// <returns>Return result.</returns>
         private FeedbackStatisticsDTO SelAllFeedbackStatistic(Params param)
         {
             var result = new FeedbackStatisticsDTO();
             var columnNames = new ArrayList();
             var columnIds = new ArrayList();
             var grandTotal = new FeedbackStatistics();
-            result.Rows = GetFeedbackStatistic(param, ref columnNames, ref columnIds, ref grandTotal);
+            result.rows = GetFeedbackStatistic(param, ref columnNames, ref columnIds, ref grandTotal);
             result.ColumnNames = columnNames;
             result.ColumnIDs = columnIds;
-            result.Total = result.Rows.Count();
+            result.Total = result.rows.Count();
             result.GrandTotal = grandTotal;
 
             SessionExtension.AddSession(HttpContext.Current.Session, _FeedbackStatisticSessionKey, result);
-
             return result;
         }
 
-        /// <summary>
-        /// Getting feedback stattistic.
-        /// </summary>
-        /// <param name="param">Input parameters.</param>
-        /// <returns>Return result.</returns>
         public FeedbackStatisticsDTO GetFeedbackStatistic(Params param)
         {
             var result = new FeedbackStatisticsDTO();
@@ -614,9 +565,9 @@ namespace Fanex.CRM.Service.Impl
                 #endregion
 
                 #region paging
-                if (result != null && result.Rows != null && result.Rows.Count() > 0)
+                if (result != null && result.rows != null && result.rows.Count() > 0)
                 {
-                    pagingResult.Rows = result.Rows.Select(c => c).Skip(param.ItemPerPage * (param.CurrentPage - 1)).Take(param.ItemPerPage).ToList();
+                    pagingResult.rows = result.rows.Select(c => c).Skip(param.ItemPerPage * (param.CurrentPage - 1)).Take(param.ItemPerPage).ToList();
                     pagingResult.GrandTotal = result.GrandTotal;
                     pagingResult.PageIndex = result.PageIndex;
                     pagingResult.Total = result.Total;
@@ -628,19 +579,16 @@ namespace Fanex.CRM.Service.Impl
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(
+                    string.Format("(GetFeedbackStatistic) - Error: {0}<br> - MainId: {1}<br> - SubId: {2}<br> - ValueId: {3}<br> - Type: {4}<br> - Date: {5}->{6}", ex.Message,
+                                  param.MainId, param.SubId, param.ValueId, param.Type, param.FromDate, param.ToDate));
             }
-
             return pagingResult;
         }
         #endregion
 
-        #region get feedback statistic detail        
+        #region get feedback statistic detail
         ////get all data - not set value yet
-        /// <summary>
-        /// Select All Feedback StatisticD etail.
-        /// </summary>
-        /// <param name="param">Input parameters.</param>
-        /// <returns>Return result.</returns>
         private List<Feedback> SelAllFeedbackStatisticDetail(Params param)
         {
             var lstFeedback = new List<Feedback>();
@@ -661,12 +609,6 @@ namespace Fanex.CRM.Service.Impl
             
             return lstFeedback;
         }
-
-        /// <summary>
-        /// Mapper Feedback Statistic Report Detail.
-        /// </summary>
-        /// <param name="feedbackDetail">Feedback Detail.</param>
-        /// <returns>Return result.</returns>
         private DataGridViewDTO MapperFeedbackStatisticReportDetail(List<Feedback> feedbackDetail)
         {
             var feedbackStatisticDetailDto = new DataGridViewDTO();
@@ -693,23 +635,17 @@ namespace Fanex.CRM.Service.Impl
                     ReviewDate = feedback.SolvedDate,
                     RelatedUsername = feedback.RelatedCustomer.UserName,
                     CreateDate = feedback.CreateDate,
-                    DurationTime = feedback.ResolutionTime != null ? GetResolvingTime(feedback.ResolutionTime, feedback.FeedbackDate) : string.Empty
+                    DurationTime = feedback.ResolutionTime != null ? GetResolvingTime(feedback.ResolutionTime, feedback.FeedbackDate)  : ""
                 });
             }
 
-            feedbackStatisticDetailDto.Rows = feedbackViewPaging;
-            feedbackStatisticDetailDto.TotalItems = feedbackViewPaging.Count;
-            feedbackStatisticDetailDto.PageIndex = 1;
+            feedbackStatisticDetailDto.rows = feedbackViewPaging;
+            feedbackStatisticDetailDto.total = feedbackViewPaging.Count;
+            feedbackStatisticDetailDto.pageindex = 1;
             
             return feedbackStatisticDetailDto;
             
         }
-
-        /// <summary>
-        /// Getting Feedback Statistic Detail.
-        /// </summary>
-        /// <param name="param">Input parameters.</param>
-        /// <returns>Return result.</returns>
         public DataGridViewDTO GetFeedbackStatisticDetail(Params param)
         {
             var result = new List<Feedback>();
@@ -720,13 +656,13 @@ namespace Fanex.CRM.Service.Impl
                 if (param.FromCache)
                 {
                     var getMappedResult = CacheService.Get<DataGridViewDTO>(_FeedbackStatisticDetailMappedSessionKey);
-                    if (getMappedResult != null && getMappedResult.Rows != null && getMappedResult.Rows.Count > 0)
+                    if (getMappedResult != null && getMappedResult.rows != null && getMappedResult.rows.Count > 0)
                     {
                         var pagingMappedResult = new DataGridViewDTO()
                         {
-                            Rows = getMappedResult.Rows.Select(c => c).Skip(param.ItemPerPage * (param.CurrentPage - 1)).Take(param.ItemPerPage).ToList(),
-                            PageIndex = param.CurrentPage,
-                            TotalItems = getMappedResult.TotalItems
+                            rows = getMappedResult.rows.Select(c => c).Skip(param.ItemPerPage * (param.CurrentPage - 1)).Take(param.ItemPerPage).ToList(),
+                            pageindex = param.CurrentPage,
+                            total = getMappedResult.total
                         };
                         return pagingMappedResult;
                     }
@@ -771,7 +707,7 @@ namespace Fanex.CRM.Service.Impl
                             ReviewDate = feedback.SolvedDate,
                             RelatedUsername = feedback.RelatedCustomer.UserName,
                             CreateDate = feedback.CreateDate,
-                            DurationTime = feedback.ResolutionTime != null ? GetResolvingTime(feedback.ResolutionTime, feedback.FeedbackDate) : string.Empty
+                            DurationTime = feedback.ResolutionTime != null ? GetResolvingTime(feedback.ResolutionTime, feedback.FeedbackDate) : ""
                         });
                     }
 
@@ -782,9 +718,9 @@ namespace Fanex.CRM.Service.Impl
                         feedback.Status = _settingService.GetById(feedback.StatusId).Value;
                     });
 
-                    pagingResult.Rows = feedbackViewPaging;
-                    pagingResult.PageIndex = param.CurrentPage;
-                    pagingResult.TotalItems = result.Count;
+                    pagingResult.rows = feedbackViewPaging;
+                    pagingResult.pageindex = param.CurrentPage;
+                    pagingResult.total = result.Count;
                 }
 
                 #endregion
@@ -792,26 +728,15 @@ namespace Fanex.CRM.Service.Impl
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);                
+                Helper.SendMailErrorNotice(
+                    string.Format("(GetFeedbackStatisticDetail) - Error: {0}<br> - MainId: {1}<br> - SubId: {2}<br> - ValueId: {3}<br> - Type: {4}<br> - Date: {5}->{6}", ex.Message,
+                                  param.MainId, param.SubId, param.ValueId, param.Type, param.FromDate, param.ToDate));
             }
-
             return pagingResult;
         }
         #endregion
 
         #region get deleted feedback
-        /// <summary>
-        /// Select All Deleted Feedback.
-        /// </summary>
-        /// <param name="fromDate">From Date.</param>
-        /// <param name="toDate">To Date.</param>
-        /// <param name="userName">User Name.</param>
-        /// <param name="isGuest">Is Guest.</param>
-        /// <param name="communicationID">Communication ID.</param>
-        /// <param name="mainCategoryID">MainCategory ID.</param>
-        /// <param name="subCategoryID">SubCategory ID.</param>
-        /// <param name="isReviewed">Is Reviewed.</param>
-        /// <param name="responseId">Response Id.</param>
-        /// <returns>Return result.</returns>
         private List<FeedbackView> SelAllDeletedFeedback(string fromDate, string toDate, string userName, int isGuest, int communicationID, int mainCategoryID, int subCategoryID, int isReviewed, int responseId)
         {
             var lstFeedback = _repository.GetDeletedFeedback(CastAide.AsDateTime(fromDate), CastAide.AsDateTime(toDate), userName, isGuest, communicationID, mainCategoryID, subCategoryID, isReviewed, responseId).ToList();
@@ -835,35 +760,19 @@ namespace Fanex.CRM.Service.Impl
                         ReviewDate = feedback.SolvedDate,
                         RelatedUsername = feedback.RelatedCustomer.UserName,
                         CreateDate = feedback.CreateDate,
-                        DurationTime = feedback.ResolutionTime != null ? (CastAide.AsDateTime(feedback.ResolutionTime) - CastAide.AsDateTime(feedback.FeedbackDate)).ToString() : string.Empty
+                        DurationTime = feedback.ResolutionTime != null ? (CastAide.AsDateTime(feedback.ResolutionTime) - CastAide.AsDateTime(feedback.FeedbackDate)).ToString() : ""
                     });
                 }
             }
 
             SessionExtension.AddSession(HttpContext.Current.Session, _DeletedFeedback, result);
-
             return result;
         }
 
-        /// <summary>
-        /// Get Deleted Feedback.
-        /// </summary>
-        /// <param name="fromDate">From Date.</param>
-        /// <param name="toDate">To Date.</param>
-        /// <param name="userName">User Name.</param>
-        /// <param name="isGuest">Is Guest.</param>
-        /// <param name="communicationID">Communication ID.</param>
-        /// <param name="mainCategoryID">MainCategory ID.</param>
-        /// <param name="subCategoryID">SubCategory ID.</param>
-        /// <param name="isReviewed">Is Reviewed.</param>
-        /// <param name="responseId">Response Id.</param>
-        /// <param name="pageIndex">Page Index.</param>
-        /// <param name="pageSize">Page Size.</param>
-        /// <param name="fromCache">From Cache.</param>
-        /// <returns>Return result.</returns>
         public DataGridViewDTO GetDeletedFeedback(string fromDate, string toDate, string userName, int isGuest, int communicationID, int mainCategoryID, int subCategoryID, int isReviewed, int responseId, int pageIndex, int pageSize, bool fromCache)
         {
             var feedbackdto = new DataGridViewDTO();
+            //var feedbackPaging = new DataGridViewDTO();
             try
             {
                 List<FeedbackView> lstFeedback = null;
@@ -887,25 +796,25 @@ namespace Fanex.CRM.Service.Impl
                     });
                 }
 
-                feedbackdto.Rows = lstFeedbackPaging;
-                feedbackdto.TotalItems = lstFeedback != null ? lstFeedback.Count() : 0;
-                feedbackdto.PageIndex = pageIndex;
+                feedbackdto.rows = lstFeedbackPaging;//.OrderBy(s => s.Id);
+                feedbackdto.total = lstFeedback != null ? lstFeedback.Count() : 0;
+                feedbackdto.pageindex = pageIndex;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                
+                Helper.SendMailErrorNotice(
+                    string.Format(
+                        "(GetDeletedFeedback) - Error: {0}<br> - Username: {1}<br> - Date: {2} -> {3}<br> - IsGuest: {4}<br> - MainId: {5}<br> - SubId: {6}<br> - Review: {7}<br> - Response: {8}",
+                        ex.Message, userName, fromDate, toDate, isGuest, mainCategoryID, subCategoryID,
+                        isReviewed, responseId));
             }
-
             return feedbackdto;
         }
         #endregion
 
         #region Get Feedback Subject Items
-        /// <summary>
-        /// Get Feedback Subject TemplateItems.
-        /// </summary>
-        /// <param name="templateId">Template Id.</param>
-        /// <returns>Return result.</returns>
         public List<FeedbackTemplate> GetFeedbackSubjectTemplateItems(int templateId = 0)
         {   
             List<FeedbackTemplate> listFeedbackTemplate = new List<FeedbackTemplate>();
@@ -920,7 +829,8 @@ namespace Fanex.CRM.Service.Impl
                                                      {
                                                          TemplateId = CastAide.AsInt32(dr["templateID"]),
                                                          Subject = CastAide.AsString(dr["subject"])
-                                                     });
+                                                     }
+                                                );
                     }
                 }
             }
@@ -928,14 +838,8 @@ namespace Fanex.CRM.Service.Impl
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
             return listFeedbackTemplate;
         }
-
-        /// <summary>
-        /// Get Number Of Feedback Subject Template Item.
-        /// </summary>
-        /// <returns>Return result.</returns>
         public int GetNumOfFeedbackSubjectTemplateItem()
         {
             List<FeedbackTemplate> listFeedbackTemplate = GetFeedbackSubjectTemplateItems(0);
@@ -947,15 +851,8 @@ namespace Fanex.CRM.Service.Impl
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
             return listFeedbackTemplate.Count;
         }
-
-        /// <summary>
-        /// Get Feedback Subject Template Items Range.
-        /// </summary>
-        /// <param name="range">Item range.</param>
-        /// <returns>Return result.</returns>
         public List<FeedbackTemplate> GetFeedbackSubjectTemplateItemsRange(int range)
         {
             int multipleNum = 100000;
@@ -963,13 +860,10 @@ namespace Fanex.CRM.Service.Impl
             try
             {
                 List<FeedbackTemplate> listFeedbackTemplate = CacheService.Get<List<FeedbackTemplate>>("AllFeedbackTemplate");
-                if (listFeedbackTemplate != null && listFeedbackTemplate.Count > 0)
-                {
+                if(listFeedbackTemplate!=null && listFeedbackTemplate.Count > 0)
                     result = listFeedbackTemplate.Skip((range - 1) * multipleNum).Take(range * multipleNum).ToList();                
-                }                    
             }
-            catch(Exception ex)
-            {
+            catch(Exception ex){
                 LogExtensions.ExceptionHandler(ex);                
             }
 
@@ -979,11 +873,6 @@ namespace Fanex.CRM.Service.Impl
         #endregion
 
         #region Handle Feedback Subject Items
-        /// <summary>
-        /// Add Subject Feedback Template.
-        /// </summary>
-        /// <param name="subject">Subject Feedback Template.</param>
-        /// <returns>Return result.</returns>
         public Result AddSubjectFeedbackTemplate(string subject)
         {
             Result result = new Result(0, string.Empty);
@@ -1000,17 +889,13 @@ namespace Fanex.CRM.Service.Impl
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(
+                    string.Format(
+                        "(Subject Feedback Template Insert) - Error: {0}<br> - Subject Template: {1}<br> ",
+                        ex.Message, subject));
             }
-
             return result;
         }
-
-        /// <summary>
-        /// Edit Subject Feedback Template.
-        /// </summary>
-        /// <param name="id">Feedback Template Id.</param>
-        /// <param name="newSubject">New Subject.</param>
-        /// <returns>Return result.</returns>
         public Result EditSubjectFeedbackTemplate(int id, string newSubject)
         {
             Result result = new Result(0, string.Empty);
@@ -1027,16 +912,13 @@ namespace Fanex.CRM.Service.Impl
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(
+                    string.Format(
+                        "(Subject Feedback Template Insert) - Error: {0}<br> - Subject Template ID: {1}<br> Subject Template : {2} <br> ",
+                        ex.Message, id, newSubject));
             }
-
             return result;
         }
-
-        /// <summary>
-        /// Delete Subject Feedback Template.
-        /// </summary>
-        /// <param name="id">Subject Feedback Template Id.</param>
-        /// <returns>Return result.</returns>
         public Result DeleteSubjectFeedbackTemplate(int id)
         {
             Result result = new Result(0, string.Empty);
@@ -1053,51 +935,38 @@ namespace Fanex.CRM.Service.Impl
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(
+                    string.Format(
+                        "(Subject Feedback Template Delete) - Error: {0}<br> - Subject Template Id: {1}<br> ",
+                        ex.Message, id));
             }
-
             return result;
         }
-
-        /// <summary>
-        /// Select Feedback Template Page With Search.
-        /// </summary>
-        /// <param name="searchString">Search String.</param>
-        /// <param name="pageIndex">Page Index.</param>
-        /// <param name="pageSize">Page Size.</param>
-        /// <returns>Return result.</returns>
         public FeedbackTemplateDGViewDTO SelFeedbackTemplatePageWithSearch(string searchString, int pageIndex, int pageSize)
         {
             FeedbackTemplateDGViewDTO tempDGView = new FeedbackTemplateDGViewDTO();
             try
             {
+
                 List<FeedbackTemplate> lstFeedbackTemplate = GetFeedbackSubjectTemplateItems(0).Where(c => c.Subject.ToLower().Contains(searchString.ToLower())).ToList();
 
                 var lstFeedbackPaging = new List<FeedbackTemplate>();
                 if (lstFeedbackTemplate != null && lstFeedbackTemplate.Count > 0)
-                {
                     lstFeedbackPaging = lstFeedbackTemplate.Select(c => c).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-                }
 
-                tempDGView.Rows = lstFeedbackPaging;
-                tempDGView.TotalItems = lstFeedbackTemplate != null ? lstFeedbackTemplate.Count() : 0;
-                tempDGView.PageIndex = pageIndex;
+                tempDGView.rows = lstFeedbackPaging;//.OrderBy(s => s.Id);
+                tempDGView.total = lstFeedbackTemplate != null ? lstFeedbackTemplate.Count() : 0;
+                tempDGView.pageindex = pageIndex;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
             return tempDGView;
         }
         #endregion
 
         #region Select top feedback
-        /// <summary>
-        /// Select All Top Feedback By Customer Id.
-        /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <param name="selectTop">Total feedbacks.</param>
-        /// <returns>Return result.</returns>
         private List<FeedbackView> SelAllTopFeedbackByCustId(int custId, int selectTop)
         {
             var lstFeedback = _repository.SelTopFeedbackByCustId(custId, selectTop).ToList();
@@ -1121,7 +990,7 @@ namespace Fanex.CRM.Service.Impl
                         ReviewDate = feedback.SolvedDate,
                         RelatedUsername = feedback.RelatedCustomer.UserName,
                         CreateDate = feedback.CreateDate,
-                        DurationTime = feedback.ResolutionTime != null ? GetResolvingTime(feedback.ResolutionTime, feedback.FeedbackDate) : string.Empty,
+                        DurationTime = feedback.ResolutionTime != null ? GetResolvingTime(feedback.ResolutionTime, feedback.FeedbackDate) : "",
                         Description = feedback.Description
                     });
                 }
@@ -1131,15 +1000,6 @@ namespace Fanex.CRM.Service.Impl
             return result;
         }
 
-        /// <summary>
-        /// Select Top Feedback By Customer Id.
-        /// </summary>
-        /// <param name="custId">Customer id.</param>
-        /// <param name="selectTop">Total feedbacks.</param>
-        /// <param name="pageIndex">Page Index.</param>
-        /// <param name="pageSize">Page Size.</param>
-        /// <param name="fromCache">From Cache.</param>
-        /// <returns>Return result.</returns>
         public DataGridViewDTO SelTopFeedbackByCustId(int custId, int selectTop, int pageIndex, int pageSize, bool fromCache)
         {
             List<FeedbackView> lstFeedback = null;
@@ -1166,23 +1026,20 @@ namespace Fanex.CRM.Service.Impl
                     });
                 }
 
-                feedbackdto.Rows = lstFeedbackPaging;
-                feedbackdto.TotalItems = lstFeedback != null ? lstFeedback.Count() : 0;
-                feedbackdto.PageIndex = pageIndex;
+                feedbackdto.rows = lstFeedbackPaging;//.OrderBy(s => s.Id);
+                feedbackdto.total = lstFeedback != null ? lstFeedback.Count() : 0;
+                feedbackdto.pageindex = pageIndex;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(
+                    string.Format("(SelTopFeedbackByCustId) - Error: {0}<br> - CustId: {1}<br> - Top: {2}", ex.Message,
+                                  custId, selectTop));
             }
-
             return feedbackdto;
         }
         
-        /// <summary>
-        /// Select All Top Feedback.
-        /// </summary>
-        /// <param name="selectTop">Total feedbacks.</param>
-        /// <returns>Return result.</returns>
         private List<FeedbackView> SelAllTopFeedback(int selectTop)
         {
             var lstFeedback = _repository.SelTopFeedback(selectTop).ToList();
@@ -1206,7 +1063,7 @@ namespace Fanex.CRM.Service.Impl
                         ReviewDate = feedback.SolvedDate,
                         RelatedUsername = feedback.RelatedCustomer.UserName,
                         CreateDate = feedback.CreateDate,
-                        DurationTime = feedback.ResolutionTime != null ? GetResolvingTime(feedback.ResolutionTime, feedback.FeedbackDate) : string.Empty,
+                        DurationTime = feedback.ResolutionTime != null ? GetResolvingTime(feedback.ResolutionTime, feedback.FeedbackDate) : "",
                         Description = feedback.Description
                     });
                 }
@@ -1216,14 +1073,6 @@ namespace Fanex.CRM.Service.Impl
             return result;
         }
 
-        /// <summary>
-        /// Select Top Feedback.
-        /// </summary>
-        /// <param name="selectTop">Total feedbacks.</param>
-        /// <param name="pageIndex">Page Index.</param>
-        /// <param name="pageSize">Page Size.</param>
-        /// <param name="fromCache">From Cache.</param>
-        /// <returns>Return result.</returns>
         public DataGridViewDTO SelTopFeedback(int selectTop, int pageIndex, int pageSize, bool fromCache)
         {
             List<FeedbackView> lstFeedback = null;
@@ -1249,9 +1098,10 @@ namespace Fanex.CRM.Service.Impl
                         feedback.Status = _settingService.GetById(feedback.StatusId).Value;
                     });
                 }
-                feedbackdto.Rows = lstFeedbackPaging;
-                feedbackdto.TotalItems = lstFeedback != null ? lstFeedback.Count() : 0;
-                feedbackdto.PageIndex = pageIndex;
+
+                feedbackdto.rows = lstFeedbackPaging;//.OrderBy(s => s.Id);
+                feedbackdto.total = lstFeedback != null ? lstFeedback.Count() : 0;
+                feedbackdto.pageindex = pageIndex;
             }
             catch (Exception ex)
             {
@@ -1263,12 +1113,6 @@ namespace Fanex.CRM.Service.Impl
         #endregion
 
         #region ibc daily report
-        /// <summary>
-        /// Get IBC Daily Summary Report.
-        /// </summary>
-        /// <param name="fromDate">From Date.</param>
-        /// <param name="toDate">To Date.</param>
-        /// <returns>Return result.</returns>
         public DailySummaryBO GetIBCDailySummaryReport(string fromDate, string toDate)
         {
             var dailySummary = new DailySummaryBO();
@@ -1398,15 +1242,6 @@ namespace Fanex.CRM.Service.Impl
             return dailySummary;
         }
 
-        /// <summary>
-        /// Get IBC Daily Detail Report.
-        /// </summary>
-        /// <param name="fromDate">From Date.</param>
-        /// <param name="toDate">To Date.</param>
-        /// <param name="fromCache">From Cache.</param>
-        /// <param name="itemPerPage">Item Per Page.</param>
-        /// <param name="currentPage">Current Page.</param>
-        /// <returns>Return result.</returns>
         public DailyComplaintsDTO GetIBCDailyDetailReport(string fromDate, string toDate, bool fromCache, int itemPerPage, int currentPage)
         {
             var dailyComplaintsData = new DailyComplaintsDTO();
@@ -1423,8 +1258,8 @@ namespace Fanex.CRM.Service.Impl
                             DailyComplaints = getMappedResult.DailyComplaints.Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage).ToList(),
 
                         };
-                        pagingMappedResult.Pageindex = currentPage;
-                        pagingMappedResult.TotalItems = getMappedResult.DailyComplaints.Count;
+                        pagingMappedResult.pageindex = currentPage;
+                        pagingMappedResult.total = getMappedResult.DailyComplaints.Count;
                         return pagingMappedResult;
                     }
                     else
@@ -1434,8 +1269,8 @@ namespace Fanex.CRM.Service.Impl
                         {
                             var paging = sessionData.AsEnumerable().Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage);
                             dailyComplaintsData = MapperIBCDailyDetailReport(paging);
-                            dailyComplaintsData.Pageindex = currentPage;
-                            dailyComplaintsData.TotalItems = sessionData.Rows.Count;
+                            dailyComplaintsData.pageindex = currentPage;
+                            dailyComplaintsData.total = sessionData.Rows.Count;
 
                             return dailyComplaintsData;
                         }
@@ -1461,8 +1296,8 @@ namespace Fanex.CRM.Service.Impl
                                     CacheService.Set(_IbcDailyDetail, mappingData);
                                 });
                     }
-                    dailyComplaintsData.Pageindex = currentPage;
-                    dailyComplaintsData.TotalItems = dsReport.Tables[0].Rows.Count;
+                    dailyComplaintsData.pageindex = currentPage;
+                    dailyComplaintsData.total = dsReport.Tables[0].Rows.Count;
                 }
             }
             catch(Exception ex) 
@@ -1474,11 +1309,7 @@ namespace Fanex.CRM.Service.Impl
             return dailyComplaintsData;
         }
         #region mapping ibc daily report      
-        /// <summary>
-        /// Mapper IBC Daily Detail Report.
-        /// </summary>
-        /// <param name="dt">Data rows.</param>
-        /// <returns>Return result.</returns>
+
         private DailyComplaintsDTO MapperIBCDailyDetailReport(IEnumerable<DataRow> dt) 
         {
             var dailyComplaintsData = new DailyComplaintsDTO();
@@ -1517,8 +1348,7 @@ namespace Fanex.CRM.Service.Impl
                             Status = _settingService.GetById(CastAide.AsInt32(dr["StatusID"])).Value,
                             Response = _settingService.GetById(CastAide.AsInt32(dr["ResponseID"])).Value,
                             HandlyBy = CastAide.AsString(dr["CreatorName"]),
-                            CreationTime = DateTimeUtilize.ChangeTimeZoneToClient(dr["CreateDate"].ToString()),
-                            ResolutionDate = DateTimeUtilize.ChangeTimeZoneToClient(dr["ResolutionDate"].ToString())
+                            CreationTime = DateTimeUtilize.ChangeTimeZoneToClient(dr["CreateDate"].ToString())
                         });
             }
             return dailyComplaintsData;
@@ -1527,12 +1357,6 @@ namespace Fanex.CRM.Service.Impl
         #endregion
 
         #region licensee report
-        /// <summary>
-        /// Get Licensee Daily Summary Report.
-        /// </summary>
-        /// <param name="fromDate">From Date.</param>
-        /// <param name="toDate">To Date.</param>
-        /// <returns>Return result.</returns>
         public DailySummaryBO GetLicenseeDailySummaryReport(string fromDate, string toDate)
         {
             var dailySummary = new DailySummaryBO();
@@ -1662,15 +1486,6 @@ namespace Fanex.CRM.Service.Impl
             return dailySummary;
         }
                
-        /// <summary>
-        /// Get Licensee Daily Detail Report.
-        /// </summary>
-        /// <param name="fromDate">From Date.</param>
-        /// <param name="toDate">To Date.</param>
-        /// <param name="fromCache">FromCache.</param>
-        /// <param name="itemPerPage">Item Per Page.</param>
-        /// <param name="currentPage">Current Page.</param>
-        /// <returns>Return result.</returns>
         public DailyComplaintsDTO GetLicenseeDailyDetailReport(string fromDate, string toDate, bool fromCache, int itemPerPage, int currentPage)
         {
             var dailyComplaintsData = new DailyComplaintsDTO();
@@ -1687,8 +1502,8 @@ namespace Fanex.CRM.Service.Impl
                             DailyComplaints = getMappedResult.DailyComplaints.Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage).ToList(),
 
                         };
-                        pagingMappedResult.Pageindex = currentPage;
-                        pagingMappedResult.TotalItems = getMappedResult.DailyComplaints.Count;
+                        pagingMappedResult.pageindex = currentPage;
+                        pagingMappedResult.total = getMappedResult.DailyComplaints.Count;
                         return pagingMappedResult;
                     }
                     else
@@ -1698,8 +1513,8 @@ namespace Fanex.CRM.Service.Impl
                         {
                             var paging = sessionData.AsEnumerable().Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage);
                             dailyComplaintsData = MapperLicenseeDailyDetailReport(paging);
-                            dailyComplaintsData.Pageindex = currentPage;
-                            dailyComplaintsData.TotalItems = sessionData.Rows.Count;
+                            dailyComplaintsData.pageindex = currentPage;
+                            dailyComplaintsData.total = sessionData.Rows.Count;
 
                             return dailyComplaintsData;
                         }
@@ -1727,8 +1542,8 @@ namespace Fanex.CRM.Service.Impl
                             CacheService.Set(_licenseeDailyDetail, mappingData);
                         });                        
                     }
-                    dailyComplaintsData.Pageindex = currentPage;
-                    dailyComplaintsData.TotalItems = dsReport.Tables[0].Rows.Count;
+                    dailyComplaintsData.pageindex = currentPage;
+                    dailyComplaintsData.total = dsReport.Tables[0].Rows.Count;
                 }
             }
             catch (Exception ex)
@@ -1740,13 +1555,10 @@ namespace Fanex.CRM.Service.Impl
             return dailyComplaintsData;
         }
         #region mapping licensee daily report
-        /// <summary>
-        /// Mapper Licensee Daily Detail Report.
-        /// </summary>
-        /// <param name="dt">Data rows.</param>
-        /// <returns>Return result.</returns>
+        
         private DailyComplaintsDTO MapperLicenseeDailyDetailReport(IEnumerable<DataRow> dt)
         {
+
             var dailyComplaintsData = new DailyComplaintsDTO();
             dailyComplaintsData.DailyComplaints = new List<DailyComplaintsDetail>();
             foreach (DataRow dr in dt)
@@ -1776,8 +1588,7 @@ namespace Fanex.CRM.Service.Impl
                     Status = _settingService.GetById(CastAide.AsInt32(dr["StatusID"])).Value,
                     Response = _settingService.GetById(CastAide.AsInt32(dr["ResponseID"])).Value,
                     HandlyBy = CastAide.AsString(dr["CreatorName"]),
-                    CreationTime = DateTimeUtilize.ChangeTimeZoneToClient(dr["CreateDate"].ToString()),
-                    ResolutionDate = DateTimeUtilize.ChangeTimeZoneToClient(dr["ResolutionDate"].ToString())
+                    CreationTime = DateTimeUtilize.ChangeTimeZoneToClient(dr["CreateDate"].ToString())
                 });
             }
             return dailyComplaintsData;
@@ -1785,12 +1596,6 @@ namespace Fanex.CRM.Service.Impl
         #endregion
         #endregion
         
-        /// <summary>
-        /// Get Casino Daily Summary Report.
-        /// </summary>
-        /// <param name="fromDate">From Date.</param>
-        /// <param name="toDate">To Date.</param>
-        /// <returns>Return result.</returns>
         public CasinoDailySummary GetCasinoDailySummaryReport(string fromDate, string toDate)
         {
             var result = new CasinoDailySummary();
@@ -1803,8 +1608,8 @@ namespace Fanex.CRM.Service.Impl
 
                 if (getData != null && getData.Tables != null && getData.Tables.Count > 0)
                 {
-                    var casinoPrefix = CasinoSection.Instance[CasinoSection.SystemConfigCollection.Systems];
-                    var casinoSubfix = CasinoSection.Instance[CasinoSection.SystemConfigCollection.Communications];
+                    var cPrefix = CasinoSection.Instance[CasinoSection.SystemConfigCollection.Systems];
+                    var cSubfix = CasinoSection.Instance[CasinoSection.SystemConfigCollection.Communications];
                     var tbData = getData.Tables[0];
                     var oldMainId = 0;
                     var oldMain = string.Empty;
@@ -1812,30 +1617,30 @@ namespace Fanex.CRM.Service.Impl
                     var systemGrandTotal = new List<SystemDailySummary>();
                     #region add systems group
 
-                    for (var i = 0; i < casinoPrefix.Count; i++)
+                    for (var i = 0; i < cPrefix.Count; i++)
                     {
                         result.SumAllFeedbacks.Add(new int());
                         var cells = new List<DailySummaryType>();
-                        for (var j = 0; j < casinoSubfix.Count; j++)
+                        for (var j = 0; j < cSubfix.Count; j++)
                         {
                             cells.Add(new DailySummaryType() { Value = 0 });
                         }
 
                         systemSubTotal.Add(new SystemDailySummary()
                         {
-                            Sytem = casinoPrefix[i].Name,
-                            SystemId = casinoPrefix[i].Id,
+                            Sytem = cPrefix[i].Name,
+                            SystemId = cPrefix[i].Id,
                             Cells = cells
                         });
                         var cells2 = new List<DailySummaryType>();
-                        for (var j = 0; j < casinoSubfix.Count; j++)
+                        for (var j = 0; j < cSubfix.Count; j++)
                         {
                             cells2.Add(new DailySummaryType() { Value = 0 });
                         }
                         systemGrandTotal.Add(new SystemDailySummary()
                         {
-                            Sytem = casinoPrefix[i].Name,
-                            SystemId = casinoPrefix[i].Id,
+                            Sytem = cPrefix[i].Name,
+                            SystemId = cPrefix[i].Id,
                             Cells = cells2
                         });
                     }
@@ -1861,33 +1666,33 @@ namespace Fanex.CRM.Service.Impl
                             result.DailySummary.Add(summary);
 
                             systemSubTotal = new List<SystemDailySummary>();
-                            for (var i = 0; i < casinoPrefix.Count; i++)
+                            for (var i = 0; i < cPrefix.Count; i++)
                             {
                                 var cells = new List<DailySummaryType>();
-                                for (var j = 0; j < casinoSubfix.Count; j++)
+                                for (var j = 0; j < cSubfix.Count; j++)
                                     cells.Add(new DailySummaryType() { Value = 0 });
 
                                 systemSubTotal.Add(new SystemDailySummary()
                                 {
-                                    Sytem = casinoPrefix[i].Name,
-                                    SystemId = casinoPrefix[i].Id,
+                                    Sytem = cPrefix[i].Name,
+                                    SystemId = cPrefix[i].Id,
                                     Cells = cells
                                 });
                             }
                         }
                         #endregion
 
-                        for (var j = 0; j < casinoPrefix.Count; j++)
+                        for (var j = 0; j < cPrefix.Count; j++)
                         {
-                            for (var k = 0; k < casinoSubfix.Count; k++)
+                            for (var k = 0; k < cSubfix.Count; k++)
                             {
                                 var currentVal =
-                                    CastAide.AsInt32(dr[string.Format("{0}{1}", casinoPrefix[j].Prefix, casinoSubfix[k].Subfix)]);
+                                    CastAide.AsInt32(dr[string.Format("{0}{1}", cPrefix[j].Prefix, cSubfix[k].Subfix)]);
 
-                                systemSubTotal[j].Cells[k].Title = casinoSubfix[k].Subfix;
+                                systemSubTotal[j].Cells[k].Title = cSubfix[k].Subfix;
                                 systemSubTotal[j].Cells[k].Value = systemSubTotal[j].Cells[k].Value + currentVal;
 
-                                systemGrandTotal[j].Cells[k].Title = casinoSubfix[k].Subfix;
+                                systemGrandTotal[j].Cells[k].Title = cSubfix[k].Subfix;
                                 systemGrandTotal[j].Cells[k].Value = systemGrandTotal[j].Cells[k].Value + currentVal;
 
                                 result.SumAllFeedbacks[j] += currentVal;
@@ -1930,15 +1735,6 @@ namespace Fanex.CRM.Service.Impl
         }
 
         #region casino daily detail
-        /// <summary>
-        /// Get Casino Daily Detail Report.
-        /// </summary>
-        /// <param name="fromDate">From Date.</param>
-        /// <param name="toDate">To Date.</param>
-        /// <param name="fromCache">FromCache.</param>
-        /// <param name="itemPerPage">Item Per Page.</param>
-        /// <param name="currentPage">Current Page.</param>
-        /// <returns>Return result.</returns>
         public DailyComplaintsDTO GetCasinoDailyDetailReport(string fromDate, string toDate, bool fromCache, int itemPerPage, int currentPage)
         {
             var dailyComplaintsData = new DailyComplaintsDTO();
@@ -1955,8 +1751,8 @@ namespace Fanex.CRM.Service.Impl
                             DailyComplaints = getMappedResult.DailyComplaints.Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage).ToList(),
 
                         };
-                        pagingMappedResult.Pageindex = currentPage;
-                        pagingMappedResult.TotalItems = getMappedResult.DailyComplaints.Count;
+                        pagingMappedResult.pageindex = currentPage;
+                        pagingMappedResult.total = getMappedResult.DailyComplaints.Count;
                         return pagingMappedResult;
                     }
                     else
@@ -1966,8 +1762,8 @@ namespace Fanex.CRM.Service.Impl
                         {
                             var paging = sessionData.AsEnumerable().Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage);
                             dailyComplaintsData = MapperIBCDailyDetailReport(paging);
-                            dailyComplaintsData.Pageindex = currentPage;
-                            dailyComplaintsData.TotalItems = sessionData.Rows.Count;
+                            dailyComplaintsData.pageindex = currentPage;
+                            dailyComplaintsData.total = sessionData.Rows.Count;
 
                             return dailyComplaintsData;
                         }
@@ -1995,8 +1791,8 @@ namespace Fanex.CRM.Service.Impl
                             CacheService.Set(_CasinoDailyDetail, mappingData);
                         });        
                     }
-                    dailyComplaintsData.Pageindex = currentPage;
-                    dailyComplaintsData.TotalItems = dsReport.Tables[0].Rows.Count;
+                    dailyComplaintsData.pageindex = currentPage;
+                    dailyComplaintsData.total = dsReport.Tables[0].Rows.Count;
                 }
             }
             catch (Exception ex)
@@ -2007,11 +1803,7 @@ namespace Fanex.CRM.Service.Impl
             return dailyComplaintsData;
         }
         #region mapping casino daily report       
-        /// <summary>
-        /// Mapper Casino Daily Detail Report.
-        /// </summary>
-        /// <param name="dt">Data rows.</param>
-        /// <returns>Return result.</returns>
+
         private DailyComplaintsDTO MapperCasinoDailyDetailReport(IEnumerable<DataRow> dt)
         {
             var dailyComplaintsData = new DailyComplaintsDTO();
@@ -2050,9 +1842,7 @@ namespace Fanex.CRM.Service.Impl
                             Status = _settingService.GetById(CastAide.AsInt32(dr["StatusID"])).Value,
                             Response = _settingService.GetById(CastAide.AsInt32(dr["ResponseID"])).Value,
                             HandlyBy = CastAide.AsString(dr["CreatorName"]),
-                            CreationTime = DateTimeUtilize.ChangeTimeZoneToClient(dr["CreateDate"].ToString()),
-                            ResolutionDate = DateTimeUtilize.ChangeTimeZoneToClient(dr["ResolutionDate"].ToString())
-                            
+                            CreationTime = DateTimeUtilize.ChangeTimeZoneToClient(dr["CreateDate"].ToString())
                         });
             }
             return dailyComplaintsData;
@@ -2060,12 +1850,6 @@ namespace Fanex.CRM.Service.Impl
         #endregion
         #endregion
         
-        /// <summary>
-        /// Get Casino Weekly Summary Report.
-        /// </summary>
-        /// <param name="fromDate">From Date.</param>
-        /// <param name="toDate">To Date.</param>
-        /// <returns>Return result.</returns>
         public DailySummaryBO GetCasinoWeeklySummaryReport(string fromDate, string toDate)
         {
             var dailySummary = new DailySummaryBO();
@@ -2190,12 +1974,6 @@ namespace Fanex.CRM.Service.Impl
             return dailySummary;
         }
 
-        /// <summary>
-        /// Get Resolving Time.
-        /// </summary>
-        /// <param name="resolutionDate">Resolution Date.</param>
-        /// <param name="feedbackDate">Feedback Date.</param>
-        /// <returns>Return result.</returns>
         private static string GetResolvingTime(string resolutionDate, string feedbackDate)
         {
             var resolDate = CastAide.AsDateTime(resolutionDate);
@@ -2206,11 +1984,6 @@ namespace Fanex.CRM.Service.Impl
             return resolvingTime;
         }
 
-        /// <summary>
-        /// Get Auto Suggestion Customer.
-        /// </summary>
-        /// <param name="userName">User Name.</param>
-        /// <returns>Return result.</returns>
         public DataTable GetAutoSuggestionCustomer(string userName)
         {
             var result = new DataTable();

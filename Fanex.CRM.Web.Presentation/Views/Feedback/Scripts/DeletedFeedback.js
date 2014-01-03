@@ -158,7 +158,6 @@ var deletedFeedback = {
                         mainreport.removeClass("hidden").gridScroller(gridOpts);
 
                         deletedFeedback.initPager(deletedFeedback.totalRows, deletedFeedback.pageSize, deletedFeedback.pageIndex - 1);
-                        reRenderGrid('lastedfeedbackgrid', 'latestfeedbackbodyHeader', 'latestfeedbackbody', deletedFeedback.gridHeight, 380, 1, 380);
                     }
                     else {
                         mainreport.addClass('hidden');

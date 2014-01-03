@@ -58,7 +58,7 @@ var ibcDailySummaryReport = {
             data: JSON.stringify(data),
             success: function (rs) {
                 if (rs != null && rs.DailySummaries && rs.DailySummaries.length > 0) {
-                    ibcDailySummaryReport.title = 'IBC Weekly Report From ' + dailyReport.fromDate + ' To ' + dailyReport.toDate;
+                    ibcDailySummaryReport.title = 'IBC Daily Report From ' + dailyReport.fromDate + ' To ' + dailyReport.toDate;
                     $('#gridtitle').html(ibcDailySummaryReport.title);
                     ibcDailySummaryReport.assignChartData(rs);
 
@@ -248,7 +248,7 @@ var licenseeDailySummaryReport = {
             data: JSON.stringify(data),
             success: function (rs) {
                 if (rs != null && rs.DailySummaries && rs.DailySummaries.length > 0) {
-                    licenseeDailySummaryReport.title = 'Licensee Weekly Summary Report From ' + dailyReport.fromDate + ' To ' + dailyReport.toDate;
+                    licenseeDailySummaryReport.title = 'Licensee Daily Summary Report From ' + dailyReport.fromDate + ' To ' + dailyReport.toDate;
                     $('#licenseeSummaryTitle').html(licenseeDailySummaryReport.title);
                     licenseeDailySummaryReport.assignChartData(rs);
                     //push header
@@ -435,8 +435,6 @@ var ibcDailyDetailReport = {
     fromDate: '',
     toDate: '',
     gridHeight: 80,
-    freeWidth: 400,
-    freeCols: 5,
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = ibcDailyDetailReport.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
@@ -508,8 +506,8 @@ var ibcDailyDetailReport = {
                         fullWidth: true,
                         fullHeight: true,
                         gridHeight: ibcDailyDetailReport.gridHeight,
-                        freezeWidth: ibcDailyDetailReport.freeWidth,
-                        numberFreezeCol: ibcDailyDetailReport.freeCols
+                        freezeWidth: 270,
+                        numberFreezeCol: 3
                     };
                     mainreport.removeClass("hidden").gridScroller(gridOpts);
 
@@ -534,10 +532,8 @@ var ibcDailyDetailReport = {
         var compaints = replaceSpecialHtmlTag(row.Complaints);
         var solutions = replaceSpecialHtmlTag(row.Solution);
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width:60px;">&nbsp;</div></td>\
-            <td><div class="c" style="width:60px;">&nbsp;</div></td>\
-            <td><div class="c" style="width:60px;">&nbsp;</div></td>\
-            <td><div class="c" style="width:60px;">&nbsp;</div></td>\
+            <td><div class="c" style="width:60px;">&nbsp;' + row.FeedbackDate + '</div></td>\
+            <td><div class="c" style="width:60px;">&nbsp;' + row.FeedbackTime + '</div></td>\
             <td><div class="c" style="width:140px;">&nbsp;' + row.CustomerName + '</div></td>\
             <td><div class="c" style="width:100px;">&nbsp;' + row.Licensee + '</div></td>\
             <td><div class="c" style="width:100px;">' + row.CommunicationTool.ContactBy + '</div></td>\
@@ -559,8 +555,6 @@ var ibcDailyDetailReport = {
         var html = '<tr class="' + css + '">\
             <td><div class="c" style="width:60px;">' + row.FeedbackDate + '</div></td>\
             <td><div class="c" style="width:60px;">' + row.FeedbackTime + '</div></td>\
-            <td><div class="c" style="width:60px;">' + (new Date(row.ResolutionDate).format("h:i A")) + '</div></td>\
-            <td><div class="c" style="width:60px;">' + row.Duration + '</div></td>\
             <td><div class="c" style="width:140px;">' + row.CustomerName + '</div></td>\
         </tr>';
 
@@ -673,8 +667,8 @@ var ibcDailyDetailReport = {
             fullWidth: true,
             fullHeight: true,
             gridHeight: ibcDailyDetailReport.gridHeight,
-            freezeWidth: ibcDailyDetailReport.freeWidth,
-            numberFreezeCol: ibcDailyDetailReport.freeCols
+            freezeWidth: 270,
+            numberFreezeCol: 3
         };
         mainreport.gridScroller(gridOpts);
     },
@@ -697,8 +691,6 @@ var ibcDailyDetailReport = {
         var html = '<tr>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
             <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="alertboxerr"><div>There is no information.</div></div></td>\
         </tr>';
@@ -706,8 +698,6 @@ var ibcDailyDetailReport = {
         var mainreport = $('#dailydetailgrid');
 
         $("#dailydetailfirstcol tbody").empty().html('<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td></tr>'
@@ -719,8 +709,8 @@ var ibcDailyDetailReport = {
             fullWidth: true,
             fullHeight: true,
             gridHeight: ibcDailyDetailReport.gridHeight,
-            freezeWidth: ibcDailyDetailReport.freeWidth,
-            numberFreezeCol: ibcDailyDetailReport.freeCols
+            freezeWidth: 270,
+            numberFreezeCol: 3
         };
         mainreport.removeClass("hidden").gridScroller(gridOpts);
     }
@@ -735,8 +725,6 @@ var licenseeDailyDetailReport = {
     fromDate: '',
     toDate: '',
     gridHeight: 80,
-    freeWidth: 400,
-    freeCols: 5,
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = licenseeDailyDetailReport.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
@@ -806,8 +794,8 @@ var licenseeDailyDetailReport = {
                         fullWidth: true,
                         fullHeight: true,
                         gridHeight: licenseeDailyDetailReport.gridHeight,
-                        freezeWidth: licenseeDailyDetailReport.freeWidth,
-                        numberFreezeCol: licenseeDailyDetailReport.freeCols
+                        freezeWidth: 270,
+                        numberFreezeCol: 3
                     };
                     mainreport.removeClass("hidden").gridScroller(gridOpts);
                     licenseeDailyDetailReport.initPager(licenseeDailyDetailReport.totalRows, licenseeDailyDetailReport.pageSize, licenseeDailyDetailReport.pageIndex - 1);
@@ -831,9 +819,7 @@ var licenseeDailyDetailReport = {
         var compaints = replaceSpecialHtmlTag(row.Complaints);
         var solutions = replaceSpecialHtmlTag(row.Solution);
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width:60px;">&nbsp;</div></td>\
-            <td><div class="c" style="width:60px;">&nbsp;</div></td>\
-            <td><div class="c" style="width:60px;">&nbsp;</div></td>\
+            <td><div class="c" style="width:60px;">&nbsp;' + row.FeedbackDate + '</div></td>\
             <td><div class="c" style="width:60px;">&nbsp;' + row.FeedbackTime + '</div></td>\
             <td><div class="c" style="width:140px;">&nbsp;' + row.CustomerName + '</div></td>\
             <td><div class="c" style="width:100px;">&nbsp;' + row.Licensee + '</div></td>\
@@ -856,8 +842,6 @@ var licenseeDailyDetailReport = {
         var html = '<tr class="' + css + '">\
             <td><div class="c" style="width:60px;">' + row.FeedbackDate + '</div></td>\
             <td><div class="c" style="width:60px;">' + row.FeedbackTime + '</div></td>\
-            <td><div class="c" style="width:60px;">' + (new Date(row.ResolutionDate).format("h:i A")) + '</div></td>\
-            <td><div class="c" style="width:60px;">' + row.Duration + '</div></td>\
             <td><div class="c" style="width:140px;">' + row.CustomerName + '</div></td>\
         </tr>';
 
@@ -969,8 +953,8 @@ var licenseeDailyDetailReport = {
             fullWidth: true,
             fullHeight: true,
             gridHeight: licenseeDailyDetailReport.gridHeight,
-            freezeWidth: licenseeDailyDetailReport.freeWidth,
-            numberFreezeCol: licenseeDailyDetailReport.freeCols
+            freezeWidth: 270,
+            numberFreezeCol: 3
         };
         mainreport.gridScroller(gridOpts);
     },
@@ -979,8 +963,6 @@ var licenseeDailyDetailReport = {
         $('#btnLicenseeExportDetail').addClass('hidden');
 
         var html = '<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
@@ -992,8 +974,6 @@ var licenseeDailyDetailReport = {
         $("#licenseedetailfirstcol tbody").empty().html('<tr>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td></tr>'
             );
         $("#licenseedetailgridbody tbody").empty().html(html);
@@ -1003,8 +983,8 @@ var licenseeDailyDetailReport = {
             fullWidth: true,
             fullHeight: true,
             gridHeight: licenseeDailyDetailReport.gridHeight,
-            freezeWidth: licenseeDailyDetailReport.freeWidth,
-            numberFreezeCol: licenseeDailyDetailReport.freeCols
+            freezeWidth: 270,
+            numberFreezeCol: 3
         };
         mainreport.removeClass("hidden").gridScroller(gridOpts);
     }

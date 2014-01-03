@@ -243,13 +243,4 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="lblInputMultipleEmail" xml:space="preserve">
     <value>Multiple email can be entered, separated by commas. Ex: abc, xyz, etc.</value>
   </data>
-  <data name="EndTime" xml:space="preserve">
-    <value>End Time</value>
-  </data>
-  <data name="StartTime" xml:space="preserve">
-    <value>Start Time</value>
-  </data>
-  <data name="Duration" xml:space="preserve">
-    <value>Duration</value>
-  </data>
 </root>

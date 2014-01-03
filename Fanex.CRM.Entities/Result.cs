@@ -1,21 +1,20 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="Result.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
+﻿
 
 namespace Fanex.CRM.Entities
 {
-    /// <summary>
-    /// Result information.
-    /// </summary>
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
     public class Result
     {
+        public int ErrCode { get; set; }
+        public string ErrMsg { get; set; }
+
         public Result()
         {
+
         }
 
         public Result(int errCode, string errMsg)
@@ -24,16 +23,9 @@ namespace Fanex.CRM.Entities
             ErrMsg = errMsg;
         }
 
-        public int ErrCode { get; set; }
-
-        public string ErrMsg { get; set; }
-
         public bool IsSuccessfull
         {
-            get
-            {
-                return ErrCode == 0 && string.IsNullOrEmpty(ErrMsg);
-            }
+            get { return ErrCode == 0 && string.IsNullOrEmpty(ErrMsg); }
         }
     }
 }

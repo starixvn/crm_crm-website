@@ -1,17 +1,8 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="AccountController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
-
+﻿
 namespace Fanex.CRM.Web.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -26,62 +17,43 @@ namespace Fanex.CRM.Web.Controllers
     using Fanex.CRM.Service.Interface;
     using Fanex.CRM.Web.Controllers.Helper;
 
-    /// <summary>
-    /// Account Controller.
-    /// </summary>
     public class AccountController : BaseController
     {
-        private IUserService _accountService;
-        private IPermissionService _permission;
-
-        public AccountController()
-            : this(null, null)
-        {
+        IUserService _accountService;
+        IPermissionService _permission;
+        public AccountController() : this(null, null) { 
         }
-
-        public AccountController(IUserService service, IPermissionService permission)
-        {
+        public AccountController(IUserService service, IPermissionService permission) {
             _accountService = service ?? new UserService();
             _permission = permission ?? new PermissionService();
         }
 
-        /// <summary>
-        /// Sign in action.
-        /// </summary>
-        /// <returns>Sign in result.</returns>
         public ActionResult SignIn()
         {
             if (!AppSetting.IsLocalTest && (AppSession.RoleAccess == null || AppSession.PageAccess == null || AppSession.CurrentUser == null))
-            {
                 ForceLogin();
-            }
             else
-            {
                 return new RedirectToRouteResult(new RouteValueDictionary(new
                 {
                     controller = "Home",
                     action = "Index"
                 }));
-            }
-
             return View();
         }
 
+
         /// <summary>
-        /// Login from Accounting.
+        /// Login from Accounting
         /// </summary>
-        /// <param name="loginInfo">The login information.</param>
-        /// <returns>Login Result.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
+        /// <param name="loginInfo"></param>
+        /// <returns></returns>
         public ActionResult DirectLogin(string loginInfo)
         {
             try
             {
                 System.Web.HttpContext.Current.Session.Clear();
 
-                var userName = string.Empty;
+                var userName = "";
                 var sid = string.Empty;
                 var userOnlineId = 0;
 
@@ -93,23 +65,23 @@ namespace Fanex.CRM.Web.Controllers
 
                 var encryptValue = encryption.DecryptString(ps, 1024, keyPath);
                 var arrValue = encryptValue.Split('&');
-                if (!string.IsNullOrEmpty(encryptValue) &&
-                    arrValue.Length > 0)
+                if (!string.IsNullOrEmpty(encryptValue) && arrValue.Length > 0)
                 {
+
+                    //accId&accName&onUserId&sId&time
                     userName = arrValue[1];
                     userOnlineId = CastAide.AsInt32(arrValue[2]);
                     sid = arrValue[3];
                     if (userOnlineId > 0)
-                    {
                         SessionExtension.OnlineUserId = CastAide.AsInt32(userOnlineId);
-                    }
-                    
+
                     var isOnline = _accountService.CheckUserOnlineStatus();
                     if (isOnline.ErrCode != 0)
                     {
                         SendMailNotice(string.Format("Login Fail: {0} ({1})", isOnline.ErrMsg, DateTime.Now));
                         return ForceLogin();
                     }
+
                 }
                 else
                 {
@@ -117,7 +89,9 @@ namespace Fanex.CRM.Web.Controllers
                     return ForceLogin();
                 }
 
+                #region get user info
                 var user = new User();
+
                 user = GetUserInfo(userName);
                 if (user == null)
                 {
@@ -125,15 +99,13 @@ namespace Fanex.CRM.Web.Controllers
                     return ForceLogin();
                 }
 
-                if (!string.IsNullOrEmpty(sid))
-                {
-                    AppSession.UserSessionId = sid;
-                }
+                #endregion
 
+
+                if (!string.IsNullOrEmpty(sid))
+                    AppSession.UserSessionId = sid;
                 FormsAuthentication.SetAuthCookie(user.Username, false);
-                if (AppSession.PageAccess == null ||
-                    AppSession.RoleAccess == null ||
-                    AppSession.CurrentUser == null)
+                if (AppSession.PageAccess == null || AppSession.RoleAccess == null || AppSession.CurrentUser == null)
                 {
                     var userRoleAccess = new Dictionary<string, int>();
                     var userPageAccess = new Dictionary<string, int>();
@@ -142,8 +114,12 @@ namespace Fanex.CRM.Web.Controllers
                     AppSession.PageAccess = userPageAccess;
                     AppSession.RoleAccess = userRoleAccess;
                 }
+                
 
                 AppSession.UserMenu = _accountService.GetUserMenu(user.Id);
+                SendMailNotice(string.Format("Login Successfully! (User: {0} Time: {1})", userName, DateTime.Now));
+
+                
                 return new RedirectToRouteResult(new RouteValueDictionary(new
                 {
                     controller = "Home",
@@ -155,18 +131,40 @@ namespace Fanex.CRM.Web.Controllers
                 LogExtensions.ExceptionHandler(ex);
                 return ForceLogin();
             }
+
+
         }
 
-        /// <summary>
-        /// Log out action.
-        /// </summary>
-        /// <returns>Log out result.</returns>
+        #region private functions
+        private void SendMailNotice(string message)
+        {
+            var mailSetting = MailSection.Instance[MailSection.Setting.Send]["Notice"].Mails["crmlogin"];
+
+            SendMailExtension.AccSendMail(MailSection.HostName.Gmail, mailSetting.To, mailSetting.Cc, mailSetting.Bcc,
+                                          "CRM - User Login", "CRM - User Login Notice", message, new MailAttachment());
+
+        }
+
+        private User GetUserInfo(string userName)
+        {
+            var user = new User();
+            user = _accountService.GetUseInfo(userName);
+            user.IsAllowUpdateReview = _permission.GetHostPermission(Enumerations.Functions.Feedback.FeedbackReview, AppSession.RoleAccess);
+          
+            if (user != null)
+                AppSession.CurrentUser = user;
+
+            return user;
+        }
+        #endregion
+
         [HttpPost]
         public JsonResult LogOut()
         {
             var result = new Result();
             try
             {
+
                 System.Web.HttpContext.Current.Session.Clear();
                 var cookie = new HttpCookie(FormsAuthentication.FormsCookieName) { Expires = DateTime.Now.AddDays(-1) };
                 System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
@@ -184,19 +182,16 @@ namespace Fanex.CRM.Web.Controllers
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
 
             return jsonResult;
+
         }
 
-        /// <summary>
-        /// Checks the user online status.
-        /// </summary>
-        /// <returns>Checking result.</returns>
         [HttpPost]
         public JsonResult CheckUserOnlineStatus()
         {
             var result = new Result();
 
             try
-            {
+            {                
                 result = _accountService.CheckUserOnlineStatus();
             }
             catch (Exception ex)
@@ -207,57 +202,15 @@ namespace Fanex.CRM.Web.Controllers
             }
 
             if (result.ErrCode != 0)
-            {
+            {                
                 System.Web.HttpContext.Current.Session.Clear();
                 var cookie = new HttpCookie(FormsAuthentication.FormsCookieName) { Expires = DateTime.Now.AddDays(-1) };
                 System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
                 FormsAuthentication.SignOut();
             }
-
             JsonResult jsonResult = Json(result);
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
         }
-
-        #region PrivateFunctions
-
-        /// <summary>
-        /// Sends mail the notice.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        private void SendMailNotice(string message)
-        {
-            var mailSetting = MailSection.Instance[MailSection.Setting.Send]["Notice"].Mails["crmlogin"];
-            SendMailExtension.AccSendMail(
-                MailSection.HostName.Gmail,
-                mailSetting.To,
-                mailSetting.Cc,
-                mailSetting.Bcc,
-                "CRM - User Login",
-                "CRM - User Login Notice",
-                message,
-                new MailAttachment());
-        }
-
-        /// <summary>
-        /// Gets the user information.
-        /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <returns>The user information.</returns>
-        private User GetUserInfo(string userName)
-        {
-            var user = new User();
-            user = _accountService.GetUseInfo(userName);
-            user.IsAllowUpdateReview = _permission.GetHostPermission(Enumerations.Functions.Feedback.FeedbackReview, AppSession.RoleAccess);
-
-            if (user != null)
-            {
-                AppSession.CurrentUser = user;
-            }
-
-            return user;
-        }
-
-        #endregion PrivateFunctions
     }
 }

@@ -174,38 +174,3 @@ function replaceSpaceForIE9(text) {
     var html = text.replace(expr, '><');
     return html;
 }
-
- function reRenderGrid(gridID, frozenID, scrollID, gridHeight, gridFrozenWidth, totalFrozenCols, fristColWidth){
-    var trFrozen = $('#' + frozenID + ' tbody tr');
-    var totalRows = trFrozen.length;
-
-    for (var i = 0; i < totalRows; i++) {
-        var frozenHeight = $('#' + frozenID + ' tbody tr:eq(' + i + ') td:eq(0)').height();
-        var scrollHeight = $('#' + scrollID + ' tbody tr:eq(' + i + ') td:eq(0)').height();
-
-        var maxHeight = 18;
-        if (frozenHeight > scrollHeight)
-            maxHeight = frozenHeight + 1;
-        else if (scrollHeight > frozenHeight)
-            maxHeight = scrollHeight + 1;
-        else {
-            maxHeight = frozenHeight;
-        }        
-        $('#' + scrollID + ' tbody tr:eq(' + i + ') td:eq(0) div').css('height', maxHeight).append(' ');
-        $('#' + frozenID + ' tbody tr:eq(' + i + ') td:eq(0)>div').attr('style', ' width:' + fristColWidth + 'px; display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');        
-    }
-
-    var mainreport = $("#" + gridID);
-    
-    var gridOpts = {
-        tblContentId: scrollID,
-        manualCopyHeader: true,
-        fullWidth: true,
-        fullHeight: true,
-        gridHeight: gridHeight,
-        freezeWidth: gridFrozenWidth,
-        numberFreezeCol: totalFrozenCols
-    };
-    mainreport.gridScroller(gridOpts);
-    
-}

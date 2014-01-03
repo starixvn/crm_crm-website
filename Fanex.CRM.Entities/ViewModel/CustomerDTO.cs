@@ -1,18 +1,30 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerDTO.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+﻿// -----------------------------------------------------------------------
+// <copyright file="CustomerDTO.cs" company="Microsoft">
+// TODO: Update copyright text.
 // </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
+// -----------------------------------------------------------------------
 
 namespace Fanex.CRM.Entities.ViewModel
 {
+    using System.Collections.Specialized;
+
     /// <summary>
-    /// Customer DTO.
+    /// TODO: Update summary.
     /// </summary>
     public class CustomerDTO
     {
+    }
+
+    public class CustomersSuggestion
+    {        
+        public string query { get; set; }
+        public StringCollection suggestions{get; set;}
+        public string[] data = new string[] { "" };
+    }
+
+    public class RelatedCustomerSuggestion
+    {
+        public string key { get; set; }
+        public string value { get; set; }
     }
 }

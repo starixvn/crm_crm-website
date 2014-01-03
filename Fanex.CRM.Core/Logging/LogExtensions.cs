@@ -17,15 +17,10 @@ namespace Fanex.CRM.Infrastructure.Logging
     {        
         public static void ExceptionHandler(Exception ex)
         {
-            string message = ex.Message +
-                             "<br>\r\nSOURCE: " + ex.Source +
-                             "<br>\r\nDOMAIN: " + HttpContext.Current.Request.Headers["Host"] +
-                             "<br>\r\nREFERRER: " + HttpContext.Current.Request.UrlReferrer +
-                             "<br>\r\nFORM: " + HttpContext.Current.Request.Form.ToString() +
-                             "<br>\r\nQUERYSTRING: " + HttpContext.Current.Request.QueryString.ToString() +
-                             "<br>\r\nTARGETSITE: " + ex.TargetSite +
-                             "<br>\r\nSTACKTRACE: " + ex.StackTrace;
-            Fanex.Logging.Logger.Log.Error(message);
+            Task.Factory.StartNew(() =>
+            {
+                Fanex.Logging.Logger.Log.Error(ex.Message, ex);
+            });
         }
         public static void WriteLog(string sContent)
         {

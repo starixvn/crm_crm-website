@@ -1,47 +1,30 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="FeedbackController.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
-
+﻿
 namespace Fanex.CRM.Web.Controllers
 {
     using System;
     using System.Web.Mvc;
-    using System.Web.Routing;
     using Fanex.CRM.Entities;
-    using Fanex.CRM.Entities.ViewModel;
-    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Impl;
     using Fanex.CRM.Service.Interface;
+    using Fanex.CRM.Entities.ViewModel;
+    using System.Web.Routing;
     using Fanex.CRM.Web.Controllers.Helper;
 
-    /// <summary>
-    /// Feedback Controller.
-    /// </summary>
-    public class FeedbackController : BaseController
+    public class FeedbackController: BaseController
     {
         private readonly IFeedbackService _feedbackService;
+        IPermissionService _permission;
 
-        private IPermissionService _permission;
-
-        public FeedbackController()
-            : this(null, null)
-        {
-        }
-
-        public FeedbackController(IFeedbackService feedbackService, IPermissionService permissionService)
+        public FeedbackController(): this(null, null) { }
+                
+        public FeedbackController(IFeedbackService feedbackService, IPermissionService permissionService) 
         {
             _feedbackService = feedbackService ?? new FeedbackService();
             _permission = permissionService ?? new PermissionService();
         }
 
         #region Views
-
         public ActionResult AddFeedback()
         {
             ViewBag.Title = "Add Feedback";
@@ -54,20 +37,14 @@ namespace Fanex.CRM.Web.Controllers
             return View();
         }
 
-        /// <summary>
-        /// Deletes the feedback.
-        /// </summary>
-        /// <returns>Delete result.</returns>
         public ActionResult DeletedFeedback()
         {
-            if (!_permission.GetHostPermission(Enumerations.Functions.Feedback.DeleteFeedback, AppSession.RoleAccess))
-            {
+            if (!_permission.GetHostPermission(Fanex.CRM.Infrastructure.Common.Enumerations.Functions.Feedback.DeleteFeedback, AppSession.RoleAccess))
                 return new RedirectToRouteResult(new RouteValueDictionary(new
                 {
                     controller = "Common",
                     action = "AccessDenied"
                 }));
-            }
 
             return View();
         }
@@ -91,15 +68,9 @@ namespace Fanex.CRM.Web.Controllers
         {
             return View();
         }
-
         #endregion
-        #region Post Actions
 
-        /// <summary>
-        /// Adds the guest feedback.
-        /// </summary>
-        /// <param name="feedback">The feedback.</param>
-        /// <returns>Add result.</returns>
+        #region Post Actions
         [HttpPost]
         public JsonResult AddGuestFeedback(Feedback feedback)
         {
@@ -113,21 +84,11 @@ namespace Fanex.CRM.Web.Controllers
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
             jsonResult = Json(result);
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
         }
 
-        /// <summary>
-        /// Selects the top feedback by customer identifier.
-        /// </summary>
-        /// <param name="custId">The customer identifier.</param>
-        /// <param name="selectTop">The select top.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="fromCache">If set to <c>true</c> [from cache].</param>
-        /// <returns>The top feedback by customer identifier.</returns>
         [HttpPost]
         public JsonResult SelTopFeedbackByCustId(int custId, int selectTop, int pageIndex, int pageSize, bool fromCache)
         {
@@ -141,157 +102,49 @@ namespace Fanex.CRM.Web.Controllers
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
-            jsonResult = Json(new
-            {
-                pageindex = result.PageIndex,
-                total = result.TotalItems,
-                rows = result.Rows
-            });
-
+            jsonResult = Json(result);
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
         }
 
-        /// <summary>
-        /// Gets the deleted feedback.
-        /// </summary>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date value.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="isGuest">The is guest.</param>
-        /// <param name="communicationID">The communication identifier.</param>
-        /// <param name="mainCategoryID">The main category identifier.</param>
-        /// <param name="subCategoryID">The sub category identifier.</param>
-        /// <param name="isReviewed">The is reviewed.</param>
-        /// <param name="responseId">The response identifier.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="fromCache">If set to <c>true</c> [from cache].</param>
-        /// <returns>The deleted feedback.</returns>
         [HttpPost]
-        public JsonResult GetDeletedFeedback(
-            string fromDate,
-            string toDate,
-            string userName,
-            int isGuest,
-            int communicationID,
-            int mainCategoryID,
-            int subCategoryID,
-            int isReviewed,
-            int responseId,
-            int pageIndex,
-            int pageSize,
-            bool fromCache)
+        public JsonResult GetDeletedFeedback(string fromDate, string toDate, string userName, int isGuest, int communicationID, int mainCategoryID, int subCategoryID, int isReviewed, int responseId, int pageIndex, int pageSize, bool fromCache)
         {
             var result = new DataGridViewDTO();
             JsonResult jsonResult;
             try
             {
-                result = _feedbackService.GetDeletedFeedback(
-                    fromDate,
-                    toDate,
-                    userName,
-                    isGuest,
-                    communicationID,
-                    mainCategoryID,
-                    subCategoryID,
-                    isReviewed,
-                    responseId,
-                    pageIndex,
-                    pageSize,
-                    fromCache);
+                result = _feedbackService.GetDeletedFeedback(fromDate, toDate, userName, isGuest, communicationID, mainCategoryID, 
+                    subCategoryID, isReviewed, responseId, pageIndex, pageSize, fromCache);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
-            jsonResult = Json(new
-            {
-                pageindex = result.PageIndex,
-                total = result.TotalItems,
-                rows = result.Rows
-            });
+            jsonResult = Json(result);
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
         }
 
-        /// <summary>
-        /// Gets the feedback.
-        /// </summary>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date value.</param>
-        /// <param name="username">The username.</param>
-        /// <param name="isGuest">The is guest.</param>
-        /// <param name="communicationId">The communication identifier.</param>
-        /// <param name="mainCategoryId">The main category identifier.</param>
-        /// <param name="subCategoryId">The sub category identifier.</param>
-        /// <param name="statusId">The status identifier.</param>
-        /// <param name="isReviewed">The is reviewed.</param>
-        /// <param name="responseId">The response identifier.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="fromCache">If set to <c>true</c> [from cache].</param>
-        /// <returns>The feedback.</returns>
         [HttpPost]
-        public JsonResult GetFeedback(
-            string fromDate,
-            string toDate,
-            string username,
-            int isGuest,
-            int communicationId,
-            int mainCategoryId,
-            int subCategoryId,
-            int statusId,
-            int isReviewed,
-            int responseId,
-            int pageIndex,
-            int pageSize,
-            bool fromCache)
+        public JsonResult GetFeedback(string fromDate, string toDate, string UserName, int IsGuest, int CommunicationID, int MainCategoryID, int SubCategoryID, int StatusID, int IsReviewed, int responseId, int pageIndex, int pageSize, bool fromCache)
         {
             var result = new DataGridViewDTO();
             JsonResult jsonResult;
             try
             {
-                result = _feedbackService.GetFeedback(
-                    fromDate,
-                    toDate,
-                    username,
-                    isGuest,
-                    communicationId,
-                    mainCategoryId,
-                    subCategoryId,
-                    statusId,
-                    isReviewed,
-                    responseId,
-                    pageIndex,
-                    pageSize,
-                    fromCache);
+                result = _feedbackService.GetFeedback(fromDate, toDate, UserName, IsGuest, CommunicationID, MainCategoryID, SubCategoryID,
+                    StatusID, IsReviewed, responseId, pageIndex, pageSize, fromCache);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
-            jsonResult = Json(new
-            {
-                pageindex = result.PageIndex,
-                total = result.TotalItems,
-                rows = result.Rows
-            });
+            jsonResult = Json(result);
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
         }
 
-        /// <summary>
-        /// Selects the top feedback.
-        /// </summary>
-        /// <param name="selectTop">The select top.</param>
-        /// <param name="pageIndex">Index of the page.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="fromCache">If set to <c>true</c> [from cache].</param>
-        /// <returns>The top feedback.</returns>
         [HttpPost]
         public JsonResult SelTopFeedback(int selectTop, int pageIndex, int pageSize, bool fromCache)
         {
@@ -305,46 +158,29 @@ namespace Fanex.CRM.Web.Controllers
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
-            jsonResult = Json(new
-            {
-                pageindex = result.PageIndex,
-                total = result.TotalItems,
-                rows = result.Rows
-            });
-            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return jsonResult;
-        }
-
-        /// <summary>
-        /// Gets by identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>Get result.</returns>
-        [HttpPost]
-        public JsonResult GetById(int id)
-        {
-            var result = new Feedback();
-            JsonResult jsonResult;
-            try
-            {
-                result = _feedbackService.GetById(id);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
             jsonResult = Json(result);
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
         }
 
-        /// <summary>
-        /// Edits the feedback.
-        /// </summary>
-        /// <param name="feedback">The feedback.</param>
-        /// <returns>Edit result.</returns>
+        [HttpPost]
+        public JsonResult GetById(int Id)
+        {
+            var result = new Feedback();
+            JsonResult jsonResult;
+            try
+            {
+                result = _feedbackService.GetById(Id);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+            jsonResult = Json(result);
+            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return jsonResult;
+        }
+
         [HttpPost]
         public JsonResult EditFeedback(Feedback feedback)
         {
@@ -358,17 +194,11 @@ namespace Fanex.CRM.Web.Controllers
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
             jsonResult = Json(result);
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
         }
 
-        /// <summary>
-        /// Adds the feedback.
-        /// </summary>
-        /// <param name="feedback">The feedback.</param>
-        /// <returns>Add result.</returns>
         [HttpPost]
         public JsonResult AddFeedback(Feedback feedback)
         {
@@ -382,7 +212,6 @@ namespace Fanex.CRM.Web.Controllers
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
             jsonResult = Json(result);
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
