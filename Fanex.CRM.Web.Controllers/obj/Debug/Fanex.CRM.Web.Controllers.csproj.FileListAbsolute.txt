@@ -174,3 +174,6 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\obj\Debug\Fanex.CRM.Web.Controllers.csprojResolveAssemblyReference.cache
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\obj\Debug\Fanex.CRM.Web.Controllers.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\obj\Debug\Fanex.CRM.Web.Controllers.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Sunplus.Core.LoggingLib.dll
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\DNAide.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Sunplus.Core.LoggingLib.pdb

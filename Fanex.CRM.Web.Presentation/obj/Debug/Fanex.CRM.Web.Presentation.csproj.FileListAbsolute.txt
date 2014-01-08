@@ -240,3 +240,15 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Fane
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\obj\Debug\Fanex.CRM.Web.Presentation.csprojResolveAssemblyReference.cache
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\obj\Debug\Fanex.CRM.Web.View.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\obj\Debug\Fanex.CRM.Web.View.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Enyim.Caching.dll
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.Unity.dll
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.Unity.Interception.dll
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Fanex.Caching.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Fanex.Common.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Fanex.Data.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Enyim.Caching.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Enyim.Caching.xml
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.Unity.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.Unity.Interception.pdb
