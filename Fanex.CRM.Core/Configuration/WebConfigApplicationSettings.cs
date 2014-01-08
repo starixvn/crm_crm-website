@@ -1,27 +1,37 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="WebConfigApplicationSettings.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
 namespace Fanex.CRM.Infrastructure.Configuration
 {
     using System.Collections.Generic;
     using System.Configuration;
     using DNAide.Core;
 
-    public class WebConfigApplicationSettings : IApplicationSettings 
+    /// <summary>
+    /// Web Configuration Application Settings.
+    /// </summary>
+    public class WebConfigApplicationSettings : IApplicationSettings
     {
-        public int NumberOfRecordsPerPage
-        {
-            get { return int.Parse(ConfigurationManager.AppSettings["NumberOfRecordsPerPage"]); }
-        }
-
         public static List<string> NotAuthenticateAction
         {
-            get {
+            get
+            {
                 var exceptionAction = ConfigurationManager.AppSettings["NotAuthenticateAction"].Split(';');
                 var notAuthenticateAction = new List<string>();
                 if (exceptionAction.Length != 0)
                 {
                     foreach (var acction in exceptionAction)
                     {
-                        if (acction != null) notAuthenticateAction.Add(acction.ToLower());
+                        if (acction != null)
+                        {
+                            notAuthenticateAction.Add(acction.ToLower());
+                        }
                     }
                 }
 
@@ -36,6 +46,7 @@ namespace Fanex.CRM.Infrastructure.Configuration
                 return ConfigurationManager.AppSettings["CRMMongoDbServer"];
             }
         }
+
         public static string MongoDbName
         {
             get
@@ -43,6 +54,7 @@ namespace Fanex.CRM.Infrastructure.Configuration
                 return ConfigurationManager.AppSettings["CRMMongoDbName"];
             }
         }
+
         public static string MongoCustomerTable
         {
             get
@@ -50,6 +62,7 @@ namespace Fanex.CRM.Infrastructure.Configuration
                 return ConfigurationManager.AppSettings["CRMMongoCustomerTable"];
             }
         }
+
         public static string MongoUserNameHintValue
         {
             get
@@ -63,7 +76,7 @@ namespace Fanex.CRM.Infrastructure.Configuration
             get
             {
                 var reportFolderPath = ConfigurationManager.AppSettings["ReportFolderPath"];
-                var reportFullPath = string.Format(@"{0}{1}", System.Web.HttpRuntime.AppDomainAppPath,reportFolderPath);
+                var reportFullPath = string.Format(@"{0}{1}", System.Web.HttpRuntime.AppDomainAppPath, reportFolderPath);
                 return reportFullPath;
             }
         }
@@ -83,6 +96,10 @@ namespace Fanex.CRM.Infrastructure.Configuration
                 return CastAide.AsInt32(ConfigurationManager.AppSettings["ReportDeleteFileTime"]);
             }
         }
-     
+
+        public int NumberOfRecordsPerPage
+        {
+            get { return int.Parse(ConfigurationManager.AppSettings["NumberOfRecordsPerPage"]); }
+        }
     }
 }

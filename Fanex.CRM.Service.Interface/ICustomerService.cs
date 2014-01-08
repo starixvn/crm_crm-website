@@ -1,4 +1,12 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="ICustomerService.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
 namespace Fanex.CRM.Service.Interface
 {
     using System.Collections.Generic;
@@ -22,7 +30,9 @@ namespace Fanex.CRM.Service.Interface
         DataTable GetAutoSearch(int userID, string userName, bool isGuest);
 
         Result UpdateAutoCustomerSearch(int userID, int custID, string userName);
+
         MongoCursor<BsonDocument> CustomerAutoSuggest(string customerName, bool isGuest);
+
         bool UpdateCustomerSearchCountValue(int custId, string customerName);
     }
 }

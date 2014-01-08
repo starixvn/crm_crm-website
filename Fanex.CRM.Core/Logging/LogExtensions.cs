@@ -1,20 +1,27 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="LogExtensions.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="bobby.nguyen" date="2011.11.01">Created</change>
+// </history>
+
 namespace Fanex.CRM.Infrastructure.Logging
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
     using System.IO;
     using System.Web;
-    using System.Threading.Tasks;
 
-    /**
-     * public class Log Extensions
-     * @Author: bobby.nguyen
-     * @Date: 11012011
-     **/
+    /// <summary>
+    /// Log Extensions.
+    /// </summary>
     public static class LogExtensions
-    {        
+    {
+        /// <summary>
+        /// Exceptions the handler.
+        /// </summary>
+        /// <param name="ex">The exception.</param>
         public static void ExceptionHandler(Exception ex)
         {
             string message = ex.Message +
@@ -27,7 +34,12 @@ namespace Fanex.CRM.Infrastructure.Logging
                              "<br>\r\nSTACKTRACE: " + ex.StackTrace;
             Fanex.Logging.Logger.Log.Error(message);
         }
-        public static void WriteLog(string sContent)
+
+        /// <summary>
+        /// Writes the log.
+        /// </summary>
+        /// <param name="logContent">Log content.</param>
+        public static void WriteLog(string logContent)
         {
             var outPath = string.Format(@"{0}\Logs\Error", HttpContext.Current.Server.MapPath("~/"));
 
@@ -41,7 +53,7 @@ namespace Fanex.CRM.Infrastructure.Logging
             var fs = new FileStream(outPath, FileMode.Append, FileAccess.Write);
             var sw = new StreamWriter(fs);
 
-            sw.WriteLine(DateTime.Now + ": " + sContent);
+            sw.WriteLine(DateTime.Now + ": " + logContent);
 
             sw.Close();
             fs.Close();

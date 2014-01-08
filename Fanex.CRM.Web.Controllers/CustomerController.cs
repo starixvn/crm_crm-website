@@ -100,7 +100,7 @@ namespace Fanex.CRM.Web.Controllers
             JsonResult jsonResult;
             try
             {
-                var ip = Fanex.CRM.Infrastructure.Helper.Helper.getClientIP();
+                var ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
                 result = _customerService.UpdateAutoCustomerSearch(userID, custID, userName);
             }
             catch (Exception ex)
@@ -257,7 +257,7 @@ namespace Fanex.CRM.Web.Controllers
             try
             {
                 var customer = new Customer();
-                var ip = Fanex.CRM.Infrastructure.Helper.Helper.getClientIP();
+                var ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
 
                 customer.Answer = answer;
                 customer.BankInfo = new BankInfo

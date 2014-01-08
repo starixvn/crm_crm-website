@@ -1,4 +1,13 @@
-﻿namespace Fanex.CRM.Service.Impl
+﻿// --------------------------------------------------------------------------
+// <copyright file="UserService.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
+namespace Fanex.CRM.Service.Impl
 {
     using System;
     using System.Collections.Generic;
@@ -13,12 +22,18 @@
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Interface;
 
+    /// <summary>
+    /// User Service.
+    /// </summary>
     public class UserService : IUserService
     {
         private readonly IUserDataAccess _userRepository;
         private readonly IPermissionService _permissionService;
 
-        public UserService() : this(null, null) { }
+        public UserService()
+            : this(null, null)
+        {
+        }
 
         public UserService(IUserDataAccess userRepository, IPermissionService permissionService)
         {
@@ -26,12 +41,16 @@
             this._permissionService = permissionService ?? new PermissionService();
         }
 
+        /// <summary>
+        /// Gets the user information.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>Get result.</returns>
         public User GetUseInfo(string userName)
         {
             try
             {
                 return this._userRepository.GetUserInfo(userName);
-
             }
             catch (Exception ex)
             {
@@ -41,6 +60,11 @@
             }
         }
 
+        /// <summary>
+        /// Gets the user menu.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Get result.</returns>
         public IEnumerable<Menu> GetUserMenu(int userId)
         {
             try
@@ -54,23 +78,27 @@
                 Helper.SendMailErrorNotice(string.Format("(GetUserMenu) - Error: {0}<br> - userId: {1}", ex.Message, userId));
                 return new List<Menu>();
             }
-        }        
+        }
 
+        /// <summary>
+        /// Checks the user online status.
+        /// </summary>
+        /// <returns>Check result.</returns>
         public Result CheckUserOnlineStatus()
         {
-            
             var result = new Result();
-            try                       
+            try
             {
                 var isOnline = false;
-                
-                var onUserId = CastAide.AsInt32(SessionExtension.OnlineUserId);
+                var onlineUserId = CastAide.AsInt32(SessionExtension.OnlineUserId);
 
                 if (!AppSetting.IsLocalTest)
                 {
-                    isOnline = this._userRepository.OnlineUserUpdate(onUserId);
+                    isOnline = this._userRepository.OnlineUserUpdate(onlineUserId);
                     if (isOnline)
+                    {
                         result.ErrCode = 0;
+                    }
                     else
                     {
                         result.ErrCode = 500;
@@ -91,6 +119,12 @@
             return result;
         }
 
+        /// <summary>
+        /// Assigns the roles.
+        /// </summary>
+        /// <param name="custid">The customer identify.</param>
+        /// <param name="userRoleAccess">The user role access.</param>
+        /// <param name="userRageAccess">The user rage access.</param>
         public void AssignRoles(int custid, ref Dictionary<string, int> userRoleAccess, ref Dictionary<string, int> userRageAccess)
         {
             try
@@ -98,12 +132,11 @@
                 var pageAcess = new Dictionary<string, int>();
                 var roleAccess = new Dictionary<string, int>();
                 char[] delimiterChars = { ';' };
-
                 var userRoles = this._permissionService.GetCustomerRoles(custid);
 
                 if (userRoles != null && userRoles.Count != 0)
                 {
-                    string filenames = "";
+                    string filenames = string.Empty;
                     foreach (var userRole in userRoles)
                     {
                         filenames = userRole.FileNames.ToLower();
@@ -113,7 +146,10 @@
                         roleAccess.Add(functionName, actualPolicy);
 
                         if (string.IsNullOrEmpty(filenames))
+                        {
                             continue;
+                        }
+
                         string[] fileList = filenames.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
                         foreach (string file in fileList)
                         {
@@ -125,22 +161,20 @@
                             }
 
                             if (!pageAcess.ContainsKey(cleanFilePath))
+                            {
                                 pageAcess.Add(cleanFilePath, actualPolicy);
+                            }
                         }
                     }
                 }
-                
+
                 userRageAccess = pageAcess;
                 userRoleAccess = roleAccess;
-
-
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-
-
         }
     }
 }

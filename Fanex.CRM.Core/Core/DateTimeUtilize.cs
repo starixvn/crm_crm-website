@@ -1,95 +1,106 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="DateTimeUtilize.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
 namespace Fanex.CRM.Infrastructure.Core
 {
     using System;
-    using Fanex.CRM.Infrastructure.Common;
     using DNAide.Core;
+    using Fanex.CRM.Infrastructure.Common;
 
+    /// <summary>
+    /// Date Time Utilize.
+    /// </summary>
     public class DateTimeUtilize
     {
         private TimeSpan _timeSpan;
+
         public DateTimeUtilize()
         {
             this._timeSpan = new TimeSpan(AppSetting.TimeSpan, 0, 0);
         }
+
         public static DateTime ResetEndDay(DateTime date)
         {
             return date.AddDays(1).AddSeconds(-1);
         }
 
         #region Convert time client <->server
-        public static string ChangeTimeZoneToClient(DateTime Time)
+        public static string ChangeTimeZoneToClient(DateTime time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return Time.Add(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
+            return time.Add(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
         }
 
-        public static string ChangeTimeZoneToClient(string Time)
+        public static string ChangeTimeZoneToClient(string time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            var Client = CastAide.AsDateTime(Time);
-            return Client.Add(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
+            var client = CastAide.AsDateTime(time);
+            return client.Add(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
         }
 
-        public static string ChangeTimeZoneToClientDate(string Time)
+        public static string ChangeTimeZoneToClientDate(string time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            var Client = CastAide.AsDateTime(Time);
-            return Client.Add(timeSpan._timeSpan).ToString("MM/dd/yyyy");
+            var client = CastAide.AsDateTime(time);
+            return client.Add(timeSpan._timeSpan).ToString("MM/dd/yyyy");
         }
 
-        public static string ChangeTimeZoneToClientTime(string Time)
+        public static string ChangeTimeZoneToClientTime(string time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            var Client = CastAide.AsDateTime(Time);
-            return Client.Add(timeSpan._timeSpan).ToString("hh:mm tt");
+            var client = CastAide.AsDateTime(time);
+            return client.Add(timeSpan._timeSpan).ToString("hh:mm tt");
         }
 
-
-        public static string ChangeTimeZoneToServer(DateTime Time)
+        public static string ChangeTimeZoneToServer(DateTime time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return Time.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
+            return time.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
         }
 
-        public static string ChangeTimeZoneToServer(string Time)
+        public static string ChangeTimeZoneToServer(string time)
         {
-            var Client = CastAide.AsDateTime(Time);
+            var client = CastAide.AsDateTime(time);
             DateTimeUtilize timeSpan = new DateTimeUtilize();
 
-            return Client.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
+            return client.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
         }
         #endregion
 
         #region Convert Time for report client <->server
 
-        public static string ChangeTimeToServerForReportBegin(DateTime Time)
+        public static string ChangeTimeToServerForReportBegin(DateTime time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return Time.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm");
+            return time.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm");
         }
 
-        public static string ChangeTimeToServerForReportBegin(string Time)
+        public static string ChangeTimeToServerForReportBegin(string time)
         {
-            var Server = CastAide.AsDateTime(Time);
+            var server = CastAide.AsDateTime(time);
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return Server.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm");
+            return server.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm");
         }
 
-        public static string ChangeTimeToServerForReportEnd(DateTime Time)
+        public static string ChangeTimeToServerForReportEnd(DateTime time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return Time.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy hh:mm");
+            return time.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy hh:mm");
         }
 
-        public static string ChangeTimeToServerForReportEnd(string Time)
+        public static string ChangeTimeToServerForReportEnd(string time)
         {
-            var Server = CastAide.AsDateTime(Time);
+            var server = CastAide.AsDateTime(time);
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return Server.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy hh:mm");
+            return server.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy hh:mm");
         }
 
         #endregion
-
     }
 }

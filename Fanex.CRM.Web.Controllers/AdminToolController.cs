@@ -315,7 +315,7 @@ namespace Fanex.CRM.Web.Controllers
             JsonResult jsonResult;
             try
             {
-                string ip = Fanex.CRM.Infrastructure.Helper.Helper.getClientIP();
+                string ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
                 result = _settingService.Delete(id, ip, userId);
             }
             catch (Exception ex)
@@ -419,7 +419,7 @@ namespace Fanex.CRM.Web.Controllers
             JsonResult jsonResult;
             try
             {
-                string ip = Fanex.CRM.Infrastructure.Helper.Helper.getClientIP();
+                string ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
                 bool f = _settingService.IsExistedSetting(setting);
                 if (f)
                 {
@@ -463,7 +463,7 @@ namespace Fanex.CRM.Web.Controllers
             JsonResult jsonResult;
             try
             {
-                string ip = Fanex.CRM.Infrastructure.Helper.Helper.getClientIP();
+                string ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
                 if (setting.Value.ToLower().Equals(oldSettingName.ToLower()))
                 {
                     result = _settingService.Update(setting, ip, userId);
@@ -540,7 +540,7 @@ namespace Fanex.CRM.Web.Controllers
             JsonResult jsonResult;
             try
             {
-                string ip = Fanex.CRM.Infrastructure.Helper.Helper.getClientIP();
+                string ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
                 result = _settingService.Create(settingId, settingName, ip, userId, parentId);
             }
             catch (Exception ex)
@@ -573,7 +573,7 @@ namespace Fanex.CRM.Web.Controllers
             JsonResult jsonResult;
             try
             {
-                string ip = Fanex.CRM.Infrastructure.Helper.Helper.getClientIP();
+                string ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
                 result = _settingService.Delete(settingId, ip, userId, parentId);
             }
             catch (Exception ex)

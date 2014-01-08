@@ -1,4 +1,13 @@
-﻿namespace Fanex.CRM.Service.Impl
+﻿// --------------------------------------------------------------------------
+// <copyright file="SettingService.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
+namespace Fanex.CRM.Service.Impl
 {
     using System;
     using System.Collections.Generic;
@@ -12,12 +21,16 @@
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Interface;
 
+    /// <summary>
+    /// Setting Service.
+    /// </summary>
     public class SettingService : ISettingService
     {
         private readonly ISettingDataAccess _repository;
         private readonly IPermissionService _permissionService;
 
-        public SettingService() : this(null, null)
+        public SettingService()
+            : this(null, null)
         {
         }
 
@@ -32,40 +45,11 @@
             get { return GetAll(); }
         }
 
-        public IEnumerable<Setting> GetAll()
-        {
-            IEnumerable<Setting> settings = new List<Setting>();
-            try
-            {
-                settings = CacheService.Get<IEnumerable<Setting>>(Constants.AllSettingKey);
-                
-                if (settings == null)
-                {
-                    settings = this._repository.FindAll();
-                    if (settings != null && settings.Count() > 0)                    
-                        CacheService.Set(Constants.AllSettingKey, settings);
-                }
-            }
-            catch (Exception ex)
-            {
-                CacheService.Delete(Constants.AllSettingKey);
-                settings = this._repository.FindAll();                
-                if (settings != null && settings.Count() > 0)                
-                    CacheService.Set(Constants.AllSettingKey, settings);
-                
-
-                Helper.SendMailErrorNotice(string.Format("(SettingService GetAll) - {0}", ex.Message));
-                LogExtensions.ExceptionHandler(ex);                
-            }
-            return settings;
-        }
-
         private IEnumerable<string> AllSettingType
         {
             get
             {
                 var allTypes = CacheService.Get<IEnumerable<string>>(Constants.AllSettingType);
-
                 if (allTypes == null || allTypes.Count() <= 0)
                 {
                     allTypes = AllSettings
@@ -80,11 +64,52 @@
             }
         }
 
+        private IEnumerable<SettingRelation> AllSettingRelation
+        {
+            get { return GetAllSetingRelation(); }
+        }
+
         /// <summary>
-        /// Get all setting and group by type
-        /// In order to access setting in group
+        /// Gets all settings.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>All settings.</returns>
+        public IEnumerable<Setting> GetAll()
+        {
+            IEnumerable<Setting> settings = new List<Setting>();
+            try
+            {
+                settings = CacheService.Get<IEnumerable<Setting>>(Constants.AllSettingKey);
+
+                if (settings == null)
+                {
+                    settings = this._repository.FindAll();
+                    if (settings != null && settings.Count() > 0)
+                    {
+                        CacheService.Set(Constants.AllSettingKey, settings);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                CacheService.Delete(Constants.AllSettingKey);
+                settings = this._repository.FindAll();
+                if (settings != null && settings.Count() > 0)
+                {
+                    CacheService.Set(Constants.AllSettingKey, settings);
+                }
+
+                Helper.SendMailErrorNotice(string.Format("(SettingService GetAll) - {0}", ex.Message));
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return settings;
+        }
+
+        /// <summary>
+        /// Gets all setting and group by type.
+        /// In order to access setting in group.
+        /// </summary>
+        /// <returns>Get result.</returns>
         public IEnumerable<Setting> GetAllGroupByType()
         {
             var settingGroupByType = new List<Setting>();
@@ -105,21 +130,18 @@
                 LogExtensions.ExceptionHandler(ex);
                 Helper.SendMailErrorNotice(string.Format("(SettingService GetAllGroupByType) - {0}", ex.Message));
             }
+
             return settingGroupByType;
         }
 
-        private void GetSubSetting(string key, ref List<Setting> settingList, IEnumerable<Setting> allSetting)
-        {
-            var subList = allSetting
-                
-                .Where(s => s.Type == key)
-                .Select(s => s).ToList();
-
-            var setting = new Setting { Type = key, Child = subList };
-
-            settingList.Add(setting);
-        }
-
+        /// <summary>
+        /// Creates the specified setting.
+        /// </summary>
+        /// <param name="setting">The setting.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns>Create result.</returns>
         public Result Create(Setting setting, string ip, int userId, int parentId)
         {
             Result result = new Result();
@@ -155,14 +177,26 @@
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(
-                    string.Format(
-                        "(SettingService Create) - Error: {0}<br> - userId: {1}<br> - SettingId: {2}<br> - Value: {3}<br> - Type: {4}",
-                        ex.Message, userId, setting.Id, setting.Value, setting.Type));
+                var errorMessage = string.Format(
+                    "(SettingService Create) - Error: {0}<br> - userId: {1}<br> - SettingId: {2}<br> - Value: {3}<br> - Type: {4}",
+                    ex.Message,
+                    userId,
+                    setting.Id,
+                    setting.Value,
+                    setting.Type);
+                Helper.SendMailErrorNotice(errorMessage);
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Updates the specified setting.
+        /// </summary>
+        /// <param name="setting">The setting.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Update result.</returns>
         public Result Update(Setting setting, string ip, int userId)
         {
             Check.Argument.IsNotNull(setting, "setting");
@@ -175,9 +209,9 @@
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoPermission");
                     return result;
                 }
+
                 if (IsExistedSetting(setting.Id))
                 {
-
                     result = this._repository.Save(setting, ip, userId);
                     ////clear cache
                     if (result.ErrCode == 0)
@@ -192,11 +226,23 @@
                 Helper.SendMailErrorNotice(
                     string.Format(
                         "(SettingService Update) - Error: {0}<br> - userId: {1}<br> - SettingId: {2}<br> - Value: {3}<br> - Type: {4}",
-                        ex.Message, userId, setting.Id, setting.Value, setting.Type));
+                        ex.Message,
+                        userId,
+                        setting.Id,
+                        setting.Value,
+                        setting.Type));
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Deletes the specified setting identifier.
+        /// </summary>
+        /// <param name="settingId">The setting identifier.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Delete result.</returns>
         public Result Delete(int settingId, string ip, int userId)
         {
             Check.Argument.IsNotNegativeOrZero(settingId, "settingId");
@@ -209,6 +255,7 @@
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoPermission");
                     return result;
                 }
+
                 if (IsExistedSetting(settingId))
                 {
                     result = this._repository.Remove(settingId, ip, userId);
@@ -229,12 +276,11 @@
             return result;
         }
 
-        private static void ClearCache()
-        {
-            CacheService.Delete(Constants.AllSettingKey);
-            CacheService.Delete(Constants.SettingRelationKey);
-        }
-
+        /// <summary>
+        /// Gets setting by identifier.
+        /// </summary>
+        /// <param name="settingId">The setting identifier.</param>
+        /// <returns>Get result.</returns>
         public Setting GetById(int settingId)
         {
             var setting = new Setting() { Value = "N/A" };
@@ -244,18 +290,28 @@
                 var settings = AllSettings;
                 var query = settings.Where(s => s.Id == settingId).ToList();
                 if (query != null && query.Count > 0)
+                {
                     setting = query.First();
+                }
                 else
-                    setting = new Setting(){ Value = "N/A" };
+                {
+                    setting = new Setting() { Value = "N/A" };
+                }
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 Helper.SendMailErrorNotice(string.Format("(SettingService GetById: {0}) - {1}", ex.Message, settingId));
             }
+
             return setting;
         }
 
+        /// <summary>
+        /// Gets setting by type.
+        /// </summary>
+        /// <param name="type">The type value.</param>
+        /// <returns>Get result.</returns>
         public IEnumerable<Setting> GetByType(string type)
         {
             try
@@ -277,9 +333,16 @@
             }
         }
 
+        /// <summary>
+        /// Gets setting by type.
+        /// </summary>
+        /// <param name="type">The type value.</param>
+        /// <param name="excludeItem">The exclude item.</param>
+        /// <returns>Get result.</returns>
         public List<Setting> GetByType(string type, string excludeItem)
         {
-            try{
+            try
+            {
                 string strType = type.ToString();
                 var allSettings = AllSettings;
                 var result = allSettings
@@ -293,13 +356,21 @@
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(
-                    string.Format("(SettingService GetByType) - Error: {0}<br> - Type: {1}<br> - Exclude: {2}",
-                                  ex.Message, type, excludeItem));
+                var errorMessage = string.Format(
+                    "(SettingService GetByType) - Error: {0}<br> - Type: {1}<br> - Exclude: {2}",
+                    ex.Message,
+                    type,
+                    excludeItem);
+                Helper.SendMailErrorNotice(errorMessage);
                 return new List<Setting>();
             }
         }
 
+        /// <summary>
+        /// Gets the setting by type no child.
+        /// </summary>
+        /// <param name="type">The type value.</param>
+        /// <returns>Get result.</returns>
         public IEnumerable<Setting> GetByTypeNoChild(string type)
         {
             try
@@ -320,48 +391,12 @@
             }
         }
 
-        private IEnumerable<SettingRelation> AllSettingRelation
-        {
-            get { return GetAllSetingRelation(); }
-        }
-
-        private IEnumerable<SettingRelation> GetAllSetingRelation()
-        {
-            IEnumerable<SettingRelation> settingRelations = new List<SettingRelation>();
-            try
-            {
-                settingRelations =
-                CacheService.Get<IEnumerable<SettingRelation>>(Constants.SettingRelationKey);
-                ////perfrom access repository to get data
-                if (settingRelations == null || settingRelations.Count() <= 0)
-                {
-                    settingRelations = _repository.GetSettingRelation();
-                    ////cache seting relation
-                    if (settingRelations != null && settingRelations.Count() > 0)
-                        CacheService.Set(Constants.SettingRelationKey, settingRelations);
-
-                }
-            }
-            catch (Exception ex)
-            {
-                CacheService.Delete(Constants.SettingRelationKey);
-                settingRelations = this._repository.GetSettingRelation();
-                if (settingRelations != null && settingRelations.Count() > 0)
-                    CacheService.Set(Constants.SettingRelationKey, settingRelations);
-
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-
-            return settingRelations;
-        }
-
         /// <summary>
-        /// Get setting by parentid
-        /// Note: a setting can belongs to 2 other parent
+        /// Gets setting by parent identify.
+        /// Note: a setting can belongs to 2 other parent.
         /// </summary>
-        /// <param name="parentId"></param>
-        /// <returns></returns>
+        /// <param name="parentId">Parent Identify.</param>
+        /// <returns>Get result.</returns>
         public IEnumerable<Setting> GetByParent(int? parentId)
         {
             try
@@ -370,27 +405,24 @@
                 ////get list setting id by parentid
                 var allSettingRelation = AllSettingRelation;
                 var settingIds = allSettingRelation
-                    .Where(r => (parentId.HasValue)
+                    .Where(r => parentId.HasValue
                         ? r.ParentId == parentId.Value
                         : r.ParentId == 0)
                      .Select(s => new { s.SettingId, s.Order });
 
-
                 var allSettings = AllSettings;
-
-
-                var query = allSettings.AsQueryable().Join(settingIds,
-                                                           setting => setting.Id,
-                                                           parent => parent.SettingId,
-                                                           (setting, parent) =>
-                                                           new Setting
-                                                               {
-                                                                   Id = setting.Id,
-                                                                   DisplayOrder = parent.Order,
-                                                                   Value = setting.Value,
-                                                                   Type = setting.Type
-                                                               }).ToList().OrderBy(
-                                                                   s => s.DisplayOrder);
+                var query = allSettings.AsQueryable().Join(
+                    settingIds,
+                    setting => setting.Id,
+                    parent => parent.SettingId,
+                    (setting, parent) =>
+                        new Setting
+                        {
+                            Id = setting.Id,
+                            DisplayOrder = parent.Order,
+                            Value = setting.Value,
+                            Type = setting.Type
+                        }).ToList().OrderBy(s => s.DisplayOrder);
 
                 return query;
             }
@@ -403,10 +435,10 @@
         }
 
         /// <summary>
-        /// Check existinion of a specific setting
+        /// Check existence of a specific setting.
         /// </summary>
-        /// <param name="setting"></param>
-        /// <returns></returns>
+        /// <param name="setting">Setting value.</param>
+        /// <returns>Check result.</returns>
         public bool IsExistedSetting(Setting setting)
         {
             try
@@ -416,36 +448,37 @@
                 ////Check.Argument.IsNotNegativeOrZero(setting.Id, "setting");
 
                 var firstElement = AllSettings.Where(
-                    (s => (s.Value.Equals(setting.Value, StringComparison.OrdinalIgnoreCase)
-                                && s.Type.Equals(setting.Type, StringComparison.OrdinalIgnoreCase))));
+                    s => (s.Value.Equals(setting.Value, StringComparison.OrdinalIgnoreCase)
+                                && s.Type.Equals(setting.Type, StringComparison.OrdinalIgnoreCase)));
 
-                return (firstElement.Count() > 0);
+                return firstElement.Count() > 0;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(
-                    string.Format("(SettingService IsExistedSetting) - Error: {0} <br> - SettingId: {1}<br> - Value: {2}<br> - Type: {3}", ex.Message,
-                                  setting.Id, setting.Value, setting.Type));
+                var errorMessage = string.Format(
+                    "(SettingService IsExistedSetting) - Error: {0} <br> - SettingId: {1}<br> - Value: {2}<br> - Type: {3}",
+                    ex.Message,
+                    setting.Id,
+                    setting.Value,
+                    setting.Type);
+                Helper.SendMailErrorNotice(errorMessage);
                 return false;
             }
         }
 
         /// <summary>
-        /// Check a specifict setting whether exist or not
+        /// Check a specific setting whether exist or not.
         /// </summary>
-        /// <param name="settingId"></param>
-        /// <returns></returns>
+        /// <param name="settingId">Setting Identify.</param>
+        /// <returns>Check result.</returns>
         public bool IsExistedSetting(int settingId)
         {
             try
             {
                 Check.Argument.IsNotNegativeOrZero(settingId, "settingId");
-
-                var firstElement = AllSettings.Where(
-                    (s => s.Id == settingId));
-
-                return (firstElement.Count() > 0);
+                var firstElement = AllSettings.Where(s => s.Id == settingId);
+                return firstElement.Count() > 0;
             }
             catch (Exception ex)
             {
@@ -456,10 +489,9 @@
         }
 
         /// <summary>
-        /// Search setting type
-        /// support wild card
+        /// Search setting type support wild card.
         /// </summary>
-        /// <param name="settingType"></param>
+        /// <param name="settingType">Setting Type.</param>
         /// <returns><![CDATA[IEnumerable<string>]]></returns>
         public IEnumerable<string> SearchSettingType(string settingType)
         {
@@ -485,6 +517,11 @@
             }
         }
 
+        /// <summary>
+        /// Gets the next identifier by type.
+        /// </summary>
+        /// <param name="type">The type value.</param>
+        /// <returns>Get result.</returns>
         public int GetNextIdByType(SettingType type)
         {
             try
@@ -517,6 +554,12 @@
             }
         }
 
+        /// <summary>
+        /// Gets the setting relation by name.
+        /// </summary>
+        /// <param name="settingName">Name of the setting.</param>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns>Get result.</returns>
         public IEnumerable<Setting> GetSettingRelationByName(string settingName, int parentId)
         {
             try
@@ -527,14 +570,25 @@
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(
-                    string.Format(
-                        "(SettingService GetSettingRelationByName) - Error: {0}<br> - Name: {1}<br> - parentId: {2}",
-                        ex.Message, settingName, parentId));
+                var errorMessage = string.Format(
+                    "(SettingService GetSettingRelationByName) - Error: {0}<br> - Name: {1}<br> - parentId: {2}",
+                    ex.Message,
+                    settingName,
+                    parentId);
+                Helper.SendMailErrorNotice(errorMessage);
                 return new List<Setting>();
             }
         }
 
+        /// <summary>
+        /// Creates the specified setting identifier.
+        /// </summary>
+        /// <param name="settingId">The setting identifier.</param>
+        /// <param name="settingName">Name of the setting.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns>Create result.</returns>
         public Result Create(string settingId, string settingName, string ip, int userId, int parentId)
         {
             Check.Argument.IsNotNull(settingId, "settingId");
@@ -549,21 +603,37 @@
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoPermission");
                     return result;
                 }
+
                 result = this._repository.Add(settingId, settingName, ip, userId, parentId);
                 if (result.IsSuccessfull)
+                {
                     ClearCache();
+                }
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(
-                    string.Format(
+                var errorMessage = string.Format(
                         "(SettingService Create) - Error: {0}<br> - SettignId: {1}<br> - SettignName: {2}<br> - Parent: {3}<br> - User: {4}",
-                        ex.Message, settingId, settingName, parentId, userId));
+                        ex.Message,
+                        settingId,
+                        settingName,
+                        parentId,
+                        userId);
+                Helper.SendMailErrorNotice(errorMessage);
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Deletes the specified setting identifier.
+        /// </summary>
+        /// <param name="settingId">The setting identifier.</param>
+        /// <param name="ip">The IP address.</param>
+        /// <param name="userId">The user identifier.</param>
+        /// <param name="parentId">The parent identifier.</param>
+        /// <returns>Delete result.</returns>
         public Result Delete(int settingId, string ip, int userId, int parentId)
         {
             Check.Argument.IsNotNull(settingId, "settingId");
@@ -578,41 +648,34 @@
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoPermission");
                     return result;
                 }
+
                 result = this._repository.Remove(settingId, ip, userId, parentId);
                 if (result.IsSuccessfull)
+                {
                     ClearCache();
+                }
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(
-                    string.Format(
+                var errorMessage = string.Format(
                         "(SettingService Delete) - Error: {0}<br> - SettignId: {1}<br> - Parent: {2}<br> - User: {3}",
-                        ex.Message, settingId, parentId, userId));
+                        ex.Message,
+                        settingId,
+                        parentId,
+                        userId);
+                Helper.SendMailErrorNotice(errorMessage);
             }
+
             return result;
         }
 
-        private bool GetEnumValue<T>(string input, out T returnValue)
-             where T : struct, IComparable, IFormattable, IConvertible
-        {
-            if (Enum.IsDefined(typeof(T), input))
-            {
-                returnValue = (T)Enum.Parse(typeof(T), input, true);
-                return true;
-            }
-            else 
-            ////input not found in the Enum, fill the out parameter
-            ////  with the first item from the enum
-            {
-                string[] values = Enum.GetNames(typeof(T));
-                returnValue = (T)Enum.Parse(typeof(T), values[0], true);
-                return false;
-            }
-        }
-                
-        
         #region SelAllSetting
+
+        /// <summary>
+        /// Selects all settings.
+        /// </summary>
+        /// <returns>All settings.</returns>
         public AllSetting SelAllSetting()
         {
             AllSetting allSetting = new AllSetting();
@@ -651,18 +714,22 @@
 
                 allSetting.Site = new List<Site>();
                 allSetting.Site = SelAllSite();
-
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
-            
+
             return allSetting;
         }
         #endregion
 
         #region SelAllSite
+
+        /// <summary>
+        /// Selects all sites.
+        /// </summary>
+        /// <returns>All sites.</returns>
         public List<Site> SelAllSite()
         {
             var result = new List<Site>();
@@ -679,9 +746,9 @@
                         Order = site.DisplayOrder,
                         SiteType = site.Id >= 6200 ? 1 : 0
                     };
+
                     result.Add(newSite);
                 }
-
             }
             catch (Exception ex)
             {
@@ -689,10 +756,87 @@
                 Helper.SendMailErrorNotice(string.Format("(SettingService SelAllSite) - {0}", ex.Message));
             }
 
-
             return result;
         }
+
         #endregion
 
+        private static void ClearCache()
+        {
+            CacheService.Delete(Constants.AllSettingKey);
+            CacheService.Delete(Constants.SettingRelationKey);
+        }
+
+        private void GetSubSetting(string key, ref List<Setting> settingList, IEnumerable<Setting> allSetting)
+        {
+            var subList = allSetting
+                .Where(s => s.Type == key)
+                .Select(s => s).ToList();
+
+            var setting = new Setting { Type = key, Child = subList };
+            settingList.Add(setting);
+        }
+
+        /// <summary>
+        /// Gets all setting relation.
+        /// </summary>
+        /// <returns>All setting relation.</returns>
+        private IEnumerable<SettingRelation> GetAllSetingRelation()
+        {
+            IEnumerable<SettingRelation> settingRelations = new List<SettingRelation>();
+            try
+            {
+                settingRelations =
+                CacheService.Get<IEnumerable<SettingRelation>>(Constants.SettingRelationKey);
+                ////perfrom access repository to get data
+                if (settingRelations == null || settingRelations.Count() <= 0)
+                {
+                    settingRelations = _repository.GetSettingRelation();
+                    ////cache seting relation
+                    if (settingRelations != null && settingRelations.Count() > 0)
+                    {
+                        CacheService.Set(Constants.SettingRelationKey, settingRelations);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                CacheService.Delete(Constants.SettingRelationKey);
+                settingRelations = this._repository.GetSettingRelation();
+                if (settingRelations != null && settingRelations.Count() > 0)
+                {
+                    CacheService.Set(Constants.SettingRelationKey, settingRelations);
+                }
+
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return settingRelations;
+        }
+
+        /// <summary>
+        /// Gets the enumeration value.
+        /// </summary>
+        /// <typeparam name="T">Type value.</typeparam>
+        /// <param name="input">The input.</param>
+        /// <param name="returnValue">The return value.</param>
+        /// <returns>The enumeration value.</returns>
+        private bool GetEnumValue<T>(string input, out T returnValue)
+             where T : struct, IComparable, IFormattable, IConvertible
+        {
+            if (Enum.IsDefined(typeof(T), input))
+            {
+                returnValue = (T)Enum.Parse(typeof(T), input, true);
+                return true;
+            }
+            else
+            {
+                ////input not found in the Enum, fill the out parameter
+                ////  with the first item from the enum
+                string[] values = Enum.GetNames(typeof(T));
+                returnValue = (T)Enum.Parse(typeof(T), values[0], true);
+                return false;
+            }
+        }
     }
 }

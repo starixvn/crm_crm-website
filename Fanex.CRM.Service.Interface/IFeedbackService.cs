@@ -1,4 +1,13 @@
-﻿namespace Fanex.CRM.Service.Interface
+﻿// --------------------------------------------------------------------------
+// <copyright file="IFeedbackService.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
+namespace Fanex.CRM.Service.Interface
 {
     using System.Collections.Generic;
     using System.Data;
@@ -7,25 +16,59 @@
 
     public interface IFeedbackService
     {
-        Feedback GetById(int Id);
+        Feedback GetById(int id);
 
         Result AddGuestFeedback(Feedback feedback);
+
         Result AddFeedback(Feedback feedback);
+
         Result EditFeedback(Feedback feedback);
 
         DataGridViewDTO SelFeedbackByCustId(int custId, string fromDate, string toDate, int pageIndex, int pageSize, bool fromCache);
 
-        DataGridViewDTO GetFeedback(string fromDate, string toDate, string UserName, int IsGuest, int CommunicationID, int MainCategoryID, int SubCategoryID, int StatusID, int IsReviewed, int responseId, int pageIndex, int pageSize, bool fromCache);
+        DataGridViewDTO GetFeedback(
+            string fromDate,
+            string toDate,
+            string username,
+            int isGuest,
+            int communicationId,
+            int mainCategoryId,
+            int subCategoryId,
+            int statusId,
+            int isReviewed,
+            int responseId,
+            int pageIndex,
+            int pageSize,
+            bool fromCache);
 
         FeedbackStatisticsDTO GetFeedbackStatistic(Params param);
 
         DataGridViewDTO GetFeedbackStatisticDetail(Params param);
 
-        DataGridViewDTO GetDeletedFeedback(string fromDate, string toDate, string userName, int isGuest, int communicationID, int mainCategoryID, int subCategoryID, int isReviewed, int responseId, int pageIndex, int pageSize, bool fromCache);
+        DataGridViewDTO GetDeletedFeedback(
+            string fromDate,
+            string toDate, 
+            string userName,
+            int isGuest, 
+            int communicationId, 
+            int mainCategoryId,
+            int subCategoryId, 
+            int isReviewed, 
+            int responseId,
+            int pageIndex, 
+            int pageSize, 
+            bool fromCache);
 
         DataGridViewDTO SelTopFeedbackByCustId(int custId, int selectTop, int pageIndex, int pageSize, bool fromCache);
 
-        void ExportExcelFeedbackStatisticDetail(int type, int valueId, int mainCategoryId, int subCategoryId, string fromDate, string toDate, string reportTitle);
+        void ExportExcelFeedbackStatisticDetail(
+            int type, 
+            int valueId,
+            int mainCategoryId,
+            int subCategoryId,
+            string fromDate,
+            string toDate,
+            string reportTitle);
 
         void ExportExcelFeedbackStatistic(int type, string fromDate, string toDate, string reportTitle);
 
@@ -38,6 +81,7 @@
         DailyComplaintsDTO GetIBCDailyDetailReport(string fromDate, string toDate, bool fromCache, int itemPerPage, int currentPage);
 
         void ExportExcelIBCDailySummaryReport(string fromDate, string toDate, string reportTitle);
+
         void ExportExcelIBCDailyDetailReport(string fromDate, string toDate, string reportTitle, string email, bool isSendMail);
 
         DailySummaryBO GetLicenseeDailySummaryReport(string fromDate, string toDate);
@@ -45,12 +89,15 @@
         DailyComplaintsDTO GetLicenseeDailyDetailReport(string fromDate, string toDate, bool fromCache, int itemPerPage, int currentPage);
 
         void ExportExcelLicenseeDailySummaryReport(string fromDate, string toDate, string reportTitle);
+
         void ExportExcelLicenseeDetailReport(string fromDate, string toDate, string reportTitle, string email, bool isSendMail);
 
         CasinoDailySummary GetCasinoDailySummaryReport(string fromDate, string toDate);
+
         DailyComplaintsDTO GetCasinoDailyDetailReport(string fromDate, string toDate, bool fromCache, int itemPerPage, int currentPage);
 
         void ExportExcelCasinoDailySummaryReport(string fromDate, string toDate, string reportTitle);
+
         void ExportExcelCasinoDailyDetailReport(string fromDate, string toDate, string reportTitle, string email, bool isSendMail);
 
         DailySummaryBO GetCasinoWeeklySummaryReport(string fromDate, string toDate);
@@ -64,7 +111,9 @@
         int GetNumOfFeedbackSubjectTemplateItem();
 
         Result AddSubjectFeedbackTemplate(string subject);
+
         Result EditSubjectFeedbackTemplate(int id, string newSubject);
+
         Result DeleteSubjectFeedbackTemplate(int id);
 
         FeedbackTemplateDGViewDTO SelFeedbackTemplatePageWithSearch(string searchString, int pageIndex, int pageSize);

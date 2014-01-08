@@ -1,4 +1,12 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="StringExtension.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="2012.12.07">Created</change>
+// </history>
+
 namespace Fanex.CRM.Infrastructure.Extension
 {
     using System;
@@ -10,15 +18,71 @@ namespace Fanex.CRM.Infrastructure.Extension
     using System.Web;
     using Helper;
 
+    /// <summary>
+    /// String Extension.
+    /// </summary>
     public static class StringExtension
     {
-        private static readonly Regex WebUrlExpression = new Regex(@"(http|https)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?",  RegexOptions.Singleline | RegexOptions.Compiled);
-        private static readonly Regex EmailExpression = new Regex(@"^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$", RegexOptions.Singleline | RegexOptions.Compiled);
-        private static readonly Regex StripHTMLExpression = new Regex("<\\S[^><]*>", RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
-        private static readonly Regex IPExpression = new Regex(@"(?<First>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Second>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Third>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Fourth>2[0-4]\d|25[0-5]|[01]?\d\d?)", RegexOptions.Compiled);
+        private static readonly Regex WebUrlExpression =
+            new Regex(
+                @"(http|https)://([\w-]+\.)+[\w-]+(/[\w- ./?%&=]*)?",
+                RegexOptions.Singleline | RegexOptions.Compiled);
 
-        private static readonly char[] IllegalUrlCharacters = new[] { ';', '/', '\\', '?', ':', '@', '&', '=', '+', '$', ',', '<', '>', '#', '%', '.', '!', '*', '\'', '"', '(', ')', '[', ']', '{', '}', '|', '^', '`', '~', '–', '‘', '’', '“', '”', '»', '«' };
+        private static readonly Regex EmailExpression =
+            new Regex(
+                @"^([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}$",
+                RegexOptions.Singleline | RegexOptions.Compiled);
 
+        private static readonly Regex StripHTMLExpression =
+            new Regex(
+                "<\\S[^><]*>",
+                RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
+        private static readonly Regex IPExpression =
+            new Regex(
+                @"(?<First>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Second>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Third>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Fourth>2[0-4]\d|25[0-5]|[01]?\d\d?)",
+                RegexOptions.Compiled);
+
+        private static readonly char[] IllegalUrlCharacters = new[]
+        { 
+            ';', 
+            '/', 
+            '\\', 
+            '?', 
+            ':',
+            '@', 
+            '&',
+            '=',
+            '+', 
+            '$', 
+            ',', 
+            '<', 
+            '>', 
+            '#', 
+            '%', 
+            '.',
+            '!',
+            '*', 
+            '\'', 
+            '"', 
+            '(', 
+            ')', 
+            '[',
+            ']', 
+            '{', 
+            '}', 
+            '|', 
+            '^',
+            '`', 
+            '~', 
+            '–', 
+            '‘', 
+            '’', 
+            '“', 
+            '”',
+            '»', 
+            '«'
+        };
 
         [DebuggerStepThrough]
         public static bool IsValidIP(this string target)
@@ -48,10 +112,14 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static string FormatWith(this string target, params object[] args)
         {
             Check.Argument.IsNotEmpty(target, "target");
-
             return string.Format(Constants.CurrentCulture, target, args);
         }
 
+        /// <summary>
+        /// Hashes the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>Hash result.</returns>
         [DebuggerStepThrough]
         public static string Hash(this string target)
         {
@@ -83,6 +151,11 @@ namespace Fanex.CRM.Infrastructure.Extension
             return StripHTMLExpression.Replace(target, string.Empty);
         }
 
+        /// <summary>
+        /// To the unique identifier.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>Convert result.</returns>
         [DebuggerStepThrough]
         public static Guid ToGuid(this string target)
         {
@@ -95,10 +168,9 @@ namespace Fanex.CRM.Infrastructure.Extension
                 try
                 {
                     byte[] base64 = Convert.FromBase64String(encoded);
-
                     result = new Guid(base64);
                 }
-                catch(FormatException)
+                catch (FormatException)
                 {
                 }
             }
@@ -106,6 +178,15 @@ namespace Fanex.CRM.Infrastructure.Extension
             return result;
         }
 
+        /// <summary>
+        /// To the enumeration.
+        /// </summary>
+        /// <typeparam name="T">Type value.</typeparam>
+        /// <param name="target">The target.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>
+        /// Convert result.
+        /// </returns>
         [DebuggerStepThrough]
         public static T ToEnum<T>(this string target, T defaultValue) where T : IComparable, IFormattable
         {
@@ -115,7 +196,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             {
                 try
                 {
-                    convertedValue = (T) Enum.Parse(typeof(T), target.Trim(), true);
+                    convertedValue = (T)Enum.Parse(typeof(T), target.Trim(), true);
                 }
                 catch (ArgumentException)
                 {
@@ -125,6 +206,11 @@ namespace Fanex.CRM.Infrastructure.Extension
             return convertedValue;
         }
 
+        /// <summary>
+        /// To the legal URL.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>Convert result.</returns>
         [DebuggerStepThrough]
         public static string ToLegalUrl(this string target)
         {
@@ -144,7 +230,6 @@ namespace Fanex.CRM.Infrastructure.Extension
             }
 
             target = target.Replace(" ", "-");
-
             while (target.Contains("--"))
             {
                 target = target.Replace("--", "-");
@@ -194,13 +279,19 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// it captures the Empty state for whitespace
         /// strings by Trimming first.
         /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>Check result.</returns>
         [DebuggerStepThrough]
         public static bool IsNullOrTrimEmpty(this string value)
         {
             if (value == null)
+            {
                 return true;
+            }
             else
-                return String.Empty == value.Trim();
+            {
+                return string.Empty == value.Trim();
+            }
         }
 
         [DebuggerStepThrough]
@@ -209,18 +300,25 @@ namespace Fanex.CRM.Infrastructure.Extension
             return value.Trim().Length;
         }
 
-
         /// <summary>
-        /// Returns the matched string from the regex pattern. The
-        /// groupName is for named group match values in the form (?<name>group).       
+        /// Regexes the match.
         /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="pattern">The pattern.</param>
+        /// <param name="options">The options.</param>
+        /// <param name="groupName">Name of the group.</param>
+        /// <returns>Match result.</returns>
         [DebuggerStepThrough]
         public static string RegexMatch(this string value, string pattern, RegexOptions options, string groupName)
         {
             if (groupName.IsNullOrTrimEmpty())
+            {
                 return Regex.Match(value, pattern, options).Value;
+            }
             else
+            {
                 return Regex.Match(value, pattern, options).Groups[groupName].Value;
+            }
         }
 
         [DebuggerStepThrough]
@@ -242,8 +340,12 @@ namespace Fanex.CRM.Infrastructure.Extension
         }
 
         /// <summary>
-        /// Returns true if there is a match from the regex pattern
+        /// Returns true if there is a match from the regex pattern.
         /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="pattern">The pattern.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>Checking result.</returns>
         [DebuggerStepThrough]
         public static bool IsRegexMatch(this string value, string pattern, RegexOptions options)
         {
@@ -259,9 +361,11 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// <summary>
         /// Returns a string where matching patterns are replaced by the replacement string.
         /// </summary>
-        /// <param name="pattern">The regex pattern for matching the items to be replaced</param>
-        /// <param name="replacement">The string to replace matching items</param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="pattern">The regex pattern for matching the items to be replaced.</param>
+        /// <param name="replacement">The string to replace matching items.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>Replace result.</returns>
         [DebuggerStepThrough]
         public static string RegexReplace(this string value, string pattern, string replacement, RegexOptions options)
         {
@@ -274,13 +378,12 @@ namespace Fanex.CRM.Infrastructure.Extension
             return Regex.Replace(value, pattern, replacement, RegexOptions.None);
         }
 
-
         /// <summary>
-        /// replace function string.Format
+        /// Replace function string. Format.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>Format result.</returns>
         [DebuggerStepThrough]
         public static string Format(this string value, params object[] args)
         {
@@ -288,18 +391,18 @@ namespace Fanex.CRM.Infrastructure.Extension
         }
 
         /// <summary>
-        /// raplace for substring, but shorter format
+        /// Replace for substring, but shorter format.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="length">The length.</param>
+        /// <returns>Replace result.</returns>
         [DebuggerStepThrough]
         public static string Limit(this string value, int length)
         {
             if (length > 0)
             {
-                int sLength = value.Length;
-                return (sLength > length) ? value.Substring(0, length) : value;
+                int stringLength = value.Length;
+                return (stringLength > length) ? value.Substring(0, length) : value;
             }
 
             return value;
@@ -309,13 +412,22 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// Indicates whether the current string matches the supplied wildcard pattern.  Behaves the same
         /// as VB's "Like" Operator.
         /// </summary>
-        /// <param name="s">The string instance where the extension method is called</param>
-        /// <param name="wildcardPattern">The wildcard pattern to match.  Syntax matches VB's Like operator.</param>
-        /// <returns>true if the string matches the supplied pattern, false otherwise.</returns>
-        /// <remarks>See http://msdn.microsoft.com/en-us/library/swf8kaxw(v=VS.100).aspx</remarks>
+        /// <param name="s">The string instance where the extension method is called.</param>
+        /// <param name="wildcardPattern">The wildcard pattern to match. Syntax matches VB's Like operator.</param>
+        /// <returns>
+        /// True if the string matches the supplied pattern, false otherwise.
+        /// </returns>
+        /// <exception cref="System.ArgumentException">Argument Exception.</exception>
+        /// <remarks>
+        /// See http://MSDN.microsoft.com/en-us/library/SWF8KAXW(v=VS.100).ASPX.
+        /// </remarks>
         public static bool IsLike(this string s, string wildcardPattern)
         {
-            if (s == null || String.IsNullOrEmpty(wildcardPattern)) return false;
+            if (s == null || string.IsNullOrEmpty(wildcardPattern))
+            {
+                return false;
+            }
+
             // turn into regex pattern, and match the whole string with ^$
             var regexPattern = "^" + Regex.Escape(wildcardPattern) + "$";
 
@@ -334,10 +446,10 @@ namespace Fanex.CRM.Infrastructure.Extension
             }
             catch (ArgumentException ex)
             {
-                throw new ArgumentException(String.Format("Invalid pattern: {0}", wildcardPattern), ex);
+                throw new ArgumentException(string.Format("Invalid pattern: {0}", wildcardPattern), ex);
             }
+
             return result;
         }
-
     }
 }
