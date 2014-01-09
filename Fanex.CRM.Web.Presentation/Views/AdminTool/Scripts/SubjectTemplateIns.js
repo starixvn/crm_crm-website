@@ -1,4 +1,7 @@
-﻿
+﻿"use strict";
+/*global showAlertMessage */
+/* exported insertFeedbackSubjectTemplate */
+
 function insertFeedbackSubjectTemplate() {
     $('#errMsg').html('');
 
@@ -15,7 +18,7 @@ function insertFeedbackSubjectTemplate() {
     }
     var data = '{"subject":' + JSON.stringify($("#txtFeedbackTemplateName").val()) + '}';
 
-   
+
     try { parent.BlockUI(); } catch (e) { }
     $.ajax({
         type: "POST",
@@ -31,10 +34,8 @@ function insertFeedbackSubjectTemplate() {
                 showAlertMessage("errMsg", 'Insert FeedBack Subject Template Successfully', 0);
                 parent.afterUpdate(true);
             }
-
         },
         error: function () { },
         complete: function () { try { parent.jQuery.unblockUI(); } catch (e) { } }
     });
-
-};
+}

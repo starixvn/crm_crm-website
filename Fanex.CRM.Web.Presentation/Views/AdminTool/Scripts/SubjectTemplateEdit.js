@@ -1,4 +1,8 @@
-﻿function onloadSubjectTemplateEdit() {
+﻿"use strict";
+/*global gup, showAlertMessage, head */
+/* exported udpFeedbackSubjectTemplate */
+
+function onloadSubjectTemplateEdit() {
     var templateId = gup('Id');
     if (templateId.length > 0) {
         $('#txtTemplateID').html(templateId);
@@ -14,12 +18,12 @@
         dataType: "json",
         data: data,
         success: function (rs) {
-            $('#txtTemplateContent').val(rs.Subject);  
+            $('#txtTemplateContent').val(rs.Subject);
         },
         error: function () { },
         complete: function () { try { parent.jQuery.unblockUI(); } catch (e) { } }
     });
-};
+}
 
 function udpFeedbackSubjectTemplate() {
     $('#errMsg').html('');
@@ -36,9 +40,8 @@ function udpFeedbackSubjectTemplate() {
         return;
     }
     try { parent.BlockUI(); } catch (e) { }
-    var data = '{"templateId":"'+$('#txtTemplateID').text()+'", "newSubject":'+ JSON.stringify($('#txtTemplateContent').val()) + '}';
-    
-    
+    var data = '{"templateId":"' + $('#txtTemplateID').text() + '", "newSubject":' + JSON.stringify($('#txtTemplateContent').val()) + '}';
+
     $.ajax({
         type: "POST",
         url: window.rootUrl + "AdminTool/EditSubjectFeedbackTemplate",
@@ -59,7 +62,7 @@ function udpFeedbackSubjectTemplate() {
             catch (e) { }
         }
     });
-};
+}
 
 head.ready(function () {
     onloadSubjectTemplateEdit();

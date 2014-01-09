@@ -1,4 +1,8 @@
-﻿ddsmoothmenu.init({
+﻿"use strict";
+/*global ddsmoothmenu, BlockUI */
+/* exported closedSubmenu */
+
+ddsmoothmenu.init({
     mainmenuid: "smoothmenu1", //menu DIV id
     orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
     classname: 'ddsmoothmenu', //class added to menu's outer DIV
@@ -21,6 +25,11 @@ function closedSubmenu(id, isNullUrl) {
     $("#" + id + "").addClass('menuselectedleft');
     $("#" + id + ">a").addClass('menuselected');
 
-    if (isNullUrl == 0)
-        try { BlockUI(); } catch (e) { }
+    if (isNullUrl === 0) {
+        try {
+            /*jshint newcap: false */
+            BlockUI();
+        } catch (e) {
+        }
+    }
 }

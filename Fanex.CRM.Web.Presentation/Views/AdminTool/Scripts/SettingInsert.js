@@ -1,11 +1,13 @@
-﻿
+﻿"use strict";
+/*global gup, showAlertMessage, head, trimAllSpace */
+/* exported insertSetting */
 
 function onLoadSettingIns() {
     var Value = decodeURI(gup('Value'));
     if (Value.length > 0) {
         $('#txtSettingName').val(Value);
         $('#txtSettingName').attr('readonly', true);
-        if (Value.toLowerCase() == 'site') {
+        if (Value.toLowerCase() === 'site') {
             $('#divSiteType').removeClass('hidden');
         }
         else {
@@ -31,16 +33,15 @@ function onLoadSettingIns() {
 }
 
 
-function settingItem() {
+function SettingItem() {
     this.Value = "";
     this.Type = "";    
     this.Id = 0;
     this.DisplayOrder = 0;
-
 }
 
 function getParamData() {
-    var item = new settingItem();
+    var item = new SettingItem();
     item.Value = $('#txtSettingValue').val().trim();
     item.Type = $('#txtSettingName').val().trim();
     item.Id = 0;
@@ -55,9 +56,9 @@ function getParamData() {
 function checkParam() {
     var arrId = ['txtSettingName', 'txtSettingValue', 'txtDisplayOrder'];
     var arrMsg = ['Setting Name', 'Setting Value', 'Display Order'];
-    for (i = 0; i < arrId.length; i++) {
-        if ($('#' + arrId[i]).val().length == 0) {
-            showAlertMessage("errMsg", 'Invalid ' + arrMsg[i] , 1);
+    for (var i = 0; i < arrId.length; i++) {
+        if ($('#' + arrId[i]).val().length === 0) {
+            showAlertMessage("errMsg", 'Invalid ' + arrMsg[i], 1);
             $('#' + arrId[i]).focus();
             return false;
         }
@@ -66,14 +67,12 @@ function checkParam() {
     return true;
 }
 
-
-function insertSetting() {
-    
+function insertSetting() {    
     $('#errMsg').html('');
-
     var f = checkParam();
-    if (!f)
+    if (!f) {
         return;
+    }
 
     //input space only
     var settingName = trimAllSpace($('#txtSettingName').val());

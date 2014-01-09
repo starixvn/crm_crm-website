@@ -1,8 +1,34 @@
-﻿//Contain the template
+﻿"use strict";
+/*global topwnd, showAlertMessage, head, jlinq */
+/* exported tmplSetting, ShowPopupAddSubjectTemplate, 
+            ShowPopupEditFeedbackTemplate, DeleteFeedbackTemplateById */
+
+//Contain the template
 var tmplSetting = null;
 var listFeedbacksLasted = [];
 var numberOfFeedbackItem = 0;
 var isUseCache = false;
+var fbSubjectTemplate;
+
+function appendListFeedbacksLasted(range) {
+    $.ajax({
+        type: "POST",
+        url: window.rootUrl + "AdminTool/GetFeedbackSubjectTemplateItemsRange",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: '{ "range": "' + range.toString() + '" }',
+        success: function (rs) {
+            if (rs != null && rs.length > 0) {
+                listFeedbacksLasted = listFeedbacksLasted.concat(rs);
+            }
+        },
+        error: function () {
+        },
+        complete: function () {
+        }
+    });
+}
+
 //mark because it may conflict with other function 
 function getNumOfFeedbackItems() {
     $.ajax({
@@ -26,27 +52,8 @@ function getNumOfFeedbackItems() {
     });
 }
 
-function appendListFeedbacksLasted(range) {
-    $.ajax({
-        type: "POST",
-        url: window.rootUrl + "AdminTool/GetFeedbackSubjectTemplateItemsRange",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: '{ "range": "' + range.toString() + '" }',
-        success: function (rs) {
-            if (rs != null && rs.length > 0) {
-                listFeedbacksLasted = listFeedbacksLasted.concat(rs);
-            }
-        },
-        error: function () {
-        },
-        complete: function () {
-        }
-    });
-}
-
 function ShowPopupAddSubjectTemplate(type) {
-    var Value = '';
+    /*jshint unused: vars */
     var title = 'Insert New Feedback Subject Template';
     var url = '../AdminTool/SubjectTemplateIns';
     var width = 760;
@@ -63,11 +70,13 @@ function ShowPopupEditFeedbackTemplate(Id) {
 }
 
 function DeleteFeedbackTemplateById(Id) {
-    
+
     $("#divPopup").html('Are you sure you want to delete Feedback Subject Template ' + Id + '?');
     $("#divPopup").dialog({ width: 380, height: 120, zIndex: 500, resizable: false, modal: true,
         position: [200, 200], //
-        close: function (event, ui) { },
+        close: function (event, ui) {
+            /*jshint unused: vars */
+        },
         buttons: [
                     {
                         text: "Ok",
@@ -84,7 +93,9 @@ function DeleteFeedbackTemplateById(Id) {
                                         showAlertMessage("errMsg", rs.ErrMsg, 1);
                                     }
                                     else {
-                                        setTimeout('fbSubjectTemplate.loadSubjectTemplate();', 1000);
+                                        setTimeout(function () {
+                                            fbSubjectTemplate.loadSubjectTemplate();
+                                        }, 1000);
                                     }
                                 },
                                 error: function () { },
@@ -106,14 +117,14 @@ function DeleteFeedbackTemplateById(Id) {
 //Render Table Feedback Subject Template Management
 var pagerOpts = {
     callback: null,
-    start_per_page: 50,
-    step_per_page: 50,
-    max_items_per_page: 500,
-    items_per_page: 50,
-    current_page: 1
+    startPerPage: 50,
+    stepPerPage: 50,
+    maxItemsPerPage: 500,
+    itemsPerPage: 50,
+    currentPage: 1
 };
 
-var fbSubjectTemplate = {
+fbSubjectTemplate = {
     totalRows: 0,
     pageIndex: 1,
     pageSize: 50,
@@ -123,17 +134,26 @@ var fbSubjectTemplate = {
         this.pageIndex = 1;
         this.pageSize = 50;
     },
-    initPager: function (total_items, items_per_page, current_page) {
+    initPager: function (totalItems, itemsPerPage, currentPage) {
         pagerOpts.callback = fbSubjectTemplate.pageSelectCallback;
-        pagerOpts.items_per_page = items_per_page;
-        pagerOpts.current_page = current_page;
-        $("#pagination").pagination(total_items, pagerOpts);
+        pagerOpts.itemsPerPage = itemsPerPage;
+        pagerOpts.currentPage = currentPage;
+        /*jshint camelcase: false */
+        $("#pagination").pagination(totalItems, {
+            callback: pagerOpts.callback,
+            start_per_page: pagerOpts.startPerPage,
+            step_per_page: pagerOpts.stepPerPage,
+            max_items_per_page: pagerOpts.maxItemsPerPage,
+            items_per_page: pagerOpts.itemsPerPage,
+            current_page: pagerOpts.currentPage
+        });
     },
-    pageSelectCallback: function (page_index, _items_per_page, jq) {
-        var max_page = Math.ceil(fbSubjectTemplate.totalRows / _items_per_page);
-        page_index = page_index < max_page ? page_index : max_page - 1;
-        fbSubjectTemplate.pageIndex = page_index + 1;
-        fbSubjectTemplate.pageSize = _items_per_page;
+    pageSelectCallback: function (pageIndex, itemsPerPage, jq) {
+        /*jshint unused: vars */
+        var maxPage = Math.ceil(fbSubjectTemplate.totalRows / itemsPerPage);
+        pageIndex = pageIndex < maxPage ? pageIndex : maxPage - 1;
+        fbSubjectTemplate.pageIndex = pageIndex + 1;
+        fbSubjectTemplate.pageSize = itemsPerPage;
         fbSubjectTemplate.loadSubjectTemplate();
         return false;
     },
@@ -141,8 +161,20 @@ var fbSubjectTemplate = {
         var html = '<tr class="' + css + '">\
                         <td><div class="c" style="width:80px;">' + row.TemplateId.toString() + '</div></td>\
                         <td><div class="l" style="width:470px;" id="templateHiddenId' + row.TemplateId.toString() + '">' + row.Subject + '</div></td>\
-                        <td><div class="c" style="width:60px;"><a class="c hand" href="JavaScript:void(0);" onclick="ShowPopupEditFeedbackTemplate(' + row.TemplateId.toString() + ');"><img src="../Views/AdminTool/Styles/Images/icn_edit.png" />&nbsp;</a></div></td>\
-                        <td><div class="c" style="width:60px;"><a class="c hand" href="JavaScript:void(0);" onclick="DeleteFeedbackTemplateById(' + row.TemplateId.toString() + ');"><img src="../Views/AdminTool/Styles/Images/icn_del.png" />&nbsp;</a></div></td>\
+                        <td>\
+                            <div class="c" style="width:60px;">\
+                                <a class="c hand" href="JavaScript:void(0);" onclick="ShowPopupEditFeedbackTemplate(' + row.TemplateId.toString() + ');">\
+                                    <img src="../Views/AdminTool/Styles/Images/icn_edit.png" />\
+                                &nbsp;</a>\
+                            </div>\
+                        </td>\
+                        <td>\
+                            <div class="c" style="width:60px;">\
+                                <a class="c hand" href="JavaScript:void(0);" onclick="DeleteFeedbackTemplateById(' + row.TemplateId.toString() + ');">\
+                                    <img src="../Views/AdminTool/Styles/Images/icn_del.png" />\
+                                &nbsp;</a>\
+                            </div>\
+                        </td>\
                     </tr>';
 
         return html;
@@ -160,11 +192,11 @@ var fbSubjectTemplate = {
     },
     loadSubjectTemplate: function () {
         var data =
-	    {
-	        'searchString': $('#txtTemplateSubject').val(),
-	        'pageIndex': fbSubjectTemplate.pageIndex,
-	        'pageSize': fbSubjectTemplate.pageSize
-	    };
+        {
+            'searchString': $('#txtTemplateSubject').val(),
+            'pageIndex': fbSubjectTemplate.pageIndex,
+            'pageSize': fbSubjectTemplate.pageSize
+        };
 
         try { topwnd.BlockUI(); } catch (e) { }
         $('#errmsg').html('');
@@ -202,7 +234,7 @@ var fbSubjectTemplate = {
                     };
 
                     mainreport.removeClass("hidden").gridScroller(gridOpts);
-                    
+
                     fbSubjectTemplate.initPager(fbSubjectTemplate.totalRows, fbSubjectTemplate.pageSize, fbSubjectTemplate.pageIndex - 1);
                     fbSubjectTemplate.reRenderGrid();
                     mainreport.find(".y-scrollbar").scrollTop(0);
@@ -231,13 +263,16 @@ var fbSubjectTemplate = {
             var scrollHeight = $('#feedbackTemplateManagementbody tbody tr:eq(' + i + ') td:eq(0)').height();
 
             var maxHeight = 18;
-            if (frozenHeight > scrollHeight)
+            if (frozenHeight > scrollHeight) {
                 maxHeight = frozenHeight + 1;
-            else if (scrollHeight > frozenHeight)
+            }
+            else if (scrollHeight > frozenHeight) {
                 maxHeight = scrollHeight + 1;
+            }
 
             $('#feedbackTemplateManagementbody tbody tr:eq(' + i + ') td:eq(0) div').attr('style', 'width:80px;height:' + maxHeight + 'px;');
-            $('#feedbackTemplateManagementbg tbody tr:eq(' + i + ') td:eq(0) div').attr('style', ' display:table-cell; vertical-align: middle; width:80px; height:' + maxHeight + 'px');
+            $('#feedbackTemplateManagementbg tbody tr:eq(' + i + ') td:eq(0) div').attr('style',
+                ' display:table-cell; vertical-align: middle; width:80px; height:' + maxHeight + 'px');
         }
 
         var mainreport = $("#feedbackTemplateManagementgrid");
@@ -267,16 +302,23 @@ head.ready(
         fbSubjectTemplate.loadSubjectTemplate();
         //get lasted feedbacks data
         getNumOfFeedbackItems();
-        setInterval("getNumOfFeedbackItems()", 100000);
+        setInterval(function () {
+            getNumOfFeedbackItems();
+        }, 100000);
         //add input listen for auto complete Subject name input text box
-        $("#txtTemplateSubject").keyup(function(e) {
-            if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) return true;
-            else if (e.keyCode == 13) {
+        $("#txtTemplateSubject").keyup(function (e) {
+            if (e.keyCode === 37 ||
+                e.keyCode === 38 ||
+                e.keyCode === 39 ||
+                e.keyCode === 40) {
+                return true;
+            }
+            else if (e.keyCode === 13) {
                 fbSubjectTemplate.searchSubjectTemplate(isUseCache);
             }
             else {
                 var rows = [];
-                if ($(this).val() != "") {
+                if ($(this).val() !== "") {
                     rows = jlinq.from(listFeedbacksLasted).starts("Subject", $(this).val()).sort("Subject").select();
                     rows = jlinq.from(rows).skip(0).take(15);
                     if (rows.length > 0) {
