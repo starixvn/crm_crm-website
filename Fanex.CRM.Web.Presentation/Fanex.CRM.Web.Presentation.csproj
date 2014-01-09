@@ -407,14 +407,6 @@
     <Content Include="Content\Black2011\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\AssignMenu.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
-    <Content Include="Views\Home\Scripts\smoothmenu\ddsmoothmenu-v.css" />
-    <Content Include="Views\Home\Scripts\smoothmenu\ddsmoothmenu.css" />
-    <Content Include="Views\Home\Scripts\smoothmenu\ddsmoothmenu.js" />
-    <Content Include="Views\Home\Scripts\smoothmenu\down.gif" />
-    <Content Include="Views\Home\Scripts\smoothmenu\icon_button02.gif" />
-    <Content Include="Views\Home\Scripts\smoothmenu\L_main_btn.png" />
-    <Content Include="Views\Home\Scripts\smoothmenu\right.gif" />
-    <Content Include="Views\Home\Scripts\smoothmenu\R_main_btn.png" />
     <Content Include="Views\Home\Styles\default.css" />
     <Content Include="Views\Home\Styles\Images\arSub.gif" />
     <Content Include="Views\Home\Styles\Images\arSub_hover.gif" />
