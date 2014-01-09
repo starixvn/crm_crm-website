@@ -1,4 +1,8 @@
-﻿//Contain the template
+﻿"use strict";
+/*global showAlertMessage, head */
+/* exported rowover, rowout, ShowPopupAddSetting, ShowPopupEditSetting, DeleteSettingByById */
+
+//Contain the template
 var tmplSetting = null;
 
 function rowover(obj) {
@@ -8,6 +12,8 @@ function rowover(obj) {
 function rowout() {
     $(".tbllayout .overrow").removeClass("overrow");
 }
+
+var settingManagement;
 
 function loadMainSetting() {
 
@@ -19,7 +25,7 @@ function loadMainSetting() {
         dataType: "json",
         data: '{"settingName":""}',
         success: function (rs) {
-            
+
             $("#ddlMainSetting").children().remove().end();
             $("#tplMainSetting").tmpl(rs).appendTo("#ddlMainSetting");
             $('#btnInsertSubSetting').val('Insert Settintg value for ' + $('#ddlMainSetting').val());
@@ -29,71 +35,8 @@ function loadMainSetting() {
         complete: function () { try { parent.jQuery.unblockUI(); } catch (e) { } }
     });
 }
-var SettingList;
-function ShowPopupAddSetting(type) {
-    var Value = '';
-    if (type == 1)
-        Value = encodeURI($('#ddlMainSetting').val());
-    var title = 'Insert New Setting';
-    var url = '../AdminTool/SettingIns?Value=' + Value;
-    var width = 480;
-    var height = 280;
-    parent.OpenPopup(url, title, width, height, true, false, window, 2000, function () { loadMainSetting(); });
-}
 
-function ShowPopupEditSetting(Id) {
-    var title = 'Edit Setting Value';
-    var url = '../AdminTool/SettingEdit?Id=' + Id;
-    var width = 480;
-    var height = 280;
-    parent.OpenPopup(url, title, width, height, true, false, window, 2000, function () { settingManagement.loadSettingManagement();});
-}
-
-function DeleteSettingByById(Id, Value) {
-
-    $("#divPopup").html('Are you sure you want to delete Setting ' + Value + '?');
-    $("#divPopup").dialog({ width: 380, height: 120, zIndex: 500, resizable: false, modal: true,
-        position: [200, 200], //
-        close: function (event, ui) { },
-        buttons: [
-                    {
-                        text: "Ok",
-                        click: function () {
-                            try { parent.BlockUI(); } catch (e) { }
-                            $.ajax({
-                                type: "POST",
-                                url: window.rootUrl + "AdminTool/DeleteSettingById",
-                                contentType: "application/json; charset=utf-8",
-                                dataType: "json",
-                                data: '{"id":' + Id + ',"userId":' + $('#userId').val() + '}',
-                                success: function (rs) {
-
-                                    if (parseInt(rs.ErrCode) > 0) {
-                                        showAlertMessage("errMsg", rs.ErrMsg, 1);
-                                    }
-                                    else {
-                                        setTimeout('settingManagement.loadSettingManagement();', 1000);
-                                    }
-                                },
-                                error: function () { },
-                                complete: function () { try { parent.jQuery.unblockUI(); } catch (e) { } }
-                            });
-                            $(this).dialog("close");
-                        }
-                    },
-                    {
-                        text: "Cancel",
-                        click: function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                ]
-    });
-
-    
-}
-
-var settingManagement = {
+settingManagement = {
     type: '',
     loadSettingManagement: function () {
 
@@ -152,8 +95,22 @@ var settingManagement = {
                         <td><div style="width: 400px; height:17px;">' + row.Value + '</div></td>\
                         <td><div class=" r" style="width: 80px; height:17px;">' + row.Id + '</div></td>\
                         <td><div class=" r" style="width: 60px; height:17px;">' + row.DisplayOrder + '</div></td>\
-                        <td><div class=" c" style="width: 60px; height:17px;"><a class="c hand" href="JavaScript:void(0);" onclick="ShowPopupEditSetting(' + row.Id + ');"><img src="../Views/AdminTool/Styles/Images/icn_edit.png" />&nbsp;</a></div></td>\
-                        <td><div class=" c" style="width: 60px; height:17px;"><a class="c hand" href="JavaScript:void(0);" onclick="DeleteSettingByById(' + row.Id + ',\'' + row.Type + ' ' + row.Value + '\');"><img src="../Views/AdminTool/Styles/Images/icn_del.png" />&nbsp;</a></div></td>\
+                        <td>\
+                            <div class=" c" style="width: 60px; height:17px;">\
+                                <a class="c hand" href="JavaScript:void(0);" onclick="ShowPopupEditSetting(' + row.Id + ');">\
+                                    <img src="../Views/AdminTool/Styles/Images/icn_edit.png" />\
+                                &nbsp;</a>\
+                            </div>\
+                        </td>\
+                        <td>\
+                            <div class=" c" style="width: 60px; height:17px;">\
+                                <a class="c hand" href="JavaScript:void(0);" onclick="DeleteSettingByById(' + row.Id +
+                                    ',\'' + row.Type +
+                                    ' ' + row.Value + '\');">\
+                                    <img src="../Views/AdminTool/Styles/Images/icn_del.png" />\
+                                 &nbsp;</a>\
+                            </div>\
+                        </td>\
                     </tr>';
 
         return html;
@@ -165,6 +122,75 @@ var settingManagement = {
         return html;
     }
 };
+
+function ShowPopupAddSetting(type) {
+    var Value = '';
+    if (type === 1) {
+        Value = encodeURI($('#ddlMainSetting').val());
+    }
+
+    var title = 'Insert New Setting';
+    var url = '../AdminTool/SettingIns?Value=' + Value;
+    var width = 480;
+    var height = 280;
+    parent.OpenPopup(url, title, width, height, true, false, window, 2000, function () { loadMainSetting(); });
+}
+
+function ShowPopupEditSetting(Id) {
+    var title = 'Edit Setting Value';
+    var url = '../AdminTool/SettingEdit?Id=' + Id;
+    var width = 480;
+    var height = 280;
+    parent.OpenPopup(url, title, width, height, true, false, window, 2000, function () { settingManagement.loadSettingManagement(); });
+}
+
+function DeleteSettingByById(Id, Value) {
+
+    $("#divPopup").html('Are you sure you want to delete Setting ' + Value + '?');
+    $("#divPopup").dialog({ width: 380, height: 120, zIndex: 500, resizable: false, modal: true,
+        position: [200, 200],
+        close: function (event, ui) {
+            /*jshint unused: vars */
+        },
+        buttons: [
+                    {
+                        text: "Ok",
+                        click: function () {
+                            try { parent.BlockUI(); } catch (e) { }
+                            $.ajax({
+                                type: "POST",
+                                url: window.rootUrl + "AdminTool/DeleteSettingById",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                data: '{"id":' + Id + ',"userId":' + $('#userId').val() + '}',
+                                success: function (rs) {
+
+                                    if (parseInt(rs.ErrCode) > 0) {
+                                        showAlertMessage("errMsg", rs.ErrMsg, 1);
+                                    }
+                                    else {
+                                        setTimeout(function () {
+                                            settingManagement.loadSettingManagement();
+                                        }, 1000);
+                                    }
+                                },
+                                error: function () { },
+                                complete: function () { try { parent.jQuery.unblockUI(); } catch (e) { } }
+                            });
+                            $(this).dialog("close");
+                        }
+                    },
+                    {
+                        text: "Cancel",
+                        click: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                ]
+    });
+
+
+}
 
 head.ready(
     function () {
@@ -179,9 +205,8 @@ head.ready(
         loadMainSetting();
 
         $('body').mousedown(function (e) {
-            if (e.button == 1) {
-
-                return false
+            if (e.button === 1) {
+                return false;
             }
         });
     }

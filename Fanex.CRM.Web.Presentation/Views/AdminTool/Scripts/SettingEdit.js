@@ -1,8 +1,18 @@
-﻿var currItem = new settingItem();
+﻿"use strict";
+/*global gup, showAlertMessage, trimAllSpace, head */
+/* exported udpSetting */
+function SettingItem() {
+    this.Value = "";
+    this.Type = "";
+    this.Id = 0;
+    this.DisplayOrder = 0;
+
+}
+
+var currItem = new SettingItem();
 var oldSettingValue = '';
 
 function onLoadSettingEdit() {
-   
     try { parent.BlockUI(); } catch (e) { }
     var Id = gup('Id');
     var data = '{"Id":' + Id + '}';
@@ -14,7 +24,7 @@ function onLoadSettingEdit() {
         dataType: "json",
         data: data,
         success: function (rs) {
-            currItem = new settingItem();
+            currItem = new SettingItem();
             currItem.Value = rs.Value;
             currItem.Type = rs.Type;
             currItem.Id = rs.Id;
@@ -27,28 +37,19 @@ function onLoadSettingEdit() {
 
             $('#txtSettingName').attr('readonly', true);
 
-            
+
         },
         error: function () { },
         complete: function () { try { parent.jQuery.unblockUI(); } catch (e) { } }
     });
 }
 
-
-function settingItem() {
-    this.Value = "";
-    this.Type = "";
-    this.Id = 0;
-    this.DisplayOrder = 0;
-
-}
-
 //
 function checkParam() {
     var arrId = ['txtSettingName', 'txtSettingValue', 'txtDisplayOrder'];
     var arrMsg = ['Setting Name', 'Setting Value', 'Display Order'];
-    for (i = 0; i < arrId.length; i++) {
-        if ($('#' + arrId[i]).val().length == 0) {
+    for (var i = 0; i < arrId.length; i++) {
+        if ($('#' + arrId[i]).val().length === 0) {
             showAlertMessage("errMsg", 'Invalid ' + arrMsg[i], 1);
             $('#' + arrId[i]).focus();
             return false;
@@ -73,8 +74,10 @@ function udpSetting() {
     $('#errMsg').html('');
 
     var f = checkParam();
-    if (!f)
+    if (!f) {
         return;
+    }
+
     //input space only
     var settingName = trimAllSpace($('#txtSettingName').val());
     var SettingValue = trimAllSpace($('#txtSettingValue').val());
@@ -117,11 +120,10 @@ function udpSetting() {
                 showAlertMessage("errMsg", 'Update Setting successfully', 0);
                 parent.afterUpdate(true);
             }
-            try
-            {
+            try {
                 parent.jQuery.unblockUI();
-            } 
-            catch (e){}
+            }
+            catch (e) { }
         }
     });
 }

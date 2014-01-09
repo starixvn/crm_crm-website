@@ -1,36 +1,40 @@
-﻿//Contain the template
+﻿"use strict";
+/*global gup, showAlertMessage, head */
+/* exported SetRelationSetting, RemoveSettingRelation */
+
+//Contain the template
 var tmplSetting = null;
+function bindingSetting(rs) {
+    var html = '';
 
-function rowover(obj) {
-    $(".tbllayout .overrow").removeClass("overrow");
-    $(obj).addClass("overrow");
-}
-function rowout() {
-    $(".tbllayout .overrow").removeClass("overrow");
-}
-
-function loadMainSetting() {
-
-    try { parent.BlockUI(); } catch (e) { }
-    var data = '{"settingName":"' + decodeURI(gup('settingName')) + '"}';
-    $.ajax({
-        type: "POST",
-        url: window.rootUrl + "AdminTool/GetAllSetting",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: data,
-        success: function (rs) {
-            
-            $("#ddlMainSetting").children().remove().end();
-            $("#tplMainSetting").tmpl(rs).appendTo("#ddlMainSetting");
-            GetSettingRelationByName();
-        },
-        error: function(){},
-        complete: function(){try { parent.jQuery.unblockUI(); } catch (e) { }}
-    });
+    for (var i = 0; i < rs.length; i++) {
+        var item = rs[i];
+        var checked = item.IsSub ? ' checked="checked" ' : '';
+        html += '<tr>\
+                <td class="l"><div style="width:400px; height:17px;">' + item.Value + '</div></td>\
+                <td class="c"><div style="width:60px; height:17px;">' +
+                    '<input type="checkbox" id="chk' + item.Id + '"' + checked + ' class="hand" name="chk" value="' + item.Id + '"/></div></td>\
+                <td class="c"><div style="width:60px; height:17px;">' +
+                    '<input class="c" type="text" style="width:40px;" id="txt' + item.Id +
+                        '" onkeypress="return CheckDecNumber(event);" value="' + item.DisplayOrder + '" /></div></td>\
+            </tr>';
+    }
+    return html;
 }
 
-function GetSettingRelationByName() {
+function bindingSettingLeft(rs) {
+    var html = '';
+    for (var i = 0; i < rs.length; i++) {
+        var item = rs[i];
+        html += '<tr>\
+                <td class="l"><div style="width:400px; height:17px;">' + item.Value + '</div></td>\
+            </tr>';
+    }
+
+    return html;
+}
+
+function getSettingRelationByName() {
     $('#errMsg').html('');
     var mainreport = $("#addsettingrelationgrid");
     $('#btnSubmit').addClass('hidden');
@@ -80,43 +84,34 @@ function GetSettingRelationByName() {
     });
 }
 
-function bindingSetting(rs) {
-    var html = '';
+function loadMainSetting() {
+    try { parent.BlockUI(); } catch (e) { }
+    var data = '{"settingName":"' + decodeURI(gup('settingName')) + '"}';
+    $.ajax({
+        type: "POST",
+        url: window.rootUrl + "AdminTool/GetAllSetting",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: data,
+        success: function (rs) {
 
-    for (var i = 0; i < rs.length; i++) {
-        var item = rs[i];
-        var checked = item.IsSub ? ' checked="checked" ' : '';
-        html += '<tr>\
-                <td class="l"><div style="width:400px; height:17px;">' + item.Value + '</div></td>\
-                <td class="c"><div style="width:60px; height:17px;">' + '<input type="checkbox" id="chk' + item.Id + '"' + checked + ' class="hand" name="chk" value="' + item.Id + '"/></div></td>\
-                <td class="c"><div style="width:60px; height:17px;">' + '<input class="c" type="text" style="width:40px;" id="txt' + item.Id + '" onkeypress="return CheckDecNumber(event);" value="' + item.DisplayOrder + '" /></div></td>\
-            </tr>';
-    }
-    return html;
+            $("#ddlMainSetting").children().remove().end();
+            $("#tplMainSetting").tmpl(rs).appendTo("#ddlMainSetting");
+            getSettingRelationByName();
+        },
+        error: function () { },
+        complete: function () { try { parent.jQuery.unblockUI(); } catch (e) { } }
+    });
 }
-
-function bindingSettingLeft(rs) {
-    var html = '';
-
-    for (var i = 0; i < rs.length; i++) {
-        var item = rs[i];
-        var checked = item.IsSub ? ' checked="checked" ' : '';
-        html += '<tr>\
-                <td class="l"><div style="width:400px; height:17px;">' + item.Value + '</div></td>\
-            </tr>';
-    }
-    return html;
-}
-
 
 function SetRelationSetting() {
-    var settings= [];
-   
+    var settings = [];
+
     $(':checkbox:checked').each(function (i) {
-        settings[i] = $(this).val() + "_" + $("#" + $(this).attr("id").replace("chk","txt")).val();
+        settings[i] = $(this).val() + "_" + $("#" + $(this).attr("id").replace("chk", "txt")).val();
     });
-    
- 
+
+
     var userId = $('#userId').val();
     var parentId = gup('parentId');
     var settingName = $("#ddlMainSetting").val();
@@ -147,9 +142,10 @@ function SetRelationSetting() {
 }
 
 function RemoveSettingRelation(settingId, settingValue) {
-    if (!confirm('Are you sure you want to remove sub ' + settingValue + ' out of setting ' + decodeURI(gup('settingValue')) + '?'))
+    if (!confirm('Are you sure you want to remove sub ' + settingValue + ' out of setting ' + decodeURI(gup('settingValue')) + '?')) {
         return;
-    
+    }
+
     try { parent.BlockUI(); } catch (e) { }
     var userId = $('#userId').val();
     var parentId = gup('parentId');
@@ -162,14 +158,14 @@ function RemoveSettingRelation(settingId, settingValue) {
         dataType: "json",
         data: data,
         success: function (rs) {
-          
+
             if (rs.ErrCode > 0) {
                 showAlertMessage("errMsg", rs.ErrMsg, 1);
             }
             else {
                 showAlertMessage("errMsg", 'Remove setting relation successfully', 0);
                 //parent.afterUpdate();
-                setTimeout('GetSettingRelationByName();', 2000);
+                setTimeout(function () { getSettingRelationByName(); }, 2000);
             }
             try { parent.jQuery.unblockUI(); } catch (e) { }
         }
