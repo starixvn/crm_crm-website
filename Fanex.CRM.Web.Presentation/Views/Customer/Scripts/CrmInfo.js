@@ -1,9 +1,42 @@
-﻿
+﻿"use strict";
+/*global showAlertMessage, accId, obj, Set_Cookie, gup, head, Get_Cookie */
+/* exported result, custid, roleid, crmInfo, GetCustId, leftTab2Click, collapseInfo */
+
 var result = "";
-var custid; var roleid;
+var custid;
+var roleid;
+var crmInfo;
 
 var cusidSearch;
 var userNameSearch = '';
+
+function openConfirmPopup() {
+    $("#divPopup").dialog({
+        width: 250,
+        height: 150,
+        zIndex: 500,
+        position: [2, 2],
+        resizable: false,
+
+        close: function (event, ui) {
+            /*jshint unused: vars */
+            showAlertMessage("errmsg", "There is no information", 1);
+            try {
+                parent.gotoURL('centerFr', '../Home/BlankPage');
+            } catch (e) {
+            }
+        },
+        buttons: [
+                {
+                    text: "OK",
+                    click: function () {
+                        crmInfo.autoSearchGuestCustomer();
+                        $(this).dialog("close");
+                    }
+                }
+            ]
+    });
+}
 
 function updateCustomerSearch() {
     var data = {
@@ -21,12 +54,10 @@ function updateCustomerSearch() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify(data),
-        success: function ()
-        {
+        success: function () {
         }
     });
-};
-
+}
 
 function GetCustId() {
     return obj('custid').value;
@@ -34,22 +65,22 @@ function GetCustId() {
 
 function loadUpline(custId) {
     var data = {
-    'custId': custId
+        'custId': custId
     };
-	
+
     $.ajax({
         type: "POST",
         url: window.rootUrl + "Customer/SelListUpline", //SelResult
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify(data),
-        success: function(listUpline) {
+        success: function (listUpline) {
             $("#tmplUplineList").tmpl(listUpline).appendTo("#tbodyUplineList");
         }
     });
 }
 
-function left_Tab2_Click(item, contentId) {
+function leftTab2Click(item, contentId) {
     $("#left_tab2 .current").removeClass("current");
     $("#" + item.id).addClass("current");
 
@@ -64,6 +95,8 @@ function collapseInfo() {
     var obj = $("#custInfoDetal");
     if (obj.hasClass("hidden")) {
         obj.removeClass("hidden");
+        /*jshint camelcase: false */
+        /*jshint newcap: false */
         Set_Cookie("coUserInfo", "show", 7, "/", "", "");
         curr.attr("title", "Hide Detail");
         curr.html('<img src="../Views/Customer/Styles/Images/icon_down.gif" class="imgDownUp" />');
@@ -76,8 +109,7 @@ function collapseInfo() {
     }
 }
 
-
-var crmInfo = {
+crmInfo = {
     isGuest: 0,
     userName: '',
     divContent: '',
@@ -88,7 +120,9 @@ var crmInfo = {
         crmInfo.divContent = $("#divContent");
         crmInfo.isSearch = gup("issearch");
 
-        if (crmInfo.userName != null && crmInfo.userName != '' && crmInfo.userName != 'null') {
+        if (crmInfo.userName !== null &&
+            crmInfo.userName !== '' &&
+            crmInfo.userName !== 'null') {
             var inputData = '{"userName":"' + crmInfo.userName + '","isGuest":' + crmInfo.isGuest + '}';
             $.ajax({
                 type: "POST",
@@ -110,12 +144,17 @@ var crmInfo = {
                         cusidSearch = customer.Id;
                         userNameSearch = customer.UserName;
                         updateCustomerSearch();
-                        if (crmInfo.isSearch == 1)
-                            try { parent.gotoURL('centerFr', '../Feedback/CustomerLastestFeedback?custid=' + customer.Id + '&custName=' + customer.UserName); } catch (e) { }
+                        if (parseInt(crmInfo.isSearch) === 1) {
+                            try {
+                                parent.gotoURL('centerFr',
+                                    '../Feedback/CustomerLastestFeedback?custid=' + customer.Id +
+                                    '&custName=' + customer.UserName);
+                            } catch (e) {
+                            }
+                        }
                     }
-                    else if (crmInfo.isGuest == "false") {
+                    else if (crmInfo.isGuest === "false") {
                         openConfirmPopup();
-
                     } else {
                         showAlertMessage("errmsg", "There is no information", 1);
                         try { parent.gotoURL('centerFr', '../Home/BlankPage'); } catch (e) { }
@@ -130,7 +169,7 @@ var crmInfo = {
     autoSearchGuestCustomer: function () {
 
         try { parent.$("#isGuest").attr("checked", true); } catch (e) { }
-        if (crmInfo.userName != null && crmInfo.userName != '' && crmInfo.userName != 'null') {
+        if (crmInfo.userName != null && crmInfo.userName !== '' && crmInfo.userName !== 'null') {
             var inputData = '{"userName":"' + crmInfo.userName + '","isGuest":' + true + '}';
             $.ajax({
                 type: "POST",
@@ -147,13 +186,17 @@ var crmInfo = {
                         crmInfo.divContent.css("display", "block");
                         $("#errmsg").html("");
 
-                        if (crmInfo.isSearch == 1) {
+                        if (parseInt(crmInfo.isSearch) === 1) {
                             cusidSearch = customer.Id;
                             userNameSearch = customer.UserName;
                             updateCustomerSearch();
-                            try { parent.gotoURL('centerFr', '../Feedback/CustomerLastestFeedback?custid=' + customer.Id + '&custName=' + customer.UserName); } catch (e) { }
+                            try {
+                                parent.gotoURL('centerFr',
+                                    '../Feedback/CustomerLastestFeedback?custid=' + customer.Id +
+                                    '&custName=' + customer.UserName);
+                            } catch (e) {
+                            }
                         }
-
                     }
                     else {
                         showAlertMessage("errmsg", "There is no information", 1);
@@ -166,28 +209,12 @@ var crmInfo = {
             });
         }
     }
-}; 
-
-function openConfirmPopup() {
-	$( "#divPopup" ).dialog({width:250, height:150, zIndex:500,  position: [2, 2], resizable: false,
-	    close: function (event, ui) { showAlertMessage("errmsg", "There is no information", 1); try { parent.gotoURL('centerFr', '../Home/BlankPage'); } catch (e) { } },
-			buttons: [
-                {
-                    text: "OK",
-                    click: function() {
-                     crmInfo.autoSearchGuestCustomer();
-            	        $(this).dialog("close"); 
-                    }
-                }
-            ] 
-		});
-     };
-
+};
 
 head.ready(
     function init() {
 
-        $('.button_left02').click(function() {
+        $('.button_left02').click(function () {
             $('.button_left02_active').removeClass("button_left02_active");
             $(this).addClass("button_left02_active");
             //Reset main menu
@@ -197,17 +224,19 @@ head.ready(
         });
 
         //Johnny Add: User info hide or show is store in cookie.
+        /*jshint camelcase: false */
+        /*jshint newcap: false */
         var className = Get_Cookie("coUserInfo");
         var curr = $("#btnupdownCustInfo");
         var tmp = $("#custInfoDetal");
-        if (className == "show") {
+        if (className === "show") {
             tmp.removeClass("hidden");
             curr.attr("title", "Hide Detail");
             curr.html('<img src="../Views/Customer/Styles/Images/icon_down.gif" class="imgDownUp">');
         }
         //Load data
         crmInfo.loadCrmInfo();
-        try { parent.jQuery.unblockUI(); } catch(e) { }
+        try { parent.jQuery.unblockUI(); } catch (e) { }
 
     }
 );
