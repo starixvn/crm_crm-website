@@ -1,5 +1,30 @@
-﻿var topwnd;
-var maxHeightOfPopUp = ($(window).height() + 50)
+﻿"use strict";
+/* global replaceSpaceForIE9, findMainWindow, gup */
+/* exported openEditFeedback */
+
+var topwnd;
+var maxHeightOfPopUp = ($(window).height() + 50);
+var feedbackDetail;
+
+function viewStatistics() {
+    var url = "../Reports/FeedbackStatisticDetail?type=" + feedbackDetail.type +
+    "&valueid=" + feedbackDetail.valueId +
+    "&maincatid=" + feedbackDetail.mainCategoryId +
+    "&subcatid=" + feedbackDetail.subCategoryId +
+    "&fromdate=" + feedbackDetail.fDate +
+    "&todate=" + feedbackDetail.tDate +
+    "&pageindex=" + feedbackDetail.pageIndex +
+    "&pagesize=" + feedbackDetail.pageSize +
+    '&fdd=' + feedbackDetail.FromDuration.Day +
+    '&fdh=' + feedbackDetail.FromDuration.Hour +
+    '&fdmi=' + feedbackDetail.FromDuration.Minute +
+    '&fds=' + feedbackDetail.FromDuration.Second +
+    '&tdd=' + feedbackDetail.ToDuration.Day +
+    '&tdh=' + feedbackDetail.ToDuration.Hour +
+    '&tdmi=' + feedbackDetail.ToDuration.Minute +
+    '&tds=' + feedbackDetail.ToDuration.Second;
+    topwnd.OpenPopup(url, "Feedback Statistic Detail Report", 1020, maxHeightOfPopUp, true, false, null, 0, null, null);
+}
 
 function openEditFeedback(url) {
     topwnd.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 2000,
@@ -10,20 +35,10 @@ function openEditFeedback(url) {
             viewStatistics();
         }
     );
-};
-
-function viewStatistics() {
-    var url = "../Reports/FeedbackStatisticDetail?type=" + feedbackDetail.type + "&valueid=" + feedbackDetail.valueId + "&maincatid=" + feedbackDetail.mainCategoryId + 
-        "&subcatid=" + feedbackDetail.subCategoryId + "&fromdate=" + feedbackDetail.fDate + "&todate=" + feedbackDetail.tDate + "&pageindex=" + feedbackDetail.pageIndex + "&pagesize=" + feedbackDetail.pageSize +
-        '&fdd=' + feedbackDetail.FromDuration.Day +
-        '&fdh=' + feedbackDetail.FromDuration.Hour + '&fdmi=' + feedbackDetail.FromDuration.Minute +
-        '&fds=' + feedbackDetail.FromDuration.Second + 
-        '&tdd=' + feedbackDetail.ToDuration.Day + '&tdh=' + feedbackDetail.ToDuration.Hour +
-        '&tdmi=' + feedbackDetail.ToDuration.Minute + '&tds=' + feedbackDetail.ToDuration.Second; ;
-    topwnd.OpenPopup(url, "Feedback Statistic Detail Report", 1020, maxHeightOfPopUp, true, false, null, 0, null, null);
-};
+}
 
 var pagerOpts = {
+    /* jshint camelcase: false */
     callback: null,
     start_per_page: 50,
     step_per_page: 50,
@@ -32,7 +47,7 @@ var pagerOpts = {
     current_page: 1
 };
 
-var feedbackDetail = {
+feedbackDetail = {
     totalRows: 0,
     pageIndex: 1,
     pageSize: 100,
@@ -56,13 +71,14 @@ var feedbackDetail = {
         Minute: 0,
         Second: 0
     },
-    initPager: function(total_items, items_per_page, current_page) {
+    initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = feedbackDetail.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
         pagerOpts.current_page = current_page;
         $("#pagination").pagination(total_items, pagerOpts);
     },
-    pageSelectCallback: function(page_index, _items_per_page, jq) {
+    pageSelectCallback: function (page_index, _items_per_page, jq) {
+        /* jshint unused: vars */
         var max_page = Math.ceil(feedbackDetail.totalRows / _items_per_page);
         page_index = page_index < max_page ? page_index : max_page - 1;
         feedbackDetail.pageIndex = page_index + 1;
@@ -70,13 +86,13 @@ var feedbackDetail = {
         feedbackDetail.loadFeedback(true);
         return false;
     },
-    loadFeedback: function(loadOldData) {
+    loadFeedback: function (loadOldData) {
         if (!loadOldData) {
             feedbackDetail.pageIndex = 1;
         }
         var data = { 'param': feedbackDetail.getParams() };
 
-        feedbackDetail.title = 'Feedback Statistic Detail Report from ' + feedbackDetail.fDate + ' to ' + feedbackDetail.tDate;        
+        feedbackDetail.title = 'Feedback Statistic Detail Report from ' + feedbackDetail.fDate + ' to ' + feedbackDetail.tDate;
         $("#gridtitle").html(feedbackDetail.title);
 
         try { topwnd.BlockUI(); } catch (e) { }
@@ -84,60 +100,77 @@ var feedbackDetail = {
         $('#errmsg').html('');
 
         $.ajax({
-                type: "POST",
-                url: window.rootUrl + "Reports/GetFeedbackStatisticDetail",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(data),
-                success: function (rs) {                                        
-                    if (rs != null && rs.rows != null && rs.rows.length > 0) {
-                        var arr = [];
-                        var arrFrozen = [];
-                        feedbackDetail.totalRows = parseInt(rs.total);
-                        for (var i = 0; i < rs.rows.length; i++) {
-                            arr.push(feedbackDetail.renderFeedbackRow(rs.rows[i]));
-                            arrFrozen.push(feedbackDetail.renderFeedbackLeftRow(rs.rows[i]));
-                        }
-
-                        $("#feedbackstatisticheader tbody").empty().append(arrFrozen.join(''));
-                        $("#feedbackstatisticbody tbody").empty().append(arr.join(''));
-
-                        var gridOpts = {
-                            tblContentId: 'feedbackstatisticbody',
-                            manualCopyHeader: true,
-                            fullWidth: true,
-                            fullHeight: true,
-                            gridHeight: feedbackDetail.gridHeight,
-                            freezeWidth: 380,
-                            numberFreezeCol: 1
-                        };
-                        mainreport.removeClass("hidden").gridScroller(gridOpts);
-                        feedbackDetail.initPager(feedbackDetail.totalRows, feedbackDetail.pageSize, feedbackDetail.pageIndex - 1);
+            type: "POST",
+            url: window.rootUrl + "Reports/GetFeedbackStatisticDetail",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(data),
+            success: function (rs) {
+                if (rs != null && rs.rows != null && rs.rows.length > 0) {
+                    var arr = [];
+                    var arrFrozen = [];
+                    feedbackDetail.totalRows = parseInt(rs.total);
+                    for (var i = 0; i < rs.rows.length; i++) {
+                        arr.push(feedbackDetail.renderFeedbackRow(rs.rows[i]));
+                        arrFrozen.push(feedbackDetail.renderFeedbackLeftRow(rs.rows[i]));
                     }
-                    else {
-                        mainreport.addClass('hidden');
-                        $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
-                        $('#pagination').html('&nbsp;');
-                    }
-                },
-                error: function() {
+
+                    $("#feedbackstatisticheader tbody").empty().append(arrFrozen.join(''));
+                    $("#feedbackstatisticbody tbody").empty().append(arr.join(''));
+
+                    var gridOpts = {
+                        tblContentId: 'feedbackstatisticbody',
+                        manualCopyHeader: true,
+                        fullWidth: true,
+                        fullHeight: true,
+                        gridHeight: feedbackDetail.gridHeight,
+                        freezeWidth: 380,
+                        numberFreezeCol: 1
+                    };
+                    mainreport.removeClass("hidden").gridScroller(gridOpts);
+                    feedbackDetail.initPager(feedbackDetail.totalRows, feedbackDetail.pageSize, feedbackDetail.pageIndex - 1);
+                }
+                else {
                     mainreport.addClass('hidden');
                     $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
                     $('#pagination').html('&nbsp;');
-                },
-                complete: function() {                    
-                    try { topwnd.UnBlockUI(); } catch(e) { }
-
                 }
-            });
+            },
+            error: function () {
+                mainreport.addClass('hidden');
+                $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
+                $('#pagination').html('&nbsp;');
+            },
+            complete: function () {
+                try { topwnd.UnBlockUI(); } catch (e) { }
+
+            }
+        });
     },
-    renderFeedbackRow: function(row) {
+    renderFeedbackRow: function (row) {
         var trStyle = '';
         if (row.Status != null) {
-            trStyle = row.Status.toLowerCase() == 'pending' ? 'pending' : row.Status.toLowerCase() == 'closed' ? 'closed' : '';
+            trStyle = row.Status.toLowerCase() === 'pending' ?
+                'pending' :
+                     row.Status.toLowerCase() === 'closed' ?
+                    'closed' :
+                    '';
         }
         var html = '<tr class="' + trStyle + '">\
-                       <td><div style="width:380px"><div class="lnksubject"><a class="desTooltip" href="JavaScript:void(0);"><b>' + row.Subject + '</b></a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>' + row.FeedbackDate + '</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b> on ' + row.CreateDate + '<br>' + feedbackDetail.durationTimeFormat(row.DurationTime) + '<br>' + feedbackDetail.reviewerFormat(row.Reviewer, row.ReviewDate) + '</div></td>\
+                       <td>\
+                            <div style="width:380px">\
+                                <div class="lnksubject">\
+                                    <a class="desTooltip" href="JavaScript:void(0);">\
+                                        <b>' + row.Subject + '</b>\
+                                    </a>\
+                                </div>\
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>' + row.FeedbackDate + '</b>\
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b> on ' +
+                                row.CreateDate +
+                                '<br>' + feedbackDetail.durationTimeFormat(row.DurationTime) +
+                                '<br>' + feedbackDetail.reviewerFormat(row.Reviewer, row.ReviewDate) +
+                            '</div>\
+                        </td>\
                         <td><div class="c" style="width:120px">' + row.Username + '</div></td>\
                         <td><div style="width:200px">' + row.MainCategory + '<br/>&nbsp;&nbsp;&nbsp;' + row.SubCategory + '</div></td>\
                         <td><div class="c" style="width:60px">' + row.Status + '</div></td>\
@@ -148,62 +181,84 @@ var feedbackDetail = {
     renderFeedbackLeftRow: function (row) {
         var trStyle = '';
         if (row.Status != null) {
-            trStyle = row.Status.toLowerCase() == 'pending' ? 'pending' : row.Status.toLowerCase() == 'closed' ? 'closed' : '';
+            trStyle = row.Status.toLowerCase() === 'pending' ? 'pending' : row.Status.toLowerCase() === 'closed' ? 'closed' : '';
         }
         var html = '<tr class="' + trStyle + '">\
-                       <td><div style="width:380px"><div class="lnksubject"><a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' + row.ID + '&rep=2\', 1);"><b>' + row.Subject + '</b></a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback&nbsp;date&nbsp;<b>' + row.FeedbackDate + '</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b> on ' + row.CreateDate + '<br>' + feedbackDetail.durationTimeFormat(row.DurationTime) + '<br>' + feedbackDetail.reviewerFormat(row.Reviewer, row.ReviewDate) + '</div></td>\
+                       <td>\
+                            <div style="width:380px">\
+                                <div class="lnksubject">\
+                                    <a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' +
+                                        row.ID + '&rep=2\', 1);">\
+                                        <b>' + row.Subject + '</b>\
+                                    </a>\
+                                </div>\
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback&nbsp;date&nbsp;<b>' + row.FeedbackDate + '</b>\
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b> on ' +
+                                row.CreateDate +
+                                '<br>' + feedbackDetail.durationTimeFormat(row.DurationTime) +
+                                '<br>' + feedbackDetail.reviewerFormat(row.Reviewer, row.ReviewDate) +
+                            '</div>\
+                        </td>\
                 </tr>';
         return html;
     },
-    reviewerFormat: function(reviewer, reviewDate) {
+    reviewerFormat: function (reviewer, reviewDate) {
         var html = '';
-        if (reviewer != "") {
+        if (reviewer !== "") {
             html = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed&nbsp;by&nbsp;<b>' + reviewer + '</b>&nbsp;on&nbsp;' + reviewDate + '<br>';
         }
         return html;
     },
-    openConfirmPopup: function() {
+    openConfirmPopup: function () {
         $("#divPopup").dialog({ width: 250, height: 120, zIndex: 500, resizable: false,
-                close: function(event, ui) { },
-                buttons: [
-                    {
-                        text: "Ok",
-                        click: function() {
-                            $(this).dialog("close");
-                        }
-                    }
-                ]
-            });
+            close: function (event, ui) {
+                /* jshint unused: vars */
+            },
+            buttons: [{
+                text: "Ok",
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }]
+        });
     },
-    export2excel: function() {
+    export2excel: function () {
 
         $.ajax({
-                type: "POST",
-                url: window.rootUrl + "Reports/AllowExportFeedbackStatisticDetail",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: '',
-                success: function(rs) {
-                    if (rs) {
-                        if (rs.ErrCode == 0) {
-                            var url = 'FeedbackStatisticDetail?export=true&type=' + feedbackDetail.type + '&valueId=' + feedbackDetail.valueId + '&mainCateId=' + feedbackDetail.mainCategoryId + '&subCateId=' + feedbackDetail.subCategoryId + '&fdate=' + feedbackDetail.fDate + '&tdate=' + feedbackDetail.tDate + '&title=' + feedbackDetail.title;
-                            $('#frm').attr('src', url);
-                        }
-                        else
-                            feedbackDetail.openConfirmPopup();
+            type: "POST",
+            url: window.rootUrl + "Reports/AllowExportFeedbackStatisticDetail",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: '',
+            success: function (rs) {
+                if (rs) {
+                    if (rs.ErrCode === 0) {
+                        var url = 'FeedbackStatisticDetail?export=true&type=' + feedbackDetail.type +
+                            '&valueId=' + feedbackDetail.valueId +
+                            '&mainCateId=' + feedbackDetail.mainCategoryId +
+                            '&subCateId=' + feedbackDetail.subCategoryId +
+                            '&fdate=' + feedbackDetail.fDate +
+                            '&tdate=' + feedbackDetail.tDate +
+                            '&title=' + feedbackDetail.title;
+                        $('#frm').attr('src', url);
                     }
-                    else
+                    else {
                         feedbackDetail.openConfirmPopup();
-                },
-                error: function() {
-
-                },
-                complete: function() {
-
+                    }
                 }
-            });
+                else {
+                    feedbackDetail.openConfirmPopup();
+                }
+            },
+            error: function () {
+
+            },
+            complete: function () {
+
+            }
+        });
     },
-    getParams: function(loadOldData) {
+    getParams: function (loadOldData) {
         var params = {
             'Type': feedbackDetail.type,
             'ValueId': feedbackDetail.valueId,
@@ -219,7 +274,7 @@ var feedbackDetail = {
         };
         return params;
     },
-    durationTimeFormat: function(time) {
+    durationTimeFormat: function (time) {
         var html = '';
         if (time) {
             html = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: " + time;
@@ -229,11 +284,11 @@ var feedbackDetail = {
 };
 
 $(document).ready(
-    function() {
-        try { topwnd = findMainWindow(window); } catch(e) { }
+    function () {
+        try { topwnd = findMainWindow(window); } catch (e) { }
 
-        feedbackDetail.fDate = decodeURIComponent(gup("fromdate").replace( /\+/g , " "));
-        feedbackDetail.tDate = decodeURIComponent(gup("todate").replace( /\+/g , " "));
+        feedbackDetail.fDate = decodeURIComponent(gup("fromdate").replace(/\+/g, " "));
+        feedbackDetail.tDate = decodeURIComponent(gup("todate").replace(/\+/g, " "));
         feedbackDetail.type = parseInt(gup("type"));
         feedbackDetail.valueId = parseInt(gup("valueid"));
         feedbackDetail.mainCategoryId = parseInt(gup("maincatid"));

@@ -1,25 +1,33 @@
-﻿var topwnd;
-var arrWidth = new Array();
-var maxHeightOfSummaryReport = ($(window).height() - 50) / 2;
-var maxHeightOfPopUp = ($(window).height() + 50)
+﻿"use strict";
+/* global replaceSpecialHtmlTag, replaceSpaceForIE9, emailListValidate,
+head, fromDate, toDate, findMainWindow, accChart */
+/* exported arrWidth, addDays */
 
-//add n number of days
-Date.prototype.goto = function (n) {
-    this.setTime(this.getTime() + n * 86400000);
-    return this;
-};
+var topwnd;
+var arrWidth = [];
+var maxHeightOfSummaryReport = ($(window).height() - 50) / 2;
+var maxHeightOfPopUp = ($(window).height() + 50);
+
+var ibcDailySummaryReport,
+    licenseeDailySummaryReport,
+    ibcDailyDetailReport,
+    licenseeDailyDetailReport;
+
+function addDays(startDate, n) {
+    var endDate = new Date();
+    endDate.setTime(startDate.getTime() + n * 86400000);
+    return endDate;
+}
 
 // -- Calendar --- //
 function SetupCalendar(arrDateValues, arrIds) {
-
     for (var i = 0; i < arrIds.length; i++) {
-
         $('#' + arrIds[i]).datepicker();
-        if (arrDateValues[i] != null && arrDateValues[i] != "") {
+        if (arrDateValues[i] != null && arrDateValues[i] !== "") {
             $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
         }
     }
-};
+}
 
 var dailyReport = {
     fromDate: '',
@@ -36,7 +44,7 @@ var dailyReport = {
     }
 };
 
-var ibcDailySummaryReport = {
+ibcDailySummaryReport = {
     title: '',
     colWidth: 70,
     loadCompleted: false,
@@ -75,12 +83,16 @@ var ibcDailySummaryReport = {
                             var mainId = arrNewData.Total.MainCategoryId;
                             //group title
                             arrFrozen.push(ibcDailySummaryReport.renderFrozenGroup(mainId, arrNewData.Total.MainCategory));
-                            arrScroll.push(ibcDailySummaryReport.renderScrollGroup(arrNewData.Total, mainId, '', 'style="font-weight: bold;"', arrNewData.Total.MainCategory));
+                            arrScroll.push(ibcDailySummaryReport.renderScrollGroup(arrNewData.Total,
+                                mainId,
+                                '',
+                                'style="font-weight: bold;"',
+                                arrNewData.Total.MainCategory));
 
                             for (var j = 0; j < arrNewData.DailySummaries.length; j++) {
                                 //content
-                                var css = (j % 2 == 0 ? "bgeven" : "bgodd");
-                                var totalCss = arrNewData.DailySummaries[j].IsTotal == true ? 'style="font-weight: bold;"' : '';
+                                var css = (j % 2 === 0 ? "bgeven" : "bgodd");
+                                var totalCss = arrNewData.DailySummaries[j].IsTotal === true ? 'style="font-weight: bold;"' : '';
                                 arrFrozen.push(ibcDailySummaryReport.renderFrozenReport(arrNewData.DailySummaries[j], mainId, css, totalCss));
                                 arrScroll.push(ibcDailySummaryReport.renderScollReport(arrNewData.DailySummaries[j], mainId, css, totalCss));
                             }
@@ -89,7 +101,12 @@ var ibcDailySummaryReport = {
                     $("#dailysummarybody tbody").empty().append(arrScroll.join(''));
                     $("#dailysummarybg tbody").empty().append(arrFrozen.join(''));
                     //-----grand total
-                    mainreport.find(".row_footer_content thead").empty().append('<tr><th><div style="height:17px; width:300px;" class="table-cell l">Grand Total</div></th></tr>');
+                    mainreport.find(".row_footer_content thead").empty().append(
+                        '<tr>\
+                            <th>\
+                                <div style="height:17px; width:300px;" class="table-cell l">Grand Total</div>\
+                            </th>\
+                        </tr>');
                     mainreport.find(".col_footer_content thead").empty().empty().html(ibcDailySummaryReport.renderScollFooterReport(rs.GrandTotal, 0, "", ''));
                     //------------------------------                   
                     var gridOpts = {
@@ -103,15 +120,23 @@ var ibcDailySummaryReport = {
                     };
                     mainreport.removeClass('hidden').gridScroller(gridOpts);
                 }
-                else {                    
-                    $('<div id="errmsg" class="errmsg"><div class="alertboxerr"><div>There is no information of Credit site.</div></div></div>').appendTo($("#err"));
+                else {
+                    $('<div id="errmsg" class="errmsg">\
+                           <div class="alertboxerr">\
+                               <div>There is no information of Credit site.</div>\
+                           </div>\
+                       </div>').appendTo($("#err"));
                 }
             },
             error: function () { try { topwnd.UnBlockUI(); } catch (e) { } },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
-                if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted)
-                    try { topwnd.UnBlockUI(); } catch (e) { }
+                if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
+                    try {
+                        topwnd.UnBlockUI();
+                    } catch (e) {
+                    }
+                }
             }
         });
     },
@@ -119,7 +144,11 @@ var ibcDailySummaryReport = {
         var html = '<tr>';
         html += '<th><div class="table-cell" style="width:300px; height:30px;">Complaints/Enquiries</div></th>';
         for (var i = 0; i < row.length; i++) {
-            html += '<th><div class="table-cell" class="c" style="width: ' + ibcDailySummaryReport.colWidth + 'px; height:30px;">' + row[i].Title + '</div></th>';
+            html += '<th>\
+                        <div class="table-cell" class="c" style="width: ' + ibcDailySummaryReport.colWidth + 'px; height:30px;">' +
+                            row[i].Title +
+                        '</div>\
+                     </th>';
         }
         html += '<th><div class="table-cell" class="c" style="width: ' + ibcDailySummaryReport.colWidth + 'px; height:30px;">Grand Total</div></th>';
         html += '</tr>';
@@ -128,7 +157,12 @@ var ibcDailySummaryReport = {
     },
     renderFrozenGroup: function (id, title) {
         var html = '<tr class="total">\
-                        <td><div class="l b" style="width: 300px"><span class="tree-expanded" onclick="ibcDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' + title + '</div></td>\
+                        <td>\
+                            <div class="l b" style="width: 300px">\
+                                <span class="tree-expanded" onclick="ibcDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' +
+                                title +
+                            '</div>\
+                        </td>\
                     </tr>';
         return html;
     },
@@ -143,7 +177,12 @@ var ibcDailySummaryReport = {
     },
     renderScrollGroup: function (row, id, css, style, title) {
         var html = '<tr class="total">';
-        html += '<td><div class="l b" style="width: 300px"><span class="tree-expanded" onclick="ibcDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' + title + '</div></td>';
+        html += '<td>\
+                    <div class="l b" style="width: 300px">\
+                        <span class="tree-expanded" onclick="ibcDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' +
+                        title +
+                    '</div>\
+                 </td>';
 
         for (var i = 0; i < row.Cells.length; i++) {
             html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
@@ -166,6 +205,7 @@ var ibcDailySummaryReport = {
         return html;
     },
     renderScollFooterReport: function (row, id, css, style) {
+        /* jshint unused: vars */
         var html = '<tr class="' + css + '">';
         html += '<th><div class="table-cell" style="width:300px; height:17px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></th>';
 
@@ -177,7 +217,7 @@ var ibcDailySummaryReport = {
 
         return html;
     },
-    toggleFeedback: function (obj, id) {        
+    toggleFeedback: function (obj, id) {
         var mainreport = $('#dailysummarygrid');
         if ($(obj).hasClass("tree-expand")) {
             $(obj).removeClass("tree-expand");
@@ -215,21 +255,22 @@ var ibcDailySummaryReport = {
         for (var i = 0; i < rs.DailySummaries.length; i++) {
             var item = rs.DailySummaries[i];
             var chartInfo = {};
-            eval("chartInfo.Name='" + item.Total.MainCategory + "'");
+            chartInfo.Name = "'" + item.Total.MainCategory + "'";
             for (var j = 0; j < item.Total.Cells.length; j++) {
                 var cell = item.Total.Cells[j];
-                eval("chartInfo." + cell.Title + "=" + cell.Value);
+                chartInfo[cell.Title] = cell.Value;
             }
+
             items.push(chartInfo);
         }
         ibcDailySummaryReport.chart.setData(items);
     }
 };
 
-var licenseeDailySummaryReport = {
+licenseeDailySummaryReport = {
     totalWidth: 0,
     title: '',
-    colWidth:70,
+    colWidth: 70,
     loadCompleted: false,
     getDailyReport: function () {
         var mainreport = $("#licenseedailysummarygrid");
@@ -265,12 +306,16 @@ var licenseeDailySummaryReport = {
                             var mainId = arrNewData.Total.MainCategoryId;
                             //group title
                             arrFrozen.push(licenseeDailySummaryReport.renderFrozenGroup(mainId, arrNewData.Total.MainCategory));
-                            arrScroll.push(licenseeDailySummaryReport.renderScrollGroup(arrNewData.Total, mainId, '', 'style="font-weight: bold;"', arrNewData.Total.MainCategory));
+                            arrScroll.push(licenseeDailySummaryReport.renderScrollGroup(arrNewData.Total,
+                                mainId,
+                                '',
+                                'style="font-weight: bold;"',
+                                arrNewData.Total.MainCategory));
 
                             for (var j = 0; j < arrNewData.DailySummaries.length; j++) {
                                 //content
-                                var css = (j % 2 == 0 ? "bgeven" : "bgodd");
-                                var totalCss = arrNewData.DailySummaries[j].IsTotal == true ? 'style="font-weight: bold;"' : '';
+                                var css = (j % 2 === 0 ? "bgeven" : "bgodd");
+                                var totalCss = arrNewData.DailySummaries[j].IsTotal === true ? 'style="font-weight: bold;"' : '';
                                 arrFrozen.push(licenseeDailySummaryReport.renderFrozenReport(arrNewData.DailySummaries[j], mainId, css, totalCss));
                                 arrScroll.push(licenseeDailySummaryReport.renderScollReport(arrNewData.DailySummaries[j], mainId, css, totalCss));
                             }
@@ -280,7 +325,12 @@ var licenseeDailySummaryReport = {
                     $("#licenseedailysummarybody tbody").empty().append(arrScroll.join(''));
                     $("#licenseedailysummarybg tbody").empty().append(arrFrozen.join(''));
                     //-----grand total
-                    mainreport.find(".row_footer_content thead").empty().append('<tr><th><div style="height:17px; width:300px;" class="table-cell l">Grand Total</div></th></tr>');
+                    mainreport.find(".row_footer_content thead").empty().append(
+                        '<tr>\
+                            <th>\
+                                <div style="height:17px; width:300px;" class="table-cell l">Grand Total</div>\
+                            </th>\
+                         </tr>');
                     mainreport.find(".col_footer_content thead").empty().empty().html(ibcDailySummaryReport.renderScollFooterReport(rs.GrandTotal, 0, "", ''));
                     //------------------------------                   
                     var gridOpts = {
@@ -296,14 +346,22 @@ var licenseeDailySummaryReport = {
 
                 }
                 else {
-                    $('<div id="errmsg" class="errmsg"><div class="alertboxerr"><div>There is no information of Licensee.</div></div></div>').appendTo($("#err"));
+                    $('<div id="errmsg" class="errmsg">\
+                            <div class="alertboxerr">\
+                                <div>There is no information of Licensee.</div>\
+                            </div>\
+                       </div>').appendTo($("#err"));
                 }
             },
             error: function () { try { topwnd.UnBlockUI(); } catch (e) { } },
             complete: function () {
                 licenseeDailySummaryReport.loadCompleted = true;
-                if(licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted)
-                    try { topwnd.UnBlockUI(); } catch (e) { }
+                if (licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted) {
+                    try {
+                        topwnd.UnBlockUI();
+                    } catch (e) {
+                    }
+                }
             }
         });
     },
@@ -311,7 +369,11 @@ var licenseeDailySummaryReport = {
         var html = '<tr>';
         html += '<th><div class="table-cell" style="width:300px; height:30px;">Complaints/Enquiries</div></th>';
         for (var i = 0; i < row.length; i++) {
-            html += '<th><div class="table-cell" class="c" style="width: ' + licenseeDailySummaryReport.colWidth + 'px; height:30px;">' + row[i].Title + '</div></th>';
+            html += '<th>\
+                        <div class="table-cell" class="c" style="width: ' + licenseeDailySummaryReport.colWidth + 'px; height:30px;">' +
+                             row[i].Title +
+                        '</div>\
+                     </th>';
         }
         html += '<th><div class="table-cell" class="c" style="width: ' + licenseeDailySummaryReport.colWidth + 'px; height:30px;">Grand Total</div></th>';
         html += '</tr>';
@@ -320,7 +382,12 @@ var licenseeDailySummaryReport = {
     },
     renderFrozenGroup: function (id, title) {
         var html = '<tr class="total">\
-                        <td><div class="l b" style="width: 300px"><span class="tree-expanded" onclick="licenseeDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' + title + '</div></td>\
+                        <td>\
+                            <div class="l b" style="width: 300px">\
+                                <span class="tree-expanded" onclick="licenseeDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' +
+                                title +
+                            '</div>\
+                        </td>\
                     </tr>';
         return html;
     },
@@ -335,10 +402,17 @@ var licenseeDailySummaryReport = {
     },
     renderScrollGroup: function (row, id, css, style, title) {
         var html = '<tr class="total">';
-        html += '<td><div class="l b" style="width: 300px"><span class="tree-expanded" onclick="licenseeDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' + title + '</div></td>';
+        html += '<td>\
+                    <div class="l b" style="width: 300px">\
+                        <span class="tree-expanded" onclick="licenseeDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' +
+                        title +
+                    '</div>\
+                 </td>';
 
         for (var i = 0; i < row.Cells.length; i++) {
-            html += '<td ' + style + '><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
+            html += '<td ' + style + '>\
+                        <div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div>\
+                     </td>';
         }
         html += '<td ' + style + '><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
         html += '</tr>';
@@ -350,7 +424,9 @@ var licenseeDailySummaryReport = {
         html += '<td ' + style + '><div style="width:300px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></td>';
 
         for (var i = 0; i < row.Cells.length; i++) {
-            html += '<td ' + style + '><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
+            html += '<td ' + style + '>\
+                        <div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div>\
+                     </td>';
         }
         html += '<td ' + style + '><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
         html += '</tr>';
@@ -358,11 +434,14 @@ var licenseeDailySummaryReport = {
         return html;
     },
     renderScollFooterReport: function (row, id, css, style) {
+        /* jshint unused: vars */
         var html = '<tr class="' + css + '">';
         html += '<th><div class="table-cell" style="width:300px; height:17px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></th>';
 
         for (var i = 0; i < row.Cells.length; i++) {
-            html += '<th><div style="width:' + licenseeDailySummaryReport.colWidth + 'px;" class="table-cell c ' + css + '">' + row.Cells[i].Value + '</div></th>';
+            html += '<th>\
+                        <div style="width:' + licenseeDailySummaryReport.colWidth + 'px;" class="table-cell c ' + css + '">' + row.Cells[i].Value + '</div>\
+                     </th>';
         }
         html += '<th><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="table-cell c ' + css + '">' + row.Total + '</div></th>';
         html += '</tr>';
@@ -399,7 +478,9 @@ var licenseeDailySummaryReport = {
         licenseeDailyDetailReport.getDailyDetailReport(false);
     },
     exportExcel: function () {
-        var url = "DailyStatistic?export=true&type=3&fdate=" + dailyReport.fromDate + "&tdate=" + dailyReport.toDate + "&title=" + licenseeDailySummaryReport.title;
+        var url = "DailyStatistic?export=true&type=3&fdate=" + dailyReport.fromDate +
+            "&tdate=" + dailyReport.toDate +
+            "&title=" + licenseeDailySummaryReport.title;
         $("#frm").attr("src", url);
     },
     assignChartData: function (rs) {
@@ -407,11 +488,12 @@ var licenseeDailySummaryReport = {
         for (var i = 0; i < rs.DailySummaries.length; i++) {
             var item = rs.DailySummaries[i];
             var chartInfo = {};
-            eval("chartInfo.Name='" + item.Total.MainCategory + "'");
+            chartInfo.Name = "'" + item.Total.MainCategory + "'";
             for (var j = 0; j < item.Total.Cells.length; j++) {
                 var cell = item.Total.Cells[j];
-                eval("chartInfo." + cell.Title + "=" + cell.Value);
+                chartInfo[cell.Title] = cell.Value;
             }
+
             items.push(chartInfo);
         }
         licenseeDailySummaryReport.chart.setData(items);
@@ -419,6 +501,7 @@ var licenseeDailySummaryReport = {
 };
 
 var pagerOpts = {
+    /* jshint camelcase: false */
     callback: null,
     start_per_page: 50,
     step_per_page: 50,
@@ -427,7 +510,7 @@ var pagerOpts = {
     current_page: 1
 };
 
-var ibcDailyDetailReport = {
+ibcDailyDetailReport = {
     title: '',
     totalRows: 0,
     pageIndex: 1,
@@ -444,6 +527,7 @@ var ibcDailyDetailReport = {
         $("#dailydetailgrid #pagination").pagination(total_items, pagerOpts);
     },
     pageSelectCallback: function (page_index, _items_per_page, jq) {
+        /* jshint unused: vars */
         var max_page = Math.ceil(ibcDailyDetailReport.totalRows / _items_per_page);
         page_index = page_index < max_page ? page_index : max_page - 1;
         ibcDailyDetailReport.pageIndex = page_index + 1;
@@ -482,7 +566,8 @@ var ibcDailyDetailReport = {
             dataType: "json",
             data: JSON.stringify(data),
             success: function (rs) {
-                ibcDailyDetailReport.title = 'IBC Daily Customer Complaints/Enquiries From ' + ibcDailyDetailReport.fromDate + ' To ' + ibcDailyDetailReport.toDate;
+                ibcDailyDetailReport.title = 'IBC Daily Customer Complaints/Enquiries From ' + ibcDailyDetailReport.fromDate +
+                    ' To ' + ibcDailyDetailReport.toDate;
                 $('#detailTitle').html(ibcDailyDetailReport.title);
 
                 if (rs && rs.DailyComplaints && rs.DailyComplaints.length > 0) {
@@ -491,8 +576,7 @@ var ibcDailyDetailReport = {
                     for (var i = 0; i < rs.DailyComplaints.length; i++) {
                         ibcDailyDetailReport.totalRows = parseInt(rs.total);
                         var row = rs.DailyComplaints[i];
-                        var css = (i % 2 == 0 ? "bgeven" : "bgodd"); ;
-
+                        var css = (i % 2 === 0 ? "bgeven" : "bgodd");
                         arrScroll.push(ibcDailyDetailReport.renderScrollRow(row, css));
                         arrFrozen.push(ibcDailyDetailReport.renderFrozenRow(row, css));
                     }
@@ -577,48 +661,49 @@ var ibcDailyDetailReport = {
     openConfirmPopup: function () {
         $('#divEmailError').addClass('hidden').html('');
         $("#divPopup").dialog({ width: 350, height: 200, zIndex: 500, resizable: false,
-            close: function (event, ui) { },
-            buttons: [
-                    {
-                        text: "Ok",
-                        click: function () {
-                            var emailAddress = $('#txtEmail').val().trim();
-                            var validateCode = emailListValidate(emailAddress);
+            close: function (event, ui) {
+                /* jshint unused: vars */
+            },
+            buttons: [{
+                text: "Ok",
+                click: function () {
+                    var emailAddress = $('#txtEmail').val().trim();
+                    var validateCode = emailListValidate(emailAddress);
 
-                            if (validateCode == 1) {
-                                $('#divEmailError').removeClass('hidden').html('<div>Email cannot empty.</div>');
-                                return false;
-                            }
-                            else if (validateCode == 2) {
-                                $('#divEmailError').removeClass('hidden').html('<div>Email is invalid format.</div>');
-                                return false;
-                            }
-
-                            var p = {
-                                'fromDate': ibcDailyDetailReport.fromDate,
-                                'toDate': ibcDailyDetailReport.toDate,
-                                'reportTitle': ibcDailyDetailReport.title,
-                                'isSendMail': true,
-                                'email': emailAddress
-                            };
-
-                            $.ajax({
-                                type: "POST",
-                                url: window.rootUrl + "Reports/ExportIBCDetailReport",
-                                contentType: "application/json; charset=utf-8",
-                                dataType: "json",
-                                data: JSON.stringify(p),
-                                success: function (rs) {
-                                },
-                                error: function () {
-                                },
-                                complete: function () {
-                                }
-                            });
-                            $(this).dialog("close");
-                        }
+                    if (validateCode === 1) {
+                        $('#divEmailError').removeClass('hidden').html('<div>Email cannot empty.</div>');
+                        return false;
                     }
-                ]
+                    else if (validateCode === 2) {
+                        $('#divEmailError').removeClass('hidden').html('<div>Email is invalid format.</div>');
+                        return false;
+                    }
+
+                    var p = {
+                        'fromDate': ibcDailyDetailReport.fromDate,
+                        'toDate': ibcDailyDetailReport.toDate,
+                        'reportTitle': ibcDailyDetailReport.title,
+                        'isSendMail': true,
+                        'email': emailAddress
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: window.rootUrl + "Reports/ExportIBCDetailReport",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(p),
+                        success: function (rs) {
+                            /* jshint unused: vars */
+                        },
+                        error: function () {
+                        },
+                        complete: function () {
+                        }
+                    });
+                    $(this).dialog("close");
+                }
+            }]
         });
     },
     exportExcel: function () {
@@ -630,15 +715,19 @@ var ibcDailyDetailReport = {
             data: '',
             success: function (rs) {
                 if (rs) {
-                    if (rs.ErrCode == 0) {
-                        var url = "DailyStatistic?export=true&type=2&fdate=" + ibcDailyDetailReport.fromDate + "&tdate=" + ibcDailyDetailReport.toDate + "&title=" + ibcDailyDetailReport.title;
+                    if (rs.ErrCode === 0) {
+                        var url = "DailyStatistic?export=true&type=2&fdate=" + ibcDailyDetailReport.fromDate +
+                            "&tdate=" + ibcDailyDetailReport.toDate +
+                            "&title=" + ibcDailyDetailReport.title;
                         $("#frm").attr("src", url);
                     }
-                    else
+                    else {
                         ibcDailyDetailReport.openConfirmPopup();
+                    }
                 }
-                else
+                else {
                     ibcDailyDetailReport.openConfirmPopup();
+                }
             },
             error: function () {
 
@@ -658,13 +747,16 @@ var ibcDailyDetailReport = {
             var scrollHeight = $('#dailydetailgridbody tbody tr:eq(' + i + ') td:eq(0)').height();
 
             var maxHeight = 18;
-            if (frozenHeight > scrollHeight)
+            if (frozenHeight > scrollHeight) {
                 maxHeight = frozenHeight + 1;
-            else if (scrollHeight > frozenHeight)
+            }
+            else if (scrollHeight > frozenHeight) {
                 maxHeight = scrollHeight + 1;
+            }
 
             $('#dailydetailgridbody tbody tr:eq(' + i + ') td:eq(0) div').css('height', maxHeight).append(' ');
-            $('#dailydetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').append(' ').attr('style', ' display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');
+            $('#dailydetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').append(' ').attr('style',
+                ' display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');
         }
 
         var mainreport = $('#dailydetailgrid');
@@ -728,7 +820,7 @@ var ibcDailyDetailReport = {
     }
 };
 
-var licenseeDailyDetailReport = {
+licenseeDailyDetailReport = {
     title: '',
     totalRows: 0,
     pageIndex: 1,
@@ -745,6 +837,7 @@ var licenseeDailyDetailReport = {
         $("#licenseedetailgrid #pagination").pagination(total_items, pagerOpts);
     },
     pageSelectCallback: function (page_index, _items_per_page, jq) {
+        /* jshint unused: vars */
         var max_page = Math.ceil(licenseeDailyDetailReport.totalRows / _items_per_page);
         page_index = page_index < max_page ? page_index : max_page - 1;
         licenseeDailyDetailReport.pageIndex = page_index + 1;
@@ -782,7 +875,8 @@ var licenseeDailyDetailReport = {
             dataType: "json",
             data: JSON.stringify(data),
             success: function (rs) {
-                licenseeDailyDetailReport.title = 'Licensee Daily Customer Complaints/Enquiries From ' + licenseeDailyDetailReport.fromDate + ' To ' + licenseeDailyDetailReport.toDate;
+                licenseeDailyDetailReport.title = 'Licensee Daily Customer Complaints/Enquiries From ' + licenseeDailyDetailReport.fromDate +
+                    ' To ' + licenseeDailyDetailReport.toDate;
                 $('#licenseeDetailTitle').html(licenseeDailyDetailReport.title);
 
                 if (rs && rs.DailyComplaints && rs.DailyComplaints.length > 0) {
@@ -791,7 +885,7 @@ var licenseeDailyDetailReport = {
                     for (var i = 0; i < rs.DailyComplaints.length; i++) {
                         licenseeDailyDetailReport.totalRows = parseInt(rs.total);
                         var row = rs.DailyComplaints[i];
-                        var css = (i % 2 == 0 ? "bgeven" : "bgodd"); ;
+                        var css = (i % 2 === 0 ? "bgeven" : "bgodd");
                         arrScroll.push(licenseeDailyDetailReport.renderScrollRow(row, css));
                         arrFrozen.push(licenseeDailyDetailReport.renderFrozenRow(row, css));
                     }
@@ -811,7 +905,9 @@ var licenseeDailyDetailReport = {
                         numberFreezeCol: licenseeDailyDetailReport.freeCols
                     };
                     mainreport.removeClass("hidden").gridScroller(gridOpts);
-                    licenseeDailyDetailReport.initPager(licenseeDailyDetailReport.totalRows, licenseeDailyDetailReport.pageSize, licenseeDailyDetailReport.pageIndex - 1);
+                    licenseeDailyDetailReport.initPager(licenseeDailyDetailReport.totalRows,
+                        licenseeDailyDetailReport.pageSize,
+                        licenseeDailyDetailReport.pageIndex - 1);
                     licenseeDailyDetailReport.reRenderGrid();
 
                     mainreport.find(".y-scrollbar").scrollTop(0);
@@ -828,7 +924,7 @@ var licenseeDailyDetailReport = {
         });
 
     },
-    renderScrollRow: function (row, css) {        
+    renderScrollRow: function (row, css) {
         var compaints = replaceSpecialHtmlTag(row.Complaints);
         var solutions = replaceSpecialHtmlTag(row.Solution);
         var html = '<tr class="' + css + '">\
@@ -874,7 +970,9 @@ var licenseeDailyDetailReport = {
     openConfirmPopup: function () {
         $('#divEmailError').addClass('hidden').html('');
         $("#divPopup").dialog({ width: 350, height: 200, zIndex: 500, resizable: false,
-            close: function (event, ui) { },
+            close: function (event, ui) {
+                /* jshint unused: vars */
+            },
             buttons: [
                     {
                         text: "Ok",
@@ -882,11 +980,11 @@ var licenseeDailyDetailReport = {
                             var emailAddress = $('#txtEmail').val().trim();
                             var validateCode = emailListValidate(emailAddress);
 
-                            if (validateCode == 1) {
+                            if (validateCode === 1) {
                                 $('#divEmailError').removeClass('hidden').html('<div>Email cannot empty.</div>');
                                 return false;
                             }
-                            else if (validateCode == 2) {
+                            else if (validateCode === 2) {
                                 $('#divEmailError').removeClass('hidden').html('<div>Email is invalid format.</div>');
                                 return false;
                             }
@@ -906,6 +1004,7 @@ var licenseeDailyDetailReport = {
                                 dataType: "json",
                                 data: JSON.stringify(p),
                                 success: function (rs) {
+                                    /* jshint unused: vars */
                                 },
                                 error: function () {
                                 },
@@ -927,21 +1026,23 @@ var licenseeDailyDetailReport = {
             data: '',
             success: function (rs) {
                 if (rs) {
-                    if (rs.ErrCode == 0) {
-                        var url = "DailyStatistic?export=true&type=4&fdate=" + licenseeDailyDetailReport.fromDate + "&tdate=" + licenseeDailyDetailReport.toDate + "&title=" + licenseeDailyDetailReport.title;
+                    if (rs.ErrCode === 0) {
+                        var url = "DailyStatistic?export=true&type=4&fdate=" + licenseeDailyDetailReport.fromDate +
+                            "&tdate=" + licenseeDailyDetailReport.toDate +
+                            "&title=" + licenseeDailyDetailReport.title;
                         $("#frm").attr("src", url);
                     }
-                    else
+                    else {
                         licenseeDailyDetailReport.openConfirmPopup();
+                    }
                 }
-                else
+                else {
                     licenseeDailyDetailReport.openConfirmPopup();
+                }
             },
             error: function () {
-
             },
             complete: function () {
-
             }
         });
     },
@@ -954,13 +1055,16 @@ var licenseeDailyDetailReport = {
             var scrollHeight = $('#licenseedetailgridbody tbody tr:eq(' + i + ') td:eq(0)').height();
 
             var maxHeight = 18;
-            if (frozenHeight > scrollHeight)
+            if (frozenHeight > scrollHeight) {
                 maxHeight = frozenHeight + 1;
-            else if (scrollHeight > frozenHeight)
+            }
+            else if (scrollHeight > frozenHeight) {
                 maxHeight = scrollHeight + 1;
+            }
 
             $('#licenseedetailgridbody tbody tr:eq(' + i + ') td:eq(0) div').css('height', maxHeight).append(' ');
-            $('#licenseedetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').attr('style', ' display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');
+            $('#licenseedetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').attr('style',
+                ' display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');
         }
 
         var mainreport = $('#licenseedetailgrid');
@@ -1013,41 +1117,38 @@ var licenseeDailyDetailReport = {
     }
 };
 
-head.ready(
-    function () {
+head.ready(function () {
+    var arrDateValues = [(new Date(fromDate)).format("m/d/Y"), (new Date(toDate)).format("m/d/Y")];
+    var arrIds = ['txtfromdate', 'txttodate'];
+    /* jshint newcap: false */
+    SetupCalendar(arrDateValues, arrIds);
 
-        var arrDateValues = [(new Date(fromDate)).format("m/d/Y"), (new Date(toDate)).format("m/d/Y")];
-        var arrIds = ['txtfromdate', 'txttodate'];
-        SetupCalendar(arrDateValues, arrIds);
+    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
-        try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+    var gridOpts = {
+        tblContentId: 'dailysummarybody',
+        isShowPager: false
+    };
+    $("#dailysummarygrid").initGrid(gridOpts);
 
-        var gridOpts = {
-            tblContentId: 'dailysummarybody',
-            isShowPager: false
-        };
-        $("#dailysummarygrid").initGrid(gridOpts);
+    var gridOptions = {
+        tblContentId: 'licenseedailysummarybody',
+        isShowPager: false
+    };
+    $("#licenseedailysummarygrid").initGrid(gridOptions);
 
-        var gridOpts = {
-            tblContentId: 'licenseedailysummarybody',
-            isShowPager: false
-        };
-        $("#licenseedailysummarygrid").initGrid(gridOpts);
+    gridOptions = {
+        tblContentId: 'dailydetailgridbody',
+        isShowPager: true
+    };
+    $("#dailydetailgrid").initGrid(gridOptions);
 
-        var gridOpts = {
-            tblContentId: 'dailydetailgridbody',
-            isShowPager: true
-        };
-        $("#dailydetailgrid").initGrid(gridOpts);
-
-        var gridOpts = {
-            tblContentId: 'licenseedetailgridbody',
-            isShowPager: true
-        };
-        $("#licenseedetailgrid").initGrid(gridOpts);
-        
-    }
-);
+    gridOpts = {
+        tblContentId: 'licenseedetailgridbody',
+        isShowPager: true
+    };
+    $("#licenseedetailgrid").initGrid(gridOptions);
+});
 
 $.extend(ibcDailySummaryReport, { chart: {
     data: null,
@@ -1059,7 +1160,8 @@ $.extend(ibcDailySummaryReport, { chart: {
             var objIndex = 0;
             var newCategories = [];
             jQuery.each(val, function (name, value) {
-                if (objIndex != 0) {
+                /* jshint unused: vars */
+                if (objIndex !== 0) {
                     var item = { field: name, label: name, enable: true };
                     newCategories.push(item);
                 }
@@ -1075,13 +1177,19 @@ $.extend(ibcDailySummaryReport, { chart: {
             for (var i = 0, len = data_items.length; i < len; i++) {
                 var item = data_items[i];
                 var toData = [];
-                $.each(this.categories, function (ind, cate) {
-                    if (cate.enable) {
-                        var val = eval("item." + cate.field + "");
-                        toData.push(ibcDailySummaryReport.chart.toNumber(val));
-                        if (i == 0) { categories.push(cate.label); }
+                for (var j = 0, categoriesLength = this.categories.length; j < categoriesLength; j++) {
+                    var cate = this.categories[j];
+                    if (!cate.enable) {
+                        continue;
                     }
-                });
+
+                    var val = item[cate.field];
+                    toData.push(ibcDailySummaryReport.chart.toNumber(val));
+                    if (i === 0) {
+                        categories.push(cate.label);
+                    }
+                }
+
                 serial_data.push({
                     name: item.Name,
                     data: toData,
@@ -1099,10 +1207,11 @@ $.extend(ibcDailySummaryReport, { chart: {
                 series: serial_data,
                 legendY: (maxHeightOfPopUp - 210)
             };
-            if ($('#chart_content').length == 0) {
+
+            if ($('#chart_content').length === 0) {
                 this.initViewChart(opts);
             }
-                
+
             accChart.renderSVG(opts);
         }
     },
@@ -1126,6 +1235,7 @@ $.extend(ibcDailySummaryReport, { chart: {
             handle: '#chart_title'
         });
         $('div.setting').bind('click', function (e) {
+            /* jshint unused: vars */
             if ($('#chart_setting').is(':hidden')) {
                 $('#chart_setting').slideDown();
                 $(this).attr('title', 'Hide setting');
@@ -1135,28 +1245,32 @@ $.extend(ibcDailySummaryReport, { chart: {
             }
         });
         $('div.close').bind('click', function (e) {
+            /* jshint unused: vars */
             ibcDailySummaryReport.chart.close();
         });
         this.renderSetting();
     },
     renderSetting: function () {
         $('#chart_setting').html('<ul id="ul_setting"></ul>');
-        var tpl_cate = '{{each categories}}<li><input class="setcheck" type="checkbox" {{if $value.enable}}checked="${$value.enable}"{{/if}} value="${$index}"/>${$value.enable}&nbsp;${$value.label}</li>{{/each}}';
+        //        var tpl_cate = '{{each categories}}<li>\
+        //                            <input class="setcheck" type="checkbox" {{if $value.enable}}checked="${$value.enable}"{{/if}} value="${$index}"/>\
+        //                            ${$value.enable}&nbsp;${$value.label}</li>{{/each}}';
         //$('<div />').append(tpl_cate).tmpl(this).appendTo("#ul_setting");
         $.each(this.categories, function (ind, cate) {
-            var is_checked = (cate.enable == true) ? 'checked' : '';
+            var is_checked = (cate.enable === true) ? 'checked' : '';
             var _itemTpl = '<li><input class="setcheck" ' + is_checked + ' type="checkbox" value="' + ind + '"/>&nbsp;' + cate.label + '</li>';
             $("#ul_setting").append(_itemTpl);
         });
         $('#chart_setting').css({ width: 185, 'margin-top': 27 });
         if ($.browser.msie) {
-            if ($.browser.version.indexOf('7') != -1) {
+            if ($.browser.version.indexOf('7') !== -1) {
                 $('#chart_setting').css({ 'margin-left': -1000 });
                 $('#ul_setting').css({ 'margin-left': 10 });
             }
         }
         window.setTimeout(function () {
             $('input.setcheck').bind('click', function (e) {
+                /* jshint unused: vars */
                 var checked = $(this).attr("checked");
                 var index = $(this).val();
                 ibcDailySummaryReport.chart.categories[index].enable = checked;
@@ -1189,7 +1303,8 @@ $.extend(licenseeDailySummaryReport, { chart: {
             var objIndex = 0;
             var newCategories = [];
             jQuery.each(val, function (name, value) {
-                if (objIndex != 0) {
+                /* jshint unused: vars */
+                if (objIndex !== 0) {
                     var item = { field: name, label: name, enable: true };
                     newCategories.push(item);
                 }
@@ -1205,13 +1320,19 @@ $.extend(licenseeDailySummaryReport, { chart: {
             for (var i = 0, len = data_items.length; i < len; i++) {
                 var item = data_items[i];
                 var toData = [];
-                $.each(this.categories, function (ind, cate) {
-                    if (cate.enable) {
-                        var val = eval("item." + cate.field + "");
-                        toData.push(licenseeDailySummaryReport.chart.toNumber(val));
-                        if (i == 0) { categories.push(cate.label); }
+                for (var j = 0, categoriesLength = this.categories.length; j < categoriesLength; j++) {
+                    var cate = this.categories[j];
+                    if (!cate.enable) {
+                        continue;
                     }
-                });
+
+                    var val = item[cate.field];
+                    toData.push(licenseeDailySummaryReport.chart.toNumber(val));
+                    if (i === 0) {
+                        categories.push(cate.label);
+                    }
+                }
+
                 serial_data.push({
                     name: item.Name,
                     data: toData,
@@ -1229,9 +1350,11 @@ $.extend(licenseeDailySummaryReport, { chart: {
                 series: serial_data,
                 legendY: (maxHeightOfPopUp - 210)
             };
-            if ($('#chart_content').length == 0) {
+
+            if ($('#chart_content').length === 0) {
                 this.initViewChart(opts);
             }
+
             accChart.renderSVG(opts);
         }
     },
@@ -1243,7 +1366,9 @@ $.extend(licenseeDailySummaryReport, { chart: {
         $('<div />').attr('id', 'chart_setting').addClass('chart_setting').appendTo('#chart_popup');
         $('<div />').attr('id', 'chart_title')
              .addClass('chart_title')
-             .append('<div class="setting" title="Setting">&nbsp;</div><div class="title">' + opts.title + '</div><div class="close" title="Close">&nbsp;</div>')
+             .append('<div class="setting" title="Setting">&nbsp;</div>\
+                      <div class="title">' + opts.title + '</div>\
+                      <div class="close" title="Close">&nbsp;</div>')
              .appendTo('#chart_popup');
         $('<div />').attr('id', 'chart_content').addClass('chart_content')
              .css({ width: opts.width, height: opts.height })
@@ -1255,6 +1380,7 @@ $.extend(licenseeDailySummaryReport, { chart: {
             handle: '#chart_title'
         });
         $('div.setting').bind('click', function (e) {
+            /* jshint unused: vars */
             if ($('#chart_setting').is(':hidden')) {
                 $('#chart_setting').slideDown();
                 $(this).attr('title', 'Hide setting');
@@ -1264,28 +1390,32 @@ $.extend(licenseeDailySummaryReport, { chart: {
             }
         });
         $('div.close').bind('click', function (e) {
+            /* jshint unused: vars */
             licenseeDailySummaryReport.chart.close();
         });
         this.renderSetting();
     },
     renderSetting: function () {
         $('#chart_setting').html('<ul id="ul_setting"></ul>');
-        var tpl_cate = '{{each categories}}<li><input class="setcheck" type="checkbox" {{if $value.enable}}checked="${$value.enable}"{{/if}} value="${$index}"/>${$value.enable}&nbsp;${$value.label}</li>{{/each}}';
+        //        var tpl_cate = '{{each categories}}<li>\
+        //                            <input class="setcheck" type="checkbox" {{if $value.enable}}checked="${$value.enable}"{{/if}} value="${$index}"/>\
+        //                            ${$value.enable}&nbsp;${$value.label}</li>{{/each}}';
         //$('<div />').append(tpl_cate).tmpl(this).appendTo("#ul_setting");
         $.each(this.categories, function (ind, cate) {
-            var is_checked = (cate.enable == true) ? 'checked' : '';
+            var is_checked = (cate.enable === true) ? 'checked' : '';
             var _itemTpl = '<li><input class="setcheck" ' + is_checked + ' type="checkbox" value="' + ind + '"/>&nbsp;' + cate.label + '</li>';
             $("#ul_setting").append(_itemTpl);
         });
         $('#chart_setting').css({ width: 185, 'margin-top': 27 });
         if ($.browser.msie) {
-            if ($.browser.version.indexOf('7') != -1) {
+            if ($.browser.version.indexOf('7') !== -1) {
                 $('#chart_setting').css({ 'margin-left': -1000 });
                 $('#ul_setting').css({ 'margin-left': 10 });
             }
         }
         window.setTimeout(function () {
             $('input.setcheck').bind('click', function (e) {
+                /* jshint unused: vars */
                 var checked = $(this).attr("checked");
                 var index = $(this).val();
                 licenseeDailySummaryReport.chart.categories[index].enable = checked;

@@ -1,27 +1,43 @@
-﻿var topwnd;
-var arrWidth = new Array();
-var maxHeightOfPopUp = ($(window).height() + 50)
-var maxWidthOfPopUp = ($(window).width())
+﻿"use strict";
+/* global replaceSpecialHtmlTag, replaceSpaceForIE9, emailListValidate, head,
+fromDate, toDate, accChart, findMainWindow */
+/* exported arrWidth, maxHeightOfPopUp, maxWidthOfPopUp,
+addDays */
+
+var topwnd;
+var arrWidth = [];
+var maxHeightOfPopUp = ($(window).height() + 50);
+var maxWidthOfPopUp = ($(window).width());
+var casinoDailyStatistics, casinoDailyDetail;
 
 //add n number of days
-Date.prototype.goto = function (n) {
-    this.setTime(this.getTime() + n * 86400000);
-    return this;
+function addDays(startDate, n) {
+    var endDate = new Date();
+    endDate.setTime(startDate.getTime() + n * 86400000);
+    return endDate;
+}
+
+var pagerOpts = {
+    /*jshint camelcase: false */
+    callback: null,
+    start_per_page: 50,
+    step_per_page: 50,
+    max_items_per_page: 200,
+    items_per_page: 50,
+    current_page: 1
 };
 
 // -- Calendar --- //
-function SetupCalendar(arrDateValues, arrIds) {
-
+function setupCalendar(arrDateValues, arrIds) {
     for (var i = 0; i < arrIds.length; i++) {
-
         $('#' + arrIds[i]).datepicker();
-        if (arrDateValues[i] != null && arrDateValues[i] != "") {
+        if (arrDateValues[i] != null && arrDateValues[i] !== "") {
             $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
         }
     }
-};
+}
 
-var casinoDailyStatistics = {
+casinoDailyStatistics = {
     fromDate: '',
     toDate: '',
     columnWidthDefault: 70,
@@ -44,12 +60,13 @@ var casinoDailyStatistics = {
             dataType: "json",
             data: JSON.stringify(data),
             success: function (rs) {
-                casinoDailyStatistics.title = 'Daily Summary On Customer Inquiries From ' + casinoDailyStatistics.fromDate + ' To ' + casinoDailyStatistics.toDate;
+                casinoDailyStatistics.title = 'Daily Summary On Customer Inquiries From ' + casinoDailyStatistics.fromDate +
+                    ' To ' + casinoDailyStatistics.toDate;
                 $('#gridtitle').html(casinoDailyStatistics.title);
-                
+
                 if (rs != null && rs.DailySummary && rs.DailySummary.length > 0) {
                     casinoDailyStatistics.assignChartData(rs);
-                    
+
                     var totalChild = ((rs.GrandTotal.SystemSummary.length) * (rs.GrandTotal.SystemSummary[0].Cells.length)) + 1;
                     var maxChild = totalChild > casinoDailyStatistics.defaultTotalCols ? casinoDailyStatistics.defaultTotalCols : totalChild;
                     casinoDailyStatistics.totalWidth = ((casinoDailyStatistics.columnWidthDefault * maxChild)) + (maxChild) + ((maxChild) * 2);
@@ -63,22 +80,29 @@ var casinoDailyStatistics = {
                     for (var i = 0; i < rs.DailySummary.length; i++) {
                         var arrNewData = rs.DailySummary[i];
                         if (arrNewData != null && arrNewData.SystemSummary.length > 0) {
-                            var mainId = arrNewData.MainCategoryId;
-                            var css = (i % 2 == 0 ? "bgeven" : "bgodd");
+                            var css = (i % 2 === 0 ? "bgeven" : "bgodd");
                             arrFrozen.push(casinoDailyStatistics.renderFrozenGroup(arrNewData.MainCategory, css));
-                            arrScroll.push(casinoDailyStatistics.renderScrollGroup(arrNewData.SystemSummary, css, 'style="font-weight: bold;"', arrNewData.MainCategory));
+                            arrScroll.push(casinoDailyStatistics.renderScrollGroup(arrNewData.SystemSummary,
+                                css,
+                                'style="font-weight: bold;"',
+                                arrNewData.MainCategory));
                         }
                     }
                     //------------------
                     $("#dailysummarybody tbody").empty().append(arrScroll.join(''));
                     $("#dailysummarybg tbody").empty().append(arrFrozen.join(''));
                     //-----grand total
-                    var arrFooterScroll = [];                    
+                    var arrFooterScroll = [];
                     arrFooterScroll.push(casinoDailyStatistics.renderFooterGroup(rs.SumAllFeedbacks, rs.GrandTotal.SystemSummary));
-                    mainreport.find(".row_footer_content thead").empty().append('<tr><th rowspan="2"><div style="width:300px;height: 31px;" class="table-cell l">Grand Total</div></th></tr>');
+                    mainreport.find(".row_footer_content thead").empty().append(
+                        '<tr>\
+                            <th rowspan="2">\
+                                <div style="width:300px;height: 31px;" class="table-cell l">Grand Total</div>\
+                            </th>\
+                         </tr>');
                     mainreport.find(".col_footer_content thead").empty().empty().html(arrFooterScroll.join(''));
                     //------------------------------
-                    
+
                     mainreport.removeClass('hidden');
                     var gridOpts = {
                         tblContentId: 'dailysummarybody',
@@ -102,32 +126,37 @@ var casinoDailyStatistics = {
     },
     renderHeaderReport: function (row) {
         var totalGroupCels = row.SystemSummary[0].Cells.length;
-        var totalWidth =  (casinoDailyStatistics.columnWidthDefault * totalGroupCels);
+        var totalWidth = (casinoDailyStatistics.columnWidthDefault * totalGroupCels);
         var totalCels = row.SystemSummary.length;
-        
+
         var html = '';
+        var summary;
+
         //--------------------------
-        html+='<tr>';
+        html += '<tr>';
         html += '<th rowspan="2"><div class="table-cell c" style="width:300px; heigth:31px;">Category</div></th>';
         for (var i = 0; i < totalCels; i++) {
-            var summary = row.SystemSummary[i];
-            html += '<th colspan="' + totalGroupCels + '"><div class="c table-cell" style="width: '+ totalWidth+'px">' + summary.Sytem + '</div></th>';
+            summary = row.SystemSummary[i];
+            html += '<th colspan="' + totalGroupCels + '"><div class="c table-cell" style="width: ' + totalWidth + 'px">' + summary.Sytem + '</div></th>';
         }
-        html += '</tr>';      
+        html += '</tr>';
         //--------------------------
         html += '<tr>';
         for (var k = 0; k < totalCels; k++) {
-            var summary = row.SystemSummary[k];
+            summary = row.SystemSummary[k];
             for (var j = 0; j < totalGroupCels; j++) {
-                html += '<th><div style="width:' + casinoDailyStatistics.columnWidthDefault + 'px" class="c table-cell">' + summary.Cells[j].Title + '</div></th>';
+                html += '<th>\
+                            <div style="width:' + casinoDailyStatistics.columnWidthDefault +
+                                'px" class="c table-cell">' + summary.Cells[j].Title + '</div>\
+                         </th>';
             }
         }
-        html += '</tr>';  
+        html += '</tr>';
         //--------------------------
         return html;
     },
     renderFrozenGroup: function (title, css) {
-        var html = '<tr class="'+ css +'">\
+        var html = '<tr class="' + css + '">\
                         <td><div class="l b" style="width:300px;">' + title + '</div></td>\
                     </tr>';
         return html;
@@ -138,39 +167,49 @@ var casinoDailyStatistics = {
         for (var i = 0; i < row.length; i++) {
             var summary = row[i];
             for (var j = 0; j < summary.Cells.length; j++) {
-                html += '<td ' + style + '><div class="c ' + css + '" style="width:'+ casinoDailyStatistics.columnWidthDefault +'px;">' + summary.Cells[j].Value + '</div></td>';
+                html += '<td ' + style + '>\
+                            <div class="c ' + css +
+                                '" style="width:' + casinoDailyStatistics.columnWidthDefault + 'px;">' +
+                                    summary.Cells[j].Value +
+                            '</div>\
+                         </td>';
             }
         }
         html += '</tr>';
 
         return html;
     },
-    renderFooterGroup: function (sum, detail) {        
+    renderFooterGroup: function (sum, detail) {
         var html = '';
-        if(sum && detail){
+        if (sum && detail) {
             //first row
-            html+='<tr>';
+            html += '<tr>';
             html += '<th rowspan="2"><div class="l b" style="width:300px; height: 31px;">Grand Total</div></th>';
-            for (var i = 0; i < detail.length; i++) {
+            var i;
+            for (i = 0; i < detail.length; i++) {
                 var summary = detail[i];
                 for (var j = 0; j < summary.Cells.length; j++) {
                     html += '<th><div class="c " style="width:' + casinoDailyStatistics.columnWidthDefault + 'px;">' + summary.Cells[j].Value + '</div></th>';
                 }
             }
+
             html += '</tr>';
             //----------------------
-            var cols =  detail[0].Cells.length;
-            var totalWidth =  casinoDailyStatistics.columnWidthDefault * cols;
-            html+='<tr>';
-            for (var i = 0; i < sum.length; i++) {
-                html += '<th style="border-bottom:none; width: '+ totalWidth +'px " colspan="' + cols + '"><div class="c">' + sum[i] + '</div></th>';
+            var cols = detail[0].Cells.length;
+            var totalWidth = casinoDailyStatistics.columnWidthDefault * cols;
+            html += '<tr>';
+            for (i = 0; i < sum.length; i++) {
+                html += '<th style="border-bottom:none; width: ' + totalWidth + 'px " colspan="' + cols + '"><div class="c">' + sum[i] + '</div></th>';
             }
+
             html += '</tr>';
         }
         return html;
     },
     exportExcel: function () {
-        var url = "CasinoDailyStatistics?export=true&type=1&fdate=" + casinoDailyStatistics.fromDate + "&tdate=" + casinoDailyStatistics.toDate + "&title=" + casinoDailyStatistics.title;
+        var url = "CasinoDailyStatistics?export=true&type=1&fdate=" + casinoDailyStatistics.fromDate +
+            "&tdate=" + casinoDailyStatistics.toDate +
+            "&title=" + casinoDailyStatistics.title;
         $("#frm").attr("src", url);
     },
     viewDetail: function () {
@@ -181,14 +220,14 @@ var casinoDailyStatistics = {
         for (var i = 0; i < rs.DailySummary.length; i++) {
             var item = rs.DailySummary[i];
             var chartInfo = {};
-            eval("chartInfo.Name='" + item.MainCategory + "'");
+            chartInfo.Name = "'" + item.MainCategory + "'";
             for (var j = 0; j < item.SystemSummary.length; j++) {
                 var cells = item.SystemSummary[j];
                 for (var k = 0; k < cells.Cells.length; k++) {
                     var cell = cells.Cells[k];
-                    eval("chartInfo." + (cells.Sytem.replace(' ', '') + '_'+ cell.Title) + "=" + cell.Value);
+                    chartInfo[(cells.Sytem.replace(' ', '') + '_' + cell.Title)] = cell.Value;
                 }
-                
+
             }
             items.push(chartInfo);
         }
@@ -196,15 +235,7 @@ var casinoDailyStatistics = {
     }
 };
 
-var pagerOpts = {
-    callback: null,
-    start_per_page: 50,
-    step_per_page: 50,
-    max_items_per_page: 200,
-    items_per_page: 50,
-    current_page: 1
-};
-var casinoDailyDetail = {
+casinoDailyDetail = {
     title: '',
     totalRows: 0,
     pageIndex: 1,
@@ -214,13 +245,16 @@ var casinoDailyDetail = {
     gridHeight: 80,
     freeWidth: 400,
     freeCols: 5,
+    /*jshint camelcase: false */
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = casinoDailyDetail.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
         pagerOpts.current_page = current_page;
         $("#pagination").pagination(total_items, pagerOpts);
     },
+
     pageSelectCallback: function (page_index, _items_per_page, jq) {
+        /* jshint unused: vars */
         var max_page = Math.ceil(casinoDailyDetail.totalRows / _items_per_page);
         page_index = page_index < max_page ? page_index : max_page - 1;
         casinoDailyDetail.pageIndex = page_index + 1;
@@ -253,7 +287,8 @@ var casinoDailyDetail = {
             dataType: "json",
             data: JSON.stringify(data),
             success: function (rs) {
-                casinoDailyDetail.title = 'Daily Casino - Related Customer Inquiries Record From ' + casinoDailyDetail.fromDate + ' To ' + casinoDailyDetail.toDate;
+                casinoDailyDetail.title = 'Daily Casino - Related Customer Inquiries Record From ' + casinoDailyDetail.fromDate +
+                    ' To ' + casinoDailyDetail.toDate;
                 $('#detailTitle').html(casinoDailyDetail.title);
 
                 if (rs && rs.DailyComplaints && rs.DailyComplaints.length > 0) {
@@ -262,12 +297,12 @@ var casinoDailyDetail = {
                     for (var i = 0; i < rs.DailyComplaints.length; i++) {
                         casinoDailyDetail.totalRows = parseInt(rs.total);
                         var row = rs.DailyComplaints[i];
-                        var css = (i % 2 == 0 ? "bgeven" : "bgodd"); ;
+                        var css = (i % 2 === 0 ? "bgeven" : "bgodd");
                         arrScroll.push(casinoDailyDetail.renderScrollRow(row, css));
                         arrFrozen.push(casinoDailyDetail.renderFrozenRow(row, css));
                     }
-                    $('#btnExportDetail').removeClass('hidden');
 
+                    $('#btnExportDetail').removeClass('hidden');
                     $("#dailydetailgridbody tbody").empty().append(arrScroll.join(''));
                     $("#dailydetailfirstcol tbody").empty().append(arrFrozen.join(''));
 
@@ -287,7 +322,6 @@ var casinoDailyDetail = {
                     mainreport.find(".y-scrollbar").scrollTop(0);
                 }
                 else {
-
                     casinoDailyDetail.renderNoDataRow();
                 }
             },
@@ -298,8 +332,6 @@ var casinoDailyDetail = {
         });
     },
     renderScrollRow: function (row, css) {
-        var compaints = replaceSpecialHtmlTag(row.Complaints);
-        var solutions = replaceSpecialHtmlTag(row.Solution);
         var html = '<tr class="' + css + '">\
             <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
             <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
@@ -341,7 +373,9 @@ var casinoDailyDetail = {
     openConfirmPopup: function () {
         $('#divEmailError').addClass('hidden').html('');
         $("#divPopup").dialog({ width: 350, height: 200, zIndex: 500, resizable: false,
-            close: function (event, ui) { },
+            close: function (event, ui) {
+                /* jshint unused: vars */
+            },
             buttons: [
                     {
                         text: "Ok",
@@ -349,11 +383,11 @@ var casinoDailyDetail = {
                             var emailAddress = $('#txtEmail').val().trim();
                             var validateCode = emailListValidate(emailAddress);
 
-                            if (validateCode == 1) {
+                            if (validateCode === 1) {
                                 $('#divEmailError').removeClass('hidden').html('<div>Email cannot empty.</div>');
                                 return false;
                             }
-                            else if (validateCode == 2) {
+                            else if (validateCode === 2) {
                                 $('#divEmailError').removeClass('hidden').html('<div>Email is invalid format.</div>');
                                 return false;
                             }
@@ -373,6 +407,7 @@ var casinoDailyDetail = {
                                 dataType: "json",
                                 data: JSON.stringify(p),
                                 success: function (rs) {
+                                    /* jshint unused: vars */
                                 },
                                 error: function () {
                                 },
@@ -395,21 +430,27 @@ var casinoDailyDetail = {
             data: '',
             success: function (rs) {
                 if (rs) {
-                    if (rs.ErrCode == 0) {
-                        var url = "CasinoDailyStatistics?export=true&type=2&fdate=" + casinoDailyDetail.fromDate + "&tdate=" + casinoDailyDetail.toDate + "&title=" + casinoDailyDetail.title;
+                    if (rs.ErrCode === 0) {
+                        var url = "CasinoDailyStatistics?export=true&type=2&fdate=" + casinoDailyDetail.fromDate +
+                             "&tdate=" + casinoDailyDetail.toDate +
+                             "&title=" + casinoDailyDetail.title;
                         $("#frm").attr("src", url);
                     }
-                    else
+                    else {
                         casinoDailyDetail.openConfirmPopup();
+                    }
                 }
-                else
+                else {
                     casinoDailyDetail.openConfirmPopup();
+                }
             },
             error: function () {
-
             },
             complete: function () {
-                try { topwnd.UnBlockUI(); } catch (e) { }
+                try {
+                    topwnd.UnBlockUI();
+                } catch (e) {
+                }
             }
         });
     },
@@ -422,13 +463,16 @@ var casinoDailyDetail = {
             var scrollHeight = $('#dailydetailgridbody tbody tr:eq(' + i + ') td:eq(0)').height();
 
             var maxHeight = 18;
-            if (frozenHeight > scrollHeight)
+            if (frozenHeight > scrollHeight) {
                 maxHeight = frozenHeight + 1;
-            else if (scrollHeight > frozenHeight)
+            }
+            else if (scrollHeight > frozenHeight) {
                 maxHeight = scrollHeight + 1;
+            }
 
             $('#dailydetailgridbody tbody tr:eq(' + i + ') td:eq(0) div').css('height', maxHeight).append(' ');
-            $('#dailydetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').attr('style', ' display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');
+            $('#dailydetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').attr('style',
+                ' display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');
         }
         var mainreport = $("#dailydetailgrid");
         var gridOpts = {
@@ -479,26 +523,25 @@ var casinoDailyDetail = {
     }
 };
 
-head.ready(
-    function () {
+head.ready(function () {
+    var arrDateValues = [(new Date(fromDate)).format("m/d/Y"), (new Date(toDate)).format("m/d/Y")];
+    var arrIds = ['txtfromdate', 'txttodate'];
+    setupCalendar(arrDateValues, arrIds);
 
-        var arrDateValues = [(new Date(fromDate)).format("m/d/Y"), (new Date(toDate)).format("m/d/Y")];
-        var arrIds = ['txtfromdate', 'txttodate'];
-        SetupCalendar(arrDateValues, arrIds);
+    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
-        try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+    var gridOpts = {
+        tblContentId: 'dailysummarybody',
+        isShowPager: false
+    };
 
-        var gridOpts = {
-            tblContentId: 'dailysummarybody',
-            isShowPager: false
-        };
-        $("#dailysummarygrid").initGrid(gridOpts);
+    $("#dailysummarygrid").initGrid(gridOpts);
+    gridOpts = {
+        tblContentId: 'dailydetailgridbody',
+        isShowPager: true
+    };
 
-        var gridOpts = {
-            tblContentId: 'dailydetailgridbody',
-            isShowPager: true
-        };
-        $("#dailydetailgrid").initGrid(gridOpts);
+    $("#dailydetailgrid").initGrid(gridOpts);
 });
 
 $.extend(casinoDailyStatistics, { chart: {
@@ -511,12 +554,15 @@ $.extend(casinoDailyStatistics, { chart: {
             var objIndex = 0;
             var newCategories = [];
             jQuery.each(val, function (name, value) {
-                if (objIndex != 0) {
+                /* jshint unused: vars */
+                if (objIndex !== 0) {
                     var item = { field: name, label: name, enable: true };
                     newCategories.push(item);
                 }
+
                 objIndex++;
             });
+
             this.categories = newCategories;
         }
     },
@@ -524,16 +570,23 @@ $.extend(casinoDailyStatistics, { chart: {
         if (this.data != null) {
             var data_items = this.data;
             var serial_data = []; var categories = [];
+
             for (var i = 0, len = data_items.length; i < len; i++) {
                 var item = data_items[i];
                 var toData = [];
-                $.each(this.categories, function (ind, cate) {
-                    if (cate.enable) {
-                        var val = eval("item." + cate.field + "");
-                        toData.push(casinoDailyStatistics.chart.toNumber(val));
-                        if (i == 0) { categories.push(cate.label); }
+                for (var j = 0, categoriesLength = this.categories.length; j < categoriesLength; j++) {
+                    var cate = this.categories[j];
+                    if (!cate.enable) {
+                        continue;
                     }
-                });
+
+                    var val = item[cate.field];
+                    toData.push(casinoDailyStatistics.chart.toNumber(val));
+                    if (i === 0) {
+                        categories.push(cate.label);
+                    }
+                }
+
                 serial_data.push({
                     name: item.Name,
                     data: toData,
@@ -546,12 +599,12 @@ $.extend(casinoDailyStatistics, { chart: {
                 type: 'spline',
                 title: $('#gridtitle').html(),
                 width: 1000,
-                height: (maxHeightOfPopUp-100),
+                height: (maxHeightOfPopUp - 100),
                 categories: categories,
                 series: serial_data,
                 legendY: (maxHeightOfPopUp - 210)
             };
-            if ($('#chart_content').length == 0) {
+            if ($('#chart_content').length === 0) {
                 this.initViewChart(opts);
             }
             accChart.renderSVG(opts);
@@ -565,7 +618,9 @@ $.extend(casinoDailyStatistics, { chart: {
         $('<div />').attr('id', 'chart_setting').addClass('chart_setting').appendTo('#chart_popup');
         $('<div />').attr('id', 'chart_title')
              .addClass('chart_title')
-             .append('<div class="setting" title="Setting">&nbsp;</div><div class="title">' + opts.title + '</div><div class="close" title="Close">&nbsp;</div>')
+             .append('<div class="setting" title="Setting">&nbsp;</div>\
+                      <div class="title">' + opts.title + '</div>\
+                      <div class="close" title="Close">&nbsp;</div>')
              .appendTo('#chart_popup');
         $('<div />').attr('id', 'chart_content').addClass('chart_content')
              .css({ width: opts.width, height: opts.height })
@@ -577,6 +632,7 @@ $.extend(casinoDailyStatistics, { chart: {
             handle: '#chart_title'
         });
         $('div.setting').bind('click', function (e) {
+            /* jshint unused: vars */
             if ($('#chart_setting').is(':hidden')) {
                 $('#chart_setting').slideDown();
                 $(this).attr('title', 'Hide setting');
@@ -586,28 +642,28 @@ $.extend(casinoDailyStatistics, { chart: {
             }
         });
         $('div.close').bind('click', function (e) {
+            /* jshint unused: vars */
             casinoDailyStatistics.chart.close();
         });
         this.renderSetting();
     },
     renderSetting: function () {
         $('#chart_setting').html('<ul id="ul_setting"></ul>');
-        var tpl_cate = '{{each categories}}<li><input class="setcheck" type="checkbox" {{if $value.enable}}checked="${$value.enable}"{{/if}} value="${$index}"/>${$value.enable}&nbsp;${$value.label}</li>{{/each}}';
-        //$('<div />').append(tpl_cate).tmpl(this).appendTo("#ul_setting");
         $.each(this.categories, function (ind, cate) {
-            var is_checked = (cate.enable == true) ? 'checked' : '';
+            var is_checked = (cate.enable === true) ? 'checked' : '';
             var _itemTpl = '<li><input class="setcheck" ' + is_checked + ' type="checkbox" value="' + ind + '"/>&nbsp;' + cate.label + '</li>';
             $("#ul_setting").append(_itemTpl);
         });
         $('#chart_setting').css({ width: 185, 'margin-top': 27 });
         if ($.browser.msie) {
-            if ($.browser.version.indexOf('7') != -1) {
+            if ($.browser.version.indexOf('7') !== -1) {
                 $('#chart_setting').css({ 'margin-left': -1000 });
                 $('#ul_setting').css({ 'margin-left': 10 });
             }
         }
         window.setTimeout(function () {
             $('input.setcheck').bind('click', function (e) {
+                /* jshint unused: vars */
                 var checked = $(this).attr("checked");
                 var index = $(this).val();
                 casinoDailyStatistics.chart.categories[index].enable = checked;

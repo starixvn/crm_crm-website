@@ -1,62 +1,73 @@
-﻿var topwnd;
-var arrWidth = new Array();
-var maxHeightOfPopUp = ($(window).height() + 50)
+﻿"use strict";
+/* global showAlertMessage, lblErroTimeDate, head,
+findMainWindow, lblErrorTimeDuration, accChart */
+/* exported arrWidth */
 
-//add n number of days
-Date.prototype.goto = function (n) {
-    this.setTime(this.getTime() + n * 86400000);    
-    return this;
-};
+var topwnd;
+var arrWidth = [];
+var maxHeightOfPopUp = ($(window).height() + 50);
 
-function DurationTimeForceNumberic() {    
+function addDays(startDate, n) {
+    var endDate = new Date();
+    endDate.setTime(startDate.getTime() + n * 86400000);
+    return endDate;
+}
+
+function durationTimeForceNumberic() {
     $("#txtFDDay").ForceNumericOnly();
     $("#txtFDHour").ForceNumericOnly();
     $("#txtFDMinute").ForceNumericOnly();
-    $("#txtFDSecond").ForceNumericOnly();    
+    $("#txtFDSecond").ForceNumericOnly();
 
     $("#txtTDDay").ForceNumericOnly();
     $("#txtTDHour").ForceNumericOnly();
     $("#txtTDMinute").ForceNumericOnly();
     $("#txtTDSecond").ForceNumericOnly();
-};
+}
 
 // -- Calendar --- //
-function SetupCalendar(arrDateValues, arrIds) {
-
+function setupCalendar(arrDateValues, arrIds) {
     for (var i = 0; i < arrIds.length; i++) {
-      
         $('#' + arrIds[i]).datepicker();
-        if (arrDateValues[i] != null && arrDateValues[i] != "") {
-            $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i]))); 
+        if (arrDateValues[i] != null && arrDateValues[i] !== "") {
+            $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
         }
     }
-};
+}
 
 function number(i, row) {
     var n = row.Cells[i];
     var mainCatId = row.MainCategoryId;
     var subCatId = row.SubCategoryId;
-    var formated_value = $().number_format(n, 
- 		{
- 			numberOfDecimals:0,
- 			decimalSeparator: '.',
- 			thousandSeparator: ',',
- 			symbol: ''
- 		});
-        if (row.IsToal)
- 			formated_value = '<b>' + formated_value + '</b>';
-        if (n > 0)
-            if (row.MainCategoryID == 0) {
-                formated_value = "<span class='lnk b' onclick='feedbackStatistic.viewStatistics(" + mainCatId + "," + subCatId + "," + i + ")'>" + formated_value + "</span>";
+    /* jshint camelcase: false */
+    var formatedValue = $().number_format(n,
+    {
+        numberOfDecimals: 0,
+        decimalSeparator: '.',
+        thousandSeparator: ',',
+        symbol: ''
+    });
+    if (row.IsToal) {
+        formatedValue = '<b>' + formatedValue + '</b>';
+    }
+    if (n > 0) {
+        if (row.MainCategoryID === 0) {
+            formatedValue = "<span class='lnk b' onclick='feedbackStatistic.viewStatistics(" + mainCatId +
+                "," + subCatId +
+                "," + i + ")'>" + formatedValue + "</span>";
         }
         else {
-            formated_value = "<span class='lnk' onclick='feedbackStatistic.viewStatistics(" + mainCatId + "," + subCatId + "," + i + ")'>" + formated_value + "</span>";
+            formatedValue = "<span class='lnk' onclick='feedbackStatistic.viewStatistics(" + mainCatId +
+                "," + subCatId +
+                "," + i + ")'>" + formatedValue + "</span>";
         }
- 		   
-        return formated_value;
-};
+    }
+
+    return formatedValue;
+}
 
 var pagerOpts = {
+    /* jshint camelcase: false */
     callback: null,
     start_per_page: 50,
     step_per_page: 100,
@@ -94,6 +105,7 @@ var feedbackStatistic = {
         $("#pagination").pagination(total_items, pagerOpts);
     },
     pageSelectCallback: function (page_index, _items_per_page, jq) {
+        /* jshint unused: vars */
         var max_page = Math.ceil(feedbackStatistic.totalRows / _items_per_page);
         page_index = page_index < max_page ? page_index : max_page - 1;
         feedbackStatistic.pageIndex = page_index + 1;
@@ -114,17 +126,23 @@ var feedbackStatistic = {
             return false;
         }
 
-        if (!loadOldData)
+        if (!loadOldData) {
             feedbackStatistic.pageIndex = 1;
+        }
 
         var data = { param: feedbackStatistic.getParams(loadOldData) };
 
-        var timeBegin = parseInt(feedbackStatistic.FromDuration.Day) * 86400 + parseInt(feedbackStatistic.FromDuration.Hour) * 3600
-                            + parseInt(feedbackStatistic.FromDuration.Minute) * 60 + parseInt(feedbackStatistic.FromDuration.Second);
-        var timeEnd = parseInt(feedbackStatistic.ToDuration.Day) * 86400 + parseInt(feedbackStatistic.ToDuration.Hour) * 3600 +
-                      parseInt(feedbackStatistic.ToDuration.Minute) * 60 + parseInt(feedbackStatistic.ToDuration.Second);
+        var timeBegin = parseInt(feedbackStatistic.FromDuration.Day) * 86400 +
+            parseInt(feedbackStatistic.FromDuration.Hour) * 3600 +
+            parseInt(feedbackStatistic.FromDuration.Minute) * 60 +
+            parseInt(feedbackStatistic.FromDuration.Second);
+        var timeEnd = parseInt(feedbackStatistic.ToDuration.Day) * 86400 +
+            parseInt(feedbackStatistic.ToDuration.Hour) * 3600 +
+            parseInt(feedbackStatistic.ToDuration.Minute) * 60 +
+            parseInt(feedbackStatistic.ToDuration.Second);
 
-        if ((timeBegin != 0 && timeEnd == 0) | (timeBegin > timeEnd && timeBegin != 0 && timeEnd != 0)) {
+        if ((timeBegin !== 0 && timeEnd === 0) ||
+            (timeBegin > timeEnd && timeBegin !== 0 && timeEnd !== 0)) {
             showAlertMessage("errmsg", lblErrorTimeDuration, 1);
             return false;
         }
@@ -166,8 +184,8 @@ var feedbackStatistic = {
 
                             for (var j = 0; j < arrNewData.FeedbackStatistics.length; j++) {
                                 //content
-                                var css = (j % 2 == 0 ? "bgeven" : "bgodd");
-                                var totalCss = arrNewData.FeedbackStatistics[j].IsTotal == true ? 'style="font-weight: bold;"' : '';
+                                var css = (j % 2 === 0 ? "bgeven" : "bgodd");
+                                var totalCss = arrNewData.FeedbackStatistics[j].IsTotal === true ? 'style="font-weight: bold;"' : '';
                                 arrFirstCol.push(feedbackStatistic.renderFeedbackScrollDetailFirstCol(arrNewData.FeedbackStatistics[j], mainId, css, totalCss));
                                 arrScroll.push(feedbackStatistic.renderFeedbackScrollDetailRow(arrNewData.FeedbackStatistics[j], mainId, css, totalCss));
                             }
@@ -176,8 +194,16 @@ var feedbackStatistic = {
                     $("#feedbackstatisticbody tbody").empty().append(arrScroll.join(''));
                     $("#divBackground tbody").empty().append(arrFirstCol.join(''));
                     //-----grand total
-                    mainreport.find(".row_footer_content thead").empty().append('<tr><th><div style="height:17px; width:400px;" class="table-cell l">Grand Total</div></th></tr>');
-                    mainreport.find(".col_footer_content thead").empty().empty().append(feedbackStatistic.renderFeedbackScrollFooterRow(rs.GrandTotal, 0, "", ''));
+                    mainreport.find(".row_footer_content thead").empty().append(
+                        '<tr>\
+                            <th>\
+                                <div style="height:17px; width:400px;" class="table-cell l">Grand Total</div>\
+                            </th>\
+                         </tr>');
+                    mainreport.find(".col_footer_content thead")
+                              .empty()
+                              .empty()
+                              .append(feedbackStatistic.renderFeedbackScrollFooterRow(rs.GrandTotal, 0, "", ''));
                     //------------------------------
 
                     /*#region set height of header*/
@@ -189,10 +215,10 @@ var feedbackStatistic = {
                         if (heightOfTbBgHeader > heightOfTbContentHeader) {
                             maxHeightOfGirdHeader = heightOfTbBgHeader;
                         }
-                        else{
+                        else {
                             maxHeightOfGirdHeader = heightOfTbContentHeader;
                         }
-                    }                    
+                    }
                     mainreport.find(".maxheight").css('height', maxHeightOfGirdHeader + 'px');
                     /*#endregion set height of header*/
                     //------------------
@@ -232,7 +258,12 @@ var feedbackStatistic = {
         var html = '';
 
         html += '<tr class="total">';
-        html += '<td><div class="l b" style="width:400px; height:17px;"><span class="tree-expanded" onclick="feedbackStatistic.toggleFeedback(this,\'' + (id) + '\')"></span>' + title + '</div></td>';
+        html += '<td>\
+                    <div class="l b" style="width:400px; height:17px;">\
+                        <span class="tree-expanded" onclick="feedbackStatistic.toggleFeedback(this,\'' + (id) + '\')"></span>' +
+                        title +
+                    '</div>\
+                 </td>';
         html += '<td colspan=' + totalCol + '><div style="width:' + width + 'px;">&nbsp;</div></td></tr>';
         return html;
     },
@@ -252,7 +283,12 @@ var feedbackStatistic = {
         var html = '';
 
         html += '<tr class="total">';
-        html += '<td><div class="l b" style="width:400px; height:17px;"><span class="tree-expanded" onclick="feedbackStatistic.toggleFeedback(this,\'' + (id) + '\')"></span>' + title + '</div></td>';
+        html += '<td>\
+                    <div class="l b" style="width:400px; height:17px;">\
+                        <span class="tree-expanded" onclick="feedbackStatistic.toggleFeedback(this,\'' + (id) + '\')"></span>' +
+                        title +
+                    '</div>\
+                 </td>';
         return html;
     },
     renderFeedbackScrollDetailFirstCol: function (row, id, css, style) {
@@ -265,6 +301,7 @@ var feedbackStatistic = {
         return html;
     },
     renderFeedbackScrollFooterRow: function (row, id, css, style) {
+        /* jshint unused: vars */
         var html = '';
         if (row) {
             html = '<tr>';
@@ -329,45 +366,70 @@ var feedbackStatistic = {
         topwnd.OpenPopup(url, "Feedback Statistic Detail Report", 1020, maxHeightOfPopUp, true, false, window, 2000, null);
     },
     export2excel: function () {
-        var url = "FeedbackStatistics?export=true&type=" + parseInt($('#ddlType').val()) + "&fdate=" + feedbackStatistic.fromDate + "&tdate=" + feedbackStatistic.toDate + "&title=" + feedbackStatistic.title;
+        var url = "FeedbackStatistics?export=true&type=" + parseInt($('#ddlType').val()) +
+            "&fdate=" + feedbackStatistic.fromDate +
+            "&tdate=" + feedbackStatistic.toDate +
+            "&title=" + feedbackStatistic.title;
         $("#frm").attr("src", url);
 
     },
     getParams: function (loadOldData) {
 
-        if ($('#txtFDDay').val().length > 0)
+        if ($('#txtFDDay').val().length > 0) {
             feedbackStatistic.FromDuration.Day = $('#txtFDDay').val();
-        else
+        }
+        else {
             feedbackStatistic.FromDuration.Day = 0;
-        if ($('#txtFDHour').val().length > 0)
-            feedbackStatistic.FromDuration.Hour = $('#txtFDHour').val();
-        else
-            feedbackStatistic.FromDuration.Hour = 0;
-        if ($('#txtFDMinute').val().length > 0)
-            feedbackStatistic.FromDuration.Minute = $('#txtFDMinute').val();
-        else
-            feedbackStatistic.FromDuration.Minute = 0;
-        if ($('#txtFDSecond').val().length > 0)
-            feedbackStatistic.FromDuration.Second = $('#txtFDSecond').val();
-        else
-            feedbackStatistic.FromDuration.Second = 0;
+        }
 
-        if ($('#txtTDDay').val().length > 0)
+        if ($('#txtFDHour').val().length > 0) {
+            feedbackStatistic.FromDuration.Hour = $('#txtFDHour').val();
+        }
+        else {
+            feedbackStatistic.FromDuration.Hour = 0;
+        }
+
+        if ($('#txtFDMinute').val().length > 0) {
+            feedbackStatistic.FromDuration.Minute = $('#txtFDMinute').val();
+        }
+        else {
+            feedbackStatistic.FromDuration.Minute = 0;
+        }
+
+        if ($('#txtFDSecond').val().length > 0) {
+            feedbackStatistic.FromDuration.Second = $('#txtFDSecond').val();
+        }
+        else {
+            feedbackStatistic.FromDuration.Second = 0;
+        }
+
+        if ($('#txtTDDay').val().length > 0) {
             feedbackStatistic.ToDuration.Day = $('#txtTDDay').val();
-        else
+        }
+        else {
             feedbackStatistic.ToDuration.Day = 0;
-        if ($('#txtTDHour').val().length > 0)
+        }
+
+        if ($('#txtTDHour').val().length > 0) {
             feedbackStatistic.ToDuration.Hour = $('#txtTDHour').val();
-        else
+        }
+        else {
             feedbackStatistic.ToDuration.Hour = 0;
-        if ($('#txtTDMinute').val().length > 0)
+        }
+
+        if ($('#txtTDMinute').val().length > 0) {
             feedbackStatistic.ToDuration.Minute = $('#txtTDMinute').val();
-        else
+        }
+        else {
             feedbackStatistic.ToDuration.Minute = 0;
-        if ($('#txtTDSecond').val().length > 0)
+        }
+
+        if ($('#txtTDSecond').val().length > 0) {
             feedbackStatistic.ToDuration.Second = $('#txtTDSecond').val();
-        else
+        }
+        else {
             feedbackStatistic.ToDuration.Second = 0;
+        }
 
         var params = {
             'Type': parseInt($('#ddlType').val()),
@@ -390,13 +452,13 @@ var feedbackStatistic = {
                 var cItem = item.FeedbackStatistics[k];
                 if (cItem.IsTotal) {
                     var chartInfo = {};
-                    eval("chartInfo.Name='" + cItem.MainCategory + "'");
+                    chartInfo.Name = "'" + cItem.MainCategory + "'";
                     for (var j = 0; j < cItem.Cells.length; j++) {
                         var cell = cItem.Cells[j];
                         var colName = rs.ColumnNames[j];
-                        colName = colName.replace(/[^a-zA-Z 0-9 ]/g, "")
+                        colName = colName.replace(/[^a-zA-Z 0-9 ]/g, "");
                         colName = colName.replace(/ /g, "");
-                        eval("chartInfo.FB_" + colName + "=" + cell);
+                        chartInfo["FB_" + colName] = cell;
                     }
                     items.push(chartInfo);
                 }
@@ -407,26 +469,25 @@ var feedbackStatistic = {
     }
 };
 
-head.ready(
-        function () {
-            var fdate, tdate;
-            fdate = new Date().goto(-7);
-            tdate = new Date();
+head.ready(function () {
+    var fdate, tdate;
+    fdate = addDays(new Date(), -7);
+    tdate = new Date();
 
-            var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
-            var arrIds = ['txtfromdate', 'txttodate'];
-            SetupCalendar(arrDateValues, arrIds);
-            try { topwnd = findMainWindow(window); } catch (e) { }
-            DurationTimeForceNumberic();
+    var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
+    var arrIds = ['txtfromdate', 'txttodate'];
+    setupCalendar(arrDateValues, arrIds);
+    try { topwnd = findMainWindow(window); } catch (e) { }
+    durationTimeForceNumberic();
 
-            try { topwnd.UnBlockUI(); } catch (e) { }
+    try { topwnd.UnBlockUI(); } catch (e) { }
 
-            var gridOpts = {
-                tblContentId: 'feedbackstatisticbody',
-                isShowPager: true
-            };
-            $("#feedbackstatisticgrid").initGrid(gridOpts);
-        }
+    var gridOpts = {
+        tblContentId: 'feedbackstatisticbody',
+        isShowPager: true
+    };
+    $("#feedbackstatisticgrid").initGrid(gridOpts);
+}
     );
 
 $.extend(feedbackStatistic, { chart: {
@@ -439,7 +500,8 @@ $.extend(feedbackStatistic, { chart: {
             var objIndex = 0;
             var newCategories = [];
             jQuery.each(val, function (name, value) {
-                if (objIndex != 0) {
+                /* jshint unused: vars */
+                if (objIndex !== 0) {
                     var item = { field: name, label: name, enable: true };
                     newCategories.push(item);
                 }
@@ -455,13 +517,19 @@ $.extend(feedbackStatistic, { chart: {
             for (var i = 0, len = data_items.length; i < len; i++) {
                 var item = data_items[i];
                 var toData = [];
-                $.each(this.categories, function (ind, cate) {
-                    if (cate.enable) {
-                        var val = eval("item." + cate.field + "");
-                        toData.push(feedbackStatistic.chart.toNumber(val));
-                        if (i == 0) { categories.push(cate.label); }
+                for (var j = 0, categoriesLength = this.categories.length; j < categoriesLength; j++) {
+                    var cate = this.categories[j];
+                    if (!cate.enable) {
+                        continue;
                     }
-                });
+
+                    var val = item[cate.field];
+                    toData.push(feedbackStatistic.chart.toNumber(val));
+                    if (i === 0) {
+                        categories.push(cate.label);
+                    }
+                }
+
                 serial_data.push({
                     name: item.Name,
                     data: toData,
@@ -479,7 +547,7 @@ $.extend(feedbackStatistic, { chart: {
                 series: serial_data,
                 legendY: (maxHeightOfPopUp - 140)
             };
-            if ($('#chart_content').length == 0) {
+            if ($('#chart_content').length === 0) {
                 this.initViewChart(opts);
             }
             accChart.renderSVG(opts);
@@ -493,7 +561,9 @@ $.extend(feedbackStatistic, { chart: {
         $('<div />').attr('id', 'chart_setting').addClass('chart_setting').appendTo('#chart_popup');
         $('<div />').attr('id', 'chart_title')
              .addClass('chart_title')
-             .append('<div class="setting" title="Setting">&nbsp;</div><div class="title">' + opts.title + '</div><div class="close" title="Close">&nbsp;</div>')
+             .append('<div class="setting" title="Setting">&nbsp;</div>\
+                    <div class="title">' + opts.title + '</div>\
+                    <div class="close" title="Close">&nbsp;</div>')
              .appendTo('#chart_popup');
         $('<div />').attr('id', 'chart_content').addClass('chart_content')
              .css({ width: opts.width, height: opts.height })
@@ -505,6 +575,7 @@ $.extend(feedbackStatistic, { chart: {
             handle: '#chart_title'
         });
         $('div.setting').bind('click', function (e) {
+            /* jshint unused: vars */
             if ($('#chart_setting').is(':hidden')) {
                 $('#chart_setting').slideDown();
                 $(this).attr('title', 'Hide setting');
@@ -514,28 +585,32 @@ $.extend(feedbackStatistic, { chart: {
             }
         });
         $('div.close').bind('click', function (e) {
+            /* jshint unused: vars */
             feedbackStatistic.chart.close();
         });
         this.renderSetting();
     },
     renderSetting: function () {
         $('#chart_setting').html('<ul id="ul_setting"></ul>');
-        var tpl_cate = '{{each categories}}<li><input class="setcheck" type="checkbox" {{if $value.enable}}checked="${$value.enable}"{{/if}} value="${$index}"/>${$value.enable}&nbsp;${$value.label}</li>{{/each}}';
+        //        var tpl_cate = '{{each categories}}<li>\
+        //                            <input class="setcheck" type="checkbox" {{if $value.enable}}checked="${$value.enable}"{{/if}} value="${$index}"/>\
+        //                            ${$value.enable}&nbsp;${$value.label}</li>{{/each}}';
         //$('<div />').append(tpl_cate).tmpl(this).appendTo("#ul_setting");
         $.each(this.categories, function (ind, cate) {
-            var is_checked = (cate.enable == true) ? 'checked' : '';
+            var is_checked = (cate.enable === true) ? 'checked' : '';
             var _itemTpl = '<li><input class="setcheck" ' + is_checked + ' type="checkbox" value="' + ind + '"/>&nbsp;' + cate.label + '</li>';
             $("#ul_setting").append(_itemTpl);
         });
         $('#chart_setting').css({ width: 185, 'margin-top': 27 });
         if ($.browser.msie) {
-            if ($.browser.version.indexOf('7') != -1) {
+            if ($.browser.version.indexOf('7') !== -1) {
                 $('#chart_setting').css({ 'margin-left': -1000 });
                 $('#ul_setting').css({ 'margin-left': 10 });
             }
         }
         window.setTimeout(function () {
             $('input.setcheck').bind('click', function (e) {
+                /* jshint unused: vars */
                 var checked = $(this).attr("checked");
                 var index = $(this).val();
                 feedbackStatistic.chart.categories[index].enable = checked;
