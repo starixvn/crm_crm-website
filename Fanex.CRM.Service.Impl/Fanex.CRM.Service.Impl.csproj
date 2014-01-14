@@ -39,13 +39,13 @@
       <HintPath>..\Dependency\Fanex\Couchbase.dll</HintPath>
     </Reference>
     <Reference Include="DNAide">
-      <HintPath>..\..\..\..\Rome\Dependency\DNAide.dll</HintPath>
+      <HintPath>..\Dependency\DNAide.dll</HintPath>
     </Reference>
     <Reference Include="Enyim.Caching">
-      <HintPath>..\..\..\..\Rome\Dependency\Fanex\Enyim.Caching.dll</HintPath>
+      <HintPath>..\Dependency\Fanex\Enyim.Caching.dll</HintPath>
     </Reference>
     <Reference Include="ExcelUtil">
-      <HintPath>..\..\..\..\Rome\Dependency\ExcelUtil.dll</HintPath>
+      <HintPath>..\Dependency\Fanex\ExcelUtil.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Dependency\Fanex\Fanex.Caching.dll</HintPath>
