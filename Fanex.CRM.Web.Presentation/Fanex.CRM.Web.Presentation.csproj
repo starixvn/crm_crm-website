@@ -666,6 +666,7 @@
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Content\site\variable.less" />
     <None Include="IbcKeys\ibckeydec.snk" />
     <None Include="IbcKeys\ibcpkey.snk" />
     <Content Include="IbcKeys\Web.config" />
