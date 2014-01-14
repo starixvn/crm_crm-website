@@ -49,19 +49,6 @@ function CheckDecNumber(e) {
     return true;
 }
 
-function convertUnitToLocalDatetime(objDatime) {
-    var okDate = /Date\(([-+]?\d+[-+]?\d+)\)/.exec(objDatime);
-    var date; 
-    if (okDate) {
-        var when = new Date(eval(okDate[1]));
-        date = when; 
-    } else {
-        var currdate = new Date();
-        date = currdate;
-    }
-    return date;
-}
-
 ///// <reference path="stdlib.js" />
 function formatDate(objDatime, strFormat) {
     objDatime.format(strFormat);
@@ -77,7 +64,8 @@ function convertUnitToLocalDatetime(objDatime, strFormat) {
         var currdate = new Date();
         date = currdate;
     }
-    return date.format(strFormat);
+
+    return strFormat ? date.format(strFormat) : date;
 }
 
 //add n number of days
@@ -86,6 +74,12 @@ Date.prototype.goto = function (n) {
     this.setDate(this.getDate() + n);
     return this;
 };
+
+function addDays(startDate, n) {
+    var endDate = new Date();
+    endDate.setDate(startDate.getDate() + n);
+    return endDate;
+}
 
 function findMainWindow(wnd) {
     var mainWnd = wnd;
@@ -139,11 +133,11 @@ String.prototype.trim = function () {
 };
 
 function replaceSpecialHtmlTag(content) {
-    content = removeSpecialHtmlTag(content);    
+    content = removeSpecialHtmlTag(content);
     return content.replace(/(table)|(tr)|(td)|(div)|(colgroup)|(col)/g, "span");
 };
 
-function removeSpecialHtmlTag(content) {    
+function removeSpecialHtmlTag(content) {
     return content.replace(/(<\s*script\s*([^>]*)>((.|\n)*?)<\s*\/\s*script>)|(<\s*style\s*([^>]*)>((.|\n)*?)<\s*\/\s*style>)/g, "");
 
 }
@@ -175,7 +169,7 @@ function replaceSpaceForIE9(text) {
     return html;
 }
 
- function reRenderGrid(gridID, frozenID, scrollID, gridHeight, gridFrozenWidth, totalFrozenCols, fristColWidth){
+function reRenderGrid(gridID, frozenID, scrollID, gridHeight, gridFrozenWidth, totalFrozenCols, fristColWidth) {
     var trFrozen = $('#' + frozenID + ' tbody tr');
     var totalRows = trFrozen.length;
 
@@ -190,13 +184,13 @@ function replaceSpaceForIE9(text) {
             maxHeight = scrollHeight + 1;
         else {
             maxHeight = frozenHeight;
-        }        
+        }
         $('#' + scrollID + ' tbody tr:eq(' + i + ') td:eq(0) div').css('height', maxHeight).append(' ');
-        $('#' + frozenID + ' tbody tr:eq(' + i + ') td:eq(0)>div').attr('style', ' width:' + fristColWidth + 'px; display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');        
+        $('#' + frozenID + ' tbody tr:eq(' + i + ') td:eq(0)>div').attr('style', ' width:' + fristColWidth + 'px; display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');
     }
 
     var mainreport = $("#" + gridID);
-    
+
     var gridOpts = {
         tblContentId: scrollID,
         manualCopyHeader: true,
@@ -207,5 +201,5 @@ function replaceSpaceForIE9(text) {
         numberFreezeCol: totalFrozenCols
     };
     mainreport.gridScroller(gridOpts);
-    
+
 }

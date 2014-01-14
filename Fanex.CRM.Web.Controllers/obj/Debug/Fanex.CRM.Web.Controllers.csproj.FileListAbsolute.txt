@@ -150,6 +150,7 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Microsoft.Practices.EnterpriseLibrary.Caching.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Microsoft.Practices.ServiceLocation.dll
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Sunplus.Core.LoggingLib.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Couchbase.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Enyim.Caching.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex.Data.dll
@@ -161,12 +162,14 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex.CRM.Entities.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex.CRM.Service.Impl.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex.CRM.Service.Interface.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\DNAide.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex.Logging.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex.CRM.DataAccess.Interface.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex.Caching.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex.CRM.DataAccess.Impl.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Microsoft.Practices.ServiceLocation.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Microsoft.Practices.ServiceLocation.xml
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Sunplus.Core.LoggingLib.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex.Data.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Microsoft.Practices.Unity.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Microsoft.Practices.Unity.Interception.pdb
@@ -174,6 +177,3 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Fanex
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\obj\Debug\Fanex.CRM.Web.Controllers.csprojResolveAssemblyReference.cache
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\obj\Debug\Fanex.CRM.Web.Controllers.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\obj\Debug\Fanex.CRM.Web.Controllers.pdb
-F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Sunplus.Core.LoggingLib.dll
-F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\DNAide.pdb
-F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Controllers\bin\Sunplus.Core.LoggingLib.pdb

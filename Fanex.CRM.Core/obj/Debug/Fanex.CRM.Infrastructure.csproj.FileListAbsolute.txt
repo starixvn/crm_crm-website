@@ -47,6 +47,7 @@ F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Core\bin\Debug\Sunplus.Core.LoggingLib.p
 F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Core\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
 F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Core\obj\Debug\Fanex.CRM.Infrastructure.dll
 F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Core\obj\Debug\Fanex.CRM.Infrastructure.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\bin\Debug\Fanex.CRM.Infrastructure.dll.config
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\bin\Debug\Fanex.CRM.Infrastructure.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\bin\Debug\Fanex.CRM.Infrastructure.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\bin\Debug\Couchbase.dll
@@ -71,4 +72,3 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\bin\Debug\Sunplus.Co
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\obj\Debug\Fanex.CRM.Infrastructure.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\obj\Debug\Fanex.CRM.Infrastructure.pdb
-F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\bin\Debug\Fanex.CRM.Infrastructure.dll.config

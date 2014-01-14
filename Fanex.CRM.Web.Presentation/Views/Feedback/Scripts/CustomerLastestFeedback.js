@@ -1,36 +1,47 @@
-﻿//Contain the template
+﻿"use strict";
+/* global gup,
+custName,
+reRenderGrid,
+head,
+findMainWindow
+*/
+/* exported _pageIndex, 
+_pageSize,
+totalItems,
+HideTooltip,
+openEditFeedback
+*/
+
+var topFeedback;
+
+//Contain the template
 var _pageIndex = 1;
 var _pageSize = 20;
 var totalItems = 0;
 var topwnd;
-var maxHeightOfPopUp = ($(window).height() + 50)
+var maxHeightOfPopUp = ($(window).height() + 50);
 
-function tooltip(i)
-{
+function tooltip(i) {
     var id = "tooltip" + i;
     var desc = "Description" + i;
     $("#" + id).tipsy({ fade: true, gravity: "nw", html: true, title: function () { return document.getElementById(desc).innerHTML; } });
-  
+
 }
 
-function HideTooltip(i)
-{
+function HideTooltip(i) {
     var tooltip = "tooltip" + i;
     $("#" + tooltip).tipsy("hide");
 }
 
-function openEditFeedback(url, type)
-{
+function openEditFeedback(url, type) {
+    /* jshint unused: vars */
     $('.desTooltip').tipsy('hide');
-    try
-    {
-        topwnd.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 2000, function ()
-        {
+    try {
+        topwnd.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 2000, function () {
             topFeedback.loadLastedFeedback(false);
         }, function () { });
     } catch (e) { }
-
-};
+}
 
 var topFeedback = {
     custId: 0,
@@ -116,9 +127,10 @@ var topFeedback = {
     },
     renderFeedbackRow: function (row, i) {
         var trStyle = '';
-        if (row.Status != null)
-            trStyle = row.Status.toLowerCase() == 'pending' ? 'pending' : row.Status.toLowerCase() == 'closed' ? 'closed' : '';
-            
+        if (row.Status != null) {
+            trStyle = row.Status.toLowerCase() === 'pending' ? 'pending' : row.Status.toLowerCase() === 'closed' ? 'closed' : '';
+        }
+
         var html = '<tr class="' + trStyle + '">\
                        <td><div style="width:400px">\
                                 <div class="lnksubject"><a class="desTooltip" id = "tooltip' + i + '"  href="JavaScript:void(0);"\
@@ -137,8 +149,9 @@ var topFeedback = {
     },
     renderFeedbackLeftRow: function (row, i) {
         var trStyle = '';
-        if (row.Status != null)
-            trStyle = row.Status.toLowerCase() == 'pending' ? 'pending' : row.Status.toLowerCase() == 'closed' ? 'closed' : '';
+        if (row.Status != null) {
+            trStyle = row.Status.toLowerCase() === 'pending' ? 'pending' : row.Status.toLowerCase() === 'closed' ? 'closed' : '';
+        }
 
         $('#divDescriptions').append('<div id = "Description' + i + '" class="hidden des">' + row.Description + '</div>');
 
@@ -157,7 +170,7 @@ var topFeedback = {
     },
     reviewerFormat: function (reviewer, reviewDate) {
         var html = '';
-        if (reviewer != "") {
+        if (reviewer !== "") {
             html = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed by <b>' + reviewer + '</b> on ' + reviewDate + '<br>';
         }
         return html;
@@ -173,11 +186,13 @@ var topFeedback = {
 
         if (arr != null) {
             var minDate = new Date(arr[0].FeedbackDate);
-            for (i = 1; i < arr.length; i++) {
+            for (var i = 1; i < arr.length; i++) {
                 var currentDate = new Date(arr[i].FeedbackDate);
-                if (currentDate < minDate)
+                if (currentDate < minDate) {
                     minDate = currentDate;
+                }
             }
+
             return minDate;
         }
 
@@ -185,25 +200,20 @@ var topFeedback = {
     }
 };
 
+head.ready(function () {
+    var gridOpts = {
+        tblContentId: 'latestfeedbackbody',
+        isShowPager: false
+    };
+    $("#lastedfeedbackgrid").initGrid(gridOpts);
 
-head.ready(
-    function () {
-        var gridOpts = {
-            tblContentId: 'latestfeedbackbody',
-            isShowPager: false
-        };
-        $("#lastedfeedbackgrid").initGrid(gridOpts);
-
-        try { topwnd = findMainWindow(window); } catch (e) { }
-        topFeedback.loadLastedFeedback(false);
-
-
-        $('body').mousedown(function (e) {
-            if (e.button == 1) {
-
-                return false
-            }
-        });
-    }
-);
+    try { topwnd = findMainWindow(window); } catch (e) { }
+    topFeedback.loadLastedFeedback(false);
+    
+    $('body').mousedown(function (e) {
+        if (e.button === 1) {
+            return false;
+        }
+    });
+});
 
