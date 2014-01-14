@@ -24,19 +24,21 @@
 
 	if (lvl1MenuItemList.Count == 0)
 	{
-		<li class="@className"><a href="@Url.Content("~" + menuItem.Url)">@menuItem.Name</a></li>
-	}
-	else
-	{
-		className += className.Length > 0 ? " has-kids" : "has-kids";
+		<li class="@className">
+        <a href="javascript:;" onclick="javascript:gotoURL('centerFr','@Url.Content("~" + menuItem.Url)')">@menuItem.Name</a>
+        </li>
+    }
+    else
+    {
+        className += className.Length > 0 ? " has-kids" : "has-kids";
 		
 		<li class="@className">
 			<a href="javascript:;">@menuItem.Name</a>
 			<ul>
 			@foreach (var subMenuItem in lvl1MenuItemList)
-			{
-				<li><a href="@Url.Content("~" + subMenuItem.Url)">@subMenuItem.Name</a></li>
-			}
+   {
+				<li><a href="javascript:;" onclick="javascript:gotoURL('centerFr','@Url.Content("~" + subMenuItem.Url)')">@subMenuItem.Name</a></li>
+   }
 			</ul>
 		</li>
 	}
