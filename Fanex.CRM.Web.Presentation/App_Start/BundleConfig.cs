@@ -15,6 +15,7 @@ namespace Fanex.CRM.Web.View.App_Start
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //bundles.Add(new ScriptBundle("~/bundles/js").Include("~/Scripts/*.js"));
         }
     }
 }
