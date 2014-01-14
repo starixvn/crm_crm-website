@@ -72,3 +72,4 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\bin\Debug\Sunplus.Co
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\obj\Debug\Fanex.CRM.Infrastructure.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\obj\Debug\Fanex.CRM.Infrastructure.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Core\obj\Debug\Fanex.CRM.Infrastructure.csprojResolveAssemblyReference.cache

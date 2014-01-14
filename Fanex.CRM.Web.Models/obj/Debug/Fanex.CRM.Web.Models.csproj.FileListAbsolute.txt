@@ -8,6 +8,5 @@ F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Web.Models\obj\Debug\Fanex.CRM.Web.Model
 F:\Nexcel\[Rome][Git]\CRM\crm\Fanex.CRM.Web.Models\obj\Debug\Fanex.CRM.Web.Models.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Models\bin\Fanex.CRM.Web.Models.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Models\bin\Fanex.CRM.Web.Models.pdb
-F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Models\obj\Debug\Fanex.CRM.Web.Models.csprojResolveAssemblyReference.cache
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Models\obj\Debug\Fanex.CRM.Web.Models.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Models\obj\Debug\Fanex.CRM.Web.Models.pdb
