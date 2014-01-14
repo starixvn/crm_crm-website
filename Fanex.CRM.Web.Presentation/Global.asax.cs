@@ -10,8 +10,10 @@
 namespace Fanex.CRM.Web.View
 {
     using System.Web.Mvc;
+    using System.Web.Optimization;
     using System.Web.Routing;
     using Fanex.CRM.Web.Controllers.CommonFilters;
+    using Fanex.CRM.Web.View.App_Start;
 
     /// <summary>
     /// MVC Application.
@@ -55,6 +57,7 @@ namespace Fanex.CRM.Web.View
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Fanex.Data.Configuration.DbSettingProviderManager.Current.Start();
         }

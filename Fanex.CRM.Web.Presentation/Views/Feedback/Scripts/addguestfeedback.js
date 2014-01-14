@@ -1,4 +1,37 @@
-﻿var settings = ["Title", "Status", "Station", "Response", "Communication", "Language"];
+﻿"use strict";
+/* global bindingSetting,
+bindingCountry,
+bindingChildByParentId,
+bindingSite,
+allowDeleteFeedback,
+feedbackObjectValidate,
+showAlertMessage,
+successMsg,
+accId,
+getRelatedCustomer,
+head,
+clientTime,
+initHTMLArea,
+errMsgFeedbackDateGreatter,
+errMsgResolutionDateGreatter,
+SetupCalendar,
+inputMultipleRelatedNote,
+jlinq
+*/
+/* exported feedbackNew, 
+settings,
+ddls,
+numberOfFinish,
+orgLengt,
+AddGuestFeedback */
+var checkSpecialCharacters,
+    DoAdd,
+    getFeedbacktData,
+    getNumOfFeedbackItems,
+    appendListFeedbacksLasted,
+    feedbackNew;
+
+var settings = ["Title", "Status", "Station", "Response", "Communication", "Language"];
 var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication", "ddllanguage"];
 var listObjToValidate = ["txtsubject", "txtidentity"];
 var listEditorToValidate = ["desediter"];
@@ -34,7 +67,7 @@ function loadFeedbackSetting() {
             bindingChildByParentId('ddlbettype', setting.Product, 0, 0);
             bindingSite('ddlsite', setting.Site, 0);
 
-            if (!allowDeleteFeedback) {                
+            if (!allowDeleteFeedback) {
                 $("select#ddlstatus option[value='11004']").remove();
             }
             //getAutoFeedbackSubject();
@@ -46,38 +79,44 @@ function loadFeedbackSetting() {
             } catch (e) { }
             //get lasted feedbacks data
             getNumOfFeedbackItems();
-            setInterval("getNumOfFeedbackItems()", 100000);
+            setInterval(function () {
+                getNumOfFeedbackItems();
+            }, 100000);
         }
-
     });
-};
+}
 
 //insert by David 16-03-2012
 $("#txtidentity").blur(function () {
     checkSpecialCharacters($(this).attr('id'));
 });
 
-function checkSpecialCharacters(id) {
+checkSpecialCharacters = function (id) {
     var iChars = "!`#%^&*()=[]\\\';,/{}|\":<>?~";
 
     var data = $("#" + id).val();
 
     for (var i = 0; i < data.length; i++) {
-        if (iChars.indexOf(data.charAt(i)) != -1) {
-            $(("#"+ id).replace("ddl", "error").replace("txt", "error")).removeClass("hidden").html("Your Indentity has special characters. !`#%^&*()=[]\\\';,/{}|\":<>?~");
+        if (iChars.indexOf(data.charAt(i)) !== -1) {
+            $(("#" + id).replace("ddl", "error")
+                        .replace("txt", "error"))
+                        .removeClass("hidden")
+                        .html("Your Indentity has special characters. !`#%^&*()=[]\\\';,/{}|\":<>?~");
             return false;
         }
     }
     return true;
-}
+};
 
 function AddGuestFeedback() {
+    /* jshint maxstatements: 87 */
     $("#errmsg").empty();
     $("#lblverify").html('');
 
-    if (!checkSpecialCharacters('txtidentity'))
+    if (!checkSpecialCharacters('txtidentity')) {
         return false;
-    
+    }
+
     if (feedbackObjectValidate(listEditorToValidate, listObjToValidate)) {
         var currentDate = new Date();
         var selectDate = Date.parse($("#txtdate").val());
@@ -94,12 +133,15 @@ function AddGuestFeedback() {
             showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
             return false;
         }
-        if ($('#ddlcommunication option:selected').text().toLowerCase() == 'n/a') {
+        if ($('#ddlcommunication option:selected').text().toLowerCase() === 'n/a') {
             showAlertMessage("errmsg", "Please choose communication!", 1);
             return false;
         }
-        if ($('#hIsNotChild').val() == '1') {
-            showAlertMessage("errmsg", "There is no Subcategory for Category [" + $("#ddlcategory option:selected").text() + "]. Please add a Subcategory or choose another Category.", 1);
+        if ($('#hIsNotChild').val() === '1') {
+            showAlertMessage("errmsg",
+                "There is no Subcategory for Category [" +
+                    $("#ddlcategory option:selected").text() +
+                "]. Please add a Subcategory or choose another Category.", 1);
             return false;
         }
         //----------check length of data
@@ -140,14 +182,12 @@ function AddGuestFeedback() {
             showAlertMessage("errmsg", 'Max length of Email is 254', 1);
             return false;
         }
-        if ($('#txtSkype').val().length > 100)
-        {
+        if ($('#txtSkype').val().length > 100) {
             $('#txtSkype').focus();
             showAlertMessage("errmsg", 'Max length of Skype is 100', 1);
             return false;
         }
-        if ($('#txtMSN').val().length > 100)
-        {
+        if ($('#txtMSN').val().length > 100) {
             $('#txtMSN').focus();
             showAlertMessage("errmsg", 'Max length of MSN is 100', 1);
             return false;
@@ -157,22 +197,19 @@ function AddGuestFeedback() {
             showAlertMessage("errmsg", 'Max length of Subject is 200', 1);
             return false;
         }
-        if ($('#txtPIC1').val().length > 100)
-        {
+        if ($('#txtPIC1').val().length > 100) {
             $('#txtPIC1').focus();
             //$('#txtfirstname').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of PIC1 is 100', 1);
             return false;
         }
-        if ($('#txtPIC2').val().length > 100)
-        {
+        if ($('#txtPIC2').val().length > 100) {
             $('#txtPIC2').focus();
             //$('#txtfirstname').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of PIC2 is 100', 1);
             return false;
         }
-        if ($('#txtPIC3').val().length > 100)
-        {
+        if ($('#txtPIC3').val().length > 100) {
             $('#txtPIC3').focus();
             //$('#txtfirstname').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of PIC3 is 100', 1);
@@ -197,12 +234,12 @@ function AddGuestFeedback() {
             return false;
         }
         //------------------------
-        DoAdd();  
+        /* jshint newcap: false */
+        DoAdd();
     }
+}
 
-};
-
-function DoAdd() {
+DoAdd = function () {
 
     try { parent.BlockUI(); } catch (e) { }
     var newFeedback = getFeedbacktData();
@@ -214,16 +251,18 @@ function DoAdd() {
         dataType: "json",
         data: JSON.stringify(feedback),
         success: function (rs) {
-            if (rs.ErrCode == 0) {
+            if (rs.ErrCode === 0) {
                 showAlertMessage("errmsg", successMsg, 0);
-                parent.$("#isGuest").attr("checked", true);                
+                parent.$("#isGuest").attr("checked", true);
                 parent.submitSearch($("#txtidentity").val().trim());
 
             }
             else {
                 showAlertMessage("errmsg", rs.ErrMsg, 1);
             }
-            setTimeout('parent.UnBlockUI();', 100);
+            setTimeout(function () {
+                parent.UnBlockUI();
+            }, 100);
         },
         complete: function () {
             try { parent.UnBlockUI(); } catch (e) { }
@@ -231,7 +270,8 @@ function DoAdd() {
     });
 };
 
-function getFeedbacktData() {
+getFeedbacktData = function () {
+    /* jshint maxstatements: 83 */
     var UserName = $("#txtidentity").val().trim();
     var Title = $("#ddltitle").val();
     var FirstName = $("#txtfirstname").val().trim();
@@ -249,7 +289,7 @@ function getFeedbacktData() {
     var MainCategoryID = $("#ddlcategory").val();
     var SubCategoryID = $("#ddlsubcategory").val();
     var SiteID = $("#ddlsite").val();
-    var RoleID = $("#ddlrole").val();
+    //    var RoleID = $("#ddlrole").val();
     var ProductID = $("#ddlproduct").val();
     var BettypeID = $("#ddlbettype").val();
     var ResponseID = $("#ddlresponse").val();
@@ -262,13 +302,15 @@ function getFeedbacktData() {
     var Description = $("#desediter").htmlarea("toHtmlString");
     var Solution = $("#solediter").htmlarea("toHtmlString");
     var IsUpdateReviewed = $("#chkisreview").attr("checked");
+    var Reviewer;
+    var Review;
     if (IsUpdateReviewed) {
-        var Reviewer = accId;
-        var Review = $("#revediter").htmlarea("toHtmlString");
+        Reviewer = accId;
+        Review = $("#revediter").htmlarea("toHtmlString");
     }
     else {
-        var Reviewer = 0;
-        var Review = "";
+        Reviewer = 0;
+        Review = "";
     }
     var skype = $('#txtSkype').val().trim();
     var msn = $('#txtMSN').val().trim();
@@ -332,7 +374,7 @@ function getFeedbacktData() {
 };
 
 //mark because it may conflict with other function 
-function getNumOfFeedbackItems() {
+getNumOfFeedbackItems = function () {
     $.ajax({
         type: "POST",
         url: window.rootUrl + "AdminTool/GetNumOfFeedbackSubjectTemplateItem",
@@ -354,7 +396,7 @@ function getNumOfFeedbackItems() {
     });
 };
 
-function appendListFeedbacksLasted(range) {
+appendListFeedbacksLasted = function (range) {
     $.ajax({
         type: "POST",
         url: window.rootUrl + "AdminTool/GetFeedbackSubjectTemplateItemsRange",
@@ -388,11 +430,18 @@ head.ready(function () {
 
     var arrDateValues = [feedbackdate.format("m/d/Y H:i"), resolutiondate.format("m/d/Y H:i")];
     var arrIds = ['txtdate', 'txtResolutionTime'];
+    /* jshint newcap: false */
     SetupCalendar(arrDateValues, arrIds);
-    
-    $('#btnRelatedHelp').tipsy({ gravity: 'nw', title: function () { return inputMultipleRelatedNote } });
+
+    $('#btnRelatedHelp').tipsy({
+        gravity: 'nw',
+        title: function () {
+            return inputMultipleRelatedNote;
+        }
+    });
 
     $("#txtrelatedcustomer").fcbkcomplete({
+        /* jshint camelcase: false */
         json_url: window.rootUrl + 'Customer/RelatedCustomerAutoSuggestion',
         addontab: true,
         maxitems: 30,
@@ -410,14 +459,16 @@ head.ready(function () {
     $("#btnsubmitbottom").removeAttr("disabled");
     //add input listen for auto complete Subject name input text box
     $("#txtsubject").keyup(function (e) {
-        if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) return true;
-        else if (e.keyCode == 13) {
-            //search($(this).val());
+        if (e.keyCode === 37 ||
+        e.keyCode === 38 ||
+        e.keyCode === 39 ||
+         e.keyCode === 40) {
+            return true;
         }
-        else {
+        else if (e.keyCode !== 13) {
             var rows = [];
 
-            if ($(this).val() != "") {
+            if ($(this).val() !== "") {
                 rows = jlinq.from(listFeedbacksLasted).starts("Subject", $(this).val()).sort("Subject").select();
                 rows = jlinq.from(rows).skip(0).take(15);
                 if (rows.length > 0) {
@@ -434,4 +485,210 @@ head.ready(function () {
     });
 });
 
-var feedbackNew = { "Id": 0, "BetType": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Category": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Communication": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Country": { "Id": 0, "CountryCode": 0, "CountryName": null, "DisplayOrder": 0, "IsActive": false }, "CreateDate": null, "Creator": { "Id": 0, "IsAllowUpdateReview": false, "Password": null, "RoleId": 0, "Username": "" }, "CsExtension": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Customer": { "Id": 0, "Answer": null, "BankInfo": null, "BettingCode": null, "Country": 0, "CountryName": null, "CreatedDate": null, "Creator": null, "CustomerInfo": null, "IsVip": false, "Language": 0, "NickName": null, "Pic1": null, "Pic2": null, "Pic3": null, "Question": null, "RefCode2": null, "RelatedCustomer": null, "Remark": null, "RoleId": 0, "RoleName": "", "Site": null, "SpecialRemark": null, "UserName": "" }, "CustomerInfo": { "BirthDay": null, "Email": " ", "Fax": " ", "FirstName": " ", "LastName": " ", "MSN": " ", "MobilePhone": " ", "Phone": " ", "Skype": " ", "Title": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null} }, "Description": "", "FeedbackDate": "/Date(1317709320000+0700)/", "IsReviewed": false, "Language": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Priority": null, "Product": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "RelatedCustomer": { "Id": 0, "Answer": null, "BankInfo": null, "BettingCode": null, "Country": 0, "CountryName": null, "CreatedDate": null, "Creator": null, "CustomerInfo": null, "IsVip": false, "Language": 0, "NickName": null, "Pic1": null, "Pic2": null, "Pic3": null, "Question": null, "RefCode2": null, "RelatedCustomer": null, "Remark": null, "RoleId": 0, "RoleName": "", "Site": null, "SpecialRemark": null, "UserName": "" }, "ResolutionTime": null, "Response": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Review": "", "Reviewer": { "Id": 0, "IsAllowUpdateReview": false, "Password": null, "RoleId": 0, "Username": "" }, "Role": { "Id": 7004, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Site": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Solution": " ", "SolvedDate": null, "Status": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "StrFeedbackDate": "", "SubCategory": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Subject": "", "UpdateReviewMode": 0 };
+feedbackNew = {
+    "Id": 0,
+    "BetType": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Category": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Communication": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Country": {
+        "Id": 0,
+        "CountryCode": 0,
+        "CountryName": null,
+        "DisplayOrder": 0,
+        "IsActive": false
+    },
+    "CreateDate": null,
+    "Creator": {
+        "Id": 0,
+        "IsAllowUpdateReview": false,
+        "Password": null,
+        "RoleId": 0,
+        "Username": ""
+    },
+    "CsExtension": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Customer": {
+        "Id": 0,
+        "Answer": null,
+        "BankInfo": null,
+        "BettingCode": null,
+        "Country": 0,
+        "CountryName": null,
+        "CreatedDate": null,
+        "Creator": null,
+        "CustomerInfo": null,
+        "IsVip": false,
+        "Language": 0,
+        "NickName": null,
+        "Pic1": null,
+        "Pic2": null,
+        "Pic3": null,
+        "Question": null,
+        "RefCode2": null,
+        "RelatedCustomer": null,
+        "Remark": null,
+        "RoleId": 0,
+        "RoleName": "",
+        "Site": null,
+        "SpecialRemark": null,
+        "UserName": ""
+    },
+    "CustomerInfo": {
+        "BirthDay": null,
+        "Email": " ",
+        "Fax": " ",
+        "FirstName": " ",
+        "LastName": " ",
+        "MSN": " ",
+        "MobilePhone": " ",
+        "Phone": " ",
+        "Skype": " ",
+        "Title": {
+            "Id": 0,
+            "Child": null,
+            "DisplayOrder": 0,
+            "IsSub": false,
+            "Parent": null,
+            "Type": null,
+            "Value": null
+        }
+    },
+    "Description": "",
+    "FeedbackDate": "/Date(1317709320000+0700)/",
+    "IsReviewed": false,
+    "Language": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Priority": null,
+    "Product": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "RelatedCustomer": {
+        "Id": 0,
+        "Answer": null,
+        "BankInfo": null,
+        "BettingCode": null,
+        "Country": 0,
+        "CountryName": null,
+        "CreatedDate": null,
+        "Creator": null,
+        "CustomerInfo": null,
+        "IsVip": false,
+        "Language": 0,
+        "NickName": null,
+        "Pic1": null,
+        "Pic2": null,
+        "Pic3": null,
+        "Question": null,
+        "RefCode2": null,
+        "RelatedCustomer": null,
+        "Remark": null,
+        "RoleId": 0,
+        "RoleName": "",
+        "Site": null,
+        "SpecialRemark": null,
+        "UserName": ""
+    },
+    "ResolutionTime": null,
+    "Response": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Review": "",
+    "Reviewer": {
+        "Id": 0,
+        "IsAllowUpdateReview": false,
+        "Password": null,
+        "RoleId": 0,
+        "Username": ""
+    },
+    "Role": {
+        "Id": 7004,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Site": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Solution": " ",
+    "SolvedDate": null,
+    "Status": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "StrFeedbackDate": "",
+    "SubCategory": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Subject": "",
+    "UpdateReviewMode": 0
+};

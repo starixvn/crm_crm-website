@@ -1,9 +1,35 @@
-﻿/*global jlinq, showAlertMessage, errMsgFeedbackDateGreatter, accId, errMsgResolutionDateGreatter, 
-successMsg, bindingSetting, initHTMLArea, bindingSetting, bindingChildByParentId, getRelatedCustomer,
-feedbackObjectValidate, bindingCountry, bindingSite, allowDeleteFeedback, clientTime, SetupCalendar,
-inputMultipleRelatedNote, head, gup */
-/*jshint strict:false */
-
+﻿"use strict";
+/* global jlinq, 
+showAlertMessage,
+errMsgFeedbackDateGreatter, 
+accId, 
+errMsgResolutionDateGreatter, 
+successMsg, 
+bindingSetting, 
+initHTMLArea, 
+bindingSetting, 
+bindingChildByParentId, 
+getRelatedCustomer,
+feedbackObjectValidate, 
+bindingCountry, 
+bindingSite, 
+allowDeleteFeedback, 
+clientTime, 
+SetupCalendar,
+inputMultipleRelatedNote, 
+head, 
+gup 
+*/
+/* exported settings, 
+ddls,
+roleName,
+role,
+numberOfFinish,
+isonauto,
+orgLengt,
+AddFeedback,
+trim
+*/
 var feedbackNew = {
     "Id": 0,
     "IsOverrideCrmInfo": false,
@@ -110,7 +136,7 @@ var numberOfFeedbackItem = 0;
 var isonauto = false;
 var orgLengt = 0;
 
-function AddFeedbackInfo(newFeedback) {
+function addFeedbackInfo(newFeedback) {
     //-------end----------------------------------
     try { parent.BlockUI(); } catch (e) { }
     var feedback = { feedback: newFeedback };
@@ -138,99 +164,100 @@ function AddFeedbackInfo(newFeedback) {
 }
 
 function getFeedbackData() {
-    var Reviewer = 0;
-    var Review = "";
-    var CustId = custId;
-    var UserName = custName;
-    var Title = $("#ddltitle").val();
-    var FirstName = $("#txtfirstname").val().trim();
-    var LastName = $("#txtlastname").val().trim();
-    var Phone = $("#txtphone").val().trim();
-    var MobilePhone = $("#txtmobilephone").val().trim();
-    var Fax = $("#txtfax").val().trim();
-    var Email = $("#txtEmail").val().trim();
-    var LanguageID = $("#ddllanguage").val();
-    var CountryID = $("#ddlcountry").val();
-    var FeedBackDate = $("#txtdate").val();
-    var Creator = accId;
-    var CommunitationID = $("#ddlcommunication").val();
-    var StationID = $("#ddlcsextension").val();
-    var MainCategoryID = $("#ddlcategory").val();
-    var SubCategoryID = $("#ddlsubcategory").val();
-    var SiteID = $("#ddlsite").val();
-    var RoleID = $("#ddlrole").val();
-    var ProductID = $("#ddlproduct").val();
-    var BettypeID = $("#ddlbettype").val();
-    var ResponseID = $("#ddlresponse").val();
-    var StatusID = $("#ddlstatus").val();
-    var RelatedCustID = "";
+    var feedbackData = {
+        Reviewer: 0,
+        Review: "",
+        CustId: custId,
+        UserName: custName,
+        Title: $("#ddltitle").val(),
+        FirstName: $("#txtfirstname").val().trim(),
+        LastName: $("#txtlastname").val().trim(),
+        Phone: $("#txtphone").val().trim(),
+        MobilePhone: $("#txtmobilephone").val().trim(),
+        Fax: $("#txtfax").val().trim(),
+        Email: $("#txtEmail").val().trim(),
+        LanguageID: $("#ddllanguage").val(),
+        CountryID: $("#ddlcountry").val(),
+        FeedBackDate: $("#txtdate").val(),
+        Creator: accId,
+        CommunitationID: $("#ddlcommunication").val(),
+        StationID: $("#ddlcsextension").val(),
+        MainCategoryID: $("#ddlcategory").val(),
+        SubCategoryID: $("#ddlsubcategory").val(),
+        SiteID: $("#ddlsite").val(),
+        RoleID: $("#ddlrole").val(),
+        ProductID: $("#ddlproduct").val(),
+        BettypeID: $("#ddlbettype").val(),
+        ResponseID: $("#ddlresponse").val(),
+        StatusID: $("#ddlstatus").val(),
+        RelatedCustID: "",
+        Subject: $("#txtsubject").val().trim(),
+        Description: $("#desediter").htmlarea("toHtmlString"),
+        Solution: $("#solediter").htmlarea("toHtmlString"),
+        IsUpdateReviewed: $("#chkisreview").attr("checked"),
+
+        // insert by David.Tran 07-03-2012
+        Skype: $('#txtSkype').val().trim(),
+        MSN: $('#txtMSN').val().trim(),
+
+        PIC1: $("#txtPIC1").val().trim(),
+        PIC2: $("#txtPIC2").val().trim(),
+        PIC3: $("#txtPIC3").val().trim(),
+        ResolutionTitme: $('#txtResolutionTime').val()
+    };
+
     if ($("#chkisrelated").attr("checked")) {
-        RelatedCustID = getRelatedCustomer();
-    }
-    var Subject = $("#txtsubject").val().trim();
-    var Description = $("#desediter").htmlarea("toHtmlString");
-    var Solution = $("#solediter").htmlarea("toHtmlString");
-    var IsUpdateReviewed = $("#chkisreview").attr("checked");
-    if (IsUpdateReviewed) {
-        Reviewer = accId;
-        Review = $("#revediter").htmlarea("toHtmlString");
+        feedbackData.RelatedCustID = getRelatedCustomer();
     }
 
-    // insert by David.Tran 07-03-2012
-    var skype = $('#txtSkype').val().trim();
-    var msn = $('#txtMSN').val().trim();
+    if (feedbackData.IsUpdateReviewed) {
+        feedbackData.Reviewer = accId;
+        feedbackData.Review = $("#revediter").htmlarea("toHtmlString");
+    }
 
-    var pic1 = $("#txtPIC1").val().trim();
-    var pic2 = $("#txtPIC2").val().trim();
-    var pic3 = $("#txtPIC3").val().trim();
-    //
-
-    var resolutionTitme = $('#txtResolutionTime').val();
-
-    feedbackNew.Customer.Id = CustId;
-    feedbackNew.Customer.UserName = UserName;
-    feedbackNew.CustomerInfo.Title.Id = Title;
-    feedbackNew.CustomerInfo.FirstName = FirstName;
-    feedbackNew.CustomerInfo.LastName = LastName;
-    feedbackNew.CustomerInfo.Phone = Phone;
-    feedbackNew.CustomerInfo.MobilePhone = MobilePhone;
-    feedbackNew.CustomerInfo.Fax = Fax;
-    feedbackNew.CustomerInfo.Email = Email;
-    feedbackNew.CustomerInfo.Skype = skype;
-    feedbackNew.CustomerInfo.MSN = msn;
-    feedbackNew.FeedbackDate = FeedBackDate;
-    feedbackNew.Role.Id = RoleID;
-    feedbackNew.Language.Id = LanguageID;
-    feedbackNew.Country.Id = CountryID;
-    feedbackNew.Creator.Id = Creator;
-    feedbackNew.Communication.Id = CommunitationID;
-    feedbackNew.CsExtension.Id = StationID;
-    feedbackNew.Category.Id = MainCategoryID;
-    feedbackNew.SubCategory.Id = SubCategoryID;
-    feedbackNew.Site.Id = SiteID;
-    feedbackNew.Product.Id = ProductID;
-    feedbackNew.BetType.Id = BettypeID;
-    feedbackNew.Response.Id = ResponseID;
-    feedbackNew.Status.Id = StatusID;
+    feedbackNew.Customer.Id = feedbackData.CustId;
+    feedbackNew.Customer.UserName = feedbackData.UserName;
+    feedbackNew.CustomerInfo.Title.Id = feedbackData.Title;
+    feedbackNew.CustomerInfo.FirstName = feedbackData.FirstName;
+    feedbackNew.CustomerInfo.LastName = feedbackData.LastName;
+    feedbackNew.CustomerInfo.Phone = feedbackData.Phone;
+    feedbackNew.CustomerInfo.MobilePhone = feedbackData.MobilePhone;
+    feedbackNew.CustomerInfo.Fax = feedbackData.Fax;
+    feedbackNew.CustomerInfo.Email = feedbackData.Email;
+    feedbackNew.CustomerInfo.Skype = feedbackData.Skype;
+    feedbackNew.CustomerInfo.MSN = feedbackData.MSN;
+    feedbackNew.FeedbackDate = feedbackData.FeedBackDate;
+    feedbackNew.Role.Id = feedbackData.RoleID;
+    feedbackNew.Language.Id = feedbackData.LanguageID;
+    feedbackNew.Country.Id = feedbackData.CountryID;
+    feedbackNew.Creator.Id = feedbackData.Creator;
+    feedbackNew.Communication.Id = feedbackData.CommunitationID;
+    feedbackNew.CsExtension.Id = feedbackData.StationID;
+    feedbackNew.Category.Id = feedbackData.MainCategoryID;
+    feedbackNew.SubCategory.Id = feedbackData.SubCategoryID;
+    feedbackNew.Site.Id = feedbackData.SiteID;
+    feedbackNew.Product.Id = feedbackData.ProductID;
+    feedbackNew.BetType.Id = feedbackData.BettypeID;
+    feedbackNew.Response.Id = feedbackData.ResponseID;
+    feedbackNew.Status.Id = feedbackData.StatusID;
     feedbackNew.RelatedCustomer.Id = 0;
-    feedbackNew.RelatedCustomer.UserName = RelatedCustID;
-    feedbackNew.Subject = Subject.trim();
-    feedbackNew.Description = Description.trim();
-    feedbackNew.Solution = Solution.trim();
-    feedbackNew.Customer.Pic1 = pic1;
-    feedbackNew.Customer.Pic2 = pic2;
-    feedbackNew.Customer.Pic3 = pic3;
-    if (IsUpdateReviewed) {
-        feedbackNew.IsReviewed = true;
-        feedbackNew.Reviewer.Id = Reviewer;
-        feedbackNew.Review = Review.trim();
+    feedbackNew.RelatedCustomer.UserName = feedbackData.RelatedCustID;
+    feedbackNew.Subject = feedbackData.Subject;
+    feedbackNew.Description = feedbackData.Description;
+    feedbackNew.Solution = feedbackData.Solution;
+    feedbackNew.Customer.Pic1 = feedbackData.PIC1;
+    feedbackNew.Customer.Pic2 = feedbackData.PIC2;
+    feedbackNew.Customer.Pic3 = feedbackData.PIC3;
+    feedbackNew.IsReviewed = feedbackData.IsUpdateReviewed;
+    if (feedbackData.IsUpdateReviewed) {
+        feedbackNew.Reviewer.Id = feedbackData.Reviewer;
+        feedbackNew.Review = feedbackData.Review.trim();
     }
     else {
-        feedbackNew.IsReviewed = false;
         feedbackNew.Reviewer.Id = 0;
     }
 
-    feedbackNew.ResolutionTime = resolutionTitme;
+    feedbackNew.ResolutionTime = feedbackData.ResolutionTitme;
     return feedbackNew;
 }
 
@@ -240,46 +267,46 @@ function DoAdd() {
     if ($('#chkIsOverrideCrmInfo').attr('checked')) {
         $("#divOverrideCRMInfo").html('Current CRM Info will be overrided, please double check before Submit!');
         $("#divOverrideCRMInfo").dialog({ width: 400, height: 120, zIndex: 500, resizable: false,
-            close: function (event, ui) { },
-            buttons: [
-                            {
-                                text: "Ok",
-                                click: function () {
-                                    newFeedback.IsOverrideCrmInfo = true;
-                                    $(this).dialog("close");
-                                    AddFeedbackInfo(newFeedback);
-                                }
-                            },
-                            {
-                                text: 'Cancel',
-                                click: function () {
-                                    newFeedback.IsOverrideCrmInfo = false;
-                                    $(this).dialog("close");
-                                    //AddFeedbackInfo(newFeedback);
-                                }
-                            }
-                        ]
+            close: function (event, ui) {
+                /* jshint unused: vars */
+            },
+            buttons: [{
+                text: "Ok",
+                click: function () {
+                    newFeedback.IsOverrideCrmInfo = true;
+                    $(this).dialog("close");
+                    addFeedbackInfo(newFeedback);
+                }
+            },
+            {
+                text: 'Cancel',
+                click: function () {
+                    newFeedback.IsOverrideCrmInfo = false;
+                    $(this).dialog("close");
+                    //addFeedbackInfo(newFeedback);
+                }
+            }]
         });
     }
     else {
-        AddFeedbackInfo(newFeedback);
+        addFeedbackInfo(newFeedback);
     }
-
 }
 
 function AddFeedback() {
+    /* jshint maxstatements: 81 */
     $("#errmsg").empty();
     $("#lblverify").html('');
     //check related customer
     if (feedbackObjectValidate(listEditorToValidate, listObjToValidate)) {
-            //does not submit when feedback date > current date
+        //does not submit when feedback date > current date
         var currentDate = new Date();
         var selectDate = Date.parse($("#txtdate").val());
 
         var serverTime = new Date($('#hServerTime').val());
         serverTime.setMinutes(currentDate.getMinutes());
         serverTime.setSeconds(currentDate.getSeconds());
-        
+
         if (selectDate > serverTime) {
             showAlertMessage("errmsg", errMsgFeedbackDateGreatter, 1);
             return false;
@@ -293,7 +320,7 @@ function AddFeedback() {
             return false;
         }
         if ($('#hIsNotChild').val() === '1') {
-            showAlertMessage("errmsg", 
+            showAlertMessage("errmsg",
             "There is no Subcategory for Category [" + $("#ddlcategory option:selected").text() + "]. Please add a Subcategory or choose another Category.", 1);
             return false;
         }
@@ -329,14 +356,12 @@ function AddFeedback() {
             showAlertMessage("errmsg", 'Max length of Email is 254', 1);
             return false;
         }
-        if ($('#txtSkype').val().length > 100)
-        {
+        if ($('#txtSkype').val().length > 100) {
             $('#txtSkype').focus();
             showAlertMessage("errmsg", 'Max length of Skype is 100', 1);
             return false;
         }
-        if ($('#txtMSN').val().length > 100)
-        {
+        if ($('#txtMSN').val().length > 100) {
             $('#txtMSN').focus();
             showAlertMessage("errmsg", 'Max length of MSN is 100', 1);
             return false;
@@ -347,22 +372,19 @@ function AddFeedback() {
             return false;
         }
 
-        if ($('#txtPIC1').val().length > 100)
-        {
+        if ($('#txtPIC1').val().length > 100) {
             $('#txtPIC1').focus();
             showAlertMessage("errmsg", 'Max length of PIC1 is 100', 1);
             return false;
         }
 
-        if ($('#txtPIC2').val().length > 100)
-        {
+        if ($('#txtPIC2').val().length > 100) {
             $('#txtPIC2').focus();
             showAlertMessage("errmsg", 'Max length of PIC2 is 100', 1);
             return false;
         }
 
-        if ($('#txtPIC3').val().length > 100)
-        {
+        if ($('#txtPIC3').val().length > 100) {
             $('#txtPIC3').focus();
             showAlertMessage("errmsg", 'Max length of PIC3 is 100', 1);
             return false;
@@ -389,13 +411,13 @@ function AddFeedback() {
 
         //------------------------
 
+        /* jshint newcap: false */
         DoAdd();
     }
 }
 
 // insert by David.Tran 07-03-2012
-function trim(str)
-{
+function trim(str) {
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 
@@ -541,6 +563,7 @@ head.ready(function () {
 
     var arrDateValues = [feedbackdate.format("m/d/Y H:i"), resolutiondate.format("m/d/Y H:i")];
     var arrIds = ['txtdate', 'txtResolutionTime'];
+    /* jshint newcap: false */
     SetupCalendar(arrDateValues, arrIds);
 
     //if (allowUpdateReview) { $("#reviewbox").removeClass("hidden"); $("#reviewtitle").removeClass("hidden"); }
@@ -549,6 +572,7 @@ head.ready(function () {
 
 
     $("#txtrelatedcustomer").fcbkcomplete({
+        /* jshint camelcase: false */
         json_url: window.rootUrl + 'Customer/RelatedCustomerAutoSuggestion',
         addontab: true,
         maxitems: 30,

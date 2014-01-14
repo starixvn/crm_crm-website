@@ -1,23 +1,27 @@
-﻿//Contain the template
+﻿"use strict";
+/* global OpenPopup, reRenderGrid, replaceSpaceForIE9, bindingSetting,
+gup, findMainWindow, head, addDays */
+/* exported loadSubItem, openEditFeedback */
+
+//Contain the template
 var topwnd;
 var AllSetting;
-var maxHeightOfPopUp = ($(window).height() + 50)
+var maxHeightOfPopUp = ($(window).height() + 50);
+var lastedFeedback;
 
 // -- Calendar --- //
-function SetupCalendar(arrDateValues, arrIds) {
-    
-    for (i = 0; i < arrIds.length; i++) {
-        if (arrDateValues[i] != null && arrDateValues[i] != "") {
+function setupCalendar(arrDateValues, arrIds) {
+    for (var i = 0; i < arrIds.length; i++) {
+        if (arrDateValues[i] != null && arrDateValues[i] !== "") {
             $('#' + arrIds[i]).datepicker();
-            $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i]))); 
+            $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
         }
     }
-};
+}
 
 function loadSubItem(obj, target, currValue) {
-
-    if ($(obj).val() != "") {
-        if ($(obj).val() != "0") {
+    if ($(obj).val() !== "") {
+        if ($(obj).val() !== "0") {
             $.ajax({
                 type: "POST",
                 url: window.rootUrl + "AdminTool/GetSettingByParent",
@@ -45,22 +49,24 @@ function loadSubItem(obj, target, currValue) {
             $('<option value="0">All</option>').appendTo($("#" + target));
         }
     }
-};
+}
 
 function openEditFeedback(url) {
     try {
         topwnd.OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
             lastedFeedback.loadLastedFeedback(false);
         });
-    } 
+    }
     catch (e) {
+        /* jshint newcap: false */
         OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
             lastedFeedback.loadLastedFeedback(false);
         });
     }
-};
-                
+}
+
 var pagerOpts = {
+    /* jshint camelcase: false */
     callback: null,
     start_per_page: 100,
     step_per_page: 100,
@@ -69,7 +75,7 @@ var pagerOpts = {
     current_page: 1
 };
 
-var lastedFeedback = {
+lastedFeedback = {
     totalRows: 0,
     pageIndex: 1,
     pageSize: 100,
@@ -91,6 +97,7 @@ var lastedFeedback = {
         $("#pagination").pagination(total_items, pagerOpts);
     },
     pageSelectCallback: function (page_index, _items_per_page, jq) {
+        /* jshint unused: vars */
         var max_page = Math.ceil(lastedFeedback.totalRows / _items_per_page);
         page_index = page_index < max_page ? page_index : max_page - 1;
         lastedFeedback.pageIndex = page_index + 1;
@@ -115,29 +122,29 @@ var lastedFeedback = {
         lastedFeedback.responseId = parseInt($('#ddlCustomerReponse').val());
 
         var data =
-	    {
-	        'fromDate': lastedFeedback.fDate,
-	        'toDate': lastedFeedback.tDate,
-	        'UserName': lastedFeedback.userName,
-	        'IsGuest': lastedFeedback.isGuest,
-	        'CommunicationID': lastedFeedback.communicationId,
-	        'MainCategoryID': lastedFeedback.mainCategoryId,
-	        'SubCategoryID': lastedFeedback.subCategoryId,
-	        'StatusID': lastedFeedback.statusId,
-	        'IsReviewed': lastedFeedback.isReviewd,
-	        'pageIndex': lastedFeedback.pageIndex,
-	        'pageSize': lastedFeedback.pageSize,
-	        'fromCache': loadOldData,
-	        'responseId': lastedFeedback.responseId
-	    };
+        {
+            'fromDate': lastedFeedback.fDate,
+            'toDate': lastedFeedback.tDate,
+            'UserName': lastedFeedback.userName,
+            'IsGuest': lastedFeedback.isGuest,
+            'CommunicationID': lastedFeedback.communicationId,
+            'MainCategoryID': lastedFeedback.mainCategoryId,
+            'SubCategoryID': lastedFeedback.subCategoryId,
+            'StatusID': lastedFeedback.statusId,
+            'IsReviewed': lastedFeedback.isReviewd,
+            'pageIndex': lastedFeedback.pageIndex,
+            'pageSize': lastedFeedback.pageSize,
+            'fromCache': loadOldData,
+            'responseId': lastedFeedback.responseId
+        };
 
-	    try { topwnd.BlockUI(); } catch (e) { }
-	    var mainreport = $("#lastedfeedbackgrid");
-	    $('#errmsg').html('');
+        try { topwnd.BlockUI(); } catch (e) { }
+        var mainreport = $("#lastedfeedbackgrid");
+        $('#errmsg').html('');
 
         $.ajax({
             type: "POST",
-            url: window.rootUrl +"Feedback/GetFeedback",
+            url: window.rootUrl + "Feedback/GetFeedback",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify(data),
@@ -179,7 +186,7 @@ var lastedFeedback = {
                 $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
                 $('#pagination').html('&nbsp;');
             },
-            complete: function () {                
+            complete: function () {
                 try { topwnd.UnBlockUI(); } catch (e) { }
             }
         });
@@ -187,10 +194,23 @@ var lastedFeedback = {
     renderFeedbackRow: function (row) {
         var trStyle = '';
         if (row.Status != null) {
-            trStyle = row.Status.toLowerCase() == 'pending' ? 'pending' : row.Status.toLowerCase() == 'closed' ? 'closed' : '';
+            trStyle = row.Status.toLowerCase() === 'pending' ? 'pending' : row.Status.toLowerCase() === 'closed' ? 'closed' : '';
         }
         var html = '<tr class="' + trStyle + '">\
-                       <td><div style="width:380px"><div class="lnksubject"><a class="desTooltip" href="JavaScript:void(0);"><b>' + row.Subject + '</b></a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b>&nbsp;on&nbsp;' + row.CreateDate + '<br>' + lastedFeedback.durationTimeFormat(row.DurationTime) + '<br>' + lastedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) + '</div></td>\
+                        <td>\
+                            <div style="width:380px">\
+                                <div class="lnksubject">\
+                                    <a class="desTooltip" href="JavaScript:void(0);">\
+                                        <b>' + row.Subject + '</b>\
+                                    </a>\
+                                </div>\
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b>\
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b>\
+                            &nbsp;on&nbsp;' + row.CreateDate +
+                            '<br>' + lastedFeedback.durationTimeFormat(row.DurationTime) +
+                            '<br>' + lastedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) +
+                            '</div>\
+                        </td>\
                         <td><div class="c" style="width:130px">&nbsp;' + row.Username + '</div></td>\
                         <td><div style="width:200px">' + row.MainCategory + '<br/>&nbsp;&nbsp;&nbsp;' + row.SubCategory + '</div></td>\
                         <td><div class="c" style="width:50px">' + row.Status + '</div></td>\
@@ -201,16 +221,29 @@ var lastedFeedback = {
     renderFeedbackLeftRow: function (row) {
         var trStyle = '';
         if (row.Status != null) {
-            trStyle = row.Status.toLowerCase() == 'pending' ? 'pending' : row.Status.toLowerCase() == 'closed' ? 'closed' : '';
+            trStyle = row.Status.toLowerCase() === 'pending' ? 'pending' : row.Status.toLowerCase() === 'closed' ? 'closed' : '';
         }
         var html = '<tr class="' + trStyle + '">\
-                       <td><div style="width:380px"><div class="lnksubject"><a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' + row.ID + '&rep=2\', 1);" ><b>' + row.Subject + '</b></a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b> on ' + row.CreateDate + '<br>'+ lastedFeedback.durationTimeFormat(row.DurationTime) + '<br>'+ lastedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) + '</div></td>\
+                       <td>\
+                            <div style="width:380px">\
+                                <div class="lnksubject">\
+                                    <a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' +
+                                        row.ID + '&rep=2\', 1);" >\
+                                        <b>' + row.Subject + '</b>\
+                                    </a>\
+                                </div>\
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b>\
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b> on ' + row.CreateDate +
+                                '<br>' + lastedFeedback.durationTimeFormat(row.DurationTime) +
+                                '<br>' + lastedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) +
+                            '</div>\
+                        </td>\
                 </tr>';
         return html;
     },
     reviewerFormat: function (reviewer, reviewDate) {
         var html = '';
-        if (reviewer != "") {
+        if (reviewer !== "") {
             html = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed by&nbsp;<b>' + reviewer + '</b>&nbsp;on&nbsp;' + reviewDate + '<br>';
         }
         return html;
@@ -239,24 +272,20 @@ var lastedFeedback = {
                 $("select#ddlstatus option[value='11004']").remove();
 
             },
-            error:function(){}
+            error: function () { }
         });
     }
 };
 
-
 head.ready(
     function () {
-
         var fdate, tdate;
-        fdate = new Date().goto(-1);
+        fdate = addDays(new Date(), -1);
         tdate = new Date();
-
         var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
 
         var arrIds = ['txtfromdate', 'txttodate'];
-
-        SetupCalendar(arrDateValues, arrIds);
+        setupCalendar(arrDateValues, arrIds);
 
         var gridOpts = {
             tblContentId: 'latestfeedbackbody',
@@ -270,12 +299,9 @@ head.ready(
         $('#ddlguest').val($.URLDecode(gup("isGuest")));
 
         try { topwnd.UnBlockUI(); } catch (e) { }
-
-
         $('body').mousedown(function (e) {
-            if (e.button == 1) {
-
-                return false
+            if (e.button === 1) {
+                return false;
             }
         });
     }

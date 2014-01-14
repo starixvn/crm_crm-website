@@ -1,4 +1,45 @@
-﻿/*globals _comma_separated_list_of_variables_*/
+﻿"use strict";
+/* global trim, 
+bindingSetting,
+bindingCountry, 
+bindingChildByParentId,
+bindingSite,
+allowDeleteFeedback,
+clientTime,
+SetupCalendar,
+desvalue: true,
+solvalue: true,
+initHTMLArea,
+revvalue: true,
+allowUpdateReview,
+accId,
+getRelatedCustomer,
+showAlertMessage,
+successMsg,
+trimSpace,
+trimSpacesOnEditor,
+errMsgNotPermissionUpdReviewedFB,
+feedbackObjectValidate,
+errMsgFeedbackDateGreatter,
+errMsgResolutionDateGreatter,
+initEdit,
+initReview,
+checkDuplicateRelated,
+head,
+findMainWindow,
+jlinq,
+gup,
+inputMultipleRelatedNote
+*/
+/* exported settings,
+orgArrUser,
+ddls,
+EditFeedback
+*/
+var getNumOfFeedbackItems,
+    appendListFeedbacksLasted,
+    feedbackEdit;
+
 var settings = ["Title", "MainCategory", "Product", "Status", "Role", "Station", "Response", "Communication", "Language"];
 var ddls = ["ddltitle", "ddlcategory", "ddlproduct", "ddlstatus", "ddlrole", "ddlcsextension", "ddlresponse", "ddlcommunication", "ddllanguage"];
 var id;
@@ -14,19 +55,167 @@ var listFeedbacksLasted = [];
 var numberOfFeedbackItem = 0;
 var orgLengt = 0;
 var orgArrUser = "";
-var maxHeightOfPopUp = ($(window).height() + 50)
+var maxHeightOfPopUp = ($(window).height() + 50);
 var userName = '';
+
 // get stringUserName from db and trim to ArrUsername for render by fcbkcomplete
-function trimToArrayUserName(str)
-{
+function trimToArrayUserName(str) {
     var newStr = trim(str);
     var subParent = newStr.split(',');
     return subParent;
 }
 
+function loadFeedbackAfterCallAjax(rs, Id) {
+    /* jshint maxstatements: 68 */
+    FeedbackItem = rs;
+
+    $.ajax({
+        type: "POST",
+        url: window.rootUrl + "AdminTool/SelAllSetting",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: '{"Id":' + Id + '}',
+        success: function (setting) {
+            AllSetting = setting;
+
+            bindingSetting("ddltitle", setting.Title, rs.CustomerInfo.Title.Id);
+            bindingSetting("ddlcategory", setting.Category, rs.Category.Id);
+            bindingSetting("ddlproduct", setting.Product, rs.Product.Id);
+            bindingSetting("ddlrole", setting.Role, rs.Role.Id);
+            bindingSetting("ddlstatus", setting.Status, rs.Status.Id);
+            bindingSetting("ddlresponse", setting.Response, rs.Response.Id);
+            bindingSetting("ddlcommunication", setting.Communication, rs.Communication.Id);
+            bindingSetting("ddllanguage", setting.Language, rs.Language.Id);
+            bindingSetting("ddlcsextension", setting.Extension, rs.CsExtension.Id);
+            bindingCountry("ddlcountry", setting.Country, rs.Country.Id);
+
+            bindingChildByParentId('ddlsubcategory', setting.Category, rs.Category.Id, rs.SubCategory.Id);
+            bindingChildByParentId('ddlbettype', setting.Product, rs.Product.Id, rs.BetType.Id);
+            bindingSite('ddlsite', setting.Site, rs.Site.Id);
+
+            if (!allowDeleteFeedback) {
+                $("select#ddlstatus option[value='11004']").remove();
+            }
+        },
+        error: function () {
+        },
+        complete: function () {
+            getNumOfFeedbackItems();
+            setInterval(function () {
+                getNumOfFeedbackItems();
+            }, 100000);
+        }
+    });
+
+    $("#txtfirstname").val(rs.CustomerInfo.FirstName);
+    $("#txtlastname").val(rs.CustomerInfo.LastName);
+    $("#txtphone").val(rs.CustomerInfo.Phone);
+    $("#txtmobilephone").val(rs.CustomerInfo.MobilePhone);
+    $("#txtfax").val(rs.CustomerInfo.Fax);
+    $("#txtEmail").val(rs.CustomerInfo.Email);
+    $("#txtSkype").val(rs.CustomerInfo.Skype);
+    $("#txtMSN").val(rs.CustomerInfo.MSN);
+    $("#lblUserName").text(rs.Customer.UserName).attr("value", rs.Customer.Id);
+
+    //insert by David 08-03-2012
+    $("#txtPIC1").val(rs.Customer.Pic1);
+    $("#txtPIC2").val(rs.Customer.Pic2);
+    $("#txtPIC3").val(rs.Customer.Pic3);
+    //
+    var feedbackdate = new Date(clientTime);
+    var resolutiondate = new Date(clientTime);
+    resolutiondate.setMinutes(feedbackdate.getMinutes() + 1);
+    $('#hServerTime').val(feedbackdate);
+    if (rs.FeedbackDate != null) {
+        feedbackdate = new Date(rs.FeedbackDate);
+    }
+
+    if (rs.ResolutionTime) {
+        resolutiondate = new Date(rs.ResolutionTime);
+    }
+
+    //-------------------            
+    var arrDateValues = [feedbackdate, resolutiondate];
+    var arrIds = ['txtdate', 'txtResolutionTime'];
+    /* jshint newcap: false */
+    SetupCalendar(arrDateValues, arrIds);
+    //-------------------
+
+    if (rs.RelatedCustomer != null && rs.RelatedCustomer.UserName !== "") {
+        var i;
+        $("#chkisrelated").attr("checked", true);
+        //                $("#txtrelatedcustomer").removeAttr("disabled").val(rs.RelatedCustomer.UserName);
+        var MyJson = [{ "Customer": []}];
+        var arrUserName = trimToArrayUserName(rs.RelatedCustomer.UserName);
+        for (i = 0; i < arrUserName.length; i++) {
+            MyJson[i] = { title: arrUserName[i], value: arrUserName[i] };
+        }
+
+        $('#holder li').remove();
+        $('#txtrelatedcustomer option').remove();
+        for (i = 0; i < MyJson.length; i++) {
+            $("#txtrelatedcustomer").trigger("addItem", MyJson[i]);
+        }
+
+        $("#btnverify").removeAttr("disabled");
+        $("#btnsubmit").removeAttr("disabled");
+        $("#btnsubmitbottom").removeAttr("disabled");
+        orgLengt = MyJson.length;
+    }
+
+    desvalue = rs.Description;
+    solvalue = rs.Solution;
+
+    $("#previewboxdes").html(desvalue);
+    initHTMLArea('editboxdes', 'desediter', desvalue);
+
+    $("#previewboxsol").html(solvalue);
+    initHTMLArea('editboxsol', 'solediter', solvalue);
+
+    $("#txtsubject").val(rs.Subject);
+
+    if (rs.Reviewer != null) {
+        revvalue = rs.Review;
+        var strsoldate = "";
+        if (rs.SolvedDate != null) {
+            strsoldate = rs.SolvedDate;
+        }
+
+        $("#lblEditedBy").text("(Reviewed by " + rs.Reviewer.Username + " on " + strsoldate + ")");
+        $("#previewboxrev").html(revvalue);
+        initHTMLArea('editboxrev', 'revediter', revvalue);
+    }
+    else {
+        initHTMLArea('editboxrev', 'revediter', '');
+    }
+
+    //Permission
+    feedbackIsReview = rs.IsReviewed;
+
+    if (allowUpdateReview) {
+        if (feedbackIsReview) {
+            $(".updateFeedback").addClass("hidden");
+            $("#btnUnReview").removeClass("hidden");
+        } else {
+            $("#chkisreview").removeClass("hidden");
+            $("#lblUpdateReview").removeClass("hidden");
+            $("#btnrevedit").removeClass("hidden");
+            $(".updateFeedback").removeClass("hidden");
+        }
+    }
+    else {
+        if (feedbackIsReview) {
+            $(".updateFeedback").addClass("hidden");
+        }
+    }
+
+    setTimeout(function () {
+        parentWnd.UnBlockUI();
+    }, 1000);
+}
+
 // When EditFeedBack is loading
 function LoadFeedback(Id) {
-    
     try { parentWnd.BlockUI(); } catch (e) { }
     $.ajax({
         type: "POST",
@@ -34,168 +223,15 @@ function LoadFeedback(Id) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: '{"Id":' + Id + '}',
-        success: function (rs)
-        {
-            FeedbackItem = rs;
-
-            $.ajax({
-                type: "POST",
-                url: window.rootUrl + "AdminTool/SelAllSetting",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: '{"Id":' + Id + '}',
-                success: function (setting)
-                {
-                    AllSetting = setting;
-
-                    bindingSetting("ddltitle", setting.Title, rs.CustomerInfo.Title.Id);
-                    bindingSetting("ddlcategory", setting.Category, rs.Category.Id);
-                    bindingSetting("ddlproduct", setting.Product, rs.Product.Id);
-                    bindingSetting("ddlrole", setting.Role, rs.Role.Id);
-                    bindingSetting("ddlstatus", setting.Status, rs.Status.Id);
-                    bindingSetting("ddlresponse", setting.Response, rs.Response.Id);
-                    bindingSetting("ddlcommunication", setting.Communication, rs.Communication.Id);
-                    bindingSetting("ddllanguage", setting.Language, rs.Language.Id);
-                    bindingSetting("ddlcsextension", setting.Extension, rs.CsExtension.Id);
-                    bindingCountry("ddlcountry", setting.Country, rs.Country.Id);
-
-                    bindingChildByParentId('ddlsubcategory', setting.Category, rs.Category.Id, rs.SubCategory.Id);
-                    bindingChildByParentId('ddlbettype', setting.Product, rs.Product.Id, rs.BetType.Id);
-                    bindingSite('ddlsite', setting.Site, rs.Site.Id);
-
-                    if (!allowDeleteFeedback)
-                        $("select#ddlstatus option[value='11004']").remove();
-                },
-                error: function ()
-                {
-
-                },
-                complete: function ()
-                {
-                    getNumOfFeedbackItems();
-                    setInterval("getNumOfFeedbackItems()", 100000);
-                }
-            });
-
-
-            $("#txtfirstname").val(rs.CustomerInfo.FirstName);
-            $("#txtlastname").val(rs.CustomerInfo.LastName);
-            $("#txtphone").val(rs.CustomerInfo.Phone);
-            $("#txtmobilephone").val(rs.CustomerInfo.MobilePhone);
-            $("#txtfax").val(rs.CustomerInfo.Fax);
-            $("#txtEmail").val(rs.CustomerInfo.Email);
-            $("#txtSkype").val(rs.CustomerInfo.Skype);
-            $("#txtMSN").val(rs.CustomerInfo.MSN);
-            $("#lblUserName").text(rs.Customer.UserName).attr("value", rs.Customer.Id);
-
-            //insert by David 08-03-2012
-            $("#txtPIC1").val(rs.Customer.Pic1);
-            $("#txtPIC2").val(rs.Customer.Pic2);
-            $("#txtPIC3").val(rs.Customer.Pic3);
-            //
-            var feedbackdate = new Date(clientTime);
-            var resolutiondate = new Date(clientTime);
-            resolutiondate.setMinutes(feedbackdate.getMinutes() + 1);
-            $('#hServerTime').val(feedbackdate);
-            if (rs.FeedbackDate != null)
-                feedbackdate = new Date(rs.FeedbackDate);
-            if (rs.ResolutionTime)
-                resolutiondate = new Date(rs.ResolutionTime);
-            //-------------------            
-            var arrDateValues = [feedbackdate, resolutiondate];
-            var arrIds = ['txtdate', 'txtResolutionTime'];
-            SetupCalendar(arrDateValues, arrIds);
-            //-------------------
-
-            if (rs.RelatedCustomer != null && rs.RelatedCustomer.UserName != "")
-            {
-
-                $("#chkisrelated").attr("checked", true);
-                //                $("#txtrelatedcustomer").removeAttr("disabled").val(rs.RelatedCustomer.UserName);
-                var MyJson = [{ "Customer": []}];
-                var arrUserName = trimToArrayUserName(rs.RelatedCustomer.UserName);
-                for (var i = 0; i < arrUserName.length; i++)
-                {
-                    MyJson[i] = { title: arrUserName[i], value: arrUserName[i] };
-                }
-                $('#holder li').remove();
-                $('#txtrelatedcustomer option').remove();
-
-
-                for (var i = 0; i < MyJson.length; i++)
-                {
-                    $("#txtrelatedcustomer").trigger("addItem", MyJson[i]);
-                }
-                $("#btnverify").removeAttr("disabled");
-                $("#btnsubmit").removeAttr("disabled");
-                $("#btnsubmitbottom").removeAttr("disabled");
-                orgLengt = MyJson.length;
-            }
-
-            desvalue = rs.Description;
-            solvalue = rs.Solution;
-
-            $("#previewboxdes").html(desvalue);
-            initHTMLArea('editboxdes', 'desediter', desvalue);
-
-            $("#previewboxsol").html(solvalue);
-            initHTMLArea('editboxsol', 'solediter', solvalue);
-
-            $("#txtsubject").val(rs.Subject);
-
-            if (rs.Reviewer != null)
-            {
-                revvalue = rs.Review;
-                var strsoldate = "";
-                if (rs.SolvedDate != null)
-                {
-                    strsoldate = rs.SolvedDate;
-                }
-                $("#lblEditedBy").text("(Reviewed by " + rs.Reviewer.Username + " on " + strsoldate + ")");
-
-
-                $("#previewboxrev").html(revvalue);
-                initHTMLArea('editboxrev', 'revediter', revvalue);
-            }
-            else
-            {
-                initHTMLArea('editboxrev', 'revediter', '');
-            }
-
-            //Permission
-            feedbackIsReview = rs.IsReviewed;
-
-            if (allowUpdateReview)
-            {
-                if (feedbackIsReview)
-                {
-                    $(".updateFeedback").addClass("hidden");
-                    $("#btnUnReview").removeClass("hidden");
-                } else
-                {
-                    $("#chkisreview").removeClass("hidden");
-                    $("#lblUpdateReview").removeClass("hidden");
-                    $("#btnrevedit").removeClass("hidden");
-                    $(".updateFeedback").removeClass("hidden");
-                }
-            }
-            else
-            {
-                if (feedbackIsReview)
-                {
-                    $(".updateFeedback").addClass("hidden");
-                }
-            }
-
-            setTimeout('parentWnd.UnBlockUI();', 1000);
-
+        success: function (rs) {
+            loadFeedbackAfterCallAjax(rs, Id);
         }
     });
-};
+}
 
 // Get data from form to update 
-function getFeedbackData(){
-    var data = {};
+function getFeedbackData() {
+    /* jshint maxstatements: 86 */
     var CustId = $("#lblUserName").attr("value");
     userName = $('#lblUserName').html();
     var FeedbackId = id;
@@ -221,28 +257,30 @@ function getFeedbackData(){
     var ResponseID = $("#ddlresponse").val();
     var StatusID = $("#ddlstatus").val();
     var RelatedCustID = null;
-    if ($("#chkisrelated").attr("checked")) {        
-        if ($('#txtrelatedcustomer option').length == 0)
-        {
+    if ($("#chkisrelated").attr("checked")) {
+        if ($('#txtrelatedcustomer option').length === 0) {
             RelatedCustID = getRelatedCustomer();
         }
     }
-    else RelatedCustID = "_";
+    else {
+        RelatedCustID = "_";
+    }
+
     var Subject = $("#txtsubject").val();
     var Description = $("#desediter").htmlarea("toHtmlString");
     var Solution = $("#solediter").htmlarea("toHtmlString");
     var IsUpdateReviewed = $("#chkisreview").attr("checked");
     var updateReviewMode = IsUpdateReviewed ? 1 : 0;
     var reviewContent = $("#revediter").htmlarea("toHtmlString");
-    if (IsUpdateReviewed && reviewContent != '<br>' && reviewContent != '')
-    {
-        var Reviewer = accId;
-        var Review = reviewContent;
+    var Reviewer;
+    var Review;
+    if (IsUpdateReviewed && reviewContent !== '<br>' && reviewContent !== '') {
+        Reviewer = accId;
+        Review = reviewContent;
     }
-    else
-    {
-        var Reviewer = 0;
-        var Review = "";
+    else {
+        Reviewer = 0;
+        Review = "";
     }
 
     var skype = $('#txtSkype').val();
@@ -256,7 +294,7 @@ function getFeedbackData(){
     feedbackEdit.Customer.Pic1 = pic1.trim();
     feedbackEdit.Customer.Pic2 = pic2.trim();
     feedbackEdit.Customer.Pic3 = pic3.trim();
-    
+
     feedbackEdit.Id = FeedbackId;
     feedbackEdit.Customer.Id = CustId;
     //feedbackEdit.Customer.UserName = UserName;
@@ -297,11 +335,10 @@ function getFeedbackData(){
 
     feedbackEdit.ResolutionTime = resolutionTitme;
     return feedbackEdit;
-};
+}
 
 // Call Edit feedback from webservice
-function updateFeedbackInfo(newFeedback)
-{
+function updateFeedbackInfo(newFeedback) {
     try { parent.BlockUI(); } catch (e) { }
 
     var feedback = { feedback: newFeedback };
@@ -312,11 +349,11 @@ function updateFeedbackInfo(newFeedback)
         dataType: "json",
         data: JSON.stringify(feedback),
         success: function (rs) {
-            if (rs.ErrCode == 0) {
+            if (rs.ErrCode === 0) {
                 showAlertMessage("errmsg", successMsg, 0);
-                
+
                 try { parentWnd.afterUpdate(true); } catch (e) { }
-                
+
                 if (newFeedback.IsOverrideCrmInfo) {
                     parentWnd.submitSearch(userName);
                 }
@@ -341,61 +378,55 @@ function updateFeedbackInfo(newFeedback)
 }
 
 // get feedback data from function getFeedbackData() and Doing update feedback by function updateFeedbackInfo(newFeedback)
-function DoUpdate()
-{
+function DoUpdate() {
     var newFeedback = getFeedbackData();
     //-------check override crm info--------------
-    if ($('#chkIsOverrideCrmInfo').attr('checked'))
-    {
+    if ($('#chkIsOverrideCrmInfo').attr('checked')) {
         $("#divPopup").html('The current CRM Info will be overwritten. Do you want to continue?');
         $("#divPopup").dialog({ width: 400, height: 120, zIndex: 500, resizable: false,
-            close: function (event, ui) { },
-            buttons: [
-                            {
-                                text: "Ok",
-                                click: function () {
-                                    newFeedback.IsOverrideCrmInfo = true;
-                                    $(this).dialog("close");
-                                    updateFeedbackInfo(newFeedback);
-
-                                   
-                                }
-                            },
-                            {
-                                text: 'Cancel',
-                                click: function () {
-                                    newFeedback.IsOverrideCrmInfo = false;
-                                    $(this).dialog("close");
-                                    //updateFeedbackInfo(newFeedback);
-                                }
-                            }
-                        ]
+            close: function (event, ui) {
+                /* jshint unused: vars */
+            },
+            buttons: [{
+                text: "Ok",
+                click: function () {
+                    newFeedback.IsOverrideCrmInfo = true;
+                    $(this).dialog("close");
+                    updateFeedbackInfo(newFeedback);
+                }
+            },
+            {
+                text: 'Cancel',
+                click: function () {
+                    newFeedback.IsOverrideCrmInfo = false;
+                    $(this).dialog("close");
+                    //updateFeedbackInfo(newFeedback);
+                }
+            }]
         });
     }
-    else    
+    else {
         updateFeedbackInfo(newFeedback);
-};
+    }
+}
 
 // Verify input data, if it valid doing update edit feedback by call function DoUpdate()
-function EditFeedback()
-{
-
+function EditFeedback() {
+    /* jshint maxstatements: 88 */
     $("#lblverify").html('');
 
-    if ($("#chkisreview").attr("checked") && (trimSpace(trimSpacesOnEditor($("#revediter").htmlarea("toHtmlString"))) == '' ))
-    {
+    if ($("#chkisreview").attr("checked") &&
+        (trimSpace(trimSpacesOnEditor($("#revediter").htmlarea("toHtmlString"))) === '')) {
         $('#revieweditererror').removeClass('hidden').html('This information is required');
         return false;
     }
 
-    if (feedbackIsReview && !allowUpdateReview)
-    {
+    if (feedbackIsReview && !allowUpdateReview) {
         showAlertMessage("errmsg", errMsgNotPermissionUpdReviewedFB, 1);
         return false;
     }
 
-    if (feedbackObjectValidate(listEditorToValidate, listObjToValidate))
-    {
+    if (feedbackObjectValidate(listEditorToValidate, listObjToValidate)) {
         var currentDate = new Date();
         var selectDate = Date.parse($("#txtdate").val());
 
@@ -407,96 +438,85 @@ function EditFeedback()
             showAlertMessage("errmsg", errMsgFeedbackDateGreatter, 1);
             return false;
         }
-        if (Date.parse($("#txtdate").val()) >= Date.parse($("#txtResolutionTime").val()))
-        {
+        if (Date.parse($("#txtdate").val()) >= Date.parse($("#txtResolutionTime").val())) {
             showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
             return false;
         }
-        if ($('#ddlcommunication option:selected').text().toLowerCase() == 'n/a')
-        {
+        if ($('#ddlcommunication option:selected').text().toLowerCase() === 'n/a') {
             showAlertMessage("errmsg", "Please chosse communication!", 1);
             return false;
         }
 
-        if ($('#hIsNotChild').val() == '1')
-        {
-            showAlertMessage("errmsg", "There is no Subcategory for Category [" + $("#ddlcategory option:selected").text() + "]. Please add a Subcategory or choose another Category.", 1);
+        if ($('#hIsNotChild').val() === '1') {
+            showAlertMessage("errmsg", "There is no Subcategory for Category [" +
+                $("#ddlcategory option:selected").text() +
+             "]. Please add a Subcategory or choose another Category.", 1);
             return false;
         }
         //----------check length of data
 
-        if ($('#txtfirstname').val().length > 50)
-        {
+        if ($('#txtfirstname').val().length > 50) {
             $('#txtfirstname').focus();
             //$('#txtfirstname').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of First Name is 50', 1);
             return false;
         }
-        if ($('#txtlastname').val().length > 50)
-        {
+        if ($('#txtlastname').val().length > 50) {
             $('#txtlastname').focus();
             showAlertMessage("errmsg", 'Max length of Last Name is 50', 1);
             return false;
         }
-        if ($('#txtphone').val().length > 50)
-        {
+        if ($('#txtphone').val().length > 50) {
             $('#txtphone').focus();
             showAlertMessage("errmsg", 'Max length of Phone is 50', 1);
             return false;
         }
-        if ($('#txtmobilephone').val().length > 50)
-        {
+        if ($('#txtmobilephone').val().length > 50) {
             $('#txtmobilephone').focus();
             showAlertMessage("errmsg", 'Max length of Mobile phone is 50', 1);
             return false;
         }
-        if ($('#txtfax').val().length > 50)
-        {
+        if ($('#txtfax').val().length > 50) {
             $('#txtfax').focus();
             showAlertMessage("errmsg", 'Max length of Fax is 50', 1);
             return false;
         }
-        if ($('#txtEmail').val().length > 254)
-        {
+        if ($('#txtEmail').val().length > 254) {
             $('#txtEmail').focus();
             showAlertMessage("errmsg", 'Max length of Email is 254', 1);
             return false;
         }
-        if ($('#txtSkype').val().length > 100)
-        {
+        if ($('#txtSkype').val().length > 100) {
             $('#txtSkype').focus();
             showAlertMessage("errmsg", 'Max length of Skype is 100', 1);
             return false;
         }
-        if ($('#txtMSN').val().length > 100)
-        {
+        if ($('#txtMSN').val().length > 100) {
             $('#txtMSN').focus();
             showAlertMessage("errmsg", 'Max length of MSN is 100', 1);
             return false;
         }
-        if ($('#txtsubject').val().length > 200)
-        {
+        if ($('#txtsubject').val().length > 200) {
             $('#txtsubject').focus();
             showAlertMessage("errmsg", 'Max length of Subject is 200', 1);
             return false;
         }
-        if ($('#txtPIC1').val().length > 100)
-            if ($('#txtPIC1').val().length > 50)
-            {
+        if ($('#txtPIC1').val().length > 100) {
+            if ($('#txtPIC1').val().length > 50) {
                 $('#txtPIC1').focus();
                 //$('#txtfirstname').css({ color: 'red'});
                 showAlertMessage("errmsg", 'Max length of PIC1 is 100', 1);
                 return false;
             }
-        if ($('#txtPIC2').val().length > 100)
-        {
+        }
+
+        if ($('#txtPIC2').val().length > 100) {
             $('#txtPIC2').focus();
             //$('#txtfirstname').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of PIC2 is 100', 1);
             return false;
         }
-        if ($('#txtPIC3').val().length > 100)
-        {
+        if ($('#txtPIC3').val().length > 100) {
             $('#txtPIC3').focus();
             //$('#txtfirstname').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of PIC3 is 100', 1);
@@ -521,12 +541,12 @@ function EditFeedback()
             return false;
         }
         //------------------------
+        /* jshint newcap: false */
         DoUpdate();
-
-
     }
+
     return false;
-};
+}
 
 // In the case, Review is done. If you want to update, you must remmove a old review for new edit
 var updateFeedback = {
@@ -573,6 +593,7 @@ var updateFeedback = {
         }
     },
     getData: function () {
+        /* jshint maxstatements: 75 */
         userName = $("#lblUserName").html();
         updateFeedback.custId = $("#lblUserName").attr("value");
         updateFeedback.feedbackId = id;
@@ -601,12 +622,13 @@ var updateFeedback = {
         updateFeedback.relatedCustID = null;
 
         if ($("#chkisrelated").attr("checked")) {
-            if ($('#txtrelatedcustomer option').length == 0) {
+            if ($('#txtrelatedcustomer option').length === 0) {
                 updateFeedback.RelatedCustID = getRelatedCustomer();
             }
         }
-        else
+        else {
             updateFeedback.RelatedCustID = "_";
+        }
 
         updateFeedback.subject = $("#txtsubject").val();
         updateFeedback.description = $("#desediter").htmlarea("toHtmlString");
@@ -687,14 +709,14 @@ var updateFeedback = {
                 showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
                 return false;
             }
-            if ($('#ddlcommunication option:selected').text().toLowerCase() == 'n/a') {
+            if ($('#ddlcommunication option:selected').text().toLowerCase() === 'n/a') {
                 showAlertMessage("errmsg", "Please chosse communication!", 1);
                 return false;
             }
 
             var userName = $("#txtrelatedcustomer").val();
             if ($("#chkisrelated").attr("checked")) {
-                if (userName == "") {
+                if (userName === "") {
                     updateFeedback.doUpdate();
                 }
                 else {
@@ -702,9 +724,10 @@ var updateFeedback = {
                     if (dups && dups.length > 0) {
                         $("#divPopup").html('Duplicate related customer(s): ' + dups + '. Are you sure you want to update this feedback?');
                         $("#divPopup").dialog({ width: 400, height: 120, zIndex: 500, resizable: false,
-                            close: function (event, ui) { },
-                            buttons: [
-                            {
+                            close: function (event, ui) {
+                                /* jshint unused: vars */
+                            },
+                            buttons: [{
                                 text: "Ok",
                                 click: function () {
                                     updateFeedback.verifyRelatedAndUpdate(userName);
@@ -716,12 +739,12 @@ var updateFeedback = {
                                 click: function () {
                                     $(this).dialog("close");
                                 }
-                            }
-                ]
+                            }]
                         });
                     }
-                    else
+                    else {
                         updateFeedback.verifyRelatedAndUpdate(userName);
+                    }
                 }
             }
             else {
@@ -747,10 +770,10 @@ var updateFeedback = {
                     var userId = '';
                     $("#lblverify").removeClass("smallloading").removeClass("hidden");
                     for (var i = 0; i < rs.length; i++) {
-                        if (rs[i].CustId != '0') {
+                        if (rs[i].CustId !== '0') {
                             userNameArr.push('<font style="color:green;">- ' + rs[i].UserName + ': Valid Related Customer</font><br/>');
 
-                            userId += (rs[i].CustId + (i == rs.length - 1 ? '' : ","));
+                            userId += (rs[i].CustId + (i === rs.length - 1 ? '' : ","));
                         } else {
                             userNameArr.push('<font style="color:red;">- ' + rs[i].UserName + ': Invalid Related Customer</font><br/>');
                             isRelatedFail = true;
@@ -758,8 +781,9 @@ var updateFeedback = {
                     }
 
                     $("#lblverify").html(userNameArr.join('')).attr('value', userId);
-                    if (!isRelatedFail)
+                    if (!isRelatedFail) {
                         updateFeedback.doUpdate();
+                    }
                 }
                 else {
                     $("#lblverify").removeClass("smallloading").removeClass("hidden").html('Invalid Related Customer').attr("value", "");
@@ -779,19 +803,21 @@ var updateFeedback = {
             dataType: "json",
             data: JSON.stringify(feedback),
             success: function (rs) {
-                if (rs.ErrCode == 0) {
+                if (rs.ErrCode === 0) {
                     showAlertMessage("errmsg", successMsg, 0);
                     //parentWnd.afterUpdate(true);  
                     //-------------                    
                     window.setTimeout(function () {
                         updateFeedback.openEditFeedback(updateFeedback.feedbackId);
-//                        if (newFeedback.IsOverrideCrmInfo) {
-//                            parentWnd.submitSearch(userName);
-//                        }
+                        //                        if (newFeedback.IsOverrideCrmInfo) {
+                        //                            parentWnd.submitSearch(userName);
+                        //                        }
                     }, 1000);
                 }
-                else
+                else {
                     showAlertMessage("errmsg", rs.ErrMsg, 1);
+                }
+
                 //parentWnd.UnBlockUI();
             },
             complete: function () {
@@ -807,25 +833,25 @@ var updateFeedback = {
             $("#divPopup").html('The current CRM Info will be overwritten. Do you want to continue?');
             $("#divPopup").dialog({ width: 400, height: 120, zIndex: 500, resizable: false, modal: true,
                 title: '<img src="../Content/Black2011/Images/error.gif" id="myNewImage" /> Warning',
-                close: function (event, ui) { },
-                buttons: [
-                            {
-                                text: "Ok",
-                                click: function () {
-                                    newFeedback.IsOverrideCrmInfo = true;
-                                    $(this).dialog("close");
-                                    updateFeedback.updateFeedbackInfo(newFeedback);
-                                }
-                            },
-                            {
-                                text: 'Cancel',
-                                click: function () {
-                                    newFeedback.IsOverrideCrmInfo = false;
-                                    $(this).dialog("close");
-                                    //updateFeedback.updateFeedbackInfo(newFeedback);
-                                }
-                            }
-                        ]
+                close: function (event, ui) {
+                    /* jshint unused: vars */
+                },
+                buttons: [{
+                    text: "Ok",
+                    click: function () {
+                        newFeedback.IsOverrideCrmInfo = true;
+                        $(this).dialog("close");
+                        updateFeedback.updateFeedbackInfo(newFeedback);
+                    }
+                },
+                {
+                    text: 'Cancel',
+                    click: function () {
+                        newFeedback.IsOverrideCrmInfo = false;
+                        $(this).dialog("close");
+                        //updateFeedback.updateFeedbackInfo(newFeedback);
+                    }
+                }]
             });
         }
         else {
@@ -845,22 +871,22 @@ var updateFeedback = {
     openConfirmPopup: function () {
         $("#divPopup").html('Are you sure you want to remove the review?');
         $("#divPopup").dialog({ width: 300, height: 120, zIndex: 500, resizable: false,
-            close: function (event, ui) { },
-            buttons: [
-                    {
-                        text: "Ok",
-                        click: function () {
-                            updateFeedback.unReviewUpdate();
-                            $(this).dialog("close");
-                        }
-                    },
-                    {
-                        text: 'Cancel',
-                        click: function () {
-                            $(this).dialog("close");
-                        }
-                    }
-                ]
+            close: function (event, ui) {
+                /* jshint unused: vars */
+            },
+            buttons: [{
+                text: "Ok",
+                click: function () {
+                    updateFeedback.unReviewUpdate();
+                    $(this).dialog("close");
+                }
+            },
+            {
+                text: 'Cancel',
+                click: function () {
+                    $(this).dialog("close");
+                }
+            }]
         });
     },
     reloadFrame: function (responsePage) {
@@ -884,53 +910,43 @@ var updateFeedback = {
 };
 
 //mark because it may conflict with other function 
-function getNumOfFeedbackItems()
-{
+getNumOfFeedbackItems = function () {
     $.ajax({
         type: "POST",
         url: window.rootUrl + "AdminTool/GetNumOfFeedbackSubjectTemplateItem",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: '',
-        success: function (rs)
-        {
+        success: function (rs) {
             numberOfFeedbackItem = rs;
             listFeedbacksLasted = [];
             var numOfRange = Math.round((numberOfFeedbackItem / 100000) + 0.5);
-            for (var i = 1; i <= numOfRange; i++)
-            {
+            for (var i = 1; i <= numOfRange; i++) {
                 appendListFeedbacksLasted(i);
             }
         },
-        error: function ()
-        {
+        error: function () {
         },
-        complete: function ()
-        {
+        complete: function () {
         }
     });
 };
 
-function appendListFeedbacksLasted(range)
-{
+appendListFeedbacksLasted = function (range) {
     $.ajax({
         type: "POST",
         url: window.rootUrl + "AdminTool/GetFeedbackSubjectTemplateItemsRange",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: '{ "range": "' + range.toString() + '" }',
-        success: function (rs)
-        {
-            if (rs != null && rs.length > 0)
-            {
+        success: function (rs) {
+            if (rs != null && rs.length > 0) {
                 listFeedbacksLasted = listFeedbacksLasted.concat(rs);
             }
         },
-        error: function ()
-        {
+        error: function () {
         },
-        complete: function ()
-        {
+        complete: function () {
         }
     });
 };
@@ -939,13 +955,15 @@ head.ready(function () {
     try { parentWnd = findMainWindow(window); } catch (e) { }
 
     $("#txtsubject").keyup(function (e) {
-        if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) return true;
-        else if (e.keyCode == 13) {
-            //search($(this).val());
+        if (e.keyCode === 37 ||
+            e.keyCode === 38 ||
+            e.keyCode === 39 ||
+            e.keyCode === 40) {
+            return true;
         }
-        else {
+        else if (e.keyCode !== 13) {
             var rows = [];
-            if ($(this).val() != "") {
+            if ($(this).val() !== "") {
                 rows = jlinq.from(listFeedbacksLasted).starts("Subject", $(this).val()).sort("Subject").select();
                 rows = jlinq.from(rows).skip(0).take(15);
                 if (rows.length > 0) {
@@ -961,14 +979,19 @@ head.ready(function () {
         }
     });
 
-
     id = gup("id");
-    
-    if (id != "") {
+    if (id !== "") {
+        /* jshint newcap: false */
         LoadFeedback(id);
     }
-    $('#btnRelatedHelp').tipsy({ gravity: 'nw', title: function () { return inputMultipleRelatedNote } });
+    $('#btnRelatedHelp').tipsy({
+        gravity: 'nw',
+        title: function () {
+            return inputMultipleRelatedNote;
+        }
+    });
     $("#txtrelatedcustomer").fcbkcomplete({
+        /* jshint camelcase: false */
         json_url: window.rootUrl + 'Customer/RelatedCustomerAutoSuggestion',
         addontab: true,
         maxitems: 30,
@@ -988,4 +1011,211 @@ head.ready(function () {
     responsePage = gup('rep');
 });
 
-var feedbackEdit = { "Id": 0, "IsOverrideCrmInfo": false, "BetType": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Category": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Communication": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Country": { "Id": 0, "CountryCode": 0, "CountryName": null, "DisplayOrder": 0, "IsActive": false }, "CreateDate": null, "Creator": { "Id": 0, "IsAllowUpdateReview": false, "Password": null, "RoleId": 0, "Username": "" }, "CsExtension": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Customer": { "Id": 0, "Answer": null, "BankInfo": null, "BettingCode": null, "Country": 0, "CountryName": null, "CreatedDate": null, "Creator": null, "CustomerInfo": null, "IsVip": false, "Language": 0, "NickName": null, "Pic1": null, "Pic2": null, "Pic3": null, "Question": null, "RefCode2": null, "RelatedCustomer": null, "Remark": null, "RoleId": 0, "RoleName": "", "Site": null, "SpecialRemark": null, "UserName": "" }, "CustomerInfo": { "BirthDay": null, "Email": " ", "Fax": " ", "FirstName": " ", "LastName": " ", "MSN": " ", "MobilePhone": " ", "Phone": " ", "Skype": " ", "Title": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null} }, "Description": "", "FeedbackDate": "", "IsReviewed": false, "Language": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Priority": null, "Product": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "RelatedCustomer": { "Id": 0, "Answer": null, "BankInfo": null, "BettingCode": null, "Country": 0, "CountryName": null, "CreatedDate": null, "Creator": null, "CustomerInfo": null, "IsVip": false, "Language": 0, "NickName": null, "Pic1": null, "Pic2": null, "Pic3": null, "Question": null, "RefCode2": null, "RelatedCustomer": null, "Remark": null, "RoleId": 0, "RoleName": "", "Site": null, "SpecialRemark": null, "UserName": "" }, "ResolutionTime": null, "Response": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Review": "", "Reviewer": { "Id": 0, "IsAllowUpdateReview": false, "Password": null, "RoleId": 0, "Username": "" }, "Role": { "Id": 7004, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Site": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Solution": " ", "SolvedDate": null, "Status": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "StrFeedbackDate": "", "SubCategory": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }, "Subject": "", "UpdateReviewMode": 0 };
+feedbackEdit = {
+    "Id": 0,
+    "IsOverrideCrmInfo": false,
+    "BetType": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Category": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Communication": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Country": {
+        "Id": 0,
+        "CountryCode": 0,
+        "CountryName": null,
+        "DisplayOrder": 0,
+        "IsActive": false
+    },
+    "CreateDate": null,
+    "Creator": {
+        "Id": 0,
+        "IsAllowUpdateReview": false,
+        "Password": null,
+        "RoleId": 0,
+        "Username": ""
+    },
+    "CsExtension": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Customer": {
+        "Id": 0,
+        "Answer": null,
+        "BankInfo": null,
+        "BettingCode": null,
+        "Country": 0,
+        "CountryName": null,
+        "CreatedDate": null,
+        "Creator": null,
+        "CustomerInfo": null,
+        "IsVip": false,
+        "Language": 0,
+        "NickName": null,
+        "Pic1": null,
+        "Pic2": null,
+        "Pic3": null,
+        "Question": null,
+        "RefCode2": null,
+        "RelatedCustomer": null,
+        "Remark": null,
+        "RoleId": 0,
+        "RoleName": "",
+        "Site": null,
+        "SpecialRemark": null,
+        "UserName": ""
+    },
+    "CustomerInfo": {
+        "BirthDay": null,
+        "Email": " ",
+        "Fax": " ",
+        "FirstName": " ",
+        "LastName": " ",
+        "MSN": " ",
+        "MobilePhone": " ",
+        "Phone": " ",
+        "Skype": " ",
+        "Title": {
+            "Id": 0,
+            "Child": null,
+            "DisplayOrder": 0,
+            "IsSub": false,
+            "Parent": null,
+            "Type": null,
+            "Value": null
+        }
+    },
+    "Description": "",
+    "FeedbackDate": "",
+    "IsReviewed": false,
+    "Language": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Priority": null,
+    "Product": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "RelatedCustomer": {
+        "Id": 0,
+        "Answer": null,
+        "BankInfo": null,
+        "BettingCode": null,
+        "Country": 0,
+        "CountryName": null,
+        "CreatedDate": null,
+        "Creator": null,
+        "CustomerInfo": null,
+        "IsVip": false,
+        "Language": 0,
+        "NickName": null,
+        "Pic1": null,
+        "Pic2": null,
+        "Pic3": null,
+        "Question": null,
+        "RefCode2": null,
+        "RelatedCustomer": null,
+        "Remark": null,
+        "RoleId": 0,
+        "RoleName": "",
+        "Site": null,
+        "SpecialRemark": null,
+        "UserName": ""
+    },
+    "ResolutionTime": null,
+    "Response": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Review": "",
+    "Reviewer": {
+        "Id": 0,
+        "IsAllowUpdateReview": false,
+        "Password": null,
+        "RoleId": 0,
+        "Username": ""
+    },
+    "Role": {
+        "Id": 7004,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Site": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Solution": " ",
+    "SolvedDate": null,
+    "Status": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "StrFeedbackDate": "",
+    "SubCategory": {
+        "Id": 0,
+        "Child": null,
+        "DisplayOrder": 0,
+        "IsSub": false,
+        "Parent": null,
+        "Type": null,
+        "Value": null
+    },
+    "Subject": "",
+    "UpdateReviewMode": 0
+};

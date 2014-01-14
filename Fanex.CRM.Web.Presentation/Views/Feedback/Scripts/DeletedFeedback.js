@@ -1,21 +1,31 @@
-﻿//Contain the template
+﻿"use strict";
+/* global reRenderGrid,
+replaceSpaceForIE9,
+head,
+addDays,
+findMainWindow,
+bindSetting
+*/
+/* exported loadSubItem,
+openEditFeedback */
+var deletedFeedback;
+
+//Contain the template
 var topwnd;
-var maxHeightOfPopUp = ($(window).height() + 50)
+var maxHeightOfPopUp = ($(window).height() + 50);
 // -- Calendar --- //
 function SetupCalendar(arrDateValues, arrIds) {
-    
-    for (i = 0; i < arrIds.length; i++) {
-        if (arrDateValues[i] != null && arrDateValues[i] != "") {
+    for (var i = 0; i < arrIds.length; i++) {
+        if (arrDateValues[i] != null && arrDateValues[i] !== "") {
             $('#' + arrIds[i]).datepicker();
-            $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i]))); 
+            $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
         }
     }
-};
+}
 
 function loadSubItem(obj, target, currValue) {
-
-    if ($(obj).val() != "") {
-        if ($(obj).val() != "0") {
+    if ($(obj).val() !== "") {
+        if ($(obj).val() !== "0") {
             $.ajax({
                 type: "POST",
                 url: window.rootUrl + "AdminTool/GetSettingByParent",
@@ -43,7 +53,7 @@ function loadSubItem(obj, target, currValue) {
             $('<option value="0">All</option>').appendTo($("#" + target));
         }
     }
-};
+}
 
 function openEditFeedback(url) {
     try {
@@ -51,9 +61,10 @@ function openEditFeedback(url) {
             deletedFeedback.loadDeletedFeedback(false);
         });
     } catch (e) { }
-};
-                
+}
+
 var pagerOpts = {
+    /* jshint camelcase: false */
     callback: null,
     start_per_page: 100,
     step_per_page: 100,
@@ -62,7 +73,7 @@ var pagerOpts = {
     current_page: 1
 };
 
-var deletedFeedback = {
+deletedFeedback = {
     totalRows: 0,
     pageIndex: 1,
     pageSize: 100,
@@ -77,13 +88,14 @@ var deletedFeedback = {
     isReviewd: false,
     responseId: 0,
     gridHeight: 120,
-    initPager: function(total_items, items_per_page, current_page) {
+    initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = deletedFeedback.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
         pagerOpts.current_page = current_page;
         $("#pagination").pagination(total_items, pagerOpts);
     },
-    pageSelectCallback: function(page_index, _items_per_page, jq) {
+    pageSelectCallback: function (page_index, _items_per_page, jq) {
+        /* jshint unused: vars */
         var max_page = Math.ceil(deletedFeedback.totalRows / _items_per_page);
         page_index = page_index < max_page ? page_index : max_page - 1;
         deletedFeedback.pageIndex = page_index + 1;
@@ -91,7 +103,7 @@ var deletedFeedback = {
         deletedFeedback.loadDeletedFeedback(true);
         return false;
     },
-    loadDeletedFeedback: function(loadOldData) {
+    loadDeletedFeedback: function (loadOldData) {
         if (!loadOldData) {
             deletedFeedback.pageIndex = 1;
         }
@@ -108,78 +120,87 @@ var deletedFeedback = {
         deletedFeedback.responseId = parseInt($('#ddlCustomerReponse').val());
 
         var data =
-	    {
-	        'fromDate': deletedFeedback.fDate,
-	        'toDate': deletedFeedback.tDate,
-	        'userName': deletedFeedback.userName,
-	        'isGuest': deletedFeedback.isGuest,
-	        'communicationID': deletedFeedback.communicationId,
-	        'mainCategoryID': deletedFeedback.mainCategoryId,
-	        'subCategoryID': deletedFeedback.subCategoryId,
-	        'isReviewed': deletedFeedback.isReviewd,
-	        'pageIndex': deletedFeedback.pageIndex,
-	        'pageSize': deletedFeedback.pageSize,
-	        'fromCache': loadOldData,
-	        'responseId': deletedFeedback.responseId
-	    };
-        try { topwnd.BlockUI(); } catch(e) { }
+        {
+            'fromDate': deletedFeedback.fDate,
+            'toDate': deletedFeedback.tDate,
+            'userName': deletedFeedback.userName,
+            'isGuest': deletedFeedback.isGuest,
+            'communicationID': deletedFeedback.communicationId,
+            'mainCategoryID': deletedFeedback.mainCategoryId,
+            'subCategoryID': deletedFeedback.subCategoryId,
+            'isReviewed': deletedFeedback.isReviewd,
+            'pageIndex': deletedFeedback.pageIndex,
+            'pageSize': deletedFeedback.pageSize,
+            'fromCache': loadOldData,
+            'responseId': deletedFeedback.responseId
+        };
+        try { topwnd.BlockUI(); } catch (e) { }
         var mainreport = $("#lastedfeedbackgrid");
         $('#errmsg').html('');
         $.ajax({
-                type: "POST",
-                url: window.rootUrl + "Feedback/GetDeletedFeedback",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(data),
-                success: function(rs) {
-                    if (rs != null && rs.rows != null && rs.rows.length > 0) {
-                        var arr = [];
-                        var arrLeft = [];
-                        deletedFeedback.totalRows = parseInt(rs.total);
-                        var css = 'bgodd';
-                        for (var i = 0; i < rs.rows.length; i++) {
-                            css = (i % 2) > 0 ? 'bgodd' : 'bgeven';
-                            arr.push(deletedFeedback.renderFeedbackRow(rs.rows[i], css));
-                            arrLeft.push(deletedFeedback.renderFeedbackLeftRow(rs.rows[i], css));
-                        }
-
-                        $("#latestfeedbackbody tbody").empty().append(arr.join(''));
-                        $("#latestfeedbackbodyHeader tbody").empty().append(arrLeft.join(''));
-
-                        var gridOpts = {
-                            tblContentId: 'latestfeedbackbody',
-                            manualCopyHeader: true,
-                            fullWidth: true,
-                            fullHeight: true,
-                            gridHeight: deletedFeedback.gridHeight,
-                            freezeWidth: 380,
-                            numberFreezeCol: 1
-                        };
-                        mainreport.removeClass("hidden").gridScroller(gridOpts);
-
-                        deletedFeedback.initPager(deletedFeedback.totalRows, deletedFeedback.pageSize, deletedFeedback.pageIndex - 1);
-                        reRenderGrid('lastedfeedbackgrid', 'latestfeedbackbodyHeader', 'latestfeedbackbody', deletedFeedback.gridHeight, 380, 1, 380);
+            type: "POST",
+            url: window.rootUrl + "Feedback/GetDeletedFeedback",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(data),
+            success: function (rs) {
+                if (rs != null && rs.rows != null && rs.rows.length > 0) {
+                    var arr = [];
+                    var arrLeft = [];
+                    deletedFeedback.totalRows = parseInt(rs.total);
+                    var css = 'bgodd';
+                    for (var i = 0; i < rs.rows.length; i++) {
+                        css = (i % 2) > 0 ? 'bgodd' : 'bgeven';
+                        arr.push(deletedFeedback.renderFeedbackRow(rs.rows[i], css));
+                        arrLeft.push(deletedFeedback.renderFeedbackLeftRow(rs.rows[i], css));
                     }
-                    else {
-                        mainreport.addClass('hidden');
-                        $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
-                        $('#pagination').html('&nbsp;');
-                    }
-                },
-                error: function() {
+
+                    $("#latestfeedbackbody tbody").empty().append(arr.join(''));
+                    $("#latestfeedbackbodyHeader tbody").empty().append(arrLeft.join(''));
+
+                    var gridOpts = {
+                        tblContentId: 'latestfeedbackbody',
+                        manualCopyHeader: true,
+                        fullWidth: true,
+                        fullHeight: true,
+                        gridHeight: deletedFeedback.gridHeight,
+                        freezeWidth: 380,
+                        numberFreezeCol: 1
+                    };
+                    mainreport.removeClass("hidden").gridScroller(gridOpts);
+
+                    deletedFeedback.initPager(deletedFeedback.totalRows, deletedFeedback.pageSize, deletedFeedback.pageIndex - 1);
+                    reRenderGrid('lastedfeedbackgrid', 'latestfeedbackbodyHeader', 'latestfeedbackbody', deletedFeedback.gridHeight, 380, 1, 380);
+                }
+                else {
                     mainreport.addClass('hidden');
                     $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
                     $('#pagination').html('&nbsp;');
-                },
-                complete: function() {                    
-                    try { topwnd.UnBlockUI(); } catch(e) { }
                 }
-            });
+            },
+            error: function () {
+                mainreport.addClass('hidden');
+                $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
+                $('#pagination').html('&nbsp;');
+            },
+            complete: function () {
+                try { topwnd.UnBlockUI(); } catch (e) { }
+            }
+        });
     },
-    renderFeedbackRow: function(row, css) {
-       
+    renderFeedbackRow: function (row, css) {
+
         var html = '<tr class="' + css + '">\
-                        <td><div style="width:380px"><div class="lnksubject"><a class="desTooltip" href="JavaScript:void(0);"<b>' + row.Subject + '</b></a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b>&nbsp;on&nbsp;' + row.CreateDate + '<br>' + deletedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) + '</div></td>\
+                        <td>\
+                            <div style="width:380px"><div class="lnksubject">\
+                                <a class="desTooltip" href="JavaScript:void(0);"<b>' + row.Subject + '</b></a>\
+                            </div>\
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b>\
+                            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b>\
+                            &nbsp;on&nbsp;' + row.CreateDate +
+                            '<br>' + deletedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) +
+                            '</div>\
+                        </td>\
                         <td><div class="c" style="width:130px">&nbsp;' + row.Username + '</div></td>\
                         <td><div style="width:200px">' + row.MainCategory + '<br/>&nbsp;&nbsp;&nbsp;' + row.SubCategory + '</div></td>\
                         <td><div class="c" style="width:50px">&nbsp;' + row.Status + '</div></td>\
@@ -190,51 +211,57 @@ var deletedFeedback = {
     renderFeedbackLeftRow: function (row, css) {
 
         var html = '<tr class="' + css + '">\
-                       <td><div style="width:380px"><div class="lnksubject"><a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' + row.ID + '&rep=2\', 1);" ><b>' + row.Subject + '</b></a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b>&nbsp;on&nbsp;' + row.CreateDate + '<br>' + deletedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) + '</div></td>\
-                </tr>';
+                       <td>\
+                            <div style="width:380px">\
+                                <div class="lnksubject">\
+                                    <a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' +
+                                        row.ID + '&rep=2\', 1);" >\
+                                        <b>' + row.Subject + '</b>\
+                                    </a>\
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b>\
+                                        <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b>\
+                                        &nbsp;on&nbsp;' + row.CreateDate +
+                                        '<br>' + deletedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) +
+                            '</div>\
+                        </td>\
+                    </tr>';
         return html;
     },
-    reviewerFormat: function(reviewer, reviewDate) {
+    reviewerFormat: function (reviewer, reviewDate) {
         var html = '';
-        if (reviewer != "") {
+        if (reviewer !== "") {
             html = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed&nbsp;by&nbsp;<b>' + reviewer + '</b>&nbsp;on&nbsp;' + reviewDate + '<br>';
         }
         return html;
     }
 };
 
+head.ready(function () {
+    var fdate, tdate;
+    fdate = addDays(new Date(), -1);
+    tdate = new Date();
 
-head.ready(
-    function () {
+    var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
+    var arrIds = ['txtfromdate', 'txttodate'];
+    /* jshint newcap: false */
+    SetupCalendar(arrDateValues, arrIds);
 
-        var fdate, tdate;
-        fdate = new Date().goto(-1);
-        tdate = new Date();
+    var gridOpts = {
+        tblContentId: 'latestfeedbackbody',
+        isShowPager: true
+    };
+    $("#lastedfeedbackgrid").initGrid(gridOpts);
 
-        var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
+    try { topwnd = findMainWindow(window); } catch (e) { }
+    bindSetting("ddlcommunication", "Communication", 0);
+    bindSetting("ddlcategory", "MainCategory", 0);
+    bindSetting("ddlCustomerReponse", "Response", 0);
 
-        var arrIds = ['txtfromdate', 'txttodate'];
+    try { topwnd.UnBlockUI(); } catch (e) { }
 
-        SetupCalendar(arrDateValues, arrIds);
-
-        var gridOpts = {
-            tblContentId: 'latestfeedbackbody',
-            isShowPager: true
-        };
-        $("#lastedfeedbackgrid").initGrid(gridOpts);
-
-        try { topwnd = findMainWindow(window); } catch (e) { }
-        bindSetting("ddlcommunication", "Communication", 0);
-        bindSetting("ddlcategory", "MainCategory", 0);
-        bindSetting("ddlCustomerReponse", "Response", 0);
-
-        try { topwnd.UnBlockUI(); } catch (e) { }
-
-        $('body').mousedown(function (e) {
-            if (e.button == 1) {
-
-                return false
-            }
-        });
-    }
-);
+    $('body').mousedown(function (e) {
+        if (e.button === 1) {
+            return false;
+        }
+    });
+});
