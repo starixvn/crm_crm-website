@@ -181,8 +181,8 @@
     <None Include="ClearScript.V8\v8-x64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Content\site\common.css" />
-    <Content Include="Content\site\image.css" />
+    <None Include="Content\site\common.less" />
+    <None Include="Content\site\image.less" />
     <Content Include="Content\site\Images\accessDenied.gif" />
     <Content Include="Content\site\Images\ajax-loader.gif" />
     <Content Include="Content\site\Images\ajax_loader.gif" />
@@ -276,10 +276,10 @@
     <Content Include="Content\site\Images\waiting7.gif" />
     <Content Include="Content\site\Images\WebResource.axd.png" />
     <Content Include="Content\site\Images\white-top-bottom.gif" />
-    <Content Include="Content\site\input.css" />
-    <Content Include="Content\site\Message.css" />
-    <Content Include="Content\site\reportgrid.css" />
-    <Content Include="Content\site\table.css" />
+    <None Include="Content\site\input.less" />
+    <None Include="Content\site\Message.less" />
+    <None Include="Content\site\reportgrid.less" />
+    <None Include="Content\site\table.less" />
     <Content Include="Configurations\StoreProcedure.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -488,7 +488,7 @@
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\AssignMenu.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
-    <Content Include="Views\Home\Styles\default.css" />
+    <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Styles\Images\arSub.gif" />
     <Content Include="Views\Home\Styles\Images\arSub_hover.gif" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
@@ -666,7 +666,7 @@
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Content\site\variable.less" />
+    <None Include="Content\site\variables.less" />
     <None Include="IbcKeys\ibckeydec.snk" />
     <None Include="IbcKeys\ibcpkey.snk" />
     <Content Include="IbcKeys\Web.config" />

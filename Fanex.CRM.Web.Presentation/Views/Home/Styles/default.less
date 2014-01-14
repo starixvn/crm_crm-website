@@ -1,12 +1,16 @@
-﻿body 
+﻿@import "../../../Content/site/variables.less";
+
+body 
 {
-	background: none repeat scroll 0 0 #ffffff;
-    font-family: "Segoe UI",Arial,sans-serif;
+	background: none repeat scroll 0 0 #fff;
+    font-family: @font-family;
     height: 100%;
     margin: 0;
     padding: 0;
     width: 100%;
+    font-size: @font-size;
 }
+
 .fullsize {
     display: block;
     height: 100%;
@@ -15,6 +19,128 @@
     top: 0;
     width: 100%;
 }
+
+[class*="col-"] {
+    padding: 0;
+    display: block;
+}
+
+.container.crm-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    .header {
+	    height: 42px;
+        display: block;
+        background: @primary-color;
+        border-left: 1px solid #222;
+        border-right: 1px solid #222;
+        margin: 0;
+
+        .leftHeader {
+            border-right: 1px solid #3b5998;
+
+            .crm-logo {
+	            margin: 10px 0 0 10px;
+	            float: left;
+            }
+
+            .icon-expand {
+                background: url(../../../Content/site/Images/icon-expand.png) no-repeat;
+                height: 9px;
+                width: 11px;
+                float: right;
+                margin: 17px 13px;
+            }
+        }
+
+        .rightHeader {
+            margin: 0;
+
+            .menu {
+                margin: 0;
+                padding: 0;
+                display: block;
+                margin: 7px 0 0 16px;
+                z-index: 300;
+                height: 30px;
+
+                li {
+                    padding: 5px 10px;
+                    position: relative;
+                    height: 30px;
+
+                    .icon-arrow-down {
+                        background:url(../../../Content/site/Images/icon-arrow-down.png) no-repeat;
+                        display: inline-block;
+                        font-size: 0;
+                        height: 5px;
+                        width: 6px;
+                        margin: 0 6px;
+                    }
+
+                    a {
+                        color: #fff;
+
+                        &:hover {
+                            color: #ffcc33;
+                        }
+                    }
+
+                    &.active {
+                        color: #ffcc33;
+                    }
+
+                    &:hover {
+                        background-color: #39496d;
+
+                        .sub-menu {
+                            display: block;
+                        }
+                    }
+
+                    .sub-menu {
+                        position: absolute;
+                        width: 200px;
+                        background-color: #39496d;
+                        display: none;
+                        z-index: 305;
+                        top: 29px;
+                        left: 0;
+                        padding: 5px 0;
+
+                        li {
+                            color: #fff;
+
+                            a {
+                                color: #fff;
+                            }
+
+                            &:hover {
+                               background-color: #9faac6;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            .login-info {
+                padding: 13px 10px 0 0;
+                width:200px;
+                color: #fff;
+                text-align: right;
+
+                .txt-username {
+	                color: #ffcc33;
+                }
+            }
+        }
+        
+    }
+}
+
 .qsfQVersion {
     color: #f5eeee;
     display: block;
@@ -26,19 +152,7 @@
     background: #050505;
     
 }
-.welcomebox
-{
-	float: right;
-	font-size: 10pt;
-    padding: 30px 10px 0 0;
-    width:auto;
-    max-width:300px;
-}
-.text_org {
-	color: #D66D35;
-	font-weight: 700;
-	text-align: left;
-}
+
 .header2
 {	
 	background: #FFFFFF url("../../../Content/site/Images/body.jpg") repeat-x scroll 0 -59px;
@@ -91,31 +205,6 @@
 	margin: -1px 0 0 4px;
 }
 
-	
-.qsfMenu {
-    /*background: url("../../../Content/site/Images/WebResource.axd.png") repeat-x scroll 0 -408px transparent;*/
-    display: inline;
-    float: left;
-    height: 30px;
-    margin: 0 50px 0 50px;
-    /*padding: 8px 0 0 9px;*/
-    position: relative;
-    min-width: 300px;	
-	width: 50%;
-    /*border: 1px solid #868686;*/
-}
-
-.mainbox
-{
-	height: 74px;
-    position: relative;
-    display: block;
-    background: #050505;
-    border-left: 1px solid #222222;
-    border-right: 1px solid #222222;    
-    top: 0;
-	color:white;
-}
 .mainContent
 {
 	background: url("../../../Content/site/Images/body.jpg") repeat-x scroll 0 -99px #FFFFFF;
@@ -140,7 +229,7 @@
 	color: #c9c1c1;
 }
 .rmExpandDown {            
-     background:url(../../../Scripts/smoothmenu/down.gif) no-repeat right;
+    background:url(../../../Scripts/smoothmenu/down.gif) no-repeat right;
     display: inline-block;
     font-size: 0;
     height: 16px;
@@ -229,8 +318,3 @@
 .updown{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat -3px 0;width:20px;height:20px;vertical-align:middle;border:none; margin: 4px 0 0 1px;}
 .updown_over{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat -28px 0px;width:20px;height:20px;vertical-align:middle;border:none; margin: 4px 0 0 1px;}
 
-.crm-logo
-{
-	margin: 4px 0 0 20px;
-	float: left;
-}

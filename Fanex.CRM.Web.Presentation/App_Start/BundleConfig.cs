@@ -26,11 +26,11 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.AddAndInclude(
                 "~/site/common",
                 "~/content/bootstrap/css/bootstrap.css",
-                "~/Content/site/common.css",
-                "~/Content/site/image.css",
-                "~/Content/site/input.css",
-                "~/Content/site/Message.css",
-                "~/Content/site/table.css");
+                "~/Content/site/common.less",
+                "~/Content/site/image.less",
+                "~/Content/site/input.less",
+                "~/Content/site/Message.less",
+                "~/Content/site/table.less");
 
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
                 "~/Scripts/head.load.min.js"));
