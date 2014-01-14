@@ -252,3 +252,6 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Micr
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\obj\Debug\Fanex.CRM.Web.Presentation.csprojResolveAssemblyReference.cache
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\obj\Debug\Fanex.CRM.Web.View.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\obj\Debug\Fanex.CRM.Web.View.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.EnterpriseLibrary.Logging.xml
