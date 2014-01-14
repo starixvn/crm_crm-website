@@ -47,7 +47,7 @@
             </div>
             <div class="qsfMenu" style="z-index: 20">
                 <div class="topmenu">
-                    @Html.Raw(ViewBag.TopMenu)
+                    @Html.Action("GettingUserMenu", new RouteValueDictionary(new { controller = "Home", area = "" }))
                 </div>
             </div>
         </div>
@@ -70,8 +70,7 @@
     <div id="divErrorPoup" class="selector" style="display: none;"></div>
 
     @{
-        int currentParentId = 0;
-        string userSearched = "";
+        string userSearched = string.Empty;
         bool isGuest = false;
 
         SearchCustomerInfo searchUserSession = (SearchCustomerInfo)SessionExtension.GetSession(HttpContext.Current.Session,
@@ -87,8 +86,8 @@
         window.rootUrl = '@Url.Content("~")';
         var userSearch = '@userSearched';
         var isGuestSearch = '@isGuest';
-        var accUrlDefault = '@Fanex.CRM.Infrastructure.Common.AppSetting.AccountingUrlDefault';
-        var userId = @Fanex.CRM.Web.Controllers.Helper.AppSession.CurrentUser.Id;
+        var accUrlDefault = '@Fanex.CRM.Infrastructure.Common.AppSetting.LoginUrl';
+        var userId = @Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id;
 
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
                 head.js("@Url.Content("~/Scripts/json2.js")")

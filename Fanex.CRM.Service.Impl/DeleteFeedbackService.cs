@@ -118,7 +118,7 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result(0, string.Empty);
             try
             {
-                if (!_permissionService.GetHostPermission(Enumerations.Functions.AdminTool.FBSubjectTemplateManagement))
+                if (!_permissionService.HasHostPermission(Enumerations.Functions.AdminTool.FBSubjectTemplateManagement.ToString()))
                 {
                     return ReturnErrorResult(500, "lblNoDeleteFBSubjectTemplate");
                 }

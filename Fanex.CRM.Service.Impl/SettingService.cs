@@ -152,7 +152,7 @@ namespace Fanex.CRM.Service.Impl
 
                 SettingType settingType = SettingType.BetType;
 
-                if (!this._permissionService.GetHostPermission(Enumerations.Functions.AdminTool.SettingManagement))
+                if (!this._permissionService.HasHostPermission(Enumerations.Functions.AdminTool.SettingManagement.ToString()))
                 {
                     result.ErrCode = (int)Enumerations.ErrorCode.UpdateSetting;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoPermission");
@@ -203,7 +203,7 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result(0, string.Empty);
             try
             {
-                if (!this._permissionService.GetHostPermission(Enumerations.Functions.AdminTool.SettingManagement))
+                if (!this._permissionService.HasHostPermission(Enumerations.Functions.AdminTool.SettingManagement.ToString()))
                 {
                     result.ErrCode = (int)Enumerations.ErrorCode.UpdateSetting;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoPermission");
@@ -249,7 +249,7 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result(0, string.Empty);
             try
             {
-                if (!this._permissionService.GetHostPermission(Enumerations.Functions.AdminTool.SettingManagement))
+                if (!this._permissionService.HasHostPermission(Enumerations.Functions.AdminTool.SettingManagement.ToString()))
                 {
                     result.ErrCode = (int)Enumerations.ErrorCode.UpdateSetting;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoPermission");
@@ -597,7 +597,7 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result(0, string.Empty);
             try
             {
-                if (!this._permissionService.GetHostPermission(Enumerations.Functions.AdminTool.SettingRelationManagement))
+                if (!this._permissionService.HasHostPermission(Enumerations.Functions.AdminTool.SettingRelationManagement.ToString()))
                 {
                     result.ErrCode = (int)Enumerations.ErrorCode.UpdateSetting;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoPermission");
@@ -642,7 +642,7 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result(0, string.Empty);
             try
             {
-                if (!this._permissionService.GetHostPermission(Enumerations.Functions.AdminTool.SettingRelationManagement))
+                if (!this._permissionService.HasHostPermission(Enumerations.Functions.AdminTool.SettingRelationManagement.ToString()))
                 {
                     result.ErrCode = (int)Enumerations.ErrorCode.UpdateSetting;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoPermission");

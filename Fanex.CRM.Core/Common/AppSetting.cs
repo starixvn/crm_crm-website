@@ -32,9 +32,9 @@ namespace Fanex.CRM.Infrastructure.Common
             get { return CastAide.AsInt32(ConfigurationManager.AppSettings["serverid"]); }
         }
 
-        public static string AccountingUrlDefault
+        public static string LoginUrl
         {
-            get { return CastAide.AsString(ConfigurationManager.AppSettings["accdefaultpage"]); }
+            get { return CastAide.AsString(ConfigurationManager.AppSettings["loginUrl"]); }
         }
 
         public static string TestAccount

@@ -60,7 +60,7 @@ namespace Fanex.CRM.Web.Controllers
         /// <returns>Delete result.</returns>
         public ActionResult DeletedFeedback()
         {
-            if (!_permission.GetHostPermission(Enumerations.Functions.Feedback.DeleteFeedback, AppSession.RoleAccess))
+            if (!_permission.HasHostPermission(Enumerations.Functions.Feedback.DeleteFeedback.ToString()))
             {
                 return new RedirectToRouteResult(new RouteValueDictionary(new
                 {

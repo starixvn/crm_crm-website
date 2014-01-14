@@ -10,20 +10,17 @@
 namespace Fanex.CRM.Service.Interface
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Entities;
+    using Fanex.NAP.Core.Model.ValueObject;
 
     public interface IPermissionService
     {
-        bool HasPermission(string actionPath, Dictionary<string, int> pageAccess);
+        Dictionary<string, int> GetRoleAccess(IEnumerable<FunctionPolicy> currentFunctions);
 
-        bool GetHostPermission<T>(T function);
+        bool HasReadPermission(string functionName);
 
-        bool GetHostPermission<T>(T function, Dictionary<string, int> roleAccess);
+        bool HasHostPermission(string functionName);
 
-        bool GetHostPermissionOnPage(string actionPath, Dictionary<string, int> pageAccess);
+        bool HasPermission(string functionName);
 
-        List<Security> GetCustomerRoles(int custId);
-
-        bool IsHasFeedbackReviewPermission();
     }
 }

@@ -134,7 +134,7 @@ namespace Fanex.CRM.Service.Impl
             var result = new Result();
             try
             {
-                if (!this._permissionService.GetHostPermission(Enumerations.Functions.CRMCustomer.CustomerInfo))
+                if (!this._permissionService.HasHostPermission(Enumerations.Functions.CRMCustomer.CustomerInfo.ToString()))
                 {
                     result.ErrCode = 500;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoUpdateCustomerPermission");
@@ -189,7 +189,7 @@ namespace Fanex.CRM.Service.Impl
             var result = new Result();
             try
             {
-                if (!this._permissionService.GetHostPermission(Enumerations.Functions.CRMCustomer.CustomerInfo))
+                if (!this._permissionService.HasHostPermission(Enumerations.Functions.CRMCustomer.CustomerInfo.ToString()))
                 {
                     result.ErrCode = 500;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoUpdateCustomerPermission");
