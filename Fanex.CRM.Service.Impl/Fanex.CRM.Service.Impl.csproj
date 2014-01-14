@@ -50,8 +50,14 @@
     <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Dependency\Fanex\Fanex.Caching.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\Dependency\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    <Reference Include="Fanex.NAP.Core">
+      <HintPath>..\Dependency\Fanex\Fanex.NAP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Framework">
+      <HintPath>..\Dependency\Fanex\Fanex.NAP.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Dependency\Fanex\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\Dependency\NoSql\MongoDB\MongoDB.Bson.dll</HintPath>
@@ -79,6 +85,7 @@
     <Compile Include="DeleteFeedbackService.cs" />
     <Compile Include="FeedbackService.cs" />
     <Compile Include="FeedbackStatisticsExportExcel.cs" />
+    <Compile Include="MenuService.cs" />
     <Compile Include="PermissionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingService.cs" />

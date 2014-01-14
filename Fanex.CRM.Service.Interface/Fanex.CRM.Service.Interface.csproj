@@ -35,6 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.NAP.Core">
+      <HintPath>..\Dependency\Fanex\Fanex.NAP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Framework">
+      <HintPath>..\Dependency\Fanex\Fanex.NAP.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\Dependency\NoSql\MongoDB\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -53,6 +59,7 @@
     <Compile Include="ICountryService.cs" />
     <Compile Include="ICustomerService.cs" />
     <Compile Include="IFeedbackService.cs" />
+    <Compile Include="IMenuService.cs" />
     <Compile Include="IPermissionService.cs" />
     <Compile Include="ISettingService.cs" />
     <Compile Include="IUserService.cs" />

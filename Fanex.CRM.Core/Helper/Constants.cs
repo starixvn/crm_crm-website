@@ -17,6 +17,12 @@ namespace Fanex.CRM.Infrastructure.Helper
     /// </summary>
     public static class Constants
     {
+        public const string CurrentLogInUser = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentLogInUser";
+        public const string CurrentUserMenu = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentUserMenu";
+        public const string CurrentUserRoleAccess = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentUserRoleAccess";
+        public const string CurrentWorkingOnMenu = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentWorkingOnMenu";
+        public const string CurrentActionName = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentActionName";
+
         public static readonly DateTime ProductionDate = new DateTime(2008, 1, 11);
 
         public static CultureInfo CurrentCulture

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Functions>
+  <Function Name="User">
+    <Setting Key="UserOnlineUpdate" SpName="Acc_Recheckin" DbName="DBONUSER.ON_USER.bodbAdminNet" />
+  </Function>
+</Functions>

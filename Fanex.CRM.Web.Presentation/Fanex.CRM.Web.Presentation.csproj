@@ -183,6 +183,11 @@
     </None>
     <None Include="Content\site\common.less" />
     <None Include="Content\site\image.less" />
+    <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\accessDenied.gif" />
     <Content Include="Content\site\Images\ajax-loader.gif" />
     <Content Include="Content\site\Images\ajax_loader.gif" />
@@ -236,6 +241,8 @@
     <Content Include="Content\site\Images\icn_view.png" />
     <Content Include="Content\site\Images\ico1.png" />
     <Content Include="Content\site\Images\ico2.png" />
+    <Content Include="Content\site\Images\icon-arrow-down.png" />
+    <Content Include="Content\site\Images\icon-expand.png" />
     <Content Include="Content\site\Images\icon-sprite.png" />
     <Content Include="Content\site\Images\iconslist.png" />
     <Content Include="Content\site\Images\icon_button02.gif" />
@@ -280,9 +287,6 @@
     <None Include="Content\site\Message.less" />
     <None Include="Content\site\reportgrid.less" />
     <None Include="Content\site\table.less" />
-    <Content Include="Configurations\StoreProcedure.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Content\bootstrap\css\bootstrap-ie7.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
@@ -488,6 +492,7 @@
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\AssignMenu.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
+    <Content Include="Views\Home\Menu.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Styles\Images\arSub.gif" />
     <Content Include="Views\Home\Styles\Images\arSub_hover.gif" />
