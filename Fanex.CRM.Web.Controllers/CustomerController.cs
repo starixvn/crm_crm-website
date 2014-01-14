@@ -50,13 +50,13 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         #region Views
-        [NapAuth(FunctionKey = Enumerations.Functions.CRMCustomer.CustomerInfo.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult CRMInfo()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.CRMCustomer.CustomerInfo.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult EditCRMInfo()
         {
             return View();
@@ -137,7 +137,7 @@ namespace Fanex.CRM.Web.Controllers
 
                     SessionExtension.AddSession(
                         System.Web.HttpContext.Current.Session,
-                        Enumerations.Functions.CRMCustomer.SearchCustomerInfo.ToString(),
+                        FunctionPermission.SearchCustomerInfo.ToString(),
                         new SearchCustomerInfo() { UserName = username, IsGuest = isGuest });
                 }
             }

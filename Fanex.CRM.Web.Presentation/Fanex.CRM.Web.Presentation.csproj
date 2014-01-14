@@ -553,6 +553,10 @@
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Entities\Fanex.CRM.Entities.csproj">
+      <Project>{2A2B1FF1-C26F-4D6F-85FB-F4670F4C87EC}</Project>
+      <Name>Fanex.CRM.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Web.Controllers\Fanex.CRM.Web.Controllers.csproj">
       <Project>{4A20474E-2F9B-4308-AF20-2BA8D97128EB}</Project>
       <Name>Fanex.CRM.Web.Controllers</Name>

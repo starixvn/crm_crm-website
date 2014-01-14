@@ -42,21 +42,21 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         #region Views
-        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.CreateFeedback.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AddFeedback()
         {
             ViewBag.Title = "Add Feedback";
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.CreateFeedback.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AddGuestFeedback()
         {
             ViewBag.Title = "Add Guest Feedback";
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.DeleteFeedback.ToString(), Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.DeleteFeedback, Policy = Constant.Policy.Host)]
         /// <summary>
         /// Deletes the feedback.
         /// </summary>
@@ -71,19 +71,19 @@ namespace Fanex.CRM.Web.Controllers
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.EditFeedback.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult ManageFeedback()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.EditFeedback.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult CustomerLastestFeedback()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.EditFeedback.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult EditFeedback()
         {
             return View();

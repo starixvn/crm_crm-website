@@ -21,7 +21,12 @@
 	{
 		className = className.Length > 0 ? " last" : "last";
 	}
-
+    
+    if (lvl1MenuItemList.Count == 0 && (menuItem.Url.Contains("n/a") || string.IsNullOrWhiteSpace(menuItem.Url)))
+    {
+        continue;
+    }
+    
 	if (lvl1MenuItemList.Count == 0)
 	{
 		<li class="@className">

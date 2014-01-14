@@ -74,7 +74,7 @@
         bool isGuest = false;
 
         SearchCustomerInfo searchUserSession = (SearchCustomerInfo)SessionExtension.GetSession(HttpContext.Current.Session,
-               Enumerations.Functions.CRMCustomer.SearchCustomerInfo.ToString());
+               FunctionPermission.SearchCustomerInfo);
         if (searchUserSession != null)
         {
             userSearched = searchUserSession.UserName;

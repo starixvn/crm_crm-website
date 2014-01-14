@@ -38,37 +38,37 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         #region Views
-        [NapAuth(FunctionKey = Enumerations.Functions.CRMReport.FeedbackStatistics.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult CasinoDailyStatistics()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.CRMReport.FeedbackStatistics.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult CasinoWeeklyStatistics()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.CRMReport.FeedbackStatistics.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult DailyStatistic()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.CRMReport.FeedbackStatistics.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult WeeklyStatistic()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.CRMReport.FeedbackStatistics.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult FeedbackStatistics()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.CRMReport.FeedbackStatistics.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult FeedbackStatisticDetail()
         {
             return View();

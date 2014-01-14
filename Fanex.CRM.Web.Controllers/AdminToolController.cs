@@ -46,49 +46,49 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         #region Views
-        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingManagement.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.SettingManagement, Policy = Constant.Policy.Read)]
         public ActionResult AddSettingRelation()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingManagement.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.SettingManagement, Policy = Constant.Policy.Read)]
         public ActionResult SettingEdit()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingManagement.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.SettingManagement, Policy = Constant.Policy.Read)]
         public ActionResult SettingIns()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingManagement.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.SettingManagement, Policy = Constant.Policy.Read)]
         public ActionResult SettingManage()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingRelationManagement.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.SettingRelationManagement, Policy = Constant.Policy.Read)]
         public ActionResult SettingRelation()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.FBSubjectTemplateManagement.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.FBSubjectTemplateManagement, Policy = Constant.Policy.Read)]
         public ActionResult SubjectTemplateManagement()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.FBSubjectTemplateManagement.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.FBSubjectTemplateManagement, Policy = Constant.Policy.Read)]
         public ActionResult SubjectTemplateEdit()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.FBSubjectTemplateManagement.ToString(), Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.FBSubjectTemplateManagement, Policy = Constant.Policy.Read)]
         public ActionResult SubjectTemplateIns()
         {
             return View();
