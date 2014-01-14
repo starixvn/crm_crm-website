@@ -11,11 +11,14 @@ namespace Fanex.CRM.Web.View.App_Start
 {
     using System.Web.Optimization;
 
+    /// <summary>
+    /// Bundle Config.
+    /// </summary>
     public class BundleConfig
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //bundles.Add(new ScriptBundle("~/bundles/js").Include("~/Scripts/*.js"));
+            // bundles.Add(new ScriptBundle("~/bundles/js").Include("~/Scripts/*.js"));
         }
     }
 }
