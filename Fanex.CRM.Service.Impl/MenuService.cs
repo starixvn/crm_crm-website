@@ -1,0 +1,158 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="MenuService.cs" company="Nexcel Solutions Vietnam">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.CRM.Service.Impl
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Service.Interface;
+    using Fanex.NAP.Core.Model;
+
+    /// <summary>
+    /// TODO: Update summary.
+    /// </summary>
+    public class MenuService : IMenuService
+    {
+        public const char UrlSeparator = '/';
+
+        /// <summary>
+        /// Gets the menu path from request file path.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="applicationPath">The application path.</param>
+        /// <returns>The menu path from request file path.</returns>
+        public static string GetMenuPathFromRequestFilePath(
+            string filePath,
+            string applicationPath)
+        {
+            filePath = filePath.Trim();
+            applicationPath = applicationPath.Trim();
+            var menuPath = filePath;
+            if (!string.IsNullOrEmpty(applicationPath) &&
+                menuPath.StartsWith(applicationPath) &&
+                AppSession.CurrentUserMenu != null)
+            {
+                menuPath = menuPath.Remove(0, applicationPath.Length);
+            }
+
+            if (!menuPath.StartsWith(UrlSeparator.ToString()))
+            {
+                menuPath = UrlSeparator + menuPath;
+            }
+
+            return menuPath;
+        }
+
+        /// <summary>
+        /// Gets the menu by identifier.
+        /// </summary>
+        /// <param name="menuId">The menu identifier.</param>
+        /// <returns>The menu by identifier.</returns>
+        public MenuItem GetMenuById(int menuId)
+        {
+            try
+            {
+                if (AppSession.CurrentUserMenu != null)
+                {
+                    MenuItem menu = AppSession.CurrentUserMenu
+                        .FirstOrDefault<MenuItem>(m => m.Id == menuId);
+                    return menu;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the menu by URL.
+        /// </summary>
+        /// <param name="menuURL">The menu URL.</param>
+        /// <returns>The menu by URL.</returns>
+        public MenuItem GetMenuByURL(string menuURL)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(menuURL) &&
+                    !string.Equals(menuURL, UrlSeparator.ToString()) &&
+                    AppSession.CurrentUserMenu != null)
+                {
+                    MenuItem menu = AppSession.CurrentUserMenu
+                        .FirstOrDefault<MenuItem>(m => m.Url.StartsWith(menuURL));
+                    return menu;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the menu by URL.
+        /// </summary>
+        /// <param name="menuURL">The menu URL.</param>
+        /// <param name="menuList">The menu list.</param>
+        /// <returns>The menu by URL.</returns>
+        public MenuItem GetMenuByURL(string menuURL, IList<MenuItem> menuList)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(menuURL) &&
+                    !string.Equals(menuURL, UrlSeparator.ToString()) &&
+                    AppSession.CurrentUserMenu != null)
+                {
+                    MenuItem menu = menuList.FirstOrDefault<MenuItem>(m => m.Url.StartsWith(menuURL));
+                    return menu;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the menu name by URL.
+        /// </summary>
+        /// <param name="menuURL">The menu URL.</param>
+        /// <returns>The menu name by URL.</returns>
+        public string GetMenuNameByURL(string menuURL)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(menuURL) &&
+                    !string.Equals(menuURL, UrlSeparator.ToString()) &&
+                    AppSession.CurrentUserMenu != null)
+                {
+                    MenuItem menu = AppSession.CurrentUserMenu
+                        .FirstOrDefault<MenuItem>(m => m.Url.StartsWith(menuURL));
+                    return menu.Name;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return null;
+        }
+    }
+}
