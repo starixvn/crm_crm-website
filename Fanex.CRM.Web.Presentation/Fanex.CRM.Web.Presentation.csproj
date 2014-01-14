@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependency\Fanex\Couchbase.dll</HintPath>
     </Reference>
+    <Reference Include="dotless.Core">
+      <HintPath>..\Dependency\dotless.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Caching, Version=1.0.4456.33785, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Caching.dll</HintPath>

@@ -255,3 +255,4 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\obj\Debu
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.EnterpriseLibrary.Logging.pdb
 F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+F:\Nexcel\GitLab\Rome\CRM\crm-website-branch\Fanex.CRM.Web.Presentation\bin\dotless.Core.dll
