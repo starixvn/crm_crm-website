@@ -35,13 +35,13 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result();
             try
             {
-                Check.Argument.IsValidIP(ip, "Ip");
-                result = CheckFeedbackPermission(feedback.Status.Id);
+                result = CheckFeedbackPermission(feedback.Status.Id, feedback.IsOverrideCrmInfo, true);
                 if (result != null && result.ErrCode != 0)
                 {
                     return result;
                 }
 
+                Check.Argument.IsValidIP(ip, "Ip");
                 _repository.AddGuestFeedback(entity, ip, ref result);
             }
             catch (Exception ex)
@@ -69,12 +69,13 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result();
             try
             {
-                Check.Argument.IsValidIP(ip, "Ip");
-                result = CheckFeedbackPermission(feedback.Status.Id);
+                result = CheckFeedbackPermission(feedback.Status.Id, feedback.IsOverrideCrmInfo, false);
                 if (result != null && result.ErrCode != 0)
                 {
                     return result;
                 }
+
+                Check.Argument.IsValidIP(ip, "Ip");
 
                 _repository.AddFeedback(entity, ip, ref result);
             }

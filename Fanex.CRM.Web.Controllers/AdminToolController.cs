@@ -19,6 +19,8 @@ namespace Fanex.CRM.Web.Controllers
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Impl;
     using Fanex.CRM.Service.Interface;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Admin Tool Controller.
@@ -42,42 +44,51 @@ namespace Fanex.CRM.Web.Controllers
             _feedbackService = feedbackService ?? new FeedbackService();
             _countryService = countryService ?? new CountryService();
         }
+
         #region Views
+        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingManagement.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult AddSettingRelation()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingManagement.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult SettingEdit()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingManagement.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult SettingIns()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingManagement.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult SettingManage()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.SettingRelationManagement.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult SettingRelation()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.FBSubjectTemplateManagement.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult SubjectTemplateManagement()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.FBSubjectTemplateManagement.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult SubjectTemplateEdit()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.AdminTool.FBSubjectTemplateManagement.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult SubjectTemplateIns()
         {
             return View();

@@ -18,7 +18,8 @@ namespace Fanex.CRM.Web.Controllers
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Impl;
     using Fanex.CRM.Service.Interface;
-    using Fanex.CRM.Web.Controllers.Helper;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Feedback Controller.
@@ -41,34 +42,27 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         #region Views
-
+        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.CreateFeedback.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult AddFeedback()
         {
             ViewBag.Title = "Add Feedback";
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.CreateFeedback.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult AddGuestFeedback()
         {
             ViewBag.Title = "Add Guest Feedback";
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.DeleteFeedback.ToString(), Policy = Constant.Policy.Host)]
         /// <summary>
         /// Deletes the feedback.
         /// </summary>
         /// <returns>Delete result.</returns>
         public ActionResult DeletedFeedback()
         {
-            if (!_permission.HasHostPermission(Enumerations.Functions.Feedback.DeleteFeedback.ToString()))
-            {
-                return new RedirectToRouteResult(new RouteValueDictionary(new
-                {
-                    controller = "Common",
-                    action = "AccessDenied"
-                }));
-            }
-
             return View();
         }
 
@@ -77,22 +71,26 @@ namespace Fanex.CRM.Web.Controllers
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.EditFeedback.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult ManageFeedback()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.EditFeedback.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult CustomerLastestFeedback()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = Enumerations.Functions.Feedback.EditFeedback.ToString(), Policy = Constant.Policy.Read)]
         public ActionResult EditFeedback()
         {
             return View();
         }
 
         #endregion
+
         #region Post Actions
 
         /// <summary>
