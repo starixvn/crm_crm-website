@@ -6,7 +6,7 @@
 }
 .chart_title 
 {
-    background: url("../../Content/Black2011/images/bg_head_tb.jpg") repeat-x scroll left bottom #FFFFFF; float: left; width: 100%; padding: 5px 0px;
+    background: url("../../Content/site/images/bg_head_tb.jpg") repeat-x scroll left bottom #FFFFFF; float: left; width: 100%; padding: 5px 0px;
     font-size: 13px;
     font-style: italic;
     font-weight: bold;
@@ -21,14 +21,14 @@
 .chart_title div.close 
 {
     float: right;width: 2%;
-    background: url(../../Content/Black2011/images/close_16_16.gif) no-repeat scroll 0 0 transparent;
+    background: url(../../Content/site/images/close_16_16.gif) no-repeat scroll 0 0 transparent;
     cursor: pointer;
     height: 16px;
 }
 .chart_title div.setting 
 {
     float: left;width: 6%;
-    background: url(../../Content/Black2011/images/setting.png) no-repeat scroll 0 0 transparent;
+    background: url(../../Content/site/images/setting.png) no-repeat scroll 0 0 transparent;
     cursor: pointer;
     height: 16px;
     margin-left: 3px;
