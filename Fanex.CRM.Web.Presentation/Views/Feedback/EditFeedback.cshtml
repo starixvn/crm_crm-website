@@ -434,11 +434,11 @@
         var desvalue = "";
         var solvalue = "";
         var revvalue = "";
-        var allowUpdateReview=@permission.HasHostPermission(Fanex.CRM.Infrastructure.Common.Enumerations.Functions.Feedback.FeedbackReview.ToString()).ToString().ToLower();
+        var allowUpdateReview=@permission.HasHostPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.FeedbackReview).ToString().ToLower();
         var inputMultipleRelatedNote="@Resources.Language.lblInputMultipleRealteFeedbackCustomerNote";
         var errMsgFeedbackDateGreatter='@Resources.ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate';
         var errMsgResolutionDateGreatter='@Resources.ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime';
-        var allowDeleteFeedback = @permission.HasHostPermission(Fanex.CRM.Infrastructure.Common.Enumerations.Functions.Feedback.DeleteFeedback.ToString()).ToString().ToLower();
+        var allowDeleteFeedback = @permission.HasHostPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.DeleteFeedback).ToString().ToLower();
         var clientTime = '@getClientTime';
 
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
