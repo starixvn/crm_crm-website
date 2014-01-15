@@ -119,9 +119,7 @@ var topFeedback = {
                 $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
             },
             complete: function () {
-
-                try { topwnd.UnBlockUI(); } catch (e) { }
-
+                try { topwnd.UnBlockUI(); } catch (e) { parent.jQuery.unblockUI(); }
             }
         });
     },
@@ -208,8 +206,9 @@ head.ready(function () {
     $("#lastedfeedbackgrid").initGrid(gridOpts);
 
     try { topwnd = findMainWindow(window); } catch (e) { }
+
     topFeedback.loadLastedFeedback(false);
-    
+
     $('body').mousedown(function (e) {
         if (e.button === 1) {
             return false;
