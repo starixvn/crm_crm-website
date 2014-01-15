@@ -42,6 +42,15 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="BundleTransformer.Core, Version=1.8.17.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\packages\BundleTransformer.Core.1.8.17\lib\net40\BundleTransformer.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BundleTransformer.Less, Version=1.8.14.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\packages\BundleTransformer.Less.1.8.14\lib\net40\BundleTransformer.Less.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.0.0\lib\net40\ClearScript.dll</HintPath>
+    </Reference>
     <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependency\Fanex\Couchbase.dll</HintPath>
@@ -61,6 +70,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Data.dll</HintPath>
     </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.1.0.0\lib\net40\JavaScriptEngineSwitcher.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.Msie">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.Msie.1.0.0\lib\net40\JavaScriptEngineSwitcher.Msie.dll</HintPath>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.V8">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.0.0\lib\net40\JavaScriptEngineSwitcher.V8.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,6 +97,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependency\NoSql\MongoDB\MongoDB.Driver.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="MsieJavaScriptEngine">
+      <HintPath>..\packages\MsieJavaScriptEngine.1.2.0\lib\net40\MsieJavaScriptEngine.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -148,110 +169,151 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Black2011\common.css" />
-    <Content Include="Content\Black2011\image.css" />
-    <Content Include="Content\Black2011\Images\accessDenied.gif" />
-    <Content Include="Content\Black2011\Images\ajax-loader.gif" />
-    <Content Include="Content\Black2011\Images\ajax_loader.gif" />
-    <Content Include="Content\Black2011\Images\arSub.gif" />
-    <Content Include="Content\Black2011\Images\arSub_hover.gif" />
-    <Content Include="Content\Black2011\Images\back.png" />
-    <Content Include="Content\Black2011\Images\bg-nav-top-left.jpg" />
-    <Content Include="Content\Black2011\Images\bg02_box01.jpg" />
-    <Content Include="Content\Black2011\Images\bg_checkbox.jpg" />
-    <Content Include="Content\Black2011\Images\bg_head_tb.jpg" />
-    <Content Include="Content\Black2011\Images\body.jpg" />
-    <Content Include="Content\Black2011\Images\Buttons\bg_btn.jpg" />
-    <Content Include="Content\Black2011\Images\Buttons\check.jpg" />
-    <Content Include="Content\Black2011\Images\Buttons\check_hover.jpg" />
-    <Content Include="Content\Black2011\Images\Buttons\icn_date.png" />
-    <Content Include="Content\Black2011\Images\Buttons\reload.png" />
-    <Content Include="Content\Black2011\Images\Buttons\uncheck.jpg" />
-    <Content Include="Content\Black2011\Images\Buttons\uncheck_hover.jpg" />
-    <Content Include="Content\Black2011\Images\button_icons.png" />
-    <Content Include="Content\Black2011\Images\calendar.gif" />
-    <Content Include="Content\Black2011\Images\calendar.jpg" />
-    <Content Include="Content\Black2011\Images\calendar1.gif" />
-    <Content Include="Content\Black2011\Images\calendar_disable.gif" />
-    <Content Include="Content\Black2011\Images\chart.gif" />
-    <Content Include="Content\Black2011\Images\close_16_16.gif" />
-    <Content Include="Content\Black2011\Images\C_content_tab.png" />
-    <Content Include="Content\Black2011\Images\de_01.gif" />
-    <Content Include="Content\Black2011\Images\de_01.jpg" />
-    <Content Include="Content\Black2011\Images\de_02.jpg" />
-    <Content Include="Content\Black2011\Images\document_a4_edit.png" />
-    <Content Include="Content\Black2011\Images\document_a4_remove.png" />
-    <Content Include="Content\Black2011\Images\emsg_1_1.gif" />
-    <Content Include="Content\Black2011\Images\emsg_1_2.gif" />
-    <Content Include="Content\Black2011\Images\emsg_1_3.gif" />
-    <Content Include="Content\Black2011\Images\emsg_2_1.gif" />
-    <Content Include="Content\Black2011\Images\emsg_2_2.gif" />
-    <Content Include="Content\Black2011\Images\emsg_3_1.gif" />
-    <Content Include="Content\Black2011\Images\emsg_3_2.gif" />
-    <Content Include="Content\Black2011\Images\emsg_3_3.gif" />
-    <Content Include="Content\Black2011\Images\error-icon.gif" />
-    <Content Include="Content\Black2011\Images\error.gif" />
-    <Content Include="Content\Black2011\Images\excel.gif" />
-    <Content Include="Content\Black2011\Images\excel_disable.gif" />
-    <Content Include="Content\Black2011\Images\expand.gif" />
-    <Content Include="Content\Black2011\Images\features.gif" />
-    <Content Include="Content\Black2011\Images\home_blue.png" />
-    <Content Include="Content\Black2011\Images\icn_add.png" />
-    <Content Include="Content\Black2011\Images\icn_del.png" />
-    <Content Include="Content\Black2011\Images\icn_edit.png" />
-    <Content Include="Content\Black2011\Images\icn_top.png" />
-    <Content Include="Content\Black2011\Images\icn_view.png" />
-    <Content Include="Content\Black2011\Images\ico1.png" />
-    <Content Include="Content\Black2011\Images\ico2.png" />
-    <Content Include="Content\Black2011\Images\icon-sprite.png" />
-    <Content Include="Content\Black2011\Images\iconslist.png" />
-    <Content Include="Content\Black2011\Images\icon_button02.gif" />
-    <Content Include="Content\Black2011\Images\icon_del.gif" />
-    <Content Include="Content\Black2011\Images\icon_down.gif" />
-    <Content Include="Content\Black2011\Images\icon_edit02.gif" />
-    <Content Include="Content\Black2011\Images\icon_up.gif" />
-    <Content Include="Content\Black2011\Images\ico_warning.png" />
-    <Content Include="Content\Black2011\Images\icRefresh.png" />
-    <Content Include="Content\Black2011\Images\icSettlement.gif" />
-    <Content Include="Content\Black2011\Images\imgBg.png" />
-    <Content Include="Content\Black2011\Images\loading100x100.gif" />
-    <Content Include="Content\Black2011\Images\logo-crm.png" />
-    <Content Include="Content\Black2011\Images\MainBg\1-happynewyear.jpg" />
-    <Content Include="Content\Black2011\Images\MainBg\2-happynewyear.png" />
-    <Content Include="Content\Black2011\Images\MainBg\header.jpg" />
-    <Content Include="Content\Black2011\Images\menu-sprite.png" />
-    <Content Include="Content\Black2011\Images\menudivide.gif" />
-    <Content Include="Content\Black2011\Images\menu_open.gif" />
-    <Content Include="Content\Black2011\Images\menu_open_right.gif" />
-    <Content Include="Content\Black2011\Images\News.png" />
-    <Content Include="Content\Black2011\Images\openclosedLeft.gif" />
-    <Content Include="Content\Black2011\Images\report_check.png" />
-    <Content Include="Content\Black2011\Images\scrollbar\osx_arrow_down.png" />
-    <Content Include="Content\Black2011\Images\scrollbar\osx_arrow_up.png" />
-    <Content Include="Content\Black2011\Images\scrollbar\osx_drag_bottom.png" />
-    <Content Include="Content\Black2011\Images\scrollbar\osx_drag_middle.png" />
-    <Content Include="Content\Black2011\Images\scrollbar\osx_drag_top.png" />
-    <Content Include="Content\Black2011\Images\scrollbar\osx_track.png" />
-    <Content Include="Content\Black2011\Images\sendmail-icon.png" />
-    <Content Include="Content\Black2011\Images\setting.png" />
-    <Content Include="Content\Black2011\Images\sprite.png" />
-    <Content Include="Content\Black2011\Images\sucess.gif" />
-    <Content Include="Content\Black2011\Images\TreeViewImg.gif" />
-    <Content Include="Content\Black2011\Images\udicon.gif" />
-    <Content Include="Content\Black2011\Images\view-detail.png" />
-    <Content Include="Content\Black2011\Images\view_ico.gif" />
-    <Content Include="Content\Black2011\Images\waiting7.gif" />
-    <Content Include="Content\Black2011\Images\WebResource.axd.png" />
-    <Content Include="Content\Black2011\Images\white-top-bottom.gif" />
-    <Content Include="Content\Black2011\input.css" />
-    <Content Include="Content\Black2011\Message.css" />
-    <Content Include="Content\Black2011\reportgrid.css" />
-    <Content Include="Content\Black2011\table.css" />
-    <Content Include="Configurations\StoreProcedure.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <None Include="ClearScript.V8\ClearScriptV8-32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ClearScript.V8\ClearScriptV8-64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ClearScript.V8\v8-ia32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ClearScript.V8\v8-x64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\site\common.less" />
+    <None Include="Content\site\image.less" />
+    <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Content\site\Images\accessDenied.gif" />
+    <Content Include="Content\site\Images\ajax-loader.gif" />
+    <Content Include="Content\site\Images\ajax_loader.gif" />
+    <Content Include="Content\site\Images\arSub.gif" />
+    <Content Include="Content\site\Images\arSub_hover.gif" />
+    <Content Include="Content\site\Images\back.png" />
+    <Content Include="Content\site\Images\bg-nav-top-left.jpg" />
+    <Content Include="Content\site\Images\bg02_box01.jpg" />
+    <Content Include="Content\site\Images\bg_checkbox.jpg" />
+    <Content Include="Content\site\Images\bg_head_tb.jpg" />
+    <Content Include="Content\site\Images\body.jpg" />
+    <Content Include="Content\site\Images\Buttons\bg_btn.jpg" />
+    <Content Include="Content\site\Images\Buttons\check.jpg" />
+    <Content Include="Content\site\Images\Buttons\check_hover.jpg" />
+    <Content Include="Content\site\Images\Buttons\icn_date.png" />
+    <Content Include="Content\site\Images\Buttons\reload.png" />
+    <Content Include="Content\site\Images\Buttons\uncheck.jpg" />
+    <Content Include="Content\site\Images\Buttons\uncheck_hover.jpg" />
+    <Content Include="Content\site\Images\button_icons.png" />
+    <Content Include="Content\site\Images\calendar.gif" />
+    <Content Include="Content\site\Images\calendar.jpg" />
+    <Content Include="Content\site\Images\calendar1.gif" />
+    <Content Include="Content\site\Images\calendar_disable.gif" />
+    <Content Include="Content\site\Images\chart.gif" />
+    <Content Include="Content\site\Images\close_16_16.gif" />
+    <Content Include="Content\site\Images\C_content_tab.png" />
+    <Content Include="Content\site\Images\de_01.gif" />
+    <Content Include="Content\site\Images\de_01.jpg" />
+    <Content Include="Content\site\Images\de_02.jpg" />
+    <Content Include="Content\site\Images\document_a4_edit.png" />
+    <Content Include="Content\site\Images\document_a4_remove.png" />
+    <Content Include="Content\site\Images\emsg_1_1.gif" />
+    <Content Include="Content\site\Images\emsg_1_2.gif" />
+    <Content Include="Content\site\Images\emsg_1_3.gif" />
+    <Content Include="Content\site\Images\emsg_2_1.gif" />
+    <Content Include="Content\site\Images\emsg_2_2.gif" />
+    <Content Include="Content\site\Images\emsg_3_1.gif" />
+    <Content Include="Content\site\Images\emsg_3_2.gif" />
+    <Content Include="Content\site\Images\emsg_3_3.gif" />
+    <Content Include="Content\site\Images\error-icon.gif" />
+    <Content Include="Content\site\Images\error.gif" />
+    <Content Include="Content\site\Images\excel.gif" />
+    <Content Include="Content\site\Images\excel_disable.gif" />
+    <Content Include="Content\site\Images\expand.gif" />
+    <Content Include="Content\site\Images\features.gif" />
+    <Content Include="Content\site\Images\home_blue.png" />
+    <Content Include="Content\site\Images\icn_add.png" />
+    <Content Include="Content\site\Images\icn_del.png" />
+    <Content Include="Content\site\Images\icn_edit.png" />
+    <Content Include="Content\site\Images\icn_top.png" />
+    <Content Include="Content\site\Images\icn_view.png" />
+    <Content Include="Content\site\Images\ico1.png" />
+    <Content Include="Content\site\Images\ico2.png" />
+    <Content Include="Content\site\Images\icon-arrow-down.png" />
+    <Content Include="Content\site\Images\icon-expand.png" />
+    <Content Include="Content\site\Images\icon-sprite.png" />
+    <Content Include="Content\site\Images\iconslist.png" />
+    <Content Include="Content\site\Images\icon_button02.gif" />
+    <Content Include="Content\site\Images\icon_del.gif" />
+    <Content Include="Content\site\Images\icon_down.gif" />
+    <Content Include="Content\site\Images\icon_edit02.gif" />
+    <Content Include="Content\site\Images\icon_up.gif" />
+    <Content Include="Content\site\Images\ico_warning.png" />
+    <Content Include="Content\site\Images\icRefresh.png" />
+    <Content Include="Content\site\Images\icSettlement.gif" />
+    <Content Include="Content\site\Images\imgBg.png" />
+    <Content Include="Content\site\Images\loading100x100.gif" />
+    <Content Include="Content\site\Images\logo-crm.png" />
+    <Content Include="Content\site\Images\MainBg\1-happynewyear.jpg" />
+    <Content Include="Content\site\Images\MainBg\2-happynewyear.png" />
+    <Content Include="Content\site\Images\MainBg\header.jpg" />
+    <Content Include="Content\site\Images\menu-sprite.png" />
+    <Content Include="Content\site\Images\menudivide.gif" />
+    <Content Include="Content\site\Images\menu_open.gif" />
+    <Content Include="Content\site\Images\menu_open_right.gif" />
+    <Content Include="Content\site\Images\News.png" />
+    <Content Include="Content\site\Images\openclosedLeft.gif" />
+    <Content Include="Content\site\Images\report_check.png" />
+    <Content Include="Content\site\Images\scrollbar\osx_arrow_down.png" />
+    <Content Include="Content\site\Images\scrollbar\osx_arrow_up.png" />
+    <Content Include="Content\site\Images\scrollbar\osx_drag_bottom.png" />
+    <Content Include="Content\site\Images\scrollbar\osx_drag_middle.png" />
+    <Content Include="Content\site\Images\scrollbar\osx_drag_top.png" />
+    <Content Include="Content\site\Images\scrollbar\osx_track.png" />
+    <Content Include="Content\site\Images\sendmail-icon.png" />
+    <Content Include="Content\site\Images\setting.png" />
+    <Content Include="Content\site\Images\sprite.png" />
+    <Content Include="Content\site\Images\sucess.gif" />
+    <Content Include="Content\site\Images\TreeViewImg.gif" />
+    <Content Include="Content\site\Images\udicon.gif" />
+    <Content Include="Content\site\Images\view-detail.png" />
+    <Content Include="Content\site\Images\view_ico.gif" />
+    <Content Include="Content\site\Images\waiting7.gif" />
+    <Content Include="Content\site\Images\WebResource.axd.png" />
+    <Content Include="Content\site\Images\white-top-bottom.gif" />
+    <None Include="Content\site\input.less" />
+    <None Include="Content\site\Message.less" />
+    <None Include="Content\site\reportgrid.less" />
+    <None Include="Content\site\table.less" />
+    <Content Include="Content\bootstrap\css\bootstrap-ie7.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.css" />
+    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Content\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\lib\jquery-ui\images\ui-bg_flat_60_4264ac_40x100.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-bg_flat_75_5476bb_40x100.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-bg_flat_90_466bb9_40x100.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-bg_flat_90_aaaaaa_40x100.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-bg_glass_45_f4f3f1_1x400.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-bg_highlight-soft_90_999999_1x100.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-icons_4264ac_256x240.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-icons_c6cddc_256x240.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-icons_cbd4e6_256x240.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-icons_d0d9ec_256x240.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="Content\lib\jquery-ui\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="Content\lib\jquery-ui\jquery-ui-1.8.23.smoothness.css" />
+    <Content Include="Content\lib\jquery-ui\jquery-ui-1.9.1.custom.css" />
+    <Content Include="Content\lib\jquery-ui\jquery-ui-1.9.1.custom.min.css" />
+    <Content Include="Content\lib\jquery-ui\jquery.selectBoxIt.css" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\autocomplete\autocomplete.js" />
     <Content Include="Scripts\autocomplete\jquery.autocomplete.client.js" />
     <Content Include="Scripts\autocomplete\jquery.autocomplete.js" />
@@ -322,6 +384,7 @@
     <Content Include="Scripts\Paging\jpagergopage.js" />
     <Content Include="Scripts\Paging\pagination.css" />
     <Content Include="Scripts\RegExpValidate.js" />
+    <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\showhidepopup.js" />
     <Content Include="Scripts\smoothmenu\bottomShadownLeft.png" />
     <Content Include="Scripts\smoothmenu\center.jpg" />
@@ -405,31 +468,32 @@
     <Content Include="Views\Feedback\Styles\Images\sucess.gif" />
     <Content Include="Views\Feedback\Styles\Images\warning.png" />
     <Content Include="Views\Feedback\Styles\StyleSheet.css" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_flat_30_cccccc_40x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_flat_50_5c5c5c_40x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_glass_20_555555_1x400.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_glass_40_0078a3_1x400.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_glass_40_f58400_1x400.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_glass_40_ffc73d_1x400.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_gloss-wave_25_333333_500x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_gloss-wave_25_504e4e_500x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_gloss-wave_25_555855_500x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_000000_1x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_4b4444_1x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_726e6e_1x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_808080_1x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_25_9c9c9c_1x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-bg_inset-soft_30_f58400_1x100.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_4b8e0b_256x240.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_a83300_256x240.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_cccccc_256x240.png" />
-    <Content Include="Content\Black2011\ui-darkness\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="Content\Black2011\ui-darkness\jquery-ui-1.8.14.custom.css" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_flat_30_cccccc_40x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_flat_50_5c5c5c_40x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_glass_20_555555_1x400.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_glass_40_0078a3_1x400.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_glass_40_f58400_1x400.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_glass_40_ffc73d_1x400.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_gloss-wave_25_333333_500x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_gloss-wave_25_504e4e_500x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_gloss-wave_25_555855_500x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_highlight-soft_80_eeeeee_1x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_000000_1x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_4b4444_1x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_726e6e_1x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_808080_1x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_25_9c9c9c_1x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-bg_inset-soft_30_f58400_1x100.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-icons_4b8e0b_256x240.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-icons_a83300_256x240.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-icons_cccccc_256x240.png" />
+    <Content Include="Content\site\ui-darkness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\AssignMenu.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
-    <Content Include="Views\Home\Styles\default.css" />
+    <Content Include="Views\Home\Menu.cshtml" />
+    <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Styles\Images\arSub.gif" />
     <Content Include="Views\Home\Styles\Images\arSub_hover.gif" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
@@ -603,6 +667,11 @@
     <Content Include="Views\AdminTool\SubjectTemplateIns.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Content\site\variables.less" />
     <None Include="IbcKeys\ibckeydec.snk" />
     <None Include="IbcKeys\ibcpkey.snk" />
     <Content Include="IbcKeys\Web.config" />

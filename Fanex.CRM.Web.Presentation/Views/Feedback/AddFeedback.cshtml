@@ -1,4 +1,4 @@
-﻿@using Fanex.CRM.Web.Controllers.Helper
+﻿@using Fanex.CRM.Infrastructure.Common
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,7 +8,7 @@
     <link href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/InputBox/style.css")" rel="stylesheet" type="text/css" />
     
-    <link href="@Url.Content("~/Content/Black2011/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.css?ver=1")" rel="stylesheet" type="text/css" />    
 </head>
 <body>
@@ -26,7 +26,7 @@
             <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
                 <tr>
                     <td class="maincontent_headerL">
-                        <img class="maincontent_iconLeft" alt="" src="../Content/Black2011/Images/imgBg.png" />
+                        <img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png" />
                     </td>
                     <td class="maincontent_headerC">
                         Add Customer Feedback
@@ -424,7 +424,7 @@
          var inputMultipleRelatedNote="@Resources.Language.lblInputMultipleRealteFeedbackCustomerNote";
          var errMsgFeedbackDateGreatter='@Resources.ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate';
          var errMsgResolutionDateGreatter='@Resources.ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime';
-         var allowDeleteFeedback = @permission.GetHostPermission(Fanex.CRM.Infrastructure.Common.Enumerations.Functions.Feedback.DeleteFeedback, AppSession.RoleAccess).ToString().ToLower();
+         var allowDeleteFeedback = @permission.HasHostPermission(FunctionPermission.DeleteFeedback).ToString().ToLower();
          var clientTime = '@getClientTime';
 
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {

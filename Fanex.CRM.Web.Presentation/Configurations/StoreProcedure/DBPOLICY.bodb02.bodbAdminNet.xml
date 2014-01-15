@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Functions>
+  <Function Name="Security">
+    <Setting Key="FileNameSelByCustID" SpName="Acc_Con_FileNameSelByCustID" DbName="DBPOLICY.bodb02.bodbAdminNet" />
+  </Function>
+  <Function Name="User">
+    <Setting Key="MenuSelByCustID" SpName="Acc_MenuSelByCustID" DbName="DBPOLICY.bodb02.bodbAdminNet" />
+  </Function>
+</Functions>

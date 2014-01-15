@@ -64,7 +64,6 @@
     <Compile Include="IBankInfo.cs" />
     <Compile Include="MailFormat.cs" />
     <Compile Include="Mails.cs" />
-    <Compile Include="Menu.cs" />
     <Compile Include="ICustomerInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatedCustomer.cs" />

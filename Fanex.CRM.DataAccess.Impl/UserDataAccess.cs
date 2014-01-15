@@ -42,57 +42,7 @@ namespace Fanex.CRM.DataAccess.Impl
 
             return user;
         }
-
-        /// <summary>
-        /// Gets the menu.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns>The menu information.</returns>
-        public IEnumerable<Menu> GetMenu(int userId)
-        {
-            var menus = new List<Menu>();
-            using (var obj = new ObjectDb("MenuSelByCustID"))
-            {
-                var param = new Hashtable { { "custid", userId }, { "system", "CRM" } };
-                obj.AssignParamValues(param);
-                using (var reader = obj.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            var menu = new Menu
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("MenuId")),
-                                Name = reader.IsDBNull(reader.GetOrdinal("Menu"))
-                                           ? string.Empty
-                                           : reader.GetString(reader.GetOrdinal("Menu")),
-                                Url = reader.IsDBNull(reader.GetOrdinal("url"))
-                                          ? string.Empty
-                                          : reader.GetString(reader.GetOrdinal("url")).Replace(".aspx", string.Empty),
-                                Order = reader.IsDBNull(reader.GetOrdinal("Order"))
-                                            ? 0
-                                            : reader.GetInt32(reader.GetOrdinal("Order"))
-                            };
-
-                            var parentId = reader.IsDBNull(reader.GetOrdinal("parentid"))
-                                             ? 0
-                                             : reader.GetInt32(reader.GetOrdinal("parentid"));
-
-                            if (parentId > 0)
-                            {
-                                menu.Parent = new Menu { Id = parentId };
-                            }
-
-                            menus.Add(menu);
-                        }
-                    }
-                }
-            }
-
-            return menus;
-        }
-
+        
         /// <summary>
         /// Update online user information.
         /// </summary>
