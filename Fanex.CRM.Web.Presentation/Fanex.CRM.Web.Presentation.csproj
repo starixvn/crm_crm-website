@@ -48,9 +48,6 @@
     <Reference Include="BundleTransformer.Less, Version=1.8.14.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
       <HintPath>..\packages\BundleTransformer.Less.1.8.14\lib\net40\BundleTransformer.Less.dll</HintPath>
     </Reference>
-    <Reference Include="ClearScript">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.0.0\lib\net40\ClearScript.dll</HintPath>
-    </Reference>
     <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependency\Fanex\Couchbase.dll</HintPath>
@@ -169,18 +166,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClearScript.V8\ClearScriptV8-32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ClearScript.V8\ClearScriptV8-64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ClearScript.V8\v8-ia32.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ClearScript.V8\v8-x64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Content\site\common.less" />
     <None Include="Content\site\image.less" />
     <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
@@ -447,7 +432,7 @@
     <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left.png" />
     <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left_hover.png" />
     <Content Include="Views\Customer\Styles\Images\L_banner\R_tab_left.png" />
-    <Content Include="Views\Customer\Styles\StyleSheet.css" />
+    <None Include="Views\Customer\Styles\StyleSheet.less" />
     <Content Include="Views\Feedback\Scripts\addfeedback.js" />
     <Content Include="Views\Feedback\Scripts\addguestfeedback.js" />
     <Content Include="Views\Feedback\Scripts\CustomerLastestFeedback.js" />

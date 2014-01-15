@@ -135,9 +135,9 @@ crmInfo = {
                         loadUpline(customer.Id);
                         $("#box_02_headertext").html(customer.UserName);
                         //assign customer information
-                        $("#tmplCustInfo").tmpl(customer).appendTo("#tbodyCustInfo");
+                        //$("#tmplCustInfo").tmpl(customer).appendTo("#tbodyCustInfo");
                         //Assign detail data
-                        $("#tmplDetail").tmpl(customer).appendTo("#divDetail");
+                        //$("#tmplDetail").tmpl(customer).appendTo("#divDetail");
                         //divLoading.css("display", "none");
                         crmInfo.divContent.css("display", "block");
                         $("#errmsg").html("");

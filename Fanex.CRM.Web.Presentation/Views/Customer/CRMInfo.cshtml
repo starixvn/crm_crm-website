@@ -3,12 +3,125 @@
 <head>
     <title>Customer Info </title>
     <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Views/Customer/Styles/StyleSheet.css?ver=1")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Views/Customer/Styles/StyleSheet.less?ver=1")" rel="stylesheet" type="text/css" />
 </head>
-<body>  
-    
+<body>
     <div id="errmsg"></div>
-    <div style="width: 100%; text-align: center; display:none;" id="divContent">
+    <div class="container left-container" style="width: 100%; text-align: center; display:none;" id="divContent">
+        <div class="row item">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Super:</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Staff</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Active</div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Master:</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Dept15</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Active</div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Agent:</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Dept1501</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Active</div>
+        </div>
+        <div class="row item current">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Member:</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">uixc102</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Active</div>
+        </div>
+        <div class="row item">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Danger:</div>
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-left">Orginal</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-left">ABT</div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-left">Other Sport</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-left">Level3</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-left">Level0</div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-left">Level0</div>
+                </div>
+            </div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Site</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left"> ${Site.Value}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Country</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${CountryName}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">First Name</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${CustomerInfo.FirstName}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Last Name</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${CustomerInfo.LastName}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Nick Name</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${NickName}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Language</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left"></div>
+        </div>
+        <div class="row item title">
+            Communication Tool
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Phone 1</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${CustomerInfo.Phone}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Phone 2</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left"></div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Phone 3</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left"></div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Mobile</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${CustomerInfo.MobilePhone}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Email</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${CustomerInfo.Email}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">MSN</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left"></div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Skype</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${CustomerInfo.Skype}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">PIC1</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${Pic1}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">PIC2</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${Pic2}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">PIC3</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">${Pic3}</div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">PIC4</div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left"></div>
+        </div>
+        <div class="row item no-border-bg">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left"></div>
+            <div class="col-xs-8 col-sm-8 col-md-8 text-left">
+                <button class="btn pull-right"><span class="hotkey">U</span>pdate</button>
+            </div>
+        </div>
+    </div>
+    @*<div style="width: 100%; text-align: center; display:none;" id="divContent">
         <div id="left_panel">
             <div class="box_line">
             </div>
@@ -34,10 +147,10 @@
                         </tbody>
                     </table>
                 </div>
-                <!--end upline box-->
+                
                 <div class="spacing">
                 </div>
-                <!--customer detail-->
+                
                 <div class="box_header">
                     <div style="padding-top: 2px;">
                         <div style="float: left; width: 220px; height:20px">
@@ -221,7 +334,7 @@
             <div class="box_bottom">
             </div>
         </div>
-    </div>
+    </div>*@
     
     <div id="divPopup" class="selector" style="display: none; ">Do you want to search guest customer's information?</div>
 
