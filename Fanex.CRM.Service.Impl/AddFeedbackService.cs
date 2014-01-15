@@ -35,13 +35,13 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result();
             try
             {
-                result = CheckFeedbackPermission(feedback.Status.Id, feedback.IsOverrideCrmInfo, true);
+                Check.Argument.IsValidIP(ip, "Ip");
+                result = CheckFeedbackPermission(feedback.Status.Id);
                 if (result != null && result.ErrCode != 0)
                 {
                     return result;
                 }
 
-                Check.Argument.IsValidIP(ip, "Ip");
                 _repository.AddGuestFeedback(entity, ip, ref result);
             }
             catch (Exception ex)
@@ -69,13 +69,12 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result();
             try
             {
-                result = CheckFeedbackPermission(feedback.Status.Id, feedback.IsOverrideCrmInfo, false);
+                Check.Argument.IsValidIP(ip, "Ip");
+                result = CheckFeedbackPermission(feedback.Status.Id);
                 if (result != null && result.ErrCode != 0)
                 {
                     return result;
                 }
-
-                Check.Argument.IsValidIP(ip, "Ip");
 
                 _repository.AddFeedback(entity, ip, ref result);
             }
@@ -100,7 +99,7 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result(0, string.Empty);
             try
             {
-                if (!_permissionService.HasHostPermission(FunctionPermission.FBSubjectTemplateManagement))
+                if (!_permissionService.GetHostPermission(Enumerations.Functions.AdminTool.FBSubjectTemplateManagement))
                 {
                     return ReturnErrorResult(500, "lblNoInsertFBSubjectTemplate");
                 }

@@ -22,7 +22,7 @@
 .grid-title{
     border:0;
     border-bottom:solid 1px #4b4e50;    
-    background: url("../../content/site/images/WebResource.axd.png") repeat-x scroll 0 -97px  #000;
+    background: url("../../content/black2011/images/WebResource.axd.png") repeat-x scroll 0 -97px  #000;
     height:23px;
     font-weight:700;
     vertical-align:middle;    
@@ -30,7 +30,7 @@
 .grid-pager {
     border:0;
     border-top:solid 1px #4b4e50;
-    background: url("../../content/site/images/WebResource.axd.png") repeat-x scroll 0 -97px  #000;
+    background: url("../../content/black2011/images/WebResource.axd.png") repeat-x scroll 0 -97px  #000;
     height:23px;
     vertical-align:middle;
     position:absolute;
@@ -233,7 +233,7 @@ div.z999 {
 .grid-paging{
     border:0;
     border-bottom:solid 1px #4b4e50;    
-    background: url("../../content/site/images/WebResource.axd.png") repeat-x scroll 0 -97px  #000;
+    background: url("../../content/black2011/images/WebResource.axd.png") repeat-x scroll 0 -97px  #000;
     height:23px;
     font-weight:700;
     vertical-align:middle;

@@ -9,7 +9,7 @@ body{margin-top:2px;line-height:21px;padding:0;}
     overflow-x: auto;
     overflow-y: hidden;
     width: 248px;}
-.box_header{width:251px;margin-left:2px;height:26px;background:url(../../../Content/site/Images/WebResource.axd.png) repeat-x 0 -408px;}
+.box_header{width:251px;margin-left:2px;height:26px;background:url(../../../Content/Black2011/Images/WebResource.axd.png) repeat-x 0 -408px;}
 #box_02_headertext{font-size:11px;font-weight:700;text-transform:uppercase;text-align:left;padding-left:2px;color: whitesmoke;}
 .text_org{color:#d66d35;text-align:left;font-weight:700;}
 .text_red{color:#E00;text-align:left;font-weight:700;}
@@ -72,7 +72,7 @@ input[type=text]{width:180px;}
 
 
 
-.downup{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat 0 -22px;width:20px;height:20px;vertical-align:middle;border:none; margin: -5px 0 0 1px;}
-.downup:hover{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat -25px -22px;width:20px;height:20px;vertical-align:middle;border:none; margin: -5px 0 0 1px;}
-.updown{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat -3px 0;width:20px;height:20px;vertical-align:middle;border:none; margin: -5px 0 0 1px;}
-.updown:hover{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat -28px 0px;width:20px;height:20px;vertical-align:middle;border:none; margin: -5px 0 0 1px;}
+.downup{cursor:pointer;outline:none;background:url("../../../Content/Black2011/Images/udicon.gif") no-repeat 0 -22px;width:20px;height:20px;vertical-align:middle;border:none; margin: -5px 0 0 1px;}
+.downup:hover{cursor:pointer;outline:none;background:url("../../../Content/Black2011/Images/udicon.gif") no-repeat -25px -22px;width:20px;height:20px;vertical-align:middle;border:none; margin: -5px 0 0 1px;}
+.updown{cursor:pointer;outline:none;background:url("../../../Content/Black2011/Images/udicon.gif") no-repeat -3px 0;width:20px;height:20px;vertical-align:middle;border:none; margin: -5px 0 0 1px;}
+.updown:hover{cursor:pointer;outline:none;background:url("../../../Content/Black2011/Images/udicon.gif") no-repeat -28px 0px;width:20px;height:20px;vertical-align:middle;border:none; margin: -5px 0 0 1px;}

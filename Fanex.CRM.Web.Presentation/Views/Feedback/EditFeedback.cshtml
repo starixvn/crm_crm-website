@@ -1,4 +1,4 @@
-﻿@using Fanex.CRM.Infrastructure.Common
+﻿@using Fanex.CRM.Web.Controllers.Helper
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,7 +9,7 @@
     <link href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/InputBox/style.css")" rel="stylesheet" type="text/css" />
     
-    <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Black2011/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.css")" rel="stylesheet" type="text/css" />    
     <style type="text/css">        
             /* css for timepicker */
@@ -37,7 +37,7 @@
             <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
                 <tr>
                     <td class="maincontent_headerL">
-                        <img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png"/>
+                        <img class="maincontent_iconLeft" alt="" src="../Content/Black2011/Images/imgBg.png"/>
                     </td>
                     <td class="maincontent_headerC">
                         Edit Customer Feedback
@@ -434,11 +434,11 @@
         var desvalue = "";
         var solvalue = "";
         var revvalue = "";
-        var allowUpdateReview=@permission.HasHostPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.FeedbackReview).ToString().ToLower();
+        var allowUpdateReview=@permission.GetHostPermission(Fanex.CRM.Infrastructure.Common.Enumerations.Functions.Feedback.FeedbackReview, AppSession.RoleAccess).ToString().ToLower();
         var inputMultipleRelatedNote="@Resources.Language.lblInputMultipleRealteFeedbackCustomerNote";
         var errMsgFeedbackDateGreatter='@Resources.ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate';
         var errMsgResolutionDateGreatter='@Resources.ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime';
-        var allowDeleteFeedback = @permission.HasHostPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.DeleteFeedback).ToString().ToLower();
+        var allowDeleteFeedback = @permission.GetHostPermission(Fanex.CRM.Infrastructure.Common.Enumerations.Functions.Feedback.DeleteFeedback, AppSession.RoleAccess).ToString().ToLower();
         var clientTime = '@getClientTime';
 
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {

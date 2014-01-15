@@ -10,110 +10,133 @@
 namespace Fanex.CRM.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
+    using System.Web;
     using System.Web.Mvc;
+    using System.Web.Routing;
+    using System.Web.Security;
+    using Fanex.CRM.Entities;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Configuration;
     using Fanex.CRM.Service.Impl;
-    using Fanex.NAP.Core.Business;
-    using Fanex.NAP.Core.Configuration;
-    using Fanex.NAP.Core.Service.Impl;
-    using Fanex.NAP.Core.Service.Interface;
-    using Fanex.NAP.Core.Web;
-    using Fanex.NAP.Core.Web.Context;
-    using Fanex.NAP.Core.Web.Session;
+    using Fanex.CRM.Service.Interface;
+    using Fanex.CRM.Web.Controllers.Helper;
 
     /// <summary>
     /// Base Controller.
     /// </summary>
     public class BaseController : Controller
     {
-        protected readonly ICurrentContext CurrentContext;
+        private readonly IPermissionService _permissionService;
 
-        protected readonly ICurrentSession CurrentSession;
-
-        protected readonly IServiceContext ServiceContext;
-
-        protected readonly string Environment = NapSettings.Settings.Environment;
-
-        protected readonly int SiteId = NapSettings.Settings.SiteId;
-
-        private int _issiteLogin = NapSettings.Settings.IsSiteLogin;
-
-        private ViewFlags _viewFlags;
-
-        private MenuService _menuService;
+        private readonly IUserService _userService;
 
         public BaseController()
+            : this(null, null)
         {
-            this.CurrentContext = new CurrentContext();
-            ViewBag.Session = this.CurrentSession = new CurrentSession();
-            this.ServiceContext = new ServiceContext
-            {
-                UserId = this.CurrentSession.UserId,
-                SiteId = this.SiteId,
-                Ip = this.CurrentContext.IP
-            };
-
-            ViewFlags = new ViewFlags
-            {
-                IsLive = this.Environment.Equals(Constant.LIVE),
-                HasEditRight = false
-            };
-            this._menuService = new MenuService();
         }
+
+        public BaseController(IPermissionService permissionService, IUserService userService)
+        {
+            _permissionService = permissionService ?? new PermissionService();
+            _userService = userService ?? new UserService();
+        }
+        
+        protected ActionResult ForceLogin()
+        {
+            return Redirect(Fanex.CRM.Infrastructure.Common.AppSetting.AccountingUrlDefault);
+        }
+
+        #region PrivateFunctions
 
         /// <summary>
-        /// Gets Indicates whether the current site allows users login directly.
-        /// If "0", users must login through NAP Hub.
-        /// </summary>
-        /// <value>
-        /// The is site login.
-        /// </value>        
-        public int IsSiteLogin
-        {
-            get
-            {
-                return this._issiteLogin;
-            }
-        }
-
-        protected ViewFlags ViewFlags
-        {
-            get
-            {
-                return ViewBag.ViewFlags;
-            }
-
-            set
-            {
-                ViewBag.ViewFlags = this._viewFlags = value;
-            }
-        }
-
-        /// <summary>
-        /// Execute before each request, if Downtime then go to Downtime page
-        /// Or not Authenticate will go to Login Page.
+        /// Called before the action method is invoked.
         /// </summary>
         /// <param name="filterContext">Information about the current request and action.</param>
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            AppSession.CurrentActionName = filterContext.ActionDescriptor.ActionName;
+            if (AppSetting.IsLocalTest)
+            {
+                GetSessionForLocalTest();
+            }
+            else
+            {
+                var isOnline = _userService.CheckUserOnlineStatus();
+                if (isOnline.ErrCode != 0)
+                {
+                    ForceLogin();
+                }
+            }
+
+            if (!WebConfigApplicationSettings.NotAuthenticateAction.Contains(filterContext.ActionDescriptor.ActionName.ToLower()))
+            {
+                if (AppSession.RoleAccess == null ||
+                    AppSession.PageAccess == null ||
+                    AppSession.CurrentUser == null)
+                {
+                    System.Web.HttpContext.Current.Session.Clear();
+                    var cookie = new HttpCookie(FormsAuthentication.FormsCookieName) { Expires = DateTime.Now.AddDays(-1) };
+                    System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
+                    FormsAuthentication.SignOut();
+                    filterContext.Result = ForceLogin();
+                }
+            }
+
             base.OnActionExecuting(filterContext);
         }
 
-        protected override void OnResultExecuting(ResultExecutingContext filterContext)
+        private static void AccessDenied(ActionExecutingContext filterContext)
         {
-            // Get current working on menu for getting display name,... on webpage
-            if (filterContext.Result is ViewResult && string.Equals(AppSession.CurrentActionName, "Index", StringComparison.OrdinalIgnoreCase))
+            filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
             {
-                var menuPath = MenuService.GetMenuPathFromRequestFilePath(filterContext.HttpContext.Request.FilePath, Request.ApplicationPath);
-                string controllerName = (string)filterContext.RouteData.Values["controller"];
-                AppSession.CurrentWorkingOnMenu = this._menuService.GetMenuByURL(menuPath);
-            }
+                controller = "Common",
+                action = "AccessDenied"
+            }));
         }
 
-        protected ActionResult ForceLogin()
+        /// <summary>
+        /// Gets the session for local test.
+        /// </summary>
+        private void GetSessionForLocalTest()
         {
-            return Redirect(Fanex.CRM.Infrastructure.Common.AppSetting.LoginUrl);
+            var userName = AppSetting.TestAccount;
+            var sid = string.Empty;
+
+            var user = new User();
+            IUserService accountService = new UserService();
+            user = accountService.GetUseInfo(userName);
+            AppSession.CurrentUser = user;
+            if (user == null)
+            {
+                ForceLogin();
+            }
+
+            if (!string.IsNullOrEmpty(sid) &&
+                !string.IsNullOrEmpty(AppSession.UserSessionId) &&
+                !sid.Equals(AppSession.UserSessionId))
+            {
+                System.Web.HttpContext.Current.Session.Clear();
+            }
+
+            if (!string.IsNullOrEmpty(sid))
+            {
+                AppSession.UserSessionId = sid;
+            }
+
+            FormsAuthentication.SetAuthCookie(user.Username, false);
+            if (AppSession.PageAccess == null || AppSession.RoleAccess == null)
+            {
+                var userRoleAccess = new Dictionary<string, int>();
+                var userPageAccess = new Dictionary<string, int>();
+
+                _userService.AssignRoles(user.Id, ref userRoleAccess, ref userPageAccess);
+                AppSession.PageAccess = userPageAccess;
+                AppSession.RoleAccess = userRoleAccess;
+            }
+
+            AppSession.UserMenu = _userService.GetUserMenu(user.Id);
         }
+
+        #endregion PrivateFunctions
     }
 }

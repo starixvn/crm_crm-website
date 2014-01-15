@@ -41,15 +41,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependency\DNAide.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Dependency\Fanex\Fanex.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.NAP.Core, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Dependency\Fanex\Fanex.NAP.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.NAP.Framework, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Dependency\Fanex\Fanex.NAP.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MongoDB.Bson, Version=1.4.0.4468, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -88,6 +79,8 @@
     <Compile Include="AdminToolController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="CommonController.cs" />
+    <Compile Include="CommonFilters\AuthenticateHost.cs" />
+    <Compile Include="CommonFilters\AuthenticateRead.cs" />
     <Compile Include="CommonFilters\LogExceptionFilter.cs" />
     <Compile Include="CustomerController.cs" />
     <Compile Include="FeedbackController.cs" />
@@ -95,7 +88,6 @@
     <Compile Include="HomeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportsController.cs" />
-    <Compile Include="UserLoginController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">

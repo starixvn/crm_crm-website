@@ -91,7 +91,7 @@ namespace Fanex.CRM.Service.Impl
         {
             try
             {
-                HttpContext.Current.Session.Remove(FunctionPermission.SearchCustomerInfo);
+                HttpContext.Current.Session.Remove(Enumerations.Functions.CRMCustomer.SearchCustomerInfo.ToString());
 
                 var customer = this._repository.FindBy(userName, isGuest);
                 return customer;
@@ -134,7 +134,7 @@ namespace Fanex.CRM.Service.Impl
             var result = new Result();
             try
             {
-                if (!this._permissionService.HasHostPermission(FunctionPermission.CustomerInfo.ToString()))
+                if (!this._permissionService.GetHostPermission(Enumerations.Functions.CRMCustomer.CustomerInfo))
                 {
                     result.ErrCode = 500;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoUpdateCustomerPermission");
@@ -189,7 +189,7 @@ namespace Fanex.CRM.Service.Impl
             var result = new Result();
             try
             {
-                if (!this._permissionService.HasHostPermission(FunctionPermission.CustomerInfo.ToString()))
+                if (!this._permissionService.GetHostPermission(Enumerations.Functions.CRMCustomer.CustomerInfo))
                 {
                     result.ErrCode = 500;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoUpdateCustomerPermission");

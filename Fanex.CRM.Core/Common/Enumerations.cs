@@ -7,7 +7,6 @@
 //   <change who="" date="2012.12.07">Created</change>
 // </history>
 
-using System;
 namespace Fanex.CRM.Infrastructure.Common
 {
     /// <summary>
@@ -71,6 +70,73 @@ namespace Fanex.CRM.Infrastructure.Common
         /// </summary>
         public static class Functions
         {
+            public enum AdminTool
+            {
+                /// <summary>
+                /// The admin tool.
+                /// </summary>
+                AdminTool = 0,
+
+                /// <summary>
+                /// The setting management.
+                /// </summary>
+                SettingManagement = 1,
+
+                /// <summary>
+                /// The setting relation management.
+                /// </summary>
+                SettingRelationManagement = 2,
+
+                /// <summary>
+                /// The FB subject template management.
+                /// </summary>
+                FBSubjectTemplateManagement = 3
+            }
+
+            public enum Feedback
+            {
+                /// <summary>
+                /// The create feedback.
+                /// </summary>
+                CreateFeedback = 0,
+
+                /// <summary>
+                /// The edit feedback.
+                /// </summary>
+                EditFeedback = 1,
+
+                /// <summary>
+                /// The feedback review.
+                /// </summary>
+                FeedbackReview = 2,
+
+                /// <summary>
+                /// The delete feedback.
+                /// </summary>
+                DeleteFeedback = 3
+            }
+
+            public enum CRMCustomer
+            {
+                /// <summary>
+                /// The customer information.
+                /// </summary>
+                CustomerInfo = 0,
+
+                /// <summary>
+                /// The search customer information.
+                /// </summary>
+                SearchCustomerInfo = 1
+            }
+
+            public enum CRMReport
+            {
+                /// <summary>
+                /// The feedback statistics.
+                /// </summary>
+                FeedbackStatistics = 0
+            }
+
             public enum RevewMode
             {
                 /// <summary>

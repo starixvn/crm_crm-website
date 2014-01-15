@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Service.Impl
 {
     using System;
+    using System.Collections.Generic;
     using System.Web;
     using DNAide.Core;
     using Fanex.CRM.DataAccess.Impl;
@@ -38,6 +39,45 @@ namespace Fanex.CRM.Service.Impl
         {
             this._userRepository = userRepository ?? new UserDataAccess();
             this._permissionService = permissionService ?? new PermissionService();
+        }
+
+        /// <summary>
+        /// Gets the user information.
+        /// </summary>
+        /// <param name="userName">Name of the user.</param>
+        /// <returns>Get result.</returns>
+        public User GetUseInfo(string userName)
+        {
+            try
+            {
+                return this._userRepository.GetUserInfo(userName);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(string.Format("(GetUseInfo) - Error: {0}<br> - User: {1}", ex.Message, userName));
+                return new User();
+            }
+        }
+
+        /// <summary>
+        /// Gets the user menu.
+        /// </summary>
+        /// <param name="userId">The user identifier.</param>
+        /// <returns>Get result.</returns>
+        public IEnumerable<Menu> GetUserMenu(int userId)
+        {
+            try
+            {
+                var listUserMenu = this._userRepository.GetMenu(userId) as List<Menu>;
+                return listUserMenu;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(string.Format("(GetUserMenu) - Error: {0}<br> - userId: {1}", ex.Message, userId));
+                return new List<Menu>();
+            }
         }
 
         /// <summary>
@@ -77,6 +117,64 @@ namespace Fanex.CRM.Service.Impl
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Assigns the roles.
+        /// </summary>
+        /// <param name="custid">The customer identify.</param>
+        /// <param name="userRoleAccess">The user role access.</param>
+        /// <param name="userRageAccess">The user rage access.</param>
+        public void AssignRoles(int custid, ref Dictionary<string, int> userRoleAccess, ref Dictionary<string, int> userRageAccess)
+        {
+            try
+            {
+                var pageAcess = new Dictionary<string, int>();
+                var roleAccess = new Dictionary<string, int>();
+                char[] delimiterChars = { ';' };
+                var userRoles = this._permissionService.GetCustomerRoles(custid);
+
+                if (userRoles != null && userRoles.Count != 0)
+                {
+                    string filenames = string.Empty;
+                    foreach (var userRole in userRoles)
+                    {
+                        filenames = userRole.FileNames.ToLower();
+
+                        string functionName = userRole.FuncName.ToLower();
+                        int actualPolicy = userRole.ActualPolicy;
+                        roleAccess.Add(functionName, actualPolicy);
+
+                        if (string.IsNullOrEmpty(filenames))
+                        {
+                            continue;
+                        }
+
+                        string[] fileList = filenames.Split(delimiterChars, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (string file in fileList)
+                        {
+                            var cleanFilePath = file.Trim();
+                            if (!cleanFilePath.IndexOf("?").Equals(-1))
+                            {
+                                cleanFilePath = file.Substring(0, file.IndexOf('?'));
+                                cleanFilePath = cleanFilePath.Trim();
+                            }
+
+                            if (!pageAcess.ContainsKey(cleanFilePath))
+                            {
+                                pageAcess.Add(cleanFilePath, actualPolicy);
+                            }
+                        }
+                    }
+                }
+
+                userRageAccess = pageAcess;
+                userRoleAccess = roleAccess;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
         }
     }
 }

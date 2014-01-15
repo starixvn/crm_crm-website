@@ -16,9 +16,6 @@ namespace Fanex.CRM.Web.Controllers
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Impl;
     using Fanex.CRM.Service.Interface;
-    using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// Reports Controller.
@@ -38,44 +35,38 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         #region Views
-        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
+
         public ActionResult CasinoDailyStatistics()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult CasinoWeeklyStatistics()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult DailyStatistic()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult WeeklyStatistic()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult FeedbackStatistics()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.FeedbackStatistics, Policy = Constant.Policy.Read)]
         public ActionResult FeedbackStatisticDetail()
         {
             return View();
         }
 
         #endregion
-
         #region Post Actions
 
         /// <summary>
