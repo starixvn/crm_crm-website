@@ -20,8 +20,8 @@
                 <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo" />
                 <span class="icon-expand"></span>
             </div>
-            <div class="col-md-9">
-                <div class="row rightHeader">
+            <div class="col-md-9 rightHeader">
+                <div class="row">
                     <div class="col-md-6">
                         <ul class="menu list-unstyle list-inline">
                             <li class="active">Home</li>
@@ -70,31 +70,39 @@
                 </div>
             </div>
         </div>
+        <div class="row search-breadbrumb">
+            <div class="col-md-3 search-frm">
+                @*<input type="button" onclick="leftright();" class="leftright" id="btnleftright" name="btnleftright"
+                    style="float: left; margin: 4px 0 0 16px;" />
+                    <input type="button" onclick="downup();" class="updown" id="btndownup" name="btndownup"
+                        style="float: left;" />*@
+                <div class="text-search col-md-9">
+                    <input type="text" id="txtuserName" class="inputSearch" onkeypress="return KeyPress(event);"
+                        onkeyup="return KeyPress(event);" value="Search..." name="txtuserName" onblur="onBlur()"
+                        onfocus="onFocus()" autocomplete="off" />
+                    <input type="button" class="searchSubmit" value=" " id="btnSendMsg" onclick="submitSearch();" />
+                </div>
+                <div class="col-md-3 checkbox check-guest">
+                    <label>
+                        <input id="isGuest" type="checkbox" />
+                        Guest
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-9 breadcrumb">
+                <ul class="list-unstyled list-inline">
+                    <li class="active"><span class="hotkey">M</span>ain</li>
+                    <li><span class="hotkey">D</span>etail</li>
+                    <li><span class="hotkey">C</span>ommunication Log</li>
+                    <li><span class="hotkey">S</span>pecial Remark</li>
+                </ul>
+            </div>
+        </div>
         <div class="row contentbox">
-            <div class="col-md-3 left-pannel">
-                <div class="row search-frm">
-                    @*<input type="button" onclick="leftright();" class="leftright" id="btnleftright" name="btnleftright"
-                        style="float: left; margin: 4px 0 0 16px;" />
-                        <input type="button" onclick="downup();" class="updown" id="btndownup" name="btndownup"
-                            style="float: left;" />*@
-                    <div class="text-search col-md-9">
-                        <input type="text" id="txtuserName" class="inputSearch" onkeypress="return KeyPress(event);"
-                            onkeyup="return KeyPress(event);" value="Search..." name="txtuserName" onblur="onBlur()"
-                            onfocus="onFocus()" autocomplete="off" />
-                        <input type="button" class="searchSubmit" value=" " id="btnSendMsg" onclick="submitSearch();" />
-                    </div>
-                    <div class="col-md-3 checkbox check-guest">
-                        <label>
-                            <input id="isGuest" type="checkbox"/>
-                            Guest
-                        </label>
-                    </div>
-                </div>
-                <div class="row leftcontent">
-                    <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="" marginheight="0"
-                        frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;" allowtransparency="true">
-                    </iframe>
-                </div>
+            <div class="col-md-3 leftcontent">
+                <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="" marginheight="0"
+                    frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;" allowtransparency="true">
+                </iframe>
             </div>
             <div id="rightcontent" class="col-md-9 rightcontent">
                 <iframe id="centerFr" name="centerFr" src="BlankPage" scrolling="auto" marginwidth="0"

@@ -243,6 +243,7 @@
     <Content Include="Content\site\Images\ico2.png" />
     <Content Include="Content\site\Images\icon-arrow-down.png" />
     <Content Include="Content\site\Images\icon-expand.png" />
+    <Content Include="Content\site\Images\icon-search.png" />
     <Content Include="Content\site\Images\icon-sprite.png" />
     <Content Include="Content\site\Images\iconslist.png" />
     <Content Include="Content\site\Images\icon_button02.gif" />

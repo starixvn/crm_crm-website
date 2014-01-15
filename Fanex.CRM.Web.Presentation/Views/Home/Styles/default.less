@@ -1,4 +1,6 @@
 ﻿@import "../../../Content/site/variables.less";
+@width-left: 22%;
+@width-right: 78%;
 
 body 
 {
@@ -28,17 +30,17 @@ body
     margin: 0;
     padding: 0;
     width: 100%;
+    min-width: 1000px;
 
     .header {
 	    height: 42px;
         display: block;
         background: @primary-color;
-        border-left: 1px solid #222;
-        border-right: 1px solid #222;
         margin: 0;
 
         .leftHeader {
             border-right: 1px solid #3b5998;
+            width: @width-left;
 
             .crm-logo {
 	            margin: 10px 0 0 10px;
@@ -56,6 +58,11 @@ body
 
         .rightHeader {
             margin: 0;
+            width: @width-right;
+
+            .row {
+                margin: 0;
+            }
 
             .menu {
                 margin: 0;
@@ -139,43 +146,120 @@ body
         
     }
 
-    .contentbox {
+    .search-breadbrumb {
         margin: 0;
 
-        .left-pannel {
-            position: absolute;
-            top: 42px;
-            bottom: 0;
+        .search-frm {
+            margin: 0;
+            height: 35px;
+            border-right: 1px solid #252525;
+            width: @width-left;
 
-            .search-frm {
+            .text-search {
+                background-color: #333;
+            }
+
+            .check-guest {
+                background-color: #464646;
                 margin: 0;
                 height: 35px;
 
-                .text-search {
-                    background-color: #333;
+                input {
+                    margin: 2px 2px 0 0;
                 }
 
-                .check-guest {
-                    background-color: #464646;
-                    margin: 0;
+                label {
+                    float: left;
+                    margin-left: 10px;
+                    margin-top: 7px;
+                    color: #EBEBEB;
                 }
             }
 
-            .leftcontent {
-                height:92%;
-                display:none;
-                z-index: 10;
-                margin: 0;
+            .inputSearch {
+	            background: none;
+                border: none;
+                color: #959595;
+                height: 34px;
+                padding: 5px 0 5px 43px;
+                width: 100%;
+                position: relative; 
+                text-align: left;
+                text-decoration: none;
+            }
+
+            .inputSearch:focus {
+                color: #959595;
+            }
+
+            .searchSubmit {
+	            background: url("../../../Content/site/Images/icon-search.png") no-repeat 0 0px;
+                cursor: pointer;
+                height: 16px;
+                vertical-align: middle;
+                width: 16px;
+	            border: none;
+	            margin: -1px 0 0 4px;
+                position: absolute;
+                left: 6px;
+                top: 10px;
             }
         }
-        
+
+        .breadcrumb {
+            background-color: #464646;
+            border-radius: 0;
+            height: 35px;
+            color: #fff;
+            width: @width-right;
+
+            ul {
+                margin: 5px 0 0 5px;
+
+                li {
+                    padding: 5px 10px 8px;
+
+                    &:hover {
+                        color: #ffcc33;
+                    }
+
+                    &.active {
+                        color: #0054a6;
+                        background-color: #f1f1f1;
+                    }
+
+                    .hotkey {
+                        text-decoration: underline;
+                    }
+                }
+            }
+            
+        }
+    }
+
+    .contentbox {
+        margin: 0;
+
+        .leftcontent {
+            display:none;
+            z-index: 10;
+            margin: 0;
+            position: absolute;
+            top: 77px;
+            bottom: 0;
+            background-color: #fff;
+            width: @width-left;
+        }
 
         .rightcontent {
             height:92%;
-            z-index: 11
-            top: 42px;
+            z-index: 11;
+            top: 77px;
             bottom: 0;
             position: absolute;
+            margin: 0;
+            left: @width-left;
+            width: @width-right;
         }
 
     }
@@ -212,38 +296,9 @@ body
     width: 300px;
 }
 
-.inputSearch
-{
-	background: none repeat scroll 0 0 transparent;
-    border: 0px none;
-    color: #5d5a5a;
-    font-size: 11px;    
-    height: 17px;
-    padding: 5px 0 0 3px;
-    width: 152px;
-    position: relative;
-    top: -4px;    
-    text-align: left;
-    text-decoration: none;    
-}
 
-.inputSearch:focus
-{
-    background: none repeat scroll 0 0 transparent;
-    color: #5d5a5a;    
-    border: 0px none !important;
-}
 
-.searchSubmit
-{
-	background: url("../../../Content/site/Images/menu-sprite.png") no-repeat scroll -766px -97px;
-    cursor: pointer;
-    height: 18px;
-    vertical-align: middle;
-    width: 26px;
-	border: none 0px;
-	margin: -1px 0 0 4px;
-}
+
 
 .mainContent
 {

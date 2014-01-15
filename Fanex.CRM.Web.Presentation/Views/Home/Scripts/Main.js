@@ -67,7 +67,7 @@ function leftright() {
         contentwidth = fullwidth - leftcontent;
         //leftpanel.css("width", leftcontent + "px");
         rightpanel.css("width", contentwidth - 2 + "px");
-        rightpanel.css("left", leftcontent + "px");
+        //rightpanel.css("left", leftcontent + "px");
         leftpanel.hide();
     }
     else {
@@ -75,7 +75,7 @@ function leftright() {
         contentwidth = fullwidth - leftcontent;
         //leftpanel.css("width", leftcontent + "px");
         rightpanel.css("width", contentwidth - 2 + "px");
-        rightpanel.css("left", leftcontent + "px");
+        //rightpanel.css("left", leftcontent + "px");
         leftpanel.show();
     }
     showleft = !showleft;
