@@ -70,9 +70,9 @@ input[type=text]{width:180px;}
     
 }
 
-.downup{cursor:pointer;outline:none;background:url("../../../Content/Black2011/Images/udicon.gif") no-repeat 0 -22px;width:20px;height:20px;vertical-align:middle;border:none; margin: -1px 2px 0 1px; float:left;}
-.downup:hover{cursor:pointer;outline:none;background:url("../../../Content/Black2011/Images/udicon.gif") no-repeat -25px -22px;width:20px;height:20px;vertical-align:middle;border:none; margin: -1px 2px 0 1px; float:left;}
+.downup{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat 0 -22px;width:20px;height:20px;vertical-align:middle;border:none; margin: -1px 2px 0 1px; float:left;}
+.downup:hover{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat -25px -22px;width:20px;height:20px;vertical-align:middle;border:none; margin: -1px 2px 0 1px; float:left;}
 
-.updown{cursor:pointer;outline:none;background:url("../../../Content/Black2011/Images/udicon.gif") no-repeat -3px 0;width:20px;height:20px;vertical-align:middle;border:none; margin: -1px 2px 0 1px; float:left;}
-.updown:hover{cursor:pointer;outline:none;background:url("../../../Content/Black2011/Images/udicon.gif") no-repeat -28px 0px;width:20px;height:20px;vertical-align:middle;border:none; margin: -1px 2px 0 1px; float:left;}
+.updown{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat -3px 0;width:20px;height:20px;vertical-align:middle;border:none; margin: -1px 2px 0 1px; float:left;}
+.updown:hover{cursor:pointer;outline:none;background:url("../../../Content/site/Images/udicon.gif") no-repeat -28px 0px;width:20px;height:20px;vertical-align:middle;border:none; margin: -1px 2px 0 1px; float:left;}
 .solid_bottom td{text-align:left;border-bottom: 1px solid #E5E5E5}

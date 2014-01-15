@@ -2,7 +2,7 @@
 .editreview{float:right;}
 
 .icon-filter {
-    background: url("../../../Content/Black2011/images/error.gif") no-repeat scroll 0 0 transparent;
+    background: url("../../../Content/site/images/error.gif") no-repeat scroll 0 0 transparent;
     float: left;
     height: 14px;
     width: 18px;
@@ -56,7 +56,7 @@
     background-color: #D3E1C8;    
 }
 .child {
-    background: url("../../../Content/Black2011/Images/TreeViewImg.gif") no-repeat scroll 0 0 transparent;
+    background: url("../../../Content/site/Images/TreeViewImg.gif") no-repeat scroll 0 0 transparent;
     display: inline-block;
     vertical-align: middle;
     height: 13px;

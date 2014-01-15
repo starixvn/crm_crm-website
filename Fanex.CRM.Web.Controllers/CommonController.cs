@@ -18,12 +18,12 @@ namespace Fanex.CRM.Web.Controllers
     {
         public ActionResult AccessDenied()
         {
-            return View();
+            return View("~/Views/Common/AccessDenied.cshtml");
         }
 
         public ActionResult ErrorPage()
         {
-            return View();
+            return View("~/Views/Common/ErrorPage.cshtml");
         }
     }
 }

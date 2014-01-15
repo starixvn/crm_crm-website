@@ -19,84 +19,84 @@ namespace Fanex.CRM.Web.Controllers.Helper
     /// </summary>
     public class AppSession
     {
-        public static User CurrentUser
-        {
-            get
-            {
-                return SessionExtension.GetSession(HttpContext.Current.Session, "CRMUserInfo") as User;
-            }
+        //public static User CurrentUser
+        //{
+        //    get
+        //    {
+        //        return SessionExtension.GetSession(HttpContext.Current.Session, "CRMUserInfo") as User;
+        //    }
 
-            set
-            {
-                HttpContext.Current.Session["CRMUserInfo"] = value;
-            }
-        }
+        //    set
+        //    {
+        //        HttpContext.Current.Session["CRMUserInfo"] = value;
+        //    }
+        //}
 
-        public static string CurrentCustomer
-        {
-            get
-            {
-                return SessionExtension.GetSession(HttpContext.Current.Session, "CurrentCustomer") as string;
-            }
+        //public static string CurrentCustomer
+        //{
+        //    get
+        //    {
+        //        return SessionExtension.GetSession(HttpContext.Current.Session, "CurrentCustomer") as string;
+        //    }
 
-            set
-            {
-                SessionExtension.AddSession(HttpContext.Current.Session, "CurrentCustomer", value);
-            }
-        }
+        //    set
+        //    {
+        //        SessionExtension.AddSession(HttpContext.Current.Session, "CurrentCustomer", value);
+        //    }
+        //}
 
-        public static Dictionary<string, int> PageAccess
-        {
-            get
-            {
-                return (Dictionary<string, int>)HttpContext.Current.Session["PageAccess"];
-            }
+        //public static Dictionary<string, int> PageAccess
+        //{
+        //    get
+        //    {
+        //        return (Dictionary<string, int>)HttpContext.Current.Session["PageAccess"];
+        //    }
 
-            set
-            {
-                HttpContext.Current.Session["PageAccess"] = value;
-            }
-        }
+        //    set
+        //    {
+        //        HttpContext.Current.Session["PageAccess"] = value;
+        //    }
+        //}
 
-        public static Dictionary<string, int> RoleAccess
-        {
-            get
-            {
-                return (Dictionary<string, int>)HttpContext.Current.Session["RoleAccess"];
-            }
+        //public static Dictionary<string, int> RoleAccess
+        //{
+        //    get
+        //    {
+        //        return (Dictionary<string, int>)HttpContext.Current.Session["RoleAccess"];
+        //    }
 
-            set
-            {
-                HttpContext.Current.Session["RoleAccess"] = value;
-            }
-        }
+        //    set
+        //    {
+        //        HttpContext.Current.Session["RoleAccess"] = value;
+        //    }
+        //}
 
-        public static string UserSessionId
-        {
-            get
-            {
-                return (string)HttpContext.Current.Session["usersessionid"];
-            }
+        //public static string UserSessionId
+        //{
+        //    get
+        //    {
+        //        return (string)HttpContext.Current.Session["usersessionid"];
+        //    }
 
-            set
-            {
-                HttpContext.Current.Session["usersessionid"] = value;
-            }
-        }
+        //    set
+        //    {
+        //        HttpContext.Current.Session["usersessionid"] = value;
+        //    }
+        //}
 
-        public static IEnumerable<Menu> UserMenu
-        {
-            get
-            {
-                return HttpContext.Current.Session["UserMenu"] != null ?
-                    (List<Menu>)HttpContext.Current.Session["UserMenu"] :
-                    null;
-            }
+        //public static IEnumerable<Menu> UserMenu
+        //{
+        //    get
+        //    {
+        //        return HttpContext.Current.Session["UserMenu"] != null ?
+        //            (List<Menu>)HttpContext.Current.Session["UserMenu"] :
+        //            null;
+        //    }
 
-            set
-            {
-                HttpContext.Current.Session["UserMenu"] = value;
-            }
-        }
+        //    set
+        //    {
+        //        HttpContext.Current.Session["UserMenu"] = value;
+        //    }
+        //}
     }
 }

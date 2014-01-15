@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Functions>
+  <Function Name="Security">
+    <Setting Key="UserInfoSel" SpName="Acc_UserInfoSel" DbName="DBACC.bodb02.bodbAdminNet" />
+  </Function>
+</Functions>

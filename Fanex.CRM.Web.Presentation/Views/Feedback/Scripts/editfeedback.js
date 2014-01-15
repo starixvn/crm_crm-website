@@ -832,7 +832,7 @@ var updateFeedback = {
         if ($('#chkIsOverrideCrmInfo').attr('checked')) {
             $("#divPopup").html('The current CRM Info will be overwritten. Do you want to continue?');
             $("#divPopup").dialog({ width: 400, height: 120, zIndex: 500, resizable: false, modal: true,
-                title: '<img src="../Content/Black2011/Images/error.gif" id="myNewImage" /> Warning',
+                title: '<img src="../Content/site/Images/error.gif" id="myNewImage" /> Warning',
                 close: function (event, ui) {
                     /* jshint unused: vars */
                 },

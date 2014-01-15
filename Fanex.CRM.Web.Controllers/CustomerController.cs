@@ -23,6 +23,8 @@ namespace Fanex.CRM.Web.Controllers
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Impl;
     using Fanex.CRM.Service.Interface;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Customer Controller.
@@ -48,12 +50,13 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         #region Views
-
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult CRMInfo()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult EditCRMInfo()
         {
             return View();
@@ -134,7 +137,7 @@ namespace Fanex.CRM.Web.Controllers
 
                     SessionExtension.AddSession(
                         System.Web.HttpContext.Current.Session,
-                        Enumerations.Functions.CRMCustomer.SearchCustomerInfo.ToString(),
+                        FunctionPermission.SearchCustomerInfo.ToString(),
                         new SearchCustomerInfo() { UserName = username, IsGuest = isGuest });
                 }
             }
@@ -411,6 +414,7 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         #endregion
+
         #region private functions
 
         private StringCollection ConvertCustomerListToObject(DataTable tbl)

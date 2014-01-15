@@ -30,7 +30,5 @@ namespace Fanex.CRM.Entities
         public string Password { get; set; }
         [DataMember]
         public bool IsAllowUpdateReview { get; set; }
-
-        private IEnumerable<Menu> ListMenu { get; set; }
     }
 }
