@@ -12,13 +12,13 @@
     <link href="@Url.Content("~/Views/Home/Styles/default.less?ver=5")" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div id="fullsize" class="fullsize">
-    </div>
+    @*<div id="fullsize" class="fullsize">
+    </div>*@
     <div class="container crm-container">
         <div class="row header">
             <div class="col-md-3 leftHeader">
-                <img alt="" src="../Content/site/Images/logo-crm.png" class="crm-logo" />
-                <i class="icon-expand"></i>
+                <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo" />
+                <span class="icon-expand"></span>
             </div>
             <div class="col-md-9">
                 <div class="row rightHeader">
@@ -71,40 +71,34 @@
             </div>
         </div>
         <div class="row contentbox">
-            <div class="col-md-3 leftcontent">
-                <input type="button" onclick="leftright();" class="leftright" id="btnleftright" name="btnleftright"
-                    style="float: left; margin: 4px 0 0 16px;" />
-                <input type="button" onclick="downup();" class="updown" id="btndownup" name="btndownup"
-                    style="float: left;" />
-                <div class="search">
-                    <div class="">
-                        <table style="border-width: 0pt; border-collapse: collapse;">
-                            <tr>
-                                <td>
-                                    <input type="text" id="txtuserName" class="inputSearch" onkeypress="return KeyPress(event);"
-                                        onkeyup="return KeyPress(event);" value="Search..." name="txtuserName" onblur="onBlur()"
-                                        onfocus="onFocus()" autocomplete="off" />
-                                </td>
-                                <td>
-                                    <input type="button" class="searchSubmit" value=" " id="btnSendMsg" onclick="submitSearch();" />
-                                </td>
-                                <td>
-                                    <input id="isGuest" type="checkbox" style="margin: -4px 1px -4px 2px;" />
-                                </td>
-                                <td>
-                                    <span style="vertical-align: middle; color: White; font-size: 8pt;">Guest</span>
-                                </td>
-                            </tr>
-                        </table>
+            <div class="col-md-3 left-pannel">
+                <div class="row search-frm">
+                    @*<input type="button" onclick="leftright();" class="leftright" id="btnleftright" name="btnleftright"
+                        style="float: left; margin: 4px 0 0 16px;" />
+                        <input type="button" onclick="downup();" class="updown" id="btndownup" name="btndownup"
+                            style="float: left;" />*@
+                    <div class="text-search col-md-9">
+                        <input type="text" id="txtuserName" class="inputSearch" onkeypress="return KeyPress(event);"
+                            onkeyup="return KeyPress(event);" value="Search..." name="txtuserName" onblur="onBlur()"
+                            onfocus="onFocus()" autocomplete="off" />
+                        <input type="button" class="searchSubmit" value=" " id="btnSendMsg" onclick="submitSearch();" />
+                    </div>
+                    <div class="col-md-3 checkbox check-guest">
+                        <label>
+                            <input id="isGuest" type="checkbox"/>
+                            Guest
+                        </label>
                     </div>
                 </div>
-                <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="" marginheight="0"
-                    frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 0px;" allowtransparency="true">
-                </iframe>
+                <div class="row leftcontent">
+                    <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="" marginheight="0"
+                        frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;" allowtransparency="true">
+                    </iframe>
+                </div>
             </div>
-            <div id="rightcontent" class="col-md-6 rightcontent">
+            <div id="rightcontent" class="col-md-9 rightcontent">
                 <iframe id="centerFr" name="centerFr" src="BlankPage" scrolling="auto" marginwidth="0"
-                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 0px;"
+                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
                     allowtransparency="true"></iframe>
             </div>
         </div>

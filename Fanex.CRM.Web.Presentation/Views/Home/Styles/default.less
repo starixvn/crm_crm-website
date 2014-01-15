@@ -2,7 +2,7 @@
 
 body 
 {
-	background: none repeat scroll 0 0 #fff;
+	background: #f1f1f1;
     font-family: @font-family;
     height: 100%;
     margin: 0;
@@ -22,7 +22,6 @@ body
 
 [class*="col-"] {
     padding: 0;
-    display: block;
 }
 
 .container.crm-container {
@@ -51,7 +50,7 @@ body
                 height: 9px;
                 width: 11px;
                 float: right;
-                margin: 17px 13px;
+                margin: 16px 13px;
             }
         }
 
@@ -138,6 +137,47 @@ body
             }
         }
         
+    }
+
+    .contentbox {
+        margin: 0;
+
+        .left-pannel {
+            position: absolute;
+            top: 42px;
+            bottom: 0;
+
+            .search-frm {
+                margin: 0;
+                height: 35px;
+
+                .text-search {
+                    background-color: #333;
+                }
+
+                .check-guest {
+                    background-color: #464646;
+                    margin: 0;
+                }
+            }
+
+            .leftcontent {
+                height:92%;
+                display:none;
+                z-index: 10;
+                margin: 0;
+            }
+        }
+        
+
+        .rightcontent {
+            height:92%;
+            z-index: 11
+            top: 42px;
+            bottom: 0;
+            position: absolute;
+        }
+
     }
 }
 
@@ -301,12 +341,9 @@ body
     color:#ff4e00!important;
 }
 
-.contentbox{width:100%; position:relative;
-            background: url("../../../Content/site/Images/body.jpg") repeat-x scroll 0 -99px #FFFFFF;
-}
+
 .fullsize{position:absolute;top:0;left:-10000px;width:100%;height:100%;display:block;}
-.leftcontent{float:left;width:0px;height:92%; display:none;top:0px; position:absolute; z-index: 10}
-.rightcontent{float:left;height:92%;width:100%; top:0px;position:absolute; z-index: 11}
+
 
 .rightleft{cursor:pointer;outline:none;background:url("../../../Content/site/Images/openclosedLeft.gif") no-repeat 0 -22px;width:20px;height:20px;vertical-align:middle;margin-left:0px;border:none;}
 .rightleft_over{cursor:pointer;outline:none;background:url("../../../Content/site/Images/openclosedLeft.gif") no-repeat -25px -22px;width:20px;height:20px;vertical-align:middle;margin-left:0px;border:none;}

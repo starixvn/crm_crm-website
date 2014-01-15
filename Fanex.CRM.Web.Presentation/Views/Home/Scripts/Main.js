@@ -65,7 +65,7 @@ function leftright() {
     if (showleft) {
         leftcontent = 0;
         contentwidth = fullwidth - leftcontent;
-        leftpanel.css("width", leftcontent + "px");
+        //leftpanel.css("width", leftcontent + "px");
         rightpanel.css("width", contentwidth - 2 + "px");
         rightpanel.css("left", leftcontent + "px");
         leftpanel.hide();
@@ -73,7 +73,7 @@ function leftright() {
     else {
         leftcontent = 273;
         contentwidth = fullwidth - leftcontent;
-        leftpanel.css("width", leftcontent + "px");
+        //leftpanel.css("width", leftcontent + "px");
         rightpanel.css("width", contentwidth - 2 + "px");
         rightpanel.css("left", leftcontent + "px");
         leftpanel.show();
@@ -87,12 +87,12 @@ function preResize() {
     fullwidth = $(".fullsize").width();
     contentheight = fullheight - bannerbox - mainBox;
     contentwidth = fullwidth - leftcontent;
-    $(".contentbox").css("height", contentheight + "px");
-    $(".rightcontent").css("width", contentwidth - 2 + "px");
-    $(".rightcontent").css("height", contentheight + "px");
+    //$(".contentbox").css("height", contentheight + "px");
+    //$(".rightcontent").css("width", contentwidth - 2 + "px");
+    //$(".rightcontent").css("height", contentheight + "px");
 
-    $('#centerFr').css("height", contentheight - 2 + "px");
-    $('#leftPanel').css("height", contentheight - 2 + "px");
+    //$('#centerFr').css("height", contentheight - 2 + "px");
+    //$('#leftPanel').css("height", contentheight - 2 + "px");
 }
 
 function submitSearch(username) {
