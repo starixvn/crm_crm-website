@@ -488,6 +488,8 @@
     <Content Include="Views\Home\Scripts\AssignMenu.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
     <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <None Include="Views\Home\Styles\detail.less" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Styles\Images\arSub.gif" />
     <Content Include="Views\Home\Styles\Images\arSub_hover.gif" />

@@ -1,0 +1,266 @@
+﻿@import "../../../Content/site/variables.less";
+
+body {
+    background: #f1f1f1;
+    min-width: 1280px;
+    overflow: visible;
+}
+
+.fullsize {
+    display: block;
+    height: 100%;
+    left: -10000px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.container.crm-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-width: 1260px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 3px;
+
+    .header {
+        height: 42px;
+        display: block;
+        background: @primary-color;
+        margin: 0;
+
+        .leftHeader {
+            width: @width-left;
+
+            .crm-logo {
+                margin: 10px 0 0 10px;
+                float: left;
+            }
+
+            .icon-expand {
+                background: url(../../../Content/site/Images/icon-expand.png) no-repeat;
+                height: 9px;
+                width: 11px;
+                float: right;
+                margin: 16px 13px;
+            }
+        }
+
+        .rightHeader {
+            margin: 0;
+            width: @width-right;
+            border-left: 1px solid #3b5998;
+            height: 42px;
+
+            .row {
+                margin: 0;
+            }
+
+            .menu {
+                margin: 0;
+                padding: 0;
+                display: block;
+                margin: 7px 0 0 16px;
+                z-index: 300;
+                height: 30px;
+
+                li {
+                    padding: 5px 10px;
+                    position: relative;
+                    height: 30px;
+
+                    .icon-arrow-down {
+                        background:url(../../../Content/site/Images/icon-arrow-down.png) no-repeat;
+                        display: inline-block;
+                        font-size: 0;
+                        height: 5px;
+                        width: 6px;
+                        margin: 0 6px;
+                    }
+
+                    a {
+                        color: #fff;
+
+                        &:hover {
+                            color: #ffcc33;
+                        }
+                    }
+
+                    &.active {
+                        color: #ffcc33;
+                    }
+
+                    &:hover {
+                        background-color: #39496d;
+
+                        .sub-menu {
+                            display: block;
+                        }
+                    }
+
+                    .sub-menu {
+                        position: absolute;
+                        background-color: #39496d;
+                        display: none;
+                        z-index: 305;
+                        top: 29px;
+                        left: 0;
+                        padding: 5px 0;
+
+                        li {
+                            color: #fff;
+                            height: 25px;
+                            line-height: 23px;
+                            padding: 0 12px;
+                            white-space: nowrap;
+
+                            a {
+                                color: #fff;
+                            }
+
+                            &:hover {
+                               background-color: #9faac6;
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            .login-info {
+                padding: 13px 10px 0 0;
+                width:200px;
+                color: #fff;
+                text-align: right;
+
+                .txt-username {
+                    color: #ffcc33;
+                }
+            }
+        }
+        
+    }
+
+    .search-breadbrumb {
+        margin: 0;
+
+        .search-frm {
+            margin: 0;
+            height: 35px;
+            width: @width-left;
+
+            .text-search {
+                background-color: #333;
+            }
+
+            .check-guest {
+                background-color: #464646;
+                margin: 0;
+                height: 35px;
+
+                input {
+                    margin: 2px 2px 0 0;
+                }
+
+                label {
+                    float: left;
+                    margin-left: 10px;
+                    margin-top: 9px;
+                    color: #EBEBEB;
+                }
+            }
+
+            .inputSearch {
+                background: none;
+                border: none;
+                color: #959595;
+                height: 35px;
+                padding: 5px 0 5px 43px;
+                width: 100%;
+                position: relative; 
+                text-align: left;
+                text-decoration: none;
+            }
+
+            .inputSearch:focus {
+                color: #959595;
+            }
+
+            .searchSubmit {
+                background: url("../../../Content/site/Images/icon-search.png") no-repeat 0 0px;
+                cursor: pointer;
+                height: 16px;
+                vertical-align: middle;
+                width: 16px;
+                border: none;
+                margin: -1px 0 0 4px;
+                position: absolute;
+                left: 6px;
+                top: 10px;
+            }
+        }
+
+        .breadcrumb {
+            background-color: #464646;
+            border-radius: 0;
+            height: 35px;
+            color: #fff;
+            width: @width-right;
+            border-left: 1px solid #252525;
+
+            ul {
+                margin: 5px 0 0 5px;
+
+                li {
+                    padding: 5px 10px 8px;
+
+                    &:hover {
+                        color: #ffcc33;
+                    }
+
+                    &.active {
+                        color: #0054a6;
+                        background-color: #f1f1f1;
+                    }
+                }
+            }
+            
+        }
+    }
+
+    .contentbox {
+        margin: 0;
+
+        .leftcontent {
+            display:none;
+            z-index: 10;
+            margin: 0;
+            position: absolute;
+            top: 77px;
+            bottom: 0;
+            background-color: #fff;
+            width: @width-left;
+        }
+
+        .rightcontent {
+            z-index: 11;
+            top: 77px;
+            bottom: 0;
+            position: absolute;
+            margin: 0;
+            left: @width-left;
+            width: @width-right;
+            border-left: 1px solid #b1b1b1;
+            background: #f1f1f1;
+        }
+    }
+}
+
+@media (max-width: 970px) {
+  .container.crm-container {
+    width: 1280px;
+  }
+}
