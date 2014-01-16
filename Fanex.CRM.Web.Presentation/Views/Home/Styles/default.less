@@ -26,7 +26,6 @@ body {
         margin: 0;
 
         .leftHeader {
-            border-right: 1px solid #3b5998;
             width: @width-left;
 
             .crm-logo {
@@ -46,6 +45,8 @@ body {
         .rightHeader {
             margin: 0;
             width: @width-right;
+            border-left: 1px solid #3b5998;
+            height: 42px;
 
             .row {
                 margin: 0;
@@ -95,7 +96,6 @@ body {
 
                     .sub-menu {
                         position: absolute;
-                        width: 200px;
                         background-color: #39496d;
                         display: none;
                         z-index: 305;
@@ -105,6 +105,10 @@ body {
 
                         li {
                             color: #fff;
+                            height: 25px;
+                            line-height: 23px;
+                            padding: 0 12px;
+                            white-space: nowrap;
 
                             a {
                                 color: #fff;
@@ -139,7 +143,6 @@ body {
         .search-frm {
             margin: 0;
             height: 35px;
-            border-right: 1px solid #252525;
             width: @width-left;
 
             .text-search {
@@ -199,6 +202,7 @@ body {
             height: 35px;
             color: #fff;
             width: @width-right;
+            border-left: 1px solid #252525;
 
             ul {
                 margin: 5px 0 0 5px;
@@ -232,7 +236,6 @@ body {
             bottom: 0;
             background-color: #fff;
             width: @width-left;
-            border-right: 1px solid #b1b1b1;
         }
 
         .rightcontent {
@@ -244,6 +247,7 @@ body {
             margin: 0;
             left: @width-left;
             width: @width-right;
+            border-left: 1px solid #b1b1b1;
         }
     }
 }

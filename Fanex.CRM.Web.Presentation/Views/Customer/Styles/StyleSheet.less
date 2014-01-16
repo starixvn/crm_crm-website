@@ -10,7 +10,7 @@
 
     .item {
         margin: 0;
-        padding: 7px 10px;
+        padding: 4px 6px;
         background-color: #e8e8e8;
         border-top: 1px solid #fff;
         border-bottom: 1px solid #c3c3c3;
@@ -22,35 +22,42 @@
         &.no-border-bg {
             background: none;
             border: none;
+            padding: 0 6px;
+            margin-top: 6px;
         }
 
         &.title {
             background-color: #f2f2f2;
             border-top: 1px solid @border-color;
             border-bottom: 1px solid @border-color;
+            margin-top: 7px;
         }
-    }
 
-    .btn {
-        background-color: #466ab6;
-        border-color: #3c5b9c;
-        border-radius: 0;
-        height: 25px;
-        color: #fff;
-        font-size: @font-size;
-        padding: 2px 12px;
+        .text {
+            padding-left: 5px;
+        }
 
-        &:hover {
-            background-color: #274b86;
+        .label-left {
+            padding-top: 3px;
+        }
+
+        [class*="lv"] {
+            margin-top: 2px;
         }
     }
 
     .list-menu {
+        margin-right: 30px;
+
         li {
             text-align: left;
             background: url(../../../Content/site/Images/icon-arrow-left.png) no-repeat left center;
             padding-left: 10px;
             line-height: 20px;
+        }
+
+        &.no-margin {
+            margin: 0;
         }
     }
 }

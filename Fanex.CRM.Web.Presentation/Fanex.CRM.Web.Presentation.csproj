@@ -42,11 +42,14 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="BundleTransformer.Core, Version=1.8.17.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+    <Reference Include="BundleTransformer.Core">
       <HintPath>..\packages\BundleTransformer.Core.1.8.17\lib\net40\BundleTransformer.Core.dll</HintPath>
     </Reference>
-    <Reference Include="BundleTransformer.Less, Version=1.8.14.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+    <Reference Include="BundleTransformer.Less">
       <HintPath>..\packages\BundleTransformer.Less.1.8.14\lib\net40\BundleTransformer.Less.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearScript">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.0.0\lib\net40\ClearScript.dll</HintPath>
     </Reference>
     <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -68,6 +71,7 @@
       <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Data.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\JavaScriptEngineSwitcher.Core.1.0.0\lib\net40\JavaScriptEngineSwitcher.Core.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Msie">
@@ -116,7 +120,8 @@
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Optimization">
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -144,7 +149,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="WebGrease">
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -433,6 +439,7 @@
     <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left.png" />
     <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left_hover.png" />
     <Content Include="Views\Customer\Styles\Images\L_banner\R_tab_left.png" />
+    <Content Include="packages.config" />
     <None Include="Views\Customer\Styles\StyleSheet.less" />
     <Content Include="Views\Feedback\Scripts\addfeedback.js" />
     <Content Include="Views\Feedback\Scripts\addguestfeedback.js" />
@@ -664,9 +671,9 @@
     <Content Include="IbcKeys\Web.config" />
     <Content Include="Views\Common\ErrorPage.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

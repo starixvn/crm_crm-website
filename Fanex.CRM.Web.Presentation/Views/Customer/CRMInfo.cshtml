@@ -37,14 +37,14 @@
                     <div class="col-xs-5 col-sm-5 col-md-5 text-left">Other Sport</div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4 col-sm-4 col-md-4 text-left"><span class="lv3">Lvl.3</span></div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 text-left"><span class="lv0">Lvl.0</span></div>
-                    <div class="col-xs-5 col-sm-5 col-md-5 text-left"><span class="lv0">Lvl.0</span></div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-left"><span class="lv3">Lvl 3</span></div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-left"><span class="lv1">Lvl 1</span></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-left"><span class="lv0">Lvl 0</span></div>
                 </div>
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Site</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Site</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <select>
                     <option value="0">None</option>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Country</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Country</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <select>
                     <option value="0">None</option>
@@ -66,28 +66,28 @@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">First Name</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">First Name</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox" value="Customer" />
                 @*${CustomerInfo.FirstName}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Last Name</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Last Name</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox" value="Customer" />
                 @*${CustomerInfo.LastName}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Nick Name</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Nick Name</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                Nick.name
+                <span class="text">Nick.name</span>
                 @*${NickName}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Language</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Language</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <select>
                     <option value="0">None</option>
@@ -100,74 +100,82 @@
             Communication Tool
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Phone 1</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Phone 1</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox"/>
+                <input type="text" class="textbox code-country"/>
+                <input type="text" class="textbox code-area"/>
+                <input type="text" class="textbox phone"/>
                 @*${CustomerInfo.Phone}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Phone 2</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Phone 2</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox"/>
+                <input type="text" class="textbox code-country"/>
+                <input type="text" class="textbox code-area"/>
+                <input type="text" class="textbox phone"/>
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Phone 3</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Phone 3</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox"/>
+                <input type="text" class="textbox code-country"/>
+                <input type="text" class="textbox code-area"/>
+                <input type="text" class="textbox phone"/>
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Mobile</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Mobile</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox"/>
+                <input type="text" class="textbox code-country label-left"/>
+                <input type="text" class="textbox code-area"/>
+                <input type="text" class="textbox phone"/>
                 @*${CustomerInfo.MobilePhone}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Email</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Email</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox" value="email@yahoo.com" />
                 @*${CustomerInfo.Email}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">MSN</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">MSN</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox" value="email@yahoo.com" />
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Skype</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Skype</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                ABCDGHH
+                <span class="text">ABCDGHH</span>
                 @*${CustomerInfo.Skype}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">PIC1</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">PIC1</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox"/>
                 @*${Pic1}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">PIC2</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">PIC2</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox"/>
                 @*${Pic2}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">PIC3</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">PIC3</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox"/>
                 @*${Pic3}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">PIC4</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">PIC4</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox"/>
             </div>
@@ -183,10 +191,12 @@
         </div>
         <div class="row item no-border-bg">
             <ul class="list-unstyled list-menu pull-left">
-                <li><a href="#">CRM Info</a></li>
-                <li><a href="#">Latest Feeadback</a></li>
-                <li><a href="#">Manage Feedback</a></li>
-                <li><a href="#">Add Feedback</a></li>
+                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Customer/EditCRMInfo?custid=${Id}');">CRM Info</a></li>
+                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/AddFeedback?custId=${Id}&custName=${UserName}');">Add Feedback</a></li>
+            </ul>
+            <ul class="list-unstyled list-menu pull-left no-margin">
+                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/CustomerLastestFeedback?custid=${Id}&custName=${UserName}');">Latest Feeadback</a></li>
+                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/ManageFeedback?custid=${Id}&custName=${UserName}&isGuest=0');">Manage Feedback</a></li>
             </ul>
         </div>
     </div>
