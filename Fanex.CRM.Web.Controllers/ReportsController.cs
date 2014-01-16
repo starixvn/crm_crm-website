@@ -13,12 +13,12 @@ namespace Fanex.CRM.Web.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Entities;
     using Fanex.CRM.Entities.ViewModel;
+    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Impl;
     using Fanex.CRM.Service.Interface;
-    using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.CRM.Infrastructure.Common;
     using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Reports Controller.

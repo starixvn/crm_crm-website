@@ -56,11 +56,11 @@ namespace Fanex.CRM.Web.Controllers
             return View();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.DeleteFeedback, Policy = Constant.Policy.Host)]
         /// <summary>
         /// Deletes the feedback.
         /// </summary>
         /// <returns>Delete result.</returns>
+        [NapAuth(FunctionKey = FunctionPermission.DeleteFeedback, Policy = Constant.Policy.Host)]
         public ActionResult DeletedFeedback()
         {
             return View();

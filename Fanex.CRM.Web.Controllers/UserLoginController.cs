@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="SSOController.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="UserLoginController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -28,7 +28,7 @@ namespace Fanex.CRM.Web.Controllers
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class UserLoginController: BaseController
+    public class UserLoginController : BaseController
     {
         private readonly int _timeExipration = 30;
         private IUserService _userNapService;

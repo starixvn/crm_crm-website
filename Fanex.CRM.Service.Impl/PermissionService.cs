@@ -10,10 +10,10 @@
 namespace Fanex.CRM.Service.Impl
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Service.Interface;
-    using Fanex.NAP.Core.Model.ValueObject;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Service.Interface;
     using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Model.ValueObject;
 
     /// <summary>
     /// Permission Service.
