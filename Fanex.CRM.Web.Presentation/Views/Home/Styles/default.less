@@ -2,6 +2,8 @@
 
 body {
     background: #f1f1f1;
+    min-width: 1280px;
+    overflow: visible;
 }
 
 .fullsize {
@@ -17,7 +19,12 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    min-width: 1000px;
+    min-width: 1260px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 3px;
 
     .header {
         height: 42px;
@@ -252,3 +259,8 @@ body {
     }
 }
 
+@media (max-width: 970px) {
+  .container.crm-container {
+    width: 1280px;
+  }
+}
