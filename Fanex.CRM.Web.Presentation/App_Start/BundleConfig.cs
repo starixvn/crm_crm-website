@@ -20,6 +20,10 @@ namespace Fanex.CRM.Web.View.App_Start
     /// </summary>
     public class BundleConfig
     {
+        /// <summary>
+        /// Registers the bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             // bundles.Add(new ScriptBundle("~/bundles/js").Include("~/Scripts/*.js"));

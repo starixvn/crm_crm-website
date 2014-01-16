@@ -21,6 +21,5 @@ namespace Fanex.CRM.Service.Interface
         bool HasHostPermission(string functionName);
 
         bool HasPermission(string functionName);
-
     }
 }

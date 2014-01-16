@@ -7,9 +7,10 @@
 //   <change who="" date="2012.12.07">Created</change>
 // </history>
 
-using System;
 namespace Fanex.CRM.Infrastructure.Common
 {
+    using System;
+
     /// <summary>
     /// Enumerations class.
     /// </summary>

@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Web.Controllers
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -72,7 +73,7 @@ namespace Fanex.CRM.Web.Controllers
 
             return View();
         }
-        
+
         /// <summary>
         /// Log out action.
         /// </summary>
@@ -103,12 +104,14 @@ namespace Fanex.CRM.Web.Controllers
         /// Checks the user online status.
         /// </summary>
         /// <returns>Checking result.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         [HttpPost]
         public JsonResult CheckUserOnlineStatus()
         {
             try
             {
-
                 if (AppSetting.IsLocalTest)
                 {
                     return Json(new
@@ -116,7 +119,7 @@ namespace Fanex.CRM.Web.Controllers
                         ErrCode = 0
                     });
                 }
-                
+
                 var maintenanceInfo = _maintenanceService.GetDowntimeInfo();
 
                 if (maintenanceInfo.IsDowntime)
@@ -159,7 +162,6 @@ namespace Fanex.CRM.Web.Controllers
                     OnUserId = Convert.ToInt32(_currentSession.OnUserId),
                     ErrCode = 0
                 });
-                
             }
             catch (Exception ex)
             {

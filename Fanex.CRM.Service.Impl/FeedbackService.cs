@@ -106,7 +106,6 @@ namespace Fanex.CRM.Service.Impl
         /// <returns>Return result.</returns>
         public Result EditFeedback(Feedback feedback)
         {
-            
             Result result = new Result();
             try
             {
@@ -1922,8 +1921,12 @@ namespace Fanex.CRM.Service.Impl
         /// Checks the feedback permission.
         /// </summary>
         /// <param name="feedbackStatusId">The status of feedback.</param>
-        /// <returns>Check result.</returns>
-        private Result CheckFeedbackPermission(int feedbackStatusId, bool isOverideCustomerInfo, bool isAddGuestFeedback)
+        /// <param name="isOverrideCustomerInfo">If set to <c>true</c> [is override customer information].</param>
+        /// <param name="isAddGuestFeedback">If set to <c>true</c> [is add guest feedback].</param>
+        /// <returns>
+        /// Check result.
+        /// </returns>
+        private Result CheckFeedbackPermission(int feedbackStatusId, bool isOverrideCustomerInfo, bool isAddGuestFeedback)
         {
             if (!_permissionService.HasHostPermission(FunctionPermission.CreateFeedback.ToString()))
             {
@@ -1936,7 +1939,7 @@ namespace Fanex.CRM.Service.Impl
                 return ReturnErrorResult((int)Enumerations.ErrorCode.DeleteFeedback, "lblNoDeletedFeedbackPermission");
             }
 
-            if ((isOverideCustomerInfo || isAddGuestFeedback) &&
+            if ((isOverrideCustomerInfo || isAddGuestFeedback) &&
                 !_permissionService.HasHostPermission(FunctionPermission.CustomerInfo))
             {
                 return ReturnErrorResult((int)Enumerations.ErrorCode.DeleteFeedback, "lblNoUpdateCustomerPermission");
