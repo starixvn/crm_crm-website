@@ -35,9 +35,16 @@ namespace Fanex.CRM.Web.Controllers
             _permission = permission ?? new PermissionService();
         }
 
-        public ActionResult Index()
+        public RedirectResult Index()
         {
-            return View();
+            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
+            {
+                return new RedirectResult("~/Account/SignIn", true);
+            }
+            else
+            {
+                return new RedirectResult("Home/Default", true);
+            }
         }
 
         public ActionResult BlankPage()
@@ -51,11 +58,6 @@ namespace Fanex.CRM.Web.Controllers
         /// <returns>Default page.</returns>
         public ActionResult Default()
         {
-            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
-            {
-                return ForceLogin();
-            }
-
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             return View();
         }

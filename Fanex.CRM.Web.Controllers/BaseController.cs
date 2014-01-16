@@ -111,7 +111,7 @@ namespace Fanex.CRM.Web.Controllers
             }
         }
 
-        protected ActionResult ForceLogin()
+        protected RedirectResult ForceLogin()
         {
             return Redirect(Fanex.CRM.Infrastructure.Common.AppSetting.LoginUrl);
         }
