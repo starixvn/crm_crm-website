@@ -62,11 +62,6 @@ namespace Fanex.CRM.Web.Controllers
             return View();
         }
 
-        public ActionResult Dashboard()
-        {
-            return View("~/Views/Home/Dashboard.cshtml");
-        }
-
         [ChildActionOnly]
         public PartialViewResult GettingUserMenu()
         {
