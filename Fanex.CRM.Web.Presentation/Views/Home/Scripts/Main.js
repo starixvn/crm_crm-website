@@ -9,11 +9,9 @@ onFocus, udpateOnlineStatus */
 var accid = "sa"; //use for write and read cookie
 var timerId = "";
 var isonauto = false;
-var showleft = false;
-var fullheight, contentheight, fullwidth, contentwidth;
+var fullheight, fullwidth;
 var bannerbox = 40; //40
 var mainBox = 74; //74
-var leftcontent = 0;
 var autosearch;
 var showLogo = true;
 var userName = "";
@@ -46,123 +44,9 @@ function openConfirmPopup() {
     return false;
 }
 
-function changeiconleftright(showlefticon) {
-    var btnleftright = $("#btnleftright");
-    if (showlefticon) {
-        btnleftright.removeClass("leftright");
-        btnleftright.addClass("rightleft");
-    }
-    else {
-        btnleftright.removeClass("rightleft");
-        btnleftright.addClass("leftright");
-    }
-}
-
-function leftright() {
-    var leftpanel = $('.leftcontent');
-    var rightpanel = $('.rightcontent');
-
-    if (showleft) {
-        leftcontent = 0;
-        contentwidth = fullwidth - leftcontent;
-        //leftpanel.css("width", leftcontent + "px");
-        rightpanel.css("width", contentwidth - 2 + "px");
-        //rightpanel.css("left", leftcontent + "px");
-        leftpanel.hide();
-    }
-    else {
-        leftcontent = 273;
-        contentwidth = fullwidth - leftcontent;
-        //leftpanel.css("width", leftcontent + "px");
-        rightpanel.css("width", contentwidth - 2 + "px");
-        //rightpanel.css("left", leftcontent + "px");
-        leftpanel.show();
-    }
-    showleft = !showleft;
-    changeiconleftright(showleft);
-}
-
 function preResize() {
     fullheight = $(".fullsize").height();
     fullwidth = $(".fullsize").width();
-    contentheight = fullheight - bannerbox - mainBox;
-    contentwidth = fullwidth - leftcontent;
-    //$(".contentbox").css("height", contentheight + "px");
-    //$(".rightcontent").css("width", contentwidth - 2 + "px");
-    //$(".rightcontent").css("height", contentheight + "px");
-
-    //$('#centerFr').css("height", contentheight - 2 + "px");
-    //$('#leftPanel').css("height", contentheight - 2 + "px");
-}
-
-function submitSearch(username) {
-
-    if (username != null) {
-        $('#txtuserName').val(username);
-        userName = username;
-    }
-    else {
-        userName = escape(jQuery.trim($('#txtuserName').val()));
-    }
-
-    var isGuest = $("#isGuest").attr("checked");
-    if (username !== "") {
-        if (userName.length > 50) {
-            //$("#divErrorPoup").empty();
-            $("#divErrorPoup").html('Max length of Username is 50!');
-            $("#divErrorPoup").dialog({ width: 200, height: 100, zIndex: 500, resizable: false, modal: true,
-                position: [5, 108], //
-                title: 'Alert',
-                close: function (event, ui) {
-                    /*jshint unused: vars */
-                },
-                buttons: [{
-                    id: "button-maxlength",
-                    text: "OK",
-                    click: function () {
-                        //top.location.href = accUrlDefault;                     
-                        $(this).dialog("close");
-                    }
-                }]
-            });
-
-            return false;
-        }
-
-        if (userName.toLowerCase() === 'search...' ||
-            trimAllSpace($('#txtuserName').val()).length <= 0) {
-            $("#divErrorPoup").html('Please input Username.');
-            $("#divErrorPoup").dialog({ width: 200, height: 100, zIndex: 500, resizable: false, modal: true,
-                position: [5, 108], //
-                title: 'Alert',
-                close: function (event, ui) {
-                    /*jshint unused: vars */
-                },
-                buttons: [{
-                    text: "OK",
-                    click: function () {
-                        //top.location.href = accUrlDefault;  
-
-                        $(this).dialog("close");
-                        $('#txtuserName').focus();
-                    }
-                }]
-            });
-
-            return false;
-        }
-
-        try {
-            /*jshint newcap: false */
-            BlockUI();
-        } catch (e) {
-        }
-
-        $('#leftPanel').attr({ src: '../Customer/CRMInfo?username=' + userName + '&isguest=' + isGuest + '&issearch=1' });
-        if (!showleft) {
-            leftright();
-        }
-    }
 }
 
 function gotoURL(frmName, url) {
@@ -194,7 +78,7 @@ function KeyPress(e) {
             return false;
         }
 
-        submitSearch();
+        customerManager.getCustomerInfo();
     }
     return;
 }
@@ -315,25 +199,12 @@ head.ready(function () {
     }).mouseout(function () {
         isonauto = false;
     });
-    //Add events to page
-
-    $("#btnleftright").mouseover(function () {
-        $(this).attr('class', $(this).attr('class').replace("rightleft", "rightleft_over").replace("leftright", "leftright_over"));
-    });
-
-    $("#btnleftright").mouseout(function () {
-        $(this).attr('class', '');
-        if (showleft) {
-            $(this).addClass("rightleft");
-        }
-        else {
-            $(this).addClass("leftright");
-        }
-    });
+    //Add events to page  
 
     $("#btndownup").mouseover(function () {
         $(this).attr('class', $(this).attr('class').replace("updown", "updown_over").replace("downup", "downup_over"));
     });
+
     $("#btndownup").mouseout(function () {
         $(this).attr('class', '');
         if (showLogo) {
@@ -345,19 +216,22 @@ head.ready(function () {
     });
 
     //search customer
+    menuManager.initPage();
+    customerManager.initPage();
+
     userName = "";
     var username = gup("username");
     if (username != null && username !== "") {
-        submitSearch(username);
-        leftright();
+        $('#txtuserName').val(username);
+        customerManager.getCustomerInfo(username);
+        menuManager.showHideLeftPanel();
     } else if (userSearch != null && userSearch !== "") {
         if (isGuestSearch === 'True') {
             $("#isGuest").attr("checked", true);
         }
 
-        submitSearch(userSearch);
-        if (!showleft) {
-            leftright();
-        }
+        $('#txtuserName').val(userSearch);
+        customerManager.getCustomerInfo(userSearch);
+        menuManager.showLeftPanel();
     }
 });

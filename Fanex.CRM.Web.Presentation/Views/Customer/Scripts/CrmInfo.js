@@ -211,7 +211,7 @@ crmInfo = {
     }
 };
 
-head.ready(
+$(document).ready(
     function init() {
 
         $('.button_left02').click(function () {
