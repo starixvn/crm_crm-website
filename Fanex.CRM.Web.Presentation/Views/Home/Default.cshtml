@@ -3,6 +3,7 @@
 @using Fanex.CRM.Infrastructure.Extension
 @using Fanex.CRM.Entities
 @using Fanex.CRM.Infrastructure.Resources
+@using Fanex.CRM.Customer.Criteria
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -79,7 +80,7 @@
         bool isGuest = false;
 
         SearchCustomerInfo searchUserSession = (SearchCustomerInfo)SessionExtension.GetSession(HttpContext.Current.Session,
-               FunctionPermission.SearchCustomerInfo);
+            FunctionPermission.SearchCustomerInfo);
         if (searchUserSession != null)
         {
             userSearched = searchUserSession.UserName;

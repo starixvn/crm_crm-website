@@ -20,22 +20,27 @@ namespace Fanex.CRM.Customer.Controllers
     /// </summary>
     public class Modules_CustomerController : BaseController
     {
-        private ICustomerService _customerService;
+        private ICustomerService _serviceInstance;
 
         public Modules_CustomerController()
             : this(null)
         {
         }
 
-        public Modules_CustomerController(ICustomerService customerService)
+        public ActionResult GoToCustomerInfoDetail(string customerId)
         {
-            _customerService = customerService ?? new CustomerService();
+            return View("~/Areas/Customer/CustomerInfoDetail.cshtml");
+        }
+
+        public Modules_CustomerController(ICustomerService serviceInstance)
+        {
+            _serviceInstance = serviceInstance ?? new CustomerService();
         }
 
         [HttpPost]
         public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
-            var result = _customerService.GetCustomerInfoByUsername(criteria);
+            var result = _serviceInstance.GetCustomerInfoByUsername(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
