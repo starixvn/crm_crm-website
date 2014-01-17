@@ -149,7 +149,7 @@ function addFeedbackInfo(newFeedback) {
         success: function (rs) {
             if (rs.ErrCode === 0) {
                 showAlertMessage("errmsg", successMsg, 0);
-                parent.customerManager.getCustomerInfo();
+                parent.leftPanelManager.LoadLeftPanel();
             }
             else {
                 showAlertMessage("errmsg", rs.ErrMsg, 1);

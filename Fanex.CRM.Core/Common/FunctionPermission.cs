@@ -32,7 +32,7 @@ namespace Fanex.CRM.Infrastructure.Common
 
         public const string CustomerInfo = "CustomerInfo";
 
-        public const string SearchCustomerInfo = "SearchCustomerInfo";
+        public const string SearchCustomerInfo = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
 
         public const string FeedbackStatistics = "FeedbackStatistics";
     }

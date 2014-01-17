@@ -7,7 +7,7 @@
 //   <change who="" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Service.Impl
+namespace Fanex.CRM.Infrastructure.Service.Implements
 {
     using System;
     using Fanex.Caching;
@@ -59,7 +59,7 @@ namespace Fanex.CRM.Service.Impl
                 LogExtensions.ExceptionHandler(exception);
             }
         }
-        
+
         /// <summary>
         /// Getting cache value.
         /// </summary>

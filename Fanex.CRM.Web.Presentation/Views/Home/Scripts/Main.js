@@ -78,7 +78,7 @@ function KeyPress(e) {
             return false;
         }
 
-        customerManager.getCustomerInfo();
+        leftPanelManager.LoadLeftPanel();
     }
     return;
 }
@@ -217,13 +217,13 @@ head.ready(function () {
 
     //search customer
     menuManager.initPage();
-    customerManager.initPage();
+    leftPanelManager.initPage();
 
     userName = "";
     var username = gup("username");
     if (username != null && username !== "") {
         $('#txtuserName').val(username);
-        customerManager.getCustomerInfo(username);
+        leftPanelManager.LoadLeftPanel(username);
         menuManager.showHideLeftPanel();
     } else if (userSearch != null && userSearch !== "") {
         if (isGuestSearch === 'True') {
@@ -231,7 +231,7 @@ head.ready(function () {
         }
 
         $('#txtuserName').val(userSearch);
-        customerManager.getCustomerInfo(userSearch);
+        leftPanelManager.LoadLeftPanel(userSearch);
         menuManager.showLeftPanel();
     }
 });

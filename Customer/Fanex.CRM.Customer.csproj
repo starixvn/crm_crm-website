@@ -55,8 +55,10 @@
   <ItemGroup>
     <Compile Include="Controllers\Modules_CustomerController.cs" />
     <Compile Include="Criteria\GetCustomerInfoByUsernameCriteria.cs" />
+    <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
     <Compile Include="Models\PhoneInfo.cs" />
+    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\CustomerRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICustomerRepository.cs" />
@@ -73,6 +75,10 @@
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Setting\Fanex.CRM.Setting.csproj">
+      <Project>{6BDF1D65-D49F-4371-B6EE-ABD10B5A8207}</Project>
+      <Name>Fanex.CRM.Setting</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Web.Controllers\Fanex.CRM.Web.Controllers.csproj">
       <Project>{4A20474E-2F9B-4308-AF20-2BA8D97128EB}</Project>

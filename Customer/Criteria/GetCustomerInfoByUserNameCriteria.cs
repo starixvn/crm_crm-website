@@ -14,8 +14,9 @@ namespace Fanex.CRM.Customer.Criteria
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// Get Customer Info.
+    /// Get Customer Information By Username Criteria.
     /// </summary>
+    [Serializable]
     public class GetCustomerInfoByUsernameCriteria
     {
         [SpParam(SqlParamName = "username")]

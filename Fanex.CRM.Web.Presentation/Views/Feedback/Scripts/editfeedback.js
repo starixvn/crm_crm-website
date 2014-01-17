@@ -355,7 +355,7 @@ function updateFeedbackInfo(newFeedback) {
                 try { parentWnd.afterUpdate(true); } catch (e) { }
 
                 if (newFeedback.IsOverrideCrmInfo) {
-                    parentWnd.customerManager.getCustomerInfo(userName);
+                    parentWnd.leftPanelManager.LoadLeftPanel(userName);
                 }
             }
             else {
@@ -810,7 +810,7 @@ var updateFeedback = {
                     window.setTimeout(function () {
                         updateFeedback.openEditFeedback(updateFeedback.feedbackId);
                         //                        if (newFeedback.IsOverrideCrmInfo) {
-                        //                            parentWnd.customerManager.getCustomerInfo(userName);
+                        //                            parentWnd.leftPanelManager.LoadLeftPanel(userName);
                         //                        }
                     }, 1000);
                 }

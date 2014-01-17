@@ -263,7 +263,7 @@
                                         ${RoleName}
                                     </td>
                                     <td width="75%" class="solid_left">
-                                        <a class="text_blueLink" href="javascript:parent.customerManager.getCustomerInfo('${UserName}');">${UserName}</a>
+                                        <a class="text_blueLink" href="javascript:parent.leftPanelManager.LoadLeftPanel('${UserName}');">${UserName}</a>
                                     </td>
                                
                                 </tr>
@@ -285,7 +285,7 @@
                                     name="btnupdownCustInfo" id="btnupdownCustInfo"><img class="imgDownUp" src="../Views/Customer/Styles/Images/icon_down.gif" alt="collapse" /></span>
 
                             </div>
-                        <div style="float:right; margin-right:5px; padding-top:1px"><input type="button" name="btnRefesh" value="" onclick="parent.customerManager.getCustomerInfo();" id="btnRefesh" class="btnReload" /></div>
+                        <div style="float:right; margin-right:5px; padding-top:1px"><input type="button" name="btnRefesh" value="" onclick="parent.leftPanelManager.LoadLeftPanel();" id="btnRefesh" class="btnReload" /></div>
                     </div>
                 </div>
                 <div class="box_content1" id="custInfoDetal">
@@ -472,6 +472,7 @@
     <script type="text/javascript" src="~/Scripts/common.js"></script>
     <script type="text/javascript" src="~/Scripts/showhidepopup.js"></script>
     <script type="text/javascript" src="~/Views/Customer/Scripts/CrmInfo.js?ver=1"></script>
+    @Scripts.Render("~/Areas/CustomerInfo/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var accId = @Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id;

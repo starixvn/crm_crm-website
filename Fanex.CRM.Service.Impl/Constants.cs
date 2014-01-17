@@ -14,7 +14,7 @@ namespace Fanex.CRM.Service.Impl
     /// </summary>
     internal class Constants
     {
-        public const string AllSettingKey = "AllSettingKey_V2012";
+        public const string AllSettingKey = "Fanex.CRM.Setting.GetAllSettingSessionKey";
         public const string SettingRelationKey = "SettingRelationKey_V2012";
         public const string AllCountriesKey = "AllCountriesKey_V2012";
         public const string AllSettingType = "AllSettingType_V2012";

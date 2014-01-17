@@ -1,95 +1,117 @@
-﻿var CustomerManager = function () {
+﻿"use strict";
+
+var CustomerManager = function () {
     var self = this;
     self.DOMElements = {
-        textboxUsername: null,
-        checkboxIsGuest: null,
-        resultPopup: null,
-        leftPanel: null
+
     };
 
     self.CacheData = {
-        MaxUsernameLength: 50,
-        ViewResources: {
-            Home_Index_ErrorUsernameMaxLength: 'Max length of Username is 50!',
-            Home_Index_ErrorUsernameEmpty: 'Please input Username.',
-            OK: 'OK'
+        getCustomerInfoParams: {
+            Username: null,
+            IsGuest: null
         },
 
-        DefaultUsernameSearch: 'search...'
+        ViewResources: {
+            GetCustomerByName_NoData: "There is no information",
+            OK: "OK"
+        }
     };
 
     self.initPage = function () {
         self.cacheDOMElements();
+        self.getCustomerInfoByUsername();
     };
     self.cacheDOMElements = function () {
-        self.DOMElements.textboxUsername = $('#txtuserName');
-        self.DOMElements.checkboxIsGuest = $('#isGuest');
-        self.DOMElements.resultPopup = $('#divErrorPoup');
-        self.DOMElements.leftPanel = $('#leftPanel');
+        self.DOMElements.confirmSearchByGuestDialog = $("#divPopup");
     };
 
-    self.getCustomerInfo = function (username) {
+    self.getCustomerInfoByUsername = function () {
         var getCustomerInfoParams = {
-            Username: username != null ? username : escape(jQuery.trim(self.DOMElements.textboxUsername.val())),
-            IsGuest: self.DOMElements.checkboxIsGuest.attr("checked")
+            Username: $.URLDecode(gup("username")),
+            IsGuest: gup("isguest")
         };
 
-        var isValid = self.validateGetCustomerInfoParams(getCustomerInfoParams);
-        if (!isValid) {
+        self.CacheData.getCustomerInfoParams = getCustomerInfoParams;
+        if (getCustomerInfoParams.Username === null ||
+            getCustomerInfoParams.Username === '' &&
+            getCustomerInfoParams.Username === "null") {
             return;
         }
 
-        BlockUI();
-        var sourceURL = '../Customer/CRMInfo?' + $.param({
-            username: getCustomerInfoParams.Username,
-            isguest: getCustomerInfoParams.IsGuest,
-            issearch: 1
+        $.ajax({
+            type: "POST",
+            url: window.rootUrl + "Modules_Customer/GetCustomerInfoByUsername",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(getCustomerInfoParams),
+            success: function (customer) {
+                self.renderCustomerInfoResult(customer);
+            },
+            error: function () { },
+            complete: function () { }
         });
-
-        self.DOMElements.leftPanel.attr({
-            src: sourceURL
-        });
-
-        menuManager.showLeftPanel();
     };
 
-    self.validateGetCustomerInfoParams = function (getCustomerInfoParams) {
-        if (getCustomerInfoParams.Username !== "" &&
-            getCustomerInfoParams.Username.length > self.CacheData.MaxUsernameLength) {
-            self.DOMElements.resultPopup.html(self.CacheData.ViewResources.Home_Index_ErrorUsernameMaxLength);
-            self.showValidateGetParamsResult();
-            return false;
+    self.renderCustomerInfoResult = function (customer) {
+        if (customer == null &&
+            self.CacheData.getCustomerInfoParams.IsGuest === "false") {
+            self.showConfirmSearchByGuestDialog();
+            return;
         }
 
-        if (getCustomerInfoParams.Username !== "" &&
-            (getCustomerInfoParams.Username.toLowerCase() === self.CacheData.DefaultUsernameSearch ||
-            $.trim(getCustomerInfoParams.Username) === "")) {
-            self.DOMElements.resultPopup.html(self.CacheData.ViewResources.Home_Index_ErrorUsernameEmpty);
-            self.showValidateGetParamsResult();
-            return false;
+        if (customer == null) {
+            self.showGetCustomerInfoByUsername_NoInfo();
+            return;
         }
 
-        return true;
+        //        loadUpline(customer.Id);
+        //        $("#box_02_headertext").html(customer.UserName);
+        //        crmInfo.divContent.css("display", "block");
+        //        $("#errmsg").html("");
+        //        cusidSearch = customer.Id;
+        //        userNameSearch = customer.UserName;
+        //        updateCustomerSearch();
+        //        if (parseInt(crmInfo.isSearch) === 1) {
+        //            try {
+        //                parent.gotoURL('centerFr',
+        //                                    '../Feedback/CustomerLastestFeedback?custid=' + customer.Id +
+        //                                    '&custName=' + customer.UserName);
+        //            } catch (e) {
+        //            }
+        //        }
     };
 
-    self.showValidateGetParamsResult = function () {
-        self.DOMElements.resultPopup.dialog({
-            width: 200,
-            height: 100,
+    self.goToBlankPage = function () {
+        try {
+            parent.gotoURL('centerFr', '../Home/BlankPage');
+        } catch (e) {
+        }
+    };
+
+    self.showGetCustomerInfoByUsername_NoInfo = function () {
+        showAlertMessage("errmsg", self.CacheData.ViewResources.GetCustomerByName_NoData, 1);
+        self.goToBlankPage();
+    };
+
+    self.showConfirmSearchByGuestDialog = function () {
+        self.DOMElements.confirmSearchByGuestDialog.dialog({
+            width: 250,
+            height: 150,
             zIndex: 500,
+            position: [2, 2],
             resizable: false,
-            modal: true,
-            position: [5, 108],
-            title: 'Alert',
+
+            title: "Search By Guest",
             close: function (event, ui) {
                 /*jshint unused: vars */
+                self.showGetCustomerInfoByUsername_NoInfo();
             },
             buttons: [{
-                id: "button-maxlength",
                 text: self.CacheData.ViewResources.OK,
                 click: function () {
+                    crmInfo.autoSearchGuestCustomer();
                     $(this).dialog("close");
-                    self.DOMElements.textboxUsername.focus();
                 }
             }]
         });
@@ -97,3 +119,6 @@
 };
 
 var customerManager = new CustomerManager();
+$(document).ready(function () {
+    customerManager.initPage();
+});

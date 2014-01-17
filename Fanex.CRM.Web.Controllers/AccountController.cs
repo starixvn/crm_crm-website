@@ -58,13 +58,13 @@ namespace Fanex.CRM.Web.Controllers
         /// <returns>Sign in result.</returns>
         public RedirectResult SignIn()
         {
-            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
+            if (!AppSetting.IsLocalTest && (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null))
             {
                 return new RedirectResult(AppSetting.LoginUrl, true);
             }
             else
             {
-                return new RedirectResult("~/Home/Default");
+                return new RedirectResult("~/Home/Index");
             }
         }
 

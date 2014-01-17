@@ -9,9 +9,12 @@
 
 namespace Fanex.CRM.Customer.Models
 {
+    using System;
+
     /// <summary>
     /// Phone Info.
     /// </summary>
+    [Serializable]
     public class PhoneInfo
     {
         public string CountryCode { get; set; }

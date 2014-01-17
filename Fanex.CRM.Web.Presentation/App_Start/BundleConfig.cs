@@ -50,6 +50,9 @@ namespace Fanex.CRM.Web.View.App_Start
                  "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
                 "~/Areas/Home/Scripts/CRMConstants.js",
                 "~/Areas/Home/Scripts/MenuManager.js",
+                "~/Areas/Home/Scripts/LeftPanelManager.js"));
+
+            bundles.Add(new ScriptBundle("~/Areas/CustomerInfo/Scripts").Include(
                 "~/Areas/Customer/Scripts/CustomerManager.js"));
         }
     }

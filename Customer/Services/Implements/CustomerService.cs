@@ -10,31 +10,39 @@
 namespace Fanex.CRM.Customer.Services.Implements
 {
     using System;
+    using System.Web;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories.Implements;
     using Fanex.CRM.Customer.Repositories.Interfaces;
     using Fanex.CRM.Customer.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Extension;
-    using System.Web;
-    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Setting.Criteria;
+    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
 
     /// <summary>
     /// Customer Service.
     /// </summary>
     public class CustomerService : ICustomerService
     {
+        private readonly string GetCustomerInfoByUsernameSessionKey = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
+
         private readonly ICustomerRepository _repositoryInstance;
 
+        private readonly ISettingService _settingService;
+
         public CustomerService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public CustomerService(ICustomerRepository repositoryInstance)
+        public CustomerService(ICustomerRepository repositoryInstance,
+            ISettingService settingService)
         {
             _repositoryInstance = repositoryInstance ?? new CustomerRepository();
+            _settingService = settingService ?? new SettingService();
         }
 
         public CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
@@ -47,10 +55,14 @@ namespace Fanex.CRM.Customer.Services.Implements
                 result = rawData;
                 if (result != null)
                 {
-                    //result.Site = _settingService.GetById(result.Site.Id);
+                    var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
+                    {
+                        SettingId = result.SiteSetting.Id
+                    });
+                    result.SiteSetting.Name = siteSetting.Name;
                 }
 
-                SessionExtension.AddSession(HttpContext.Current.Session, FunctionPermission.SearchCustomerInfo, criteria);
+                SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
             }
             catch (Exception ex)
             {

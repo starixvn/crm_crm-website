@@ -78,7 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddFeedbackService.cs" />
-    <Compile Include="CacheService.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CountryService.cs" />
     <Compile Include="CustomerService.cs" />
