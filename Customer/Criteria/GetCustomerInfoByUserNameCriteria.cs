@@ -9,18 +9,32 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
+    using System;
+    using System.Collections;
+    using Fanex.NAP.Framework.Data;
+
     /// <summary>
     /// Get Customer Info.
     /// </summary>
     public class GetCustomerInfoByUsernameCriteria
     {
+        [SpParam(SqlParamName = "username")]
         public string Username { get; set; }
 
-        public string IsGuest { get; set; }
+        [SpParam(SqlParamName = "isguest")]
+        public bool IsGuest { get; set; }
+
+        public Hashtable GetSPParams()
+        {
+            var param = new Hashtable();
+            param.Add("username", Uri.UnescapeDataString(Username));
+            param.Add("isguest", IsGuest);
+            return param;
+        }
 
         public string GetSettingKey()
         {
-            return "Gaming_BingoOutStanding_GetReport";
+            return "CustomerSearch";
         }
 
         public bool IsValid()
