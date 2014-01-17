@@ -9,6 +9,10 @@
 
 namespace Fanex.CRM.Customer.Controllers
 {
+    using System.Web.Mvc;
+    using Fanex.CRM.Customer.Criteria;
+    using Fanex.CRM.Customer.Services.Implements;
+    using Fanex.CRM.Customer.Services.Interfaces;
     using Fanex.CRM.Web.Controllers;
 
     /// <summary>
@@ -16,6 +20,24 @@ namespace Fanex.CRM.Customer.Controllers
     /// </summary>
     public class Modules_CustomerController : BaseController
     {
+        private ICustomerService _customerService;
 
+        public Modules_CustomerController()
+            : this(null)
+        {
+        }
+
+        public Modules_CustomerController(ICustomerService customerService)
+        {
+            _customerService = customerService ?? new CustomerService();
+        }
+
+        [HttpPost]
+        public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
+        {
+            var result = _customerService.GetCustomerInfoByUsername(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
     }
 }

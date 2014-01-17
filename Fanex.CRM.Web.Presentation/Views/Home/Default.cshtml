@@ -11,7 +11,7 @@
     <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Views/Home/Styles/default.less?ver=5")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Areas/Sites/Views/Home/Styles")
+    @Styles.Render("~/Areas/Home/Styles")
 </head>
 <body>
     @*<div id="fullsize" class="fullsize">
@@ -87,7 +87,7 @@
         }
     }
     @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Areas/Sites/Views/Home/Scripts")
+    @Scripts.Render("~/Areas/Home/Scripts")
     <script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var userSearch = '@userSearched';

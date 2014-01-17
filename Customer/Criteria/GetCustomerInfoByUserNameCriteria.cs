@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetCustomerInfoByUserName.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetCustomerInfoByUsername.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -12,9 +12,9 @@ namespace Fanex.CRM.Customer.Criteria
     /// <summary>
     /// Get Customer Info.
     /// </summary>
-    public class GetCustomerInfoByUserNameCriteria
+    public class GetCustomerInfoByUsernameCriteria
     {
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         public string IsGuest { get; set; }
 
