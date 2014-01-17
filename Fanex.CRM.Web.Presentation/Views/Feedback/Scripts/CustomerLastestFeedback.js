@@ -205,7 +205,7 @@ head.ready(function () {
     };
     $("#lastedfeedbackgrid").initGrid(gridOpts);
 
-    try { topwnd = findMainWindow(window); } catch (e) { }
+    //    try { topwnd = findMainWindow(window); } catch (e) { }
 
     topFeedback.loadLastedFeedback(false);
 

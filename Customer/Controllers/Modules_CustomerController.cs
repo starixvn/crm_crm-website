@@ -14,7 +14,7 @@ namespace Fanex.CRM.Customer.Controllers
     /// <summary>
     /// Customer Controller.
     /// </summary>
-    public class CustomerController : BaseController
+    public class Modules_CustomerController : BaseController
     {
 
     }

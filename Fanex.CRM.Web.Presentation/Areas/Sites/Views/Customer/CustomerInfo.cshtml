@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Fanex.CRM.Customer.Resources;
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE>
@@ -15,39 +16,39 @@
         id="divContent">
         <div class="row item">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                Super:</div>
+                @Labels.Super</div>
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                <a href="#">Staff</a></div>
+                <a href="#"> @Labels.Staff</a></div>
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                Active</div>
+                 @Labels.Active</div>
         </div>
         <div class="row item">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                Master:</div>
+                @Labels.Master</div>
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 <a href="#">Dept15</a></div>
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                Active</div>
+                @Labels.Active</div>
         </div>
         <div class="row item">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                Agent:</div>
+                @Labels.Agent:</div>
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 <a href="#">Dept1501</a></div>
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                Active</div>
+                @Labels.Active</div>
         </div>
         <div class="row item current">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                Member:</div>
+                @Labels.Member:</div>
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 uixc102</div>
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                Active</div>
+                @Labels.Active</div>
         </div>
         <div class="row item">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
-                Danger:</div>
+                @Labels.Danger</div>
             <div class="col-xs-8 col-sm-8 col-md-8">
                 <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4 text-left">
@@ -223,7 +224,8 @@
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
             </div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <button class="btn pull-right btn-update"><span class="hotkey">U</span>pdate</button>                   
+                <button class="btn pull-right btn-update">
+                    <span class="hotkey">U</span>pdate</button>
             </div>
         </div>
         <div class="row item title text-left">

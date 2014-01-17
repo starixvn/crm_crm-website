@@ -554,6 +554,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Customer\Fanex.CRM.Customer.csproj">
+      <Project>{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}</Project>
+      <Name>Fanex.CRM.Customer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>
