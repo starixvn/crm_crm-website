@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerController.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="CustomerSettingController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -16,13 +16,13 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Web.Controllers;
 
     /// <summary>
-    /// Customer Controller.
+    /// Customer Setting Controller.
     /// </summary>
-    public class Modules_CustomerController : BaseController
+    public class CustomerSettingController : BaseController
     {
         private ICustomerService _serviceInstance;
 
-        public Modules_CustomerController()
+        public CustomerSettingController()
             : this(null)
         {
         }
@@ -32,7 +32,7 @@ namespace Fanex.CRM.Customer.Controllers
             return View("~/Areas/Customer/CustomerInfoDetail.cshtml");
         }
 
-        public Modules_CustomerController(ICustomerService serviceInstance)
+        public CustomerSettingController(ICustomerService serviceInstance)
         {
             _serviceInstance = serviceInstance ?? new CustomerService();
         }

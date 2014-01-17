@@ -1,4 +1,5 @@
 ﻿@import "variables.less";
+@import "mixins.less";
 
 body {
     font-family: @font-family;
@@ -6,8 +7,8 @@ body {
     padding: 0;
     font-size: @font-size;
     color: @color-text;
+    background: #f1f1f1;
 }
-
 
 [class*="col-"] {
     padding: 0;
@@ -101,7 +102,7 @@ a {
 select {
     border: 1px solid @border-color;
     height: 24px;
-    width: 167px;
+    width: 100%;
     padding: 3px;
     color: #666;
 }
@@ -109,26 +110,34 @@ select {
 .textbox {
     border: 1px solid @border-color;
     height: 24px;
-    width: 167px;
+    width: 100%;
     padding: 3px;
     color: #666;
+    float: left;
 
     &.code-country {
-        width: 55px;
+        width: 27%;
+        margin-right: 2%;
     }
 
     &.code-area {
-        width: 25px;
+        width: 20%;
+        margin-right: 2%;
     }
 
     &.phone {
-        width: 82px;
+        width: 49%;
+    }
+
+    &.text-large {
+        width: 281.5%;
     }
 }
 
 .btn {
-    background-color: #466ab6;
+    background: url(images/bg-btn.jpg) repeat-x;
     border-color: #3c5b9c;
+    border-width: 0 1px;
     border-radius: 0;
     height: 24px;
     color: #fff;
@@ -136,17 +145,73 @@ select {
     padding: 2px 12px;
 
     &:hover {
-        background-color: #274b86;
+        background: #274b86;
+    }
+
+    &.btn-save {
+        margin-top: 8px;
     }
 }
 
 .main {
-    background-color: #f1f1f1;
     display: block;
     height: 100%;
     padding: 10px 15px;
     width: 100%;
 }
+
+.row {
+    margin: 0;
+}
+
+/* FORM */
+
+.panel-group {
+    border: 1px solid @border-color;
+    border-width: 1px 1px 0 1px;
+
+    .title {
+        height: 32px;
+        line-height: 18px;
+        border-bottom: 1px solid @border-color;
+        padding: 6px;
+        color: #2f70b4;
+        font-size: @font-size + 2;
+        .gradient-vertical(#e7e7e7, #e2e2e2);
+
+        .icon-expand {
+            background: url(images/collapse-btn.png) no-repeat -3px -3px;
+            height: 18px;
+            width: 18px;
+            float: left;
+            margin-right: 6px;
+        }
+
+        .icon-collapse {
+            .icon-expand;
+            background-position: -24px -3px;
+        }
+    }
+
+    .content {
+        padding: 4px 0;
+
+        .item {
+            padding: 4px 9px;
+
+            label {
+                font-weight: normal;
+                margin-top: 2px;
+            }
+        }
+    }
+
+    &.last {
+        border-width: 1px;
+    }
+}
+
+
 
 .maincontent_header{height:23px;}
 .maincontent_headerL{height:23px;width:24px;background:url(images/WebResource.axd.png) no-repeat 0 -192px;}

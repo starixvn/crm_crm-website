@@ -179,6 +179,7 @@
     <None Include="Areas\Customer\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
     <None Include="Content\site\common.less" />
+    <None Include="Content\site\mixins.less" />
     <None Include="Content\site\image.less" />
     <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
@@ -191,6 +192,7 @@
     <Content Include="Content\site\Images\arSub.gif" />
     <Content Include="Content\site\Images\arSub_hover.gif" />
     <Content Include="Content\site\Images\back.png" />
+    <Content Include="Content\site\Images\bg-btn.jpg" />
     <Content Include="Content\site\Images\bg-nav-top-left.jpg" />
     <Content Include="Content\site\Images\bg02_box01.jpg" />
     <Content Include="Content\site\Images\bg_checkbox.jpg" />
@@ -210,6 +212,7 @@
     <Content Include="Content\site\Images\calendar_disable.gif" />
     <Content Include="Content\site\Images\chart.gif" />
     <Content Include="Content\site\Images\close_16_16.gif" />
+    <Content Include="Content\site\Images\collapse-btn.png" />
     <Content Include="Content\site\Images\C_content_tab.png" />
     <Content Include="Content\site\Images\de_01.gif" />
     <Content Include="Content\site\Images\de_01.jpg" />
@@ -239,12 +242,10 @@
     <Content Include="Content\site\Images\ico1.png" />
     <Content Include="Content\site\Images\ico2.png" />
     <Content Include="Content\site\Images\icon-arrow-down.png" />
-    <Content Include="Content\site\Images\icon-arrow-left.png" />
     <Content Include="Content\site\Images\icon-expand.png" />
     <Content Include="Content\site\Images\icon-search.png" />
     <Content Include="Content\site\Images\icon-sprite.png" />
     <Content Include="Content\site\Images\iconslist.png" />
-    <Content Include="Content\site\Images\icon_button02.gif" />
     <Content Include="Content\site\Images\icon_del.gif" />
     <Content Include="Content\site\Images\icon_down.gif" />
     <Content Include="Content\site\Images\icon_edit02.gif" />
@@ -263,7 +264,6 @@
     <Content Include="Content\site\Images\menu_open.gif" />
     <Content Include="Content\site\Images\menu_open_right.gif" />
     <Content Include="Content\site\Images\News.png" />
-    <Content Include="Content\site\Images\openclosedLeft.gif" />
     <Content Include="Content\site\Images\report_check.png" />
     <Content Include="Content\site\Images\scrollbar\osx_arrow_down.png" />
     <Content Include="Content\site\Images\scrollbar\osx_arrow_up.png" />
@@ -276,7 +276,6 @@
     <Content Include="Content\site\Images\sprite.png" />
     <Content Include="Content\site\Images\sucess.gif" />
     <Content Include="Content\site\Images\TreeViewImg.gif" />
-    <Content Include="Content\site\Images\udicon.gif" />
     <Content Include="Content\site\Images\view-detail.png" />
     <Content Include="Content\site\Images\view_ico.gif" />
     <Content Include="Content\site\Images\waiting7.gif" />
@@ -496,8 +495,6 @@
     <Content Include="Views\Home\Menu.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Areas\Home\Scripts\MenuManager.js" />
-    <Content Include="Views\Home\Styles\Images\arSub.gif" />
-    <Content Include="Views\Home\Styles\Images\arSub_hover.gif" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_head_tb.jpg" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_menu.jpg" />
@@ -513,7 +510,7 @@
     <Content Include="Views\Home\Styles\Images\Banner\R_main_btn.png" />
     <Content Include="Views\Home\Styles\Images\Banner\up.gif" />
     <Content Include="Views\Home\Styles\Images\Banner\up_down.png" />
-    <Content Include="Views\Home\Styles\Images\icon_welcome.gif" />
+    <Content Include="Views\Home\Styles\Images\icon-arrow-left.png" />
     <Content Include="Views\Reports\Scripts\CasinoDailyStatistics.js" />
     <Content Include="Views\Reports\Scripts\CasinoWeeklyStatistics.js" />
     <Content Include="Views\Reports\Scripts\DailyStatistic.js" />
