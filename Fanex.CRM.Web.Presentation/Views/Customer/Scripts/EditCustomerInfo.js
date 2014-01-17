@@ -300,7 +300,7 @@ function doUpdate() {
 
             if (rs.ErrCode === 0) {
                 showAlertMessage("errmsg", successMsg, 0);
-                parent.submitSearch(custUserName);
+                parent.customerManager.getCustomerInfo(custUserName);
             }
             else {
                 showAlertMessage("errmsg", rs.ErrMsg, 1);

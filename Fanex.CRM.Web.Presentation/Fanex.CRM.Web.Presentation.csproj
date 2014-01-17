@@ -173,6 +173,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Home\Web.config" />
+    <None Include="Areas\Customer\Styles\StyleSheet.less" />
+    <Content Include="Areas\Customer\Web.config" />
     <None Include="Content\site\common.less" />
     <None Include="Content\site\image.less" />
     <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
@@ -422,26 +425,26 @@
     <Content Include="Views\AdminTool\Styles\StyleSheet.css" />
     <Content Include="Views\Common\404Error.htm" />
     <Content Include="Views\Customer\Scripts\CrmInfo.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerManager.js" />
     <Content Include="Views\Customer\Scripts\EditCustomerInfo.js" />
-    <Content Include="Views\Customer\Styles\Images\icon_button02.gif" />
-    <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
-    <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\bg02_box01.jpg" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\bg02_box01.png" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\bg_checkbox.jpg" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\box_02header.jpg" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\box_bottom.jpg" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\box_bottom.png" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\box_rp.jpg" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\icn_top.png" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\L_btn_left.png" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\L_btn_left_hover.png" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\L_tab_left.png" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left.png" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left_hover.png" />
-    <Content Include="Views\Customer\Styles\Images\L_banner\R_tab_left.png" />
+    <Content Include="Areas\Customer\Styles\Images\icon_button02.gif" />
+    <Content Include="Areas\Customer\Styles\Images\icon_down.gif" />
+    <Content Include="Areas\Customer\Styles\Images\icon_up.gif" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\bg02_box01.jpg" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\bg02_box01.png" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\bg_checkbox.jpg" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\box_02header.jpg" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\box_bottom.jpg" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\box_bottom.png" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\box_rp.jpg" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\icn_top.png" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\L_btn_left.png" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\L_btn_left_hover.png" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\L_tab_left.png" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\R_btn_left.png" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\R_btn_left_hover.png" />
+    <Content Include="Areas\Customer\Styles\Images\L_banner\R_tab_left.png" />
     <Content Include="packages.config" />
-    <None Include="Views\Customer\Styles\StyleSheet.less" />
     <Content Include="Views\Feedback\Scripts\addfeedback.js" />
     <Content Include="Views\Feedback\Scripts\addguestfeedback.js" />
     <Content Include="Views\Feedback\Scripts\CustomerLastestFeedback.js" />
@@ -486,11 +489,13 @@
     <Content Include="Content\site\ui-darkness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\AssignMenu.js" />
+    <Content Include="Areas\Home\Scripts\CRMConstants.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
     <Content Include="Views\Home\Menu.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
     <None Include="Views\Home\Styles\detail.less" />
     <None Include="Views\Home\Styles\default.less" />
+    <Content Include="Areas\Home\Scripts\MenuManager.js" />
     <Content Include="Views\Home\Styles\Images\arSub.gif" />
     <Content Include="Views\Home\Styles\Images\arSub_hover.gif" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
@@ -544,6 +549,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Home\Styles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
@@ -551,6 +557,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Customer\Fanex.CRM.Customer.csproj">
+      <Project>{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}</Project>
+      <Name>Fanex.CRM.Customer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>
@@ -631,7 +641,7 @@
     <Content Include="Views\Home\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Customer\CRMInfo.cshtml" />
+    <Content Include="Areas\Customer\CustomerInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Customer\EditCRMInfo.cshtml" />

@@ -53,7 +53,7 @@ namespace Fanex.CRM.Web.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult CRMInfo()
         {
-            return View();
+            return View("~/Areas/Customer/CustomerInfo.cshtml");
         }
 
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]

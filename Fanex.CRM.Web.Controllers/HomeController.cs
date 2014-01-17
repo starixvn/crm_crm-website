@@ -43,7 +43,7 @@ namespace Fanex.CRM.Web.Controllers
             }
             else
             {
-                return new RedirectResult("Home/Default", true);
+                return new RedirectResult("~/Home/Default");
             }
         }
 

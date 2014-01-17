@@ -1,50 +1,76 @@
-﻿<!DOCTYPE>
+﻿@using Fanex.CRM.Customer.Resources;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Customer Info </title>
-    <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Views/Customer/Styles/StyleSheet.less?ver=1")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/Customer/Styles/StyleSheet.less?ver=1" />
 </head>
 <body>
-    <div id="errmsg"></div>
-    <div class="container left-container">
+    <div id="errmsg">
+    </div>
+    <div class="container left-container" style="width: 100%; text-align: center; display: none;"
+        id="divContent">
         <div class="row item">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Super:</div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left"><a href="#">Staff</a></div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Active</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                @Labels.Super</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                <a href="#"> @Labels.Staff</a></div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                 @Labels.Active</div>
         </div>
         <div class="row item">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Master:</div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left"><a href="#">Dept15</a></div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Active</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                @Labels.Master</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                <a href="#">Dept15</a></div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                @Labels.Active</div>
         </div>
         <div class="row item">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Agent:</div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left"><a href="#">Dept1501</a></div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Active</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                @Labels.Agent:</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                <a href="#">Dept1501</a></div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                @Labels.Active</div>
         </div>
         <div class="row item current">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Member:</div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">uixc102</div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Active</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                @Labels.Member:</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                uixc102</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                @Labels.Active</div>
         </div>
         <div class="row item">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">Danger:</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                @Labels.Danger</div>
             <div class="col-xs-8 col-sm-8 col-md-8">
                 <div class="row">
-                    <div class="col-xs-4 col-sm-4 col-md-4 text-left">Orginal</div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 text-left">ABT</div>
-                    <div class="col-xs-5 col-sm-5 col-md-5 text-left">Other Sport</div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                        Orginal</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-left">
+                        ABT</div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-left">
+                        Other Sport</div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4 col-sm-4 col-md-4 text-left"><span class="lv3">Lvl 3</span></div>
-                    <div class="col-xs-3 col-sm-3 col-md-3 text-left"><span class="lv1">Lvl 1</span></div>
-                    <div class="col-xs-5 col-sm-5 col-md-5 text-left"><span class="lv0">Lvl 0</span></div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                        <span class="lv3">Lvl 3</span></div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-left">
+                        <span class="lv1">Lvl 1</span></div>
+                    <div class="col-xs-5 col-sm-5 col-md-5 text-left">
+                        <span class="lv0">Lvl 0</span></div>
                 </div>
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Site</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Site</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <select>
                     <option value="0">None</option>
@@ -55,7 +81,8 @@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Country</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Country</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <select>
                     <option value="0">None</option>
@@ -66,28 +93,31 @@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">First Name</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                First Name</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox" value="Customer" />
                 @*${CustomerInfo.FirstName}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Last Name</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Last Name</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox" value="Customer" />
                 @*${CustomerInfo.LastName}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Nick Name</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Nick Name</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <span class="text">Nick.name</span>
-                @*${NickName}*@
+                <span class="text">Nick.name</span> @*${NickName}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Language</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Language</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <select>
                     <option value="0">None</option>
@@ -100,90 +130,102 @@
             Communication Tool
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Phone 1</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Phone 1</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox code-country"/>
-                <input type="text" class="textbox code-area"/>
-                <input type="text" class="textbox phone"/>
+                <input type="text" class="textbox code-country" />
+                <input type="text" class="textbox code-area" />
+                <input type="text" class="textbox phone" />
                 @*${CustomerInfo.Phone}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Phone 2</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Phone 2</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox code-country"/>
-                <input type="text" class="textbox code-area"/>
-                <input type="text" class="textbox phone"/>
+                <input type="text" class="textbox code-country" />
+                <input type="text" class="textbox code-area" />
+                <input type="text" class="textbox phone" />
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Phone 3</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Phone 3</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox code-country"/>
-                <input type="text" class="textbox code-area"/>
-                <input type="text" class="textbox phone"/>
+                <input type="text" class="textbox code-country" />
+                <input type="text" class="textbox code-area" />
+                <input type="text" class="textbox phone" />
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Mobile</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Mobile</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox code-country label-left"/>
-                <input type="text" class="textbox code-area"/>
-                <input type="text" class="textbox phone"/>
+                <input type="text" class="textbox code-country label-left" />
+                <input type="text" class="textbox code-area" />
+                <input type="text" class="textbox phone" />
                 @*${CustomerInfo.MobilePhone}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Email</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Email</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox" value="email@yahoo.com" />
                 @*${CustomerInfo.Email}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">MSN</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                MSN</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
                 <input type="text" class="textbox" value="email@yahoo.com" />
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">Skype</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                Skype</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <span class="text">ABCDGHH</span>
-                @*${CustomerInfo.Skype}*@
+                <span class="text">ABCDGHH</span> @*${CustomerInfo.Skype}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">PIC1</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                PIC1</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox"/>
+                <input type="text" class="textbox" />
                 @*${Pic1}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">PIC2</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                PIC2</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox"/>
+                <input type="text" class="textbox" />
                 @*${Pic2}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">PIC3</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                PIC3</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox"/>
+                <input type="text" class="textbox" />
                 @*${Pic3}*@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">PIC4</div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
+                PIC4</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox"/>
+                <input type="text" class="textbox" />
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left"></div>
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+            </div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <button class="btn pull-right btn-update"><span class="hotkey">U</span>pdate</button>
+                <button class="btn pull-right btn-update">
+                    <span class="hotkey">U</span>pdate</button>
             </div>
         </div>
         <div class="row item title text-left">
@@ -191,12 +233,16 @@
         </div>
         <div class="row item no-border-bg">
             <ul class="list-unstyled list-menu pull-left">
-                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Customer/EditCRMInfo?custid=${Id}');">CRM Info</a></li>
-                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/AddFeedback?custId=${Id}&custName=${UserName}');">Add Feedback</a></li>
+                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Customer/EditCRMInfo?custid=${Id}');">
+                    CRM Info</a></li>
+                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/AddFeedback?custId=${Id}&custName=${UserName}');">
+                    Add Feedback</a></li>
             </ul>
             <ul class="list-unstyled list-menu pull-left no-margin">
-                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/CustomerLastestFeedback?custid=${Id}&custName=${UserName}');">Latest Feeadback</a></li>
-                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/ManageFeedback?custid=${Id}&custName=${UserName}&isGuest=0');">Manage Feedback</a></li>
+                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/CustomerLastestFeedback?custid=${Id}&custName=${UserName}');">
+                    Latest Feeadback</a></li>
+                <li><a href="javascript:;" onclick="javascript:parent.gotoURL('centerFr','../Feedback/ManageFeedback?custid=${Id}&custName=${UserName}&isGuest=0');">
+                    Manage Feedback</a></li>
             </ul>
         </div>
     </div>
@@ -217,7 +263,7 @@
                                         ${RoleName}
                                     </td>
                                     <td width="75%" class="solid_left">
-                                        <a class="text_blueLink" href="javascript:parent.submitSearch('${UserName}');">${UserName}</a>
+                                        <a class="text_blueLink" href="javascript:parent.customerManager.getCustomerInfo('${UserName}');">${UserName}</a>
                                     </td>
                                
                                 </tr>
@@ -239,7 +285,7 @@
                                     name="btnupdownCustInfo" id="btnupdownCustInfo"><img class="imgDownUp" src="../Views/Customer/Styles/Images/icon_down.gif" alt="collapse" /></span>
 
                             </div>
-                        <div style="float:right; margin-right:5px; padding-top:1px"><input type="button" name="btnRefesh" value="" onclick="parent.submitSearch();" id="btnRefesh" class="btnReload" /></div>
+                        <div style="float:right; margin-right:5px; padding-top:1px"><input type="button" name="btnRefesh" value="" onclick="parent.customerManager.getCustomerInfo();" id="btnRefesh" class="btnReload" /></div>
                     </div>
                 </div>
                 <div class="box_content1" id="custInfoDetal">
@@ -414,27 +460,21 @@
             </div>
         </div>
     </div>*@
-    
-    <div id="divPopup" class="selector" style="display: none; ">Do you want to search guest customer's information?</div>
-
+    <div id="divPopup" class="selector" style="display: none;">
+        Do you want to search guest customer's information?</div>
     <iframe height="0" frameborder="0" width="0" name="frmUpdate" id="frmUpdate"></iframe>
-        
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript" src="~/Scripts/jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/json2.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.json-1.3.js"></script>
+    <script type="text/javascript" src="~/Scripts/jscookies.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.14.custom.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/common.js"></script>
+    <script type="text/javascript" src="~/Scripts/showhidepopup.js"></script>
+    <script type="text/javascript" src="~/Views/Customer/Scripts/CrmInfo.js?ver=1"></script>
+    <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var accId = @Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id;
-
-        head.js("@Url.Content("~/Scripts/jquery.js")", function () {
-                head.js("@Url.Content("~/Scripts/json2.js")")
-                    .js("@Url.Content("~/Scripts/jquery.json-1.3.js")")                    
-                    .js("@Url.Content("~/Scripts/jscookies.js")")
-                    .js("@Url.Content("~/Scripts/jquery.tmpl.js")")
-                    .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.min.js")")
-                    .js("@Url.Content("~/Scripts/common.js")")
-                    .js("@Url.Content("~/Scripts/showhidepopup.js")")                    
-                    .js("@Url.Content("~/Views/Customer/Scripts/CrmInfo.js?ver=1")");                                       
-                    
-            });   
     </script>
-    
 </body>
 </html>

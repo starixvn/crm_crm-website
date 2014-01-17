@@ -2,6 +2,7 @@
 @using Fanex.CRM.Infrastructure.Common
 @using Fanex.CRM.Infrastructure.Extension
 @using Fanex.CRM.Entities
+@using Fanex.CRM.Infrastructure.Resources
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -10,6 +11,7 @@
     <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Views/Home/Styles/default.less?ver=5")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Areas/Home/Styles")
 </head>
 <body>
     @*<div id="fullsize" class="fullsize">
@@ -18,7 +20,8 @@
         <div class="row header">
             <div class="col-xs-3 col-sm-3 col-md-3 leftHeader">
                 <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo" />
-                <span class="icon-expand"></span>
+                <span id="icon-collapse-expand-leftpanel" class="icon-expand" title="@Labels.Home_Index_CollapseExpandLeftPanel">
+                </span>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 rightHeader">
                 <div class="row">
@@ -34,15 +37,11 @@
         </div>
         <div class="row search-breadbrumb">
             <div class="col-xs-3 col-sm-3 col-md-3 search-frm">
-                @*<input type="button" onclick="leftright();" class="leftright" id="btnleftright" name="btnleftright"
-                    style="float: left; margin: 4px 0 0 16px;" />
-                    <input type="button" onclick="downup();" class="updown" id="btndownup" name="btndownup"
-                        style="float: left;" />*@
                 <div class="text-search col-xs-9 col-sm-9 col-md-9">
                     <input type="text" id="txtuserName" class="inputSearch" onkeypress="return KeyPress(event);"
                         onkeyup="return KeyPress(event);" value="Search..." name="txtuserName" onblur="onBlur()"
                         onfocus="onFocus()" autocomplete="off" />
-                    <input type="button" class="searchSubmit" value=" " id="btnSendMsg" onclick="submitSearch();" />
+                    <input type="button" class="searchSubmit" value=" " id="btnSendMsg" onclick="customerManager.getCustomerInfo();" />
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
                     <label>
@@ -87,6 +86,8 @@
             isGuest = searchUserSession.IsGuest;
         }
     }
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Areas/Home/Scripts")
     <script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var userSearch = '@userSearched';

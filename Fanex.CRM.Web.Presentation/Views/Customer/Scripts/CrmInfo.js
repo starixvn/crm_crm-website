@@ -48,15 +48,15 @@ function updateCustomerSearch() {
     //Update CustSearch
     try { parent.BlockUI(); } catch (e) { }
 
-    $.ajax({
-        type: "POST",
-        url: window.rootUrl + "Customer/UpdateAutoCustomerSearch",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(data),
-        success: function () {
-        }
-    });
+    //    $.ajax({
+    //        type: "POST",
+    //        url: window.rootUrl + "Customer/UpdateAutoCustomerSearch",
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        data: JSON.stringify(data),
+    //        success: function () {
+    //        }
+    //    });
 }
 
 function GetCustId() {
@@ -75,7 +75,7 @@ function loadUpline(custId) {
         dataType: "json",
         data: JSON.stringify(data),
         success: function (listUpline) {
-            $("#tmplUplineList").tmpl(listUpline).appendTo("#tbodyUplineList");
+            //            $("#tmplUplineList").tmpl(listUpline).appendTo("#tbodyUplineList");
         }
     });
 }
@@ -211,7 +211,7 @@ crmInfo = {
     }
 };
 
-head.ready(
+$(document).ready(
     function init() {
 
         $('.button_left02').click(function () {
