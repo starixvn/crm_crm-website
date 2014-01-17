@@ -2,15 +2,247 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        sadfdsfsadfd
+<div class="main container">
+    <div class="row panel-group">
+        <div class="row title"><span class="icon-collapse"></span>Personal Info</div>
+        <div class="row content">
+            <div class="col-md-4">
+                <div class="row item">
+                    <div class="col-md-5"><label for="firstName">First Name</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="firstName" value="Customer" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="contact1">Contact Number 1</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox code-country" id="contact1" value="0060"/>
+                        <input type="text" class="textbox code-area" value="12"/>
+                        <input type="text" class="textbox phone" value="1234567"/>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="contact3">Contact Number 3</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox code-country" id="contact3" value="0060"/>
+                        <input type="text" class="textbox code-area" value="12"/>
+                        <input type="text" class="textbox phone" value="1234567"/>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="skype">Skype</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="skype" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="MSN">MSN</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="MSN" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row item">
+                    <div class="col-md-5"><label for="lastName">Last Name</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="lastName" value="Customer" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="contact2">Contact Number 2</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox code-country" id="contact2" value="0060"/>
+                        <input type="text" class="textbox code-area" value="12"/>
+                        <input type="text" class="textbox phone" value="1234567"/>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="mobile">Mobile</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox code-country" id="mobile" value="0060"/>
+                        <input type="text" class="textbox code-area" value="12"/>
+                        <input type="text" class="textbox phone" value="1234567"/>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="email">Email</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="email" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="passport">Passport Number</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="passport" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="site">Site</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="site" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row item">
+                    <div class="col-md-5"><label for="language">Language</label></div>
+                    <div class="col-md-7">
+                        <select id="language">
+                            <option value="0">Mandarin/English</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="extension">CS Extension/Station</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="extension" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="pic1">PIC1</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="pic1" value="aa123" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="pic2">PIC2</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="pic2" value="aa123" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="pic3">PIC3</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="pic3" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-md-5"><label for="pic4">PIC4</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" id="pic4"/>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+    <div class="row panel-group">
+        <div class="row title"><span class="icon-collapse"></span>Home Address</div>
+        <div class="row content">
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="line1">Line 1</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox text-large" id="line1" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="resolution">Resolution Time</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox text-large" id="resolution" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="communication">Communication</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox text-large" id="communication" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="city">City</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox" value="Kuala Lumpur" id="city" /></div>
+                </div>
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="state">State</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox" value="WP" id="state" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="country">Country</label></div>
+                    <div class="col-md-7">
+                        <select id="country">
+                            <option value="0">Malaysia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="postcode">Postcode</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox" value="WP" id="postcode" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row panel-group last">
+        <div class="row title"><span class="icon-collapse"></span>Bank Info</div>
+        <div class="row content">
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="b-firstName">First Name</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox" value="Customer" id="b-firstName" /></div>
+                </div>
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="bankName">Bank's Name</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox" value="Commercial Bank" id="bankName" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="accountNo">Account No</label></div>
+                    <div class="col-md-7">
+                        <input type="text" class="textbox" value="162012-650098" id="accountNo" />
+                    </div>
+                </div>
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="IBANcode">IBAN/SWIFT code</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox" value="456789" id="IBANcode" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="b-line1">Line 1</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox text-large" id="b-line1" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="b-line2">Line 2</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox text-large" id="b-line2" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="b-line3">Line 3</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox text-large" id="b-line3" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="b-city">City</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox" value="Kuala Lumpur" id="b-city" /></div>
+                </div>
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="b-state">State</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox" value="WP" id="b-state" /></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="b-country">Country</label></div>
+                    <div class="col-md-7">
+                        <select id="b-country">
+                            <option value="0">Malaysia</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item col-md-4">
+                    <div class="col-md-5"><label for="b-postcode">Postcode</label></div>
+                    <div class="col-md-7"><input type="text" class="textbox" value="WP" id="b-postcode" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn btn-save"><span class="hotkey">S</span>ave</button>
+    </div>
+</div>
