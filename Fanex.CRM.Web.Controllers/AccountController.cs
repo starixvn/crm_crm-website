@@ -56,22 +56,17 @@ namespace Fanex.CRM.Web.Controllers
         /// Sign in action.
         /// </summary>
         /// <returns>Sign in result.</returns>
-        public ActionResult SignIn()
+        public RedirectResult SignIn()
         {
             if (!AppSetting.IsLocalTest && (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null))
             {
-                ForceLogin();
+                return new RedirectResult(AppSetting.LoginUrl, true);
+                //ForceLogin();
             }
             else
             {
-                return new RedirectToRouteResult(new RouteValueDictionary(new
-                {
-                    controller = "Home",
-                    action = "Index"
-                }));
+                return new RedirectResult("~/Home/Index");
             }
-
-            return View();
         }
 
         /// <summary>

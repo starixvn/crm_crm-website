@@ -2,6 +2,8 @@
 
 body {
     background: #f1f1f1;
+    min-width: 1280px;
+    overflow: visible;
 }
 
 .fullsize {
@@ -17,7 +19,12 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    min-width: 1000px;
+    min-width: 1260px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 3px;
 
     .header {
         height: 42px;
@@ -161,7 +168,7 @@ body {
                 label {
                     float: left;
                     margin-left: 10px;
-                    margin-top: 7px;
+                    margin-top: 9px;
                     color: #EBEBEB;
                 }
             }
@@ -239,7 +246,6 @@ body {
         }
 
         .rightcontent {
-            height:92%;
             z-index: 11;
             top: 77px;
             bottom: 0;
@@ -250,6 +256,12 @@ body {
             border-left: 1px solid #b1b1b1;
         }
     }
+}
+
+@media (max-width: 970px) {
+  .container.crm-container {
+    width: 1280px;
+  }
 }
 
 .display-none 
