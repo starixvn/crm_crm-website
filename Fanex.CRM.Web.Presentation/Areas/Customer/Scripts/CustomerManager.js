@@ -41,7 +41,7 @@ var CustomerManager = function () {
 
         $.ajax({
             type: "POST",
-            url: window.rootUrl + "Modules_Customer/GetCustomerInfoByUsername",
+            url: window.rootUrl + "CustomerSetting/GetCustomerInfoByUsername",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: JSON.stringify(getCustomerInfoParams),
