@@ -254,7 +254,7 @@ DoAdd = function () {
             if (rs.ErrCode === 0) {
                 showAlertMessage("errmsg", successMsg, 0);
                 parent.$("#isGuest").attr("checked", true);
-                parent.customerManager.getCustomerInfo($("#txtidentity").val().trim());
+                parent.leftPanelManager.LoadLeftPanel($("#txtidentity").val().trim());
 
             }
             else {

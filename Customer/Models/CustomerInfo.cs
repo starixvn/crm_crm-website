@@ -9,17 +9,30 @@
 
 namespace Fanex.CRM.Customer.Models
 {
+    using System;
     using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Entities;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// Customer Information.
     /// </summary>
+    [Serializable]
     public class CustomerInfo : BaseModel
     {
+        public CustomerInfo()
+        {
+            Title = new BaseModel();
+            SiteSetting = new BaseModel();
+            Country = new BaseModel();
+            Languages = new List<BaseModel>();
+            PhoneInfo = new List<PhoneInfo>();
+            PersonalInfoContact = new List<string>();
+            RefCode = new List<string>();
+        }
+
         public BaseModel Title { get; set; }
 
-        public BaseModel Site { get; set; }
+        public BaseModel SiteSetting { get; set; }
 
         public BaseModel Country { get; set; }
 
@@ -33,7 +46,9 @@ namespace Fanex.CRM.Customer.Models
 
         public List<PhoneInfo> PhoneInfo { get; set; }
 
-        public PhoneInfo Mobile { get; set; }
+        public PhoneInfo MobilePhone { get; set; }
+
+        public string Fax { get; set; }
 
         public string Email { get; set; }
 
@@ -41,5 +56,34 @@ namespace Fanex.CRM.Customer.Models
 
         public string Skype { get; set; }
 
+        public List<string> PersonalInfoContact { get; set; }
+
+        public DateTime BirthDay { get; set; }
+
+        public BankInfo BankInfo { get; set; }
+
+        public bool IsVIP { get; set; }
+
+        public string Question { get; set; }
+
+        public string Answer { get; set; }
+
+        public string Remark { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public UserInfo Creator { get; set; }
+
+        public int RoleId { get; set; }
+
+        public int OriginalDangerLevel { get; set; }
+
+        public int ABTDangerLevel { get; set; }
+
+        public int OtherSportsDangerLevel { get; set; }
+
+        public List<string> RefCode { get; set; }
+
+        public string Remark2 { get; set; }
     }
 }

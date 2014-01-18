@@ -300,7 +300,7 @@ function doUpdate() {
 
             if (rs.ErrCode === 0) {
                 showAlertMessage("errmsg", successMsg, 0);
-                parent.customerManager.getCustomerInfo(custUserName);
+                parent.leftPanelManager.LoadLeftPanel(custUserName);
             }
             else {
                 showAlertMessage("errmsg", rs.ErrMsg, 1);

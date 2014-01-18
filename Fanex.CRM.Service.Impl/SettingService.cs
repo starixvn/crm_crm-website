@@ -19,6 +19,7 @@ namespace Fanex.CRM.Service.Impl
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Service.Interface;
 
     /// <summary>

@@ -45,6 +45,9 @@
     <Reference Include="ExcelUtil">
       <HintPath>..\Dependency\ExcelUtil.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Caching">
+      <HintPath>..\Dependency\Fanex\Fanex.Caching.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Logging">
       <HintPath>..\Dependency\Fanex\Fanex.Logging.dll</HintPath>
     </Reference>
@@ -111,6 +114,7 @@
     <Compile Include="Configuration\MailSection\MailSection.cs" />
     <Compile Include="Configuration\WebConfigApplicationSettings.cs" />
     <Compile Include="Core\DateTimeUtilize.cs" />
+    <Compile Include="Extension\IDataReaderExtension.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Extension\DateTimeExtension.cs" />
     <Compile Include="Extension\EnumerableExtension.cs" />
@@ -134,6 +138,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
+    <Compile Include="Service\Implements\CacheService.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +149,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

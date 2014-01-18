@@ -110,10 +110,5 @@ namespace Fanex.CRM.Web.Controllers
                 AppSession.CurrentWorkingOnMenu = this._menuService.GetMenuByURL(menuPath);
             }
         }
-
-        protected RedirectResult ForceLogin()
-        {
-            return Redirect(Fanex.CRM.Infrastructure.Common.AppSetting.LoginUrl);
-        }
     }
 }
