@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Setting", "Fanex.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Communication", "Fanex.CRM.Communication\Fanex.CRM.Communication.csproj", "{84334DCC-E886-4EFE-BE80-ADE24CB9E8D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Dashboard", "Fanex.CRM.Dashboard\Fanex.CRM.Dashboard.csproj", "{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{84334DCC-E886-4EFE-BE80-ADE24CB9E8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84334DCC-E886-4EFE-BE80-ADE24CB9E8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84334DCC-E886-4EFE-BE80-ADE24CB9E8D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,5 +121,6 @@ Global
 		{806C1CED-415D-4BA4-8B7D-9AF4ED42A880} = {F63BC1ED-F62B-46E2-838E-4ED849B31B8F}
 		{6BDF1D65-D49F-4371-B6EE-ABD10B5A8207} = {F63BC1ED-F62B-46E2-838E-4ED849B31B8F}
 		{84334DCC-E886-4EFE-BE80-ADE24CB9E8D5} = {F63BC1ED-F62B-46E2-838E-4ED849B31B8F}
+		{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0} = {F63BC1ED-F62B-46E2-838E-4ED849B31B8F}
 	EndGlobalSection
 EndGlobal

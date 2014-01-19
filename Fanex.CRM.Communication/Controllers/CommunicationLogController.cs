@@ -17,6 +17,11 @@ namespace Fanex.CRM.Communication.Controllers
     /// </summary>
     public class CommunicationLogController : BaseController
     {
+        public CommunicationLogController()
+        {
+
+        }
+
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {

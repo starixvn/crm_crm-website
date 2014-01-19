@@ -179,6 +179,8 @@
     <Content Include="Areas\Communication\Web.config" />
     <None Include="Areas\Customer\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
+    <Content Include="Areas\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Web.config" />
     <None Include="Content\site\common.less" />
     <None Include="Content\site\mixins.less" />
     <None Include="Content\site\image.less" />
@@ -543,6 +545,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Dashboard\_DashboardMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -565,6 +568,10 @@
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Dashboard\Fanex.CRM.Dashboard.csproj">
+      <Project>{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}</Project>
+      <Name>Fanex.CRM.Dashboard</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.User\Fanex.CRM.User.csproj">
       <Project>{806C1CED-415D-4BA4-8B7D-9AF4ED42A880}</Project>
       <Name>Fanex.CRM.User</Name>
@@ -582,12 +589,6 @@
     <Content Include="Configurations\CasinoSection.config" />
     <Content Include="Configurations\ConnectionStrings.config" />
     <Content Include="Configurations\MailSection.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\SignIn.cshtml" />
