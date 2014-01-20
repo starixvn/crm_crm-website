@@ -9,11 +9,23 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
+    using Fanex.NAP.Framework.Data;
+
     /// <summary>
     /// Get Setting By Identify Criteria.
     /// </summary>
-    public class GetSettingByIdCriteria
+    public class GetSettingByIdCriteria : CriteriaBase
     {
         public int SettingId { get; set; }
+
+        public override string GetSettingKey()
+        {
+            return string.Empty;
+        }
+
+        public override bool IsValid()
+        {
+            return true;
+        }
     }
 }

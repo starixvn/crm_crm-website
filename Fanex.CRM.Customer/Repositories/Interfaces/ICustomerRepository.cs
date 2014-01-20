@@ -9,11 +9,16 @@
 
 namespace Fanex.CRM.Customer.Repositories.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
 
     public interface ICustomerRepository
     {
         CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria);
+
+        List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
+
+        bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria);
     }
 }

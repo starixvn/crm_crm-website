@@ -28,7 +28,7 @@ namespace Fanex.CRM.Setting.Services.Implements
     /// </summary>
     public class SettingService : ISettingService
     {
-        public const string GetAllSettingSessionKey = "Fanex.CRM.Setting.GetAllSettingSessionKey";
+        public const string GetAllSettingSessionKey = "Fanex.CRM.Setting.GetAllSettingSessionKeyOld";
 
         private readonly ISettingRepository _repositoryInstance;
 
@@ -49,7 +49,7 @@ namespace Fanex.CRM.Setting.Services.Implements
             {
                 var settings = GetAllSetting();
                 setting = settings.Where(s => s.Id == criteria.SettingId).FirstOrDefault();
-                if (setting == null)
+                if (setting != null)
                 {
                     setting = new SettingInfo()
                     {

@@ -74,6 +74,12 @@ var MenuManager = function () {
     self.isShowingLeftPanel = function () {
         return self.DOMElements.IconCollapseExpandLeftPanel.attr("data-currentstatus") === crmConstants.Enums.AppearanceStatus.Expand;
     };
+
+    self.goToURL = function (frameId, url) {
+        $("#" + frameId).attr({
+            src: url
+        });
+    };
 };
 
 var menuManager = new MenuManager();

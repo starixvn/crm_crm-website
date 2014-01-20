@@ -4,8 +4,10 @@
     <Setting Key="CountrySel" SpName="Acc_CRM_CountrySel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Customer">
-    <Setting Key="CustomerSel" SpName="Acc_CRM_CustomerSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />    
-    <Setting Key="CustomerGetUplineList" SpName="Acc_CRM_CustomerGetUplineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="CustomerSel" SpName="Acc_CRM_CustomerSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfo_GetUplineList" SpName="Acc_CRM_CustomerGetUplineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfo_GetCustomerByUsername" SpName="Acc_CRM_CustomerSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Customer_CustomerInfo_UpdateCustomerSuggestion" SpName="Acc_CRM_CustomerUpdUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Feedback">
     <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -19,14 +21,14 @@
     <Setting Key="FeedSubjectTemplateSelect" SpName="Acc_CRM_SubjectTemplateSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateUpdate" SpName="Acc_CRM_SubjectTemplateUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateInsert" SpName="Acc_CRM_SubjectTemplateIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="FeedSubjectTemplateDelete" SpName="Acc_CRM_SubjectTemplateDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />    
+    <Setting Key="FeedSubjectTemplateDelete" SpName="Acc_CRM_SubjectTemplateDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailysummaryreport" SpName="Acc_CRM_Rpt_CustomerStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailydetailreport" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailylicenseesummaryreport" SpName="Acc_CRM_Rpt_LicenseeStatistics"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="dailylicenseedetailreport" SpName="Acc_CRM_Rpt_LicenseeStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="casinodailysummary" SpName="Acc_CRM_Rpt_CasinoStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-  </Function>  
+  </Function>
   <Function Name="Setting">
     <Setting Key="SettingGetRelationBySettingName" SpName="Acc_CRM_SettingGetRelationBySettingName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -36,9 +38,7 @@
     <Setting Key="AutoSuggestionCustomer" SpName="Acc_CRM_AutoSuggestionCustomer" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="CustomerInfoUpd" SpName="Acc_CRM_CustomerInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="CustomerSearch" SpName="Acc_CRM_CustomerSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="autoSearchSuggest" SpName="Acc_CRM_CustomerSelUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="autoUpdateSearchSuggest" SpName="Acc_CRM_CustomerUpdUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackInfoUpd" SpName="Acc_CRM_FeedbackInfoUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="GuestFeedbackIns" SpName="Acc_CRM_GuestFeedbackIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="CustomerVerify" SpName="Acc_CRM_RelatedCustomerVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

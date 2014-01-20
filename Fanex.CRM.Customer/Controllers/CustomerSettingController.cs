@@ -44,5 +44,21 @@ namespace Fanex.CRM.Customer.Controllers
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
+
+        [HttpPost]
+        public JsonResult GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
+        {
+            var result = _serviceInstance.GetUplineInfoOfUser(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
+        {
+            var result = _serviceInstance.UpdateCustomerSuggestion(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
     }
 }

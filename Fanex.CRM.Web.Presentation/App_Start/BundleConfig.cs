@@ -41,7 +41,8 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new ScriptBundle("~/Scripts/CommomScripts").Include(
                 "~/Scripts/jquery.js",
-                "~/Scripts/json2.js"));
+                "~/Scripts/json2.js",
+                "~/Scripts/SharedScriptManager.js"));
 
             bundles.Add(new StyleBundle("~/Views/Home/Styles").Include(
                 "~/Scripts/Tipsy-Tooltip/tipsy.css"));
@@ -53,7 +54,16 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Views/Home/Scripts/LeftPanelManager.js"));
 
             bundles.Add(new ScriptBundle("~/Areas/CustomerInfo/Scripts").Include(
-                "~/Areas/Customer/Scripts/CustomerManager.js"));
+                "~/Areas/Customer/Scripts/CustomerManager.js",
+                "~/Areas/Customer/Scripts/CustomerApplication.js",
+                "~/Areas/Customer/Scripts/CustomerService.js",
+                "~/Areas/Customer/Scripts/CustomerController.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/CustomerInfo/Styles").Include(
+                "~/Areas/Customer/Styles/StyleSheet.less"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/AgularJS").Include(
+                "~/Scripts/AgularJS/angular.min.js"));
         }
     }
 

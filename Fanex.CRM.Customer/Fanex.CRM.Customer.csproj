@@ -55,8 +55,11 @@
   <ItemGroup>
     <Compile Include="Controllers\CustomerSettingController.cs" />
     <Compile Include="Criteria\GetCustomerInfoByUsernameCriteria.cs" />
+    <Compile Include="Criteria\GetUplineInfoOfUserCriteria.cs" />
+    <Compile Include="Criteria\UpdateCustomerSuggestionCriteria.cs" />
     <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
+    <Compile Include="Models\FaxInfo.cs" />
     <Compile Include="Models\PhoneInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,7 +73,9 @@
     <Compile Include="Services\Implements\CustomerService.cs" />
     <Compile Include="Services\Interfaces\ICustomerService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Constants\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>

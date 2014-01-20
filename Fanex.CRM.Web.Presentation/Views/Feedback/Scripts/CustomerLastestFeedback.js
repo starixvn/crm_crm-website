@@ -65,7 +65,7 @@ var topFeedback = {
             'selectTop': topFeedback.selectTop
         };
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        //        try { topwnd.BlockUI(); } catch (e) { }
         var mainreport = $("#lastedfeedbackgrid");
         $('#errmsg').html('');
         $('#gridtitle').html('Top ' + topFeedback.selectTop + ' Feedback From ' + custName);
@@ -119,7 +119,8 @@ var topFeedback = {
                 $('#errmsg').html('<div class="alertboxerr"><div>There is no information.</div></div>');
             },
             complete: function () {
-                try { topwnd.UnBlockUI(); } catch (e) { parent.jQuery.unblockUI(); }
+                parent.jQuery.unblockUI();
+                //                try { topwnd.UnBlockUI(); } catch (e) { parent.jQuery.unblockUI(); }
             }
         });
     },

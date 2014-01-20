@@ -12,6 +12,7 @@ namespace Fanex.CRM.Customer.Models
     using System;
     using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Customer.Resources;
 
     /// <summary>
     /// Customer Information.
@@ -28,6 +29,7 @@ namespace Fanex.CRM.Customer.Models
             PhoneInfo = new List<PhoneInfo>();
             PersonalInfoContact = new List<string>();
             RefCode = new List<string>();
+            UplineInfo = new List<CustomerInfo>();
         }
 
         public BaseModel Title { get; set; }
@@ -48,7 +50,7 @@ namespace Fanex.CRM.Customer.Models
 
         public PhoneInfo MobilePhone { get; set; }
 
-        public string Fax { get; set; }
+        public FaxInfo FaxInfo { get; set; }
 
         public string Email { get; set; }
 
@@ -59,6 +61,8 @@ namespace Fanex.CRM.Customer.Models
         public List<string> PersonalInfoContact { get; set; }
 
         public DateTime BirthDay { get; set; }
+
+        public string BirthDayString { get; set; }
 
         public BankInfo BankInfo { get; set; }
 
@@ -74,7 +78,7 @@ namespace Fanex.CRM.Customer.Models
 
         public UserInfo Creator { get; set; }
 
-        public int RoleId { get; set; }
+        public BaseModel Role { get; set; }
 
         public int OriginalDangerLevel { get; set; }
 
@@ -85,5 +89,41 @@ namespace Fanex.CRM.Customer.Models
         public List<string> RefCode { get; set; }
 
         public string Remark2 { get; set; }
+
+        public string Status
+        {
+            get
+            {
+                return GetStatusName();
+            }
+        }
+
+        public bool IsActive { get; set; }
+
+        public bool IsClosed { get; set; }
+
+        public bool IsSuspended { get; set; }
+
+        public List<CustomerInfo> UplineInfo { get; set; }
+
+        public string GetStatusName()
+        {
+            if (IsActive)
+            {
+                return Labels.Active;
+            }
+
+            if (IsClosed)
+            {
+                return Labels.Closed;
+            }
+
+            if (IsSuspended)
+            {
+                return Labels.Suspended;
+            }
+
+            return string.Empty;
+        }
     }
 }

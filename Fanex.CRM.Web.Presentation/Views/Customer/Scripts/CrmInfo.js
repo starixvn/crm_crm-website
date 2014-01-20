@@ -115,7 +115,7 @@ crmInfo = {
     divContent: '',
     isSearch: 0,
     loadCrmInfo: function () {
-        crmInfo.userName = $.URLDecode(gup("username"));
+        crmInfo.userName = sharedScriptManager.urlDecode(gup("username"));
         crmInfo.isGuest = gup("isguest");
         crmInfo.divContent = $("#divContent");
         crmInfo.isSearch = gup("issearch");

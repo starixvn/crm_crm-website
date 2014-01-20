@@ -9,17 +9,19 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
+    using Fanex.NAP.Framework.Data;
+
     /// <summary>
     /// Get All Setting Criteria.
     /// </summary>
-    public class GetAllSettingCriteria
+    public class GetAllSettingCriteria : CriteriaBase
     {
-        public string GetSettingKey()
+        public override string GetSettingKey()
         {
             return "Acc_CRM_SettingSel";
         }
 
-        public bool IsValid()
+        public override bool IsValid()
         {
             return true;
         }

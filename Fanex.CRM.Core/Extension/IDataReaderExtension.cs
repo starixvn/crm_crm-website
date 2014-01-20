@@ -44,5 +44,12 @@ namespace Fanex.CRM.Infrastructure.Extension
                 reader.GetBoolean(reader.GetOrdinal(columnName)) :
                 false;
         }
+
+        public static byte GetByteNotNull(this IDataReader reader, string columnName)
+        {
+            return reader[columnName] != DBNull.Value ?
+                reader.GetByte(reader.GetOrdinal(columnName)) :
+                (byte)0;
+        }
     }
 }

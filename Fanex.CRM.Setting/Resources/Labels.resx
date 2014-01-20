@@ -117,13 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Agent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
   <data name="Error_GetAllSetting" xml:space="preserve">
     <value>(SettingService GetAll) - {0}</value>
   </data>
   <data name="Error_GetSetting" xml:space="preserve">
     <value>(SettingService GetById: {0}) - {1}</value>
   </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>Master</value>
+  </data>
+  <data name="Member" xml:space="preserve">
+    <value>Member</value>
+  </data>
   <data name="NotApply" xml:space="preserve">
     <value>N/A</value>
+  </data>
+  <data name="Super" xml:space="preserve">
+    <value>Super</value>
   </data>
 </root>

@@ -25,7 +25,7 @@ namespace Fanex.CRM.Customer.Criteria
         [SpParam(SqlParamName = "isguest")]
         public bool IsGuest { get; set; }
 
-        public Hashtable GetSPParams()
+        public Hashtable GetSpParams()
         {
             var param = new Hashtable();
             param.Add("username", Uri.UnescapeDataString(Username));
@@ -35,7 +35,7 @@ namespace Fanex.CRM.Customer.Criteria
 
         public string GetSettingKey()
         {
-            return "CustomerSearch";
+            return "Customer_CustomerInfo_GetCustomerByUsername";
         }
 
         public bool IsValid()

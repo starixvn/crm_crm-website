@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\RoleIdConstants.cs" />
     <Compile Include="Constants\SettingConstants.cs" />
     <Compile Include="Criteria\GetAllSettingCriteria.cs" />
     <Compile Include="Criteria\GetSettingByIdCriteria.cs" />
@@ -60,6 +61,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\Implements\RoleSettingService.cs" />
     <Compile Include="Services\Implements\SettingService.cs" />
     <Compile Include="Services\Interfaces\ISettingService.cs" />
   </ItemGroup>

@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Customer.Services.Implements
 {
     using System;
+    using System.Collections.Generic;
     using System.Web;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
@@ -55,11 +56,16 @@ namespace Fanex.CRM.Customer.Services.Implements
                 result = rawData;
                 if (result != null)
                 {
+                    result.Role.Name = RoleSettingService.GetRoleName(result.Role.Id);
                     var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
                     {
                         SettingId = result.SiteSetting.Id
                     });
                     result.SiteSetting.Name = siteSetting.Name;
+                    result.UplineInfo = GetUplineInfoOfUser(new GetUplineInfoOfUserCriteria
+                    {
+                        CustomerId = result.Id
+                    });
                 }
 
                 //SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
@@ -70,6 +76,47 @@ namespace Fanex.CRM.Customer.Services.Implements
             }
 
             return result;
+        }
+
+        public List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
+        {
+            List<CustomerInfo> result = new List<CustomerInfo>();
+            try
+            {
+                var rawData = _repositoryInstance.GetUplineInfoOfUser(criteria);
+                for (var i = 0; i < rawData.Count; i++)
+                {
+                    var uplineInfo = rawData[i];
+                    if (criteria.CustomerId == uplineInfo.Id)
+                    {
+                        continue;
+                    }
+
+                    uplineInfo.Role.Name = RoleSettingService.GetRoleName(uplineInfo.Role.Id);
+                    result.Add(uplineInfo);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
+        {
+            var updateResult = false;
+            try
+            {
+                updateResult = _repositoryInstance.UpdateCustomerSuggestion(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return updateResult;
         }
     }
 }

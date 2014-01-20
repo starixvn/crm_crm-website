@@ -61,11 +61,29 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ABT.
+        /// </summary>
+        public static string ABT {
+            get {
+                return ResourceManager.GetString("ABT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {
             get {
                 return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Feedback.
+        /// </summary>
+        public static string Add_Feedback {
+            get {
+                return ResourceManager.GetString("Add_Feedback", resourceCulture);
             }
         }
         
@@ -79,11 +97,146 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Closed.
+        /// </summary>
+        public static string Closed {
+            get {
+                return ResourceManager.GetString("Closed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communication Tool.
+        /// </summary>
+        public static string Communication_Tool {
+            get {
+                return ResourceManager.GetString("Communication_Tool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country.
+        /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM Info.
+        /// </summary>
+        public static string CRM_Info {
+            get {
+                return ResourceManager.GetString("CRM_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Info.
+        /// </summary>
+        public static string Customer_Info {
+            get {
+                return ResourceManager.GetString("Customer_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danger.
         /// </summary>
         public static string Danger {
             get {
                 return ResourceManager.GetString("Danger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detail.
+        /// </summary>
+        public static string Detail {
+            get {
+                return ResourceManager.GetString("Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First Name.
+        /// </summary>
+        public static string First_Name {
+            get {
+                return ResourceManager.GetString("First_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to search guest customer&apos;s information?.
+        /// </summary>
+        public static string GetCustomerInfo_ConfirmSearchByGuest {
+            get {
+                return ResourceManager.GetString("GetCustomerInfo_ConfirmSearchByGuest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string Language {
+            get {
+                return ResourceManager.GetString("Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last Name.
+        /// </summary>
+        public static string Last_Name {
+            get {
+                return ResourceManager.GetString("Last_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latest Feedback.
+        /// </summary>
+        public static string Latest_Feedback {
+            get {
+                return ResourceManager.GetString("Latest_Feedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lvl.
+        /// </summary>
+        public static string Lvl {
+            get {
+                return ResourceManager.GetString("Lvl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Feedback.
+        /// </summary>
+        public static string Manage_Feedback {
+            get {
+                return ResourceManager.GetString("Manage_Feedback", resourceCulture);
             }
         }
         
@@ -106,6 +259,87 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mobile.
+        /// </summary>
+        public static string Mobile {
+            get {
+                return ResourceManager.GetString("Mobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MSN.
+        /// </summary>
+        public static string MSN {
+            get {
+                return ResourceManager.GetString("MSN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nick Name.
+        /// </summary>
+        public static string Nick_Name {
+            get {
+                return ResourceManager.GetString("Nick_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Orginal.
+        /// </summary>
+        public static string Orginal {
+            get {
+                return ResourceManager.GetString("Orginal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other sports.
+        /// </summary>
+        public static string Other_sports {
+            get {
+                return ResourceManager.GetString("Other_sports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        public static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIC.
+        /// </summary>
+        public static string PIC {
+            get {
+                return ResourceManager.GetString("PIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site.
+        /// </summary>
+        public static string Site {
+            get {
+                return ResourceManager.GetString("Site", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skype.
+        /// </summary>
+        public static string Skype {
+            get {
+                return ResourceManager.GetString("Skype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Staff.
         /// </summary>
         public static string Staff {
@@ -120,6 +354,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string Super {
             get {
                 return ResourceManager.GetString("Super", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suspended.
+        /// </summary>
+        public static string Suspended {
+            get {
+                return ResourceManager.GetString("Suspended", resourceCulture);
             }
         }
     }

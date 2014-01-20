@@ -242,7 +242,7 @@ namespace Fanex.CRM.DataAccess.Impl
         {
             Customer customer = null;
 
-            using (var obj = new ObjectDb("CustomerSearch"))
+            using (var obj = new ObjectDb("Customer_CustomerInfo_GetCustomerByUsername"))
             {
                 var param = new Hashtable();
                 param.Add("username", Uri.UnescapeDataString(userName));
@@ -392,7 +392,7 @@ namespace Fanex.CRM.DataAccess.Impl
         {
             var listCustomerUpline = new List<Customer>();
 
-            using (var obj = new ObjectDb("CustomerGetUplineList"))
+            using (var obj = new ObjectDb("Customer_CustomerInfo_GetUplineList"))
             {
                 obj.AddInParameter("custid", DbType.Int32, custId);
                 using (var reader = obj.ExecuteReader())
@@ -533,7 +533,7 @@ namespace Fanex.CRM.DataAccess.Impl
         /// <returns>Update result.</returns>
         public bool UpdateCustomerSearch(int userId, int custId, string username, ref Result result)
         {
-            using (var obj = new ObjectDb("autoUpdateSearchSuggest"))
+            using (var obj = new ObjectDb("Customer_CustomerInfo_UpdateCustomerSuggestion"))
             {
                 var param = new Hashtable();
                 param.Add("userid", userId);

@@ -17,6 +17,8 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
+    using System.Collections.Generic;
+    using Fanex.CRM.Setting.Services.Implements;
 
     /// <summary>
     /// Customer Repository.
@@ -33,7 +35,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             CustomerInfo customer = null;
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSPParams());
+                objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
                     if (reader != null)
@@ -52,6 +54,52 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             }
 
             return customer;
+        }
+
+        public List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
+        {
+            var uplineInfo = new List<CustomerInfo>();
+            using (var obj = new ObjectDb(criteria.GetSettingKey()))
+            {
+                obj.AssignParamValues(criteria.GetSpParams());
+                using (var reader = obj.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var customer = new CustomerInfo
+                            {
+                                Id = reader.GetInt32NotNull("CustId"),
+                                Name = reader.GetStringNotNull("UserName"),
+                                Role = new BaseModel
+                                {
+                                    Id = reader.GetByteNotNull("roleid")
+                                },
+                                IsActive = reader.GetInt32NotNull("Active") == 1,
+                                IsClosed = reader.GetInt32NotNull("Closed") == 1,
+                                IsSuspended = reader.GetInt32NotNull("Suspended") == 1
+                            };
+
+                            uplineInfo.Add(customer);
+                        }
+                    }
+                }
+            }
+
+            return uplineInfo;
+        }
+
+        public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
+        {
+            var updateResult = false;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                updateResult = objectDB.ExecuteNonQuery() > 0;
+            }
+
+            return updateResult;
         }
 
         /// <summary>
@@ -75,7 +123,12 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 FirstName = reader.GetStringNotNull("FirstName"),
                 LastName = reader.GetStringNotNull("LastName"),
                 Email = reader.GetStringNotNull("Email"),
-                Fax = reader.GetStringNotNull("Fax"),
+                FaxInfo = new FaxInfo
+                {
+                    CountryCode = reader.GetStringNotNull("FaxCountryCode"),
+                    AreaCode = reader.GetStringNotNull("FaxAreaCode"),
+                    FaxNumber = reader.GetStringNotNull("Fax")
+                },
                 MobilePhone = new PhoneInfo
                 {
                     PhoneNumber = reader.GetStringNotNull("MobilePhone")
@@ -86,7 +139,10 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 MSN = reader.GetStringNotNull("msn"),
                 Id = reader.GetInt32NotNull("CustId"),
                 Name = reader.GetStringNotNull("UserName"),
-                RoleId = reader.GetInt32NotNull("roleid"),
+                Role = new BaseModel
+                {
+                    Id = reader.GetInt32NotNull("roleid")
+                },
                 SiteSetting = new BaseModel
                 {
                     Id = reader.GetInt32NotNull("SiteID")
@@ -111,7 +167,10 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 Question = reader.GetStringNotNull("Question"),
                 Answer = reader.GetStringNotNull("Answer"),
                 IsVIP = reader.GetBooleanNotNull("IsVIP"),
-                CreatedDate = reader.GetDateTimeNotNull("CreateDate")
+                CreatedDate = reader.GetDateTimeNotNull("CreateDate"),
+                IsActive = reader.GetInt32NotNull("Active") == 1,
+                IsClosed = reader.GetInt32NotNull("Closed") == 1,
+                IsSuspended = reader.GetInt32NotNull("Suspended") == 1
             };
 
             customer.NickName = customer.Id > 0 ?
@@ -127,22 +186,22 @@ namespace Fanex.CRM.Customer.Repositories.Implements
 
             customer.PhoneInfo.Add(new PhoneInfo
             {
-                CountryCode = string.Empty,
-                AreaCode = string.Empty,
+                CountryCode = reader.GetStringNotNull("PhoneCountryCode"),
+                AreaCode = reader.GetStringNotNull("PhoneAreaCode"),
                 PhoneNumber = reader.GetStringNotNull("Phone")
             });
 
             customer.PhoneInfo.Add(new PhoneInfo
             {
-                CountryCode = string.Empty,
-                AreaCode = string.Empty,
+                CountryCode = reader.GetStringNotNull("Phone2CountryCode"),
+                AreaCode = reader.GetStringNotNull("Phone2AreaCode"),
                 PhoneNumber = reader.GetStringNotNull("Phone2")
             });
 
             customer.PhoneInfo.Add(new PhoneInfo
             {
-                CountryCode = string.Empty,
-                AreaCode = string.Empty,
+                CountryCode = reader.GetStringNotNull("Phone3CountryCode"),
+                AreaCode = reader.GetStringNotNull("Phone3AreaCode"),
                 PhoneNumber = reader.GetStringNotNull("Phone3")
             });
         }

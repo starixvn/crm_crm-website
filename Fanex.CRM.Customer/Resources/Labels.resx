@@ -117,14 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ABT" xml:space="preserve">
+    <value>ABT</value>
+  </data>
   <data name="Active" xml:space="preserve">
     <value>Active</value>
+  </data>
+  <data name="Add_Feedback" xml:space="preserve">
+    <value>Add Feedback</value>
   </data>
   <data name="Agent" xml:space="preserve">
     <value>Agent</value>
   </data>
+  <data name="Communication_Tool" xml:space="preserve">
+    <value>Communication Tool</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CRM_Info" xml:space="preserve">
+    <value>CRM Info</value>
+  </data>
+  <data name="Customer_Info" xml:space="preserve">
+    <value>Customer Info</value>
+  </data>
   <data name="Danger" xml:space="preserve">
     <value>Danger</value>
+  </data>
+  <data name="Detail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="First_Name" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Latest_Feedback" xml:space="preserve">
+    <value>Latest Feedback</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="Manage_Feedback" xml:space="preserve">
+    <value>Manage Feedback</value>
   </data>
   <data name="Master" xml:space="preserve">
     <value>Master</value>
@@ -132,10 +174,49 @@
   <data name="Member" xml:space="preserve">
     <value>Member</value>
   </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="MSN" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="Nick_Name" xml:space="preserve">
+    <value>Nick Name</value>
+  </data>
+  <data name="Orginal" xml:space="preserve">
+    <value>Orginal</value>
+  </data>
+  <data name="Other_sports" xml:space="preserve">
+    <value>Other sports</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="PIC" xml:space="preserve">
+    <value>PIC</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>Site</value>
+  </data>
+  <data name="Skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
   <data name="Staff" xml:space="preserve">
     <value>Staff</value>
   </data>
   <data name="Super" xml:space="preserve">
     <value>Super</value>
+  </data>
+  <data name="GetCustomerInfo_ConfirmSearchByGuest" xml:space="preserve">
+    <value>Do you want to search guest customer's information?</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Suspended</value>
+  </data>
+  <data name="Lvl" xml:space="preserve">
+    <value>Lvl</value>
   </data>
 </root>

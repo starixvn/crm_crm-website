@@ -82,6 +82,10 @@
       <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.0.0\lib\net40\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependency\Fanex\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
@@ -173,6 +177,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Customer\Scripts\CustomerApplication.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerController.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerService.js" />
+    <Content Include="Scripts\AgularJS\angular.min.js" />
+    <Content Include="Scripts\SharedScriptManager.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
     <Content Include="Areas\Customer\CustomerInfoDetail.cshtml" />
     <Content Include="Areas\Communication\CommunicationLog.cshtml" />
