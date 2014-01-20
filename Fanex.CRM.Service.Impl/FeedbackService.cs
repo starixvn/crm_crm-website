@@ -30,6 +30,7 @@ namespace Fanex.CRM.Service.Impl
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Service.Interface;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// Feedback service.
@@ -114,25 +115,25 @@ namespace Fanex.CRM.Service.Impl
                 var ip = Helper.GetClientIP();
                 Check.Argument.IsValidIP(ip, "Ip");
 
-                if (!_permissionService.HasHostPermission(FunctionPermission.EditFeedback))
+                if (!_permissionService.HasPermission(FunctionPermission.EditFeedback, NAP.Core.Business.Constant.Policy.Host))
                 {
                     return ReturnErrorResult((int)Enumerations.ErrorCode.UpdateFeedback, "lblNoUpdateFeedbackPermission");
                 }
 
-                if (!_permissionService.HasHostPermission(FunctionPermission.ReviewFeedback) &&
+                if (!_permissionService.HasPermission(FunctionPermission.ReviewFeedback, NAP.Core.Business.Constant.Policy.Host) &&
                     (feedback.UpdateReviewMode == (int)Enumerations.Functions.RevewMode.Update || feedback.UpdateReviewMode == (int)Enumerations.Functions.RevewMode.Remove))
                 {
                     return ReturnErrorResult((int)Enumerations.ErrorCode.UpdateCustomerInfo, "lblNoUpdateReviewFeedbackPermission");
                 }
 
                 if (feedback.Status.Id.Equals((int)Enumerations.Functions.CRMStatus.Deleted) &&
-                    !_permissionService.HasHostPermission(FunctionPermission.DeleteFeedback))
+                    !_permissionService.HasPermission(FunctionPermission.DeleteFeedback, NAP.Core.Business.Constant.Policy.Host))
                 {
                     return ReturnErrorResult((int)Enumerations.ErrorCode.DeleteFeedback, "lblNoDeletedFeedbackPermission");
                 }
 
                 if (feedback.IsOverrideCrmInfo &&
-                !_permissionService.HasHostPermission(FunctionPermission.CustomerInfo))
+                !_permissionService.HasPermission(FunctionPermission.CustomerInfo, NAP.Core.Business.Constant.Policy.Host))
                 {
                     return ReturnErrorResult((int)Enumerations.ErrorCode.DeleteFeedback, "lblNoUpdateCustomerPermission");
                 }
@@ -491,7 +492,7 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result(0, string.Empty);
             try
             {
-                if (!_permissionService.HasHostPermission(FunctionPermission.FBSubjectTemplateManagement))
+                if (!_permissionService.HasPermission(FunctionPermission.FBSubjectTemplateManagement, Constant.Policy.Host))
                 {
                     return ReturnErrorResult(500, "lblNoUpdateFBSubjectTemplate");
                 }
@@ -1929,19 +1930,19 @@ namespace Fanex.CRM.Service.Impl
         /// </returns>
         private Result CheckFeedbackPermission(int feedbackStatusId, bool isOverrideCustomerInfo, bool isAddGuestFeedback)
         {
-            if (!_permissionService.HasHostPermission(FunctionPermission.CreateFeedback.ToString()))
+            if (!_permissionService.HasPermission(FunctionPermission.CreateFeedback.ToString(), Constant.Policy.Host))
             {
                 return ReturnErrorResult((int)Enumerations.ErrorCode.UpdateFeedback, "lblNoCreateFeedbackPermission");
             }
 
             if (feedbackStatusId.Equals((int)Enumerations.Functions.CRMStatus.Deleted) &&
-                !_permissionService.HasHostPermission(FunctionPermission.DeleteFeedback.ToString()))
+                !_permissionService.HasPermission(FunctionPermission.DeleteFeedback.ToString(), Constant.Policy.Host))
             {
                 return ReturnErrorResult((int)Enumerations.ErrorCode.DeleteFeedback, "lblNoDeletedFeedbackPermission");
             }
 
             if ((isOverrideCustomerInfo || isAddGuestFeedback) &&
-                !_permissionService.HasHostPermission(FunctionPermission.CustomerInfo))
+                !_permissionService.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Host))
             {
                 return ReturnErrorResult((int)Enumerations.ErrorCode.DeleteFeedback, "lblNoUpdateCustomerPermission");
             }

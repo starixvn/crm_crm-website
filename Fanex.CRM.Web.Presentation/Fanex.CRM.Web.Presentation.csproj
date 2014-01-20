@@ -173,6 +173,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\Angular\angular.js" />
+    <Content Include="Scripts\Angular\angular.min.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
     <Content Include="Areas\Customer\CustomerInfoDetail.cshtml" />
     <Content Include="Areas\Communication\CommunicationLog.cshtml" />
@@ -181,6 +183,8 @@
     <Content Include="Areas\Customer\Web.config" />
     <Content Include="Areas\Dashboard\Index.cshtml" />
     <Content Include="Areas\Dashboard\Web.config" />
+    <Content Include="Areas\Redemption\Web.config" />
+    <Content Include="Areas\Redemption\Index.cshtml" />
     <None Include="Content\site\common.less" />
     <None Include="Content\site\mixins.less" />
     <None Include="Content\site\image.less" />
@@ -571,6 +575,10 @@
     <ProjectReference Include="..\Fanex.CRM.Dashboard\Fanex.CRM.Dashboard.csproj">
       <Project>{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}</Project>
       <Name>Fanex.CRM.Dashboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Redemption\Fanex.CRM.Redemption.csproj">
+      <Project>{361FC5FA-9D45-460C-A3BF-076C5E9DBB93}</Project>
+      <Name>Fanex.CRM.Redemption</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.User\Fanex.CRM.User.csproj">
       <Project>{806C1CED-415D-4BA4-8B7D-9AF4ED42A880}</Project>

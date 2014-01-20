@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Service.Interface
 {
     using System.Collections.Generic;
+    using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Model.ValueObject;
 
     public interface IPermissionService
@@ -20,6 +21,6 @@ namespace Fanex.CRM.Service.Interface
 
         bool HasHostPermission(string functionName);
 
-        bool HasPermission(string functionName);
+        bool HasPermission(string functionName, Constant.Policy policy);
     }
 }
