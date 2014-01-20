@@ -21,6 +21,7 @@ namespace Fanex.CRM.Service.Impl
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Interface;
     using MongoDB.Driver;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// Customer service.
@@ -134,7 +135,7 @@ namespace Fanex.CRM.Service.Impl
             var result = new Result();
             try
             {
-                if (!this._permissionService.HasHostPermission(FunctionPermission.CustomerInfo.ToString()))
+                if (!this._permissionService.HasPermission(FunctionPermission.CustomerInfo.ToString(), Constant.Policy.Host))
                 {
                     result.ErrCode = 500;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoUpdateCustomerPermission");
@@ -189,7 +190,7 @@ namespace Fanex.CRM.Service.Impl
             var result = new Result();
             try
             {
-                if (!this._permissionService.HasHostPermission(FunctionPermission.CustomerInfo.ToString()))
+                if (!this._permissionService.HasPermission(FunctionPermission.CustomerInfo.ToString(), Constant.Policy.Host))
                 {
                     result.ErrCode = 500;
                     result.ErrMsg = ResourceExtension.GetResourceValue(ResourceExtension.Resources.ErrorMsg, "lblNoUpdateCustomerPermission");

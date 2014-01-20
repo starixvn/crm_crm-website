@@ -440,7 +440,7 @@
          var inputMultipleRelatedNote="@Resources.Language.lblInputMultipleRealteFeedbackCustomerNote";
          var errMsgFeedbackDateGreatter='@Resources.ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate';
          var errMsgResolutionDateGreatter='@Resources.ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime';
-         var allowDeleteFeedback = @permission.HasHostPermission(FunctionPermission.DeleteFeedback).ToString().ToLower();
+         var allowDeleteFeedback = @permission.HasPermission(FunctionPermission.DeleteFeedback, Fanex.NAP.Core.Business.Constant.Policy.Host).ToString().ToLower();
          var clientTime = '@getClientTime';
 
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {

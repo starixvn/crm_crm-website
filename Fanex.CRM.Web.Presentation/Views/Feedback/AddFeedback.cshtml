@@ -1,4 +1,6 @@
 ﻿@using Fanex.CRM.Infrastructure.Common
+@using Fanex.NAP.Core.Business
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -424,7 +426,7 @@
          var inputMultipleRelatedNote="@Resources.Language.lblInputMultipleRealteFeedbackCustomerNote";
          var errMsgFeedbackDateGreatter='@Resources.ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate';
          var errMsgResolutionDateGreatter='@Resources.ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime';
-         var allowDeleteFeedback = @permission.HasHostPermission(FunctionPermission.DeleteFeedback).ToString().ToLower();
+         var allowDeleteFeedback = @permission.HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host).ToString().ToLower();
          var clientTime = '@getClientTime';
 
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
