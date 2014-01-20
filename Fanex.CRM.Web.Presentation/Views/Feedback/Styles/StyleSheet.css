@@ -20,8 +20,8 @@ input[type=text]{width:180px;}
 {
     background:url("Images/hp_notepad2_pen.png") no-repeat left top;
     /*padding:2px 0px 2px 18px;*/
-    line-height:18px;
-    margin-bottom:2px;
+    /*line-height:18px;
+    margin-bottom:2px;*/
     
     }
     
@@ -65,8 +65,9 @@ input[type=text]{width:180px;}
 .desTooltip
 {
     cursor:pointer;
-    /**/margin: -2px 2px 2px 16px;
+    /*margin: -2px 2px 2px 16px;*/
     float:inherit;
+    padding-left: 16px;
     
 }
 

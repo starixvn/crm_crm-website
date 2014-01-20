@@ -177,11 +177,13 @@
     <Content Include="Areas\Customer\CustomerInfoDetail.cshtml" />
     <Content Include="Areas\Communication\CommunicationLog.cshtml" />
     <Content Include="Areas\Communication\Web.config" />
+    <None Include="Areas\Communication\Styles\communicationLog.less" />
     <None Include="Areas\Customer\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
     <Content Include="Areas\Dashboard\Index.cshtml" />
     <Content Include="Areas\Dashboard\Web.config" />
     <None Include="Content\site\common.less" />
+    <None Include="Content\site\comtomizeFanexGrid.less" />
     <None Include="Content\site\mixins.less" />
     <None Include="Content\site\image.less" />
     <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />

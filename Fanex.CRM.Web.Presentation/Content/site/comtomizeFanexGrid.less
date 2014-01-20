@@ -1,0 +1,110 @@
+﻿@import "variables.less";
+@import "mixins.less";
+
+.freegrid {
+    border-color: @border-color;
+    .box-sizing(content-box);
+
+    *, *:before, *:after {
+        .box-sizing(content-box);
+    }
+
+    .container.grid-container {
+        padding: 0;
+        margin: 0;
+    }
+
+    .grid-title {
+        .gradient-vertical(#ececec, #e1e1e1);
+        border-bottom-color: @border-color;
+        height: 32px;
+
+        .grid-title-lable {
+            color: @title-table-color;
+            font-size: @font-size + 2;
+            font-weight: normal;
+            background: none;
+            padding-left: 10px;
+        }
+    }
+
+    .free-cell, div.row-headers-background {
+        background-color: @header-table-bg;
+        color: @header-table-color;
+    }
+
+    .y-scrollbar {
+        border-color: @table-border !important;
+        background-color: #fff;
+    }
+
+    .free-top-right {
+        border-color: @table-border !important;
+    }
+
+    .freegrid-even td {
+        background-color: #ececec;
+    }
+}
+
+.freegrid, .grid-fixed-table {
+    td, th {
+        border-color: @table-border;
+    }
+
+    th {
+        color: @header-table-color;
+        font-weight: normal;
+        border-color: @header-table-border;
+    }
+
+    td {
+        color: @table-color;
+    }
+}
+
+.grid-pager {
+    background: #f2f2f2;
+    border-color: @table-border;
+    height: 27px;
+
+    #pagination {
+        color: @table-color;
+        margin-left: 10px;
+
+        .current {
+            background: @primary-color;
+            color: #fff;
+            .border-radius(0);
+            padding: 2px 5px;
+            font-weight: normal;
+
+            &.prev {
+                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -16px -207px;
+                padding: 0;
+            }
+
+            &.next {
+                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -32px -207px;
+                padding: 0;
+            }
+        }
+
+        a {
+            color: @table-color;
+        }
+
+        select {
+            height: 19px;
+            border-color: #cfcfcf;
+        }
+
+        span.itemperpage {
+            margin-top: 3px;
+        }
+
+        span.detailtext {
+            margin: 2px 6px 0 0;
+        }
+    }
+}

@@ -158,6 +158,10 @@ select {
     height: 100%;
     padding: 10px 15px;
     width: 100%;
+
+    .btn-group {
+        margin-top: 10px;
+    }
 }
 
 .row {
@@ -185,11 +189,20 @@ select {
             width: 18px;
             float: left;
             margin-right: 6px;
+            cursor: pointer;
+
+            &:hover {
+                background-position: -3px -24px;
+            }
         }
 
         .icon-collapse {
             .icon-expand;
             background-position: -24px -3px;
+
+            &:hover {
+                background-position: -24px -24px;
+            }
         }
     }
 
@@ -211,13 +224,16 @@ select {
     }
 }
 
+.lnk {
+    color: @link-color;
+    cursor:pointer;
+}
 
 
 .maincontent_header{height:23px;}
 .maincontent_headerL{height:23px;width:24px;background:url(images/WebResource.axd.png) no-repeat 0 -192px;}
 .maincontent_headerR{height:23px;width:5px;background:url(images/WebResource.axd.png) no-repeat right -192px;}
 .maincontent_headerC{height:23px;min-width:120px;font-weight:700;color:#fff;background:url(images/WebResource.axd.png) repeat-x 0 -192px;text-align:left;}
-.maincontent_box{border:solid 1px #FFF;display:table;text-align:left;padding:4px 2px 0px 2px;}
 .maincontent_iconLeft{ background: url("Images/button_icons.png") no-repeat 0 -85px;width: 17px;height: 17px;margin: 2px 0 0 2px;}
 
 
@@ -245,7 +261,7 @@ button::-moz-focus-inner,input[type=reset]::-moz-focus-inner,input[type=button]:
 .UCase{text-transform:uppercase;}
 a.hilight:hover{text-decoration:underline;}
 
-.lnk{color:blue;cursor:pointer;}
+
 .hand{cursor:pointer;}
 .pad_tb_4{padding:4px 0;}
 span.cannotchange:hover{color:#06C;}
@@ -274,7 +290,7 @@ span.cannotchangeinternal,span.cannotchangeinternal:hover{color:#00f;}
 .filterContent
 {
      width:100%;background-color:#CECECF; margin: -4px 0 -2px -2px;
-}@import "variables.less";
+}
 
 button::-moz-focus-inner,input[type=reset]::-moz-focus-inner,input[type=button]::-moz-focus-inner,input[type=submit]::-moz-focus-inner,input[type=file] >input[type=button]::-moz-focus-inner{border:none;}
 #errmsg{color:Red;font-weight:700;display:inline;overflow:hidden;margin:0;padding:0;}
@@ -294,7 +310,6 @@ span.a{color:#06C;text-decoration:none;}
 a{outline:none 0;color:#06C;text-decoration:none;}
 a:hover{color:#D66D35;text-decoration:none;}
 a.current{color:#D66D35!important;cursor:pointer;}
-.lnk{color:blue;cursor:pointer;}
 .hand{cursor:pointer;}
 .pad_tb_4{padding:4px 0;}
 span.cannotchange:hover{color:#06C;}
