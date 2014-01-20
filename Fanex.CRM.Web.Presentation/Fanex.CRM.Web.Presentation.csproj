@@ -123,7 +123,7 @@
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.2\lib\net40\System.Web.Optimization.dll</HintPath>
+      <HintPath>..\Dependency\Net4\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -173,11 +173,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Home\Scripts\LeftPanelManager.js" />
-    <Content Include="Areas\Home\Web.config" />
+    <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
     <Content Include="Areas\Customer\CustomerInfoDetail.cshtml" />
+    <Content Include="Areas\Communication\CommunicationLog.cshtml" />
+    <Content Include="Areas\Communication\Web.config" />
     <None Include="Areas\Customer\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
+    <Content Include="Areas\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Web.config" />
     <None Include="Content\site\common.less" />
     <None Include="Content\site\mixins.less" />
     <None Include="Content\site\image.less" />
@@ -489,12 +492,11 @@
     <Content Include="Content\site\ui-darkness\images\ui-icons_cccccc_256x240.png" />
     <Content Include="Content\site\ui-darkness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
-    <Content Include="Views\Home\Scripts\AssignMenu.js" />
-    <Content Include="Areas\Home\Scripts\CRMConstants.js" />
+    <Content Include="Views\Home\Scripts\CRMConstants.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
     <Content Include="Views\Home\Menu.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
-    <Content Include="Areas\Home\Scripts\MenuManager.js" />
+    <Content Include="Views\Home\Scripts\MenuManager.js" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_head_tb.jpg" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_menu.jpg" />
@@ -543,10 +545,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Dashboard\_DashboardMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Home\Styles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
@@ -558,9 +560,21 @@
       <Project>{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}</Project>
       <Name>Fanex.CRM.Customer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Communication\Fanex.CRM.Communication.csproj">
+      <Project>{84334DCC-E886-4EFE-BE80-ADE24CB9E8D5}</Project>
+      <Name>Fanex.CRM.Communication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Dashboard\Fanex.CRM.Dashboard.csproj">
+      <Project>{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}</Project>
+      <Name>Fanex.CRM.Dashboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.User\Fanex.CRM.User.csproj">
+      <Project>{806C1CED-415D-4BA4-8B7D-9AF4ED42A880}</Project>
+      <Name>Fanex.CRM.User</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Web.Controllers\Fanex.CRM.Web.Controllers.csproj">
       <Project>{4A20474E-2F9B-4308-AF20-2BA8D97128EB}</Project>
@@ -575,12 +589,6 @@
     <Content Include="Configurations\CasinoSection.config" />
     <Content Include="Configurations\ConnectionStrings.config" />
     <Content Include="Configurations\MailSection.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\SignIn.cshtml" />

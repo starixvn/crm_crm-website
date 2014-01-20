@@ -9,12 +9,8 @@
 
 namespace Fanex.CRM.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Impl;
     using Fanex.CRM.Service.Interface;
 
@@ -58,6 +54,11 @@ namespace Fanex.CRM.Web.Controllers
         /// <returns>Default page.</returns>
         public ActionResult Default()
         {
+            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
+            {
+                return new RedirectResult("~/Account/SignIn");
+            }
+
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             return View();
         }
@@ -67,11 +68,6 @@ namespace Fanex.CRM.Web.Controllers
         {
             ViewBag.MenuItemList = CurrentSession.MenuItemList;
             return PartialView("~/Views/Home/Menu.cshtml");
-        }
-
-        public ActionResult Footer()
-        {
-            return View();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Services.Implements;
     using Fanex.CRM.Customer.Services.Interfaces;
-    using Fanex.CRM.Web.Controllers;
+    using Fanex.CRM.Infrastructure.Web.Controllers;
 
     /// <summary>
     /// Customer Setting Controller.

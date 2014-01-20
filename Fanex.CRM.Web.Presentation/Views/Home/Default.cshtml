@@ -8,11 +8,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link href="@Url.Content("~/Scripts/smoothmenu/ddsmoothmenu.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Views/Home/Styles/default.less?ver=5")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Areas/Home/Styles")
+    @Styles.Render("~/Views/Home/Styles")
 </head>
 <body>
     @*<div id="fullsize" class="fullsize">
@@ -51,13 +50,8 @@
                     </label>
                 </div>
             </div>
-            <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb">
-                <ul class="list-unstyled list-inline">
-                    <li class="active"><span class="hotkey">M</span>ain</li>
-                    <li><span class="hotkey">D</span>etail</li>
-                    <li><span class="hotkey">C</span>ommunication Log</li>
-                    <li><span class="hotkey">S</span>pecial Remark</li>
-                </ul>
+            <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb" id="divSubMenu">
+                
             </div>
         </div>
         <div class="row contentbox">
@@ -88,7 +82,7 @@
         }
     }
     @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Areas/Home/Scripts")
+    @Scripts.Render("~/Views/Home/Scripts")
     <script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var userSearch = '@userSearched';
