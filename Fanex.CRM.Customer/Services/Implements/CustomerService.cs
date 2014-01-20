@@ -62,7 +62,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                     result.SiteSetting.Name = siteSetting.Name;
                 }
 
-                SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
+                //SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
             }
             catch (Exception ex)
             {
