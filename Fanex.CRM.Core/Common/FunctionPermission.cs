@@ -18,7 +18,7 @@ namespace Fanex.CRM.Infrastructure.Common
 
         public const string SettingManagement = "SettingManagement";
 
-        public const string SettingRelationManagement = "SettingManagement";
+        public const string SettingRelationManagement = "SettingRelationshipManagement";
 
         public const string FBSubjectTemplateManagement = "FBSubjectTemplateManagement";
 
@@ -26,14 +26,18 @@ namespace Fanex.CRM.Infrastructure.Common
 
         public const string EditFeedback = "EditFeedback";
 
-        public const string FeedbackReview = "FeedbackReview";
+        public const string ReviewFeedback = "ReviewFeedback";
 
         public const string DeleteFeedback = "DeleteFeedback";
 
-        public const string CustomerInfo = "CustomerInfo";
+        public const string CustomerInfo = "Customer_Guest";
 
         public const string SearchCustomerInfo = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
 
-        public const string FeedbackStatistics = "FeedbackStatistics";
+        public const string CRMReport = "CRMReport";
+
+        public const string RedemptionManagement = "RedemptionManagement";
+
+        public const string ViewActivityLog = "ViewActivityLog";
     }
 }

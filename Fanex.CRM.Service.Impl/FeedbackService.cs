@@ -119,7 +119,7 @@ namespace Fanex.CRM.Service.Impl
                     return ReturnErrorResult((int)Enumerations.ErrorCode.UpdateFeedback, "lblNoUpdateFeedbackPermission");
                 }
 
-                if (!_permissionService.HasHostPermission(FunctionPermission.FeedbackReview) &&
+                if (!_permissionService.HasHostPermission(FunctionPermission.ReviewFeedback) &&
                     (feedback.UpdateReviewMode == (int)Enumerations.Functions.RevewMode.Update || feedback.UpdateReviewMode == (int)Enumerations.Functions.RevewMode.Remove))
                 {
                     return ReturnErrorResult((int)Enumerations.ErrorCode.UpdateCustomerInfo, "lblNoUpdateReviewFeedbackPermission");
