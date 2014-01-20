@@ -29,6 +29,7 @@ namespace Fanex.CRM.Service.Impl
     using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Interface;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// Feedback service.
@@ -118,7 +119,7 @@ namespace Fanex.CRM.Service.Impl
             Result result = new Result(0, string.Empty);
             try
             {
-                if (!_permissionService.HasHostPermission(FunctionPermission.FBSubjectTemplateManagement))
+                if (!_permissionService.HasPermission(FunctionPermission.FBSubjectTemplateManagement, Constant.Policy.Host))
                 {
                     return ReturnErrorResult(500, "lblNoDeleteFBSubjectTemplate");
                 }

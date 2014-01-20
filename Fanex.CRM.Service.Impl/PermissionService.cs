@@ -67,11 +67,11 @@ namespace Fanex.CRM.Service.Impl
                    AppSession.RoleAccess[functionName] == (int)Constant.Policy.Host;
         }
 
-        public bool HasPermission(string functionName)
+        public bool HasPermission(string functionName, Constant.Policy policy)
         {
             return AppSession.RoleAccess != null &&
                    AppSession.RoleAccess.ContainsKey(functionName) &&
-                   AppSession.RoleAccess[functionName] >= (int)Constant.Policy.Read;
+                   AppSession.RoleAccess[functionName] >= (int)policy;
         }
     }
 }

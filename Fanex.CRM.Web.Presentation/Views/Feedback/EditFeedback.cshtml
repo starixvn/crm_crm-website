@@ -1,4 +1,5 @@
 ﻿@using Fanex.CRM.Infrastructure.Common
+@using Fanex.NAP.Core.Business
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -434,11 +435,11 @@
         var desvalue = "";
         var solvalue = "";
         var revvalue = "";
-        var allowUpdateReview=@permission.HasHostPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.FeedbackReview).ToString().ToLower();
+        var allowUpdateReview=@permission.HasPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
         var inputMultipleRelatedNote="@Resources.Language.lblInputMultipleRealteFeedbackCustomerNote";
         var errMsgFeedbackDateGreatter='@Resources.ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate';
         var errMsgResolutionDateGreatter='@Resources.ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime';
-        var allowDeleteFeedback = @permission.HasHostPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.DeleteFeedback).ToString().ToLower();
+        var allowDeleteFeedback = @permission.HasPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.DeleteFeedback, Constant.Policy.Host).ToString().ToLower();
         var clientTime = '@getClientTime';
 
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
