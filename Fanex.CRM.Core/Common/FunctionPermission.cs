@@ -30,7 +30,7 @@ namespace Fanex.CRM.Infrastructure.Common
 
         public const string DeleteFeedback = "DeleteFeedback";
 
-        public const string CustomerInfo = "Customer/Guest";
+        public const string CustomerInfo = "Customer_Guest";
 
         public const string SearchCustomerInfo = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
 
