@@ -183,7 +183,8 @@
     <Content Include="Areas\Dashboard\Index.cshtml" />
     <Content Include="Areas\Dashboard\Web.config" />
     <None Include="Content\site\common.less" />
-    <None Include="Content\site\comtomizeFanexGrid.less" />
+    <None Include="Content\site\customizeFanexGrid.less" />
+    <None Include="Content\site\customizeJqueryUI.less" />
     <None Include="Content\site\mixins.less" />
     <None Include="Content\site\image.less" />
     <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
