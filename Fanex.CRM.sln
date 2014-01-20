@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Web.Presentation"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{F63BC1ED-F62B-46E2-838E-4ED849B31B8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Customer", "Customer\Fanex.CRM.Customer.csproj", "{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Customer", "Fanex.CRM.Customer\Fanex.CRM.Customer.csproj", "{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Setting", "Fanex.CRM.Setting\Fanex.CRM.Setting.csproj", "{6BDF1D65-D49F-4371-B6EE-ABD10B5A8207}"
 EndProject
