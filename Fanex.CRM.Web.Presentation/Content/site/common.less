@@ -2,7 +2,7 @@
 @import "mixins.less";
 
 body {
-    font-family: @font-family;
+    font-family: @font-segoe-ui-light;
     margin: 0;
     padding: 0;
     font-size: @font-size;
@@ -103,7 +103,7 @@ select {
     border: 1px solid @border-color;
     height: 24px;
     width: 100%;
-    padding: 3px;
+    padding: 2px;
     color: #666;
 }
 
@@ -221,6 +221,39 @@ select {
 
     &.last {
         border-width: 1px;
+    }
+}
+
+/* Filter form */
+.filter-frm {
+    border: 1px solid #b7b7b7;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    &.one-row {
+        .item {
+            display: table;
+            float: left;
+            margin-right: 30px;
+        }
+    }
+
+    label {
+        margin: 0 15px 0 0;
+        font-weight: normal;
+        color: #242424;
+    }
+
+    select, input {
+        width: auto;
+        float: none;
+    }
+
+    .txtcalendar {
+        background:url(Images/calendar.png) no-repeat 72px center;
+        padding: 5px 18px 5px 5px;
+        width: 94px;
+        cursor: pointer;
     }
 }
 
