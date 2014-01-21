@@ -1,0 +1,70 @@
+﻿Insert
+
+
+    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
+
+    remark
+    <div class="editerwrapper" id="remarkwrapper">
+        <div id="previewboxremark" class="hidden">
+        </div>
+        <div id="editboxremark">
+        </div>
+    </div>
+
+    solution
+     <div class="editerwrapper" id="solutionwrapper">
+        <div id="previewboxsolution" class="hidden">
+        </div>
+        <div id="editboxsolution">
+        </div>
+    </div>
+
+    review
+     <div class="editerwrapper" id="reviewwrapper">
+        <div id="previewboxdes" class="hidden">
+        </div>
+        <div id="editboxreview">
+        </div>
+    </div>
+
+<script language="javascript" type="text/javascript" src="~/Scripts/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
+<script language="javascript" type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
+<script language="javascript" type="text/javascript">
+    function initHTMLArea(wrapperid, editerid, strvalue) {
+        document.getElementById(wrapperid).innerHTML =
+        '<textarea id="' + editerid +
+            '" name="' + editerid +
+            '" style="width:auto; height:100px; min-width:710px;width:710px;">' +
+            strvalue +
+        '</textarea>';
+        $("#" + editerid).htmlarea({
+            toolbar: [
+                ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
+                ["increasefontsize", "decreasefontsize"],
+                ["orderedlist", "unorderedlist"],
+                ["indent", "outdent"],
+                ["justifyleft", "justifycenter", "justifyright"],
+                ["link", "unlink"], ["image", "horizontalrule"],
+                ["p", "h1", "h2", "h3", "h4", "yh5", "h6"],
+                ["cut", "copy", "paste"],
+                 [{
+                     css: "edit",
+                     text: "Inset Edit Block",
+                     action: function (btn) {
+                         /* jshint unused: vars */
+                         var s = this.getSelectedHTML();
+                         s = formatEditBlock(accname, s);
+                         this.pasteHTML(s);
+                     }
+                 }]
+                  ]
+        });
+    }
+
+    initHTMLArea('editboxremark', 'remarkediter', '');
+    initHTMLArea('editboxsolution', 'solutionediter', '');
+    initHTMLArea('editboxreview', 'reviewediter', '');
+
+</script>
