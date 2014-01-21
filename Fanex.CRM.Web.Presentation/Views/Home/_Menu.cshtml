@@ -29,23 +29,23 @@
     }
     else if (lvl1MenuItemList.Count == 0)
     {
-		<li>
+        <li>
         <a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + menuItem.Url)')">@menuItem.Name</a>
         </li>
     }
     else
     {
         className += " list-unstyled sub-menu";
-		
-		<li>
-			<a href="#">@menuItem.Name <span class="icon-arrow-down"></span></a>
-			<ul class="@className">
-			@foreach (var subMenuItem in lvl1MenuItemList)
+        
+        <li>
+            <a href="#">@menuItem.Name <span class="icon-arrow-down"></span></a>
+            <ul class="@className">
+            @foreach (var subMenuItem in lvl1MenuItemList)
             {
-				<li><a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + subMenuItem.Url)')">@subMenuItem.Name</a></li>
+                <li><a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + subMenuItem.Url)')">@subMenuItem.Name</a></li>
             }
-			</ul>
-		</li>
+            </ul>
+        </li>
     }
 }
 </ul>
