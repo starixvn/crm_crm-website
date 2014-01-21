@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -186,6 +186,8 @@
     <Content Include="Areas\Dashboard\Web.config" />
     <Content Include="Areas\Redemption\Web.config" />
     <Content Include="Areas\Redemption\Index.cshtml" />
+    <Content Include="Areas\Remark\Web.config" />
+    <Content Include="Areas\Remark\Index.cshtml" />
     <None Include="Content\site\common.less" />
     <None Include="Content\site\customizeFanexGrid.less" />
     <None Include="Content\site\customizeJqueryUI.less" />
@@ -582,6 +584,10 @@
     <ProjectReference Include="..\Fanex.CRM.Redemption\Fanex.CRM.Redemption.csproj">
       <Project>{361FC5FA-9D45-460C-A3BF-076C5E9DBB93}</Project>
       <Name>Fanex.CRM.Redemption</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Remark\Fanex.CRM.Remark.csproj">
+      <Project>{4BDA9E77-3B01-4107-9EC7-643922220A9E}</Project>
+      <Name>Fanex.CRM.Remark</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.User\Fanex.CRM.User.csproj">
       <Project>{806C1CED-415D-4BA4-8B7D-9AF4ED42A880}</Project>
