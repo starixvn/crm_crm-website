@@ -190,6 +190,7 @@
     <Content Include="Areas\Redemption\Index.cshtml" />
     <Content Include="Areas\Remark\Web.config" />
     <Content Include="Areas\Remark\Index.cshtml" />
+    <None Include="Areas\Redemption\Styles\redemption.less" />
     <None Include="Content\site\common.less" />
     <None Include="Content\site\customizeFanexGrid.less" />
     <None Include="Content\site\customizeJqueryUI.less" />

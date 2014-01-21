@@ -43,6 +43,10 @@ a {
     }
 }
 
+label {
+    font-weight: normal;
+}
+
 /* Level */
 .lv0 {
     background-color: #fff;
@@ -162,6 +166,10 @@ select {
     .btn-group {
         margin-top: 10px;
     }
+
+    &.popup {
+        background-color: #fff;
+    }
 }
 
 .row {
@@ -213,14 +221,43 @@ select {
             padding: 4px 9px;
 
             label {
-                font-weight: normal;
                 margin-top: 2px;
+            }
+        }
+
+        &.multi-text {
+            background-color: #f6f6f6;
+            padding: 2px 0;
+        }
+
+        .jHtmlArea {
+            width: 100% !important;
+            background-color: #f4f4f4;
+
+            .ToolBar {
+                width: 99% !important;
+                margin: 0 0.5%;
+            }
+
+            div iframe {
+                width: 99% !important;
+                margin: 1% 0.5% 0;
+                border-color: @border-color !important;
+                background-color: #fff;
             }
         }
     }
 
     &.last {
         border-width: 1px;
+    }
+}
+
+.form-group {
+    margin-bottom: 10px;
+
+    .row-item {
+        padding: 4px 0;
     }
 }
 
@@ -240,7 +277,6 @@ select {
 
     label {
         margin: 0 15px 0 0;
-        font-weight: normal;
         color: #242424;
     }
 
