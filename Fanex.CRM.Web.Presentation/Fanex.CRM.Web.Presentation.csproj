@@ -505,7 +505,7 @@
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\CRMConstants.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
-    <Content Include="Views\Home\Menu.cshtml" />
+    <Content Include="Views\Home\_Menu.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Scripts\MenuManager.js" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
@@ -556,7 +556,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Dashboard\_DashboardMenu.cshtml" />
+    <Content Include="Views\Home\_DashboardMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

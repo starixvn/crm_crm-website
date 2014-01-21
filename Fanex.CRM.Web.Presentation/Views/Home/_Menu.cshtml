@@ -15,23 +15,34 @@
     {
         continue;
     }
+    
+    if (i == lvl0MenuItemList.Count - 1)
+    {
+        className = "last-menu";
+    }
 
-    if (lvl1MenuItemList.Count == 0)
+    if (menuItem.Name.ToLower().Equals("home"))
+    {
+        <li>
+            <a href="javascript:;" onclick="javascript:menuManager.getDashboardMenu();menuManager.goToURL('centerFr','@Url.Content("~" + menuItem.Url)'); ">@menuItem.Name</a>
+        </li>
+    }
+    else if (lvl1MenuItemList.Count == 0)
     {
 		<li>
-        <a href="javascript:;" onclick="javascript:gotoURL('centerFr','@Url.Content("~" + menuItem.Url)')">@menuItem.Name</a>
+        <a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + menuItem.Url)')">@menuItem.Name</a>
         </li>
     }
     else
     {
-        className += className.Length > 0 ? " has-kids" : "has-kids";
+        className += " list-unstyled sub-menu";
 		
 		<li>
 			<a href="#">@menuItem.Name <span class="icon-arrow-down"></span></a>
-			<ul class="list-unstyled sub-menu">
+			<ul class="@className">
 			@foreach (var subMenuItem in lvl1MenuItemList)
             {
-				<li><a href="javascript:;" onclick="javascript:gotoURL('centerFr','@Url.Content("~" + subMenuItem.Url)')">@subMenuItem.Name</a></li>
+				<li><a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + subMenuItem.Url)')">@subMenuItem.Name</a></li>
             }
 			</ul>
 		</li>

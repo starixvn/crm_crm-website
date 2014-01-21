@@ -23,10 +23,5 @@ namespace Fanex.CRM.Dashboard.Controllers
         {
             return View("~/Areas/Dashboard/Index.cshtml");
         }
-        
-        public PartialViewResult GettingDashboardMenu()
-        {
-            return PartialView("~/Areas/Dashboard/_DashboardMenu.cshtml");
-        }
     }
 }
