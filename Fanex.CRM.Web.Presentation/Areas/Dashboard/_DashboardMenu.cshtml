@@ -11,6 +11,12 @@
     {
         <li><a href="javascript:;"onclick="javascript:gotoURL('centerFr','/CommunicationLog/Index')"><span class="hotkey">C</span>ommunication Log</a></li>
     }
-    <li><span class="hotkey">S</span>pecial Remark</li>
-    <li><a href="javascript:;"onclick="javascript:gotoURL('centerFr','/Redemption/Index')"><span class="hotkey">R</span>edemption</a></li>
+    @if (permission.HasPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.RedemptionManagement, Constant.Policy.Read))
+    {
+        <li><a href="javascript:;"onclick="javascript:gotoURL('centerFr','/Remark/Index')"><span class="hotkey">S</span>pecial Remark</a></li>
+    }
+    @if (permission.HasPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.RedemptionManagement, Constant.Policy.Read))
+    {
+        <li><a href="javascript:;"onclick="javascript:gotoURL('centerFr','/Redemption/Index')"><span class="hotkey">R</span>edemption</a></li>
+    }
 </ul>
