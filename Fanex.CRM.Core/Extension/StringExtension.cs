@@ -451,5 +451,10 @@ namespace Fanex.CRM.Infrastructure.Extension
 
             return result;
         }
+
+        public static string GetValueNotNull(string value)
+        {
+            return value == null ? string.Empty : value;
+        }
     }
 }

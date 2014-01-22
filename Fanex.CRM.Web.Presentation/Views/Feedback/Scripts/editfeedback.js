@@ -355,7 +355,7 @@ function updateFeedbackInfo(newFeedback) {
                 try { parentWnd.afterUpdate(true); } catch (e) { }
 
                 if (newFeedback.IsOverrideCrmInfo) {
-                    parentWnd.leftPanelManager.LoadLeftPanel(userName);
+                    parentWnd.leftPanelManager.loadLeftPanel(userName, true);
                 }
             }
             else {
@@ -810,7 +810,7 @@ var updateFeedback = {
                     window.setTimeout(function () {
                         updateFeedback.openEditFeedback(updateFeedback.feedbackId);
                         //                        if (newFeedback.IsOverrideCrmInfo) {
-                        //                            parentWnd.leftPanelManager.LoadLeftPanel(userName);
+                        //                            parentWnd.leftPanelManager.loadLeftPanel(userName, true);
                         //                        }
                     }, 1000);
                 }

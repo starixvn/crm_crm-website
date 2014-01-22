@@ -252,4 +252,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
   </data>
+  <data name="CustomerInfo_ConfirmSearchByGuest" xml:space="preserve">
+    <value>Do you want to search guest customer's information?</value>
+  </data>
 </root>

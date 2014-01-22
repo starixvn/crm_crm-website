@@ -149,7 +149,7 @@ function addFeedbackInfo(newFeedback) {
         success: function (rs) {
             if (rs.ErrCode === 0) {
                 showAlertMessage("errmsg", successMsg, 0);
-                parent.leftPanelManager.LoadLeftPanel();
+                parent.leftPanelManager.loadLeftPanel(null, true);
             }
             else {
                 showAlertMessage("errmsg", rs.ErrMsg, 1);

@@ -16,5 +16,9 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
     public interface ISettingRepository
     {
         List<SettingInfo> GetAllSetting(GetAllSettingCriteria criteria);
+
+        List<SettingInfo> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria);
+
+        List<CountryInfo> GetAllCountry(GetAllCountryCriteria criteria);
     }
 }

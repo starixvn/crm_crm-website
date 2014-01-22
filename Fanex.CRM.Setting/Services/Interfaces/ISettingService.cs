@@ -9,11 +9,19 @@
 
 namespace Fanex.CRM.Setting.Services.Interfaces
 {
+    using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
 
     public interface ISettingService
     {
         SettingInfo GetSettingById(GetSettingByIdCriteria criteria);
+
+        List<SiteInfo> GetAllSite();
+
+        List<CountryInfo> GetAllCountry();
+
+        List<SettingInfo> GetAllLanguage();
     }
 }

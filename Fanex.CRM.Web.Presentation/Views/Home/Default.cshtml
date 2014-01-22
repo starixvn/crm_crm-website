@@ -4,6 +4,7 @@
 @using Fanex.CRM.Entities
 @using Fanex.CRM.Infrastructure.Resources
 @using Fanex.CRM.Customer.Criteria
+@using Fanex.CRM.Customer.Services.Implements
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -11,6 +12,7 @@
     <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Views/Home/Styles/default.less?ver=5")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site/customizeJqueryUI.less?ver=1")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Views/Home/Styles")
 </head>
 <body>
@@ -30,7 +32,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
                         <div class="login-info pull-right">
-                            Welcome <span class="txt-username">@ViewBag.AccUsername</span></div>
+                            @Labels.Welcome <span class="txt-username">@ViewBag.AccUsername</span></div>
                     </div>
                 </div>
             </div>
@@ -38,20 +40,18 @@
         <div class="row search-breadbrumb">
             <div class="col-xs-3 col-sm-3 col-md-3 search-frm">
                 <div class="text-search col-xs-9 col-sm-9 col-md-9">
-                    <input type="text" id="txtuserName" class="inputSearch" onkeypress="return KeyPress(event);"
-                        onkeyup="return KeyPress(event);" value="Search..." name="txtuserName" onblur="onBlur()"
-                        onfocus="onFocus()" autocomplete="off" />
-                    <input type="button" class="searchSubmit" value=" " id="btnSendMsg" onclick="leftPanelManager.LoadLeftPanel();" />
+                    <input id="txtuserName" type="text" class="inputSearch" value="Search..." name="txtuserName"
+                        autocomplete="off" />
+                    <input id="btnSendMsg" type="button" class="searchSubmit" value=" " />
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
                     <label>
                         <input id="isGuest" type="checkbox" />
-                        Guest
+                        @Labels.Guest
                     </label>
                 </div>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb" id="divSubMenu">
-                
             </div>
         </div>
         <div class="row contentbox">
@@ -69,19 +69,33 @@
     </div>
     <div id="divErrorPoup" class="selector" style="display: none;">
     </div>
+    <div id="div-resultpopup" class="selector display-none">
+    </div>
     @{
         string userSearched = string.Empty;
         bool isGuest = false;
 
-        SearchCustomerInfo searchUserSession = (SearchCustomerInfo)SessionExtension.GetSession(HttpContext.Current.Session,
-            FunctionPermission.SearchCustomerInfo);
-        if (searchUserSession != null)
+        GetCustomerInfoByUsernameCriteria getCustomerInfoByUsernameCriteria = new CustomerService().GetCustomerInfoByUsernameCriteria;
+        if (getCustomerInfoByUsernameCriteria != null)
         {
-            userSearched = searchUserSession.UserName;
-            isGuest = searchUserSession.IsGuest;
+            userSearched = getCustomerInfoByUsernameCriteria.Username;
+            isGuest = getCustomerInfoByUsernameCriteria.IsGuest;
         }
     }
-    @Scripts.Render("~/Scripts/CommomScripts")
+    <script type="text/javascript" src="~/Scripts/jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/json2.js"></script>
+    <script type="text/javascript" src="~/Scripts/ShareScripts/CRMConstants.js"></script>
+    <script type="text/javascript" src="~/Scripts/ShareScripts/SharedScriptManager.js"></script>
+    <script type="text/javascript" src="~/Scripts/ShareScripts/KeyboardManager.js"></script>
+    <script type="text/javascript" src="~/Scripts/jscookies.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.14.custom.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.blockUI.1.33.js"></script>
+    <script type="text/javascript" src="~/Scripts/BlockUI.js"></script>
+    <script type="text/javascript" src="~/Scripts/common.js"></script>
+    <script type="text/javascript" src="~/Scripts/dialogbox.js"></script>
+    <script type="text/javascript" src="~/Scripts/showhidepopup.js"></script>
+    <script type="text/javascript" src="~/Views/Home/Scripts/Main.js?ver=1"></script>
     @Scripts.Render("~/Views/Home/Scripts")
     <script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
@@ -89,19 +103,6 @@
         var isGuestSearch = '@isGuest';
         var accUrlDefault = '@Fanex.CRM.Infrastructure.Common.AppSetting.LoginUrl';
         var userId = @Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id;
-
-        head.js("@Url.Content("~/Scripts/jquery.js")", function () {
-                head.js("@Url.Content("~/Scripts/json2.js")")
-                    .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.min.js")",
-                        "@Url.Content("~/Scripts/autocomplete/jquery.autocomplete.js")")
-                    .js("@Url.Content("~/Scripts/jquery.blockUI.1.33.js")")
-                    .js("@Url.Content("~/Scripts/BlockUI.js")")
-                    .js("@Url.Content("~/Scripts/common.js")")
-                    .js("@Url.Content("~/Scripts/dialogbox.js")")
-                    .js("@Url.Content("~/Scripts/showhidepopup.js")")
-                    .js("@Url.Content("~/Views/Home/Scripts/Main.js?ver=1")");
-            });   
-
         setInterval('udpateOnlineStatus()', 20000);
         
     </script>

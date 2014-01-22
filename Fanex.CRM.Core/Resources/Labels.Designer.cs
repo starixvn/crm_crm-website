@@ -61,11 +61,29 @@ namespace Fanex.CRM.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Guest.
+        /// </summary>
+        public static string Guest {
+            get {
+                return ResourceManager.GetString("Guest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show/Hide Left Panel.
         /// </summary>
         public static string Home_Index_CollapseExpandLeftPanel {
             get {
                 return ResourceManager.GetString("Home_Index_CollapseExpandLeftPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
     }

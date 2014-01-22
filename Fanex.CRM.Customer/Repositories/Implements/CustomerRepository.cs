@@ -19,6 +19,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.Data;
     using System.Collections.Generic;
     using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.Common;
 
     /// <summary>
     /// Customer Repository.
@@ -45,9 +46,12 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                             MappingInfo_GetCustomerInfoByUsername(reader, ref customer);
                         }
 
-                        while (reader.Read())
+                        if (reader.NextResult())
                         {
-                            MappingLanguages_GetCustomerInfoByUsername(reader, ref customer);
+                            while (reader.Read())
+                            {
+                                MappingLanguages_GetCustomerInfoByUsername(reader, ref customer);
+                            }
                         }
                     }
                 }
@@ -102,6 +106,24 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             return updateResult;
         }
 
+        public BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
+        {
+            BaseModel updateResult = null;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                updateResult = new BaseModel
+                {
+                    Id = Converter.ToInt(outputParams["errcode"]),
+                    Name = Converter.ToString2(outputParams["errmessage"])
+                };
+            }
+
+            return updateResult;
+        }
+
         /// <summary>
         /// Mappings the information when get customer information by username.
         /// </summary>
@@ -131,6 +153,8 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 },
                 MobilePhone = new PhoneInfo
                 {
+                    CountryCode = reader.GetStringNotNull("MobilePhoneCountryCode"),
+                    AreaCode = reader.GetStringNotNull("MobilePhoneAreaCode"),
                     PhoneNumber = reader.GetStringNotNull("MobilePhone")
                 },
 
@@ -180,6 +204,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC1"));
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC2"));
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC3"));
+            customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC4"));
 
             customer.RefCode.Add(reader.GetStringNotNull("RefCode1"));
             customer.RefCode.Add(reader.GetStringNotNull("RefCode2"));

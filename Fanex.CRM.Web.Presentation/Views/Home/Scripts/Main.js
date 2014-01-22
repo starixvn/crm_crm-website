@@ -78,7 +78,7 @@ function KeyPress(e) {
             return false;
         }
 
-        leftPanelManager.LoadLeftPanel();
+        leftPanelManager.loadLeftPanel(null, true);
     }
     return;
 }
@@ -157,7 +157,7 @@ function udpateOnlineStatus() {
     });
 }
 
-head.ready(function () {
+$(document).ready(function () {
     preResize();
     //Add events to page
     $(window).resize(function () {
@@ -223,7 +223,7 @@ head.ready(function () {
     var username = gup("username");
     if (username != null && username !== "") {
         $('#txtuserName').val(username);
-        leftPanelManager.LoadLeftPanel(username);
+        leftPanelManager.loadLeftPanel(username, true);
         menuManager.showHideLeftPanel();
     } else if (userSearch != null && userSearch !== "") {
         if (isGuestSearch === 'True') {
@@ -231,7 +231,7 @@ head.ready(function () {
         }
 
         $('#txtuserName').val(userSearch);
-        leftPanelManager.LoadLeftPanel(userSearch);
+        leftPanelManager.loadLeftPanel(userSearch, true);
         menuManager.showLeftPanel();
     }
 });

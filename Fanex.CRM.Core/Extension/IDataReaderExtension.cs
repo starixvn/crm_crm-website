@@ -31,6 +31,13 @@ namespace Fanex.CRM.Infrastructure.Extension
                 0;
         }
 
+        public static int GetInt16NotNull(this IDataReader reader, string columnName)
+        {
+            return reader[columnName] != DBNull.Value ?
+                reader.GetInt16(reader.GetOrdinal(columnName)) :
+                0;
+        }
+
         public static DateTime GetDateTimeNotNull(this IDataReader reader, string columnName)
         {
             return reader[columnName] != DBNull.Value ?

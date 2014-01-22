@@ -1,4 +1,5 @@
 ﻿@using Fanex.CRM.Customer.Resources;
+@using Fanex.CRM.Setting.Constants;
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -8,7 +9,7 @@
     <title>@Labels.Customer_Info </title>
     <link rel="stylesheet" type="text/css" href="~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css" />
     @Styles.Render("~/Areas/CustomerInfo/Styles")
-    <link href="@Url.Content("~/Content/site/customizeJqueryUI.less?ver=1")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Styles/MultipleSelect")
 </head>
 <body>
     <div id="errmsg">
@@ -35,10 +36,10 @@
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 {{ customer.Status }}</div>
         </div>
-        <div class="row item" data-ng-show="customer.Role.Id == 1 || 
-            customer.Role.Id == 7000 || 
-            customer.Role.Id == 2 || 
-            customer.Role.Id == 7001">
+        <div class="row item" data-ng-show="customer.Role.Id == @RoleIdConstants.Member || 
+            customer.Role.Id == @RoleIdConstants.CRMMember || 
+            customer.Role.Id == @RoleIdConstants.Agent || 
+            customer.Role.Id == @RoleIdConstants.CRMAgent">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 @Labels.Danger</div>
             <div class="col-xs-8 col-sm-8 col-md-8">
@@ -67,10 +68,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                 @Labels.Site</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <select>
-                    <option value="0">None</option>
-                    <option value="0">IBC Bet</option>
-                    <option value="0">ABC Bet</option>
+                <select id="customerinfo-siteoptions">
                 </select>
             </div>
         </div>
@@ -78,10 +76,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                 @Labels.Country</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <select>
-                    <option value="0">None</option>
-                    <option value="0">Malaysia</option>
-                    <option value="0">VietNam</option>
+                <select id="customerinfo-countryoptions">
                 </select>
             </div>
         </div>
@@ -89,14 +84,14 @@
             <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                 @Labels.First_Name</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox" value="{{ customer.FirstName }}" />
+                <input type="text" class="textbox" data-ng-model="customer.FirstName" />
             </div>
         </div>
         <div class="row item no-border-bg">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                 @Labels.Last_Name</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox" value="{{ customer.LastName }}" />
+                <input type="text" class="textbox" data-ng-model="customer.LastName" />
             </div>
         </div>
         <div class="row item no-border-bg">
@@ -110,10 +105,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                 @Labels.Language</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <select>
-                    <option value="0">None</option>
-                    <option value="0">Mandarin/English</option>
-                    <option value="0">Mandarin/English</option>
+                <select id="customerinfo-languageoptions">
                 </select>
             </div>
         </div>
@@ -125,9 +117,9 @@
                 <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                     @Labels.Phone {{ $index + 1 }}</div>
                 <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                    <input type="text" class="textbox code-country" value="{{ phoneInfo.CountryCode }}" />
-                    <input type="text" class="textbox code-area" value="{{ phoneInfo.AreaCode }}" />
-                    <input type="text" class="textbox phone" value="{{ phoneInfo.PhoneNumber }}" />
+                    <input type="text" class="textbox code-country" data-ng-model="phoneInfo.CountryCode" />
+                    <input type="text" class="textbox code-area" data-ng-model="phoneInfo.AreaCode" />
+                    <input type="text" class="textbox phone" data-ng-model="phoneInfo.PhoneNumber" />
                 </div>
             </div>
         </div>
@@ -135,38 +127,39 @@
             <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                 @Labels.Mobile</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox code-country label-left" value="{{ customer.Mobile.CountryCode }}" />
-                <input type="text" class="textbox code-area" value="{{ customer.Mobile.AreaCode }}" />
-                <input type="text" class="textbox phone" value="{{ customer.Mobile.PhoneNumber }}" />
+                <input type="text" class="textbox code-country label-left" data-ng-model="customer.MobilePhone.CountryCode" />
+                <input type="text" class="textbox code-area" data-ng-model="customer.MobilePhone.AreaCode" />
+                <input type="text" class="textbox phone" data-ng-model="customer.MobilePhone.PhoneNumber" />
             </div>
         </div>
         <div class="row item no-border-bg">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                 @Labels.Email</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox" value="{{ customer.Email }}" />
+                <input type="text" class="textbox" data-ng-model="customer.Email" />
             </div>
         </div>
         <div class="row item no-border-bg">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                 @Labels.MSN</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox" value="{{ customer.MSN }}" />
+                <input type="text" class="textbox" data-ng-model="customer.MSN" />
             </div>
         </div>
         <div class="row item no-border-bg">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                 @Labels.Skype</div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <input type="text" class="textbox" value="{{ customer.Skype }}" />
+                <input type="text" class="textbox" data-ng-model="customer.Skype" />
             </div>
         </div>
-        <div class="customer-personalInfoContact-container" data-ng-repeat="personalInfoContact in customer.PersonalInfoContact">
+        <div class="customer-personalInfoContact-container" data-ng-repeat="personalInfoContact in customer.PersonalInfoContact track by $index">
             <div class="row item no-border-bg">
                 <div class="col-xs-4 col-sm-4 col-md-4 text-left label-left">
                     @Labels.PIC {{ $index + 1 }}</div>
                 <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                    <input type="text" class="textbox" value="{{ personalInfoContact }}" />
+                    <input type="text" class="textbox" data-ng-model="customer.PersonalInfoContact[$index]"
+                        data-ng-change="editPersonalInfo(this);" />
                 </div>
             </div>
         </div>
@@ -174,7 +167,7 @@
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
             </div>
             <div class="col-xs-8 col-sm-8 col-md-8 text-left">
-                <button class="btn pull-left btn-update">
+                <button class="btn pull-left btn-update" data-ng-click="updateCustomerInfo();">
                     <span class="hotkey">U</span>pdate</button>
             </div>
         </div>
@@ -196,17 +189,13 @@
             </ul>
         </div>
     </div>
-    <div id="divPopup" class="selector display-none">@Labels.GetCustomerInfo_ConfirmSearchByGuest
-    </div>
     <iframe height="0" frameborder="0" width="0" name="frmUpdate" id="frmUpdate"></iframe>
     @Scripts.Render("~/Scripts/CommomScripts")
-    <script type="text/javascript" src="~/Scripts/jquery.json-1.3.js"></script>
     <script type="text/javascript" src="~/Scripts/jscookies.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.tmpl.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.14.custom.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/common.js"></script>
     <script type="text/javascript" src="~/Scripts/showhidepopup.js"></script>
     @Scripts.Render("~/Scripts/AgularJS")
+    @Scripts.Render("~/Scripts/MultipleSelect")
     @Scripts.Render("~/Areas/CustomerInfo/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';

@@ -1,5 +1,5 @@
 ﻿
-customerApplication.controller('customerController', function ($scope,
+var customerController = customerApplication.controller('customerController', function ($scope,
     $http,
     $customerService) {
     $scope.customer = {
@@ -55,11 +55,12 @@ customerApplication.controller('customerController', function ($scope,
     };
 
     $scope.searchUplineInfo = function (username) {
-        customerManager.searchUplineInfo(username);
+        customerManager.updateTextboxUsername(username);
+        $scope.getCustomerInfoByUsername(customerManager.getCustomerInfoByUsernameParams());
     };
 
     $scope.getCustomerInfoByUsername = function (getCustomerInfoParams) {
-        parent.BlockUI();
+        $scope.BlockUI();
         $customerService.getCustomerInfoByUsername(getCustomerInfoParams)
             .then(function (data) {
                 var customer = data.Result;
@@ -68,15 +69,15 @@ customerApplication.controller('customerController', function ($scope,
                     $scope.customer = customer;
                 }
 
-                customerManager.comletedGetCustomerInfoByUsername(customer, isHavingData);
-                parent.jQuery.unblockUI();
+                customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
+                $scope.unblockUI();
             },
             function (data) {
-                parent.$.unblockUI();
+                $scope.unblockUI();
             });
     };
     $scope.getGuestCustomerInfoByUsername = function (getCustomerInfoParams) {
-        parent.BlockUI();
+        $scope.BlockUI();
         $customerService.getCustomerInfoByUsername(getCustomerInfoParams)
             .then(function (data) {
                 var customer = data.Result;
@@ -85,11 +86,11 @@ customerApplication.controller('customerController', function ($scope,
                     $scope.customer = customer;
                 }
 
-                customerManager.comletedGetCustomerInfoByUsername(customer, isHavingData);
-                parent.jQuery.unblockUI();
+                customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
+                $scope.unblockUI();
             },
             function (data) {
-                parent.$.unblockUI();
+                $scope.unblockUI();
             });
     };
     $scope.viewCRMInfo = function () {
@@ -120,5 +121,34 @@ customerApplication.controller('customerController', function ($scope,
             isGuest: 0
         });
         parent.menuManager.goToURL('centerFr', url);
+    };
+    $scope.updateCustomerInfo = function () {
+        $scope.BlockUI();
+        var updatedParams = customerManager.getUpdatedCustomerInfoParams($scope.customer);
+        $customerService.updateCustomerInfo(updatedParams)
+            .then(function (data) {
+                var updateResult = data.Result;
+                customerManager.ShowUpdateResult(updateResult);
+                $scope.unblockUI();
+            },
+            function (data) {
+                $scope.unblockUI();
+            });
+    };
+    $scope.editPersonalInfo = function (textbox) {
+        $(textbox).focus();
+    };
+
+    $scope.unblockUI = function () {
+        try {
+            parent.$.unblockUI();
+        } catch (e) {
+        }
+    };
+    $scope.BlockUI = function () {
+        try {
+            parent.BlockUI();
+        } catch (e) {
+        }
     };
 });

@@ -27,14 +27,14 @@ namespace Fanex.CRM.Customer.Controllers
         {
         }
 
-        public ActionResult GoToCustomerInfoDetail(string customerId)
-        {
-            return View("~/Areas/Customer/CustomerInfoDetail.cshtml");
-        }
-
         public CustomerSettingController(ICustomerService serviceInstance)
         {
             _serviceInstance = serviceInstance ?? new CustomerService();
+        }
+
+        public ActionResult GoToCustomerInfoDetail(string customerId)
+        {
+            return View("~/Areas/Customer/CustomerInfoDetail.cshtml");
         }
 
         [HttpPost]
@@ -57,6 +57,14 @@ namespace Fanex.CRM.Customer.Controllers
         public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
             var result = _serviceInstance.UpdateCustomerSuggestion(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
+        {
+            var result = _serviceInstance.UpdateCustomerInfo(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

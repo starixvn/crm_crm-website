@@ -9,9 +9,10 @@
 
 namespace Fanex.CRM.Customer.Services.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
-    using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Models;
 
     public interface ICustomerService
     {
@@ -20,5 +21,7 @@ namespace Fanex.CRM.Customer.Services.Interfaces
         List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
 
         bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria);
+
+        BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria);
     }
 }

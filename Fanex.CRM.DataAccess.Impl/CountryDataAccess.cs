@@ -28,7 +28,7 @@ namespace Fanex.CRM.DataAccess.Impl
         public IEnumerable<Country> FindAll()
         {
             var entityList = new List<Country>();
-            using (var obj = new ObjectDb("CountrySel"))
+            using (var obj = new ObjectDb("Setting_SettingInfo_GetAllCountry"))
             {
                 var ds = obj.ExecuteDataSet();
                 if (ds != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)

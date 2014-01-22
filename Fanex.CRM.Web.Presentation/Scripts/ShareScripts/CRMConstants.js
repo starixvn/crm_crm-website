@@ -10,6 +10,18 @@ var CRMConstants = function () {
 
         CssClass: {
             DisplayNone: "display-none"
+        },
+
+        Site: {
+            NotApply: 0
+        },
+
+        Country: {
+            NotApply: 0
+        },
+
+        Language: {
+            NotApply: 0
         }
     };
 };

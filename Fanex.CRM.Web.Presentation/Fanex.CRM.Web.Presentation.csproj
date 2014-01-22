@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -173,8 +173,32 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Angular\angular.js" />
-    <Content Include="Scripts\Angular\angular.min.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerApplication.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerController.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerService.js" />
+    <Content Include="Scripts\AgularJS\angular.min.js" />
+    <Content Include="Scripts\AgularJS\angular.js" />
+    <Content Include="Scripts\JQuery\jquery-1.8.2.js" />
+    <Content Include="Scripts\MultipleSelect\images\BottomLine.png" />
+    <Content Include="Scripts\MultipleSelect\images\FirstNodeSpan.png" />
+    <Content Include="Scripts\MultipleSelect\images\MiddleLine.png" />
+    <Content Include="Scripts\MultipleSelect\images\NodeSpan.png" />
+    <Content Include="Scripts\MultipleSelect\images\PlusMinus.png" />
+    <Content Include="Scripts\MultipleSelect\images\sprites.png" />
+    <Content Include="Scripts\MultipleSelect\images\TopLine.png" />
+    <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240-1.png" />
+    <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240-2.png" />
+    <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\MultipleSelect\jquery.multiselect.css" />
+    <Content Include="Scripts\MultipleSelect\jquery.multiselect.js" />
+    <Content Include="Scripts\MultipleSelect\jquery.multiselect.min.js" />
+    <Content Include="Scripts\MultipleSelect\jquery.multiselect.nlevel.js" />
+    <Content Include="Scripts\MultipleSelect\jquery.multiselect.nlevel1.js" />
+    <Content Include="Scripts\MultipleSelect\jquery.nextreeview.css" />
+    <Content Include="Scripts\MultipleSelect\jquery.nextreeview.js" />
+    <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
+    <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
+    <Content Include="Views\Home\Scripts\HomeManager.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
     <Content Include="Areas\Customer\CustomerInfoDetail.cshtml" />
     <Content Include="Areas\Communication\CommunicationLog.cshtml" />
@@ -499,7 +523,7 @@
     <Content Include="Content\site\ui-darkness\images\ui-icons_cccccc_256x240.png" />
     <Content Include="Content\site\ui-darkness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
-    <Content Include="Views\Home\Scripts\CRMConstants.js" />
+    <Content Include="Scripts\ShareScripts\CRMConstants.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
     <Content Include="Views\Home\Menu.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
@@ -582,6 +606,10 @@
     <ProjectReference Include="..\Fanex.CRM.Redemption\Fanex.CRM.Redemption.csproj">
       <Project>{361FC5FA-9D45-460C-A3BF-076C5E9DBB93}</Project>
       <Name>Fanex.CRM.Redemption</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Setting\Fanex.CRM.Setting.csproj">
+      <Project>{6BDF1D65-D49F-4371-B6EE-ABD10B5A8207}</Project>
+      <Name>Fanex.CRM.Setting</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.User\Fanex.CRM.User.csproj">
       <Project>{806C1CED-415D-4BA4-8B7D-9AF4ED42A880}</Project>
