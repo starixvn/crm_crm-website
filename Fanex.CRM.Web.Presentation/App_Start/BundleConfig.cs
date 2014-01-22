@@ -44,18 +44,19 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/head.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/CommomScripts").Include(
-                "~/Scripts/jquery.js",
+                "~/Scripts/JQuery/jquery-1.8.2.js",
                 "~/Scripts/json2.js",
-                "~/Scripts/SharedScriptManager.js"));
+                "~/Scripts/ShareScripts/CRMConstants.js",
+                "~/Scripts/ShareScripts/SharedScriptManager.js",
+                "~/Scripts/ShareScripts/KeyboardManager.js"));
 
             bundles.Add(new StyleBundle("~/Views/Home/Styles").Include(
                 "~/Scripts/Tipsy-Tooltip/tipsy.css"));
 
             bundles.Add(new ScriptBundle("~/Views/Home/Scripts").Include(
-                 "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
-                "~/Views/Home/Scripts/CRMConstants.js",
                 "~/Views/Home/Scripts/MenuManager.js",
-                "~/Views/Home/Scripts/LeftPanelManager.js"));
+                "~/Views/Home/Scripts/LeftPanelManager.js",
+                "~/Views/Home/Scripts/HomeManager.js"));
 
             bundles.Add(new ScriptBundle("~/Areas/CustomerInfo/Scripts").Include(
                 "~/Areas/Customer/Scripts/CustomerManager.js",
@@ -68,6 +69,11 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new ScriptBundle("~/Scripts/AgularJS").Include(
                 "~/Scripts/AgularJS/angular.min.js"));
+
+            bundles.Add(new ScriptBundle("~/Styles/MultipleSelect").Include(
+                "~/Scripts/MultipleSelect/jquery.multiselect.css"));
+            bundles.Add(new ScriptBundle("~/Scripts/MultipleSelect").Include(
+                "~/Scripts/MultipleSelect/jquery.multiselect.js"));
         }
     }
 
