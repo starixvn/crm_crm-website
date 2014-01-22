@@ -51,7 +51,7 @@ var CustomerManager = function () {
     self.initPage = function () {
         self.cacheDOMElements();
 
-        var scope = angular.element($(".customerinfo-container")).scope();
+        var scope = angular.element("#divContent").scope();
         scope.$apply(function () {
             var getCustomerInfoParams = self.getCustomerInfoByUsernameParamsFromURL();
             if (getCustomerInfoParams.Username === null ||
@@ -148,7 +148,7 @@ var CustomerManager = function () {
         self.DOMElements.divResultPopUp.html(self.CacheData.ViewResources.GetCustomerByName_NoData);
         self.DOMElements.divResultPopUp.dialog({
             width: 250,
-            height: 140,
+            height: 150,
             zIndex: 500,
             resizable: false,
             modal: true,
@@ -435,7 +435,7 @@ var CustomerManager = function () {
         self.DOMElements.divResultPopUp.html(updateResult.Name);
         self.DOMElements.divResultPopUp.dialog({
             width: 250,
-            height: 140,
+            height: 150,
             zIndex: 500,
             resizable: false,
             modal: true,
