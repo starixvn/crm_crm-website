@@ -576,6 +576,7 @@
     <Content Include="Views\Reports\Styles\Images\icn_view.png" />
     <Content Include="Views\Reports\Styles\Images\sucess.gif" />
     <Content Include="Views\Reports\Styles\Images\warning.png" />
+    <Content Include="Views\Reports\Styles\reports.less" />
     <Content Include="Views\Reports\Styles\StyleSheet.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
