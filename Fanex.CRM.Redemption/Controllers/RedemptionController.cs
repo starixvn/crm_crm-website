@@ -23,5 +23,17 @@ namespace Fanex.CRM.Redemption.Controllers
         {
             return View("~/Areas/Redemption/Index.cshtml");
         }
+
+        [ActionName("New")]
+        public ActionResult InsertRedemption()
+        {
+            return View("~/Areas/Redemption/InsertRedemption.cshtml");
+        }
+
+        [ActionName("edit")]
+        public ActionResult EditRedemption()
+        {
+            return View("~/Areas/Redemption/EditRedemption.cshtml");
+        }
     }
 }

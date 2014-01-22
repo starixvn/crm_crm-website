@@ -55,6 +55,8 @@ body {
             width: @width-right;
             border-left: 1px solid #3b5998;
             height: 42px;
+            font-size: @font-size + 1;
+            font-family: @font-segoe-ui-light;
 
             .row {
                 margin: 0;
@@ -64,7 +66,7 @@ body {
                 margin: 0;
                 padding: 0;
                 display: block;
-                margin: 7px 0 0 16px;
+                margin: 5px 0 0 16px;
                 z-index: 300;
                 height: 30px;
 
@@ -84,6 +86,9 @@ body {
 
                     a {
                         color: #fff;
+                        outline: none;
+                        text-decoration: none;
+                        text-shadow: 0 0 0.025em #D6DEE9;
 
                         &:hover {
                             color: #ffcc33;
@@ -127,12 +132,16 @@ body {
                             }
                         }
 
+                        &.last-menu {
+                            right: 0;
+                            left: -101px;
+                        }
                     }
                 }
             }
 
             .login-info {
-                padding: 13px 10px 0 0;
+                padding: 10px 10px 0 0;
                 width:200px;
                 color: #fff;
                 text-align: right;
@@ -220,6 +229,8 @@ body {
 
                     a {
                         color: #fff;
+                        outline: none;
+                        text-decoration: none;
                     }
 
                     &:hover, a:hover {
@@ -227,8 +238,11 @@ body {
                     }
 
                     &.active {
-                        color: #0054a6;
                         background-color: #f1f1f1;
+
+                        a {
+                            color: #0054a6;
+                        }
                     }
                 }
             }

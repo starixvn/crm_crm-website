@@ -27,5 +27,17 @@ namespace Fanex.CRM.Communication.Controllers
         {
             return View("~/Areas/Communication/CommunicationLog.cshtml");
         }
+
+        [ActionName("Edit")]
+        public ActionResult EditCommunicationLog()
+        {
+            return View("~/Areas/Communication/EditCommunicationLog.cshtml");
+        }
+
+        [ActionName("New")]
+        public ActionResult InsertCommunicationLog()
+        {
+            return View("~/Areas/Communication/InsertCommunicationLog.cshtml");
+        }
     }
 }

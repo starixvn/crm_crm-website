@@ -2,7 +2,7 @@
 @import "mixins.less";
 
 .freegrid {
-    border-color: @border-color;
+    border-color: #b7b7b7;
     .box-sizing(content-box);
 
     *, *:before, *:after {
@@ -16,21 +16,22 @@
 
     .grid-title {
         .gradient-vertical(#ececec, #e1e1e1);
-        border-bottom-color: @border-color;
+        border-bottom-color: @table-border;
         height: 32px;
 
         .grid-title-lable {
             color: @title-table-color;
             font-size: @font-size + 2;
-            font-weight: normal;
+            font-weight: 600;
             background: none;
             padding-left: 10px;
         }
     }
-
+    
     .free-cell, div.row-headers-background {
         background-color: @header-table-bg;
         color: @header-table-color;
+        border-top: 1px solid #F5F5F7;
     }
 
     .y-scrollbar {
@@ -39,7 +40,7 @@
     }
 
     .free-top-right {
-        border-color: @table-border !important;
+        border-color: #F5F5F7 @header-table-border @table-border !important;
     }
 
     .freegrid-even td {
@@ -54,8 +55,8 @@
 
     th {
         color: @header-table-color;
-        font-weight: normal;
         border-color: @header-table-border;
+        font-weight: 600;
     }
 
     td {

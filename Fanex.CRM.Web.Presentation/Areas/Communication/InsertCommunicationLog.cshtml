@@ -1,0 +1,204 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
+
+<div class="main popup container">
+    <div class="row form-group">
+        <div class="row row-item">
+            <div class="col-xs-3 col-sm-3 col-md-2"><label for="startTime">Start Time</label></div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <input type="text" class="textbox" id="startTime"/>
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                <label for="ext">Ext</label>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="ext">
+                    <option value="0">831</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="col-xs-3 col-sm-3 col-md-2"><label for="endTime">End Time</label></div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <input type="text" class="textbox" id="endTime"/>
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                <label for="country">Country</label>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="country">
+                    <option value="0">Vietnam</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="col-xs-3 col-sm-3 col-md-2"><label for="communicationTool">Communication Tool</label></div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="communicationTool">
+                    <option value="0">English</option>
+                </select>
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                <label for="language">Language</label>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="language">
+                    <option value="0">English</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="col-xs-3 col-sm-3 col-md-2"><label for="mainCategory">Main Category</label></div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="mainCategory">
+                    <option value="0">Score/Transaction Enquiry</option>
+                </select>
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                <label for="subcategory">Subcategory</label>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="subcategory">
+                    <option value="0">Result/Payout</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="col-xs-3 col-sm-3 col-md-2"><label for="product">Product</label></div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="product">
+                    <option value="0">Soccer</option>
+                </select>
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                <label for="betType">Bet Type</label>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="betType">
+                    <option value="0">1x2</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="col-xs-3 col-sm-3 col-md-2"><label for="status">Status</label></div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="status">
+                    <option value="0">Closed</option>
+                </select>
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                <label for="site">Site</label>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="site">
+                    <option value="0">73333</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="col-xs-3 col-sm-3 col-md-2"><label for="role">Role</label></div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="role">
+                    <option value="0">Member</option>
+                </select>
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                <label for="response">Response</label>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <select id="response">
+                    <option value="0">Satisfied</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="col-xs-3 col-sm-3 col-md-2"><label for="relatedTo">Related To</label></div>
+            <div class="col-xs-7 col-sm-7 col-md-8">
+                <input type="text" class="textbox" id="relatedTo"/>
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-1 col-xs-1 col-sm-1 col-md-1">
+                <button class="btn pull-right"><span class="hotkey">V</span>erify</button>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="col-xs-3 col-sm-3 col-md-2"><label for="subject">Subject</label></div>
+            <div class="col-xs-7 col-sm-7 col-md-8">
+                <input type="text" class="textbox" id="subject" value="Asking for payment"/>
+            </div>
+        </div>
+    </div>
+    <div class="row panel-group">
+        <div class="row title">Remark</div>
+        <div class="row content multi-text">
+            <div id="previewboxremark" class="hidden">
+            </div>
+            <div id="editboxremark">
+            </div>
+        </div>
+    </div>
+    <div class="row panel-group">
+        <div class="row title">Solution</div>
+        <div class="row content multi-text">
+            <div id="previewboxsolution" class="hidden">
+            </div>
+            <div id="editboxsolution">
+            </div>
+        </div>
+    </div>
+    <div class="row panel-group last">
+        <div class="row title">Review</div>
+        <div class="row content multi-text">
+            <div id="previewboxdes" class="hidden">
+                </div>
+                <div id="editboxreview">
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn btn-save"><span class="hotkey">S</span>ave</button>
+    </div>
+</div>
+
+<script language="javascript" type="text/javascript" src="~/Scripts/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
+<script language="javascript" type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
+<script language="javascript" type="text/javascript">
+    function initHTMLArea(wrapperid, editerid, strvalue) {
+        document.getElementById(wrapperid).innerHTML =
+        '<textarea id="' + editerid +
+            '" name="' + editerid +
+            '" style="width:auto; height:100px; min-width:710px;width:710px;">' +
+            strvalue +
+        '</textarea>';
+        $("#" + editerid).htmlarea({
+            toolbar: [
+                ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
+                ["increasefontsize", "decreasefontsize"],
+                ["orderedlist", "unorderedlist"],
+                ["indent", "outdent"],
+                ["justifyleft", "justifycenter", "justifyright"],
+                ["link", "unlink"], ["image", "horizontalrule"],
+                ["p", "h1", "h2", "h3", "h4", "yh5", "h6"],
+                ["cut", "copy", "paste"],
+                 [{
+                     css: "edit",
+                     text: "Inset Edit Block",
+                     action: function (btn) {
+                         /* jshint unused: vars */
+                         var s = this.getSelectedHTML();
+                         s = formatEditBlock(accname, s);
+                         this.pasteHTML(s);
+                     }
+                 }]
+                  ]
+        });
+    }
+
+    initHTMLArea('editboxremark', 'remarkediter', '');
+    initHTMLArea('editboxsolution', 'solutionediter', '');
+    initHTMLArea('editboxreview', 'reviewediter', '');
+
+</script>

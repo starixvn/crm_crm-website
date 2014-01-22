@@ -2,7 +2,7 @@
 @import "mixins.less";
 
 body {
-    font-family: @font-family;
+    font-family: @font-tahoma;
     margin: 0;
     padding: 0;
     font-size: @font-size;
@@ -41,6 +41,10 @@ a {
     &:hover {
         color: @link-color-hover;
     }
+}
+
+label {
+    font-weight: normal;
 }
 
 /* Level */
@@ -103,7 +107,7 @@ select {
     border: 1px solid @border-color;
     height: 24px;
     width: 100%;
-    padding: 3px;
+    padding: 2px;
     color: #666;
 }
 
@@ -162,6 +166,10 @@ select {
     .btn-group {
         margin-top: 10px;
     }
+
+    &.popup {
+        background-color: #fff;
+    }
 }
 
 .row {
@@ -213,14 +221,75 @@ select {
             padding: 4px 9px;
 
             label {
-                font-weight: normal;
                 margin-top: 2px;
+            }
+        }
+
+        &.multi-text {
+            background-color: #f6f6f6;
+            padding: 2px 0;
+        }
+
+        .jHtmlArea {
+            width: 100% !important;
+            background-color: #f4f4f4;
+
+            .ToolBar {
+                width: 99% !important;
+                margin: 0 0.5%;
+            }
+
+            div iframe {
+                width: 99% !important;
+                margin: 1% 0.5% 0;
+                border-color: @border-color !important;
+                background-color: #fff;
             }
         }
     }
 
     &.last {
         border-width: 1px;
+    }
+}
+
+.form-group {
+    margin-bottom: 10px;
+
+    .row-item {
+        padding: 4px 0;
+    }
+}
+
+/* Filter form */
+.filter-frm {
+    border: 1px solid #b7b7b7;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    &.one-row {
+        .item {
+            display: table;
+            float: left;
+            margin-right: 30px;
+        }
+    }
+
+    label {
+        margin: 0 15px 0 0;
+        color: #242424;
+    }
+
+    select, input {
+        width: auto;
+        float: none;
+    }
+
+    .txtcalendar {
+        background:url(Images/calendar.png) no-repeat 72px center;
+        padding: 5px 18px 5px 5px;
+        width: 94px;
+        cursor: pointer;
     }
 }
 

@@ -80,6 +80,23 @@ var MenuManager = function () {
             src: url
         });
     };
+
+    self.getDashboardMenu = function () {
+        $.ajax({
+            url: "/Home/GettingDashboardMenu",
+            type: "GET",
+            success: function (response, status, xhr) {
+                parent.$('#divSubMenu').html(response);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+            }
+        });
+    };
+
+    self.setActiveClassForDasboarSubMenu = function (subMenuId) {
+        $('#ulDashboardMenu li').removeClass('active');
+        $('#' + subMenuId).addClass('active');
+    }
 };
 
 var menuManager = new MenuManager();

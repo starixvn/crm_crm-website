@@ -1,16 +1,1 @@
 ﻿Dashboard
-
-
-<script language="javascript" type="text/javascript" src="~/Scripts/jquery.js"></script>
-
-<script language="javascript" type="text/javascript">
-    $.ajax({
-        url: "Dashboard/GettingDashboardMenu",
-        type: "GET",
-        success: function (response, status, xhr) {
-            parent.$('#divSubMenu').html(response);
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-        }
-    });
-</script>

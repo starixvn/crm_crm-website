@@ -67,7 +67,12 @@ namespace Fanex.CRM.Web.Controllers
         public PartialViewResult GettingUserMenu()
         {
             ViewBag.MenuItemList = CurrentSession.MenuItemList;
-            return PartialView("~/Views/Home/Menu.cshtml");
+            return PartialView("~/Views/Home/_Menu.cshtml");
+        }
+
+        public PartialViewResult GettingDashboardMenu()
+        {
+            return PartialView("~/Views/Home/_DashboardMenu.cshtml");
         }
     }
 }
