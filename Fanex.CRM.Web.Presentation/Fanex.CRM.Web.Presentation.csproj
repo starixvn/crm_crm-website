@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -173,8 +173,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Angular\angular.js" />
-    <Content Include="Scripts\Angular\angular.min.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerApplication.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerController.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerService.js" />
+    <Content Include="Scripts\AgularJS\angular.js" />
+    <Content Include="Scripts\AgularJS\angular.min.js" />
+    <Content Include="Views\Home\Scripts\HomeManager.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
     <Content Include="Areas\Customer\CustomerInfoDetail.cshtml" />
     <Content Include="Areas\Communication\CommunicationLog.cshtml" />
@@ -506,7 +510,6 @@
     <Content Include="Content\site\ui-darkness\images\ui-icons_cccccc_256x240.png" />
     <Content Include="Content\site\ui-darkness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
-    <Content Include="Views\Home\Scripts\CRMConstants.js" />
     <Content Include="Views\Home\Scripts\Main.js" />
     <Content Include="Views\Home\_Menu.cshtml" />
     <None Include="Views\Home\Styles\default.less" />

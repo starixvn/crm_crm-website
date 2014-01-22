@@ -64,7 +64,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Customer/Styles/StyleSheet.less"));
 
             bundles.Add(new ScriptBundle("~/Scripts/AgularJS").Include(
-                "~/Scripts/AgularJS/angular.min.js"));
+                "~/Scripts/AgularJS/angular.js"));
 
             bundles.Add(new ScriptBundle("~/Styles/MultipleSelect").Include(
                 "~/Scripts/MultipleSelect/jquery.multiselect.css"));
