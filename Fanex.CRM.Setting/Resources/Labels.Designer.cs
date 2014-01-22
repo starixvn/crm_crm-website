@@ -79,6 +79,15 @@ namespace Fanex.CRM.Setting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (SettingService SelAllSite) - {0}.
+        /// </summary>
+        public static string Error_GetAllSite {
+            get {
+                return ResourceManager.GetString("Error_GetAllSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (SettingService GetById: {0}) - {1}.
         /// </summary>
         public static string Error_GetSetting {
@@ -88,11 +97,38 @@ namespace Fanex.CRM.Setting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (SettingService GetSettingRelationByName) - Error: {0}&lt;br&gt; - Name: {1}&lt;br&gt; - parentId: {2}.
+        /// </summary>
+        public static string Error_GetSettingRelationByName {
+            get {
+                return ResourceManager.GetString("Error_GetSettingRelationByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Guest.
         /// </summary>
         public static string Guest {
             get {
                 return ResourceManager.GetString("Guest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBC.
+        /// </summary>
+        public static string IBC {
+            get {
+                return ResourceManager.GetString("IBC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensee.
+        /// </summary>
+        public static string Licensee {
+            get {
+                return ResourceManager.GetString("Licensee", resourceCulture);
             }
         }
         

@@ -142,6 +142,33 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to search guest customer&apos;s information?.
+        /// </summary>
+        public static string CustomerInfo_ConfirmSearchByGuest {
+            get {
+                return ResourceManager.GetString("CustomerInfo_ConfirmSearchByGuest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search....
+        /// </summary>
+        public static string CustomerInfo_DefaultSearchTextbox {
+            get {
+                return ResourceManager.GetString("CustomerInfo_DefaultSearchTextbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update CRM Info successful!.
+        /// </summary>
+        public static string CustomerInfo_UpdateSuccess {
+            get {
+                return ResourceManager.GetString("CustomerInfo_UpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danger.
         /// </summary>
         public static string Danger {
@@ -174,15 +201,6 @@ namespace Fanex.CRM.Customer.Resources {
         public static string First_Name {
             get {
                 return ResourceManager.GetString("First_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you want to search guest customer&apos;s information?.
-        /// </summary>
-        public static string GetCustomerInfo_ConfirmSearchByGuest {
-            get {
-                return ResourceManager.GetString("GetCustomerInfo_ConfirmSearchByGuest", resourceCulture);
             }
         }
         

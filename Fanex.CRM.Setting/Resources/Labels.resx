@@ -123,11 +123,23 @@
   <data name="Error_GetAllSetting" xml:space="preserve">
     <value>(SettingService GetAll) - {0}</value>
   </data>
+  <data name="Error_GetAllSite" xml:space="preserve">
+    <value>(SettingService SelAllSite) - {0}</value>
+  </data>
   <data name="Error_GetSetting" xml:space="preserve">
     <value>(SettingService GetById: {0}) - {1}</value>
   </data>
+  <data name="Error_GetSettingRelationByName" xml:space="preserve">
+    <value>(SettingService GetSettingRelationByName) - Error: {0}&lt;br&gt; - Name: {1}&lt;br&gt; - parentId: {2}</value>
+  </data>
   <data name="Guest" xml:space="preserve">
     <value>Guest</value>
+  </data>
+  <data name="IBC" xml:space="preserve">
+    <value>IBC</value>
+  </data>
+  <data name="Licensee" xml:space="preserve">
+    <value>Licensee</value>
   </data>
   <data name="Master" xml:space="preserve">
     <value>Master</value>

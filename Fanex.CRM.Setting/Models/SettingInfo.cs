@@ -21,5 +21,7 @@ namespace Fanex.CRM.Setting.Models
         public string Type { get; set; }
 
         public int DisplayOrder { get; set; }
+
+        public bool IsSubSetting { get; set; }
     }
 }

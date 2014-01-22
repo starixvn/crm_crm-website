@@ -226,7 +226,7 @@ namespace Fanex.CRM.DataAccess.Impl
         public IEnumerable<Setting> GetSettingRelationByName(string settingName, int parentId)
         {
             var allsetting = new List<Setting>();
-            using (var obj = new ObjectDb("SettingGetRelationBySettingName"))
+            using (var obj = new ObjectDb("Setting_SettingInfo_GetRelationBySettingName"))
             {
                 var param = new Hashtable { { "settingname", settingName }, { "parentid", parentId } };
                 obj.AssignParamValues(param);

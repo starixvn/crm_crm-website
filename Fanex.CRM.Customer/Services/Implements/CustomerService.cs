@@ -19,9 +19,12 @@ namespace Fanex.CRM.Customer.Services.Implements
     using Fanex.CRM.Customer.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Customer.Resources;
 
     /// <summary>
     /// Customer Service.
@@ -34,12 +37,23 @@ namespace Fanex.CRM.Customer.Services.Implements
 
         private readonly ISettingService _settingService;
 
+        public GetCustomerInfoByUsernameCriteria GetCustomerInfoByUsernameCriteria
+        {
+            get
+            {
+                return (GetCustomerInfoByUsernameCriteria)SessionExtension.GetSession(
+                    HttpContext.Current.Session,
+                    GetCustomerInfoByUsernameSessionKey);
+            }
+        }
+
         public CustomerService()
             : this(null, null)
         {
         }
 
-        public CustomerService(ICustomerRepository repositoryInstance,
+        public CustomerService(
+            ICustomerRepository repositoryInstance,
             ISettingService settingService)
         {
             _repositoryInstance = repositoryInstance ?? new CustomerRepository();
@@ -61,14 +75,14 @@ namespace Fanex.CRM.Customer.Services.Implements
                     {
                         SettingId = result.SiteSetting.Id
                     });
-                    result.SiteSetting.Name = siteSetting.Name;
+                    result.SiteSetting.Name = siteSetting.Value;
                     result.UplineInfo = GetUplineInfoOfUser(new GetUplineInfoOfUserCriteria
                     {
                         CustomerId = result.Id
                     });
                 }
 
-                //SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
+                SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
             }
             catch (Exception ex)
             {
@@ -110,6 +124,26 @@ namespace Fanex.CRM.Customer.Services.Implements
             try
             {
                 updateResult = _repositoryInstance.UpdateCustomerSuggestion(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return updateResult;
+        }
+
+        public BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
+        {
+            var updateResult = new BaseModel();
+            try
+            {
+                updateResult = _repositoryInstance.UpdateCustomerInfo(criteria);
+                if (updateResult != null &&
+                    updateResult.Id == ErrorCodeConstants.NoneError)
+                {
+                    updateResult.Name = Labels.CustomerInfo_UpdateSuccess;
+                }
             }
             catch (Exception ex)
             {

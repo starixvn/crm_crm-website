@@ -207,7 +207,7 @@
   <data name="Super" xml:space="preserve">
     <value>Super</value>
   </data>
-  <data name="GetCustomerInfo_ConfirmSearchByGuest" xml:space="preserve">
+  <data name="CustomerInfo_ConfirmSearchByGuest" xml:space="preserve">
     <value>Do you want to search guest customer's information?</value>
   </data>
   <data name="Closed" xml:space="preserve">
@@ -218,5 +218,11 @@
   </data>
   <data name="Lvl" xml:space="preserve">
     <value>Lvl</value>
+  </data>
+  <data name="CustomerInfo_DefaultSearchTextbox" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="CustomerInfo_UpdateSuccess" xml:space="preserve">
+    <value>Update CRM Info successful!</value>
   </data>
 </root>

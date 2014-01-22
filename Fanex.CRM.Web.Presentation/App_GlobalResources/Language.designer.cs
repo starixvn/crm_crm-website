@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to search guest customer&apos;s information?.
+        /// </summary>
+        internal static string CustomerInfo_ConfirmSearchByGuest {
+            get {
+                return ResourceManager.GetString("CustomerInfo_ConfirmSearchByGuest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         internal static string date {
