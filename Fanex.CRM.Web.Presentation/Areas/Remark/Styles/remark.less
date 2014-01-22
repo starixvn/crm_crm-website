@@ -1,0 +1,35 @@
+@import "../../../Content/site/variables.less";
+
+.list-remark {
+    margin: 0 0 0 47px;
+    padding: 0;
+    margin-top: 5px;
+    list-style: decimal outside;
+
+    li {
+        width: 100%;
+        float: left;
+        margin-bottom: 10px;
+        line-height: 21px;
+    }
+
+    .last-remark, .last-remark input {
+        color: #959494;
+    }
+}
+
+.remark {
+    margin-top: 15px;
+}
+
+.eq-ie8 {
+    .list-remark {
+        margin-left: 30px;
+
+        li {
+            input {
+                float: none;
+            }
+        }
+    }
+}

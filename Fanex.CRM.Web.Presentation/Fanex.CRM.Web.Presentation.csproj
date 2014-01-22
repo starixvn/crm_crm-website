@@ -175,6 +175,8 @@
   <ItemGroup>
     <Content Include="Scripts\Angular\angular.js" />
     <Content Include="Scripts\Angular\angular.min.js" />
+    <Content Include="Scripts\head.js" />
+    <Content Include="Scripts\head.min.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
     <Content Include="Areas\Customer\CustomerInfoDetail.cshtml" />
     <Content Include="Areas\Communication\CommunicationLog.cshtml" />
@@ -193,6 +195,7 @@
     <Content Include="Areas\Redemption\InsertRedemption.cshtml" />
     <Content Include="Areas\Redemption\EditRedemption.cshtml" />
     <None Include="Areas\Redemption\Styles\redemption.less" />
+    <None Include="Areas\Remark\Styles\remark.less" />
     <None Include="Content\site\common.less" />
     <None Include="Content\site\customizeFanexGrid.less" />
     <None Include="Content\site\customizeJqueryUI.less" />

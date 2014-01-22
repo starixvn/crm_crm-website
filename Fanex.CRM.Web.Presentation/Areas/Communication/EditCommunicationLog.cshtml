@@ -3,6 +3,7 @@
 }
 <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Areas/Communication/styles/communicationLog.less?ver=2")" rel="stylesheet" type="text/css" />
 
 <div class="main popup container">
     <div class="row form-group">
@@ -149,7 +150,10 @@
         </div>
     </div>
     <div class="row panel-group last">
-        <div class="row title">Review</div>
+        <div class="row title">
+            <label for="review">Review</label>
+            <input type="checkbox" class="review" id="review" />
+        </div>
         <div class="row content multi-text">
             <div id="previewboxdes" class="hidden">
                 </div>

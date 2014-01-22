@@ -39,6 +39,10 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
                 "~/Scripts/head.load.min.js"));
 
+            bundles.Add(new ScriptBundle("~/scripts/respond").Include(
+                "~/Scripts/respond.js",
+                "~/Scripts/head.js"));
+
             bundles.Add(new ScriptBundle("~/Scripts/CommomScripts").Include(
                 "~/Scripts/jquery.js",
                 "~/Scripts/json2.js",
