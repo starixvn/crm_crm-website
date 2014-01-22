@@ -173,10 +173,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\Angular\angular.js" />
-    <Content Include="Scripts\Angular\angular.min.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerApplication.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerController.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerService.js" />
+    <Content Include="Scripts\AgularJS\angular.js" />
     <Content Include="Scripts\head.js" />
-    <Content Include="Scripts\head.min.js" />
+    <Content Include="Scripts\head.min.js" />    
+    <Content Include="Views\Home\Scripts\HomeManager.js" />
     <Content Include="Views\Home\Scripts\HomeManager.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
     <Content Include="Areas\Customer\CustomerInfoDetail.cshtml" />

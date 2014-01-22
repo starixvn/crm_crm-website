@@ -100,11 +100,11 @@ var HomeManager = function () {
             self.DOMElements.ResultMessage.html(self.CachedData.ViewResources.Error_SearchCustomer_Empty);
             self.DOMElements.ResultMessage.dialog({
                 width: 200,
-                height: 120,
+                height: 150,
                 zIndex: 500,
                 resizable: false,
                 modal: true,
-                position: [2, 80],
+                position: [2, 90],
                 title: self.CachedData.ViewResources.Alert,
                 close: function (event, ui) {
                     /*jshint unused: vars */
