@@ -1,1 +1,582 @@
-﻿Activity Log
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css?ver=1")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/Paging/pagination.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Areas/ActivityLog/styles/activityLog.less?ver=2")" rel="stylesheet" type="text/css" />
+
+<div class="container main">
+    <div class="row filter-frm one-row redemption-filter">
+        <div class="item">
+            <label for="username">Username</label>
+            <input type="text" class="textbox" id="username" />
+        </div>
+        <div class="item">
+            <label for="fromDate">From date</label>
+            <input type="text" class="textbox txtcalendar" id="fromDate" value="01/08/2014" />
+        </div>
+        <div class="item">
+            <label for="toDate">To date</label>
+            <input type="text" class="textbox txtcalendar" id="toDate" value="01/08/2014" />
+        </div>
+        <div class="item">
+            <label for="action">Action</label>
+            <select id="action" class="sel-action">
+                <option value="0">All</option>
+            </select>
+        </div>
+        <div class="item">
+            <button class="btn"><span class="hotkey">S</span>ubmit</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="freegrid" id="lastedfeedbackgrid" style="width: 967px; height: 647px;">
+            <div class="grid-title">
+                <div id="gridtitle" class="grid-title-lable">
+                    </div>
+                <div class="grid-toolbox">
+                </div>
+            </div>
+            <div class="free-cell free-top-left">
+                <table class="grid-fixed-table free-cell-top-left">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="table-cell" style="height: 30px; width: 400px;">
+                                    Feedback</div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="row_header_wrapper" style="width: 405px; height: 700px;">
+                <div class="row_header row-headers-background" style="width: 422px; height: 700px;">
+                    <table id="latestfeedbackbodyHeader" class="grid-fixed-table row_header_content">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="table-cell" style="height: 30px; width: 400px;">
+                                        Feedback</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="pending">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 69px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41724&amp;rep=2', 1);HideTooltip(0);"
+                                                href="JavaScript:void(0);" id="tooltip0" class="desTooltip" original-title=""><b>Tony
+                                                    test Create Feedback - 2014.01.08 - 10:57</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>01/08/2014 10:52 PM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>MA5</b> on 01/08/2014 10:57 PM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="pending">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 86px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41723&amp;rep=2', 1);HideTooltip(1);"
+                                                href="JavaScript:void(0);" id="tooltip1" class="desTooltip" original-title=""><b>Tony
+                                                    test Feedback - 2014.01.07 - 13:48</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>01/08/2014 01:48 AM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>PgmKiwi</b> on 01/08/2014 01:49
+                                        AM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed by <b>MA5</b> on 01/08/2014 09:41
+                                        PM<br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 69px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41722&amp;rep=2', 1);HideTooltip(2);"
+                                                href="JavaScript:void(0);" id="tooltip2" class="desTooltip" original-title=""><b>Dennis
+                                                    test</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>01/07/2014 05:45 AM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>sa</b> on 01/07/2014 05:47 AM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 69px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41717&amp;rep=2', 1);HideTooltip(3);"
+                                                href="JavaScript:void(0);" id="tooltip3" class="desTooltip" original-title=""><b>test</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>12/11/2013 02:28 AM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>sa</b> on 12/10/2013 03:28 PM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:20:0<br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="closed">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 69px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41716&amp;rep=2', 1);HideTooltip(4);"
+                                                href="JavaScript:void(0);" id="tooltip4" class="desTooltip" original-title=""><b>Updated
+                                                    by Tony - 2014.01.06 - 13:12</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>12/10/2013 11:02 PM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>PgmKiwi</b> on 12/10/2013 12:03
+                                        PM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="pending">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 69px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41715&amp;rep=2', 1);HideTooltip(5);"
+                                                href="JavaScript:void(0);" id="tooltip5" class="desTooltip" original-title=""><b>535345</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>11/09/2013 05:30 AM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 11/08/2013 06:30
+                                        PM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="pending">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 69px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41711&amp;rep=2', 1);HideTooltip(6);"
+                                                href="JavaScript:void(0);" id="tooltip6" class="desTooltip" original-title=""><b>đaf</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>08/22/2013 01:31 AM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 08/21/2013 03:31
+                                        PM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="pending">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 69px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41710&amp;rep=2', 1);HideTooltip(7);"
+                                                href="JavaScript:void(0);" id="tooltip7" class="desTooltip" original-title=""><b>tesst</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>08/21/2013 03:23 AM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 08/20/2013 05:24
+                                        PM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="pending">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 69px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41709&amp;rep=2', 1);HideTooltip(8);"
+                                                href="JavaScript:void(0);" id="tooltip8" class="desTooltip" original-title=""><b>testing
+                                                    by julien</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>08/07/2013 10:20 PM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 08/07/2013 12:21
+                                        PM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="pending">
+                                <td>
+                                    <div style="width: 400px; display: table-cell; vertical-align: middle; height: 86px">
+                                        <div class="lnksubject">
+                                            <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41708&amp;rep=2', 1);HideTooltip(9);"
+                                                href="JavaScript:void(0);" id="tooltip9" class="desTooltip" original-title=""><b>testing
+                                                    by julien</b></a></div>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>08/07/2013 10:10 PM</b><br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 08/07/2013 12:11
+                                        PM<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed by <b>pgmKevin</b> on 08/07/2013
+                                        12:12 PM<br>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col_header row-headers-background scroll-y" style="width: 967px;">
+                <div class="header-container" style="width: 950px;">
+                    <table class="grid-fixed-table col_header_content">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="table-cell" style="height: 30px; width: 400px;">
+                                        Feedback</div>
+                                </th>
+                                <th>
+                                    <div class="table-cell" style="height: 30px; width: 220px;">
+                                        Category</div>
+                                </th>
+                                <th>
+                                    <div class="table-cell" style="height: 30px; width: 50px;">
+                                        Status</div>
+                                </th>
+                                <th>
+                                    <div class="table-cell" style="height: 30px; width: 260px;">
+                                        Related Customer</div>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="grid-container container" style="width: 967px; height: 700px;">
+                <table class="grid-fixed-table col_header_content" id="latestfeedbackbody">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="table-cell" style="height: 30px; width: 400px;">
+                                    Feedback</div>
+                            </th>
+                            <th>
+                                <div class="table-cell" style="height: 30px; width: 220px;">
+                                    Category</div>
+                            </th>
+                            <th>
+                                <div class="table-cell" style="height: 30px; width: 50px;">
+                                    Status</div>
+                            </th>
+                            <th>
+                                <div class="table-cell" style="height: 30px; width: 260px;">
+                                    Related Customer</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="pending">
+                            <td>
+                                <div style="width: 400px; height: 69px;">
+                                    <div class="lnksubject" style="height: 69px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41724&amp;rep=2', 1);HideTooltip(0);"
+                                            href="JavaScript:void(0);" id="tooltip0" class="desTooltip"><b>Tony test Create Feedback
+                                                - 2014.01.08 - 10:57</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>01/08/2014 10:52 PM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>MA5</b> on 01/08/2014 10:57 PM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Pending</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr class="pending">
+                            <td>
+                                <div style="width: 400px; height: 86px;">
+                                    <div class="lnksubject" style="height: 86px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41723&amp;rep=2', 1);HideTooltip(1);"
+                                            href="JavaScript:void(0);" id="tooltip1" class="desTooltip"><b>Tony test Feedback -
+                                                2014.01.07 - 13:48</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>01/08/2014 01:48 AM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>PgmKiwi</b> on 01/08/2014 01:49
+                                    AM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed by <b>MA5</b> on 01/08/2014 09:41
+                                    PM<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Pending</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td>
+                                <div style="width: 400px; height: 69px;">
+                                    <div class="lnksubject" style="height: 69px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41722&amp;rep=2', 1);HideTooltip(2);"
+                                            href="JavaScript:void(0);" id="tooltip2" class="desTooltip"><b>Dennis test</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>01/07/2014 05:45 AM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>sa</b> on 01/07/2014 05:47 AM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Checked</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr class="">
+                            <td>
+                                <div style="width: 400px; height: 69px;">
+                                    <div class="lnksubject" style="height: 69px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41717&amp;rep=2', 1);HideTooltip(3);"
+                                            href="JavaScript:void(0);" id="tooltip3" class="desTooltip"><b>test</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>12/11/2013 02:28 AM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>sa</b> on 12/10/2013 03:28 PM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:20:0<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Checked</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;test_777aaa</div>
+                            </td>
+                        </tr>
+                        <tr class="closed">
+                            <td>
+                                <div style="width: 400px; height: 69px;">
+                                    <div class="lnksubject" style="height: 69px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41716&amp;rep=2', 1);HideTooltip(4);"
+                                            href="JavaScript:void(0);" id="tooltip4" class="desTooltip"><b>Updated by Tony - 2014.01.06
+                                                - 13:12</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>12/10/2013 11:02 PM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>PgmKiwi</b> on 12/10/2013 12:03
+                                    PM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Closed</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr class="pending">
+                            <td>
+                                <div style="width: 400px; height: 69px;">
+                                    <div class="lnksubject" style="height: 69px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41715&amp;rep=2', 1);HideTooltip(5);"
+                                            href="JavaScript:void(0);" id="tooltip5" class="desTooltip"><b>535345</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>11/09/2013 05:30 AM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 11/08/2013 06:30
+                                    PM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Pending</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr class="pending">
+                            <td>
+                                <div style="width: 400px; height: 69px;">
+                                    <div class="lnksubject" style="height: 69px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41711&amp;rep=2', 1);HideTooltip(6);"
+                                            href="JavaScript:void(0);" id="tooltip6" class="desTooltip"><b>đaf</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>08/22/2013 01:31 AM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 08/21/2013 03:31
+                                    PM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Pending</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr class="pending">
+                            <td>
+                                <div style="width: 400px; height: 69px;">
+                                    <div class="lnksubject" style="height: 69px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41710&amp;rep=2', 1);HideTooltip(7);"
+                                            href="JavaScript:void(0);" id="tooltip7" class="desTooltip"><b>tesst</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>08/21/2013 03:23 AM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 08/20/2013 05:24
+                                    PM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Pending</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr class="pending">
+                            <td>
+                                <div style="width: 400px; height: 69px;">
+                                    <div class="lnksubject" style="height: 69px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41709&amp;rep=2', 1);HideTooltip(8);"
+                                            href="JavaScript:void(0);" id="tooltip8" class="desTooltip"><b>testing by julien</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>08/07/2013 10:20 PM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 08/07/2013 12:21
+                                    PM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Pending</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                        <tr class="pending">
+                            <td>
+                                <div style="width: 400px; height: 86px;">
+                                    <div class="lnksubject" style="height: 86px;">
+                                        <a onclick="openEditFeedback('../Feedback/EditFeedback?id=41708&amp;rep=2', 1);HideTooltip(9);"
+                                            href="JavaScript:void(0);" id="tooltip9" class="desTooltip"><b>testing by julien</b></a>
+                                    </div>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>08/07/2013 10:10 PM</b><br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>pgmKevin</b> on 08/07/2013 12:11
+                                    PM<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: 0:0:1:0<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed by <b>pgmKevin</b> on 08/07/2013
+                                    12:12 PM<br>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="width: 220px">
+                                    General Network/Database Issues<br>
+                                    &nbsp;&nbsp;&nbsp;Agency Site Network Issue</div>
+                            </td>
+                            <td>
+                                <div style="width: 50px" class="c">
+                                    &nbsp;Pending</div>
+                            </td>
+                            <td>
+                                <div style="width: 260px" class="c">
+                                    &nbsp;</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="free-cell free-bottom-left" style="top: 732px;">
+                <table class="grid-fixed-table">
+                    <thead>
+                        <tr>
+                            <th class="free-cell-bottom-left" style="width: 400px;">
+                                <div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="free-cell free-top-right" style="left: 949px;">
+                <table class="grid-fixed-table">
+                    <thead>
+                        <tr>
+                            <th class="free-cell-top-right" style="height: 30px;">
+                                <div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="free-cell free-bottom-right" style="top: 732px; left: 949px;">
+                <table class="grid-fixed-table">
+                    <thead>
+                        <tr>
+                            <th class="free-cell-bottom-right" style="height: 18px;">
+                                <div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="y-scrollbar" style="height: 665px; top: 67px; left: 949px; overflow-y: scroll;">
+                <div class="scrollbar-y-content" style="height: 774px;">
+                    &nbsp;</div>
+            </div>
+            <div class="x-scrollbar" style="width: 546px; top: 732px; left: 404px; overflow-x: hidden;">
+                <div class="scrollbar-x-content" style="width: 550px;">
+                    &nbsp;</div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script language="javascript" type="text/javascript" src="~/Scripts/jquery.js?ver=2"></script>
+<script language="javascript" type="text/javascript" src="~/Scripts/Paging/jpager.js"></script>
+<script language="javascript" type="text/javascript" src="~/Scripts/FanexGrid/FanexGrid.js?ver=1"></script>

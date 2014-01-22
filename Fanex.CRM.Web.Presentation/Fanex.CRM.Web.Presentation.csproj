@@ -211,6 +211,7 @@
     <Content Include="Areas\Communication\InsertCommunicationLog.cshtml" />
     <Content Include="Areas\ActivityLog\Index.cshtml" />
     <Content Include="Areas\ActivityLog\Web.config" />
+    <None Include="Areas\ActivityLog\Styles\activityLog.less" />
     <None Include="Areas\Communication\Styles\communicationLog.less" />
     <None Include="Areas\Customer\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
