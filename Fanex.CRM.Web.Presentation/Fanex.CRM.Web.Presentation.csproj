@@ -177,10 +177,11 @@
     <Content Include="Areas\Customer\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\Scripts\CustomerService.js" />
     <Content Include="Scripts\AgularJS\angular.js" />
+    <Content Include="Scripts\AgularJS\angular.min.js" />
     <Content Include="Scripts\head.js" />
     <Content Include="Scripts\head.min.js" />
-    <Content Include="Scripts\AgularJS\angular.min.js" />
     <Content Include="Scripts\JQuery\jquery-1.8.2.js" />
+    <Content Include="Scripts\AgularJS\angular.min.js" />  
     <Content Include="Scripts\MultipleSelect\images\BottomLine.png" />
     <Content Include="Scripts\MultipleSelect\images\FirstNodeSpan.png" />
     <Content Include="Scripts\MultipleSelect\images\MiddleLine.png" />
@@ -209,6 +210,9 @@
     <Content Include="Areas\Communication\Web.config" />
     <Content Include="Areas\Communication\EditCommunicationLog.cshtml" />
     <Content Include="Areas\Communication\InsertCommunicationLog.cshtml" />
+    <Content Include="Areas\ActivityLog\Index.cshtml" />
+    <Content Include="Areas\ActivityLog\Web.config" />
+    <None Include="Areas\ActivityLog\Styles\activityLog.less" />
     <None Include="Areas\Communication\Styles\communicationLog.less" />
     <None Include="Areas\Customer\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
@@ -573,6 +577,7 @@
     <Content Include="Views\Reports\Styles\Images\icn_view.png" />
     <Content Include="Views\Reports\Styles\Images\sucess.gif" />
     <Content Include="Views\Reports\Styles\Images\warning.png" />
+    <Content Include="Views\Reports\Styles\reports.less" />
     <Content Include="Views\Reports\Styles\StyleSheet.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -598,6 +603,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fanex.CRM.ActivityLog\Fanex.CRM.ActivityLog.csproj">
+      <Project>{D37120A9-532E-4C40-A6E6-EAFACCA8AED8}</Project>
+      <Name>Fanex.CRM.ActivityLog</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Customer\Fanex.CRM.Customer.csproj">
       <Project>{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}</Project>
       <Name>Fanex.CRM.Customer</Name>

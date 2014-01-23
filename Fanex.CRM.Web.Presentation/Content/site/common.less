@@ -201,7 +201,7 @@ select {
             cursor: pointer;
 
             &:hover {
-                background-position: -3px -24px;
+                background: url(images/collapse-btn-hover.png) no-repeat -3px -3px;
             }
         }
 
@@ -210,7 +210,7 @@ select {
             background-position: -24px -3px;
 
             &:hover {
-                background-position: -24px -24px;
+                background: url(images/collapse-btn-hover.png) no-repeat -24px -3px;
             }
         }
     }
@@ -272,13 +272,18 @@ select {
         .item {
             display: table;
             float: left;
-            margin-right: 30px;
+            margin-right: 25px;
         }
     }
 
+    .row-item {
+        margin-bottom: 10px;
+    }
+
     label {
-        margin: 0 15px 0 0;
+        margin: 0 10px 7px 0;
         color: #242424;
+        vertical-align: middle;
     }
 
     select, input {
@@ -287,9 +292,9 @@ select {
     }
 
     .txtcalendar {
-        background:url(Images/calendar.png) no-repeat 72px center;
+        background:url(Images/calendar.png) no-repeat 79px center;
         padding: 0 18px 0 5px;
-        width: 94px;
+        width: 100px;
         cursor: pointer;
     }
 }
