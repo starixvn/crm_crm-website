@@ -26,7 +26,6 @@ namespace Fanex.CRM.Web.View.App_Start
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            // bundles.Add(new ScriptBundle("~/bundles/js").Include("~/Scripts/*.js"));
             bundles.AddAndInclude(
                 "~/site/common",
                 "~/content/bootstrap/css/bootstrap.css",
@@ -34,7 +33,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Content/site/image.less",
                 "~/Content/site/input.less",
                 "~/Content/site/Message.less",
-                "~/Content/site/table.less");
+                "~/Content/site/table.less",
+                "~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css");
 
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
                 "~/Scripts/head.load.min.js"));
@@ -43,9 +43,13 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/respond.js",
                 "~/Scripts/head.js"));
 
+            bundles.Add(new ScriptBundle("~/Scripts/PopUp").Include(
+                "~/Scripts/showhidepopup.js"));
+
             bundles.Add(new ScriptBundle("~/Scripts/CommomScripts").Include(
                 "~/Scripts/JQuery/jquery-1.8.2.js",
                 "~/Scripts/json2.js",
+                "~/Scripts/jquery-ui-1.8.14.custom.min.js",
                 "~/Scripts/ShareScripts/CRMConstants.js",
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Scripts/ShareScripts/KeyboardManager.js"));
@@ -54,11 +58,13 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/Tipsy-Tooltip/tipsy.css"));
 
             bundles.Add(new ScriptBundle("~/Views/Home/Scripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Views/Home/Scripts/MenuManager.js",
                 "~/Views/Home/Scripts/LeftPanelManager.js",
                 "~/Views/Home/Scripts/HomeManager.js"));
 
             bundles.Add(new ScriptBundle("~/Areas/CustomerInfo/Scripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Customer/Scripts/CustomerManager.js",
                 "~/Areas/Customer/Scripts/CustomerApplication.js",
                 "~/Areas/Customer/Scripts/CustomerService.js",
