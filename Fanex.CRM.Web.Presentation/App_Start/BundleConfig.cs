@@ -64,6 +64,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Views/Home/Scripts/HomeManager.js"));
 
             bundles.Add(new ScriptBundle("~/Areas/CustomerInfo/Scripts").Include(
+                "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Customer/Scripts/CustomerManager.js",
                 "~/Areas/Customer/Scripts/CustomerApplication.js",
@@ -80,6 +81,15 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/MultipleSelect/jquery.multiselect.css"));
             bundles.Add(new ScriptBundle("~/Scripts/MultipleSelect").Include(
                 "~/Scripts/MultipleSelect/jquery.multiselect.js"));
+
+            bundles.Add(new ScriptBundle("~/Areas/Customer/DetailInfo/Scripts").Include(
+                "~/Scripts/jscookies.js",
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js"));
+
+            bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
+                "~/Views/Home/Scripts/DashboardManager.js"));
         }
     }
 

@@ -1,23 +1,33 @@
 ﻿@using Fanex.NAP.Core.Business
-
-@{Fanex.CRM.Service.Interface.IPermissionService permission = new Fanex.CRM.Service.Impl.PermissionService();}
-
+@using Fanex.CRM.Service.Interface
+@using Fanex.CRM.Service.Impl
+@using Fanex.CRM.Infrastructure.Common
+@{
+    IPermissionService permission = new PermissionService();
+}
 <ul class="list-unstyled list-inline" id="ulDashboardMenu">
-    <li class="active" id="liMain"><a href="javascript:;"onclick="javascript:menuManager.goToURL('centerFr','/CustomerSetting/GoToCustomerInfoDetail'); menuManager.setActiveClassForDasboarSubMenu('liMain');"><span class="hotkey" id="liMain">M</span>ain</a></li>
-    @if(permission.HasPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.CustomerInfo, Constant.Policy.Read)){
-        <li id="liDetail"><a href="javascript:;"onclick="javascript:menuManager.goToURL('centerFr','/CustomerSetting/GoToCustomerInfoDetail'); menuManager.setActiveClassForDasboarSubMenu('liDetail');"><span class="hotkey">D</span>etail</a></li>
-    }
-    @if (permission.HasPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.EditFeedback, Constant.Policy.Read))
+    <li class="active" id="liMain"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liMain');">
+        <span class="hotkey">M</span>ain</a></li>
+    @if (permission.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Read))
     {
-        <li id="liCommnunicationLog"><a href="javascript:;"onclick="javascript:menuManager.goToURL('centerFr','/CommunicationLog/Index'); menuManager.setActiveClassForDasboarSubMenu('liCommnunicationLog');"><span class="hotkey">C</span>ommunication Log</a></li>
+        <li id="liDetail"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liDetail');">
+            <span class="hotkey">D</span>etail</a></li>
     }
-    @if (permission.HasPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.CustomerInfo, Constant.Policy.Read))
+    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read))
     {
-        <li id="liSpecialRemark"><a href="javascript:;"onclick="javascript:menuManager.goToURL('centerFr','/Remark/Index'); menuManager.setActiveClassForDasboarSubMenu('liSpecialRemark');"><span class="hotkey">S</span>pecial Remark</a></li>
+        <li id="liCommnunicationLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liCommnunicationLog');">
+            <span class="hotkey">C</span>ommunication Log</a></li>
     }
-    @if (permission.HasPermission(Fanex.CRM.Infrastructure.Common.FunctionPermission.RedemptionManagement, Constant.Policy.Read))
+    @if (permission.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Read))
     {
-        <li id="liRedemption"><a href="javascript:;"onclick="javascript:menuManager.goToURL('centerFr','/Redemption/Index'); menuManager.setActiveClassForDasboarSubMenu('liRedemption');"><span class="hotkey">R</span>edemption</a></li>
+        <li id="liSpecialRemark"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liSpecialRemark');">
+            <span class="hotkey">S</span>pecial Remark</a></li>
     }
-    <li id="liActivityLog"><a href="javascript:;"onclick="javascript:menuManager.goToURL('centerFr','/ActivityLog/Index'); menuManager.setActiveClassForDasboarSubMenu('liActivityLog');"><span class="hotkey">A</span>ctivity Log</a></li>
+    @if (permission.HasPermission(FunctionPermission.RedemptionManagement, Constant.Policy.Read))
+    {
+        <li id="liRedemption"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRedemption');">
+            <span class="hotkey">R</span>edemption</a></li>
+    }
+    <li id="liActivityLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liActivityLog');">
+        <span class="hotkey">A</span>ctivity Log</a></li>
 </ul>

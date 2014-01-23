@@ -71,7 +71,7 @@ namespace Fanex.CRM.DataAccess.Impl
         {
             var customer = new Customer();
 
-            using (var obj = new ObjectDb("CustomerSel"))
+            using (var obj = new ObjectDb("Customer_CustomerInfoDetail_GetInfoById"))
             {
                 obj.AddInParameter("custid", DbType.Int32, custId);
                 using (var reader = obj.ExecuteReader())

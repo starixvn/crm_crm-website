@@ -9,7 +9,8 @@ var MenuManager = function () {
     self.DOMElements = {
         IconCollapseExpandLeftPanel: null,
         LeftContent: null,
-        RightContent: null
+        RightContent: null,
+        DashboardMenu: null
     };
 
     self.CachedData = {

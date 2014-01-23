@@ -25,5 +25,9 @@ namespace Fanex.CRM.Customer.Models
         public string AccountName { get; set; }
 
         public string AccountNumber { get; set; }
+
+        public string HolderName { get; set; }
+
+        public AddressInfo AddressInfo { get; set; }
     }
 }

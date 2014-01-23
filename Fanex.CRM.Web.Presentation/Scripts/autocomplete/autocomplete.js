@@ -7,22 +7,22 @@
 *
 *  Last Review: 4/24/2009
 */
-(function($) {
+(function ($) {
 
-    $.fn.autocomplete = function(options) {
-        return this.each(function() {
+    $.fn.autocomplete = function (options) {
+        return this.each(function () {
             return new Autocomplete(this, options);
         });
     };
 
     var reEscape = new RegExp('(\\' + ['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\'].join('|\\') + ')', 'g');
 
-    var fnFormatResult = function(value, data, currentValue) {
+    var fnFormatResult = function (value, data, currentValue) {
         var pattern = '(' + currentValue.replace(reEscape, '\\$1') + ')';
         return value.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>');
     };
 
-    var Autocomplete = function(el, options) {
+    var Autocomplete = function (el, options) {
         this.el = $(el);
         this.el.attr('autocomplete', 'off');
         this.suggestions = [];
@@ -59,13 +59,13 @@
 
         killerFn: null,
 
-        initialize: function() {
+        initialize: function () {
             var me, zindex;
             me = this;
 
-            zindex = Math.max.apply(null, $.map($('body > *'), function(e, n) { var pos = $(e).css('position'); if (pos === 'absolute' || pos === 'relative') { return parseInt($(e).css('z-index'), 10) || 1; } }));
+            zindex = Math.max.apply(null, $.map($('body > *'), function (e, n) { var pos = $(e).css('position'); if (pos === 'absolute' || pos === 'relative') { return parseInt($(e).css('z-index'), 10) || 1; } }));
 
-            this.killerFn = function(e) {
+            this.killerFn = function (e) {
                 if ($(e.target).parents('.autocomplete').size() === 0) {
                     me.killSuggestions();
                     me.disableKillerFn();
@@ -84,43 +84,43 @@
             this.container = $('#' + autocompleteElId);
             this.fixPosition();
             if (window.opera) {
-                this.el.keypress(function(e) { me.onKeyPress(e); });
+                this.el.keypress(function (e) { me.onKeyPress(e); });
             } else {
-                this.el.keydown(function(e) { me.onKeyPress(e); });
+                this.el.keydown(function (e) { me.onKeyPress(e); });
             }
-            this.el.keyup(function(e) { me.onKeyUp(e); });
-            this.el.blur(function() { me.enableKillerFn(); });
-            this.el.focus(function() { me.fixPosition(); });
+            this.el.keyup(function (e) { me.onKeyUp(e); });
+            this.el.blur(function () { me.enableKillerFn(); });
+            this.el.focus(function () { me.fixPosition(); });
 
             this.container.css({ maxHeight: this.options.maxHeight + 'px' });
         },
 
-        fixPosition: function() {
+        fixPosition: function () {
             var offset = this.el.offset();
             $('#' + this.mainContainerId).css({ top: (offset.top + this.el.innerHeight()) + 'px', left: offset.left + 'px' });
         },
 
-        enableKillerFn: function() {
+        enableKillerFn: function () {
             var me = this;
             $(document).bind('click', me.killerFn);
         },
 
-        disableKillerFn: function() {
+        disableKillerFn: function () {
             var me = this;
             $(document).unbind('click', me.killerFn);
         },
 
-        killSuggestions: function() {
+        killSuggestions: function () {
             var me = this;
             this.stopKillSuggestions();
-            this.intervalId = window.setInterval(function() { me.hide(); me.stopKillSuggestions(); }, 300);
+            this.intervalId = window.setInterval(function () { me.hide(); me.stopKillSuggestions(); }, 300);
         },
 
-        stopKillSuggestions: function() {
+        stopKillSuggestions: function () {
             window.clearInterval(this.intervalId);
         },
 
-        onKeyPress: function(e) {
+        onKeyPress: function (e) {
             if (!this.enabled) { return; }
             // return will exit the function
             // and event will not fire
@@ -151,7 +151,7 @@
             e.preventDefault();
         },
 
-        onKeyUp: function(e) {
+        onKeyUp: function (e) {
             switch (e.keyCode) {
                 case 38: //Event.KEY_UP:
                 case 40: //Event.KEY_DOWN:
@@ -162,14 +162,14 @@
                 if (this.options.deferRequestBy > 0) {
                     // Defer lookup in case when value changes very quickly:
                     var me = this;
-                    this.onChangeInterval = setInterval(function() { me.onValueChange(); }, this.options.deferRequestBy);
+                    this.onChangeInterval = setInterval(function () { me.onValueChange(); }, this.options.deferRequestBy);
                 } else {
                     this.onValueChange();
                 }
             }
         },
 
-        onValueChange: function() {
+        onValueChange: function () {
             clearInterval(this.onChangeInterval);
             this.currentValue = this.el.val();
             var q = this.getQuery(this.currentValue);
@@ -185,7 +185,7 @@
             }
         },
 
-        getQuery: function(val) {
+        getQuery: function (val) {
             var d, arr;
             d = this.options.delimiter;
             if (!d) { return $.trim(val); }
@@ -193,7 +193,7 @@
             return $.trim(arr[arr.length - 1]);
         },
 
-        getSuggestionsLocal: function(q) {
+        getSuggestionsLocal: function (q) {
             var ret, arr, len, val;
             arr = this.options.lookup;
             len = arr.suggestions.length;
@@ -208,7 +208,7 @@
             return ret;
         },
 
-        getSuggestions: function(q) {
+        getSuggestions: function (q) {
 
             var cr, me, ls;
             cr = this.isLocal ? this.getSuggestionsLocal(q) : this.cachedResponse[q];
@@ -219,11 +219,11 @@
             } else if (!this.isBadQuery(q)) {
                 me = this;
                 me.options.params.query = q;
-                $.get(this.serviceUrl, me.options.params, function(txt) { me.processResponse(txt); }, 'text');
+                $.get(this.serviceUrl, me.options.params, function (txt) { me.processResponse(txt); }, 'text');
             }
         },
 
-        isBadQuery: function(q) {
+        isBadQuery: function (q) {
             var i = this.badQueries.length;
             while (i--) {
                 if (q.indexOf(this.badQueries[i]) === 0) { return true; }
@@ -231,13 +231,13 @@
             return false;
         },
 
-        hide: function() {
+        hide: function () {
             this.enabled = false;
             this.selectedIndex = -1;
             this.container.hide();
         },
 
-        suggest: function() {
+        suggest: function () {
             if (this.suggestions.length === 0) {
                 this.hide();
                 return;
@@ -251,8 +251,8 @@
             this.container.hide().empty();
             for (var i = 0; i < len; i++) {
                 div = $((me.selectedIndex === i ? '<div class="selected"' : '<div') + ' title="' + this.suggestions[i] + '">' + f(this.suggestions[i], this.data[i], v) + '</div>');
-                div.mouseover((function(xi) { return function() { me.activate(xi); }; })(i));
-                div.click((function(xi) { return function() { me.select(xi); }; })(i));
+                div.mouseover((function (xi) { return function () { me.activate(xi); }; })(i));
+                div.click((function (xi) { return function () { me.select(xi); }; })(i));
                 //console.log(div);
                 this.container.append(div);
             }
@@ -260,7 +260,7 @@
             this.container.show();
         },
 
-        processResponse: function(text) {
+        processResponse: function (text) {
             var response;
             try {
                 response = eval('(' + text + ')');
@@ -269,11 +269,11 @@
             this.suggestions = response.suggestions;
             this.data = response.data;
             this.cachedResponse[response.query] = response;
-            if (response.suggestions.length === 0) { this.badQueries.push(response.query); }
+            if (response == null || response.suggestions == null || response.suggestions.length === 0) { this.badQueries.push(response.query); }
             if (response.query === this.getQuery(this.currentValue)) { this.suggest(); }
         },
 
-        activate: function(index) {
+        activate: function (index) {
             var divs = this.container.children();
             var activeItem;
             // Clear previous selection:
@@ -288,12 +288,12 @@
             return activeItem;
         },
 
-        deactivate: function(div, index) {
+        deactivate: function (div, index) {
             div.className = '';
             if (this.selectedIndex === index) { this.selectedIndex = -1; }
         },
 
-        select: function(i) {
+        select: function (i) {
             var selectedValue = this.suggestions[i];
             if (selectedValue) {
                 this.el.val(selectedValue);
@@ -307,7 +307,7 @@
             }
         },
 
-        moveUp: function() {
+        moveUp: function () {
             if (this.selectedIndex === -1) { return; }
             if (this.selectedIndex === 0) {
                 this.container.children().get(0).className = '';
@@ -318,12 +318,12 @@
             this.adjustScroll(this.selectedIndex - 1);
         },
 
-        moveDown: function() {
+        moveDown: function () {
             if (this.selectedIndex === (this.suggestions.length - 1)) { return; }
             this.adjustScroll(this.selectedIndex + 1);
         },
 
-        adjustScroll: function(i) {
+        adjustScroll: function (i) {
             var activeItem, offsetTop, upperBound, lowerBound;
             activeItem = this.activate(i);
             offsetTop = activeItem.offsetTop;
@@ -337,11 +337,11 @@
             //this.el.val(this.suggestions[i]);
         },
 
-        onSelect: function(i) {
+        onSelect: function (i) {
             var me, onSelect, getValue, s, d;
             me = this;
             onSelect = me.options.onSelect;
-            getValue = function(value) {
+            getValue = function (value) {
                 var del, currVal;
                 del = me.options.delimiter;
                 currVal = me.currentValue;

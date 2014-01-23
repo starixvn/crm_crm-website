@@ -1,5 +1,5 @@
 ﻿
-var customerController = customerApplication.controller('customerController', function ($scope,
+customerApplication.controller('customerController', function ($scope,
     $http,
     $customerService) {
     $scope.customer = {
@@ -94,7 +94,7 @@ var customerController = customerApplication.controller('customerController', fu
             });
     };
     $scope.viewCRMInfo = function () {
-        var url = '../CustomerSetting/GoToCustomerInfoDetail?' + $.param({
+        var url = '../Customer/EditCRMInfo?' + $.param({
             custid: $scope.customer.Id
         });
         parent.menuManager.goToURL('centerFr', url);

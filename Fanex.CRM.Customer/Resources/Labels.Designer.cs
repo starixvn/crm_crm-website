@@ -70,6 +70,24 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Holder Name.
+        /// </summary>
+        public static string Account_Holder_Name {
+            get {
+                return ResourceManager.GetString("Account_Holder_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account No.
+        /// </summary>
+        public static string Account_No {
+            get {
+                return ResourceManager.GetString("Account_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {
@@ -97,6 +115,33 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bank Info.
+        /// </summary>
+        public static string Bank_Info {
+            get {
+                return ResourceManager.GetString("Bank_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank&apos;s Name.
+        /// </summary>
+        public static string Bank_s_Name {
+            get {
+                return ResourceManager.GetString("Bank_s_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Closed.
         /// </summary>
         public static string Closed {
@@ -111,6 +156,42 @@ namespace Fanex.CRM.Customer.Resources {
         public static string Communication_Tool {
             get {
                 return ResourceManager.GetString("Communication_Tool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Number.
+        /// </summary>
+        public static string Contact_Number {
+            get {
+                return ResourceManager.GetString("Contact_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Number 1.
+        /// </summary>
+        public static string Contact_Number_1 {
+            get {
+                return ResourceManager.GetString("Contact_Number_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Number 2.
+        /// </summary>
+        public static string Contact_Number_2 {
+            get {
+                return ResourceManager.GetString("Contact_Number_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contact Number 3.
+        /// </summary>
+        public static string Contact_Number_3 {
+            get {
+                return ResourceManager.GetString("Contact_Number_3", resourceCulture);
             }
         }
         
@@ -196,11 +277,38 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fax.
+        /// </summary>
+        public static string Fax {
+            get {
+                return ResourceManager.GetString("Fax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string First_Name {
             get {
                 return ResourceManager.GetString("First_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home Address.
+        /// </summary>
+        public static string Home_Address {
+            get {
+                return ResourceManager.GetString("Home_Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IBAN/SWIFT code.
+        /// </summary>
+        public static string IBAN_SWIFT_code {
+            get {
+                return ResourceManager.GetString("IBAN_SWIFT_code", resourceCulture);
             }
         }
         
@@ -237,6 +345,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string Level {
             get {
                 return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line.
+        /// </summary>
+        public static string Line {
+            get {
+                return ResourceManager.GetString("Line", resourceCulture);
             }
         }
         
@@ -322,6 +439,24 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passport Number.
+        /// </summary>
+        public static string Passport_Number {
+            get {
+                return ResourceManager.GetString("Passport_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personal Info.
+        /// </summary>
+        public static string Personal_Info {
+            get {
+                return ResourceManager.GetString("Personal_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone.
         /// </summary>
         public static string Phone {
@@ -336,6 +471,51 @@ namespace Fanex.CRM.Customer.Resources {
         public static string PIC {
             get {
                 return ResourceManager.GetString("PIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIC 1.
+        /// </summary>
+        public static string PIC_1 {
+            get {
+                return ResourceManager.GetString("PIC_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIC 2.
+        /// </summary>
+        public static string PIC_2 {
+            get {
+                return ResourceManager.GetString("PIC_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIC 3.
+        /// </summary>
+        public static string PIC_3 {
+            get {
+                return ResourceManager.GetString("PIC_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIC 4.
+        /// </summary>
+        public static string PIC_4 {
+            get {
+                return ResourceManager.GetString("PIC_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postcode.
+        /// </summary>
+        public static string Postcode {
+            get {
+                return ResourceManager.GetString("Postcode", resourceCulture);
             }
         }
         
@@ -363,6 +543,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string Staff {
             get {
                 return ResourceManager.GetString("Staff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        public static string State {
+            get {
+                return ResourceManager.GetString("State", resourceCulture);
             }
         }
         

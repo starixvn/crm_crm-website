@@ -16,7 +16,8 @@ var HomeManager = function () {
             Alert: 'Alert'
         },
 
-        username: null
+        username: null,
+        currentCustomer: null
     };
 
     self.initPage = function () {
@@ -96,7 +97,7 @@ var HomeManager = function () {
         self.TextboxUsernameBlur();
         if (self.validDateTextboxUsername()) {
             self.CachedData.username = self.DOMElements.TextboxUsername.val();
-            leftPanelManager.loadLeftPanel(null, true);
+            leftPanelManager.loadLeftPanel(null, false);
         }
     };
     self.validDateTextboxUsername = function () {

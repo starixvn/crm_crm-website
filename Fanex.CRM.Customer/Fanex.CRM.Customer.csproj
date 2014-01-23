@@ -46,6 +46,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Fanex\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\Dependency\NoSql\MongoDB\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\Dependency\NoSql\MongoDB\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -58,24 +64,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CustomerSettingController.cs" />
+    <Compile Include="Controllers\CustomerSettingDetailController.cs" />
+    <Compile Include="Criteria\DetailInfo\GetCustomerInfoDetailByIdCriteria.cs" />
+    <Compile Include="Criteria\DetailInfo\UpdateCustomerInfoDetailCriteria.cs" />
     <Compile Include="Criteria\GetCustomerInfoByUsernameCriteria.cs" />
     <Compile Include="Criteria\GetUplineInfoOfUserCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerInfoCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerSuggestionCriteria.cs" />
+    <Compile Include="Models\AddressInfo.cs" />
     <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
     <Compile Include="Models\FaxInfo.cs" />
     <Compile Include="Models\PhoneInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Implements\CustomerDetailRepository.cs" />
     <Compile Include="Repositories\Implements\CustomerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICustomerDetailRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICustomerRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\Implements\CustomerDetailService.cs" />
     <Compile Include="Services\Implements\CustomerService.cs" />
+    <Compile Include="Services\Interfaces\ICustomerDetailService.cs" />
     <Compile Include="Services\Interfaces\ICustomerService.cs" />
   </ItemGroup>
   <ItemGroup>

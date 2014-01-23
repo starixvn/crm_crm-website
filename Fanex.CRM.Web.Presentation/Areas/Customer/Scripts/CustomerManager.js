@@ -225,12 +225,13 @@ var CustomerManager = function () {
         sharedScriptManager.CallAjax(self,
             window.rootUrl + "CustomerSetting/UpdateCustomerSuggestion",
             updateParam,
-            null,
-            null,
+            self.unblockUI,
+            self.unblockUI,
             self.unblockUI);
     };
     self.completedGetCustomerInfoByUsername = function (customer, isHavingData) {
         self.CacheData.currentCustomer = customer;
+        parent.homeManager.CachedData.currentCustomer = customer;
         if (!isHavingData) {
             return;
         }

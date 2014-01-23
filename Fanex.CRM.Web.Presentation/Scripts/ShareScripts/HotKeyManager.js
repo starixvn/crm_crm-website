@@ -40,7 +40,7 @@
         self.CachedData.KeyPress[keyCode.toString()] = true;
         var isCustomHotKey = false;
         // Use follow line to test working flow
-        console.log(self.CachedData.KeyPress);
+        //        console.log(self.CachedData.KeyPress);
         if (self.CachedData.ActiveDocumentManager.length == 0) {
             return isCustomHotKey;
         }
