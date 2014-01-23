@@ -45,7 +45,7 @@ namespace Fanex.CRM.Web.Controllers
 
         public ActionResult BlankPage()
         {
-            return View();
+            return View("~/Views/Home/BlankPage.cshtml");
         }
 
         /// <summary>
