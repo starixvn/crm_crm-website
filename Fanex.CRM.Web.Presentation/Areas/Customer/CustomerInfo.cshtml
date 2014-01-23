@@ -15,10 +15,10 @@
             <div class="row item">
                 <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                     {{ uplineInfo.Role.Name }}</div>
-                <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                <div class="col-xs-6 col-sm-6 col-md-6 text-left username">
                     <a data-ng-href="#" data-ng-click="searchUplineInfo(uplineInfo.Name)">{{
                         uplineInfo.Name }}</a></div>
-                <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                <div class="col-xs-2 col-sm-2 col-md-2 text-right status">
                     {{ uplineInfo.Status }}
                 </div>
             </div>
@@ -26,9 +26,9 @@
         <div class="row item current">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 {{ customer.Role.Name }}</div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+            <div class="col-xs-6 col-sm-6 col-md-6 text-lef usernamet">
                 {{ customer.Name }}</div>
-            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+            <div class="col-xs-2 col-sm-2 col-md-2 text-right status">
                 {{ customer.Status }}</div>
         </div>
         <div class="row item" data-ng-show="customer.Role.Id == @RoleIdConstants.Member || 

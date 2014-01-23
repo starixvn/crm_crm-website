@@ -179,8 +179,12 @@
     <Content Include="Areas\Customer\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\Scripts\CustomerService.js" />
+    <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
-    <Content Include="Content\site\Images\notice-icn.png" />
+    <Content Include="Content\site\Images\error.png" />
+    <Content Include="Content\site\Images\excel.png" />
+    <Content Include="Content\site\Images\sucess.png" />
+    <Content Include="Content\site\Images\warning.png" />
     <Content Include="Scripts\AgularJS\angular.js" />
     <Content Include="Scripts\AgularJS\angular.min.js" />
     <Content Include="Scripts\head.js" />
@@ -284,7 +288,6 @@
     <Content Include="Content\site\Images\emsg_3_2.gif" />
     <Content Include="Content\site\Images\emsg_3_3.gif" />
     <Content Include="Content\site\Images\error-icon.gif" />
-    <Content Include="Content\site\Images\error.gif" />
     <Content Include="Content\site\Images\excel.gif" />
     <Content Include="Content\site\Images\excel_disable.gif" />
     <Content Include="Content\site\Images\expand.gif" />
@@ -330,7 +333,6 @@
     <Content Include="Content\site\Images\sendmail-icon.png" />
     <Content Include="Content\site\Images\setting.png" />
     <Content Include="Content\site\Images\sprite.png" />
-    <Content Include="Content\site\Images\sucess.gif" />
     <Content Include="Content\site\Images\TreeViewImg.gif" />
     <Content Include="Content\site\Images\view-detail.png" />
     <Content Include="Content\site\Images\view_ico.gif" />
