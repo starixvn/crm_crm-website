@@ -53,7 +53,10 @@ var MenuManager = function () {
     };
 
     self.showLeftPanel = function () {
-        if (menuManager.CachedData.isShowingLeftPanel) {
+        var username = leftPanelManager.CacheData.getCustomerInfoParams.Username;
+        if (menuManager.CachedData.isShowingLeftPanel ||
+            username == null ||
+            username == "") {
             return;
         }
 

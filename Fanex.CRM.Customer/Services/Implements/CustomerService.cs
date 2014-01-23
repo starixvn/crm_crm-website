@@ -80,9 +80,13 @@ namespace Fanex.CRM.Customer.Services.Implements
                     {
                         CustomerId = result.Id
                     });
-                }
 
-                SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
+                    SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
+                }
+                else
+                {
+                    SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, null);
+                }
             }
             catch (Exception ex)
             {

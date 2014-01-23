@@ -151,4 +151,15 @@ var customerController = customerApplication.controller('customerController', fu
         } catch (e) {
         }
     };
+
+    $scope.invokeHotKey_CtrlU = function () {
+        $scope.updateCustomerInfo();
+    };
+    $scope.invokeHotKey_CtrlG = function () {
+        customerManager.enableGuestSearch();
+    };
+
+    angular.element(document).ready(function () {
+        hotKeyManager.CachedData.ActiveDocumentManager.push($scope);
+    });
 });

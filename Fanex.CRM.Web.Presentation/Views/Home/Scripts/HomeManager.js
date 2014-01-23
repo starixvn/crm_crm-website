@@ -11,15 +11,20 @@ var HomeManager = function () {
     self.CachedData = {
         ViewResources: {
             DefaultSearchCustomer: "Search...",
-            Error_SearchCustomer_Empty: 'Please input username.',
+            Error_SearchCustomer_Empty: 'Please input username!',
             OK: "OK",
             Alert: 'Alert'
-        }
+        },
+
+        username: null
     };
 
     self.initPage = function () {
         self.cacheDOMElements();
         self.bindEvents();
+
+        self.CachedData.username = self.DOMElements.TextboxUsername.val();
+        hotKeyManager.CachedData.ActiveDocumentManager.push(self);
     };
 
     self.cacheDOMElements = function () {
@@ -53,7 +58,7 @@ var HomeManager = function () {
     };
     self.TextboxUsernameBlur = function () {
         var inputValue;
-        var oldName = userName;
+        var oldName = self.CachedData.username;
         var newName = self.DOMElements.TextboxUsername.val();
 
         if (oldName !== '' && newName !== '') {
@@ -77,7 +82,9 @@ var HomeManager = function () {
         var key = (e.keyCode) ? e.keyCode : e.which;
         if (key === keyboardManager.Enums.KeyCode.Enter) {
             var isValid = self.validDateTextboxUsername();
+            self.TextboxUsernameBlur();
             if (isValid) {
+                self.CachedData.username = self.DOMElements.TextboxUsername.val();
                 leftPanelManager.loadLeftPanel(null, false);
             }
         }
@@ -88,6 +95,7 @@ var HomeManager = function () {
     self.ButtonSearchClick = function () {
         self.TextboxUsernameBlur();
         if (self.validDateTextboxUsername()) {
+            self.CachedData.username = self.DOMElements.TextboxUsername.val();
             leftPanelManager.loadLeftPanel(null, true);
         }
     };
@@ -133,9 +141,13 @@ var HomeManager = function () {
         if (key === keyboardManager.Enums.KeyCode.Enter) {
             var isValid = self.validDateTextboxUsername();
             if (isValid) {
+                self.CachedData.username = self.DOMElements.TextboxUsername.val();
                 leftPanelManager.loadLeftPanel(null, false);
             }
         }
+    };
+    self.invokeHotKey_CtrlG = function () {
+        self.DOMElements.CheckboxIsGuest.attr("checked", "checked");
     };
 };
 
