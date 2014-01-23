@@ -3,7 +3,6 @@
 
 .freegrid {
     border-color: #b7b7b7;
-    .box-sizing(content-box);
 
     *, *:before, *:after {
         .box-sizing(content-box);
@@ -26,25 +25,82 @@
             background: none;
             padding-left: 10px;
         }
+
+        .grid-toolbox {
+            margin-top: 5px;
+
+            .btnCharting, .btnExcel, .btnViewDetail, .btnBack {
+                margin: 0 2px;
+                padding: 0;
+                cursor: pointer;
+                height: 18px;
+                width: 18px;
+                border: none;
+            }
+
+            .btnCharting {
+                background: url(images/chart_bar.png) no-repeat;
+                height: 16px;
+                width: 17px;
+            }
+
+            .btnExcel {
+                background: url(images/excel.gif) no-repeat;
+            }
+
+            .btnViewDetail {
+                background: url(images/view-detail.png) no-repeat center 2px;
+            }
+
+            .btnBack {
+                background: url(images/back.png) no-repeat;
+            }
+        }
     }
     
     .free-cell, div.row-headers-background {
         background-color: @header-table-bg;
         color: @header-table-color;
-        border-top: 1px solid #F5F5F7;
     }
 
     .y-scrollbar {
         border-color: @table-border !important;
-        background-color: #fff;
+        background-color: #F5F5F5;
     }
 
     .free-top-right {
         border-color: #F5F5F7 @header-table-border @table-border !important;
     }
 
-    .freegrid-even td {
-        background-color: #ececec;
+
+    .total td {
+        background-color: #d7d7d7;
+        color: @title-table-color;
+    }
+
+    .bgeven td {
+        background-color: #f5f5f5;
+    }
+
+    .row-footer-background {
+        background: #c0cae3;
+        border-color: #333;
+
+        .grid-fixed-table.row_footer_content th {
+            color: @title-table-color;
+        }
+    }
+
+    .free-bottom-right {
+        border-color: @table-border !important;
+    }
+
+    td .tree-expanded {
+        background: url(images/minus-plus-icn.png) no-repeat 2px -2px;
+
+        &.tree-expand {
+            background-position: -13px -2px;
+        }
     }
 }
 
@@ -56,14 +112,28 @@
     th {
         color: @header-table-color;
         border-color: @header-table-border;
-        font-weight: 600;
     }
 
     td {
         color: @table-color;
+        background-color: #f5f5f5;
     }
 }
 
+.col_header_content {
+    th {
+       // padding: 0 2px;
+    }
+}
+.free-cell-top-left {
+    *, *:before, *:after {
+        .box-sizing(content-box);
+    }
+
+    th {
+        padding: 2px;
+    }
+}
 .grid-pager {
     background: #f2f2f2;
     border-color: @table-border;
@@ -77,7 +147,7 @@
             background: @primary-color;
             color: #fff;
             .border-radius(0);
-            padding: 2px 5px;
+            padding: 2px 5px 3px;
             font-weight: normal;
 
             &.prev {
@@ -105,7 +175,7 @@
         }
 
         span.detailtext {
-            margin: 2px 6px 0 0;
+            margin: 4px 6px 0 0;
         }
     }
 }

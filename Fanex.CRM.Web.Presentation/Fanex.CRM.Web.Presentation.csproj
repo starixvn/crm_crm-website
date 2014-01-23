@@ -176,6 +176,8 @@
     <Content Include="Areas\Customer\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\Scripts\CustomerService.js" />
+    <Content Include="Content\site\Images\collapse-btn-hover.png" />
+    <Content Include="Content\site\Images\notice-icn.png" />
     <Content Include="Scripts\AgularJS\angular.js" />
     <Content Include="Scripts\AgularJS\angular.min.js" />
     <Content Include="Scripts\head.js" />
@@ -567,6 +569,7 @@
     <Content Include="Views\Reports\Styles\easyui.css" />
     <Content Include="Views\Reports\Styles\icon.css" />
     <Content Include="Views\Reports\Styles\Images\bg-nav-top-left.jpg" />
+    <Content Include="Content\site\Images\chart_bar.png" />
     <Content Include="Views\Reports\Styles\Images\datagrid_header_bg.gif" />
     <Content Include="Views\Reports\Styles\Images\error.gif" />
     <Content Include="Views\Reports\Styles\Images\hp_notepad2_pen.png" />
@@ -574,6 +577,7 @@
     <Content Include="Views\Reports\Styles\Images\icn_del.png" />
     <Content Include="Views\Reports\Styles\Images\icn_edit.png" />
     <Content Include="Views\Reports\Styles\Images\icn_view.png" />
+    <Content Include="Content\site\Images\minus-plus-icn.png" />
     <Content Include="Views\Reports\Styles\Images\sucess.gif" />
     <Content Include="Views\Reports\Styles\Images\warning.png" />
     <Content Include="Views\Reports\Styles\reports.less" />

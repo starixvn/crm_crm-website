@@ -5,7 +5,6 @@
 <link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/Chart/jchart.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Views/Reports/Styles/StyleSheet.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Views/Reports/Styles/reports.less?ver=2")" rel="stylesheet" type="text/css" />
 <div class="container main">
     <div class="row">Feedback Statistics</div>
@@ -33,8 +32,8 @@
                 <input type="text" id="txttodate" readonly="readonly" class="textbox txtcalendar"/>
             </div>
             <div class="item">
-                <label for="fromDate">Status</label>
-                <select class="sel-status">
+                <label for="status">Status</label>
+                <select id="status" class="sel-status">
                     <option value="0">All</option>
                 </select>
             </div>
@@ -63,7 +62,7 @@
                             Second
             </div>
         </div>
-        <div class="row row-item">
+        <div class="row">
             <div class="item width-100">
                 To Duration
             </div>
@@ -86,7 +85,7 @@
         </div>
     </div>
     <div class="row">
-        <div id="errmsg">
+        <div class="col-xs-7 col-sm-7 col-md-5" id="errmsg">
                 </div>
     </div>
     <div class="row">
