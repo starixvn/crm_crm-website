@@ -1,29 +1,24 @@
 ﻿@using Fanex.CRM.Customer.Resources;
 @using Fanex.CRM.Setting.Constants;
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-application">
 <head>
     <title>@Labels.Customer_Info </title>
-    <link rel="stylesheet" type="text/css" href="~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css" />
+    @Styles.Render("~/site/common")
     @Styles.Render("~/Areas/CustomerInfo/Styles")
     @Styles.Render("~/Styles/MultipleSelect")
 </head>
 <body>
-    <div id="errmsg">
-    </div>
     <div id="divContent" class="container left-container customerinfo-container display-none"
         data-ng-controller="customerController">
         <div class="customer-uplineinfo-container" data-ng-repeat="uplineInfo in customer.UplineInfo">
             <div class="row item">
                 <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                     {{ uplineInfo.Role.Name }}</div>
-                <div class="col-xs-6 col-sm-6 col-md-6 text-left username">
-                    <a data-ng-href="#" data-ng-click="searchUplineInfo(uplineInfo.Name)">{{ uplineInfo.Name
-                        }}</a></div>
-                <div class="col-xs-2 col-sm-2 col-md-2 text-right status">
+                <div class="col-xs-4 col-sm-4 col-md-4 text-left">
+                    <a data-ng-href="#" data-ng-click="searchUplineInfo(uplineInfo.Name)">{{
+                        uplineInfo.Name }}</a></div>
+                <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                     {{ uplineInfo.Status }}
                 </div>
             </div>
@@ -31,15 +26,13 @@
         <div class="row item current">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 {{ customer.Role.Name }}</div>
-            <div class="col-xs-6 col-sm-6 col-md-6 text-left username">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 {{ customer.Name }}</div>
-            <div class="col-xs-2 col-sm-2 col-md-2 text-right status">
+            <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 {{ customer.Status }}</div>
         </div>
         <div class="row item" data-ng-show="customer.Role.Id == @RoleIdConstants.Member || 
-            customer.Role.Id == @RoleIdConstants.CRMMember || 
-            customer.Role.Id == @RoleIdConstants.Agent || 
-            customer.Role.Id == @RoleIdConstants.CRMAgent">
+            customer.Role.Id == @RoleIdConstants.CRMMember">
             <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                 @Labels.Danger</div>
             <div class="col-xs-8 col-sm-8 col-md-8">
@@ -176,25 +169,24 @@
         </div>
         <div class="row item no-border-bg">
             <ul class="list-unstyled list-menu pull-left">
-                <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">
+                <li><a data-ng-href="javascript:;" data-ng-click="viewCRMInfo();">
                     @Labels.CRM_Info</a></li>
-                <li><a data-ng-href="#" data-ng-click="addFeedback();">
+                <li><a data-ng-href="javascript:;" data-ng-click="addFeedback();">
                     @Labels.Add_Feedback</a></li>
             </ul>
             <ul class="list-unstyled list-menu pull-left no-margin">
-                <li><a data-ng-href="#" data-ng-click="viewLatestFeedback();">
+                <li><a data-ng-href="javascript:;" data-ng-click="viewLatestFeedback();">
                     @Labels.Latest_Feedback</a></li>
-                <li><a data-ng-href="#" data-ng-click="manageFeedback();">
+                <li><a data-ng-href="javascript:;" data-ng-click="manageFeedback();">
                     @Labels.Manage_Feedback</a></li>
             </ul>
         </div>
     </div>
-    <iframe height="0" frameborder="0" width="0" name="frmUpdate" id="frmUpdate"></iframe>
+    @Scripts.Render("~/scripts/headload")
+    @Scripts.Render("~/scripts/respond")
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AgularJS")
-    <script type="text/javascript" src="~/Scripts/jscookies.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.14.custom.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/showhidepopup.js"></script>
+    @Scripts.Render("~/Scripts/PopUp")
     @Scripts.Render("~/Scripts/MultipleSelect")
     @Scripts.Render("~/Areas/CustomerInfo/Scripts")
     <script type="text/javascript">

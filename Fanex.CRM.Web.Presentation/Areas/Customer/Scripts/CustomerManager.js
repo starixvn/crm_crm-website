@@ -183,22 +183,22 @@ var CustomerManager = function () {
             title: self.CacheData.ViewResources.SearchByGuest_DialogTitle,
             close: function (event, ui) {
                 /*jshint unused: vars */
+                self.DOMElements.divResultPopUp.dialog("destroy");
+                parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
+
+                self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
                 if (!self.CacheData.isConfirmSearchByGuest) {
                     self.showGetCustomerInfoByUsername_NoInfo();
                 }
 
                 self.CacheData.isConfirmSearchByGuest = false;
-                self.DOMElements.divResultPopUp.dialog("destroy");
-                parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
-
-                self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
             },
             buttons: [{
                 text: self.CacheData.ViewResources.OK,
                 click: function () {
+                    self.CacheData.isConfirmSearchByGuest = true;
                     self.DOMElements.divResultPopUp.dialog("close");
                     self.getGuestCustomerInfoByUsername();
-                    self.CacheData.isConfirmSearchByGuest = true;
                 }
             }]
         });
@@ -207,7 +207,7 @@ var CustomerManager = function () {
     };
 
     self.getGuestCustomerInfoByUsername = function () {
-        self.DOMElements.checkboxIsGuest.attr("checked", true);
+        self.DOMElements.checkboxIsGuest.attr("checked", "checked");
         var scope = angular.element($(".customerinfo-container")).scope();
         scope.$apply(function () {
             scope.getGuestCustomerInfoByUsername(self.getCustomerInfoByUsernameParams());
@@ -225,12 +225,13 @@ var CustomerManager = function () {
         sharedScriptManager.CallAjax(self,
             window.rootUrl + "CustomerSetting/UpdateCustomerSuggestion",
             updateParam,
-            null,
-            null,
+            self.unblockUI,
+            self.unblockUI,
             self.unblockUI);
     };
     self.completedGetCustomerInfoByUsername = function (customer, isHavingData) {
         self.CacheData.currentCustomer = customer;
+        parent.homeManager.CachedData.currentCustomer = customer;
         if (!isHavingData) {
             return;
         }
@@ -468,6 +469,9 @@ var CustomerManager = function () {
             parent.BlockUI();
         } catch (e) {
         }
+    };
+    self.enableGuestSearch = function () {
+        self.DOMElements.checkboxIsGuest.attr("checked", "checked");
     };
 };
 

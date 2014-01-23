@@ -51,5 +51,6 @@ customerApplication.factory('$customerService', function ($http, $q) {
 
         return deferred.promise;
     };
+
     return self;
 });

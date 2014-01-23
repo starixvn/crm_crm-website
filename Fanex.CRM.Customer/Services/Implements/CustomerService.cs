@@ -76,13 +76,20 @@ namespace Fanex.CRM.Customer.Services.Implements
                         SettingId = result.SiteSetting.Id
                     });
                     result.SiteSetting.Name = siteSetting.Value;
-                    result.UplineInfo = GetUplineInfoOfUser(new GetUplineInfoOfUserCriteria
+                    if (!criteria.IsGuest)
                     {
-                        CustomerId = result.Id
-                    });
-                }
+                        result.UplineInfo = GetUplineInfoOfUser(new GetUplineInfoOfUserCriteria
+                        {
+                            CustomerId = result.Id
+                        });
+                    }
 
-                SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
+                    SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
+                }
+                else
+                {
+                    SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, null);
+                }
             }
             catch (Exception ex)
             {
@@ -123,7 +130,14 @@ namespace Fanex.CRM.Customer.Services.Implements
             var updateResult = false;
             try
             {
-                updateResult = _repositoryInstance.UpdateCustomerSuggestion(criteria);
+                if (criteria.CustomerId > 0)
+                {
+                    updateResult = _repositoryInstance.UpdateCustomerSuggestion(criteria);
+                }
+                else
+                {
+                    updateResult = UpdateCustomerSearchCountValue(criteria);
+                }
             }
             catch (Exception ex)
             {
@@ -151,6 +165,21 @@ namespace Fanex.CRM.Customer.Services.Implements
             }
 
             return updateResult;
+        }
+
+        public bool UpdateCustomerSearchCountValue(UpdateCustomerSuggestionCriteria criteria)
+        {
+            bool result = false;
+            try
+            {
+                result = _repositoryInstance.UpdateCustomerSearchCountValue(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
         }
     }
 }

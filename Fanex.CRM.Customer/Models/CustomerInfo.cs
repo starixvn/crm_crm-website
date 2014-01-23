@@ -28,7 +28,7 @@ namespace Fanex.CRM.Customer.Models
             Languages = new List<BaseModel>();
             PhoneInfo = new List<PhoneInfo>();
             PersonalInfoContact = new List<string>();
-            RefCode = new List<string>();
+            BettingCode = new List<string>();
             UplineInfo = new List<CustomerInfo>();
         }
 
@@ -86,7 +86,7 @@ namespace Fanex.CRM.Customer.Models
 
         public int OtherSportsDangerLevel { get; set; }
 
-        public List<string> RefCode { get; set; }
+        public List<string> BettingCode { get; set; }
 
         public string Remark2 { get; set; }
 
@@ -105,6 +105,10 @@ namespace Fanex.CRM.Customer.Models
         public bool IsSuspended { get; set; }
 
         public List<CustomerInfo> UplineInfo { get; set; }
+
+        public BaseModel Passport { get; set; }
+
+        public AddressInfo AddressInfo { get; set; }
 
         public string GetStatusName()
         {

@@ -11,12 +11,16 @@ var LeftPanelManager = function () {
     self.CacheData = {
         MaxUsernameLength: 50,
         ViewResources: {
-            Home_Index_ErrorUsernameMaxLength: 'Max length of Username is 50!',
-            Home_Index_ErrorUsernameEmpty: 'Please input Username.',
+            Home_Index_ErrorUsernameMaxLength: 'Max length of username is 50!',
+            Home_Index_ErrorUsernameEmpty: 'Please input username!',
             OK: 'OK'
         },
 
-        DefaultUsernameSearch: 'search...'
+        DefaultUsernameSearch: 'search...',
+        getCustomerInfoParams: {
+            Username: null,
+            IsGuest: null
+        }
     };
 
     self.initPage = function () {
@@ -33,9 +37,10 @@ var LeftPanelManager = function () {
     self.loadLeftPanel = function (username, isFromURL) {
         var getCustomerInfoParams = {
             Username: username != null ? username : escape(jQuery.trim(self.DOMElements.textboxUsername.val())),
-            IsGuest: self.DOMElements.checkboxIsGuest.attr("checked")
+            IsGuest: self.DOMElements.checkboxIsGuest.attr("checked") ? true : false
         };
 
+        self.CacheData.getCustomerInfoParams = getCustomerInfoParams;
         var isValid = self.validateGetCustomerInfoParams(getCustomerInfoParams);
         if (!isValid) {
             return;

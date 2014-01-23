@@ -9,7 +9,8 @@ var MenuManager = function () {
     self.DOMElements = {
         IconCollapseExpandLeftPanel: null,
         LeftContent: null,
-        RightContent: null
+        RightContent: null,
+        DashboardMenu: null
     };
 
     self.CachedData = {
@@ -53,7 +54,10 @@ var MenuManager = function () {
     };
 
     self.showLeftPanel = function () {
-        if (menuManager.CachedData.isShowingLeftPanel) {
+        var username = leftPanelManager.CacheData.getCustomerInfoParams.Username;
+        if (menuManager.CachedData.isShowingLeftPanel ||
+            username == null ||
+            username == "") {
             return;
         }
 

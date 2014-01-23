@@ -20,6 +20,10 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using System.Collections.Generic;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.Common;
+    using Fanex.CRM.Infrastructure.Configuration;
+    using MongoDB.Bson;
+    using MongoDB.Driver;
+    using MongoDB.Driver.Builders;
 
     /// <summary>
     /// Customer Repository.
@@ -117,11 +121,52 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 updateResult = new BaseModel
                 {
                     Id = Converter.ToInt(outputParams["errcode"]),
-                    Name = Converter.ToString2(outputParams["errmessage"])
+                    Name = Converter.ToString2(outputParams["errmsg"])
                 };
             }
 
             return updateResult;
+        }
+
+        public bool UpdateCustomerSearchCountValue(UpdateCustomerSuggestionCriteria criteria)
+        {
+            var server = MongoServer.Create(WebConfigApplicationSettings.MongoDbServer);
+            var crmDb = server.GetDatabase(WebConfigApplicationSettings.MongoDbName);
+
+            var searchCount = 0;
+
+            IMongoQuery query = new QueryDocument();
+            query = Query.And(Query.EQ("_id", criteria.CustomerId));
+            var customers = crmDb.GetCollection<BsonDocument>(WebConfigApplicationSettings.MongoCustomerTable);
+            var custInfo = customers.FindOne(query);
+            if (customers.FindOne(query) != null)
+            {
+                searchCount = custInfo["SearchCount"].AsInt32 + 1;
+                var update = Update.Set("SearchCount", searchCount);
+                customers.Update(query, update);
+                return true;
+            }
+            else
+            {
+                AddNewCustomer_MongoDB(criteria.CustomerId, criteria.Username);
+            }
+
+            return false;
+        }
+
+        private void AddNewCustomer_MongoDB(int customerId, string customerName)
+        {
+            var server = MongoServer.Create(WebConfigApplicationSettings.MongoDbServer);
+            var crmDb = server.GetDatabase(WebConfigApplicationSettings.MongoDbName);
+            var customers = crmDb.GetCollection<BsonDocument>(WebConfigApplicationSettings.MongoCustomerTable);
+            var customer = new BsonDocument()
+            {
+                { "_id", customerId },
+                { "UserName", customerName.ToLower() },
+                { "SearchCount", 1 }
+            };
+
+            customers.Insert(customer);
         }
 
         /// <summary>
@@ -177,7 +222,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                     Address = reader.GetStringNotNull("Wire_BankAddress"),
                     SwiftCode = reader.GetStringNotNull("Wire_SwiftCode"),
                     AccountName = reader.GetStringNotNull("Wire_AccountName"),
-                    AccountNumber = reader.GetStringNotNull("Wire_AccountNo"),
+                    AccountNumber = reader.GetStringNotNull("Wire_AccountNo")
                 },
                 Creator = new UserInfo
                 {
@@ -206,8 +251,8 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC3"));
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC4"));
 
-            customer.RefCode.Add(reader.GetStringNotNull("RefCode1"));
-            customer.RefCode.Add(reader.GetStringNotNull("RefCode2"));
+            customer.BettingCode.Add(reader.GetStringNotNull("RefCode1"));
+            customer.BettingCode.Add(reader.GetStringNotNull("RefCode2"));
 
             customer.PhoneInfo.Add(new PhoneInfo
             {

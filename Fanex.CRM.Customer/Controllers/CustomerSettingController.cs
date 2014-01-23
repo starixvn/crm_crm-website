@@ -13,7 +13,10 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Services.Implements;
     using Fanex.CRM.Customer.Services.Interfaces;
+    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Customer Setting Controller.
@@ -32,12 +35,8 @@ namespace Fanex.CRM.Customer.Controllers
             _serviceInstance = serviceInstance ?? new CustomerService();
         }
 
-        public ActionResult GoToCustomerInfoDetail(string customerId)
-        {
-            return View("~/Areas/Customer/CustomerInfoDetail.cshtml");
-        }
-
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
             var result = _serviceInstance.GetCustomerInfoByUsername(criteria);
@@ -46,6 +45,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
             var result = _serviceInstance.GetUplineInfoOfUser(criteria);
@@ -54,6 +54,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
             var result = _serviceInstance.UpdateCustomerSuggestion(criteria);
@@ -62,6 +63,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
             var result = _serviceInstance.UpdateCustomerInfo(criteria);

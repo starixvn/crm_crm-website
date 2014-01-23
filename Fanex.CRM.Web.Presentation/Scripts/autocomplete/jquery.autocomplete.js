@@ -184,7 +184,7 @@
             switch (e.keyCode) {
                 case 38: //KEY_UP:
                 case 40: //KEY_DOWN:
-                case 13://ENTER
+                case 13: //ENTER
                     return;
             }
             //alert(this.currentValue + '_' + this.el.val());
@@ -319,7 +319,7 @@
             if (!$.isArray(response.data)) { response.data = []; }
             if (!this.options.noCache) {
                 this.cachedResponse[response.query] = response;
-                if (response.suggestions.length === 0) { this.badQueries.push(response.query); }
+                if (response == null || response.suggestions == null || response.suggestions.length === 0) { this.badQueries.push(response.query); }
             }
             if (response.query === this.getQuery(this.currentValue)) {
                 this.suggestions = response.suggestions;
