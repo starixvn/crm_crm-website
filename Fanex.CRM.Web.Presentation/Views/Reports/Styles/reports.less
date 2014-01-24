@@ -1,5 +1,5 @@
 ﻿@import "../../../Content/site/variables.less";
-
+@import "../../../Content/site/mixins.less";
 
 .editreview{float:right;}
 .btnreview{border:none 0px;text-align:right;font-weight:700;color:#fff;background:url(images/icn_view.png) no-repeat left;padding-left:16px;cursor:pointer;height:18px;text-decoration:none;vertical-align:middle;margin:0 2px 0 0;}
@@ -106,4 +106,10 @@
 
 .greegrid-2 {
     margin-top: 13px;
+}
+
+#dailysummarygrid.freegrid .col_header_content {
+    thead th {
+        .box-sizing(content-box);
+    }
 }
