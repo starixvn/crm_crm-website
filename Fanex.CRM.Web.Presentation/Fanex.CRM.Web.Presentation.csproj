@@ -183,6 +183,7 @@
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\error.png" />
     <Content Include="Content\site\Images\excel.png" />
+    <Content Include="Content\site\Images\next-pre-icon-cal.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
     <Content Include="Scripts\AgularJS\angular.js" />

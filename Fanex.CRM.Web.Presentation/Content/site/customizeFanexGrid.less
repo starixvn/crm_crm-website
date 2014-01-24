@@ -3,8 +3,9 @@
 
 .freegrid {
     border-color: #b7b7b7;
+    .box-sizing(content-box);
 
-    *, *:before, *:after {
+    * {
         .box-sizing(content-box);
     }
 
@@ -15,7 +16,7 @@
 
     .grid-title {
         .gradient-vertical(#ececec, #e1e1e1);
-        border-bottom-color: @table-border;
+        border-bottom-color: #b7b7b7;
         height: 30px;
 
         .grid-title-lable {
@@ -84,7 +85,7 @@
 
     .row-footer-background {
         background: #c0cae3;
-        border-color: #333;
+        border-color: @table-border;
 
         .grid-fixed-table.row_footer_content th {
             color: @title-table-color;
@@ -120,20 +121,6 @@
     }
 }
 
-.col_header_content {
-    th {
-       // padding: 0 2px;
-    }
-}
-.free-cell-top-left {
-    *, *:before, *:after {
-        .box-sizing(content-box);
-    }
-
-    th {
-        padding: 2px;
-    }
-}
 .grid-pager {
     background: #f2f2f2;
     border-color: @table-border;
