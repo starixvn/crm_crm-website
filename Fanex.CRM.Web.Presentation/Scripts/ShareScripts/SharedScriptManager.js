@@ -42,7 +42,7 @@ var SharedScriptManager = function () {
         var m;
         while ((m = r.exec(o)) != null &&
             m.length > 1 && m[1] != '') {
-            b = parseInt(m[1].substr(1), 16);
+            var b = parseInt(m[1].substr(1), 16);
             t = String.fromCharCode(b);
             o = o.replace(m[1], t);
         }

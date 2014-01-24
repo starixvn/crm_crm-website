@@ -70,7 +70,6 @@ customerApplication.controller('customerController', function ($scope,
                 }
 
                 customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
-                $scope.unblockUI();
             },
             function (data) {
                 $scope.unblockUI();

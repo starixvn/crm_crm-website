@@ -215,7 +215,6 @@ var CustomerManager = function () {
     };
 
     self.updateCustomerSuggestion = function (customer) {
-        self.BlockUI();
         var updateParam = {
             UserId: accId,
             CustomerId: customer.Id,
@@ -225,14 +224,15 @@ var CustomerManager = function () {
         sharedScriptManager.CallAjax(self,
             window.rootUrl + "CustomerSetting/UpdateCustomerSuggestion",
             updateParam,
-            self.unblockUI,
-            self.unblockUI,
-            self.unblockUI);
+            null,
+            null,
+            null);
     };
     self.completedGetCustomerInfoByUsername = function (customer, isHavingData) {
         self.CacheData.currentCustomer = customer;
         parent.homeManager.CachedData.currentCustomer = customer;
         if (!isHavingData) {
+            $scope.unblockUI();
             return;
         }
 
