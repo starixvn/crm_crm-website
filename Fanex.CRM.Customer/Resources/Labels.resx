@@ -294,4 +294,13 @@
   <data name="Symbol_NotApply" xml:space="preserve">
     <value>N/A</value>
   </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="All_Languages" xml:space="preserve">
+    <value>All Languages</value>
+  </data>
+  <data name="No_languages_found" xml:space="preserve">
+    <value>No languages found.</value>
+  </data>
 </root>

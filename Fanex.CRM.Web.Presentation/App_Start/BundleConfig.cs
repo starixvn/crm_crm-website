@@ -84,6 +84,7 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new ScriptBundle("~/Areas/Customer/DetailInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js",

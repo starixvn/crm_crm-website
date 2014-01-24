@@ -16,8 +16,9 @@
     <div class="main container" data-ng-controller="customerDetailController">
         <div class="row panel-group">
             <div class="row title">
-                <span class="icon-collapse"></span>@Labels.Personal_Info</div>
-            <div class="row content">
+                <span ng-attr-class="{{ isShowPersonalInfo ?  'icon-expand' : 'icon-collapse' }}"
+                    data-ng-click="isShowPersonalInfo = !isShowPersonalInfo"></span>@Labels.Personal_Info</div>
+            <div class="row content" data-ng-show="isShowPersonalInfo">
                 <div class="col-md-4">
                     <div class="row item">
                         <div class="col-md-5">
@@ -106,7 +107,7 @@
                             <label for="passport">
                                 @Labels.Passport_Number</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="passport" data-ng-model="customerDetail.PassportNumber" />
+                            <input type="text" class="textbox" id="passport" data-ng-model="customerDetail.Passport.Name" />
                         </div>
                     </div>
                     <div class="row item">
@@ -125,7 +126,7 @@
                             <label for="language">
                                 @Labels.Language</label></div>
                         <div class="col-md-7">
-                            <select id="customerinfodetail-languageoptions" dropdown-language>
+                            <select id="customerinfodetail-languageoptions">
                             </select>
                         </div>
                     </div>
@@ -154,8 +155,9 @@
         </div>
         <div class="row panel-group">
             <div class="row title">
-                <span class="icon-collapse"></span>@Labels.Home_Address</div>
-            <div class="row content">
+                <span ng-attr-class="{{ isShowHomeAddressInfo ? 'icon-expand':'icon-collapse' }}"
+                    data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo"></span>@Labels.Home_Address</div>
+            <div class="row content" data-ng-show="isShowHomeAddressInfo">
                 <div data-ng-repeat="addressLine in customerDetail.AddressInfo.LineList track by $index">
                     <div class="row">
                         <div class="item col-md-4">
@@ -205,8 +207,9 @@
         </div>
         <div class="row panel-group last">
             <div class="row title">
-                <span class="icon-collapse"></span>@Labels.Bank_Info</div>
-            <div class="row content">
+                <span ng-attr-class="{{ isShowBankInfoInfo ? 'icon-expand' :'icon-collapse' }}" data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
+                </span>@Labels.Bank_Info</div>
+            <div class="row content" data-ng-show="isShowBankInfoInfo">
                 <div class="row">
                     <div class="item col-md-4">
                         <div class="col-md-5">
@@ -290,8 +293,10 @@
         </div>
         <div class="row">
             <button class="btn btn-save" data-ng-click="updateCustomerInfoDetail();">
-                <span class="hotkey">S</span>ave</button>
+                <span id="button-save-customerinfodetail" class="hotkey">S</span>ave</button>
         </div>
+    </div>
+    <div id="div-customerinfodetail-resultpopup" class="selector display-none">
     </div>
     @Scripts.Render("~/scripts/headload")
     @Scripts.Render("~/scripts/respond")
@@ -305,7 +310,11 @@
     var viewResources    = { 
         OK: 'OK',
         Select: '@Labels.Select',
-        Symbol_NotApply: '@Labels.Symbol_NotApply'
+        Symbol_NotApply: '@Labels.Symbol_NotApply',
+        Alert: '@Labels.Alert',
+        All_Languages: '@Labels.All_Languages',
+        All_Languages: '@Labels.No_languages_found',
+        All_Languages: '@Labels.Symbol_NotApply'
     }; 
     var customerDetail = @Html.Raw(jsonCustomerDetail); 
     </script>
