@@ -22,7 +22,7 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
 
         public string GetSettingKey()
         {
-            return "Customer_CustomerInfoDetail_GetInfoById";
+            return "Customer_CustomerInfoDetail_GetInfoById_New";
         }
 
         public bool IsValid()

@@ -86,7 +86,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/jscookies.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
-                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js"));
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js",
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailDirective.js"));
 
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));

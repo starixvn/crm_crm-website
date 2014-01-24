@@ -44,6 +44,70 @@
 
         return deferred.promise;
     };
+    serviceInstance.getAllSite = function () {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Setting/GetAllSite", null)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+    serviceInstance.getAllCountry = function () {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Setting/GetAllCountry", null)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+    serviceInstance.getAllLanguage = function () {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Setting/GetAllLanguage", null)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+
 
     return serviceInstance;
 });

@@ -3,16 +3,187 @@ customerDetailApplication.controller('customerDetailController', function ($scop
     $http,
     $customerDetailService) {
     $scope.customerDetail = customerDetail;
+    $scope.siteList = null;
+    $scope.countryList = null;
+    $scope.languageList = null;
+    $scope.isLoadedAllSite = false;
+    $scope.isLoadedAllCountry = false;
+    $scope.isLoadedAllLanguage = false;
 
-    $scope.getCustomerInfoDetailById = function () {
-        //getCustomerInfoDetailById
+    $scope.getAllSite = function () {
+        $scope.BlockUI();
+        $scope.isLoadedAllSite = false;
+        $customerDetailService.getAllSite()
+            .then(function (data) {
+                $scope.siteList = data.Result;
+                $scope.isLoadedAllSite = true;
+                $scope.completedLoadDetailInfo();
+            },
+            function (data) {
+                $scope.isLoadedAllSite = true;
+                $scope.completedLoadDetailInfo();
+            });
+    };
+    $scope.completedLoadDetailInfo = function () {
+        if ($scope.isLoadedAllSite &&
+            $scope.isLoadedAllCountry &&
+            $scope.isLoadedAllLanguage) {
+            $scope.unblockUI();
+        }
+    };
+    $scope.getAllCountry = function () {
+        $scope.BlockUI();
+        $scope.isLoadedAllCountry = false;
+        $customerDetailService.getAllCountry()
+            .then(function (data) {
+                $scope.countryList = data.Result;
+                $scope.isLoadedAllCountry = true;
+                $scope.completedLoadDetailInfo();
+            },
+            function (data) {
+                $scope.isLoadedAllCountry = true;
+                $scope.completedLoadDetailInfo();
+            });
+    };
+    $scope.getAllLanguage = function () {
+        $scope.BlockUI();
+        $scope.isLoadedAllLanguage = false;
+        $customerDetailService.getAllLanguage()
+            .then(function (data) {
+                $scope.languageList = data.Result;
+                $scope.isLoadedAllLanguage = true;
+                $scope.completedLoadDetailInfo();
+            },
+            function (data) {
+                $scope.isLoadedAllLanguage = true;
+                $scope.completedLoadDetailInfo();
+            });
     };
 
+    $scope.getCustomerInfoDetailById = function () {
+    };
+    $scope.unblockUI = function () {
+        try {
+            parent.$.unblockUI();
+        } catch (e) {
+        }
+    };
+    $scope.BlockUI = function () {
+        try {
+            parent.BlockUI();
+        } catch (e) {
+        }
+    };
     $scope.updateCustomerInfoDetail = function () {
-        //updatedCustomerInfoDetailParams
+        var customerDetail = $scope.customerDetail;
+        var updatedCustomerInfoDetailParams = {
+            CustomerId: customerDetail.Id,
+            FirstName: customerDetail.FirstName,
+            LastName: customerDetail.LastName,
+            LanguageId: '',
+            Phone1PhoneNumber: customerDetail.PhoneInfo[0].PhoneNumber,
+            Phone1CountryCode: customerDetail.PhoneInfo[0].CountryCode,
+            Phone1AreaCode: customerDetail.PhoneInfo[0].AreaCode,
+            Phone2PhoneNumber: customerDetail.PhoneInfo[1].PhoneNumber,
+            Phone2CountryCode: customerDetail.PhoneInfo[1].CountryCode,
+            Phone2AreaCode: customerDetail.PhoneInfo[1].AreaCode,
+            Phone3PhoneNumber: customerDetail.PhoneInfo[2].PhoneNumber,
+            Phone3CountryCode: customerDetail.PhoneInfo[2].CountryCode,
+            Phone3AreaCode: customerDetail.PhoneInfo[2].AreaCode,
+            PassportNumber: customerDetail.Passport.Name,
+            MobilePhonePhoneNumber: customerDetail.MobilePhone.PhoneNumber,
+            MobilePhoneCountryCode: customerDetail.MobilePhone.CountryCode,
+            MobilePhoneAreaCode: customerDetail.MobilePhone.AreaCode,
+            FaxNumber: customerDetail.FaxInfo.FaxNumber,
+            FaxCountryCode: customerDetail.FaxInfo.CountryCode,
+            FaxAreaCode: customerDetail.FaxInfo.AreaCode,
+            Email: customerDetail.Email,
+            Skype: customerDetail.Skype,
+            MSN: customerDetail.MSN,
+            PersonalInfoContact1: customerDetail.PersonalInfoContact[0],
+            PersonalInfoContact2: customerDetail.PersonalInfoContact[1],
+            PersonalInfoContact3: customerDetail.PersonalInfoContact[2],
+            PersonalInfoContact4: customerDetail.PersonalInfoContact[3],
+            SiteId: customerDetail.SiteSetting.Id,
+            HomeAddressLine1: customerDetail.AddressInfo.LineList[0],
+            HomeAddressLine2: customerDetail.AddressInfo.LineList[1],
+            HomeAddressLine3: customerDetail.AddressInfo.LineList[2],
+            HomeAddressCity: customerDetail.AddressInfo.City,
+            HomeAddressCountryId: customerDetail.AddressInfo.Country.Id,
+            HomeAddressPostCode: customerDetail.AddressInfo.PostCode,
+            HomeAddressState: customerDetail.AddressInfo.State,
+            BankAddressLine1: customerDetail.BankInfo.AddressInfo.LineList[0],
+            BankAddressLine2: customerDetail.BankInfo.AddressInfo.LineList[1],
+            BankAddressLine3: customerDetail.BankInfo.AddressInfo.LineList[2],
+            BankAddressCity: customerDetail.BankInfo.AddressInfo.City,
+            BankAddressPostCode: customerDetail.BankInfo.AddressInfo.PostCode,
+            BankAddressState: customerDetail.BankInfo.AddressInfo.State,
+            BankAddressCountryId: customerDetail.BankInfo.AddressInfo.Country.Id,
+            BankName: customerDetail.BankInfo.Name,
+            BankHolderName: customerDetail.BankInfo.HolderName,
+            BankAccountNumber: customerDetail.BankInfo.AccountNumber,
+            BankSwiftCode: customerDetail.BankInfo.SwiftCode
+        };
+
+        $scope.BlockUI();
+        $customerDetailService.updateCustomerInfoDetail(updatedCustomerInfoDetailParams)
+            .then(function (data) {
+                var updateResult = data.Result;
+                $scope.showUpdateResult(updateResult);
+                $scope.unblockUI();
+            },
+            function (data) {
+                $scope.unblockUI();
+            });
+    };
+    $scope.updateSelectedSite = function (site) {
+        if (site == undefined || site == null) {
+            $scope.customerDetail.SiteSetting = {
+                Id: crmConstants.Enums.Site.NotApply
+            };
+
+            return;
+        }
+
+        $scope.customerDetail.SiteSetting = site;
+    };
+    $scope.updateSelectedCountry = function (countryInfo) {
+        $scope.customerDetail.Country = countryInfo;
+    };
+    $scope.updateSelectedCountryBank = function (countryInfo) {
+        $scope.customerDetail.BankInfo.AddressInfo.Country = countryInfo;
+    };
+    $scope.showUpdateResult = function (updateResult) {
+        alert(updateResult.Name);
+        //        self.DOMElements.divResultPopUp.removeClass("display-none");
+        //        self.DOMElements.divResultPopUp.html(updateResult.Name);
+        //        self.DOMElements.divResultPopUp.dialog({
+        //            width: 250,
+        //            height: 150,
+        //            zIndex: 500,
+        //            resizable: false,
+        //            modal: true,
+        //            position: [2, 80],
+        //            title: self.CacheData.ViewResources.Alert,
+        //            close: function (event, ui) {
+        //                /*jshint unused: vars */
+        //                self.DOMElements.divResultPopUp.dialog("destroy");
+        //                parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
+
+        //                self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+        //            },
+        //            buttons: [{
+        //                text: self.CacheData.ViewResources.OK,
+        //                click: function () {
+        //                    self.DOMElements.divResultPopUp.dialog("close");
+        //                }
+        //            }]
+        //        });
     };
 
     angular.element(document).ready(function () {
-        $scope.getCustomerInfoDetailById();
+        $scope.getAllSite();
+        $scope.getAllCountry();
+        $scope.getAllLanguage();
     });
 });

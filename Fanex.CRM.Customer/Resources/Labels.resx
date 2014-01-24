@@ -288,4 +288,10 @@
   <data name="PIC_4" xml:space="preserve">
     <value>PIC 4</value>
   </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
 </root>
