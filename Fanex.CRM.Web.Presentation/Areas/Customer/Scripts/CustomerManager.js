@@ -350,18 +350,18 @@ var CustomerManager = function () {
                 }
 
                 dropdownLanguage.push({
-                    Id: prefixId + info.Id,
-                    Value: info.Id,
-                    Text: info.Value,
-                    Checked: isChecked,
-                    Enable: true,
-                    CssClass: "",
-                    Items: []
+                    id: prefixId + info.Id,
+                    value: info.Id,
+                    text: info.Value,
+                    checked: isChecked,
+                    enable: true,
+                    cssClass: "",
+                    items: []
                 });
             }
         }
 
-        self.DOMElements.dropdownLanguage.multiSelect(
+        self.DOMElements.dropdownLanguage.fanexMultiSelect(
         {
             minWidth: 177,
             maxHeight: 450,

@@ -114,7 +114,7 @@
                             <label for="site">
                                 @Labels.Site</label></div>
                         <div class="col-md-7">
-                            <select id="customerinfodetail-siteoptions">
+                            <select id="customerinfodetail-siteoptions" class="dropdown-siteinfo" dropdown-site>
                             </select>
                         </div>
                     </div>
@@ -125,8 +125,7 @@
                             <label for="language">
                                 @Labels.Language</label></div>
                         <div class="col-md-7">
-                            <select id="language">
-                                <option value="0">Mandarin/English</option>
+                            <select id="customerinfodetail-languageoptions" dropdown-language>
                             </select>
                         </div>
                     </div>
@@ -137,7 +136,7 @@
                         <div class="col-md-7">
                             <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode" />
                             <input type="text" class="textbox code-area" data-ng-model="customerDetail.FaxInfo.AreaCode" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.PhoneNumber" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.FaxNumber" />
                         </div>
                     </div>
                     <div data-ng-repeat="personalInfoContact in customerDetail.PersonalInfoContact track by $index">
@@ -146,7 +145,7 @@
                                 <label for="pic1">
                                     @Labels.PIC {{ $index + 1 }}</label></div>
                             <div class="col-md-7">
-                                <input type="text" class="textbox" id="pic{{ $index + 1 }}" data-ng-model="personalInfoContact" />
+                                <input type="text" class="textbox" id="pic{{ $index + 1 }}" data-ng-model="customerDetail.PersonalInfoContact[$index]" />
                             </div>
                         </div>
                     </div>
@@ -164,7 +163,7 @@
                                 <label for="line{{ $index + 1 }}">
                                     @Labels.Line {{ $index + 1 }}</label></div>
                             <div class="col-md-7">
-                                <input type="text" class="textbox text-large" id="line{{ $index + 1 }}" data-ng-model="addressLine" /></div>
+                                <input type="text" class="textbox text-large" id="line{{ $index + 1 }}" data-ng-model="customerDetail.AddressInfo.LineList[$index]" /></div>
                         </div>
                     </div>
                 </div>
@@ -174,14 +173,14 @@
                             <label for="city">
                                 @Labels.City</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="city" data-ng-model="customerDetail.Address.City" /></div>
+                            <input type="text" class="textbox" id="city" data-ng-model="customerDetail.AddressInfo.City" /></div>
                     </div>
                     <div class="item col-md-4">
                         <div class="col-md-5">
                             <label for="state">
                                 @Labels.State</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="state" data-ng-model="customerDetail.Address.State" /></div>
+                            <input type="text" class="textbox" id="state" data-ng-model="customerDetail.AddressInfo.State" /></div>
                     </div>
                 </div>
                 <div class="row">
@@ -190,8 +189,7 @@
                             <label for="country">
                                 @Labels.Country</label></div>
                         <div class="col-md-7">
-                            <select id="country">
-                                <option value="0">Malaysia</option>
+                            <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo" dropdown-country>
                             </select>
                         </div>
                     </div>
@@ -200,7 +198,7 @@
                             <label for="postcode">
                                 @Labels.Postcode</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="postcode" data-ng-model="customerDetail.Address.Postcode" /></div>
+                            <input type="text" class="textbox" id="postcode" data-ng-model="customerDetail.AddressInfo.PostCode" /></div>
                     </div>
                 </div>
             </div>
@@ -215,7 +213,7 @@
                             <label for="b-firstName">
                                 @Labels.Account_Holder_Name</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="b-firstName" data-ng-model="customerDetail.Holder.Name" /></div>
+                            <input type="text" class="textbox" id="b-firstName" data-ng-model="customerDetail.BankInfo.HolderName" /></div>
                     </div>
                     <div class="item col-md-4">
                         <div class="col-md-5">
@@ -249,7 +247,7 @@
                                 <label for="bankline{{ $index + 1 }}">
                                     @Labels.Line {{ $index + 1 }}</label></div>
                             <div class="col-md-7">
-                                <input type="text" class="textbox text-large" id="bankline{{ $index + 1 }}" data-ng-model="addressLine" /></div>
+                                <input type="text" class="textbox text-large" id="bankline{{ $index + 1 }}" data-ng-model="customerDetail.BankInfo.AddressInfo.LineList[$index]" /></div>
                         </div>
                     </div>
                 </div>
@@ -275,8 +273,8 @@
                             <label for="b-country">
                                 @Labels.Country</label></div>
                         <div class="col-md-7">
-                            <select id="b-country">
-                                <option value="0">Malaysia</option>
+                            <select id="customerinfodetail-countryoptions-bank" class="dropdown-countryinfo"
+                                dropdown-country-bank>
                             </select>
                         </div>
                     </div>
@@ -285,13 +283,13 @@
                             <label for="b-postcode">
                                 @Labels.Postcode</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="b-postcode" data-ng-model="customerDetail.BankInfo.AddressInfo.Postcode" /></div>
+                            <input type="text" class="textbox" id="b-postcode" data-ng-model="customerDetail.BankInfo.AddressInfo.PostCode" /></div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-save">
+            <button class="btn btn-save" data-ng-click="updateCustomerInfoDetail();">
                 <span class="hotkey">S</span>ave</button>
         </div>
     </div>
@@ -302,7 +300,14 @@
     @Scripts.Render("~/Scripts/PopUp")
     @Scripts.Render("~/Scripts/MultipleSelect")
     @Scripts.Render("~/Areas/Customer/DetailInfo/Scripts")
-    <script type="text/javascript"> window.rootUrl = '@Url.Content("~")'; var viewResources
-    = { OK: 'OK' }; var customerDetail = @Html.Raw(jsonCustomerDetail); </script>
+    <script type="text/javascript"> 
+    window.rootUrl = '@Url.Content("~")'; 
+    var viewResources    = { 
+        OK: 'OK',
+        Select: '@Labels.Select',
+        Symbol_NotApply: '@Labels.Symbol_NotApply'
+    }; 
+    var customerDetail = @Html.Raw(jsonCustomerDetail); 
+    </script>
 </body>
 </html>
