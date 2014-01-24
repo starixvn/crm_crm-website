@@ -175,6 +175,7 @@
   <ItemGroup>
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailApplication.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailController.js" />
+    <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailDirective.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailService.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
