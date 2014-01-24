@@ -26,6 +26,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
+            #region common - style
             bundles.AddAndInclude(
                 "~/site/common",
                 "~/content/bootstrap/css/bootstrap.css",
@@ -35,17 +36,23 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Content/site/Message.less",
                 "~/Content/site/table.less",
                 "~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css");
+            #endregion            
 
+            #region head js
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
                 "~/Scripts/head.load.min.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/respond").Include(
                 "~/Scripts/respond.js",
                 "~/Scripts/head.js"));
+            #endregion
 
+            #region popup - js
             bundles.Add(new ScriptBundle("~/Scripts/PopUp").Include(
                 "~/Scripts/showhidepopup.js"));
+            #endregion
 
+            #region commont - js
             bundles.Add(new ScriptBundle("~/Scripts/CommomScripts").Include(
                 "~/Scripts/JQuery/jquery-1.8.2.js",
                 "~/Scripts/json2.js",
@@ -53,7 +60,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/CRMConstants.js",
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Scripts/ShareScripts/KeyboardManager.js"));
+            #endregion
 
+            #region Home - style/js
             bundles.Add(new StyleBundle("~/Views/Home/Styles").Include(
                 "~/Scripts/Tipsy-Tooltip/tipsy.css"));
 
@@ -62,26 +71,34 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Views/Home/Scripts/MenuManager.js",
                 "~/Views/Home/Scripts/LeftPanelManager.js",
                 "~/Views/Home/Scripts/HomeManager.js"));
+            #endregion
 
-            bundles.Add(new ScriptBundle("~/Areas/CustomerInfo/Scripts").Include(
+            #region Customer - Left panel
+            bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/Customer/Scripts/CustomerManager.js",
-                "~/Areas/Customer/Scripts/CustomerApplication.js",
-                "~/Areas/Customer/Scripts/CustomerService.js",
-                "~/Areas/Customer/Scripts/CustomerController.js"));
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerManager.js",
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerApplication.js",
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerService.js",
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerController.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/CustomerInfo/Styles").Include(
-                "~/Areas/Customer/Styles/StyleSheet.less"));
+            bundles.Add(new StyleBundle("~/Areas/ShortCustomerInfo/Styles").Include(
+                "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less"));
+            #endregion            
 
+            #region AngularJS
             bundles.Add(new ScriptBundle("~/Scripts/AgularJS").Include(
                 "~/Scripts/AgularJS/angular.js"));
+            #endregion
 
+            #region multiple select control
             bundles.Add(new ScriptBundle("~/Styles/MultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.css"));
             bundles.Add(new ScriptBundle("~/Scripts/MultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
+            #endregion
 
+            #region Customer - Detail tab
             bundles.Add(new ScriptBundle("~/Areas/Customer/DetailInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
@@ -90,6 +107,7 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
+            #endregion
         }
     }
 

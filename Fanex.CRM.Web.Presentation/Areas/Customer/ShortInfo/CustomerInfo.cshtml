@@ -5,7 +5,7 @@
 <head>
     <title>@Labels.Customer_Info </title>
     @Styles.Render("~/site/common")
-    @Styles.Render("~/Areas/CustomerInfo/Styles")
+    @Styles.Render("~/Areas/ShortCustomerInfo/Styles")
     @Styles.Render("~/Styles/MultipleSelect")
 </head>
 <body>
@@ -187,7 +187,7 @@
     @Scripts.Render("~/Scripts/AgularJS")
     @Scripts.Render("~/Scripts/PopUp")
     @Scripts.Render("~/Scripts/MultipleSelect")
-    @Scripts.Render("~/Areas/CustomerInfo/Scripts")
+    @Scripts.Render("~/Areas/ShortCustomerInfo/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var accId = @Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id;

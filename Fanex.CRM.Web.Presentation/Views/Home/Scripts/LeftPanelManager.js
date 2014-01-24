@@ -47,7 +47,7 @@ var LeftPanelManager = function () {
         }
 
         BlockUI();
-        var sourceURL = '../Customer/CRMInfo?' + $.param({
+        var sourceURL = '../CustomerSetting/GetShortCustomerInfo?' + $.param({
             username: getCustomerInfoParams.Username,
             isguest: getCustomerInfoParams.IsGuest,
             issearch: 1,

@@ -176,9 +176,9 @@
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailApplication.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailController.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailService.js" />
-    <Content Include="Areas\Customer\Scripts\CustomerApplication.js" />
-    <Content Include="Areas\Customer\Scripts\CustomerController.js" />
-    <Content Include="Areas\Customer\Scripts\CustomerService.js" />
+    <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
+    <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
+    <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\error.png" />
@@ -221,7 +221,7 @@
     <Content Include="Areas\ActivityLog\Web.config" />
     <None Include="Areas\ActivityLog\Styles\activityLog.less" />
     <None Include="Areas\Communication\Styles\communicationLog.less" />
-    <None Include="Areas\Customer\Styles\StyleSheet.less" />
+    <None Include="Areas\Customer\ShortInfo\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
     <Content Include="Areas\Dashboard\Index.cshtml" />
     <Content Include="Areas\Dashboard\Web.config" />
@@ -481,25 +481,25 @@
     <Content Include="Views\AdminTool\Styles\StyleSheet.css" />
     <Content Include="Views\Common\404Error.htm" />
     <Content Include="Views\Customer\Scripts\CrmInfo.js" />
-    <Content Include="Areas\Customer\Scripts\CustomerManager.js" />
+    <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerManager.js" />
     <Content Include="Views\Customer\Scripts\EditCustomerInfo.js" />
-    <Content Include="Areas\Customer\Styles\Images\icon_button02.gif" />
-    <Content Include="Areas\Customer\Styles\Images\icon_down.gif" />
-    <Content Include="Areas\Customer\Styles\Images\icon_up.gif" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\bg02_box01.jpg" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\bg02_box01.png" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\bg_checkbox.jpg" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\box_02header.jpg" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\box_bottom.jpg" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\box_bottom.png" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\box_rp.jpg" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\icn_top.png" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\L_btn_left.png" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\L_btn_left_hover.png" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\L_tab_left.png" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\R_btn_left.png" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\R_btn_left_hover.png" />
-    <Content Include="Areas\Customer\Styles\Images\L_banner\R_tab_left.png" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon_button02.gif" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon_down.gif" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon_up.gif" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\bg02_box01.jpg" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\bg02_box01.png" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\bg_checkbox.jpg" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\box_02header.jpg" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\box_bottom.jpg" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\box_bottom.png" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\box_rp.jpg" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\icn_top.png" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\L_btn_left.png" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\L_btn_left_hover.png" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\L_tab_left.png" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_btn_left.png" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_btn_left_hover.png" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_tab_left.png" />
     <Content Include="packages.config" />
     <Content Include="Views\Feedback\Scripts\addfeedback.js" />
     <Content Include="Views\Feedback\Scripts\addguestfeedback.js" />
@@ -713,7 +713,7 @@
     <Content Include="Views\Home\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Customer\CustomerInfo.cshtml" />
+    <Content Include="Areas\Customer\ShortInfo\CustomerInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Customer\EditCRMInfo.cshtml" />
