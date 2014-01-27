@@ -116,11 +116,7 @@ ibcDailySummaryReport = {
                     mainreport.removeClass('hidden').gridScroller(gridOpts);
                 }
                 else {
-                    $('<div id="errmsg" class="errmsg">\
-                            <div class="alertboxerr">\
-                                <div>There is no information of Credit site.</div>\
-                            </div>\
-                        </div>').appendTo($("#err"));
+                    $('<div class="noInfomation">There is no information of Credit site.</div>').appendTo($("#err"));
                 }
             },
             error: function () {
@@ -342,11 +338,7 @@ licenseeDailySummaryReport = {
 
                 }
                 else {
-                    $('<div id="errmsg" class="errmsg">\
-                            <div class="alertboxerr">\
-                                <div>There is no information of Licensee.</div>\
-                            </div>\
-                        </div>').appendTo($("#err"));
+                    $('<div class="noInfomation">There is no information.</div>').appendTo($("#err"));
                 }
             },
             error: function () {
@@ -798,7 +790,7 @@ ibcDailyDetailReport = {
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
-            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="alertboxerr"><div>There is no information.</div></div></td>\
+            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="noInfomation">There is no information.</div></div></td>\
         </tr>';
 
         var mainreport = $('#dailydetailgrid');
@@ -1096,7 +1088,7 @@ licenseeDailyDetailReport = {
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
-            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="alertboxerr"><div>There is no information.</div></div></td>\
+            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="noInfomation">There is no information.</div></div></td>\
         </tr>';
 
         var mainreport = $('#licenseedetailgrid');
