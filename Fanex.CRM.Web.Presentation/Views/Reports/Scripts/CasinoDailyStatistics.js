@@ -97,7 +97,7 @@ casinoDailyStatistics = {
                     mainreport.find(".row_footer_content thead").empty().append(
                         '<tr>\
                             <th rowspan="2">\
-                                <div style="width:300px;height: 31px;" class="table-cell l">Grand Total</div>\
+                                <div style="width:300px;height: 39px;" class="table-cell l">Grand Total</div>\
                             </th>\
                          </tr>');
                     mainreport.find(".col_footer_content thead").empty().empty().html(arrFooterScroll.join(''));
@@ -186,7 +186,7 @@ casinoDailyStatistics = {
         if (sum && detail) {
             //first row
             html += '<tr>';
-            html += '<th rowspan="2"><div class="l b" style="width:300px; height: 31px;">Grand Total</div></th>';
+            html += '<th rowspan="2"><div class="l b" style="width:300px; height: 39px;">Grand Total</div></th>';
             var i;
             for (i = 0; i < detail.length; i++) {
                 var summary = detail[i];
