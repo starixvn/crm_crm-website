@@ -3,7 +3,8 @@
 
     self.CachedData = {
         KeyPress: [],
-        ActiveDocumentManager: []
+        ActiveDocumentManager: [],
+        isHomePage: false
     };
 
     self.initPage = function () {
@@ -13,7 +14,7 @@
     self.bindEvent = function () {
         $(document).keydown(function (eventObject) {
             var isCustomHotKey = self.keyDown(eventObject);
-            if (isCustomHotKey) {
+            if (isCustomHotKey && self.CachedData.isHomePage) {
                 if (eventObject.preventDefault) {
                     eventObject.stopPropagation();
                     eventObject.preventDefault();
@@ -115,6 +116,11 @@
             return true;
         }
 
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_c]) {
+            self.invokeHotKey_CtrlC();
+            return true;
+        }
+
         return false;
     };
 
@@ -151,6 +157,15 @@
             var activeDocumentManager = self.CachedData.ActiveDocumentManager[i];
             if (typeof (activeDocumentManager.invokeHotKey_CtrlD) === "function") {
                 activeDocumentManager.invokeHotKey_CtrlD();
+            }
+        }
+    };
+    self.invokeHotKey_CtrlC = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i];
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlC) === "function") {
+                activeDocumentManager.invokeHotKey_CtrlC();
             }
         }
     };

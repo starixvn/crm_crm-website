@@ -26,6 +26,7 @@ var HomeManager = function () {
 
         self.CachedData.username = self.DOMElements.TextboxUsername.val();
         hotKeyManager.CachedData.ActiveDocumentManager.push(self);
+        hotKeyManager.CachedData.isHomePage = true;
     };
 
     self.cacheDOMElements = function () {
@@ -153,6 +154,11 @@ var HomeManager = function () {
     self.invokeHotKey_CtrlD = function () {
         if (parent.dashboardManager) {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Detail);
+        }
+    };
+    self.invokeHotKey_CtrlC = function () {
+        if (parent.dashboardManager) {
+            parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.CommunicationLog);
         }
     };
 };
