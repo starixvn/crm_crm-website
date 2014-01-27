@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please search customer first!.
+        /// </summary>
+        internal static string Error_GetCustomerInfo_SearchRemind {
+            get {
+                return ResourceManager.GetString("Error_GetCustomerInfo_SearchRemind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} SUMMARY ON CUSTOMER INQUIRIES {1}.
         /// </summary>
         internal static string exportCasinoDailySummaryTitle {

@@ -255,4 +255,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="CustomerInfo_ConfirmSearchByGuest" xml:space="preserve">
     <value>Do you want to search guest customer's information?</value>
   </data>
+  <data name="Error_GetCustomerInfo_SearchRemind" xml:space="preserve">
+    <value>Please search customer first!</value>
+  </data>
 </root>

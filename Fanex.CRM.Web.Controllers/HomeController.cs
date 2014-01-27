@@ -74,5 +74,10 @@ namespace Fanex.CRM.Web.Controllers
         {
             return PartialView("~/Views/Home/_DashboardMenu.cshtml");
         }
+
+        public PartialViewResult SearchCustomerRemind()
+        {
+            return PartialView("~/Views/Home/_SearchCustomerRemind.cshtml");
+        }
     }
 }
