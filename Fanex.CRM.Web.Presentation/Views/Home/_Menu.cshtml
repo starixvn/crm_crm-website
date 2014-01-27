@@ -4,48 +4,45 @@
     var lvl0MenuItemList = menuItemList.Where(m => m.Parent == null).OrderBy(m => m.DisplayOrder).ToList();
 }
 <ul class="menu list-unstyle list-inline">
-@for (int i = 0; i < lvl0MenuItemList.Count; i++)
-{
-    var menuItem = lvl0MenuItemList[i];
-    var lvl1MenuItemList = menuItemList.Where(x => x.Parent != null && x.Parent.Id == menuItem.Id)
-        .OrderBy(x => x.DisplayOrder).ToList();
-    var className = string.Empty;
+    @for (int i = 0; i < lvl0MenuItemList.Count; i++)
+    {
+        var menuItem = lvl0MenuItemList[i];
+        var lvl1MenuItemList = menuItemList.Where(x => x.Parent != null && x.Parent.Id == menuItem.Id)
+            .OrderBy(x => x.DisplayOrder).ToList();
+        var className = string.Empty;
 
-    if (lvl1MenuItemList.Count == 0 && (menuItem.Url.Contains("n/a") || string.IsNullOrWhiteSpace(menuItem.Url)))
-    {
-        continue;
-    }
-    
-    if (i == lvl0MenuItemList.Count - 1)
-    {
-        className = "last-menu";
-    }
+        if (lvl1MenuItemList.Count == 0 && (menuItem.Url.Contains("n/a") || string.IsNullOrWhiteSpace(menuItem.Url)))
+        {
+            continue;
+        }
 
-    if (menuItem.Name.ToLower().Equals("home"))
-    {
-        <li>
-            <a href="javascript:;" onclick="javascript:menuManager.getDashboardMenu();menuManager.goToURL('centerFr','@Url.Content("~" + menuItem.Url)'); ">@menuItem.Name</a>
+        if (i == lvl0MenuItemList.Count - 1)
+        {
+            className = "last-menu";
+        }
+
+        if (menuItem.Name.ToLower().Equals("home"))
+        {
+        <li><a href="javascript:;" onclick="javascript:menuManager.getDashboardMenu();">@menuItem.Name</a>
         </li>
-    }
-    else if (lvl1MenuItemList.Count == 0)
-    {
-        <li>
-        <a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + menuItem.Url)')">@menuItem.Name</a>
+        }
+        else if (lvl1MenuItemList.Count == 0)
+        {
+        <li><a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + menuItem.Url)')">@menuItem.Name</a>
         </li>
-    }
-    else
-    {
-        className += " list-unstyled sub-menu";
+        }
+        else
+        {
+            className += " list-unstyled sub-menu";
         
-        <li>
-            <a href="#">@menuItem.Name <span class="icon-arrow-down"></span></a>
+        <li><a href="#">@menuItem.Name <span class="icon-arrow-down"></span></a>
             <ul class="@className">
-            @foreach (var subMenuItem in lvl1MenuItemList)
-            {
-                <li><a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + subMenuItem.Url)')">@subMenuItem.Name</a></li>
-            }
+                @foreach (var subMenuItem in lvl1MenuItemList)
+                {
+                    <li><a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + subMenuItem.Url)')">@subMenuItem.Name</a></li>
+                }
             </ul>
         </li>
+        }
     }
-}
 </ul>

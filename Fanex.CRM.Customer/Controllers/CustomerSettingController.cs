@@ -35,6 +35,12 @@ namespace Fanex.CRM.Customer.Controllers
             _serviceInstance = serviceInstance ?? new CustomerService();
         }
 
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        public ActionResult GetShortCustomerInfo()
+        {
+            return View("~/Areas/Customer/ShortInfo/CustomerInfo.cshtml");
+        }
+
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)

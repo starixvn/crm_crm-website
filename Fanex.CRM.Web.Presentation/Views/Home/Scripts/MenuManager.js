@@ -10,7 +10,8 @@ var MenuManager = function () {
         IconCollapseExpandLeftPanel: null,
         LeftContent: null,
         RightContent: null,
-        DashboardMenu: null
+        DashboardMenu: null,
+        SubMenu: null
     };
 
     self.CachedData = {
@@ -27,6 +28,7 @@ var MenuManager = function () {
         self.DOMElements.IconCollapseExpandLeftPanel = $("#icon-collapse-expand-leftpanel");
         self.DOMElements.LeftContent = $(".leftcontent");
         self.DOMElements.RightContent = $(".rightcontent");
+        self.DOMElements.SubMenu = parent.$('#divSubMenu');
     };
     self.bindEvents = function () {
         self.DOMElements.IconCollapseExpandLeftPanel.unbind("click");
@@ -86,15 +88,22 @@ var MenuManager = function () {
     };
 
     self.getDashboardMenu = function () {
-        $.ajax({
-            url: "/Home/GettingDashboardMenu",
-            type: "GET",
-            success: function (response, status, xhr) {
-                parent.$('#divSubMenu').html(response);
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-            }
-        });
+        if (homeManager.CachedData.currentCustomer &&
+            homeManager.CachedData.currentCustomer.Id !== 0) {
+            $.ajax({
+                url: window.rootUrl + "Home/GettingDashboardMenu",
+                type: "GET",
+                success: function (response, status, xhr) {
+                    self.DOMElements.SubMenu.html(response);
+                    menuManager.goToURL('centerFr', window.rootUrl + "Dashboard");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        } else {
+            self.DOMElements.SubMenu.html('');
+            menuManager.goToURL('centerFr', window.rootUrl + "Home/SearchCustomerRemind");
+        }
     };
 
     self.setActiveClassForDasboarSubMenu = function (subMenuId) {
