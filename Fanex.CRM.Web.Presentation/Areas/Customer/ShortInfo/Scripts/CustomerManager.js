@@ -115,6 +115,7 @@ var CustomerManager = function () {
         }
 
         if (customer == null || customer === "") {
+            parent.menuManager.emptyDashboard();
             self.showGetCustomerInfoByUsername_NoInfo();
             return false;
         }
@@ -126,6 +127,7 @@ var CustomerManager = function () {
     self.checkGuestCustomerInfoResult = function (customer) {
         if (customer == null || customer === "") {
             self.goToBlankPage();
+            parent.menuManager.emptyDashboard();
             self.showGetCustomerInfoByUsername_NoInfo();
             return false;
         }
@@ -192,6 +194,7 @@ var CustomerManager = function () {
 
                 self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
                 if (!self.CacheData.isConfirmSearchByGuest) {
+                    parent.menuManager.emptyDashboard();
                     self.showGetCustomerInfoByUsername_NoInfo();
                 }
 

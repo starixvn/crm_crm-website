@@ -287,7 +287,7 @@
         },
 
         suggest: function () {
-            if (this.suggestions.length === 0) {
+            if (this.suggestions === null || this.suggestions.length === 0) {
                 this.hide();
                 return;
             }
