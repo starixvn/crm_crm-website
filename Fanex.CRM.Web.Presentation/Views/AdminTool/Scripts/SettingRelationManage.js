@@ -39,7 +39,7 @@ function ShowPopupAddSettingRelation(parentId, settingValue, settingName) {
         '&settingValue=' + encodeURI(settingValue) +
         '&settingName=' + encodeURI(settingName);
     var width = 585;
-    var height = 430;
+    var height = 450;
     parent.OpenPopup(url, title, width, height, true, false, window, 2000, function () { settingRelation.loadSettingRelation(); });
 }
 
