@@ -16,7 +16,7 @@
     <div class="main container" data-ng-controller="customerDetailController">
         <div class="row panel-group">
             <div class="row title">
-                <span ng-attr-class="{{ isShowPersonalInfo ?  'icon-expand' : 'icon-collapse' }}"
+                <span data-ng-attr-class="{{ isShowPersonalInfo ?  'icon-expand' : 'icon-collapse' }}"
                     data-ng-click="isShowPersonalInfo = !isShowPersonalInfo"></span>@Labels.Personal_Info</div>
             <div class="row content" data-ng-show="isShowPersonalInfo">
                 <div class="col-md-4">
@@ -125,8 +125,8 @@
                         <div class="col-md-5">
                             <label for="language">
                                 @Labels.Language</label></div>
-                        <div class="col-md-7">
-                            <select id="customerinfodetail-languageoptions" dropdown-language>
+                        <div class="col-md-7" dropdown-language data-ng-model="languageList">
+                            <select id="customerinfodetail-languageoptions">
                             </select>
                         </div>
                     </div>
@@ -155,7 +155,7 @@
         </div>
         <div class="row panel-group">
             <div class="row title">
-                <span ng-attr-class="{{ isShowHomeAddressInfo ? 'icon-expand':'icon-collapse' }}"
+                <span data-ng-attr-class="{{ isShowHomeAddressInfo ? 'icon-expand':'icon-collapse' }}"
                     data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo"></span>@Labels.Home_Address</div>
             <div class="row content" data-ng-show="isShowHomeAddressInfo">
                 <div data-ng-repeat="addressLine in customerDetail.AddressInfo.LineList track by $index">
@@ -207,8 +207,8 @@
         </div>
         <div class="row panel-group last">
             <div class="row title">
-                <span ng-attr-class="{{ isShowBankInfoInfo ? 'icon-expand' :'icon-collapse' }}" data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
-                </span>@Labels.Bank_Info</div>
+                <span data-ng-attr-class="{{ isShowBankInfoInfo ? 'icon-expand' :'icon-collapse' }}"
+                    data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo"></span>@Labels.Bank_Info</div>
             <div class="row content" data-ng-show="isShowBankInfoInfo">
                 <div class="row">
                     <div class="item col-md-4">
@@ -312,8 +312,8 @@
         Symbol_NotApply: '@Labels.Symbol_NotApply',
         Alert: '@Labels.Alert',
         All_Languages: '@Labels.All_Languages',
-        All_Languages: '@Labels.No_languages_found',
-        All_Languages: '@Labels.Symbol_NotApply'
+        No_languages_found: '@Labels.No_languages_found',
+        Symbol_NotApply: '@Labels.Symbol_NotApply'
     }; 
     var customerDetail = @Html.Raw(jsonCustomerDetail); 
     </script>

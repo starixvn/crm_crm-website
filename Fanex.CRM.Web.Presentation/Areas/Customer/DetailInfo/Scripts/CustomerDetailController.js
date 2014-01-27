@@ -12,6 +12,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
     $scope.isShowPersonalInfo = true;
     $scope.isShowHomeAddressInfo = true;
     $scope.isShowBankInfoInfo = true;
+    $scope.selectedLangueList = true;
 
     $scope.DOMElements = {
         divResultPopUp: null,
@@ -75,51 +76,6 @@ customerDetailApplication.controller('customerDetailController', function ($scop
             });
     };
     $scope.renderAllLanguageResult = function (result) {
-        $scope.DOMElements.dropdownLanguage.empty();
-        var dropdownLanguage = [];
-        var prefixId = 'customerinfo-languageoptions-';
-        var isCheckAll = true;
-
-        if (result && result.length > 0) {
-            var optionLength = result.length;
-            for (var i = 0; i < optionLength; i++) {
-                var info = result[i];
-                var isChecked = $scope.isCustomerKnowLanguage(info.Id);
-                if (!isChecked) {
-                    isCheckAll = false;
-                }
-
-                dropdownLanguage.push({
-                    id: prefixId + info.Id,
-                    value: info.Id,
-                    text: info.Value,
-                    checked: isChecked,
-                    enable: true,
-                    cssClass: "",
-                    items: []
-                });
-            }
-        }
-
-        $scope.DOMElements.dropdownLanguage.fanexMultiSelect(
-                        {
-                            minWidth: 177,
-                            maxHeight: 450,
-                            shadow: true,
-                            showHeader: true,
-                            isCheckAll: isCheckAll,
-                            showFooter: false,
-                            showTooltip: false,
-                            checkAllText: viewResources.All_Languages,
-                            isUsedCustomCheckAllText: true,
-                            customCheckAllText: viewResources.All_Languages,
-                            noItemText: viewResources.No_languages_found,
-                            noneSelectedText: viewResources.Symbol_NotApply,
-                            selectedList: 3,
-                            listData: dropdownLanguage
-                        });
-
-        $scope.DOMElements.dropdownLanguage = $("#customerinfodetail-languageoptions");
         $scope.isLoadedAllLanguage = true;
     };
     $scope.isCustomerKnowLanguage = function (languageId) {
@@ -155,7 +111,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
             CustomerId: customerDetail.Id,
             FirstName: customerDetail.FirstName,
             LastName: customerDetail.LastName,
-            LanguageId: $scope.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(","),
+            LanguageId: $scope.selectedLangueList,
             Phone1PhoneNumber: customerDetail.PhoneInfo[0].PhoneNumber,
             Phone1CountryCode: customerDetail.PhoneInfo[0].CountryCode,
             Phone1AreaCode: customerDetail.PhoneInfo[0].AreaCode,
@@ -260,6 +216,9 @@ customerDetailApplication.controller('customerDetailController', function ($scop
     };
     $scope.invokeHotKey_CtrlS = function () {
         $scope.updateCustomerInfoDetail();
+    };
+    $scope.updateSelectedLanguage = function (selectedLangueList) {
+        $scope.selectedLangueList = selectedLangueList;
     };
     angular.element(document).ready(function () {
         $scope.initController();
