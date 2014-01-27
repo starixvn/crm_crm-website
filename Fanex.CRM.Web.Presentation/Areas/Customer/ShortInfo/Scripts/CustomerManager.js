@@ -249,7 +249,7 @@ var CustomerManager = function () {
             parseInt(self.CacheData.getCustomerInfoParams.IsReloadLeftPanel) !== 1) {
             try {
                 parent.menuManager.getDashboardMenu();
-                parent.menuManager.goToURL('centerFr', window.rootUrl + '/Dashboard');
+                parent.menuManager.goToURL('centerFr', window.rootUrl + 'Dashboard');
             } catch (e) {
             }
         }
