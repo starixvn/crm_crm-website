@@ -20,7 +20,8 @@ var CustomerManager = function () {
             Username: null,
             IsGuest: null,
             IsSearch: 0,
-            IsFromURL: 1
+            IsFromURL: 1,
+            IsReloadLeftPanel: 0
         },
 
         ViewResources: {
@@ -80,7 +81,8 @@ var CustomerManager = function () {
             Username: sharedScriptManager.urlDecode(sharedScriptManager.getURLParam("username")),
             IsGuest: sharedScriptManager.getURLParam("isguest"),
             IsSearch: sharedScriptManager.getURLParam("issearch"),
-            IsFromURL: sharedScriptManager.getURLParam("isfromurl")
+            IsFromURL: sharedScriptManager.getURLParam("isfromurl"),
+            IsReloadLeftPanel: sharedScriptManager.getURLParam("isreloadleftpanel")
         };
 
         self.CacheData.getCustomerInfoParams = getCustomerInfoParams;
@@ -91,7 +93,8 @@ var CustomerManager = function () {
             Username: self.DOMElements.textboxUsername.val(),
             IsGuest: self.DOMElements.checkboxIsGuest.attr("checked") ? true : false,
             IsSearch: sharedScriptManager.getURLParam("issearch"),
-            IsFromURL: 0
+            IsFromURL: 0,
+            IsReloadLeftPanel: 0
         };
 
         self.CacheData.getCustomerInfoParams = getCustomerInfoParams;
@@ -242,10 +245,11 @@ var CustomerManager = function () {
         self.getAllLanguage();
         parent.menuManager.showLeftPanel();
         self.updateCustomerSuggestion(customer);
-        if (parseInt(self.CacheData.getCustomerInfoParams.IsSearch) === 1) {
+        if (parseInt(self.CacheData.getCustomerInfoParams.IsSearch) === 1 &&
+            parseInt(self.CacheData.getCustomerInfoParams.IsReloadLeftPanel) !== 1) {
             try {
                 parent.menuManager.getDashboardMenu();
-                parent.menuManager.goToURL('centerFr', '/Dashboard');
+                parent.menuManager.goToURL('centerFr', window.rootUrl + '/Dashboard');
             } catch (e) {
             }
         }
@@ -402,7 +406,7 @@ var CustomerManager = function () {
             FirstName: customer.FirstName,
             LastName: customer.LastName,
             NickName: customer.NickName,
-            Languages: self.DOMElements.dropdownLanguage.fanexMultiSelect("getItems").join(","),
+            Languages: self.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(","),
 
             PhoneInfo1CountryCode: customer.PhoneInfo[0].CountryCode,
             PhoneInfo1AreaCode: customer.PhoneInfo[0].AreaCode,

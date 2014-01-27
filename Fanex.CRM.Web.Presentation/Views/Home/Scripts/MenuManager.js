@@ -87,7 +87,7 @@ var MenuManager = function () {
 
     self.getDashboardMenu = function () {
         $.ajax({
-            url: "/Home/GettingDashboardMenu",
+            url: window.rootUrl + "Home/GettingDashboardMenu",
             type: "GET",
             success: function (response, status, xhr) {
                 parent.$('#divSubMenu').html(response);

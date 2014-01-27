@@ -34,7 +34,7 @@ var LeftPanelManager = function () {
         self.DOMElements.leftPanel = $('#leftPanel');
     };
 
-    self.loadLeftPanel = function (username, isFromURL) {
+    self.loadLeftPanel = function (username, isFromURL, isReloadLeftPanel) {
         var getCustomerInfoParams = {
             Username: username != null ? username : escape(jQuery.trim(self.DOMElements.textboxUsername.val())),
             IsGuest: self.DOMElements.checkboxIsGuest.attr("checked") ? true : false
@@ -51,7 +51,8 @@ var LeftPanelManager = function () {
             username: getCustomerInfoParams.Username,
             isguest: getCustomerInfoParams.IsGuest,
             issearch: 1,
-            isfromurl: isFromURL ? 1 : 0
+            isfromurl: isFromURL ? 1 : 0,
+            isreloadleftpanel: isReloadLeftPanel ? 1 : 0
         });
 
         self.DOMElements.leftPanel.attr({
