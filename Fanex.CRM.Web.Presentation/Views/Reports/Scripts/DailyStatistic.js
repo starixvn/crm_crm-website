@@ -121,23 +121,21 @@ ibcDailySummaryReport = {
                     mainreport.removeClass('hidden').gridScroller(gridOpts);
                 }
                 else {
-                    $('<div id="errmsg" class="errmsg">\
-                           <div class="alertboxerr">\
-                               <div>There is no information of Credit site.</div>\
-                           </div>\
+                    $('<div class="noInfomation">\
+                               There is no information of Credit site.\
                        </div>').appendTo($("#err"));
                 }
             },
             error: function () {
-//                try { topwnd.UnBlockUI(); } catch (e) { } 
+                //                try { topwnd.UnBlockUI(); } catch (e) { } 
             },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
                 if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
-//                    try {
-//                        topwnd.UnBlockUI();
-//                    } catch (e) {
-//                    }
+                    //                    try {
+                    //                        topwnd.UnBlockUI();
+                    //                    } catch (e) {
+                    //                    }
                 }
             }
         });
@@ -281,7 +279,7 @@ licenseeDailySummaryReport = {
         $('#err').html('');
         licenseeDailySummaryReport.loadCompleted = false;
 
-//        try { topwnd.BlockUI(); } catch (e) { }
+        //        try { topwnd.BlockUI(); } catch (e) { }
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -348,23 +346,21 @@ licenseeDailySummaryReport = {
 
                 }
                 else {
-                    $('<div id="errmsg" class="errmsg">\
-                            <div class="alertboxerr">\
-                                <div>There is no information of Licensee.</div>\
-                            </div>\
+                    $('<div class="noInfomation">\
+                               There is no information of Credit site.\
                        </div>').appendTo($("#err"));
                 }
             },
             error: function () {
                 try {
                     //topwnd.UnBlockUI();
-                } catch (e) { } 
+                } catch (e) { }
             },
             complete: function () {
                 licenseeDailySummaryReport.loadCompleted = true;
                 if (licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted) {
                     try {
-//                        topwnd.UnBlockUI();
+                        //                        topwnd.UnBlockUI();
                     } catch (e) {
                     }
                 }
@@ -548,7 +544,7 @@ ibcDailyDetailReport = {
         $('#licenseedetailgrid').addClass('hidden');
         $('#err').html('');
 
-//        try { topwnd.BlockUI(); } catch (e) { }
+        //        try { topwnd.BlockUI(); } catch (e) { }
         var mainreport = $('#dailydetailgrid');
 
         if (!loadOldData) {
@@ -616,7 +612,7 @@ ibcDailyDetailReport = {
                 ibcDailyDetailReport.renderNoDataRow();
             },
             complete: function () {
-//                try { topwnd.UnBlockUI(); } catch (e) { } 
+                //                try { topwnd.UnBlockUI(); } catch (e) { } 
             }
 
         });
@@ -802,7 +798,7 @@ ibcDailyDetailReport = {
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
-            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="alertboxerr"><div>There is no information.</div></div></td>\
+            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="noInfomation">There is no information.</div></td>\
         </tr>';
 
         var mainreport = $('#dailydetailgrid');
@@ -860,7 +856,7 @@ licenseeDailyDetailReport = {
         $('#dailydetailgrid').addClass('hidden');
         $('#err').html('');
 
-//        try { topwnd.BlockUI(); } catch (e) { }
+        //        try { topwnd.BlockUI(); } catch (e) { }
         var mainreport = $('#licenseedetailgrid');
         if (!loadOldData) {
             mainreport.addClass('hidden');
@@ -928,7 +924,7 @@ licenseeDailyDetailReport = {
                 licenseeDailyDetailReport.renderNoDataRow();
             },
             complete: function () {
-//                try { topwnd.UnBlockUI(); } catch (e) { } 
+                //                try { topwnd.UnBlockUI(); } catch (e) { } 
             }
 
         });
@@ -1100,7 +1096,7 @@ licenseeDailyDetailReport = {
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
-            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="alertboxerr"><div>There is no information.</div></div></td>\
+            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="noInfomation">There is no information.</div></td>\
         </tr>';
 
         var mainreport = $('#licenseedetailgrid');
@@ -1133,7 +1129,7 @@ head.ready(function () {
     /* jshint newcap: false */
     SetupCalendar(arrDateValues, arrIds);
 
-//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+    //    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'dailysummarybody',
