@@ -149,7 +149,7 @@ var feedbackStatistic = {
 
         $('#feedbackstatistictitle').html(feedbackStatistic.title);
 
-//        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         $.ajax({
             type: "POST",
             url: window.rootUrl + "Reports/GetFeedbackStatistic",
@@ -245,10 +245,10 @@ var feedbackStatistic = {
                 mainreport.addClass('hidden');
                 showAlertMessage("errmsg", 'There is no information.', 1);
                 $('#pagination').html('&nbsp;');
-//                try { topwnd.UnBlockUI(); } catch (e) { }
+                try { parent.UnBlockUI(); } catch (e) { }
             },
             complete: function () {
-//                try { topwnd.UnBlockUI(); } catch (e) { }
+                try { parent.UnBlockUI(); } catch (e) { }
             }
 
         });
@@ -363,7 +363,7 @@ var feedbackStatistic = {
         '&tdd=' + feedbackStatistic.ToDuration.Day + '&tdh=' + feedbackStatistic.ToDuration.Hour +
         '&tdmi=' + feedbackStatistic.ToDuration.Minute + '&tds=' + feedbackStatistic.ToDuration.Second;
 
-        topwnd.OpenPopup(url, "Feedback Statistic Detail Report", 1020, maxHeightOfPopUp, true, false, window, 2000, null);
+        parent.OpenPopup(url, "Feedback Statistic Detail Report", 1020, maxHeightOfPopUp, true, false, window, 2000, null);
     },
     export2excel: function () {
         var url = "FeedbackStatistics?export=true&type=" + parseInt($('#ddlType').val()) +
@@ -480,7 +480,7 @@ head.ready(function () {
 //    try { topwnd = findMainWindow(window); } catch (e) { }
     durationTimeForceNumberic();
 
-//    try { topwnd.UnBlockUI(); } catch (e) { }
+    try { parent.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'feedbackstatisticbody',

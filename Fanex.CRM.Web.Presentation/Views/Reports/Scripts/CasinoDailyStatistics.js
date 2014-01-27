@@ -49,7 +49,7 @@ casinoDailyStatistics = {
         $('#dailydetailgrid').addClass('hidden');
         $('#err').html('');
 
-//        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         casinoDailyStatistics.fromDate = $('#txtfromdate').val();
         casinoDailyStatistics.toDate = $('#txttodate').val();
         var data = { 'fromDate': casinoDailyStatistics.fromDate, 'toDate': casinoDailyStatistics.toDate };
@@ -122,7 +122,7 @@ casinoDailyStatistics = {
             },
             error: function () { },
             complete: function () {
-//                try { topwnd.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { } 
             }
         });
     },
@@ -269,7 +269,7 @@ casinoDailyDetail = {
         var mainreport = $("#dailydetailgrid");
         $('#err').html('');
 
-//        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         if (!loadOldData) {
             mainreport.addClass('hidden');
             casinoDailyDetail.pageIndex = 1;
@@ -331,7 +331,7 @@ casinoDailyDetail = {
                 casinoDailyDetail.renderNoDataRow();
             },
             complete: function () {
-//                try { topwnd.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { } 
             }
         });
     },
@@ -425,7 +425,7 @@ casinoDailyDetail = {
         });
     },
     exportExcel: function () {
-//        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         $.ajax({
             type: "POST",
             url: window.rootUrl + "Reports/AllowExportCasinoStatisticDetail",
@@ -452,7 +452,7 @@ casinoDailyDetail = {
             },
             complete: function () {
                 try {
-//                    topwnd.UnBlockUI();
+                    parent.UnBlockUI();
                 } catch (e) {
                 }
             }

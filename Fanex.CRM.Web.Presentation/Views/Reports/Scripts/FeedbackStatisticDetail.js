@@ -23,11 +23,11 @@ function viewStatistics() {
     '&tdh=' + feedbackDetail.ToDuration.Hour +
     '&tdmi=' + feedbackDetail.ToDuration.Minute +
     '&tds=' + feedbackDetail.ToDuration.Second;
-    topwnd.OpenPopup(url, "Feedback Statistic Detail Report", 1020, maxHeightOfPopUp, true, false, null, 0, null, null);
+    parent.OpenPopup(url, "Feedback Statistic Detail Report", 1020, maxHeightOfPopUp, true, false, null, 0, null, null);
 }
 
 function openEditFeedback(url) {
-    topwnd.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 2000,
+    parent.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 2000,
         function () {
             viewStatistics();
         },
@@ -95,7 +95,7 @@ feedbackDetail = {
         feedbackDetail.title = 'Feedback Statistic Detail Report from ' + feedbackDetail.fDate + ' to ' + feedbackDetail.tDate;
         $("#gridtitle").html(feedbackDetail.title);
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var mainreport = $("#feedbackstatisticgrid");
         $('#errmsg').html('');
 
@@ -142,7 +142,7 @@ feedbackDetail = {
                 $('#pagination').html('&nbsp;');
             },
             complete: function () {
-                try { topwnd.UnBlockUI(); } catch (e) { }
+                try { parent.UnBlockUI(); } catch (e) { }
 
             }
         });
@@ -285,7 +285,7 @@ feedbackDetail = {
 
 $(document).ready(
     function () {
-        try { topwnd = findMainWindow(window); } catch (e) { }
+//        try { topwnd = findMainWindow(window); } catch (e) { }
 
         feedbackDetail.fDate = decodeURIComponent(gup("fromdate").replace(/\+/g, " "));
         feedbackDetail.tDate = decodeURIComponent(gup("todate").replace(/\+/g, " "));

@@ -56,7 +56,7 @@ ibcDailySummaryReport = {
 
         ibcDailySummaryReport.loadCompleted = false;
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -127,15 +127,15 @@ ibcDailySummaryReport = {
                 }
             },
             error: function () {
-                //                try { topwnd.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { } 
             },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
                 if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
-                    //                    try {
-                    //                        topwnd.UnBlockUI();
-                    //                    } catch (e) {
-                    //                    }
+                                        try {
+                                            parent.UnBlockUI();
+                                        } catch (e) {
+                                        }
                 }
             }
         });
@@ -279,7 +279,7 @@ licenseeDailySummaryReport = {
         $('#err').html('');
         licenseeDailySummaryReport.loadCompleted = false;
 
-        //        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -353,14 +353,14 @@ licenseeDailySummaryReport = {
             },
             error: function () {
                 try {
-                    //topwnd.UnBlockUI();
+                    parent.UnBlockUI();
                 } catch (e) { }
             },
             complete: function () {
                 licenseeDailySummaryReport.loadCompleted = true;
                 if (licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted) {
                     try {
-                        //                        topwnd.UnBlockUI();
+                        parent.UnBlockUI();
                     } catch (e) {
                     }
                 }
@@ -544,7 +544,7 @@ ibcDailyDetailReport = {
         $('#licenseedetailgrid').addClass('hidden');
         $('#err').html('');
 
-        //        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var mainreport = $('#dailydetailgrid');
 
         if (!loadOldData) {
@@ -612,7 +612,7 @@ ibcDailyDetailReport = {
                 ibcDailyDetailReport.renderNoDataRow();
             },
             complete: function () {
-                //                try { topwnd.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { } 
             }
 
         });
@@ -856,7 +856,7 @@ licenseeDailyDetailReport = {
         $('#dailydetailgrid').addClass('hidden');
         $('#err').html('');
 
-        //        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var mainreport = $('#licenseedetailgrid');
         if (!loadOldData) {
             mainreport.addClass('hidden');
@@ -924,7 +924,7 @@ licenseeDailyDetailReport = {
                 licenseeDailyDetailReport.renderNoDataRow();
             },
             complete: function () {
-                //                try { topwnd.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { } 
             }
 
         });

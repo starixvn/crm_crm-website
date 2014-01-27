@@ -25,7 +25,7 @@ var casinoWeeklySummary = {
         casinoWeeklySummary.firstDate = $('#txtfromdate').val();
         casinoWeeklySummary.selectDate = $('#txttodate').val();
 
-//        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var data = { 'fromDate': casinoWeeklySummary.firstDate, 'toDate': casinoWeeklySummary.selectDate };
         $.ajax({
             type: "POST",
@@ -97,7 +97,7 @@ var casinoWeeklySummary = {
             },
             error: function () { },
             complete: function () {
-//                try { topwnd.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { } 
             }
         });
     },
@@ -213,7 +213,7 @@ casinoWeeklyDetail = {
         var mainreport = $("#weeklydetailgrid");
 
         $('#err').html('');
-//        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         if (!loadOldData) {
             mainreport.addClass('hidden');
             casinoWeeklyDetail.pageIndex = 1;
@@ -274,7 +274,7 @@ casinoWeeklyDetail = {
                 casinoWeeklyDetail.renderNoDataRow();
             },
             complete: function () {
-//                try { topwnd.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { } 
             }
         });
     },
