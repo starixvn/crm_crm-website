@@ -15,7 +15,7 @@ var casinoWeeklySummary = {
     defaultTotalCols: 6,
     columnWidthDefault: 90,
     totalWidth: 0,
-    gridHeight: 80,
+    gridHeight: 90,
     getWeeklySummary: function () {
         var mainreport = $("#weeklysummarygrid");
         mainreport.addClass('hidden');
@@ -25,7 +25,7 @@ var casinoWeeklySummary = {
         casinoWeeklySummary.firstDate = $('#txtfromdate').val();
         casinoWeeklySummary.selectDate = $('#txttodate').val();
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         var data = { 'fromDate': casinoWeeklySummary.firstDate, 'toDate': casinoWeeklySummary.selectDate };
         $.ajax({
             type: "POST",
@@ -96,7 +96,9 @@ var casinoWeeklySummary = {
                 }
             },
             error: function () { },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            }
         });
     },
     renderHeaderReport: function (row) {
@@ -211,7 +213,7 @@ casinoWeeklyDetail = {
         var mainreport = $("#weeklydetailgrid");
 
         $('#err').html('');
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         if (!loadOldData) {
             mainreport.addClass('hidden');
             casinoWeeklyDetail.pageIndex = 1;
@@ -271,7 +273,9 @@ casinoWeeklyDetail = {
             error: function () {
                 casinoWeeklyDetail.renderNoDataRow();
             },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            }
         });
     },
     renderScrollRow: function (row, css) {
@@ -468,7 +472,7 @@ head.ready(function () {
     $('#txtfromdate').val((new Date(fromDate)).format("m/d/Y"));
     $('#txttodate').val((new Date(toDate)).format("m/d/Y"));
 
-    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'weeklysummarybody',
