@@ -9,7 +9,7 @@
     $scope.invokeHotKey_CtrlI = function () {
     };
     $scope.editCommunicationLog = function (logIndex) {
-        alert($scope.logs[logIndex].RunningNumber);
+        alert("Edit " + $scope.logs[logIndex].RunningNumber);
     };
     angular.element(document).ready(function () {
         $scope.initController();
