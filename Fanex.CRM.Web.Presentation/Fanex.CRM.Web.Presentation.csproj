@@ -180,6 +180,7 @@
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
+    <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon-arrow-left.png" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\error.png" />
@@ -565,7 +566,6 @@
     <Content Include="Views\Home\Styles\Images\Banner\R_main_btn.png" />
     <Content Include="Views\Home\Styles\Images\Banner\up.gif" />
     <Content Include="Views\Home\Styles\Images\Banner\up_down.png" />
-    <Content Include="Views\Home\Styles\Images\icon-arrow-left.png" />
     <Content Include="Views\Reports\Scripts\CasinoDailyStatistics.js" />
     <Content Include="Views\Reports\Scripts\CasinoWeeklyStatistics.js" />
     <Content Include="Views\Reports\Scripts\DailyStatistic.js" />
