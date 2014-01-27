@@ -25,8 +25,10 @@ var HomeManager = function () {
         self.bindEvents();
 
         self.CachedData.username = self.DOMElements.TextboxUsername.val();
-        hotKeyManager.CachedData.ActiveDocumentManager.push(self);
-        hotKeyManager.CachedData.isHomePage = true;
+        hotKeyManager.CachedData.ActiveDocumentManager.push({
+            Value: self,
+            Id: "Home"
+        });
     };
 
     self.cacheDOMElements = function () {
