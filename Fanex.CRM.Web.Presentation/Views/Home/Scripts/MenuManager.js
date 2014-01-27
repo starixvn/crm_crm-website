@@ -108,7 +108,7 @@ var MenuManager = function () {
     self.setActiveClassForDasboarSubMenu = function (subMenuId) {
         $('#ulDashboardMenu li').removeClass('active');
         $('#' + subMenuId).addClass('active');
-    },
+    };
 
     self.remindSearchCustomer = function () {
         self.DOMElements.SubMenu.html('');
@@ -116,6 +116,17 @@ var MenuManager = function () {
     };
     self.emptyDashboard = function () {
         self.DOMElements.SubMenu.html('');
+    };
+
+    self.setActiveClassForSubMenu = function (mainMenu, subMenu) {
+        var activeMenu =
+        '<ul class="breadcrumbsMenu list-inline list-unstyled">\
+            <li><span class="icon-home"></span></li>\
+            <li><a href="#">'+ mainMenu +'</a></li>\
+            <li class="active">' + subMenu + '</li>\
+        </ul>'
+
+        self.DOMElements.SubMenu.html(activeMenu);
     };
 };
 

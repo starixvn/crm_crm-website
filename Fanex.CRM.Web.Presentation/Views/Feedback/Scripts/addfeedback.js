@@ -551,7 +551,7 @@ head.ready(function () {
     //Bind data to dropdown list
     try { parent.BlockUI(); } catch (e) { }
     custName = $.URLDecode(gup("custName"));
-    custId = gup("custId") === "" ? 0 : parseInt(gup("custId"));
+    custId = gup("custid") === "" ? 0 : parseInt(gup("custid"));
 
     $("#lblUserName").attr("value", custId).html(custName);
     getCRMInfoById(custId);

@@ -1,12 +1,11 @@
-﻿<link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
+﻿<link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.less")" rel="stylesheet" type="text/css" />
 <div class="container main">
-    <div class="row">
-        Setting Management</div>
-    <div class="row filter-frm one-row">
-        <div class="item">
+    @*<div class="row">
+        Setting Management</div>*@
+    <div class="row filter-frm one-row settingManagement">
+        <div class="item afterButton">
             <script type="text/html" id="tplMainSetting">
                                     <option value='${Type}'>${Type}</option>
             </script>
@@ -14,10 +13,10 @@
                 style="width: 120px;">
             </select>
         </div>
-        <div class="item">
+        <div class="item afterButton">
             <input type="button" id="btnSearch" name="btnSearch" class="btn" value="Search" onclick="settingManagement.loadSettingManagement();" />
         </div>
-        <div class="item">
+        <div class="item afterButton">
             <input type="button" id="btnInsertSetting" name="btnInsertSetting" class="btn" value="Insert New Setting"
                 onclick="ShowPopupAddSetting(0);" />
         </div>
@@ -27,7 +26,7 @@
         </div>
     </div>
     <div class="row">
-        <div id="errMsg">
+        <div class="col-xs-7 col-sm-7 col-md-5" id="errMsg">
         </div>
     </div>
     <div class="row">

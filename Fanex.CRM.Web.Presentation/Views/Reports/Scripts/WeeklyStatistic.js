@@ -5,8 +5,8 @@ head, fromDate, toDate, findMainWindow, accChart */
 
 var topwnd;
 var arrWidth = [];
-var maxHeightOfSummaryReport = ($(window).height() - 50) / 2;
-var maxHeightOfPopUp = ($(window).height() + 50);
+var maxHeightOfSummaryReport = ($(window).height() - 115) / 2;
+var maxHeightOfPopUp = ($(window).height() + 115);
 
 var ibcDailySummaryReport, licenseeDailySummaryReport,
 ibcDailyDetailReport, licenseeDailyDetailReport;
@@ -46,7 +46,7 @@ var dailyReport = {
 ibcDailySummaryReport = {
     title: '',
     loadCompleted: false,
-    colWidth: 70,
+    colWidth: 75,
     getDailyReport: function () {
         var mainreport = $("#dailysummarygrid");
         mainreport.addClass('hidden');
@@ -55,7 +55,7 @@ ibcDailySummaryReport = {
 
         ibcDailySummaryReport.loadCompleted = false;
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -116,19 +116,17 @@ ibcDailySummaryReport = {
                     mainreport.removeClass('hidden').gridScroller(gridOpts);
                 }
                 else {
-                    $('<div id="errmsg" class="errmsg">\
-                            <div class="alertboxerr">\
-                                <div>There is no information of Credit site.</div>\
-                            </div>\
-                        </div>').appendTo($("#err"));
+                    $('<div class="noInfomation">There is no information of Credit site.</div>').appendTo($("#err"));
                 }
             },
-            error: function () { try { topwnd.UnBlockUI(); } catch (e) { } },
+            error: function () {
+                try { parent.UnBlockUI(); } catch (e) { } 
+            },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
                 if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
                     try {
-                        topwnd.UnBlockUI();
+                        parent.UnBlockUI();
                     } catch (e) {
                     }
                 }
@@ -264,7 +262,7 @@ ibcDailySummaryReport = {
 licenseeDailySummaryReport = {
     totalWidth: 0,
     title: '',
-    colWidth: 70,
+    colWidth: 75,
     loadCompleted: false,
     getDailyReport: function () {
         var mainreport = $("#licenseedailysummarygrid");
@@ -273,7 +271,7 @@ licenseeDailySummaryReport = {
         $('#err').html('');
         licenseeDailySummaryReport.loadCompleted = false;
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -340,19 +338,17 @@ licenseeDailySummaryReport = {
 
                 }
                 else {
-                    $('<div id="errmsg" class="errmsg">\
-                            <div class="alertboxerr">\
-                                <div>There is no information of Licensee.</div>\
-                            </div>\
-                        </div>').appendTo($("#err"));
+                    $('<div class="noInfomation">There is no information.</div>').appendTo($("#err"));
                 }
             },
-            error: function () { try { topwnd.UnBlockUI(); } catch (e) { } },
+            error: function () {
+                try { parent.UnBlockUI(); } catch (e) { } 
+            },
             complete: function () {
                 licenseeDailySummaryReport.loadCompleted = true;
                 if (licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted) {
                     try {
-                        topwnd.UnBlockUI();
+                        parent.UnBlockUI();
                     } catch (e) {
                     }
                 }
@@ -541,7 +537,7 @@ ibcDailyDetailReport = {
         $('#licenseedetailgrid').addClass('hidden');
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var mainreport = $('#dailydetailgrid');
 
         if (!loadOldData) {
@@ -609,7 +605,9 @@ ibcDailyDetailReport = {
             error: function () {
                 ibcDailyDetailReport.renderNoDataRow();
             },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+                try { parent.UnBlockUI(); } catch (e) { } 
+            }
 
         });
 
@@ -792,7 +790,7 @@ ibcDailyDetailReport = {
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
-            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="alertboxerr"><div>There is no information.</div></div></td>\
+            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="noInfomation">There is no information.</div></div></td>\
         </tr>';
 
         var mainreport = $('#dailydetailgrid');
@@ -851,7 +849,7 @@ licenseeDailyDetailReport = {
         $('#dailydetailgrid').addClass('hidden');
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var mainreport = $('#licenseedetailgrid');
         if (!loadOldData) {
             mainreport.addClass('hidden');
@@ -918,7 +916,9 @@ licenseeDailyDetailReport = {
             error: function () {
                 licenseeDailyDetailReport.renderNoDataRow();
             },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+                try { parent.UnBlockUI(); } catch (e) { } 
+            }
 
         });
 
@@ -1088,7 +1088,7 @@ licenseeDailyDetailReport = {
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
-            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="alertboxerr"><div>There is no information.</div></div></td>\
+            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="noInfomation">There is no information.</div></div></td>\
         </tr>';
 
         var mainreport = $('#licenseedetailgrid');
@@ -1117,7 +1117,7 @@ licenseeDailyDetailReport = {
 head.ready(function () {
     $('#txtfromdate').val((new Date(fromDate)).format("m/d/Y"));
     $('#txttodate').val((new Date(toDate)).format("m/d/Y"));
-    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOptions = {
         tblContentId: 'dailysummarybody',

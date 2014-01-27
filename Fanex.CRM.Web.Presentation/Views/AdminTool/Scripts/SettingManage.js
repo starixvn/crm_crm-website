@@ -132,7 +132,7 @@ function ShowPopupAddSetting(type) {
     var title = 'Insert New Setting';
     var url = '../AdminTool/SettingIns?Value=' + Value;
     var width = 480;
-    var height = 280;
+    var height = 230;
     parent.OpenPopup(url, title, width, height, true, false, window, 2000, function () { loadMainSetting(); });
 }
 
@@ -140,7 +140,7 @@ function ShowPopupEditSetting(Id) {
     var title = 'Edit Setting Value';
     var url = '../AdminTool/SettingEdit?Id=' + Id;
     var width = 480;
-    var height = 280;
+    var height = 200;
     parent.OpenPopup(url, title, width, height, true, false, window, 2000, function () { settingManagement.loadSettingManagement(); });
 }
 

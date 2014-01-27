@@ -42,14 +42,14 @@ casinoDailyStatistics = {
     toDate: '',
     columnWidthDefault: 70,
     title: '',
-    gridHeight: 80,
+    gridHeight: 90,
     getDailyReport: function () {
         var mainreport = $("#dailysummarygrid");
         mainreport.addClass('hidden');
         $('#dailydetailgrid').addClass('hidden');
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         casinoDailyStatistics.fromDate = $('#txtfromdate').val();
         casinoDailyStatistics.toDate = $('#txttodate').val();
         var data = { 'fromDate': casinoDailyStatistics.fromDate, 'toDate': casinoDailyStatistics.toDate };
@@ -97,7 +97,7 @@ casinoDailyStatistics = {
                     mainreport.find(".row_footer_content thead").empty().append(
                         '<tr>\
                             <th rowspan="2">\
-                                <div style="width:300px;height: 31px;" class="table-cell l">Grand Total</div>\
+                                <div style="width:300px;height: 39px;" class="table-cell l">Grand Total</div>\
                             </th>\
                          </tr>');
                     mainreport.find(".col_footer_content thead").empty().empty().html(arrFooterScroll.join(''));
@@ -121,7 +121,9 @@ casinoDailyStatistics = {
                 }
             },
             error: function () { },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+                try { parent.UnBlockUI(); } catch (e) { } 
+            }
         });
     },
     renderHeaderReport: function (row) {
@@ -134,7 +136,7 @@ casinoDailyStatistics = {
 
         //--------------------------
         html += '<tr>';
-        html += '<th rowspan="2"><div class="table-cell c" style="width:300px; heigth:31px;">Category</div></th>';
+        html += '<th rowspan="2"><div class="table-cell c" style="width:300px; heigth:39px;">Category</div></th>';
         for (var i = 0; i < totalCels; i++) {
             summary = row.SystemSummary[i];
             html += '<th colspan="' + totalGroupCels + '"><div class="c table-cell" style="width: ' + totalWidth + 'px">' + summary.Sytem + '</div></th>';
@@ -184,7 +186,7 @@ casinoDailyStatistics = {
         if (sum && detail) {
             //first row
             html += '<tr>';
-            html += '<th rowspan="2"><div class="l b" style="width:300px; height: 31px;">Grand Total</div></th>';
+            html += '<th rowspan="2"><div class="l b" style="width:300px; height: 39px;">Grand Total</div></th>';
             var i;
             for (i = 0; i < detail.length; i++) {
                 var summary = detail[i];
@@ -267,7 +269,7 @@ casinoDailyDetail = {
         var mainreport = $("#dailydetailgrid");
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         if (!loadOldData) {
             mainreport.addClass('hidden');
             casinoDailyDetail.pageIndex = 1;
@@ -328,7 +330,9 @@ casinoDailyDetail = {
             error: function () {
                 casinoDailyDetail.renderNoDataRow();
             },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+                try { parent.UnBlockUI(); } catch (e) { } 
+            }
         });
     },
     renderScrollRow: function (row, css) {
@@ -421,7 +425,7 @@ casinoDailyDetail = {
         });
     },
     exportExcel: function () {
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         $.ajax({
             type: "POST",
             url: window.rootUrl + "Reports/AllowExportCasinoStatisticDetail",
@@ -448,7 +452,7 @@ casinoDailyDetail = {
             },
             complete: function () {
                 try {
-                    topwnd.UnBlockUI();
+                    parent.UnBlockUI();
                 } catch (e) {
                 }
             }
@@ -496,7 +500,7 @@ casinoDailyDetail = {
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
-            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="alertboxerr"><div>There is no information.</div></div></td>\
+            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="noInfomation">There is no information.</div></div></td>\
         </tr>';
 
         var mainreport = $('#dailydetailgrid');
@@ -528,7 +532,7 @@ head.ready(function () {
     var arrIds = ['txtfromdate', 'txttodate'];
     setupCalendar(arrDateValues, arrIds);
 
-    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'dailysummarybody',

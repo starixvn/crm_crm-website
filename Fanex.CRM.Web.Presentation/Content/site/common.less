@@ -164,7 +164,7 @@ select {
 .main, .main.container {
     display: block;
     height: 100%;
-    padding: 10px 15px;
+    padding: 10px;
     width: 100%;
 
     .btn-group {
@@ -173,6 +173,13 @@ select {
 
     &.popup {
         background-color: #fff;
+        padding: 0;
+        position: absolute;
+
+        .subTitle {
+            color: @color-text;
+            margin-bottom: 5px;
+        }
     }
 }
 
@@ -276,7 +283,11 @@ select {
         .item {
             display: table;
             float: left;
-            margin-right: 25px;
+            margin-right: 20px;
+
+            &.afterButton {
+                margin-right: 10px;
+            }
         }
     }
 
@@ -300,6 +311,18 @@ select {
         padding: 0 18px 0 5px;
         width: 100px;
         cursor: pointer;
+    }
+}
+
+/* Fom insert/edit */
+.form-horizontal.frm {
+    .form-group {
+        margin-left: 0;
+        margin-right: 0;
+
+        .form-control {
+            .border-radius(0);
+        }
     }
 }
 

@@ -1,80 +1,59 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Setting Insert</title>
-    <link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.css")" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <div class="main" style="width: 450px">
-        <div class="maincontent">
-            <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
-                <tr>
-                    <td class="maincontent_headerL">
-                        <img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png" />
-                    </td>
-                    <td class="maincontent_headerC">
-                        Insert New Setting
-                    </td>
-                    <td class="maincontent_headerR">
-                    </td>
-                </tr>
-            </table>
-            <div class="bg_table">
-                <div id="dvSettingIns" style="border: 1px solid #65727B; background-color: White;">
-                    <div id="errMsg" class="errMsg">
-                    </div>
-                    <table id="tblSetting" class="tbllayout" style="border: none">
-                        <tr class="l">
-                            <td>
-                                Setting Name
-                            </td>
-                            <td>
-                                <input type="text" id="txtSettingName" name="txtSettingName" class="txt" style="float: left" />
-                                <div id="divSiteType" style="float: left; width: 110px;" class="hidden">
-                                    <input type="checkbox" id="chkSiteType" style="margin-top: -2px" />Is Credit Site</div>
-                            </td>
-                        </tr>
-                        <tr class="l">
-                            <td>
-                                Setting Value
-                            </td>
-                            <td>
-                                <input type="text" id="txtSettingValue" name="txtSettingValue" class="txt" />
-                            </td>
-                        </tr>
-                        <tr class="l">
-                            <td class="">
-                                Parent
-                            </td>
-                            <td>
-                                <script type="text/html" id="ParentTemplate">                                       
-                                        <option value='${Id}'>${Type} - ${Value}</option>
-                                </script>
-                                <select id="ddlParent" style="width: 300px">
-                                    <option value="0">--------------------------------------</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="l">
-                            <td>
-                                Display Order
-                            </td>
-                            <td>
-                                <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="txt" onkeypress="return CheckDecNumber(event);" />
-                            </td>
-                        </tr>
-                        <tr class="c">
-                            <td colspan="2">
-                                <input type="button" class="btn" value="Submit" onclick="insertSetting();" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+﻿<link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.less")" rel="stylesheet" type="text/css" />
+<div class="container main popup">
+    <div class="row">
+        <div id="errMsg" class="col-xs-7 col-sm-7 col-md-5 errMsg">
         </div>
     </div>
-    <input type="hidden" id="userId" name="userId" value="@Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id" />
-    <script language="javascript" type="text/javascript">
+    <div class="row">
+        <form class="form-horizontal frm" role="form">
+        <div class="form-group">
+            <label for="txtSettingName" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                Setting Name</label>
+            <div class="col-xs-9 col-sm-9 col-md-10">
+                <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox" />
+                <div id="divSiteType" class="hidden pull-left">
+                    <input type="checkbox" id="chkSiteType" style="margin-top: -2px" />Is Credit Site</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtSettingValue" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                Setting Value</label>
+            <div class="col-xs-9 col-sm-9 col-md-10">
+                <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ddlParent" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                Parent</label>
+            <div class="col-xs-9 col-sm-9 col-md-10">
+                <script type="text/html" id="ParentTemplate">                                       
+                                        <option value='${Id}'>${Type} - ${Value}</option>
+                </script>
+                <select id="ddlParent">
+                    <option value="0">--------------------------------------</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="txtDisplayOrder" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                Display Order</label>
+            <div class="col-xs-9 col-sm-9 col-md-10">
+                <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="form-control textbox"
+                    onkeypress="return CheckDecNumber(event);" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-3 col-sm-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10">
+                <button type="submit" class="btn" onclick="insertSetting();">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<input type="hidden" id="userId" name="userId" value="@Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id" />
+<script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
                 head.js("@Url.Content("~/Scripts/json2.js")")
@@ -83,6 +62,4 @@
                     .js("@Url.Content("~/Scripts/showhidepopup.js")")
                     .js("@Url.Content("~/Views/AdminTool/Scripts/SettingInsert.js?ver=1")");
             });   
-    </script>
-</body>
-</html>
+</script>

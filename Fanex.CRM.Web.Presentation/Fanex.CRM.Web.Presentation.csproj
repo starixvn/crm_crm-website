@@ -259,6 +259,7 @@
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
+    <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Views\Home\Scripts\DashboardManager.js" />
     <Content Include="Views\Home\Scripts\HomeManager.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
@@ -335,14 +336,12 @@
     <Content Include="Content\site\Images\emsg_3_2.gif" />
     <Content Include="Content\site\Images\emsg_3_3.gif" />
     <Content Include="Content\site\Images\error-icon.gif" />
-    <Content Include="Content\site\Images\excel.gif" />
     <Content Include="Content\site\Images\excel_disable.gif" />
     <Content Include="Content\site\Images\expand.gif" />
     <Content Include="Content\site\Images\features.gif" />
     <Content Include="Content\site\Images\home_blue.png" />
     <Content Include="Content\site\Images\icn_add.png" />
     <Content Include="Content\site\Images\icn_del.png" />
-    <Content Include="Content\site\Images\icn_edit.png" />
     <Content Include="Content\site\Images\icn_top.png" />
     <Content Include="Content\site\Images\icn_view.png" />
     <Content Include="Content\site\Images\ico1.png" />
