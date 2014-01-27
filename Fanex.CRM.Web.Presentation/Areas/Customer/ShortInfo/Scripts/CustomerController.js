@@ -159,6 +159,9 @@ customerApplication.controller('customerController', function ($scope,
     };
 
     angular.element(document).ready(function () {
-        hotKeyManager.CachedData.ActiveDocumentManager.push($scope);
+        hotKeyManager.CachedData.ActiveDocumentManager.push({
+            Value: $scope,
+            Id: "CustomerInfo"
+        });
     });
 });

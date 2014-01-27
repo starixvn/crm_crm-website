@@ -5,8 +5,8 @@ head, fromDate, toDate, findMainWindow, accChart */
 
 var topwnd;
 var arrWidth = [];
-var maxHeightOfSummaryReport = ($(window).height() - 50) / 2;
-var maxHeightOfPopUp = ($(window).height() + 50);
+var maxHeightOfSummaryReport = ($(window).height() - 115) / 2;
+var maxHeightOfPopUp = ($(window).height() + 115);
 
 var ibcDailySummaryReport, licenseeDailySummaryReport,
 ibcDailyDetailReport, licenseeDailyDetailReport;
@@ -46,7 +46,7 @@ var dailyReport = {
 ibcDailySummaryReport = {
     title: '',
     loadCompleted: false,
-    colWidth: 70,
+    colWidth: 75,
     getDailyReport: function () {
         var mainreport = $("#dailysummarygrid");
         mainreport.addClass('hidden');
@@ -55,7 +55,7 @@ ibcDailySummaryReport = {
 
         ibcDailySummaryReport.loadCompleted = false;
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -123,12 +123,14 @@ ibcDailySummaryReport = {
                         </div>').appendTo($("#err"));
                 }
             },
-            error: function () { try { topwnd.UnBlockUI(); } catch (e) { } },
+            error: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
                 if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
                     try {
-                        topwnd.UnBlockUI();
+////                        topwnd.UnBlockUI();
                     } catch (e) {
                     }
                 }
@@ -264,7 +266,7 @@ ibcDailySummaryReport = {
 licenseeDailySummaryReport = {
     totalWidth: 0,
     title: '',
-    colWidth: 70,
+    colWidth: 75,
     loadCompleted: false,
     getDailyReport: function () {
         var mainreport = $("#licenseedailysummarygrid");
@@ -273,7 +275,7 @@ licenseeDailySummaryReport = {
         $('#err').html('');
         licenseeDailySummaryReport.loadCompleted = false;
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -347,12 +349,14 @@ licenseeDailySummaryReport = {
                         </div>').appendTo($("#err"));
                 }
             },
-            error: function () { try { topwnd.UnBlockUI(); } catch (e) { } },
+            error: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            },
             complete: function () {
                 licenseeDailySummaryReport.loadCompleted = true;
                 if (licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted) {
                     try {
-                        topwnd.UnBlockUI();
+//                        topwnd.UnBlockUI();
                     } catch (e) {
                     }
                 }
@@ -541,7 +545,7 @@ ibcDailyDetailReport = {
         $('#licenseedetailgrid').addClass('hidden');
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         var mainreport = $('#dailydetailgrid');
 
         if (!loadOldData) {
@@ -609,7 +613,9 @@ ibcDailyDetailReport = {
             error: function () {
                 ibcDailyDetailReport.renderNoDataRow();
             },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            }
 
         });
 
@@ -851,7 +857,7 @@ licenseeDailyDetailReport = {
         $('#dailydetailgrid').addClass('hidden');
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         var mainreport = $('#licenseedetailgrid');
         if (!loadOldData) {
             mainreport.addClass('hidden');
@@ -918,7 +924,9 @@ licenseeDailyDetailReport = {
             error: function () {
                 licenseeDailyDetailReport.renderNoDataRow();
             },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            }
 
         });
 
@@ -1117,7 +1125,7 @@ licenseeDailyDetailReport = {
 head.ready(function () {
     $('#txtfromdate').val((new Date(fromDate)).format("m/d/Y"));
     $('#txttodate').val((new Date(toDate)).format("m/d/Y"));
-    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOptions = {
         tblContentId: 'dailysummarybody',

@@ -149,7 +149,7 @@ var feedbackStatistic = {
 
         $('#feedbackstatistictitle').html(feedbackStatistic.title);
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         $.ajax({
             type: "POST",
             url: window.rootUrl + "Reports/GetFeedbackStatistic",
@@ -245,10 +245,10 @@ var feedbackStatistic = {
                 mainreport.addClass('hidden');
                 showAlertMessage("errmsg", 'There is no information.', 1);
                 $('#pagination').html('&nbsp;');
-                try { topwnd.UnBlockUI(); } catch (e) { }
+//                try { topwnd.UnBlockUI(); } catch (e) { }
             },
             complete: function () {
-                try { topwnd.UnBlockUI(); } catch (e) { }
+//                try { topwnd.UnBlockUI(); } catch (e) { }
             }
 
         });
@@ -477,10 +477,10 @@ head.ready(function () {
     var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
     var arrIds = ['txtfromdate', 'txttodate'];
     setupCalendar(arrDateValues, arrIds);
-    try { topwnd = findMainWindow(window); } catch (e) { }
+//    try { topwnd = findMainWindow(window); } catch (e) { }
     durationTimeForceNumberic();
 
-    try { topwnd.UnBlockUI(); } catch (e) { }
+//    try { topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'feedbackstatisticbody',

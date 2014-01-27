@@ -12,7 +12,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
     $scope.isShowPersonalInfo = true;
     $scope.isShowHomeAddressInfo = true;
     $scope.isShowBankInfoInfo = true;
-    $scope.selectedLangueList = true;
+    $scope.selectedLangueList = '';
 
     $scope.DOMElements = {
         divResultPopUp: null,
@@ -225,6 +225,9 @@ customerDetailApplication.controller('customerDetailController', function ($scop
         $scope.getAllSite();
         $scope.getAllCountry();
         $scope.getAllLanguage();
-        hotKeyManager.CachedData.ActiveDocumentManager.push($scope);
+        hotKeyManager.CachedData.ActiveDocumentManager.push({
+            Value: $scope,
+            Id: "CustomerInfoDetail"
+        });
     });
 });

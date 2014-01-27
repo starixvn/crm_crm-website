@@ -42,14 +42,14 @@ casinoDailyStatistics = {
     toDate: '',
     columnWidthDefault: 70,
     title: '',
-    gridHeight: 80,
+    gridHeight: 90,
     getDailyReport: function () {
         var mainreport = $("#dailysummarygrid");
         mainreport.addClass('hidden');
         $('#dailydetailgrid').addClass('hidden');
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         casinoDailyStatistics.fromDate = $('#txtfromdate').val();
         casinoDailyStatistics.toDate = $('#txttodate').val();
         var data = { 'fromDate': casinoDailyStatistics.fromDate, 'toDate': casinoDailyStatistics.toDate };
@@ -121,7 +121,9 @@ casinoDailyStatistics = {
                 }
             },
             error: function () { },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            }
         });
     },
     renderHeaderReport: function (row) {
@@ -134,7 +136,7 @@ casinoDailyStatistics = {
 
         //--------------------------
         html += '<tr>';
-        html += '<th rowspan="2"><div class="table-cell c" style="width:300px; heigth:31px;">Category</div></th>';
+        html += '<th rowspan="2"><div class="table-cell c" style="width:300px; heigth:39px;">Category</div></th>';
         for (var i = 0; i < totalCels; i++) {
             summary = row.SystemSummary[i];
             html += '<th colspan="' + totalGroupCels + '"><div class="c table-cell" style="width: ' + totalWidth + 'px">' + summary.Sytem + '</div></th>';
@@ -267,7 +269,7 @@ casinoDailyDetail = {
         var mainreport = $("#dailydetailgrid");
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         if (!loadOldData) {
             mainreport.addClass('hidden');
             casinoDailyDetail.pageIndex = 1;
@@ -328,7 +330,9 @@ casinoDailyDetail = {
             error: function () {
                 casinoDailyDetail.renderNoDataRow();
             },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            }
         });
     },
     renderScrollRow: function (row, css) {
@@ -421,7 +425,7 @@ casinoDailyDetail = {
         });
     },
     exportExcel: function () {
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         $.ajax({
             type: "POST",
             url: window.rootUrl + "Reports/AllowExportCasinoStatisticDetail",
@@ -448,7 +452,7 @@ casinoDailyDetail = {
             },
             complete: function () {
                 try {
-                    topwnd.UnBlockUI();
+//                    topwnd.UnBlockUI();
                 } catch (e) {
                 }
             }
@@ -528,7 +532,7 @@ head.ready(function () {
     var arrIds = ['txtfromdate', 'txttodate'];
     setupCalendar(arrDateValues, arrIds);
 
-    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'dailysummarybody',

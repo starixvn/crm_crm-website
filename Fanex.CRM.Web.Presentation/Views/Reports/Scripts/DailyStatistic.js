@@ -5,8 +5,8 @@ head, fromDate, toDate, findMainWindow, accChart */
 
 var topwnd;
 var arrWidth = [];
-var maxHeightOfSummaryReport = ($(window).height() - 50) / 2;
-var maxHeightOfPopUp = ($(window).height() + 50);
+var maxHeightOfSummaryReport = ($(window).height() - 115) / 2;
+var maxHeightOfPopUp = ($(window).height() + 115);
 
 var ibcDailySummaryReport,
     licenseeDailySummaryReport,
@@ -46,7 +46,7 @@ var dailyReport = {
 
 ibcDailySummaryReport = {
     title: '',
-    colWidth: 70,
+    colWidth: 75,
     loadCompleted: false,
     getDailyReport: function () {
         var mainreport = $("#dailysummarygrid");
@@ -128,14 +128,16 @@ ibcDailySummaryReport = {
                        </div>').appendTo($("#err"));
                 }
             },
-            error: function () { try { topwnd.UnBlockUI(); } catch (e) { } },
+            error: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
                 if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
-                    try {
-                        topwnd.UnBlockUI();
-                    } catch (e) {
-                    }
+//                    try {
+//                        topwnd.UnBlockUI();
+//                    } catch (e) {
+//                    }
                 }
             }
         });
@@ -270,7 +272,7 @@ ibcDailySummaryReport = {
 licenseeDailySummaryReport = {
     totalWidth: 0,
     title: '',
-    colWidth: 70,
+    colWidth: 75,
     loadCompleted: false,
     getDailyReport: function () {
         var mainreport = $("#licenseedailysummarygrid");
@@ -279,7 +281,7 @@ licenseeDailySummaryReport = {
         $('#err').html('');
         licenseeDailySummaryReport.loadCompleted = false;
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -353,12 +355,16 @@ licenseeDailySummaryReport = {
                        </div>').appendTo($("#err"));
                 }
             },
-            error: function () { try { topwnd.UnBlockUI(); } catch (e) { } },
+            error: function () {
+                try {
+                    //topwnd.UnBlockUI();
+                } catch (e) { } 
+            },
             complete: function () {
                 licenseeDailySummaryReport.loadCompleted = true;
                 if (licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted) {
                     try {
-                        topwnd.UnBlockUI();
+//                        topwnd.UnBlockUI();
                     } catch (e) {
                     }
                 }
@@ -542,7 +548,7 @@ ibcDailyDetailReport = {
         $('#licenseedetailgrid').addClass('hidden');
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         var mainreport = $('#dailydetailgrid');
 
         if (!loadOldData) {
@@ -609,7 +615,9 @@ ibcDailyDetailReport = {
             error: function () {
                 ibcDailyDetailReport.renderNoDataRow();
             },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            }
 
         });
 
@@ -852,7 +860,7 @@ licenseeDailyDetailReport = {
         $('#dailydetailgrid').addClass('hidden');
         $('#err').html('');
 
-        try { topwnd.BlockUI(); } catch (e) { }
+//        try { topwnd.BlockUI(); } catch (e) { }
         var mainreport = $('#licenseedetailgrid');
         if (!loadOldData) {
             mainreport.addClass('hidden');
@@ -919,7 +927,9 @@ licenseeDailyDetailReport = {
             error: function () {
                 licenseeDailyDetailReport.renderNoDataRow();
             },
-            complete: function () { try { topwnd.UnBlockUI(); } catch (e) { } }
+            complete: function () {
+//                try { topwnd.UnBlockUI(); } catch (e) { } 
+            }
 
         });
 
@@ -1123,7 +1133,7 @@ head.ready(function () {
     /* jshint newcap: false */
     SetupCalendar(arrDateValues, arrIds);
 
-    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'dailysummarybody',
