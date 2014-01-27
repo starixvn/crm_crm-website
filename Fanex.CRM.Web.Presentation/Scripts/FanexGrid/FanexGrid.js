@@ -271,7 +271,7 @@
         freezeWidth: 241, //=totalColumnWidth + (totalColumn-1)*4 + (totalColumn-1)
         numberFreezeCol: 2,
         padding: 2,
-        marginRight: 6
+        marginRight: 32
 	    };
 
     var scroller = function(obj, container,rowheader, xscrollbar,yscrollbar) {
