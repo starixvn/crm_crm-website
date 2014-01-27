@@ -150,6 +150,11 @@ var HomeManager = function () {
     self.invokeHotKey_CtrlG = function () {
         self.DOMElements.CheckboxIsGuest.attr("checked", "checked");
     };
+    self.invokeHotKey_CtrlD = function () {
+        if (parent.dashboardManager) {
+            parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Detail);
+        }
+    };
 };
 
 var homeManager = new HomeManager();

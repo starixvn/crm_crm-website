@@ -27,6 +27,7 @@ function openConfirmPopup() {
         zIndex: 500,
         resizable: false,
         modal: true,
+        title: 'Alert',
         close: function (event, ui) {
             /*jshint unused: vars */
             top.location.href = accUrlDefault;
