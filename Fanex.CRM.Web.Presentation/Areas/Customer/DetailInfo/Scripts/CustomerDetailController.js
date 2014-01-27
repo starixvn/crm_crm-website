@@ -102,22 +102,22 @@ customerDetailApplication.controller('customerDetailController', function ($scop
         }
 
         $scope.DOMElements.dropdownLanguage.fanexMultiSelect(
-                {
-                    minWidth: 177,
-                    maxHeight: 450,
-                    shadow: true,
-                    showHeader: true,
-                    isCheckAll: isCheckAll,
-                    showFooter: false,
-                    showTooltip: false,
-                    checkAllText: viewResources.All_Languages,
-                    isUsedCustomCheckAllText: true,
-                    customCheckAllText: viewResources.All_Languages,
-                    noItemText: viewResources.No_languages_found,
-                    noneSelectedText: viewResources.Symbol_NotApply,
-                    selectedList: 3,
-                    listData: dropdownLanguage
-                });
+                        {
+                            minWidth: 177,
+                            maxHeight: 450,
+                            shadow: true,
+                            showHeader: true,
+                            isCheckAll: isCheckAll,
+                            showFooter: false,
+                            showTooltip: false,
+                            checkAllText: viewResources.All_Languages,
+                            isUsedCustomCheckAllText: true,
+                            customCheckAllText: viewResources.All_Languages,
+                            noItemText: viewResources.No_languages_found,
+                            noneSelectedText: viewResources.Symbol_NotApply,
+                            selectedList: 3,
+                            listData: dropdownLanguage
+                        });
 
         $scope.DOMElements.dropdownLanguage = $("#customerinfodetail-languageoptions");
         $scope.isLoadedAllLanguage = true;
