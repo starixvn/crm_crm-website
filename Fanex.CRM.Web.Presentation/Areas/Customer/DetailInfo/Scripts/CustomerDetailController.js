@@ -12,7 +12,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
     $scope.isShowPersonalInfo = true;
     $scope.isShowHomeAddressInfo = true;
     $scope.isShowBankInfoInfo = true;
-    $scope.selectedLangueList = true;
+    $scope.selectedLangueList = '';
 
     $scope.DOMElements = {
         divResultPopUp: null,
