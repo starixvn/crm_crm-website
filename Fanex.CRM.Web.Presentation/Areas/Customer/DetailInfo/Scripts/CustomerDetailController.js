@@ -16,13 +16,11 @@ customerDetailApplication.controller('customerDetailController', function ($scop
 
     $scope.DOMElements = {
         divResultPopUp: null,
-        textboxFirstName: null,
-        dropdownLanguage: null
+        textboxFirstName: null
     };
     $scope.initController = function () {
         $scope.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
         $scope.DOMElements.textboxFirstName = $("#firstName");
-        $scope.DOMElements.dropdownLanguage = $("#customerinfodetail-languageoptions");
     };
 
     $scope.getAllSite = function () {

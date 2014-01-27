@@ -238,7 +238,10 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 CreatedDate = reader.GetDateTimeNotNull("CreateDate"),
                 IsActive = reader.GetInt32NotNull("Active") == 1,
                 IsClosed = reader.GetInt32NotNull("Closed") == 1,
-                IsSuspended = reader.GetInt32NotNull("Suspended") == 1
+                IsSuspended = reader.GetInt32NotNull("Suspended") == 1,
+                OriginalDangerLevel = reader.GetByteNotNull("danger"),
+                ABTDangerLevel = reader.GetByteNotNull("danger2"),
+                OtherSportsDangerLevel = reader.GetByteNotNull("danger3")
             };
 
             customer.NickName = customer.Id > 0 ?

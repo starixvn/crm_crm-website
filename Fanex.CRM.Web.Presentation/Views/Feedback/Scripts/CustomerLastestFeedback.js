@@ -37,7 +37,7 @@ function openEditFeedback(url, type) {
     /* jshint unused: vars */
     $('.desTooltip').tipsy('hide');
     try {
-        topwnd.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 2000, function () {
+        parent.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 2000, function () {
             topFeedback.loadLastedFeedback(false);
         }, function () { });
     } catch (e) { }
@@ -65,7 +65,7 @@ var topFeedback = {
             'selectTop': topFeedback.selectTop
         };
 
-        //        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var mainreport = $("#lastedfeedbackgrid");
         $('#errmsg').html('');
         $('#gridtitle').html('Top ' + topFeedback.selectTop + ' Feedback From ' + custName);
@@ -120,7 +120,7 @@ var topFeedback = {
             },
             complete: function () {
                 parent.jQuery.unblockUI();
-                //                try { topwnd.UnBlockUI(); } catch (e) { parent.jQuery.unblockUI(); }
+                try { parent.UnBlockUI(); } catch (e) { parent.jQuery.unblockUI(); }
             }
         });
     },

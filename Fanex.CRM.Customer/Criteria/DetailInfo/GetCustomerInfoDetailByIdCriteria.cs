@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Customer.Criteria.DetailInfo
 {
-    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>

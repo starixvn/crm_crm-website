@@ -1,0 +1,1 @@
+﻿var communicationApplication = angular.module('communication-application', []);

@@ -2,6 +2,11 @@
 
 var SharedScriptManager = function () {
     var self = this;
+    self.cachedData = {
+        pagingOptions: [50, 100, 200, 500],
+        defaultItemsPerPage: 50
+    },
+
     self.CallAjax = function (currentHandler,
         url,
         requestParams,
@@ -60,6 +65,18 @@ var SharedScriptManager = function () {
         else {
             return results[1];
         }
+    };
+    self.stringFormat = function (strValue, paramArr) {
+        var len = paramArr.length;
+        for (var i = 0; i < len; i++) {
+            var paramInfo = paramArr[i];
+            var formatIndex = '{' + i + '}';
+            while (strValue.indexOf(formatIndex) != -1) {
+                strValue = strValue.replace(formatIndex, paramInfo);
+            }
+        }
+
+        return strValue;
     };
 };
 

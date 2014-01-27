@@ -127,6 +127,11 @@
             return true;
         }
 
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_i]) {
+            self.invokeHotKey_CtrlI();
+            return true;
+        }
+
         return false;
     };
 
@@ -179,6 +184,16 @@
             if (typeof (activeDocumentManager.invokeHotKey_CtrlC) === "function") {
                 self.CachedData.isInvokeHotKey = true;
                 activeDocumentManager.invokeHotKey_CtrlC();
+            }
+        }
+    };
+    self.invokeHotKey_CtrlI = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlI) === "function") {
+                self.CachedData.isInvokeHotKey = true;
+                activeDocumentManager.invokeHotKey_CtrlI();
             }
         }
     };

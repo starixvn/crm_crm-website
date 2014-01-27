@@ -30,7 +30,7 @@ function openEditFeedback(url, type) {
     try {
         $('.desTooltip').tipsy('hide');
 
-        topwnd.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 1000, function () {
+        parent.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 1000, function () {
             topFeedback.loadLastedFeedback(false);
         }, function () {
         });
@@ -64,7 +64,7 @@ topFeedback = {
             'selectTop': topFeedback.selectTop
         };
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var mainreport = $("#lastedfeedbackgrid");
         $('#errmsg').html('');
 
@@ -122,7 +122,7 @@ topFeedback = {
             },
             complete: function () {
 
-                try { topwnd.UnBlockUI(); } catch (e) { }
+                try { parent.UnBlockUI(); } catch (e) { }
             }
         });
     },
@@ -208,7 +208,7 @@ head.ready(function () {
     };
     $("#lastedfeedbackgrid").initGrid(gridOpts);
 
-    try { topwnd = findMainWindow(window); } catch (e) { }
+    //try { topwnd = findMainWindow(window); } catch (e) { }
     topFeedback.loadLastedFeedback(false);
 
     $('body').mousedown(function (e) {

@@ -71,7 +71,7 @@ namespace Fanex.CRM.DataAccess.Impl
         {
             var customer = new Customer();
 
-            using (var obj = new ObjectDb("CustomerSel"))
+            using (var obj = new ObjectDb("Customer_CustomerInfoDetail_GetInfoById"))
             {
                 obj.AddInParameter("custid", DbType.Int32, custId);
                 using (var reader = obj.ExecuteReader())
@@ -434,7 +434,7 @@ namespace Fanex.CRM.DataAccess.Impl
             Justification = "Reviewed. Suppression is OK here.")]
         public bool UpdateCustomerInfo(Customer customer, bool isUpdateUserName, string ip, ref Result result)
         {
-            using (var obj = new ObjectDb("CustomerInfoUpd"))
+            using (var obj = new ObjectDb("Customer_CustomerInfoDetail_Update"))
             {
                 var param = new Hashtable();
                 param.Add("userid", customer.Creator.Id);

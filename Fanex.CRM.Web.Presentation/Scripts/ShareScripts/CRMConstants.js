@@ -26,6 +26,9 @@ var CRMConstants = function () {
 
         Error: {
             None: 0
+        },
+        FormatConstant: {
+            ShortDate_String_Moment: 'MMM D, YYYY'
         }
     };
 };
