@@ -16,15 +16,15 @@ namespace Fanex.CRM.Customer.Services.Implements
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories.Implements;
     using Fanex.CRM.Customer.Repositories.Interfaces;
+    using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Customer.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
-    using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Customer.Resources;
 
     /// <summary>
     /// Customer Service.
