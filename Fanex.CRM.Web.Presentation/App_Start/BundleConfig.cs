@@ -37,7 +37,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Content/site/table.less",
                 "~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css",
                 "~/Content/site/customizeJqueryUI.less");
-	#endregion
+            #endregion
 
             #region head js
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
@@ -85,7 +85,7 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/ShortCustomerInfo/Styles").Include(
                 "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less"));
-            #endregion            
+            #endregion
 
             #region AngularJS
             bundles.Add(new ScriptBundle("~/Scripts/AgularJS").Include(
@@ -111,6 +111,21 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
             #endregion
+
+            RegisterBundles_CommunicationLog(ref bundles);
+        }
+
+        public static void RegisterBundles_CommunicationLog(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Communication/Scripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Communication/Scripts/CommunicationApplication.js",
+                "~/Areas/Communication/Scripts/CommunicationService.js",
+                "~/Areas/Communication/Scripts/CommunicationController.js",
+                "~/Areas/Communication/Scripts/CommunicationDirective.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Communication/Styles").Include(
+                "~/Areas/Communication/Styles/Communication.less"));
         }
     }
 

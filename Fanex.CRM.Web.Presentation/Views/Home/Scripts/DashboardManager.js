@@ -24,16 +24,16 @@
                 menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
                     customerId: customer.Id
                 }));
-
                 break;
             case subMenuIdEnum.Detail:
                 menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
                     customerId: customer.Id
                 }));
-
                 break;
             case subMenuIdEnum.CommunicationLog:
-                menuManager.goToURL('centerFr', window.rootUrl + 'CommunicationLog/Index');
+                menuManager.goToURL('centerFr', window.rootUrl + 'CommunicationLog/Index?' + $.param({
+                    customerId: customer.Id
+                }));
                 break;
             case subMenuIdEnum.SpeciaRemark:
                 menuManager.goToURL('centerFr', window.rootUrl + 'Remark/Index');
