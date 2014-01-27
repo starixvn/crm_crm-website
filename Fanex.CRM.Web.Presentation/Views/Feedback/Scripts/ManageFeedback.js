@@ -53,7 +53,7 @@ function loadSubItem(obj, target, currValue) {
 
 function openEditFeedback(url) {
     try {
-        topwnd.OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
+        parent.OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
             lastedFeedback.loadLastedFeedback(false);
         });
     }
@@ -138,7 +138,7 @@ lastedFeedback = {
             'responseId': lastedFeedback.responseId
         };
 
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var mainreport = $("#lastedfeedbackgrid");
         $('#errmsg').html('');
 
@@ -187,7 +187,7 @@ lastedFeedback = {
                 $('#pagination').html('&nbsp;');
             },
             complete: function () {
-                try { topwnd.UnBlockUI(); } catch (e) { }
+                try { parent.UnBlockUI(); } catch (e) { }
             }
         });
     },
@@ -293,12 +293,12 @@ head.ready(
         };
         $("#lastedfeedbackgrid").initGrid(gridOpts);
 
-        try { topwnd = findMainWindow(window); } catch (e) { }
+//        try { topwnd = findMainWindow(window); } catch (e) { }
         lastedFeedback.loadManageFeedbackSettings();
         $('#txtusername').val($.URLDecode(gup("custName")));
         $('#ddlguest').val($.URLDecode(gup("isGuest")));
 
-        try { topwnd.UnBlockUI(); } catch (e) { }
+        try { parent.UnBlockUI(); } catch (e) { }
         $('body').mousedown(function (e) {
             if (e.button === 1) {
                 return false;

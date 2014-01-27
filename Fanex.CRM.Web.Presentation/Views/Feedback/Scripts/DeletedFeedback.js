@@ -57,7 +57,7 @@ function loadSubItem(obj, target, currValue) {
 
 function openEditFeedback(url) {
     try {
-        topwnd.OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
+        parent.OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
             deletedFeedback.loadDeletedFeedback(false);
         });
     } catch (e) { }
@@ -134,7 +134,7 @@ deletedFeedback = {
             'fromCache': loadOldData,
             'responseId': deletedFeedback.responseId
         };
-        try { topwnd.BlockUI(); } catch (e) { }
+        try { parent.BlockUI(); } catch (e) { }
         var mainreport = $("#lastedfeedbackgrid");
         $('#errmsg').html('');
         $.ajax({
@@ -184,7 +184,7 @@ deletedFeedback = {
                 $('#pagination').html('&nbsp;');
             },
             complete: function () {
-                try { topwnd.UnBlockUI(); } catch (e) { }
+                try { parent.UnBlockUI(); } catch (e) { }
             }
         });
     },
@@ -252,12 +252,12 @@ head.ready(function () {
     };
     $("#lastedfeedbackgrid").initGrid(gridOpts);
 
-    try { topwnd = findMainWindow(window); } catch (e) { }
+//    try { topwnd = findMainWindow(window); } catch (e) { }
     bindSetting("ddlcommunication", "Communication", 0);
     bindSetting("ddlcategory", "MainCategory", 0);
     bindSetting("ddlCustomerReponse", "Response", 0);
 
-    try { topwnd.UnBlockUI(); } catch (e) { }
+    try { parent.UnBlockUI(); } catch (e) { }
 
     $('body').mousedown(function (e) {
         if (e.button === 1) {
