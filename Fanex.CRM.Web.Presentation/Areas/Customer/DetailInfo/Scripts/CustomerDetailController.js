@@ -84,7 +84,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
             var optionLength = result.length;
             for (var i = 0; i < optionLength; i++) {
                 var info = result[i];
-                var isChecked = $scope.IsCustomerKnowLanguage(info.Id);
+                var isChecked = $scope.isCustomerKnowLanguage(info.Id);
                 if (!isChecked) {
                     isCheckAll = false;
                 }
@@ -102,27 +102,27 @@ customerDetailApplication.controller('customerDetailController', function ($scop
         }
 
         $scope.DOMElements.dropdownLanguage.fanexMultiSelect(
-        {
-            minWidth: 177,
-            maxHeight: 450,
-            shadow: true,
-            showHeader: true,
-            isCheckAll: isCheckAll,
-            showFooter: false,
-            showTooltip: false,
-            checkAllText: viewResources.All_Languages,
-            isUsedCustomCheckAllText: true,
-            customCheckAllText: viewResources.All_Languages,
-            noItemText: viewResources.No_languages_found,
-            noneSelectedText: viewResources.Symbol_NotApply,
-            selectedList: 3,
-            listData: dropdownLanguage
-        });
+                {
+                    minWidth: 177,
+                    maxHeight: 450,
+                    shadow: true,
+                    showHeader: true,
+                    isCheckAll: isCheckAll,
+                    showFooter: false,
+                    showTooltip: false,
+                    checkAllText: viewResources.All_Languages,
+                    isUsedCustomCheckAllText: true,
+                    customCheckAllText: viewResources.All_Languages,
+                    noItemText: viewResources.No_languages_found,
+                    noneSelectedText: viewResources.Symbol_NotApply,
+                    selectedList: 3,
+                    listData: dropdownLanguage
+                });
 
         $scope.DOMElements.dropdownLanguage = $("#customerinfodetail-languageoptions");
         $scope.isLoadedAllLanguage = true;
     };
-    $scope.IsCustomerKnowLanguage = function (languageId) {
+    $scope.isCustomerKnowLanguage = function (languageId) {
         var result = false;
         var languageLength = $scope.customerDetail.Languages.length;
         for (var i = 0; i < languageLength; i++) {
@@ -155,7 +155,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
             CustomerId: customerDetail.Id,
             FirstName: customerDetail.FirstName,
             LastName: customerDetail.LastName,
-            LanguageId: $scope.DOMElements.dropdownLanguage.fanexMultiSelect("getItems").join(","),
+            LanguageId: $scope.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(","),
             Phone1PhoneNumber: customerDetail.PhoneInfo[0].PhoneNumber,
             Phone1CountryCode: customerDetail.PhoneInfo[0].CountryCode,
             Phone1AreaCode: customerDetail.PhoneInfo[0].AreaCode,
@@ -247,7 +247,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
                 $scope.DOMElements.textboxFirstName.focus();
 
                 if (updateResult.Id === crmConstants.Enums.Error.None) {
-                    parent.leftPanelManager.loadLeftPanel($scope.customerDetail.Name, false);
+                    parent.leftPanelManager.loadLeftPanel($scope.customerDetail.Name, false, true);
                 }
             },
             buttons: [{

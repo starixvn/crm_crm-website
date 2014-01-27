@@ -21,25 +21,25 @@
         self.CachedData.currentSubMenu = subMenuId;
         switch (subMenuId) {
             case subMenuIdEnum.Main:
-                menuManager.goToURL('centerFr', '/CustomerSettingDetail/Index?' + $.param({
+                menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
                     customerId: customer.Id
                 }));
 
                 break;
             case subMenuIdEnum.Detail:
-                menuManager.goToURL('centerFr', '/CustomerSettingDetail/Index?' + $.param({
+                menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
                     customerId: customer.Id
                 }));
 
                 break;
             case subMenuIdEnum.CommunicationLog:
-                menuManager.goToURL('centerFr', '/CommunicationLog/Index');
+                menuManager.goToURL('centerFr', window.rootUrl + 'CommunicationLog/Index');
                 break;
             case subMenuIdEnum.SpeciaRemark:
-                menuManager.goToURL('centerFr', '/Remark/Index');
+                menuManager.goToURL('centerFr', window.rootUrl + 'Remark/Index');
                 break;
             case subMenuIdEnum.Redemption:
-                menuManager.goToURL('centerFr', '/Redemption/Index');
+                menuManager.goToURL('centerFr', window.rootUrl + 'Redemption/Index');
                 break;
             default:
                 break;
