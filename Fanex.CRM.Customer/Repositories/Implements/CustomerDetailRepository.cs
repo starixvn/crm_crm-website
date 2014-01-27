@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Repositories.Implements
 {
+    using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
@@ -19,7 +20,6 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Customer Detail Repository.

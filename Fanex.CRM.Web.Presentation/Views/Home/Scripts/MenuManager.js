@@ -101,15 +101,22 @@ var MenuManager = function () {
                 }
             });
         } else {
-            self.DOMElements.SubMenu.html('');
-            menuManager.goToURL('centerFr', window.rootUrl + "Home/SearchCustomerRemind");
+            self.remindSearchCustomer();
         }
     };
 
     self.setActiveClassForDasboarSubMenu = function (subMenuId) {
         $('#ulDashboardMenu li').removeClass('active');
         $('#' + subMenuId).addClass('active');
-    }
+    },
+
+    self.remindSearchCustomer = function () {
+        self.DOMElements.SubMenu.html('');
+        menuManager.goToURL('centerFr', window.rootUrl + "Home/SearchCustomerRemind");
+    };
+    self.emptyDashboard = function () {
+        self.DOMElements.SubMenu.html('');
+    };
 };
 
 var menuManager = new MenuManager();
