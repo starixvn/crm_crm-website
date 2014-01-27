@@ -25,7 +25,10 @@ var HomeManager = function () {
         self.bindEvents();
 
         self.CachedData.username = self.DOMElements.TextboxUsername.val();
-        hotKeyManager.CachedData.ActiveDocumentManager.push(self);
+        hotKeyManager.CachedData.ActiveDocumentManager.push({
+            Value: self,
+            Id: "Home"
+        });
     };
 
     self.cacheDOMElements = function () {
@@ -153,6 +156,11 @@ var HomeManager = function () {
     self.invokeHotKey_CtrlD = function () {
         if (parent.dashboardManager) {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Detail);
+        }
+    };
+    self.invokeHotKey_CtrlC = function () {
+        if (parent.dashboardManager) {
+            parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.CommunicationLog);
         }
     };
 };

@@ -3,7 +3,8 @@
 
     self.CachedData = {
         KeyPress: [],
-        ActiveDocumentManager: []
+        ActiveDocumentManager: [],
+        isInvokeHotKey: false
     };
 
     self.initPage = function () {
@@ -13,6 +14,11 @@
     self.bindEvent = function () {
         $(document).keydown(function (eventObject) {
             var isCustomHotKey = self.keyDown(eventObject);
+            if (!self.CachedData.isInvokeHotKey) {
+                parent.hotKeyManager.CachedData.KeyPress = hotKeyManager.CachedData.KeyPress;
+                isCustomHotKey = parent.hotKeyManager.invokeHotKey();
+            }
+
             if (isCustomHotKey) {
                 if (eventObject.preventDefault) {
                     eventObject.stopPropagation();
@@ -39,8 +45,9 @@
         var keyCode = parseInt(eventObject.keyCode);
         self.CachedData.KeyPress[keyCode.toString()] = true;
         var isCustomHotKey = false;
+        self.CachedData.isInvokeHotKey = false;
         // Use follow line to test working flow
-        //        console.log(self.CachedData.KeyPress);
+        // console.log(self.CachedData.KeyPress);
         if (self.CachedData.ActiveDocumentManager.length == 0) {
             return isCustomHotKey;
         }
@@ -115,14 +122,21 @@
             return true;
         }
 
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_c]) {
+            self.invokeHotKey_CtrlC();
+            return true;
+        }
+
         return false;
     };
 
     self.invokeHotKey_CtrlU = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        self.CachedData.isInvokeHotKey = false;
         for (var i = 0; i < activeDocumentLength; i++) {
-            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i];
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
             if (typeof (activeDocumentManager.invokeHotKey_CtrlU) === "function") {
+                self.CachedData.isInvokeHotKey = true;
                 activeDocumentManager.invokeHotKey_CtrlU();
             }
         }
@@ -130,8 +144,9 @@
     self.invokeHotKey_CtrlG = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
         for (var i = 0; i < activeDocumentLength; i++) {
-            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i];
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
             if (typeof (activeDocumentManager.invokeHotKey_CtrlG) === "function") {
+                self.CachedData.isInvokeHotKey = true;
                 activeDocumentManager.invokeHotKey_CtrlG();
             }
         }
@@ -139,8 +154,9 @@
     self.invokeHotKey_CtrlS = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
         for (var i = 0; i < activeDocumentLength; i++) {
-            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i];
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
             if (typeof (activeDocumentManager.invokeHotKey_CtrlS) === "function") {
+                self.CachedData.isInvokeHotKey = true;
                 activeDocumentManager.invokeHotKey_CtrlS();
             }
         }
@@ -148,9 +164,21 @@
     self.invokeHotKey_CtrlD = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
         for (var i = 0; i < activeDocumentLength; i++) {
-            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i];
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            console.log(self.CachedData.ActiveDocumentManager[i].Id);
             if (typeof (activeDocumentManager.invokeHotKey_CtrlD) === "function") {
+                self.CachedData.isInvokeHotKey = true;
                 activeDocumentManager.invokeHotKey_CtrlD();
+            }
+        }
+    };
+    self.invokeHotKey_CtrlC = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlC) === "function") {
+                self.CachedData.isInvokeHotKey = true;
+                activeDocumentManager.invokeHotKey_CtrlC();
             }
         }
     };
