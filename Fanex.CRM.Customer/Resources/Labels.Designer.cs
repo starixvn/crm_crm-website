@@ -115,6 +115,24 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alert.
+        /// </summary>
+        public static string Alert {
+            get {
+                return ResourceManager.GetString("Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Languages.
+        /// </summary>
+        public static string All_Languages {
+            get {
+                return ResourceManager.GetString("All_Languages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bank Info.
         /// </summary>
         public static string Bank_Info {
@@ -417,6 +435,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string Nick_Name {
             get {
                 return ResourceManager.GetString("Nick_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No languages found..
+        /// </summary>
+        public static string No_languages_found {
+            get {
+                return ResourceManager.GetString("No_languages_found", resourceCulture);
             }
         }
         

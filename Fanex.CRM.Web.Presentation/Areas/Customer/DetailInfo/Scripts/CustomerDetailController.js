@@ -9,6 +9,20 @@ customerDetailApplication.controller('customerDetailController', function ($scop
     $scope.isLoadedAllSite = false;
     $scope.isLoadedAllCountry = false;
     $scope.isLoadedAllLanguage = false;
+    $scope.isShowPersonalInfo = true;
+    $scope.isShowHomeAddressInfo = true;
+    $scope.isShowBankInfoInfo = true;
+
+    $scope.DOMElements = {
+        divResultPopUp: null,
+        textboxFirstName: null,
+        dropdownLanguage: null
+    };
+    $scope.initController = function () {
+        $scope.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+        $scope.DOMElements.textboxFirstName = $("#firstName");
+        $scope.DOMElements.dropdownLanguage = $("#customerinfodetail-languageoptions");
+    };
 
     $scope.getAllSite = function () {
         $scope.BlockUI();
@@ -52,6 +66,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
             .then(function (data) {
                 $scope.languageList = data.Result;
                 $scope.isLoadedAllLanguage = true;
+                $scope.renderAllLanguageResult(data.Result);
                 $scope.completedLoadDetailInfo();
             },
             function (data) {
@@ -59,7 +74,67 @@ customerDetailApplication.controller('customerDetailController', function ($scop
                 $scope.completedLoadDetailInfo();
             });
     };
+    $scope.renderAllLanguageResult = function (result) {
+        $scope.DOMElements.dropdownLanguage.empty();
+        var dropdownLanguage = [];
+        var prefixId = 'customerinfo-languageoptions-';
+        var isCheckAll = true;
 
+        if (result && result.length > 0) {
+            var optionLength = result.length;
+            for (var i = 0; i < optionLength; i++) {
+                var info = result[i];
+                var isChecked = $scope.IsCustomerKnowLanguage(info.Id);
+                if (!isChecked) {
+                    isCheckAll = false;
+                }
+
+                dropdownLanguage.push({
+                    id: prefixId + info.Id,
+                    value: info.Id,
+                    text: info.Value,
+                    checked: isChecked,
+                    enable: true,
+                    cssClass: "",
+                    items: []
+                });
+            }
+        }
+
+        $scope.DOMElements.dropdownLanguage.fanexMultiSelect(
+        {
+            minWidth: 177,
+            maxHeight: 450,
+            shadow: true,
+            showHeader: true,
+            isCheckAll: isCheckAll,
+            showFooter: false,
+            showTooltip: false,
+            checkAllText: viewResources.All_Languages,
+            isUsedCustomCheckAllText: true,
+            customCheckAllText: viewResources.All_Languages,
+            noItemText: viewResources.No_languages_found,
+            noneSelectedText: viewResources.Symbol_NotApply,
+            selectedList: 3,
+            listData: dropdownLanguage
+        });
+
+        $scope.DOMElements.dropdownLanguage = $("#customerinfodetail-languageoptions");
+        $scope.isLoadedAllLanguage = true;
+    };
+    $scope.IsCustomerKnowLanguage = function (languageId) {
+        var result = false;
+        var languageLength = $scope.customerDetail.Languages.length;
+        for (var i = 0; i < languageLength; i++) {
+            var language = $scope.customerDetail.Languages[i];
+            if (languageId === language.Id) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    };
     $scope.getCustomerInfoDetailById = function () {
     };
     $scope.unblockUI = function () {
@@ -80,7 +155,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
             CustomerId: customerDetail.Id,
             FirstName: customerDetail.FirstName,
             LastName: customerDetail.LastName,
-            LanguageId: '',
+            LanguageId: $scope.DOMElements.dropdownLanguage.fanexMultiSelect("getItems").join(","),
             Phone1PhoneNumber: customerDetail.PhoneInfo[0].PhoneNumber,
             Phone1CountryCode: customerDetail.PhoneInfo[0].CountryCode,
             Phone1AreaCode: customerDetail.PhoneInfo[0].AreaCode,
@@ -154,36 +229,43 @@ customerDetailApplication.controller('customerDetailController', function ($scop
         $scope.customerDetail.BankInfo.AddressInfo.Country = countryInfo;
     };
     $scope.showUpdateResult = function (updateResult) {
-        alert(updateResult.Name);
-        //        self.DOMElements.divResultPopUp.removeClass("display-none");
-        //        self.DOMElements.divResultPopUp.html(updateResult.Name);
-        //        self.DOMElements.divResultPopUp.dialog({
-        //            width: 250,
-        //            height: 150,
-        //            zIndex: 500,
-        //            resizable: false,
-        //            modal: true,
-        //            position: [2, 80],
-        //            title: self.CacheData.ViewResources.Alert,
-        //            close: function (event, ui) {
-        //                /*jshint unused: vars */
-        //                self.DOMElements.divResultPopUp.dialog("destroy");
-        //                parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
+        $scope.DOMElements.divResultPopUp.removeClass("display-none");
+        $scope.DOMElements.divResultPopUp.html(updateResult.Name);
+        $scope.DOMElements.divResultPopUp.dialog({
+            width: 250,
+            height: 150,
+            zIndex: 500,
+            resizable: false,
+            modal: true,
+            position: 'center',
+            title: viewResources.Alert,
+            close: function (event, ui) {
+                /*jshint unused: vars */
+                $scope.DOMElements.divResultPopUp.dialog("destroy");
+                parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
+                $scope.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+                $scope.DOMElements.textboxFirstName.focus();
 
-        //                self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
-        //            },
-        //            buttons: [{
-        //                text: self.CacheData.ViewResources.OK,
-        //                click: function () {
-        //                    self.DOMElements.divResultPopUp.dialog("close");
-        //                }
-        //            }]
-        //        });
+                if (updateResult.Id === crmConstants.Enums.Error.None) {
+                    parent.leftPanelManager.loadLeftPanel($scope.customerDetail.Name, false);
+                }
+            },
+            buttons: [{
+                text: viewResources.OK,
+                click: function () {
+                    $scope.DOMElements.divResultPopUp.dialog("close");
+                }
+            }]
+        });
     };
-
+    $scope.invokeHotKey_CtrlS = function () {
+        $scope.updateCustomerInfoDetail();
+    };
     angular.element(document).ready(function () {
+        $scope.initController();
         $scope.getAllSite();
         $scope.getAllCountry();
         $scope.getAllLanguage();
+        hotKeyManager.CachedData.ActiveDocumentManager.push($scope);
     });
 });

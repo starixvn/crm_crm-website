@@ -16,8 +16,8 @@
                 <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                     {{ uplineInfo.Role.Name }}</div>
                 <div class="col-xs-5 col-sm-5 col-md-5 text-left username">
-                    <a data-ng-href="#" data-ng-click="searchUplineInfo(uplineInfo.Name)">{{
-                        uplineInfo.Name }}</a></div>
+                    <a data-ng-href="#" data-ng-click="searchUplineInfo(uplineInfo.Name)">{{ uplineInfo.Name
+                        }}</a></div>
                 <div class="col-xs-3 col-sm-3 col-md-3 text-right status">
                     {{ uplineInfo.Status }}
                 </div>
@@ -182,7 +182,6 @@
             </ul>
         </div>
     </div>
-
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AgularJS")
     @Scripts.Render("~/Scripts/PopUp")

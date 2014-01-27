@@ -67,68 +67,62 @@
         link: function (scope, elem, attrs) {
         }
     }
-}).directive('dropdownLanguage', function () {
-    return {
-        restrict: 'A',
-        template: '',
-        replace: false,
-        priority: 0,
-        transclude: false,
-        scope: true,
-        terminal: false,
-        require: false,
-        compile: function compile(tElement, tAttrs, transclude) {
-            var abc = 'abc';
-        },
-        link: function (scope, elem, attrs) {
-            var abc = 'abc';
-            console.log('abc');
-            //            self.DOMElements.dropdownLanguage.empty();
-            //            var dropdownLanguage = [];
-            //            var prefixId = 'customerinfo-languageoptions-';
-            //            var isCheckAll = true;
-
-            //            if (result && result.length > 0) {
-            //                var optionLength = result.length;
-            //                for (var i = 0; i < optionLength; i++) {
-            //                    var info = result[i];
-            //                    var isChecked = self.IsCustomerKnowLanguage(info.Id);
-            //                    if (!isChecked) {
-            //                        isCheckAll = false;
-            //                    }
-
-            //                    dropdownLanguage.push({
-            //                        Id: prefixId + info.Id,
-            //                        Value: info.Id,
-            //                        Text: info.Value,
-            //                        Checked: isChecked,
-            //                        Enable: true,
-            //                        CssClass: "",
-            //                        Items: []
-            //                    });
-            //                }
-            //            }
-
-            //            self.DOMElements.dropdownLanguage.multiSelect(
-            //        {
-            //            minWidth: 177,
-            //            maxHeight: 450,
-            //            shadow: true,
-            //            showHeader: true,
-            //            isCheckAll: isCheckAll,
-            //            showFooter: false,
-            //            showTooltip: false,
-            //            checkAllText: self.CacheData.ViewResources.All_Languages,
-            //            isUsedCustomCheckAllText: true,
-            //            customCheckAllText: self.CacheData.ViewResources.All_Languages,
-            //            noItemText: self.CacheData.ViewResources.No_languages_found,
-            //            noneSelectedText: self.CacheData.ViewResources.Symbol_NotApply,
-            //            selectedList: 3,
-            //            listData: dropdownLanguage
-            //        });
-
-            //            self.DOMElements.dropdownLanguage = $("#customerinfo-languageoptions");
-            //            self.CacheData.isLoadedLanguage = true;
-        }
-    }
 });
+
+//.directive('dropdownLanguage', function () {
+//    return {
+//        restrict: 'A',
+//        template: '',
+//        scope: true,
+//        link: function (scope, element, attrs) {
+//            var abc = 'abc';
+//            console.log('link');
+//            //            self.DOMElements.dropdownLanguage.empty();
+//            //            var dropdownLanguage = [];
+//            //            var prefixId = 'customerinfo-languageoptions-';
+//            //            var isCheckAll = true;
+
+//            //            if (result && result.length > 0) {
+//            //                var optionLength = result.length;
+//            //                for (var i = 0; i < optionLength; i++) {
+//            //                    var info = result[i];
+//            //                    var isChecked = self.IsCustomerKnowLanguage(info.Id);
+//            //                    if (!isChecked) {
+//            //                        isCheckAll = false;
+//            //                    }
+
+//            //                    dropdownLanguage.push({
+//            //                        Id: prefixId + info.Id,
+//            //                        Value: info.Id,
+//            //                        Text: info.Value,
+//            //                        Checked: isChecked,
+//            //                        Enable: true,
+//            //                        CssClass: "",
+//            //                        Items: []
+//            //                    });
+//            //                }
+//            //            }
+
+//            //            self.DOMElements.dropdownLanguage.multiSelect(
+//            //        {
+//            //            minWidth: 177,
+//            //            maxHeight: 450,
+//            //            shadow: true,
+//            //            showHeader: true,
+//            //            isCheckAll: isCheckAll,
+//            //            showFooter: false,
+//            //            showTooltip: false,
+//            //            checkAllText: self.CacheData.ViewResources.All_Languages,
+//            //            isUsedCustomCheckAllText: true,
+//            //            customCheckAllText: self.CacheData.ViewResources.All_Languages,
+//            //            noItemText: self.CacheData.ViewResources.No_languages_found,
+//            //            noneSelectedText: self.CacheData.ViewResources.Symbol_NotApply,
+//            //            selectedList: 3,
+//            //            listData: dropdownLanguage
+//            //        });
+
+//            //            self.DOMElements.dropdownLanguage = $("#customerinfo-languageoptions");
+//            //            self.CacheData.isLoadedLanguage = true;
+//        }
+//    }
+//});

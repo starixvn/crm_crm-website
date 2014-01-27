@@ -22,6 +22,10 @@ var CRMConstants = function () {
 
         Language: {
             NotApply: 0
+        },
+
+        Error: {
+            None: 0
         }
     };
 };

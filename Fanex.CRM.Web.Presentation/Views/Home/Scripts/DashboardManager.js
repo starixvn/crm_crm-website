@@ -11,9 +11,14 @@
         }
     };
 
+    self.CachedData = {
+        currentSubMenu: null
+    };
+
     self.dashboardMenuClick = function (subMenuId) {
         var customer = homeManager.CachedData.currentCustomer;
         var subMenuIdEnum = self.Enums.SubMenuId;
+        self.CachedData.currentSubMenu = subMenuId;
         switch (subMenuId) {
             case subMenuIdEnum.Main:
                 menuManager.goToURL('centerFr', '/CustomerSettingDetail/Index?' + $.param({

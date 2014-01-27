@@ -117,7 +117,6 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 BankInfo = new BankInfo
                 {
                     Name = reader.GetStringNotNull("Wire_BankName"),
-                    Address = reader.GetStringNotNull("Wire_BankAddress"),
                     SwiftCode = reader.GetStringNotNull("Wire_SwiftCode"),
                     AccountName = reader.GetStringNotNull("Wire_AccountName"),
                     AccountNumber = reader.GetStringNotNull("Wire_AccountNo"),

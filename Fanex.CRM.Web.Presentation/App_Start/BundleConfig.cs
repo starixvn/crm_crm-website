@@ -35,8 +35,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Content/site/input.less",
                 "~/Content/site/Message.less",
                 "~/Content/site/table.less",
-                "~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css");
-            #endregion            
+                "~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css",
+                "~/Content/site/customizeJqueryUI.less");
+	#endregion
 
             #region head js
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
@@ -101,6 +102,7 @@ namespace Fanex.CRM.Web.View.App_Start
             #region Customer - Detail tab
             bundles.Add(new ScriptBundle("~/Areas/Customer/DetailInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js",
