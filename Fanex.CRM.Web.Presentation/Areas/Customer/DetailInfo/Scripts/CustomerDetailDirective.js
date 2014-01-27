@@ -69,61 +69,66 @@
     }
 }).directive('dropdownLanguage', function () {
     function renderDropdownLanguage(scope, element, attrs) {
-        //        element.empty();
-        //        var dropdownLanguage = [];
-        //        var prefixId = 'customerinfo-languageoptions-';
-        //        var isCheckAll = true;
+        var dropdown = element.find("#customerinfodetail-languageoptions");
+        dropdown.empty();
+        var dropdownLanguage = [];
+        var prefixId = 'customerinfo-languageoptions-';
+        var isCheckAll = true;
 
-        //        if (result && result.length > 0) {
-        //            var optionLength = result.length;
-        //            for (var i = 0; i < optionLength; i++) {
-        //                var info = result[i];
-        //                var isChecked = self.isCustomerKnowLanguage(info.Id);
-        //                if (!isChecked) {
-        //                    isCheckAll = false;
-        //                }
+        var languageList = scope.languageList;
+        if (languageList && languageList.length > 0) {
+            var optionLength = languageList.length;
+            for (var i = 0; i < optionLength; i++) {
+                var info = languageList[i];
+                var isChecked = scope.isCustomerKnowLanguage(info.Id);
+                if (!isChecked) {
+                    isCheckAll = false;
+                }
 
-        //                dropdownLanguage.push({
-        //                    Id: prefixId + info.Id,
-        //                    Value: info.Id,
-        //                    Text: info.Value,
-        //                    Checked: isChecked,
-        //                    Enable: true,
-        //                    CssClass: "",
-        //                    Items: []
-        //                });
-        //            }
-        //        }
+                dropdownLanguage.push({
+                    id: prefixId + info.Id,
+                    value: info.Id,
+                    text: info.Value,
+                    checked: isChecked,
+                    enable: true,
+                    cssClass: "",
+                    items: []
+                });
+            }
+        }
 
-        //        element.multiSelect(
-        //            {
-        //                minWidth: 177,
-        //                maxHeight: 450,
-        //                shadow: true,
-        //                showHeader: true,
-        //                isCheckAll: isCheckAll,
-        //                showFooter: false,
-        //                showTooltip: false,
-        //                checkAllText: self.CacheData.ViewResources.All_Languages,
-        //                isUsedCustomCheckAllText: true,
-        //                customCheckAllText: self.CacheData.ViewResources.All_Languages,
-        //                noItemText: self.CacheData.ViewResources.No_languages_found,
-        //                noneSelectedText: self.CacheData.ViewResources.Symbol_NotApply,
-        //                selectedList: 3,
-        //                listData: dropdownLanguage
-        //            });
-
-        //        self.DOMElements.dropdownLanguage = $("#customerinfo-languageoptions");
-        //        self.CacheData.isLoadedLanguage = true;
+        dropdown.fanexMultiSelect(
+        {
+            minWidth: 177,
+            maxHeight: 450,
+            shadow: true,
+            showHeader: true,
+            isCheckAll: isCheckAll,
+            showFooter: false,
+            showTooltip: false,
+            checkAllText: viewResources.All_Languages,
+            isUsedCustomCheckAllText: true,
+            customCheckAllText: viewResources.All_Languages,
+            noItemText: viewResources.No_languages_found,
+            noneSelectedText: viewResources.Symbol_NotApply,
+            selectedList: 3,
+            listData: dropdownLanguage
+        });
     }
 
     return {
         restrict: 'A',
-        template: '',
         scope: true,
         link: function (scope, element, attrs) {
-            element.on('change', function () {
+            renderDropdownLanguage(scope, element, attrs);
+            scope.$watch(attrs.ngModel, function (oldval, newval) {
+                renderDropdownLanguage(scope, element, attrs);
+            });
 
+            element.on('change', function () {
+                scope.$apply(function () {
+                    scope.updateSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
+                });
             });
         }
     }
