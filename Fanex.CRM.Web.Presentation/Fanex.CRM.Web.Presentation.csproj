@@ -265,6 +265,7 @@
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
     <None Include="Areas\Communication\EditLog\Styles\EditCommunicationLog.less" />
     <None Include="Areas\Communication\Styles\Communication.less" />
+    <None Include="Areas\Customer\DetailInfo\Styles\StyleSheet.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
@@ -677,7 +678,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Customer\DetailInfo\Styles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
