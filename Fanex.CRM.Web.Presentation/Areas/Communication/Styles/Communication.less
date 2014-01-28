@@ -14,19 +14,21 @@
     }
 }
 
-#table-communication-logs
-{
-    .editlog-link-td 
-    {
-        color: #0000FF;
+#table-communication-logs {
+    .editlog-link-td  {
+        color: @link-color;
+        cursor: pointer;
+
+        &:hover {
+            color: @link-color-hover;
+        }
     }
-    .maincategory 
-    {
+    .maincategory {
         font-weight: bold;
+        color: #5f5f5f;
     }
     
-    .subcategory 
-    {
+    .subcategory  {
         font-style: italic;
     }
 }

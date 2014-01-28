@@ -1,0 +1,120 @@
+﻿@import "variables.less";
+@import "mixins.less";
+
+.grid-title {
+    .gradient-vertical(#ececec, #e1e1e1);
+    border-color: #b7b7b7;
+    border-bottom: none;
+    height: 30px;
+    margin-bottom: 0;
+
+    .grid-title-label {
+        color: @title-table-color;
+        font-size: @font-size + 2;
+        font-weight: 600;
+        background: none;
+        padding-left: 10px;
+    }
+}
+
+.freegrid {
+    border-color: #b7b7b7;
+    .box-sizing(content-box);
+
+    *, *:before, *:after {
+        .box-sizing(content-box);
+    }
+
+    .grid-container.container {
+        margin: 0;
+        padding: 0;
+    }
+
+    .free-top-left table thead th, .col_header table thead th {
+        border-color: @header-table-border;
+        background: @header-table-bg;
+        color: @header-table-color;
+        font-size: @font-size;
+    }
+
+    thead th, .grid-fixed-table thead th, td, .grid-fixed-table td {
+        font-size: @font-size;
+    }
+
+    td {
+        color: @table-color;
+    }
+
+    .free-top-right table {
+        thead th {
+            background: @header-table-bg;
+            border-left: 1px solid @header-table-border;
+            height: 34px !important;
+        }
+    }
+}
+
+/* Pager */
+.freegrid .grid-pager {
+
+    .grid-pager-content {
+        padding-top: 2px;
+    }
+
+    #pagination {
+        font-size: @font-size;
+
+        div.itemperpage {
+            color: @table-color;
+            font-weight: normal;
+            margin-top: 1px;
+        }
+
+        #itemperpage {
+            .border-radius(2px);
+            font-size: @font-size;
+            height: 19px;
+            border-color: @border-color;
+        }
+
+        .numberlist {
+            background-color: #fff;
+            .border-radius(2px);
+            height: 21px;
+            padding: 0;
+            border-color: @border-color;
+
+            ul li {
+                height: 100%;
+                padding: 0;
+
+                &.sep {
+                    background: none;
+                    border-right: 1px solid #cfcfcf;
+                }
+            }
+
+            .current.prev, .prev {
+                border-right: 1px solid #cfcfcf;
+            }
+
+            a:hover, .current {
+                background: #4869b8;
+                .border-radius(0);
+                margin: 0;
+            }
+
+            .current.prev, .current.next {
+                background: none;
+                color: @primary-color;
+            }
+
+            span, a, a:hover {
+                padding: 2px 5px;
+                height: 17px;
+                margin-right: 0;
+                font-weight: normal;
+            }
+        }
+    }
+}

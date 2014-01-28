@@ -259,6 +259,7 @@
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
+    <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Views\Home\Scripts\DashboardManager.js" />
     <Content Include="Views\Home\Scripts\HomeManager.js" />
