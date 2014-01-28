@@ -173,6 +173,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Communication\Scripts\CommunicationApplication.js" />
+    <Content Include="Areas\Communication\Scripts\CommunicationController.js" />
+    <Content Include="Areas\Communication\Scripts\CommunicationDirective.js" />
+    <Content Include="Areas\Communication\Scripts\CommunicationService.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailApplication.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailController.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailDirective.js" />
@@ -255,6 +259,7 @@
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
+    <None Include="Areas\Communication\Styles\Communication.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Views\Customer\Styles\Images\icon_button02.gif" />
@@ -286,7 +291,6 @@
     <Content Include="Areas\ActivityLog\Index.cshtml" />
     <Content Include="Areas\ActivityLog\Web.config" />
     <None Include="Areas\ActivityLog\Styles\activityLog.less" />
-    <None Include="Areas\Communication\Styles\communicationLog.less" />
     <None Include="Areas\Customer\ShortInfo\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
     <Content Include="Areas\Dashboard\Index.cshtml" />
