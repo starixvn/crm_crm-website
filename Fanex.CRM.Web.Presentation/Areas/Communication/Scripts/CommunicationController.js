@@ -9,7 +9,19 @@
     $scope.invokeHotKey_CtrlI = function () {
     };
     $scope.editCommunicationLog = function (logIndex) {
-        alert("Edit " + $scope.logs[logIndex].RunningNumber);
+        parent.OpenPopup(
+            window.rootUrl + "CommunicationLog/OpenEditView?" + $.param({
+                logRunningNumber: $scope.logs[logIndex].RunningNumber
+            }),
+            viewResources.Edit_Communication_Log,
+            $(parent.document).width() - 200,
+            $(parent.document).height() - 70,
+            true,
+            false,
+            parent.window,
+            3000,
+            null,
+            null);
     };
     angular.element(document).ready(function () {
         $scope.initController();

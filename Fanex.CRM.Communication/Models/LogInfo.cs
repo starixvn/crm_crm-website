@@ -11,6 +11,7 @@ namespace Fanex.CRM.Communication.Models
 {
     using System;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Log Information.
@@ -30,10 +31,44 @@ namespace Fanex.CRM.Communication.Models
 
         public string Subject { get; set; }
 
-        public TimeSpan Duration { get; set; }
+        public TimeInfo Duration { get; set; }
 
         public string Handler { get; set; }
 
         public string Reviewer { get; set; }
+
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
+        public string Extension { get; set; }
+
+        public CountryInfo Country { get; set; }
+
+        public BaseModel CommunicationTool { get; set; }
+
+        public string LanguageId { get; set; }
+
+        public BaseModel Product { get; set; }
+
+        public BaseModel BetType { get; set; }
+
+        public BaseModel Status { get; set; }
+
+        public BaseModel SiteInfo { get; set; }
+
+        public BaseModel RoleInfo { get; set; }
+
+        public string Reponse { get; set; }
+
+        public string RelatedCustomers { get; set; }
+
+        public string Remark { get; set; }
+
+        public string Solution { get; set; }
+
+        public string Review { get; set; }
+
+        public bool IsReview { get; set; }
     }
 }

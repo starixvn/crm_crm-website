@@ -97,18 +97,16 @@ settingManagement = {
                         <td><div class=" r" style="width: 60px; height:17px;">' + row.DisplayOrder + '</div></td>\
                         <td>\
                             <div class=" c" style="width: 60px; height:17px;">\
-                                <a class="c hand" href="JavaScript:void(0);" onclick="ShowPopupEditSetting(' + row.Id + ');">\
-                                    <img src="../Views/AdminTool/Styles/Images/icn_edit.png" />\
-                                &nbsp;</a>\
+                                <a class="c hand editSetting" href="JavaScript:void(0);" onclick="ShowPopupEditSetting(' + row.Id + ');">\
+                                    </a>\
                             </div>\
                         </td>\
                         <td>\
                             <div class=" c" style="width: 60px; height:17px;">\
-                                <a class="c hand" href="JavaScript:void(0);" onclick="DeleteSettingByById(' + row.Id +
+                                <a class="c hand deleteSetting" href="JavaScript:void(0);" onclick="DeleteSettingByById(' + row.Id +
                                     ',\'' + row.Type +
                                     ' ' + row.Value + '\');">\
-                                    <img src="../Views/AdminTool/Styles/Images/icn_del.png" />\
-                                 &nbsp;</a>\
+                                    </a>\
                             </div>\
                         </td>\
                     </tr>';
