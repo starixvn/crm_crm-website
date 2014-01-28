@@ -95,7 +95,8 @@ namespace Fanex.CRM.Web.View.App_Start
 
             #region multiple select control
             bundles.Add(new ScriptBundle("~/Styles/MultipleSelect").Include(
-                "~/Scripts/MultipleSelect/fanex.multiSelect.css"));
+                "~/Scripts/MultipleSelect/fanex.multiSelect.css",
+                "~/Areas/Customer/DetailInfo/Styles/StyleSheet.less"));
             bundles.Add(new ScriptBundle("~/Scripts/MultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
             #endregion

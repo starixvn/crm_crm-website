@@ -116,9 +116,8 @@ settingRelation = {
                         ' + expanTd + '\
                         <td>\
                             <div class="c" style="width: 60px; height: 17px;">\
-                                <a class="hand" onclick="ShowPopupAddSettingRelation(' + row.Id + ', \'' + row.Value + '\', \'' + row.Type + '\');">\
-                                    <img src="../Views/AdminTool/Styles/Images/icn_add.png" />\
-                                </a>\
+                                <a class="hand addSetting" onclick="ShowPopupAddSettingRelation(' + row.Id + ', \'' + row.Value + '\', \'' + row.Type + '\');">\
+                                    </a>\
                             </div>\
                         </td>\
                         <td><div class="r" style="width: 80px; height: 17px;">' + row.Id + '&nbsp;</div></td>\
