@@ -248,8 +248,29 @@ body {
                         }
                     }
                 }
+
+                &.breadcrumbsMenu {
+                    margin: 6px 12px 0;
+
+                    .icon-home {
+                        background: url(images/home-ico.png) no-repeat;
+                        height: 16px;
+                        width: 16px;
+                        display: block;
+                    }
+
+                    li {
+                        padding: 2px 23px 2px 11px;
+                        float: left;
+                        background: url(images/br-arrow-ico.png) right 8px no-repeat;
+
+                        &.active {
+                            background: none;
+                            color: #959595;
+                        }
+                    }
+                }
             }
-            
         }
     }
 
