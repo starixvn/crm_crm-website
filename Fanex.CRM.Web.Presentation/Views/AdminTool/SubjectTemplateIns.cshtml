@@ -1,52 +1,23 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>Setting Insert</title>
-    <link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.less")" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <div class="main" style="width: 700px">
-        <div class="maincontent">
-            <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
-                <tr>
-                    <td class="maincontent_headerL">
-                        <img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png" />
-                    </td>
-                    <td class="maincontent_headerC">
-                        Subject Template Information
-                    </td>
-                    <td class="maincontent_headerR">
-                    </td>
-                </tr>
-            </table>
-            <div class="maincontent_box" style="width: 730px;">
-                <div id="errMsg" class="errMsg">
-                </div>
-                <div class="bg_table">
-                    <div>
-                        <div id="dvSettingIns">
-                            <table id="tblSetting" class="tbllayout">
-                                <tr class="l">
-                                    <td>
-                                        Feedback Subject Template
-                                    </td>
-                                    <td>
-                                        <input type="text" id="txtFeedbackTemplateName" name="txtFeedbackTemplateName" class="txt"
-                                            style="width: 520px;" />
-                                    </td>
-                                    <td>
-                                        <input type="button" class="btn" value="Submit" onclick="insertFeedbackSubjectTemplate();" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+﻿<link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.less")" rel="stylesheet" type="text/css" />
+<div class="container main popup">
+    <div id="dvSettingIns" class="row filter-frm one-row">
+        <div id="tblSetting" class="row">
+            <div class="item afterButton">
+                <label for="txtFeedbackTemplateName">
+                    Feedback Subject Template</label>
+                <input type="text" id="txtFeedbackTemplateName" name="txtFeedbackTemplateName" class="textbox feedbackTemplate" />
             </div>
+            <div class="item">
+                <input type="button" class="btn" value="Submit" onclick="insertFeedbackSubjectTemplate();" />
             </div>
-            
         </div>
     </div>
-    <script language="javascript" type="text/javascript">
+    <div class="row">
+        <div id="errMsg" class="col-xs-7 col-sm-7 col-md-5 errMsg">
+        </div>
+    </div>
+</div>
+<script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
                 head.js("@Url.Content("~/Scripts/json2.js")")                    
@@ -54,6 +25,4 @@
                     .js("@Url.Content("~/Scripts/showhidepopup.js")")
                     .js("@Url.Content("~/Views/AdminTool/Scripts/SubjectTemplateIns.js?ver=1")");
             });   
-    </script>
-</body>
-</html>
+</script>

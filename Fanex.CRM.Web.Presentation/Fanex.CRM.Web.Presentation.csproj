@@ -542,7 +542,6 @@
     <Content Include="Views\AdminTool\Styles\Images\icn_del.png" />
     <Content Include="Views\AdminTool\Styles\Images\icn_edit.png" />
     <Content Include="Views\AdminTool\Styles\Images\TreeViewImg.gif" />
-    <Content Include="Views\AdminTool\Styles\StyleSheet.css" />
     <Content Include="Views\Common\404Error.htm" />
     <Content Include="Views\Customer\Scripts\CrmInfo.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerManager.js" />
@@ -609,6 +608,8 @@
     <Content Include="Content\site\ui-darkness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\Main.js" />
+    <Content Include="Views\Home\Styles\Images\br-arrow-ico.png" />
+    <Content Include="Views\Home\Styles\Images\home-ico.png" />
     <Content Include="Views\Home\_Menu.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Scripts\MenuManager.js" />
@@ -648,7 +649,6 @@
     <Content Include="Views\Reports\Styles\Images\sucess.gif" />
     <Content Include="Views\Reports\Styles\Images\warning.png" />
     <Content Include="Views\Reports\Styles\reports.less" />
-    <Content Include="Views\Reports\Styles\StyleSheet.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
