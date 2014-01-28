@@ -69,7 +69,7 @@ function afterUpdate(autoClose) {
             if (currentExecFrame.callback) {
                 try {
                     setTimeout('try {currentExecFrame.callback();} catch(e) {} ', duration);
-                }catch (e) {}
+                } catch (e) { }
 
             }
             setTimeout('currentExecFrame=null;', duration + 1000);

@@ -17,6 +17,8 @@ namespace Fanex.CRM.Communication.Services.Implements
     using Fanex.CRM.Communication.Repositories.Interfaces;
     using Fanex.CRM.Communication.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Extension;
+    using System.Web;
 
     /// <summary>
     /// Communication Log Service.
@@ -24,6 +26,8 @@ namespace Fanex.CRM.Communication.Services.Implements
     public class CommunicationLogService : ICommunicationLogService
     {
         private readonly ICommunicationLogRepository _repositoryInstance;
+
+        private readonly string GetLogsByCustomerIdSessionKey = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetLogsByCustomerIdSessionKey";
 
         public CommunicationLogService()
             : this(null)
@@ -42,6 +46,43 @@ namespace Fanex.CRM.Communication.Services.Implements
             {
                 var rawData = _repositoryInstance.GetLogsByCustomerId(criteria);
                 result = rawData;
+                SessionExtension.AddSession(HttpContext.Current.Session, GetLogsByCustomerIdSessionKey, result);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        public LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
+        {
+            LogInfo result = null;
+            try
+            {
+                List<LogInfo> storedLogs = (List<LogInfo>)SessionExtension.GetSession(
+                    HttpContext.Current.Session,
+                    GetLogsByCustomerIdSessionKey);
+                if (storedLogs == null)
+                {
+                    return result;
+                }
+
+                foreach (var log in storedLogs)
+                {
+                    if (log.RunningNumber == criteria.RunningNumber)
+                    {
+                        result = log;
+                        break;
+                    }
+                }
+
+                if (result != null)
+                {
+                    result.StartTime = DateTime.Now;
+                    result.EndTime = DateTime.Now;
+                }
             }
             catch (Exception ex)
             {

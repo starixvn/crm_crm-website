@@ -25,15 +25,14 @@
                             Name: "ColCategory",
                             Value: sharedScriptManager.stringFormat(
                                 '<div class="maincategory">{0}</div>\
-                                 <br/>\
                                  <div class="subcategory">{1}</div>', [info.MainCategory.Name, info.SubCategory.Name])
                         },
                         { Name: "ColSubject", Value: info.Subject },
                         { Name: "ColStatus", Value: info.StatusName },
-                        { Name: "ColDuration", Value: info.Duration },
+                        { Name: "ColDuration", Value: sharedScriptManager.stringFormat("{0}:{1}:{2}", [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds]) },
                         { Name: "ColHandler", Value: info.Handler },
                         { Name: "ColReviewer", Value: info.Reviewer}],
-                    CssClass: 'editlog-link-row'
+                    CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
                 });
             }
         }
@@ -89,12 +88,6 @@
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (oldval, newval) {
                 renderCommunicationLogs(scope, element, attrs);
-            });
-
-            element.on('change', function () {
-                scope.$apply(function () {
-                    //                    scope.updateSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
-                });
             });
         }
     };

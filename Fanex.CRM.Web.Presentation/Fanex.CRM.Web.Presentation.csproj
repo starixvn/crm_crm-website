@@ -173,6 +173,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Communication\EditLog\Scripts\EditLogApplication.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\EditLogController.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\EditLogDirective.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Communication\Scripts\CommunicationApplication.js" />
     <Content Include="Areas\Communication\Scripts\CommunicationController.js" />
     <Content Include="Areas\Communication\Scripts\CommunicationDirective.js" />
@@ -259,6 +263,7 @@
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
+    <None Include="Areas\Communication\EditLog\Styles\EditCommunicationLog.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Views\Home\Scripts\DashboardManager.js" />
     <Content Include="Views\Home\Scripts\HomeManager.js" />
@@ -266,7 +271,7 @@
     <Content Include="Areas\Customer\DetailInfo\CustomerInfoDetail.cshtml" />
     <Content Include="Areas\Communication\CommunicationLog.cshtml" />
     <Content Include="Areas\Communication\Web.config" />
-    <Content Include="Areas\Communication\EditCommunicationLog.cshtml" />
+    <Content Include="Areas\Communication\EditLog\Index.cshtml" />
     <Content Include="Areas\Communication\InsertCommunicationLog.cshtml" />
     <Content Include="Areas\ActivityLog\Index.cshtml" />
     <Content Include="Areas\ActivityLog\Web.config" />

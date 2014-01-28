@@ -3,12 +3,12 @@
 @using Fanex.CRM.Communication.Models;
 @model List<LogInfo>
 @{
-    var jsonLogInfoListDetail = JsonConvert.SerializeObject(Model);
+    var jsonLogInfoList = JsonConvert.SerializeObject(Model);
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communication-application">
 <head>
-    <title>@Labels.Commuincation_Logs </title>
+    <title>@Labels.Communication_Logs </title>
     @Styles.Render("~/site/common")
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
@@ -38,7 +38,7 @@
     @Scripts.Render("~/Areas/Communication/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var communicationLogs = @Html.Raw(jsonLogInfoListDetail);
+        var communicationLogs = @Html.Raw(jsonLogInfoList);
         var viewResources = { 
             Customer_Communication_Logs: '@Labels.Customer_Communication_Logs',
             Running_Number: '@Labels.Running_Number',
@@ -49,7 +49,8 @@
             Status: '@Labels.Status',
             Duration: '@Labels.Duration',
             Handled_By: '@Labels.Handled_By',
-            Reviewed_By: '@Labels.Reviewed_By'
+            Reviewed_By: '@Labels.Reviewed_By',
+            Edit_Communication_Log: '@Labels.Edit_Communication_Log'
         };
     </script>
 </body>

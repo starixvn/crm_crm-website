@@ -28,7 +28,14 @@ var CRMConstants = function () {
             None: 0
         },
         FormatConstant: {
-            ShortDate_String_Moment: 'MMM D, YYYY'
+            ShortDate_String_Moment: 'MMM D, YYYY',
+            HH_MM_TT_TimePicker: 'hh:mm TT',
+            MM_DD_YYYY_HH_MM_TT_StringFormat: "{0}/{1}/{2} {3}:{4} {5}"
+        },
+
+        DateTime: {
+            AM: 'AM',
+            PM: 'PM'
         }
     };
 };

@@ -50,7 +50,8 @@ namespace Fanex.CRM.Web.View.App_Start
 
             #region popup - js
             bundles.Add(new ScriptBundle("~/Scripts/PopUp").Include(
-                "~/Scripts/showhidepopup.js"));
+                "~/Scripts/showhidepopup.js",
+                "~/Scripts/dialogbox.js"));
             #endregion
 
             #region commont - js
@@ -112,7 +113,15 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Views/Home/Scripts/DashboardManager.js"));
             #endregion
 
+            RegisterBundles_TimePicker(ref bundles);
             RegisterBundles_CommunicationLog(ref bundles);
+            RegisterBundles_CommunicationLog_Edit(ref bundles);
+        }
+
+        public static void RegisterBundles_TimePicker(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Scripts/TimePicker").Include(
+                     "~/Scripts/jquery-ui-timepicker-addon.js"));
         }
 
         public static void RegisterBundles_CommunicationLog(ref BundleCollection bundles)
@@ -126,6 +135,19 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Communication/Styles").Include(
                 "~/Areas/Communication/Styles/Communication.less"));
+        }
+
+        public static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Communication/Edit/Scripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
+                "~/Areas/Communication/EditLog/Scripts/EditLogService.js",
+                "~/Areas/Communication/EditLog/Scripts/EditLogController.js",
+                "~/Areas/Communication/EditLog/Scripts/EditLogDirective.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Communication/Edit/Styles").Include(
+                "~/Areas/Communication/EditLog/Styles/EditCommunicationLog.less"));
         }
     }
 
