@@ -264,7 +264,28 @@
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
     <None Include="Areas\Communication\EditLog\Styles\EditCommunicationLog.less" />
+    <None Include="Areas\Communication\Styles\Communication.less" />
+    <None Include="Content\site\customizeFanexGridV2.less" />
+    <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
+    <Content Include="Views\Customer\Styles\Images\icon_button02.gif" />
+    <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
+    <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\bg02_box01.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\bg02_box01.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\bg_checkbox.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\box_02header.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\box_bottom.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\box_bottom.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\box_rp.jpg" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\icn_top.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\L_btn_left.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\L_btn_left_hover.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\L_tab_left.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left_hover.png" />
+    <Content Include="Views\Customer\Styles\Images\L_banner\R_tab_left.png" />
+    <Content Include="Views\Customer\Styles\StyleSheet.css" />
     <Content Include="Views\Home\Scripts\DashboardManager.js" />
     <Content Include="Views\Home\Scripts\HomeManager.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
@@ -276,7 +297,6 @@
     <Content Include="Areas\ActivityLog\Index.cshtml" />
     <Content Include="Areas\ActivityLog\Web.config" />
     <None Include="Areas\ActivityLog\Styles\activityLog.less" />
-    <None Include="Areas\Communication\Styles\Communication.less" />
     <None Include="Areas\Customer\ShortInfo\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
     <Content Include="Areas\Dashboard\Index.cshtml" />
@@ -532,7 +552,6 @@
     <Content Include="Views\AdminTool\Styles\Images\icn_del.png" />
     <Content Include="Views\AdminTool\Styles\Images\icn_edit.png" />
     <Content Include="Views\AdminTool\Styles\Images\TreeViewImg.gif" />
-    <Content Include="Views\AdminTool\Styles\StyleSheet.css" />
     <Content Include="Views\Common\404Error.htm" />
     <Content Include="Views\Customer\Scripts\CrmInfo.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerManager.js" />
@@ -599,8 +618,9 @@
     <Content Include="Content\site\ui-darkness\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\Main.js" />
+    <Content Include="Views\Home\Styles\Images\br-arrow-ico.png" />
+    <Content Include="Views\Home\Styles\Images\home-ico.png" />
     <Content Include="Views\Home\_Menu.cshtml" />
-    <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Scripts\MenuManager.js" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
@@ -639,7 +659,6 @@
     <Content Include="Views\Reports\Styles\Images\sucess.gif" />
     <Content Include="Views\Reports\Styles\Images\warning.png" />
     <Content Include="Views\Reports\Styles\reports.less" />
-    <Content Include="Views\Reports\Styles\StyleSheet.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

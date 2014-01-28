@@ -1,50 +1,35 @@
-﻿<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-    <link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.less")" rel="stylesheet" type="text/css" />    
-</head>
-<body>
-   
-<div class="main" style="width:650px">
-    <div class="maincontent">
-        <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
-                <tr>
-                    <td class="maincontent_headerL"><img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png"/></td>
-                    <td class="maincontent_headerC">Subject Template Information</td>
-                    <td class="maincontent_headerR"></td>
-                </tr>
-        </table>
-
-        <div class="bg_table" style="margin-top:0px;">
-            <div id="errMsg" class="errMsg">
+﻿<link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.less")" rel="stylesheet" type="text/css" />
+<div class="container main popup">
+    <div id="dvSettingIns" class="row">
+        <form class="form-horizontal frm" role="form" id="tblSetting">
+        <div class="form-group">
+            <label class="col-xs-2 col-sm-2 col-md-2 control-label">
+                Template ID</label>
+            <div id="txtTemplateID" class="col-xs-9 col-sm-9 col-md-10">
             </div>
-            <div>
-                <div id="dvSettingIns">
-                    <table id="tblSetting" class="tbllayout">
-                        <tr class="l">
-                            <td>Template ID</td>
-                            <td>
-                                <div id="txtTemplateID"></div>
-                            </td>                    
-                        </tr>                             
-                        <tr class="l">
-                            <td>Template Content</td>
-                            <td><input type="text" id="txtTemplateContent" name="txtTemplateContent" class="txt" style="width: 520px;" /></td>                    
-                        </tr>
-                        <tr class="c">
-                            <td colspan="2"><input type="button" class="btn" value="Submit" onclick="udpFeedbackSubjectTemplate();" /></td>
-                        </tr>
-                    </table>
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="txtTemplateContent" class="col-xs-2 col-sm-2 col-md-2 control-label">
+                Template Content</label>
+            <div class="col-xs-9 col-sm-9 col-md-10">
+                <input type="text" id="txtTemplateContent" name="txtTemplateContent" class="form-control textbox" />
             </div>
+        </div>
+        <div class="form-group">
+            <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xs-9 col-sm-9 col-md-10">
+                <button type="button" class="btn" onclick="udpFeedbackSubjectTemplate();">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="row">
+        <div id="errMsg" class="col-xs-7 col-sm-7 col-md-5 errMsg">
         </div>
     </div>
 </div>
 
-
-    <script language="javascript" type="text/javascript">
+<script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
                 head.js("@Url.Content("~/Scripts/json2.js")")
@@ -52,6 +37,4 @@
                     .js("@Url.Content("~/Scripts/showhidepopup.js")")
                     .js("@Url.Content("~/Views/AdminTool/Scripts/SubjectTemplateEdit.js?ver=1")");
             });   
-    </script>
-</body>
-</html>
+</script>

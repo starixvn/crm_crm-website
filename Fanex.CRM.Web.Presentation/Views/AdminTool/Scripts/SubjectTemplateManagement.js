@@ -65,7 +65,7 @@ function ShowPopupEditFeedbackTemplate(Id) {
     var title = 'Edit Feedback Subject Template';
     var url = '../AdminTool/SubjectTemplateEdit?Id=' + Id;
     var width = 680;
-    var height = 180;
+    var height = 190;
     parent.OpenPopup(url, title, width, height, true, false, window, 2000, function () { fbSubjectTemplate.loadSubjectTemplate(); });
 }
 

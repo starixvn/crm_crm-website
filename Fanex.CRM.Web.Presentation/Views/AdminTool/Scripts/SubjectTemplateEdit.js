@@ -28,14 +28,14 @@ function onloadSubjectTemplateEdit() {
 function udpFeedbackSubjectTemplate() {
     $('#errMsg').html('');
     if ($('#txtTemplateContent').val() === "") {
-        showAlertMessage("errMsg", "Please Input Feedback Subject Template Content !", 1);
+        showAlertMessage("errMsg", "Please Input Feedback Subject Template Content!", 1);
         $("input[type='button']").removeAttr("disabled");
         return;
     }
 
     $("input[type='button']").attr("disabled", "true");
     if (JSON.stringify($("#txtTemplateContent").val()).length > 200) {
-        showAlertMessage("errMsg", "Max length of subject template is 200 characters", 1);
+        showAlertMessage("errMsg", "Max length of subject template is 200 characters!", 1);
         $("input[type='button']").removeAttr("disabled");
         return;
     }
@@ -53,7 +53,7 @@ function udpFeedbackSubjectTemplate() {
                 showAlertMessage("errMsg", rs.ErrMsg, 1);
             }
             else {
-                showAlertMessage("errMsg", 'Update Feedback Subject Template successfully', 0);
+                showAlertMessage("errMsg", 'Update Feedback Subject Template successfully!', 0);
                 parent.afterUpdate(true);
             }
             try {

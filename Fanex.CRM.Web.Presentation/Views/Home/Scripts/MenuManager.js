@@ -122,7 +122,7 @@ var MenuManager = function () {
         var activeMenu =
         '<ul class="breadcrumbsMenu list-inline list-unstyled">\
             <li><span class="icon-home"></span></li>\
-            <li><a href="#">'+ mainMenu +'</a></li>\
+            <li>'+ mainMenu +'</li>\
             <li class="active">' + subMenu + '</li>\
         </ul>'
 
