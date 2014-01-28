@@ -173,9 +173,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\Language.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\MainCategory.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogApplication.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogController.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\EditLogDirective.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\Main.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\CommunicationTool.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\Country.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\EndTime.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\StartTime.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Communication\Scripts\CommunicationApplication.js" />
     <Content Include="Areas\Communication\Scripts\CommunicationController.js" />

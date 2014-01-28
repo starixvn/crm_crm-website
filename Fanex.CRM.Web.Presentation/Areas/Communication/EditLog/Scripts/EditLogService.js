@@ -22,6 +22,112 @@
 
         return deferred.promise;
     };
+    serviceInstance.getAllExtension = function () {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Setting/GetAllExtension", null)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+    serviceInstance.getAllCountry = function () {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Setting/GetAllCountry", null)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+    serviceInstance.getAllCommunicationTool = function () {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Setting/GetAllCommunicationTool", null)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+    serviceInstance.getAllLanguage = function () {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Setting/GetAllLanguage", null)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+    serviceInstance.getAllMainCategory = function () {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Setting/GetAllMainCategory", null)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+
 
     return serviceInstance;
 });

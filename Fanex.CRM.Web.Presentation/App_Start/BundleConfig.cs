@@ -144,7 +144,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogService.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogController.js",
-                "~/Areas/Communication/EditLog/Scripts/EditLogDirective.js"));
+                "~/Areas/Communication/EditLog/Scripts/Directive/*.js"));
 
             bundles.Add(new StyleBundle("~/Areas/Communication/Edit/Styles").Include(
                 "~/Areas/Communication/EditLog/Styles/EditCommunicationLog.less"));

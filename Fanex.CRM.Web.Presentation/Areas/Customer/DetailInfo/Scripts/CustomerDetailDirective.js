@@ -55,7 +55,7 @@
                    <option data-ng-repeat="country in countryList track by $index"' +
                         ' data-ng-click="updateSelectedCountryBank(country);"' +
                         ' value="{{ country.Id }}"' +
-                        ' ng-selected="customerDetail.BankInfo.AddressInfo.Country.Id == crmConstants.Enums.Country.NotApply">{{ country.Name }}</option>',
+                        ' ng-selected="customerDetail.BankInfo.AddressInfo.Country.Id == country.Id">{{ country.Name }}</option>',
         replace: false,
         priority: 0,
         transclude: false,
@@ -123,6 +123,7 @@
             renderDropdownLanguage(scope, element, attrs);
             scope.$watch(attrs.ngModel, function (oldval, newval) {
                 renderDropdownLanguage(scope, element, attrs);
+                scope.updateSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
             });
 
             element.on('change', function () {

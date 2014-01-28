@@ -9,11 +9,14 @@
 
 namespace Fanex.CRM.Setting.Models
 {
+    using System;
+    using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// Setting Information.
     /// </summary>
+    [Serializable]
     public class SettingInfo : BaseModel
     {
         public string Value { get; set; }
@@ -23,5 +26,7 @@ namespace Fanex.CRM.Setting.Models
         public int DisplayOrder { get; set; }
 
         public bool IsSubSetting { get; set; }
+
+        public List<SettingInfo> ChildSettings { get; set; }
     }
 }

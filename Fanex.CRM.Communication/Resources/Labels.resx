@@ -201,4 +201,7 @@
   <data name="Edit_Communication_Logs" xml:space="preserve">
     <value>Edit Communication Log</value>
   </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
 </root>

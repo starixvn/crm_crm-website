@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Communication.Repositories.Implements
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Common;
@@ -18,6 +17,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     using Fanex.CRM.Communication.Repositories.Interfaces;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Models;
     using Fanex.Data;
 
     /// <summary>
@@ -55,11 +55,11 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
                 FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate"),
-                MainCategory = new BaseModel
+                MainCategory = new SettingInfo
                 {
                     Name = reader.GetStringNotNull("MainCategory")
                 },
-                SubCategory = new BaseModel
+                SubCategory = new SettingInfo
                 {
                     Name = reader.GetStringNotNull("SubCategory")
                 },

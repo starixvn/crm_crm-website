@@ -10,7 +10,6 @@
 namespace Fanex.CRM.Setting.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
 
@@ -23,5 +22,11 @@ namespace Fanex.CRM.Setting.Services.Interfaces
         List<CountryInfo> GetAllCountry();
 
         List<SettingInfo> GetAllLanguage();
+
+        List<SettingInfo> GetAllExtension();
+
+        List<SettingInfo> GetAllCommunicationTool();
+
+        List<SettingInfo> GetAllMainCategory();
     }
 }

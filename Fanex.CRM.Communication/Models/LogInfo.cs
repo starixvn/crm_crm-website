@@ -23,9 +23,9 @@ namespace Fanex.CRM.Communication.Models
 
         public DateTime FeedbackDate { get; set; }
 
-        public BaseModel MainCategory { get; set; }
+        public SettingInfo MainCategory { get; set; }
 
-        public BaseModel SubCategory { get; set; }
+        public SettingInfo SubCategory { get; set; }
 
         public string StatusName { get; set; }
 
@@ -41,11 +41,11 @@ namespace Fanex.CRM.Communication.Models
 
         public DateTime EndTime { get; set; }
 
-        public string Extension { get; set; }
+        public SettingInfo Extension { get; set; }
 
         public CountryInfo Country { get; set; }
 
-        public BaseModel CommunicationTool { get; set; }
+        public SettingInfo CommunicationTool { get; set; }
 
         public string LanguageId { get; set; }
 

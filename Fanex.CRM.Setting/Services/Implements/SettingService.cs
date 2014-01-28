@@ -177,6 +177,74 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        public List<SettingInfo> GetAllExtension()
+        {
+            var result = new List<SettingInfo>();
+            try
+            {
+                result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                {
+                    SettingName = "Station",
+                    ParentId = 0
+                });
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        public List<SettingInfo> GetAllCommunicationTool()
+        {
+            var result = new List<SettingInfo>();
+            try
+            {
+                result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                {
+                    SettingName = "Communication",
+                    ParentId = 0
+                });
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        public List<SettingInfo> GetAllMainCategory()
+        {
+            var result = new List<SettingInfo>();
+            try
+            {
+                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                 {
+                     SettingName = "MainCategory",
+                     ParentId = 0
+                 });
+
+                foreach (var data in rawData)
+                {
+                    data.ChildSettings = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                    {
+                        SettingName = "MainCategory",
+                        ParentId = data.Id
+                    });
+
+                    result.Add(data);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
         private int GetSiteGroupId(int siteId)
         {
             return IsLicenseeSite(siteId) ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup;
@@ -207,6 +275,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             try
             {
                 result = _repositoryInstance.GetSettingRelationByName(criteria);
+                if (result != null)
+                {
+                    result = result.OrderBy(setting => setting.DisplayOrder).ToList();
+                }
             }
             catch (Exception ex)
             {
