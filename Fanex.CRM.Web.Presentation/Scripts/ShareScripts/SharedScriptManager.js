@@ -78,6 +78,16 @@ var SharedScriptManager = function () {
 
         return strValue;
     };
+    self.isValidDate = function (date) {
+        if (Object.prototype.toString.call(date) !== "[object Date]") {
+            return false;
+        }
+
+        return !isNaN(date.getTime());
+    };
+    self.datesEqual = function (dateA, dateB) {
+        return !(dateA > dateB || dateB > dateA);
+    };
 };
 
 var sharedScriptManager = new SharedScriptManager();

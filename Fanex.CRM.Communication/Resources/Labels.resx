@@ -120,8 +120,8 @@
   <data name="Bet_Type" xml:space="preserve">
     <value>Bet Type</value>
   </data>
-  <data name="Commuincation_Logs" xml:space="preserve">
-    <value>Commuincation Logs</value>
+  <data name="Communication_Logs" xml:space="preserve">
+    <value>Communication Logs</value>
   </data>
   <data name="Communication_Tool" xml:space="preserve">
     <value>Communication Tool</value>
@@ -194,5 +194,11 @@
   </data>
   <data name="Sub_Category" xml:space="preserve">
     <value>Sub Category</value>
+  </data>
+  <data name="Edit_Communication_Log" xml:space="preserve">
+    <value>Edit Communication Log</value>
+  </data>
+  <data name="Edit_Communication_Logs" xml:space="preserve">
+    <value>Edit Communication Log</value>
   </data>
 </root>

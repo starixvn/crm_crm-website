@@ -16,5 +16,7 @@ namespace Fanex.CRM.Communication.Services.Interfaces
     public interface ICommunicationLogService
     {
         List<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
+
+        LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
     }
 }

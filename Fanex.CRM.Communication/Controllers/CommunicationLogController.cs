@@ -49,10 +49,15 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/CommunicationLog.cshtml", logs);
         }
 
-        [ActionName("Edit")]
-        public ActionResult EditCommunicationLog()
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public ActionResult OpenEditView(int logRunningNumber)
         {
-            return View("~/Areas/Communication/EditCommunicationLog.cshtml");
+            var logInfo = _serviceInstance.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
+            {
+                RunningNumber = logRunningNumber
+            });
+
+            return View("~/Areas/Communication/EditLog/Index.cshtml", logInfo);
         }
 
         [ActionName("New")]

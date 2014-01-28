@@ -19,12 +19,12 @@ namespace Fanex.CRM.Communication.Criteria
         [SpParam(SqlParamName = "custid")]
         public string CustomerId { get; set; }
 
-        public string GetSettingKey()
+        public override string GetSettingKey()
         {
             return "Communication_Log_GetInfoByCustomerId";
         }
 
-        public bool IsValid()
+        public override bool IsValid()
         {
             return true;
         }

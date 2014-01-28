@@ -303,4 +303,7 @@
   <data name="No_languages_found" xml:space="preserve">
     <value>No languages found.</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
 </root>

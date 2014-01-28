@@ -65,10 +65,12 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                 },
                 Subject = reader.GetStringNotNull("Subject"),
                 StatusName = reader.GetStringNotNull("Status"),
-                Duration = new TimeSpan(
-                    Converter.ToInt(durationTimeArray[0]),
-                    Converter.ToInt(durationTimeArray[1]),
-                    Converter.ToInt(durationTimeArray[2])),
+                Duration = new TimeInfo
+                {
+                    Hours = Converter.ToInt(durationTimeArray[0]),
+                    Minutes = Converter.ToInt(durationTimeArray[1]),
+                    Seconds = Converter.ToInt(durationTimeArray[2])
+                },
                 Handler = reader.GetStringNotNull("HandleBy"),
                 Reviewer = reader.GetStringNotNull("ReviewBy")
             };

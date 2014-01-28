@@ -70,11 +70,11 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Commuincation Logs.
+        ///   Looks up a localized string similar to Communication Logs.
         /// </summary>
-        public static string Commuincation_Logs {
+        public static string Communication_Logs {
             get {
-                return ResourceManager.GetString("Commuincation_Logs", resourceCulture);
+                return ResourceManager.GetString("Communication_Logs", resourceCulture);
             }
         }
         
@@ -111,6 +111,24 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Duration {
             get {
                 return ResourceManager.GetString("Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Communication Log.
+        /// </summary>
+        public static string Edit_Communication_Log {
+            get {
+                return ResourceManager.GetString("Edit_Communication_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Communication Log.
+        /// </summary>
+        public static string Edit_Communication_Logs {
+            get {
+                return ResourceManager.GetString("Edit_Communication_Logs", resourceCulture);
             }
         }
         
