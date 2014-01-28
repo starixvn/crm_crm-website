@@ -25,13 +25,15 @@
                             Name: "ColCategory",
                             Value: sharedScriptManager.stringFormat(
                                 '<div class="maincategory">{0}</div>\
+                                 <br/>\
                                  <div class="subcategory">{1}</div>', [info.MainCategory.Name, info.SubCategory.Name])
                         },
                         { Name: "ColSubject", Value: info.Subject },
                         { Name: "ColStatus", Value: info.StatusName },
                         { Name: "ColDuration", Value: info.Duration },
                         { Name: "ColHandler", Value: info.Handler },
-                        { Name: "ColReviewer", Value: info.Reviewer}]
+                        { Name: "ColReviewer", Value: info.Reviewer}],
+                    CssClass: 'editlog-link-row'
                 });
             }
         }
@@ -41,7 +43,7 @@
                 { HeaderText: viewResources.Feedback_Date, Width: 140, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]), Width: 400, Name: "ColCategory", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Subject, Width: 160, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Status, Width: 120, Name: "ColStatus", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Status, Width: 120, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Duration, Width: 120, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handled_By, Width: 140, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Reviewed_By, Width: 140, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
@@ -69,9 +71,14 @@
         };
 
         tableCommunicationLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var editLogLink = tableCommunicationLogs.find(".editlog-link-td");
-        editLogLink.unbind("click");
-        editLogLink.click(function () {
+        var editLogLinks = tableCommunicationLogs.find(".editlog-link-td");
+        editLogLinks.unbind("click");
+        editLogLinks.click(function () {
+            scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
+        });
+
+        var editLogRows = tableCommunicationLogs.find(".editlog-link-row");
+        editLogRows.dblclick(function () {
             scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
         });
     };
