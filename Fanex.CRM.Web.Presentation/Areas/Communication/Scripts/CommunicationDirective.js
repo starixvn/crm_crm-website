@@ -38,14 +38,14 @@
         }
 
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Running_Number, Width: 120, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Feedback_Date, Width: 140, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]), Width: 400, Name: "ColCategory", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Subject, Width: 160, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Status, Width: 120, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Duration, Width: 120, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Handled_By, Width: 140, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Reviewed_By, Width: 140, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
+            columns: [{ HeaderText: viewResources.Running_Number, Width: 110, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Feedback_Date, Width: 100, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]), Width: 220, Name: "ColCategory", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Subject, Width: 140, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Duration, Width: 80, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Handled_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Reviewed_By, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,
             titleInfo: {
                 text: viewResources.Customer_Communication_Logs
