@@ -210,13 +210,13 @@ function loadFeedbackAfterCallAjax(rs, Id) {
     }
 
     setTimeout(function () {
-        parentWnd.UnBlockUI();
+        parent.UnBlockUI();
     }, 1000);
 }
 
 // When EditFeedBack is loading
 function LoadFeedback(Id) {
-    try { parentWnd.BlockUI(); } catch (e) { }
+    try { parent.BlockUI(); } catch (e) { }
     $.ajax({
         type: "POST",
         url: window.rootUrl + "Feedback/GetById",
@@ -352,15 +352,15 @@ function updateFeedbackInfo(newFeedback) {
             if (rs.ErrCode === 0) {
                 showAlertMessage("errmsg", successMsg, 0);
 
-                try { parentWnd.afterUpdate(true); } catch (e) { }
+                try { parent.afterUpdate(true); } catch (e) { }
 
                 if (newFeedback.IsOverrideCrmInfo) {
-                    parentWnd.leftPanelManager.loadLeftPanel(userName, true);
+                    parent.leftPanelManager.loadLeftPanel(userName, true);
                 }
             }
             else {
                 showAlertMessage("errmsg", rs.ErrMsg, 1);
-                //parentWnd.UnBlockUI();
+                parent.UnBlockUI();
             }
         },
         error: function () {
@@ -368,7 +368,7 @@ function updateFeedbackInfo(newFeedback) {
         },
         complete: function () {
             try {
-                parentWnd.UnBlockUI();
+                parent.UnBlockUI();
             } catch (e) {
                 parent.UnBlockUI();
             }
@@ -805,12 +805,12 @@ var updateFeedback = {
             success: function (rs) {
                 if (rs.ErrCode === 0) {
                     showAlertMessage("errmsg", successMsg, 0);
-                    //parentWnd.afterUpdate(true);  
+                    parent.afterUpdate(true);  
                     //-------------                    
                     window.setTimeout(function () {
                         updateFeedback.openEditFeedback(updateFeedback.feedbackId);
                         //                        if (newFeedback.IsOverrideCrmInfo) {
-                        //                            parentWnd.leftPanelManager.loadLeftPanel(userName, true);
+                        //                            parent.leftPanelManager.loadLeftPanel(userName, true);
                         //                        }
                     }, 1000);
                 }
@@ -818,10 +818,10 @@ var updateFeedback = {
                     showAlertMessage("errmsg", rs.ErrMsg, 1);
                 }
 
-                //parentWnd.UnBlockUI();
+                parent.UnBlockUI();
             },
             complete: function () {
-                try { parentWnd.UnBlockUI(); } catch (e) { }
+                try { parent.UnBlockUI(); } catch (e) { }
             }
         });
     },
@@ -861,7 +861,7 @@ var updateFeedback = {
     openEditFeedback: function (id) {
         try {
             var url = '../Feedback/EditFeedback?id=' + id + '&rep=' + responsePage;
-            parentWnd.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 1000, function () {
+            parent.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 1000, function () {
                 updateFeedback.reloadFrame(responsePage);
             }, function () {
                 updateFeedback.reloadFrame(responsePage);
@@ -892,16 +892,16 @@ var updateFeedback = {
     reloadFrame: function (responsePage) {
         switch (responsePage) {
             case "1": //customer latest feedback                    
-                parentWnd.frames['centerFr'].topFeedback.loadLastedFeedback(false);
+                parent.frames['centerFr'].topFeedback.loadLastedFeedback(false);
                 break;
             case "2": //system latest feedback                    
-                parentWnd.frames['centerFr'].topFeedback.loadLastedFeedback(false);
+                parent.frames['centerFr'].topFeedback.loadLastedFeedback(false);
                 break;
             case "3": //manage feedback                    
-                parentWnd.frames['centerFr'].lastedFeedback.loadLastedFeedback(false);
+                parent.frames['centerFr'].lastedFeedback.loadLastedFeedback(false);
                 break;
             case "4": //deleted feedback                    
-                parentWnd.frames['centerFr'].deletedFeedback.loadDeletedFeedback(false);
+                parent.frames['centerFr'].deletedFeedback.loadDeletedFeedback(false);
                 break;
             default:
                 break;
@@ -952,7 +952,7 @@ appendListFeedbacksLasted = function (range) {
 };
 
 head.ready(function () {
-    try { parentWnd = findMainWindow(window); } catch (e) { }
+    //try { parentWnd = findMainWindow(window); } catch (e) { }
 
     $("#txtsubject").keyup(function (e) {
         if (e.keyCode === 37 ||
