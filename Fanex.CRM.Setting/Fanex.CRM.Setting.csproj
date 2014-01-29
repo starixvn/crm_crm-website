@@ -62,9 +62,12 @@
     <Compile Include="Criteria\GetAllCountryCriteria.cs" />
     <Compile Include="Criteria\GetAllSettingCriteria.cs" />
     <Compile Include="Criteria\GetAllSettingRelationCriteria.cs" />
+    <Compile Include="Criteria\GetFeedbackSubjectTemplateByIdCriteria.cs" />
+    <Compile Include="Criteria\GetFeedbackSubjectTemplateByPagingIndexCriteria.cs" />
     <Compile Include="Criteria\GetSettingByIdCriteria.cs" />
     <Compile Include="Criteria\GetSettingRelationByNameCriteria.cs" />
     <Compile Include="Models\CountryInfo.cs" />
+    <Compile Include="Models\FeedbackTemplate.cs" />
     <Compile Include="Models\SettingInfo.cs" />
     <Compile Include="Models\SiteInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

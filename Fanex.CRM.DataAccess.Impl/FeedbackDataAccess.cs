@@ -1888,7 +1888,7 @@ namespace Fanex.CRM.DataAccess.Impl
         {
             var datasetResut = new DataSet();
 
-            using (var obj = new ObjectDb("FeedSubjectTemplateSelect", 500))
+            using (var obj = new ObjectDb("Setting_FeedbackTemplateSubject_Get", 500))
             {
                 var param = new Hashtable { { "templateid", templateId } };
                 obj.AssignParamValues(param);

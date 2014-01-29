@@ -169,6 +169,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inset Edit Block.
+        /// </summary>
+        public static string Inset_Edit_Block {
+            get {
+                return ResourceManager.GetString("Inset_Edit_Block", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {

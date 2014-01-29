@@ -36,5 +36,9 @@ namespace Fanex.CRM.Setting.Services.Interfaces
         List<SettingInfo> GetAllRole();
 
         List<SettingInfo> GetAllResponse();
+
+        int GetNumberOfFeedbackSubjectTemplate();
+
+        List<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria);
     }
 }

@@ -32,6 +32,7 @@ namespace Fanex.CRM.Setting.Services.Implements
         public const string GetAllSettingSessionKey = "Fanex.CRM.Setting.GetAllSettingSessionKey";
         public const string GetAllCountrySessionKey = "Fanex.CRM.Setting.GetAllCountrySessionKey";
         public const string GetAllSettingRelationSessionKey = "Fanex.CRM.Setting.GetAllSettingRelationSessionKey";
+        public const string GetAllFeedbackTemplateSubjectSessionKey = "Fanex.CRM.Setting.GetAllFeedbackTemplateSubjectSessionKey";
 
         private readonly ISettingRepository _repositoryInstance;
 
@@ -348,6 +349,93 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        public List<SettingInfo> GetSubSettingByParentId(
+            SettingInfo parentSetting,
+            List<SettingInfo> allSettingRelation,
+            List<SettingInfo> allSetting)
+        {
+            List<SettingInfo> subSettings = new List<SettingInfo>();
+            try
+            {
+                if (allSettingRelation == null || !allSettingRelation.Any())
+                {
+                    return subSettings;
+                }
+
+                foreach (var settingRelation in allSettingRelation)
+                {
+                    if (settingRelation.ParentId == parentSetting.Id)
+                    {
+                        foreach (var setting in allSetting)
+                        {
+                            if (setting.Id == settingRelation.Id)
+                            {
+                                subSettings.Add(new SettingInfo
+                                {
+                                    Id = setting.Id,
+                                    DisplayOrder = setting.DisplayOrder,
+                                    Value = setting.Value,
+                                    Type = setting.Type,
+                                    ParentId = parentSetting.Id,
+                                    IsSubSetting = true
+                                });
+                            }
+                        }
+                    }
+                }
+
+                subSettings = subSettings.OrderBy(s => s.DisplayOrder).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return subSettings;
+        }
+
+        public int GetNumberOfFeedbackSubjectTemplate()
+        {
+            List<FeedbackTemplate> listFeedbackTemplate = new List<FeedbackTemplate>();
+            try
+            {
+                listFeedbackTemplate = _repositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
+                {
+                    TemplateId = 0
+                });
+
+                CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, listFeedbackTemplate);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return listFeedbackTemplate.Count;
+        }
+
+        public List<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria)
+        {
+            var result = new List<FeedbackTemplate>();
+            try
+            {
+                int multipleNum = SettingConstants.MaxFeedbackSubjectTemplateNumberOnLoad;
+                List<FeedbackTemplate> listFeedbackTemplate = CacheService.Get<List<FeedbackTemplate>>(GetAllFeedbackTemplateSubjectSessionKey);
+                if (listFeedbackTemplate != null && listFeedbackTemplate.Count > 0)
+                {
+                    result = listFeedbackTemplate
+                        .Skip((criteria.PagingIndex - 1) * multipleNum)
+                        .Take(criteria.PagingIndex * multipleNum).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
         private int GetSiteGroupId(int siteId)
         {
             return IsLicenseeSite(siteId) ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup;
@@ -420,51 +508,6 @@ namespace Fanex.CRM.Setting.Services.Implements
             }
 
             return settingRelations;
-        }
-
-        public List<SettingInfo> GetSubSettingByParentId(
-            SettingInfo parentSetting,
-            List<SettingInfo> allSettingRelation,
-            List<SettingInfo> allSetting)
-        {
-            List<SettingInfo> subSettings = new List<SettingInfo>();
-            try
-            {
-                if (allSettingRelation == null || !allSettingRelation.Any())
-                {
-                    return subSettings;
-                }
-
-                foreach (var settingRelation in allSettingRelation)
-                {
-                    if (settingRelation.ParentId == parentSetting.Id)
-                    {
-                        foreach (var setting in allSetting)
-                        {
-                            if (setting.Id == settingRelation.Id)
-                            {
-                                subSettings.Add(new SettingInfo
-                                {
-                                    Id = setting.Id,
-                                    DisplayOrder = setting.DisplayOrder,
-                                    Value = setting.Value,
-                                    Type = setting.Type,
-                                    ParentId = parentSetting.Id,
-                                    IsSubSetting = true
-                                });
-                            }
-                        }
-                    }
-                }
-
-                subSettings = subSettings.OrderBy(s => s.DisplayOrder).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-            return subSettings;
         }
     }
 }

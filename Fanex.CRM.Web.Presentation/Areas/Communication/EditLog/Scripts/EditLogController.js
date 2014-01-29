@@ -14,8 +14,9 @@
     $scope.siteList = null;
     $scope.roleList = null;
     $scope.responseList = null;
-
-    $scope.remark = 'asdfsdfasd';
+    $scope.feedbackSubejctTemplateList = [];
+    $scope.feedbackSubejctTemplateTotalPage = 0;
+    $scope.isLoadedFeedbackSubjectTemplate = false;
 
     $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
@@ -30,6 +31,7 @@
         $scope.getAllSite();
         $scope.getAllRole();
         $scope.getAllResponse();
+        $scope.getNumberOfFeedbackSubjectTemplate();
     };
     $scope.getAllExtension = function () {
         $scope.BlockUI();
@@ -204,10 +206,48 @@
                 $scope.completedLoadFilterInfo();
             });
     };
+    $scope.getNumberOfFeedbackSubjectTemplate = function () {
+        $scope.BlockUI();
+        $editLogService.getNumberOfFeedbackSubjectTemplate()
+            .then(function (data) {
+                var numberOfFeedbackItem = data.Result;
+                $scope.feedbackSubejctTemplateList = [];
+                var totalPage = Math.round((numberOfFeedbackItem / sharedScriptManager.cachedData.maxFeedbackSubjectTemplateNumberOnLoad) + 0.5);
+                $scope.feedbackSubejctTemplateTotalPage = totalPage;
+                $scope.isLoadedFeedbackSubjectTemplate = false;
+                for (var i = 1; i <= totalPage; i++) {
+                    $scope.getFeedbackSubjectTemplateByPagingIndex(i);
+                }
+            },
+            function (data) {
+                $scope.isLoadedFeedbackSubjectTemplate = true;
+            });
+    };
+    $scope.getFeedbackSubjectTemplateByPagingIndex = function (pagingIndex) {
+        $scope.BlockUI();
+        $editLogService.getFeedbackSubjectTemplateByPagingIndex({ PagingIndex: pagingIndex })
+            .then(function (data) {
+                var feedbackSubjectTemplate = data.Result;
+                if (feedbackSubjectTemplate != null && feedbackSubjectTemplate.length > 0) {
+                    $scope.feedbackSubejctTemplateList = $scope.feedbackSubejctTemplateList.concat(feedbackSubjectTemplate);
+                }
 
+                if ($scope.feedbackSubejctTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.completedLoadFilterInfo();
+                }
+            },
+            function (data) {
+                if ($scope.feedbackSubejctTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.completedLoadFilterInfo();
+                }
+            });
+    };
     $scope.completedLoadFilterInfo = function () {
         var numberOfLoadFilter = 10;
-        if ($scope.loadedFilter.length >= numberOfLoadFilter) {
+        if ($scope.loadedFilter.length >= numberOfLoadFilter &&
+            $scope.isLoadedFeedbackSubjectTemplate) {
             $scope.initSelectedLogInfo();
             $scope.unblockUI();
         }
@@ -326,6 +366,18 @@
     $scope.updateSelectedRespones = function (response) {
         $scope.communicationLog.Response = response;
     };
+    $scope.updateRemark = function (remark) {
+        $scope.communicationLog.Remark = remark;
+    };
+    $scope.updateReview = function (review) {
+        $scope.communicationLog.Review = review;
+        console.log(review);
+    };
+    $scope.updateSolution = function (solution) {
+        $scope.communicationLog.Solution = solution;
+        console.log(solution);
+    };
+
     $scope.unblockUI = function () {
         try {
             parent.$.unblockUI();

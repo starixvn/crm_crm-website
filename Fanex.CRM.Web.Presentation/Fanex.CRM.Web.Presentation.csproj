@@ -175,13 +175,15 @@
   <ItemGroup>
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\MainCategory.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\RelatedCustomer.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\RemarkEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\ReviewEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\Site.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\SolutionEditor.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogApplication.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogController.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\Main.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directive\Extension.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\CommunicationTool.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\Country.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\EndTime.js" />

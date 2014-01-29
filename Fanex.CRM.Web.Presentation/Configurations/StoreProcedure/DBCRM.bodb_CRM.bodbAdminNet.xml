@@ -13,11 +13,13 @@
   </Function>
   <Function Name="Communication">
     <Setting Key="Communication_Log_GetInfoByCustomerId" SpName="Acc_CRM_CommunicationLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-
   </Function>
-  
-  
-  
+  <Function Name="Setting">
+    <Setting Key="Setting_FeedbackTemplateSubject_Get" SpName="Acc_CRM_SubjectTemplateSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+  </Function>
+
+
+
   <Function Name="Feedback">
     <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackSelByDate" SpName="Acc_CRM_FeedbackSelByDate" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -27,7 +29,6 @@
     <Setting Key="FeedbackGetDeleted" SpName="Acc_CRM_FeedbackGetDeleted"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackSelTopFeedbackByCustId" SpName="Acc_CRM_FeedbackSelTopByCustId" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedbackSelTopFeedback" SpName="Acc_CRM_FeedbackSelTop"  DbName="DBCRM.bodb_CRM.bodbAdminNet"  />
-    <Setting Key="FeedSubjectTemplateSelect" SpName="Acc_CRM_SubjectTemplateSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateUpdate" SpName="Acc_CRM_SubjectTemplateUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateInsert" SpName="Acc_CRM_SubjectTemplateIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="FeedSubjectTemplateDelete" SpName="Acc_CRM_SubjectTemplateDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

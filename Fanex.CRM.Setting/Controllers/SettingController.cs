@@ -11,6 +11,7 @@ namespace Fanex.CRM.Setting.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
 
@@ -107,6 +108,22 @@ namespace Fanex.CRM.Setting.Controllers
         public JsonResult GetAllResponse()
         {
             var result = _serviceInstance.GetAllResponse();
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult GetNumberOfFeedbackSubjectTemplate()
+        {
+            var result = _serviceInstance.GetNumberOfFeedbackSubjectTemplate();
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria)
+        {
+            var result = _serviceInstance.GetFeedbackSubjectTemplateByPagingIndex(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

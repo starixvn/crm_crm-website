@@ -56,7 +56,7 @@
             fullHeight: true,
             gridHeight: 150,
             showDistinctRow: false,
-            showHighlightRow: false,
+            showHighlightRow: true,
             headerColumnHeight: 29,
             bodyRowHeight: 29,
             showPager: true,

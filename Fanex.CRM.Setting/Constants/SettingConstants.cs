@@ -17,5 +17,6 @@ namespace Fanex.CRM.Setting.Constants
     public class SettingConstants
     {
         public static readonly int NotApply = 0;
+        public static readonly int MaxFeedbackSubjectTemplateNumberOnLoad = 100000;
     }
 }

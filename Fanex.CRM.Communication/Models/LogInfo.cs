@@ -69,6 +69,6 @@ namespace Fanex.CRM.Communication.Models
 
         public string Review { get; set; }
 
-        public bool IsReview { get; set; }
+        public bool IsReviewed { get; set; }
     }
 }

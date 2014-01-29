@@ -207,4 +207,7 @@
   <data name="Select" xml:space="preserve">
     <value>Select</value>
   </data>
+  <data name="Inset_Edit_Block" xml:space="preserve">
+    <value>Inset Edit Block</value>
+  </data>
 </root>

@@ -119,13 +119,13 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                     Id = 10000,
                     Value = "Satisfied "
                 },
-                RelatedCustomers = string.Empty,
+                RelatedCustomers = "testcs, TESTCS0101",
                 Remark = "Remark value",
                 Solution = "Solution value",
                 Review = "Review value"
             };
 
-            logInfo.IsReview = logInfo.Reviewer != string.Empty;
+            logInfo.IsReviewed = logInfo.Reviewer != string.Empty;
             return logInfo;
         }
     }

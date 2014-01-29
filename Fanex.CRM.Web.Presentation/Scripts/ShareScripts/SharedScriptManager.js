@@ -4,7 +4,8 @@ var SharedScriptManager = function () {
     var self = this;
     self.cachedData = {
         pagingOptions: [50, 100, 200, 500],
-        defaultItemsPerPage: 50
+        defaultItemsPerPage: 50,
+        maxFeedbackSubjectTemplateNumberOnLoad: 100000
     },
 
     self.CallAjax = function (currentHandler,
@@ -91,3 +92,7 @@ var SharedScriptManager = function () {
 };
 
 var sharedScriptManager = new SharedScriptManager();
+
+function trim(str) {
+    return str.replace(/(^\s*)|(\s*$)/g, "");
+};

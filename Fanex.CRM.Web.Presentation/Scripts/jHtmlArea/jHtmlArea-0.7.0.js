@@ -49,7 +49,7 @@
                 container.append(htmlarea).append(textarea.hide());
 
                 priv.initEditor.call(this, opts);
-                priv.attachEditorEvents.call(this);
+                priv.attachEditorEvents.call(this, opts);
 
                 // Fix total height to match TextArea
                 if (jQuery.browser.msie && jQuery.browser.version.indexOf("7.") == 0) {
@@ -265,6 +265,7 @@
 
         updateTextArea: function () {
             this.textarea.val(this.toHtmlString());
+            this.textarea.change();
         },
         updateHtmlArea: function () {
             this.editor.body.innerHTML = this.textarea.val();
@@ -357,9 +358,8 @@
                 addButtons(options.toolbar);
             }
         },
-        attachEditorEvents: function () {
+        attachEditorEvents: function (options) {
             var t = this;
-
             var fnHA = function () {
                 t.updateHtmlArea();
             };
@@ -369,8 +369,9 @@
                 keydown(fnHA).
                 mousedown(fnHA).
                 blur(fnHA);
-
-
+            if (options && typeof (options.changeEvent) === "function") {
+                this.textarea.change(options.changeEvent);
+            }
 
             var fnTA = function () {
                 t.updateTextArea();

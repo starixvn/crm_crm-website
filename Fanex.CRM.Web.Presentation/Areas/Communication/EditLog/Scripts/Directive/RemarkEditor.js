@@ -3,11 +3,15 @@
     function renderRemarkEditor(scope, element, attrs) {
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-            scope.remark +
+            communicationLog.Remark +
         '</textarea>';
 
         element.html(editorHTML);
-        element.find("#" + editorId).htmlarea({
+        var editor = element.find("#" + editorId);
+        editor.htmlarea({
+            changeEvent: function () {
+                scope.updateRemark(editor.htmlarea("toHtmlString"));
+            },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],
@@ -19,7 +23,7 @@
                 ["cut", "copy", "paste"],
                 [{
                     css: "edit",
-                    text: "Inset Edit Block",
+                    text: viewResources.Inset_Edit_Block,
                     action: function (btn) {
                         /* jshint unused: vars */
                         var s = this.getSelectedHTML();

@@ -6,7 +6,8 @@
                    <optgroup data-ng-repeat="siteGroup in siteList track by $index" label="{{ siteGroup.Name }}" value="{{ siteGroup.Id }}">\
                         <option data-ng-repeat="site in siteGroup.ChildSites track by $index"' +
                             ' data-ng-click="updateSelectedSite(site);"' +
-                            ' value="{{ site.Id }}">{{ site.Name }}</option>\
+                            ' value="{{ site.Id }}"' +
+                            ' data-ng-selected="site.Id === communicationLog.SiteInfo.Id">{{ site.Name }}</option>\
                    </optgroup>',
         replace: false,
         priority: 0,

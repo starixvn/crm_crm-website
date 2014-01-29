@@ -131,5 +131,32 @@ namespace Fanex.CRM.Setting.Repositories.Implements
 
             return settingRelations;
         }
+
+        public List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria)
+        {
+            List<FeedbackTemplate> result = new List<FeedbackTemplate>();
+            using (var obj = new ObjectDb(criteria.GetSettingKey(), 500))
+            {
+                obj.AssignParamValues(criteria.GetSpParams());
+                using (var reader = obj.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var feedbackTemplate = new FeedbackTemplate()
+                            {
+                                TemplateId = reader.GetInt32NotNull("templateID"),
+                                Subject = reader.GetStringNotNull("subject")
+                            };
+
+                            result.Add(feedbackTemplate);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
     }
 }

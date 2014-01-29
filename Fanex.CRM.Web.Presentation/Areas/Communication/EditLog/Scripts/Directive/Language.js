@@ -3,7 +3,8 @@
         restrict: 'A',
         template: '<option data-ng-repeat="language in languageList track by $index"' +
                         ' data-ng-click="updateSelectedLanguage(language);"' +
-                        ' value="{{ language.Id }}">{{ language.Value }}</option>',
+                        ' value="{{ language.Id }}"' +
+                        ' data-ng-selected="language.Id === communicationLog.LanguageId">{{ language.Value }}</option>',
         replace: false,
         priority: 0,
         transclude: false,
