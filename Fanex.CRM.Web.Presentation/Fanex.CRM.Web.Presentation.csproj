@@ -306,7 +306,7 @@
     <Content Include="Areas\Communication\CommunicationLog.cshtml" />
     <Content Include="Areas\Communication\Web.config" />
     <Content Include="Areas\Communication\EditLog\Index.cshtml" />
-    <Content Include="Areas\Communication\InsertCommunicationLog.cshtml" />
+    <Content Include="Areas\Communication\Insert\Index.cshtml" />
     <Content Include="Areas\ActivityLog\Index.cshtml" />
     <Content Include="Areas\ActivityLog\Web.config" />
     <None Include="Areas\ActivityLog\Styles\activityLog.less" />
@@ -690,6 +690,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Communication\Insert\Scripts\" />
+    <Folder Include="Areas\Communication\Insert\Styles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

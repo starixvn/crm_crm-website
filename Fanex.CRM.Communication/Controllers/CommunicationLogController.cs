@@ -60,10 +60,10 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/EditLog/Index.cshtml", logInfo);
         }
 
-        [ActionName("New")]
-        public ActionResult InsertCommunicationLog()
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public ActionResult OpenInsertView()
         {
-            return View("~/Areas/Communication/InsertCommunicationLog.cshtml");
+            return View("~/Areas/Communication/Insert/Index.cshtml");
         }
     }
 }
