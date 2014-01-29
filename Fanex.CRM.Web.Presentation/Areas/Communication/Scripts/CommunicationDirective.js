@@ -23,9 +23,8 @@
                         },
                         {
                             Name: "ColCategory",
-                            Value: sharedScriptManager.stringFormat(
-                                '<div class="maincategory">{0}</div>\
-                                 <div class="subcategory">{1}</div>', [info.MainCategory.Name, info.SubCategory.Name])
+                            Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
+                                (info.SubCategory.Name != "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
                         },
                         { Name: "ColSubject", Value: info.Subject },
                         { Name: "ColStatus", Value: info.StatusName },

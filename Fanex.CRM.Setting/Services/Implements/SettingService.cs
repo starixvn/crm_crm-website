@@ -31,6 +31,7 @@ namespace Fanex.CRM.Setting.Services.Implements
     {
         public const string GetAllSettingSessionKey = "Fanex.CRM.Setting.GetAllSettingSessionKey";
         public const string GetAllCountrySessionKey = "Fanex.CRM.Setting.GetAllCountrySessionKey";
+        public const string GetAllSettingRelationSessionKey = "Fanex.CRM.Setting.GetAllSettingRelationSessionKey";
 
         private readonly ISettingRepository _repositoryInstance;
 
@@ -55,7 +56,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 {
                     setting = new SettingInfo()
                     {
-                        Value = SettingConstants.NotApply
+                        Value = Labels.Symbol_NotApply
                     };
                 }
             }
@@ -97,7 +98,7 @@ namespace Fanex.CRM.Setting.Services.Implements
             {
                 var crmSite = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
-                    SettingName = "site",
+                    SettingName = SettingTypeConstants.Site,
                     ParentId = 0
                 });
 
@@ -165,7 +166,7 @@ namespace Fanex.CRM.Setting.Services.Implements
             {
                 result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
-                    SettingName = "language",
+                    SettingName = SettingTypeConstants.Language,
                     ParentId = 0
                 });
             }
@@ -184,7 +185,7 @@ namespace Fanex.CRM.Setting.Services.Implements
             {
                 result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
-                    SettingName = "Station",
+                    SettingName = SettingTypeConstants.Extension,
                     ParentId = 0
                 });
             }
@@ -203,7 +204,7 @@ namespace Fanex.CRM.Setting.Services.Implements
             {
                 result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
-                    SettingName = "Communication",
+                    SettingName = SettingTypeConstants.CommunicationTool,
                     ParentId = 0
                 });
             }
@@ -222,20 +223,122 @@ namespace Fanex.CRM.Setting.Services.Implements
             {
                 var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                  {
-                     SettingName = "MainCategory",
+                     SettingName = SettingTypeConstants.MainCategory,
                      ParentId = 0
                  });
 
+                var allSettingRelation = GetAllSetingRelation();
+                var allSetting = GetAllSetting();
                 foreach (var data in rawData)
                 {
-                    data.ChildSettings = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                    {
-                        SettingName = "MainCategory",
-                        ParentId = data.Id
-                    });
-
+                    data.ChildSettings = GetSubSettingByParentId(data, allSettingRelation, allSetting);
                     result.Add(data);
                 }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        public List<SettingInfo> GetAllProduct()
+        {
+            var result = new List<SettingInfo>();
+            try
+            {
+                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                {
+                    SettingName = SettingTypeConstants.Product,
+                    ParentId = 0
+                });
+
+                var allSettingRelation = GetAllSetingRelation();
+                var allSetting = GetAllSetting();
+
+                var notApplySetting = new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.Symbol_NotApply
+                };
+
+                result.Add(new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.Symbol_NotApply,
+                    ChildSettings = new List<SettingInfo> { notApplySetting }
+                });
+
+                foreach (var data in rawData)
+                {
+                    data.ChildSettings = GetSubSettingByParentId(data, allSettingRelation, allSetting);
+                    data.ChildSettings.Insert(0, notApplySetting);
+                    result.Add(data);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        public List<SettingInfo> GetAllStatus()
+        {
+            var result = new List<SettingInfo>();
+            try
+            {
+                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                {
+                    SettingName = SettingTypeConstants.Status,
+                    ParentId = 0
+                });
+
+                result = rawData;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        public List<SettingInfo> GetAllRole()
+        {
+            var result = new List<SettingInfo>();
+            try
+            {
+                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                {
+                    SettingName = SettingTypeConstants.Role,
+                    ParentId = 0
+                });
+
+                result = rawData;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        public List<SettingInfo> GetAllResponse()
+        {
+            var result = new List<SettingInfo>();
+            try
+            {
+                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                {
+                    SettingName = SettingTypeConstants.Response,
+                    ParentId = 0
+                });
+
+                result = rawData;
             }
             catch (Exception ex)
             {
@@ -292,6 +395,76 @@ namespace Fanex.CRM.Setting.Services.Implements
             }
 
             return result;
+        }
+
+        private List<SettingInfo> GetAllSetingRelation()
+        {
+            List<SettingInfo> settingRelations = new List<SettingInfo>();
+            try
+            {
+                settingRelations = CacheService.Get<List<SettingInfo>>(GetAllSettingRelationSessionKey);
+                if (settingRelations == null || !settingRelations.Any())
+                {
+                    settingRelations = _repositoryInstance.GetAllSetingRelation(new GetAllSettingRelationCriteria());
+                }
+
+                if (settingRelations != null && settingRelations.Any())
+                {
+                    CacheService.Set(GetAllSettingRelationSessionKey, settingRelations);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                CacheService.Delete(GetAllSettingRelationSessionKey);
+            }
+
+            return settingRelations;
+        }
+
+        public List<SettingInfo> GetSubSettingByParentId(
+            SettingInfo parentSetting,
+            List<SettingInfo> allSettingRelation,
+            List<SettingInfo> allSetting)
+        {
+            List<SettingInfo> subSettings = new List<SettingInfo>();
+            try
+            {
+                if (allSettingRelation == null || !allSettingRelation.Any())
+                {
+                    return subSettings;
+                }
+
+                foreach (var settingRelation in allSettingRelation)
+                {
+                    if (settingRelation.ParentId == parentSetting.Id)
+                    {
+                        foreach (var setting in allSetting)
+                        {
+                            if (setting.Id == settingRelation.Id)
+                            {
+                                subSettings.Add(new SettingInfo
+                                {
+                                    Id = setting.Id,
+                                    DisplayOrder = setting.DisplayOrder,
+                                    Value = setting.Value,
+                                    Type = setting.Type,
+                                    ParentId = parentSetting.Id,
+                                    IsSubSetting = true
+                                });
+                            }
+                        }
+                    }
+                }
+
+                subSettings = subSettings.OrderBy(s => s.DisplayOrder).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return subSettings;
         }
     }
 }

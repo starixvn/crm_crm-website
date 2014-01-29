@@ -77,12 +77,6 @@ namespace Fanex.CRM.Communication.Services.Implements
                         break;
                     }
                 }
-
-                if (result != null)
-                {
-                    result.StartTime = DateTime.Now;
-                    result.EndTime = DateTime.Now;
-                }
             }
             catch (Exception ex)
             {

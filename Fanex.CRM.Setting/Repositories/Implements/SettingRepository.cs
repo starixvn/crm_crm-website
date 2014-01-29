@@ -15,7 +15,6 @@ namespace Fanex.CRM.Setting.Repositories.Implements
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Repositories.Interfaces;
     using Fanex.Data;
-    using Fanex.Common;
 
     /// <summary>
     /// Setting Repository.
@@ -104,6 +103,33 @@ namespace Fanex.CRM.Setting.Repositories.Implements
             }
 
             return allSetting;
+        }
+
+        public List<SettingInfo> GetAllSetingRelation(GetAllSettingRelationCriteria criteria)
+        {
+            var settingRelations = new List<SettingInfo>();
+            using (var obj = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = obj.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var settingInfo = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("SettingID"),
+                                ParentId = reader.GetInt32NotNull("ParentId"),
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder")
+                            };
+
+                            settingRelations.Add(settingInfo);
+                        }
+                    }
+                }
+            }
+
+            return settingRelations;
         }
     }
 }

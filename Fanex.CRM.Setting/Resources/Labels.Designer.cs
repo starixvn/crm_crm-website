@@ -151,20 +151,20 @@ namespace Fanex.CRM.Setting.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to N/A.
-        /// </summary>
-        public static string NotApply {
-            get {
-                return ResourceManager.GetString("NotApply", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Super.
         /// </summary>
         public static string Super {
             get {
                 return ResourceManager.GetString("Super", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string Symbol_NotApply {
+            get {
+                return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
             }
         }
     }

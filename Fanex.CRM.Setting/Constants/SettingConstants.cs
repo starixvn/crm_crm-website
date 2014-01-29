@@ -16,6 +16,6 @@ namespace Fanex.CRM.Setting.Constants
     /// </summary>
     public class SettingConstants
     {
-        public static readonly string NotApply = Labels.NotApply;
+        public static readonly int NotApply = 0;
     }
 }

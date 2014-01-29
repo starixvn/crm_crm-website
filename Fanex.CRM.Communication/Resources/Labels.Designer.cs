@@ -196,11 +196,11 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Related to.
+        ///   Looks up a localized string similar to Related To.
         /// </summary>
-        public static string Related_to {
+        public static string Related_To {
             get {
-                return ResourceManager.GetString("Related_to", resourceCulture);
+                return ResourceManager.GetString("Related_To", resourceCulture);
             }
         }
         
@@ -255,6 +255,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Running_Number {
             get {
                 return ResourceManager.GetString("Running_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         

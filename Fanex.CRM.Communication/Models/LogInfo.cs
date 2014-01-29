@@ -47,19 +47,19 @@ namespace Fanex.CRM.Communication.Models
 
         public SettingInfo CommunicationTool { get; set; }
 
-        public string LanguageId { get; set; }
+        public int LanguageId { get; set; }
 
-        public BaseModel Product { get; set; }
+        public SettingInfo Product { get; set; }
 
-        public BaseModel BetType { get; set; }
+        public SettingInfo BetType { get; set; }
 
-        public BaseModel Status { get; set; }
+        public SettingInfo Status { get; set; }
 
-        public BaseModel SiteInfo { get; set; }
+        public SettingInfo SiteInfo { get; set; }
 
-        public BaseModel RoleInfo { get; set; }
+        public SettingInfo RoleInfo { get; set; }
 
-        public string Reponse { get; set; }
+        public SettingInfo Response { get; set; }
 
         public string RelatedCustomers { get; set; }
 

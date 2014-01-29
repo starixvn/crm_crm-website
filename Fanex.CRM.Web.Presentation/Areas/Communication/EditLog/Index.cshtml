@@ -11,7 +11,6 @@
     @Styles.Render("~/site/common")
     <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Areas/Communication/styles/Communication.less?ver=2")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Styles/MultipleSelect")
     @Styles.Render("~/Areas/Communication/Edit/Styles")
 </head>
@@ -81,75 +80,81 @@
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="subcategory">
-                        Subcategory</label>
+                        @Labels.Sub_Category</label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="subcategory">
-                        <option value="0">Result/Payout</option>
+                    <select id="subCategory">
+                        <option data-ng-repeat="subCategory in subCategoryList track by $index" data-ng-click="updateSelectedSubCategory(subCategory)"
+                            value="subCategory.Id" data-ng-selected="communicationLog.SubCategory.Value != '' && subCategory.Value ==  communicationLog.SubCategory.Name">
+                            {{ subCategory.Value}} </option>
                     </select>
                 </div>
             </div>
             <div class="row row-item">
                 <div class="col-xs-3 col-sm-3 col-md-2">
                     <label for="product">
-                        Product</label></div>
+                        @Labels.Product</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="product">
-                        <option value="0">Soccer</option>
+                        <option data-ng-repeat="product in productList track by $index" data-ng-click="updateSelectedProduct(product)"
+                            value="product.Id">{{ product.Value}} </option>
                     </select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="betType">
-                        Bet Type</label>
+                        @Labels.Bet_Type</label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="betType">
-                        <option value="0">1x2</option>
+                        <option data-ng-repeat="betType in betTypeList track by $index" data-ng-click="updateSelectedBetType(betType)"
+                            value="betType.Id">{{ betType.Value}} </option>
                     </select>
                 </div>
             </div>
             <div class="row row-item">
                 <div class="col-xs-3 col-sm-3 col-md-2">
                     <label for="status">
-                        Status</label></div>
+                        @Labels.Status</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="status">
-                        <option value="0">Closed</option>
+                        <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
+                            value="status.Id">{{ status.Value}} </option>
                     </select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="site">
-                        Site</label>
+                        @Labels.Site</label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="site">
-                        <option value="0">73333</option>
+                    <select id="site" dropdown-site>
                     </select>
                 </div>
             </div>
             <div class="row row-item">
                 <div class="col-xs-3 col-sm-3 col-md-2">
                     <label for="role">
-                        Role</label></div>
+                        @Labels.Role</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="role">
-                        <option value="0">Member</option>
+                        <option data-ng-repeat="role in roleList track by $index" data-ng-click="updateSelectedRole(role)"
+                            value="role.Id">{{ role.Value}} </option>
                     </select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="response">
-                        Response</label>
+                        @Labels.Response</label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="response">
-                        <option value="0">Satisfied</option>
+                        <option data-ng-repeat="response in responseList track by $index" data-ng-click="updateSelectedResponse(response)"
+                            value="response.Id">{{ response.Value}} </option>
                     </select>
                 </div>
             </div>
             <div class="row row-item">
                 <div class="col-xs-3 col-sm-3 col-md-2">
                     <label for="relatedTo">
-                        Related To</label></div>
+                        @Labels.Related_To</label></div>
                 <div class="col-xs-7 col-sm-7 col-md-8">
                     <input type="text" class="textbox" id="relatedTo" />
                 </div>
@@ -161,42 +166,36 @@
             <div class="row row-item">
                 <div class="col-xs-3 col-sm-3 col-md-2">
                     <label for="subject">
-                        Subject</label></div>
+                        @Labels.Subject</label></div>
                 <div class="col-xs-7 col-sm-7 col-md-8">
-                    <input type="text" class="textbox" id="subject" value="Asking for payment" />
+                    <input type="text" class="textbox" id="subject" data-ng-model="communicationLog.Subject" />
                 </div>
             </div>
         </div>
         <div class="row panel-group">
             <div class="row title">
-                Remark</div>
+                @Labels.Remark</div>
             <div class="row content multi-text">
-                <div id="previewboxremark" class="hidden">
-                </div>
-                <div id="editboxremark">
+                <div id="remarkeditorboxconatiner" data-ng-model="remark" remark-editor-container>
                 </div>
             </div>
         </div>
         <div class="row panel-group">
             <div class="row title">
-                Solution</div>
+                @Labels.Solution</div>
             <div class="row content multi-text">
-                <div id="previewboxsolution" class="hidden">
-                </div>
-                <div id="editboxsolution">
+                <div id="solutionkeditorboxconatiner" data-ng-model="solution" solution-editor-container>
                 </div>
             </div>
         </div>
         <div class="row panel-group last">
             <div class="row title">
                 <label for="review">
-                    Review</label>
-                <input type="checkbox" class="review" id="review" />
+                    @Labels.Reviewed</label>
+                <input id="review" type="checkbox" class="review" data-ng-click="isReviewed=!isReviewed;" />
             </div>
-            <div class="row content multi-text">
-                <div id="previewboxdes" class="hidden">
-                </div>
-                <div id="editboxreview">
+            <div class="row content multi-text" data-ng-show="isReviewed">
+                <div id="revieweditorboxconatiner" data-ng-model="solution" review-editor-container>
                 </div>
             </div>
         </div>
@@ -213,47 +212,13 @@
     <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
     <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
     @Scripts.Render("~/Areas/Communication/Edit/Scripts")
-    <script type="text/javascript"> 
-   function initHTMLArea(wrapperid, editerid, strvalue) {
-            document.getElementById(wrapperid).innerHTML =
-        '<textarea id="' + editerid +
-            '" name="' + editerid +
-            '" style="width:auto; height:100px; min-width:710px;width:710px;">' +
-            strvalue +
-        '</textarea>';
-            $("#" + editerid).htmlarea({
-                toolbar: [
-                ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
-                ["increasefontsize", "decreasefontsize"],
-                ["orderedlist", "unorderedlist"],
-                ["indent", "outdent"],
-                ["justifyleft", "justifycenter", "justifyright"],
-                ["link", "unlink"], ["image", "horizontalrule"],
-                ["p", "h1", "h2", "h3", "h4", "yh5", "h6"],
-                ["cut", "copy", "paste"],
-                 [{
-                     css: "edit",
-                     text: "Inset Edit Block",
-                     action: function (btn) {
-                         /* jshint unused: vars */
-                         var s = this.getSelectedHTML();
-                         s = formatEditBlock(accname, s);
-                         this.pasteHTML(s);
-                     }
-                 }]
-                  ]
-            });
-        }
-
-        initHTMLArea('editboxremark', 'remarkediter', '');
-        initHTMLArea('editboxsolution', 'solutionediter', '');
-        initHTMLArea('editboxreview', 'reviewediter', '');
-
+    <script type="text/javascript">   
         window.rootUrl = '@Url.Content("~")';
         var currentTime = '@DateTime.Now';
         var communicationLog = @Html.Raw(jsonLogInfo);
         var viewResources = {
-            Symbol_NotApply: '@Labels.Symbol_NotApply'
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Select:'@Labels.Select'
         }; </script>
 </body>
 </html>

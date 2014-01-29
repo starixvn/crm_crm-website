@@ -13,7 +13,10 @@
             ampm: true
         });
 
-        datePicker.datepicker('setDate', new Date(currentTime));
+        var initTime = scope.communicationLog.EndTime ?
+            new Date(scope.communicationLog.EndTime) :
+            new Date(currentTime);
+        datePicker.datepicker('setDate', initTime);
     }
 
     function updateCurrentTime() {
@@ -107,7 +110,9 @@
 
             var initEndTime = new Date(currentTime);
             initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);
-            scope.updateEndTime(initEndTime);
+            scope.updateEndTime(scope.communicationLog.EndTime ?
+                new Date(scope.communicationLog.EndTime) :
+                initEndTime);
             oldValue = new Date(currentTime);
             element.on('change', function () {
                 var selectedTime = selectedTimeChange(scope, element, attrs);

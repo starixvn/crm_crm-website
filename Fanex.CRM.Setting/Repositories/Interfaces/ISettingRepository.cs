@@ -10,8 +10,8 @@
 namespace Fanex.CRM.Setting.Repositories.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Criteria;
+    using Fanex.CRM.Setting.Models;
 
     public interface ISettingRepository
     {
@@ -20,5 +20,7 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
         List<SettingInfo> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria);
 
         List<CountryInfo> GetAllCountry(GetAllCountryCriteria criteria);
+
+        List<SettingInfo> GetAllSetingRelation(GetAllSettingRelationCriteria criteria);
     }
 }

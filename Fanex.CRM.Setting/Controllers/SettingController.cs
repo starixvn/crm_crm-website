@@ -78,5 +78,37 @@ namespace Fanex.CRM.Setting.Controllers
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
+
+        [HttpPost]
+        public JsonResult GetAllProduct()
+        {
+            var result = _serviceInstance.GetAllProduct();
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult GetAllStatus()
+        {
+            var result = _serviceInstance.GetAllStatus();
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult GetAllRole()
+        {
+            var result = _serviceInstance.GetAllRole();
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult GetAllResponse()
+        {
+            var result = _serviceInstance.GetAllResponse();
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
     }
 }

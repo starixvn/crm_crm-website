@@ -1,0 +1,43 @@
+﻿editLogApplication.directive('remarkEditorContainer', function () {
+    var editorId = "remarkeditorbox";
+    function renderRemarkEditor(scope, element, attrs) {
+        var editorHTML =
+        '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
+            scope.remark +
+        '</textarea>';
+
+        element.html(editorHTML);
+        element.find("#" + editorId).htmlarea({
+            toolbar: [
+                ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
+                ["increasefontsize", "decreasefontsize"],
+                ["orderedlist", "unorderedlist"],
+                ["indent", "outdent"],
+                ["justifyleft", "justifycenter", "justifyright"],
+                ["link", "unlink"], ["image", "horizontalrule"],
+                ["p", "h1", "h2", "h3", "h4", "yh5", "h6"],
+                ["cut", "copy", "paste"],
+                [{
+                    css: "edit",
+                    text: "Inset Edit Block",
+                    action: function (btn) {
+                        /* jshint unused: vars */
+                        var s = this.getSelectedHTML();
+                        s = formatEditBlock(accname, s);
+                        this.pasteHTML(s);
+                    }
+                }]
+           ]
+        });
+    }
+
+    return {
+        restrict: 'A',
+        scope: true,
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                renderRemarkEditor(scope, element, attrs);
+            });
+        }
+    };
+});

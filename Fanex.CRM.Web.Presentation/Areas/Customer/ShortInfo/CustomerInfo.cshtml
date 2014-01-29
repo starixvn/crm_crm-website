@@ -47,13 +47,13 @@
                 <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4 text-left">
                         <span class="lv{{ customer.OriginalDangerLevel }}">{{ customer.OriginalDangerLevel !=
-                            0 ? ('@Labels.Lvl ' + customer.ABTDangerLevel) : '@Labels.None' }}</span></div>
+                            0 ? ('@Labels.Lvl ' + customer.OriginalDangerLevel) : '@Labels.None' }}</span></div>
                     <div class="col-xs-3 col-sm-3 col-md-3 text-left">
                         <span class="lv{{ customer.ABTDangerLevel }}">{{ customer.ABTDangerLevel != 0 ? ('@Labels.Lvl
                             ' + customer.ABTDangerLevel) : '@Labels.None' }}</span></div>
                     <div class="col-xs-5 col-sm-5 col-md-5 text-left">
                         <span class="lv{{ customer.OtherSportsDangerLevel }}">{{ customer.OtherSportsDangerLevel
-                            != 0 ? ('@Labels.Lvl ' + customer.ABTDangerLevel) : '@Labels.None' }}</span></div>
+                            != 0 ? ('@Labels.Lvl ' + customer.OtherSportsDangerLevel) : '@Labels.None' }}</span></div>
                 </div>
             </div>
         </div>

@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Communication.Repositories.Implements
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Common;
@@ -51,7 +52,8 @@ namespace Fanex.CRM.Communication.Repositories.Implements
         {
             var durationTime = reader.GetStringNotNull("Duration");
             var durationTimeArray = durationTime.Split(':');
-            return new LogInfo
+
+            var logInfo = new LogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
                 FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate"),
@@ -72,8 +74,59 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                     Seconds = Converter.ToInt(durationTimeArray[2])
                 },
                 Handler = reader.GetStringNotNull("HandleBy"),
-                Reviewer = reader.GetStringNotNull("ReviewBy")
+                Reviewer = reader.GetStringNotNull("ReviewBy"),
+
+                StartTime = new DateTime(2014, 1, 31, 13, 30, 0),
+                EndTime = new DateTime(2014, 1, 31, 13, 35, 0),
+                Extension = new SettingInfo
+                {
+                    Id = 2000,
+                    Value = "946"
+                },
+                CommunicationTool = new SettingInfo
+                {
+                    Id = 1000,
+                    Value = "Phone"
+                },
+                LanguageId = 12002,
+                Product = new SettingInfo
+                {
+                    Id = 8001,
+                    Value = "Soccer"
+                },
+                BetType = new SettingInfo
+                {
+                    Id = 9019,
+                    Value = "Clean Sheet"
+                },
+                Status = new SettingInfo
+                {
+                    Id = 11002,
+                    Value = "Closed"
+                },
+                SiteInfo = new SettingInfo
+                {
+                    Id = 6004,
+                    Value = "BEST-ODDS"
+                },
+                RoleInfo = new SettingInfo
+                {
+                    Id = 7003,
+                    Value = "Super "
+                },
+                Response = new SettingInfo
+                {
+                    Id = 10000,
+                    Value = "Satisfied "
+                },
+                RelatedCustomers = string.Empty,
+                Remark = "Remark value",
+                Solution = "Solution value",
+                Review = "Review value"
             };
+
+            logInfo.IsReview = logInfo.Reviewer != string.Empty;
+            return logInfo;
         }
     }
 }

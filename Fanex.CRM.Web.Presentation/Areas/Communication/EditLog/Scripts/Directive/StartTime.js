@@ -13,7 +13,10 @@
             ampm: true
         });
 
-        datePicker.datepicker('setDate', new Date(currentTime));
+        var initTime = scope.communicationLog.StartTime ?
+            new Date(scope.communicationLog.StartTime) :
+            new Date(currentTime);
+        datePicker.datepicker('setDate', initTime);
     }
 
     function updateCurrentTime() {

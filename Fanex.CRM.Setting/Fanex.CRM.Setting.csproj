@@ -56,10 +56,12 @@
     <Compile Include="Constants\ErrorCodeConstants.cs" />
     <Compile Include="Constants\RoleIdConstants.cs" />
     <Compile Include="Constants\SettingConstants.cs" />
+    <Compile Include="Constants\SettingTypeConstants.cs" />
     <Compile Include="Constants\SiteConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Criteria\GetAllCountryCriteria.cs" />
     <Compile Include="Criteria\GetAllSettingCriteria.cs" />
+    <Compile Include="Criteria\GetAllSettingRelationCriteria.cs" />
     <Compile Include="Criteria\GetSettingByIdCriteria.cs" />
     <Compile Include="Criteria\GetSettingRelationByNameCriteria.cs" />
     <Compile Include="Models\CountryInfo.cs" />
