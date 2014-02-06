@@ -1,3 +1,6 @@
+@import "../../../../Content/site/variables.less";
+@import "../../../../Content/site/mixins.less";
+
 .panel-group .title {
     position: relative;
     .review {
@@ -59,11 +62,12 @@
 }
 
 .related-customer-container ul.holder li.bit-box {
-    background: none repeat scroll 0 0 #DEE7F8;
+    background: #DEE7F8;
     border: 1px solid #CAD8F3;
-    border-radius: 6px;
     padding: 0 16px 0 5px;
-    width:auto;
+    width: auto;
+    margin: 1px 3px 0 0;
+    .border-radius(2px);
 }
 
 .related-customer-container ul.holder li.bit-box a.closebutton {
@@ -110,7 +114,54 @@
 .facebook-auto ul li.auto-focus { background: #4173CC; color: #fff; }
 .facebook-auto ul li.auto-focus em { background: none; }
 
-.display-none 
-{
+.display-none  {
     display: none;
+}
+
+/* Color for verify*/
+.relate-customer {
+    border-left: 17px solid #008000;
+    padding-left: 5px;
+}
+
+.relate-guest {
+    border-left: 17px solid #0066CC;
+    padding-left: 5px;
+}
+
+.relate-invalid {
+    border-left: 17px solid #FF0000;
+    padding-left: 5px;
+}
+
+
+
+.related {
+    margin-top: 5px;
+
+    td {
+        padding-bottom: 5px;
+    }
+
+    .icon-del {
+        background: url(Images/del-icon.png) no-repeat -1px 1px;
+        height: 16px;
+        font-size: 12px;
+        height: 16px;
+        padding-left: 21px;
+        float: left;
+        cursor: pointer;
+
+        &.txt-customer {
+            color: #008000;
+        }
+
+        &.txt-guest {
+            color: #0066CC;
+        }
+
+        &.txt-invalid {
+            color: #FF0000;
+        }
+    }
 }
