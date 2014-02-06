@@ -18,7 +18,8 @@
         </div>
     </div>
     <div class="row btn-save">
-        <button class="btn" onclick="AddGuestFeedback();"><span class="hotkey">S</span>ave</button>
+        <button class="btn" onclick="AddGuestFeedback();">
+            <span class="hotkey">S</span>ave</button>
     </div>
     <div class="row panel-group">
         <div class="row title">
@@ -285,34 +286,26 @@
             </div>
             <div class="row item">
                 <div class="col-xs-3 col-sm-3 col-md-2">
-                    <input type="checkbox" id="chkisrelated" onclick="checkIsRelated(this);" style="float: left;
-                        display: block;" />
-                    Is Related to Customer
+                    <label class="checkbox">
+                        <input type="checkbox" id="chkisrelated" onclick="checkIsRelated(this);" style="float: left;
+                            display: block;" />
+                        Is Related to Customer
+                    </label>
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-9">
                     <div class="row">
-                        <div class="col-md-1"><input type="button" value="  " id="btnRelatedHelp" class="btnHelp" title="Related Help" /></div>
-                        <div class="col-md-10">
+                        <div class="col-md-11">
+                            <input type="button" value="  " id="btnRelatedHelp" class="btnHelp pull-left" title="Related Help" />
                             <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
-                                </select>
+                            </select>
                         </div>
                         <div class="col-md-1">
-                            <button class="btn" onclick="verifyUserName();" class="btn" id="btnverify" disabled><span class="hotkey">V</span>erify</button>
-                            
+                            <button class="btn pull-right" onclick="verifyUserName();" class="btn" id="btnverify"
+                                disabled>
+                                <span class="hotkey">V</span>erify</button>
                         </div>
                     </div>
                     <table>
-                        <tr>
-                            <td style="border: 0px">
-                                
-                            </td>
-                            <td style="border: 0px">
-                                
-                            </td>
-                            <td style="border: 0px">
-                                
-                            </td>
-                        </tr>
                         <tr class="hidden">
                             <td style="border: 0px">
                             </td>
@@ -439,7 +432,8 @@
         </div>
     </div>
     <div class="row btn-group">
-        <button class="btn" onclick="AddGuestFeedback();"><span class="hotkey">S</span>ave</button>
+        <button class="btn" onclick="AddGuestFeedback();">
+            <span class="hotkey">S</span>ave</button>
     </div>
 </div>
 @*<div class="maincontent">
