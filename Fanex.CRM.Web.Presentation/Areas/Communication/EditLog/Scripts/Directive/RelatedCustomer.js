@@ -169,35 +169,23 @@ renderRelated = function (row) {
     if (row.CustId !== 0) {
         if (row.CustId > 0) {
             html = '<tr>\
-                        <td id =' + row.CustId + ' value= ' + row.UserName + ' style="border: 0px;">\
-                            <div>\
-                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');">[x]</a>\
-                                &nbsp;&nbsp;\
-                                <font style="color:green;">' + row.UserName + '</font>\
-                             </div>\
+                        <td id =' + row.CustId + ' value= ' + row.UserName + ' >\
+                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del txt-customer">' + row.UserName + '</a>\
                          </td>\
                      </tr>';
         }
         else {
             html = '<tr>\
-                        <td id =' + row.CustId + ' value= ' + row.UserName + ' style="border: 0px;">\
-                            <div>\
-                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');">[x]</a>\
-                                &nbsp;&nbsp;\
-                                <font style="color:#0066CC;">' + row.UserName + '</font>\
-                            </div>\
+                        <td id =' + row.CustId + ' value= ' + row.UserName + ' >\
+                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del txt-guest">' + row.UserName + '</a>\
                         </td>\
                     </tr>';
         }
     }
     else {
         html = '<tr class="invalidcustomers">\
-                    <td id =' + row.CustId + ' value= ' + row.UserName + ' style="border: 0px;">\
-                        <div>\
-                            <a rel="friend" onclick="deleteAllInValidCustomers();">[x]</a>\
-                            &nbsp;&nbsp;\
-                            <font style="color:red;">' + row.UserName + '</font>\
-                        </div>\
+                    <td id =' + row.CustId + ' value= ' + row.UserName + ' >\
+                            <a rel="friend" onclick="deleteAllInValidCustomers();" class="icon-del txt-invalid">' + row.UserName + '</a>\
                     </td>\
                 </tr>';
     }
