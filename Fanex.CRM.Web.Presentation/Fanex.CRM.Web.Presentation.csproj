@@ -189,6 +189,7 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\EndTime.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directive\StartTime.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogService.js" />
+    <Content Include="Areas\Communication\EditLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\Scripts\CommunicationApplication.js" />
     <Content Include="Areas\Communication\Scripts\CommunicationController.js" />
     <Content Include="Areas\Communication\Scripts\CommunicationDirective.js" />

@@ -390,6 +390,10 @@
         } catch (e) {
         }
     };
+    $scope.verifyRelatedCustomer = function () {
+        verifyRelatedCustomer($scope);
+    };
+
     angular.element(document).ready(function () {
         $scope.initController();
         hotKeyManager.CachedData.ActiveDocumentManager.push({

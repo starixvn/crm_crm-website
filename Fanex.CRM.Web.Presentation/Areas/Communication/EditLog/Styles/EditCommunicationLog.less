@@ -28,22 +28,19 @@
 }
 
 .related-customer-container .holder {
-    margin: 0 !important;
-    width: 490px;
-}
-
-.related-customer-container .holder {
-    border: 1px solid #999999;
+    border: 1px solid #B1B1B1;
     height: auto !important;
     margin: 0;
     overflow: hidden;
-    padding: 4px 5px 0;
+    padding: 0;
+    margin: 0 !important;
+    width: 100%!important;
 }
 .related-customer-container .holder li {
     float: left;
     list-style-type: none;
-    margin: 0 5px 4px 0;
     white-space: nowrap;
+    width: auto;
 }
 
 .related-customer-container .holder .bit-input input {
@@ -51,11 +48,56 @@
     margin: 0;
     outline: 0 none;
     overflow: visible;
-    padding: 3px 0 2px;
+    padding: 3px 0;
+    width: auto;
 }
-.related-customer-container .holder .bit-box, .holder .bit-input input {
-    font: 11px "Lucida Grande","Verdana";
+
+.related-customer-container ul.holder li.bit-box, .related-customer-container #apple-list ul.holder li.bit-box {
+    padding-right: 15px;
+    position: relative;
+    z-index: 1000;
 }
+
+.related-customer-container ul.holder li.bit-box {
+    background: none repeat scroll 0 0 #DEE7F8;
+    border: 1px solid #CAD8F3;
+    border-radius: 6px;
+    padding: 0 16px 0 5px;
+    width:auto;
+}
+
+.related-customer-container ul.holder li.bit-box a.closebutton {
+    background: url("Images/close.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    font-size: 1px;
+    height: 7px;
+    position: absolute;
+    right: 4px;
+    top: 5px;
+    width: 7px;
+}
+.related-customer-container a.closebutton, a.closebutton:hover {
+    background-position: center bottom;
+}
+.related-customer-container a.closebutton {
+    background: url("Images/close.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    display: block;
+    font-size: 1px;
+    height: 7px;
+    position: absolute;
+    right: 4px;
+    top: 5px;
+    width: 7px;
+}
+
+
+
+
+
+
+
+
+
 
 /* Autocompleter */
 

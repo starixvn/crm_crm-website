@@ -210,4 +210,10 @@
   <data name="Inset_Edit_Block" xml:space="preserve">
     <value>Inset Edit Block</value>
   </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

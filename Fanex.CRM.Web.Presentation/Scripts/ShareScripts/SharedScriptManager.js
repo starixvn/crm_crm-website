@@ -92,7 +92,3 @@ var SharedScriptManager = function () {
 };
 
 var sharedScriptManager = new SharedScriptManager();
-
-function trim(str) {
-    return str.replace(/(^\s*)|(\s*$)/g, "");
-};
