@@ -17,7 +17,7 @@ namespace Fanex.CRM.Communication.Criteria
     public class GetLogsByCustomerIdCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "custid")]
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
 
         public override string GetSettingKey()
         {

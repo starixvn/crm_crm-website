@@ -39,14 +39,23 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult Index(string customerId)
+        public ActionResult Index(int customerId)
         {
-            List<LogInfo> logs = _serviceInstance.GetLogsByCustomerId(new GetLogsByCustomerIdCriteria
+            CustomerLogInfo logs = _serviceInstance.GetLogsByCustomerId(new GetLogsByCustomerIdCriteria
             {
                 CustomerId = customerId
             });
 
             return View("~/Areas/Communication/CommunicationLog.cshtml", logs);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
+        {
+            var result = _serviceInstance.GetLogsByCustomerId(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
@@ -64,6 +73,15 @@ namespace Fanex.CRM.Communication.Controllers
         public ActionResult OpenInsertView()
         {
             return View("~/Areas/Communication/Insert/Index.cshtml");
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public JsonResult UpdateLog(UpdateLogCriteria criteria)
+        {
+            var result = _serviceInstance.UpdateLog(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
         }
     }
 }

@@ -216,4 +216,10 @@
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="Communication_Logs_UpdateSuccess" xml:space="preserve">
+    <value>Update communication log successfully!</value>
+  </data>
+  <data name="Communication_Logs_VerifyRelatedCustomer" xml:space="preserve">
+    <value>Please verify related customer!</value>
+  </data>
 </root>

@@ -17,6 +17,11 @@
     $scope.feedbackSubejctTemplateList = [];
     $scope.feedbackSubejctTemplateTotalPage = 0;
     $scope.isLoadedFeedbackSubjectTemplate = false;
+    $scope.lastRemarkPrefix = '';
+    $scope.isSuccess = false;
+    $scope.isShowResultMessage = false;
+    $scope.resultMessage = '';
+    $scope.isEditingRelatedCustomer = true;
 
     $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
@@ -278,30 +283,38 @@
         }
 
         $scope.betTypeList = $scope.productList[0].ChildSettings;
+        $scope.updateRemarkPrefix();
     };
+    $scope.generateRemarkPrefix = function () {
+        return sharedScriptManager.stringFormat("{0}/{1} ",
+            [moment($scope.communicationLog.StartTime).format(crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix),
+            $scope.communicationLog.CommunicationTool.Value]);
+    };
+    $scope.updateRemarkPrefix = function () {
+        var remarkPrefix = $scope.generateRemarkPrefix();
+        if ($scope.communicationLog.Remark.indexOf($scope.lastRemarkPrefix) === 0) {
+            $scope.communicationLog.Remark = $scope.communicationLog.Remark.substring($scope.lastRemarkPrefix.length, $scope.communicationLog.Remark.length);
+        }
 
+        if ($scope.communicationLog.Remark.indexOf(remarkPrefix) === -1) {
+            $scope.communicationLog.Remark = remarkPrefix + $scope.communicationLog.Remark;
+            $scope.lastRemarkPrefix = remarkPrefix;
+        }
+    };
     $scope.invokeHotKey_CtrlS = function () {
+        $scope.updateLog();
     };
     $scope.invokeHotKey_CtrlV = function () {
+        $scope.verifyRelatedCustomer();
     };
-    $scope.editLog = function () {
-        //        $scope.BlockUI();
-        //        $editLogService.editLog()
-        //            .then(function (data) {
-        //                $scope.communicationLog = data.Result;
-        //                $scope.unblockUI();
-        //            },
-        //            function (data) {
-        //                $scope.unblockUI();
-        //            });
-    };
-
     $scope.updateStartTime = function (selectedTime) {
         $scope.communicationLog.StartTime = selectedTime;
         if (new Date($scope.communicationLog.EndTime) < selectedTime) {
             $scope.communicationLog.EndTime = new Date(selectedTime);
             $scope.communicationLog.EndTime.setMinutes(selectedTime.getMinutes() + 1);
         }
+
+        $scope.updateRemarkPrefix();
     };
     $scope.updateEndTime = function (selectedTime) {
         $scope.communicationLog.EndTime = selectedTime;
@@ -309,6 +322,8 @@
             $scope.communicationLog.StartTime = new Date(selectedTime);
             $scope.communicationLog.StartTime.setMinutes(selectedTime.getMinutes() - 1);
         }
+
+        $scope.updateRemarkPrefix();
     };
     $scope.updateSelectedExtension = function (extention) {
         $scope.communicationLog.Extension = extention;
@@ -318,6 +333,7 @@
     };
     $scope.updateSelectedCommunicationTool = function (communicationTool) {
         $scope.communicationLog.CommunicationTool = communicationTool;
+        $scope.updateRemarkPrefix();
     };
     $scope.updateSelectedLanguage = function (languageId) {
         $scope.communicationLog.LanguageId = languageId;
@@ -377,7 +393,60 @@
         $scope.communicationLog.Solution = solution;
         console.log(solution);
     };
+    $scope.updateLog = function () {
+        $scope.isShowResultMessage = false;
+        if ($scope.isEditingRelatedCustomer) {
+            alert(viewResources.Communication_Logs_VerifyRelatedCustomer);
+            return;
+        }
 
+        var updateCriteria = {
+            FeedbackId: $scope.communicationLog.RunningNumber,
+            CustomerId: $scope.communicationLog.CustomerId,
+            RelatedCustomerId: getRelatedCustomer(),
+            LanguageId: $scope.communicationLog.LanguageId,
+            CountryId: $scope.communicationLog.Country.Id,
+            StartTime: $scope.communicationLog.StartTime,
+            EndTime: $scope.communicationLog.EndTime,
+            CommunicationToolId: $scope.communicationLog.CommunicationTool.Id,
+            ExtensionId: $scope.communicationLog.Extension.Id,
+            MainCategoryId: $scope.communicationLog.MainCategory.Id,
+            SubcategoryId: $scope.communicationLog.SubCategory.Id,
+            SiteId: $scope.communicationLog.SiteInfo.Id,
+            RoleId: $scope.communicationLog.RoleInfo.Id,
+            ProductId: $scope.communicationLog.Product.Id,
+            BetTypeId: $scope.communicationLog.BetType.Id,
+            ResponseId: $scope.communicationLog.Response.Id,
+            StatusId: $scope.communicationLog.Status.Id,
+            Remark: $scope.communicationLog.Remark,
+            Solution: $scope.communicationLog.Solution,
+            IsReviewed: $scope.communicationLog.IsReviewed,
+            Review: $scope.communicationLog.Review,
+            Subject: $scope.communicationLog.Subject
+        };
+
+        $scope.BlockUI();
+        $editLogService.updateLog(updateCriteria)
+            .then(function (data) {
+                var updateResult = data.Result;
+                $scope.showUpdateResult(updateResult);
+                $scope.unblockUI();
+            },
+            function (data) {
+                $scope.unblockUI();
+            });
+    };
+    $scope.showUpdateResult = function (updateResult) {
+        parent.shouldReloadLogs = true;
+        $scope.isShowResultMessage = true;
+        $scope.isSuccess = updateResult.Code === crmConstants.Enums.Error.None;
+        $scope.resultMessage = updateResult.Message;
+        if ($scope.isSuccess) {
+            setTimeout(function () {
+                $scope.isShowResultMessage = false;
+            }, 3000);
+        }
+    };
     $scope.unblockUI = function () {
         try {
             parent.$.unblockUI();
@@ -392,8 +461,8 @@
     };
     $scope.verifyRelatedCustomer = function () {
         verifyRelatedCustomer($scope);
+        $scope.isEditingRelatedCustomer = false;
     };
-
     angular.element(document).ready(function () {
         $scope.initController();
         hotKeyManager.CachedData.ActiveDocumentManager.push({

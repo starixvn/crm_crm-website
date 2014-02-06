@@ -59,6 +59,8 @@
     <Compile Include="Controllers\CommunicationLogController.cs" />
     <Compile Include="Criteria\GetLogsByCustomerIdCriteria.cs" />
     <Compile Include="Criteria\GetLogByRunningNumberCriteria.cs" />
+    <Compile Include="Criteria\UpdateLogCriteria.cs" />
+    <Compile Include="Models\CustomerLogInfo.cs" />
     <Compile Include="Models\LogInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\CommunicationLogRepository.cs" />

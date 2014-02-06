@@ -38,6 +38,9 @@
         }
 
         typeCust.removeAttr("disabled");
+        element.change(function () {
+            scope.isEditingRelatedCustomer = true;
+        });
     }
 
     return {
@@ -203,4 +206,14 @@ renderRelated = function (row) {
 };
 DeleteRelatedCust = function (custId) {
     $("#" + custId).parent().remove();
+};
+getRelatedCustomer = function () {
+    var arrUser = [];
+    var userName = "";
+    $('#related td').each(function (i, td) {
+        /* jshint unused: vars */
+        arrUser[i] = this.id;
+    });
+    userName = arrUser.join(",");
+    return userName;
 };

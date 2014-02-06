@@ -1,7 +1,7 @@
 ﻿@using Fanex.CRM.Communication.Resources;
 @using Newtonsoft.Json;
 @using Fanex.CRM.Communication.Models;
-@model List<LogInfo>
+@model CustomerLogInfo
 @{
     var jsonLogInfoList = JsonConvert.SerializeObject(Model);
 }
@@ -16,7 +16,7 @@
     @Styles.Render("~/Areas/Communication/Styles")
 </head>
 <body>
-    <div class="container main" data-ng-controller="communicationController">
+    <div id="communicationcontroller" class="container main " data-ng-controller="communicationController">
         <div class="row">
             <div data-ng-model="logs" table-communication-logs-container>
                 <div id="table-communication-logs" class="freegrid display-none">
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="row btn-group">
-            <button class="btn"data-ng-click="insertCommunicationLog();">
+            <button class="btn" data-ng-click="insertCommunicationLog();">
                 <span class="hotkey">I</span>nsert Case</button>
         </div>
     </div>

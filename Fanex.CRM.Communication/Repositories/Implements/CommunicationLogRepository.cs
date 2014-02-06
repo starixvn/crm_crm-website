@@ -39,6 +39,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                         while (reader.Read())
                         {
                             var log = MappingDataFromSqlToLogInfoObject(reader);
+                            log.CustomerId = criteria.CustomerId;
                             logs.Add(log);
                         }
                     }
@@ -46,6 +47,24 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             }
 
             return logs;
+        }
+
+        public Result UpdateLog(UpdateLogCriteria criteria)
+        {
+            Result updateResult = null;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                updateResult = new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
+            }
+
+            return updateResult;
         }
 
         private LogInfo MappingDataFromSqlToLogInfoObject(IDataReader reader)
@@ -56,7 +75,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             var logInfo = new LogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate"),
+                FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate").ToShortFormatedDate(),
                 MainCategory = new SettingInfo
                 {
                     Name = reader.GetStringNotNull("MainCategory")
@@ -122,7 +141,11 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                 RelatedCustomers = "testcs, TESTCS0101",
                 Remark = "Remark value",
                 Solution = "Solution value",
-                Review = "Review value"
+                Review = "Review value",
+                Country = new CountryInfo
+                {
+                    Id = 2
+                }
             };
 
             logInfo.IsReviewed = logInfo.Reviewer != string.Empty;

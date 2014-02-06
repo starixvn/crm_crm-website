@@ -19,6 +19,9 @@ namespace Fanex.CRM.Communication.Services.Implements
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Extension;
     using System.Web;
+    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Communication.Resources;
 
     /// <summary>
     /// Communication Log Service.
@@ -39,13 +42,18 @@ namespace Fanex.CRM.Communication.Services.Implements
             _repositoryInstance = repositoryInstance ?? new CommunicationLogRepository();
         }
 
-        public List<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
+        public CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            List<LogInfo> result = null;
+            CustomerLogInfo result = null;
             try
             {
                 var rawData = _repositoryInstance.GetLogsByCustomerId(criteria);
-                result = rawData;
+                result = new CustomerLogInfo
+                {
+                    CustomerId = criteria.CustomerId,
+                    Logs = rawData
+                };
+
                 SessionExtension.AddSession(HttpContext.Current.Session, GetLogsByCustomerIdSessionKey, result);
             }
             catch (Exception ex)
@@ -61,7 +69,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             LogInfo result = null;
             try
             {
-                List<LogInfo> storedLogs = (List<LogInfo>)SessionExtension.GetSession(
+                CustomerLogInfo storedLogs = (CustomerLogInfo)SessionExtension.GetSession(
                     HttpContext.Current.Session,
                     GetLogsByCustomerIdSessionKey);
                 if (storedLogs == null)
@@ -69,13 +77,32 @@ namespace Fanex.CRM.Communication.Services.Implements
                     return result;
                 }
 
-                foreach (var log in storedLogs)
+                foreach (var log in storedLogs.Logs)
                 {
                     if (log.RunningNumber == criteria.RunningNumber)
                     {
                         result = log;
                         break;
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        public Result UpdateLog(UpdateLogCriteria criteria)
+        {
+            Result result = null;
+            try
+            {
+                result = _repositoryInstance.UpdateLog(criteria);
+                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                {
+                    result.Message = Labels.Communication_Logs_UpdateSuccess;
                 }
             }
             catch (Exception ex)

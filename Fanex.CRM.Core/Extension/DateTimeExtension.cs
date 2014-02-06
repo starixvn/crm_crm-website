@@ -17,6 +17,8 @@ namespace Fanex.CRM.Infrastructure.Extension
     /// </summary>
     public static class DateTimeExtension
     {
+        public const string ShortDateFormat = "MMM dd, yyyy";
+
         private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
 
         private static readonly DateTime MaxDate = new DateTime(9999, 12, 31, 23, 59, 59, 999);
@@ -31,6 +33,11 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static bool IsInRange(this DateTime target, DateTime fromDate, DateTime toDate)
         {
             return (target >= fromDate) && (target <= toDate);
+        }
+
+        public static string ToShortFormatedDate(this DateTime date)
+        {
+            return date.ToString(ShortDateFormat);
         }
     }
 }

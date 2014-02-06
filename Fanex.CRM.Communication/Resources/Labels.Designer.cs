@@ -79,6 +79,24 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update communication log successfully!.
+        /// </summary>
+        public static string Communication_Logs_UpdateSuccess {
+            get {
+                return ResourceManager.GetString("Communication_Logs_UpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please verify related customer!.
+        /// </summary>
+        public static string Communication_Logs_VerifyRelatedCustomer {
+            get {
+                return ResourceManager.GetString("Communication_Logs_VerifyRelatedCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Communication Tool.
         /// </summary>
         public static string Communication_Tool {
