@@ -1,4 +1,8 @@
-﻿customerDetailApplication.directive('dropdownSite', function () {
+﻿"use strict";
+/* global customerDetailApplication,
+crmConstants,
+viewResources */
+customerDetailApplication.directive('dropdownSite', function () {
     return {
         restrict: 'A',
         template: '<option value="' + crmConstants.Enums.Site.NotApply + '"' +
@@ -17,12 +21,15 @@
         terminal: false,
         require: false,
         compile: function compile(tElement, tAttrs, transclude) {
+            /* jshint unused: vars */
         },
         link: function (scope, elem, attrs) {
+            /* jshint unused: vars */
         }
-    }
+    };
 }).directive('dropdownCountry', function () {
     return {
+        /* jshint camelcase: false */
         restrict: 'A',
         template: '<option value="' + crmConstants.Enums.Country.NotApply +
                         ' data-ng-click="updateSelectedCountry(country);"' +
@@ -41,12 +48,15 @@
         terminal: false,
         require: false,
         compile: function compile(tElement, tAttrs, transclude) {
+            /* jshint unused: vars */
         },
         link: function (scope, elem, attrs) {
+            /* jshint unused: vars */
         }
-    }
+    };
 }).directive('dropdownCountryBank', function () {
     return {
+        /* jshint camelcase: false */
         restrict: 'A',
         template: '<option value="' + crmConstants.Enums.Country.NotApply + '"' +
                         ' ng-selected="customerDetail.BankInfo.AddressInfo.Country.Id == crmConstants.Enums.Country.NotApply">' +
@@ -63,12 +73,15 @@
         terminal: false,
         require: false,
         compile: function compile(tElement, tAttrs, transclude) {
+            /* jshint unused: vars */
         },
         link: function (scope, elem, attrs) {
+            /* jshint unused: vars */
         }
-    }
+    };
 }).directive('dropdownLanguage', function () {
     function renderDropdownLanguage(scope, element, attrs) {
+        /* jshint unused: vars */
         var dropdown = element.find("#customerinfodetail-languageoptions");
         dropdown.empty();
         var dropdownLanguage = [];
@@ -97,6 +110,7 @@
             }
         }
 
+        /* jshint camelcase: false */
         dropdown.fanexMultiSelect(
         {
             minWidth: 177,
@@ -122,6 +136,7 @@
         link: function (scope, element, attrs) {
             renderDropdownLanguage(scope, element, attrs);
             scope.$watch(attrs.ngModel, function (oldval, newval) {
+                /* jshint unused: vars */
                 renderDropdownLanguage(scope, element, attrs);
                 scope.updateSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
             });
@@ -132,5 +147,5 @@
                 });
             });
         }
-    }
+    };
 });

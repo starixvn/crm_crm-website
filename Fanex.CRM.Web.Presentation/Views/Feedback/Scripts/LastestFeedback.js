@@ -1,6 +1,5 @@
 ﻿"use strict";
-/* global OpenPopup, reRenderGrid, head,
-findMainWindow */
+/* global OpenPopup, reRenderGrid, head */
 /* exported _pageIndex, _pageSize, totalItems,
 HideTooltip, openEditFeedback */
 
@@ -8,9 +7,7 @@ HideTooltip, openEditFeedback */
 var _pageIndex = 1;
 var _pageSize = 20;
 var totalItems = 0;
-var topwnd;
 var maxHeightOfPopUp = ($(window).height() + 50);
-
 var topFeedback;
 
 function tooltip(i) {

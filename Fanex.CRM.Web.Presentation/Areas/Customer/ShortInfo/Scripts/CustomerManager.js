@@ -1,4 +1,5 @@
 ﻿"use strict";
+/* global sharedScriptManager, accId, crmConstants */
 
 var CustomerManager = function () {
     var self = this;
@@ -24,6 +25,7 @@ var CustomerManager = function () {
             IsReloadLeftPanel: 0
         },
 
+        /* jshint camelcase: false */
         ViewResources: {
             GetCustomerByName_NoData: "There is no information",
             OK: "OK",
@@ -453,7 +455,7 @@ var CustomerManager = function () {
 
                 if (updateResult.Id === crmConstants.Enums.Error.None &&
                     parent.dashboardManager &&
-                    parent.dashboardManager.CachedData.currentSubMenu == parent.dashboardManager.Enums.SubMenuId.Detail) {
+                    parent.dashboardManager.CachedData.currentSubMenu === parent.dashboardManager.Enums.SubMenuId.Detail) {
                     parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Detail);
                 }
             },

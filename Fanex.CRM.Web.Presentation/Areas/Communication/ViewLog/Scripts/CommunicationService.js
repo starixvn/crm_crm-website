@@ -1,4 +1,6 @@
-﻿communicationApplication.factory('$communicationService', function ($http, $q) {
+﻿"use strict";
+/* global communicationApplication */
+communicationApplication.factory('$communicationService', function ($http, $q) {
     var serviceInstance = {};
 
     serviceInstance.getLogsByCustomerId = function (getLogByCustomerIdParams) {

@@ -1,4 +1,9 @@
 ﻿
+"use strict";
+/* global hotKeyManager,
+keyboardManager,
+leftPanelManager
+*/
 var HomeManager = function () {
     var self = this;
     self.DOMElements = {
@@ -9,6 +14,7 @@ var HomeManager = function () {
     };
 
     self.CachedData = {
+        /* jshint camelcase: false */
         ViewResources: {
             DefaultSearchCustomer: "Search...",
             Error_SearchCustomer_Empty: 'Please input username!',
@@ -105,7 +111,7 @@ var HomeManager = function () {
     };
     self.validDateTextboxUsername = function () {
         var username = self.DOMElements.TextboxUsername.val();
-        if (username == self.CachedData.ViewResources.DefaultSearchCustomer ||
+        if (username === self.CachedData.ViewResources.DefaultSearchCustomer ||
             $.trim(username).length <= 0) {
             self.TextboxUsernameBlur();
             self.DOMElements.ResultMessage.removeClass("display-none");

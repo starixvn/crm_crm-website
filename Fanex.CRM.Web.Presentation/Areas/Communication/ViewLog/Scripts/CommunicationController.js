@@ -1,4 +1,10 @@
-﻿var shouldReloadLogs = false;
+﻿"use strict";
+/* global communicationApplication, 
+communicationLogs, 
+hotKeyManager,
+viewResources */
+/* exported shouldReloadLogs */
+var shouldReloadLogs = false;
 communicationApplication.controller('communicationController', function ($scope,
     $http,
     $communicationService) {
@@ -10,6 +16,7 @@ communicationApplication.controller('communicationController', function ($scope,
             Id: "CustomerCommunicationLogs"
         });
     };
+    /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlI = function () {
         $scope.insertCommunicationLog();
     };
@@ -25,6 +32,7 @@ communicationApplication.controller('communicationController', function ($scope,
                 $scope.unblockUI();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.isLoadedAllSite = true;
                 $scope.unblockUI();
             });

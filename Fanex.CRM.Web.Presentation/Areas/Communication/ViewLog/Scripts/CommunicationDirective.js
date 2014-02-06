@@ -1,5 +1,12 @@
-﻿communicationApplication.directive('tableCommunicationLogsContainer', function () {
+﻿"use strict";
+/* global communicationApplication,
+moment,
+crmConstants,
+sharedScriptManager,
+viewResources */
+communicationApplication.directive('tableCommunicationLogsContainer', function () {
     function renderCommunicationLogs(scope, element, attrs) {
+        /* jshint unused: vars */
         var tableCommunicationLogs = element.find("#table-communication-logs");
         var logList = scope.logs;
         var bodyData = [];
@@ -19,16 +26,21 @@
                         },
                         {
                             Name: "ColFeedbackDate",
+                            /* jshint camelcase: false */
                             Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
                         },
                         {
                             Name: "ColCategory",
                             Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
-                                (info.SubCategory.Name != "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
+                                (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
                         },
                         { Name: "ColSubject", Value: info.Subject },
                         { Name: "ColStatus", Value: info.StatusName },
-                        { Name: "ColDuration", Value: sharedScriptManager.stringFormat("{0}:{1}:{2}", [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds]) },
+                        {
+                            Name: "ColDuration",
+                            Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
+                                [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
+                        },
                         { Name: "ColHandler", Value: info.Handler },
                         { Name: "ColReviewer", Value: info.Reviewer}],
                     CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
@@ -39,7 +51,13 @@
         var gridOptions = {
             columns: [{ HeaderText: viewResources.Running_Number, Width: 110, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Feedback_Date, Width: 100, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]), Width: 220, Name: "ColCategory", HeaderAlign: "center", CellAlign: "left" },
+                {
+                    HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
+                    Width: 220,
+                    Name: "ColCategory",
+                    HeaderAlign: "center",
+                    CellAlign: "left"
+                },
                 { HeaderText: viewResources.Subject, Width: 140, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Duration, Width: 80, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
@@ -79,13 +97,14 @@
         editLogRows.dblclick(function () {
             scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
         });
-    };
+    }
 
     return {
         restrict: 'A',
         scope: true,
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (oldval, newval) {
+                /* jshint unused: vars */
                 renderCommunicationLogs(scope, element, attrs);
             });
         }

@@ -1,9 +1,8 @@
 ﻿"use strict";
 /* global replaceSpecialHtmlTag, replaceSpaceForIE9, emailListValidate, 
-head, fromDate, toDate, findMainWindow, val, accChart */
+head, fromDate, toDate, val, accChart */
 /* exported arrWidth */
 
-var topwnd;
 var arrWidth = [];
 var maxHeightOfPopUp = ($(window).height() + 50);
 var casinoWeeklyDetail;

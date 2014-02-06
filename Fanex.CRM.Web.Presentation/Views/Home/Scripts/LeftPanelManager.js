@@ -1,4 +1,7 @@
 ﻿"use strict";
+/* global BlockUI,
+menuManager */
+/* exported leftPanelManager */
 var LeftPanelManager = function () {
     var self = this;
     self.DOMElements = {
@@ -10,6 +13,7 @@ var LeftPanelManager = function () {
 
     self.CacheData = {
         MaxUsernameLength: 50,
+        /* jshint camelcase: false */
         ViewResources: {
             Home_Index_ErrorUsernameMaxLength: 'Max length of username is 50!',
             Home_Index_ErrorUsernameEmpty: 'Please input username!',
@@ -46,6 +50,7 @@ var LeftPanelManager = function () {
             return;
         }
 
+        /* jshint newcap: false */
         BlockUI();
         var sourceURL = '../CustomerSetting/GetShortCustomerInfo?' + $.param({
             username: getCustomerInfoParams.Username,

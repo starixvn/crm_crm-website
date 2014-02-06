@@ -1,4 +1,6 @@
-﻿insertLogApplication.factory('$insertLogService', function ($http, $q) {
+﻿"use strict";
+/* global insertLogApplication */
+insertLogApplication.factory('$insertLogService', function ($http, $q) {
     var serviceInstance = {};
 
     serviceInstance.getAllExtension = function () {

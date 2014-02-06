@@ -3,7 +3,6 @@
 replaceSpaceForIE9,
 head,
 addDays,
-findMainWindow,
 bindSetting
 */
 /* exported loadSubItem,
@@ -11,7 +10,6 @@ openEditFeedback */
 var deletedFeedback;
 
 //Contain the template
-var topwnd;
 var maxHeightOfPopUp = ($(window).height() + 50);
 // -- Calendar --- //
 function SetupCalendar(arrDateValues, arrIds) {

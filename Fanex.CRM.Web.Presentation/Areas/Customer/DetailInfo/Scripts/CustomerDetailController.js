@@ -1,4 +1,9 @@
-﻿
+﻿"use strict";
+/* global customerDetailApplication,
+customerDetail,
+crmConstants,
+viewResources,
+hotKeyManager */
 customerDetailApplication.controller('customerDetailController', function ($scope,
     $http,
     $customerDetailService) {
@@ -33,6 +38,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
                 $scope.completedLoadDetailInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.isLoadedAllSite = true;
                 $scope.completedLoadDetailInfo();
             });
@@ -54,6 +60,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
                 $scope.completedLoadDetailInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.isLoadedAllCountry = true;
                 $scope.completedLoadDetailInfo();
             });
@@ -69,11 +76,13 @@ customerDetailApplication.controller('customerDetailController', function ($scop
                 $scope.completedLoadDetailInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.isLoadedAllLanguage = true;
                 $scope.completedLoadDetailInfo();
             });
     };
-    $scope.renderAllLanguageResult = function (result) {
+        $scope.renderAllLanguageResult = function (result) {
+            /* jshint unused: vars */
         $scope.isLoadedAllLanguage = true;
     };
     $scope.isCustomerKnowLanguage = function (languageId) {
@@ -162,11 +171,12 @@ customerDetailApplication.controller('customerDetailController', function ($scop
                 $scope.unblockUI();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.unblockUI();
             });
     };
     $scope.updateSelectedSite = function (site) {
-        if (site == undefined || site == null) {
+        if (site === undefined || site === null) {
             $scope.customerDetail.SiteSetting = {
                 Id: crmConstants.Enums.Site.NotApply
             };
@@ -212,6 +222,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
             }]
         });
     };
+    /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
         $scope.updateCustomerInfoDetail();
     };
