@@ -1,4 +1,7 @@
-﻿
+﻿"use strict";
+/* global customerApplication,
+customerManager, 
+hotKeyManager */
 customerApplication.controller('customerController', function ($scope,
     $http,
     $customerService) {
@@ -72,6 +75,7 @@ customerApplication.controller('customerController', function ($scope,
                 customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.unblockUI();
             });
     };
@@ -89,6 +93,7 @@ customerApplication.controller('customerController', function ($scope,
                 $scope.unblockUI();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.unblockUI();
             });
     };
@@ -131,6 +136,7 @@ customerApplication.controller('customerController', function ($scope,
                 $scope.unblockUI();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.unblockUI();
             });
     };
@@ -151,9 +157,12 @@ customerApplication.controller('customerController', function ($scope,
         }
     };
 
+    /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlU = function () {
         $scope.updateCustomerInfo();
     };
+
+    /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlG = function () {
         customerManager.enableGuestSearch();
     };

@@ -1,6 +1,17 @@
-﻿editLogApplication.controller('editLogController', function ($scope,
+﻿"use strict";
+/* global editLogApplication,
+communicationLog,
+sharedScriptManager,
+moment,
+crmConstants,
+viewResources,
+getRelatedCustomer,
+verifyRelatedCustomer,
+hotKeyManager */
+editLogApplication.controller('editLogController', function ($scope,
     $http,
     $editLogService) {
+    /* jshint maxstatements: 66 */
     $scope.communicationLog = communicationLog;
     $scope.extensionList = null;
     $scope.countryList = null;
@@ -51,6 +62,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Extension'
                 });
@@ -69,6 +81,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Country'
                 });
@@ -86,6 +99,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'CommunicationTool'
                 });
@@ -103,6 +117,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Language'
                 });
@@ -122,6 +137,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.isLoadedAllMainCategory = true;
                 $scope.loadedFilter.push({
                     Id: 'MainCategory'
@@ -140,6 +156,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Product'
                 });
@@ -157,6 +174,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Status'
                 });
@@ -174,6 +192,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Site'
                 });
@@ -191,6 +210,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Role'
                 });
@@ -208,6 +228,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Response'
                 });
@@ -228,6 +249,7 @@
                 }
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
     };
@@ -246,6 +268,7 @@
                 }
             },
             function (data) {
+                /* jshint unused: vars */
                 if ($scope.feedbackSubejctTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();
@@ -254,7 +277,7 @@
     };
     $scope.completedLoadFilterInfo = function () {
         var numberOfLoadFilter = 10;
-        if ($scope.isLoadedAllMainCategory && $scope.loadedFilter.length == numberOfLoadFilter - 1) {
+        if ($scope.isLoadedAllMainCategory && $scope.loadedFilter.length === numberOfLoadFilter - 1) {
             $scope.getAllProduct();
             return;
         }
@@ -271,7 +294,7 @@
             var mainCategoryListLength = $scope.mainCategoryList.length;
             for (i = 0; i < mainCategoryListLength; i++) {
                 var mainCategory = $scope.mainCategoryList[i];
-                if (mainCategory.Value == communicationLog.MainCategory.Name) {
+                if (mainCategory.Value === communicationLog.MainCategory.Name) {
                     $scope.communicationLog.MainCategory = mainCategory;
                     $scope.subCategoryList = mainCategory.ChildSettings;
                     break;
@@ -283,7 +306,7 @@
             var subCategoryListLength = $scope.subCategoryList.length;
             for (i = 0; i < subCategoryListLength; i++) {
                 var subCategory = $scope.subCategoryList[i];
-                if (subCategory.Value == communicationLog.SubCategory.Name) {
+                if (subCategory.Value === communicationLog.SubCategory.Name) {
                     $scope.communicationLog.SubCategory = subCategory;
                     break;
                 }
@@ -295,6 +318,7 @@
         $scope.verifyRelatedCustomer();
     };
     $scope.generateRemarkPrefix = function () {
+        /* jshint camelcase: false */
         return sharedScriptManager.stringFormat("{0}/{1} ",
             [moment($scope.communicationLog.StartTime).format(crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix),
             $scope.communicationLog.CommunicationTool.Value]);
@@ -310,9 +334,11 @@
             $scope.lastRemarkPrefix = remarkPrefix;
         }
     };
+    /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
         $scope.updateLog();
     };
+    /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlV = function () {
         $scope.verifyRelatedCustomer();
     };
@@ -431,6 +457,7 @@
                 $scope.unblockUI();
             },
             function (data) {
+                /* jshint unused: vars */
                 $scope.unblockUI();
             });
     };

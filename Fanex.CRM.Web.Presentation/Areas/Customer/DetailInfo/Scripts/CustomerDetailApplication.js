@@ -1,1 +1,3 @@
-﻿var customerDetailApplication = angular.module('customerdetail-application', []);
+﻿
+/* exported customerDetailApplication */
+var customerDetailApplication = angular.module('customerdetail-application', []);

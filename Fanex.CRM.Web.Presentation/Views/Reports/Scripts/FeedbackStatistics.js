@@ -1,9 +1,8 @@
 ﻿"use strict";
 /* global showAlertMessage, lblErroTimeDate, head,
-findMainWindow, lblErrorTimeDuration, accChart */
+lblErrorTimeDuration, accChart */
 /* exported arrWidth */
 
-var topwnd;
 var arrWidth = [];
 var maxHeightOfPopUp = ($(window).height() + 50);
 

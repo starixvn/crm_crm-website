@@ -1,6 +1,8 @@
 ﻿"use strict";
-/*global accUrlDefault, trimAllSpace, BlockUI, 
-head, userId, gup, userSearch, isGuestSearch */
+/*global accUrlDefault, trimAllSpace, 
+userId, gup, userSearch, isGuestSearch,
+leftPanelManager,
+menuManager */
 
 /* exported accid, timerId, autosearch,
 isGuest, gotoURL, KeyPress, downup, onBlur,
@@ -10,7 +12,6 @@ var accid = "sa"; //use for write and read cookie
 var timerId = "";
 var isonauto = false;
 var fullheight, fullwidth;
-var bannerbox = 40; //40
 var mainBox = 74; //74
 var autosearch;
 var showLogo = true;

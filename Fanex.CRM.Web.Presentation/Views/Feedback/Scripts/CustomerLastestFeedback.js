@@ -2,8 +2,7 @@
 /* global gup,
 custName,
 reRenderGrid,
-head,
-findMainWindow
+head
 */
 /* exported _pageIndex, 
 _pageSize,
@@ -18,7 +17,6 @@ var topFeedback;
 var _pageIndex = 1;
 var _pageSize = 20;
 var totalItems = 0;
-var topwnd;
 var maxHeightOfPopUp = ($(window).height() + 50);
 
 function tooltip(i) {

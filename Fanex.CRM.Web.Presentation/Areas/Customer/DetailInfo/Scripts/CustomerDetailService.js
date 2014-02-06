@@ -1,4 +1,6 @@
-﻿customerDetailApplication.factory('$customerDetailService', function ($http, $q) {
+﻿"use strict";
+/* global customerDetailApplication */
+ customerDetailApplication.factory('$customerDetailService', function ($http, $q) {
     var serviceInstance = {};
 
     serviceInstance.getCustomerInfoDetailById = function (getCustomerInfoDetailById) {

@@ -1,4 +1,5 @@
-﻿editLogApplication.directive('dropdownMainCategory', function () {
+﻿"use strict";
+editLogApplication.directive('dropdownMainCategory', function () {
     return {
         restrict: 'A',
         template: '<option data-ng-repeat="mainCategory in mainCategoryList track by $index"' +

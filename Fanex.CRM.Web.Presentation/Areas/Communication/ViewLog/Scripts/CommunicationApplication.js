@@ -1,1 +1,3 @@
-﻿var communicationApplication = angular.module('communication-application', []);
+﻿
+/* exported communicationApplication */
+var communicationApplication = angular.module('communication-application', []);

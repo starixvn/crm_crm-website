@@ -1,5 +1,5 @@
 ﻿"use strict";
-/*global showAlertMessage, accId, obj, Set_Cookie, gup, head, Get_Cookie */
+/*global showAlertMessage, obj, Set_Cookie, gup, Get_Cookie, sharedScriptManager */
 /* exported result, custid, roleid, crmInfo, GetCustId, leftTab2Click, collapseInfo */
 
 var result = "";
@@ -39,24 +39,8 @@ function openConfirmPopup() {
 }
 
 function updateCustomerSearch() {
-    var data = {
-        "userID": accId,
-        "custID": cusidSearch,
-        "userName": userNameSearch
-    };
-
     //Update CustSearch
     try { parent.BlockUI(); } catch (e) { }
-
-    //    $.ajax({
-    //        type: "POST",
-    //        url: window.rootUrl + "Customer/UpdateAutoCustomerSearch",
-    //        contentType: "application/json; charset=utf-8",
-    //        dataType: "json",
-    //        data: JSON.stringify(data),
-    //        success: function () {
-    //        }
-    //    });
 }
 
 function GetCustId() {
@@ -75,7 +59,7 @@ function loadUpline(custId) {
         dataType: "json",
         data: JSON.stringify(data),
         success: function (listUpline) {
-            //            $("#tmplUplineList").tmpl(listUpline).appendTo("#tbodyUplineList");
+            /* jshint unused: vars */
         }
     });
 }

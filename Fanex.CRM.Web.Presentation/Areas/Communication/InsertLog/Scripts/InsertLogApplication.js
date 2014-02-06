@@ -1,1 +1,2 @@
-﻿var insertLogApplication = angular.module('communicationlog-insert-application', []);
+﻿/* exported insertLogApplication */
+var insertLogApplication = angular.module('communicationlog-insert-application', []);

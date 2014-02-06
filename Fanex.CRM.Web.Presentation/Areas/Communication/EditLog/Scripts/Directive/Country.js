@@ -1,5 +1,8 @@
-﻿editLogApplication.directive('dropdownCountry', function () {
+﻿"use strict";
+/* global editLogApplication, crmConstants, viewResources */
+editLogApplication.directive('dropdownCountry', function () {
     return {
+        /* jshint camelcase: false */
         restrict: 'A',
         template: '<option value="' + crmConstants.Enums.Country.NotApply +
                         ' data-ng-click="updateSelectedCountry(country);">' +
@@ -16,8 +19,10 @@
         terminal: false,
         require: false,
         compile: function compile(tElement, tAttrs, transclude) {
+            /* jshint unused: vars */
         },
         link: function (scope, elem, attrs) {
+            /* jshint unused: vars */
         }
-    }
+    };
 });

@@ -1,4 +1,6 @@
 ﻿
+"use strict";
+/* global customerApplication */
 customerApplication.factory('$customerService', function ($http, $q) {
     var self = {};
     self.CacheData = {

@@ -1,8 +1,7 @@
 ﻿"use strict";
-/* global replaceSpaceForIE9, findMainWindow, gup */
+/* global replaceSpaceForIE9, gup */
 /* exported openEditFeedback */
 
-var topwnd;
 var maxHeightOfPopUp = ($(window).height() + 50);
 var feedbackDetail;
 

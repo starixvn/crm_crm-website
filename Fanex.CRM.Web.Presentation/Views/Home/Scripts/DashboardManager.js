@@ -1,4 +1,7 @@
-﻿var DashboardManager = function () {
+﻿"use strict";
+/* global homeManager, menuManager */
+/* exported dashboardManager */
+var DashboardManager = function () {
     var self = this;
 
     self.Enums = {

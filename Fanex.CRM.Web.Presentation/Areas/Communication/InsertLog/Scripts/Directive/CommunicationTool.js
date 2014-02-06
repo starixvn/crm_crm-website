@@ -1,4 +1,6 @@
-﻿insertLogApplication.directive('dropdownCommunicationTool', function () {
+﻿"use strict";
+/* global insertLogApplication */ 
+insertLogApplication.directive('dropdownCommunicationTool', function () {
     return {
         restrict: 'A',
         template: '<option data-ng-repeat="communicationTool in communicationToolList track by $index"' +
@@ -11,8 +13,10 @@
         terminal: false,
         require: false,
         compile: function compile(tElement, tAttrs, transclude) {
+            /* jshint unused: vars */
         },
         link: function (scope, elem, attrs) {
+            /* jshint unused: vars */
         }
-    }
+    };
 });

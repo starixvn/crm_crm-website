@@ -1,4 +1,6 @@
-﻿editLogApplication.factory('$editLogService', function ($http, $q) {
+﻿"use strict";
+/* global editLogApplication */
+ editLogApplication.factory('$editLogService', function ($http, $q) {
     var serviceInstance = {};
 
     serviceInstance.getAllExtension = function () {

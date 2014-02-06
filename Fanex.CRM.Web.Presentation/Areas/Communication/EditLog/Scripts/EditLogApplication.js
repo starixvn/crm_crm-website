@@ -1,1 +1,2 @@
-﻿var editLogApplication = angular.module('communicationlog-edit-application', []);
+﻿/* exported editLogApplication  */
+var editLogApplication = angular.module('communicationlog-edit-application', []);

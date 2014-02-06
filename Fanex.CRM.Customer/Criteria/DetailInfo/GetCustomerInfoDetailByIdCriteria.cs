@@ -19,12 +19,12 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
         [SpParam(SqlParamName = "custid")]
         public string CustomerId { get; set; }
 
-        public string GetSettingKey()
+        public override string GetSettingKey()
         {
             return "Customer_CustomerInfoDetail_GetInfoById_New";
         }
 
-        public bool IsValid()
+        public override bool IsValid()
         {
             return true;
         }

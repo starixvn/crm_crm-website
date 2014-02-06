@@ -1,4 +1,6 @@
-﻿editLogApplication.directive('dropdownExtension', function () {
+﻿"use strict";
+/* global editLogApplication */
+editLogApplication.directive('dropdownExtension', function () {
     return {
         restrict: 'A',
         template: '<option data-ng-repeat="extention in extensionList track by $index"' +
@@ -12,8 +14,10 @@
         terminal: false,
         require: false,
         compile: function compile(tElement, tAttrs, transclude) {
+            /* jshint unused: vars */
         },
         link: function (scope, elem, attrs) {
+            /* jshint unused: vars */
         }
     };
 });

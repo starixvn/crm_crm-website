@@ -26,7 +26,6 @@ initEdit,
 initReview,
 checkDuplicateRelated,
 head,
-findMainWindow,
 jlinq,
 gup,
 inputMultipleRelatedNote
@@ -44,7 +43,6 @@ var settings = ["Title", "MainCategory", "Product", "Status", "Role", "Station",
 var ddls = ["ddltitle", "ddlcategory", "ddlproduct", "ddlstatus", "ddlrole", "ddlcsextension", "ddlresponse", "ddlcommunication", "ddllanguage"];
 var id;
 var feedbackIsReview = false;
-var parentWnd;
 var listObjToValidate = ["txtsubject"];
 var listEditorToValidate = ["desediter"];
 var responsePage = 1;

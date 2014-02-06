@@ -1,10 +1,9 @@
 ﻿"use strict";
 /* global replaceSpecialHtmlTag, replaceSpaceForIE9, emailListValidate, head,
-fromDate, toDate, accChart, findMainWindow */
+fromDate, toDate, accChart */
 /* exported arrWidth, maxHeightOfPopUp, maxWidthOfPopUp,
 addDays */
 
-var topwnd;
 var arrWidth = [];
 var maxHeightOfPopUp = ($(window).height() + 50);
 var maxWidthOfPopUp = ($(window).width());
