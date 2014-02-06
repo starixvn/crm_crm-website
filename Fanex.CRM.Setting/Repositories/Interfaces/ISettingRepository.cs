@@ -21,7 +21,7 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
 
         List<CountryInfo> GetAllCountry(GetAllCountryCriteria criteria);
 
-        List<SettingInfo> GetAllSetingRelation(GetAllSettingRelationCriteria criteria);
+        List<SettingInfo> GetAllSettingRelation(GetAllSettingRelationCriteria criteria);
 
         List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria);
     }

@@ -9,8 +9,8 @@
 
 namespace Fanex.CRM.Infrastructure.Extension
 {
-    using System.Data;
     using System;
+    using System.Data;
 
     /// <summary>
     /// Data Reader Extension.

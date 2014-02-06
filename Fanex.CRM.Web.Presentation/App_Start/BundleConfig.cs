@@ -24,9 +24,11 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+             "SP2101:MethodMustNotContainMoreLinesThan",
+             Justification = "Reviewed. Suppression is OK here.")]
         public static void RegisterBundles(BundleCollection bundles)
         {
-            #region common - style
             bundles.AddAndInclude(
                 "~/site/common",
                 "~/content/bootstrap/css/bootstrap.css",
@@ -37,24 +39,18 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Content/site/table.less",
                 "~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css",
                 "~/Content/site/customizeJqueryUI.less");
-            #endregion
 
-            #region head js
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
                 "~/Scripts/head.load.min.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/respond").Include(
                 "~/Scripts/respond.js",
                 "~/Scripts/head.js"));
-            #endregion
 
-            #region popup - js
             bundles.Add(new ScriptBundle("~/Scripts/PopUp").Include(
                 "~/Scripts/showhidepopup.js",
                 "~/Scripts/dialogbox.js"));
-            #endregion
 
-            #region commont - js
             bundles.Add(new ScriptBundle("~/Scripts/CommomScripts").Include(
                 "~/Scripts/JQuery/jquery-1.8.2.js",
                 "~/Scripts/json2.js",
@@ -62,9 +58,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/CRMConstants.js",
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Scripts/ShareScripts/KeyboardManager.js"));
-            #endregion
 
-            #region Home - style/js
             bundles.Add(new StyleBundle("~/Views/Home/Styles").Include(
                 "~/Scripts/Tipsy-Tooltip/tipsy.css"));
 
@@ -73,9 +67,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Views/Home/Scripts/MenuManager.js",
                 "~/Views/Home/Scripts/LeftPanelManager.js",
                 "~/Views/Home/Scripts/HomeManager.js"));
-            #endregion
 
-            #region Customer - Left panel
             bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -86,22 +78,16 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/ShortCustomerInfo/Styles").Include(
                 "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less"));
-            #endregion
 
-            #region AngularJS
             bundles.Add(new ScriptBundle("~/Scripts/AgularJS").Include(
                 "~/Scripts/AgularJS/angular.js"));
-            #endregion
 
-            #region multiple select control
             bundles.Add(new ScriptBundle("~/Styles/MultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.css",
                 "~/Areas/Customer/DetailInfo/Styles/StyleSheet.less"));
             bundles.Add(new ScriptBundle("~/Scripts/MultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
-            #endregion
 
-            #region Customer - Detail tab
             bundles.Add(new ScriptBundle("~/Areas/Customer/DetailInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -112,7 +98,6 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
-            #endregion
 
             RegisterBundles_TimePicker(ref bundles);
             RegisterBundles_CommunicationLog_ViewLog(ref bundles);
@@ -126,6 +111,10 @@ namespace Fanex.CRM.Web.View.App_Start
                      "~/Scripts/jquery-ui-timepicker-addon.js"));
         }
 
+        /// <summary>
+        /// Registers the bundles communication log view log.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_CommunicationLog_ViewLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewLog/Scripts").Include(
@@ -139,6 +128,10 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Communication/ViewLog/Styles/Communication.less"));
         }
 
+        /// <summary>
+        /// Registers the bundles communication log edit.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/Edit/Scripts").Include(
@@ -152,6 +145,10 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Communication/EditLog/Styles/EditCommunicationLog.less"));
         }
 
+        /// <summary>
+        /// Registers the bundles communication log insert.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_CommunicationLog_Insert(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/InsertLog/Scripts").Include(

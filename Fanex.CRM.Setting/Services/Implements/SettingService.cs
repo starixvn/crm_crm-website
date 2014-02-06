@@ -46,6 +46,11 @@ namespace Fanex.CRM.Setting.Services.Implements
             _repositoryInstance = repositoryInstance ?? new SettingRepository();
         }
 
+        /// <summary>
+        /// Gets the setting by identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The setting by identifier.</returns>
         public SettingInfo GetSettingById(GetSettingByIdCriteria criteria)
         {
             SettingInfo setting = null;
@@ -70,6 +75,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return setting;
         }
 
+        /// <summary>
+        /// Gets all setting.
+        /// </summary>
+        /// <returns>All setting.</returns>
         public List<SettingInfo> GetAllSetting()
         {
             var allSetting = new List<SettingInfo>();
@@ -92,6 +101,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return allSetting;
         }
 
+        /// <summary>
+        /// Gets all site.
+        /// </summary>
+        /// <returns>All site value.</returns>
         public List<SiteInfo> GetAllSite()
         {
             var result = new List<SiteInfo>();
@@ -136,6 +149,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets all country.
+        /// </summary>
+        /// <returns>All country.</returns>
         public List<CountryInfo> GetAllCountry()
         {
             var result = new List<CountryInfo>();
@@ -160,6 +177,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets all language.
+        /// </summary>
+        /// <returns>All language.</returns>
         public List<SettingInfo> GetAllLanguage()
         {
             var result = new List<SettingInfo>();
@@ -179,6 +200,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets all extension.
+        /// </summary>
+        /// <returns>All extension.</returns>
         public List<SettingInfo> GetAllExtension()
         {
             var result = new List<SettingInfo>();
@@ -198,6 +223,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets all communication tool.
+        /// </summary>
+        /// <returns>All communication tool.</returns>
         public List<SettingInfo> GetAllCommunicationTool()
         {
             var result = new List<SettingInfo>();
@@ -217,6 +246,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets all main category.
+        /// </summary>
+        /// <returns>All main category.</returns>
         public List<SettingInfo> GetAllMainCategory()
         {
             var result = new List<SettingInfo>();
@@ -228,7 +261,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                      ParentId = 0
                  });
 
-                var allSettingRelation = GetAllSetingRelation();
+                var allSettingRelation = GetAllSettingRelation();
                 var allSetting = GetAllSetting();
                 foreach (var data in rawData)
                 {
@@ -244,6 +277,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets all product.
+        /// </summary>
+        /// <returns>All product.</returns>
         public List<SettingInfo> GetAllProduct()
         {
             var result = new List<SettingInfo>();
@@ -255,7 +292,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     ParentId = 0
                 });
 
-                var allSettingRelation = GetAllSetingRelation();
+                var allSettingRelation = GetAllSettingRelation();
                 var allSetting = GetAllSetting();
 
                 var notApplySetting = new SettingInfo
@@ -286,6 +323,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <returns>All status.</returns>
         public List<SettingInfo> GetAllStatus()
         {
             var result = new List<SettingInfo>();
@@ -307,6 +348,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets all role.
+        /// </summary>
+        /// <returns>All role value.</returns>
         public List<SettingInfo> GetAllRole()
         {
             var result = new List<SettingInfo>();
@@ -328,6 +373,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets all response.
+        /// </summary>
+        /// <returns>All response.</returns>
         public List<SettingInfo> GetAllResponse()
         {
             var result = new List<SettingInfo>();
@@ -349,6 +398,13 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets the sub setting by parent identifier.
+        /// </summary>
+        /// <param name="parentSetting">The parent setting.</param>
+        /// <param name="allSettingRelation">All setting relation.</param>
+        /// <param name="allSetting">All setting.</param>
+        /// <returns>The sub setting by parent identifier.</returns>
         public List<SettingInfo> GetSubSettingByParentId(
             SettingInfo parentSetting,
             List<SettingInfo> allSettingRelation,
@@ -395,6 +451,10 @@ namespace Fanex.CRM.Setting.Services.Implements
             return subSettings;
         }
 
+        /// <summary>
+        /// Gets the number of feedback subject template.
+        /// </summary>
+        /// <returns>The number of feedback subject template.</returns>
         public int GetNumberOfFeedbackSubjectTemplate()
         {
             List<FeedbackTemplate> listFeedbackTemplate = new List<FeedbackTemplate>();
@@ -415,6 +475,11 @@ namespace Fanex.CRM.Setting.Services.Implements
             return listFeedbackTemplate.Count;
         }
 
+        /// <summary>
+        /// Gets the feedback subject template by paging index.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The feedback subject template by paging index.</returns>
         public List<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria)
         {
             var result = new List<FeedbackTemplate>();
@@ -447,6 +512,11 @@ namespace Fanex.CRM.Setting.Services.Implements
             return siteId >= SiteConstants.BeginLicenseeSiteId;
         }
 
+        /// <summary>
+        /// Gets the name of the site group.
+        /// </summary>
+        /// <param name="siteGroupId">The site group identifier.</param>
+        /// <returns>The name of the site group.</returns>
         private string GetSiteGroupName(int siteGroupId)
         {
             switch (siteGroupId)
@@ -457,10 +527,14 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return Labels.IBC;
                 default:
                     return string.Empty;
-
             }
         }
 
+        /// <summary>
+        /// Gets the setting relation by name.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The setting relation by name.</returns>
         private List<SettingInfo> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria)
         {
             var result = new List<SettingInfo>();
@@ -486,7 +560,11 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
-        private List<SettingInfo> GetAllSetingRelation()
+        /// <summary>
+        /// Gets all setting relation.
+        /// </summary>
+        /// <returns>All setting relation.</returns>
+        private List<SettingInfo> GetAllSettingRelation()
         {
             List<SettingInfo> settingRelations = new List<SettingInfo>();
             try
@@ -494,7 +572,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 settingRelations = CacheService.Get<List<SettingInfo>>(GetAllSettingRelationSessionKey);
                 if (settingRelations == null || !settingRelations.Any())
                 {
-                    settingRelations = _repositoryInstance.GetAllSetingRelation(new GetAllSettingRelationCriteria());
+                    settingRelations = _repositoryInstance.GetAllSettingRelation(new GetAllSettingRelationCriteria());
                 }
 
                 if (settingRelations != null && settingRelations.Any())

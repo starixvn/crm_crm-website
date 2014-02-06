@@ -12,6 +12,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
@@ -26,6 +27,11 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     /// </summary>
     public class CommunicationLogRepository : ICommunicationLogRepository
     {
+        /// <summary>
+        /// Gets the logs by customer identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The logs by customer identifier.</returns>
         public List<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             List<LogInfo> logs = new List<LogInfo>();
@@ -49,6 +55,11 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             return logs;
         }
 
+        /// <summary>
+        /// Updates the log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
             Result updateResult = null;
@@ -67,6 +78,11 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             return updateResult;
         }
 
+        /// <summary>
+        /// Inserts the log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Insert result.</returns>
         public Result InsertLog(InsertLogCriteria criteria)
         {
             Result updateResult = null;
@@ -85,6 +101,14 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             return updateResult;
         }
 
+        /// <summary>
+        /// Mappings the data from SQL to log information object.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>Log Info Object.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+             "SP2101:MethodMustNotContainMoreLinesThan",
+             Justification = "Reviewed. Suppression is OK here.")]
         private LogInfo MappingDataFromSqlToLogInfoObject(IDataReader reader)
         {
             var durationTime = reader.GetStringNotNull("Duration");

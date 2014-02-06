@@ -10,27 +10,26 @@
 namespace Fanex.CRM.Communication.Services.Implements
 {
     using System;
-    using System.Collections.Generic;
+    using System.Web;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Communication.Repositories.Implements;
     using Fanex.CRM.Communication.Repositories.Interfaces;
+    using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Extension;
-    using System.Web;
+    using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Communication.Resources;
 
     /// <summary>
     /// Communication Log Service.
     /// </summary>
     public class CommunicationLogService : ICommunicationLogService
     {
-        private readonly ICommunicationLogRepository _repositoryInstance;
+        private const string GetLogsByCustomerIdSessionKey = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetLogsByCustomerIdSessionKey";
 
-        private readonly string GetLogsByCustomerIdSessionKey = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetLogsByCustomerIdSessionKey";
+        private readonly ICommunicationLogRepository _repositoryInstance;
 
         public CommunicationLogService()
             : this(null)
@@ -42,6 +41,11 @@ namespace Fanex.CRM.Communication.Services.Implements
             _repositoryInstance = repositoryInstance ?? new CommunicationLogRepository();
         }
 
+        /// <summary>
+        /// Gets the logs by customer identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The logs by customer identifier.</returns>
         public CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             CustomerLogInfo result = null;
@@ -64,6 +68,11 @@ namespace Fanex.CRM.Communication.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets the logs by running number.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The logs by running number.</returns>
         public LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
         {
             LogInfo result = null;
@@ -94,6 +103,11 @@ namespace Fanex.CRM.Communication.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Updates the log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
             Result result = null;
@@ -113,6 +127,11 @@ namespace Fanex.CRM.Communication.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Inserts the log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Insert result.</returns>
         public Result InsertLog(InsertLogCriteria criteria)
         {
             Result result = null;

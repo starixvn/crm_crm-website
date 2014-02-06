@@ -17,10 +17,10 @@ namespace Fanex.CRM.Infrastructure.Models
     [Serializable]
     public class BaseModel
     {
-        public int Id;
+        public int Id { get; set; }
 
-        public string Name;
+        public string Name { get; set; }
 
-        public string AliasName;
+        public string AliasName { get; set; }
     }
 }

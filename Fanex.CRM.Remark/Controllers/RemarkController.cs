@@ -16,10 +16,10 @@ namespace Fanex.CRM.Remark.Controllers
     {
         public RemarkController()
         {
-
         }
 
-        public ActionResult Index(){
+        public ActionResult Index()
+        {
             return View("~/Areas/Remark/Index.cshtml");
         }
     }

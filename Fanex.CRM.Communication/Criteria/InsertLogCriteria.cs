@@ -133,6 +133,10 @@ namespace Fanex.CRM.Communication.Criteria
 
         public string ErrorMessage { get; set; }
 
+        /// <summary>
+        /// Gets the SP parameters.
+        /// </summary>
+        /// <returns>The SP parameters.</returns>
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();

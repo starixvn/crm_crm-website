@@ -11,8 +11,8 @@ namespace Fanex.CRM.Customer.Models
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Customer.Resources;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// Customer Information.
@@ -110,6 +110,10 @@ namespace Fanex.CRM.Customer.Models
 
         public AddressInfo AddressInfo { get; set; }
 
+        /// <summary>
+        /// Gets the name of the status.
+        /// </summary>
+        /// <returns>The name of the status.</returns>
         public string GetStatusName()
         {
             if (IsActive)

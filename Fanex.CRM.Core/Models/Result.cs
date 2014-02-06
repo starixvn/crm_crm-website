@@ -17,8 +17,8 @@ namespace Fanex.CRM.Infrastructure.Models
     [Serializable]
     public class Result
     {
-        public int Code;
+        public int Code { get; set; }
 
-        public string Message;
+        public string Message { get; set; }
     }
 }

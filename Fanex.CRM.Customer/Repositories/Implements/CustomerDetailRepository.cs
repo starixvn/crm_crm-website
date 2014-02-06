@@ -26,6 +26,11 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     /// </summary>
     public class CustomerDetailRepository : ICustomerDetailRepository
     {
+        /// <summary>
+        /// Gets the customer information detail by identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The customer information detail by identifier.</returns>
         public CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
             CustomerInfo customer = null;
@@ -55,6 +60,11 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             return customer;
         }
 
+        /// <summary>
+        /// Updates the customer information detail.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
         public BaseModel UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
             BaseModel updateResult = null;
@@ -73,6 +83,11 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             return updateResult;
         }
 
+        /// <summary>
+        /// Mappings the information get customer information detail by identifier.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="customer">The customer.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

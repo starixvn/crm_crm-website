@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="Duration.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="TimeInfo.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -12,15 +12,15 @@ namespace Fanex.CRM.Infrastructure.Models
     using System;
 
     /// <summary>
-    /// Duration.
+    /// Time Info.
     /// </summary>
     [Serializable]
     public class TimeInfo
     {
-        public int Hours;
+        public int Hours { get; set; }
 
-        public int Minutes;
+        public int Minutes { get; set; }
 
-        public int Seconds;
+        public int Seconds { get; set; }
     }
 }
