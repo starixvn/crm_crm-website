@@ -70,6 +70,19 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
             }
         }
 
+        protected ViewFlags ViewFlags
+        {
+            get
+            {
+                return ViewBag.ViewFlags;
+            }
+
+            set
+            {
+                ViewBag.ViewFlags = this._viewFlags = value;
+            }
+        }
+
         /// <summary>
         /// GetRollAccess: get permission to access with each menu item of current user login.
         /// </summary>
@@ -119,20 +132,7 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
                    AppSession.RoleAccess.ContainsKey(functionName) &&
                    AppSession.RoleAccess[functionName] >= (int)policy;
         }
-
-        protected ViewFlags ViewFlags
-        {
-            get
-            {
-                return ViewBag.ViewFlags;
-            }
-
-            set
-            {
-                ViewBag.ViewFlags = this._viewFlags = value;
-            }
-        }
-
+        
         /// <summary>
         /// Execute before each request, if Downtime then go to Downtime page
         /// Or not Authenticate will go to Login Page.

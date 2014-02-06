@@ -29,9 +29,10 @@ var CRMConstants = function () {
         },
         FormatConstant: {
             ShortDate_String_Moment: 'MMM D, YYYY',
-            MM_DD_YYYY_HH_MM_TT_String_Moment: 'MM/D/YYYY hh:mm A',
+            MM_DD_YYYY_HH_MM_TT_String_Moment: 'MM/DD/YYYY hh:mm A',
             HH_MM_TT_TimePicker: 'hh:mm TT',
-            MM_DD_YYYY_HH_MM_TT_StringFormat: "{0}/{1}/{2} {3}:{4} {5}"
+            MM_DD_YYYY_HH_MM_TT_StringFormat: "{0}/{1}/{2} {3}:{4} {5}",
+            StartTime_RemarkPrefix: 'YYYYMMDD/hh:mmA'
         },
 
         DateTime: {

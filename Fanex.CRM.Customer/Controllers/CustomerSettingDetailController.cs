@@ -18,8 +18,7 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-
-
+    
     /// <summary>
     /// Customer Setting Detail Controller.
     /// </summary>

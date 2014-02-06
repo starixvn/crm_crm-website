@@ -16,15 +16,23 @@
     @Styles.Render("~/Areas/Communication/Edit/Styles")
 </head>
 <body>
-    <div class="main popup container" data-ng-controller="editLogController">
+    <div class="main popup container editlogcontroller" data-ng-controller="editLogController">
         <div class="row form-group">
+            <div class="row row-item" data-ng-show="isShowResultMessage">
+                <div class="col-xs-7 col-sm-7 col-md-5">
+                    <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                        <div>
+                            {{ resultMessage }}</div>
+                    </div>
+                </div>
+            </div>
             <div class="row row-item">
                 <div class="col-xs-3 col-sm-3 col-md-2">
                     <label for="startTime">
                         @Labels.Start_Time</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div data-ng-model="communicationLog.StartTime" time-picker-start-time-container>
-                        <input id="startTime" type="text" class="textbox timepicker" />
+                        <input id="startTime" type="text" class="textbox timepicker txtcalendar" />
                     </div>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
@@ -42,7 +50,7 @@
                         @Labels.End_Time</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div data-ng-model="communicationLog.EndTime" time-picker-end-time-container>
-                        <input id="endTime" type="text" class="textbox timepicker" />
+                        <input id="endTime" type="text" class="textbox timepicker txtcalendar" />
                     </div>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
@@ -176,11 +184,11 @@
             <div class="row row-item">
                 <div id="ColorGuide" class="col-xs-offset-3 col-sn-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10 display-none">
                     <div class="col-md-2 relate-customer">
-                        Customer</div>
+                        @Labels.Customer</div>
                     <div class="col-md-2 relate-guest">
-                        Guest</div>
+                        @Labels.Guest</div>
                     <div class="col-md-2 relate-invalid">
-                        Invalid</div>
+                        @Labels.Invalid</div>
                 </div>
                 <table id="related" class="col-xs-offset-3 col-sn-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10 related">
                 </table>
@@ -224,7 +232,7 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-save">
+            <button class="btn btn-save" data-ng-click="updateLog();">
                 <span class="hotkey">S</span>ave</button>
         </div>
     </div>
@@ -241,16 +249,18 @@
     <script type="text/javascript" src="~/Scripts/common.js"></script>
     <script type="text/javascript" src="~/Scripts/InputBox/jquery.fcbkcomplete.js"></script>
     @Scripts.Render("~/Areas/Communication/Edit/Scripts")
-    <script type="text/javascript">   
-        window.rootUrl = '@Url.Content("~")';
-        var currentTime = '@DateTime.Now';
-        var communicationLog = @Html.Raw(jsonLogInfo);
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")'; 
+        var currentTime    = '@DateTime.Now'; 
+        var communicationLog = @Html.Raw(jsonLogInfo); 
         var viewResources = {
-            Symbol_NotApply: '@Labels.Symbol_NotApply',
-            Select:'@Labels.Select',
-            Inset_Edit_Block: '@Labels.Inset_Edit_Block',
-            Warning: '@Labels.Warning',
-            OK: '@Labels.OK'
-        }; </script>
+            Symbol_NotApply: '@Labels.Symbol_NotApply', 
+            Select:'@Labels.Select', 
+            Insert_Edit_Block:    '@Labels.Insert_Edit_Block', 
+            Warning: '@Labels.Warning', 
+            OK: '@Labels.OK' ,
+            Communication_Logs_VerifyRelatedCustomer:'@Labels.Communication_Logs_VerifyRelatedCustomer'
+        }; 
+    </script>
 </body>
 </html>

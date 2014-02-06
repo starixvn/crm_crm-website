@@ -20,8 +20,8 @@ namespace Fanex.CRM.Service.Impl
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Service.Interface;
-    using MongoDB.Driver;
     using Fanex.NAP.Core.Business;
+    using MongoDB.Driver;
 
     /// <summary>
     /// Customer service.

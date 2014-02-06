@@ -31,22 +31,13 @@ namespace Fanex.CRM.Customer.Services.Implements
     /// </summary>
     public class CustomerService : ICustomerService
     {
-        private readonly string GetCustomerInfoByUsernameSessionKey = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
+        private const string GetCustomerInfoByUsernameSessionKey = 
+            "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
 
         private readonly ICustomerRepository _repositoryInstance;
 
         private readonly ISettingService _settingService;
-
-        public GetCustomerInfoByUsernameCriteria GetCustomerInfoByUsernameCriteria
-        {
-            get
-            {
-                return (GetCustomerInfoByUsernameCriteria)SessionExtension.GetSession(
-                    HttpContext.Current.Session,
-                    GetCustomerInfoByUsernameSessionKey);
-            }
-        }
-
+        
         public CustomerService()
             : this(null, null)
         {
@@ -60,6 +51,21 @@ namespace Fanex.CRM.Customer.Services.Implements
             _settingService = settingService ?? new SettingService();
         }
 
+        public GetCustomerInfoByUsernameCriteria GetCustomerInfoByUsernameCriteria
+        {
+            get
+            {
+                return (GetCustomerInfoByUsernameCriteria)SessionExtension.GetSession(
+                    HttpContext.Current.Session,
+                    GetCustomerInfoByUsernameSessionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the customer information by username.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The customer information by username.</returns>
         public CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
             CustomerInfo result = null;
@@ -99,6 +105,11 @@ namespace Fanex.CRM.Customer.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets the up line information of user.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The up line information of user.</returns>
         public List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
             List<CustomerInfo> result = new List<CustomerInfo>();
@@ -125,6 +136,11 @@ namespace Fanex.CRM.Customer.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Updates the customer suggestion.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
         public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
             var updateResult = false;
@@ -147,6 +163,11 @@ namespace Fanex.CRM.Customer.Services.Implements
             return updateResult;
         }
 
+        /// <summary>
+        /// Updates the customer information.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
         public BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
             var updateResult = new BaseModel();
@@ -167,6 +188,11 @@ namespace Fanex.CRM.Customer.Services.Implements
             return updateResult;
         }
 
+        /// <summary>
+        /// Updates the customer search count value.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
         public bool UpdateCustomerSearchCountValue(UpdateCustomerSuggestionCriteria criteria)
         {
             bool result = false;

@@ -16,7 +16,6 @@ namespace Fanex.CRM.Redemption.Controllers
     {
         public RedemptionController()
         {
-
         }
 
         public ActionResult Index()

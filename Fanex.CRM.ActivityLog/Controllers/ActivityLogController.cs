@@ -6,8 +6,8 @@
 
 namespace Fanex.CRM.ActivityLog.Controllers
 {
-    using Fanex.CRM.Infrastructure.Web.Controllers;
     using System.Web.Mvc;
+    using Fanex.CRM.Infrastructure.Web.Controllers;
 
     /// <summary>
     /// TODO: Update summary.
@@ -16,7 +16,6 @@ namespace Fanex.CRM.ActivityLog.Controllers
     {
         public ActivityLogController()
         {
-
         }
 
         public ActionResult Index()

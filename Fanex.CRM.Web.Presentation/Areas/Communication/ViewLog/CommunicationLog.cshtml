@@ -1,7 +1,7 @@
 ﻿@using Fanex.CRM.Communication.Resources;
 @using Newtonsoft.Json;
 @using Fanex.CRM.Communication.Models;
-@model List<LogInfo>
+@model CustomerLogInfo
 @{
     var jsonLogInfoList = JsonConvert.SerializeObject(Model);
 }
@@ -13,10 +13,10 @@
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Areas/Communication/Styles")
+    @Styles.Render("~/Areas/Communication/ViewLog/Styles")
 </head>
 <body>
-    <div class="container main" data-ng-controller="communicationController">
+    <div id="communicationcontroller" class="container main " data-ng-controller="communicationController">
         <div class="row">
             <div data-ng-model="logs" table-communication-logs-container>
                 <div id="table-communication-logs" class="freegrid display-none">
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="row btn-group">
-            <button class="btn"data-ng-click="insertCommunicationLog();">
+            <button class="btn" data-ng-click="insertCommunicationLog();">
                 <span class="hotkey">I</span>nsert Case</button>
         </div>
     </div>
@@ -35,7 +35,7 @@
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    @Scripts.Render("~/Areas/Communication/Scripts")
+    @Scripts.Render("~/Areas/Communication/ViewLog/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var communicationLogs = @Html.Raw(jsonLogInfoList);
@@ -50,7 +50,8 @@
             Duration: '@Labels.Duration',
             Handled_By: '@Labels.Handled_By',
             Reviewed_By: '@Labels.Reviewed_By',
-            Edit_Communication_Log: '@Labels.Edit_Communication_Log'
+            Edit_Communication_Log: '@Labels.Edit_Communication_Log',
+            Insert_Communication_Log: '@Labels.Insert_Communication_Log'
         };
     </script>
 </body>

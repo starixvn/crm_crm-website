@@ -1,0 +1,265 @@
+﻿@using Fanex.CRM.Communication.Resources;
+@using Fanex.CRM.Communication.Models;
+@{
+    var customerId = Model;
+}
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communicationlog-insert-application">
+<head>
+    <title>@Labels.Insert_Communication_Log </title>
+    @Styles.Render("~/site/common")
+    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Styles/MultipleSelect")
+    @Styles.Render("~/Areas/Communication/InsertLog/Styles")
+</head>
+<body>
+    <div class="main popup container insertlogcontroller" data-ng-controller="insertLogController">
+        <div class="row form-group">
+            <div class="row row-item" data-ng-show="isShowResultMessage">
+                <div class="col-xs-7 col-sm-7 col-md-5">
+                    <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                        <div>
+                            {{ resultMessage }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="startTime">
+                        @Labels.Start_Time</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div data-ng-model="communicationLog.StartTime" time-picker-start-time-container>
+                        <input id="startTime" type="text" class="textbox timepicker txtcalendar" />
+                    </div>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="ext">
+                        @Labels.Ext</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ext" dropdown-extension>
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="endTime">
+                        @Labels.End_Time</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div data-ng-model="communicationLog.EndTime" time-picker-end-time-container>
+                        <input id="endTime" type="text" class="textbox timepicker txtcalendar" />
+                    </div>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="country">
+                        @Labels.Country</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="country" dropdown-country>
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="communicationTool">
+                        @Labels.Communication_Tool</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="communicationTool" dropdown-communication-tool>
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="language">
+                        @Labels.Language</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="language" class="languageoptions" dropdown-language>
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="mainCategory">
+                        @Labels.Main_Category</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="mainCategory" dropdown-main-category>
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="subcategory">
+                        @Labels.Sub_Category</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="subCategory">
+                        <option data-ng-repeat="subCategory in subCategoryList track by $index" data-ng-click="updateSelectedSubCategory(subCategory)"
+                            value="subCategory.Id" data-ng-selected="communicationLog.SubCategory.Value != '' && subCategory.Value ==  communicationLog.SubCategory.Name">
+                            {{ subCategory.Value}} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="product">
+                        @Labels.Product</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="product">
+                        <option data-ng-repeat="product in productList track by $index" data-ng-click="updateSelectedProduct(product)"
+                            value="product.Id" data-ng-selected="product.Id === communicationLog.Product.Id">
+                            {{ product.Value}} </option>
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="betType">
+                        @Labels.Bet_Type</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="betType">
+                        <option data-ng-repeat="betType in betTypeList track by $index" data-ng-click="updateSelectedBetType(betType)"
+                            value="betType.Id" data-ng-selected="betType.Id === communicationLog.BetType.Id">
+                            {{ betType.Value}} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="status">
+                        @Labels.Status</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="status">
+                        <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
+                            value="status.Id" data-ng-selected="status.Id === communicationLog.Status.Id">{{
+                            status.Value}} </option>
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="site">
+                        @Labels.Site</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="site" dropdown-site>
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="role">
+                        @Labels.Role</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="role">
+                        <option data-ng-repeat="role in roleList track by $index" data-ng-click="updateSelectedRole(role)"
+                            value="role.Id" data-ng-selected="role.Id === communicationLog.RoleInfo.Id">{{ role.Value}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="response">
+                        @Labels.Response</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="response">
+                        <option data-ng-repeat="response in responseList track by $index" data-ng-click="updateSelectedResponse(response)"
+                            value="response.Id" data-ng-selected="response.Id === communicationLog.Response.Id">
+                            {{ response.Value}} </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="relatedTo">
+                        @Labels.Related_To</label></div>
+                <input id="chkisrelated" type="checkbox" ng-class="display-none" class="display-none"
+                    checked="checked" />
+                <div class="col-xs-7 col-sm-7 col-md-8 related-customer-container" data-ng-class="related-customer-container"
+                    related-customer-container>
+                    <select type="text" class="textbox" id="txtrelatedcustomer" name="relatedTo" disabled>
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-xs-1 col-sm-1 col-md-1">
+                    <button class="btn pull-right" data-ng-click="verifyRelatedCustomer();">
+                        <span class="hotkey">V</span>erify</button>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div id="ColorGuide" class="col-xs-offset-3 col-sn-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10 display-none">
+                    <div class="col-md-2 relate-customer">
+                        @Labels.Customer</div>
+                    <div class="col-md-2 relate-guest">
+                        @Labels.Guest</div>
+                    <div class="col-md-2 relate-invalid">
+                        @Labels.Invalid</div>
+                </div>
+                <table id="related" class="col-xs-offset-3 col-sn-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10 related">
+                </table>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="subject">
+                        @Labels.Subject</label></div>
+                <div class="col-xs-7 col-sm-7 col-md-8 subject-container">
+                    <input type="text" class="textbox" id="subject" data-ng-model="communicationLog.Subject"
+                        subject-auto-complete />
+                </div>
+            </div>
+        </div>
+        <div class="row panel-group">
+            <div class="row title">
+                @Labels.Remark</div>
+            <div class="row content multi-text">
+                <div id="remarkeditorboxconatiner" data-ng-model="communicationLog.Remark" remark-editor-container>
+                </div>
+            </div>
+        </div>
+        <div class="row panel-group">
+            <div class="row title">
+                @Labels.Solution</div>
+            <div class="row content multi-text">
+                <div id="solutionkeditorboxconatiner" data-ng-model="communicationLog.Solution" solution-editor-container>
+                </div>
+            </div>
+        </div>
+        <div class="row panel-group last">
+            <div class="row title">
+                <label for="review">
+                    @Labels.Reviewed</label>
+                <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
+                    data-ng-model="communicationLog.IsReviewed" />
+            </div>
+            <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">
+                <div id="revieweditorboxconatiner" data-ng-model="communicationLog.Review" review-editor-container>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-save" data-ng-click="insertLog();">
+                <span class="hotkey">S</span>ave</button>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/TimePicker")
+    @Scripts.Render("~/Scripts/AgularJS")
+    @Scripts.Render("~/Scripts/MultipleSelect")
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
+    <script type="text/javascript" src="~/Scripts/common.js"></script>
+    <script type="text/javascript" src="~/Scripts/InputBox/jquery.fcbkcomplete.js"></script>
+    @Scripts.Render("~/Areas/Communication/InsertLog/Scripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentTime = '@DateTime.Now';
+        var customerId = '@customerId';
+        var viewResources = {
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Select: '@Labels.Select',
+            Insert_Edit_Block: '@Labels.Insert_Edit_Block',
+            Warning: '@Labels.Warning',
+            OK: '@Labels.OK',
+            Communication_Logs_VerifyRelatedCustomer: '@Labels.Communication_Logs_VerifyRelatedCustomer'
+        }; 
+    </script>
+</body>
+</html>

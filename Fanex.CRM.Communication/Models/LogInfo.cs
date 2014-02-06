@@ -21,7 +21,9 @@ namespace Fanex.CRM.Communication.Models
     {
         public int RunningNumber { get; set; }
 
-        public DateTime FeedbackDate { get; set; }
+        public int CustomerId { get; set; }
+
+        public string FeedbackDate { get; set; }
 
         public SettingInfo MainCategory { get; set; }
 

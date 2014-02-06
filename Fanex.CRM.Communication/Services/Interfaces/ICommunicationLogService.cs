@@ -9,14 +9,18 @@
 
 namespace Fanex.CRM.Communication.Services.Interfaces
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
+    using Fanex.CRM.Infrastructure.Models;
 
     public interface ICommunicationLogService
     {
-        List<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
+        CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 
         LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
+
+        Result UpdateLog(UpdateLogCriteria criteria);
+
+        Result InsertLog(InsertLogCriteria criteria);
     }
 }

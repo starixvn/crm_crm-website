@@ -12,6 +12,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
@@ -26,6 +27,11 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     /// </summary>
     public class CommunicationLogRepository : ICommunicationLogRepository
     {
+        /// <summary>
+        /// Gets the logs by customer identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The logs by customer identifier.</returns>
         public List<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             List<LogInfo> logs = new List<LogInfo>();
@@ -39,6 +45,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                         while (reader.Read())
                         {
                             var log = MappingDataFromSqlToLogInfoObject(reader);
+                            log.CustomerId = criteria.CustomerId;
                             logs.Add(log);
                         }
                     }
@@ -48,6 +55,60 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             return logs;
         }
 
+        /// <summary>
+        /// Updates the log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
+        public Result UpdateLog(UpdateLogCriteria criteria)
+        {
+            Result updateResult = null;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                updateResult = new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
+            }
+
+            return updateResult;
+        }
+
+        /// <summary>
+        /// Inserts the log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Insert result.</returns>
+        public Result InsertLog(InsertLogCriteria criteria)
+        {
+            Result updateResult = null;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                updateResult = new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
+            }
+
+            return updateResult;
+        }
+
+        /// <summary>
+        /// Mappings the data from SQL to log information object.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>Log Info Object.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+             "SP2101:MethodMustNotContainMoreLinesThan",
+             Justification = "Reviewed. Suppression is OK here.")]
         private LogInfo MappingDataFromSqlToLogInfoObject(IDataReader reader)
         {
             var durationTime = reader.GetStringNotNull("Duration");
@@ -56,7 +117,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             var logInfo = new LogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate"),
+                FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate").ToShortFormatedDate(),
                 MainCategory = new SettingInfo
                 {
                     Name = reader.GetStringNotNull("MainCategory")
@@ -122,7 +183,11 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                 RelatedCustomers = "testcs, TESTCS0101",
                 Remark = "Remark value",
                 Solution = "Solution value",
-                Review = "Review value"
+                Review = "Review value",
+                Country = new CountryInfo
+                {
+                    Id = 2
+                }
             };
 
             logInfo.IsReviewed = logInfo.Reviewer != string.Empty;

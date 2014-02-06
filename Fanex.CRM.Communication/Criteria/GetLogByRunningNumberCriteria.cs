@@ -9,8 +9,6 @@
 
 namespace Fanex.CRM.Communication.Criteria
 {
-    using Fanex.NAP.Framework.Data;
-
     /// <summary>
     /// Get Log By Running Number Criteria.
     /// </summary>

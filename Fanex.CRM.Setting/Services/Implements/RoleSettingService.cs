@@ -17,6 +17,11 @@ namespace Fanex.CRM.Setting.Services.Implements
     /// </summary>
     public static class RoleSettingService
     {
+        /// <summary>
+        /// Gets the name of the role.
+        /// </summary>
+        /// <param name="roleId">The role identifier.</param>
+        /// <returns>The name of the role.</returns>
         public static string GetRoleName(int roleId)
         {
             var roleName = string.Empty;

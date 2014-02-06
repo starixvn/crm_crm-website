@@ -1,9 +1,9 @@
 ﻿communicationApplication.factory('$communicationService', function ($http, $q) {
     var serviceInstance = {};
 
-    serviceInstance.getLogs = function (getLogByCustomerIdParams) {
+    serviceInstance.getLogsByCustomerId = function (getLogByCustomerIdParams) {
         var deferred = $q.defer();
-        $http.post(window.rootUrl + "CustomerSettingDetail/GetCustomerInfoDetailById", getLogByCustomerIdParams)
+        $http.post(window.rootUrl + "CommunicationLog/GetLogsByCustomerId", getLogByCustomerIdParams)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

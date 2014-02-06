@@ -21,6 +21,11 @@ namespace Fanex.CRM.Setting.Repositories.Implements
     /// </summary>
     public class SettingRepository : ISettingRepository
     {
+        /// <summary>
+        /// Gets all setting.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All setting.</returns>
         public List<SettingInfo> GetAllSetting(GetAllSettingCriteria criteria)
         {
             var allsetting = new List<SettingInfo>();
@@ -47,6 +52,11 @@ namespace Fanex.CRM.Setting.Repositories.Implements
             return allsetting;
         }
 
+        /// <summary>
+        /// Gets the setting relation by name.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The setting relation by name.</returns>
         public List<SettingInfo> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria)
         {
             var allSetting = new List<SettingInfo>();
@@ -76,6 +86,11 @@ namespace Fanex.CRM.Setting.Repositories.Implements
             return allSetting;
         }
 
+        /// <summary>
+        /// Gets all country.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All country.</returns>
         public List<CountryInfo> GetAllCountry(GetAllCountryCriteria criteria)
         {
             var allSetting = new List<CountryInfo>();
@@ -105,7 +120,12 @@ namespace Fanex.CRM.Setting.Repositories.Implements
             return allSetting;
         }
 
-        public List<SettingInfo> GetAllSetingRelation(GetAllSettingRelationCriteria criteria)
+        /// <summary>
+        /// Gets all setting relation.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All setting relation.</returns>
+        public List<SettingInfo> GetAllSettingRelation(GetAllSettingRelationCriteria criteria)
         {
             var settingRelations = new List<SettingInfo>();
             using (var obj = new ObjectDb(criteria.GetSettingKey()))
@@ -132,6 +152,11 @@ namespace Fanex.CRM.Setting.Repositories.Implements
             return settingRelations;
         }
 
+        /// <summary>
+        /// Gets the feedback subject template by identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The feedback subject template by identifier.</returns>
         public List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria)
         {
             List<FeedbackTemplate> result = new List<FeedbackTemplate>();

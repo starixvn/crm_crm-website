@@ -44,6 +44,12 @@ namespace Fanex.CRM.Customer.Services.Implements
             _repositoryInstance = repositoryInstance ?? new CustomerDetailRepository();
             _settingService = settingService ?? new SettingService();
         }
+
+        /// <summary>
+        /// Gets the customer information detail by identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The customer information detail by identifier.</returns>
         public CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
             CustomerInfo result = null;
@@ -69,6 +75,11 @@ namespace Fanex.CRM.Customer.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Updates the customer information detail.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
         public BaseModel UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
             var updateResult = new BaseModel();

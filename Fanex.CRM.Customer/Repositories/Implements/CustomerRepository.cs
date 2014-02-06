@@ -63,6 +63,11 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             return customer;
         }
 
+        /// <summary>
+        /// Gets the up line information of user.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The up line information of user.</returns>
         public List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
             var uplineInfo = new List<CustomerInfo>();
@@ -109,6 +114,11 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             return updateResult;
         }
 
+        /// <summary>
+        /// Updates the customer information.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
         public BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
             BaseModel updateResult = null;
@@ -127,6 +137,11 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             return updateResult;
         }
 
+        /// <summary>
+        /// Updates the customer search count value.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
         public bool UpdateCustomerSearchCountValue(UpdateCustomerSuggestionCriteria criteria)
         {
             var server = MongoServer.Create(WebConfigApplicationSettings.MongoDbServer);
@@ -153,6 +168,11 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             return false;
         }
 
+        /// <summary>
+        /// Adds the new customer into mongo database.
+        /// </summary>
+        /// <param name="customerId">The customer identifier.</param>
+        /// <param name="customerName">Name of the customer.</param>
         private void AddNewCustomerIntoMongoDB(int customerId, string customerName)
         {
             var server = MongoServer.Create(WebConfigApplicationSettings.MongoDbServer);

@@ -1,27 +1,6 @@
 ﻿editLogApplication.factory('$editLogService', function ($http, $q) {
     var serviceInstance = {};
 
-    serviceInstance.editLog = function (getLogByCustomerIdParams) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + "CommunicationLog/EditLog", getLogByCustomerIdParams)
-             .success(function (data, status, headers, config) {
-                 deferred.resolve({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             }).error(function (data, status, headers, config) {
-                 deferred.reject({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             });
-
-        return deferred.promise;
-    };
     serviceInstance.getAllExtension = function () {
         var deferred = $q.defer();
         $http.post(window.rootUrl + "Setting/GetAllExtension", null)
@@ -256,6 +235,27 @@
     serviceInstance.getFeedbackSubjectTemplateByPagingIndex = function (pagingInfo) {
         var deferred = $q.defer();
         $http.post(window.rootUrl + "Setting/GetFeedbackSubjectTemplateByPagingIndex", pagingInfo)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+    serviceInstance.updateLog = function (updateCriteria) {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "CommunicationLog/UpdateLog", updateCriteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

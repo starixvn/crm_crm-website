@@ -79,6 +79,33 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert communication log successfully!.
+        /// </summary>
+        public static string Communication_Logs_InsertSuccess {
+            get {
+                return ResourceManager.GetString("Communication_Logs_InsertSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update communication log successfully!.
+        /// </summary>
+        public static string Communication_Logs_UpdateSuccess {
+            get {
+                return ResourceManager.GetString("Communication_Logs_UpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please verify related customer!.
+        /// </summary>
+        public static string Communication_Logs_VerifyRelatedCustomer {
+            get {
+                return ResourceManager.GetString("Communication_Logs_VerifyRelatedCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Communication Tool.
         /// </summary>
         public static string Communication_Tool {
@@ -93,6 +120,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Country {
             get {
                 return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer.
+        /// </summary>
+        public static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
             }
         }
         
@@ -160,6 +196,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Guest.
+        /// </summary>
+        public static string Guest {
+            get {
+                return ResourceManager.GetString("Guest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Handle By.
         /// </summary>
         public static string Handled_By {
@@ -169,11 +214,29 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inset Edit Block.
+        ///   Looks up a localized string similar to Insert Communication Log.
         /// </summary>
-        public static string Inset_Edit_Block {
+        public static string Insert_Communication_Log {
             get {
-                return ResourceManager.GetString("Inset_Edit_Block", resourceCulture);
+                return ResourceManager.GetString("Insert_Communication_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert Edit Block.
+        /// </summary>
+        public static string Insert_Edit_Block {
+            get {
+                return ResourceManager.GetString("Insert_Edit_Block", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid.
+        /// </summary>
+        public static string Invalid {
+            get {
+                return ResourceManager.GetString("Invalid", resourceCulture);
             }
         }
         

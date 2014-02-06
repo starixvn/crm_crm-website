@@ -16,7 +16,6 @@ namespace Fanex.CRM.Dashboard.Controllers
     {
         public DashboardController()
         {
-
         }
 
         public ActionResult Index()

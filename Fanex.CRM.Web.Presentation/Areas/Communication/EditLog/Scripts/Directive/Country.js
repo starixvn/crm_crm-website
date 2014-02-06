@@ -7,6 +7,7 @@
                   '</option>\
                    <option data-ng-repeat="country in countryList track by $index"' +
                         ' data-ng-click="updateSelectedCountry(country);"' +
+                        ' data-ng-selected="country.Id === communicationLog.Country.Id"' +
                         ' value="{{ country.Id }}">{{ country.Name }}</option>',
         replace: false,
         priority: 0,

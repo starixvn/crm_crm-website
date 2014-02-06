@@ -207,13 +207,34 @@
   <data name="Select" xml:space="preserve">
     <value>Select</value>
   </data>
-  <data name="Inset_Edit_Block" xml:space="preserve">
-    <value>Inset Edit Block</value>
+  <data name="Insert_Edit_Block" xml:space="preserve">
+    <value>Insert Edit Block</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="Communication_Logs_UpdateSuccess" xml:space="preserve">
+    <value>Update communication log successfully!</value>
+  </data>
+  <data name="Communication_Logs_VerifyRelatedCustomer" xml:space="preserve">
+    <value>Please verify related customer!</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Guest</value>
+  </data>
+  <data name="Insert_Communication_Log" xml:space="preserve">
+    <value>Insert Communication Log</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Invalid</value>
+  </data>
+  <data name="Communication_Logs_InsertSuccess" xml:space="preserve">
+    <value>Insert communication log successfully!</value>
   </data>
 </root>

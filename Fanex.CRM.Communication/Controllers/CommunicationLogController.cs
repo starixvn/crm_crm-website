@@ -7,7 +7,6 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-
 namespace Fanex.CRM.Communication.Controllers
 {
     using System.Collections.Generic;
@@ -39,14 +38,23 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult Index(string customerId)
+        public ActionResult Index(int customerId)
         {
-            List<LogInfo> logs = _serviceInstance.GetLogsByCustomerId(new GetLogsByCustomerIdCriteria
+            CustomerLogInfo logs = _serviceInstance.GetLogsByCustomerId(new GetLogsByCustomerIdCriteria
             {
                 CustomerId = customerId
             });
 
-            return View("~/Areas/Communication/CommunicationLog.cshtml", logs);
+            return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", logs);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
+        {
+            var result = _serviceInstance.GetLogsByCustomerId(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
@@ -61,9 +69,27 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
-        public ActionResult OpenInsertView()
+        public ActionResult OpenInsertView(int customerId)
         {
-            return View("~/Areas/Communication/Insert/Index.cshtml");
+            return View("~/Areas/Communication/InsertLog/Index.cshtml", customerId);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public JsonResult UpdateLog(UpdateLogCriteria criteria)
+        {
+            var result = _serviceInstance.UpdateLog(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public JsonResult InsertLog(InsertLogCriteria criteria)
+        {
+            var result = _serviceInstance.InsertLog(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
         }
     }
 }

@@ -38,6 +38,9 @@
         }
 
         typeCust.removeAttr("disabled");
+        element.change(function () {
+            scope.isEditingRelatedCustomer = true;
+        });
     }
 
     return {
@@ -98,6 +101,7 @@ completedVerifyRelatedCustomer = function (rs) {
         }
     });
     var arr = [];
+    arrCust = [];
     for (i = 0; i < rs.length; i++) {
         arr.push(renderRelated(rs[i]));
         arrCust.push(rs[i].CustId);
@@ -167,14 +171,14 @@ renderRelated = function (row) {
         if (row.CustId > 0) {
             html = '<tr>\
                         <td id =' + row.CustId + ' value= ' + row.UserName + ' >\
-                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del txt-customer">' + row.UserName + '</a>\
+                                <a rel="friend" onclick="deleteRelatedCust(' + row.CustId + ');" class="icon-del txt-customer">' + row.UserName + '</a>\
                          </td>\
                      </tr>';
         }
         else {
             html = '<tr>\
                         <td id =' + row.CustId + ' value= ' + row.UserName + ' >\
-                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del txt-guest">' + row.UserName + '</a>\
+                                <a rel="friend" onclick="deleteRelatedCust(' + row.CustId + ');" class="icon-del txt-guest">' + row.UserName + '</a>\
                         </td>\
                     </tr>';
         }
@@ -189,6 +193,16 @@ renderRelated = function (row) {
 
     return html;
 };
-DeleteRelatedCust = function (custId) {
+getRelatedCustomer = function () {
+    var arrUser = [];
+    var userName = "";
+    $('#related td').each(function (i, td) {
+        /* jshint unused: vars */
+        arrUser[i] = this.id;
+    });
+    userName = arrUser.join(",");
+    return userName;
+};
+deleteRelatedCust = function (custId) {
     $("#" + custId).parent().remove();
 };
