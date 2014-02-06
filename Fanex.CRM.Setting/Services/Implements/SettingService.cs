@@ -366,8 +366,9 @@ namespace Fanex.CRM.Setting.Services.Implements
                 {
                     if (settingRelation.ParentId == parentSetting.Id)
                     {
-                        foreach (var setting in allSetting)
+                        for (var i = 0; i < allSetting.Count; i++)
                         {
+                            var setting = allSetting[i];
                             if (setting.Id == settingRelation.Id)
                             {
                                 subSettings.Add(new SettingInfo

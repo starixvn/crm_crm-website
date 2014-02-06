@@ -21,7 +21,8 @@
     $scope.isSuccess = false;
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
-    $scope.isEditingRelatedCustomer = true;
+    $scope.isEditingRelatedCustomer = false;
+    $scope.isLoadedAllMainCategory = false;
 
     $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
@@ -31,7 +32,6 @@
         $scope.getCommunicationTool();
         $scope.getAllLanguage();
         $scope.getAllMainCategory();
-        $scope.getAllProduct();
         $scope.getAllStatus();
         $scope.getAllSite();
         $scope.getAllRole();
@@ -111,8 +111,10 @@
     };
     $scope.getAllMainCategory = function () {
         $scope.BlockUI();
+        $scope.isLoadedAllMainCategory = false;
         $editLogService.getAllMainCategory()
             .then(function (data) {
+                $scope.isLoadedAllMainCategory = true;
                 $scope.mainCategoryList = data.Result;
                 $scope.loadedFilter.push({
                     Id: 'MainCategory'
@@ -120,6 +122,7 @@
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                $scope.isLoadedAllMainCategory = true;
                 $scope.loadedFilter.push({
                     Id: 'MainCategory'
                 });
@@ -251,6 +254,11 @@
     };
     $scope.completedLoadFilterInfo = function () {
         var numberOfLoadFilter = 10;
+        if ($scope.isLoadedAllMainCategory && $scope.loadedFilter.length == numberOfLoadFilter - 1) {
+            $scope.getAllProduct();
+            return;
+        }
+
         if ($scope.loadedFilter.length >= numberOfLoadFilter &&
             $scope.isLoadedFeedbackSubjectTemplate) {
             $scope.initSelectedLogInfo();
@@ -284,6 +292,7 @@
 
         $scope.betTypeList = $scope.productList[0].ChildSettings;
         $scope.updateRemarkPrefix();
+        $scope.verifyRelatedCustomer();
     };
     $scope.generateRemarkPrefix = function () {
         return sharedScriptManager.stringFormat("{0}/{1} ",
@@ -363,16 +372,6 @@
             };
         }
     };
-    $scope.updateSelectedSite = function (site) {
-        if (site) {
-            $scope.communicationLog.SiteInfo = site;
-        } else {
-            $scope.communicationLog.SiteInfo = {
-                Id: crmConstants.Enums.Site.NotApply,
-                Value: viewResources.Select
-            };
-        }
-    };
     $scope.updateSelectedStatus = function (status) {
         $scope.communicationLog.Status = status;
     };
@@ -387,15 +386,14 @@
     };
     $scope.updateReview = function (review) {
         $scope.communicationLog.Review = review;
-        console.log(review);
     };
     $scope.updateSolution = function (solution) {
         $scope.communicationLog.Solution = solution;
-        console.log(solution);
     };
     $scope.updateLog = function () {
         $scope.isShowResultMessage = false;
-        if ($scope.isEditingRelatedCustomer) {
+        var relatedCustomer = getRelatedCustomer();
+        if (relatedCustomer.length !== 0 && $scope.isEditingRelatedCustomer) {
             alert(viewResources.Communication_Logs_VerifyRelatedCustomer);
             return;
         }
@@ -403,7 +401,7 @@
         var updateCriteria = {
             FeedbackId: $scope.communicationLog.RunningNumber,
             CustomerId: $scope.communicationLog.CustomerId,
-            RelatedCustomerId: getRelatedCustomer(),
+            RelatedCustomerId: relatedCustomer,
             LanguageId: $scope.communicationLog.LanguageId,
             CountryId: $scope.communicationLog.Country.Id,
             StartTime: $scope.communicationLog.StartTime,
@@ -441,6 +439,7 @@
         $scope.isShowResultMessage = true;
         $scope.isSuccess = updateResult.Code === crmConstants.Enums.Error.None;
         $scope.resultMessage = updateResult.Message;
+        window.scroll(1, 1);
         if ($scope.isSuccess) {
             setTimeout(function () {
                 $scope.isShowResultMessage = false;

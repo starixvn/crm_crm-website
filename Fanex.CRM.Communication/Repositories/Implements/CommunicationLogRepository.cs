@@ -67,6 +67,24 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             return updateResult;
         }
 
+        public Result InsertLog(InsertLogCriteria criteria)
+        {
+            Result updateResult = null;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                updateResult = new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
+            }
+
+            return updateResult;
+        }
+
         private LogInfo MappingDataFromSqlToLogInfoObject(IDataReader reader)
         {
             var durationTime = reader.GetStringNotNull("Duration");

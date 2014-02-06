@@ -1,0 +1,1 @@
+﻿var insertLogApplication = angular.module('communicationlog-insert-application', []);

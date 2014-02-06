@@ -7,7 +7,6 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-
 namespace Fanex.CRM.Communication.Controllers
 {
     using System.Collections.Generic;
@@ -46,7 +45,7 @@ namespace Fanex.CRM.Communication.Controllers
                 CustomerId = customerId
             });
 
-            return View("~/Areas/Communication/CommunicationLog.cshtml", logs);
+            return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", logs);
         }
 
         [HttpPost]
@@ -70,9 +69,9 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
-        public ActionResult OpenInsertView()
+        public ActionResult OpenInsertView(int customerId)
         {
-            return View("~/Areas/Communication/Insert/Index.cshtml");
+            return View("~/Areas/Communication/InsertLog/Index.cshtml", customerId);
         }
 
         [HttpPost]
@@ -80,6 +79,15 @@ namespace Fanex.CRM.Communication.Controllers
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
             var result = _serviceInstance.UpdateLog(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public JsonResult InsertLog(InsertLogCriteria criteria)
+        {
+            var result = _serviceInstance.InsertLog(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

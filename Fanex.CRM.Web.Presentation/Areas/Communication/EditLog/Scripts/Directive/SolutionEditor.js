@@ -23,11 +23,10 @@
                 ["cut", "copy", "paste"],
                 [{
                     css: "edit",
-                    text: viewResources.Inset_Edit_Block,
+                    text: viewResources.Insert_Edit_Block,
                     action: function (btn) {
                         /* jshint unused: vars */
                         var s = this.getSelectedHTML();
-                        s = formatEditBlock(accname, s);
                         this.pasteHTML(s);
                     }
                 }]

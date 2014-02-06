@@ -112,5 +112,24 @@ namespace Fanex.CRM.Communication.Services.Implements
 
             return result;
         }
+
+        public Result InsertLog(InsertLogCriteria criteria)
+        {
+            Result result = null;
+            try
+            {
+                result = _repositoryInstance.InsertLog(criteria);
+                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                {
+                    result.Message = Labels.Communication_Logs_InsertSuccess;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
     }
 }

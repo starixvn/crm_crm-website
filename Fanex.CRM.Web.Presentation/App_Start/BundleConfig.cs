@@ -115,8 +115,9 @@ namespace Fanex.CRM.Web.View.App_Start
             #endregion
 
             RegisterBundles_TimePicker(ref bundles);
-            RegisterBundles_CommunicationLog(ref bundles);
+            RegisterBundles_CommunicationLog_ViewLog(ref bundles);
             RegisterBundles_CommunicationLog_Edit(ref bundles);
+            RegisterBundles_CommunicationLog_Insert(ref bundles);
         }
 
         public static void RegisterBundles_TimePicker(ref BundleCollection bundles)
@@ -125,17 +126,17 @@ namespace Fanex.CRM.Web.View.App_Start
                      "~/Scripts/jquery-ui-timepicker-addon.js"));
         }
 
-        public static void RegisterBundles_CommunicationLog(ref BundleCollection bundles)
+        public static void RegisterBundles_CommunicationLog_ViewLog(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Communication/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Communication/ViewLog/Scripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/Communication/Scripts/CommunicationApplication.js",
-                "~/Areas/Communication/Scripts/CommunicationService.js",
-                "~/Areas/Communication/Scripts/CommunicationController.js",
-                "~/Areas/Communication/Scripts/CommunicationDirective.js"));
+                "~/Areas/Communication/ViewLog/Scripts/CommunicationApplication.js",
+                "~/Areas/Communication/ViewLog/Scripts/CommunicationService.js",
+                "~/Areas/Communication/ViewLog/Scripts/CommunicationController.js",
+                "~/Areas/Communication/ViewLog/Scripts/CommunicationDirective.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Communication/Styles").Include(
-                "~/Areas/Communication/Styles/Communication.less"));
+            bundles.Add(new StyleBundle("~/Areas/Communication/ViewLog/Styles").Include(
+                "~/Areas/Communication/ViewLog/Styles/Communication.less"));
         }
 
         public static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
@@ -149,6 +150,19 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Communication/Edit/Styles").Include(
                 "~/Areas/Communication/EditLog/Styles/EditCommunicationLog.less"));
+        }
+
+        public static void RegisterBundles_CommunicationLog_Insert(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Communication/InsertLog/Scripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
+                "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
+                "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",
+                "~/Areas/Communication/InsertLog/Scripts/Directive/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Communication/InsertLog/Styles").Include(
+                "~/Areas/Communication/InsertLog/Styles/InsertCommunicationLog.less"));
         }
     }
 
