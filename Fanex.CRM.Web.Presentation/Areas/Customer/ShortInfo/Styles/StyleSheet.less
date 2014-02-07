@@ -1,6 +1,10 @@
 @import "../../../../Content/site/variables.less";
 @import "../../../../Content/site/mixins.less";
 
+body.leftPanel {
+    background: #fff;
+}
+
 .container.left-container {
     margin: 0;
     padding: 0;
@@ -37,10 +41,13 @@
         }
 
         &.title {
-            background-color: #f2f2f2;
+            .gradient-vertical(#e7e7e7, #e2e2e2);
+            color: #2f70b4;
             border-top: 1px solid @border-color;
             border-bottom: 1px solid @border-color;
             margin-top: 7px;
+            font-weight: bold;
+            padding: 6px 6px 8px;
         }
 
         .text {

@@ -629,7 +629,7 @@
     <Content Include="Views\Feedback\Styles\Images\recover.jpg" />
     <Content Include="Views\Feedback\Styles\Images\sucess.gif" />
     <Content Include="Views\Feedback\Styles\Images\warning.png" />
-    <None Include="Views\Feedback\Styles\StyleSheet.less" />
+    <Content Include="Views\Feedback\Styles\StyleSheet.less" />
     <Content Include="Content\site\ui-darkness\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Content\site\ui-darkness\images\ui-bg_flat_50_5c5c5c_40x100.png" />
     <Content Include="Content\site\ui-darkness\images\ui-bg_glass_20_555555_1x400.png" />

@@ -1,223 +1,189 @@
 ﻿@using Fanex.CRM.Infrastructure.Common
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/Paging/pagination.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.css")" rel="stylesheet" type="text/css" />    
-</head>
-
-<body>
-   
-     <script id="tmplOption" type="text/x-jquery-tmpl">
+<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/Paging/pagination.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.less?ver=1")" rel="stylesheet" type="text/css" />
+<script id="tmplOption" type="text/x-jquery-tmpl">
         <option value="${Id}">${Value}</option>
-    </script>
-
-    <div class="main">
-        <div class="maincontent">
-            <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
-                <tr>
-                    <td class="maincontent_headerL">
-                        <img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png"/>
-                    </td>
-                    <td class="maincontent_headerC">
-                        @Resources.Language.lblManageFeedback
-                    </td>
-                    <td class="maincontent_headerR">
-                    </td>
-                </tr>
-            </table>
-            <div class="maincontent_box">
-                <div class="filterContent" style="width: 100.4%;min-width:735px">
-                    <table>
-                        <tr>
-                            <td>
-                                Username
-                            </td>
-                            <td>
-                                <input type="text" id="txtusername" style="width: 90px; padding: 2px 1px;" />
-                                &nbsp;<select id="ddlguest" style="width: 80px;">
-                                    <option value="-1">All</option>
-                                    <option value="0">Customer</option>
-                                    <option value="1">Guest</option>
-                                </select>
-                            </td>
-                            <td>
-                                &nbsp;&nbsp;From date
-                            </td>
-                            <td>
-                                 <input type="text" id="txtfromdate" class="txtcalendar" readonly="readonly" style="width: 80px;" />
-                            </td>
-                            <td>
-                                &nbsp;&nbsp;To date 
-                            </td>
-                            <td>
-                                <input type="text" id="txttodate" class="txtcalendar" readonly="readonly" style="width: 80px;" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <td>
-                                Communication
-                            </td>
-                            <td>
-                                <select id="ddlcommunication" style="width: 80px;">
-                                    <option value="0">All</option>
-                                </select>
-                            </td>
-                            <td>
-                                Main Category
-                            </td>
-                            <td>
-                                <select id="ddlcategory" onchange="bindingManageChildByParentId('ddlsubcategory', AllSetting.Category, $('#ddlcategory').val());">
-                                    <option value="0">All</option>
-                                </select>
-                            </td>
-                            <td>
-                                SubCategory
-                            </td>
-                            <td>
-                                <select id="ddlsubcategory">
-                                    <option value="0">All</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Status
-                            </td>
-                            <td>
-                                <select id="ddlstatus" style="width: 80px;">
-                                    <option value="0">All</option>
-                                </select>
-                            </td>
-                            <td>
-                                IsReviewed
-                            </td>
-                            <td>
-                                <select id="ddlIsReviewed">
-                                    <option value="0">All</option>
-                                    <option value="-1">Not reviewed</option>
-                                    <option value="1">Reviewed</option>
-                                </select>
-                            </td>
-                            <td>
-                                Response
-                            </td>
-                            <td>
-                                <select id="ddlCustomerReponse" style="width: 80px;">
-                                    <option value="0">All</option>                                
-                                </select>
-                                <input type="button" class="btn" value="Submit" onclick="lastedFeedback.loadLastedFeedback(false);" />
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="errmsg" id="errmsg"></div>
-
-                <div class="bg_table" style="margin-top:2px">  
-                    <div id="lastedfeedbackgrid" class="freegrid hidden">                        
-                        <div class="free-cell free-top-left">
-                            <table class="grid-fixed-table free-cell-top-left">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <div style="height: 30px; width: 380px;" class="table-cell">
-                                                Feedback</div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>                    
-                        <div class="row_header_wrapper">
-                            <div class="row_header row-headers-background">
-                                <table class="grid-fixed-table row_header_content" id="latestfeedbackbodyHeader">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <div style="height: 30px; width: 380px;" class="table-cell">
-                                                    Feedback</div>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col_header row-headers-background scroll-y">
-                            <div class="header-container">
-                                <table class="grid-fixed-table col_header_content">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <div style="height: 30px; width: 380px;" class="table-cell">
-                                                    Feedback</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 130px;" class="table-cell">
-                                                    Customer</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 200px;" class="table-cell">
-                                                    Category</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 50px;" class="table-cell">
-                                                    Status</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 200px;" class="table-cell">
-                                                    Related Customer</div>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="grid-container container">
-                            <table id="latestfeedbackbody" class="grid-fixed-table col_header_content">
-                                <thead>
-                                        <tr>
-                                            <th>
-                                                <div style="height: 30px; width: 380px;" class="table-cell">
-                                                    Feedback</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 130px;" class="table-cell">
-                                                    Customer</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 200px;" class="table-cell">
-                                                    Category</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 50px;" class="table-cell">
-                                                    Status</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 200px;" class="table-cell">
-                                                    Related Customer</div>
-                                            </th>                                        
-                                        </tr>  
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>                        
-                    </div>
-                </div>
+</script>
+<div class="main container">
+    <div class="row filter-frm one-row redemption-filter">
+        <div class="row row-item">
+            <div class="item">
+                <label for="txtusername" class="width-80">
+                    Username</label>
+                <input type="text" id="txtusername" class="textbox txtUsername" />
+                &nbsp;
+                <select id="ddlguest">
+                    <option value="-1">All</option>
+                    <option value="0">Customer</option>
+                    <option value="1">Guest</option>
+                </select>
             </div>
-            
+            <div class="item">
+                <label for="txtfromdate" class="width-80">
+                    From date</label>
+                <input type="text" id="txtfromdate" readonly="readonly" class="textbox txtcalendar" />
+            </div>
+            <div class="item">
+                <label for="txttodate">
+                    To date</label>
+                <input type="text" id="txttodate" readonly="readonly" class="textbox txtcalendar" />
+            </div>
+            <div class="item">
+                <button class="btn" onclick="lastedFeedback.loadLastedFeedback(false);">
+                    <span class="hotkey">S</span>ubmit</button>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="item">
+                <label for="ddlcommunication" class="width-80">
+                    Communication</label>
+                <select id="ddlcommunication" class="selCommunication">
+                    <option value="0">All</option>
+                </select>
+            </div>
+            <div class="item">
+                <label for="ddlcategory" class="width-80">
+                    Main Category</label>
+                <select id="ddlcategory" class="selMainCategory" onchange="bindingManageChildByParentId('ddlsubcategory', AllSetting.Category, $('#ddlcategory').val());">
+                    <option value="0">All</option>
+                </select>
+            </div>
+            <div class="item">
+                <label for="ddlsubcategory" class="lblSubCategory">
+                    SubCategory</label>
+                <select id="ddlsubcategory">
+                    <option value="0">All</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="item">
+                <label for="ddlstatus" class="width-80">
+                    Status</label>
+                <select id="ddlstatus" class="selStatus">
+                    <option value="0">All</option>
+                </select>
+            </div>
+            <div class="item">
+                <label for="ddlIsReviewed" class="width-80">
+                    IsReviewed</label>
+                <select id="ddlIsReviewed" class="selReviewed">
+                    <option value="0">All</option>
+                    <option value="-1">Not reviewed</option>
+                    <option value="1">Reviewed</option>
+                </select>
+            </div>
+            <div class="item">
+                <label for="ddlCustomerReponse">
+                    Customer Response</label>
+                <select id="ddlCustomerReponse">
+                    <option value="0">All</option>
+                </select>
+            </div>
         </div>
     </div>
-
-    <script language="javascript" type="text/javascript">
+    <div class="row">
+        <div class="col-xs-7 col-sm-7 col-md-5 errmsg" id="errmsg">
+        </div>
+    </div>
+    <div class="row">
+        <div id="lastedfeedbackgrid" class="freegrid hidden">
+            <div class="free-cell free-top-left">
+                <table class="grid-fixed-table free-cell-top-left">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div style="height: 30px; width: 380px;" class="table-cell">
+                                    Feedback</div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="row_header_wrapper">
+                <div class="row_header row-headers-background">
+                    <table class="grid-fixed-table row_header_content" id="latestfeedbackbodyHeader">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div style="height: 30px; width: 380px;" class="table-cell">
+                                        Feedback</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col_header row-headers-background scroll-y">
+                <div class="header-container">
+                    <table class="grid-fixed-table col_header_content">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div style="height: 30px; width: 380px;" class="table-cell">
+                                        Feedback</div>
+                                </th>
+                                <th>
+                                    <div style="height: 30px; width: 130px;" class="table-cell">
+                                        Customer</div>
+                                </th>
+                                <th>
+                                    <div style="height: 30px; width: 200px;" class="table-cell">
+                                        Category</div>
+                                </th>
+                                <th>
+                                    <div style="height: 30px; width: 50px;" class="table-cell">
+                                        Status</div>
+                                </th>
+                                <th>
+                                    <div style="height: 30px; width: 200px;" class="table-cell">
+                                        Related Customer</div>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="grid-container container">
+                <table id="latestfeedbackbody" class="grid-fixed-table col_header_content">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div style="height: 30px; width: 380px;" class="table-cell">
+                                    Feedback</div>
+                            </th>
+                            <th>
+                                <div style="height: 30px; width: 130px;" class="table-cell">
+                                    Customer</div>
+                            </th>
+                            <th>
+                                <div style="height: 30px; width: 200px;" class="table-cell">
+                                    Category</div>
+                            </th>
+                            <th>
+                                <div style="height: 30px; width: 50px;" class="table-cell">
+                                    Status</div>
+                            </th>
+                            <th>
+                                <div style="height: 30px; width: 200px;" class="table-cell">
+                                    Related Customer</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var accname = "@AppSession.CurrentUser.Username";
         var accId = @AppSession.CurrentUser.Id;
@@ -236,7 +202,4 @@
                     .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=1")",
                         "@Url.Content("~/Views/Feedback/Scripts/ManageFeedback.js?ver=5")");
             });   
-    </script>
-</body>
-</html>
-
+</script>

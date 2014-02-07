@@ -40,12 +40,12 @@
                     </div>
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="contact3">
-                                @Labels.Contact_Number_3</label></div>
+                            <label for="extension">
+                                @Labels.Fax</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox code-country" id="contact3" data-ng-model="customerDetail.PhoneInfo[2].CountryCode" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[2].AreaCode" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[2].PhoneNumber" />
+                            <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.FaxInfo.AreaCode" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.FaxNumber" />
                         </div>
                     </div>
                     <div class="row item">
@@ -132,12 +132,12 @@
                     </div>
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="extension">
-                                @Labels.Fax</label></div>
+                            <label for="contact3">
+                                @Labels.Contact_Number_3</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.FaxInfo.AreaCode" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.FaxNumber" />
+                            <input type="text" class="textbox code-country" id="contact3" data-ng-model="customerDetail.PhoneInfo[2].CountryCode" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[2].AreaCode" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[2].PhoneNumber" />
                         </div>
                     </div>
                     <div data-ng-repeat="personalInfoContact in customerDetail.PersonalInfoContact track by $index">
