@@ -6,7 +6,7 @@ editLogApplication.directive('dropdownMainCategory', function () {
         template: '<option data-ng-repeat="mainCategory in mainCategoryList track by $index"' +
                         ' data-ng-click="updateSelectedMainCategory(mainCategory);"' +
                         ' value="{{ mainCategory.Id }}"' +
-                        ' data-ng-selected="mainCategory.Value == communicationLog.MainCategory.Name">{{ mainCategory.Value }}</option>',
+                        ' data-ng-selected="mainCategory.Id == communicationLog.MainCategory.Id">{{ mainCategory.Value }}</option>',
         replace: false,
         priority: 0,
         transclude: false,

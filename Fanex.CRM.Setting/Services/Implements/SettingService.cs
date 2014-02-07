@@ -569,21 +569,11 @@ namespace Fanex.CRM.Setting.Services.Implements
             List<SettingInfo> settingRelations = new List<SettingInfo>();
             try
             {
-                settingRelations = CacheService.Get<List<SettingInfo>>(GetAllSettingRelationSessionKey);
-                if (settingRelations == null || !settingRelations.Any())
-                {
-                    settingRelations = _repositoryInstance.GetAllSettingRelation(new GetAllSettingRelationCriteria());
-                }
-
-                if (settingRelations != null && settingRelations.Any())
-                {
-                    CacheService.Set(GetAllSettingRelationSessionKey, settingRelations);
-                }
+                settingRelations = _repositoryInstance.GetAllSettingRelation(new GetAllSettingRelationCriteria());
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                CacheService.Delete(GetAllSettingRelationSessionKey);
             }
 
             return settingRelations;

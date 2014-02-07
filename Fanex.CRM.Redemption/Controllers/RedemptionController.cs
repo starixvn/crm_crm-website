@@ -1,38 +1,84 @@
-﻿// -----------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------
 // <copyright file="RedemptionController.cs" company="Nexcel Solutions Vietnam">
-// TODO: Update copyright text.
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
+// </history>
 
 namespace Fanex.CRM.Redemption.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Redemption.Criteria;
+    using Fanex.CRM.Redemption.Models;
+    using Fanex.CRM.Redemption.Services.Implements;
+    using Fanex.CRM.Redemption.Services.Interfaces;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Redemption Controller.
     /// </summary>
     public class RedemptionController : BaseController
     {
+        private IRedemptionLogService _serviceInstance;
+
         public RedemptionController()
+            : this(null)
         {
         }
 
-        public ActionResult Index()
+        public RedemptionController(IRedemptionLogService serviceInstance)
         {
-            return View("~/Areas/Redemption/Index.cshtml");
+            _serviceInstance = serviceInstance ?? new RedemptionLogService();
         }
 
-        [ActionName("New")]
-        public ActionResult InsertRedemption()
+        [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Read)]
+        public ActionResult Index(int customerId)
         {
-            return View("~/Areas/Redemption/InsertRedemption.cshtml");
+            return View("~/Areas/Redemption/ViewLog/Index.cshtml", customerId);
         }
 
-        [ActionName("edit")]
-        public ActionResult EditRedemption()
+        [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
+        public ActionResult OpenEditView()
         {
-            return View("~/Areas/Redemption/EditRedemption.cshtml");
+            return View("~/Areas/Redemption/EditLog/Index.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
+        public ActionResult OpenInsertView()
+        {
+            return View("~/Areas/Redemption/InsertLog/Index.cshtml");
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
+        {
+            var result = _serviceInstance.GetLogsByCustomerId(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public JsonResult UpdateLog(UpdateLogCriteria criteria)
+        {
+            var result = _serviceInstance.UpdateLog(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public JsonResult InsertLog(InsertLogCriteria criteria)
+        {
+            var result = _serviceInstance.InsertLog(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
         }
     }
 }

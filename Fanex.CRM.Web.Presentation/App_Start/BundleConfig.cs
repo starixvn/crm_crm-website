@@ -103,6 +103,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_CommunicationLog_ViewLog(ref bundles);
             RegisterBundles_CommunicationLog_Edit(ref bundles);
             RegisterBundles_CommunicationLog_Insert(ref bundles);
+            RegisterBundles_Redemption_ViewLog(ref bundles);
         }
 
         public static void RegisterBundles_TimePicker(ref BundleCollection bundles)
@@ -134,14 +135,14 @@ namespace Fanex.CRM.Web.View.App_Start
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Communication/Edit/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Communication/EditLog/Scripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogService.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogController.js",
-                "~/Areas/Communication/EditLog/Scripts/Directive/*.js"));
+                "~/Areas/Communication/EditLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Communication/Edit/Styles").Include(
+            bundles.Add(new StyleBundle("~/Areas/Communication/EditLog/Styles").Include(
                 "~/Areas/Communication/EditLog/Styles/EditCommunicationLog.less"));
         }
 
@@ -156,10 +157,27 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",
-                "~/Areas/Communication/InsertLog/Scripts/Directive/*.js"));
+                "~/Areas/Communication/InsertLog/Scripts/Directives/*.js"));
 
             bundles.Add(new StyleBundle("~/Areas/Communication/InsertLog/Styles").Include(
                 "~/Areas/Communication/InsertLog/Styles/InsertCommunicationLog.less"));
+        }
+
+        /// <summary>
+        /// Registers the bundles redemption view log.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        public static void RegisterBundles_Redemption_ViewLog(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Redemption/ViewLog/Scripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogApplication.js",
+                "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogService.js",
+                "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogController.js",
+                "~/Areas/Redemption/ViewLog/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Redemption/ViewLog/Styles").Include(
+                "~/Areas/Redemption/ViewLog/Styles/Redemption.less"));
         }
     }
 

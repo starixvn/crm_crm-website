@@ -1,0 +1,80 @@
+﻿@using Fanex.CRM.Redemption.Resources;
+@using Newtonsoft.Json;
+@using Fanex.CRM.Redemption.Models;
+@using Fanex.CRM.Infrastructure.Extension;
+@model int
+@{
+    var customerId = JsonConvert.SerializeObject(Model);
+}
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="redemption-viewlog-application">
+<head>
+    <title>@Labels.Redemption_Logs </title>
+    @Styles.Render("~/site/common")
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Areas/Redemption/ViewLog/Styles")
+</head>
+<body>
+    <div class="container main" data-ng-controller="redemptionViewLogController">
+        <div class="row filter-frm one-row redemption-filter">
+            <div class="item">
+                <label for="fromDate">
+                    @Labels.From_date</label>
+                <div class="display-inline-block" data-ng-model="searchCriteria.MaxFromDate" date-picker-from-date-container>
+                    <input id="fromDate" type="text" class="textbox txtcalendar" />
+                </div>
+            </div>
+            <div class="item">
+                <label for="toDate">
+                    @Labels.To_date</label>
+                <div class="display-inline-block" data-ng-model="searchCriteria.MinToDate" date-picker-to-date-container>
+                    <input id="toDate" type="text" class="textbox txtcalendar" />
+                </div>
+            </div>
+            <div class="item afterButton">
+                <label for="status">
+                    @Labels.Status</label>
+                <select id="status">
+                    <option data-ng-click="updateSelectedStatus();" value="crmConstants.Enums.Status.All">@Labels.All
+                    </option>
+                    <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
+                        value="status.Id">{{ status.Value}} </option>
+                </select>
+            </div>
+            <div class="item">
+                <button class="btn" data-ng-click="searchLogs();">
+                    <span class="hotkey">S</span>ubmit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div data-ng-model="logs" table-redemption-logs-container>
+                <div id="table-redemption-logs" class="freegrid display-none">
+                </div>
+            </div>
+        </div>
+        <div class="row btn-group">
+            <button class="btn" data-ng-click="insertLog();">
+                <span class="hotkey">I</span>nsert Case</button>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AgularJS")
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
+    @Scripts.Render("~/Areas/Redemption/ViewLog/Scripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var customerId = @customerId; 
+        var currentDate = '@DateTime.Now.ToShortFormatedDate()';
+        var viewResources = { 
+            Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
+            Insert_Redemption_Log: '@Labels.Insert_Redemption_Log',
+            Subject:'@Labels.Subject',
+            Claimed_Time: '@Labels.Claimed_Time',
+            Status: '@Labels.Status',
+            Customer_Redemption_Logs: '@Labels.Customer_Redemption_Logs'
+        }; 
+    </script>
+</body>
+</html>

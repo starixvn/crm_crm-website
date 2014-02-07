@@ -3,12 +3,10 @@
 communicationLogs, 
 hotKeyManager,
 viewResources */
-/* exported shouldReloadLogs */
-var shouldReloadLogs = false;
 communicationApplication.controller('communicationController', function ($scope,
     $http,
     $communicationService) {
-    $scope.logs = communicationLogs.Logs;
+    $scope.logs = communicationLogs ? communicationLogs.Logs : null;
     $scope.customerId = communicationLogs.CustomerId;
     $scope.initController = function () {
         hotKeyManager.CachedData.ActiveDocumentManager.push({
@@ -38,21 +36,22 @@ communicationApplication.controller('communicationController', function ($scope,
             });
     };
     $scope.closeEditView = function () {
-        if ($scope.shouldReloadLogs) {
+        if (parent.shouldReloadLogs) {
             $scope.getLogsByCustomerId();
         }
     };
     $scope.closeInsertView = function () {
-        if ($scope.shouldReloadLogs) {
+        if (parent.shouldReloadLogs) {
             $scope.getLogsByCustomerId();
         }
     };
     $scope.editCommunicationLog = function (logIndex) {
-        $scope.shouldReloadLogs = false;
+        parent.shouldReloadLogs = false;
+        var url = window.rootUrl + "CommunicationLog/OpenEditView?" + $.param({
+            logRunningNumber: $scope.logs[logIndex].RunningNumber
+        });
         parent.OpenPopup(
-            window.rootUrl + "CommunicationLog/OpenEditView?" + $.param({
-                logRunningNumber: $scope.logs[logIndex].RunningNumber
-            }),
+            url,
             viewResources.Edit_Communication_Log,
             $(parent.document).width() - 300,
             $(parent.document).height() - 40,
@@ -64,7 +63,7 @@ communicationApplication.controller('communicationController', function ($scope,
             $scope.closeEditView);
     };
     $scope.insertCommunicationLog = function () {
-        $scope.shouldReloadLogs = false;
+        parent.shouldReloadLogs = false;
         parent.OpenPopup(
             window.rootUrl + "CommunicationLog/OpenInsertView?" + $.param({ customerId: $scope.customerId }),
             viewResources.Insert_Communication_Log,

@@ -21,5 +21,7 @@ namespace Fanex.CRM.Communication.Repositories.Interfaces
         Result UpdateLog(UpdateLogCriteria criteria);
 
         Result InsertLog(InsertLogCriteria criteria);
+
+        LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
     }
 }
