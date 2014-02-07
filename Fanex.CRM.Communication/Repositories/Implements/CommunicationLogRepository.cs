@@ -55,6 +55,38 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             return logs;
         }
 
+        public LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
+        {
+            LogInfo log = new LogInfo();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            log = MappingDataFromSqlToLogInfoObject_ById(reader);
+                        }
+                    }
+
+                    if (reader.NextResult())
+                    {
+                        List<string> relatedCustomer = new List<string>();
+                        while (reader.Read())
+                        {
+                            relatedCustomer.Add(MappingRelatedCustomer_GetLogsByRunningNumber(reader));
+                        }
+
+                        log.RelatedCustomers = string.Join(",", relatedCustomer);
+                    }
+                }
+            }
+
+            return log;
+        }
+
         /// <summary>
         /// Updates the log.
         /// </summary>
@@ -135,63 +167,89 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                     Seconds = Converter.ToInt(durationTimeArray[2])
                 },
                 Handler = reader.GetStringNotNull("HandleBy"),
-                Reviewer = reader.GetStringNotNull("ReviewBy"),
-
-                StartTime = new DateTime(2014, 1, 31, 13, 30, 0),
-                EndTime = new DateTime(2014, 1, 31, 13, 35, 0),
-                Extension = new SettingInfo
-                {
-                    Id = 2000,
-                    Value = "946"
-                },
-                CommunicationTool = new SettingInfo
-                {
-                    Id = 1000,
-                    Value = "Phone"
-                },
-                LanguageId = 12002,
-                Product = new SettingInfo
-                {
-                    Id = 8001,
-                    Value = "Soccer"
-                },
-                BetType = new SettingInfo
-                {
-                    Id = 9019,
-                    Value = "Clean Sheet"
-                },
-                Status = new SettingInfo
-                {
-                    Id = 11002,
-                    Value = "Closed"
-                },
-                SiteInfo = new SettingInfo
-                {
-                    Id = 6004,
-                    Value = "BEST-ODDS"
-                },
-                RoleInfo = new SettingInfo
-                {
-                    Id = 7003,
-                    Value = "Super "
-                },
-                Response = new SettingInfo
-                {
-                    Id = 10000,
-                    Value = "Satisfied "
-                },
-                RelatedCustomers = "testcs, TESTCS0101",
-                Remark = "Remark value",
-                Solution = "Solution value",
-                Review = "Review value",
-                Country = new CountryInfo
-                {
-                    Id = 2
-                }
+                Reviewer = reader.GetStringNotNull("ReviewBy")
             };
 
             logInfo.IsReviewed = logInfo.Reviewer != string.Empty;
             return logInfo;
+        }
+
+        /// <summary>
+        /// Mappings the data from SQL to log information object of function get log by identify.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>Log Info Object.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+             "SP2101:MethodMustNotContainMoreLinesThan",
+             Justification = "Reviewed. Suppression is OK here.")]
+        private LogInfo MappingDataFromSqlToLogInfoObject_ById(IDataReader reader)
+        {
+            var logInfo = new LogInfo
+            {
+                RunningNumber = reader.GetInt32NotNull("FeedbackID"),
+                FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate").ToShortFormatedDate(),
+                MainCategory = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("MainCategoryID")
+                },
+                SubCategory = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("SubCategoryID")
+                },
+                Subject = reader.GetStringNotNull("Subject"),
+                StartTime = reader.GetDateTimeNotNull("FeedbackDate"),
+                EndTime = reader.GetDateTimeNotNull("ResolutionDate"),
+                Extension = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("StationID")
+                },
+                CommunicationTool = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("CommunicationID")
+                },
+                LanguageId = reader.GetInt32NotNull("LanguageID"),
+                Product = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("ProductID")
+                },
+                BetType = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("BetTypeID")
+                },
+                Status = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("StatusID")
+                },
+                SiteInfo = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("SiteID")
+                },
+                RoleInfo = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("RoleID")
+                },
+                Response = new SettingInfo
+                {
+                    Id = reader.GetInt32NotNull("ResponseID")
+                },
+                Remark = reader.GetStringNotNull("Description"),
+                Solution = reader.GetStringNotNull("Solution"),
+                Review = reader.GetStringNotNull("Review"),
+                IsReviewed = reader.GetBooleanNotNull("IsReviewed"),
+                Country = new CountryInfo
+                {
+                    Id = reader.GetInt32NotNull("CountryID")
+                },
+                CustomerId = reader.GetInt32NotNull("CustId")
+            };
+
+            logInfo.IsReviewed = logInfo.Reviewer != string.Empty;
+            return logInfo;
+        }
+
+        private string MappingRelatedCustomer_GetLogsByRunningNumber(IDataReader reader)
+        {
+            return reader.GetStringNotNull("UserName");
         }
     }
 }

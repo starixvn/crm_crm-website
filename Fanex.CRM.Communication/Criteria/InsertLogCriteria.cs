@@ -32,16 +32,7 @@ namespace Fanex.CRM.Communication.Criteria
 
         [SpParam(SqlParamName = "countryid")]
         public int CountryId { get; set; }
-
-        [SpParam(SqlParamName = "createdate")]
-        public DateTime CreateDate
-        {
-            get
-            {
-                return DateTime.Now;
-            }
-        }
-
+        
         [SpParam(SqlParamName = "feedbackdate")]
         public DateTime StartTime { get; set; }
 
@@ -90,15 +81,6 @@ namespace Fanex.CRM.Communication.Criteria
         [SpParam(SqlParamName = "review")]
         public string Review { get; set; }
 
-        [SpParam(SqlParamName = "reviewerid")]
-        public int ReviewerId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
-
         [SpParam(SqlParamName = "subject")]
         public string Subject { get; set; }
 
@@ -144,7 +126,6 @@ namespace Fanex.CRM.Communication.Criteria
             param.Add("relatedcustid", StringExtension.GetValueNotNull(RelatedCustomerId));
             param.Add("languageid", LanguageId);
             param.Add("countryid", CountryId);
-            param.Add("createdate", CreateDate);
             param.Add("feedbackdate", StartTime);
             param.Add("resolutiondate", EndTime);
             param.Add("communicationid", CommunicationToolId);
@@ -161,7 +142,6 @@ namespace Fanex.CRM.Communication.Criteria
             param.Add("solution", StringExtension.GetValueNotNull(Solution));
             param.Add("isreviewed", IsReviewed);
             param.Add("review", StringExtension.GetValueNotNull(Review));
-            param.Add("reviewerid", ReviewerId);
             param.Add("subject", StringExtension.GetValueNotNull(Subject));
             param.Add("creatorid", CreatorId);
             param.Add("userid", UserId);

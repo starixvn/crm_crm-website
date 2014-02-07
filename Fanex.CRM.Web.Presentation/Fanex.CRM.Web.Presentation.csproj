@@ -336,7 +336,7 @@
     <Content Include="Areas\Dashboard\Index.cshtml" />
     <Content Include="Areas\Dashboard\Web.config" />
     <Content Include="Areas\Redemption\Web.config" />
-    <Content Include="Areas\Redemption\Index.cshtml" />
+    <Content Include="Areas\Redemption\ViewLog\Index.cshtml" />
     <Content Include="Areas\Remark\Web.config" />
     <Content Include="Areas\Remark\Index.cshtml" />
     <Content Include="Areas\Redemption\InsertRedemption.cshtml" />
@@ -711,6 +711,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Redemption\ViewLog\Scripts\" />
+    <Folder Include="Areas\Redemption\ViewLog\Styles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

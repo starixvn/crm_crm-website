@@ -90,7 +90,6 @@ insertLogApplication.controller('insertLogController', function ($scope,
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
     $scope.isEditingRelatedCustomer = false;
-    $scope.isLoadedAllMainCategory = false;
 
     $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
@@ -184,10 +183,8 @@ insertLogApplication.controller('insertLogController', function ($scope,
     };
     $scope.getAllMainCategory = function () {
         $scope.BlockUI();
-        $scope.isLoadedAllMainCategory = false;
         $insertLogService.getAllMainCategory()
             .then(function (data) {
-                $scope.isLoadedAllMainCategory = true;
                 $scope.mainCategoryList = data.Result;
                 $scope.loadedFilter.push({
                     Id: 'MainCategory'
@@ -196,7 +193,6 @@ insertLogApplication.controller('insertLogController', function ($scope,
             },
             function (data) {
                 /* jshint unused: vars */
-                $scope.isLoadedAllMainCategory = true;
                 $scope.loadedFilter.push({
                     Id: 'MainCategory'
                 });
@@ -335,11 +331,6 @@ insertLogApplication.controller('insertLogController', function ($scope,
     };
     $scope.completedLoadFilterInfo = function () {
         var numberOfLoadFilter = 10;
-        if ($scope.isLoadedAllMainCategory && $scope.loadedFilter.length === numberOfLoadFilter - 1) {
-            $scope.getAllProduct();
-            return;
-        }
-
         if ($scope.loadedFilter.length >= numberOfLoadFilter &&
             $scope.isLoadedFeedbackSubjectTemplate) {
             $scope.initSelectedLogInfo();

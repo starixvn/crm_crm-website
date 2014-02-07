@@ -94,7 +94,7 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="subCategory">
                         <option data-ng-repeat="subCategory in subCategoryList track by $index" data-ng-click="updateSelectedSubCategory(subCategory)"
-                            value="subCategory.Id" data-ng-selected="communicationLog.SubCategory.Value != '' && subCategory.Value ==  communicationLog.SubCategory.Name">
+                            value="subCategory.Id" data-ng-selected="subCategory.Id ==  communicationLog.SubCategory.Id">
                             {{ subCategory.Value}} </option>
                     </select>
                 </div>

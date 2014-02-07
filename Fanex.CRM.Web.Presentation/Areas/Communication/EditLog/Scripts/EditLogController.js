@@ -33,7 +33,6 @@ editLogApplication.controller('editLogController', function ($scope,
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
     $scope.isEditingRelatedCustomer = false;
-    $scope.isLoadedAllMainCategory = false;
 
     $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
@@ -43,6 +42,7 @@ editLogApplication.controller('editLogController', function ($scope,
         $scope.getCommunicationTool();
         $scope.getAllLanguage();
         $scope.getAllMainCategory();
+        $scope.getAllProduct();
         $scope.getAllStatus();
         $scope.getAllSite();
         $scope.getAllRole();
@@ -126,10 +126,8 @@ editLogApplication.controller('editLogController', function ($scope,
     };
     $scope.getAllMainCategory = function () {
         $scope.BlockUI();
-        $scope.isLoadedAllMainCategory = false;
         $editLogService.getAllMainCategory()
             .then(function (data) {
-                $scope.isLoadedAllMainCategory = true;
                 $scope.mainCategoryList = data.Result;
                 $scope.loadedFilter.push({
                     Id: 'MainCategory'
@@ -138,7 +136,6 @@ editLogApplication.controller('editLogController', function ($scope,
             },
             function (data) {
                 /* jshint unused: vars */
-                $scope.isLoadedAllMainCategory = true;
                 $scope.loadedFilter.push({
                     Id: 'MainCategory'
                 });
@@ -277,11 +274,6 @@ editLogApplication.controller('editLogController', function ($scope,
     };
     $scope.completedLoadFilterInfo = function () {
         var numberOfLoadFilter = 10;
-        if ($scope.isLoadedAllMainCategory && $scope.loadedFilter.length === numberOfLoadFilter - 1) {
-            $scope.getAllProduct();
-            return;
-        }
-
         if ($scope.loadedFilter.length >= numberOfLoadFilter &&
             $scope.isLoadedFeedbackSubjectTemplate) {
             $scope.initSelectedLogInfo();
@@ -294,7 +286,7 @@ editLogApplication.controller('editLogController', function ($scope,
             var mainCategoryListLength = $scope.mainCategoryList.length;
             for (i = 0; i < mainCategoryListLength; i++) {
                 var mainCategory = $scope.mainCategoryList[i];
-                if (mainCategory.Value === communicationLog.MainCategory.Name) {
+                if (mainCategory.Id === communicationLog.MainCategory.Id) {
                     $scope.communicationLog.MainCategory = mainCategory;
                     $scope.subCategoryList = mainCategory.ChildSettings;
                     break;
@@ -306,8 +298,19 @@ editLogApplication.controller('editLogController', function ($scope,
             var subCategoryListLength = $scope.subCategoryList.length;
             for (i = 0; i < subCategoryListLength; i++) {
                 var subCategory = $scope.subCategoryList[i];
-                if (subCategory.Value === communicationLog.SubCategory.Name) {
+                if (subCategory.Id === communicationLog.SubCategory.Id) {
                     $scope.communicationLog.SubCategory = subCategory;
+                    break;
+                }
+            }
+        }
+
+        if ($scope.communicationToolList != null) {
+            var communicationToolListLength = $scope.communicationToolList.length;
+            for (i = 0; i < communicationToolListLength; i++) {
+                var communicationTool = $scope.communicationToolList[i];
+                if (communicationTool.Id === communicationLog.CommunicationTool.Id) {
+                    $scope.communicationLog.CommunicationTool = communicationTool;
                     break;
                 }
             }

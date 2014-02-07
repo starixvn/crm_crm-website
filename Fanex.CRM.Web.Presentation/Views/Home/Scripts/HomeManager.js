@@ -1,9 +1,10 @@
-﻿
-"use strict";
+﻿"use strict";
 /* global hotKeyManager,
 keyboardManager,
 leftPanelManager
 */
+/* exported shouldReloadLogs */
+var shouldReloadLogs = false;
 var HomeManager = function () {
     var self = this;
     self.DOMElements = {

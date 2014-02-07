@@ -78,22 +78,8 @@ namespace Fanex.CRM.Communication.Services.Implements
             LogInfo result = null;
             try
             {
-                CustomerLogInfo storedLogs = (CustomerLogInfo)SessionExtension.GetSession(
-                    HttpContext.Current.Session,
-                    GetLogsByCustomerIdSessionKey);
-                if (storedLogs == null)
-                {
-                    return result;
-                }
-
-                foreach (var log in storedLogs.Logs)
-                {
-                    if (log.RunningNumber == criteria.RunningNumber)
-                    {
-                        result = log;
-                        break;
-                    }
-                }
+                var rawData = _repositoryInstance.GetLogsByRunningNumber(criteria);
+                result = rawData;
             }
             catch (Exception ex)
             {
