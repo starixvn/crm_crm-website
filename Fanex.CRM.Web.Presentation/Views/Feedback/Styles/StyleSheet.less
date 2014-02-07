@@ -1,0 +1,119 @@
+﻿@import "../../../Content/site/variables.less";
+@import "../../../Content/site/mixins.less";
+
+/* Add Guest Feedback */
+.txtidentity {
+    margin-top: -2px;
+}
+
+.btn-save {
+    margin-bottom: 10px;
+}
+
+.errormsg {
+    color: #EE0000;
+    height: 18px;
+    vertical-align: middle;
+    background: url(images/warning.png) no-repeat left;
+    padding: 8px; 
+    padding-left: 18px;
+    margin-left: 2px;
+}
+
+.verifycustomer { 
+    color: #618E11;
+    height: 18px;
+    text-decoration: none;
+    vertical-align: middle;
+    background: url(images/sucess.gif) no-repeat left;
+    padding-left: 16px;
+    font-weight: bold;
+}
+
+.noneverifycustomer {
+    color: #EE0000;
+    height: 18px;
+    text-decoration: none;
+    vertical-align: middle;
+    background: url(images/error.gif) no-repeat left;
+    padding-left: 16px;
+    font-weight: bold;
+}
+
+.btnHelp {
+    background: url("../Styles/Images/help.png") no-repeat scroll center center transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 18px;
+    margin-left: 2px;
+    overflow: visible;
+    padding-left: 6px;
+    padding-right: 6px;
+    width: 18px;
+    margin: 3px 5px 0 0;
+}
+
+.btnreview {
+    border: none;
+    text-align: right;
+    color: @color-text ;
+    background: url(images/icn_view.png) no-repeat left;
+    padding-left: 20px;
+    cursor: pointer;
+    height: 18px;
+    text-decoration: none;
+    vertical-align: middle;
+    margin: 0 2px 0 0;
+}
+
+.btnedit {
+    .btnreview;
+    background: url(images/icn_edit.png) no-repeat left;
+}
+
+.btnrecover {
+    .btnreview;
+    background:url(images/recover1.jpg) no-repeat left;
+}
+
+ul.holder {
+    padding: 0;
+}
+
+.checkbox input[type="checkbox"] {
+    margin-top: 3px;
+}
+
+/* Management */
+.smallloading {
+    background:url(images/ajax-loader.gif) no-repeat left;
+    padding-left:16px;
+}
+
+#lblUserName {
+    color: #EE0000;
+}
+
+#lblEditedBy {
+    font-style: italic;
+    margin-left: 6px;
+    color: Wheat;
+}
+
+.lnksubject {
+    background:url("Images/hp_notepad2_pen.png") no-repeat left top;
+}
+
+.pending td {
+    background-color: #FBEC88;
+}
+
+.closed td {
+    background-color: #ccc7ba;
+}
+
+.desTooltip {
+    cursor: pointer;
+    float: inherit;
+    padding-left: 16px;
+}
