@@ -1,34 +1,34 @@
 ﻿"use strict";
 /* global showAlertMessage, 
-          AllSetting, 
-          desvalue: true,
-          solvalue: true,
-          revvalue: true,
-          accname 
+AllSetting, 
+desvalue: true,
+solvalue: true,
+revvalue: true,
+accname 
 */
 /* exported trim, 
-            getRelatedCustomer, 
-            validateSetting,
-            EnableUpdateReview,
-            bindSetting, 
-            bindingCountry,
-            bindingManageChildByParentId, 
-            bindCountry, 
-            loadSubItem,
-            getSubCategory, 
-            initHTMLArea, 
-            SetupCalendar,
-            keyup, 
-            checkIsRelated, 
-            verifyUserName,
-            deleteAllInValidCustomers, 
-            DeleteRelatedCust,
-            feedbackObjectValidate, 
-            bindingSite, 
-            showPopup,
-            getClientDateByTimeZone, 
-            getAutoFeedbackSubject,
-            downup
+getRelatedCustomer, 
+validateSetting,
+EnableUpdateReview,
+bindSetting, 
+bindingCountry,
+bindingManageChildByParentId, 
+bindCountry, 
+loadSubItem,
+getSubCategory, 
+initHTMLArea, 
+SetupCalendar,
+keyup, 
+checkIsRelated, 
+verifyUserName,
+deleteAllInValidCustomers, 
+DeleteRelatedCust,
+feedbackObjectValidate, 
+bindingSite, 
+showPopup,
+getClientDateByTimeZone, 
+getAutoFeedbackSubject,
+downup
 */
 
 var arr = [];
@@ -487,7 +487,7 @@ function verifyUserName() {
             dataType: "json",
             data: '{"UserName":"' + userName + '"}',
             success: function (rs) {
-                if (rs != null && rs.length > 0) {                   
+                if (rs != null && rs.length > 0) {
                     var userId = '';
                     for (i = 0; i < rs.length; i++) {
                         if (parseInt(rs[i].CustId) !== 0) {
@@ -569,22 +569,14 @@ renderRelated = function (row) {
         if (row.CustId > 0) {
             html = '<tr>\
                         <td id =' + row.CustId + ' value= ' + row.UserName + ' style="border: 0px;">\
-                            <div>\
-                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');">[x]</a>\
-                                &nbsp;&nbsp;\
-                                <font style="color:green;">' + row.UserName + '</font>\
-                             </div>\
+                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del txt-customer">' + row.UserName + '</a>\
                          </td>\
                      </tr>';
         }
         else {
             html = '<tr>\
                         <td id =' + row.CustId + ' value= ' + row.UserName + ' style="border: 0px;">\
-                            <div>\
-                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');">[x]</a>\
-                                &nbsp;&nbsp;\
-                                <font style="color:#0066CC;">' + row.UserName + '</font>\
-                            </div>\
+                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del txt-guest">' + row.UserName + '</a>\
                         </td>\
                     </tr>';
         }
@@ -592,11 +584,7 @@ renderRelated = function (row) {
     else {
         html = '<tr class="invalidcustomers">\
                     <td id =' + row.CustId + ' value= ' + row.UserName + ' style="border: 0px;">\
-                        <div>\
-                            <a rel="friend" onclick="deleteAllInValidCustomers();">[x]</a>\
-                            &nbsp;&nbsp;\
-                            <font style="color:red;">' + row.UserName + '</font>\
-                        </div>\
+                            <a rel="friend" onclick="deleteAllInValidCustomers();" class="icon-del txt-invalid">' + row.UserName + '</a>\
                     </td>\
                 </tr>';
     }

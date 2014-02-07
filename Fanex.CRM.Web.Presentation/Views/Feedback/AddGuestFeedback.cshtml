@@ -24,10 +24,13 @@
     <div class="row panel-group">
         <div class="row title">
             <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
-                <span class="icon-expand" onclick="downup('btnShowHideCustInfo', 'CustInfo')"></span>@Resources.Language.lblIdentityInformation:</div>
+                <span class="icon-expand" id="btnShowHideCustInfo" onclick="downup('btnShowHideCustInfo', 'CustInfo')">
+                </span>@Resources.Language.lblIdentityInformation:</div>
             <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                <input id="txtidentity" type="text" class="textbox txtidentity" /><span class="hidden error errormsg"
-                    id="erroridentity"></span></div>
+                <input id="txtidentity" type="text" class="textbox txtidentity" /></div>
+            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                <span class="hidden error errormsg" id="erroridentity"></span>
+            </div>
         </div>
         <div class="CustInfo row content">
             <div class="row item">
@@ -139,7 +142,7 @@
     </div>
     <div class="row panel-group">
         <div class="row title">
-            <span class="icon-expand" onclick="downup('btnShowHideDetail', 'FeedbackDetail')">
+            <span class="icon-expand" id="btnShowHideDetail" onclick="downup('btnShowHideDetail', 'FeedbackDetail')">
             </span>Details
         </div>
         <div class="FeedbackDetail row content">
@@ -305,54 +308,18 @@
                                 <span class="hotkey">V</span>erify</button>
                         </div>
                     </div>
-                    <table>
-                        <tr class="hidden">
-                            <td style="border: 0px">
-                            </td>
-                            <td colspan='2' style="border: 0px">
-                                <span class="" id="lblverify" value="0"></span>
-                            </td>
-                        </tr>
-                        <tr id="ColorGuide" class="hidden">
-                            <td style="border: 0px">
-                            </td>
-                            <td style="border: 0px" colspan='2'>
-                                <table style="width: 100%">
-                                    <tr>
-                                        <td style="border: 0px; width: 5%">
-                                            <div style="border: 1 solid green; background-color: green; width: 30px; height: 10px">
-                                            </div>
-                                        </td>
-                                        <td style="border: 0px; width: 25%">
-                                            Customer
-                                        </td>
-                                        <td style="border: 0px; width: 5%">
-                                            <div style="border: 1 solid #0066CC; background-color: #0066CC; width: 30px; height: 10px">
-                                            </div>
-                                        </td>
-                                        <td style="border: 0px; width: 25%">
-                                            Guest
-                                        </td>
-                                        <td style="border: 0px; width: 5%">
-                                            <div style="border: 1 solid red; background-color: red; width: 30px; height: 10px">
-                                            </div>
-                                        </td>
-                                        <td style="border: 0px; width: 25%">
-                                            Invalid
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr id="trRelatedInfo" class="hidden">
-                            <td style="border: 0px">
-                            </td>
-                            <td style="border: 0px">
-                                <table id="related">
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
+                    <div id="ColorGuide" class="row hidden colorGuide">
+                        <div class="col-md-2 relate-customer">
+                            Customer</div>
+                        <div class="col-md-2 relate-guest">
+                            Guest</div>
+                        <div class="col-md-2 relate-invalid">
+                            Invalid</div>
+                    </div>
+                    <div id="trRelatedInfo" class="row hidden">
+                        <table id="related">
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="row item">
@@ -371,7 +338,7 @@
     <div class="row panel-group">
         <div class="row title">
             <div class="pull-left">
-                <span class="icon-expand" onclick="downup('btnShowHideDescription', 'FeedbackDescription')">
+                <span class="icon-expand" id="btnShowHideDescription" onclick="downup('btnShowHideDescription', 'FeedbackDescription')">
                 </span>Description<span class="hidden error errormsg" id="deseditererror"></span>
             </div>
             <div class="pull-right">
@@ -391,7 +358,7 @@
     <div class="row panel-group">
         <div class="row title">
             <div class="pull-left">
-                <span class="icon-expand" onclick="downup('btnShowHideSolution', 'FeedbackSolution')">
+                <span class="icon-expand" id="btnShowHideSolution" onclick="downup('btnShowHideSolution', 'FeedbackSolution')">
                 </span>Solution<span class="hidden error errormsg" id="soleditererror"></span>
             </div>
             <div class="pull-right">
