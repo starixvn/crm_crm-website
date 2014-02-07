@@ -8,9 +8,9 @@
 <head>
     <title>@Labels.Insert_Communication_Log </title>
     @Styles.Render("~/site/common")
-    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/autocomplete/styles.css")"  />
     @Styles.Render("~/Styles/MultipleSelect")
     @Styles.Render("~/Areas/Communication/InsertLog/Styles")
 </head>
@@ -206,7 +206,7 @@
             <div class="row title">
                 @Labels.Remark</div>
             <div class="row content multi-text">
-                <div id="remarkeditorboxconatiner" data-ng-model="communicationLog.Remark" remark-editor-container>
+                <div id="remarkeditorboxcontainer" data-ng-model="communicationLog.Remark" remark-editor-container>
                 </div>
             </div>
         </div>
@@ -214,7 +214,7 @@
             <div class="row title">
                 @Labels.Solution</div>
             <div class="row content multi-text">
-                <div id="solutionkeditorboxconatiner" data-ng-model="communicationLog.Solution" solution-editor-container>
+                <div id="solutionkeditorboxcontainer" data-ng-model="communicationLog.Solution" solution-editor-container>
                 </div>
             </div>
         </div>
@@ -226,7 +226,7 @@
                     data-ng-model="communicationLog.IsReviewed" />
             </div>
             <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">
-                <div id="revieweditorboxconatiner" data-ng-model="communicationLog.Review" review-editor-container>
+                <div id="revieweditorboxcontainer" data-ng-model="communicationLog.Review" review-editor-container>
                 </div>
             </div>
         </div>

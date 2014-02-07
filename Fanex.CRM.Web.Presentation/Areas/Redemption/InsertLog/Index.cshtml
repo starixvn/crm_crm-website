@@ -1,81 +1,90 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@using Fanex.CRM.Redemption.Resources;
+@using Newtonsoft.Json;
+@using Fanex.CRM.Redemption.Models;
+@using Fanex.CRM.Infrastructure.Extension;
+@model int
+@{
+    var customerId = JsonConvert.SerializeObject(Model);
 }
-<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
-
-<div class="main popup container">
-    <div class="row form-group">
-        <div class="row row-item">
-            <div class="col-xs-3 col-sm-3 col-md-2"><label for="claimTime">Claim Time</label></div>
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <input type="text" class="textbox" id="claimTime"/>
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="redemption-insertlog-application">
+<head>
+    <title>@Labels.Insert_Redemption_Log </title>
+    @Styles.Render("~/site/common")
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/autocomplete/styles.css")" />
+    @Styles.Render("~/Areas/Redemption/InsertLog/Styles")
+</head>
+<body>
+    <div class="main popup container" data-ng-controller="insertLogController">
+        <div class="row form-group">
+            <div class="row row-item" data-ng-show="isShowResultMessage">
+                <div class="col-xs-7 col-sm-7 col-md-5">
+                    <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                        <div>
+                            {{ resultMessage }}</div>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
-                <label for="status">Status</label>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="claimTime">
+                        @Labels.Claimed_Time</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div date-picker-container>
+                        <input id="claimTime" type="text" class="textbox timepicker txtcalendar" />
+                    </div>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="status">
+                        @Labels.Status</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="status">
+                        <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
+                            value="status.Id">{{ status.Value}} </option>
+                    </select>
+                </div>
             </div>
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <select id="status">
-                    <option value="0">Closed</option>
-                </select>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-2">
+                    <label for="subject">
+                        @Labels.Subject</label></div>
+                <div class="col-xs-9 col-sm-9 col-md-10 subject-container">
+                    <input type="text" class="textbox" id="subject" data-ng-model="redemptionLog.Subject"
+                        subject-auto-complete />
+                </div>
             </div>
         </div>
-        <div class="row row-item">
-            <div class="col-xs-3 col-sm-3 col-md-2"><label for="subject">Subject</label></div>
-            <div class="col-xs-9 col-sm-9 col-md-10">
-                <input type="text" class="textbox" id="subject" value="Asking for payment"/>
+        <div class="row panel-group last">
+            <div class="row title">
+                @Labels.Remark</div>
+            <div class="row content multi-text">
+                <div id="remarkeditorboxcontainer" data-ng-model="redemptionLog.Remark" remark-editor-container>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row panel-group last">
-        <div class="row title">Remark</div>
-        <div class="row content multi-text">
-            <div id="previewboxremark" class="hidden">
-            </div>
-            <div id="editboxremark">
-            </div>
+        <div class="row">
+            <button class="btn btn-save">
+                <span class="hotkey">S</span>ave</button>
         </div>
     </div>
-    <div class="row">
-        <button class="btn btn-save"><span class="hotkey">S</span>ave</button>
-    </div>
-</div>
-
-<script language="javascript" type="text/javascript" src="~/Scripts/jquery.js"></script>
-<script language="javascript" type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
-<script language="javascript" type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
-<script language="javascript" type="text/javascript">
-    function initHTMLArea(wrapperid, editerid, strvalue) {
-        document.getElementById(wrapperid).innerHTML =
-        '<textarea id="' + editerid +
-            '" name="' + editerid +
-            '" style="width:auto; height:100px; min-width:710px;width:710px;">' +
-            strvalue +
-        '</textarea>';
-        $("#" + editerid).htmlarea({
-            toolbar: [
-                ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
-                ["increasefontsize", "decreasefontsize"],
-                ["orderedlist", "unorderedlist"],
-                ["indent", "outdent"],
-                ["justifyleft", "justifycenter", "justifyright"],
-                ["link", "unlink"], ["image", "horizontalrule"],
-                ["p", "h1", "h2", "h3", "h4", "yh5", "h6"],
-                ["cut", "copy", "paste"],
-                 [{
-                     css: "edit",
-                     text: "Inset Edit Block",
-                     action: function (btn) {
-                         /* jshint unused: vars */
-                         var s = this.getSelectedHTML();
-                         s = formatEditBlock(accname, s);
-                         this.pasteHTML(s);
-                     }
-                 }]
-                  ]
-        });
-    }
-
-    initHTMLArea('editboxremark', 'remarkediter', '');
-
-</script>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/TimePicker")
+    @Scripts.Render("~/Scripts/AgularJS")
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
+    @Scripts.Render("~/Areas/Redemption/InsertLog/Scripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = '@DateTime.Now';
+        var customerId = '@customerId';
+        var viewResources = {
+        };
+    </script>
+</body>
+</html>

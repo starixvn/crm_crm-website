@@ -25,8 +25,8 @@ editLogApplication.controller('editLogController', function ($scope,
     $scope.siteList = null;
     $scope.roleList = null;
     $scope.responseList = null;
-    $scope.feedbackSubejctTemplateList = [];
-    $scope.feedbackSubejctTemplateTotalPage = 0;
+    $scope.feedbackSubjectTemplateList = [];
+    $scope.feedbackSubjectTemplateTotalPage = 0;
     $scope.isLoadedFeedbackSubjectTemplate = false;
     $scope.lastRemarkPrefix = '';
     $scope.isSuccess = false;
@@ -42,7 +42,6 @@ editLogApplication.controller('editLogController', function ($scope,
         $scope.getCommunicationTool();
         $scope.getAllLanguage();
         $scope.getAllMainCategory();
-        $scope.getAllProduct();
         $scope.getAllStatus();
         $scope.getAllSite();
         $scope.getAllRole();
@@ -237,9 +236,9 @@ editLogApplication.controller('editLogController', function ($scope,
         $editLogService.getNumberOfFeedbackSubjectTemplate()
             .then(function (data) {
                 var numberOfFeedbackItem = data.Result;
-                $scope.feedbackSubejctTemplateList = [];
+                $scope.feedbackSubjectTemplateList = [];
                 var totalPage = Math.round((numberOfFeedbackItem / sharedScriptManager.cachedData.maxFeedbackSubjectTemplateNumberOnLoad) + 0.5);
-                $scope.feedbackSubejctTemplateTotalPage = totalPage;
+                $scope.feedbackSubjectTemplateTotalPage = totalPage;
                 $scope.isLoadedFeedbackSubjectTemplate = false;
                 for (var i = 1; i <= totalPage; i++) {
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
@@ -256,17 +255,17 @@ editLogApplication.controller('editLogController', function ($scope,
             .then(function (data) {
                 var feedbackSubjectTemplate = data.Result;
                 if (feedbackSubjectTemplate != null && feedbackSubjectTemplate.length > 0) {
-                    $scope.feedbackSubejctTemplateList = $scope.feedbackSubejctTemplateList.concat(feedbackSubjectTemplate);
+                    $scope.feedbackSubjectTemplateList = $scope.feedbackSubjectTemplateList.concat(feedbackSubjectTemplate);
                 }
 
-                if ($scope.feedbackSubejctTemplateTotalPage === pagingIndex) {
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();
                 }
             },
             function (data) {
                 /* jshint unused: vars */
-                if ($scope.feedbackSubejctTemplateTotalPage === pagingIndex) {
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();
                 }
@@ -274,6 +273,11 @@ editLogApplication.controller('editLogController', function ($scope,
     };
     $scope.completedLoadFilterInfo = function () {
         var numberOfLoadFilter = 10;
+        if ($scope.loadedFilter.lengt === numberOfLoadFilter - 1) {
+            $scope.getAllProduct();
+            return;
+        }
+
         if ($scope.loadedFilter.length >= numberOfLoadFilter &&
             $scope.isLoadedFeedbackSubjectTemplate) {
             $scope.initSelectedLogInfo();

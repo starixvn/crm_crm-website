@@ -142,6 +142,15 @@ namespace Fanex.CRM.Redemption.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remark.
+        /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {

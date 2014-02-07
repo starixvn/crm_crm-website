@@ -11,7 +11,7 @@ keyboardManager */
                 var rows = [];
                 var inputValue = $(this).val();
                 if (inputValue !== "") {
-                    rows = jlinq.from(scope.feedbackSubejctTemplateList).starts("Subject", inputValue)
+                    rows = jlinq.from(scope.feedbackSubjectTemplateList).starts("Subject", inputValue)
                         .sort("Subject")
                         .select();
                     rows = jlinq.from(rows).skip(0).take(suggestionItemNumber);

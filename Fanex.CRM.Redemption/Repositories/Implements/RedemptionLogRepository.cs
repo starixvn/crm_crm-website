@@ -54,6 +54,11 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
             return logs;
         }
 
+        /// <summary>
+        /// Gets the log by identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The log by identifier.</returns>
         public LogInfo GetLogById(GetLogByIdCriteria criteria)
         {
             LogInfo log = new LogInfo();

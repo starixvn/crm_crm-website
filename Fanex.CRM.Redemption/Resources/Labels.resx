@@ -156,4 +156,7 @@
   <data name="Customer_Redemption_Logs" xml:space="preserve">
     <value>Customer Redemption Logs</value>
   </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
 </root>

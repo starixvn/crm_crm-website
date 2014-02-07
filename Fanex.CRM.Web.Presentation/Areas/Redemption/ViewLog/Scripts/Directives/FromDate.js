@@ -19,7 +19,7 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
             selectOtherMonths: true
         });
 
-        fromDatePicker.datepicker('setDate', new Date(currentDate));
+        fromDatePicker.datepicker('setDate', new Date(initFromDate));
     }
     function selectedDateChange(scope, element, attrs) {
         /* jshint unused: vars */

@@ -2,13 +2,13 @@
     if (typeof $ == "undefined" || $ == null) return;
     $.fn.isShowingAutoComplete = function () {
         var target = $(this);
-        if ($(target).parent().find("div[popupcontianer]").length > 0) return true;
+        if ($(target).parent().find("div[popupcontainer]").length > 0) return true;
         return false;
     };
     $.fn.removeAutoComplete = function () {
         return this.each(function () {
             var target = $(this);
-            $(target).parent().find("div[popupcontianer]").remove();
+            $(target).parent().find("div[popupcontainer]").remove();
         });
     };
     $.fn.autoComplete = function (arrayValues, key) {
@@ -16,9 +16,9 @@
             var target = $(this);
             if (arrayValues.length <= 0) return;
             $(target).attr("autocomplete", "off");
-            $(target).parent().find("div[popupcontianer]").remove();
-            $(target).parent().append("<div popupcontianer='true'></div>");
-            var container = $(target).parent().find("div[popupcontianer]");
+            $(target).parent().find("div[popupcontainer]").remove();
+            $(target).parent().append("<div popupcontainer='true'></div>");
+            var container = $(target).parent().find("div[popupcontainer]");
 
             var htmlList = "";
             var itemStyle = " style='padding-left:4px; padding-top:2px; padding-botton:2px;' ";

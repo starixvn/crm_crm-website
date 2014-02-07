@@ -49,9 +49,9 @@ namespace Fanex.CRM.Redemption.Controllers
         }
 
         [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
-        public ActionResult OpenInsertView()
+        public ActionResult OpenInsertView(int customerId)
         {
-            return View("~/Areas/Redemption/InsertLog/Index.cshtml");
+            return View("~/Areas/Redemption/InsertLog/Index.cshtml", customerId);
         }
 
         [HttpPost]

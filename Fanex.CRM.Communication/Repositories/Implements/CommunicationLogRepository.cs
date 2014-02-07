@@ -54,6 +54,11 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             return logs;
         }
 
+        /// <summary>
+        /// Gets the logs by running number.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The logs by running number.</returns>
         public LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
         {
             LogInfo log = new LogInfo();

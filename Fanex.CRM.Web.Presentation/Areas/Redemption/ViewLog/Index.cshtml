@@ -67,6 +67,7 @@
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 
         var currentDate = '@DateTime.Now.ToShortFormatedDate()';
+        var initFromDate = '@DateTime.Now.FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = { 
             Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
             Insert_Redemption_Log: '@Labels.Insert_Redemption_Log',
