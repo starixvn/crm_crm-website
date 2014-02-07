@@ -9,6 +9,7 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
     $http,
     $redemptionViewLogService) {
     $scope.customerId = customerId;
+    $scope.isSearched = false;
     $scope.searchCriteria = {
         CustomerId: customerId,
         FromDate: new Date(currentDate),
@@ -51,7 +52,9 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
             });
     };
     $scope.completedLoadFilterInfo = function () {
-        $scope.searchCriteria.Status = $scope.statusList[0];
+        $scope.searchCriteria.Status = {
+            Id: crmConstants.Enums.Status.All
+        };
         $scope.unblockUI();
     };
     $scope.updateSelectedStatus = function (status) {
@@ -80,16 +83,36 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
             ToDate: $scope.searchCriteria.ToDate,
             StatusId: $scope.searchCriteria.Status.Id
         };
-
         $redemptionViewLogService.searchLogs(searchLogsCriteria)
             .then(function (data) {
                 $scope.logs = data.Result.Logs;
+                $scope.isSearched = true;
                 $scope.unblockUI();
             },
             function (data) {
                 /* jshint unused: vars */
+                $scope.isSearched = true;
                 $scope.unblockUI();
             });
+    };
+    $scope.closeInsertView = function () {
+        if (parent.shouldReloadLogs) {
+            $scope.searchLogs();
+        }
+    };
+    $scope.insertLog = function () {
+        parent.shouldReloadLogs = false;
+        parent.OpenPopup(
+            window.rootUrl + "Redemption/OpenInsertView?" + $.param({ customerId: $scope.customerId }),
+            viewResources.Insert_Redemption_Log,
+            $(parent.document).width() - 400,
+            400,
+            true,
+            false,
+            parent.window,
+            3000,
+            null,
+            $scope.closeInsertView);
     };
 
     $scope.unblockUI = function () {
