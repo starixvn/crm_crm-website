@@ -1,8 +1,16 @@
-﻿editLogApplication.directive('timePickerStartTimeContainer', function () {
+﻿"use strict";
+/* global editLogApplication,
+crmConstants,
+currentTime: true,
+sharedScriptManager,
+moment */
+editLogApplication.directive('timePickerStartTimeContainer', function () {
     var isSettingDate = false;
     var oldValue = null;
     function renderDatePicker(scope, element, attrs) {
+        /* jshint unused: vars */
         var datePicker = element.find(".timepicker");
+        /* jshint camelcase: false */
         datePicker.datetimepicker(
         {
             timeFormat: crmConstants.Enums.FormatConstant.HH_MM_TT_TimePicker,
@@ -26,18 +34,21 @@
         }
     }
     function setTimeWithDate(dateInfo, datePicker) {
+        /* jshint unused: vars */
         var arrayDate = dateInfo.split("/");
         var isValidDate = sharedScriptManager.isValidDate(new Date(dateInfo));
         if (arrayDate.length < 3 || !isValidDate) {
             return new Date(currentTime);
         }
 
+        /* jshint camelcase: false */
         var newDate = new Date(sharedScriptManager.stringFormat(
             crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_StringFormat,
-            [arrayDate[2], arrayDate[0], arrayDate[1], 0, 0, crmConstants.Enums.DateTime.AM]))
+            [arrayDate[2], arrayDate[0], arrayDate[1], 0, 0, crmConstants.Enums.DateTime.AM]));
         return newDate;
     }
     function setTimeWithDateAndTime(dateInfo, timeInfo, amPM, datePicker) {
+        /* jshint unused: vars */
         var arrayDate = dateInfo.split("/");
         var isValidDate = sharedScriptManager.isValidDate(new Date(dateInfo));
         if (arrayDate.length < 3 || !isValidDate) {
@@ -51,25 +62,27 @@
 
         var hour = parseInt(arrayTime[0]);
         var minute = parseInt(arrayTime[1]);
-        var amPM = amPM &&
-            (amPM == crmConstants.Enums.DateTime.AM || amPM == crmConstants.Enums.DateTime.PM) ?
+        amPM = amPM &&
+            (amPM === crmConstants.Enums.DateTime.AM || amPM === crmConstants.Enums.DateTime.PM) ?
             amPM :
             crmConstants.Enums.DateTime.AM;
         if (hour >= 12) {
             crmConstants.Enums.DateTime.PM;
         }
 
+        /* jshint camelcase: false */
         var newDate = new Date(sharedScriptManager.stringFormat(
             crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_StringFormat,
-            [arrayDate[2], arrayDate[0], arrayDate[1], hour, minute, amPM]))
+            [arrayDate[2], arrayDate[0], arrayDate[1], hour, minute, amPM]));
         return newDate;
     }
     function selectedTimeChange(scope, element, attrs) {
+        /* jshint unused: vars */
         updateCurrentTime();
         var datePicker = element.find(".timepicker");
         var selectedTime = datePicker.val();
         var arrayTime = selectedTime.split(' ');
-        var selectedTime = new Date(currentTime);
+        selectedTime = new Date(currentTime);
         switch (arrayTime.length) {
             case 1:
                 selectedTime = setTimeWithDate(arrayTime[0], datePicker);
@@ -100,9 +113,11 @@
             var datePicker = element.find(".timepicker");
             renderDatePicker(scope, element, attrs);
             scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
                 if (!sharedScriptManager.datesEqual(new Date(oldValue), new Date(newval))) {
                     oldValue = new Date(newval);
                     scope.isUpdatingTime = true;
+                    /* jshint camelcase: false */
                     datePicker.val(moment(new Date(newval)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment));
                     scope.isUpdatingTime = false;
                 }

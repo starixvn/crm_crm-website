@@ -1,4 +1,8 @@
-﻿editLogApplication.directive('dropdownSite', function () {
+﻿"use strict";
+/* global editLogApplication, 
+crmConstants,
+viewResources */
+editLogApplication.directive('dropdownSite', function () {
     return {
         restrict: 'A',
         template: '<option value="' + crmConstants.Enums.Site.NotApply + '"' +
@@ -16,8 +20,10 @@
         terminal: false,
         require: false,
         compile: function compile(tElement, tAttrs, transclude) {
+            /* jshint unused: vars */
         },
         link: function (scope, elem, attrs) {
+            /* jshint unused: vars */
         }
-    }
-})
+    };
+});
