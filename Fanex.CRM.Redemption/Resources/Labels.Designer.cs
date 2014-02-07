@@ -61,6 +61,33 @@ namespace Fanex.CRM.Redemption.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claimed Time.
+        /// </summary>
+        public static string Claimed_Time {
+            get {
+                return ResourceManager.GetString("Claimed_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Redemption Logs.
+        /// </summary>
+        public static string Customer_Redemption_Logs {
+            get {
+                return ResourceManager.GetString("Customer_Redemption_Logs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Redemption Log.
         /// </summary>
         public static string Edit_Redemption_Log {
@@ -120,6 +147,24 @@ namespace Fanex.CRM.Redemption.Resources {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject.
+        /// </summary>
+        public static string Subject {
+            get {
+                return ResourceManager.GetString("Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string Symbol_NotApply {
+            get {
+                return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
             }
         }
         

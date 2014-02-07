@@ -36,6 +36,8 @@
                 <label for="status">
                     @Labels.Status</label>
                 <select id="status">
+                    <option data-ng-click="updateSelectedStatus();" value="crmConstants.Enums.Status.All">@Labels.All
+                    </option>
                     <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
                         value="status.Id">{{ status.Value}} </option>
                 </select>
@@ -58,9 +60,8 @@
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AgularJS")
-    <script language="javascript" type="text/javascript" src="~/Scripts/jquery.js?ver=2"></script>
-    <script language="javascript" type="text/javascript" src="~/Scripts/Paging/jpager.js"></script>
-    <script language="javascript" type="text/javascript" src="~/Scripts/FanexGrid/FanexGrid.js?ver=1"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
     @Scripts.Render("~/Areas/Redemption/ViewLog/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
@@ -68,7 +69,11 @@
         var currentDate = '@DateTime.Now.ToShortFormatedDate()';
         var viewResources = { 
             Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
-            Insert_Redemption_Log: '@Labels.Insert_Redemption_Log'
+            Insert_Redemption_Log: '@Labels.Insert_Redemption_Log',
+            Subject:'@Labels.Subject',
+            Claimed_Time: '@Labels.Claimed_Time',
+            Status: '@Labels.Status',
+            Customer_Redemption_Logs: '@Labels.Customer_Redemption_Logs'
         }; 
     </script>
 </body>

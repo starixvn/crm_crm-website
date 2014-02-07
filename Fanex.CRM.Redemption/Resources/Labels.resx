@@ -141,4 +141,19 @@
   <data name="To_date" xml:space="preserve">
     <value>To date</value>
   </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Claimed_Time" xml:space="preserve">
+    <value>Claimed Time</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Customer_Redemption_Logs" xml:space="preserve">
+    <value>Customer Redemption Logs</value>
+  </data>
 </root>

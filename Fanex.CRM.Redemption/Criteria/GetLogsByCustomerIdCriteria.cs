@@ -20,13 +20,18 @@ namespace Fanex.CRM.Redemption.Criteria
         [SpParam(SqlParamName = "custid")]
         public int CustomerId { get; set; }
 
-        public DateTime StartDate { get; set; }
+        [SpParam(SqlParamName = "fromdate")]
+        public DateTime FromDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        [SpParam(SqlParamName = "todate")]
+        public DateTime ToDate { get; set; }
+
+        [SpParam(SqlParamName = "statusid")]
+        public int StatusId { get; set; }
 
         public override string GetSettingKey()
         {
-            return "Redemption_ViewLog_GetInfoByCustomerId";
+            return "Redemption_Log_GetInfoByCustomerId";
         }
 
         public override bool IsValid()

@@ -24,6 +24,27 @@ redemptionViewLogApplication.factory('$redemptionViewLogService', function ($htt
 
         return deferred.promise;
     };
+    serviceInstance.searchLogs = function (searchLogsCriteria) {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Redemption/GetLogsByCustomerId", searchLogsCriteria)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
 
     return serviceInstance;
 });

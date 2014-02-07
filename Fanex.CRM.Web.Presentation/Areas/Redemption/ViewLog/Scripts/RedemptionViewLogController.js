@@ -3,7 +3,8 @@
 customerId, 
 hotKeyManager,
 viewResources,
-currentDate */
+currentDate,
+crmConstants */
 redemptionViewLogApplication.controller('redemptionViewLogController', function ($scope,
     $http,
     $redemptionViewLogService) {
@@ -54,7 +55,14 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
         $scope.unblockUI();
     };
     $scope.updateSelectedStatus = function (status) {
-        $scope.searchCriteria.Status = status;
+        if (status) {
+            $scope.searchCriteria.Status = status;
+        }
+        else {
+            $scope.searchCriteria.Status = {
+                Id: crmConstants.Enums.Status.All
+            };
+        }
     };
     $scope.updateFromDate = function (selectedDate) {
         $scope.searchCriteria.FromDate = selectedDate;
@@ -64,7 +72,25 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
         $scope.searchCriteria.ToDate = selectedDate;
         $scope.searchCriteria.MaxFromDate = selectedDate;
     };
+    $scope.searchLogs = function () {
+        $scope.BlockUI();
+        var searchLogsCriteria = {
+            CustomerId: $scope.searchCriteria.CustomerId,
+            FromDate: $scope.searchCriteria.FromDate,
+            ToDate: $scope.searchCriteria.ToDate,
+            StatusId: $scope.searchCriteria.Status.Id
+        };
 
+        $redemptionViewLogService.searchLogs(searchLogsCriteria)
+            .then(function (data) {
+                $scope.logs = data.Result.Logs;
+                $scope.unblockUI();
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.unblockUI();
+            });
+    };
 
     $scope.unblockUI = function () {
         try {

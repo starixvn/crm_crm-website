@@ -221,6 +221,9 @@
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon-arrow-left.png" />
+    <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\FromDate.js" />
+    <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\RedemptionLogsContainer.js" />
+    <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\ToDate.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogApplication.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogController.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogService.js" />
@@ -715,7 +718,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Redemption\ViewLog\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
