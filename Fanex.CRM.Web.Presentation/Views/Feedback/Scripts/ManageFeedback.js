@@ -1,10 +1,9 @@
 ﻿"use strict";
 /* global OpenPopup, reRenderGrid, replaceSpaceForIE9, bindingSetting,
-gup, findMainWindow, head, addDays */
+gup, head, addDays */
 /* exported loadSubItem, openEditFeedback */
 
 //Contain the template
-var topwnd;
 var AllSetting;
 var maxHeightOfPopUp = ($(window).height() + 50);
 var lastedFeedback;

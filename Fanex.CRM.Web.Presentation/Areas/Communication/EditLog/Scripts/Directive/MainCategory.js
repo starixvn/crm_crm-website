@@ -1,4 +1,5 @@
 ﻿"use strict";
+/* global editLogApplication */
 editLogApplication.directive('dropdownMainCategory', function () {
     return {
         restrict: 'A',
@@ -13,8 +14,10 @@ editLogApplication.directive('dropdownMainCategory', function () {
         terminal: false,
         require: false,
         compile: function compile(tElement, tAttrs, transclude) {
+            /* jshint unused: vars */
         },
         link: function (scope, elem, attrs) {
+            /* jshint unused: vars */
         }
-    }
+    };
 });

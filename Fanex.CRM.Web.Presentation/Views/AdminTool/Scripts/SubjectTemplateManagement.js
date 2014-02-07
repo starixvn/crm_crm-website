@@ -163,14 +163,16 @@ fbSubjectTemplate = {
                         <td><div class="l" style="width:470px;" id="templateHiddenId' + row.TemplateId.toString() + '">' + row.Subject + '</div></td>\
                         <td>\
                             <div class="c" style="width:60px;">\
-                                <a class="c hand editSetting" href="JavaScript:void(0);" onclick="ShowPopupEditFeedbackTemplate(' + row.TemplateId.toString() + ');">\
-                                    </a>\
+                                <a class="c hand editSetting" href="JavaScript:void(0);" onclick="ShowPopupEditFeedbackTemplate(' + 
+                                    row.TemplateId.toString() + ');">\
+                                </a>\
                             </div>\
                         </td>\
                         <td>\
                             <div class="c" style="width:60px;">\
-                                <a class="c hand deleteSetting" href="JavaScript:void(0);" onclick="DeleteFeedbackTemplateById(' + row.TemplateId.toString() + ');">\
-                                    </a>\
+                                <a class="c hand deleteSetting" href="JavaScript:void(0);" onclick="DeleteFeedbackTemplateById(' + 
+                                    row.TemplateId.toString() + ');">\
+                                </a>\
                             </div>\
                         </td>\
                     </tr>';

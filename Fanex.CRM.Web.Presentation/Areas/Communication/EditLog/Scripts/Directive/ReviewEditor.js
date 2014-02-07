@@ -1,6 +1,11 @@
-﻿editLogApplication.directive('reviewEditorContainer', function () {
+﻿"use strict";
+/* global editLogApplication, 
+communicationLog,
+viewResources */
+editLogApplication.directive('reviewEditorContainer', function () {
     var editorId = "revieweditorbox";
     function renderEditor(scope, element, attrs) {
+        /* jshint unused: vars */
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
             communicationLog.Review +
@@ -8,6 +13,7 @@
 
         element.html(editorHTML);
         var editor = element.find("#" + editorId);
+        /* jshint camelcase: false */
         editor.htmlarea({
             changeEvent: function () {
                 scope.updateReview(editor.htmlarea("toHtmlString"));
@@ -39,6 +45,7 @@
         scope: true,
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
                 renderEditor(scope, element, attrs);
             });
         }

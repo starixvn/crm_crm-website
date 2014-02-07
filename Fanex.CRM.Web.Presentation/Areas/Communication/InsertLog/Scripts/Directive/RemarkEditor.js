@@ -1,6 +1,9 @@
-﻿insertLogApplication.directive('remarkEditorContainer', function () {
+﻿"use strict";
+/* global insertLogApplication, viewResources */
+ insertLogApplication.directive('remarkEditorContainer', function () {
     var editorId = "remarkeditorbox";
     function renderRemarkEditor(scope, element, attrs) {
+        /* jshint unused: vars */
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
             scope.communicationLog.Remark +
@@ -8,6 +11,7 @@
 
         element.html(editorHTML);
         var editor = element.find("#" + editorId);
+        /* jshint camelcase: false */
         editor.htmlarea({
             changeEvent: function () {
                 scope.updateRemark(editor.htmlarea("toHtmlString"));
@@ -39,6 +43,7 @@
         scope: true,
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
                 renderRemarkEditor(scope, element, attrs);
             });
         }

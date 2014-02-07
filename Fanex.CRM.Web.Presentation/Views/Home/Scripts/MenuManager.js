@@ -1,6 +1,8 @@
 ﻿"use strict";
-/* global crmConstants */
-
+/* global crmConstants,
+leftPanelManager,
+homeManager */
+var menuManager;
 var MenuManager = function () {
     var self = this;
     self.Enums = {
@@ -58,8 +60,8 @@ var MenuManager = function () {
     self.showLeftPanel = function () {
         var username = leftPanelManager.CacheData.getCustomerInfoParams.Username;
         if (menuManager.CachedData.isShowingLeftPanel ||
-            username == null ||
-            username == "") {
+            username === null ||
+            username === "") {
             return;
         }
 
@@ -94,10 +96,12 @@ var MenuManager = function () {
                 url: window.rootUrl + "Home/GettingDashboardMenu",
                 type: "GET",
                 success: function (response, status, xhr) {
+                    /* jshint unused: vars */
                     self.DOMElements.SubMenu.html(response);
                     menuManager.goToURL('centerFr', window.rootUrl + "Dashboard");
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    /* jshint unused: vars */
                 }
             });
         } else {
@@ -122,12 +126,12 @@ var MenuManager = function () {
         var activeMenu =
         '<ul class="breadcrumbsMenu list-inline list-unstyled">\
             <li><span class="icon-home"></span></li>\
-            <li>'+ mainMenu +'</li>\
+            <li>' + mainMenu + '</li>\
             <li class="active">' + subMenu + '</li>\
-        </ul>'
+        </ul>';
 
         self.DOMElements.SubMenu.html(activeMenu);
     };
 };
 
-var menuManager = new MenuManager();
+menuManager = new MenuManager();

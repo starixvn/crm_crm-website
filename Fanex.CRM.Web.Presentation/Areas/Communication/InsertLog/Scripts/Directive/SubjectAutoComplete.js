@@ -1,6 +1,11 @@
-﻿insertLogApplication.directive('subjectAutoComplete', function () {
+﻿"use strict";
+/* global insertLogApplication,
+jlinq,
+keyboardManager */
+ insertLogApplication.directive('subjectAutoComplete', function () {
     var suggestionItemNumber = 15;
     function bindingAutoSuggestionSubject(scope, element, attrs) {
+        /* jshint unused: vars */
         element.keyup(function (e) {
             if (isAutoSuggest(e.keyCode)) {
                 var rows = [];
