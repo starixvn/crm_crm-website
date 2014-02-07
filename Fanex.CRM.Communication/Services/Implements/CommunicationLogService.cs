@@ -27,8 +27,6 @@ namespace Fanex.CRM.Communication.Services.Implements
     /// </summary>
     public class CommunicationLogService : ICommunicationLogService
     {
-        private const string GetLogsByCustomerIdSessionKey = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetLogsByCustomerIdSessionKey";
-
         private readonly ICommunicationLogRepository _repositoryInstance;
 
         public CommunicationLogService()
@@ -57,8 +55,6 @@ namespace Fanex.CRM.Communication.Services.Implements
                     CustomerId = criteria.CustomerId,
                     Logs = rawData
                 };
-
-                SessionExtension.AddSession(HttpContext.Current.Session, GetLogsByCustomerIdSessionKey, result);
             }
             catch (Exception ex)
             {

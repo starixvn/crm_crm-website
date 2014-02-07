@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Redemption.Models
 {
     using System;
-    using System.Collections.Generic;
+    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Log Information.
@@ -18,8 +18,16 @@ namespace Fanex.CRM.Redemption.Models
     [Serializable]
     public class LogInfo
     {
-        public int RunningNumber { get; set; }
+        public int Id { get; set; }
 
         public int CustomerId { get; set; }
+
+        public string Subject { get; set; }
+
+        public string ClaimedTime { get; set; }
+
+        public SettingInfo Status { get; set; }
+
+        public string Remark { get; set; }
     }
 }

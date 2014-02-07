@@ -59,5 +59,77 @@ namespace Fanex.CRM.Redemption.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Redemption Log.
+        /// </summary>
+        public static string Edit_Redemption_Log {
+            get {
+                return ResourceManager.GetString("Edit_Redemption_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From date.
+        /// </summary>
+        public static string From_date {
+            get {
+                return ResourceManager.GetString("From_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert Redemption Log.
+        /// </summary>
+        public static string Insert_Redemption_Log {
+            get {
+                return ResourceManager.GetString("Insert_Redemption_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert redemption log successfully!.
+        /// </summary>
+        public static string Redemption_Log_InsertSuccess {
+            get {
+                return ResourceManager.GetString("Redemption_Log_InsertSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update redemption log successfully!.
+        /// </summary>
+        public static string Redemption_Log_UpdateSuccess {
+            get {
+                return ResourceManager.GetString("Redemption_Log_UpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redemption Logs.
+        /// </summary>
+        public static string Redemption_Logs {
+            get {
+                return ResourceManager.GetString("Redemption_Logs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To date.
+        /// </summary>
+        public static string To_date {
+            get {
+                return ResourceManager.GetString("To_date", resourceCulture);
+            }
+        }
     }
 }

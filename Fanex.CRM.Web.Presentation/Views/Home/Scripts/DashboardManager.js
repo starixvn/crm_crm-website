@@ -42,7 +42,9 @@ var DashboardManager = function () {
                 menuManager.goToURL('centerFr', window.rootUrl + 'Remark/Index');
                 break;
             case subMenuIdEnum.Redemption:
-                menuManager.goToURL('centerFr', window.rootUrl + 'Redemption/Index');
+                menuManager.goToURL('centerFr', window.rootUrl + 'Redemption/Index?' + $.param({
+                    customerId: customer.Id
+                }));
                 break;
             default:
                 break;

@@ -10,36 +10,75 @@
 namespace Fanex.CRM.Redemption.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
-    using Fanex.NAP.Core.Web.Attribute;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Redemption.Criteria;
+    using Fanex.CRM.Redemption.Models;
+    using Fanex.CRM.Redemption.Services.Implements;
+    using Fanex.CRM.Redemption.Services.Interfaces;
     using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Redemption Controller.
     /// </summary>
     public class RedemptionController : BaseController
     {
+        private IRedemptionLogService _serviceInstance;
+
         public RedemptionController()
+            : this(null)
         {
+        }
+
+        public RedemptionController(IRedemptionLogService serviceInstance)
+        {
+            _serviceInstance = serviceInstance ?? new RedemptionLogService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Read)]
-        public ActionResult Index()
+        public ActionResult Index(int customerId)
         {
-            return View("~/Areas/Redemption/ViewLog/Index.cshtml");
+            return View("~/Areas/Redemption/ViewLog/Index.cshtml", customerId);
         }
 
-        [ActionName("New")]
-        public ActionResult InsertRedemption()
+        [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
+        public ActionResult OpenEditView()
         {
-            return View("~/Areas/Redemption/InsertRedemption.cshtml");
+            return View("~/Areas/Redemption/EditLog/Index.cshtml");
         }
 
-        [ActionName("edit")]
-        public ActionResult EditRedemption()
+        [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
+        public ActionResult OpenInsertView()
         {
-            return View("~/Areas/Redemption/EditRedemption.cshtml");
+            return View("~/Areas/Redemption/InsertLog/Index.cshtml");
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
+        {
+            var result = _serviceInstance.GetLogsByCustomerId(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public JsonResult UpdateLog(UpdateLogCriteria criteria)
+        {
+            var result = _serviceInstance.UpdateLog(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        public JsonResult InsertLog(InsertLogCriteria criteria)
+        {
+            var result = _serviceInstance.InsertLog(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
         }
     }
 }

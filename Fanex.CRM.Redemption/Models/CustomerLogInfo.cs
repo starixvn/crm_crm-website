@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="CustomerRedemptionLogInfo.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="CustomerLogInfo.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -16,7 +16,7 @@ namespace Fanex.CRM.Redemption.Models
     /// Customer Log Information.
     /// </summary>
     [Serializable]
-    public class CustomerRedemptionLogInfo
+    public class CustomerLogInfo
     {
         public int CustomerId { get; set; }
 

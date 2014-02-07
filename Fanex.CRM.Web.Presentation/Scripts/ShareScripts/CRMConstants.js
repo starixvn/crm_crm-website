@@ -27,8 +27,10 @@ var CRMConstants = function () {
         Error: {
             None: 0
         },
+        /* jshint camelcase: false */
         FormatConstant: {
             ShortDate_String_Moment: 'MMM D, YYYY',
+            M_DD_YY_STRING: 'M dd, yy',
             MM_DD_YYYY_HH_MM_TT_String_Moment: 'MM/DD/YYYY hh:mm A',
             HH_MM_TT_TimePicker: 'hh:mm TT',
             MM_DD_YYYY_HH_MM_TT_StringFormat: "{0}/{1}/{2} {3}:{4} {5}",

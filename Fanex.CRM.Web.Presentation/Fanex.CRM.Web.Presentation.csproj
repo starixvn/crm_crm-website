@@ -173,37 +173,37 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\Language.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\MainCategory.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\RelatedCustomer.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\RemarkEditor.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\ReviewEditor.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\Site.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\SolutionEditor.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\SubjectAutoComplete.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\RelatedCustomer.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\RemarkEditor.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\ReviewEditor.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Site.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\SolutionEditor.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogApplication.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogController.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\Extension.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\CommunicationTool.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\Country.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\EndTime.js" />
-    <Content Include="Areas\Communication\EditLog\Scripts\Directive\StartTime.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Extension.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\CommunicationTool.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Country.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\EndTime.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\StartTime.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Communication\EditLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\EditLog\Styles\Images\del-icon.png" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\CommunicationTool.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\Country.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\EndTime.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\Extension.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\Language.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\MainCategory.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\RelatedCustomer.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\RemarkEditor.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\ReviewEditor.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\Site.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\SolutionEditor.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\StartTime.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directive\SubjectAutoComplete.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\CommunicationTool.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Country.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\EndTime.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Extension.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Language.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\MainCategory.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RelatedCustomer.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RemarkEditor.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\ReviewEditor.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Site.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\SolutionEditor.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\StartTime.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogApplication.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogController.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogService.js" />
@@ -221,6 +221,9 @@
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon-arrow-left.png" />
+    <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogApplication.js" />
+    <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogController.js" />
+    <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogService.js" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\error.png" />
@@ -299,6 +302,7 @@
     <None Include="Areas\Communication\InsertLog\Styles\InsertCommunicationLog.less" />
     <None Include="Areas\Communication\ViewLog\Styles\Communication.less" />
     <None Include="Areas\Customer\DetailInfo\Styles\StyleSheet.less" />
+    <None Include="Areas\Redemption\ViewLog\Styles\Redemption.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
@@ -340,9 +344,8 @@
     <Content Include="Areas\Redemption\ViewLog\Index.cshtml" />
     <Content Include="Areas\Remark\Web.config" />
     <Content Include="Areas\Remark\Index.cshtml" />
-    <Content Include="Areas\Redemption\InsertRedemption.cshtml" />
-    <Content Include="Areas\Redemption\EditRedemption.cshtml" />
-    <None Include="Areas\Redemption\Styles\redemption.less" />
+    <Content Include="Areas\Redemption\InsertLog\Index.cshtml" />
+    <Content Include="Areas\Redemption\EditLog\Index.cshtml" />
     <None Include="Areas\Remark\Styles\remark.less" />
     <None Include="Content\site\common.less" />
     <None Include="Content\site\customizeFanexGrid.less" />
@@ -712,8 +715,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Redemption\ViewLog\Scripts\" />
-    <Folder Include="Areas\Redemption\ViewLog\Styles\" />
+    <Folder Include="Areas\Redemption\ViewLog\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

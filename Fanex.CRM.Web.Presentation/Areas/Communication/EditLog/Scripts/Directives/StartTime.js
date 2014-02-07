@@ -127,7 +127,6 @@ editLogApplication.directive('timePickerStartTimeContainer', function () {
             scope.updateStartTime(currentTime);
             element.on('change', function () {
                 var selectedTime = selectedTimeChange(scope, element, attrs);
-
                 if (!sharedScriptManager.datesEqual(selectedTime, new Date(oldValue))) {
                     oldValue = selectedTime;
                     if (!scope.isUpdatingTime) {
