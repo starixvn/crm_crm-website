@@ -42,7 +42,7 @@
 }
 
 .btnHelp {
-    background: url("../Styles/Images/help.png") no-repeat scroll center center transparent;
+    background: url(../Styles/Images/help.png) no-repeat scroll center center transparent;
     border: 0 none;
     cursor: pointer;
     height: 18px;
@@ -77,52 +77,15 @@
     background:url(images/recover1.jpg) no-repeat left;
 }
 
-ul.holder {
-    padding: 0;
-}
-
 .checkbox input[type="checkbox"] {
     margin-top: 3px;
-}
-
-/* Management */
-.smallloading {
-    background:url(images/ajax-loader.gif) no-repeat left;
-    padding-left:16px;
-}
-
-#lblUserName {
-    color: #EE0000;
-}
-
-#lblEditedBy {
-    font-style: italic;
-    margin-left: 6px;
-    color: Wheat;
-}
-
-.lnksubject {
-    background:url("Images/hp_notepad2_pen.png") no-repeat left top;
-}
-
-.pending td {
-    background-color: #FBEC88;
-}
-
-.closed td {
-    background-color: #ccc7ba;
-}
-
-.desTooltip {
-    cursor: pointer;
-    float: inherit;
-    padding-left: 16px;
 }
 
 /* Related */
 
 ul.holder {
     border-color: @border-color;
+    padding: 0;
 
     li {
         margin: 1px 5px 0px 0;
@@ -156,7 +119,6 @@ ul.holder {
     }
 }
 
-
 #related {
     margin: 5px 0 0 22px;
 
@@ -184,5 +146,88 @@ ul.holder {
         &.txt-invalid {
             color: #FF0000;
         }
+    }
+}
+
+/* Management */
+
+.topSelected {
+    margin: 5px 0 0;
+    background: url(images/bg-topSelected.png);
+    padding: 5px 10px;
+    border: 1px solid @border-color;
+
+    .selectTopFeedback {
+        width: 100px;
+    }
+}
+
+.freegrid.hasTopSelected {
+    border-top: none;
+}
+.smallloading {
+    background:url(images/ajax-loader.gif) no-repeat left;
+    padding-left:16px;
+}
+
+#lblUserName {
+    color: #EE0000;
+}
+
+#lblEditedBy {
+    font-style: italic;
+    margin-left: 6px;
+    color: Wheat;
+}
+
+.lnksubject {
+    background:url("Images/hp_notepad2_pen.png") no-repeat left top;
+}
+
+.pending td {
+    background-color: #FBEC88;
+}
+
+.closed td {
+    background-color: #ccc7ba;
+}
+
+.desTooltip {
+    cursor: pointer;
+    float: inherit;
+    padding-left: 16px;
+}
+
+.filter-frm {
+    select {
+        width: 90px;
+    }
+
+    .lblUsername {
+        margin-right: 39px;
+    }
+
+    .lblStatus {
+        margin-right: 57px;
+    }
+
+    .width-80 {
+        width: 80px;
+    }
+
+    .txtUsername {
+        width: 110px;
+    }
+
+    .selCommunication, .selStatus {
+        width: 212px;
+    }
+
+    .selMainCategory, .selReviewed {
+        width: 278px;
+    }
+
+    .lblSubCategory {
+        width: 108px;
     }
 }
