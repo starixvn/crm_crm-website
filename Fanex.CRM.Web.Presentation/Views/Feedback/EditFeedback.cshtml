@@ -1,429 +1,812 @@
 ﻿@using Fanex.CRM.Infrastructure.Common
 @using Fanex.NAP.Core.Business
-
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/InputBox/style.css")" rel="stylesheet" type="text/css" />
-    
-    <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.less")" rel="stylesheet" type="text/css" />    
-    <style type="text/css">        
-            /* css for timepicker */
-        .ui-timepicker-div .ui-widget-header{ margin-bottom: 8px; }
-        .ui-timepicker-div dl{ text-align: left; }
-        .ui-timepicker-div dl dt{ height: 25px; }
-        .ui-timepicker-div dl dd{ margin: -25px 0 10px 65px; }
-        .ui-timepicker-div td { font-size: 90%; }
-
-    </style>
- 
-</head>
-<body>
-    
-    <!--Template area-->
-    <script id="tmplOption" type="text/x-jquery-tmpl">
+<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/InputBox/style.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.less")" rel="stylesheet" type="text/css" />
+<!--Template area-->
+<script id="tmplOption" type="text/x-jquery-tmpl">
         <option value="${Id}">${Value}</option>
-    </script>
-      <script id="tmplCountry" type="text/x-jquery-tmpl">
+</script>
+<script id="tmplCountry" type="text/x-jquery-tmpl">
         <option value="${Id}">${CountryName}</option>
-    </script>
-   <!--/Template area-->
-    <div class="main">
-        <div class="maincontent">
-            <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
-                <tr>
-                    <td class="maincontent_headerL">
-                        <img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png"/>
-                    </td>
-                    <td class="maincontent_headerC">
-                        Edit Customer Feedback
-                    </td>
-                    <td class="maincontent_headerR">
-                    </td>
-                </tr>
-            </table>
-            <div class="bg_table">
-                
-                <div id="sContent" style="margin-top:0px; background-color:White;">
-                    <div class="errmsg" id="errmsg">
+</script>
+<!--/Template area-->
+<div class="main container popup">
+    <div class="row">
+        <div class="errmsg" id="errmsg">
+        </div>
+    </div>
+    <div class="row panel-group">
+        <div class="row title">
+            <span class="icon-expand" id="btnShowHideCustInfo" onclick="downup('btnShowHideCustInfo', 'CustInfo')">
+            </span><b><span id="lblUserName" value=""></span></b>
+        </div>
+        <div class="CustInfo row content">
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="ddltitle">
+                        Title</label></div>
+                <div class="col-xs-3 col-sm-1 col-md-1">
+                    <select id="ddltitle">
+                    </select>
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="txtfirstname">
+                        First Name</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtfirstname" class="textbox" />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="txtlastname">
+                        Last Name
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtlastname" class="textbox" />
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="txtphone">
+                        Phone</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtphone" class="textbox" />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="txtmobilephone">
+                        Mobile Phone
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtmobilephone" class="textbox" />
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="txtfax">
+                        Fax
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtfax" class="textbox" />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="txtEmail">
+                        Email
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtEmail" class="textbox" />
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="txtPIC1">
+                        PIC1
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtPIC1" class="textbox" />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="txtMSN">
+                        MSN
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtMSN" class="textbox" />
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="txtPIC2">
+                        PIC2
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtPIC2" class="textbox" />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="txtSkype">
+                        Skype
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtSkype" class="textbox" />
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="txtPIC3">
+                        PIC3
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtPIC3" class="textbox" />
+                </div>
+            </div>
+            <div class="row item">
+                <lable class="checkbox">
+                    <input type="checkbox" id="chkIsOverrideCrmInfo" style="float: left; display: block;" />
+                Overwrite current CRM Info
+            </div>
+        </div>
+    </div>
+    <div class="row panel-group">
+        <div class="row title">
+            <span class="icon-expand" id="btnShowHideDetail" onclick="ownup('btnShowHideDetail', 'FeedbackDetail')">
+            </span>Details
+        </div>
+        <div class="FeedbackDetail row content">
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="txtdate">
+                        Feedback Date
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtdate" class="txtcalendar textbox" readonly />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="ddlcsextension">
+                        CS Extension/Station
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlcsextension">
+                    </select>
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="txtResolutionTime">
+                        Resolution Time
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input type="text" id="txtResolutionTime" class="txtcalendar textbox" readonly />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="ddlcountry">
+                        Country
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlcountry" name="D1">
+                    </select>
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="ddlcommunication">
+                        Communication
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlcommunication">
+                    </select>
+                    <span class="hidden error errormsg" id="errorcommunication"></span>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="ddllanguage">
+                        Language
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddllanguage">
+                    </select>
+                    <span class="hidden error errormsg" id="errorlanguage"></span>
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="ddlcategory">
+                        Category
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlcategory" onchange="bindingChildByParentId('ddlsubcategory', AllSetting.Category, $('#ddlcategory').val())">
+                    </select>
+                    <input type="hidden" id="hIsNotChild" value="0" />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="ddlsubcategory">
+                        SubCategory
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlsubcategory">
+                    </select>
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="ddlproduct">
+                        Product
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlproduct" onchange="bindingChildByParentId('ddlbettype', AllSetting.Product, $('#ddlproduct').val())">
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="ddlbettype">
+                        Bet Type
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlbettype">
+                    </select>
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="ddlstatus">
+                        Status
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlstatus" name="D2">
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="ddlsite">
+                        Site
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlsite">
+                    </select>
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="ddlrole">
+                        Role
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlrole" name="D3">
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
+                    <label for="ddlresponse">
+                        Response
+                    </label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="ddlresponse">
+                    </select>
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label class="checkbox">
+                        <input type="checkbox" id="chkisrelated" onclick="checkIsRelated(this);" />
+                        Is Related to Customer
+                    </label>
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-9">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <input type="button" value="  " id="btnRelatedHelp" class="btnHelp pull-left" title="Related Help" />
+                            <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn pull-right" onclick="verifyUserName();" class="btn" id="btnverify"
+                                disabled>
+                                <span class="hotkey">V</span>erify</button>
+                        </div>
                     </div>
-                    <table class="tblcollapse" style="width: 100%; text-align: left;">
-                        <tr>
-                            <td colspan="4">
-                                <input type="button" onclick="EditFeedback();" class="btn updateFeedback" id="btnsubmit" value="Submit" />
-                            </td>
-                        </tr>
-                        <tr class="title">
-                            <td colspan="4" class="c">
-                                <input type="button" id="btnShowHideCustInfo" class="updown" value="" onclick="downup('btnShowHideCustInfo', 'CustInfo')" />
-                                <b><span id="lblUserName" value=""></span></b>
-                            </td>
-                        </tr>
-                        <tr class="CustInfo solid_bottom">
-                            <td style="width: 25%; border-right: 0px" class="b">
-                                Title
-                            </td>
-                            <td style="width: 75%; border-left: 0px" colspan="3">
-                                <select id="ddltitle">
-                                </select>
-                            </td>  
-                        </tr>
-                        <tr class="CustInfo solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                First Name
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <input type="text" id="txtfirstname" />
-                            </td>
-                            <td  class="b" style="border-right: 0px">
-                                Last Name
-                            </td>
-                            <td style="border-left: 0px">
-                                <input type="text" id="txtlastname" />
-                            </td>
-                        </tr>
-                        <tr class="CustInfo solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                Phone
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <input type="text" id="txtphone" />
-                            </td>
-                            <td  class="b" style="border-right: 0px">
-                                Mobile Phone
-                            </td>
-                            <td style="border-left: 0px">
-                                <input type="text" id="txtmobilephone" />
-                            </td>
-                        </tr>
-                        <tr class="CustInfo solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                Fax
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <input type="text" id="txtfax" />
-                            </td>
-                            <td  class="b" style="border-right: 0px">
-                                Email
-                            </td>
-                            <td style="border-left: 0px">
-                                <input type="text" id="txtEmail" />
-                            </td>
-                        </tr>
-                        <tr class="CustInfo solid_bottom">
-                            <td class="b" style="border-right: 0px">
-                                PIC1
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <input type="text" id="txtPIC1" />
-                            </td>
-                            <td class="b" style="border-right: 0px">
-                                MSN
-                            </td>
-                            <td style="border-left: 0px">
-                                <input type="text" id="txtMSN" />
-                            </td>
-                        </tr>
-                        <tr class="CustInfo solid_bottom">
-                            <td class="b" style="border-right: 0px">
-                                PIC2
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <input type="text" id="txtPIC2" />
-                            </td>
-                            <td class="b" style="border-right: 0px">
-                                Skype
-                            </td>
-                            <td style="border-left: 0px">
-                                <input type="text" id="txtSkype" />
-                            </td>
-                        </tr>
-                        <tr class="CustInfo solid_bottom">
-                            <td class="b" style="border-right: 0px">
-                                PIC3
-                            </td>
-                            <td colspan="3" style="border-left: 0px">
-                                <input type="text" id="txtPIC3" />
-                            </td>
-                        </tr>
-                        <tr class="CustInfo solid_bottom">
-                            <td colspan="4" class="b" style="border-right: 0px">
-                                <input type="checkbox" id="chkIsOverrideCrmInfo" style="float:left; display:block;"/>
-                                Overwrite current CRM Info
-                            </td>
-                            
-                        </tr>
-                        <tr class="title">
-                            <td colspan="4">
-                                <input type="button" id="btnShowHideDetail" class="updown" value="" onclick="downup('btnShowHideDetail', 'FeedbackDetail')" />
-                                <b>Details</b>
-                            </td>
-                        </tr>
-
-                        <tr class="FeedbackDetail solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                Feedback Date
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <input type="text" id="txtdate" class="txtcalendar" readonly />
-                            </td>
-                            <td  class="b" style="border-right: 0px">
-                                CS Extension/Station
-                            </td>
-                            <td style="border-left: 0px">
-                                <select id="ddlcsextension">
-                                   
-                                </select>
-                            </td>
-                        </tr>
-                         <tr class="FeedbackDetail solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                Resolution Time</td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <input type="text" id="txtResolutionTime" class="txtcalendar" readonly /></td>
-                            <td  class="b" style="border-right: 0px">
-                                Country
-                            </td>
-                            <td style="border-left: 0px">
-                                <select id="ddlcountry" name="D1">
-                                  
-                                </select></td>
-                        </tr>
-                         <tr class="FeedbackDetail solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                Communication
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <select id="ddlcommunication">
-                                </select>
-                                <span class="hidden error errormsg" id="errorcommunication"></span>
-                            </td>
-                            <td  class="b" style="border-right: 0px">
-                                Language
-                            </td>
-                            <td style="border-left: 0px">
-                                <select id="ddllanguage">
-                                    
-                                </select>
-                                <span class="hidden error errormsg" id="errorlanguage"></span>
-                            </td>
-                        </tr>
-                        <tr class="FeedbackDetail solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                Category
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <select id="ddlcategory" onchange="bindingChildByParentId('ddlsubcategory', AllSetting.Category, $('#ddlcategory').val())">
-                                   
-                                </select>
-                                <input type="hidden" id="hIsNotChild" value="0"/>
-                            </td>
-                            <td  class="b" style="border-right: 0px">
-                                SubCategory
-                            </td>
-                            <td style="border-left: 0px">
-                                <select id="ddlsubcategory">
-                                    
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="FeedbackDetail solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                Product
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <select id="ddlproduct" onchange="bindingChildByParentId('ddlbettype', AllSetting.Product, $('#ddlproduct').val())">
-                                   
-                                </select>
-                            </td>
-                            <td  class="b" style="border-right: 0px">
-                                Bet Type
-                            </td>
-                            <td style="border-left: 0px">
-                                <select id="ddlbettype">
-                                  
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="FeedbackDetail solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                Status
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <select id="ddlstatus" name="D2">
-                                 
-                                </select></td>
-                            <td  class="b" style="border-right: 0px">
-                                Site
-                            </td>
-                            <td style="border-left: 0px">
-                                <select id="ddlsite">
-                                   
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="FeedbackDetail solid_bottom">
-                            <td  class="b" style="border-right: 0px">
-                                Role
-                            </td>
-                            <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                                <select id="ddlrole" name="D3">
-                                   
-                                </select></td>
-                            <td  class="b" style="border-right: 0px">
-                                Response
-                            </td>
-                            <td style="border-left: 0px">
-                                <select id="ddlresponse">
-                                  
-                                </select>
-                            </td>
-                        </tr>
-                        <tr class="FeedbackDetail solid_bottom">
-                            <td class="b" style="border-right:1px solid #E5E5E5;">
-                                <input type="checkbox" id="chkisrelated" onclick="checkIsRelated(this);" style="float:left; display:block;" />
-                                Is Related to Customer
-                            </td>
-                            <td colspan="3">
-                                <table>
-                                    <tr>
-                                        <td style="border: 0px">
-                                            <input type="button" value="  " id="btnRelatedHelp" class="btnHelp" title="Related Help" />
-                                        </td>
-                                        <td style="border: 0px">
-                                            <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
-                                            </select>
-                                        </td>
-                                        <td style="border: 0px">
-                                            <input type="button" onclick="verifyUserName();" class="btn" id="btnverify" value="Verify"
-                                                disabled />
-                                        </td>
-                                    </tr>
-                                    <tr class="hidden">
-                                        <td style="border: 0px">
-                                        </td>
-                                        <td colspan='2' style="border: 0px">
-                                            <span class="" id="lblverify" value="0"></span>
-                                        </td>
-                                    </tr>
-                                    <tr id="ColorGuide" class="hidden">
-                                        <td style="border: 0px"></td>
-                                        <td style="border: 0px" colspan='2'>
-                                            <table style="width:100%">
-                                                <tr>
-                                                <td style="border: 0px; width:5%"><div style="border:1 solid green ; background-color:green; width:30px; height:10px"></div></td>
-                                                <td style="border: 0px; width:25%">Customer</td>
-                                                <td style="border: 0px; width:5%"><div style="border:1 solid #0066CC ; background-color:#0066CC; width:30px; height:10px"></div></td>
-                                                <td style="border: 0px; width:25%">Guest</td>
-                                                <td style="border: 0px; width:5%"><div style="border:1 solid red ; background-color:red; width:30px; height:10px"></div></td>
-                                                <td style="border: 0px; width:25%">Invalid</td>
-                                                </tr>
-                                            </table>
-                                        </td>     
-                                    </tr>
-                                    <tr id="trRelatedInfo" class="hidden">
-                                        <td style="border: 0px"></td>
-                                        <td style="border: 0px">
-                                            <table id="related">
-                                            </table>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr class="FeedbackDetail solid_bottom">
-                            <td class="b" style="border-right:1px solid #E5E5E5;">Subject</td>
-                            <td colspan="3">
-                                 <input type="text" id="txtsubject" style="width:500px;" /><span class="hidden error errormsg" id="errorsubject"></span>
-                            </td>
-                        </tr>
-                        <tr class="title">
-                            <td colspan="4">
-                                <div class="lblediter">
-                                    <input type="button" id="btnShowHideDescription" class="updown" value="" onclick="downup('btnShowHideDescription', 'FeedbackDescription')" />
-                                    Description <span class="hidden error errormsg" id="deseditererror"></span></div>
-                                <div class="editreview">
-                                    <input type="button" class="btnreview hidden" value="Preview" id="btndesreview" onclick="initReview('des');" /><input
-                                        type="button" class="btnedit" value="Edit" id="btndesedit" onclick="initEdit('des');" /></div>
-                            </td>
-                        </tr>
-                        <tr class="FeedbackDescription">
-                            <td colspan="4">
-                                 <div class="editerwrapper" id="descriptionwrapper">
-                                    <div id="previewboxdes"></div>
-                                    <div id="editboxdes" class="hidden">
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="title">
-                            <td colspan="4">
-                                <div class="lblediter">
-                                    <input type="button" id="btnShowHideSolution" class="updown" value="" onclick="downup('btnShowHideSolution', 'FeedbackSolution')" />
-                                    Solution <span class="hidden error errormsg" id="soleditererror"></span></div>
-                                <div class="editreview">
-                                    <input type="button" class="btnreview hidden" value="Preview" id="btnsolreview" onclick="initReview('sol');" /><input
-                                        type="button" class="btnedit " value="Edit" id="btnsoledit" onclick="initEdit('sol');" /></div>
-                            </td>
-                        </tr>
-                        <tr class="FeedbackSolution">
-                            <td colspan="4">
-                                <div class="editerwrapper" id="solutionwrapper">
-                                    <div id="previewboxsol" ></div>
-                                    <div id="editboxsol" class="hidden">
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="title">
-                            <td colspan="4">
-                                <div class="lblediter">
-                                    <input type="button" id="btnShowHideReview" class="updown" value="" onclick="downup('btnShowHideReview', 'FeedbackReview')" />
-                                    Review                                    
-                                    <input type="checkbox" id="chkisreview" style="margin-top: -1px;" class="hidden" onclick="updateFeedback.reviewCheckBox();"/>                                    
-                                    <span id="lblUpdateReview" class="hidden" ></span>
-                                    <span id="lblEditedBy" ><!--Reviewed--></span>
-                                    <span class="hidden error errormsg" id="revieweditererror"></span>
-                                </div>                              
-                                <div class="editreview">                                    
-                                    <input type="button" class="btnrecover hidden" value="Remove" id="btnUnReview" onclick="updateFeedback.unReview();" />
-                                    
-                                </div>                                    
-                            </td>
-                        </tr>
-                        <tr class="FeedbackReview">
-                            <td colspan="4">
-                                 <div class="editerwrapper" id="reviewwrapper" >
-                                    <div id="previewboxrev" ></div>
-                                    <div id="editboxrev" class="hidden">
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">
-                                <input type="button" class="btn updateFeedback" onclick="EditFeedback();" id="btnsubmitbottom" value="Submit" />
-                            </td>
-                        </tr>
-                    </table>
+                    <div id="ColorGuide" class="row hidden colorGuide">
+                        <div class="col-md-2 relate-customer">
+                            Customer</div>
+                        <div class="col-md-2 relate-guest">
+                            Guest</div>
+                        <div class="col-md-2 relate-invalid">
+                            Invalid</div>
+                    </div>
+                    <div id="trRelatedInfo" class="row hidden">
+                        <table id="related">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row item">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="txtsubject">
+                        Subject
+                    </label>
+                </div>
+                <div class="col-xs-7 col-sm-7 col-md-8">
+                    <input type="text" id="txtsubject" class="textbox" /><span class="hidden error errormsg"
+                        id="errorsubject"></span>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div id="divPopup" class="selector" style="display: none; "></div>
-        
-    @{
-        Fanex.CRM.Service.Interface.IPermissionService permission = new Fanex.CRM.Service.Impl.PermissionService();
-        var getClientTime = Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeTimeZoneToClient(DateTime.Now);
-           }
-
-    <script language="javascript" type="text/javascript">
+    <div class="row panel-group">
+        <div class="row title">
+            <div class="pull-left">
+                <span class="icon-expand" id="btnShowHideDescription" onclick="downup('btnShowHideDescription', 'FeedbackDescription')">
+                </span>Description<span class="hidden error errormsg" id="deseditererror"></span>
+            </div>
+            <div class="pull-right">
+                <input type="button" class="btnreview hidden" value="Preview" id="btndesreview" onclick="initReview('des');" />
+                <input type="button" class="btnedit" value="Edit" id="btndesedit" onclick="initEdit('des');" />
+            </div>
+        </div>
+        <div class="FeedbackDescription row content">
+            <div class="editerwrapper" id="descriptionwrapper">
+                <div id="previewboxdes">
+                </div>
+                <div id="editboxdes" class="hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row panel-group">
+        <div class="row title">
+            <div class="pull-left">
+                <span class="icon-expand" id="btnShowHideSolution" onclick="downup('btnShowHideSolution', 'FeedbackSolution')">
+                </span>Solution<span class="hidden error errormsg" id="soleditererror"></span>
+            </div>
+            <div class="pull-right">
+                <input type="button" class="btnreview hidden" value="Preview" id="btnsolreview" onclick="initReview('sol');" />
+                <input type="button" class="btnedit " value="Edit" id="btnsoledit" onclick="initEdit('sol');" />
+            </div>
+        </div>
+        <div class="FeedbackSolution row content">
+            <div class="editerwrapper" id="solutionwrapper">
+                <div id="previewboxsol" >
+                </div>
+                <div id="editboxsol" class="hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row panel-group">
+        <div class="row title hidden" id="reviewtitle">
+            <div class="pull-left">
+                Review <span id="divisreview" class="">
+                    <input type="checkbox" id="chkisreview" onclick="EnableUpdateReview(this);" style="float: left;
+                        display: block;" />
+                </span>
+            </div>
+            <div class="pull-right" id="editreview" style="display: none;">
+                <input type="button" class="btnreview  hidden" value="Preview" id="btnrevreview"
+                    onclick="initReview('rev');" />
+                <input type="button" class="btnedit " value="Edit" id="btnrevedit" onclick="initEdit('rev');" />
+            </div>
+        </div>
+        <div class="row content hidden" id="reviewbox">
+            <div class="editerwrapper" id="reviewwrapper">
+                <div id="previewboxrev">
+                </div>
+                <div id="editboxrev" class="hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row btn-group">
+        <button class="btn" onclick="EditFeedback();" id="btnsubmitbottom">
+            <span class="hotkey">S</span>ave</button>
+    </div>
+</div>
+@*<div class="main">
+    <div class="maincontent">
+        <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
+            <tr>
+                <td class="maincontent_headerL">
+                    <img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png" />
+                </td>
+                <td class="maincontent_headerC">
+                    Edit Customer Feedback
+                </td>
+                <td class="maincontent_headerR">
+                </td>
+            </tr>
+        </table>
+        <div class="bg_table">
+            <div id="sContent" style="margin-top: 0px; background-color: White;">
+                <div class="errmsg" id="errmsg">
+                </div>
+                <table class="tblcollapse" style="width: 100%; text-align: left;">
+                    <tr>
+                        <td colspan="4">
+                            <input type="button" onclick="EditFeedback();" class="btn updateFeedback" id="btnsubmit"
+                                value="Submit" />
+                        </td>
+                    </tr>
+                    <tr class="title">
+                        <td colspan="4" class="c">
+                            <input type="button" id="btnShowHideCustInfo" class="updown" value="" onclick="downup('btnShowHideCustInfo', 'CustInfo')" />
+                            <b><span id="lblUserName" value=""></span></b>
+                        </td>
+                    </tr>
+                    <tr class="CustInfo solid_bottom">
+                        <td style="width: 25%; border-right: 0px" class="b">
+                            Title
+                        </td>
+                        <td style="width: 75%; border-left: 0px" colspan="3">
+                            <select id="ddltitle">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="CustInfo solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            First Name
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <input type="text" id="txtfirstname" />
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            Last Name
+                        </td>
+                        <td style="border-left: 0px">
+                            <input type="text" id="txtlastname" />
+                        </td>
+                    </tr>
+                    <tr class="CustInfo solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            Phone
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <input type="text" id="txtphone" />
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            Mobile Phone
+                        </td>
+                        <td style="border-left: 0px">
+                            <input type="text" id="txtmobilephone" />
+                        </td>
+                    </tr>
+                    <tr class="CustInfo solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            Fax
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <input type="text" id="txtfax" />
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            Email
+                        </td>
+                        <td style="border-left: 0px">
+                            <input type="text" id="txtEmail" />
+                        </td>
+                    </tr>
+                    <tr class="CustInfo solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            PIC1
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <input type="text" id="txtPIC1" />
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            MSN
+                        </td>
+                        <td style="border-left: 0px">
+                            <input type="text" id="txtMSN" />
+                        </td>
+                    </tr>
+                    <tr class="CustInfo solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            PIC2
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <input type="text" id="txtPIC2" />
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            Skype
+                        </td>
+                        <td style="border-left: 0px">
+                            <input type="text" id="txtSkype" />
+                        </td>
+                    </tr>
+                    <tr class="CustInfo solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            PIC3
+                        </td>
+                        <td colspan="3" style="border-left: 0px">
+                            <input type="text" id="txtPIC3" />
+                        </td>
+                    </tr>
+                    <tr class="CustInfo solid_bottom">
+                        <td colspan="4" class="b" style="border-right: 0px">
+                            <input type="checkbox" id="chkIsOverrideCrmInfo" style="float: left; display: block;" />
+                            Overwrite current CRM Info
+                        </td>
+                    </tr>
+                    <tr class="title">
+                        <td colspan="4">
+                            <input type="button" id="btnShowHideDetail" class="updown" value="" onclick="downup('btnShowHideDetail', 'FeedbackDetail')" />
+                            <b>Details</b>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDetail solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            Feedback Date
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <input type="text" id="txtdate" class="txtcalendar" readonly />
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            CS Extension/Station
+                        </td>
+                        <td style="border-left: 0px">
+                            <select id="ddlcsextension">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDetail solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            Resolution Time
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <input type="text" id="txtResolutionTime" class="txtcalendar" readonly />
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            Country
+                        </td>
+                        <td style="border-left: 0px">
+                            <select id="ddlcountry" name="D1">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDetail solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            Communication
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <select id="ddlcommunication">
+                            </select>
+                            <span class="hidden error errormsg" id="errorcommunication"></span>
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            Language
+                        </td>
+                        <td style="border-left: 0px">
+                            <select id="ddllanguage">
+                            </select>
+                            <span class="hidden error errormsg" id="errorlanguage"></span>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDetail solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            Category
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <select id="ddlcategory" onchange="bindingChildByParentId('ddlsubcategory', AllSetting.Category, $('#ddlcategory').val())">
+                            </select>
+                            <input type="hidden" id="hIsNotChild" value="0" />
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            SubCategory
+                        </td>
+                        <td style="border-left: 0px">
+                            <select id="ddlsubcategory">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDetail solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            Product
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <select id="ddlproduct" onchange="bindingChildByParentId('ddlbettype', AllSetting.Product, $('#ddlproduct').val())">
+                            </select>
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            Bet Type
+                        </td>
+                        <td style="border-left: 0px">
+                            <select id="ddlbettype">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDetail solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            Status
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <select id="ddlstatus" name="D2">
+                            </select>
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            Site
+                        </td>
+                        <td style="border-left: 0px">
+                            <select id="ddlsite">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDetail solid_bottom">
+                        <td class="b" style="border-right: 0px">
+                            Role
+                        </td>
+                        <td style="border-left: 0px; border-right: 1px solid #E5E5E5;">
+                            <select id="ddlrole" name="D3">
+                            </select>
+                        </td>
+                        <td class="b" style="border-right: 0px">
+                            Response
+                        </td>
+                        <td style="border-left: 0px">
+                            <select id="ddlresponse">
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDetail solid_bottom">
+                        <td class="b" style="border-right: 1px solid #E5E5E5;">
+                            <input type="checkbox" id="chkisrelated" onclick="checkIsRelated(this);" style="float: left;
+                                display: block;" />
+                            Is Related to Customer
+                        </td>
+                        <td colspan="3">
+                            <table>
+                                <tr>
+                                    <td style="border: 0px">
+                                        <input type="button" value="  " id="btnRelatedHelp" class="btnHelp" title="Related Help" />
+                                    </td>
+                                    <td style="border: 0px">
+                                        <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
+                                        </select>
+                                    </td>
+                                    <td style="border: 0px">
+                                        <input type="button" onclick="verifyUserName();" class="btn" id="btnverify" value="Verify"
+                                            disabled />
+                                    </td>
+                                </tr>
+                                <tr class="hidden">
+                                    <td style="border: 0px">
+                                    </td>
+                                    <td colspan='2' style="border: 0px">
+                                        <span class="" id="lblverify" value="0"></span>
+                                    </td>
+                                </tr>
+                                <tr id="ColorGuide" class="hidden">
+                                    <td style="border: 0px">
+                                    </td>
+                                    <td style="border: 0px" colspan='2'>
+                                        <table style="width: 100%">
+                                            <tr>
+                                                <td style="border: 0px; width: 5%">
+                                                    <div style="border: 1 solid green; background-color: green; width: 30px; height: 10px">
+                                                    </div>
+                                                </td>
+                                                <td style="border: 0px; width: 25%">
+                                                    Customer
+                                                </td>
+                                                <td style="border: 0px; width: 5%">
+                                                    <div style="border: 1 solid #0066CC; background-color: #0066CC; width: 30px; height: 10px">
+                                                    </div>
+                                                </td>
+                                                <td style="border: 0px; width: 25%">
+                                                    Guest
+                                                </td>
+                                                <td style="border: 0px; width: 5%">
+                                                    <div style="border: 1 solid red; background-color: red; width: 30px; height: 10px">
+                                                    </div>
+                                                </td>
+                                                <td style="border: 0px; width: 25%">
+                                                    Invalid
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr id="trRelatedInfo" class="hidden">
+                                    <td style="border: 0px">
+                                    </td>
+                                    <td style="border: 0px">
+                                        <table id="related">
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDetail solid_bottom">
+                        <td class="b" style="border-right: 1px solid #E5E5E5;">
+                            Subject
+                        </td>
+                        <td colspan="3">
+                            <input type="text" id="txtsubject" style="width: 500px;" /><span class="hidden error errormsg"
+                                id="errorsubject"></span>
+                        </td>
+                    </tr>
+                    <tr class="title">
+                        <td colspan="4">
+                            <div class="lblediter">
+                                <input type="button" id="btnShowHideDescription" class="updown" value="" onclick="downup('btnShowHideDescription', 'FeedbackDescription')" />
+                                Description <span class="hidden error errormsg" id="deseditererror"></span>
+                            </div>
+                            <div class="editreview">
+                                <input type="button" class="btnreview hidden" value="Preview" id="btndesreview" onclick="initReview('des');" /><input
+                                    type="button" class="btnedit" value="Edit" id="btndesedit" onclick="initEdit('des');" /></div>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackDescription">
+                        <td colspan="4">
+                            <div class="editerwrapper" id="descriptionwrapper">
+                                <div id="previewboxdes">
+                                </div>
+                                <div id="editboxdes" class="hidden">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="title">
+                        <td colspan="4">
+                            <div class="lblediter">
+                                <input type="button" id="btnShowHideSolution" class="updown" value="" onclick="downup('btnShowHideSolution', 'FeedbackSolution')" />
+                                Solution <span class="hidden error errormsg" id="soleditererror"></span>
+                            </div>
+                            <div class="editreview">
+                                <input type="button" class="btnreview hidden" value="Preview" id="btnsolreview" onclick="initReview('sol');" /><input
+                                    type="button" class="btnedit " value="Edit" id="btnsoledit" onclick="initEdit('sol');" /></div>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackSolution">
+                        <td colspan="4">
+                            <div class="editerwrapper" id="solutionwrapper">
+                                <div id="previewboxsol">
+                                </div>
+                                <div id="editboxsol" class="hidden">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="title">
+                        <td colspan="4">
+                            <div class="lblediter">
+                                <input type="button" id="btnShowHideReview" class="updown" value="" onclick="downup('btnShowHideReview', 'FeedbackReview')" />
+                                Review
+                                <input type="checkbox" id="chkisreview" style="margin-top: -1px;" class="hidden"
+                                    onclick="updateFeedback.reviewCheckBox();" />
+                                <span id="lblUpdateReview" class="hidden"></span><span id="lblEditedBy">
+                                    <!--Reviewed-->
+                                </span><span class="hidden error errormsg" id="revieweditererror"></span>
+                            </div>
+                            <div class="editreview">
+                                <input type="button" class="btnrecover hidden" value="Remove" id="btnUnReview" onclick="updateFeedback.unReview();" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="FeedbackReview">
+                        <td colspan="4">
+                            <div class="editerwrapper" id="reviewwrapper">
+                                <div id="previewboxrev">
+                                </div>
+                                <div id="editboxrev" class="hidden">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <input type="button" class="btn updateFeedback" onclick="EditFeedback();" id="btnsubmitbottom"
+                                value="Submit" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>*@
+<div id="divPopup" class="selector" style="display: none;">
+</div>
+@{
+    Fanex.CRM.Service.Interface.IPermissionService permission = new Fanex.CRM.Service.Impl.PermissionService();
+    var getClientTime = Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeTimeZoneToClient(DateTime.Now);
+}
+<script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var accname = "@AppSession.CurrentUser.Username";
         var accId = @AppSession.CurrentUser.Id;
@@ -460,6 +843,4 @@
                     .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=2")")
                     .js("@Url.Content("~/Views/Feedback/Scripts/editfeedback.js?ver=1")");
             });   
-    </script>
-</body>
-</html>
+</script>

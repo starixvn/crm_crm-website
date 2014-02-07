@@ -327,6 +327,7 @@
     <Content Include="Views\Customer\Styles\Images\L_banner\R_btn_left_hover.png" />
     <Content Include="Views\Customer\Styles\Images\L_banner\R_tab_left.png" />
     <Content Include="Views\Customer\Styles\StyleSheet.css" />
+    <Content Include="Views\Feedback\Styles\Images\bg-topSelected.png" />
     <Content Include="Views\Feedback\Styles\Images\del-icon.png" />
     <Content Include="Views\Home\Scripts\DashboardManager.js" />
     <Content Include="Views\Home\Scripts\HomeManager.js" />
