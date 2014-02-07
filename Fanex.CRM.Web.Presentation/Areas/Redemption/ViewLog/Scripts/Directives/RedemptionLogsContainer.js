@@ -1,8 +1,13 @@
 ﻿"use strict";
 /* global redemptionViewLogApplication,
-viewResources */
+viewResources,
+crmConstants */
 redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function () {
     function renderRedemptionLogs(scope, element, attrs) {
+        if (!scope.isSearched) {
+            return;
+        }
+
         /* jshint unused: vars */
         var tableRedemptionLogs = element.find("#table-redemption-logs");
         var logList = scope.logs;
@@ -10,14 +15,22 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
         var footerData = [];
         tableRedemptionLogs.empty();
         if (logList && logList.length > 0) {
+            var logLength = logList.length;
+            for (var i = 0; i < logLength; i++) {
+                var info = logList[i];
+                bodyData.push({
+                    Columns: [{ Name: "ColSubject", Value: info.Subject },
+                    { Name: "ColClaimedTime", Value: info.ClaimedTime },
+                    { Name: "ColStatus", Value: info.Status.Value}]
+                });
+            }
         }
-
 
         /* jshint camelcase: false */
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Subject, Width: 600, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Claimed_Time, Width: 100, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Status, Width: 140, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center"}],
+            columns: [{ HeaderText: viewResources.Subject, Width: 675, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
+                { HeaderText: viewResources.Claimed_Time, Width: 120, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center", Sort: true },
+                { HeaderText: viewResources.Status, Width: 140, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true}],
             showTitle: true,
             titleInfo: {
                 text: viewResources.Customer_Redemption_Logs
@@ -33,7 +46,6 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
             headerColumnHeight: 29,
             bodyRowHeight: 29
         };
-
 
         tableRedemptionLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
     }

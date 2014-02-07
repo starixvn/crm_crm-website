@@ -131,17 +131,14 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
              Justification = "Reviewed. Suppression is OK here.")]
         private LogInfo MappingDataFromSqlToLogInfoObject(IDataReader reader)
         {
-            var durationTime = reader.GetStringNotNull("Duration");
-            var durationTimeArray = durationTime.Split(':');
-
             var logInfo = new LogInfo
             {
-                Id = reader.GetInt32NotNull("RedemptionId"),
-                ClaimedTime = reader.GetDateTimeNotNull("ClaimedTime").ToShortFormatedDate(),
+                Id = reader.GetInt32NotNull("Id"),
+                ClaimedTime = reader.GetDateTimeNotNull("ClaimTime").ToShortFormatedDate(),
                 Subject = reader.GetStringNotNull("Subject"),
                 Status = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("StatusID")
+                    Value = reader.GetStringNotNull("Status")
                 }
             };
 
