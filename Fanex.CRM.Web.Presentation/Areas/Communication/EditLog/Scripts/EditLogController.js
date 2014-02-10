@@ -11,7 +11,7 @@ hotKeyManager */
 editLogApplication.controller('editLogController', function ($scope,
     $http,
     $editLogService) {
-    /* jshint maxstatements: 66 */
+    /* jshint maxstatements: 80 */
     $scope.communicationLog = communicationLog;
     $scope.extensionList = null;
     $scope.countryList = null;
@@ -346,7 +346,7 @@ editLogApplication.controller('editLogController', function ($scope,
         $scope.updateLog();
     };
     /* jshint camelcase: false */
-    $scope.invokeHotKey_CtrlV = function () {
+    $scope.invokeHotKey_CtrlE = function () {
         $scope.verifyRelatedCustomer();
     };
     $scope.updateStartTime = function (selectedTime) {
@@ -422,6 +422,9 @@ editLogApplication.controller('editLogController', function ($scope,
     };
     $scope.updateSolution = function (solution) {
         $scope.communicationLog.Solution = solution;
+    };
+    $scope.updateEditFlag = function () {
+        $scope.isEditingRelatedCustomer = true;
     };
     $scope.updateLog = function () {
         $scope.isShowResultMessage = false;

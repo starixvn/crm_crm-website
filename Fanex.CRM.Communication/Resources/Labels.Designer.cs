@@ -97,7 +97,7 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please verify related customer!.
+        ///   Looks up a localized string similar to You must verify the username before saving this communication log..
         /// </summary>
         public static string Communication_Logs_VerifyRelatedCustomer {
             get {

@@ -220,7 +220,7 @@
     <value>Update communication log successfully!</value>
   </data>
   <data name="Communication_Logs_VerifyRelatedCustomer" xml:space="preserve">
-    <value>Please verify related customer!</value>
+    <value>You must verify the username before saving this communication log.</value>
   </data>
   <data name="Customer" xml:space="preserve">
     <value>Customer</value>
