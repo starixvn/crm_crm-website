@@ -122,11 +122,6 @@
             return true;
         }
 
-        if (self.CachedData.KeyPress[keyCodeEnums.Character_c]) {
-            self.invokeHotKey_CtrlC();
-            return true;
-        }
-
         if (self.CachedData.KeyPress[keyCodeEnums.Character_i]) {
             self.invokeHotKey_CtrlI();
             return true;

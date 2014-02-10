@@ -57,12 +57,12 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
         var editLogLinks = tableRedemptionLogs.find(".editlog-link-td");
         editLogLinks.unbind("click");
         editLogLinks.click(function () {
-            scope.editRedemptionLog($(this).find('.editlog-link').attr("data-logid"));
+            scope.editLog($(this).find('.editlog-link').attr("data-logid"));
         });
 
         var editLogRows = tableRedemptionLogs.find(".editlog-link-row");
         editLogRows.dblclick(function () {
-            scope.editRedemptionLog($(this).find('.editlog-link').attr("data-logid"));
+            scope.editLog($(this).find('.editlog-link').attr("data-logid"));
         });
     }
 

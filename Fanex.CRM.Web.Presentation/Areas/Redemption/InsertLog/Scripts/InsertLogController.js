@@ -3,7 +3,9 @@
 sharedScriptManager,
 hotKeyManager,
 currentDate,
-customerId */
+customerId,
+crmConstants,
+viewResources */
 insertLogApplication.controller('insertLogController', function ($scope,
     $http,
     $insertLogService) {
@@ -120,7 +122,8 @@ insertLogApplication.controller('insertLogController', function ($scope,
             CustomerId: $scope.customerId
         };
 
-        $insertLogService.insertLog(insertLogCriteria)
+        if ($scope.validateInsertLogCriteria(insertLogCriteria)) {
+            $insertLogService.insertLog(insertLogCriteria)
             .then(function (data) {
                 $scope.completedInsertLog(data.Result);
             },
@@ -128,6 +131,34 @@ insertLogApplication.controller('insertLogController', function ($scope,
                 /* jshint unused: vars */
                 $scope.unblockUI();
             });
+        } else {
+            $scope.unblockUI();
+        }
+    };
+    $scope.validateInsertLogCriteria = function (insertLogCriteria) {
+        var result = true;
+        if (insertLogCriteria.Subject === '') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Redemption_Log_EmptySubject;
+            result = false;
+        }
+
+        if (result && insertLogCriteria.Remark === '') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Redemption_Log_EmptyRemark;
+            result = false;
+        }
+
+        if (result) {
+            $scope.isShowResultMessage = false;
+        }
+
+        $scope.$apply();
+        return result;
     };
     $scope.completedInsertLog = function (insertResult) {
         parent.shouldReloadLogs = true;
@@ -142,6 +173,10 @@ insertLogApplication.controller('insertLogController', function ($scope,
         }
 
         $scope.unblockUI();
+    };
+    /* jshint camelcase: false */
+    $scope.invokeHotKey_CtrlS = function () {
+        $scope.insertLog();
     };
     $scope.unblockUI = function () {
         try {

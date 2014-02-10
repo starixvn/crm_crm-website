@@ -16,7 +16,7 @@ namespace Fanex.CRM.Redemption.Criteria
     /// </summary>
     public class GetLogByIdCriteria : CriteriaBase
     {
-        [SpParam(SqlParamName = "redemptionid")]
+        [SpParam(SqlParamName = "id")]
         public int Id { get; set; }
 
         public override string GetSettingKey()
