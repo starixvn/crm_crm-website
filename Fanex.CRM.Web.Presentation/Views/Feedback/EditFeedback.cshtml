@@ -21,8 +21,8 @@
     </div>
     <div class="row panel-group">
         <div class="row title">
-            <span class="icon-expand" id="btnShowHideCustInfo" onclick="downup('btnShowHideCustInfo', 'CustInfo')">
-            </span><b><span id="lblUserName" value=""></span></b>
+            @*<span class="icon-expand" id="btnShowHideCustInfo" onclick="downup('btnShowHideCustInfo', 'CustInfo')">
+            </span>*@ <b><span id="lblUserName" value=""></span></b>
         </div>
         <div class="CustInfo row content">
             <div class="row item">
@@ -139,8 +139,9 @@
     </div>
     <div class="row panel-group">
         <div class="row title">
-            <span class="icon-expand" id="btnShowHideDetail" onclick="ownup('btnShowHideDetail', 'FeedbackDetail')">
-            </span>Details
+            @*<span class="icon-expand" id="btnShowHideDetail" onclick="ownup('btnShowHideDetail', 'FeedbackDetail')">
+            </span>*@
+            Details
         </div>
         <div class="FeedbackDetail row content">
             <div class="row item">
@@ -334,8 +335,9 @@
     <div class="row panel-group">
         <div class="row title">
             <div class="pull-left">
-                <span class="icon-expand" id="btnShowHideDescription" onclick="downup('btnShowHideDescription', 'FeedbackDescription')">
-                </span>Description<span class="hidden error errormsg" id="deseditererror"></span>
+               @* <span class="icon-expand" id="btnShowHideDescription" onclick="downup('btnShowHideDescription', 'FeedbackDescription')">
+                </span>*@
+                Description<span class="hidden error errormsg" id="deseditererror"></span>
             </div>
             <div class="pull-right">
                 <input type="button" class="btnreview hidden" value="Preview" id="btndesreview" onclick="initReview('des');" />
@@ -364,7 +366,7 @@
         </div>
         <div class="FeedbackSolution row content">
             <div class="editerwrapper" id="solutionwrapper">
-                <div id="previewboxsol" >
+                <div id="previewboxsol">
                 </div>
                 <div id="editboxsol" class="hidden">
                 </div>
