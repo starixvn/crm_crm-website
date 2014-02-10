@@ -39,13 +39,6 @@
         </div>
         <div class="row row-item">
             <div class="item">
-                <label for="ddlcommunication" class="width-80">
-                    Communication</label>
-                <select id="ddlcommunication" class="selCommunication">
-                    <option value="0">All</option>
-                </select>
-            </div>
-            <div class="item">
                 <label for="ddlcategory" class="width-80">
                     Main Category</label>
                 <select id="ddlcategory" class="selMainCategory" onchange="bindingManageChildByParentId('ddlsubcategory', AllSetting.Category, $('#ddlcategory').val());">
@@ -53,16 +46,23 @@
                 </select>
             </div>
             <div class="item">
-                <label for="ddlsubcategory" class="lblSubCategory">
+                <label for="ddlsubcategory" class="width-80">
                     SubCategory</label>
-                <select id="ddlsubcategory">
+                <select id="ddlsubcategory" class="selSubCategory">
                     <option value="0">All</option>
                 </select>
             </div>
         </div>
         <div class="row row-item">
             <div class="item">
-                <label for="ddlstatus" class="width-80">
+                <label for="ddlcommunication" class="width-80">
+                    Communication</label>
+                <select id="ddlcommunication" class="selCommunication">
+                    <option value="0">All</option>
+                </select>
+            </div>
+            <div class="item">
+                <label for="ddlstatus">
                     Status</label>
                 <select id="ddlstatus" class="selStatus">
                     <option value="0">All</option>
@@ -80,7 +80,7 @@
             <div class="item">
                 <label for="ddlCustomerReponse">
                     Customer Response</label>
-                <select id="ddlCustomerReponse">
+                <select id="ddlCustomerReponse" class="selResponse">
                     <option value="0">All</option>
                 </select>
             </div>
