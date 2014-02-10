@@ -105,6 +105,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_CommunicationLog_Insert(ref bundles);
             RegisterBundles_Redemption_ViewLog(ref bundles);
             RegisterBundles_Redemption_InsertLog(ref bundles);
+            RegisterBundles_Redemption_EditLog(ref bundles);
         }
 
         public static void RegisterBundles_TimePicker(ref BundleCollection bundles)
@@ -196,6 +197,23 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Redemption/InsertLog/Styles").Include(
                 "~/Areas/Redemption/InsertLog/Styles/Redemption.less"));
+        }
+
+        /// <summary>
+        /// Registers the bundles redemption edit log.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        public static void RegisterBundles_Redemption_EditLog(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Redemption/EditLog/Scripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Redemption/EditLog/Scripts/EditLogApplication.js",
+                "~/Areas/Redemption/EditLog/Scripts/EditLogService.js",
+                "~/Areas/Redemption/EditLog/Scripts/EditLogController.js",
+                "~/Areas/Redemption/EditLog/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Redemption/EditLog/Styles").Include(
+                "~/Areas/Redemption/EditLog/Styles/Redemption.less"));
         }
     }
 

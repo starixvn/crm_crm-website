@@ -49,5 +49,16 @@ namespace Fanex.CRM.Infrastructure.Extension
         {
             return dateTime.FirstDayOfMonth().AddMonths(1).AddDays(-1);
         }
+
+        public static DateTime GetEndOfDate(this DateTime date)
+        {
+            if (date == null)
+            {
+                date = DateTime.Today;
+            }
+
+            date = date.AddDays(1).AddSeconds(-1);
+            return date;
+        }
     }
 }

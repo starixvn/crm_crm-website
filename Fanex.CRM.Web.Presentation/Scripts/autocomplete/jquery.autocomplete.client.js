@@ -61,6 +61,7 @@
         .click(function (e) {
             var _target = e.target;
             $(target).val($(_target).attr('value'));
+            $(target).change();
             container.remove();
         })
         .highlight($(target).val());

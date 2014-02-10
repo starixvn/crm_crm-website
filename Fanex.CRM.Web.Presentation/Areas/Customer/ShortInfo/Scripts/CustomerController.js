@@ -57,6 +57,8 @@ customerApplication.controller('customerController', function ($scope,
         UplineInfo: []
     };
 
+    $scope.isShowCommunicationTool = true;
+    $scope.isShowDetail = true;
     $scope.searchUplineInfo = function (username) {
         customerManager.updateTextboxUsername(username);
         $scope.getCustomerInfoByUsername(customerManager.getCustomerInfoByUsernameParams());

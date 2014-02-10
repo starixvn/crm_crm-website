@@ -4,7 +4,8 @@ customerId,
 hotKeyManager,
 viewResources,
 currentDate,
-crmConstants */
+crmConstants,
+initFromDate */
 redemptionViewLogApplication.controller('redemptionViewLogController', function ($scope,
     $http,
     $redemptionViewLogService) {
@@ -12,10 +13,10 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
     $scope.isSearched = false;
     $scope.searchCriteria = {
         CustomerId: customerId,
-        FromDate: new Date(currentDate),
+        FromDate: initFromDate,
         ToDate: new Date(currentDate),
         Status: null,
-        MinToDate: new Date(currentDate),
+        MinToDate: new Date(initFromDate),
         MaxFromDate: new Date(currentDate)
     };
 
@@ -96,6 +97,11 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
             });
     };
     $scope.closeInsertView = function () {
+        if (parent.shouldReloadLogs && $scope.isSearched) {
+            $scope.searchLogs();
+        }
+    };
+    $scope.closeEditView = function () {
         if (parent.shouldReloadLogs) {
             $scope.searchLogs();
         }
@@ -113,6 +119,22 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
             3000,
             null,
             $scope.closeInsertView);
+    };
+    $scope.editLog = function (logId) {
+        parent.shouldReloadLogs = false;
+        parent.OpenPopup(
+            window.rootUrl + "Redemption/OpenEditView?" + $.param({
+                logId: logId
+            }),
+            viewResources.Edit_Redemption_Log,
+            $(parent.document).width() - 400,
+            400,
+            true,
+            false,
+            parent.window,
+            3000,
+            null,
+            $scope.closeEditView);
     };
 
     $scope.unblockUI = function () {

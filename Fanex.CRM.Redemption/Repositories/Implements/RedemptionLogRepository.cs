@@ -36,6 +36,7 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
             List<LogInfo> logs = new List<LogInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
+                criteria.ToDate = criteria.ToDate.GetEndOfDate();
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
@@ -162,11 +163,11 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
         {
             var logInfo = new LogInfo
             {
-                Id = reader.GetInt32NotNull("RedemptionId"),
+                Id = reader.GetInt32NotNull("Id"),
                 CustomerId = reader.GetInt32NotNull("CustId"),
-                ClaimedTime = reader.GetDateTimeNotNull("ClaimedTime").ToShortFormatedDate(),
+                ClaimedTime = reader.GetDateTimeNotNull("ClaimTime").ToShortFormatedDate(),
                 Subject = reader.GetStringNotNull("Subject"),
-                Remark = reader.GetStringNotNull("Description"),
+                Remark = reader.GetStringNotNull("Remark"),
                 Status = new SettingInfo
                 {
                     Id = reader.GetInt32NotNull("StatusID")

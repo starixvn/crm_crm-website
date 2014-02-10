@@ -159,4 +159,13 @@
   <data name="Remark" xml:space="preserve">
     <value>Remark</value>
   </data>
+  <data name="Insert_Edit_Block" xml:space="preserve">
+    <value>Insert Edit Block</value>
+  </data>
+  <data name="Redemption_Log_EmptyRemark" xml:space="preserve">
+    <value>Remark is mandatory!</value>
+  </data>
+  <data name="Redemption_Log_EmptySubject" xml:space="preserve">
+    <value>Subject is mandatory!</value>
+  </data>
 </root>

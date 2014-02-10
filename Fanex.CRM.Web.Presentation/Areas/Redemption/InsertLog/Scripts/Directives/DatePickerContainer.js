@@ -5,7 +5,6 @@ currentDate,
 sharedScriptManager */
 insertLogApplication.directive('datePickerContainer', function () {
     var oldValue = null;
-    var oldMaxValue = null;
     function renderDatePicker(scope, element, attrs) {
         /* jshint unused: vars */
         var txtCalendar = element.find(".txtcalendar");
