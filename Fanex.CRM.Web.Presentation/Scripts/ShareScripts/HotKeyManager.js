@@ -42,21 +42,33 @@
         });
     };
     self.keyDown = function (eventObject) {
-        var keyCode = parseInt(eventObject.keyCode);
-        self.CachedData.KeyPress[keyCode.toString()] = true;
-        var isCustomHotKey = false;
-        self.CachedData.isInvokeHotKey = false;
-        // Use follow line to test working flow
-        // console.log(self.CachedData.KeyPress);
-        if (self.CachedData.ActiveDocumentManager.length == 0) {
+        if (!self.CachedData.isInvokeHotKey) {
+            var keyCode = parseInt(eventObject.keyCode);
+            self.CachedData.KeyPress[keyCode.toString()] = true;
+            var isCustomHotKey = false;
+            self.CachedData.isInvokeHotKey = false;
+            // Use follow line to test working flow
+            // console.log(self.CachedData.KeyPress);
+            if (self.CachedData.ActiveDocumentManager.length === 0) {
+                return isCustomHotKey;
+            }
+
+            isCustomHotKey = self.invokeHotKey();
+            if (self.CachedData.isInvokeHotKey) {
+                self.delayInvokeHotKey();
+            }
+
             return isCustomHotKey;
         }
+    };
 
-        isCustomHotKey = self.invokeHotKey();
-        return isCustomHotKey;
+    self.delayInvokeHotKey = function () {
+        setTimeout(function () {
+            self.CachedData.isInvokeHotKey = false;
+        }, 100);
     };
     self.keyUp = function (eventObject) {
-        if (self.CachedData.ActiveDocumentManager.length == 0) {
+        if (self.CachedData.ActiveDocumentManager.length === 0) {
             return;
         }
 
@@ -122,19 +134,13 @@
             return true;
         }
 
-        if (self.CachedData.KeyPress[keyCodeEnums.Character_c]) {
-            self.invokeHotKey_CtrlC();
-            return true;
-        }
-
         if (self.CachedData.KeyPress[keyCodeEnums.Character_i]) {
             self.invokeHotKey_CtrlI();
             return true;
         }
 
         if (self.CachedData.KeyPress[keyCodeEnums.Character_v]) {
-            self.invokeHotKey_CtrlV();
-            return true;
+            return self.invokeHotKey_CtrlV();
         }
 
         if (self.CachedData.KeyPress[keyCodeEnums.Character_r]) {
@@ -144,6 +150,16 @@
 
         if (self.CachedData.KeyPress[keyCodeEnums.Character_l]) {
             self.invokeHotKey_CtrlL();
+            return true;
+        }
+
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_Comma]) {
+            self.invokeHotKey_CtrlComma();
+            return true;
+        }
+
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_Period]) {
+            self.invokeHotKey_CtrlPeriod();
             return true;
         }
 
@@ -221,6 +237,8 @@
                 activeDocumentManager.invokeHotKey_CtrlV();
             }
         }
+
+        return self.CachedData.isInvokeHotKey;
     };
     self.invokeHotKey_CtrlR = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
@@ -239,6 +257,26 @@
             if (typeof (activeDocumentManager.invokeHotKey_CtrlL) === "function") {
                 self.CachedData.isInvokeHotKey = true;
                 activeDocumentManager.invokeHotKey_CtrlL();
+            }
+        }
+    };
+    self.invokeHotKey_CtrlComma = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlComma) === "function") {
+                self.CachedData.isInvokeHotKey = true;
+                activeDocumentManager.invokeHotKey_CtrlComma();
+            }
+        }
+    };
+    self.invokeHotKey_CtrlPeriod = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlPeriod) === "function") {
+                self.CachedData.isInvokeHotKey = true;
+                activeDocumentManager.invokeHotKey_CtrlPeriod();
             }
         }
     };

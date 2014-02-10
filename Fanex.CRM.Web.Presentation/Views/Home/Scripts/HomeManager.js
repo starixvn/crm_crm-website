@@ -178,7 +178,6 @@ var HomeManager = function () {
 };
 
 var homeManager = new HomeManager();
-
 $(document).ready(function () {
     homeManager.initPage();
 });

@@ -65,9 +65,9 @@ insertLogApplication.factory('$insertLogService', function ($http, $q) {
 
         return deferred.promise;
     };
-    serviceInstance.insertLog = function () {
+    serviceInstance.insertLog = function (insertLogCriteria) {
         var deferred = $q.defer();
-        $http.post(window.rootUrl + " Redemption/InsertLog", null)
+        $http.post(window.rootUrl + "Redemption/InsertLog", insertLogCriteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

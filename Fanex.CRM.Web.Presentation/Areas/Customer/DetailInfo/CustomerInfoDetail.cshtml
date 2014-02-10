@@ -15,9 +15,7 @@
 <body>
     <div class="main container" data-ng-controller="customerDetailController">
         <div class="row panel-group">
-            <div class="row title">
-                <span data-ng-attr-class="{{ isShowPersonalInfo ?  'icon-expand' : 'icon-collapse' }}"
-                    data-ng-click="isShowPersonalInfo = !isShowPersonalInfo"></span>@Labels.Personal_Info</div>
+            <div class="row title group-header" data-ng-click="isShowPersonalInfo = !isShowPersonalInfo">@Labels.Personal_Info</div>
             <div class="row content" data-ng-show="isShowPersonalInfo">
                 <div class="col-md-4">
                     <div class="row item">
@@ -154,9 +152,8 @@
             </div>
         </div>
         <div class="row panel-group">
-            <div class="row title">
-                <span data-ng-attr-class="{{ isShowHomeAddressInfo ? 'icon-expand':'icon-collapse' }}"
-                    data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo"></span>@Labels.Home_Address</div>
+            <div class="row title group-header" data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo">
+                @Labels.Home_Address</div>
             <div class="row content" data-ng-show="isShowHomeAddressInfo">
                 <div data-ng-repeat="addressLine in customerDetail.AddressInfo.LineList track by $index">
                     <div class="row">
@@ -190,8 +187,8 @@
                         <div class="col-md-5">
                             <label for="country">
                                 @Labels.Country</label></div>
-                        <div class="col-md-7">
-                            <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo" dropdown-country>
+                        <div class="col-md-7" data-ng-model="countryList" dropdown-country-container>
+                            <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo">
                             </select>
                         </div>
                     </div>
@@ -206,9 +203,8 @@
             </div>
         </div>
         <div class="row panel-group last">
-            <div class="row title">
-                <span data-ng-attr-class="{{ isShowBankInfoInfo ? 'icon-expand' :'icon-collapse' }}"
-                    data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo"></span>@Labels.Bank_Info</div>
+            <div class="row title group-header" data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
+                @Labels.Bank_Info</div>
             <div class="row content" data-ng-show="isShowBankInfoInfo">
                 <div class="row">
                     <div class="item col-md-4">

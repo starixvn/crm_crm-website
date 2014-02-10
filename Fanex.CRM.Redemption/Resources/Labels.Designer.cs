@@ -106,11 +106,38 @@ namespace Fanex.CRM.Redemption.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert Edit Block.
+        /// </summary>
+        public static string Insert_Edit_Block {
+            get {
+                return ResourceManager.GetString("Insert_Edit_Block", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Insert Redemption Log.
         /// </summary>
         public static string Insert_Redemption_Log {
             get {
                 return ResourceManager.GetString("Insert_Redemption_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remark is mandatory!.
+        /// </summary>
+        public static string Redemption_Log_EmptyRemark {
+            get {
+                return ResourceManager.GetString("Redemption_Log_EmptyRemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject is mandatory!.
+        /// </summary>
+        public static string Redemption_Log_EmptySubject {
+            get {
+                return ResourceManager.GetString("Redemption_Log_EmptySubject", resourceCulture);
             }
         }
         

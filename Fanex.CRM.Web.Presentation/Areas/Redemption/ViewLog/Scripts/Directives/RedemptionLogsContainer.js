@@ -19,9 +19,15 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
             for (var i = 0; i < logLength; i++) {
                 var info = logList[i];
                 bodyData.push({
-                    Columns: [{ Name: "ColSubject", Value: info.Subject },
-                    { Name: "ColClaimedTime", Value: info.ClaimedTime },
-                    { Name: "ColStatus", Value: info.Status.Value}]
+                    Columns: [
+                        {
+                            Name: "ColSubject",
+                            Value: '<div class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</div>',
+                            TdClass: 'editlog-link-td'
+                        },
+                        { Name: "ColClaimedTime", Value: info.ClaimedTime },
+                        { Name: "ColStatus", Value: info.Status.Value}],
+                    CssClass: 'editlog-link-row'
                 });
             }
         }
@@ -48,6 +54,16 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
         };
 
         tableRedemptionLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+        var editLogLinks = tableRedemptionLogs.find(".editlog-link-td");
+        editLogLinks.unbind("click");
+        editLogLinks.click(function () {
+            scope.editLog($(this).find('.editlog-link').attr("data-logid"));
+        });
+
+        var editLogRows = tableRedemptionLogs.find(".editlog-link-row");
+        editLogRows.dblclick(function () {
+            scope.editLog($(this).find('.editlog-link').attr("data-logid"));
+        });
     }
 
     return {

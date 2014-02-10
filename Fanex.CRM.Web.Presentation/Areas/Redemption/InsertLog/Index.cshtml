@@ -20,7 +20,7 @@
     <div class="main popup container" data-ng-controller="insertLogController">
         <div class="row form-group">
             <div class="row row-item" data-ng-show="isShowResultMessage">
-                <div class="col-xs-7 col-sm-7 col-md-5">
+                <div class="col-xs-12 col-sm-12 col-md-12">
                     <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
                         <div>
                             {{ resultMessage }}</div>
@@ -84,6 +84,9 @@
         var currentDate = '@DateTime.Now';
         var customerId = '@customerId';
         var viewResources = {
+            Insert_Edit_Block: '@Labels.Insert_Edit_Block',
+            Redemption_Log_EmptySubject: '@Labels.Redemption_Log_EmptySubject',
+            Redemption_Log_EmptyRemark: '@Labels.Redemption_Log_EmptyRemark'
         };
     </script>
 </body>
