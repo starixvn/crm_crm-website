@@ -273,7 +273,7 @@ editLogApplication.controller('editLogController', function ($scope,
     };
     $scope.completedLoadFilterInfo = function () {
         var numberOfLoadFilter = 10;
-        if ($scope.loadedFilter.lengt === numberOfLoadFilter - 1) {
+        if ($scope.loadedFilter.length === numberOfLoadFilter - 1) {
             $scope.getAllProduct();
             return;
         }
