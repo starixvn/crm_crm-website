@@ -1,0 +1,55 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="UpdateRemarkCriteria.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Kan.Nguyen" date="2014.02.10">Created</change>
+// </history>
+
+namespace Fanex.CRM.Remark.Criteria
+{
+    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Helper;
+    using Fanex.NAP.Framework.Data;
+
+    /// <summary>
+    /// Update remarks criteria.
+    /// </summary>
+    public class UpdateRemarkCriteria : CriteriaBase
+    {
+        public int CustId { get; set; }
+
+        public string Remarks { get; set; }
+
+        public int UserId
+        {
+            get
+            {
+                return AppSession.CurrentUser.Id;
+            }
+        }
+
+        public string IP
+        {
+            get
+            {
+                return Helper.GetClientIP();
+            }
+        }
+
+        public int ErrCode { get; set; }
+
+        public string ErrMsg { get; set; }
+
+        public override string GetSettingKey()
+        {
+            return "Acc_CRM_CustomerRemarkUpd";
+        }
+
+        public override bool IsValid()
+        {
+            return true;
+        }
+    }
+}
