@@ -186,8 +186,25 @@ customerDetailApplication.controller('customerDetailController', function ($scop
 
         $scope.customerDetail.SiteSetting = site;
     };
-    $scope.updateSelectedCountry = function (countryInfo) {
-        $scope.customerDetail.Country = countryInfo;
+    $scope.updateSelectedCountry = function (countryInfoId) {
+        countryInfoId = parseInt(countryInfoId);
+        var countryInfo;
+        var countryListLength = $scope.countryList.length;
+        for (var i = 0; i < countryListLength; i++) {
+            var country = $scope.countryList[i];
+            if (country.Id === countryInfoId) {
+                countryInfo = country;
+                break;
+            }
+        }
+
+        if (countryInfo) {
+            $scope.customerDetail.AddressInfo.Country = countryInfo;
+        } else {
+            $scope.customerDetail.AddressInfo.Country = {
+                Id: crmConstants.Enums.Country.NotApply
+            };
+        }
     };
     $scope.updateSelectedCountryBank = function (countryInfoId) {
         countryInfoId = parseInt(countryInfoId);

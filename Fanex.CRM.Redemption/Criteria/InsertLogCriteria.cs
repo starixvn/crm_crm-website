@@ -9,8 +9,10 @@
 
 namespace Fanex.CRM.Redemption.Criteria
 {
+    using System;
     using System.Collections;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Helper;
     using Fanex.NAP.Framework.Data;
 
@@ -21,6 +23,18 @@ namespace Fanex.CRM.Redemption.Criteria
     {
         [SpParam(SqlParamName = "custid")]
         public int CustomerId { get; set; }
+
+        [SpParam(SqlParamName = "subject")]
+        public string Subject { get; set; }
+
+        [SpParam(SqlParamName = "claimtime")]
+        public DateTime ClaimedTime { get; set; }
+
+        [SpParam(SqlParamName = "remark")]
+        public string Remark { get; set; }
+
+        [SpParam(SqlParamName = "statusid")]
+        public int StatusId { get; set; }
 
         [SpParam(SqlParamName = "userid")]
         public int UserId
@@ -52,6 +66,15 @@ namespace Fanex.CRM.Redemption.Criteria
         {
             var param = new Hashtable();
             param.Add("custid", CustomerId);
+            param.Add("subject", StringExtension.GetValueNotNull(Subject));
+            param.Add("claimtime", ClaimedTime);
+            param.Add("remark", StringExtension.GetValueNotNull(Remark));
+            param.Add("statusid", StatusId);
+
+            param.Add("userid", UserId);
+            param.Add("ip", IP);
+            param.Add("errcode", ErrorCode);
+            param.Add("errmsg", ErrorMessage);
             return param;
         }
 
