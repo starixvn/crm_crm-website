@@ -3,12 +3,12 @@
 sharedScriptManager,
 hotKeyManager,
 crmConstants,
-redemptionLog,
 viewResources */
 editLogApplication.controller('editLogController', function ($scope,
     $http,
-    $editLogService) {
-    $scope.redemptionLog = redemptionLog;
+    $editLogService,
+    $bootstrappedData) {
+    $scope.redemptionLog = $bootstrappedData.redemptionLog;
     $scope.statusList = null;
 
     $scope.loadedFilter = [];
