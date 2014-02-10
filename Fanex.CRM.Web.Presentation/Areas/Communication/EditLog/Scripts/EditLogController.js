@@ -492,6 +492,9 @@ editLogApplication.controller('editLogController', function ($scope,
         } catch (e) {
         }
     };
+    $scope.updateSelectedSubject = function (subject) {
+        $scope.communicationLog.Subject = subject;
+    };
     $scope.verifyRelatedCustomer = function () {
         verifyRelatedCustomer($scope);
         $scope.isEditingRelatedCustomer = false;

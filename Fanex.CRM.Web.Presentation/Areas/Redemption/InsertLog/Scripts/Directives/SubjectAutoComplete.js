@@ -27,6 +27,10 @@ insertLogApplication.directive('subjectAutoComplete', function () {
                 }
             }
         });
+
+        element.change(function () {
+            scope.updateSelectedSubject(element.val());
+        });
     }
 
     function isAutoSuggest(keyCode) {

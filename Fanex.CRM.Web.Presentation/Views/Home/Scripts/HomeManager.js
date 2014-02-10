@@ -165,7 +165,7 @@ var HomeManager = function () {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Detail);
         }
     };
-    self.invokeHotKey_CtrlC = function () {
+    self.invokeHotKey_CtrlL = function () {
         if (parent.dashboardManager) {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.CommunicationLog);
         }

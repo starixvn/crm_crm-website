@@ -54,29 +54,40 @@ customerDetailApplication.directive('dropdownSite', function () {
             /* jshint unused: vars */
         }
     };
-}).directive('dropdownCountryBank', function () {
+}).directive('dropdownCountryBankContainer', function () {
+    function renderDropdown(scope, element, attrs) {
+        if (scope.countryList) {
+            var dropdown = element.find("#customerinfodetail-countryoptions-bank");
+            dropdown.empty();
+            dropdown.append(
+                '<option value="' + crmConstants.Enums.Country.NotApply + '"' +
+                    (scope.customerDetail.BankInfo.AddressInfo.Country.Id == crmConstants.Enums.Country.NotApply ? ' selected="selected"' : '') +
+                    '">' + viewResources.Symbol_NotApply +
+                '</option>');
+            var countryListLength = scope.countryList.length;
+            for (var i = 0; i < countryListLength; i++) {
+                var country = scope.countryList[i];
+                dropdown.append(
+                    '<option' +
+                        ' value="' + country.Id + '"' +
+                        (scope.customerDetail.BankInfo.AddressInfo.Country.Id == country.Id ? ' selected="selected"' : '') +
+                    '>' + country.Name + '</option>');
+            }
+
+            dropdown.find('option').click(function () {
+                scope.updateSelectedCountryBank($(this).val());
+            });
+        }
+    };
+
     return {
-        /* jshint camelcase: false */
         restrict: 'A',
-        template: '<option value="' + crmConstants.Enums.Country.NotApply + '"' +
-                        ' ng-selected="customerDetail.BankInfo.AddressInfo.Country.Id == crmConstants.Enums.Country.NotApply">' +
-                            viewResources.Symbol_NotApply +
-                  '</option>\
-                   <option data-ng-repeat="country in countryList track by $index"' +
-                        ' data-ng-click="updateSelectedCountryBank(country);"' +
-                        ' value="{{ country.Id }}"' +
-                        ' ng-selected="customerDetail.BankInfo.AddressInfo.Country.Id == country.Id">{{ country.Name }}</option>',
-        replace: false,
-        priority: 0,
-        transclude: false,
         scope: true,
-        terminal: false,
-        require: false,
-        compile: function compile(tElement, tAttrs, transclude) {
-            /* jshint unused: vars */
-        },
-        link: function (scope, elem, attrs) {
-            /* jshint unused: vars */
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
+                renderDropdown(scope, element, attrs);
+            });
         }
     };
 }).directive('dropdownLanguage', function () {

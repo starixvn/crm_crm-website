@@ -27,6 +27,10 @@ keyboardManager */
                 }
             }
         });
+
+        element.change(function () {
+            scope.updateSelectedSubject(element.val());
+        });
     }
 
     function isAutoSuggest(keyCode) {

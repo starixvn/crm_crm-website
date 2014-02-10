@@ -457,6 +457,10 @@ insertLogApplication.controller('insertLogController', function ($scope,
     $scope.updateSelectedRespones = function (response) {
         $scope.communicationLog.Response = response;
     };
+    $scope.updateSelectedSubject = function (subject) {
+        $scope.communicationLog.Subject = subject;
+    };
+
     $scope.updateRemark = function (remark) {
         $scope.communicationLog.Remark = remark;
     };

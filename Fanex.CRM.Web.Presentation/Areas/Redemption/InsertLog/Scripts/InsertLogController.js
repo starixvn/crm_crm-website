@@ -1,13 +1,8 @@
 ﻿"use strict";
 /* global insertLogApplication,
 sharedScriptManager,
-moment,
-crmConstants,
-viewResources,
-getRelatedCustomer,
-customerId,
-verifyRelatedCustomer,
-hotKeyManager */
+hotKeyManager,
+currentDate */
 insertLogApplication.controller('insertLogController', function ($scope,
     $http,
     $insertLogService) {
@@ -104,6 +99,26 @@ insertLogApplication.controller('insertLogController', function ($scope,
     };
     $scope.updateSelectedDate = function (selectedDate) {
         $scope.redemptionLog.ClaimedTime = selectedDate;
+    };
+    $scope.updateSelectedStatus = function (status) {
+        $scope.redemptionLog.Status = status;
+    };
+    $scope.updateSelectedSubject = function (subject) {
+        $scope.redemptionLog.Subject = subject;
+    };
+    $scope.insertLog = function () {
+        $scope.BlockUI();
+        $insertLogService.insertLog($scope.redemptionLog)
+            .then(function (data) {
+                $scope.completedInsertLog(data.Result);
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.unblockUI();
+            });
+    };
+    $scope.completedInsertLog = function (insertResult) {
+
     };
     $scope.unblockUI = function () {
         try {

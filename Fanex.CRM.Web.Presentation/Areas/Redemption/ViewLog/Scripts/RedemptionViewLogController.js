@@ -4,7 +4,8 @@ customerId,
 hotKeyManager,
 viewResources,
 currentDate,
-crmConstants */
+crmConstants,
+initFromDate */
 redemptionViewLogApplication.controller('redemptionViewLogController', function ($scope,
     $http,
     $redemptionViewLogService) {
@@ -12,10 +13,10 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
     $scope.isSearched = false;
     $scope.searchCriteria = {
         CustomerId: customerId,
-        FromDate: new Date(currentDate),
+        FromDate: initFromDate,
         ToDate: new Date(currentDate),
         Status: null,
-        MinToDate: new Date(currentDate),
+        MinToDate: new Date(initFromDate),
         MaxFromDate: new Date(currentDate)
     };
 

@@ -2,7 +2,8 @@
 /* global redemptionViewLogApplication,
 crmConstants,
 currentDate,
-sharedScriptManager */
+sharedScriptManager,
+initFromDate */
 redemptionViewLogApplication.directive('datePickerFromDateContainer', function () {
     var oldValue = null;
     var oldMaxValue = null;

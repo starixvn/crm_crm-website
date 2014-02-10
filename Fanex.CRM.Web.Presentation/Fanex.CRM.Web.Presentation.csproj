@@ -221,7 +221,9 @@
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon-arrow-left.png" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\OptionStatus.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogApplication.js" />
