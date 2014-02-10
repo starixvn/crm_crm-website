@@ -137,7 +137,9 @@ editLogApplication.directive('relatedCustomerContainer', function () {
 
         typeCust.removeAttr("disabled");
         element.change(function () {
-            scope.isEditingRelatedCustomer = true;
+            scope.$apply(function () {
+                scope.updateEditFlag();
+            });
         });
     }
 
