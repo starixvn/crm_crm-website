@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-2">
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <label for="startTime">
                         @Labels.Start_Time</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-2">
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <label for="endTime">
                         @Labels.End_Time</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-2">
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <label for="communicationTool">
                         @Labels.Communication_Tool</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-2">
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <label for="mainCategory">
                         @Labels.Main_Category</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-2">
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <label for="product">
                         @Labels.Product</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -122,7 +122,7 @@
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-2">
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <label for="status">
                         @Labels.Status</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -142,7 +142,7 @@
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-2">
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <label for="role">
                         @Labels.Role</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -165,23 +165,23 @@
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-2">
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <label for="relatedTo">
                         @Labels.Related_To</label></div>
                 <input id="chkisrelated" type="checkbox" ng-class="display-none" class="display-none"
                     checked="checked" />
-                <div class="col-xs-7 col-sm-7 col-md-8 related-customer-container" data-ng-class="related-customer-container"
+                <div class="col-xs-7 col-sm-8 col-md-8 related-customer-container" data-ng-class="related-customer-container"
                     related-customer-container>
                     <select type="text" class="textbox" id="txtrelatedcustomer" name="relatedTo" disabled>
                     </select>
                 </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-xs-1 col-sm-1 col-md-1">
+                <div class="col-xs-1 col-sm-1 col-md-1">
                     <button class="btn pull-right" data-ng-click="verifyRelatedCustomer();">
                         V<span class="hotkey">e</span>rify</button>
                 </div>
             </div>
             <div class="row row-item">
-                <div id="ColorGuide" class="col-xs-offset-3 col-sn-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10 display-none">
+                <div id="ColorGuide" class="col-xs-offset-3 col-sm-offset-2 col-md-offset-2 col-xs-9 col-sm-9 col-md-10 display-none">
                     <div class="col-xs-2 col-sm-2 col-md-2 relate-customer">
                         @Labels.Customer</div>
                     <div class="col-xs-2 col-sm-2 col-md-2 relate-guest">
@@ -189,14 +189,14 @@
                     <div class="col-xs-2 col-sm-2 col-md-2 relate-invalid">
                         @Labels.Invalid</div>
                 </div>
-                <table id="related" class="col-xs-offset-3 col-sn-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10 related">
+                <table id="related" class="col-xs-offset-3 col-sm-offset-2 col-md-offset-2 col-xs-9 col-sm-9 col-md-10 related">
                 </table>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-2">
+                <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
                     <label for="subject">
                         @Labels.Subject</label></div>
-                <div class="col-xs-7 col-sm-7 col-md-8 subject-container">
+                <div class="col-xs-7 col-sm-8 col-md-8 subject-container">
                     <input type="text" class="textbox" id="subject" data-ng-model="communicationLog.Subject"
                         subject-auto-complete />
                 </div>
