@@ -343,24 +343,69 @@ select {
     }
 }
 
-/* Define some classes */
+/* Related to */
+
+.icon-del {
+    background: url(Images/delete-icon.png) no-repeat -1px 1px;
+    height: 16px;
+    height: 16px;
+    margin-left: 2px;
+    width: 10px;
+    float: left;
+    cursor: pointer;
+
+    &:hover {
+        background-position: -11px 1px;
+    }
+}
+
+.related, #related {
+    .txt-customer, .txt-guest, .txt-invalid {
+        font-size: 12px;
+        padding-left: 9px;
+    }
+
+    .txt-customer {
+        color: #008000;
+    }
+
+    .txt-guest {
+        color: #0066CC;
+    }
+
+    .txt-invalid {
+        color: #FF0000;
+    }
+}
+
+/* Common */
+
+#clear { clear: both; }
+.l { text-align: left; }
+.c { text-align: center; }
+.r { text-align: right; }
+.b { font-weight: 700; }
+.mid { vertical-align: middle; }
+.top { vertical-align: top; }
+.bot { vertical-align: bottom; }
+.UCase { text-transform: uppercase; }
+a.hilight:hover { text-decoration: underline; }
+.highlight { 
+    color: #0066CC;
+    font-weight: bold;
+}
+
 .lnk {
     color: @link-color;
     cursor:pointer;
 }
 
-#clear {
-    clear: both;
+input[type=radio],input[type=checkbox] {
+    border: none;
 }
-#clear2{clear:both;height:2px;display:inline;overflow:hidden;margin:0;padding:0;}
-#fdate,#tdate{width:80px!important;}
-.l{text-align:left;}
-.c{text-align:center;}
-.r{text-align:right;}
-.b{font-weight:700;}
-.mid{vertical-align:middle;}
-.top{vertical-align:top;}
-.bot{vertical-align:bottom;}
-.UCase{text-transform:uppercase;}
-a.hilight:hover{text-decoration:underline;}
-.highlight{color:#0066CC;font-weight: bold;}
+
+input[disabled].btn {
+    border: 1px solid #999;
+    background-color: #ddd;
+    color: #999!important;
+}
