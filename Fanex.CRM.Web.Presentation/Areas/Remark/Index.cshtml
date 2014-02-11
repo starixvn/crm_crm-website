@@ -7,34 +7,44 @@
 @if (Model != null && Model.Length == 2)
 {
     IList<RemarkDetail> specialRemarks = Model[0];
-    IList<RemarkDetail> remarks = Model[1];    
+    IList<RemarkDetail> remarks = Model[1];
 }
 <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Areas/Remark/styles/remark.less?ver=2")" rel="stylesheet" type="text/css" />
-
 <div class="main container">
     <div class="row panel-group last">
-        <div class="row title"><span class="icon-collapse"></span> @Labels.SpecialRemark</div>
+        <div class="row title">
+            <span class="icon-collapse"></span>@Labels.SpecialRemark</div>
         <div class="row content">
-           <ul class="list-remark col-xs-7 col-sm-7 col-md-6">
-               <li><input type="text" class="textbox" value="Customer request not to call after 10 PM." /></li>
-               <li><input type="text" class="textbox" value="Settle issue" /></li>
-               <li class="last-remark"><input type="text" class="textbox" placeholder="@Labels.SpecialRemarkPlaceHolder" /></li>
-           </ul>
+            <ul class="list-remark col-xs-7 col-sm-7 col-md-6">
+                <li>
+                    <input type="text" class="textbox" value="Customer request not to call after 10 PM." /><span
+                        class="icon-del"></span></li>
+                <li>
+                    <input type="text" class="textbox" value="Settle issue" /><span class="icon-del"></span></li>
+                <li class="last-remark">
+                    <input type="text" class="textbox" placeholder="@Labels.SpecialRemarkPlaceHolder" /></li>
+            </ul>
         </div>
     </div>
     <div class="row panel-group last remark">
-        <div class="row title"><span class="icon-collapse"></span> @Labels.Remark</div>
+        <div class="row title">
+            <span class="icon-collapse"></span>@Labels.Remark</div>
         <div class="row content">
-           <ul class="list-remark col-xs-7 col-sm-7 col-md-6">
-               <li><input type="text" class="textbox" value="Customer request not to call after 10 PM." /></li>
-               <li><input type="text" class="textbox" value="Settle issue" /></li>
-               <li class="last-remark"><input type="text" class="textbox" placeholder="@Labels.RemarkPlaceHolder" /></li>
-           </ul>
+            <ul class="list-remark col-xs-7 col-sm-7 col-md-6">
+                <li>
+                    <input type="text" class="textbox" value="Customer request not to call after 10 PM." /><span
+                        class="icon-del"></span></li>
+                <li>
+                    <input type="text" class="textbox" value="Settle issue" /><span class="icon-del"></span></li>
+                <li class="last-remark">
+                    <input type="text" class="textbox" placeholder="@Labels.RemarkPlaceHolder" /></li>
+            </ul>
         </div>
     </div>
     <div class="row">
-        <button class="btn btn-save"><span class="hotkey">S</span>ave</button>
+        <button class="btn btn-save">
+            <span class="hotkey">S</span>ave</button>
     </div>
 </div>
