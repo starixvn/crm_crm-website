@@ -8,7 +8,9 @@ getRelatedCustomer,
 customerId,
 verifyRelatedCustomer,
 hotKeyManager */
-insertLogApplication.controller('insertLogController', function ($scope,
+insertLogApplication.controller('insertLogController', ['$scope', '$http', '$insertLogService',
+function (
+    $scope,
     $http,
     $insertLogService) {
     /* jshint maxstatements: 80 */
@@ -603,4 +605,4 @@ insertLogApplication.controller('insertLogController', function ($scope,
             Id: "CustomerCommunicationLogs_Insert"
         });
     });
-});
+}]);
