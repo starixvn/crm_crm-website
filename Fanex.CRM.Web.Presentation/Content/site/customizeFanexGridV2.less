@@ -10,7 +10,7 @@
 
     .grid-title-label {
         color: @title-table-color;
-        font-size: @font-size + 2;
+        font-size: @font-size + 1;
         font-weight: 600;
         background: none;
         padding-left: 10px;
@@ -68,6 +68,20 @@
 
     .row-solved td {
         background: #c4d3af;
+    }
+
+    div.divSorter {
+        background: url(Images/sort-ico.png) no-repeat !important;
+        margin: 4px 5px 0;
+        height: 12px;
+
+        &.desc {
+            background-position: 0 -24px !important;
+        }
+
+        &.asc {
+            background-position: 0 -12px !important;
+        }
     }
 }
 

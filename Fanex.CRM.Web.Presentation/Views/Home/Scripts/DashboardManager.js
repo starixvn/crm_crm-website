@@ -1,6 +1,8 @@
 ﻿"use strict";
-/* global homeManager, menuManager */
+/* global homeManager, menuManager,
+hotKeyManager */
 /* exported dashboardManager */
+var dashboardManager;
 var DashboardManager = function () {
     var self = this;
 
@@ -104,17 +106,19 @@ var DashboardManager = function () {
         return subMenuId;
     };
 
+    /* jshint camelcase: false */
     self.invokeHotKey_CtrlComma = function () {
         var subMenuId = self.moveToPreviousTab();
         dashboardManager.dashboardMenuClick(subMenuId);
     };
+    /* jshint camelcase: false */
     self.invokeHotKey_CtrlPeriod = function () {
         var subMenuId = self.moveToNextTab();
         dashboardManager.dashboardMenuClick(subMenuId);
     };
 };
 
-var dashboardManager = new DashboardManager();
+dashboardManager = new DashboardManager();
 $(document).ready(function () {
     dashboardManager.initPage();
 });

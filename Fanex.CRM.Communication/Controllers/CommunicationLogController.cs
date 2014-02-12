@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Communication.Controllers
 {
-    using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
@@ -49,7 +48,7 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             var result = _serviceInstance.GetLogsByCustomerId(criteria);

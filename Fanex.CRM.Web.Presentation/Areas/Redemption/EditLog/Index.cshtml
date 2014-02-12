@@ -82,12 +82,17 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTime.Now';
-        var redemptionLog = @Html.Raw(jsonLogInfo); 
         var viewResources = {
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
             Redemption_Log_EmptySubject: '@Labels.Redemption_Log_EmptySubject',
             Redemption_Log_EmptyRemark: '@Labels.Redemption_Log_EmptyRemark'
         };
+
+        editLogApplication.factory('$bootstrappedData', function () {
+            return {
+                redemptionLog: @Html.Raw(jsonLogInfo)
+            };
+        });
     </script>
 </body>
 </html>

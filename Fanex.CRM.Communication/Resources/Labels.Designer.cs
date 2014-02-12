@@ -70,6 +70,42 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remark is mandatory!.
+        /// </summary>
+        public static string Communication_Log_EmptyRemark {
+            get {
+                return ResourceManager.GetString("Communication_Log_EmptyRemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review is mandatory!.
+        /// </summary>
+        public static string Communication_Log_EmptyReview {
+            get {
+                return ResourceManager.GetString("Communication_Log_EmptyReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solution is mandatory!.
+        /// </summary>
+        public static string Communication_Log_EmptySolution {
+            get {
+                return ResourceManager.GetString("Communication_Log_EmptySolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject is mandatory!.
+        /// </summary>
+        public static string Communication_Log_EmptySubject {
+            get {
+                return ResourceManager.GetString("Communication_Log_EmptySubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Communication Logs.
         /// </summary>
         public static string Communication_Logs {
@@ -97,7 +133,7 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please verify related customer!.
+        ///   Looks up a localized string similar to You must verify the username before saving this communication log..
         /// </summary>
         public static string Communication_Logs_VerifyRelatedCustomer {
             get {
