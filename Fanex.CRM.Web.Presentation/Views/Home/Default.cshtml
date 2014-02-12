@@ -13,7 +13,7 @@
     <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Views/Home/Styles/default.less?ver=5")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site/customizeJqueryUI.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Views/Home/Styles")
+    @Styles.Render("~/Views/HomeStyles")
 </head>
 <body>
     @*<div id="fullsize" class="fullsize">
@@ -89,14 +89,14 @@
     <script type="text/javascript" src="~/Scripts/ShareScripts/KeyboardManager.js"></script>
     <script type="text/javascript" src="~/Scripts/ShareScripts/HotKeyManager.js"></script>
     <script type="text/javascript" src="~/Scripts/jscookies.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.14.custom.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.14.custom.js"></script>
     <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.blockUI.1.33.js"></script>
     <script type="text/javascript" src="~/Scripts/BlockUI.js"></script>
     <script type="text/javascript" src="~/Scripts/common.js"></script>
     @Scripts.Render("~/Scripts/PopUp")
     <script type="text/javascript" src="~/Views/Home/Scripts/Main.js?ver=1"></script>
-    @Scripts.Render("~/Views/Home/Scripts")
+    @Scripts.Render("~/Views/HomeScripts")
     @Scripts.Render("~/Views/Home/Dashboard/Scripts")
     <script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';

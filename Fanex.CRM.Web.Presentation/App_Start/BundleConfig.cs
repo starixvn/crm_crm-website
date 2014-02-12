@@ -52,15 +52,15 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/Scripts/CommomScripts").Include(
                 "~/Scripts/JQuery/jquery-1.8.2.js",
                 "~/Scripts/json2.js",
-                "~/Scripts/jquery-ui-1.8.14.custom.min.js",
+                "~/Scripts/jquery-ui-1.8.14.custom.js",
                 "~/Scripts/ShareScripts/CRMConstants.js",
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Scripts/ShareScripts/KeyboardManager.js"));
 
-            bundles.Add(new StyleBundle("~/Views/Home/Styles").Include(
+            bundles.Add(new StyleBundle("~/Views/HomeStyles").Include(
                 "~/Scripts/Tipsy-Tooltip/tipsy.css"));
 
-            bundles.Add(new ScriptBundle("~/Views/Home/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Views/HomeScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Views/Home/Scripts/MenuManager.js",
                 "~/Views/Home/Scripts/LeftPanelManager.js",
@@ -69,21 +69,21 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/Customer/ShortInfo/Scripts/CustomerManager.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerApplication.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerService.js",
-                "~/Areas/Customer/ShortInfo/Scripts/CustomerController.js"));
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerController.js",
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerManager.js"));
 
             bundles.Add(new StyleBundle("~/Areas/ShortCustomerInfo/Styles").Include(
                 "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/AgularJS").Include(
-                "~/Scripts/AgularJS/angular.js"));
+            bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
+                "~/Scripts/AngularJS/angular.js"));
 
-            bundles.Add(new ScriptBundle("~/Styles/MultipleSelect").Include(
+            bundles.Add(new ScriptBundle("~/Styles/FanexMultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.css",
                 "~/Areas/Customer/DetailInfo/Styles/StyleSheet.less"));
-            bundles.Add(new ScriptBundle("~/Scripts/MultipleSelect").Include(
+            bundles.Add(new ScriptBundle("~/Scripts/FanexMultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
 
             bundles.Add(new ScriptBundle("~/Areas/Customer/DetailInfo/Scripts").Include(
