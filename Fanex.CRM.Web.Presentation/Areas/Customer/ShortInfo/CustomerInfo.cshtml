@@ -77,14 +77,14 @@
             <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                 @Labels.First_Name</div>
             <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <input type="text" class="textbox" data-ng-model="customer.FirstName" />
+                <input type="text" class="textbox" data-ng-model="customer.FirstName" data-ng-keyup="textBoxKeyUp($event);" />
             </div>
         </div>
         <div class="row item no-border-bg">
             <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                 @Labels.Last_Name</div>
             <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <input type="text" class="textbox" data-ng-model="customer.LastName" />
+                <input type="text" class="textbox" data-ng-model="customer.LastName" data-ng-keyup="textBoxKeyUp($event);" />
             </div>
         </div>
         <div class="row item no-border-bg">
@@ -112,9 +112,10 @@
                     <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                         @Labels.Phone {{ $index + 1 }}</div>
                     <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                        <input type="text" class="textbox code-country" data-ng-model="phoneInfo.CountryCode" />
-                        <input type="text" class="textbox code-area" data-ng-model="phoneInfo.AreaCode" />
-                        <input type="text" class="textbox phone" data-ng-model="phoneInfo.PhoneNumber" />
+                        <input type="text" class="textbox code-country" data-ng-model="phoneInfo.CountryCode"
+                            data-ng-keyup="textBoxKeyUp($event);" />
+                        <input type="text" class="textbox code-area" data-ng-model="phoneInfo.AreaCode" data-ng-keyup="textBoxKeyUp($event);" />
+                        <input type="text" class="textbox phone" data-ng-model="phoneInfo.PhoneNumber" data-ng-keyup="textBoxKeyUp($event);" />
                     </div>
                 </div>
             </div>
@@ -122,30 +123,33 @@
                 <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                     @Labels.Mobile</div>
                 <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input type="text" class="textbox code-country label-left" data-ng-model="customer.MobilePhone.CountryCode" />
-                    <input type="text" class="textbox code-area" data-ng-model="customer.MobilePhone.AreaCode" />
-                    <input type="text" class="textbox phone" data-ng-model="customer.MobilePhone.PhoneNumber" />
+                    <input type="text" class="textbox code-country label-left" data-ng-model="customer.MobilePhone.CountryCode"
+                        data-ng-keyup="textBoxKeyUp($event);" />
+                    <input type="text" class="textbox code-area" data-ng-model="customer.MobilePhone.AreaCode"
+                        data-ng-keyup="textBoxKeyUp($event);" />
+                    <input type="text" class="textbox phone" data-ng-model="customer.MobilePhone.PhoneNumber"
+                        data-ng-keyup="textBoxKeyUp($event);" />
                 </div>
             </div>
             <div class="row item no-border-bg">
                 <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                     @Labels.Email</div>
                 <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input type="text" class="textbox" data-ng-model="customer.Email" />
+                    <input type="text" class="textbox" data-ng-model="customer.Email" data-ng-keyup="textBoxKeyUp($event);" />
                 </div>
             </div>
             <div class="row item no-border-bg">
                 <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                     @Labels.MSN</div>
                 <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input type="text" class="textbox" data-ng-model="customer.MSN" />
+                    <input type="text" class="textbox" data-ng-model="customer.MSN" data-ng-keyup="textBoxKeyUp($event);" />
                 </div>
             </div>
             <div class="row item no-border-bg">
                 <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                     @Labels.Skype</div>
                 <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input type="text" class="textbox" data-ng-model="customer.Skype" />
+                    <input type="text" class="textbox" data-ng-model="customer.Skype" data-ng-keyup="textBoxKeyUp($event);" />
                 </div>
             </div>
             <div class="customer-personalInfoContact-container" data-ng-repeat="personalInfoContact in customer.PersonalInfoContact track by $index">
@@ -154,7 +158,7 @@
                         @Labels.PIC {{ $index + 1 }}</div>
                     <div class="col-xs-9 col-sm-9 col-md-9 text-left">
                         <input type="text" class="textbox" data-ng-model="customer.PersonalInfoContact[$index]"
-                            data-ng-change="editPersonalInfo(this);" />
+                            data-ng-change="editPersonalInfo(this);" data-ng-keyup="textBoxKeyUp($event);" />
                     </div>
                 </div>
             </div>
@@ -194,7 +198,7 @@
     @Scripts.Render("~/Areas/ShortCustomerInfo/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var accId = @Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id;
+        var accId = @(Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser != null ? Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id : 0);
         var viewResources = {             
             Confirm_Ignore_EditCustomer_Changes: '@Resources.Language.Confirm_Ignore_EditCustomer_Changes'
         }; 

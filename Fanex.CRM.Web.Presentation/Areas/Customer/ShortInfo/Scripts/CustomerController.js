@@ -155,6 +155,16 @@ customerApplication.controller('customerController', function ($scope,
                 $scope.unblockUI();
             });
     };
+
+    $scope.textBoxKeyUp = function (e) {
+        e = (e) ? e : window.event;
+        var key = (e.keyCode) ? e.keyCode : e.which;
+        if (key === keyboardManager.Enums.KeyCode.Enter) {
+            $scope.updateCustomerInfo();
+        }
+
+        return;
+    };
     $scope.editPersonalInfo = function (textbox) {
         $(textbox).focus();
     };

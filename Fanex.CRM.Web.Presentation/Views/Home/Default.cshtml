@@ -103,7 +103,7 @@
         var userSearch = '@userSearched';
         var isGuestSearch = '@isGuest';
         var accUrlDefault = '@Fanex.CRM.Infrastructure.Common.AppSetting.LoginUrl';
-        var userId = @Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id;
+        var userId = @(Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser != null ? Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id : 0);
         setInterval('udpateOnlineStatus()', 20000);
         
     </script>

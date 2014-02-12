@@ -167,7 +167,6 @@ customerDetailApplication.controller('customerDetailController', function ($scop
 
         $scope.BlockUI();
 
-        $scope.oldSelectedLangueList = $scope.selectedLangueList;
         parent.homeManager.CachedData.isChangingData = false;
         $customerDetailService.updateCustomerInfoDetail(updatedCustomerInfoDetailParams)
             .then(function (data) {
@@ -253,9 +252,12 @@ customerDetailApplication.controller('customerDetailController', function ($scop
                 $scope.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
                 $scope.DOMElements.textboxFirstName.focus();
 
-                if (updateResult.Id === crmConstants.Enums.Error.None) {
+                if (updateResult.Id === crmConstants.Enums.Error.None &&
+                    $scope.shouldReloadLeftPanel()) {
                     parent.leftPanelManager.loadLeftPanel($scope.customerDetail.Name, false, true);
                 }
+
+                $scope.oldSelectedLangueList = $scope.selectedLangueList;
             },
             buttons: [{
                 text: viewResources.OK,
@@ -265,6 +267,44 @@ customerDetailApplication.controller('customerDetailController', function ($scop
             }]
         });
     };
+    $scope.shouldReloadLeftPanel = function () {
+        if ($scope.customerDetail &&
+            $scope.oldCustomerDetail &&
+            ($scope.oldCustomerDetail.FirstName !== $scope.customerDetail.FirstName ||
+             $scope.oldCustomerDetail.LastName !== $scope.customerDetail.LastName ||
+             $scope.oldSelectedLangueList !== $scope.selectedLangueList ||
+
+            $scope.oldCustomerDetail.PhoneInfo[0].CountryCode !== $scope.customerDetail.PhoneInfo[0].CountryCode ||
+            $scope.oldCustomerDetail.PhoneInfo[0].AreaCode !== $scope.customerDetail.PhoneInfo[0].AreaCode ||
+            $scope.oldCustomerDetail.PhoneInfo[0].PhoneNumber !== $scope.customerDetail.PhoneInfo[0].PhoneNumber ||
+
+            $scope.oldCustomerDetail.PhoneInfo[1].CountryCode !== $scope.customerDetail.PhoneInfo[1].CountryCode ||
+            $scope.oldCustomerDetail.PhoneInfo[1].AreaCode !== $scope.customerDetail.PhoneInfo[1].AreaCode ||
+            $scope.oldCustomerDetail.PhoneInfo[1].PhoneNumber !== $scope.customerDetail.PhoneInfo[1].PhoneNumber ||
+
+            $scope.oldCustomerDetail.PhoneInfo[2].CountryCode !== $scope.customerDetail.PhoneInfo[2].CountryCode ||
+            $scope.oldCustomerDetail.PhoneInfo[2].AreaCode !== $scope.customerDetail.PhoneInfo[2].AreaCode ||
+            $scope.oldCustomerDetail.PhoneInfo[2].PhoneNumber !== $scope.customerDetail.PhoneInfo[2].PhoneNumber ||
+
+            $scope.oldCustomerDetail.MobilePhone.CountryCode !== $scope.customerDetail.MobilePhone.CountryCode ||
+            $scope.oldCustomerDetail.MobilePhone.AreaCode !== $scope.customerDetail.MobilePhone.AreaCode ||
+            $scope.oldCustomerDetail.MobilePhone.PhoneNumber !== $scope.customerDetail.MobilePhone.PhoneNumber ||
+
+            $scope.oldCustomerDetail.Email !== $scope.customerDetail.Email ||
+            $scope.oldCustomerDetail.MSN !== $scope.customerDetail.MSN ||
+            $scope.oldCustomerDetail.Skype !== $scope.customerDetail.Skype ||
+
+            $scope.oldCustomerDetail.PersonalInfoContact[0] !== $scope.customerDetail.PersonalInfoContact[0] ||
+            $scope.oldCustomerDetail.PersonalInfoContact[1] !== $scope.customerDetail.PersonalInfoContact[1] ||
+            $scope.oldCustomerDetail.PersonalInfoContact[2] !== $scope.customerDetail.PersonalInfoContact[2] ||
+            $scope.oldCustomerDetail.PersonalInfoContact[3] !== $scope.customerDetail.PersonalInfoContact[3] ||
+            $scope.oldCustomerDetail.SiteSetting.Id !== $scope.customerDetail.SiteSetting.Id)) {
+            return true;
+        }
+
+        return false;
+    };
+
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
         $scope.updateCustomerInfoDetail();
