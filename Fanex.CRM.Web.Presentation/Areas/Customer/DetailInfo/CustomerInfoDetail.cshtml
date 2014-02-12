@@ -301,14 +301,15 @@
     @Scripts.Render("~/Areas/Customer/DetailInfo/Scripts")
     <script type="text/javascript"> 
     window.rootUrl = '@Url.Content("~")'; 
-    var viewResources    = { 
+    var viewResources = { 
         OK: 'OK',
         Select: '@Labels.Select',
         Symbol_NotApply: '@Labels.Symbol_NotApply',
         Alert: '@Labels.Alert',
         All_Languages: '@Labels.All_Languages',
         No_languages_found: '@Labels.No_languages_found',
-        Symbol_NotApply: '@Labels.Symbol_NotApply'
+        Symbol_NotApply: '@Labels.Symbol_NotApply',
+        Confirm_Ignore_EditCustomer_Changes: '@Resources.Language.Confirm_Ignore_EditCustomer_Changes'
     }; 
     var customerDetail = @Html.Raw(jsonCustomerDetail); 
     </script>

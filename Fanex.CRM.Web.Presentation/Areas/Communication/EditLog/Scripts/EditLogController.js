@@ -33,6 +33,7 @@ editLogApplication.controller('editLogController', function ($scope,
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
     $scope.isEditingRelatedCustomer = false;
+    $scope.isVerifyRelatedCustomer = false;
 
     $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
@@ -321,8 +322,8 @@ editLogApplication.controller('editLogController', function ($scope,
         }
 
         $scope.betTypeList = $scope.productList[0].ChildSettings;
+        $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
         $scope.updateRemarkPrefix();
-        $scope.verifyRelatedCustomer();
     };
     $scope.generateRemarkPrefix = function () {
         /* jshint camelcase: false */
@@ -429,11 +430,16 @@ editLogApplication.controller('editLogController', function ($scope,
     $scope.updateLog = function () {
         $scope.isShowResultMessage = false;
         var relatedCustomer = getRelatedCustomer();
-        if (relatedCustomer.length !== 0 && $scope.isEditingRelatedCustomer) {
-            alert(viewResources.Communication_Logs_VerifyRelatedCustomer);
+        if (!$scope.isVerifyRelatedCustomer && $scope.isEditingRelatedCustomer) {
+            /* jshint camelcase: false */
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            $scope.resultMessage = viewResources.Communication_Logs_VerifyRelatedCustomer;
             return;
         }
 
+        $scope.isShowResultMessage = false;
+        $scope.isSuccess = true;
         var updateCriteria = {
             FeedbackId: $scope.communicationLog.RunningNumber,
             CustomerId: $scope.communicationLog.CustomerId,
@@ -459,8 +465,9 @@ editLogApplication.controller('editLogController', function ($scope,
             Subject: $scope.communicationLog.Subject
         };
 
-        $scope.BlockUI();
-        $editLogService.updateLog(updateCriteria)
+        if ($scope.validateUpdateLogCriteria(updateCriteria)) {
+            $scope.BlockUI();
+            $editLogService.updateLog(updateCriteria)
             .then(function (data) {
                 var updateResult = data.Result;
                 $scope.showUpdateResult(updateResult);
@@ -470,6 +477,7 @@ editLogApplication.controller('editLogController', function ($scope,
                 /* jshint unused: vars */
                 $scope.unblockUI();
             });
+        }
     };
     $scope.showUpdateResult = function (updateResult) {
         parent.shouldReloadLogs = true;
@@ -482,6 +490,47 @@ editLogApplication.controller('editLogController', function ($scope,
                 $scope.isShowResultMessage = false;
             }, 3000);
         }
+    };
+    $scope.validateUpdateLogCriteria = function (criteria) {
+        var result = true;
+        if (criteria.Subject === '') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Communication_Log_EmptySubject;
+            result = false;
+        }
+
+        if ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Communication_Log_EmptyRemark;
+            result = false;
+        }
+
+        if ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Communication_Log_EmptySolution;
+            result = false;
+        }
+
+        if (criteria.IsReviewed &&
+            ($.trim(criteria.Review) === '' || criteria.Review === '<br>')) {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Communication_Log_EmptyReview;
+            result = false;
+        }
+
+        if (result) {
+            $scope.isShowResultMessage = false;
+        }
+
+        return result;
     };
     $scope.unblockUI = function () {
         try {

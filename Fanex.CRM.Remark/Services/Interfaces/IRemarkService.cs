@@ -9,7 +9,6 @@
 
 namespace Fanex.CRM.Remark.Services.Interfaces
 {
-    using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Models;
     using Fanex.NAP.Framework.Data;
@@ -19,8 +18,8 @@ namespace Fanex.CRM.Remark.Services.Interfaces
     /// </summary>
     public interface IRemarkService
     {
-        IList<RemarkDetail>[] GetRemarks(ICriteria criteria);
+        RemarkDetail GetRemarks(ICriteria criteria);
 
-        Result UpdateRemarks(ICriteria criteria);
+        Result UpdateRemarks(RemarkDetail criteria);
     }
 }

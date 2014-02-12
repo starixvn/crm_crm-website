@@ -8,6 +8,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
     $http,
     $customerDetailService) {
     $scope.customerDetail = customerDetail;
+    $scope.oldCustomerDetail = angular.copy(customerDetail);
     $scope.siteList = null;
     $scope.countryList = null;
     $scope.languageList = null;
@@ -18,6 +19,7 @@ customerDetailApplication.controller('customerDetailController', function ($scop
     $scope.isShowHomeAddressInfo = true;
     $scope.isShowBankInfoInfo = true;
     $scope.selectedLangueList = '';
+    $scope.oldSelectedLangueList = '';
 
     $scope.DOMElements = {
         divResultPopUp: null,
@@ -164,6 +166,9 @@ customerDetailApplication.controller('customerDetailController', function ($scop
         };
 
         $scope.BlockUI();
+
+        $scope.oldSelectedLangueList = $scope.selectedLangueList;
+        parent.homeManager.CachedData.isChangingData = false;
         $customerDetailService.updateCustomerInfoDetail(updatedCustomerInfoDetailParams)
             .then(function (data) {
                 var updateResult = data.Result;
@@ -205,6 +210,8 @@ customerDetailApplication.controller('customerDetailController', function ($scop
                 Id: crmConstants.Enums.Country.NotApply
             };
         }
+
+        $scope.$apply();
     };
     $scope.updateSelectedCountryBank = function (countryInfoId) {
         countryInfoId = parseInt(countryInfoId);
@@ -225,6 +232,8 @@ customerDetailApplication.controller('customerDetailController', function ($scop
                 Id: crmConstants.Enums.Country.NotApply
             };
         }
+
+        $scope.$apply();
     };
     $scope.showUpdateResult = function (updateResult) {
         $scope.DOMElements.divResultPopUp.removeClass("display-none");
@@ -263,11 +272,79 @@ customerDetailApplication.controller('customerDetailController', function ($scop
     $scope.updateSelectedLanguage = function (selectedLangueList) {
         $scope.selectedLangueList = selectedLangueList;
     };
+    $scope.updateOldSelectedLanguage = function (selectedLangueList) {
+        $scope.oldSelectedLangueList = selectedLangueList;
+    };
+    $scope.updateIsChangeCustomerInfoFlag = function () {
+        if ($scope.customerDetail &&
+            $scope.oldCustomerDetail &&
+            ($scope.oldCustomerDetail.FirstName !== $scope.customerDetail.FirstName ||
+             $scope.oldCustomerDetail.LastName !== $scope.customerDetail.LastName ||
+             $scope.oldSelectedLangueList !== $scope.selectedLangueList ||
+
+            $scope.oldCustomerDetail.PhoneInfo[0].CountryCode !== $scope.customerDetail.PhoneInfo[0].CountryCode ||
+            $scope.oldCustomerDetail.PhoneInfo[0].AreaCode !== $scope.customerDetail.PhoneInfo[0].AreaCode ||
+            $scope.oldCustomerDetail.PhoneInfo[0].PhoneNumber !== $scope.customerDetail.PhoneInfo[0].PhoneNumber ||
+
+            $scope.oldCustomerDetail.PhoneInfo[1].CountryCode !== $scope.customerDetail.PhoneInfo[1].CountryCode ||
+            $scope.oldCustomerDetail.PhoneInfo[1].AreaCode !== $scope.customerDetail.PhoneInfo[1].AreaCode ||
+            $scope.oldCustomerDetail.PhoneInfo[1].PhoneNumber !== $scope.customerDetail.PhoneInfo[1].PhoneNumber ||
+
+            $scope.oldCustomerDetail.PhoneInfo[2].CountryCode !== $scope.customerDetail.PhoneInfo[2].CountryCode ||
+            $scope.oldCustomerDetail.PhoneInfo[2].AreaCode !== $scope.customerDetail.PhoneInfo[2].AreaCode ||
+            $scope.oldCustomerDetail.PhoneInfo[2].PhoneNumber !== $scope.customerDetail.PhoneInfo[2].PhoneNumber ||
+
+            $scope.oldCustomerDetail.Passport.Name !== $scope.customerDetail.Passport.Name ||
+            $scope.oldCustomerDetail.MobilePhone.CountryCode !== $scope.customerDetail.MobilePhone.CountryCode ||
+            $scope.oldCustomerDetail.MobilePhone.AreaCode !== $scope.customerDetail.MobilePhone.AreaCode ||
+            $scope.oldCustomerDetail.MobilePhone.PhoneNumber !== $scope.customerDetail.MobilePhone.PhoneNumber ||
+            $scope.oldCustomerDetail.FaxInfo.CountryCode !== $scope.customerDetail.FaxInfo.CountryCode ||
+            $scope.oldCustomerDetail.FaxInfo.AreaCode !== $scope.customerDetail.FaxInfo.AreaCode ||
+            $scope.oldCustomerDetail.FaxInfo.PhoneNumber !== $scope.customerDetail.FaxInfo.PhoneNumber ||
+
+            $scope.oldCustomerDetail.Email !== $scope.customerDetail.Email ||
+            $scope.oldCustomerDetail.MSN !== $scope.customerDetail.MSN ||
+            $scope.oldCustomerDetail.Skype !== $scope.customerDetail.Skype ||
+
+            $scope.oldCustomerDetail.PersonalInfoContact[0] !== $scope.customerDetail.PersonalInfoContact[0] ||
+            $scope.oldCustomerDetail.PersonalInfoContact[1] !== $scope.customerDetail.PersonalInfoContact[1] ||
+            $scope.oldCustomerDetail.PersonalInfoContact[2] !== $scope.customerDetail.PersonalInfoContact[2] ||
+            $scope.oldCustomerDetail.PersonalInfoContact[3] !== $scope.customerDetail.PersonalInfoContact[3] ||
+
+            $scope.oldCustomerDetail.SiteSetting.Id !== $scope.customerDetail.SiteSetting.Id ||
+            $scope.oldCustomerDetail.AddressInfo.LineList[0] !== $scope.customerDetail.AddressInfo.LineList[0] ||
+            $scope.oldCustomerDetail.AddressInfo.LineList[1] !== $scope.customerDetail.AddressInfo.LineList[1] ||
+            $scope.oldCustomerDetail.AddressInfo.LineList[2] !== $scope.customerDetail.AddressInfo.LineList[2] ||
+            $scope.oldCustomerDetail.AddressInfo.City !== $scope.customerDetail.AddressInfo.City ||
+            $scope.oldCustomerDetail.AddressInfo.Country.Id !== $scope.customerDetail.AddressInfo.Country.Id ||
+            $scope.oldCustomerDetail.AddressInfo.PostCode !== $scope.customerDetail.AddressInfo.PostCode ||
+            $scope.oldCustomerDetail.AddressInfo.State !== $scope.customerDetail.AddressInfo.State ||
+
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.LineList[0] !== $scope.customerDetail.BankInfo.AddressInfo.LineList[0] ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.LineList[1] !== $scope.customerDetail.BankInfo.AddressInfo.LineList[1] ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.LineList[2] !== $scope.customerDetail.BankInfo.AddressInfo.LineList[2] ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.City !== $scope.customerDetail.BankInfo.AddressInfo.City ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.Country.Id !== $scope.customerDetail.BankInfo.AddressInfo.Country.Id ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.PostCode !== $scope.customerDetail.BankInfo.AddressInfo.PostCode ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.State !== $scope.customerDetail.BankInfo.AddressInfo.State ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.Name !== $scope.customerDetail.BankInfo.AddressInfo.Name ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.HolderName !== $scope.customerDetail.BankInfo.AddressInfo.HolderName ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.AccountNumber !== $scope.customerDetail.BankInfo.AddressInfo.AccountNumber ||
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.SwiftCode !== $scope.customerDetail.BankInfo.AddressInfo.SwiftCode)) {
+            parent.homeManager.CachedData.isChangingData = true;
+            parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_EditCustomer_Changes;
+        } else {
+            parent.homeManager.CachedData.isChangingData = false;
+        }
+    };
     angular.element(document).ready(function () {
         $scope.initController();
         $scope.getAllSite();
         $scope.getAllCountry();
         $scope.getAllLanguage();
+        $scope.$watch(function ($scope) {
+            $scope.updateIsChangeCustomerInfoFlag();
+        });
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: "CustomerInfoDetail"

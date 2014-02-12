@@ -319,7 +319,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 var allSetting = GetAllSetting();
                 foreach (var data in rawData)
                 {
-                    data.ChildSettings = GetSubSettingByParentId(data, allSettingRelation, allSetting);
+                    data.ChildSettings = GetSubCategoryByParentId(data, allSettingRelation, allSetting);
                     result.Add(data);
                 }
 
@@ -495,6 +495,59 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <param name="allSetting">All setting.</param>
         /// <returns>The sub setting by parent identifier.</returns>
         public List<SettingInfo> GetSubSettingByParentId(
+            SettingInfo parentSetting,
+            List<SettingInfo> allSettingRelation,
+            List<SettingInfo> allSetting)
+        {
+            List<SettingInfo> subSettings = new List<SettingInfo>();
+            try
+            {
+                if (allSettingRelation == null || !allSettingRelation.Any())
+                {
+                    return subSettings;
+                }
+
+                foreach (var settingRelation in allSettingRelation)
+                {
+                    if (settingRelation.ParentId == parentSetting.Id)
+                    {
+                        for (var i = 0; i < allSetting.Count; i++)
+                        {
+                            var setting = allSetting[i];
+                            if (setting.Id == settingRelation.Id)
+                            {
+                                subSettings.Add(new SettingInfo
+                                {
+                                    Id = setting.Id,
+                                    DisplayOrder = setting.DisplayOrder,
+                                    Value = setting.Value,
+                                    Type = setting.Type,
+                                    ParentId = parentSetting.Id,
+                                    IsSubSetting = true
+                                });
+                            }
+                        }
+                    }
+                }
+
+                subSettings = subSettings.OrderBy(s => s.DisplayOrder).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return subSettings;
+        }
+
+        /// <summary>
+        /// Gets the sub category by parent identifier.
+        /// </summary>
+        /// <param name="parentSetting">The parent setting.</param>
+        /// <param name="allSettingRelation">All setting relation.</param>
+        /// <param name="allSetting">All setting.</param>
+        /// <returns>The sub category by parent identifier.</returns>
+        public List<SettingInfo> GetSubCategoryByParentId(
             SettingInfo parentSetting,
             List<SettingInfo> allSettingRelation,
             List<SettingInfo> allSetting)

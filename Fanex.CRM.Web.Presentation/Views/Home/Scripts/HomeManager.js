@@ -20,11 +20,17 @@ var HomeManager = function () {
             DefaultSearchCustomer: "Search...",
             Error_SearchCustomer_Empty: 'Please input username!',
             OK: "OK",
-            Alert: 'Alert'
+            Alert: 'Alert',
+            Confirm_Ignore_Changes: 'Confirm Ignore Changes'
         },
 
         username: null,
-        currentCustomer: null
+        currentCustomer: null,
+        isIgnoreChange: false,
+
+        // Prevent unsaved escape
+        isChangingData: false,
+        ignoreConfirmMessage: ''
     };
 
     self.initPage = function () {
@@ -43,6 +49,7 @@ var HomeManager = function () {
         self.DOMElements.ButtonSearch = $("#btnSendMsg");
         self.DOMElements.ResultMessage = $("#div-resultpopup");
         self.DOMElements.CheckboxIsGuest = $("#isGuest");
+        self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
     };
 
     self.bindEvents = function () {
@@ -103,11 +110,52 @@ var HomeManager = function () {
         return;
     };
 
+    self.showConfirmIgnoreChange = function () {
+        self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessage );
+        self.DOMElements.divResultPopUp.removeClass("display-none");
+        self.DOMElements.divResultPopUp.dialog({
+            width: 280,
+            height: 180,
+            zIndex: 500,
+            position: [2, 80],
+            resizable: false,
+            modal: true,
+            title: self.CachedData.ViewResources.Confirm_Ignore_Changes,
+            close: function (event, ui) {
+                /*jshint unused: vars */
+                self.DOMElements.divResultPopUp.dialog("destroy");
+                parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
+                self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+                self.CachedData.isConfirmSearchByGuest = false;
+            },
+            buttons: [{
+                text: self.CachedData.ViewResources.OK,
+                click: function () {
+                    self.CachedData.isIgnoreChange = true;
+                    self.CachedData.isChangingData = false;
+                    self.DOMElements.divResultPopUp.dialog("close");
+                    if (self.validDateTextboxUsername()) {
+                        self.CachedData.username = self.DOMElements.TextboxUsername.val();
+                        leftPanelManager.loadLeftPanel(null, false);
+                    }
+                }
+            }]
+        });
+    };
+
     self.ButtonSearchClick = function () {
         self.TextboxUsernameBlur();
-        if (self.validDateTextboxUsername()) {
-            self.CachedData.username = self.DOMElements.TextboxUsername.val();
-            leftPanelManager.loadLeftPanel(null, false);
+        self.loadLeftPanel();
+    };
+
+    self.loadLeftPanel = function () {
+        if (self.CachedData.isChangingData) {
+            self.showConfirmIgnoreChange();
+        } else {
+            if (self.validDateTextboxUsername()) {
+                self.CachedData.username = self.DOMElements.TextboxUsername.val();
+                leftPanelManager.loadLeftPanel(null, false);
+            }
         }
     };
     self.validDateTextboxUsername = function () {
@@ -150,11 +198,7 @@ var HomeManager = function () {
         e = (e) ? e : window.event;
         var key = (e.keyCode) ? e.keyCode : e.which;
         if (key === keyboardManager.Enums.KeyCode.Enter) {
-            var isValid = self.validDateTextboxUsername();
-            if (isValid) {
-                self.CachedData.username = self.DOMElements.TextboxUsername.val();
-                leftPanelManager.loadLeftPanel(null, false);
-            }
+            self.loadLeftPanel();
         }
     };
     self.invokeHotKey_CtrlG = function () {
@@ -173,6 +217,11 @@ var HomeManager = function () {
     self.invokeHotKey_CtrlR = function () {
         if (parent.dashboardManager) {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Redemption);
+        }
+    };
+    self.invokeHotKey_CtrlK = function () {
+        if (parent.dashboardManager) {
+            parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.SpeciaRemark);
         }
     };
 };

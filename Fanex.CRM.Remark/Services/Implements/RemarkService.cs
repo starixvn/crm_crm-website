@@ -9,13 +9,15 @@
 
 namespace Fanex.CRM.Remark.Services.Implements
 {
-    using System.Collections.Generic;
+    using System.Text;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
     using Fanex.CRM.Remark.Repositories.Implements;
     using Fanex.CRM.Remark.Repositories.Interfaces;
     using Fanex.CRM.Remark.Services.Interfaces;
     using Fanex.NAP.Framework.Data;
+    using Fanex.CRM.Remark.Resources;
 
     /// <summary>
     /// Remark service class.
@@ -36,29 +38,52 @@ namespace Fanex.CRM.Remark.Services.Implements
 
         #region IRemarkService Members
 
-        public IList<RemarkDetail>[] GetRemarks(ICriteria criteria)
+        /// <summary>
+        /// Gets the remarks.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The remark detail object.</returns>
+        public RemarkDetail GetRemarks(ICriteria criteria)
         {
-            IList<RemarkDetail> specialRemarkList = new List<RemarkDetail>();
-            IList<RemarkDetail> remarkList = new List<RemarkDetail>();
+            var remark = _repositoryInstance.GetRemarks(criteria);
+            return remark;
+        }
 
-            var remarks = _repositoryInstance.GetRemarks(criteria);
-            foreach (RemarkDetail remark in remarks)
+        /// <summary>
+        /// Updates the remarks.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>The result object.</returns>
+        public Result UpdateRemarks(RemarkDetail model)
+        {
+            StringBuilder remarkBuilder = new StringBuilder(1024);
+            remarkBuilder.Append("<Remarks>");
+            if (model.SpecialRemarks != null)
             {
-                if (remark.IsSpecial)
+                foreach (string remark in model.SpecialRemarks)
                 {
-                    specialRemarkList.Add(remark);
-                }
-                else
-                {
-                    remarkList.Add(remark);
+                    remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
+                        .Append(" IsSpecial=\"1\" />");
                 }
             }
 
-            return new IList<RemarkDetail>[] { specialRemarkList, remarkList };
-        }
+            if (model.Remarks != null)
+            {
+                foreach (string remark in model.Remarks)
+                {
+                    remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
+                        .Append(" IsSpecial=\"0\" />");
+                }
+            }
 
-        public Result UpdateRemarks(ICriteria criteria)
-        {
+            remarkBuilder.Append("</Remarks>");
+
+            ICriteria criteria = new UpdateRemarkCriteria 
+            { 
+                CustId = model.CustId,
+                Remarks = remarkBuilder.ToString()
+            };
+
             return _repositoryInstance.UpdateRemarks(criteria);
         }
 

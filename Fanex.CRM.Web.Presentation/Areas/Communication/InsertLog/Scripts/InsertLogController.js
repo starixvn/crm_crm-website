@@ -90,6 +90,7 @@ insertLogApplication.controller('insertLogController', function ($scope,
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
     $scope.isEditingRelatedCustomer = false;
+    $scope.isVerifyRelatedCustomer = false;
 
     $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
@@ -386,7 +387,8 @@ insertLogApplication.controller('insertLogController', function ($scope,
     };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
-        $scope.updateLog();
+        $scope.insertLog();
+        $scope.$apply();
     };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlE = function () {
@@ -476,12 +478,16 @@ insertLogApplication.controller('insertLogController', function ($scope,
     $scope.insertLog = function () {
         $scope.isShowResultMessage = false;
         var relatedCustomer = getRelatedCustomer();
-        if (relatedCustomer.length !== 0 && $scope.isEditingRelatedCustomer) {
+        if (!$scope.isVerifyRelatedCustomer && $scope.isEditingRelatedCustomer) {
             /* jshint camelcase: false */
-            alert(viewResources.Communication_Logs_VerifyRelatedCustomer);
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            $scope.resultMessage = viewResources.Communication_Logs_VerifyRelatedCustomer;
             return;
         }
 
+        $scope.isShowResultMessage = false;
+        $scope.isSuccess = true;
         var insertCriteria = {
             CustomerId: customerId,
             RelatedCustomerId: relatedCustomer,
@@ -506,8 +512,9 @@ insertLogApplication.controller('insertLogController', function ($scope,
             Subject: $scope.communicationLog.Subject
         };
 
-        $scope.BlockUI();
-        $insertLogService.insertLog(insertCriteria)
+        if ($scope.validateInsertLogCriteria(insertCriteria)) {
+            $scope.BlockUI();
+            $insertLogService.insertLog(insertCriteria)
             .then(function (data) {
                 var insertResult = data.Result;
                 $scope.showInsertResult(insertResult);
@@ -517,6 +524,7 @@ insertLogApplication.controller('insertLogController', function ($scope,
                 /* jshint unused: vars */
                 $scope.unblockUI();
             });
+        }
     };
     $scope.showInsertResult = function (insertResult) {
         parent.shouldReloadLogs = true;
@@ -529,6 +537,47 @@ insertLogApplication.controller('insertLogController', function ($scope,
                 $scope.isShowResultMessage = false;
             }, 3000);
         }
+    };
+    $scope.validateInsertLogCriteria = function (criteria) {
+        var result = true;
+        if (criteria.Subject === '') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Communication_Log_EmptySubject;
+            result = false;
+        }
+
+        if ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Communication_Log_EmptyRemark;
+            result = false;
+        }
+
+        if ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Communication_Log_EmptySolution;
+            result = false;
+        }
+
+        if (criteria.IsReviewed &&
+            ($.trim(criteria.Review) === '' || criteria.Review === '<br>')) {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Communication_Log_EmptyReview;
+            result = false;
+        }
+
+        if (result) {
+            $scope.isShowResultMessage = false;
+        }
+
+        return result;
     };
     $scope.unblockUI = function () {
         try {
@@ -544,6 +593,7 @@ insertLogApplication.controller('insertLogController', function ($scope,
     };
     $scope.verifyRelatedCustomer = function () {
         verifyRelatedCustomer($scope);
+        $scope.isVerifyRelatedCustomer = true;
         $scope.isEditingRelatedCustomer = false;
     };
     angular.element(document).ready(function () {

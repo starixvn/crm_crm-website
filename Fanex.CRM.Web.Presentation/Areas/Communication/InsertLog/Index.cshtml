@@ -18,7 +18,7 @@
     <div class="main popup container insertlogcontroller" data-ng-controller="insertLogController">
         <div class="row form-group">
             <div class="row row-item" data-ng-show="isShowResultMessage">
-                <div class="col-xs-7 col-sm-7 col-md-5">
+                <div class="col-xs-12 col-sm-12 col-md-12">
                     <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
                         <div>
                             {{ resultMessage }}</div>
@@ -258,7 +258,11 @@
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
             Warning: '@Labels.Warning',
             OK: '@Labels.OK',
-            Communication_Logs_VerifyRelatedCustomer: '@Labels.Communication_Logs_VerifyRelatedCustomer'
+            Communication_Logs_VerifyRelatedCustomer: '@Labels.Communication_Logs_VerifyRelatedCustomer',
+            Communication_Log_EmptySubject: '@Labels.Communication_Log_EmptySubject',
+            Communication_Log_EmptyRemark: '@Labels.Communication_Log_EmptyRemark',
+            Communication_Log_EmptyReview: '@Labels.Communication_Log_EmptyReview',
+            Communication_Log_EmptySolution: '@Labels.Communication_Log_EmptySolution'
         }; 
     </script>
 </body>

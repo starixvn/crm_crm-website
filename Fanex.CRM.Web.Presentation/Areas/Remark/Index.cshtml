@@ -1,50 +1,79 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@using Newtonsoft.Json;
 @using Fanex.CRM.Remark.Models;
 @using Fanex.CRM.Remark.Resources;
-@model IList<RemarkDetail>[]
-@if (Model != null && Model.Length == 2)
-{
-    IList<RemarkDetail> specialRemarks = Model[0];
-    IList<RemarkDetail> remarks = Model[1];
+@model int
+@{
+    var serverModel = JsonConvert.SerializeObject(Model);
 }
-<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Areas/Remark/styles/remark.less?ver=2")" rel="stylesheet" type="text/css" />
-<div class="main container">
-    <div class="row panel-group last">
-        <div class="row title">
-            <span class="icon-collapse"></span>@Labels.SpecialRemark</div>
-        <div class="row content">
-            <ul class="list-remark col-xs-7 col-sm-7 col-md-6">
-                <li>
-                    <input type="text" class="textbox" value="Customer request not to call after 10 PM." /><span
-                        class="icon-del"></span></li>
-                <li>
-                    <input type="text" class="textbox" value="Settle issue" /><span class="icon-del"></span></li>
-                <li class="last-remark">
-                    <input type="text" class="textbox" placeholder="@Labels.SpecialRemarkPlaceHolder" /></li>
-            </ul>
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="remark-application">
+<head>
+    <title>@Labels.SpecialRemark</title>
+    @Styles.Render("~/site/common")
+    @Styles.Render("~/Areas/Remark/Styles")
+</head>
+<body>
+    <div class="container main" data-ng-controller="remarkController">
+        <div class="row panel-group last">
+            <div class="row title group-header" data-ng-click="isShowSpecialRemark = !isShowSpecialRemark">@Labels.SpecialRemark</div>
+            <div class="row content" data-ng-show="isShowSpecialRemark">
+                <ul class="list-remark col-xs-11 col-sm-11 col-md-11">
+                    <li data-ng-repeat="remark in remarks.SpecialRemarks track by $index">
+                        <div class="col-xs-11 col-sm-11 col-md-11">
+                            <span>{{$index + 1}}.</span>
+                            <input type="text" class="textbox-remark" data-ng-model="remarks.SpecialRemarks[$index]" />
+                        </div>
+                        <span class="glyphicon glyphicon-remove remove" title="@Labels.RemoveRemark" data-ng-click="deleteRemark(true, $index)"></span>
+                    </li>
+                    <li class="last-remark">
+                        <div class="col-xs-11 col-sm-11 col-md-11">
+                            <span>{{remarks.SpecialRemarks.length + 1}}.</span>
+                            <input id="txtSpecialRemark" type="text" class="textbox-remark" placeholder="@Labels.SpecialRemarkPlaceHolder"
+                                data-ng-model="lastSpecialRemark"
+                                on-enter-keyup="insertSpecialRemark" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row panel-group last remark">
+            <div class="row title group-header" data-ng-click="isShowRemark = !isShowRemark">@Labels.Remark</div>
+            <div class="row content" data-ng-show="isShowRemark">
+                <ul class="list-remark col-xs-11 col-sm-11 col-md-11">
+                    <li data-ng-repeat="remark in remarks.Remarks track by $index">
+                        <div class="col-xs-11 col-sm-11 col-md-11">
+                            <span>{{$index + 1}}.</span>
+                            <input type="text" class="textbox-remark" data-ng-model="remarks.Remarks[$index]" />
+                        </div>
+                        <span class="glyphicon glyphicon-remove remove" title="@Labels.RemoveRemark" data-ng-click="deleteRemark(false, $index)"></span>
+                    </li>
+                    <li class="last-remark">
+                        <div class="col-xs-11 col-sm-11 col-md-11">
+                            <span>{{remarks.Remarks.length + 1}}.</span>
+                            <input id="txtRemark" type="text" class="textbox-remark" placeholder="@Labels.RemarkPlaceHolder"
+                                data-ng-model="lastRemark"
+                                on-enter-keyup="insertRemark" />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <button class="btn btn-save" data-ng-click="updateRemarks()"><span class="hotkey">S</span>ave</button>
         </div>
     </div>
-    <div class="row panel-group last remark">
-        <div class="row title">
-            <span class="icon-collapse"></span>@Labels.Remark</div>
-        <div class="row content">
-            <ul class="list-remark col-xs-7 col-sm-7 col-md-6">
-                <li>
-                    <input type="text" class="textbox" value="Customer request not to call after 10 PM." /><span
-                        class="icon-del"></span></li>
-                <li>
-                    <input type="text" class="textbox" value="Settle issue" /><span class="icon-del"></span></li>
-                <li class="last-remark">
-                    <input type="text" class="textbox" placeholder="@Labels.RemarkPlaceHolder" /></li>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <button class="btn btn-save">
-            <span class="hotkey">S</span>ave</button>
-    </div>
-</div>
+
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AgularJS")
+    @Scripts.Render("~/Areas/Remark/Scripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var customerId = '@serverModel';
+        var remarkResources = {
+            Alert: '@Labels.Alert',
+            OK: '@Labels.OK',
+            UpdateRemarkSuccess: '@Labels.UpdateRemarkSuccess'
+        }; 
+    </script>
+</body>
+</html>
