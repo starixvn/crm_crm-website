@@ -34,7 +34,6 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/content/bootstrap/css/bootstrap.css",
                 "~/Content/site/common.less",
                 "~/Content/site/Message.less",
-                //"~/Content/site/table.less",
                 "~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css",
                 "~/Content/site/customizeJqueryUI.less");
 
@@ -57,8 +56,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Scripts/ShareScripts/KeyboardManager.js"));
 
-            bundles.Add(new StyleBundle("~/Views/HomeStyles").Include(
-                "~/Scripts/Tipsy-Tooltip/tipsy.css"));
+            bundles.AddAndInclude(
+                "~/Views/HomeStyles",
+                "~/Scripts/Tipsy-Tooltip/tipsy.css");
 
             bundles.Add(new ScriptBundle("~/Views/HomeScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -74,8 +74,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerController.js",
                 "~/Areas/Customer/ShortInfo/Scripts/CustomerManager.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/ShortCustomerInfo/Styles").Include(
-                "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less"));
+            bundles.AddAndInclude(
+                "~/Areas/ShortCustomerInfo/Styles",
+                "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less");
 
             bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
                 "~/Scripts/AngularJS/angular.js"));
@@ -126,8 +127,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationController.js",
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationDirective.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Communication/ViewLogStyles").Include(
-                "~/Areas/Communication/ViewLog/Styles/Communication.less"));
+            bundles.AddAndInclude(
+                "~/Areas/Communication/ViewLogStyles",
+                "~/Areas/Communication/ViewLog/Styles/Communication.less");
         }
 
         /// <summary>
@@ -143,8 +145,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Communication/EditLog/Scripts/EditLogController.js",
                 "~/Areas/Communication/EditLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Communication/EditLogStyles").Include(
-                "~/Areas/Communication/EditLog/Styles/EditCommunicationLog.less"));
+            bundles.AddAndInclude(
+                "~/Areas/Communication/EditLogStyles",
+                "~/Areas/Communication/EditLog/Styles/EditCommunicationLog.less");
         }
 
         /// <summary>
@@ -160,8 +163,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",
                 "~/Areas/Communication/InsertLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Communication/InsertLogStyles").Include(
-                "~/Areas/Communication/InsertLog/Styles/InsertCommunicationLog.less"));
+            bundles.AddAndInclude(
+                "~/Areas/Communication/InsertLogStyles",
+                "~/Areas/Communication/InsertLog/Styles/InsertCommunicationLog.less");
         }
 
         /// <summary>
@@ -177,8 +181,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogController.js",
                 "~/Areas/Redemption/ViewLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Redemption/ViewLogStyles").Include(
-                "~/Areas/Redemption/ViewLog/Styles/Redemption.less"));
+            bundles.AddAndInclude(
+                "~/Areas/Redemption/ViewLogStyles",
+                "~/Areas/Redemption/ViewLog/Styles/Redemption.less");
         }
 
         /// <summary>
@@ -194,8 +199,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Redemption/InsertLog/Scripts/InsertLogController.js",
                 "~/Areas/Redemption/InsertLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Redemption/InsertLogStyles").Include(
-                "~/Areas/Redemption/InsertLog/Styles/Redemption.less"));
+            bundles.AddAndInclude(
+                "~/Areas/Redemption/InsertLogStyles",
+                "~/Areas/Redemption/InsertLog/Styles/Redemption.less");
         }
 
         /// <summary>
@@ -211,8 +217,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Redemption/EditLog/Scripts/EditLogController.js",
                 "~/Areas/Redemption/EditLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Redemption/EditLogStyles").Include(
-                "~/Areas/Redemption/EditLog/Styles/Redemption.less"));
+            bundles.AddAndInclude(
+                "~/Areas/Redemption/EditLogStyles",
+                "~/Areas/Redemption/EditLog/Styles/Redemption.less");
         }
 
         public static void RegisterBundles_Remark(ref BundleCollection bundles)
@@ -224,8 +231,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Remark/Scripts/RemarkController.js",
                 "~/Areas/Remark/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Remark/Styles").Include(
-                "~/Areas/Remark/Styles/remark.less"));
+            bundles.AddAndInclude(
+                "~/Areas/Remark/Styles",
+                "~/Areas/Remark/Styles/remark.less");
         }
     }
 
