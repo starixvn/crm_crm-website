@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global sharedScriptManager, accId, crmConstants */
 
+var customerManager;
 var CustomerManager = function () {
     var self = this;
     self.DOMElements = {
@@ -496,7 +497,7 @@ var CustomerManager = function () {
     };
 };
 
-var customerManager = new CustomerManager();
+customerManager = new CustomerManager();
 angular.element(document).ready(function () {
     customerManager.initPage();
 });

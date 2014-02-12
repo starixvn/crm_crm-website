@@ -110,14 +110,14 @@ var HomeManager = function () {
         return;
     };
 
-    self.showConfirmIgnoreChange = function () {
-        self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessage );
+    self.showConfirmIgnoreChange = function (callbackFunction) {
+        self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessage);
         self.DOMElements.divResultPopUp.removeClass("display-none");
         self.DOMElements.divResultPopUp.dialog({
-            width: 280,
+            width: 350,
             height: 180,
             zIndex: 500,
-            position: [2, 80],
+            position: ['center', 120],
             resizable: false,
             modal: true,
             title: self.CachedData.ViewResources.Confirm_Ignore_Changes,
@@ -126,7 +126,6 @@ var HomeManager = function () {
                 self.DOMElements.divResultPopUp.dialog("destroy");
                 parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
-                self.CachedData.isConfirmSearchByGuest = false;
             },
             buttons: [{
                 text: self.CachedData.ViewResources.OK,
@@ -134,10 +133,7 @@ var HomeManager = function () {
                     self.CachedData.isIgnoreChange = true;
                     self.CachedData.isChangingData = false;
                     self.DOMElements.divResultPopUp.dialog("close");
-                    if (self.validDateTextboxUsername()) {
-                        self.CachedData.username = self.DOMElements.TextboxUsername.val();
-                        leftPanelManager.loadLeftPanel(null, false);
-                    }
+                    callbackFunction();
                 }
             }]
         });
@@ -145,17 +141,17 @@ var HomeManager = function () {
 
     self.ButtonSearchClick = function () {
         self.TextboxUsernameBlur();
-        self.loadLeftPanel();
+        if (self.CachedData.isChangingData) {
+            self.showConfirmIgnoreChange(self.loadLeftPanel);
+        } else {
+            self.loadLeftPanel();
+        }
     };
 
     self.loadLeftPanel = function () {
-        if (self.CachedData.isChangingData) {
-            self.showConfirmIgnoreChange();
-        } else {
-            if (self.validDateTextboxUsername()) {
-                self.CachedData.username = self.DOMElements.TextboxUsername.val();
-                leftPanelManager.loadLeftPanel(null, false);
-            }
+        if (self.validDateTextboxUsername()) {
+            self.CachedData.username = self.DOMElements.TextboxUsername.val();
+            leftPanelManager.loadLeftPanel(null, false);
         }
     };
     self.validDateTextboxUsername = function () {
@@ -198,7 +194,11 @@ var HomeManager = function () {
         e = (e) ? e : window.event;
         var key = (e.keyCode) ? e.keyCode : e.which;
         if (key === keyboardManager.Enums.KeyCode.Enter) {
-            self.loadLeftPanel();
+            if (self.CachedData.isChangingData) {
+                self.showConfirmIgnoreChange(self.loadLeftPanel);
+            } else {
+                self.loadLeftPanel();
+            }
         }
     };
     self.invokeHotKey_CtrlG = function () {
