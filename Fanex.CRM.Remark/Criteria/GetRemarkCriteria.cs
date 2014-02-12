@@ -16,7 +16,8 @@ namespace Fanex.CRM.Remark.Criteria
     /// </summary>
     public class GetRemarkCriteria : CriteriaBase
     {
-        public int CustId { get; set; }
+        [SpParam(SqlParamName = "CustID")]
+        public int CustomerId { get; set; }
 
         public override string GetSettingKey()
         {

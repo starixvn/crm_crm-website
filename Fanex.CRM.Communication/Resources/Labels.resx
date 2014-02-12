@@ -237,4 +237,16 @@
   <data name="Communication_Logs_InsertSuccess" xml:space="preserve">
     <value>Insert communication log successfully!</value>
   </data>
+  <data name="Communication_Log_EmptyRemark" xml:space="preserve">
+    <value>Remark is mandatory!</value>
+  </data>
+  <data name="Communication_Log_EmptyReview" xml:space="preserve">
+    <value>Review is mandatory!</value>
+  </data>
+  <data name="Communication_Log_EmptySubject" xml:space="preserve">
+    <value>Subject is mandatory!</value>
+  </data>
+  <data name="Communication_Log_EmptySolution" xml:space="preserve">
+    <value>Solution is mandatory!</value>
+  </data>
 </root>

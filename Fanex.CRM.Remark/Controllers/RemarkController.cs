@@ -13,6 +13,7 @@ namespace Fanex.CRM.Remark.Controllers
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Remark.Criteria;
+    using Fanex.CRM.Remark.Models;
     using Fanex.CRM.Remark.Services.Implements;
     using Fanex.CRM.Remark.Services.Interfaces;
     using Fanex.NAP.Core.Business;
@@ -37,20 +38,26 @@ namespace Fanex.CRM.Remark.Controllers
 
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         [HttpGet]
-        public ActionResult Index(GetRemarkCriteria criteria)
+        public ActionResult Index(int customerId)
         {
-#if DEBUG
-            criteria.CustId = 398615;
-#endif
+            return View("~/Areas/Remark/Index.cshtml", customerId);
+        }
+
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [HttpGet]
+        public ActionResult GetRemarks(GetRemarkCriteria criteria)
+        {
             var remarks = _serviceInstance.GetRemarks(criteria);
-            return View("~/Areas/Remark/Index.cshtml", remarks);
+            remarks.CustId = criteria.CustomerId;
+
+            return Json(remarks, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
-        public ActionResult Update(UpdateRemarkCriteria criteria)
+        public ActionResult Update(RemarkDetail model)
         {
-            var result = _serviceInstance.UpdateRemarks(criteria);
+            var result = _serviceInstance.UpdateRemarks(model);
             return Json(result, JsonRequestBehavior.DenyGet);
         }
     }

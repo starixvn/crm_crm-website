@@ -220,6 +220,14 @@
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon-arrow-left.png" />
     <Content Include="Areas\Dashboard\Styles\Images\loader.jpg" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\OptionStatus.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\RemarkEditorContainer.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\SubjectAutoComplete.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\EditLogApplication.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\EditLogController.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
@@ -232,6 +240,11 @@
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogApplication.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogController.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogService.js" />
+    <Content Include="Areas\Remark\Scripts\Directives\LastRemarkEnterKeyUp.js" />
+    <Content Include="Areas\Remark\Scripts\Directives\RemarkRow.js" />
+    <Content Include="Areas\Remark\Scripts\RemarkController.js" />
+    <Content Include="Areas\Remark\Scripts\RemarkService.js" />
+    <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -313,6 +326,7 @@
     <None Include="Areas\Communication\ViewLog\Styles\Communication.less" />
     <None Include="Areas\Customer\DetailInfo\Styles\StyleSheet.less" />
     <None Include="Areas\Dashboard\Styles\StyleSheet.less" />
+    <None Include="Areas\Redemption\EditLog\Styles\Redemption.less" />
     <None Include="Areas\Redemption\InsertLog\Styles\Redemption.less" />
     <None Include="Areas\Redemption\ViewLog\Styles\Redemption.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />

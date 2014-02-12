@@ -60,7 +60,9 @@ var DashboardManager = function () {
                 self.CachedData.currentMenuTabIndex = 3;
                 break;
             case subMenuIdEnum.SpeciaRemark:
-                menuManager.goToURL('centerFr', window.rootUrl + 'Remark/Index');
+                menuManager.goToURL('centerFr', window.rootUrl + 'Remark/Index?' + $.param({
+                    customerId: customer.Id
+                }));
                 self.CachedData.currentMenuTabIndex = 4;
                 break;
             case subMenuIdEnum.Redemption:

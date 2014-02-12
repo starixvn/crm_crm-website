@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Remark.Models
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Remark detail class.
@@ -19,8 +20,8 @@ namespace Fanex.CRM.Remark.Models
     {
         public int CustId { get; set; }
 
-        public string Remark { get; set; }
+        public IList<string> SpecialRemarks { get; set; }
 
-        public bool IsSpecial { get; set; }
+        public IList<string> Remarks { get; set; }
     }
 }
