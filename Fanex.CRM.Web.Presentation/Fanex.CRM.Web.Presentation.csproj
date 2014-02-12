@@ -332,7 +332,6 @@
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
-    <Content Include="Views\Customer\Styles\Images\icon_button02.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
     <Content Include="Views\Customer\Styles\StyleSheet.css" />
