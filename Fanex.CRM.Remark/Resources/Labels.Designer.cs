@@ -61,6 +61,24 @@ namespace Fanex.CRM.Remark.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alert.
+        /// </summary>
+        public static string Alert {
+            get {
+                return ResourceManager.GetString("Alert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remark.
         /// </summary>
         public static string Remark {
@@ -79,6 +97,15 @@ namespace Fanex.CRM.Remark.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove remark.
+        /// </summary>
+        public static string RemoveRemark {
+            get {
+                return ResourceManager.GetString("RemoveRemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Special Remark.
         /// </summary>
         public static string SpecialRemark {
@@ -93,6 +120,15 @@ namespace Fanex.CRM.Remark.Resources {
         public static string SpecialRemarkPlaceHolder {
             get {
                 return ResourceManager.GetString("SpecialRemarkPlaceHolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update remark successfully!.
+        /// </summary>
+        public static string UpdateRemarkSuccess {
+            get {
+                return ResourceManager.GetString("UpdateRemarkSuccess", resourceCulture);
             }
         }
     }

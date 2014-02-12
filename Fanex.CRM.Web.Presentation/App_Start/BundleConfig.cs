@@ -34,7 +34,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/content/bootstrap/css/bootstrap.css",
                 "~/Content/site/common.less",
                 "~/Content/site/Message.less",
-                "~/Content/site/table.less",
+                //"~/Content/site/table.less",
                 "~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css",
                 "~/Content/site/customizeJqueryUI.less");
 
@@ -104,6 +104,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Redemption_ViewLog(ref bundles);
             RegisterBundles_Redemption_InsertLog(ref bundles);
             RegisterBundles_Redemption_EditLog(ref bundles);
+            RegisterBundles_Remark(ref bundles);
         }
 
         public static void RegisterBundles_TimePicker(ref BundleCollection bundles)
@@ -212,6 +213,19 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Redemption/EditLog/Styles").Include(
                 "~/Areas/Redemption/EditLog/Styles/Redemption.less"));
+        }
+
+        public static void RegisterBundles_Remark(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Remark/Scripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Remark/Scripts/RemarkApplication.js",
+                "~/Areas/Remark/Scripts/RemarkService.js",
+                "~/Areas/Remark/Scripts/RemarkController.js",
+                "~/Areas/Remark/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Remark/Styles").Include(
+                "~/Areas/Remark/Styles/remark.less"));
         }
     }
 
