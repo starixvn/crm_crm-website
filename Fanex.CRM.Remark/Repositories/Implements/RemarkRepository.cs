@@ -10,7 +10,6 @@
 namespace Fanex.CRM.Remark.Repositories.Implements
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Models;
@@ -30,12 +29,37 @@ namespace Fanex.CRM.Remark.Repositories.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Remark objects list.</returns>
-        public IEnumerable<RemarkDetail> GetRemarks(ICriteria criteria)
+        public RemarkDetail GetRemarks(ICriteria criteria)
         {
+            IList<string> specialRemarks = new List<string>();
+            IList<string> remarks = new List<string>();
+
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                return objectDB.Query<RemarkDetail>(criteria.GetSpParams());
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
+                {
+                    if (reader != null)
+                    {
+                        bool isSpecial;
+                        string remark;
+                        while (reader.Read())
+                        {
+                            isSpecial = Converter.ToBool(reader["IsSpecial"]);
+                            remark = Converter.ToString2(reader["Remark"]);
+                            if (isSpecial)
+                            {
+                                specialRemarks.Add(remark);
+                            }
+                            else
+                            {
+                                remarks.Add(remark);
+                            }
+                        }
+                    }
+                }
             }
+
+            return new RemarkDetail { SpecialRemarks = specialRemarks, Remarks = remarks };
         }
 
         /// <summary>

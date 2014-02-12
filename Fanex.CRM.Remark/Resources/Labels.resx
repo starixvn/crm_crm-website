@@ -117,16 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="Remark" xml:space="preserve">
     <value>Remark</value>
   </data>
   <data name="RemarkPlaceHolder" xml:space="preserve">
     <value>Click here to enter new remark</value>
   </data>
+  <data name="RemoveRemark" xml:space="preserve">
+    <value>Remove remark</value>
+  </data>
   <data name="SpecialRemark" xml:space="preserve">
     <value>Special Remark</value>
   </data>
   <data name="SpecialRemarkPlaceHolder" xml:space="preserve">
     <value>Click here to enter new special remark</value>
+  </data>
+  <data name="UpdateRemarkSuccess" xml:space="preserve">
+    <value>Update remark successfully!</value>
   </data>
 </root>
