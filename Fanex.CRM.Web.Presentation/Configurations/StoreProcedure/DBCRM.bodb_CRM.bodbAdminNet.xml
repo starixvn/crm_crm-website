@@ -19,15 +19,13 @@
   </Function>
   <Function Name="Redemption">
     <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Redemption_Log_Update" SpName="Acc_CRM_RedemptionLogUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Redemption_Log_Insert" SpName="Acc_CRM_RedemptionLogIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Redemption_Log_GetInfoById" SpName="Acc_CRM_RedemptionLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Redemption_Log_Update" SpName="Acc_CRM_RedemptionUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Redemption_Log_Insert" SpName="Acc_CRM_RedemptionIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Redemption_Log_GetInfoById" SpName="Acc_CRM_RedemptionSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Setting">
     <Setting Key="Setting_FeedbackTemplateSubject_Get" SpName="Acc_CRM_SubjectTemplateSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
-
-
 
   <Function Name="Feedback">
     <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -70,5 +68,10 @@
     <Setting Key="SettingRelationDel" SpName="Acc_CRM_SettingRelationDel" DbName="DBCRM.bodb_CRM.bodbAdminNet"/>
     <Setting Key="SettingRelationUpd" SpName="Acc_CRM_SettingRelationUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingUpd" SpName="Acc_CRM_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+  </Function>
+
+  <Function Name="Remark">
+    <Setting Key="Acc_CRM_CustomerRemarkSel" SpName="Acc_CRM_CustomerRemarkSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_CustomerRemarkUpd" SpName="Acc_CRM_CustomerRemarkUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>

@@ -11,7 +11,7 @@ hotKeyManager */
 insertLogApplication.controller('insertLogController', function ($scope,
     $http,
     $insertLogService) {
-    /* jshint maxstatements: 66 */
+    /* jshint maxstatements: 80 */
     $scope.communicationLog = {
         RunningNumber: 0,
         FeedbackDate: new Date(),
@@ -389,7 +389,7 @@ insertLogApplication.controller('insertLogController', function ($scope,
         $scope.updateLog();
     };
     /* jshint camelcase: false */
-    $scope.invokeHotKey_CtrlV = function () {
+    $scope.invokeHotKey_CtrlE = function () {
         $scope.verifyRelatedCustomer();
     };
     $scope.updateStartTime = function (selectedTime) {
@@ -457,6 +457,10 @@ insertLogApplication.controller('insertLogController', function ($scope,
     $scope.updateSelectedRespones = function (response) {
         $scope.communicationLog.Response = response;
     };
+    $scope.updateSelectedSubject = function (subject) {
+        $scope.communicationLog.Subject = subject;
+    };
+
     $scope.updateRemark = function (remark) {
         $scope.communicationLog.Remark = remark;
     };
@@ -465,6 +469,9 @@ insertLogApplication.controller('insertLogController', function ($scope,
     };
     $scope.updateSolution = function (solution) {
         $scope.communicationLog.Solution = solution;
+    };
+    $scope.updateEditFlag = function () {
+        $scope.isEditingRelatedCustomer = true;
     };
     $scope.insertLog = function () {
         $scope.isShowResultMessage = false;

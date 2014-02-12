@@ -569,14 +569,16 @@ renderRelated = function (row) {
         if (row.CustId > 0) {
             html = '<tr>\
                         <td id =' + row.CustId + ' value= ' + row.UserName + ' style="border: 0px;">\
-                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del txt-customer">' + row.UserName + '</a>\
+                                <a rel="friend" class="txt-customer">\
+                                    <span onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del"></span>' + row.UserName + '</a>\
                          </td>\
                      </tr>';
         }
         else {
             html = '<tr>\
                         <td id =' + row.CustId + ' value= ' + row.UserName + ' style="border: 0px;">\
-                                <a rel="friend" onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del txt-guest">' + row.UserName + '</a>\
+                                <a rel="friend" class="txt-guest">\
+                                    <span onclick="DeleteRelatedCust(' + row.CustId + ');" class="icon-del"></span>' + row.UserName + '</a>\
                         </td>\
                     </tr>';
         }
@@ -584,7 +586,8 @@ renderRelated = function (row) {
     else {
         html = '<tr class="invalidcustomers">\
                     <td id =' + row.CustId + ' value= ' + row.UserName + ' style="border: 0px;">\
-                            <a rel="friend" onclick="deleteAllInValidCustomers();" class="icon-del txt-invalid">' + row.UserName + '</a>\
+                            <a rel="friend" class="txt-invalid">\
+                                <span onclick="deleteAllInValidCustomers();" class="icon-del"></span>' + row.UserName + '</a>\
                     </td>\
                 </tr>';
     }

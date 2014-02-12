@@ -2,7 +2,7 @@
 /* global insertLogApplication,
 jlinq,
 keyboardManager */
- insertLogApplication.directive('subjectAutoComplete', function () {
+insertLogApplication.directive('subjectAutoComplete', function () {
     var suggestionItemNumber = 15;
     function bindingAutoSuggestionSubject(scope, element, attrs) {
         /* jshint unused: vars */
@@ -26,6 +26,10 @@ keyboardManager */
                     $(this).removeAutoComplete();
                 }
             }
+        });
+
+        element.change(function () {
+            scope.updateSelectedSubject(element.val());
         });
     }
 

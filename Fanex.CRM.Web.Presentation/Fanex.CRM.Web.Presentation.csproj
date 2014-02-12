@@ -190,7 +190,6 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\StartTime.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Communication\EditLog\Styles\Images\close.gif" />
-    <Content Include="Areas\Communication\EditLog\Styles\Images\del-icon.png" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\CommunicationTool.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Country.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\EndTime.js" />
@@ -208,7 +207,6 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogController.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogService.js" />
     <Content Include="Areas\Communication\InsertLog\Styles\Images\close.gif" />
-    <Content Include="Areas\Communication\InsertLog\Styles\Images\del-icon.png" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationApplication.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationController.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationDirective.js" />
@@ -221,6 +219,7 @@
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon-arrow-left.png" />
+    <Content Include="Areas\Dashboard\Styles\Images\loader.jpg" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
@@ -235,9 +234,11 @@
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogService.js" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
+    <Content Include="Content\site\Images\delete-icon.png" />
     <Content Include="Content\site\Images\error.png" />
     <Content Include="Content\site\Images\excel.png" />
     <Content Include="Content\site\Images\next-pre-icon-cal.png" />
+    <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
     <Content Include="Scripts\AgularJS\angular.js" />
@@ -311,6 +312,7 @@
     <None Include="Areas\Communication\InsertLog\Styles\InsertCommunicationLog.less" />
     <None Include="Areas\Communication\ViewLog\Styles\Communication.less" />
     <None Include="Areas\Customer\DetailInfo\Styles\StyleSheet.less" />
+    <None Include="Areas\Dashboard\Styles\StyleSheet.less" />
     <None Include="Areas\Redemption\InsertLog\Styles\Redemption.less" />
     <None Include="Areas\Redemption\ViewLog\Styles\Redemption.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
@@ -362,7 +364,6 @@
     <None Include="Content\site\customizeFanexGrid.less" />
     <None Include="Content\site\customizeJqueryUI.less" />
     <None Include="Content\site\mixins.less" />
-    <None Include="Content\site\image.less" />
     <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
@@ -459,9 +460,7 @@
     <Content Include="Content\site\Images\waiting7.gif" />
     <Content Include="Content\site\Images\WebResource.axd.png" />
     <Content Include="Content\site\Images\white-top-bottom.gif" />
-    <None Include="Content\site\input.less" />
     <None Include="Content\site\Message.less" />
-    <None Include="Content\site\reportgrid.less" />
     <None Include="Content\site\table.less" />
     <Content Include="Content\bootstrap\css\bootstrap-ie7.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css" />

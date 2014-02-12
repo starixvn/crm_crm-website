@@ -1,13 +1,11 @@
 ﻿"use strict";
 /* global insertLogApplication,
 sharedScriptManager,
-moment,
-crmConstants,
-viewResources,
-getRelatedCustomer,
+hotKeyManager,
+currentDate,
 customerId,
-verifyRelatedCustomer,
-hotKeyManager */
+crmConstants,
+viewResources */
 insertLogApplication.controller('insertLogController', function ($scope,
     $http,
     $insertLogService) {
@@ -18,6 +16,8 @@ insertLogApplication.controller('insertLogController', function ($scope,
         Remark: ''
     };
     $scope.statusList = null;
+    $scope.customerId = customerId;
+
     $scope.loadedFilter = [];
     $scope.feedbackSubjectTemplateList = [];
     $scope.feedbackSubjectTemplateTotalPage = 0;
@@ -96,6 +96,7 @@ insertLogApplication.controller('insertLogController', function ($scope,
         var numberOfLoadFilter = 1;
         if ($scope.loadedFilter.length >= numberOfLoadFilter &&
             $scope.isLoadedFeedbackSubjectTemplate) {
+            $scope.redemptionLog.Status = $scope.statusList[0];
             $scope.unblockUI();
         }
     };
@@ -104,6 +105,78 @@ insertLogApplication.controller('insertLogController', function ($scope,
     };
     $scope.updateSelectedDate = function (selectedDate) {
         $scope.redemptionLog.ClaimedTime = selectedDate;
+    };
+    $scope.updateSelectedStatus = function (status) {
+        $scope.redemptionLog.Status = status;
+    };
+    $scope.updateSelectedSubject = function (subject) {
+        $scope.redemptionLog.Subject = subject;
+    };
+    $scope.insertLog = function () {
+        $scope.BlockUI();
+        var insertLogCriteria = {
+            ClaimedTime: $scope.redemptionLog.ClaimedTime,
+            Subject: $scope.redemptionLog.Subject,
+            StatusId: $scope.redemptionLog.Status.Id,
+            Remark: $scope.redemptionLog.Remark,
+            CustomerId: $scope.customerId
+        };
+
+        if ($scope.validateInsertLogCriteria(insertLogCriteria)) {
+            $insertLogService.insertLog(insertLogCriteria)
+            .then(function (data) {
+                $scope.completedInsertLog(data.Result);
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.unblockUI();
+            });
+        } else {
+            $scope.unblockUI();
+        }
+    };
+    $scope.validateInsertLogCriteria = function (insertLogCriteria) {
+        var result = true;
+        if (insertLogCriteria.Subject === '') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Redemption_Log_EmptySubject;
+            result = false;
+        }
+
+        if (result && insertLogCriteria.Remark === '') {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Redemption_Log_EmptyRemark;
+            result = false;
+        }
+
+        if (result) {
+            $scope.isShowResultMessage = false;
+        }
+
+        $scope.$apply();
+        return result;
+    };
+    $scope.completedInsertLog = function (insertResult) {
+        parent.shouldReloadLogs = true;
+        $scope.isShowResultMessage = true;
+        $scope.isSuccess = insertResult.Code === crmConstants.Enums.Error.None;
+        $scope.resultMessage = insertResult.Message;
+        window.scroll(1, 1);
+        if ($scope.isSuccess) {
+            setTimeout(function () {
+                $scope.isShowResultMessage = false;
+            }, 3000);
+        }
+
+        $scope.unblockUI();
+    };
+    /* jshint camelcase: false */
+    $scope.invokeHotKey_CtrlS = function () {
+        $scope.insertLog();
     };
     $scope.unblockUI = function () {
         try {

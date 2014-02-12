@@ -1,6 +1,8 @@
 ﻿"use strict";
-/* global homeManager, menuManager */
+/* global homeManager, menuManager,
+hotKeyManager */
 /* exported dashboardManager */
+var dashboardManager;
 var DashboardManager = function () {
     var self = this;
 
@@ -15,7 +17,23 @@ var DashboardManager = function () {
     };
 
     self.CachedData = {
-        currentSubMenu: null
+        currentSubMenu: null,
+        subMenuTabIndex: {
+            Tab1: self.Enums.SubMenuId.Main,
+            Tab2: self.Enums.SubMenuId.Detail,
+            Tab3: self.Enums.SubMenuId.CommunicationLog,
+            Tab4: self.Enums.SubMenuId.SpeciaRemark,
+            Tab5: self.Enums.SubMenuId.Redemption
+        },
+        currentMenuTabIndex: 1,
+        maxMenuTabIndex: 5
+    };
+
+    self.initPage = function () {
+        hotKeyManager.CachedData.ActiveDocumentManager.push({
+            Value: self,
+            Id: "Dashboard"
+        });
     };
 
     self.dashboardMenuClick = function (subMenuId) {
@@ -27,24 +45,29 @@ var DashboardManager = function () {
                 menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
                     customerId: customer.Id
                 }));
+                self.CachedData.currentMenuTabIndex = 1;
                 break;
             case subMenuIdEnum.Detail:
                 menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
                     customerId: customer.Id
                 }));
+                self.CachedData.currentMenuTabIndex = 2;
                 break;
             case subMenuIdEnum.CommunicationLog:
                 menuManager.goToURL('centerFr', window.rootUrl + 'CommunicationLog/Index?' + $.param({
                     customerId: customer.Id
                 }));
+                self.CachedData.currentMenuTabIndex = 3;
                 break;
             case subMenuIdEnum.SpeciaRemark:
                 menuManager.goToURL('centerFr', window.rootUrl + 'Remark/Index');
+                self.CachedData.currentMenuTabIndex = 4;
                 break;
             case subMenuIdEnum.Redemption:
                 menuManager.goToURL('centerFr', window.rootUrl + 'Redemption/Index?' + $.param({
                     customerId: customer.Id
                 }));
+                self.CachedData.currentMenuTabIndex = 5;
                 break;
             default:
                 break;
@@ -52,6 +75,48 @@ var DashboardManager = function () {
 
         menuManager.setActiveClassForDasboarSubMenu(subMenuId);
     };
+    self.moveToPreviousTab = function () {
+        self.CachedData.currentMenuTabIndex--;
+        if (self.CachedData.currentMenuTabIndex < 1) {
+            self.CachedData.currentMenuTabIndex = self.CachedData.maxMenuTabIndex;
+        }
+
+        var subMenuId = self.CachedData.subMenuTabIndex["Tab" + self.CachedData.currentMenuTabIndex];
+        if ($("#" + subMenuId).length === 0 &&
+            subMenuId !== self.CachedData.currentSubMenu) {
+            subMenuId = self.moveToPreviousTab();
+        }
+
+        return subMenuId;
+    };
+    self.moveToNextTab = function () {
+        self.CachedData.currentMenuTabIndex++;
+        if (self.CachedData.maxMenuTabIndex < self.CachedData.currentMenuTabIndex) {
+            self.CachedData.currentMenuTabIndex = 1;
+        }
+
+        var subMenuId = self.CachedData.subMenuTabIndex["Tab" + self.CachedData.currentMenuTabIndex];
+        if ($("#" + subMenuId).length === 0 &&
+            subMenuId !== self.CachedData.currentSubMenu) {
+            subMenuId = self.moveToNextTab();
+        }
+
+        return subMenuId;
+    };
+
+    /* jshint camelcase: false */
+    self.invokeHotKey_CtrlComma = function () {
+        var subMenuId = self.moveToPreviousTab();
+        dashboardManager.dashboardMenuClick(subMenuId);
+    };
+    /* jshint camelcase: false */
+    self.invokeHotKey_CtrlPeriod = function () {
+        var subMenuId = self.moveToNextTab();
+        dashboardManager.dashboardMenuClick(subMenuId);
+    };
 };
 
-var dashboardManager = new DashboardManager();
+dashboardManager = new DashboardManager();
+$(document).ready(function () {
+    dashboardManager.initPage();
+});

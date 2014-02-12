@@ -187,7 +187,7 @@ var CustomerManager = function () {
             zIndex: 500,
             position: [2, 80],
             resizable: false,
-
+            modal: true,
             title: self.CacheData.ViewResources.SearchByGuest_DialogTitle,
             close: function (event, ui) {
                 /*jshint unused: vars */
