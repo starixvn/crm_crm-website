@@ -45,7 +45,7 @@ var DashboardManager = function () {
             self.CachedData.currentSubMenu = subMenuId;
             switch (subMenuId) {
                 case subMenuIdEnum.Main:
-                    menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
+                    menuManager.goToURL('centerFr', window.rootUrl + 'Dashboard/Index?' + $.param({
                         customerId: customer.Id
                     }));
                     self.CachedData.currentMenuTabIndex = 1;

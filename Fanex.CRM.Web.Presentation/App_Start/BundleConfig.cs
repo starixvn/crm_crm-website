@@ -105,6 +105,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Redemption_InsertLog(ref bundles);
             RegisterBundles_Redemption_EditLog(ref bundles);
             RegisterBundles_Remark(ref bundles);
+            RegisterBundles_Dashboard(ref bundles);
         }
 
         public static void RegisterBundles_TimePicker(ref BundleCollection bundles)
@@ -226,6 +227,23 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Remark/Styles").Include(
                 "~/Areas/Remark/Styles/remark.less"));
+        }
+
+        /// <summary>
+        /// Registers the bundles dashboard.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        public static void RegisterBundles_Dashboard(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/DashboardScripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Dashboard/Scripts/DashboardApplication.js",
+                "~/Areas/Dashboard/Scripts/DashboardService.js",
+                "~/Areas/Dashboard/Scripts/DashboardController.js",
+                "~/Areas/Dashboard/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/DashboardStyles").Include(
+                "~/Areas/Dashboard/Styles/StyleSheet.less"));
         }
     }
 

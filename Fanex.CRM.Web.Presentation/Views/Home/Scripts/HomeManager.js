@@ -1,8 +1,8 @@
 ﻿"use strict";
 /* global hotKeyManager,
 keyboardManager,
-leftPanelManager
-*/
+leftPanelManager,
+menuManager */
 /* exported shouldReloadLogs */
 var shouldReloadLogs = false;
 var HomeManager = function () {
@@ -222,6 +222,14 @@ var HomeManager = function () {
     self.invokeHotKey_CtrlK = function () {
         if (parent.dashboardManager) {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.SpeciaRemark);
+        }
+    };
+    self.invokeHotKey_CtrlH = function () {
+        menuManager.getDashboardMenu();
+    };
+    self.invokeHotKey_CtrlM = function () {
+        if (parent.dashboardManager) {
+            parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Main);
         }
     };
 };

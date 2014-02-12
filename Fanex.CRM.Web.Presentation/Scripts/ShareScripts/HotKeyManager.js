@@ -162,6 +162,16 @@
             return true;
         }
 
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_h]) {
+            self.invokeHotKey_CtrlH();
+            return true;
+        }
+
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_m]) {
+            self.invokeHotKey_CtrlM();
+            return true;
+        }
+
         if (self.CachedData.KeyPress[keyCodeEnums.Character_Comma]) {
             self.invokeHotKey_CtrlComma();
             return true;
@@ -290,6 +300,30 @@
                 activeDocumentManager.invokeHotKey_CtrlK();
             }
         }
+    };
+    self.invokeHotKey_CtrlH = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlH) === "function") {
+                self.CachedData.isInvokeHotKey = true;
+                activeDocumentManager.invokeHotKey_CtrlH();
+            }
+        }
+
+        return self.CachedData.isInvokeHotKey;
+    };
+    self.invokeHotKey_CtrlM = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlM) === "function") {
+                self.CachedData.isInvokeHotKey = true;
+                activeDocumentManager.invokeHotKey_CtrlM();
+            }
+        }
+
+        return self.CachedData.isInvokeHotKey;
     };
     self.invokeHotKey_CtrlComma = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;

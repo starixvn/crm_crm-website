@@ -219,6 +219,9 @@
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon-arrow-left.png" />
+    <Content Include="Areas\Dashboard\Scripts\DashboardApplication.js" />
+    <Content Include="Areas\Dashboard\Scripts\DashboardController.js" />
+    <Content Include="Areas\Dashboard\Scripts\DashboardService.js" />
     <Content Include="Areas\Dashboard\Styles\Images\loader.jpg" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
@@ -654,6 +657,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Dashboard\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
