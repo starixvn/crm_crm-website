@@ -13,7 +13,7 @@
     <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Styles/FanexMultipleSelect")
-    @Styles.Render("~/Areas/Communication/EditLog/Styles")
+    @Styles.Render("~/Areas/Communication/EditLogStyles")
 </head>
 <body>
     <div class="main popup container editlogcontroller" data-ng-controller="editLogController">
@@ -248,7 +248,7 @@
     <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
     <script type="text/javascript" src="~/Scripts/common.js"></script>
     <script type="text/javascript" src="~/Scripts/InputBox/jquery.fcbkcomplete.js"></script>
-    @Scripts.Render("~/Areas/Communication/EditLog/Scripts")
+    @Scripts.Render("~/Areas/Communication/EditLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")'; 
         var currentTime = '@DateTime.Now'; 

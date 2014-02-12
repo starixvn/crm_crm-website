@@ -8,7 +8,9 @@ viewResources,
 getRelatedCustomer,
 verifyRelatedCustomer,
 hotKeyManager */
-editLogApplication.controller('editLogController', function ($scope,
+editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService',
+function (
+    $scope,
     $http,
     $editLogService) {
     /* jshint maxstatements: 80 */
@@ -558,4 +560,4 @@ editLogApplication.controller('editLogController', function ($scope,
             Id: "CustomerCommunicationLogs_Edit"
         });
     });
-});
+}]);

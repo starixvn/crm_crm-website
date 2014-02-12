@@ -4,7 +4,9 @@ sharedScriptManager,
 hotKeyManager,
 crmConstants,
 viewResources */
-editLogApplication.controller('editLogController', function ($scope,
+editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService', '$bootstrappedData',
+function (
+    $scope,
     $http,
     $editLogService,
     $bootstrappedData) {
@@ -185,4 +187,4 @@ editLogApplication.controller('editLogController', function ($scope,
     angular.element(document).ready(function () {
         $scope.initController();
     });
-});
+}]);

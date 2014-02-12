@@ -6,7 +6,9 @@ viewResources,
 currentDate,
 crmConstants,
 initFromDate */
-redemptionViewLogApplication.controller('redemptionViewLogController', function ($scope,
+redemptionViewLogApplication.controller('redemptionViewLogController', ['$scope', '$http', '$redemptionViewLogService',
+function (
+    $scope,
     $http,
     $redemptionViewLogService) {
     $scope.customerId = customerId;
@@ -152,4 +154,4 @@ redemptionViewLogApplication.controller('redemptionViewLogController', function 
     angular.element(document).ready(function () {
         $scope.initController();
     });
-});
+}]);

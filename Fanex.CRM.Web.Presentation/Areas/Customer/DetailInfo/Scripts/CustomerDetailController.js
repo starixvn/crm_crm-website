@@ -4,7 +4,9 @@ customerDetail,
 crmConstants,
 viewResources,
 hotKeyManager */
-customerDetailApplication.controller('customerDetailController', function ($scope,
+customerDetailApplication.controller('customerDetailController', ['$scope', '$http', '$customerDetailService',
+function (
+    $scope,
     $http,
     $customerDetailService) {
     $scope.customerDetail = customerDetail;
@@ -390,4 +392,4 @@ customerDetailApplication.controller('customerDetailController', function ($scop
             Id: "CustomerInfoDetail"
         });
     });
-});
+}]);

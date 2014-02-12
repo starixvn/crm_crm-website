@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global redemptionViewLogApplication */
-redemptionViewLogApplication.factory('$redemptionViewLogService', function ($http, $q) {
+redemptionViewLogApplication.factory('$redemptionViewLogService', ['$http', '$q',
+function ($http, $q) {
     var serviceInstance = {};
 
     serviceInstance.getAllStatus = function () {
@@ -47,4 +48,4 @@ redemptionViewLogApplication.factory('$redemptionViewLogService', function ($htt
     };
 
     return serviceInstance;
-});
+}]);

@@ -6,7 +6,9 @@ currentDate,
 customerId,
 crmConstants,
 viewResources */
-insertLogApplication.controller('insertLogController', function ($scope,
+insertLogApplication.controller('insertLogController', ['$scope', '$http', '$insertLogService',
+function (
+    $scope,
     $http,
     $insertLogService) {
     $scope.redemptionLog = {
@@ -193,4 +195,4 @@ insertLogApplication.controller('insertLogController', function ($scope,
     angular.element(document).ready(function () {
         $scope.initController();
     });
-});
+}]);

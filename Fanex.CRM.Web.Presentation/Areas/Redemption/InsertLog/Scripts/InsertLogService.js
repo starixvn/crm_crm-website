@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global insertLogApplication */
-insertLogApplication.factory('$insertLogService', function ($http, $q) {
+insertLogApplication.factory('$insertLogService', ['$http', '$q', 
+function ($http, $q) {
     var serviceInstance = {};
     serviceInstance.getAllStatus = function () {
         var deferred = $q.defer();
@@ -87,4 +88,4 @@ insertLogApplication.factory('$insertLogService', function ($http, $q) {
         return deferred.promise;
     };
     return serviceInstance;
-});
+}]);
