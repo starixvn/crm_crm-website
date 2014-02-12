@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/autocomplete/styles.css")" />
-    @Styles.Render("~/Areas/Redemption/EditLog/Styles")
+    @Styles.Render("~/Areas/Redemption/EditLogStyles")
 </head>
 <body>
     <div class="main popup container" data-ng-controller="editLogController">
@@ -78,7 +78,7 @@
     <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
     <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
     <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
-    @Scripts.Render("~/Areas/Redemption/EditLog/Scripts")
+    @Scripts.Render("~/Areas/Redemption/EditLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTime.Now';

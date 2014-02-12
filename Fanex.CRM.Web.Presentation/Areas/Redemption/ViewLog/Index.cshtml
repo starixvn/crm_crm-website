@@ -13,7 +13,7 @@
     @Styles.Render("~/site/common")
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Areas/Redemption/ViewLog/Styles")
+    @Styles.Render("~/Areas/Redemption/ViewLogStyles")
 </head>
 <body>
     <div class="container main" data-ng-controller="redemptionViewLogController">
@@ -62,7 +62,7 @@
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    @Scripts.Render("~/Areas/Redemption/ViewLog/Scripts")
+    @Scripts.Render("~/Areas/Redemption/ViewLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 

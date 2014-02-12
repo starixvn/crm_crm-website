@@ -86,7 +86,7 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/Scripts/FanexMultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
 
-            bundles.Add(new ScriptBundle("~/Areas/Customer/DetailInfo/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/DetailCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
@@ -119,14 +119,14 @@ namespace Fanex.CRM.Web.View.App_Start
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_CommunicationLog_ViewLog(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Communication/ViewLog/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Communication/ViewLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationApplication.js",
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationService.js",
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationController.js",
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationDirective.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Communication/ViewLog/Styles").Include(
+            bundles.Add(new StyleBundle("~/Areas/Communication/ViewLogStyles").Include(
                 "~/Areas/Communication/ViewLog/Styles/Communication.less"));
         }
 
@@ -136,14 +136,14 @@ namespace Fanex.CRM.Web.View.App_Start
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Communication/EditLog/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Communication/EditLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogService.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogController.js",
                 "~/Areas/Communication/EditLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Communication/EditLog/Styles").Include(
+            bundles.Add(new StyleBundle("~/Areas/Communication/EditLogStyles").Include(
                 "~/Areas/Communication/EditLog/Styles/EditCommunicationLog.less"));
         }
 
@@ -153,14 +153,14 @@ namespace Fanex.CRM.Web.View.App_Start
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_CommunicationLog_Insert(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Communication/InsertLog/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Communication/InsertLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",
                 "~/Areas/Communication/InsertLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Communication/InsertLog/Styles").Include(
+            bundles.Add(new StyleBundle("~/Areas/Communication/InsertLogStyles").Include(
                 "~/Areas/Communication/InsertLog/Styles/InsertCommunicationLog.less"));
         }
 
@@ -170,14 +170,14 @@ namespace Fanex.CRM.Web.View.App_Start
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_Redemption_ViewLog(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Redemption/ViewLog/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Redemption/ViewLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogApplication.js",
                 "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogService.js",
                 "~/Areas/Redemption/ViewLog/Scripts/RedemptionViewLogController.js",
                 "~/Areas/Redemption/ViewLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Redemption/ViewLog/Styles").Include(
+            bundles.Add(new StyleBundle("~/Areas/Redemption/ViewLogStyles").Include(
                 "~/Areas/Redemption/ViewLog/Styles/Redemption.less"));
         }
 
@@ -187,14 +187,14 @@ namespace Fanex.CRM.Web.View.App_Start
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_Redemption_InsertLog(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Redemption/InsertLog/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Redemption/InsertLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Redemption/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Redemption/InsertLog/Scripts/InsertLogService.js",
                 "~/Areas/Redemption/InsertLog/Scripts/InsertLogController.js",
                 "~/Areas/Redemption/InsertLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Redemption/InsertLog/Styles").Include(
+            bundles.Add(new StyleBundle("~/Areas/Redemption/InsertLogStyles").Include(
                 "~/Areas/Redemption/InsertLog/Styles/Redemption.less"));
         }
 
@@ -204,14 +204,14 @@ namespace Fanex.CRM.Web.View.App_Start
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_Redemption_EditLog(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Redemption/EditLog/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Redemption/EditLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Redemption/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Redemption/EditLog/Scripts/EditLogService.js",
                 "~/Areas/Redemption/EditLog/Scripts/EditLogController.js",
                 "~/Areas/Redemption/EditLog/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/Redemption/EditLog/Styles").Include(
+            bundles.Add(new StyleBundle("~/Areas/Redemption/EditLogStyles").Include(
                 "~/Areas/Redemption/EditLog/Styles/Redemption.less"));
         }
 

@@ -3,7 +3,9 @@
 communicationLogs, 
 hotKeyManager,
 viewResources */
-communicationApplication.controller('communicationController', function ($scope,
+communicationApplication.controller('communicationController', ['$scope', '$http', '$communicationService',
+function (
+    $scope,
     $http,
     $communicationService) {
     $scope.logs = communicationLogs ? communicationLogs.Logs : null;
@@ -91,4 +93,4 @@ communicationApplication.controller('communicationController', function ($scope,
     angular.element(document).ready(function () {
         $scope.initController();
     });
-});
+}]);
