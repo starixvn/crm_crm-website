@@ -766,18 +766,18 @@ function getAutoFeedbackSubject() {
 }
 
 function downup(buttonId, detailBoxid) {
-    var showDetail = $('#' + buttonId).hasClass('updown') ? true : false;
+    var showDetail = $('#' + buttonId).hasClass('icon-expand') ? true : false;
 
     if (showDetail) {
         $('.' + detailBoxid).addClass('hidden');
 
-        $('#' + buttonId).addClass('downup');
-        $('#' + buttonId).removeClass('updown');
+        $('#' + buttonId).addClass('icon-collapse');
+        $('#' + buttonId).removeClass('icon-expand');
     }
     else {
         $('.' + detailBoxid).removeClass('hidden');
 
-        $('#' + buttonId).addClass('updown');
-        $('#' + buttonId).removeClass('downup');
+        $('#' + buttonId).addClass('icon-expand');
+        $('#' + buttonId).removeClass('icon-collapse');
     }
 }
