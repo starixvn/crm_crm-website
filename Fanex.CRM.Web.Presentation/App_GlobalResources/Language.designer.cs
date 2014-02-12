@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are some changes on customer information! Are you sure you want to ignore these changes?.
+        ///   Looks up a localized string similar to There are some changes on customer information! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         internal static string Confirm_Ignore_EditCustomer_Changes {
             get {

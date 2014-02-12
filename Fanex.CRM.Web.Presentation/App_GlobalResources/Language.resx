@@ -259,6 +259,6 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>Please search customer first!</value>
   </data>
   <data name="Confirm_Ignore_EditCustomer_Changes" xml:space="preserve">
-    <value>There are some changes on customer information! Are you sure you want to ignore these changes?</value>
+    <value>There are some changes on customer information! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
 </root>

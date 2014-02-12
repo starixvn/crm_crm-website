@@ -1,7 +1,9 @@
 ﻿"use strict";
 /* global customerApplication,
 customerManager, 
-hotKeyManager */
+hotKeyManager,
+keyboardManager,
+viewResources */
 customerApplication.controller('customerController', ['$scope', '$http', '$customerService',
     function ($scope,
         $http,
