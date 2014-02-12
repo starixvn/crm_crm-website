@@ -34,7 +34,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/content/bootstrap/css/bootstrap.css",
                 "~/Content/site/common.less",
                 "~/Content/site/Message.less",
-                "~/Content/site/table.less",
+                //"~/Content/site/table.less",
                 "~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css",
                 "~/Content/site/customizeJqueryUI.less");
 
