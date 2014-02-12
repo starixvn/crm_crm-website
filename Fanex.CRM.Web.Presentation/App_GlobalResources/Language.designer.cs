@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are some changes on customer information! Are you sure you want to ignore these changes?.
+        /// </summary>
+        internal static string Confirm_Ignore_EditCustomer_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_EditCustomer_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact/MSN/Skype/Email/Phone.
         /// </summary>
         internal static string ContactMSNSKypeEmail {
