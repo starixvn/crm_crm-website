@@ -41,16 +41,16 @@
             <div class="row title group-header" data-ng-click="isShowRemark = !isShowRemark">@Labels.Remark</div>
             <div class="row content" data-ng-show="isShowRemark">
                 <ul class="list-remark col-xs-11 col-sm-11 col-md-11">
-                    <li data-ng-repeat="remark in remarks.Remarks track by $index">
+                    <li data-ng-repeat="remark in remarks.NormalRemarks track by $index">
                         <div class="col-xs-11 col-sm-11 col-md-11">
                             <span>{{$index + 1}}.</span>
-                            <input type="text" class="textbox-remark" data-ng-model="remarks.Remarks[$index]" />
+                            <input type="text" class="textbox-remark" data-ng-model="remarks.NormalRemarks[$index]" />
                         </div>
                         <span class="icon-del" data-ng-click="deleteRemark(false, $index)"></span>
                     </li>
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11">
-                            <span>{{remarks.Remarks.length + 1}}.</span>
+                            <span>{{remarks.NormalRemarks.length + 1}}.</span>
                             <input type="text" class="textbox-remark" defaulttext="@Labels.RemarkPlaceHolder"
                                 data-ng-model="lastRemark"
                                 on-enter-keyup="insertRemark"
@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/CommomScripts")  
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     @Scripts.Render("~/Areas/Remark/RemarkScripts")
     <script type="text/javascript">

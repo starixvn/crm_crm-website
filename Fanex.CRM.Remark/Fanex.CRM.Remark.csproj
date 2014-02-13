@@ -58,7 +58,7 @@
     <Compile Include="Controllers\RemarkController.cs" />
     <Compile Include="Criteria\GetRemarkCriteria.cs" />
     <Compile Include="Criteria\UpdateRemarkCriteria.cs" />
-    <Compile Include="Models\RemarkDetail.cs" />
+    <Compile Include="Models\Remarks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\RemarkRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRemarkRepository.cs" />
