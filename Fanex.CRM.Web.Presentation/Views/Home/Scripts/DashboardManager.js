@@ -12,7 +12,8 @@ var DashboardManager = function () {
             Detail: 'liDetail',
             CommunicationLog: 'liCommnunicationLog',
             SpeciaRemark: 'liSpecialRemark',
-            Redemption: 'liRedemption'
+            Redemption: 'liRedemption',
+            ActivityLog: 'liActivityLog'
         }
     };
 
@@ -23,10 +24,11 @@ var DashboardManager = function () {
             Tab2: self.Enums.SubMenuId.Detail,
             Tab3: self.Enums.SubMenuId.CommunicationLog,
             Tab4: self.Enums.SubMenuId.SpeciaRemark,
-            Tab5: self.Enums.SubMenuId.Redemption
+            Tab5: self.Enums.SubMenuId.Redemption,
+            Tab6: self.Enums.SubMenuId.ActivityLog
         },
         currentMenuTabIndex: 1,
-        maxMenuTabIndex: 5,
+        maxMenuTabIndex: 6,
         subMenuId: null
     };
 
@@ -72,6 +74,12 @@ var DashboardManager = function () {
                     customerId: customer.Id
                 }));
                 self.CachedData.currentMenuTabIndex = 5;
+                break;
+            case subMenuIdEnum.ActivityLog:
+                menuManager.goToURL('centerFr', window.rootUrl + 'ActivityLog/Index?' + $.param({
+                    customerId: customer.Id
+                }));
+                self.CachedData.currentMenuTabIndex = 6;
                 break;
             default:
                 break;

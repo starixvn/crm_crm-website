@@ -330,6 +330,8 @@
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Index.cshtml" />
+    <None Include="Areas\ActionLog\SettingLog\Styles\settingLog.less" />
     <None Include="Areas\Communication\EditLog\Styles\EditCommunicationLog.less" />
     <None Include="Areas\Communication\InsertLog\Styles\InsertCommunicationLog.less" />
     <None Include="Areas\Communication\ViewLog\Styles\Communication.less" />
@@ -355,9 +357,9 @@
     <Content Include="Areas\Communication\Web.config" />
     <Content Include="Areas\Communication\EditLog\Index.cshtml" />
     <Content Include="Areas\Communication\InsertLog\Index.cshtml" />
-    <Content Include="Areas\ActivityLog\Index.cshtml" />
-    <Content Include="Areas\ActivityLog\Web.config" />
-    <None Include="Areas\ActivityLog\Styles\activityLog.less" />
+    <Content Include="Areas\ActionLog\ActivityLog\Index.cshtml" />
+    <Content Include="Areas\ActionLog\Web.config" />
+    <None Include="Areas\ActionLog\ActivityLog\Styles\activityLog.less" />
     <None Include="Areas\Customer\ShortInfo\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
     <Content Include="Areas\Dashboard\Index.cshtml" />
@@ -671,9 +673,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fanex.CRM.ActivityLog\Fanex.CRM.ActivityLog.csproj">
+    <ProjectReference Include="..\Fanex.CRM.ActivityLog\Fanex.CRM.ActionLog.csproj">
       <Project>{D37120A9-532E-4C40-A6E6-EAFACCA8AED8}</Project>
-      <Name>Fanex.CRM.ActivityLog</Name>
+      <Name>Fanex.CRM.ActionLog</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Customer\Fanex.CRM.Customer.csproj">
       <Project>{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}</Project>
