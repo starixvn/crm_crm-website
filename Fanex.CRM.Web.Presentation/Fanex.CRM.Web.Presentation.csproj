@@ -222,7 +222,10 @@
     <Content Include="Areas\Dashboard\Scripts\DashboardApplication.js" />
     <Content Include="Areas\Dashboard\Scripts\DashboardController.js" />
     <Content Include="Areas\Dashboard\Scripts\DashboardService.js" />
+    <Content Include="Areas\Dashboard\Scripts\Directives\CommunicationLogsContainer.js" />
+    <Content Include="Areas\Dashboard\Scripts\Directives\RedemptionLogsContainer.js" />
     <Content Include="Areas\Dashboard\Styles\Images\loader.jpg" />
+    <Content Include="Areas\Dashboard\Styles\Images\MaxPercentStatus.png" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\OptionStatus.js" />
@@ -231,7 +234,9 @@
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogApplication.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogController.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogService.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\OptionStatus.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogApplication.js" />
@@ -253,6 +258,7 @@
     <Content Include="Content\site\Images\delete-icon.png" />
     <Content Include="Content\site\Images\error.png" />
     <Content Include="Content\site\Images\excel.png" />
+    <Content Include="Content\site\Images\loading100x100.gif" />
     <Content Include="Content\site\Images\next-pre-icon-cal.png" />
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
@@ -335,6 +341,7 @@
     <None Include="Areas\Redemption\InsertLog\Styles\Redemption.less" />
     <None Include="Areas\Redemption\ViewLog\Styles\Redemption.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
+    <None Include="Content\site\reportgrid.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
@@ -659,7 +666,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Dashboard\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

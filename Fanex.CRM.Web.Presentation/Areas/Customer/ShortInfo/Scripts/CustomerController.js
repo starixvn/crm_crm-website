@@ -57,14 +57,14 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             OtherSportsDangerLevel: 0,
             RefCode: [],
             Remark2: "",
-        UplineInfo: [],
-        SelectedLanguages: ''
+            UplineInfo: [],
+            SelectedLanguages: ''
         };
 
-    $scope.oldCustomer = null;
+        $scope.oldCustomer = null;
         $scope.isShowCommunicationTool = true;
         $scope.isShowDetail = true;
-    $scope.oldLanguages = '';
+        $scope.oldLanguages = undefined;
         $scope.searchUplineInfo = function (username) {
             customerManager.updateTextboxUsername(username);
             $scope.getCustomerInfoByUsername(customerManager.getCustomerInfoByUsernameParams());
@@ -73,40 +73,40 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
         $scope.getCustomerInfoByUsername = function (getCustomerInfoParams) {
             $scope.BlockUI();
             $customerService.getCustomerInfoByUsername(getCustomerInfoParams)
-            .then(function (data) {
-                var customer = data.Result;
-                var isHavingData = customerManager.checkCustomerInfoResult(customer);
-                if (isHavingData) {
-                    $scope.customer = customer;
-                    $scope.oldCustomer = angular.copy($scope.customer);
-                }
+        .then(function (data) {
+            var customer = data.Result;
+            var isHavingData = customerManager.checkCustomerInfoResult(customer);
+            if (isHavingData) {
+                $scope.customer = customer;
+                $scope.oldCustomer = angular.copy($scope.customer);
+            }
 
-                customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.unblockUI();
-            });
+            customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
+        },
+        function (data) {
+            /* jshint unused: vars */
+            $scope.unblockUI();
+        });
         };
         $scope.getGuestCustomerInfoByUsername = function (getCustomerInfoParams) {
             $scope.BlockUI();
             $customerService.getCustomerInfoByUsername(getCustomerInfoParams)
-            .then(function (data) {
-                var customer = data.Result;
-                var isHavingData = customerManager.checkGuestCustomerInfoResult(customer);
-                if (isHavingData) {
-                    $scope.customer = customer;
-                    $scope.oldCustomer.SiteSetting.Id = parseInt(customerManager.DOMElements.dropdownSite.val());
-                    $scope.oldCustomer = angular.copy($scope.customer);
-                }
+        .then(function (data) {
+            var customer = data.Result;
+            var isHavingData = customerManager.checkGuestCustomerInfoResult(customer);
+            if (isHavingData) {
+                $scope.customer = customer;
+                $scope.oldCustomer.SiteSetting.Id = parseInt(customerManager.DOMElements.dropdownSite.val());
+                $scope.oldCustomer = angular.copy($scope.customer);
+            }
 
-                customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
-                $scope.unblockUI();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.unblockUI();
-            });
+            customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
+            $scope.unblockUI();
+        },
+        function (data) {
+            /* jshint unused: vars */
+            $scope.unblockUI();
+        });
         };
         $scope.viewCRMInfo = function () {
             var url = '../Customer/EditCRMInfo?' + $.param({
@@ -138,36 +138,43 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             parent.menuManager.goToURL('centerFr', url);
         };
         $scope.updateCustomerInfo = function () {
+            if (parent.homeManager.CachedData.isChangingData === true) {
+                parent.homeManager.showConfirmIgnoreChange($scope.updateCustomerInfoAfterPreventUnsavedAction);
+                return;
+            }
+
+            $scope.updateCustomerInfoAfterPreventUnsavedAction();
+        };
+        $scope.updateCustomerInfoAfterPreventUnsavedAction = function () {
             $scope.BlockUI();
             var updatedParams = customerManager.getUpdatedCustomerInfoParams($scope.customer);
-        $scope.customer.SiteSetting.Id = updatedParams.SiteSettingId;
-        $scope.customer.Country.Id = updatedParams.CountryId;
 
-        $scope.oldCustomer.SiteSetting.Id = updatedParams.SiteSettingId;
-        $scope.oldCustomer.Country.Id = updatedParams.CountryId;
-        $scope.oldLanguages = customerManager.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(",");
+            $scope.customer.SiteSetting.Id = updatedParams.SiteSettingId;
+            $scope.customer.Country.Id = updatedParams.CountryId;
+            $scope.oldCustomer = angular.copy($scope.customer);
+
+            $scope.oldLanguages = customerManager.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(",");
             $customerService.updateCustomerInfo(updatedParams)
-            .then(function (data) {
-                var updateResult = data.Result;
-                customerManager.ShowUpdateResult(updateResult);
-                parent.homeManager.CachedData.isChangingData = false;
-                $scope.unblockUI();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.unblockUI();
-            });
+                .then(function (data) {
+                    var updateResult = data.Result;
+                    customerManager.ShowUpdateResult(updateResult);
+                    parent.homeManager.CachedData.isChangingDataLeftPanel = false;
+                    $scope.unblockUI();
+                },
+                function (data) {
+                    /* jshint unused: vars */
+                    $scope.unblockUI();
+                });
         };
+        $scope.textBoxKeyUp = function (e) {
+            e = (e) ? e : window.event;
+            var key = (e.keyCode) ? e.keyCode : e.which;
+            if (key === keyboardManager.Enums.KeyCode.Enter) {
+                $scope.updateCustomerInfo();
+            }
 
-    $scope.textBoxKeyUp = function (e) {
-        e = (e) ? e : window.event;
-        var key = (e.keyCode) ? e.keyCode : e.which;
-        if (key === keyboardManager.Enums.KeyCode.Enter) {
-            $scope.updateCustomerInfo();
-        }
-
-        return;
-    };
+            return;
+        };
         $scope.editPersonalInfo = function (textbox) {
             $(textbox).focus();
         };
@@ -195,8 +202,8 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             customerManager.enableGuestSearch();
         };
         angular.element(document).ready(function () {
-        $scope.$watch(function ($scope) {
-            if ($scope.oldCustomer &&
+            $scope.$watch(function ($scope) {
+                if ($scope.oldCustomer &&
                 $scope.customer &&
                 ($scope.oldCustomer.SiteSetting.Id !== $scope.customer.SiteSetting.Id ||
                 $scope.oldCustomer.Country.Id !== $scope.customer.Country.Id ||
@@ -228,14 +235,14 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 $scope.oldCustomer.PersonalInfoContact[1] !== $scope.customer.PersonalInfoContact[1] ||
                 $scope.oldCustomer.PersonalInfoContact[2] !== $scope.customer.PersonalInfoContact[2] ||
                 $scope.oldCustomer.PersonalInfoContact[3] !== $scope.customer.PersonalInfoContact[3])) {
-                parent.homeManager.CachedData.isChangingData = true;
-                parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_EditCustomer_Changes;
-            } else {
-                parent.homeManager.CachedData.isChangingData = false;
-            }
-        });
+                    parent.homeManager.CachedData.isChangingDataLeftPanel = true;
+                    parent.homeManager.CachedData.ignoreConfirmMessageLeftPanel = viewResources.Confirm_Ignore_EditCustomer_ChangesLeftPanel;
+                } else {
+                    parent.homeManager.CachedData.isChangingDataLeftPanel = false;
+                }
+            });
 
-        customerManager.CacheData.controllerScope = $scope;
+            customerManager.CacheData.controllerScope = $scope;
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,
                 Id: "CustomerInfo"

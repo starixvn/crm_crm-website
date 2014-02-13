@@ -61,11 +61,74 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Claimed Time.
+        /// </summary>
+        public static string Claimed_Time {
+            get {
+                return ResourceManager.GetString("Claimed_Time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Communication Log.
+        /// </summary>
+        public static string Edit_Communication_Log {
+            get {
+                return ResourceManager.GetString("Edit_Communication_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Redemption Log.
+        /// </summary>
+        public static string Edit_Redemption_Log {
+            get {
+                return ResourceManager.GetString("Edit_Redemption_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feedback Date.
+        /// </summary>
+        public static string Feedback_Date {
+            get {
+                return ResourceManager.GetString("Feedback_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handled By.
+        /// </summary>
+        public static string Handled_By {
+            get {
+                return ResourceManager.GetString("Handled_By", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to information verified.
         /// </summary>
         public static string information_verified {
             get {
                 return ResourceManager.GetString("information_verified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last 10 Communication Log.
+        /// </summary>
+        public static string Last_10_Communication_Log {
+            get {
+                return ResourceManager.GetString("Last_10_Communication_Log", resourceCulture);
             }
         }
         
@@ -79,11 +142,74 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main Category.
+        /// </summary>
+        public static string Main_Category {
+            get {
+                return ResourceManager.GetString("Main_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent Redemption Activity.
+        /// </summary>
+        public static string Recent_Redemption_Activity {
+            get {
+                return ResourceManager.GetString("Recent_Redemption_Activity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviewed By.
+        /// </summary>
+        public static string Reviewed_By {
+            get {
+                return ResourceManager.GetString("Reviewed_By", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running Number.
+        /// </summary>
+        public static string Running_Number {
+            get {
+                return ResourceManager.GetString("Running_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Special Remark.
         /// </summary>
         public static string Special_Remark {
             get {
                 return ResourceManager.GetString("Special_Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub Category.
+        /// </summary>
+        public static string Sub_Category {
+            get {
+                return ResourceManager.GetString("Sub_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject.
+        /// </summary>
+        public static string Subject {
+            get {
+                return ResourceManager.GetString("Subject", resourceCulture);
             }
         }
     }

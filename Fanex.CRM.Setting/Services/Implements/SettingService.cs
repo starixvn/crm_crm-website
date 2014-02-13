@@ -78,7 +78,6 @@ namespace Fanex.CRM.Setting.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(string.Format(Labels.Error_GetSetting, ex.Message, criteria.SettingId));
             }
 
             return setting;
@@ -104,7 +103,6 @@ namespace Fanex.CRM.Setting.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(string.Format(Labels.Error_GetAllSetting, ex.Message));
             }
 
             return allSetting;
@@ -164,7 +162,6 @@ namespace Fanex.CRM.Setting.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(string.Format(Labels.Error_GetAllSite, ex.Message));
             }
 
             return result;
@@ -691,12 +688,6 @@ namespace Fanex.CRM.Setting.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                var errorMessage = string.Format(
-                       Labels.Error_GetSettingRelationByName,
-                       ex.Message,
-                       criteria.SettingName,
-                       criteria.ParentId);
-                Helper.SendMailErrorNotice(errorMessage);
             }
 
             return result;

@@ -11,6 +11,8 @@ var deletedFeedback;
 
 //Contain the template
 var maxHeightOfPopUp = ($(window).height() + 50);
+var maxWidthOfPopUp = ($(window).width());
+
 // -- Calendar --- //
 function SetupCalendar(arrDateValues, arrIds) {
     for (var i = 0; i < arrIds.length; i++) {
@@ -55,7 +57,7 @@ function loadSubItem(obj, target, currValue) {
 
 function openEditFeedback(url) {
     try {
-        parent.OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
+        parent.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, function () {
             deletedFeedback.loadDeletedFeedback(false);
         });
     } catch (e) { }
@@ -85,7 +87,7 @@ deletedFeedback = {
     statusId: 0,
     isReviewd: false,
     responseId: 0,
-    gridHeight: 120,
+    gridHeight: 158,
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = deletedFeedback.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;

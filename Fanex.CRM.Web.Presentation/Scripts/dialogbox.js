@@ -1,7 +1,18 @@
 ﻿///// <reference path="jquery-ui-1.8.6.custom.min.js" />
 /// <reference path="../CRM/Feedback/Styles/ui-start/jquery-ui-1.8.6.custom.css" />
 var currentExecFrame = null;
-function OpenPopup(url, title, width, height, modal, resizable, currWindow, duration, fnRecall, fnOnClose) {
+function OpenPopup(url,
+    title,
+    width,
+    height,
+    modal,
+    resizable,
+    currWindow,
+    duration,
+    fnRecall,
+    fnOnClose,
+    position,
+    beforeCloseEvent) {
     $("#dialog-modal").dialog("destroy").remove();
 
     var dialoghtml = $('<div id="dialog-modal" title="' + title + '" style=" overflow:hidden"></div>');
@@ -18,6 +29,7 @@ function OpenPopup(url, title, width, height, modal, resizable, currWindow, dura
         width: width,
         height: height,
         autoOpen: false,
+        position: position || ['center', 'center'],
         open: function (event, ui) {
             $("#innerFrame").attr({ "src": url }).css({ "height": $(this).css("height"), "width": $(this).css("width") });
         },
@@ -33,15 +45,20 @@ function OpenPopup(url, title, width, height, modal, resizable, currWindow, dura
         resizeStop: function (event, ui) {
             $("#innerFrame").css({ "height": $(this).css("height"), "width": $(this).css("width") }).show();
         },
+        beforeClose: function () {
+            if (beforeCloseEvent && typeof (beforeCloseEvent) === "function") {
+                return beforeCloseEvent();
+            }
+
+            return true;
+        },
         close: function (event, ui) {
             if (currentExecFrame != null && currentExecFrame.onclose) {
                 currentExecFrame.onclose();
                 try {
                     setTimeout('currentExecFrame=null;', 500);
                 } catch (e) {
-
                 }
-
             }
         }
     });
@@ -77,8 +94,6 @@ function afterUpdate(autoClose) {
         if (autoClose)
             setTimeout('ClosePopup()', 2000);
     } catch (e) {
-
     }
-
 }
 

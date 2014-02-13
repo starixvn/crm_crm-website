@@ -30,7 +30,19 @@ var HomeManager = function () {
 
         // Prevent unsaved escape
         isChangingData: false,
-        ignoreConfirmMessage: ''
+        ignoreConfirmMessage: '',
+        isChangingDataLeftPanel: false,
+        ignoreConfirmMessageLeftPanel: '',
+
+        isIgnoreChangePopUp: false,
+        isChangingDataPopUp: false,
+        ignoreConfirmMessagePopUp: '',
+
+        shareInfoBetweenPopup: {
+            ActionResult: null,
+            ShouldReloadView: false,
+            PopupController: null
+        }
     };
 
     self.initPage = function () {
@@ -111,10 +123,12 @@ var HomeManager = function () {
     };
 
     self.showConfirmIgnoreChange = function (callbackFunction) {
-        self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessage);
+        self.DOMElements.divResultPopUp.html(self.CachedData.isChangingDataLeftPanel ?
+            self.CachedData.ignoreConfirmMessageLeftPanel :
+            self.CachedData.ignoreConfirmMessage);
         self.DOMElements.divResultPopUp.removeClass("display-none");
         self.DOMElements.divResultPopUp.dialog({
-            width: 350,
+            width: 450,
             height: 180,
             zIndex: 500,
             position: ['center', 120],
@@ -132,8 +146,41 @@ var HomeManager = function () {
                 click: function () {
                     self.CachedData.isIgnoreChange = true;
                     self.CachedData.isChangingData = false;
+                    self.CachedData.isChangingDataLeftPanel = false;
                     self.DOMElements.divResultPopUp.dialog("close");
                     callbackFunction();
+                }
+            }]
+        });
+    };
+    self.showConfirmIgnoreChangePopUp = function (ignoreFunction) {
+        self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessagePopUp);
+        self.DOMElements.divResultPopUp.removeClass("display-none");
+        self.DOMElements.divResultPopUp.dialog({
+            width: 450,
+            height: 180,
+            zIndex: 500,
+            position: ['center', 120],
+            resizable: false,
+            modal: true,
+            title: self.CachedData.ViewResources.Confirm_Ignore_Changes,
+            close: function (event, ui) {
+                /*jshint unused: vars */
+                self.DOMElements.divResultPopUp.dialog("destroy");
+                parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
+                self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+            },
+            buttons: [{
+                text: self.CachedData.ViewResources.OK,
+                click: function () {
+                    self.CachedData.isIgnoreChangePopUp = true;
+                    self.CachedData.isChangingDataPopUp = false;
+                    self.CachedData.isChangingDataPopUp = false;
+                    self.DOMElements.divResultPopUp.dialog("close");
+                    if (ignoreFunction &&
+                        typeof (ignoreFunction) === "function") {
+                        ignoreFunction();
+                    }
                 }
             }]
         });
@@ -141,7 +188,7 @@ var HomeManager = function () {
 
     self.ButtonSearchClick = function () {
         self.TextboxUsernameBlur();
-        if (self.CachedData.isChangingData) {
+        if (self.CachedData.isChangingData || self.CachedData.isChangingDataLeftPanel) {
             self.showConfirmIgnoreChange(self.loadLeftPanel);
         } else {
             self.loadLeftPanel();
@@ -194,7 +241,7 @@ var HomeManager = function () {
         e = (e) ? e : window.event;
         var key = (e.keyCode) ? e.keyCode : e.which;
         if (key === keyboardManager.Enums.KeyCode.Enter) {
-            if (self.CachedData.isChangingData) {
+            if (self.CachedData.isChangingData || self.CachedData.isChangingDataLeftPanel) {
                 self.showConfirmIgnoreChange(self.loadLeftPanel);
             } else {
                 self.loadLeftPanel();
@@ -231,6 +278,9 @@ var HomeManager = function () {
         if (parent.dashboardManager) {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Main);
         }
+    };
+    self.invokeHotKey_CtrlF = function () {
+        self.DOMElements.TextboxUsername.focus();
     };
 };
 

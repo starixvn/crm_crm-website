@@ -52,7 +52,7 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
                 }
             });
 
-            oldValue = new Date(currentDate);
+            oldValue = new Date(initFromDate);
             element.on('change', function () {
                 var selectedDate = selectedDateChange(scope, element, attrs);
                 if (isNaN(oldValue.valueOf()) ||

@@ -1,4 +1,5 @@
-﻿var HotKeyManager = function () {
+﻿var hotKeyManager;
+var HotKeyManager = function () {
     var self = this;
 
     self.CachedData = {
@@ -172,6 +173,11 @@
             return true;
         }
 
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_f]) {
+            self.invokeHotKey_CtrlF();
+            return true;
+        }
+
         if (self.CachedData.KeyPress[keyCodeEnums.Character_Comma]) {
             self.invokeHotKey_CtrlComma();
             return true;
@@ -325,6 +331,18 @@
 
         return self.CachedData.isInvokeHotKey;
     };
+    self.invokeHotKey_CtrlF = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlF) === "function") {
+                self.CachedData.isInvokeHotKey = true;
+                activeDocumentManager.invokeHotKey_CtrlF();
+            }
+        }
+
+        return self.CachedData.isInvokeHotKey;
+    };
     self.invokeHotKey_CtrlComma = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
         for (var i = 0; i < activeDocumentLength; i++) {
@@ -347,7 +365,7 @@
     };
 };
 
-var hotKeyManager = new HotKeyManager();
+hotKeyManager = new HotKeyManager();
 $(document).ready(function () {
     hotKeyManager.initPage();
 });

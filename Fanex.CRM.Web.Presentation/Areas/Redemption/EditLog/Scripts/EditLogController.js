@@ -11,6 +11,7 @@ function (
     $editLogService,
     $bootstrappedData) {
     $scope.redemptionLog = $bootstrappedData.redemptionLog;
+    $scope.oldRedemptionLog = angular.copy($bootstrappedData.redemptionLog);
     $scope.statusList = null;
 
     $scope.loadedFilter = [];
@@ -96,6 +97,7 @@ function (
     };
     $scope.updateRemark = function (remark) {
         $scope.redemptionLog.Remark = remark;
+        $scope.$apply();
     };
     $scope.updateSelectedDate = function (selectedDate) {
         $scope.redemptionLog.ClaimedTime = selectedDate;
@@ -155,18 +157,16 @@ function (
         return result;
     };
     $scope.completedUpdateLog = function (updateResult) {
-        parent.shouldReloadLogs = true;
-        $scope.isShowResultMessage = true;
-        $scope.isSuccess = updateResult.Code === crmConstants.Enums.Error.None;
-        $scope.resultMessage = updateResult.Message;
-        window.scroll(1, 1);
-        if ($scope.isSuccess) {
-            setTimeout(function () {
-                $scope.isShowResultMessage = false;
-            }, 3000);
-        }
-
+        $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
+        parent.homeManager.CachedData.shareInfoBetweenPopup = updateResult;
+        parent.homeManager.CachedData.shouldReloadLogs = true;
         $scope.unblockUI();
+        parent.ClosePopup();
+    };
+    $scope.ignoreChanges = function () {
+        $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
+        $scope.$apply();
+        parent.ClosePopup();
     };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
@@ -185,6 +185,17 @@ function (
         }
     };
     angular.element(document).ready(function () {
+        $scope.$watch(function ($scope) {
+            if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
+                $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
+                parent.homeManager.CachedData.isChangingDataPopUp = true;
+                parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertRedemption_Changes;
+            } else {
+                parent.homeManager.CachedData.isChangingDataPopUp = false;
+            }
+        });
+
+        parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
         $scope.initController();
     });
-}]);
+} ]);

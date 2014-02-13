@@ -1,7 +1,8 @@
 ﻿"use strict";
 /* global dashboardApplication,
 customerId,
-hotKeyManager */
+hotKeyManager,
+viewResources */
 dashboardApplication.controller('dashboardController', function ($scope,
     $http,
     $dashboardService) {
@@ -41,6 +42,53 @@ dashboardApplication.controller('dashboardController', function ($scope,
                 /* jshint unused: vars */
                 $scope.unblockUI();
             });
+    };
+
+    $scope.closeEditRedemptionLogView = function () {
+        if (parent.shouldReloadLogs) {
+            $scope.getCustomerDashboardInfo();
+        }
+    };
+    $scope.editRedemptionLog = function (logId) {
+        parent.shouldReloadLogs = false;
+        /* jshint camelcase: false */
+        parent.OpenPopup(
+            window.rootUrl + "Redemption/OpenEditView?" + $.param({
+                logId: logId
+            }),
+            viewResources.Edit_Redemption_Log,
+            $(parent.document).width() - 600,
+            500,
+            true,
+            false,
+            parent.window,
+            3000,
+            null,
+            $scope.closeEditRedemptionLogView,
+            ['center', 120]);
+    };
+    $scope.closeEditCommunicationLogView = function () {
+        if (parent.shouldReloadLogs) {
+            $scope.getCustomerDashboardInfo();
+        }
+    };
+    $scope.editCommunicationLog = function (logId) {
+        parent.shouldReloadLogs = false;
+        var url = window.rootUrl + "CommunicationLog/OpenEditView?" + $.param({
+            logRunningNumber: logId
+        });
+        /* jshint camelcase: false */
+        parent.OpenPopup(
+            url,
+            viewResources.Edit_Communication_Log,
+            $(parent.document).width() - 300,
+            $(parent.document).height() - 40,
+            true,
+            false,
+            parent.window,
+            3000,
+            null,
+            $scope.closeEditCommunicationLogView);
     };
 
     $scope.unblockUI = function () {

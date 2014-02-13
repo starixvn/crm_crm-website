@@ -10,14 +10,12 @@
 namespace Fanex.CRM.Communication.Services.Implements
 {
     using System;
-    using System.Web;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Communication.Repositories.Implements;
     using Fanex.CRM.Communication.Repositories.Interfaces;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;

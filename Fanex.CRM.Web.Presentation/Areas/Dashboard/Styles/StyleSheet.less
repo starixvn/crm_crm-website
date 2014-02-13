@@ -1,3 +1,5 @@
+@import "../../../Content/site/variables.less";
+
 .specialRemark
 {
     min-height: 182px;
@@ -7,7 +9,6 @@
 {
     min-height: 170px;
 }
-
 .progressBar
 {
     padding-bottom: 10px;
@@ -20,4 +21,52 @@
 
 .verifyprocess
 {
+}
+
+#table-redemption-logs {
+    .editlog-link-row {
+        cursor: pointer;
+        .editlog-link-td  {
+            color: @link-color;
+            cursor: pointer;
+
+            &:hover {
+                color: @link-color-hover;
+            }
+        }
+    }
+}
+
+#table-communication-logs {
+    .editlog-link-td  {
+        color: @link-color;
+        cursor: pointer;
+
+        &:hover {
+            color: @link-color-hover;
+        }
+    }
+    .maincategory {
+        font-weight: bold;
+        color: #5f5f5f;
+    }
+    
+    .subcategory  {
+        font-style: italic;
+    }
+    
+    .editlog-link-row
+    {
+        cursor: pointer;
+    }
+
+    .row-solved td
+    {
+    }
+    .row-pending td
+    {
+    }
+    .row-closed td
+    {
+    }
 }

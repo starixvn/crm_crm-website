@@ -17,16 +17,22 @@ function (
         Status: null,
         Remark: ''
     };
+    $scope.oldRedemptionLog = {
+        ClaimedTime: new Date(currentDate),
+        Subject: '',
+        Status: null,
+        Remark: ''
+    };
     $scope.statusList = null;
     $scope.customerId = customerId;
+    $scope.isSuccess = false;
+    $scope.isShowResultMessage = false;
+    $scope.resultMessage = '';
 
     $scope.loadedFilter = [];
     $scope.feedbackSubjectTemplateList = [];
     $scope.feedbackSubjectTemplateTotalPage = 0;
     $scope.isLoadedFeedbackSubjectTemplate = false;
-    $scope.isSuccess = false;
-    $scope.isShowResultMessage = false;
-    $scope.resultMessage = '';
 
     $scope.initController = function () {
         $scope.getAllStatus();
@@ -163,18 +169,16 @@ function (
         return result;
     };
     $scope.completedInsertLog = function (insertResult) {
-        parent.shouldReloadLogs = true;
-        $scope.isShowResultMessage = true;
-        $scope.isSuccess = insertResult.Code === crmConstants.Enums.Error.None;
-        $scope.resultMessage = insertResult.Message;
-        window.scroll(1, 1);
-        if ($scope.isSuccess) {
-            setTimeout(function () {
-                $scope.isShowResultMessage = false;
-            }, 3000);
-        }
-
+        $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
+        parent.homeManager.CachedData.shareInfoBetweenPopup = insertResult;
+        parent.homeManager.CachedData.shouldReloadLogs = true;
         $scope.unblockUI();
+        parent.ClosePopup();
+    };
+    $scope.ignoreChanges = function () {
+        $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
+        $scope.$apply();
+        parent.ClosePopup();
     };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
@@ -193,6 +197,17 @@ function (
         }
     };
     angular.element(document).ready(function () {
+        $scope.$watch(function ($scope) {
+            if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
+                $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
+                parent.homeManager.CachedData.isChangingDataPopUp = true;
+                parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertRedemption_Changes;
+            } else {
+                parent.homeManager.CachedData.isChangingDataPopUp = false;
+            }
+        });
+
+        parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
         $scope.initController();
     });
-}]);
+} ]);

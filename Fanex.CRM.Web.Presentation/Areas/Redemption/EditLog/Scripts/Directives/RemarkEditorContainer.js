@@ -36,6 +36,8 @@ editLogApplication.directive('remarkEditorContainer', function () {
                 }]
            ]
         });
+
+        $('.jHtmlArea').find('iframe').css('height', '170px');
     }
 
     return {
