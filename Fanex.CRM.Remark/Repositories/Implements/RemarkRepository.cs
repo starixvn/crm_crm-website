@@ -29,7 +29,7 @@ namespace Fanex.CRM.Remark.Repositories.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Remark objects list.</returns>
-        public RemarkDetail GetRemarks(ICriteria criteria)
+        public Remarks GetRemarks(ICriteria criteria)
         {
             IList<string> specialRemarks = new List<string>();
             IList<string> remarks = new List<string>();
@@ -59,7 +59,7 @@ namespace Fanex.CRM.Remark.Repositories.Implements
                 }
             }
 
-            return new RemarkDetail { SpecialRemarks = specialRemarks, Remarks = remarks };
+            return new Remarks { SpecialRemarks = specialRemarks, NormalRemarks = remarks };
         }
 
         /// <summary>

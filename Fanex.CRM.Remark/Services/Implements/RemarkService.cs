@@ -42,7 +42,7 @@ namespace Fanex.CRM.Remark.Services.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The remark detail object.</returns>
-        public RemarkDetail GetRemarks(ICriteria criteria)
+        public Remarks GetRemarks(ICriteria criteria)
         {
             var remark = _repositoryInstance.GetRemarks(criteria);
             return remark;
@@ -53,7 +53,7 @@ namespace Fanex.CRM.Remark.Services.Implements
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>The result object.</returns>
-        public Result UpdateRemarks(RemarkDetail model)
+        public Result UpdateRemarks(Remarks model)
         {
             StringBuilder remarkBuilder = new StringBuilder(1024);
             remarkBuilder.Append("<Remarks>");
@@ -66,9 +66,9 @@ namespace Fanex.CRM.Remark.Services.Implements
                 }
             }
 
-            if (model.Remarks != null)
+            if (model.NormalRemarks != null)
             {
-                foreach (string remark in model.Remarks)
+                foreach (string remark in model.NormalRemarks)
                 {
                     remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
                         .Append(" IsSpecial=\"0\" />");
