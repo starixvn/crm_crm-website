@@ -10,6 +10,7 @@
     <title>@Labels.Main </title>
     @Styles.Render("~/site/common")
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
     @Styles.Render("~/Areas/DashboardStyles")
 </head>
@@ -32,10 +33,11 @@
                 <div class="row panel-group last progressBar">
                     <div class="custInfo row content text-right verifiedinfo">
                         <div class="row item">
-                            <img class="verifyprocess" src="~/Areas/Dashboard/Styles/Images/loader.jpg" />
+                            <div class="align-center" style="background: url('../Areas/Dashboard/Styles/Images/MaxPercentStatus.png') no-repeat scroll {{ getNumberOfVerifiedInfo() / 5 * 100 - 100 }}px 100% transparent">
+                                {{ getNumberOfVerifiedInfo() / 5 * 100; }}%</div>
                         </div>
                         <div class="row item">
-                            {{ getNumberOfVerifiedInfo(); }} /5 @Labels.information_verified
+                            {{ getNumberOfVerifiedInfo(); }}/5 @Labels.information_verified
                         </div>
                         <div class="row item">
                             <button class="btn">
@@ -46,496 +48,45 @@
             </div>
         </div>
         <div class="row row-item">
-            <div class="ng-scope ng-pristine ng-valid" data-ng-model="logs" table-communication-logs-container="">
-                <div style="width: 969px;" id="table-communication-logs-grid-title" class="grid-title">
-                    <div class="grid-title-label" id="reporttile">
-                        Recent Redemption Activity</div>
-                    <div class="grid-toolbox">
-                    </div>
-                </div>
-                <div style="width: 967px; height: 144px;" id="table-communication-logs" class="freegrid">
-                    <div style="width: 967px;" class="col_header row-headers-background scroll-y">
-                        <div style="width: 950px;" class="header-container">
-                            <table style="width: 950px;" class="grid-fixed-table col_header_content">
-                                <thead>
-                                    <tr>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 110px; height: 29px;" id="">
-                                                Running Number</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Feedback Date</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 220px; height: 29px;" id="">
-                                                Main Category/Sub Category</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 140px; height: 29px;" id="">
-                                                Subject</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 60px; height: 29px;" id="">
-                                                Status</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 80px; height: 29px;" id="">
-                                                Duration</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Handle By</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Reviewed By</div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div style="width: 967px; height: 146px;" class="grid-container container">
-                        <div style="width: 950px;" class="content-container">
-                            <table class="grid-fixed-table col_body_content" id="tblContent_table-communication-logs">
-                                <thead>
-                                    <tr>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 110px; height: 29px;" id="">
-                                                Running Number</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Feedback Date</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 220px; height: 29px;" id="">
-                                                Main Category/Sub Category</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 140px; height: 29px;" id="">
-                                                Subject</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 60px; height: 29px;" id="">
-                                                Status</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 80px; height: 29px;" id="">
-                                                Duration</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Handle By</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Reviewed By</div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="highlight-row editlog-link-row row-pending   " highlightatt="highlight-att-main-0-0">
-                                        <td class="free-grid-td-0 editlog-link-td" style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 110px;">
-                                                <div class="link editlog-link" data-logindex="0">
-                                                    706</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-1 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 100px;">
-                                                Nov 11, 2011</div>
-                                        </td>
-                                        <td class="free-grid-td-2 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 220px;">
-                                                <div class="maincategory">
-                                                    General Network/Database Issues</div>
-                                                <div class="subcategory">
-                                                    Agency Site Network Issue</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-3 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 140px;">
-                                                test 11/11/11</div>
-                                        </td>
-                                        <td class="free-grid-td-4 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 60px;">
-                                                Pending</div>
-                                        </td>
-                                        <td class="free-grid-td-5 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 80px;">
-                                                23:55:0</div>
-                                        </td>
-                                        <td class="free-grid-td-6 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                pgmKaka</div>
-                                        </td>
-                                        <td class="free-grid-td-7 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                sa</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="highlight-row editlog-link-row row-closed   " highlightatt="highlight-att-main-1-1">
-                                        <td class="free-grid-td-0 editlog-link-td" style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 110px;">
-                                                <div class="link editlog-link" data-logindex="1">
-                                                    15916</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-1 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 100px;">
-                                                May 2, 2012</div>
-                                        </td>
-                                        <td class="free-grid-td-2 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 220px;">
-                                                <div class="maincategory">
-                                                    General Network/Database Issues</div>
-                                                <div class="subcategory">
-                                                    Agency Site Network Issue</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-3 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 140px;">
-                                                david</div>
-                                        </td>
-                                        <td class="free-grid-td-4 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 60px;">
-                                                Closed</div>
-                                        </td>
-                                        <td class="free-grid-td-5 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 80px;">
-                                                9:12:0</div>
-                                        </td>
-                                        <td class="free-grid-td-6 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                PgmKhoa</div>
-                                        </td>
-                                        <td class="free-grid-td-7 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                sa</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="highlight-row editlog-link-row row-pending   " highlightatt="highlight-att-main-2-2">
-                                        <td class="free-grid-td-0 editlog-link-td" style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 110px;">
-                                                <div class="link editlog-link" data-logindex="2">
-                                                    41708</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-1 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 100px;">
-                                                Aug 7, 2013</div>
-                                        </td>
-                                        <td class="free-grid-td-2 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 220px;">
-                                                <div class="maincategory">
-                                                    General Network/Database Issues</div>
-                                                <div class="subcategory">
-                                                    Agency Site Network Issue</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-3 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 140px;">
-                                                testing by julien</div>
-                                        </td>
-                                        <td class="free-grid-td-4 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 60px;">
-                                                Pending</div>
-                                        </td>
-                                        <td class="free-grid-td-5 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 80px;">
-                                                0:1:0</div>
-                                        </td>
-                                        <td class="free-grid-td-6 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                pgmKevin</div>
-                                        </td>
-                                        <td class="free-grid-td-7 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                pgmKevin</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div style="left: 949px;" class="free-cell free-top-right">
-                        <table class="grid-fixed-table">
-                            <thead>
-                                <tr>
-                                    <th style="height: 29px;" class="free-cell-top-right">
-                                        <div>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div style="height: 112px; top: 34px; left: 949px; overflow-y: hidden;" class="y-scrollbar">
-                        <div style="height: 111px;" class="scrollbar-y-content">
-                            &nbsp;</div>
-                    </div>
-                    <div style="width: 950px; top: 144px; left: 0px; overflow-x: hidden;" class="x-scrollbar">
-                        <div style="width: 955px;" class="scrollbar-x-content">
-                            &nbsp;</div>
-                    </div>
+            <div data-ng-model="customerDashboardInfo.RedemptionLogs" table-redemption-logs-container>
+                <div id="table-redemption-logs" class="freegrid display-none">
                 </div>
             </div>
         </div>
         <div class="row row-item">
-            <div class="ng-scope ng-pristine ng-valid" data-ng-model="logs" table-communication-logs-container="">
-                <div style="width: 969px;" id="table-communication-logs-grid-title" class="grid-title">
-                    <div class="grid-title-label" id="reporttile">
-                        Last 10 Communication Log</div>
-                    <div class="grid-toolbox">
-                    </div>
-                </div>
-                <div style="width: 967px; height: 144px;" id="table-communication-logs" class="freegrid">
-                    <div style="width: 967px;" class="col_header row-headers-background scroll-y">
-                        <div style="width: 950px;" class="header-container">
-                            <table style="width: 950px;" class="grid-fixed-table col_header_content">
-                                <thead>
-                                    <tr>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 110px; height: 29px;" id="">
-                                                Running Number</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Feedback Date</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 220px; height: 29px;" id="">
-                                                Main Category/Sub Category</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 140px; height: 29px;" id="">
-                                                Subject</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 60px; height: 29px;" id="">
-                                                Status</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 80px; height: 29px;" id="">
-                                                Duration</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Handle By</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Reviewed By</div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div style="width: 967px; height: 146px;" class="grid-container container">
-                        <div style="width: 950px;" class="content-container">
-                            <table class="grid-fixed-table col_body_content" id="tblContent_table-communication-logs">
-                                <thead>
-                                    <tr>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 110px; height: 29px;" id="">
-                                                Running Number</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Feedback Date</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 220px; height: 29px;" id="">
-                                                Main Category/Sub Category</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 140px; height: 29px;" id="">
-                                                Subject</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 60px; height: 29px;" id="">
-                                                Status</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 80px; height: 29px;" id="">
-                                                Duration</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Handle By</div>
-                                        </th>
-                                        <th class="  ">
-                                            <div align="center" class="table-cell    " style="width: 100px; height: 29px;" id="">
-                                                Reviewed By</div>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="highlight-row editlog-link-row row-pending   " highlightatt="highlight-att-main-0-0">
-                                        <td class="free-grid-td-0 editlog-link-td" style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 110px;">
-                                                <div class="link editlog-link" data-logindex="0">
-                                                    706</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-1 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 100px;">
-                                                Nov 11, 2011</div>
-                                        </td>
-                                        <td class="free-grid-td-2 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 220px;">
-                                                <div class="maincategory">
-                                                    General Network/Database Issues</div>
-                                                <div class="subcategory">
-                                                    Agency Site Network Issue</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-3 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 140px;">
-                                                test 11/11/11</div>
-                                        </td>
-                                        <td class="free-grid-td-4 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 60px;">
-                                                Pending</div>
-                                        </td>
-                                        <td class="free-grid-td-5 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 80px;">
-                                                23:55:0</div>
-                                        </td>
-                                        <td class="free-grid-td-6 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                pgmKaka</div>
-                                        </td>
-                                        <td class="free-grid-td-7 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                sa</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="highlight-row editlog-link-row row-closed   " highlightatt="highlight-att-main-1-1">
-                                        <td class="free-grid-td-0 editlog-link-td" style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 110px;">
-                                                <div class="link editlog-link" data-logindex="1">
-                                                    15916</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-1 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 100px;">
-                                                May 2, 2012</div>
-                                        </td>
-                                        <td class="free-grid-td-2 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 220px;">
-                                                <div class="maincategory">
-                                                    General Network/Database Issues</div>
-                                                <div class="subcategory">
-                                                    Agency Site Network Issue</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-3 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 140px;">
-                                                david</div>
-                                        </td>
-                                        <td class="free-grid-td-4 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 60px;">
-                                                Closed</div>
-                                        </td>
-                                        <td class="free-grid-td-5 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 80px;">
-                                                9:12:0</div>
-                                        </td>
-                                        <td class="free-grid-td-6 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                PgmKhoa</div>
-                                        </td>
-                                        <td class="free-grid-td-7 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                sa</div>
-                                        </td>
-                                    </tr>
-                                    <tr class="highlight-row editlog-link-row row-pending   " highlightatt="highlight-att-main-2-2">
-                                        <td class="free-grid-td-0 editlog-link-td" style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 110px;">
-                                                <div class="link editlog-link" data-logindex="2">
-                                                    41708</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-1 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 100px;">
-                                                Aug 7, 2013</div>
-                                        </td>
-                                        <td class="free-grid-td-2 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 220px;">
-                                                <div class="maincategory">
-                                                    General Network/Database Issues</div>
-                                                <div class="subcategory">
-                                                    Agency Site Network Issue</div>
-                                            </div>
-                                        </td>
-                                        <td class="free-grid-td-3 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 140px;">
-                                                testing by julien</div>
-                                        </td>
-                                        <td class="free-grid-td-4 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 60px;">
-                                                Pending</div>
-                                        </td>
-                                        <td class="free-grid-td-5 " style="height: 29px;">
-                                            <div align="center" class="table-cell  " style="width: 80px;">
-                                                0:1:0</div>
-                                        </td>
-                                        <td class="free-grid-td-6 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                pgmKevin</div>
-                                        </td>
-                                        <td class="free-grid-td-7 " style="height: 29px;">
-                                            <div align="left" class="table-cell  " style="width: 100px;">
-                                                pgmKevin</div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div style="left: 949px;" class="free-cell free-top-right">
-                        <table class="grid-fixed-table">
-                            <thead>
-                                <tr>
-                                    <th style="height: 29px;" class="free-cell-top-right">
-                                        <div>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div style="height: 112px; top: 34px; left: 949px; overflow-y: hidden;" class="y-scrollbar">
-                        <div style="height: 111px;" class="scrollbar-y-content">
-                            &nbsp;</div>
-                    </div>
-                    <div style="width: 950px; top: 144px; left: 0px; overflow-x: hidden;" class="x-scrollbar">
-                        <div style="width: 955px;" class="scrollbar-x-content">
-                            &nbsp;</div>
-                    </div>
+            <div data-ng-model="customerDashboardInfo.CommunicationLogs" table-communication-logs-container>
+                <div id="table-communication-logs" class="freegrid display-none">
                 </div>
             </div>
         </div>
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
+    <script type="text/javascript" src="~/Scripts/Paging/jpager.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
     @Scripts.Render("~/Areas/DashboardScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 
         var viewResources = { 
+            Recent_Redemption_Activity: '@Labels.Recent_Redemption_Activity',
+            Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
+            Subject:'@Labels.Subject',
+            Claimed_Time: '@Labels.Claimed_Time',
+            Status: '@Labels.Status',
 
+            Last_10_Communication_Log:'@Labels.Last_10_Communication_Log',
+
+            Running_Number: '@Labels.Running_Number',
+            Feedback_Date: '@Labels.Feedback_Date',
+            Main_Category: '@Labels.Main_Category',
+            Sub_Category: '@Labels.Sub_Category',
+            Duration: '@Labels.Duration',
+            Handled_By: '@Labels.Handled_By',
+            Reviewed_By: '@Labels.Reviewed_By',
+            Edit_Communication_Log: '@Labels.Edit_Communication_Log'
         };
     </script>
 </body>

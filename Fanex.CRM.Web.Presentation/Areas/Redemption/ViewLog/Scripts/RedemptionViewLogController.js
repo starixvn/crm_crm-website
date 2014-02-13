@@ -113,14 +113,15 @@ function (
         parent.OpenPopup(
             window.rootUrl + "Redemption/OpenInsertView?" + $.param({ customerId: $scope.customerId }),
             viewResources.Insert_Redemption_Log,
-            $(parent.document).width() - 400,
-            400,
+            $(parent.document).width() - 600,
+            500,
             true,
             false,
             parent.window,
             3000,
             null,
-            $scope.closeInsertView);
+            $scope.closeInsertView,
+            ['center', 120]);
     };
     $scope.editLog = function (logId) {
         parent.shouldReloadLogs = false;
@@ -129,14 +130,15 @@ function (
                 logId: logId
             }),
             viewResources.Edit_Redemption_Log,
-            $(parent.document).width() - 400,
-            400,
+            $(parent.document).width() - 600,
+            500,
             true,
             false,
             parent.window,
             3000,
             null,
-            $scope.closeEditView);
+            $scope.closeEditView,
+            ['center', 120]);
     };
 
     $scope.unblockUI = function () {
@@ -154,4 +156,4 @@ function (
     angular.element(document).ready(function () {
         $scope.initController();
     });
-}]);
+} ]);
