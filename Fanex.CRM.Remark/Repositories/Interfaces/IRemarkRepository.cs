@@ -18,7 +18,7 @@ namespace Fanex.CRM.Remark.Repositories.Interfaces
     /// </summary>
     public interface IRemarkRepository
     {
-        RemarkDetail GetRemarks(ICriteria criteria);
+        Remarks GetRemarks(ICriteria criteria);
 
         Result UpdateRemarks(ICriteria criteria);
     }
