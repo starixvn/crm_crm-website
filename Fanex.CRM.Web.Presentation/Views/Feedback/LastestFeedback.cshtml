@@ -1,9 +1,10 @@
 ﻿@using Fanex.CRM.Infrastructure.Common
-<link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
+
 <link href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css?ver=1")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.less?ver=1")" rel="stylesheet" type="text/css" />
+
 <div class="main container">
     <div class="row topSelected">
         <label for="selectTopFeedback">
@@ -17,6 +18,12 @@
             <option value="50">50</option>
         </select>
     </div>
+    
+    <div class="row">
+        <div class="col-xs-7 col-sm-7 col-md-5 errmsg" id="errmsg">
+        </div>
+    </div>
+
     <div class="row">
         <div id="lastedfeedbackgrid" class="freegrid hidden hasTopSelected">
             <div class="grid-title">
@@ -106,11 +113,7 @@
                 </table>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-7 col-sm-7 col-md-5 errmsg" id="errmsg">
-        </div>
-    </div>
+    </div>    
 </div>
 <div class="hidden" id="divDescriptions">
 </div>

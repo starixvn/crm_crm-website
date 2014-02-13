@@ -80,7 +80,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                         List<string> relatedCustomer = new List<string>();
                         while (reader.Read())
                         {
-                            relatedCustomer.Add(MappingRelatedCustomer_GetLogsByRunningNumber(reader));
+                            relatedCustomer.Add(GetRelatedUserNameFromDataReader(reader));
                         }
 
                         log.RelatedCustomers = string.Join(",", relatedCustomer);
@@ -251,7 +251,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             return logInfo;
         }
 
-        private string MappingRelatedCustomer_GetLogsByRunningNumber(IDataReader reader)
+        private string GetRelatedUserNameFromDataReader(IDataReader reader)
         {
             return reader.GetStringNotNull("UserName");
         }

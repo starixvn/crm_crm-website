@@ -13,7 +13,6 @@ namespace Fanex.CRM.Redemption.Controllers
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Redemption.Criteria;
-    using Fanex.CRM.Redemption.Models;
     using Fanex.CRM.Redemption.Services.Implements;
     using Fanex.CRM.Redemption.Services.Interfaces;
     using Fanex.NAP.Core.Business;
@@ -60,7 +59,7 @@ namespace Fanex.CRM.Redemption.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             var result = _serviceInstance.GetLogsByCustomerId(criteria);
@@ -69,7 +68,7 @@ namespace Fanex.CRM.Redemption.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
             var result = _serviceInstance.UpdateLog(criteria);
@@ -78,7 +77,7 @@ namespace Fanex.CRM.Redemption.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
             var result = _serviceInstance.InsertLog(criteria);

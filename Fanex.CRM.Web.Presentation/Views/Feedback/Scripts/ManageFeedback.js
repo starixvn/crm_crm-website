@@ -6,6 +6,7 @@ gup, head, addDays */
 //Contain the template
 var AllSetting;
 var maxHeightOfPopUp = ($(window).height() + 50);
+var maxWidthOfPopUp = ($(window).width());
 var lastedFeedback;
 
 // -- Calendar --- //
@@ -52,13 +53,13 @@ function loadSubItem(obj, target, currValue) {
 
 function openEditFeedback(url) {
     try {
-        parent.OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
+        parent.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, function () {
             lastedFeedback.loadLastedFeedback(false);
         });
     }
     catch (e) {
         /* jshint newcap: false */
-        OpenPopup(url, "Update Feedback", 1000, maxHeightOfPopUp, true, false, window, 2000, function () {
+        OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, function () {
             lastedFeedback.loadLastedFeedback(false);
         });
     }
@@ -88,7 +89,7 @@ lastedFeedback = {
     statusId: 0,
     isReviewd: false,
     responseId: 0,
-    gridHeight: 120,
+    gridHeight: 158,
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = lastedFeedback.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
