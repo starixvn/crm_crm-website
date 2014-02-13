@@ -4,8 +4,7 @@ hotKeyManager,
 remarkResources,
 customerId */
 remarkApplication.controller('remarkController', ['$scope', '$remarkService', function (
-    $scope,
-    $remarkService) {
+    $scope, $remarkService) {
     $scope.remarks = null;
     $scope.customerId = customerId;
     $scope.lastSpecialRemark = '';
@@ -24,7 +23,7 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
                 $scope.unblockUI();
             },
             function (data) {
-                /* jshint unused: vars */
+                /*jshint unused: vars*/
                 $scope.unblockUI();
             });
     };
@@ -90,7 +89,7 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
             position: 'center',
             title: remarkResources.Alert,
             close: function (event, ui) {
-                /*jshint unused: vars */
+                /*jshint unused: vars*/
                 $scope.DOMElements.divResultPopUp.dialog('destroy');
                 parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 $scope.DOMElements.divResultPopUp = parent.$('#div-resultpopup');
