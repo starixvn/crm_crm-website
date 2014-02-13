@@ -279,6 +279,11 @@ var HomeManager = function () {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Main);
         }
     };
+    self.invokeHotKey_CtrlT = function () {
+        if (parent.dashboardManager) {
+            parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.ActivityLog);
+        }
+    };
     self.invokeHotKey_CtrlF = function () {
         self.DOMElements.TextboxUsername.focus();
     };

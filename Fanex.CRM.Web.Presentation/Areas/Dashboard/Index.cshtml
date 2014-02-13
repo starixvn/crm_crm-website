@@ -17,22 +17,21 @@
 <body class="leftPanel" data-ng-controller="dashboardController">
     <div class="container main">
         <div class="row">
-            <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="col-xs-8 col-sm-8 col-md-8">
                 <div class="row panel-group last specialRemark">
                     <div class="row title">
                         @Labels.Special_Remark
                     </div>
-                    <div class="custinfo row content" data-ng-repeat="remark in customerDashboardInfo.Remarks track by $index">
-                        <div class="row item">
-                            {{ customerDashboardInfo.Remarks[$index] }}
-                        </div>
-                    </div>
+                    <ul class="custinfo row content list-unstyled">
+                        <li data-ng-repeat="remark in customerDashboardInfo.Remarks track by $index">{{ customerDashboardInfo.Remarks[$index]
+                            }}</li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-5 col-sm-5 col-md-5">
+            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
                 <div class="row panel-group last progressBar">
                     <div class="custInfo row content text-right verifiedinfo">
-                        <div class="row item">
+                        <div class="row item bar">
                             <div class="align-center" style="background: url('../Areas/Dashboard/Styles/Images/MaxPercentStatus.png') no-repeat scroll {{ getNumberOfVerifiedInfo() / 5 * 100 - 100 }}px 100% transparent">
                                 {{ getNumberOfVerifiedInfo() / 5 * 100; }}%</div>
                         </div>

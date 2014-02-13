@@ -55,7 +55,7 @@ namespace Fanex.CRM.Remark.Controllers
 
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
-        public ActionResult Update(RemarkDetail model)
+        public ActionResult Update(Remarks model)
         {
             var result = _serviceInstance.UpdateRemarks(model);
             return Json(result, JsonRequestBehavior.DenyGet);

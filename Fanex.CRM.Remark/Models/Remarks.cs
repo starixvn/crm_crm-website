@@ -16,12 +16,12 @@ namespace Fanex.CRM.Remark.Models
     /// Remark detail class.
     /// </summary>
     [Serializable]
-    public class RemarkDetail
+    public class Remarks
     {
         public int CustId { get; set; }
 
         public IList<string> SpecialRemarks { get; set; }
 
-        public IList<string> Remarks { get; set; }
+        public IList<string> NormalRemarks { get; set; }
     }
 }

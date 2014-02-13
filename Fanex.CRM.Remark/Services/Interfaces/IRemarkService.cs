@@ -18,8 +18,8 @@ namespace Fanex.CRM.Remark.Services.Interfaces
     /// </summary>
     public interface IRemarkService
     {
-        RemarkDetail GetRemarks(ICriteria criteria);
+        Remarks GetRemarks(ICriteria criteria);
 
-        Result UpdateRemarks(RemarkDetail criteria);
+        Result UpdateRemarks(Remarks criteria);
     }
 }

@@ -11,9 +11,6 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
     $scope.lastRemark = '';
     $scope.isShowSpecialRemark = true;
     $scope.isShowRemark = true;
-    $scope.DOMElements = {
-        divResultPopUp: null
-    };
 
     $scope.getRemarks = function () {
         $scope.blockUI();
@@ -35,12 +32,15 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
             $scope.lastSpecialRemark = '';
         }
         if ($scope.lastRemark.length !== 0) {
-            $scope.remarks.Remarks.push($scope.lastRemark);
+            $scope.remarks.NormalRemarks.push($scope.lastRemark);
             $scope.lastRemark = '';
         }
         $remarkService.updateRemarks($scope.remarks)
             .then(function (data) {
-                $scope.showUpdateResult(data.Result);
+                parent.dialogManager.alert(
+                    remarkResources.Alert,
+                    data.Result.Code === 0 ? remarkResources.UpdateRemarkSuccess : data.Result.Message,
+                    remarkResources.OK);
                 $scope.setPlaceHolder();
                 $scope.unblockUI();
             },
@@ -51,7 +51,7 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
     };
 
     $scope.deleteRemark = function (isSpecial, index) {
-        var remarkList = isSpecial ? $scope.remarks.SpecialRemarks : $scope.remarks.Remarks;
+        var remarkList = isSpecial ? $scope.remarks.SpecialRemarks : $scope.remarks.NormalRemarks;
         remarkList.splice(index, 1);
     };
 
@@ -67,40 +67,13 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
         if ($scope.lastRemark.length === 0) {
             return;
         }
-        $scope.remarks.Remarks.push($scope.lastRemark);
+        $scope.remarks.NormalRemarks.push($scope.lastRemark);
         $scope.lastRemark = '';
     };
 
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
         $scope.updateRemarks();
-    };
-
-    $scope.showUpdateResult = function (updateResult) {
-        $scope.DOMElements.divResultPopUp.removeClass('display-none');
-        $scope.DOMElements.divResultPopUp.html(
-            updateResult.Code === 0 ? remarkResources.UpdateRemarkSuccess : updateResult.Message);
-        $scope.DOMElements.divResultPopUp.dialog({
-            width: 250,
-            height: 150,
-            zIndex: 500,
-            resizable: false,
-            modal: true,
-            position: 'center',
-            title: remarkResources.Alert,
-            close: function (event, ui) {
-                /*jshint unused: vars*/
-                $scope.DOMElements.divResultPopUp.dialog('destroy');
-                parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
-                $scope.DOMElements.divResultPopUp = parent.$('#div-resultpopup');
-            },
-            buttons: [{
-                text: remarkResources.OK,
-                click: function () {
-                    $scope.DOMElements.divResultPopUp.dialog('close');
-                }
-            }]
-        });
     };
 
     $scope.setPlaceHolder = function () {
@@ -128,6 +101,5 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
             Value: $scope,
             Id: 'SpecialRemarks'
         });
-        $scope.DOMElements.divResultPopUp = parent.$('#div-resultpopup');
     });
 }]);
