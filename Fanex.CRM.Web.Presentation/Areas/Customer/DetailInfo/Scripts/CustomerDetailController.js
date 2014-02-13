@@ -116,7 +116,16 @@ function (
         } catch (e) {
         }
     };
+
     $scope.updateCustomerInfoDetail = function () {
+        if (parent.homeManager.CachedData.isChangingDataLeftPanel === true) {
+            parent.homeManager.showConfirmIgnoreChange($scope.updateCustomerInfoDetailAfterPreventUnsavedAction);
+            return;
+        }
+
+        $scope.updateCustomerInfoDetailAfterPreventUnsavedAction();
+    };
+    $scope.updateCustomerInfoDetailAfterPreventUnsavedAction = function () {
         var customerDetail = $scope.customerDetail;
         var updatedCustomerInfoDetailParams = {
             CustomerId: customerDetail.Id,
@@ -374,7 +383,7 @@ function (
             $scope.oldCustomerDetail.BankInfo.AddressInfo.AccountNumber !== $scope.customerDetail.BankInfo.AddressInfo.AccountNumber ||
             $scope.oldCustomerDetail.BankInfo.AddressInfo.SwiftCode !== $scope.customerDetail.BankInfo.AddressInfo.SwiftCode)) {
             parent.homeManager.CachedData.isChangingData = true;
-            parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_EditCustomer_Changes;
+            parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_EditCustomer_ChangesTabDetail;
         } else {
             parent.homeManager.CachedData.isChangingData = false;
         }
@@ -392,4 +401,4 @@ function (
             Id: "CustomerInfoDetail"
         });
     });
-}]);
+} ]);

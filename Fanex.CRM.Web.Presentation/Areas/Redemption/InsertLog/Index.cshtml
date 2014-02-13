@@ -18,15 +18,15 @@
 </head>
 <body>
     <div class="main popup container" data-ng-controller="insertLogController">
-        <div class="row form-group">
-            <div class="row row-item" data-ng-show="isShowResultMessage">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
-                        <div>
-                            {{ resultMessage }}</div>
-                    </div>
+        <div class="row row-item" data-ng-show="isShowResultMessage">
+            <div class="col-xs-11 col-sm-11 col-md-11">
+                <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                    <div>
+                        {{ resultMessage }}</div>
                 </div>
             </div>
+        </div>
+        <div class="row form-group">
             <div class="row row-item">
                 <div class="col-xs-3 col-sm-2 col-md-2">
                     <label for="claimTime">
@@ -86,7 +86,8 @@
         var viewResources = {
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
             Redemption_Log_EmptySubject: '@Labels.Redemption_Log_EmptySubject',
-            Redemption_Log_EmptyRemark: '@Labels.Redemption_Log_EmptyRemark'
+            Redemption_Log_EmptyRemark: '@Labels.Redemption_Log_EmptyRemark',
+            Confirm_Ignore_InsertRedemption_Changes: '@Html.Raw(Labels.Confirm_Ignore_InsertRedemption_Changes)'
         };
     </script>
 </body>

@@ -138,27 +138,34 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             parent.menuManager.goToURL('centerFr', url);
         };
         $scope.updateCustomerInfo = function () {
+            if (parent.homeManager.CachedData.isChangingData === true) {
+                parent.homeManager.showConfirmIgnoreChange($scope.updateCustomerInfoAfterPreventUnsavedAction);
+                return;
+            }
+
+            $scope.updateCustomerInfoAfterPreventUnsavedAction();
+        };
+        $scope.updateCustomerInfoAfterPreventUnsavedAction = function () {
             $scope.BlockUI();
             var updatedParams = customerManager.getUpdatedCustomerInfoParams($scope.customer);
 
             $scope.customer.SiteSetting.Id = updatedParams.SiteSettingId;
             $scope.customer.Country.Id = updatedParams.CountryId;
             $scope.oldCustomer = angular.copy($scope.customer);
-       
+
             $scope.oldLanguages = customerManager.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(",");
             $customerService.updateCustomerInfo(updatedParams)
-        .then(function (data) {
-            var updateResult = data.Result;
-            customerManager.ShowUpdateResult(updateResult);
-            parent.homeManager.CachedData.isChangingData = false;
-            $scope.unblockUI();
-        },
-        function (data) {
-            /* jshint unused: vars */
-            $scope.unblockUI();
-        });
+                .then(function (data) {
+                    var updateResult = data.Result;
+                    customerManager.ShowUpdateResult(updateResult);
+                    parent.homeManager.CachedData.isChangingDataLeftPanel = false;
+                    $scope.unblockUI();
+                },
+                function (data) {
+                    /* jshint unused: vars */
+                    $scope.unblockUI();
+                });
         };
-
         $scope.textBoxKeyUp = function (e) {
             e = (e) ? e : window.event;
             var key = (e.keyCode) ? e.keyCode : e.which;
@@ -228,10 +235,10 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 $scope.oldCustomer.PersonalInfoContact[1] !== $scope.customer.PersonalInfoContact[1] ||
                 $scope.oldCustomer.PersonalInfoContact[2] !== $scope.customer.PersonalInfoContact[2] ||
                 $scope.oldCustomer.PersonalInfoContact[3] !== $scope.customer.PersonalInfoContact[3])) {
-                    parent.homeManager.CachedData.isChangingData = true;
-                    parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_EditCustomer_Changes;
+                    parent.homeManager.CachedData.isChangingDataLeftPanel = true;
+                    parent.homeManager.CachedData.ignoreConfirmMessageLeftPanel = viewResources.Confirm_Ignore_EditCustomer_ChangesLeftPanel;
                 } else {
-                    parent.homeManager.CachedData.isChangingData = false;
+                    parent.homeManager.CachedData.isChangingDataLeftPanel = false;
                 }
             });
 

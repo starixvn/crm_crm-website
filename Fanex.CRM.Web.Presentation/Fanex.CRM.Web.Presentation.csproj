@@ -234,7 +234,9 @@
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogApplication.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogController.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogService.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\OptionStatus.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogApplication.js" />

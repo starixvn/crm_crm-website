@@ -1,7 +1,8 @@
 ﻿"use strict";
 /* global dashboardApplication,
 customerId,
-hotKeyManager */
+hotKeyManager,
+viewResources */
 dashboardApplication.controller('dashboardController', function ($scope,
     $http,
     $dashboardService) {
@@ -50,6 +51,7 @@ dashboardApplication.controller('dashboardController', function ($scope,
     };
     $scope.editRedemptionLog = function (logId) {
         parent.shouldReloadLogs = false;
+        /* jshint camelcase: false */
         parent.OpenPopup(
             window.rootUrl + "Redemption/OpenEditView?" + $.param({
                 logId: logId
@@ -75,6 +77,7 @@ dashboardApplication.controller('dashboardController', function ($scope,
         var url = window.rootUrl + "CommunicationLog/OpenEditView?" + $.param({
             logRunningNumber: logId
         });
+        /* jshint camelcase: false */
         parent.OpenPopup(
             url,
             viewResources.Edit_Communication_Log,

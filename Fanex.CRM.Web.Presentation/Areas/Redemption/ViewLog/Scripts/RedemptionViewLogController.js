@@ -22,6 +22,10 @@ function (
         MaxFromDate: new Date(currentDate)
     };
 
+    $scope.isSuccess = false;
+    $scope.isShowResultMessage = false;
+    $scope.resultMessage = '';
+
     $scope.logs = [];
     $scope.statusList = [];
     $scope.isUpdatingDate = false;
@@ -99,17 +103,72 @@ function (
             });
     };
     $scope.closeInsertView = function () {
-        if (parent.shouldReloadLogs && $scope.isSearched) {
+        if (!parent.homeManager.CachedData.shouldReloadLogs) {
+            return;
+        }
+
+        var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+        $scope.isShowResultMessage = true;
+        $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
+        $scope.resultMessage = popUpResult.Message;
+        window.scroll(1, 1);
+        if ($scope.isSuccess) {
+            setTimeout(function () {
+                $scope.isShowResultMessage = false;
+                $scope.$apply();
+            }, 3000);
+        }
+
+        $scope.$apply();
+        if ($scope.isSearched) {
             $scope.searchLogs();
         }
     };
-    $scope.closeEditView = function () {
-        if (parent.shouldReloadLogs) {
-            $scope.searchLogs();
+    $scope.beforeCloseInsertView = function () {
+        if (parent.homeManager.CachedData.isChangingDataPopUp &&
+            parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+            var insertLogController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+            parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+            parent.homeManager.showConfirmIgnoreChangePopUp(insertLogController.ignoreChanges);
+            return false;
         }
+
+        return true;
+    };
+    $scope.beforeCloseEditView = function () {
+        if (parent.homeManager.CachedData.isChangingDataPopUp &&
+            parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+            var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+            parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+            parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+            return false;
+        }
+
+        return true;
+    };
+
+    $scope.closeEditView = function () {
+        if (!parent.homeManager.CachedData.shouldReloadLogs) {
+            return;
+        }
+
+        var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+        $scope.isShowResultMessage = true;
+        $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
+        $scope.resultMessage = popUpResult.Message;
+        window.scroll(1, 1);
+        if ($scope.isSuccess) {
+            setTimeout(function () {
+                $scope.isShowResultMessage = false;
+                $scope.$apply();
+            }, 3000);
+        }
+
+        $scope.$apply();
+        $scope.searchLogs();
     };
     $scope.insertLog = function () {
-        parent.shouldReloadLogs = false;
+        parent.homeManager.CachedData.shouldReloadLogs = false;
         parent.OpenPopup(
             window.rootUrl + "Redemption/OpenInsertView?" + $.param({ customerId: $scope.customerId }),
             viewResources.Insert_Redemption_Log,
@@ -121,7 +180,8 @@ function (
             3000,
             null,
             $scope.closeInsertView,
-            ['center', 120]);
+            ['center', 120],
+            $scope.beforeCloseInsertView);
     };
     $scope.editLog = function (logId) {
         parent.shouldReloadLogs = false;
@@ -138,9 +198,9 @@ function (
             3000,
             null,
             $scope.closeEditView,
-            ['center', 120]);
+            ['center', 120],
+            $scope.beforeCloseEditView);
     };
-
     $scope.unblockUI = function () {
         try {
             parent.$.unblockUI();

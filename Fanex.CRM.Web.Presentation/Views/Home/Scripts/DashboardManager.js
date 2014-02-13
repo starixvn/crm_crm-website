@@ -82,7 +82,7 @@ var DashboardManager = function () {
 
     self.dashboardMenuClick = function (subMenuId) {
         self.CachedData.subMenuId = subMenuId;
-        if (homeManager.CachedData.isChangingData) {
+        if (homeManager.CachedData.isChangingData || homeManager.CachedData.isChangingDataLeftPanel) {
             homeManager.showConfirmIgnoreChange(self.dashboardMenuClickAfterCheckChanging);
             return;
         }
