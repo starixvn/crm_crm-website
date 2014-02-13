@@ -1,5 +1,10 @@
 ﻿@using Fanex.CRM.Customer.Resources;
 @using Fanex.CRM.Setting.Constants;
+@using Fanex.NAP.Core.Business
+@using Fanex.CRM.Service.Interface
+@using Fanex.CRM.Service.Impl
+@using Fanex.CRM.Infrastructure.Common
+
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-application">
 <head>
@@ -173,20 +178,31 @@
         </div>
         <div class="row item title text-left detail-header" data-ng-click="isShowDetail=!isShowDetail">
             @Labels.Detail
-        </div>
+        </div>        
         <div data-ng-show="isShowDetail">
+            @{
+                IPermissionService permission = new PermissionService();
+            }
             <div class="row item no-border-bg">
                 <ul class="list-unstyled list-menu pull-left">
-                    <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">
-                        @Labels.CRM_Info</a></li>
-                    <li><a data-ng-href="#" data-ng-click="addFeedback();">
-                        @Labels.Add_Feedback</a></li>
+                    @if (permission.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Read)) { 
+                        <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">@Labels.CRM_Info</a></li>
+                    }
+                    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read)) { 
+                        <li><a data-ng-href="#" data-ng-click="addFeedback();">@Labels.Add_Feedback</a></li>
+                    }
                 </ul>
                 <ul class="list-unstyled list-menu pull-left no-margin">
-                    <li><a data-ng-href="#" data-ng-click="viewLatestFeedback();">
-                        @Labels.Latest_Feedback</a></li>
-                    <li><a data-ng-href="#" data-ng-click="manageFeedback();">
-                        @Labels.Manage_Feedback</a></li>
+                    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read))
+                    { 
+                        <li><a data-ng-href="#" data-ng-click="viewLatestFeedback();">
+                            @Labels.Latest_Feedback</a></li>
+                    }
+                    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read))
+                    { 
+                        <li><a data-ng-href="#" data-ng-click="manageFeedback();">
+                            @Labels.Manage_Feedback</a></li>
+                    }
                 </ul>
             </div>
         </div>

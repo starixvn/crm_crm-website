@@ -1,160 +1,137 @@
 ﻿@using Fanex.CRM.Infrastructure.Common
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-    <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />    
-    <link href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.less?ver=1")" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <div class="main">
-        <div class="maincontent">
-            <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
-                <tr>
-                    <td class="maincontent_headerL">
-                        <img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png" />
-                    </td>
-                    <td class="maincontent_headerC">
-                        Latest Feedback
-                    </td>
-                    <td class="maincontent_headerR">
-                    </td>
-                </tr>
-            </table>
-            <div class="maincontent_box">
-                <table class="filterContent" style="width: 100.4%;min-width:500px">
-                    <tr>
-                        <td style="width: 20px">
-                            Top
-                        </td>
-                        <td>
-                            <select id="selectTopFeedback" style="width: 100px;" onchange="  topFeedback.loadLastedFeedback(false); HideTooltip(0);">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="30">30</option>
-                                <option value="40">40</option>
-                                <option value="50">50</option>
-                            </select>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
+
+<link href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.less?ver=1")" rel="stylesheet" type="text/css" />
+
+<div class="main container">  
+    <div class="row topSelected">
+        <label for="selectTopFeedback">
+            Top
+        </label>
+        <select id="selectTopFeedback" class="selectTopFeedback" onchange="topFeedback.loadLastedFeedback(false);HideTooltip(0);">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-7 col-sm-7 col-md-5 errmsg" id="errmsg">
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="lastedfeedbackgrid" class="freegrid hidden hasTopSelected">
+            <div class="grid-title">
+                <div class="grid-title-lable" id="gridtitle">Title</div>
+                <div class="grid-toolbox"></div>
+            </div>
+            <div class="free-cell free-top-left">
+                <table class="grid-fixed-table free-cell-top-left">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div style="height: 30px; width: 400px;" class="table-cell">
+                                    Feedback</div>
+                            </th>                                        
+                        </tr>
+                    </thead>
                 </table>
-                <div class="errmsg" id="errmsg">
+            </div>
+            <div class="row_header_wrapper">
+                <div class="row_header row-headers-background">
+                    <table class="grid-fixed-table row_header_content" id="latestfeedbackbodyHeader">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div style="height: 30px; width: 400px;" class="table-cell">
+                                        Feedback</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
-                <div class="bg_table" style="margin-top:2px">
-                    <div id="lastedfeedbackgrid" class="freegrid hidden">
-                        <div class="grid-title">
-                            <div class="grid-title-lable" id="gridtitle">Title</div>
-                            <div class="grid-toolbox"></div>
-                        </div>
-                        <div class="free-cell free-top-left">
-                            <table class="grid-fixed-table free-cell-top-left">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <div style="height: 30px; width: 400px;" class="table-cell">
-                                                Feedback</div>
-                                        </th>                                        
-                                    </tr>
-                                </thead>
-                            </table>
-                        </div>
-                        <div class="row_header_wrapper">
-                            <div class="row_header row-headers-background">
-                                <table class="grid-fixed-table row_header_content" id="latestfeedbackbodyHeader">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <div style="height: 30px; width: 400px;" class="table-cell">
-                                                    Feedback</div>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col_header row-headers-background scroll-y">
-                            <div class="header-container">
-                                <table class="grid-fixed-table col_header_content">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <div style="height: 30px; width: 400px;" class="table-cell">
-                                                    Feedback</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 220px;" class="table-cell">
-                                                    Category</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 50px;" class="table-cell">
-                                                    Status</div>
-                                            </th>
-                                            <th>
-                                                <div style="height: 30px; width: 260px;" class="table-cell">
-                                                    Related Customer</div>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="grid-container container">
-                            <table id="latestfeedbackbody" class="grid-fixed-table col_header_content">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <div style="height: 30px; width: 400px;" class="table-cell">
-                                                Feedback</div>
-                                        </th>
-                                        <th>
-                                            <div style="height: 30px; width: 220px;" class="table-cell">
-                                                Category</div>
-                                        </th>
-                                        <th>
-                                            <div style="height: 30px; width: 50px;" class="table-cell">
-                                                Status</div>
-                                        </th>
-                                        <th>
-                                            <div style="height: 30px; width: 260px;" class="table-cell">
-                                                Related Customer</div>
-                                        </th>                                        
-                                    </tr>  
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            </div>
+            <div class="col_header row-headers-background scroll-y">
+                <div class="header-container">
+                    <table class="grid-fixed-table col_header_content">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div style="height: 30px; width: 400px;" class="table-cell">
+                                        Feedback</div>
+                                </th>
+                                <th>
+                                    <div style="height: 30px; width: 220px;" class="table-cell">
+                                        Category</div>
+                                </th>
+                                <th>
+                                    <div style="height: 30px; width: 50px;" class="table-cell">
+                                        Status</div>
+                                </th>
+                                <th>
+                                    <div style="height: 30px; width: 260px;" class="table-cell">
+                                        Related Customer</div>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
+            </div>
+            <div class="grid-container container">
+                <table id="latestfeedbackbody" class="grid-fixed-table col_header_content">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div style="height: 30px; width: 400px;" class="table-cell">
+                                    Feedback</div>
+                            </th>
+                            <th>
+                                <div style="height: 30px; width: 220px;" class="table-cell">
+                                    Category</div>
+                            </th>
+                            <th>
+                                <div style="height: 30px; width: 50px;" class="table-cell">
+                                    Status</div>
+                            </th>
+                            <th>
+                                <div style="height: 30px; width: 260px;" class="table-cell">
+                                    Related Customer</div>
+                            </th>                                        
+                        </tr>  
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <div class="hidden" id="divDescriptions">
-    </div>
-    @{string userName = Request["custName"];}
-    <script language="javascript" type="text/javascript">
-        window.rootUrl = '@Url.Content("~")';
-        var accname = '@AppSession.CurrentUser.Username';
-        var accId = @AppSession.CurrentUser.Id;
-        var custName = '@userName';
+</div>
 
-        head.js("@Url.Content("~/Scripts/jquery.js")", function () {
-                head.js("@Url.Content("~/Scripts/json2.js")")
-                    .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.js")",
-                        "@Url.Content("~/Scripts/jquery.tmpl.js")")                                        
-                    .js("@Url.Content("~/Scripts/stdlib.js")")
-                    .js("@Url.Content("~/Scripts/common.js?ver=1")")
-                    .js("@Url.Content("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")")
-                    .js("@Url.Content("~/Scripts/FanexGrid/FanexGrid.js")")
-                    .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=1")")
-                    .js("@Url.Content("~/Views/Feedback/Scripts/CustomerLastestFeedback.js?ver=5")");
-            });   
-    </script>
-</body>
-</html>
+<div class="hidden" id="divDescriptions"></div>
+
+@{string userName = Request["custName"];}
+<script language="javascript" type="text/javascript">
+    window.rootUrl = '@Url.Content("~")';
+    var accname = '@AppSession.CurrentUser.Username';
+    var accId = @AppSession.CurrentUser.Id;
+    var custName = '@userName';
+
+    head.js("@Url.Content("~/Scripts/jquery.js")", function () {
+            head.js("@Url.Content("~/Scripts/json2.js")")
+                .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.js")",
+                    "@Url.Content("~/Scripts/jquery.tmpl.js")")
+                .js("@Url.Content("~/Scripts/stdlib.js")")
+                .js("@Url.Content("~/Scripts/common.js?ver=1")")
+                .js("@Url.Content("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")")
+                .js("@Url.Content("~/Scripts/FanexGrid/FanexGrid.js")")
+                .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=1")")
+                .js("@Url.Content("~/Views/Feedback/Scripts/CustomerLastestFeedback.js?ver=5")");
+        });   
+</script>
+
