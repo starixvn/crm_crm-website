@@ -26,7 +26,8 @@ var DashboardManager = function () {
             Tab5: self.Enums.SubMenuId.Redemption
         },
         currentMenuTabIndex: 1,
-        maxMenuTabIndex: 5
+        maxMenuTabIndex: 5,
+        subMenuId: null
     };
 
     self.initPage = function () {
@@ -36,46 +37,59 @@ var DashboardManager = function () {
         });
     };
 
+    self.dashboardMenuClickAfterCheckChanging = function () {
+        var subMenuId = self.CachedData.subMenuId;
+        if (subMenuId !== self.CachedData.currentSubMenu) {
+            var customer = homeManager.CachedData.currentCustomer;
+            var subMenuIdEnum = self.Enums.SubMenuId;
+            self.CachedData.currentSubMenu = subMenuId;
+            switch (subMenuId) {
+                case subMenuIdEnum.Main:
+                    menuManager.goToURL('centerFr', window.rootUrl + 'Dashboard/Index?' + $.param({
+                        customerId: customer.Id
+                    }));
+                    self.CachedData.currentMenuTabIndex = 1;
+                    break;
+                case subMenuIdEnum.Detail:
+                    menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
+                        customerId: customer.Id
+                    }));
+                    self.CachedData.currentMenuTabIndex = 2;
+                    break;
+                case subMenuIdEnum.CommunicationLog:
+                    menuManager.goToURL('centerFr', window.rootUrl + 'CommunicationLog/Index?' + $.param({
+                        customerId: customer.Id
+                    }));
+                    self.CachedData.currentMenuTabIndex = 3;
+                    break;
+                case subMenuIdEnum.SpeciaRemark:
+                    menuManager.goToURL('centerFr', window.rootUrl + 'Remark/Index?' + $.param({
+                        customerId: customer.Id
+                    }));
+                    self.CachedData.currentMenuTabIndex = 4;
+                    break;
+                case subMenuIdEnum.Redemption:
+                    menuManager.goToURL('centerFr', window.rootUrl + 'Redemption/Index?' + $.param({
+                        customerId: customer.Id
+                    }));
+                    self.CachedData.currentMenuTabIndex = 5;
+                    break;
+                default:
+                    break;
+            }
+
+            menuManager.setActiveClassForDasboarSubMenu(subMenuId);
+        }
+    };
+
     self.dashboardMenuClick = function (subMenuId) {
-        var customer = homeManager.CachedData.currentCustomer;
-        var subMenuIdEnum = self.Enums.SubMenuId;
-        self.CachedData.currentSubMenu = subMenuId;
-        switch (subMenuId) {
-            case subMenuIdEnum.Main:
-                menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
-                    customerId: customer.Id
-                }));
-                self.CachedData.currentMenuTabIndex = 1;
-                break;
-            case subMenuIdEnum.Detail:
-                menuManager.goToURL('centerFr', window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
-                    customerId: customer.Id
-                }));
-                self.CachedData.currentMenuTabIndex = 2;
-                break;
-            case subMenuIdEnum.CommunicationLog:
-                menuManager.goToURL('centerFr', window.rootUrl + 'CommunicationLog/Index?' + $.param({
-                    customerId: customer.Id
-                }));
-                self.CachedData.currentMenuTabIndex = 3;
-                break;
-            case subMenuIdEnum.SpeciaRemark:
-                menuManager.goToURL('centerFr', window.rootUrl + 'Remark/Index?' + $.param({
-                    customerId: customer.Id
-                }));
-                self.CachedData.currentMenuTabIndex = 4;
-                break;
-            case subMenuIdEnum.Redemption:
-                menuManager.goToURL('centerFr', window.rootUrl + 'Redemption/Index?' + $.param({
-                    customerId: customer.Id
-                }));
-                self.CachedData.currentMenuTabIndex = 5;
-                break;
-            default:
-                break;
+        self.CachedData.subMenuId = subMenuId;
+        if (homeManager.CachedData.isChangingData) {
+            homeManager.showConfirmIgnoreChange(self.dashboardMenuClickAfterCheckChanging);
+            return;
         }
 
-        menuManager.setActiveClassForDasboarSubMenu(subMenuId);
+        self.dashboardMenuClickAfterCheckChanging();
     };
     self.moveToPreviousTab = function () {
         self.CachedData.currentMenuTabIndex--;

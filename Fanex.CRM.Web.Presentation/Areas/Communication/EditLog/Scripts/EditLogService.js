@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global editLogApplication */
- editLogApplication.factory('$editLogService', function ($http, $q) {
+ editLogApplication.factory('$editLogService', ['$http', '$q',
+    function ($http, $q) {
     var serviceInstance = {};
 
     serviceInstance.getAllExtension = function () {
@@ -277,4 +278,4 @@
         return deferred.promise;
     };
     return serviceInstance;
-});
+}]);

@@ -163,6 +163,7 @@ customerDetailApplication.directive('dropdownSite', function () {
                 /* jshint unused: vars */
                 renderDropdownLanguage(scope, element, attrs);
                 scope.updateSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
+                scope.updateOldSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
             });
 
             element.on('change', function () {

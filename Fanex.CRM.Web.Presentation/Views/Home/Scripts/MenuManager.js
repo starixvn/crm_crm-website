@@ -98,7 +98,9 @@ var MenuManager = function () {
                 success: function (response, status, xhr) {
                     /* jshint unused: vars */
                     self.DOMElements.SubMenu.html(response);
-                    menuManager.goToURL('centerFr', window.rootUrl + "Dashboard");
+                    parent.menuManager.goToURL('centerFr', window.rootUrl + 'Dashboard/Index?' + $.param({
+                        customerId: homeManager.CachedData.currentCustomer.Id
+                    }));
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     /* jshint unused: vars */

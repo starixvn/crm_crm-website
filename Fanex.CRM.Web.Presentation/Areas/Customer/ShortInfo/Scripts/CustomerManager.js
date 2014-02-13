@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global sharedScriptManager, accId, crmConstants */
 
+var customerManager;
 var CustomerManager = function () {
     var self = this;
     self.DOMElements = {
@@ -48,7 +49,9 @@ var CustomerManager = function () {
 
         isLoadedSite: false,
         isLoadedCountry: false,
-        isLoadedLanguage: false
+        isLoadedLanguage: false,
+
+        controllerScope: null
     };
 
     self.initPage = function () {
@@ -102,7 +105,6 @@ var CustomerManager = function () {
         self.CacheData.getCustomerInfoParams = getCustomerInfoParams;
         return getCustomerInfoParams;
     };
-
     self.checkCustomerInfoResult = function (customer) {
         if (customer == null || customer === "") {
             self.goToBlankPage();
@@ -125,7 +127,6 @@ var CustomerManager = function () {
         self.DOMElements.divContent.removeClass("display-none");
         return true;
     };
-
     self.checkGuestCustomerInfoResult = function (customer) {
         if (customer == null || customer === "") {
             self.goToBlankPage();
@@ -137,7 +138,6 @@ var CustomerManager = function () {
         self.DOMElements.divContent.removeClass("display-none");
         return true;
     };
-
     self.goToBlankPage = function () {
         try {
             self.DOMElements.centerFrame.attr({
@@ -148,7 +148,6 @@ var CustomerManager = function () {
         } catch (e) {
         }
     };
-
     self.showGetCustomerInfoByUsername_NoInfo = function () {
         self.goToBlankPage();
         parent.menuManager.hideLeftPanel();
@@ -177,7 +176,6 @@ var CustomerManager = function () {
             }]
         });
     };
-
     self.showConfirmSearchByGuestDialog = function () {
         self.DOMElements.divResultPopUp.html(self.CacheData.ViewResources.CustomerInfo_ConfirmSearchByGuest);
         self.DOMElements.divResultPopUp.removeClass("display-none");
@@ -214,7 +212,6 @@ var CustomerManager = function () {
 
         parent.menuManager.hideLeftPanel();
     };
-
     self.getGuestCustomerInfoByUsername = function () {
         self.DOMElements.checkboxIsGuest.attr("checked", "checked");
         var scope = angular.element($(".customerinfo-container")).scope();
@@ -222,7 +219,6 @@ var CustomerManager = function () {
             scope.getGuestCustomerInfoByUsername(self.getCustomerInfoByUsernameParams());
         });
     };
-
     self.updateCustomerSuggestion = function (customer) {
         var updateParam = {
             UserId: accId,
@@ -253,8 +249,7 @@ var CustomerManager = function () {
         if (parseInt(self.CacheData.getCustomerInfoParams.IsSearch) === 1 &&
             parseInt(self.CacheData.getCustomerInfoParams.IsReloadLeftPanel) !== 1) {
             try {
-                parent.menuManager.getDashboardMenu();
-                parent.menuManager.goToURL('centerFr', window.rootUrl + 'Dashboard');
+                parent.menuManager.getDashboardMenu();                
             } catch (e) {
             }
         }
@@ -300,6 +295,11 @@ var CustomerManager = function () {
 
         self.DOMElements.dropdownSite.empty().html(siteOptions);
         self.DOMElements.dropdownSite.val(self.CacheData.currentCustomer.SiteSetting.Id);
+        self.DOMElements.dropdownSite.find('option').click(function () {
+            self.CacheData.controllerScope.customer.SiteSetting.Id = parseInt(customerManager.DOMElements.dropdownSite.val());
+            self.CacheData.controllerScope.$apply();
+        });
+
         self.CacheData.isLoadedSite = true;
     };
     self.getAllCountry = function () {
@@ -328,6 +328,10 @@ var CustomerManager = function () {
 
         self.DOMElements.dropdownCountry.empty().html(siteOptions);
         self.DOMElements.dropdownCountry.val(self.CacheData.currentCustomer.Country.Id);
+        self.DOMElements.dropdownCountry.find('option').click(function () {
+            self.CacheData.controllerScope.customer.Country.Id = parseInt(customerManager.DOMElements.dropdownCountry.val());
+            self.CacheData.controllerScope.$apply();
+        });
         self.CacheData.isLoadedCountry = true;
     };
     self.getAllLanguage = function () {
@@ -381,10 +385,17 @@ var CustomerManager = function () {
             noItemText: self.CacheData.ViewResources.No_languages_found,
             noneSelectedText: self.CacheData.ViewResources.Symbol_NotApply,
             selectedList: 3,
-            listData: dropdownLanguage
+            listData: dropdownLanguage,
+            onCheck: function () {
+                self.CacheData.controllerScope.customer.SelectedLanguages = self.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(",");
+                self.CacheData.controllerScope.$apply();
+            }
         });
 
         self.DOMElements.dropdownLanguage = $("#customerinfo-languageoptions");
+        self.CacheData.controllerScope.customer.SelectedLanguages = self.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(",");
+        self.CacheData.controllerScope.oldLanguages = self.CacheData.controllerScope.customer.SelectedLanguages;
+        self.CacheData.controllerScope.$apply();
         self.CacheData.isLoadedLanguage = true;
     };
     self.IsCustomerKnowLanguage = function (languageId) {
@@ -485,7 +496,7 @@ var CustomerManager = function () {
     };
 };
 
-var customerManager = new CustomerManager();
+customerManager = new CustomerManager();
 angular.element(document).ready(function () {
     customerManager.initPage();
 });

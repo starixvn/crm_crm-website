@@ -1,7 +1,7 @@
 ﻿
 "use strict";
 /* global customerApplication */
-customerApplication.factory('$customerService', function ($http, $q) {
+customerApplication.factory('$customerService', ['$http', '$q', function ($http, $q) {
     var self = {};
     self.CacheData = {
         getCustomerInfoParams: {
@@ -55,4 +55,4 @@ customerApplication.factory('$customerService', function ($http, $q) {
     };
 
     return self;
-});
+}]);

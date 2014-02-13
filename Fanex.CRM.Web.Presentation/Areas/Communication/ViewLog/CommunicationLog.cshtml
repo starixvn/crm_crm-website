@@ -13,7 +13,7 @@
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Areas/Communication/ViewLog/Styles")
+    @Styles.Render("~/Areas/Communication/ViewLogStyles")
 </head>
 <body>
     <div id="communicationcontroller" class="container main" data-ng-controller="communicationController">
@@ -29,13 +29,13 @@
         </div>
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AgularJS")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
     @Scripts.Render("~/Scripts/PopUp")
     <script type="text/javascript" src="~/Scripts/Paging/jpager.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    @Scripts.Render("~/Areas/Communication/ViewLog/Scripts")
+    @Scripts.Render("~/Areas/Communication/ViewLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var communicationLogs = @Html.Raw(jsonLogInfoList);

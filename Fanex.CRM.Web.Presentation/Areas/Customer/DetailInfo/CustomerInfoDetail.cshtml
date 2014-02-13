@@ -11,7 +11,7 @@
     <title>@Labels.Customer_Info </title>
     @Styles.Render("~/site/common")
     @Scripts.Render("~/scripts/respond")
-    @Styles.Render("~/Styles/MultipleSelect")
+    @Styles.Render("~/Styles/FanexMultipleSelect")
 </head>
 <body>
     <div class="main container" data-ng-controller="customerDetailController">
@@ -295,21 +295,22 @@
     <div id="div-customerinfodetail-resultpopup" class="selector display-none">
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AgularJS")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
     @Scripts.Render("~/Scripts/PopUp")
-    @Scripts.Render("~/Scripts/MultipleSelect")
-    @Scripts.Render("~/Areas/Customer/DetailInfo/Scripts")
+    @Scripts.Render("~/Scripts/FanexMultipleSelect")
+    @Scripts.Render("~/Areas/DetailCustomerInfo/Scripts")
     <script type="text/javascript"> 
     window.rootUrl = '@Url.Content("~")'; 
-    var viewResources    = { 
+    var viewResources = { 
         OK: 'OK',
         Select: '@Labels.Select',
         Symbol_NotApply: '@Labels.Symbol_NotApply',
         Alert: '@Labels.Alert',
         All_Languages: '@Labels.All_Languages',
         No_languages_found: '@Labels.No_languages_found',
-        Symbol_NotApply: '@Labels.Symbol_NotApply'
-    }; 
+        Symbol_NotApply: '@Labels.Symbol_NotApply',
+        Confirm_Ignore_EditCustomer_Changes: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_Changes)'
+      }; 
     var customerDetail = @Html.Raw(jsonCustomerDetail); 
     </script>
 </body>

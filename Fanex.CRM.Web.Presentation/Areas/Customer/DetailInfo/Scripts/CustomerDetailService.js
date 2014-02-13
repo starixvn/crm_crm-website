@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global customerDetailApplication */
- customerDetailApplication.factory('$customerDetailService', function ($http, $q) {
+ customerDetailApplication.factory('$customerDetailService', ['$http', '$q', 
+ function ($http, $q) {
     var serviceInstance = {};
 
     serviceInstance.getCustomerInfoDetailById = function (getCustomerInfoDetailById) {
@@ -112,4 +113,4 @@
 
 
     return serviceInstance;
-});
+}]);

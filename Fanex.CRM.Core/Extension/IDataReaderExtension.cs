@@ -58,5 +58,12 @@ namespace Fanex.CRM.Infrastructure.Extension
                 reader.GetByte(reader.GetOrdinal(columnName)) :
                 (byte)0;
         }
+
+        public static decimal GetDecimalNotNull(this IDataReader reader, string columnName)
+        {
+            return reader[columnName] != DBNull.Value ?
+                reader.GetDecimal(reader.GetOrdinal(columnName)) :
+                (decimal)0;
+        }
     }
 }
