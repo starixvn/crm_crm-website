@@ -97,15 +97,6 @@ namespace Fanex.CRM.Remark.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove remark.
-        /// </summary>
-        public static string RemoveRemark {
-            get {
-                return ResourceManager.GetString("RemoveRemark", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Special Remark.
         /// </summary>
         public static string SpecialRemark {

@@ -129,9 +129,6 @@
   <data name="RemarkPlaceHolder" xml:space="preserve">
     <value>Click here to enter new remark</value>
   </data>
-  <data name="RemoveRemark" xml:space="preserve">
-    <value>Remove remark</value>
-  </data>
   <data name="SpecialRemark" xml:space="preserve">
     <value>Special Remark</value>
   </data>

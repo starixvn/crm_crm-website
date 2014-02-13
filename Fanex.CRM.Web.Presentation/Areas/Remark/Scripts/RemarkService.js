@@ -1,6 +1,6 @@
 ﻿"use strict";
 /* global remarkApplication */
-remarkApplication.factory('$remarkService', function ($http, $q) {
+remarkApplication.factory('$remarkService', ['$http', '$q', function ($http, $q) {
     var serviceInstance = {};
 
     serviceInstance.getRemarks = function (customerId) {
@@ -48,4 +48,4 @@ remarkApplication.factory('$remarkService', function ($http, $q) {
     };
 
     return serviceInstance;
-});
+}]);

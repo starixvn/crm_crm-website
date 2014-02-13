@@ -23,14 +23,15 @@
                             <span>{{$index + 1}}.</span>
                             <input type="text" class="textbox-remark" data-ng-model="remarks.SpecialRemarks[$index]" />
                         </div>
-                        <span class="glyphicon glyphicon-remove remove" title="@Labels.RemoveRemark" data-ng-click="deleteRemark(true, $index)"></span>
+                        <span class="icon-del" data-ng-click="deleteRemark(true, $index)"></span>
                     </li>
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11">
                             <span>{{remarks.SpecialRemarks.length + 1}}.</span>
-                            <input id="txtSpecialRemark" type="text" class="textbox-remark" placeholder="@Labels.SpecialRemarkPlaceHolder"
+                            <input type="text" class="textbox-remark" defaulttext="@Labels.SpecialRemarkPlaceHolder"
                                 data-ng-model="lastSpecialRemark"
-                                on-enter-keyup="insertSpecialRemark" />
+                                on-enter-keyup="insertSpecialRemark" 
+                                custom-place-holder/>
                         </div>
                     </li>
                 </ul>
@@ -45,14 +46,15 @@
                             <span>{{$index + 1}}.</span>
                             <input type="text" class="textbox-remark" data-ng-model="remarks.Remarks[$index]" />
                         </div>
-                        <span class="glyphicon glyphicon-remove remove" title="@Labels.RemoveRemark" data-ng-click="deleteRemark(false, $index)"></span>
+                        <span class="icon-del" data-ng-click="deleteRemark(false, $index)"></span>
                     </li>
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11">
                             <span>{{remarks.Remarks.length + 1}}.</span>
-                            <input id="txtRemark" type="text" class="textbox-remark" placeholder="@Labels.RemarkPlaceHolder"
+                            <input type="text" class="textbox-remark" defaulttext="@Labels.RemarkPlaceHolder"
                                 data-ng-model="lastRemark"
-                                on-enter-keyup="insertRemark" />
+                                on-enter-keyup="insertRemark"
+                                custom-place-holder/>
                         </div>
                     </li>
                 </ul>
@@ -73,7 +75,7 @@
             Alert: '@Labels.Alert',
             OK: '@Labels.OK',
             UpdateRemarkSuccess: '@Labels.UpdateRemarkSuccess'
-        }; 
+        };
     </script>
 </body>
 </html>

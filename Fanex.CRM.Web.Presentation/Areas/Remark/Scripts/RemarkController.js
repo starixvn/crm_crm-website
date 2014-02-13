@@ -3,7 +3,8 @@
 hotKeyManager,
 remarkResources,
 customerId */
-remarkApplication.controller('remarkController', function ($scope,
+remarkApplication.controller('remarkController', ['$scope', '$remarkService', function (
+    $scope,
     $remarkService) {
     $scope.remarks = null;
     $scope.customerId = customerId;
@@ -41,6 +42,7 @@ remarkApplication.controller('remarkController', function ($scope,
         $remarkService.updateRemarks($scope.remarks)
             .then(function (data) {
                 $scope.showUpdateResult(data.Result);
+                $scope.setPlaceHolder();
                 $scope.unblockUI();
             },
             function (data) {
@@ -102,6 +104,13 @@ remarkApplication.controller('remarkController', function ($scope,
         });
     };
 
+    $scope.setPlaceHolder = function () {
+        $('input[defaulttext]').each(function () {
+            var input = $(this);
+            $(input).val(input.attr('defaulttext'));
+        });
+    };
+
     $scope.blockUI = function () {
         try {
             parent.BlockUI();
@@ -122,4 +131,4 @@ remarkApplication.controller('remarkController', function ($scope,
         });
         $scope.DOMElements.divResultPopUp = parent.$('#div-resultpopup');
     });
-});
+}]);
