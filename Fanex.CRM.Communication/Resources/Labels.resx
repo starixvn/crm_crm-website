@@ -249,4 +249,13 @@
   <data name="Communication_Log_EmptySolution" xml:space="preserve">
     <value>Solution is mandatory!</value>
   </data>
+  <data name="Confirm_Ignore_EditCommunication_Changes" xml:space="preserve">
+    <value>There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
+  <data name="Confirm_Ignore_InsertCommunication_Changes" xml:space="preserve">
+    <value>There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
+  <data name="Running_No" xml:space="preserve">
+    <value>Running No.</value>
+  </data>
 </root>

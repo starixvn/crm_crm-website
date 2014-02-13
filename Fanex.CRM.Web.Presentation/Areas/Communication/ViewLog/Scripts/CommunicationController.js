@@ -2,13 +2,17 @@
 /* global communicationApplication, 
 communicationLogs, 
 hotKeyManager,
-viewResources */
+viewResources,
+crmConstants */
 communicationApplication.controller('communicationController', ['$scope', '$http', '$communicationService',
 function (
     $scope,
     $http,
     $communicationService) {
     $scope.logs = communicationLogs ? communicationLogs.Logs : null;
+    $scope.isSuccess = false;
+    $scope.isShowResultMessage = false;
+    $scope.resultMessage = '';
     $scope.customerId = communicationLogs.CustomerId;
     $scope.initController = function () {
         hotKeyManager.CachedData.ActiveDocumentManager.push({
@@ -38,17 +42,70 @@ function (
             });
     };
     $scope.closeEditView = function () {
-        if (parent.shouldReloadLogs) {
-            $scope.getLogsByCustomerId();
+        if (!parent.homeManager.CachedData.shouldReloadLogs) {
+            return;
         }
+
+        var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+        $scope.isShowResultMessage = true;
+        $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
+        $scope.resultMessage = popUpResult.Message;
+        window.scroll(1, 1);
+        if ($scope.isSuccess) {
+            setTimeout(function () {
+                $scope.isShowResultMessage = false;
+                $scope.$apply();
+            }, 3000);
+        }
+
+        $scope.$apply();
+        $scope.getLogsByCustomerId();
     };
     $scope.closeInsertView = function () {
-        if (parent.shouldReloadLogs) {
-            $scope.getLogsByCustomerId();
+        if (!parent.homeManager.CachedData.shouldReloadLogs) {
+            return;
         }
+
+        var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+        $scope.isShowResultMessage = true;
+        $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
+        $scope.resultMessage = popUpResult.Message;
+        window.scroll(1, 1);
+        if ($scope.isSuccess) {
+            setTimeout(function () {
+                $scope.isShowResultMessage = false;
+                $scope.$apply();
+            }, 3000);
+        }
+
+        $scope.$apply();
+        $scope.getLogsByCustomerId();
     };
+    $scope.beforeCloseInsertView = function () {
+        if (parent.homeManager.CachedData.isChangingDataPopUp &&
+            parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+            var insertLogController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+            parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+            parent.homeManager.showConfirmIgnoreChangePopUp(insertLogController.ignoreChanges);
+            return false;
+        }
+
+        return true;
+    };
+    $scope.beforeCloseEditView = function () {
+        if (parent.homeManager.CachedData.isChangingDataPopUp &&
+            parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+            var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+            parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+            parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+            return false;
+        }
+
+        return true;
+    };
+
     $scope.editCommunicationLog = function (logIndex) {
-        parent.shouldReloadLogs = false;
+        parent.homeManager.CachedData.shouldReloadLogs = false;
         var url = window.rootUrl + "CommunicationLog/OpenEditView?" + $.param({
             logRunningNumber: $scope.logs[logIndex].RunningNumber
         });
@@ -62,10 +119,12 @@ function (
             parent.window,
             3000,
             null,
-            $scope.closeEditView);
+            $scope.closeEditView,
+            null,
+            $scope.beforeCloseEditView);
     };
     $scope.insertCommunicationLog = function () {
-        parent.shouldReloadLogs = false;
+        parent.homeManager.CachedData.shouldReloadLogs = false;
         parent.OpenPopup(
             window.rootUrl + "CommunicationLog/OpenInsertView?" + $.param({ customerId: $scope.customerId }),
             viewResources.Insert_Communication_Log,
@@ -76,7 +135,9 @@ function (
             parent.window,
             3000,
             null,
-            $scope.closeInsertView);
+            $scope.closeInsertView,
+            null,
+            $scope.beforeCloseInsertView);
     };
     $scope.unblockUI = function () {
         try {
@@ -93,4 +154,4 @@ function (
     angular.element(document).ready(function () {
         $scope.initController();
     });
-}]);
+} ]);
