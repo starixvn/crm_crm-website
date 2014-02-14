@@ -56,7 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Criteria\GetCustomerDashboardInfoCriteria.cs" />
+    <Compile Include="Criteria\GetCommunicationLogsCriteria.cs" />
+    <Compile Include="Criteria\GetCustomerInfoCriteria.cs" />
+    <Compile Include="Criteria\GetCustomerRemarksCriteria.cs" />
+    <Compile Include="Criteria\GetRedemptionLogsCriteria.cs" />
+    <Compile Include="Criteria\UpdateCustomerVerifyFlagCriteria.cs" />
     <Compile Include="Models\CommunicationLogInfo.cs" />
     <Compile Include="Models\CustomerDashboardInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />

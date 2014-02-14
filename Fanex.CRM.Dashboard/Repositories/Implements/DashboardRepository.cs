@@ -27,18 +27,39 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
     public class DashboardRepository : IDashboardRepository
     {
         /// <summary>
-        /// Gets the customer dashboard information.
+        /// Gets the customer remarks.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer dashboard information.</returns>
-        public CustomerDashboardInfo GetCustomerDashboardInfo(GetCustomerDashboardInfoCriteria criteria)
+        /// <returns>The customer remarks.</returns>
+        public List<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {
-            CustomerDashboardInfo result = new CustomerDashboardInfo
+            List<string> result = new List<string>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                Remarks = new List<string>(),
-                RedemptionLogs = new List<RedemptionLogInfo>(),
-                CommunicationLogs = new List<CommunicationLogInfo>()
-            };
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(MappingDataFromSqlToRemarkObject(reader));
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the customer information.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The customer information.</returns>
+        public CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria)
+        {
+            CustomerInfo result = new CustomerInfo();
 
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -49,33 +70,35 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                     {
                         while (reader.Read())
                         {
-                            result.CustomerInfo = MappingDataFromSqlToCustomerInfoObject(reader);
+                            result = MappingDataFromSqlToCustomerInfoObject(reader);
                         }
 
-                        result.CustomerInfo.Id = criteria.CustomerId;
+                        result.Id = criteria.CustomerId;
                     }
+                }
+            }
 
-                    if (reader.NextResult())
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the redemption logs.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The redemption logs.</returns>
+        public List<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
+        {
+            List<RedemptionLogInfo> result = new List<RedemptionLogInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
                     {
                         while (reader.Read())
                         {
-                            result.Remarks.Add(MappingDataFromSqlToRemarkObject(reader));
-                        }
-                    }
-
-                    if (reader.NextResult())
-                    {
-                        while (reader.Read())
-                        {
-                            result.RedemptionLogs.Add(MappingDataFromSqlToRedemptionLogObject(reader));
-                        }
-                    }
-
-                    if (reader.NextResult())
-                    {
-                        while (reader.Read())
-                        {
-                            result.CommunicationLogs.Add(MappingDataFromSqlToCommunicationLogObject(reader));
+                            result.Add(MappingDataFromSqlToRedemptionLogObject(reader));
                         }
                     }
                 }
@@ -84,6 +107,60 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             return result;
         }
 
+        /// <summary>
+        /// Gets the communication logs.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The communication logs.</returns>
+        public List<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
+        {
+            List<CommunicationLogInfo> result = new List<CommunicationLogInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            result.Add(MappingDataFromSqlToCommunicationLogObject(reader));
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Updates the customer verify flag.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
+        public Result UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
+        {
+            Result updateResult = null;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                updateResult = new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
+            }
+
+            return updateResult;
+        }
+
+        /// <summary>
+        /// Mappings the data from SQL to customer information object.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>Customer information object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -95,6 +172,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                 Passport = reader.GetStringNotNull("Passport"),
                 SecretCode = reader.GetStringNotNull("SecretCode"),
                 BetCredit = reader.GetDecimalNotNull("BetCredit"),
+                BirthDay = reader.GetDateTimeNotNull("Birthday").ToShortFormatedDate(),
 
                 IsVerifyEmail = reader.GetBooleanNotNull("IsVerifyEmail"),
                 IsVerifyPassport = reader.GetBooleanNotNull("IsVerifyPassport"),
@@ -106,6 +184,11 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             return result;
         }
 
+        /// <summary>
+        /// Mappings the data from SQL to remark object.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>Remark object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -115,6 +198,11 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             return result;
         }
 
+        /// <summary>
+        /// Mappings the data from SQL to redemption log object.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>Redemption log object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -134,6 +222,11 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             return result;
         }
 
+        /// <summary>
+        /// Mappings the data from SQL to communication log object.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>Communication log object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

@@ -4,13 +4,13 @@ viewResources,
 crmConstants */
 dashboardApplication.directive('tableRedemptionLogsContainer', function () {
     function renderRedemptionLogs(scope, element, attrs) {
-        if (scope.customerDashboardInfo == null) {
+        if (scope.redemptionLogs == null) {
             return;
         }
 
         /* jshint unused: vars */
         var tableRedemptionLogs = element.find("#table-redemption-logs");
-        var logList = scope.customerDashboardInfo.RedemptionLogs;
+        var logList = scope.redemptionLogs;
         var bodyData = [];
         var footerData = [];
         tableRedemptionLogs.empty();
@@ -34,9 +34,9 @@ dashboardApplication.directive('tableRedemptionLogsContainer', function () {
 
         /* jshint camelcase: false */
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Subject, Width: 680, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Claimed_Time, Width: 120, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center", Sort: true },
-                { HeaderText: viewResources.Status, Width: 140, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true}],
+            columns: [{ HeaderText: viewResources.Subject, Width: 680, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Claimed_Time, Width: 120, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Status, Width: 140, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center"}],
             showTitle: true,
             titleInfo: {
                 text: viewResources.Recent_Redemption_Activity

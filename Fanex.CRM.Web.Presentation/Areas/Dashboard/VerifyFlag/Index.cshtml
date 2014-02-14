@@ -1,0 +1,89 @@
+﻿@using Fanex.CRM.Dashboard.Resources;
+@using Newtonsoft.Json;
+@using Fanex.CRM.Dashboard.Models;
+@using Fanex.CRM.Infrastructure.Extension;
+@{
+    var jsonCustomerInfo = JsonConvert.SerializeObject(Model);
+}
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="dashboard-verifyflag-application">
+<head>
+    <title>@Labels.Verify_Customer_Info </title>
+    @Styles.Render("~/site/common")
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/autocomplete/styles.css")" />
+    @Styles.Render("~/Areas/Dashboard/VerifyFlagStyles")
+</head>
+<body>
+    <div class="main popup container" data-ng-controller="verifyFlagController">
+        <div class="row form-group">
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input id="email" type="checkbox" data-ng-model="customerInfo.IsVerifyEmail" />
+                    <label for="email" class="labelforcheckbox">
+                        @Labels.Email</label></div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3 link labelemail">
+                    {{ customerInfo.Email }}
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input id="passportnumber" type="checkbox" data-ng-model="customerInfo.IsVerifyPassport" />
+                    <label for="passportnumber" class="labelforcheckbox">
+                        @Labels.Passport_Number</label></div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
+                    {{ customerInfo.Passport }}
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input id="birthday" type="checkbox" data-ng-model="customerInfo.IsVerifyBirthday" />
+                    <label for="birthday" class="labelforcheckbox">
+                        @Labels.Birthday</label></div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3 ">
+                    {{ customerInfo.BirthDay }}
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input id="secretcode" type="checkbox" data-ng-model="customerInfo.IsVerifySecretCode" />
+                    <label for="secretcode" class="labelforcheckbox">
+                        @Labels.Secret_Code</label></div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
+                    {{ customerInfo.SecretCode }}
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input id="betcredit" type="checkbox" data-ng-model="customerInfo.IsVerifyBetCredit" />
+                    <label for="betcredit" class="labelforcheckbox">
+                        @Labels.Bet_Credit</label></div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
+                    {{ customerInfo.BetCredit }}
+                </div>
+            </div>
+            <div class="row item">
+                <button class="btn" data-ng-click="updateCustomerVerifyFlag();">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render("~/Areas/Dashboard/VerifyFlagScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = '@DateTime.Now';
+        var viewResources = {
+        Confirm_Ignore_EditVerifyFlag_Changes: '@Html.Raw(Labels.Confirm_Ignore_EditVerifyFlag_Changes)'
+        };
+
+        verifyFlagApplication.factory('$bootstrappedData', function () {
+            return {
+                customerInfo: @Html.Raw(jsonCustomerInfo)
+            };
+        });
+    </script>
+</body>
+</html>

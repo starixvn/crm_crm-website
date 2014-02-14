@@ -327,6 +327,8 @@ function (
         $scope.betTypeList = $scope.productList[0].ChildSettings;
         $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
         $scope.updateRemarkPrefix();
+
+        $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.updateChangeFlag();
     };
     $scope.generateRemarkPrefix = function () {
@@ -504,7 +506,7 @@ function (
     $scope.showUpdateResult = function (updateResult) {
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         parent.homeManager.CachedData.shareInfoBetweenPopup = updateResult;
-        parent.homeManager.CachedData.shouldReloadLogs = true;
+        parent.homeManager.CachedData.shouldReloadView = true;
         $scope.unblockUI();
         parent.ClosePopup();
     };

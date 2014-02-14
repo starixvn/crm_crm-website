@@ -170,7 +170,7 @@ function (
     $scope.completedInsertLog = function (insertResult) {
         $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
         parent.homeManager.CachedData.shareInfoBetweenPopup = insertResult;
-        parent.homeManager.CachedData.shouldReloadLogs = true;
+        parent.homeManager.CachedData.shouldReloadView = true;
         $scope.unblockUI();
         parent.ClosePopup();
     };

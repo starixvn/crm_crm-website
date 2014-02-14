@@ -1,0 +1,71 @@
+﻿@using Fanex.CRM.Dashboard.Resources;
+@using Newtonsoft.Json;
+@model int
+@{
+    var customerId = JsonConvert.SerializeObject(Model);
+}
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="dashboard-application">
+<head>
+    <title>@Labels.Main </title>
+    @Styles.Render("~/site/common")
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
+    @Styles.Render("~/Areas/Dashboard/ViewInfoStyles")
+</head>
+<body class="leftPanel" data-ng-controller="dashboardController">
+    <div class="container main">
+        <div class="row row-item" data-ng-show="isShowResultMessage">
+            <div class="col-xs-11 col-sm-11 col-md-11">
+                <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                    <div>
+                        {{ resultMessage }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="col-xs-8 col-sm-8 col-md-8">
+                @Html.Action("GetCustomerRemarksView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+            </div>
+            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
+                @Html.Action("GetCustomerInfoView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+            </div>
+        </div>
+        <div class="row row-item">
+            @Html.Action("GetRedemptionLogsView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+        </div>
+        <div class="row row-item">
+            @Html.Action("GetCommunicationLogsView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    <script type="text/javascript" src="~/Scripts/Paging/jpager.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
+    @Scripts.Render("~/Areas/Dashboard/ViewInfoScripts")
+    <script type="text/javascript"> 
+        window.rootUrl = '@Url.Content("~")';
+        var customerId    = @customerId; 
+        var viewResources = { 
+            Recent_Redemption_Activity: '@Labels.Recent_Redemption_Activity',
+            Edit_Redemption_Log: '@Labels.Edit_Redemption_Log', 
+            Subject:'@Labels.Subject', 
+            Claimed_Time:    '@Labels.Claimed_Time', 
+            Status: '@Labels.Status', 
+            Last_10_Communication_Log:'@Labels.Last_10_Communication_Log',
+            Running_No: '@Labels.Running_No',
+            Feedback_Date: '@Labels.Feedback_Date', 
+            Main_Category:    '@Labels.Main_Category', 
+            Sub_Category: '@Labels.Sub_Category', 
+            Duration: '@Labels.Duration',
+            Handled_By: '@Labels.Handled_By', 
+            Reviewed_By: '@Labels.Reviewed_By',
+            Edit_Communication_Log: '@Labels.Edit_Communication_Log',
+            Verify_Customer_Info: '@Labels.Verify_Customer_Info'
+        }; 
+    </script>
+</body>
+</html>

@@ -5,8 +5,9 @@ remarkResources,
 customerId */
 remarkApplication.controller('remarkController', ['$scope', '$remarkService', function (
     $scope, $remarkService) {
-    $scope.remarks = null;
     $scope.customerId = customerId;
+    $scope.remarks = null;
+    $scope.oldRemarks = null;
     $scope.lastSpecialRemark = '';
     $scope.lastRemark = '';
     $scope.isShowSpecialRemark = true;
@@ -17,6 +18,17 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
         $remarkService.getRemarks($scope.customerId)
             .then(function (data) {
                 $scope.remarks = data.Result;
+                $scope.oldRemarks = angular.copy($scope.remarks);
+                /*trigger form data change*/
+                $scope.$watchCollection('[lastSpecialRemark, lastRemark]', function () {
+                    $scope.checkFormDataChange();
+                });
+                $scope.$watchCollection('remarks.SpecialRemarks', function () {
+                    $scope.checkFormDataChange();
+                });
+                $scope.$watchCollection('remarks.NormalRemarks', function () {
+                    $scope.checkFormDataChange();
+                });
                 $scope.unblockUI();
             },
             function (data) {
@@ -26,6 +38,15 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
     };
 
     $scope.updateRemarks = function () {
+        if (parent.homeManager.CachedData.isChangingDataLeftPanel === true) {
+            parent.homeManager.showConfirmIgnoreChange($scope.updateRemarksAfterPreventUnsavedAction);
+            return;
+        }
+
+        $scope.updateRemarksAfterPreventUnsavedAction();
+    };
+
+    $scope.updateRemarksAfterPreventUnsavedAction = function () {
         $scope.blockUI();
         if ($scope.lastSpecialRemark.length !== 0) {
             $scope.remarks.SpecialRemarks.push($scope.lastSpecialRemark);
@@ -42,6 +63,8 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
                     data.Result.Code === 0 ? remarkResources.UpdateRemarkSuccess : data.Result.Message,
                     remarkResources.OK);
                 $scope.setPlaceHolder();
+                /*Must call getRemarks() function to reset change*/
+                $scope.getRemarks();
                 $scope.unblockUI();
             },
             function (data) {
@@ -83,6 +106,45 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
         });
     };
 
+    $scope.checkFormDataChange = function () {
+        var isChange = $scope.compareOldNewValues();
+        parent.homeManager.CachedData.isChangingData = isChange;
+        if (isChange) {
+            parent.homeManager.CachedData.ignoreConfirmMessage = remarkResources.Confirm_Ignore_EditCustomer_ChangesTabDetail;
+        }
+    };
+
+    $scope.compareOldNewValues = function () {
+        /*check last remark change*/
+        if ($scope.lastSpecialRemark.length !== 0 || $scope.lastRemark.length !== 0) {
+            return true;
+        }
+
+        /*check remark collection change*/
+        if ($scope.remarks === null) return false;
+        var specialLength = $scope.remarks.SpecialRemarks.length;
+        if (specialLength !== $scope.oldRemarks.SpecialRemarks.length) {
+            return true;
+        }
+        for (var i = 0; i < specialLength; i++) {
+            if ($scope.remarks.SpecialRemarks[i] !== $scope.oldRemarks.SpecialRemarks[i]) {
+                return true;
+            }
+        }
+
+        var normalLength = $scope.remarks.NormalRemarks.length;
+        if (normalLength !== $scope.oldRemarks.NormalRemarks.length) {
+            return true;
+        }
+        for (var i = 0; i < normalLength; i++) {
+            if ($scope.remarks.NormalRemarks[i] !== $scope.oldRemarks.NormalRemarks[i]) {
+                return true;
+            }
+        }
+
+        return false;
+    };
+
     $scope.blockUI = function () {
         try {
             parent.BlockUI();
@@ -102,4 +164,4 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
             Id: 'SpecialRemarks'
         });
     });
-}]);
+} ]);

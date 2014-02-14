@@ -1,0 +1,16 @@
+﻿@using Fanex.CRM.Dashboard.Resources;
+<div class="row panel-group last progressBar">
+    <div class="custInfo row content text-right verifiedinfo">
+        <div class="row item bar">
+            <div class="align-center" style="background: url('../Areas/Dashboard/ViewInfo/Styles/Images/verifystatus.png') no-repeat scroll {{ (getNumberOfVerifiedInfo() / 5  - 1) * 230 }}px 100% transparent">
+                {{ getNumberOfVerifiedInfo() / 5 * 100; }}%</div>
+        </div>
+        <div class="row item">
+            {{ getNumberOfVerifiedInfo(); }}/5 @Labels.information_verified
+        </div>
+        <div class="row item">
+            <button class="btn" data-ng-click="editVerifyFlag();">
+                V<span class="hotkey">e</span>rify</button>
+        </div>
+    </div>
+</div>
