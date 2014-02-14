@@ -1,11 +1,12 @@
 ﻿"use strict";
 /* global dashboardApplication */
-dashboardApplication.factory('$dashboardService', function ($http, $q) {
-    var serviceInstance = {};
+dashboardApplication.factory('$dashboardService', ['$http', '$q',
+    function ($http, $q) {
+        var serviceInstance = {};
 
-    serviceInstance.getCustomerDashboardInfo = function (getCustomerDashboardInfoCriteria) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + "Dashboard/GetCustomerDashboardInfo", getCustomerDashboardInfoCriteria)
+        serviceInstance.getCustomerDashboardInfo = function (getCustomerDashboardInfoCriteria) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "Dashboard/GetCustomerDashboardInfo", getCustomerDashboardInfoCriteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -22,8 +23,8 @@ dashboardApplication.factory('$dashboardService', function ($http, $q) {
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    return serviceInstance;
-});
+        return serviceInstance;
+    } ]);

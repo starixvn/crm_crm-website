@@ -53,18 +53,18 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
         }
 
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Running_Number, Width: 110, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Feedback_Date, Width: 100, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
+            columns: [{ HeaderText: viewResources.Running_No, Width: 80, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Feedback_Date, Width: 90, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
                 {
                     HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
-                    Width: 220,
+                    Width: 285,
                     Name: "ColCategory",
                     HeaderAlign: "center",
                     CellAlign: "left"
                 },
                 { HeaderText: viewResources.Subject, Width: 140, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Duration, Width: 80, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Duration, Width: 60, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handled_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Reviewed_By, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,

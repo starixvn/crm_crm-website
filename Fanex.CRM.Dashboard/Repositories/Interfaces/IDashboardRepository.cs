@@ -9,11 +9,21 @@
 
 namespace Fanex.CRM.Dashboard.Repositories.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Models;
+    using Fanex.CRM.Infrastructure.Models;
 
     public interface IDashboardRepository
     {
-        CustomerDashboardInfo GetCustomerDashboardInfo(GetCustomerDashboardInfoCriteria criteria);
+        List<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria);
+
+        CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria);
+
+        List<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria);
+
+        List<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria);
+
+        BaseModel UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria);
     }
 }

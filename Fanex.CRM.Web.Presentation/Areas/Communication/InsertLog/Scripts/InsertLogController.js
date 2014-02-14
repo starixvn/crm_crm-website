@@ -370,6 +370,7 @@ function (
         }, 1000);
 
         $scope.updateRemarkPrefix();
+        $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.updateChangeFlag();
     };
     $scope.generateRemarkPrefix = function () {

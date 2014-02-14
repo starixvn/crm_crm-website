@@ -327,6 +327,8 @@ function (
         $scope.betTypeList = $scope.productList[0].ChildSettings;
         $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
         $scope.updateRemarkPrefix();
+
+        $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.updateChangeFlag();
     };
     $scope.generateRemarkPrefix = function () {

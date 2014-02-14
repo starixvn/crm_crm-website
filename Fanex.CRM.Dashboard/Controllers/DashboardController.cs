@@ -11,6 +11,7 @@ namespace Fanex.CRM.Dashboard.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Dashboard.Criteria;
+    using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Dashboard.Services.Implements;
     using Fanex.CRM.Dashboard.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Web.Controllers;
@@ -37,10 +38,86 @@ namespace Fanex.CRM.Dashboard.Controllers
             return View("~/Areas/Dashboard/Index.cshtml", customerId);
         }
 
-        [HttpPost]
-        public ActionResult GetCustomerDashboardInfo(GetCustomerDashboardInfoCriteria criteria)
+        [ChildActionOnly]
+        public PartialViewResult GetCustomerRemarksView()
         {
-            var result = _serviceInstance.GetCustomerDashboardInfo(criteria);
+            return PartialView("~/Areas/Dashboard/CustomerRemarks.cshtml");
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult GetCustomerInfoView()
+        {
+            return PartialView("~/Areas/Dashboard/CustomerInfo.cshtml");
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult GetRedemptionLogsView()
+        {
+            return PartialView("~/Areas/Dashboard/RedemptionLogs.cshtml");
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult GetCommunicationLogsView()
+        {
+            return PartialView("~/Areas/Dashboard/CommunicationLogs.cshtml");
+        }
+
+        /// <summary>
+        /// Gets the customer dashboard information.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The customer dashboard information.</returns>
+        [HttpPost]
+        public ActionResult GetCustomerDashboardInfo(GetCustomerInfoCriteria criteria)
+        {
+            var result = new CustomerDashboardInfo
+            {
+                Remarks = _serviceInstance.GetCustomerRemarks(new GetCustomerRemarksCriteria { CustomerId = criteria.CustomerId }),
+                RedemptionLogs = _serviceInstance.GetRedemptionLogs(new GetRedemptionLogsCriteria { CustomerId = criteria.CustomerId }),
+                CommunicationLogs = _serviceInstance.GetCommunicationLogs(new GetCommunicationLogsCriteria { CustomerId = criteria.CustomerId }),
+                CustomerInfo = _serviceInstance.GetCustomerInfo(new GetCustomerInfoCriteria { CustomerId = criteria.CustomerId })
+            };
+
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public ActionResult GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
+        {
+            var result = _serviceInstance.GetCustomerRemarks(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public ActionResult GetCustomerInfo(GetCustomerInfoCriteria criteria)
+        {
+            var result = _serviceInstance.GetCustomerInfo(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public ActionResult GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
+        {
+            var result = _serviceInstance.GetRedemptionLogs(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public ActionResult GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
+        {
+            var result = _serviceInstance.GetCommunicationLogs(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public ActionResult UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
+        {
+            var result = _serviceInstance.UpdateCustomerVerifyFlag(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

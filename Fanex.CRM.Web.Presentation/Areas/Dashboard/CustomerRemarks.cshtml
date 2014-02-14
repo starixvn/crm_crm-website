@@ -1,0 +1,10 @@
+﻿@using Fanex.CRM.Dashboard.Resources;
+<div class="row panel-group last specialRemark">
+    <div class="row title">
+        @Labels.Special_Remark
+    </div>
+    <ul class="custinfo row content list-unstyled">
+        <li data-ng-repeat="remark in customerDashboardInfo.Remarks track by $index">{{ customerDashboardInfo.Remarks[$index]
+            }}</li>
+    </ul>
+</div>
