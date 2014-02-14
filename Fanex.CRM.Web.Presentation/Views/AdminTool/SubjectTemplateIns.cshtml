@@ -1,5 +1,11 @@
 ﻿<link href="@Url.Content("~/Views/AdminTool/Styles/StyleSheet.less")" rel="stylesheet" type="text/css" />
 <div class="container main popup">
+    
+    <div class="row">
+        <div id="errMsg" class="col-xs-12 col-sm-12 col-md-5 errMsg">
+        </div>
+    </div>
+
     <div id="dvSettingIns" class="row filter-frm one-row">
         <div id="tblSetting" class="row">
             <div class="item afterButton">
@@ -10,10 +16,6 @@
             <div class="item">
                 <input type="button" class="btn" value="Submit" onclick="insertFeedbackSubjectTemplate();" />
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div id="errMsg" class="col-xs-7 col-sm-7 col-md-5 errMsg">
         </div>
     </div>
 </div>

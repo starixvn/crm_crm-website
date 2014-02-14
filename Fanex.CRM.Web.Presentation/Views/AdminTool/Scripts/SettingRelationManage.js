@@ -28,8 +28,8 @@ function loadMainSetting() {
             $("#tplMainSetting").tmpl(rs).appendTo("#ddlMainSetting");
             settingRelation.loadSettingRelation();
         },
-        error: function () { },
-        complete: function () { try { parent.jQuery.unblockUI(); } catch (e) { } }
+        error: function () { try { parent.jQuery.unblockUI(); } catch (e) { } },
+        complete: function () {}
     });
 }
 
@@ -39,7 +39,7 @@ function ShowPopupAddSettingRelation(parentId, settingValue, settingName) {
         '&settingValue=' + encodeURI(settingValue) +
         '&settingName=' + encodeURI(settingName);
     var width = 585;
-    var height = 450;
+    var height = 470;
     parent.OpenPopup(url, title, width, height, true, false, window, 2000, function () { settingRelation.loadSettingRelation(); });
 }
 
@@ -116,7 +116,7 @@ settingRelation = {
                         ' + expanTd + '\
                         <td>\
                             <div class="c" style="width: 60px; height: 17px;">\
-                                <a class="hand addSetting" onclick="ShowPopupAddSettingRelation(' + row.Id + ', \'' + row.Value + '\', \'' + row.Type + '\');">\
+                                <a class="hand addSetting" href="JavaScript:void(0);" onclick="ShowPopupAddSettingRelation(' + row.Id + ', \'' + row.Value + '\', \'' + row.Type + '\');">\
                                     </a>\
                             </div>\
                         </td>\
