@@ -62,26 +62,6 @@ namespace Fanex.CRM.Dashboard.Controllers
             return PartialView("~/Areas/Dashboard/CommunicationLogs.cshtml");
         }
 
-        /// <summary>
-        /// Gets the customer dashboard information.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer dashboard information.</returns>
-        [HttpPost]
-        public ActionResult GetCustomerDashboardInfo(GetCustomerInfoCriteria criteria)
-        {
-            var result = new CustomerDashboardInfo
-            {
-                Remarks = _serviceInstance.GetCustomerRemarks(new GetCustomerRemarksCriteria { CustomerId = criteria.CustomerId }),
-                RedemptionLogs = _serviceInstance.GetRedemptionLogs(new GetRedemptionLogsCriteria { CustomerId = criteria.CustomerId }),
-                CommunicationLogs = _serviceInstance.GetCommunicationLogs(new GetCommunicationLogsCriteria { CustomerId = criteria.CustomerId }),
-                CustomerInfo = _serviceInstance.GetCustomerInfo(new GetCustomerInfoCriteria { CustomerId = criteria.CustomerId })
-            };
-
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
-        }
-
         [HttpPost]
         public ActionResult GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {

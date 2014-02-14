@@ -6,13 +6,13 @@ sharedScriptManager,
 viewResources */
 dashboardApplication.directive('tableCommunicationLogsContainer', function () {
     function renderCommunicationLogs(scope, element, attrs) {
-        if (scope.customerDashboardInfo == null) {
+        if (scope.communicationLogs == null) {
             return;
         }
 
         /* jshint unused: vars */
         var tableCommunicationLogs = element.find("#table-communication-logs");
-        var logList = scope.customerDashboardInfo.CommunicationLogs;
+        var logList = scope.communicationLogs;
         var bodyData = [];
         var footerData = [];
 

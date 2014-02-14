@@ -4,7 +4,7 @@
         @Labels.Special_Remark
     </div>
     <ul class="custinfo row content list-unstyled">
-        <li data-ng-repeat="remark in customerDashboardInfo.Remarks track by $index">{{ customerDashboardInfo.Remarks[$index]
+        <li data-ng-repeat="remark in customerRemarks track by $index">{{ $index + 1 }}. {{ customerRemarks[$index]
             }}</li>
     </ul>
 </div>

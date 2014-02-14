@@ -4,13 +4,13 @@ viewResources,
 crmConstants */
 dashboardApplication.directive('tableRedemptionLogsContainer', function () {
     function renderRedemptionLogs(scope, element, attrs) {
-        if (scope.customerDashboardInfo == null) {
+        if (scope.redemptionLogs == null) {
             return;
         }
 
         /* jshint unused: vars */
         var tableRedemptionLogs = element.find("#table-redemption-logs");
-        var logList = scope.customerDashboardInfo.RedemptionLogs;
+        var logList = scope.redemptionLogs;
         var bodyData = [];
         var footerData = [];
         tableRedemptionLogs.empty();
