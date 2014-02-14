@@ -39,7 +39,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    if (reader.NextResult())
+                    if (reader != null)
                     {
                         while (reader.Read())
                         {
@@ -94,11 +94,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    if (reader.NextResult())
-                    {
-                    }
-
-                    if (reader.NextResult())
+                    if (reader != null)
                     {
                         while (reader.Read())
                         {
@@ -126,18 +122,6 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                 {
                     if (reader != null)
                     {
-                    }
-
-                    if (reader.NextResult())
-                    {
-                    }
-
-                    if (reader.NextResult())
-                    {
-                    }
-
-                    if (reader.NextResult())
-                    {
                         while (reader.Read())
                         {
                             result.Add(MappingDataFromSqlToCommunicationLogObject(reader));
@@ -154,18 +138,18 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Update result.</returns>
-        public BaseModel UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
+        public Result UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
-            BaseModel updateResult = null;
+            Result updateResult = null;
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 objectDB.ExecuteNonQuery();
                 var outputParams = objectDB.GetOuputParams();
-                updateResult = new BaseModel
+                updateResult = new Result
                 {
-                    Id = Converter.ToInt(outputParams["errcode"]),
-                    Name = Converter.ToString2(outputParams["errmsg"])
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
                 };
             }
 
@@ -176,7 +160,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
         /// Mappings the data from SQL to customer information object.
         /// </summary>
         /// <param name="reader">The reader.</param>
-        /// <returns>Customer information object</returns>
+        /// <returns>Customer information object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

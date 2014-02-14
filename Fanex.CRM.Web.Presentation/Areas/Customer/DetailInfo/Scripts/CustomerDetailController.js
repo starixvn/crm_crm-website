@@ -10,7 +10,7 @@ function (
     $http,
     $customerDetailService) {
     $scope.customerDetail = customerDetail;
-    $scope.oldCustomerDetail = angular.copy(customerDetail);
+    $scope.oldCustomerDetail = angular.copy($scope.customerDetail);
     $scope.siteList = null;
     $scope.countryList = null;
     $scope.languageList = null;
@@ -269,6 +269,8 @@ function (
                 }
 
                 $scope.oldSelectedLangueList = $scope.selectedLangueList;
+                $scope.oldCustomerDetail = angular.copy($scope.customerDetail);
+                $scope.updateIsChangeCustomerInfoFlag();
             },
             buttons: [{
                 text: viewResources.OK,

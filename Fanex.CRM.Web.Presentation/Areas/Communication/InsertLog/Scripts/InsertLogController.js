@@ -552,7 +552,7 @@ function (
     $scope.showInsertResult = function (insertResult) {
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         parent.homeManager.CachedData.shareInfoBetweenPopup = insertResult;
-        parent.homeManager.CachedData.shouldReloadLogs = true;
+        parent.homeManager.CachedData.shouldReloadView = true;
         $scope.unblockUI();
         parent.ClosePopup();
     };

@@ -158,7 +158,7 @@ function (
     $scope.completedUpdateLog = function (updateResult) {
         $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
         parent.homeManager.CachedData.shareInfoBetweenPopup = updateResult;
-        parent.homeManager.CachedData.shouldReloadLogs = true;
+        parent.homeManager.CachedData.shouldReloadView = true;
         $scope.unblockUI();
         parent.ClosePopup();
     };

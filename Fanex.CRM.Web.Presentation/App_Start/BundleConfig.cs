@@ -107,6 +107,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Redemption_EditLog(ref bundles);
             RegisterBundles_Remark(ref bundles);
             RegisterBundles_Dashboard(ref bundles);
+            RegisterBundles_Dashboard_VerifyFlag(ref bundles);
         }
 
         public static void RegisterBundles_TimePicker(ref BundleCollection bundles)
@@ -252,6 +253,23 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/DashboardStyles").Include(
                 "~/Areas/Dashboard/Styles/StyleSheet.less"));
+        }
+
+        /// <summary>
+        /// Registers the bundles dashboard verify flag.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        public static void RegisterBundles_Dashboard_VerifyFlag(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Dashboard/VerifyFlagScripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagApplication.js",
+                "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagService.js",
+                "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagController.js",
+                "~/Areas/Dashboard/VerifyFlag/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Dashboard/VerifyFlagStyles").Include(
+                "~/Areas/Dashboard/VerifyFlag/Styles/VerifyFlag.less"));
         }
     }
 

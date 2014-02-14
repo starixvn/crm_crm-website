@@ -103,7 +103,7 @@ function (
             });
     };
     $scope.closeInsertView = function () {
-        if (!parent.homeManager.CachedData.shouldReloadLogs) {
+        if (!parent.homeManager.CachedData.shouldReloadView) {
             return;
         }
 
@@ -148,7 +148,7 @@ function (
     };
 
     $scope.closeEditView = function () {
-        if (!parent.homeManager.CachedData.shouldReloadLogs) {
+        if (!parent.homeManager.CachedData.shouldReloadView) {
             return;
         }
 
@@ -168,7 +168,7 @@ function (
         $scope.searchLogs();
     };
     $scope.insertLog = function () {
-        parent.homeManager.CachedData.shouldReloadLogs = false;
+        parent.homeManager.CachedData.shouldReloadView = false;
         parent.OpenPopup(
             window.rootUrl + "Redemption/OpenInsertView?" + $.param({ customerId: $scope.customerId }),
             viewResources.Insert_Redemption_Log,
@@ -184,7 +184,7 @@ function (
             $scope.beforeCloseInsertView);
     };
     $scope.editLog = function (logId) {
-        parent.homeManager.CachedData.shouldReloadLogs = false;
+        parent.homeManager.CachedData.shouldReloadView = false;
         parent.OpenPopup(
             window.rootUrl + "Redemption/OpenEditView?" + $.param({
                 logId: logId

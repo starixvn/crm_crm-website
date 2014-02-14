@@ -11,10 +11,12 @@ namespace Fanex.CRM.Dashboard.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Dashboard.Criteria;
-    using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Dashboard.Services.Implements;
     using Fanex.CRM.Dashboard.Services.Interfaces;
+    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Dashboard Controller.
@@ -60,6 +62,17 @@ namespace Fanex.CRM.Dashboard.Controllers
         public PartialViewResult GetCommunicationLogsView()
         {
             return PartialView("~/Areas/Dashboard/CommunicationLogs.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
+        public ActionResult OpenEditVerifyFlagView(int customerId)
+        {
+            var customerInfo = _serviceInstance.GetCustomerInfo(new GetCustomerInfoCriteria
+            {
+                CustomerId = customerId
+            });
+
+            return View("~/Areas/Dashboard/VerifyFlag/Index.cshtml", customerInfo);
         }
 
         [HttpPost]

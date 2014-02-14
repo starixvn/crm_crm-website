@@ -2,7 +2,8 @@
 /* global dashboardApplication,
 customerId,
 hotKeyManager,
-viewResources */
+viewResources,
+crmConstants */
 dashboardApplication.controller('dashboardController', ['$scope',
     '$http',
     '$dashboardService',
@@ -15,6 +16,10 @@ dashboardApplication.controller('dashboardController', ['$scope',
         $scope.customerRemarks = null;
         $scope.redemptionLogs = null;
         $scope.communicationLogs = null;
+
+        $scope.isSuccess = false;
+        $scope.isShowResultMessage = false;
+        $scope.resultMessage = '';
 
         $scope.isLoadedCustomerInfo = false;
         $scope.isLoadedCustomerRemarks = false;
@@ -111,22 +116,6 @@ dashboardApplication.controller('dashboardController', ['$scope',
                     $scope.completedLoadDashboard();
                 });
         };
-        $scope.updateCustomerVerifyFlag = function () {
-            $scope.BlockUI();
-            var selectedCriteria = {
-                CustomerId: $scope.customerId
-            };
-            $dashboardService.updateCustomerVerifyFlag(selectedCriteria)
-                .then(function (data) {
-                    var updateResult = data.Result;
-                    $scope.unblockUI();
-                },
-                function (data) {
-                    /* jshint unused: vars */
-                    $scope.unblockUI();
-                });
-        };
-
         $scope.getNumberOfVerifiedInfo = function () {
             if ($scope.customerInfo) {
                 return ($scope.customerInfo.IsVerifyEmail ? 1 : 0) +
@@ -139,12 +128,27 @@ dashboardApplication.controller('dashboardController', ['$scope',
             return 0;
         };
         $scope.closeEditRedemptionLogView = function () {
-            if (parent.shouldReloadLogs) {
-                $scope.getCustomerDashboardInfo();
+            if (!parent.homeManager.CachedData.shouldReloadView) {
+                return;
             }
+
+            var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
+            $scope.resultMessage = popUpResult.Message;
+            window.scroll(1, 1);
+            if ($scope.isSuccess) {
+                setTimeout(function () {
+                    $scope.isShowResultMessage = false;
+                    $scope.$apply();
+                }, 3000);
+            }
+
+            $scope.$apply();
+            $scope.getRedemptionLogs();
         };
         $scope.editRedemptionLog = function (logId) {
-            parent.shouldReloadLogs = false;
+            parent.shouldReloadView = false;
             /* jshint camelcase: false */
             parent.OpenPopup(
             window.rootUrl + "Redemption/OpenEditView?" + $.param({
@@ -162,12 +166,27 @@ dashboardApplication.controller('dashboardController', ['$scope',
             ['center', 120]);
         };
         $scope.closeEditCommunicationLogView = function () {
-            if (parent.shouldReloadLogs) {
-                $scope.getCustomerDashboardInfo();
+            if (!parent.homeManager.CachedData.shouldReloadView) {
+                return;
             }
+
+            var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
+            $scope.resultMessage = popUpResult.Message;
+            window.scroll(1, 1);
+            if ($scope.isSuccess) {
+                setTimeout(function () {
+                    $scope.isShowResultMessage = false;
+                    $scope.$apply();
+                }, 3000);
+            }
+
+            $scope.$apply();
+            $scope.getCustomerDashboardInfo();
         };
         $scope.editCommunicationLog = function (logId) {
-            parent.shouldReloadLogs = false;
+            parent.shouldReloadView = false;
             var url = window.rootUrl + "CommunicationLog/OpenEditView?" + $.param({
                 logRunningNumber: logId
             });
@@ -184,7 +203,60 @@ dashboardApplication.controller('dashboardController', ['$scope',
             null,
             $scope.closeEditCommunicationLogView);
         };
+        $scope.editVerifyFlag = function () {
+            parent.homeManager.CachedData.shouldReloadView = false;
+            /* jshint camelcase: false */
+            parent.OpenPopup(
+                window.rootUrl + "Dashboard/OpenEditVerifyFlagView?" + $.param({
+                    customerId: $scope.customerId
+                }),
+                viewResources.Verify_Customer_Info,
+                500,
+                300,
+                true,
+                false,
+                parent.window,
+                3000,
+                null,
+                $scope.closeEditView,
+                ['center', 120],
+                $scope.beforeCloseEditView);
+        };
+        /* jshint camelcase: false */
+        $scope.invokeHotKey_CtrlE = function () {
+            $scope.editVerifyFlag();
+        };
+        $scope.beforeCloseEditView = function () {
+            if (parent.homeManager.CachedData.isChangingDataPopUp &&
+                parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+                var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+                parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+                return false;
+            }
 
+            return true;
+        };
+        $scope.closeEditView = function () {
+            if (!parent.homeManager.CachedData.shouldReloadView) {
+                return;
+            }
+
+            var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
+            $scope.resultMessage = popUpResult.Message;
+            window.scroll(1, 1);
+            if ($scope.isSuccess) {
+                setTimeout(function () {
+                    $scope.isShowResultMessage = false;
+                    $scope.$apply();
+                }, 3000);
+            }
+
+            $scope.$apply();
+            $scope.getCustomerInfo();
+        };
         $scope.unblockUI = function () {
             try {
                 parent.$.unblockUI();
