@@ -42,7 +42,7 @@ function (
             });
     };
     $scope.closeEditView = function () {
-        if (!parent.homeManager.CachedData.shouldReloadLogs) {
+        if (!parent.homeManager.CachedData.shouldReloadView) {
             return;
         }
 
@@ -62,7 +62,7 @@ function (
         $scope.getLogsByCustomerId();
     };
     $scope.closeInsertView = function () {
-        if (!parent.homeManager.CachedData.shouldReloadLogs) {
+        if (!parent.homeManager.CachedData.shouldReloadView) {
             return;
         }
 
@@ -105,7 +105,7 @@ function (
     };
 
     $scope.editCommunicationLog = function (logIndex) {
-        parent.homeManager.CachedData.shouldReloadLogs = false;
+        parent.homeManager.CachedData.shouldReloadView = false;
         var url = window.rootUrl + "CommunicationLog/OpenEditView?" + $.param({
             logRunningNumber: $scope.logs[logIndex].RunningNumber
         });
@@ -124,7 +124,7 @@ function (
             $scope.beforeCloseEditView);
     };
     $scope.insertCommunicationLog = function () {
-        parent.homeManager.CachedData.shouldReloadLogs = false;
+        parent.homeManager.CachedData.shouldReloadView = false;
         parent.OpenPopup(
             window.rootUrl + "CommunicationLog/OpenInsertView?" + $.param({ customerId: $scope.customerId }),
             viewResources.Insert_Communication_Log,

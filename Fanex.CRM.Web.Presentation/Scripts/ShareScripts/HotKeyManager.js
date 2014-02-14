@@ -10,6 +10,9 @@ var HotKeyManager = function () {
 
     self.initPage = function () {
         self.bindEvent();
+        if (parent && parent.hotKeyManager) {
+            self.CachedData.KeyPress = parent.hotKeyManager.CachedData.KeyPress;
+        }
     };
 
     self.bindEvent = function () {
@@ -36,10 +39,6 @@ var HotKeyManager = function () {
 
         $(document).keyup(function (eventObject) {
             var isCustomHotKey = self.keyUp(eventObject);
-        });
-
-        $(window).blur(function () {
-            self.CachedData.KeyPress = [];
         });
     };
     self.keyDown = function (eventObject) {

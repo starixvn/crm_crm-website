@@ -12,11 +12,19 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
-    @Styles.Render("~/Areas/DashboardStyles")
+    @Styles.Render("~/Areas/Dashboard/ViewInfoStyles")
 </head>
 <body class="leftPanel" data-ng-controller="dashboardController">
     <div class="container main">
-        <div class="row">
+        <div class="row row-item" data-ng-show="isShowResultMessage">
+            <div class="col-xs-11 col-sm-11 col-md-11">
+                <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                    <div>
+                        {{ resultMessage }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-item">
             <div class="col-xs-8 col-sm-8 col-md-8">
                 @Html.Action("GetCustomerRemarksView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
             </div>
@@ -37,7 +45,7 @@
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    @Scripts.Render("~/Areas/DashboardScripts")
+    @Scripts.Render("~/Areas/Dashboard/ViewInfoScripts")
     <script type="text/javascript"> 
         window.rootUrl = '@Url.Content("~")';
         var customerId    = @customerId; 
@@ -55,7 +63,8 @@
             Duration: '@Labels.Duration',
             Handled_By: '@Labels.Handled_By', 
             Reviewed_By: '@Labels.Reviewed_By',
-            Edit_Communication_Log: '@Labels.Edit_Communication_Log' 
+            Edit_Communication_Log: '@Labels.Edit_Communication_Log',
+            Verify_Customer_Info: '@Labels.Verify_Customer_Info'
         }; 
     </script>
 </body>

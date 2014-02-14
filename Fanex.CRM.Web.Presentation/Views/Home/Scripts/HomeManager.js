@@ -111,11 +111,11 @@ var HomeManager = function () {
         e = (e) ? e : window.event;
         var key = (e.keyCode) ? e.keyCode : e.which;
         if (key === keyboardManager.Enums.KeyCode.Enter) {
-            var isValid = self.validDateTextboxUsername();
             self.TextboxUsernameBlur();
-            if (isValid) {
-                self.CachedData.username = self.DOMElements.TextboxUsername.val();
-                leftPanelManager.loadLeftPanel(null, false);
+            if (self.CachedData.isChangingData || self.CachedData.isChangingDataLeftPanel) {
+                self.showConfirmIgnoreChange(self.loadLeftPanel);
+            } else {
+                self.loadLeftPanel();
             }
         }
 
