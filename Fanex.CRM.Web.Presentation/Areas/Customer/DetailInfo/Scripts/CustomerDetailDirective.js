@@ -50,7 +50,7 @@ customerDetailApplication.directive('dropdownSite', function () {
             }
 
             dropdown.find('option').click(function () {
-                scope.updateSelectedCountry($(this).val());
+                scope.updateSelectedCountry(dropdown.find('option:selected').val());
             });
         }
     }
@@ -88,7 +88,7 @@ customerDetailApplication.directive('dropdownSite', function () {
             }
 
             dropdown.find('option').click(function () {
-                scope.updateSelectedCountryBank($(this).val());
+                scope.updateSelectedCountryBank(dropdown.find('option:selected').val());
             });
         }
     }

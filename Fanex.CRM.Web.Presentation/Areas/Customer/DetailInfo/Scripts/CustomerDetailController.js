@@ -178,6 +178,7 @@ function (
 
         $scope.BlockUI();
 
+        $scope.customerDetail.Country.Id = updatedCustomerInfoDetailParams.HomeAddressCountryId;
         parent.homeManager.CachedData.isChangingData = false;
         $customerDetailService.updateCustomerInfoDetail(updatedCustomerInfoDetailParams)
             .then(function (data) {
@@ -244,6 +245,7 @@ function (
         }
 
         $scope.$apply();
+        console.log(countryInfoId);
     };
     $scope.showUpdateResult = function (updateResult) {
         $scope.DOMElements.divResultPopUp.removeClass("display-none");
@@ -285,6 +287,7 @@ function (
             $scope.oldCustomerDetail &&
             ($scope.oldCustomerDetail.FirstName !== $scope.customerDetail.FirstName ||
              $scope.oldCustomerDetail.LastName !== $scope.customerDetail.LastName ||
+             $scope.oldCustomerDetail.Country.Id !== $scope.customerDetail.Country.Id ||
              $scope.oldSelectedLangueList !== $scope.selectedLangueList ||
 
             $scope.oldCustomerDetail.PhoneInfo[0].CountryCode !== $scope.customerDetail.PhoneInfo[0].CountryCode ||
