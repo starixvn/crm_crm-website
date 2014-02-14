@@ -33,7 +33,7 @@
                         @Labels.Claimed_Time</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div date-picker-container>
-                        <input id="claimTime" type="text" class="textbox timepicker txtcalendar" />
+                        <input id="claimTime" type="text" class="textbox timepicker txtcalendar" tabindex="1" />
                     </div>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-1 col-sm-1 col-md-1">
@@ -41,7 +41,7 @@
                         @Labels.Status</label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="status">
+                    <select id="status" tabindex="2">
                         <option data-ng-repeat="status in statusList track by $index" value="status.Id" data-status="status"
                             option-status>{{ status.Value}} </option>
                     </select>

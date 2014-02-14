@@ -148,7 +148,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
             $scope.getRedemptionLogs();
         };
         $scope.editRedemptionLog = function (logId) {
-            parent.shouldReloadView = false;
+            parent.homeManager.CachedData.shouldReloadView = false;
             /* jshint camelcase: false */
             parent.OpenPopup(
             window.rootUrl + "Redemption/OpenEditView?" + $.param({
@@ -156,14 +156,15 @@ dashboardApplication.controller('dashboardController', ['$scope',
             }),
             viewResources.Edit_Redemption_Log,
             $(parent.document).width() - 600,
-            500,
+            450,
             true,
             false,
             parent.window,
             3000,
             null,
             $scope.closeEditRedemptionLogView,
-            ['center', 120]);
+            ['center', 120],
+            $scope.beforeCloseEditRedemptionLogView);
         };
         $scope.closeEditCommunicationLogView = function () {
             if (!parent.homeManager.CachedData.shouldReloadView) {
@@ -183,10 +184,10 @@ dashboardApplication.controller('dashboardController', ['$scope',
             }
 
             $scope.$apply();
-            $scope.getCustomerDashboardInfo();
+            $scope.getCommunicationLogs();
         };
         $scope.editCommunicationLog = function (logId) {
-            parent.shouldReloadView = false;
+            parent.homeManager.CachedData.shouldReloadView = false;
             var url = window.rootUrl + "CommunicationLog/OpenEditView?" + $.param({
                 logRunningNumber: logId
             });
@@ -201,7 +202,31 @@ dashboardApplication.controller('dashboardController', ['$scope',
             parent.window,
             3000,
             null,
-            $scope.closeEditCommunicationLogView);
+            $scope.closeEditCommunicationLogView,
+            ['center', 120],
+            $scope.beforeCloseEditCommunicationLogView);
+        };
+        $scope.beforeCloseEditCommunicationLogView = function () {
+            if (parent.homeManager.CachedData.isChangingDataPopUp &&
+                parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+                var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+                parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+                return false;
+            }
+
+            return true;
+        };
+        $scope.beforeCloseEditRedemptionLogView = function () {
+            if (parent.homeManager.CachedData.isChangingDataPopUp &&
+                parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+                var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+                parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+                return false;
+            }
+
+            return true;
         };
         $scope.editVerifyFlag = function () {
             parent.homeManager.CachedData.shouldReloadView = false;
@@ -212,7 +237,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 }),
                 viewResources.Verify_Customer_Info,
                 500,
-                300,
+                250,
                 true,
                 false,
                 parent.window,
