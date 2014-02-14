@@ -1,8 +1,11 @@
-﻿// -----------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------
 // <copyright file="SettingLogController.cs" company="Nexcel Solutions Vietnam">
-// TODO: Update copyright text.
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
+// </history>
 
 namespace Fanex.CRM.ActionLog.Controllers
 {
@@ -13,7 +16,7 @@ namespace Fanex.CRM.ActionLog.Controllers
     using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// SettingLogController controller.
     /// </summary>
     public class SettingLogController : BaseController
     {
