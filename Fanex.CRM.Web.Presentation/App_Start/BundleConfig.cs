@@ -106,7 +106,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Redemption_InsertLog(ref bundles);
             RegisterBundles_Redemption_EditLog(ref bundles);
             RegisterBundles_Remark(ref bundles);
-            RegisterBundles_Dashboard(ref bundles);
+            RegisterBundles_Dashboard_ViewInfo(ref bundles);
             RegisterBundles_Dashboard_VerifyFlag(ref bundles);
         }
 
@@ -239,20 +239,20 @@ namespace Fanex.CRM.Web.View.App_Start
         }
 
         /// <summary>
-        /// Registers the bundles dashboard.
+        /// Registers the bundles dashboard view information.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_Dashboard(ref BundleCollection bundles)
+        public static void RegisterBundles_Dashboard_ViewInfo(ref BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/DashboardScripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/Dashboard/ViewInfoScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/Dashboard/Scripts/DashboardApplication.js",
-                "~/Areas/Dashboard/Scripts/DashboardService.js",
-                "~/Areas/Dashboard/Scripts/DashboardController.js",
-                "~/Areas/Dashboard/Scripts/Directives/*.js"));
+                "~/Areas/Dashboard/ViewInfo/Scripts/DashboardApplication.js",
+                "~/Areas/Dashboard/ViewInfo/Scripts/DashboardService.js",
+                "~/Areas/Dashboard/ViewInfo/Scripts/DashboardController.js",
+                "~/Areas/Dashboard/ViewInfo/Scripts/Directives/*.js"));
 
-            bundles.Add(new StyleBundle("~/Areas/DashboardStyles").Include(
-                "~/Areas/Dashboard/Styles/StyleSheet.less"));
+            bundles.Add(new StyleBundle("~/Areas/Dashboard/ViewInfoStyles").Include(
+                "~/Areas/Dashboard/ViewInfo/Styles/StyleSheet.less"));
         }
 
         /// <summary>

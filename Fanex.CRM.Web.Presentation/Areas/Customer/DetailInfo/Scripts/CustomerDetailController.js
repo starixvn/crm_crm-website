@@ -178,6 +178,7 @@ function (
 
         $scope.BlockUI();
 
+        $scope.customerDetail.Country.Id = updatedCustomerInfoDetailParams.HomeAddressCountryId;
         parent.homeManager.CachedData.isChangingData = false;
         $customerDetailService.updateCustomerInfoDetail(updatedCustomerInfoDetailParams)
             .then(function (data) {
@@ -190,16 +191,35 @@ function (
                 $scope.unblockUI();
             });
     };
-    $scope.updateSelectedSite = function (site) {
-        if (site === undefined || site === null) {
+    $scope.updateSelectedSite = function (siteId) {
+        siteId = parseInt(siteId);
+        var siteInfo;
+        var siteGroupLength = $scope.siteList.length;
+        for (var i = 0; i < siteGroupLength; i++) {
+            var siteGroup = $scope.siteList[i];
+            var siteLength = siteGroup.ChildSites.length;
+            for (var j = 0; j < siteLength; j++) {
+                var site = siteGroup.ChildSites[j];
+                if (site.Id === siteId) {
+                    siteInfo = site;
+                    break;
+                }
+            }
+
+            if (siteInfo) {
+                break;
+            }
+        }
+
+        if (siteInfo) {
+            $scope.customerDetail.SiteSetting = siteInfo;
+        } else {
             $scope.customerDetail.SiteSetting = {
                 Id: crmConstants.Enums.Site.NotApply
             };
-
-            return;
         }
 
-        $scope.customerDetail.SiteSetting = site;
+        $scope.$apply();
     };
     $scope.updateSelectedCountry = function (countryInfoId) {
         countryInfoId = parseInt(countryInfoId);
@@ -285,6 +305,7 @@ function (
             $scope.oldCustomerDetail &&
             ($scope.oldCustomerDetail.FirstName !== $scope.customerDetail.FirstName ||
              $scope.oldCustomerDetail.LastName !== $scope.customerDetail.LastName ||
+             $scope.oldCustomerDetail.Country.Id !== $scope.customerDetail.Country.Id ||
              $scope.oldSelectedLangueList !== $scope.selectedLangueList ||
 
             $scope.oldCustomerDetail.PhoneInfo[0].CountryCode !== $scope.customerDetail.PhoneInfo[0].CountryCode ||

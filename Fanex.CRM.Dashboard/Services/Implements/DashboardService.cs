@@ -15,11 +15,11 @@ namespace Fanex.CRM.Dashboard.Services.Implements
     using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Dashboard.Repositories.Implements;
     using Fanex.CRM.Dashboard.Repositories.Interfaces;
+    using Fanex.CRM.Dashboard.Resources;
     using Fanex.CRM.Dashboard.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Dashboard.Resources;
 
     /// <summary>
     /// Dashboard Service.

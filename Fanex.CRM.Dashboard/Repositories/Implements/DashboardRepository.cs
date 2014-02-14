@@ -172,6 +172,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                 Passport = reader.GetStringNotNull("Passport"),
                 SecretCode = reader.GetStringNotNull("SecretCode"),
                 BetCredit = reader.GetDecimalNotNull("BetCredit"),
+                BirthDay = reader.GetDateTimeNotNull("Birthday").ToShortFormatedDate(),
 
                 IsVerifyEmail = reader.GetBooleanNotNull("IsVerifyEmail"),
                 IsVerifyPassport = reader.GetBooleanNotNull("IsVerifyPassport"),
