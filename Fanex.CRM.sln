@@ -45,7 +45,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Redemption", "Fan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Remark", "Fanex.CRM.Remark\Fanex.CRM.Remark.csproj", "{4BDA9E77-3B01-4107-9EC7-643922220A9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.ActivityLog", "Fanex.CRM.ActivityLog\Fanex.CRM.ActivityLog.csproj", "{D37120A9-532E-4C40-A6E6-EAFACCA8AED8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.ActionLog", "Fanex.CRM.ActivityLog\Fanex.CRM.ActionLog.csproj", "{D37120A9-532E-4C40-A6E6-EAFACCA8AED8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -184,7 +184,7 @@ function (
             $scope.beforeCloseInsertView);
     };
     $scope.editLog = function (logId) {
-        parent.shouldReloadLogs = false;
+        parent.homeManager.CachedData.shouldReloadLogs = false;
         parent.OpenPopup(
             window.rootUrl + "Redemption/OpenEditView?" + $.param({
                 logId: logId

@@ -171,4 +171,7 @@
   <data name="Confirm_Ignore_InsertRedemption_Changes" xml:space="preserve">
     <value>There are some changes on redemption input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
+  <data name="Confirm_Ignore_EditRedemption_Changes" xml:space="preserve">
+    <value>There are some changes on redemption input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
 </root>

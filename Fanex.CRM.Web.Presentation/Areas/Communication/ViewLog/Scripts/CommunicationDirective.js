@@ -49,8 +49,8 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
         }
 
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Running_Number, Width: 110, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Feedback_Date, Width: 100, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center", Sort: true },
+            columns: [{ HeaderText: viewResources.Running_No, Width: 100, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left", Sort: true },
+                { HeaderText: viewResources.Feedback_Date, Width: 110, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center", Sort: true },
                 {
                     HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
                     Width: 220,
@@ -59,8 +59,8 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                     CellAlign: "left",
                     Sort: true
                 },
-                { HeaderText: viewResources.Subject, Width: 140, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true },
+                { HeaderText: viewResources.Subject, Width: 130, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
+                { HeaderText: viewResources.Status, Width: 70, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true },
                 { HeaderText: viewResources.Duration, Width: 80, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center", Sort: true },
                 { HeaderText: viewResources.Handled_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left", Sort: true },
                 { HeaderText: viewResources.Reviewed_By, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left", Sort: true}],

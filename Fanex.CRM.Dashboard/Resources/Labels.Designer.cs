@@ -169,6 +169,15 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Running No..
+        /// </summary>
+        public static string Running_No {
+            get {
+                return ResourceManager.GetString("Running_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Running Number.
         /// </summary>
         public static string Running_Number {

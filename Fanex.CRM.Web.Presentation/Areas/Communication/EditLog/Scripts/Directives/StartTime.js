@@ -123,8 +123,10 @@ editLogApplication.directive('timePickerStartTimeContainer', function () {
                 }
             });
 
-            oldValue = currentTime;
-            scope.updateStartTime(currentTime);
+            oldValue = scope.communicationLog.StartTime ?
+                scope.communicationLog.StartTime :
+                currentTime;
+            scope.updateStartTime(oldValue);
             element.on('change', function () {
                 var selectedTime = selectedTimeChange(scope, element, attrs);
                 if (!sharedScriptManager.datesEqual(selectedTime, new Date(oldValue))) {

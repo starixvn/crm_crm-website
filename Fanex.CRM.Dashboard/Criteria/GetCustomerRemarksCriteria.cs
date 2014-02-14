@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetCustomerDashboardInfoCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetCustomerRemarksCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,14 +14,14 @@ namespace Fanex.CRM.Dashboard.Criteria
     /// <summary>
     /// Get Customer Dashboard Information Criteria.
     /// </summary>
-    public class GetCustomerDashboardInfoCriteria : CriteriaBase
+    public class GetCustomerRemarksCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "custid")]
         public int CustomerId { get; set; }
 
         public override string GetSettingKey()
         {
-            return "Customer_CustomerInfoDashboard_Get";
+            return "Customer_Dashboard_GetCustomerRemarks";
         }
 
         public override bool IsValid()

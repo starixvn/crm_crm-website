@@ -10,12 +10,14 @@
 namespace Fanex.CRM.Dashboard.Services.Implements
 {
     using System;
+    using System.Collections.Generic;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Dashboard.Repositories.Implements;
     using Fanex.CRM.Dashboard.Repositories.Interfaces;
     using Fanex.CRM.Dashboard.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// Dashboard Service.
@@ -35,16 +37,100 @@ namespace Fanex.CRM.Dashboard.Services.Implements
         }
 
         /// <summary>
-        /// Gets the customer dashboard information.
+        /// Gets the customer remarks.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer dashboard information.</returns>
-        public CustomerDashboardInfo GetCustomerDashboardInfo(GetCustomerDashboardInfoCriteria criteria)
+        /// <returns>The customer remarks.</returns>
+        public List<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {
-            CustomerDashboardInfo result = null;
+            List<string> result = null;
             try
             {
-                var rawData = _repositoryInstance.GetCustomerDashboardInfo(criteria);
+                var rawData = _repositoryInstance.GetCustomerRemarks(criteria);
+                result = rawData;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the customer information.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The customer information.</returns>
+        public CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria)
+        {
+            CustomerInfo result = null;
+            try
+            {
+                var rawData = _repositoryInstance.GetCustomerInfo(criteria);
+                result = rawData;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the redemption logs.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The redemption logs.</returns>
+        public List<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
+        {
+            List<RedemptionLogInfo> result = null;
+            try
+            {
+                var rawData = _repositoryInstance.GetRedemptionLogs(criteria);
+                result = rawData;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the communication logs.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The communication logs.</returns>
+        public List<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
+        {
+            List<CommunicationLogInfo> result = null;
+            try
+            {
+                var rawData = _repositoryInstance.GetCommunicationLogs(criteria);
+                result = rawData;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Updates the customer verify flag.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update result.</returns>
+        public BaseModel UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
+        {
+            BaseModel result = null;
+            try
+            {
+                var rawData = _repositoryInstance.UpdateCustomerVerifyFlag(criteria);
                 result = rawData;
             }
             catch (Exception ex)

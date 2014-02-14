@@ -151,6 +151,24 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?.
+        /// </summary>
+        public static string Confirm_Ignore_EditCommunication_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_EditCommunication_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are some changes on communication input! &lt;br/&gt; Are you sure you want to ignore these changes?.
+        /// </summary>
+        public static string Confirm_Ignore_InsertCommunication_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_InsertCommunication_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string Country {
@@ -363,6 +381,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Role {
             get {
                 return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running No..
+        /// </summary>
+        public static string Running_No {
+            get {
+                return ResourceManager.GetString("Running_No", resourceCulture);
             }
         }
         

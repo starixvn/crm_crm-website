@@ -1,31 +1,50 @@
 @import "../../../Content/site/variables.less";
 
-.specialRemark
-{
+.specialRemark {
     min-height: 182px;
+
+    .content {
+        min-height: 150px;
+        padding: 0;
+        margin: 0;
+        padding: 0;
+
+        li {
+            height: 30px;
+            border-bottom: 1px solid @table-border;
+            line-height: 25px;
+            float: block;
+            padding: 0 5px;
+
+            &.last {
+                border-bottom: none;
+            }
+        }
+    }
 }
 
-.verifiedinfo
-{
-    min-height: 170px;
+.panel-group .content .item {
+    margin: 4px 6px;
+    padding: 0;
+
+    &.bar {
+        border: 1px solid #bababa;
+        width: 230px;
+    }
 }
-.progressBar
-{
+
+.progressBar {
     padding-bottom: 10px;
 }
 
-.row-item
-{
+.row-item {
     margin-top: 12px;
-}
-
-.verifyprocess
-{
 }
 
 #table-redemption-logs {
     .editlog-link-row {
         cursor: pointer;
+
         .editlog-link-td  {
             color: @link-color;
             cursor: pointer;
@@ -55,18 +74,7 @@
         font-style: italic;
     }
     
-    .editlog-link-row
-    {
+    .editlog-link-row {
         cursor: pointer;
-    }
-
-    .row-solved td
-    {
-    }
-    .row-pending td
-    {
-    }
-    .row-closed td
-    {
     }
 }
