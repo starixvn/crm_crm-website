@@ -156,7 +156,7 @@ customerDetailApplication.directive('dropdownSiteContainer', function () {
         }
 
         /* jshint camelcase: false */
-        dropdown.fanexMultiSelect(
+        var multiSelect = dropdown.fanexMultiSelect(
         {
             minWidth: 177,
             maxHeight: 450,
@@ -173,6 +173,8 @@ customerDetailApplication.directive('dropdownSiteContainer', function () {
             selectedList: 3,
             listData: dropdownLanguage
         });
+
+        element.find("#customerinfodetail-languageoptions .fanex-multiselect-state-default").attr("tabindex", 3);
     }
 
     return {
