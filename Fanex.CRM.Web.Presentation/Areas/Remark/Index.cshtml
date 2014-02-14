@@ -61,7 +61,9 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-save" data-ng-click="updateRemarks()"><span class="hotkey">S</span>ave</button>
+            <button class="btn btn-save"
+                data-ng-disabled="!compareOldNewValues()"
+                data-ng-click="updateRemarks()"><span class="hotkey">S</span>ave</button>
         </div>
     </div>
 
@@ -74,7 +76,8 @@
         var remarkResources = {
             Alert: '@Labels.Alert',
             OK: '@Labels.OK',
-            UpdateRemarkSuccess: '@Labels.UpdateRemarkSuccess'
+            UpdateRemarkSuccess: '@Labels.UpdateRemarkSuccess',
+            Confirm_Ignore_EditCustomer_ChangesTabDetail: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesTabDetail)'
         };
     </script>
 </body>
