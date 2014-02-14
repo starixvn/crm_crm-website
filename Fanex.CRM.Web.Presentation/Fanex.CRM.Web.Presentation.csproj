@@ -675,6 +675,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\ActionLog\ActivityLog\Scripts\" />
+    <Folder Include="Areas\ActionLog\SettingLog\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

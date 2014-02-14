@@ -61,47 +61,11 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bet Credit.
-        /// </summary>
-        public static string Bet_Credit {
-            get {
-                return ResourceManager.GetString("Bet_Credit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Birthday.
-        /// </summary>
-        public static string Birthday {
-            get {
-                return ResourceManager.GetString("Birthday", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Claimed Time.
         /// </summary>
         public static string Claimed_Time {
             get {
                 return ResourceManager.GetString("Claimed_Time", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There are some changes on verify view! &lt;br/&gt; Are you sure you want to ignore these changes?.
-        /// </summary>
-        public static string Confirm_Ignore_EditVerifyFlag_Changes {
-            get {
-                return ResourceManager.GetString("Confirm_Ignore_EditVerifyFlag_Changes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update verify flag successfully!.
-        /// </summary>
-        public static string Dashboard_VerifyFlag_UpdateSuccess {
-            get {
-                return ResourceManager.GetString("Dashboard_VerifyFlag_UpdateSuccess", resourceCulture);
             }
         }
         
@@ -129,15 +93,6 @@ namespace Fanex.CRM.Dashboard.Resources {
         public static string Edit_Redemption_Log {
             get {
                 return ResourceManager.GetString("Edit_Redemption_Log", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email.
-        /// </summary>
-        public static string Email {
-            get {
-                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
@@ -196,15 +151,6 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Passport Number.
-        /// </summary>
-        public static string Passport_Number {
-            get {
-                return ResourceManager.GetString("Passport_Number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Recent Redemption Activity.
         /// </summary>
         public static string Recent_Redemption_Activity {
@@ -241,15 +187,6 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Secret Code.
-        /// </summary>
-        public static string Secret_Code {
-            get {
-                return ResourceManager.GetString("Secret_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Special Remark.
         /// </summary>
         public static string Special_Remark {
@@ -282,15 +219,6 @@ namespace Fanex.CRM.Dashboard.Resources {
         public static string Subject {
             get {
                 return ResourceManager.GetString("Subject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verify Customer Info.
-        /// </summary>
-        public static string Verify_Customer_Info {
-            get {
-                return ResourceManager.GetString("Verify_Customer_Info", resourceCulture);
             }
         }
     }

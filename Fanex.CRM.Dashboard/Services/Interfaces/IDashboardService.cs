@@ -24,6 +24,6 @@ namespace Fanex.CRM.Dashboard.Services.Interfaces
 
         List<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria);
 
-        Result UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria);
+        BaseModel UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria);
     }
 }

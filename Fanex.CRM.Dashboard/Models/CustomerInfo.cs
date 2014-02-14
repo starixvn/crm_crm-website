@@ -26,8 +26,6 @@ namespace Fanex.CRM.Dashboard.Models
 
         public decimal BetCredit { get; set; }
 
-        public string BirthDay { get; set; }
-
         public bool IsVerifyEmail { get; set; }
 
         public bool IsVerifyPassport { get; set; }
