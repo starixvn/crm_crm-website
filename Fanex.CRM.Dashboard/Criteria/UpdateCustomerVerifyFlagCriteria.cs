@@ -47,8 +47,10 @@ namespace Fanex.CRM.Dashboard.Criteria
             }
         }
 
+        [SpParam(SqlParamName = "errcode")]
         public int ErrorCode { get; set; }
 
+        [SpParam(SqlParamName = "errmsg")]
         public string ErrorMessage { get; set; }
 
         public override string GetSettingKey()

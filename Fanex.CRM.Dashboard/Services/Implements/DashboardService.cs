@@ -15,9 +15,11 @@ namespace Fanex.CRM.Dashboard.Services.Implements
     using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Dashboard.Repositories.Implements;
     using Fanex.CRM.Dashboard.Repositories.Interfaces;
+    using Fanex.CRM.Dashboard.Resources;
     using Fanex.CRM.Dashboard.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Constants;
 
     /// <summary>
     /// Dashboard Service.
@@ -125,13 +127,18 @@ namespace Fanex.CRM.Dashboard.Services.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Update result.</returns>
-        public BaseModel UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
+        public Result UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
-            BaseModel result = null;
+            Result result = null;
             try
             {
                 var rawData = _repositoryInstance.UpdateCustomerVerifyFlag(criteria);
                 result = rawData;
+                if (result != null &&
+                    result.Code == ErrorCodeConstants.NoneError)
+                {
+                    result.Message = Labels.Dashboard_VerifyFlag_UpdateSuccess;
+                }
             }
             catch (Exception ex)
             {

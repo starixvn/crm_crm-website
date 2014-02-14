@@ -156,7 +156,7 @@ customerDetailApplication.directive('dropdownSiteContainer', function () {
         }
 
         /* jshint camelcase: false */
-        var multiSelect = dropdown.fanexMultiSelect(
+        dropdown.fanexMultiSelect(
         {
             minWidth: 177,
             maxHeight: 450,

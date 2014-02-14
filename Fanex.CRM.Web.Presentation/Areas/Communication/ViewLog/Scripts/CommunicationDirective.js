@@ -4,6 +4,7 @@ moment,
 crmConstants,
 sharedScriptManager,
 viewResources */
+/* jshint camelcase: false */
 communicationApplication.directive('tableCommunicationLogsContainer', function () {
     var cachedLogs = [];
     function compareValues(sortInfo, valueA, valueB) {
@@ -28,7 +29,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             case sortDataTypeEnums.Date:
                 var dateA = new Date(valueA);
                 var dateB = new Date(valueB);
-                isGreaterThan = (sortInfo.sortFactor == 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
+                isGreaterThan = (sortInfo.sortFactor === 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
                                 0 :
                                 (dateB < dateA && sortInfo.sortFactor === 1) ||
                                 (dateA < dateB && sortInfo.sortFactor === -1) ?
@@ -61,7 +62,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             default:
                 sortInfo.sortFactor = 0;
                 break;
-        };
+        }
 
         switch (columnName) {
             case "ColRunningNumber":
@@ -123,8 +124,8 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
 
                 var dateA = new Date(1, 1, 1, valueA.Hours, valueA.Minutes, valueA.Seconds);
                 var dateB = new Date(1, 1, 1, valueB.Hours, valueB.Minutes, valueB.Seconds);
-                var isGreaterThan = isGreaterThan =
-                                (sortInfo.sortFactor == 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
+                var isGreaterThan =
+                                (sortInfo.sortFactor === 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
                                 0 :
                                 (dateB < dateA && sortInfo.sortFactor === 1) ||
                                 (dateA < dateB && sortInfo.sortFactor === -1) ?
@@ -136,7 +137,8 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
 
         return cachedLogs;
     }
-
+    
+    /* jshint camelcase: false */
     function getGridOptions_SortedAndPagingData(sortInfo) {
         var logList = sortReport(sortInfo, cachedLogs);
         var bodyData = [];

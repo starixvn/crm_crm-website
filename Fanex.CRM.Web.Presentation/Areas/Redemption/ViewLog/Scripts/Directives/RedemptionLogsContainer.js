@@ -1,7 +1,9 @@
 ﻿"use strict";
 /* global redemptionViewLogApplication,
 viewResources,
-crmConstants */
+crmConstants,
+sharedScriptManager */
+/* jshint camelcase: false */
 redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function () {
     var cachedLogs = [];
     function compareValues(sortInfo, valueA, valueB) {
@@ -26,7 +28,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
             case sortDataTypeEnums.Date:
                 var dateA = new Date(valueA);
                 var dateB = new Date(valueB);
-                isGreaterThan = (sortInfo.sortFactor == 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
+                isGreaterThan = (sortInfo.sortFactor === 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
                                 0 :
                                 (dateB < dateA && sortInfo.sortFactor === 1) ||
                                 (dateA < dateB && sortInfo.sortFactor === -1) ?
@@ -59,7 +61,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
             default:
                 sortInfo.sortFactor = 0;
                 break;
-        };
+        }
 
         switch (columnName) {
             case "ColSubject":
@@ -94,6 +96,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
         return cachedLogs;
     }
 
+    /* jshint camelcase: false */
     function getGridOptions_SortedAndPagingData(sortInfo) {
         var logList = sortReport(sortInfo, cachedLogs);
         var bodyData = [];
