@@ -17,6 +17,14 @@
 </head>
 <body>
     <div id="communicationcontroller" class="container main" data-ng-controller="communicationController">
+        <div class="row row-item" data-ng-show="isShowResultMessage">
+            <div class="col-xs-11 col-sm-11 col-md-11">
+                <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                    <div>
+                        {{ resultMessage }}</div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div data-ng-model="logs" table-communication-logs-container>
                 <div id="table-communication-logs" class="freegrid display-none">
@@ -41,7 +49,7 @@
         var communicationLogs = @Html.Raw(jsonLogInfoList);
         var viewResources = { 
             Customer_Communication_Logs: '@Labels.Customer_Communication_Logs',
-            Running_Number: '@Labels.Running_Number',
+            Running_No: '@Labels.Running_No',
             Feedback_Date: '@Labels.Feedback_Date',
             Main_Category: '@Labels.Main_Category',
             Sub_Category: '@Labels.Sub_Category',

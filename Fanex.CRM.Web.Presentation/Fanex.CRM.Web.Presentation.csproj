@@ -338,6 +338,10 @@
     <None Include="Areas\Communication\InsertLog\Styles\InsertCommunicationLog.less" />
     <None Include="Areas\Communication\ViewLog\Styles\Communication.less" />
     <None Include="Areas\Customer\DetailInfo\Styles\StyleSheet.less" />
+    <Content Include="Areas\Dashboard\CustomerRemarks.cshtml" />
+    <Content Include="Areas\Dashboard\CustomerInfo.cshtml" />
+    <Content Include="Areas\Dashboard\RedemptionLogs.cshtml" />
+    <Content Include="Areas\Dashboard\CommunicationLogs.cshtml" />
     <None Include="Areas\Dashboard\Styles\StyleSheet.less" />
     <None Include="Areas\Redemption\EditLog\Styles\Redemption.less" />
     <None Include="Areas\Redemption\InsertLog\Styles\Redemption.less" />

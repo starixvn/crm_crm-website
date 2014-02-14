@@ -81,6 +81,15 @@ namespace Fanex.CRM.Redemption.Resources {
         /// <summary>
         ///   Looks up a localized string similar to There are some changes on redemption input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
+        public static string Confirm_Ignore_EditRedemption_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_EditRedemption_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are some changes on redemption input! &lt;br/&gt; Are you sure you want to ignore these changes?.
+        /// </summary>
         public static string Confirm_Ignore_InsertRedemption_Changes {
             get {
                 return ResourceManager.GetString("Confirm_Ignore_InsertRedemption_Changes", resourceCulture);

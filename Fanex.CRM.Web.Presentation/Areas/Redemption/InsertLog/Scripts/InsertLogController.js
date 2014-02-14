@@ -4,7 +4,6 @@ sharedScriptManager,
 hotKeyManager,
 currentDate,
 customerId,
-crmConstants,
 viewResources */
 insertLogApplication.controller('insertLogController', ['$scope', '$http', '$insertLogService',
 function (

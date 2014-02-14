@@ -2,7 +2,6 @@
 /* global editLogApplication,
 sharedScriptManager,
 hotKeyManager,
-crmConstants,
 viewResources */
 editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService', '$bootstrappedData',
 function (
@@ -97,7 +96,7 @@ function (
     };
     $scope.updateRemark = function (remark) {
         $scope.redemptionLog.Remark = remark;
-        $scope.$apply();
+        $scope.updateChangeFlag();
     };
     $scope.updateSelectedDate = function (selectedDate) {
         $scope.redemptionLog.ClaimedTime = selectedDate;
@@ -184,15 +183,18 @@ function (
         } catch (e) {
         }
     };
+    $scope.updateChangeFlag = function () {
+        if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
+            $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
+            parent.homeManager.CachedData.isChangingDataPopUp = true;
+            parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_EditRedemption_Changes;
+        } else {
+            parent.homeManager.CachedData.isChangingDataPopUp = false;
+        }
+    };
     angular.element(document).ready(function () {
         $scope.$watch(function ($scope) {
-            if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
-                $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
-                parent.homeManager.CachedData.isChangingDataPopUp = true;
-                parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertRedemption_Changes;
-            } else {
-                parent.homeManager.CachedData.isChangingDataPopUp = false;
-            }
+            $scope.updateChangeFlag();
         });
 
         parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
