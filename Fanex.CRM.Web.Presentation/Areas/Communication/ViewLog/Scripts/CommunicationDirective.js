@@ -5,10 +5,184 @@ crmConstants,
 sharedScriptManager,
 viewResources */
 communicationApplication.directive('tableCommunicationLogsContainer', function () {
+    var cachedLogs = [];
+    function compareValues(sortInfo, valueA, valueB) {
+        var sortDataTypeEnums = crmConstants.Enums.SortDataType;
+        var isGreaterThan;
+        switch (sortInfo.sortDataType) {
+            case sortDataTypeEnums.Number:
+                isGreaterThan = (sortInfo.sortFactor === 0 || valueB === valueA) ?
+                                0 :
+                                (valueA - valueB) * sortInfo.sortFactor > 0 ?
+                                1 :
+                                -1;
+                break;
+            case sortDataTypeEnums.String:
+                isGreaterThan = (sortInfo.sortFactor === 0 || valueB === valueA) ?
+                                0 :
+                                (valueB < valueA && sortInfo.sortFactor === 1) ||
+                                (valueA < valueB && sortInfo.sortFactor === -1) ?
+                                1 :
+                                -1;
+                break;
+            case sortDataTypeEnums.Date:
+                var dateA = new Date(valueA);
+                var dateB = new Date(valueB);
+                isGreaterThan = (sortInfo.sortFactor == 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
+                                0 :
+                                (dateB < dateA && sortInfo.sortFactor === 1) ||
+                                (dateA < dateB && sortInfo.sortFactor === -1) ?
+                                1 :
+                                -1;
+                break;
+        }
+
+        return isGreaterThan;
+    }
+
+    function getGridOptions_MappingSortInfo(columnName,
+        currentDirection) {
+        var sortDirectionEnums = crmConstants.Enums.SortDirection;
+        var sortDataTypeEnums = crmConstants.Enums.SortDataType;
+        var sortInfo = {
+            sortFactor: 0,
+            sortField: '',
+            sortDataType: sortDataTypeEnums.String
+        };
+
+        currentDirection = currentDirection.toUpperCase();
+        switch (currentDirection) {
+            case sortDirectionEnums.Asc:
+                sortInfo.sortFactor = 1;
+                break;
+            case sortDirectionEnums.Desc:
+                sortInfo.sortFactor = -1;
+                break;
+            default:
+                sortInfo.sortFactor = 0;
+                break;
+        };
+
+        switch (columnName) {
+            case "ColRunningNumber":
+                sortInfo.sortField = "RunningNumber";
+                sortInfo.sortDataType = sortDataTypeEnums.Number;
+                break;
+            case "ColFeedbackDate":
+                sortInfo.sortField = "FeedbackDate";
+                sortInfo.sortDataType = sortDataTypeEnums.Date;
+                break;
+            case "ColCategory":
+                sortInfo.sortField = "Category";
+                sortInfo.sortDataType = sortDataTypeEnums.String;
+                break;
+            case "ColSubject":
+                sortInfo.sortField = "Subject";
+                sortInfo.sortDataType = sortDataTypeEnums.String;
+                break;
+            case "ColStatus":
+                sortInfo.sortField = "StatusName";
+                sortInfo.sortDataType = sortDataTypeEnums.String;
+                break;
+            case "ColDuration":
+                sortInfo.sortField = "Duration";
+                sortInfo.sortDataType = sortDataTypeEnums.Date;
+                break;
+            case "ColHandler":
+                sortInfo.sortField = "Handler";
+                sortInfo.sortDataType = sortDataTypeEnums.String;
+                break;
+            case "ColReviewer":
+                sortInfo.sortField = "Reviewer";
+                sortInfo.sortDataType = sortDataTypeEnums.String;
+                break;
+        }
+
+        return sortInfo;
+    }
+
+    function sortReport(sortInfo, cachedLogs) {
+        if (sortInfo.sortField === "RunningNumber" ||
+            sortInfo.sortField === "FeedbackDate" ||
+            sortInfo.sortField === "Subject" ||
+            sortInfo.sortField === "StatusName" ||
+            sortInfo.sortField === "Handler" ||
+            sortInfo.sortField === "Reviewer") {
+            return cachedLogs.sort(function (elementA, elementB) {
+                var valueA = elementA[sortInfo.sortField];
+                var valueB = elementB[sortInfo.sortField];
+                var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                return isGreaterThan;
+            });
+        }
+
+        if (sortInfo.sortField === "Duration") {
+            return cachedLogs.sort(function (elementA, elementB) {
+                var valueA = elementA[sortInfo.sortField];
+                var valueB = elementB[sortInfo.sortField];
+
+                var dateA = new Date(1, 1, 1, valueA.Hours, valueA.Minutes, valueA.Seconds);
+                var dateB = new Date(1, 1, 1, valueB.Hours, valueB.Minutes, valueB.Seconds);
+                var isGreaterThan = isGreaterThan =
+                                (sortInfo.sortFactor == 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
+                                0 :
+                                (dateB < dateA && sortInfo.sortFactor === 1) ||
+                                (dateA < dateB && sortInfo.sortFactor === -1) ?
+                                1 :
+                                -1;
+                return isGreaterThan;
+            });
+        }
+
+        return cachedLogs;
+    }
+
+    function getGridOptions_SortedAndPagingData(sortInfo) {
+        var logList = sortReport(sortInfo, cachedLogs);
+        var bodyData = [];
+        if (logList && logList.length > 0) {
+            var logLength = logList.length;
+            for (var i = 0; i < logLength; i++) {
+                var info = logList[i];
+                bodyData.push({
+                    Columns: [
+                        {
+                            Name: "ColRunningNumber",
+                            Value: '<div class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</div>',
+                            TdClass: 'editlog-link-td'
+                        },
+                        {
+                            Name: "ColFeedbackDate",
+                            /* jshint camelcase: false */
+                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
+                        },
+                        {
+                            Name: "ColCategory",
+                            Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
+                                (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
+                        },
+                        { Name: "ColSubject", Value: info.Subject },
+                        { Name: "ColStatus", Value: info.StatusName },
+                        {
+                            Name: "ColDuration",
+                            Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
+                                [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
+                        },
+                        { Name: "ColHandler", Value: info.Handler },
+                        { Name: "ColReviewer", Value: info.Reviewer}],
+                    CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
+                });
+            }
+        }
+
+        return bodyData;
+    }
+
     function renderCommunicationLogs(scope, element, attrs) {
         /* jshint unused: vars */
         var tableCommunicationLogs = element.find("#table-communication-logs");
         var logList = scope.logs;
+        cachedLogs = logList;
         var bodyData = [];
         var footerData = [];
 
@@ -84,6 +258,27 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                 currentPage: 0,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
                 totalItem: bodyData.length
+            },
+            sortOption:
+            {
+                customGridSort: function (currentBodyRows, columnName, currentDirection) {
+                    var sortInfo = getGridOptions_MappingSortInfo(columnName,
+                        currentDirection);
+                    var bodyRows = getGridOptions_SortedAndPagingData(sortInfo);
+                    return bodyRows;
+                },
+                afterGridSorted: function () {
+                    var editLogLinks = tableCommunicationLogs.find(".editlog-link-td");
+                    editLogLinks.unbind("click");
+                    editLogLinks.click(function () {
+                        scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
+                    });
+
+                    var editLogRows = tableCommunicationLogs.find(".editlog-link-row");
+                    editLogRows.dblclick(function () {
+                        scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
+                    });
+                }
             }
         };
 

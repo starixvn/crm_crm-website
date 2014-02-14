@@ -359,7 +359,7 @@
 
                                 //currentColIndex += currentCol.MergeColNumber;
                             }
-                           // currentColIndex++;
+                            // currentColIndex++;
                         }
 
                         for (nhIndex = 0; nhIndex < needHideCols.length; nhIndex++) {
@@ -1116,7 +1116,7 @@
             var currentPageStartIndex = 0,
                 currentRow;
 
-            if (options.sortOption.serverSortFunction == null) {
+            if (options.sortOption.serverSortFunction == null && options.sortOption.customGridSort == null) {
                 var defaultSort = false,
                 customSortFunction = null,
                 sortType = null,
@@ -1485,6 +1485,7 @@
                                                                                         customSortFunction,
                                                                                         sortType);
                                     }
+
                                     me.ReRenderBodyAfterSort($this.data('columnname'), currentDirection);
                                     if (typeof (options.sortOption.afterGridSorted) === 'function') {
                                         options.bodyRows = options.sortOption.afterGridSorted(options.bodyRows, $this.data('columnname'), currentDirection);
