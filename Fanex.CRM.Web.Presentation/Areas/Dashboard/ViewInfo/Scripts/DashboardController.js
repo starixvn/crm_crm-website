@@ -122,7 +122,8 @@ dashboardApplication.controller('dashboardController', ['$scope',
                     ($scope.customerInfo.IsVerifyPassport ? 1 : 0) +
                     ($scope.customerInfo.IsVerifyBirthday ? 1 : 0) +
                     ($scope.customerInfo.IsVerifySecretCode ? 1 : 0) +
-                    ($scope.customerInfo.IsVerifyBetCredit ? 1 : 0);
+                    ($scope.isShowBetCredit() && $scope.customerInfo.IsVerifyBetCredit ? 1 : 0) +
+                    ($scope.isShowGivenCredit() && $scope.customerInfo.IsVerifyGivenCredit ? 1 : 0);
             }
 
             return 0;
@@ -237,7 +238,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 }),
                 viewResources.Verify_Customer_Info,
                 500,
-                250,
+                280,
                 true,
                 false,
                 parent.window,
@@ -281,6 +282,27 @@ dashboardApplication.controller('dashboardController', ['$scope',
 
             $scope.$apply();
             $scope.getCustomerInfo();
+        };
+
+        $scope.getNumberOfNeededVerifiedInfo = function () {
+            return 4 +
+                ($scope.isShowBetCredit() ? 1 : 0) +
+                ($scope.isShowGivenCredit() ? 1 : 0);
+        };
+        $scope.isShowBetCredit = function () {
+            return $scope.customerInfo && $scope.customerInfo.Id > 0 &&
+               ($scope.customerInfo.RoleId === crmConstants.Enums.RoleId.Member ||
+                $scope.customerInfo.RoleId === crmConstants.Enums.RoleId.CRMMember ||
+                !$scope.customerInfo.IsCredit);
+        };
+        $scope.isShowGivenCredit = function () {
+            return $scope.customerInfo && $scope.customerInfo.Id > 0 &&
+               ($scope.customerInfo.RoleId === crmConstants.Enums.RoleId.Member ||
+                $scope.customerInfo.RoleId === crmConstants.Enums.RoleId.CRMMember) &&
+                $scope.customerInfo.IsCredit;
+        };
+        $scope.getVerifiedPercent = function () {
+            return ($scope.getNumberOfVerifiedInfo() / $scope.getNumberOfNeededVerifiedInfo() * 100).toFixed(0);
         };
         $scope.unblockUI = function () {
             try {

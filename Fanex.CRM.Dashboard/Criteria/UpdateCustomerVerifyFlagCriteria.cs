@@ -31,6 +31,8 @@ namespace Fanex.CRM.Dashboard.Criteria
 
         public bool IsVerifyBetCredit { get; set; }
 
+        public bool IsVerifyGivenCredit { get; set; }
+
         public int UserId
         {
             get
