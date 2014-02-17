@@ -249,7 +249,7 @@ var CustomerManager = function () {
         if (parseInt(self.CacheData.getCustomerInfoParams.IsSearch) === 1 &&
             parseInt(self.CacheData.getCustomerInfoParams.IsReloadLeftPanel) !== 1) {
             try {
-                parent.menuManager.getDashboardMenu();                
+                parent.menuManager.getDashboardMenu();
             } catch (e) {
             }
         }
@@ -396,6 +396,7 @@ var CustomerManager = function () {
         self.CacheData.controllerScope.customer.SelectedLanguages = self.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(",");
         self.CacheData.controllerScope.oldLanguages = self.CacheData.controllerScope.customer.SelectedLanguages;
         self.CacheData.controllerScope.$apply();
+        self.DOMElements.dropdownLanguage.keyup(self.CacheData.controllerScope.textBoxKeyUp);
         self.CacheData.isLoadedLanguage = true;
     };
     self.IsCustomerKnowLanguage = function (languageId) {
