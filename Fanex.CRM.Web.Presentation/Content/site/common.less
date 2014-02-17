@@ -116,6 +116,19 @@ select {
     width: 100%;
     padding: 2px;
     color: #666;
+
+    option {
+        min-height: 20px;
+        border-right: 1px solid @border-color;
+    }
+
+    optgroup {
+        border-right: 1px solid @border-color;
+
+        option {
+            border-right: none;
+        }
+    }
 }
 
 .textbox {
