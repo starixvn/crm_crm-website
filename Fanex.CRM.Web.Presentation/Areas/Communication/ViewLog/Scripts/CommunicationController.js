@@ -153,6 +153,13 @@ function (
     };
     angular.element(document).ready(function () {
         $scope.initController();
+        $(document).focus(function () {
+            console.log("focus");
+        });
+
+        $(document).blur(function () {
+            console.log("blur");
+        });
         $(document).focus();
     });
 } ]);
