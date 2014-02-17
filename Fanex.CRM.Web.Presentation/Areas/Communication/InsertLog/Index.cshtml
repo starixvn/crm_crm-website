@@ -20,8 +20,7 @@
             <div class="row row-item" data-ng-show="isShowResultMessage">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
-                        <div>
-                            {{ resultMessage }}</div>
+                        <div data-ng-bind="resultMessage"></div>
                     </div>
                 </div>
             </div>
@@ -93,8 +92,9 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="subCategory">
                         <option data-ng-repeat="subCategory in subCategoryList track by $index" data-ng-click="updateSelectedSubCategory(subCategory)"
-                            value="subCategory.Id" data-ng-selected="communicationLog.SubCategory.Value != '' && subCategory.Value ==  communicationLog.SubCategory.Name">
-                            {{ subCategory.Value}} </option>
+                            value="subCategory.Id" 
+                            data-ng-selected="communicationLog.SubCategory.Value != '' && subCategory.Value ==  communicationLog.SubCategory.Name" 
+                            data-ng-bind="subCategory.Value"></option>
                     </select>
                 </div>
             </div>
@@ -105,8 +105,10 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="product">
                         <option data-ng-repeat="product in productList track by $index" data-ng-click="updateSelectedProduct(product)"
-                            value="product.Id" data-ng-selected="product.Id === communicationLog.Product.Id">
-                            {{ product.Value}} </option>
+                            value="product.Id" 
+                            data-ng-selected="product.Id === communicationLog.Product.Id"
+                            data-ng-bind="product.Value">
+                        </option>
                     </select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
@@ -116,8 +118,9 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="betType">
                         <option data-ng-repeat="betType in betTypeList track by $index" data-ng-click="updateSelectedBetType(betType)"
-                            value="betType.Id" data-ng-selected="betType.Id === communicationLog.BetType.Id">
-                            {{ betType.Value}} </option>
+                            value="betType.Id" data-ng-selected="betType.Id === communicationLog.BetType.Id"
+                            data-ng-bind="betType.Value">
+                        </option>
                     </select>
                 </div>
             </div>
@@ -128,8 +131,9 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="status">
                         <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
-                            value="status.Id" data-ng-selected="status.Id === communicationLog.Status.Id">{{
-                            status.Value}} </option>
+                            value="status.Id" data-ng-selected="status.Id === communicationLog.Status.Id"
+                            data-ng-bind="status.Value">
+                        </option>
                     </select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
@@ -148,7 +152,8 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="role">
                         <option data-ng-repeat="role in roleList track by $index" data-ng-click="updateSelectedRole(role)"
-                            value="role.Id" data-ng-selected="role.Id === communicationLog.RoleInfo.Id">{{ role.Value}}
+                            value="role.Id" data-ng-selected="role.Id === communicationLog.RoleInfo.Id"
+                            data-ng-bind="role.Value">
                         </option>
                     </select>
                 </div>
@@ -159,8 +164,9 @@
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <select id="response">
                         <option data-ng-repeat="response in responseList track by $index" data-ng-click="updateSelectedResponse(response)"
-                            value="response.Id" data-ng-selected="response.Id === communicationLog.Response.Id">
-                            {{ response.Value}} </option>
+                            value="response.Id" data-ng-selected="response.Id === communicationLog.Response.Id"
+                            data-ng-bind="response.Value">
+                        </option>
                     </select>
                 </div>
             </div>

@@ -113,6 +113,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 custid: $scope.customer.Id
             });
             parent.menuManager.goToURL('centerFr', url);
+            parent.menuManager.clearSubmenuInfo();
         };
         $scope.addFeedback = function () {
             var url = '../Feedback/AddFeedback?' + $.param({
@@ -120,6 +121,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 custName: $scope.customer.Name
             });
             parent.menuManager.goToURL('centerFr', url);
+            parent.menuManager.clearSubmenuInfo();
         };
         $scope.viewLatestFeedback = function () {
             var url = '../Feedback/CustomerLastestFeedback?' + $.param({
@@ -127,6 +129,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 custName: $scope.customer.Name
             });
             parent.menuManager.goToURL('centerFr', url);
+            parent.menuManager.clearSubmenuInfo();
 
         };
         $scope.manageFeedback = function () {
@@ -136,6 +139,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 isGuest: 0
             });
             parent.menuManager.goToURL('centerFr', url);
+            parent.menuManager.clearSubmenuInfo();
         };
         $scope.updateCustomerInfo = function () {
             if (parent.homeManager.CachedData.isChangingData === true) {
