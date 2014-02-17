@@ -19,8 +19,7 @@
         <div class="row" data-ng-show="isShowResultMessage">
             <div class="col-xs-11 col-sm-11 col-md-11">
                 <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
-                    <div>
-                        {{ resultMessage }}</div>
+                    <div data-nd-bind="resultMessage"></div>
                 </div>
             </div>
         </div>
