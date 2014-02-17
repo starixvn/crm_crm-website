@@ -107,6 +107,7 @@ function (
         $scope.getAllSite();
         $scope.getAllRole();
         $scope.getAllResponse();
+        $scope.getAllProduct();
         $scope.getNumberOfFeedbackSubjectTemplate();
     };
     $scope.getAllExtension = function () {
@@ -334,11 +335,6 @@ function (
     };
     $scope.completedLoadFilterInfo = function () {
         var numberOfLoadFilter = 10;
-        if ($scope.loadedFilter.length === numberOfLoadFilter - 1) {
-            $scope.getAllProduct();
-            return;
-        }
-
         if ($scope.loadedFilter.length >= numberOfLoadFilter &&
             $scope.isLoadedFeedbackSubjectTemplate) {
             $scope.initSelectedLogInfo();
@@ -354,20 +350,18 @@ function (
         var initEndTime = new Date(currentTime);
         initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);
         $scope.communicationLog.EndTime = initEndTime;
-        setTimeout(function () {
-            $scope.communicationLog.Extension = $scope.extensionList[0];
-            $scope.communicationLog.Country = $scope.countryList[0];
-            $scope.communicationLog.CommunicationTool = $scope.communicationToolList[0];
-            $scope.communicationLog.LanguageId = $scope.languageList[0].Id;
-            $scope.communicationLog.MainCategory = $scope.mainCategoryList[0];
-            $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
-            $scope.communicationLog.Product = $scope.productList[0];
-            $scope.communicationLog.BetType = $scope.betTypeList[0];
-            $scope.communicationLog.SiteInfo = $scope.statusList[0];
-            $scope.communicationLog.Status = $scope.siteList[0];
-            $scope.communicationLog.RoleInfo = $scope.roleList[0];
-            $scope.communicationLog.Response = $scope.responseList[0];
-        }, 1000);
+        $scope.communicationLog.Extension = $scope.extensionList[0];
+        $scope.communicationLog.Country = $scope.countryList[0];
+        $scope.communicationLog.CommunicationTool = $scope.communicationToolList[0];
+        $scope.communicationLog.LanguageId = $scope.languageList[0].Id;
+        $scope.communicationLog.MainCategory = $scope.mainCategoryList[0];
+        $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
+        $scope.communicationLog.Product = $scope.productList[0];
+        $scope.communicationLog.BetType = $scope.betTypeList[0];
+        $scope.communicationLog.SiteInfo = $scope.statusList[0];
+        $scope.communicationLog.Status = $scope.siteList[0];
+        $scope.communicationLog.RoleInfo = $scope.roleList[0];
+        $scope.communicationLog.Response = $scope.responseList[0];
 
         $scope.updateRemarkPrefix();
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);

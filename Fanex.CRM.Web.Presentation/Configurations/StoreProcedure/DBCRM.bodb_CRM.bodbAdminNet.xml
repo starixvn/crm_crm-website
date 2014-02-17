@@ -53,10 +53,16 @@
   </Function>
   <Function Name="Setting">
     <Setting Key="Setting_SettingInfo_GetRelationBySettingName" SpName="Acc_CRM_SettingGetRelationBySettingName" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Setting_SettingInfo_GetAllCountry" SpName="Acc_CRM_CountrySel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 
     <Setting Key="Acc_CRM_SettingSel" SpName="Acc_CRM_SettingSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingRelationSel" SpName="Acc_CRM_SettingRelationSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+
+    <Setting Key="Setting_SettingInfo_GetAllCountry" SpName="Acc_CRM_CountrySel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Setting_SettingInfo_GetAllLanguage" SpName="Acc_CRM_LanguageSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Setting_SettingInfo_GetAllCommunicationTool" SpName="Acc_CRM_CommunicationToolSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Setting_SettingInfo_GetAllMainCategory" SpName="Acc_CRM_MainCategorySel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Setting_SettingInfo_GetAllSubCategory" SpName="Acc_CRM_SubCategorySel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Setting_SettingInfo_GetAllStatus" SpName="Acc_CRM_StatusSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="CustomerFeedback">
     <Setting Key="AutoSuggestionCustomer" SpName="Acc_CRM_AutoSuggestionCustomer" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
