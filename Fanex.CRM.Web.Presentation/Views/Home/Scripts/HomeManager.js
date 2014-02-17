@@ -17,7 +17,7 @@ var HomeManager = function () {
     self.CachedData = {
         /* jshint camelcase: false */
         ViewResources: {
-            DefaultSearchCustomer: "Search...",
+            DefaultSearchCustomer: "Nickname or Username or Phone",
             Error_SearchCustomer_Empty: 'Please input username!',
             OK: "OK",
             Alert: 'Alert',
