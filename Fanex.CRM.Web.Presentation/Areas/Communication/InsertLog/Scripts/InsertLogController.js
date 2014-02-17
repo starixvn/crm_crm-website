@@ -94,6 +94,7 @@ function (
     $scope.resultMessage = '';
     $scope.isEditingRelatedCustomer = false;
     $scope.isVerifyRelatedCustomer = false;
+    $scope.isSetFocus = false;
 
     $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
@@ -642,6 +643,15 @@ function (
         $scope.isVerifyRelatedCustomer = true;
         $scope.isEditingRelatedCustomer = false;
     };
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
+
     angular.element(document).ready(function () {
         $scope.$watch(function ($scope) {
             $scope.updateChangeFlag();
@@ -649,6 +659,7 @@ function (
 
         parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
         $scope.initController();
+        $scope.setFocus();
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: "CustomerCommunicationLogs_Insert"

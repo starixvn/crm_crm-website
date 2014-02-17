@@ -153,7 +153,8 @@ var HomeManager = function () {
             }]
         });
     };
-    self.showConfirmIgnoreChangePopUp = function (ignoreFunction) {
+    self.showConfirmIgnoreChangePopUp = function (ignoreFunction,
+        cancelIgnoreFunction) {
         self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessagePopUp);
         self.DOMElements.divResultPopUp.removeClass("display-none");
         self.DOMElements.divResultPopUp.dialog({
@@ -169,6 +170,10 @@ var HomeManager = function () {
                 self.DOMElements.divResultPopUp.dialog("destroy");
                 parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+                if (cancelIgnoreFunction &&
+                    typeof (cancelIgnoreFunction) === "function") {
+                    cancelIgnoreFunction();
+                }
             },
             buttons: [{
                 text: self.CachedData.ViewResources.OK,

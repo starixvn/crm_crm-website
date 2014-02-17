@@ -9,6 +9,7 @@ function (
     $scope,
     $http,
     $communicationService) {
+    $scope.isSetFocus = false;
     $scope.logs = communicationLogs ? communicationLogs.Logs : null;
     $scope.isSuccess = false;
     $scope.isShowResultMessage = false;
@@ -42,6 +43,9 @@ function (
             });
     };
     $scope.closeEditView = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
         if (!parent.homeManager.CachedData.shouldReloadView) {
             return;
         }
@@ -62,6 +66,9 @@ function (
         $scope.getLogsByCustomerId();
     };
     $scope.closeInsertView = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
         if (!parent.homeManager.CachedData.shouldReloadView) {
             return;
         }
@@ -86,7 +93,8 @@ function (
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
             var insertLogController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
             parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-            parent.homeManager.showConfirmIgnoreChangePopUp(insertLogController.ignoreChanges);
+            parent.homeManager.showConfirmIgnoreChangePopUp(insertLogController.ignoreChanges,
+                insertLogController.setFocus);
             return false;
         }
 
@@ -97,7 +105,8 @@ function (
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
             var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
             parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-            parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+            parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges,
+                popUpController.setFocus);
             return false;
         }
 
@@ -151,15 +160,16 @@ function (
         } catch (e) {
         }
     };
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
     angular.element(document).ready(function () {
         $scope.initController();
-        $(document).focus(function () {
-            console.log("focus");
-        });
-
-        $(document).blur(function () {
-            console.log("blur");
-        });
-        $(document).focus();
+        $scope.setFocus();
     });
 } ]);

@@ -137,7 +137,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
 
         return cachedLogs;
     }
-    
+
     /* jshint camelcase: false */
     function getGridOptions_SortedAndPagingData(sortInfo) {
         var logList = sortReport(sortInfo, cachedLogs);
@@ -304,6 +304,20 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             scope.$watch(attrs.ngModel, function (oldval, newval) {
                 /* jshint unused: vars */
                 renderCommunicationLogs(scope, element, attrs);
+            });
+        }
+    };
+}).directive('defaultFocus', function () {
+    return {
+        restrict: 'A',
+        scope: true,
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                if (newval && !oldval) {
+                    /* jshint unused: vars */
+                    element.focus();
+                    scope.completeSetFocus();
+                }
             });
         }
     };

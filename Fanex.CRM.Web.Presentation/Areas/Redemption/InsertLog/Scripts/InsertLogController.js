@@ -24,6 +24,7 @@ function (
     };
     $scope.statusList = null;
     $scope.customerId = customerId;
+    $scope.isSetFocus = false;
     $scope.isSuccess = false;
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
@@ -198,6 +199,15 @@ function (
         } catch (e) {
         }
     };
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
     angular.element(document).ready(function () {
         $scope.$watch(function ($scope) {
             if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
@@ -211,5 +221,6 @@ function (
 
         parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
         $scope.initController();
+        $scope.setFocus();
     });
 } ]);
