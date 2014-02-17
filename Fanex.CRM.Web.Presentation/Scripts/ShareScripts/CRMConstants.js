@@ -16,6 +16,10 @@ var CRMConstants = function () {
             NotApply: 0
         },
 
+        Title: {
+            NotApply: 0
+        },
+
         Country: {
             NotApply: 0
         },

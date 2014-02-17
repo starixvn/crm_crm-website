@@ -41,6 +41,14 @@ namespace Fanex.CRM.Setting.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetAllTitle()
+        {
+            var result = _serviceInstance.GetAllTitle();
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
         public JsonResult GetAllCountry()
         {
             var result = _serviceInstance.GetAllCountry();

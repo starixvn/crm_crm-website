@@ -95,7 +95,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
         {
             customer = new CustomerInfo
             {
-                Title = new BaseModel
+                Title = new SettingInfo
                 {
                     Id = reader.GetInt32NotNull("TitleID")
                 },
@@ -116,7 +116,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                     PhoneNumber = reader.GetStringNotNull("MobilePhone")
                 },
 
-                BirthDay = reader.GetDateTimeNotNull("BirthDay"),
+                BirthDay = reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate(),
                 Skype = reader.GetStringNotNull("Skype"),
                 MSN = reader.GetStringNotNull("msn"),
                 Id = reader.GetInt32NotNull("CustId"),

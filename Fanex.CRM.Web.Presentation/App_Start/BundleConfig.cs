@@ -93,7 +93,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
                 "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js",
-                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailDirective.js"));
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailDirective.js",
+                "~/Areas/Customer/DetailInfo/Scripts/Directives/*.js"));
 
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
@@ -224,6 +225,10 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Redemption/EditLog/Styles/Redemption.less");
         }
 
+        /// <summary>
+        /// Registers the bundles remark.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_Remark(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Remark/RemarkScripts").Include(
