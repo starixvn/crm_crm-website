@@ -25,7 +25,7 @@ namespace Fanex.CRM.Communication.Services.Implements
     /// </summary>
     public class CommunicationLogService : ICommunicationLogService
     {
-        private readonly ICommunicationLogRepository _repositoryInstance;
+        private readonly ICommunicationLogRepository _repositoryLog;
 
         public CommunicationLogService()
             : this(null)
@@ -34,7 +34,7 @@ namespace Fanex.CRM.Communication.Services.Implements
 
         public CommunicationLogService(ICommunicationLogRepository repositoryInstance)
         {
-            _repositoryInstance = repositoryInstance ?? new CommunicationLogRepository();
+            _repositoryLog = repositoryInstance ?? new CommunicationLogRepository();
         }
 
         /// <summary>
@@ -44,11 +44,11 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// <returns>The logs by customer identifier.</returns>
         public CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            CustomerLogInfo result = null;
+            CustomerLogInfo logs = null;
             try
             {
-                var rawData = _repositoryInstance.GetLogsByCustomerId(criteria);
-                result = new CustomerLogInfo
+                var rawData = _repositoryLog.GetLogsByCustomerId(criteria);
+                logs = new CustomerLogInfo
                 {
                     CustomerId = criteria.CustomerId,
                     Logs = rawData
@@ -59,7 +59,7 @@ namespace Fanex.CRM.Communication.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return logs;
         }
 
         /// <summary>
@@ -69,18 +69,18 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// <returns>The logs by running number.</returns>
         public LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
         {
-            LogInfo result = null;
+            LogInfo log = null;
             try
             {
-                var rawData = _repositoryInstance.GetLogsByRunningNumber(criteria);
-                result = rawData;
+                var rawData = _repositoryLog.GetLogsByRunningNumber(criteria);
+                log = rawData;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return log;
         }
 
         /// <summary>
@@ -90,13 +90,13 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
-            Result result = null;
+            Result updateResult = null;
             try
             {
-                result = _repositoryInstance.UpdateLog(criteria);
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                updateResult = _repositoryLog.UpdateLog(criteria);
+                if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
                 {
-                    result.Message = Labels.Communication_Logs_UpdateSuccess;
+                    updateResult.Message = Labels.Communication_Logs_UpdateSuccess;
                 }
             }
             catch (Exception ex)
@@ -104,7 +104,7 @@ namespace Fanex.CRM.Communication.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return updateResult;
         }
 
         /// <summary>
@@ -114,13 +114,13 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// <returns>Insert result.</returns>
         public Result InsertLog(InsertLogCriteria criteria)
         {
-            Result result = null;
+            Result insertResult = null;
             try
             {
-                result = _repositoryInstance.InsertLog(criteria);
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                insertResult = _repositoryLog.InsertLog(criteria);
+                if (insertResult != null && insertResult.Code == ErrorCodeConstants.NoneError)
                 {
-                    result.Message = Labels.Communication_Logs_InsertSuccess;
+                    insertResult.Message = Labels.Communication_Logs_InsertSuccess;
                 }
             }
             catch (Exception ex)
@@ -128,7 +128,7 @@ namespace Fanex.CRM.Communication.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return insertResult;
         }
     }
 }
