@@ -17,6 +17,7 @@ function (
     $scope.feedbackSubjectTemplateList = [];
     $scope.feedbackSubjectTemplateTotalPage = 0;
     $scope.isLoadedFeedbackSubjectTemplate = false;
+    $scope.isSetFocus = false;
     $scope.isSuccess = false;
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
@@ -195,6 +196,15 @@ function (
             parent.homeManager.CachedData.isChangingDataPopUp = false;
         }
     };
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
     angular.element(document).ready(function () {
         $scope.$watch(function ($scope) {
             $scope.updateChangeFlag();
@@ -202,5 +212,6 @@ function (
 
         parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
         $scope.initController();
+        $scope.setFocus();
     });
 } ]);

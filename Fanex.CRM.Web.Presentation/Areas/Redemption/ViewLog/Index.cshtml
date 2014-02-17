@@ -39,8 +39,7 @@
                     <option data-ng-click="updateSelectedStatus();" value="crmConstants.Enums.Status.All">@Labels.All
                     </option>
                     <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
-                        value="status.Id"
-                        data-ng-bind="status.Value"></option>
+                        value="status.Id" data-ng-bind="status.Value"></option>
                 </select>
             </div>
             <div class="item">
@@ -51,7 +50,8 @@
         <div class="row row-item" data-ng-show="isShowResultMessage">
             <div class="col-xs-11 col-sm-11 col-md-11">
                 <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
-                    <div data-ng-bind="resultMessage"></div>
+                    <div data-ng-bind="resultMessage">
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="row btn-group">
-            <button class="btn" data-ng-click="insertLog();">
+            <button class="btn" data-ng-click="insertLog();" default-focus data-ng-model="isSetFocus">
                 <span class="hotkey">I</span>nsert Case</button>
         </div>
     </div>

@@ -173,6 +173,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RelatedCustomer.js" />
@@ -192,6 +193,7 @@
     <Content Include="Areas\Communication\EditLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\CommunicationTool.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Country.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\EndTime.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Extension.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Language.js" />
@@ -232,6 +234,7 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\OptionStatus.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\SubjectAutoComplete.js" />
@@ -240,12 +243,14 @@
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\OptionStatus.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogApplication.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogController.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogService.js" />
+    <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\RedemptionLogsContainer.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\ToDate.js" />

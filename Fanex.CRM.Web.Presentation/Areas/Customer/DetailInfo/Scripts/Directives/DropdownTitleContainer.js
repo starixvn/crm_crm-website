@@ -1,20 +1,12 @@
 ﻿"use strict";
-/* global customerDetailApplication,
-crmConstants,
-viewResources */
+/* global customerDetailApplication */
 customerDetailApplication.directive('dropdownTitleContainer', function () {
     function renderDropdown(scope, element, attrs) {
         /* jshint unused: vars */
         if (scope.titleList) {
             var dropdown = element.find("#customerinfodetail-titleoptions");
             dropdown.empty();
-            var optionHtml =
-                '<option value="' + crmConstants.Enums.Title.NotApply + '"' +
-                    (scope.customerDetail.Title.Id === crmConstants.Enums.Title.NotApply ?
-                    ' selected="selected"' :
-                    '') +
-                    '>' + viewResources.Select + '</option>';
-
+            var optionHtml = '';
             var titleLength = scope.titleList.length;
             for (var i = 0; i < titleLength; i++) {
                 var title = scope.titleList[i];
