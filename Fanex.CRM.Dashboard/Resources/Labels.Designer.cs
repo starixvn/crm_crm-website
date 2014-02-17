@@ -151,6 +151,15 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Given Credit.
+        /// </summary>
+        public static string Given_Credit {
+            get {
+                return ResourceManager.GetString("Given_Credit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Handled By.
         /// </summary>
         public static string Handled_By {

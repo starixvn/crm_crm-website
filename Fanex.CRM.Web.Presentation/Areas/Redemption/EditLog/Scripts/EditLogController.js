@@ -132,7 +132,8 @@ function (
     };
     $scope.validateUpdateLogCriteria = function (criteria) {
         var result = true;
-        if (criteria.Subject === '') {
+        if (criteria.Subject === '' ||
+            criteria.Subject === '<br>') {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */
@@ -140,7 +141,9 @@ function (
             result = false;
         }
 
-        if (result && criteria.Remark === '') {
+        if (result &&
+            (criteria.Remark === '' ||
+            criteria.Remark === '<br>')) {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */

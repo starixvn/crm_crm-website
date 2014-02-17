@@ -53,6 +53,11 @@ var CRMConstants = function () {
             Number: "number",
             String: "string",
             Date: "Date"
+        },
+
+        RoleId: {
+            Member: 1,
+            CRMMember: 7000
         }
     };
 };

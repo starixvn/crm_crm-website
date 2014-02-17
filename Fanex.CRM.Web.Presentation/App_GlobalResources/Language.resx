@@ -267,4 +267,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Confirm_Ignore_EditCustomer_ChangesTabDetail" xml:space="preserve">
     <value>There are some changes on customer information on tab detail! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
+  <data name="Default_SearchTextbox" xml:space="preserve">
+    <value>Nickname or Username or Phone</value>
+  </data>
 </root>

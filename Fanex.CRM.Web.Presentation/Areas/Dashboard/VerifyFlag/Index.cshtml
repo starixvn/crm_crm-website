@@ -54,13 +54,22 @@
                     {{ customerInfo.SecretCode }}
                 </div>
             </div>
-            <div class="row row-item">
+            <div class="row row-item" data-ng-show="isShowBetCredit();">
                 <div class="col-xs-4 col-sm-3 col-md-3">
                     <label for="betcredit" class="labelforcheckbox checkbox">
                         <input id="betcredit" type="checkbox" data-ng-model="customerInfo.IsVerifyBetCredit" />
                         @Labels.Bet_Credit</label></div>
                 <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
                     {{ customerInfo.BetCredit }}
+                </div>
+            </div>
+            <div class="row row-item" data-ng-show="isShowGivenCredit();">
+                <div class="col-xs-4 col-sm-3 col-md-3">
+                    <label for="givencredit" class="labelforcheckbox checkbox">
+                        <input id="givencredit" type="checkbox" data-ng-model="customerInfo.IsVerifyGivenCredit" />
+                        @Labels.Given_Credit</label></div>
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
+                    {{ customerInfo.GivenCredit }}
                 </div>
             </div>
         </div>

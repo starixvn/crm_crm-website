@@ -144,7 +144,8 @@ function (
     };
     $scope.validateInsertLogCriteria = function (insertLogCriteria) {
         var result = true;
-        if (insertLogCriteria.Subject === '') {
+        if (insertLogCriteria.Subject === '' ||
+            insertLogCriteria.Subject === '<br>') {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */
@@ -152,7 +153,9 @@ function (
             result = false;
         }
 
-        if (result && insertLogCriteria.Remark === '') {
+        if (result &&
+            (insertLogCriteria.Remark === '' ||
+            insertLogCriteria.Remark === '<br>')) {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */

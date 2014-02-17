@@ -151,6 +151,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nickname or Username or Phone.
+        /// </summary>
+        internal static string Default_SearchTextbox {
+            get {
+                return ResourceManager.GetString("Default_SearchTextbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
         internal static string Duration {

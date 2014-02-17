@@ -171,14 +171,19 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                 Email = reader.GetStringNotNull("email"),
                 Passport = reader.GetStringNotNull("Passport"),
                 SecretCode = reader.GetStringNotNull("SecretCode"),
-                BetCredit = reader.GetDecimalNotNull("BetCredit"),
                 BirthDay = reader.GetDateTimeNotNull("Birthday").ToShortFormatedDate(),
 
                 IsVerifyEmail = reader.GetBooleanNotNull("IsVerifyEmail"),
                 IsVerifyPassport = reader.GetBooleanNotNull("IsVerifyPassport"),
                 IsVerifyBirthday = reader.GetBooleanNotNull("IsVerifyBirthday"),
                 IsVerifySecretCode = reader.GetBooleanNotNull("IsVerifySecretCode"),
-                IsVerifyBetCredit = reader.GetBooleanNotNull("IsVerifyBetCredit")
+                IsVerifyBetCredit = reader.GetBooleanNotNull("IsVerifyBetCredit"),
+                IsVerifyGivenCredit = reader.GetBooleanNotNull("IsVerifyGivenCredit"),
+
+                RoleId = reader.GetInt32NotNull("RoleId"),
+                IsCredit = reader.GetBooleanNotNull("IsCredit"),
+                BetCredit = reader.GetDecimalNotNull("BetCredit"),
+                GivenCredit = reader.GetDecimalNotNull("GivenCredit")
             };
 
             return result;
