@@ -28,7 +28,8 @@ bindingSite,
 showPopup,
 getClientDateByTimeZone, 
 getAutoFeedbackSubject,
-downup
+downup,
+showHideDetailBox
 */
 
 var arr = [];

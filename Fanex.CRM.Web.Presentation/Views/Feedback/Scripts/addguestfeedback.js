@@ -23,13 +23,20 @@ settings,
 ddls,
 numberOfFinish,
 orgLengt,
-AddGuestFeedback */
+AddGuestFeedback,
+bindingEvent,
+isShowCustinfoBox,
+isShowDescriptionBox,
+isShowFeedbackDetailBox,
+isShowReviewBox,
+isShowSolutionBox */
 var checkSpecialCharacters,
     DoAdd,
     getFeedbacktData,
     getNumOfFeedbackItems,
     appendListFeedbacksLasted,
-    feedbackNew;
+    feedbackNew,
+    bindingEvent;
 
 var settings = ["Title", "Status", "Station", "Response", "Communication", "Language"];
 var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication", "ddllanguage"];
