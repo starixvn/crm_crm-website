@@ -109,7 +109,6 @@ namespace Fanex.CRM.DataAccess.Impl
                             }
 
                             feedback.ResolutionTime = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("resolutiondate")));
-
                             if (reader["SolveDate"] != DBNull.Value)
                             {
                                 feedback.SolvedDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate")));
@@ -184,7 +183,6 @@ namespace Fanex.CRM.DataAccess.Impl
                             var reviewerId = reader.IsDBNull(reader.GetOrdinal("reviewerid"))
                                 ? 0
                                 : Convert.ToInt32(reader["ReviewerID"]);
-
                             if (reviewerId > 0)
                             {
                                 feedback.IsReviewed = true;
@@ -1151,7 +1149,7 @@ namespace Fanex.CRM.DataAccess.Impl
                                 };
 
                                 feedback.SolvedDate = !reader.IsDBNull(reader.GetOrdinal("solvedate")) ?
-                                    DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate"))):
+                                    DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate"))) :
                                     null;
                             }
                             else

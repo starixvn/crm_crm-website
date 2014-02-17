@@ -242,6 +242,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return result;
                 }
 
+                //result = _repositoryInstance.GetAllLanguage(new GetAllLanguageCriteria());
                 result = new List<SettingInfo>();
                 result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
@@ -306,6 +307,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return result;
                 }
 
+                //result = _repositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
                 result = new List<SettingInfo>();
                 result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
@@ -340,16 +342,22 @@ namespace Fanex.CRM.Setting.Services.Implements
 
                 result = new List<SettingInfo>();
                 var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                 {
-                     SettingName = SettingTypeConstants.MainCategory,
-                     ParentId = 0
-                 });
+                {
+                    SettingName = SettingTypeConstants.MainCategory,
+                    ParentId = 0
+                });
+                //rawData = _repositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
 
                 var allSettingRelation = GetAllSettingRelation();
                 var allSetting = GetAllSetting();
                 foreach (var data in rawData)
                 {
                     data.ChildSettings = GetSubCategoryByParentId(data, allSettingRelation, allSetting);
+                    //data.ChildSettings = _repositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
+                    //{
+                    //    ParentId = data.Id
+                    //});
+
                     result.Add(data);
                 }
 
@@ -433,6 +441,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return result;
                 }
 
+                //result = _repositoryInstance.GetAllStatus(new GetAllStatusCriteria());
                 result = new List<SettingInfo>();
                 var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {

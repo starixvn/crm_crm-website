@@ -153,5 +153,6 @@ function (
     };
     angular.element(document).ready(function () {
         $scope.initController();
+        $(document).focus();
     });
 } ]);

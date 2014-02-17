@@ -29,7 +29,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         public List<SettingInfo> GetAllSetting(GetAllSettingCriteria criteria)
         {
             var allsetting = new List<SettingInfo>();
-            using (var objectDB = new ObjectDb("Acc_CRM_SettingSel"))
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
@@ -150,6 +150,166 @@ namespace Fanex.CRM.Setting.Repositories.Implements
             }
 
             return settingRelations;
+        }
+
+        /// <summary>
+        /// Gets all language.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All language.</returns>
+        public List<SettingInfo> GetAllLanguage(GetAllLanguageCriteria criteria)
+        {
+            var result = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("Id"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                            };
+
+                            result.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets all communication tool.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All communication tool.</returns>
+        public List<SettingInfo> GetAllCommunicationTool(GetAllCommunicationToolCriteria criteria)
+        {
+            var result = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("Id"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                            };
+
+                            result.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets all main category.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All main category.</returns>
+        public List<SettingInfo> GetAllMainCategory(GetAllMainCategoryCriteria criteria)
+        {
+            var result = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("Id"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                            };
+
+                            result.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets all sub category.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All sub category.</returns>
+        public List<SettingInfo> GetAllSubCategory(GetAllSubCategoryCriteria criteria)
+        {
+            var result = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("Id"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                            };
+
+                            result.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All sub Status.</returns>
+        public List<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria)
+        {
+            var result = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("Id"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                            };
+
+                            result.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         /// <summary>
