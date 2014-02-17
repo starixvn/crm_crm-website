@@ -61,6 +61,11 @@ namespace Fanex.CRM.Remark.Services.Implements
             {
                 foreach (string remark in model.SpecialRemarks)
                 {
+                    if (remark == null || remark.Trim().Length == 0)
+                    {
+                        continue;
+                    }
+
                     remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
                         .Append(" IsSpecial=\"1\" />");
                 }
@@ -70,6 +75,11 @@ namespace Fanex.CRM.Remark.Services.Implements
             {
                 foreach (string remark in model.NormalRemarks)
                 {
+                    if (remark == null || remark.Trim().Length == 0)
+                    {
+                        continue;
+                    }
+
                     remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
                         .Append(" IsSpecial=\"0\" />");
                 }

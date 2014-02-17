@@ -265,8 +265,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagApplication.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagService.js",
-                "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagController.js",
-                "~/Areas/Dashboard/VerifyFlag/Scripts/Directives/*.js"));
+                "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagController.js"));
 
             bundles.Add(new StyleBundle("~/Areas/Dashboard/VerifyFlagStyles").Include(
                 "~/Areas/Dashboard/VerifyFlag/Styles/VerifyFlag.less"));

@@ -16,7 +16,7 @@
 </head>
 <body class="leftPanel" data-ng-controller="dashboardController">
     <div class="container main">
-        <div class="row row-item" data-ng-show="isShowResultMessage">
+        <div class="row" data-ng-show="isShowResultMessage">
             <div class="col-xs-11 col-sm-11 col-md-11">
                 <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
                     <div>
@@ -24,7 +24,7 @@
                 </div>
             </div>
         </div>
-        <div class="row row-item">
+        <div class="row">
             <div class="col-xs-8 col-sm-8 col-md-8">
                 @Html.Action("GetCustomerRemarksView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
             </div>

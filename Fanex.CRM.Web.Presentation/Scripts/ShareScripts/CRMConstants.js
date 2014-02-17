@@ -43,6 +43,16 @@ var CRMConstants = function () {
         DateTime: {
             AM: 'AM',
             PM: 'PM'
+        },
+
+        SortDirection: {
+            Asc: "ASC",
+            Desc: "DESC"
+        },
+        SortDataType: {
+            Number: "number",
+            String: "string",
+            Date: "Date"
         }
     };
 };

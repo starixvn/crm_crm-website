@@ -121,11 +121,15 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
         }
 
         /*check remark collection change*/
-        if ($scope.remarks === null) return false;
+        if ($scope.remarks === null) {
+            return false;
+        }
+
         var specialLength = $scope.remarks.SpecialRemarks.length;
         if (specialLength !== $scope.oldRemarks.SpecialRemarks.length) {
             return true;
         }
+
         for (var i = 0; i < specialLength; i++) {
             if ($scope.remarks.SpecialRemarks[i] !== $scope.oldRemarks.SpecialRemarks[i]) {
                 return true;
@@ -136,8 +140,9 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
         if (normalLength !== $scope.oldRemarks.NormalRemarks.length) {
             return true;
         }
-        for (var i = 0; i < normalLength; i++) {
-            if ($scope.remarks.NormalRemarks[i] !== $scope.oldRemarks.NormalRemarks[i]) {
+
+        for (var j = 0; j < normalLength; j++) {
+            if ($scope.remarks.NormalRemarks[j] !== $scope.oldRemarks.NormalRemarks[j]) {
                 return true;
             }
         }

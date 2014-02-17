@@ -19,54 +19,54 @@
     <div class="main popup container" data-ng-controller="verifyFlagController">
         <div class="row form-group">
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input id="email" type="checkbox" data-ng-model="customerInfo.IsVerifyEmail" />
-                    <label for="email" class="labelforcheckbox">
+                <div class="col-xs-4 col-sm-3 col-md-3">
+                    <label for="email" class="labelforcheckbox checkbox">
+                        <input id="email" type="checkbox" data-ng-model="customerInfo.IsVerifyEmail" />
                         @Labels.Email</label></div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3 link labelemail">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue link labelemail">
                     {{ customerInfo.Email }}
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input id="passportnumber" type="checkbox" data-ng-model="customerInfo.IsVerifyPassport" />
-                    <label for="passportnumber" class="labelforcheckbox">
+                <div class="col-xs-4 col-sm-3 col-md-3">
+                    <label for="passportnumber" class="labelforcheckbox checkbox">
+                        <input id="passportnumber" type="checkbox" data-ng-model="customerInfo.IsVerifyPassport" />
                         @Labels.Passport_Number</label></div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
                     {{ customerInfo.Passport }}
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input id="birthday" type="checkbox" data-ng-model="customerInfo.IsVerifyBirthday" />
-                    <label for="birthday" class="labelforcheckbox">
+                <div class="col-xs-4 col-sm-3 col-md-3">
+                    <label for="birthday" class="labelforcheckbox checkbox">
+                        <input id="birthday" type="checkbox" data-ng-model="customerInfo.IsVerifyBirthday" />
                         @Labels.Birthday</label></div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3 ">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
                     {{ customerInfo.BirthDay }}
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input id="secretcode" type="checkbox" data-ng-model="customerInfo.IsVerifySecretCode" />
-                    <label for="secretcode" class="labelforcheckbox">
+                <div class="col-xs-4 col-sm-3 col-md-3">
+                    <label for="secretcode" class="labelforcheckbox checkbox">
+                        <input id="secretcode" type="checkbox" data-ng-model="customerInfo.IsVerifySecretCode" />
                         @Labels.Secret_Code</label></div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
                     {{ customerInfo.SecretCode }}
                 </div>
             </div>
             <div class="row row-item">
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input id="betcredit" type="checkbox" data-ng-model="customerInfo.IsVerifyBetCredit" />
-                    <label for="betcredit" class="labelforcheckbox">
+                <div class="col-xs-4 col-sm-3 col-md-3">
+                    <label for="betcredit" class="labelforcheckbox checkbox">
+                        <input id="betcredit" type="checkbox" data-ng-model="customerInfo.IsVerifyBetCredit" />
                         @Labels.Bet_Credit</label></div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
                     {{ customerInfo.BetCredit }}
                 </div>
             </div>
-            <div class="row item">
-                <button class="btn" data-ng-click="updateCustomerVerifyFlag();">
-                    <span class="hotkey">S</span>ave</button>
-            </div>
+        </div>
+        <div class="row">
+            <button class="btn" data-ng-click="updateCustomerVerifyFlag();">
+                <span class="hotkey">S</span>ave</button>
         </div>
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
