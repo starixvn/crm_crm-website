@@ -31,6 +31,7 @@ namespace Fanex.CRM.Setting.Services.Implements
     {
         public const string GetAllSettingSessionKey = "Fanex.CRM.Setting.GetAllSettingSessionKey";
         public const string GetAllCountrySessionKey = "Fanex.CRM.Setting.GetAllCountrySessionKey";
+        public const string GetAllTitleSessionKey = "Fanex.CRM.Setting.GetAllTitleSessionKey";
         public const string GetAllFeedbackTemplateSubjectSessionKey = "Fanex.CRM.Setting.GetAllFeedbackTemplateSubjectSessionKey";
 
         public const string GetAllSiteSessionKey = "Fanex.CRM.Setting.GetAllSiteSessionKey";
@@ -168,6 +169,38 @@ namespace Fanex.CRM.Setting.Services.Implements
         }
 
         /// <summary>
+        /// Gets all title.
+        /// </summary>
+        /// <returns>All title.</returns>
+        public List<SettingInfo> GetAllTitle()
+        {
+            var result = new List<SettingInfo>();
+            try
+            {
+                result = CacheService.Get<List<SettingInfo>>(GetAllTitleSessionKey);
+                if (result != null)
+                {
+                    return result;
+                }
+
+                result = new List<SettingInfo>();
+                result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                {
+                    SettingName = SettingTypeConstants.Title,
+                    ParentId = 0
+                });
+
+                CacheService.Set(GetAllTitleSessionKey, result);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Gets all country.
         /// </summary>
         /// <returns>All country.</returns>
@@ -209,6 +242,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return result;
                 }
 
+                //result = _repositoryInstance.GetAllLanguage(new GetAllLanguageCriteria());
                 result = new List<SettingInfo>();
                 result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
@@ -273,6 +307,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return result;
                 }
 
+                //result = _repositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
                 result = new List<SettingInfo>();
                 result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
@@ -307,16 +342,22 @@ namespace Fanex.CRM.Setting.Services.Implements
 
                 result = new List<SettingInfo>();
                 var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                 {
-                     SettingName = SettingTypeConstants.MainCategory,
-                     ParentId = 0
-                 });
+                {
+                    SettingName = SettingTypeConstants.MainCategory,
+                    ParentId = 0
+                });
+                //rawData = _repositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
 
                 var allSettingRelation = GetAllSettingRelation();
                 var allSetting = GetAllSetting();
                 foreach (var data in rawData)
                 {
                     data.ChildSettings = GetSubCategoryByParentId(data, allSettingRelation, allSetting);
+                    //data.ChildSettings = _repositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
+                    //{
+                    //    ParentId = data.Id
+                    //});
+
                     result.Add(data);
                 }
 
@@ -400,6 +441,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return result;
                 }
 
+                //result = _repositoryInstance.GetAllStatus(new GetAllStatusCriteria());
                 result = new List<SettingInfo>();
                 var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {

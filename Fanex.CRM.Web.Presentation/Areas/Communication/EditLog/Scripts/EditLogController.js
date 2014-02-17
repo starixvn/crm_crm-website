@@ -50,6 +50,7 @@ function (
         $scope.getAllSite();
         $scope.getAllRole();
         $scope.getAllResponse();
+        $scope.getAllProduct();
         $scope.getNumberOfFeedbackSubjectTemplate();
     };
     $scope.getAllExtension = function () {
@@ -277,11 +278,6 @@ function (
     };
     $scope.completedLoadFilterInfo = function () {
         var numberOfLoadFilter = 10;
-        if ($scope.loadedFilter.length === numberOfLoadFilter - 1) {
-            $scope.getAllProduct();
-            return;
-        }
-
         if ($scope.loadedFilter.length >= numberOfLoadFilter &&
             $scope.isLoadedFeedbackSubjectTemplate) {
             $scope.initSelectedLogInfo();

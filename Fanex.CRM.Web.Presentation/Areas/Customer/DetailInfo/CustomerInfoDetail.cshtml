@@ -21,11 +21,11 @@
                 <div class="col-md-4">
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="firstName">
-                                @Labels.First_Name</label></div>
-                        <div class="col-md-7">
-                            <input type="text" class="textbox" id="firstName" data-ng-model="customerDetail.FirstName"
-                                tabindex="1" />
+                            <label for="title">
+                                @Labels.Title</label></div>
+                        <div class="col-md-7" data-ng-model="titleList" dropdown-title-container>
+                            <select id="customerinfodetail-titleoptions" tabindex="1">
+                            </select>
                         </div>
                     </div>
                     <div class="row item">
@@ -71,14 +71,37 @@
                             <input type="text" class="textbox" id="MSN" data-ng-model="customerDetail.MSN" tabindex="23" />
                         </div>
                     </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="MSN">
+                                @Labels.Birthday</label></div>
+                        <div class="col-md-7" date-picker-container>
+                            <input id="birthday" type="text" class="textbox timepicker txtcalendar" tabindex="26" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="language">
+                                @Labels.Language</label></div>
+                        <div class="col-md-7" dropdown-language data-ng-model="languageList">
+                            <select id="customerinfodetail-languageoptions" tabindex="29">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row row-item">
+                        <div class="col-xs-4 col-sm-3 col-md-3">
+                            <label for="isVIP" class="labelforcheckbox checkbox">
+                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" />
+                                @Labels.VIP</label></div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="lastName">
-                                @Labels.Last_Name</label></div>
+                            <label for="firstName">
+                                @Labels.First_Name</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="lastName" data-ng-model="customerDetail.LastName"
+                            <input type="text" class="textbox" id="firstName" data-ng-model="customerDetail.FirstName"
                                 tabindex="2" />
                         </div>
                     </div>
@@ -135,15 +158,24 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="bettingcode">
+                                @Labels.Betting_Code</label></div>
+                        <div class="col-md-7" date-picker-container>
+                            <input type="text" class="textbox" id="bettingcode" data-ng-model="customerDetail.BettingCode[0]"
+                                tabindex="30" />
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="language">
-                                @Labels.Language</label></div>
-                        <div class="col-md-7" dropdown-language data-ng-model="languageList">
-                            <select id="customerinfodetail-languageoptions" tabindex="3">
-                            </select>
+                            <label for="lastName">
+                                @Labels.Last_Name</label></div>
+                        <div class="col-md-7">
+                            <input type="text" class="textbox" id="lastName" data-ng-model="customerDetail.LastName"
+                                tabindex="3" />
                         </div>
                     </div>
                     <div class="row item">
@@ -168,6 +200,15 @@
                                 <input type="text" class="textbox" id="pic{{ $index + 1 }}" data-ng-model="customerDetail.PersonalInfoContact[$index]"
                                     tabindex="{{ 19 + $index * 3 }}" />
                             </div>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="refcode2">
+                                @Labels.Ref_Codes_2</label></div>
+                        <div class="col-md-7" date-picker-container>
+                            <input type="text" class="textbox" id="refcode2" data-ng-model="customerDetail.BettingCode[1]"
+                                tabindex="31" />
                         </div>
                     </div>
                 </div>
@@ -321,18 +362,19 @@
     @Scripts.Render("~/Scripts/FanexMultipleSelect")
     @Scripts.Render("~/Areas/DetailCustomerInfo/Scripts")
     <script type="text/javascript"> 
-    window.rootUrl = '@Url.Content("~")'; 
-    var viewResources = { 
-        OK: 'OK',
-        Select: '@Labels.Select',
-        Symbol_NotApply: '@Labels.Symbol_NotApply',
-        Alert: '@Labels.Alert',
-        All_Languages: '@Labels.All_Languages',
-        No_languages_found: '@Labels.No_languages_found',
-        Symbol_NotApply: '@Labels.Symbol_NotApply',
-        Confirm_Ignore_EditCustomer_ChangesTabDetail: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesTabDetail)'
-      }; 
-    var customerDetail = @Html.Raw(jsonCustomerDetail); 
+        window.rootUrl = '@Url.Content("~")'; 
+        var currentDate = '@DateTime.Now';
+         var viewResources = { 
+            OK: 'OK',
+            Select: '@Labels.Select',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Alert: '@Labels.Alert',
+            All_Languages: '@Labels.All_Languages',
+            No_languages_found: '@Labels.No_languages_found',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Confirm_Ignore_EditCustomer_ChangesTabDetail: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesTabDetail)'
+          }; 
+        var customerDetail = @Html.Raw(jsonCustomerDetail); 
     </script>
 </body>
 </html>

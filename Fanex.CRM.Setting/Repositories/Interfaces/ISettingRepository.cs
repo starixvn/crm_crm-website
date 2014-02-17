@@ -23,6 +23,16 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
 
         List<SettingInfo> GetAllSettingRelation(GetAllSettingRelationCriteria criteria);
 
+        List<SettingInfo> GetAllLanguage(GetAllLanguageCriteria criteria);
+
+        List<SettingInfo> GetAllCommunicationTool(GetAllCommunicationToolCriteria criteria);
+
+        List<SettingInfo> GetAllMainCategory(GetAllMainCategoryCriteria criteria);
+
+        List<SettingInfo> GetAllSubCategory(GetAllSubCategoryCriteria criteria);
+
+        List<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria);
+
         List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria);
     }
 }

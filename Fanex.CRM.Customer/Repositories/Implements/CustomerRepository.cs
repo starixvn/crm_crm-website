@@ -19,6 +19,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.CRM.Infrastructure.Configuration;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Models;
     using Fanex.Data;
     using MongoDB.Bson;
     using MongoDB.Driver;
@@ -200,7 +201,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
         {
             customer = new CustomerInfo
             {
-                Title = new BaseModel
+                Title = new SettingInfo
                 {
                     Id = reader.GetInt32NotNull("TitleID"),
                     Name = string.Empty
@@ -222,7 +223,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                     PhoneNumber = reader.GetStringNotNull("MobilePhone")
                 },
 
-                BirthDay = reader.GetDateTimeNotNull("BirthDay"),
+                BirthDay = reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate(),
                 Skype = reader.GetStringNotNull("Skype"),
                 MSN = reader.GetStringNotNull("msn"),
                 Id = reader.GetInt32NotNull("CustId"),

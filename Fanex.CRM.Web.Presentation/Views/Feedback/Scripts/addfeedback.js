@@ -28,8 +28,15 @@ numberOfFinish,
 isonauto,
 orgLengt,
 AddFeedback,
-trim
+trim,
+bindingEvent,
+isShowCustinfoBox,
+isShowDescriptionBox,
+isShowFeedbackDetailBox,
+isShowReviewBox,
+isShowSolutionBox
 */
+var bindingEvent;
 var feedbackNew = {
     "Id": 0,
     "IsOverrideCrmInfo": false,
@@ -548,7 +555,7 @@ function getCRMInfoById(custId) {
     });
 }
 
-function bindingEvent() {
+bindingEvent = function () {
     $('#ddlcategory').change(function () {
         bindingChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
     });
@@ -556,7 +563,7 @@ function bindingEvent() {
     $('#ddlproduct').change(function () {
         bindingChildByParentId('ddlbettype', AllSetting.Product, parseInt($('#ddlproduct').val()));
     });
-}
+};
 
 head.ready(function () {
     initHTMLArea('editboxdes', 'desediter', '');

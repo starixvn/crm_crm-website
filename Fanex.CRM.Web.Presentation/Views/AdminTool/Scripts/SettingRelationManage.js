@@ -116,7 +116,10 @@ settingRelation = {
                         ' + expanTd + '\
                         <td>\
                             <div class="c" style="width: 60px; height: 17px;">\
-                                <a class="hand addSetting" href="JavaScript:void(0);" onclick="ShowPopupAddSettingRelation(' + row.Id + ', \'' + row.Value + '\', \'' + row.Type + '\');">\
+                                <a class="hand addSetting" href="JavaScript:void(0);" onclick="ShowPopupAddSettingRelation(' +
+                                    row.Id + ', \'' +
+                                    row.Value + '\', \'' + 
+                                    row.Type + '\');">\
                                     </a>\
                             </div>\
                         </td>\

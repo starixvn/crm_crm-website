@@ -156,6 +156,21 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
         [SpParam(SqlParamName = "wire_swiftcode")]
         public string BankSwiftCode { get; set; }
 
+        [SpParam(SqlParamName = "birthday")]
+        public string BirthDay { get; set; }
+
+        [SpParam(SqlParamName = "isvip")]
+        public string IsVIP { get; set; }
+
+        [SpParam(SqlParamName = "titleid")]
+        public string TitleId { get; set; }
+
+        [SpParam(SqlParamName = "bettingcode")]
+        public string BettingCode { get; set; }
+
+        [SpParam(SqlParamName = "refcode2")]
+        public string RefCode2 { get; set; }
+
         [SpParam(SqlParamName = "userid")]
         public int UserId
         {

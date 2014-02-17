@@ -25,5 +25,6 @@ namespace Fanex.CRM.Setting.Constants
         public static readonly string Status = "Status";
         public static readonly string Role = "Role";
         public static readonly string Response = "Response";
+        public static readonly string Title = "title";
     }
 }
