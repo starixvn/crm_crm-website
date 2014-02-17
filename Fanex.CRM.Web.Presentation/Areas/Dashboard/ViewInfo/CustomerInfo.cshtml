@@ -2,14 +2,13 @@
 <div class="row panel-group last progressBar">
     <div class="custInfo row content text-right verifiedinfo">
         <div class="row item bar">
-            <div class="align-center" data-ng-bind="getVerifiedPercent() + '%'"
-                style="background: url('../Areas/Dashboard/ViewInfo/Styles/Images/verifystatus.png') no-repeat scroll {{ (getNumberOfVerifiedInfo() / getNumberOfNeededVerifiedInfo() - 1) * 230 }}px 100% transparent">
+            <div class="align-center" data-ng-bind="getVerifiedPercent() + '%'" style="background: url('../Areas/Dashboard/ViewInfo/Styles/Images/verifystatus.png') no-repeat scroll {{ (getNumberOfVerifiedInfo() / getNumberOfNeededVerifiedInfo() - 1) * 230 }}px 100% transparent">
             </div>
         </div>
         <div class="row item" data-ng-bind="getNumberOfVerifiedInfo() + '/' + getNumberOfNeededVerifiedInfo() + ' @Labels.information_verified'">
         </div>
         <div class="row item">
-            <button class="btn" data-ng-click="editVerifyFlag();">
+            <button class="btn" data-ng-click="editVerifyFlag();" default-focus data-ng-model="isSetFocus">
                 V<span class="hotkey">e</span>rify</button>
         </div>
     </div>

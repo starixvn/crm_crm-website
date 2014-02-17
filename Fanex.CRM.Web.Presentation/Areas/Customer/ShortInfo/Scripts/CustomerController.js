@@ -65,6 +65,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
         $scope.isShowCommunicationTool = true;
         $scope.isShowDetail = true;
         $scope.oldLanguages = undefined;
+        $scope.isSetFocus = false;
         $scope.searchUplineInfo = function (username) {
             customerManager.updateTextboxUsername(username);
             $scope.getCustomerInfoByUsername(customerManager.getCustomerInfoByUsernameParams());
@@ -205,6 +206,15 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
         $scope.invokeHotKey_CtrlG = function () {
             customerManager.enableGuestSearch();
         };
+        $scope.completeSetFocus = function () {
+            $scope.isSetFocus = false;
+        };
+
+        $scope.setFocus = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
+        };
         angular.element(document).ready(function () {
             $scope.$watch(function ($scope) {
                 if ($scope.oldCustomer &&
@@ -246,6 +256,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 }
             });
 
+            $scope.setFocus();
             customerManager.CacheData.controllerScope = $scope;
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,

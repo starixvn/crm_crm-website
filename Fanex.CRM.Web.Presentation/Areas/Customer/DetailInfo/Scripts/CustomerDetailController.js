@@ -21,6 +21,7 @@ function (
     $scope.isLoadedAllCountry = false;
     $scope.isLoadedAllLanguage = false;
     $scope.isLoadedAllTitle = false;
+    $scope.isSetFocus = false;
 
     $scope.isShowPersonalInfo = true;
     $scope.isShowHomeAddressInfo = true;
@@ -195,10 +196,10 @@ function (
             BankHolderName: customerDetail.BankInfo.HolderName,
             BankAccountNumber: customerDetail.BankInfo.AccountNumber,
             BankSwiftCode: customerDetail.BankInfo.SwiftCode,
-            
+
             TitleId: customerDetail.Title.Id,
             BirthDay: customerDetail.BirthDay,
-            BettingCode:  customerDetail.BettingCode[0],
+            BettingCode: customerDetail.BettingCode[0],
             RefCode2: customerDetail.BettingCode[1],
             IsVIP: customerDetail.IsVIP
         };
@@ -318,6 +319,7 @@ function (
                 $scope.oldSelectedLangueList = $scope.selectedLangueList;
                 $scope.oldCustomerDetail = angular.copy($scope.customerDetail);
                 $scope.updateIsChangeCustomerInfoFlag();
+                $scope.setFocus();
             },
             buttons: [{
                 text: viewResources.OK,
@@ -468,8 +470,18 @@ function (
 
         $scope.$apply();
     };
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
     angular.element(document).ready(function () {
         $scope.initController();
+        $scope.setFocus();
         $scope.getAllSite();
         $scope.getAllCountry();
         $scope.getAllLanguage();

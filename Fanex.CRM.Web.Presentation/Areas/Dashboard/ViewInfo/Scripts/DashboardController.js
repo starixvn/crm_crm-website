@@ -17,6 +17,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
         $scope.redemptionLogs = null;
         $scope.communicationLogs = null;
 
+        $scope.isSetFocus = false;
         $scope.isSuccess = false;
         $scope.isShowResultMessage = false;
         $scope.resultMessage = '';
@@ -129,6 +130,9 @@ dashboardApplication.controller('dashboardController', ['$scope',
             return 0;
         };
         $scope.closeEditRedemptionLogView = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
             if (!parent.homeManager.CachedData.shouldReloadView) {
                 return;
             }
@@ -168,6 +172,9 @@ dashboardApplication.controller('dashboardController', ['$scope',
             $scope.beforeCloseEditRedemptionLogView);
         };
         $scope.closeEditCommunicationLogView = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
             if (!parent.homeManager.CachedData.shouldReloadView) {
                 return;
             }
@@ -212,7 +219,8 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
                 var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
                 parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges,
+                    popUpController.setFocus);
                 return false;
             }
 
@@ -223,7 +231,8 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
                 var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
                 parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges,
+                    popUpController.setFocus);
                 return false;
             }
 
@@ -257,13 +266,17 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
                 var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
                 parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges,
+                    popUpController.setFocus);
                 return false;
             }
 
             return true;
         };
         $scope.closeEditView = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
             if (!parent.homeManager.CachedData.shouldReloadView) {
                 return;
             }
@@ -316,7 +329,18 @@ dashboardApplication.controller('dashboardController', ['$scope',
             } catch (e) {
             }
         };
+
+        $scope.completeSetFocus = function () {
+            $scope.isSetFocus = false;
+        };
+
+        $scope.setFocus = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
+        };
         angular.element(document).ready(function () {
             $scope.initController();
+            $scope.setFocus();
         });
     } ]);

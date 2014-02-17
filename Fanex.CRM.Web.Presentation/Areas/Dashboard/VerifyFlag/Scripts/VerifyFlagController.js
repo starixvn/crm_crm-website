@@ -13,6 +13,7 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
         $bootstrappedData) {
         $scope.customerInfo = $bootstrappedData.customerInfo;
         $scope.oldCustomerInfo = angular.copy($scope.customerInfo);
+        $scope.isSetFocus = false;
         $scope.updateCustomerVerifyFlag = function () {
             $scope.BlockUI();
             var selectedCriteria = {
@@ -89,11 +90,22 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
         $scope.invokeHotKey_CtrlS = function () {
             $scope.updateCustomerVerifyFlag();
         };
+
+        $scope.completeSetFocus = function () {
+            $scope.isSetFocus = false;
+        };
+
+        $scope.setFocus = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
+        };
         angular.element(document).ready(function () {
             $scope.$watch(function ($scope) {
                 $scope.updateChangeFlag();
             });
 
+            $scope.setFocus();
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,
