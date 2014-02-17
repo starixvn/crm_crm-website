@@ -23,7 +23,8 @@
                     <label for="email" class="labelforcheckbox checkbox">
                         <input id="email" type="checkbox" data-ng-model="customerInfo.IsVerifyEmail" />
                         @Labels.Email</label></div>
-                <div class="col-xs-8 col-sm-9 col-md-9 txtValue link labelemail" ng-data-bind="customerInfo.Email">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue link labelemail">
+                    <span data-ng-bind="customerInfo.Email"></span>
                 </div>
             </div>
             <div class="row row-item">
@@ -31,7 +32,8 @@
                     <label for="passportnumber" class="labelforcheckbox checkbox">
                         <input id="passportnumber" type="checkbox" data-ng-model="customerInfo.IsVerifyPassport" />
                         @Labels.Passport_Number</label></div>
-                <div class="col-xs-8 col-sm-9 col-md-9 txtValue" ng-data-bind="customerInfo.Passport">                    
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">      
+                    <span data-ng-bind="customerInfo.Passport"></span>              
                 </div>
             </div>
             <div class="row row-item">
@@ -39,7 +41,8 @@
                     <label for="birthday" class="labelforcheckbox checkbox">
                         <input id="birthday" type="checkbox" data-ng-model="customerInfo.IsVerifyBirthday" />
                         @Labels.Birthday</label></div>
-                <div class="col-xs-8 col-sm-9 col-md-9 txtValue" data-ng-bind="customerInfo.BirthDay">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
+                    <span data-ng-bind="customerInfo.BirthDay"></span>
                 </div>
             </div>
             <div class="row row-item">
@@ -47,7 +50,8 @@
                     <label for="secretcode" class="labelforcheckbox checkbox">
                         <input id="secretcode" type="checkbox" data-ng-model="customerInfo.IsVerifySecretCode" />
                         @Labels.Secret_Code</label></div>
-                <div class="col-xs-8 col-sm-9 col-md-9 txtValue" data-ng-bind="customerInfo.SecretCode">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
+                    <span data-ng-bind="customerInfo.SecretCode"></span>
                 </div>
             </div>
             <div class="row row-item" data-ng-show="isShowBetCredit();">
@@ -55,7 +59,8 @@
                     <label for="betcredit" class="labelforcheckbox checkbox">
                         <input id="betcredit" type="checkbox" data-ng-model="customerInfo.IsVerifyBetCredit" />
                         @Labels.Bet_Credit</label></div>
-                <div class="col-xs-8 col-sm-9 col-md-9 txtValue" data-ng-bind="customerInfo.BetCredit">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
+                    <span data-ng-bind="customerInfo.BetCredit"></span>
                 </div>
             </div>
             <div class="row row-item" data-ng-show="isShowGivenCredit();">
@@ -63,7 +68,8 @@
                     <label for="givencredit" class="labelforcheckbox checkbox">
                         <input id="givencredit" type="checkbox" data-ng-model="customerInfo.IsVerifyGivenCredit" />
                         @Labels.Given_Credit</label></div>
-                <div class="col-xs-8 col-sm-9 col-md-9 txtValue" data-ng-bind="customerInfo.GivenCredit">
+                <div class="col-xs-8 col-sm-9 col-md-9 txtValue">
+                    <span data-ng-bind="customerInfo.GivenCredit"></span>
                 </div>
             </div>
         </div>
