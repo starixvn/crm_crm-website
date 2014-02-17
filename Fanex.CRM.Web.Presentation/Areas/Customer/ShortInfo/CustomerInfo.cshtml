@@ -17,18 +17,18 @@
         data-ng-controller="customerController">
         <div class="customer-uplineinfo-container" data-ng-repeat="uplineInfo in customer.UplineInfo">
             <div class="row item">
-                <div class="col-xs-3 col-sm-3 col-md-3 text-left" data-nd-bind="uplineInfo.Role.Name"></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 text-left" data-ng-bind="uplineInfo.Role.Name"></div>
                 <div class="col-xs-6 col-sm-6 col-md-6 text-left username">
-                    <a data-ng-href="#" data-ng-click="searchUplineInfo(uplineInfo.Name)" data-nd-bind="uplineInfo.Name"></a>
+                    <a data-ng-href="#" data-ng-click="searchUplineInfo(uplineInfo.Name)" data-ng-bind="uplineInfo.Name"></a>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-nd-bind="uplineInfo.Status">
+                <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-ng-bind="uplineInfo.Status">
                 </div>
             </div>
         </div>
         <div class="row item current">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left" data-nd-bind="customer.Role.Name"></div>
-            <div class="col-xs-6 col-sm-6 col-md-6 text-lef username" data-nd-bind="customer.Name"></div>
-            <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-nd-bind="customer.Status"></div>
+            <div class="col-xs-3 col-sm-3 col-md-3 text-left" data-ng-bind="customer.Role.Name"></div>
+            <div class="col-xs-6 col-sm-6 col-md-6 text-lef username" data-ng-bind="customer.Name"></div>
+            <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-ng-bind="customer.Status"></div>
         </div>
         <div class="row item" data-ng-show="customer.Role.Id == @RoleIdConstants.Member || 
             customer.Role.Id == @RoleIdConstants.CRMMember">
@@ -91,7 +91,7 @@
             <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                 @Labels.Nick_Name</div>
             <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <div class="text" data-nd-bind="customer.NickName"></div>
+                <div class="text" data-ng-bind="customer.NickName"></div>
             </div>
         </div>
         <div class="row item no-border-bg">
