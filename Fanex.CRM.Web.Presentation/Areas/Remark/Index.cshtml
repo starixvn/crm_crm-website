@@ -20,14 +20,14 @@
                 <ul class="list-remark col-xs-11 col-sm-11 col-md-11">
                     <li data-ng-repeat="remark in remarks.SpecialRemarks track by $index">
                         <div class="col-xs-11 col-sm-11 col-md-11">
-                            <span>{{$index + 1}}.</span>
+                            <span data-ng-bind="$index + 1 + '. '"></span>
                             <input type="text" class="textbox-remark" data-ng-model="remarks.SpecialRemarks[$index]" />
                         </div>
                         <span class="icon-del" data-ng-click="deleteRemark(true, $index)"></span>
                     </li>
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11">
-                            <span>{{remarks.SpecialRemarks.length + 1}}.</span>
+                            <span data-ng-bind="remarks.SpecialRemarks.length + 1 + '. '"></span>
                             <input type="text" class="textbox-remark" defaulttext="@Labels.SpecialRemarkPlaceHolder"
                                 data-ng-model="lastSpecialRemark"
                                 on-enter-keyup="insertSpecialRemark" 
@@ -43,14 +43,14 @@
                 <ul class="list-remark col-xs-11 col-sm-11 col-md-11">
                     <li data-ng-repeat="remark in remarks.NormalRemarks track by $index">
                         <div class="col-xs-11 col-sm-11 col-md-11">
-                            <span>{{$index + 1}}.</span>
+                            <span data-ng-bind="$index + 1 + '. '"></span>
                             <input type="text" class="textbox-remark" data-ng-model="remarks.NormalRemarks[$index]" />
                         </div>
                         <span class="icon-del" data-ng-click="deleteRemark(false, $index)"></span>
                     </li>
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11">
-                            <span>{{remarks.NormalRemarks.length + 1}}.</span>
+                            <span data-ng-bind="remarks.NormalRemarks.length + 1 + '. '"></span>
                             <input type="text" class="textbox-remark" defaulttext="@Labels.RemarkPlaceHolder"
                                 data-ng-model="lastRemark"
                                 on-enter-keyup="insertRemark"
