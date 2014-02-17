@@ -37,9 +37,10 @@ var dailyReport = {
     getReportData: function () {
         dailyReport.fromDate = $('#txtfromdate').val();
         dailyReport.toDate = $('#txttodate').val();
-
         ibcDailySummaryReport.getDailyReport();
-        licenseeDailySummaryReport.getDailyReport();
+        setTimeout(function () {
+            licenseeDailySummaryReport.getDailyReport();
+        }, 2000);
     }
 };
 
@@ -126,13 +127,13 @@ ibcDailySummaryReport = {
                 }
             },
             error: function () {
-                try { parent.UnBlockUI(); } catch (e) { } 
+                try { parent.jQuery.unblockUI(); } catch (e) { } 
             },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
                 if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
                                         try {
-                                            parent.UnBlockUI();
+                                            parent.jQuery.unblockUI();
                                         } catch (e) {
                                         }
                 }
@@ -278,7 +279,7 @@ licenseeDailySummaryReport = {
         $('#err').html('');
         licenseeDailySummaryReport.loadCompleted = false;
 
-        try { parent.BlockUI(); } catch (e) { }
+        //try { parent.BlockUI(); } catch (e) { }
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -352,14 +353,14 @@ licenseeDailySummaryReport = {
             },
             error: function () {
                 try {
-                    parent.UnBlockUI();
+                    parent.jQuery.unblockUI();
                 } catch (e) { }
             },
             complete: function () {
                 licenseeDailySummaryReport.loadCompleted = true;
                 if (licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted) {
                     try {
-                        parent.UnBlockUI();
+                        parent.jQuery.unblockUI();
                     } catch (e) {
                     }
                 }

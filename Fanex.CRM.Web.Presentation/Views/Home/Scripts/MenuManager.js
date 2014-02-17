@@ -134,6 +134,10 @@ var MenuManager = function () {
 
         self.DOMElements.SubMenu.html(activeMenu);
     };
+
+    self.clearSubmenuInfo = function () {
+        parent.$('#divSubMenu').html('');
+    };
 };
 
 menuManager = new MenuManager();

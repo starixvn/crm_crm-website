@@ -72,7 +72,7 @@ function ShowPopupEditFeedbackTemplate(Id) {
 function DeleteFeedbackTemplateById(Id) {
 
     $("#divPopup").html('Are you sure you want to delete Feedback Subject Template ' + Id + '?');
-    $("#divPopup").dialog({ width: 380, height: 120, zIndex: 500, resizable: false, modal: true,
+    $("#divPopup").dialog({ width: 420, height: 120, zIndex: 500, resizable: false, modal: true,
         position: [200, 200], //
         close: function (event, ui) {
             /*jshint unused: vars */

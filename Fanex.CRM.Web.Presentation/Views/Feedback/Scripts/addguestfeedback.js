@@ -41,6 +41,11 @@ var AllSetting;
 var listFeedbacksLasted = [];
 var numberOfFeedbackItem = 0;
 var orgLengt = 0;
+var isShowCustinfoBox = false;
+var isShowFeedbackDetailBox = false;
+var isShowDescriptionBox = false;
+var isShowSolutionBox = false;
+var isShowReviewBox = false;
 
 function loadFeedbackSetting() {
     $.ajax({
@@ -70,7 +75,8 @@ function loadFeedbackSetting() {
             if (!allowDeleteFeedback) {
                 $("select#ddlstatus option[value='11004']").remove();
             }
-            //getAutoFeedbackSubject();
+
+            bindingEvent();
         },
         error: function () { },
         complete: function () {
@@ -414,6 +420,16 @@ appendListFeedbacksLasted = function (range) {
         }
     });
 };
+
+function bindingEvent() {
+    $('#ddlcategory').change(function () {
+        bindingChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
+    });
+
+    $('#ddlproduct').change(function () {
+        bindingChildByParentId('ddlbettype', AllSetting.Product, parseInt($('#ddlproduct').val()));
+    });
+}
 
 head.ready(function () {
     initHTMLArea('editboxdes', 'desediter', '');

@@ -38,7 +38,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Content/site/customizeJqueryUI.less");
 
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
-                "~/Scripts/head.load.min.js"));
+                "~/Scripts/head.load.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/respond").Include(
                 "~/Scripts/respond.js",
