@@ -24,7 +24,7 @@ namespace Fanex.CRM.Communication.Controllers
     /// </summary>
     public class CommunicationLogController : BaseController
     {
-        private ICommunicationLogService _serviceInstance;
+        private ICommunicationLogService _serviceLog;
 
         public CommunicationLogController()
             : this(null)
@@ -33,13 +33,13 @@ namespace Fanex.CRM.Communication.Controllers
 
         public CommunicationLogController(ICommunicationLogService serviceInstance)
         {
-            _serviceInstance = serviceInstance ?? new CommunicationLogService();
+            _serviceLog = serviceInstance ?? new CommunicationLogService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult Index(int customerId)
         {
-            CustomerLogInfo communicationLogs = _serviceInstance.GetLogsByCustomerId(new GetLogsByCustomerIdCriteria
+            CustomerLogInfo communicationLogs = _serviceLog.GetLogsByCustomerId(new GetLogsByCustomerIdCriteria
             {
                 CustomerId = customerId
             });
@@ -51,15 +51,15 @@ namespace Fanex.CRM.Communication.Controllers
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            var result = _serviceInstance.GetLogsByCustomerId(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var logs = _serviceLog.GetLogsByCustomerId(criteria);
+            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
         public ActionResult OpenEditView(int logRunningNumber)
         {
-            var logInfo = _serviceInstance.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
+            var logInfo = _serviceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
             {
                 RunningNumber = logRunningNumber
             });
@@ -77,8 +77,8 @@ namespace Fanex.CRM.Communication.Controllers
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
-            var result = _serviceInstance.UpdateLog(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var updateResult = _serviceLog.UpdateLog(criteria);
+            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
@@ -86,8 +86,8 @@ namespace Fanex.CRM.Communication.Controllers
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
-            var result = _serviceInstance.InsertLog(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var insertResult = _serviceLog.InsertLog(criteria);
+            var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
     }
