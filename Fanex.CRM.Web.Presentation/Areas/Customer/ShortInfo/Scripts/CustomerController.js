@@ -110,8 +110,8 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
         });
         };
         $scope.viewCRMInfo = function () {
-            var url = '../Customer/EditCRMInfo?' + $.param({
-                custid: $scope.customer.Id
+            var url = window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
+                customerId: $scope.customer.Id
             });
             parent.menuManager.goToURL('centerFr', url);
             parent.menuManager.clearSubmenuInfo();
