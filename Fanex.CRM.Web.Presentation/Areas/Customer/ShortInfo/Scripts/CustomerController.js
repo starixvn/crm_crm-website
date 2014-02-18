@@ -110,7 +110,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
         });
         };
         $scope.viewCRMInfo = function () {
-            parent.menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Detail)
+            parent.menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Detail);
         };
         $scope.addFeedback = function () {
             var url = '../Feedback/AddFeedback?' + $.param({

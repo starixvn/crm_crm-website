@@ -175,7 +175,7 @@ function (
         /* jshint camelcase: false */
         return sharedScriptManager.stringFormat("{0}/{1} ",
             [moment($scope.communicationLog.StartTime).format(crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix),
-            $scope.communicationLog.CommunicationTool.Value]);
+            $scope.communicationLog.CommunicationTool.Name]);
     };
     $scope.updateRemarkPrefix = function () {
         var remarkPrefix = $scope.generateRemarkPrefix();
