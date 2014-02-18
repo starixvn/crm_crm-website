@@ -55,6 +55,11 @@ var orgLengt = 0;
 var orgArrUser = "";
 var maxHeightOfPopUp = ($(window).height() + 50);
 var userName = '';
+var isShowCustinfoBox = false;
+var isShowFeedbackDetailBox = false;
+var isShowDescriptionBox = false;
+var isShowSolutionBox = false;
+var isShowReviewBox = false;
 
 // get stringUserName from db and trim to ArrUsername for render by fcbkcomplete
 function trimToArrayUserName(str) {

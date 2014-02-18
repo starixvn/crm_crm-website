@@ -89,7 +89,7 @@ var MenuManager = function () {
         });
     };
 
-    self.getDashboardMenu = function () {
+    self.getDashboardMenu = function (tabId) {
         if (homeManager.CachedData.currentCustomer &&
             homeManager.CachedData.currentCustomer.Id !== 0) {
             $.ajax({
@@ -98,9 +98,7 @@ var MenuManager = function () {
                 success: function (response, status, xhr) {
                     /* jshint unused: vars */
                     self.DOMElements.SubMenu.html(response);
-                    parent.menuManager.goToURL('centerFr', window.rootUrl + 'Dashboard/Index?' + $.param({
-                        customerId: homeManager.CachedData.currentCustomer.Id
-                    }));
+                    parent.dashboardManager.dashboardMenuClick(tabId);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     /* jshint unused: vars */

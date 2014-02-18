@@ -110,11 +110,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
         });
         };
         $scope.viewCRMInfo = function () {
-            var url = window.rootUrl + 'CustomerSettingDetail/Index?' + $.param({
-                customerId: $scope.customer.Id
-            });
-            parent.menuManager.goToURL('centerFr', url);
-            parent.menuManager.clearSubmenuInfo();
+            parent.menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Detail)
         };
         $scope.addFeedback = function () {
             var url = '../Feedback/AddFeedback?' + $.param({

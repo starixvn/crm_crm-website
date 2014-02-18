@@ -277,7 +277,7 @@ var HomeManager = function () {
         }
     };
     self.invokeHotKey_CtrlH = function () {
-        menuManager.getDashboardMenu();
+        menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);
     };
     self.invokeHotKey_CtrlM = function () {
         if (parent.dashboardManager) {
