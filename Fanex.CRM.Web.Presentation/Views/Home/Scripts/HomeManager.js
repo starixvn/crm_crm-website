@@ -20,6 +20,7 @@ var HomeManager = function () {
             DefaultSearchCustomer: "Nickname or Username or Phone",
             Error_SearchCustomer_Empty: 'Please input username!',
             OK: "OK",
+            Cancel: "Cancel",
             Alert: 'Alert',
             Confirm_Ignore_Changes: 'Confirm Ignore Changes'
         },
@@ -150,6 +151,12 @@ var HomeManager = function () {
                     self.DOMElements.divResultPopUp.dialog("close");
                     callbackFunction();
                 }
+            },
+            {
+                text: self.CachedData.ViewResources.Cancel,
+                click: function () {
+                    self.DOMElements.divResultPopUp.dialog('close');
+                }
             }]
         });
     };
@@ -186,6 +193,12 @@ var HomeManager = function () {
                         typeof (ignoreFunction) === "function") {
                         ignoreFunction();
                     }
+                }
+            },
+            {
+                text: self.CachedData.ViewResources.Cancel,
+                click: function () {
+                    self.DOMElements.divResultPopUp.dialog('close');
                 }
             }]
         });
