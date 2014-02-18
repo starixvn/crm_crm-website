@@ -219,6 +219,11 @@ select {
         color: #2f70b4;
         font-size: @font-size + 1;
         .gradient-vertical(#e7e7e7, #e2e2e2);
+
+        &.border-bottom-none {
+            border-bottom: none;
+        }
+
         /*
         .icon-expand {
             background: url(images/collapse-btn.png) no-repeat -3px -3px;
@@ -299,6 +304,10 @@ select {
             padding: 0 18px 0 5px;
             cursor: pointer;
         }
+
+        label {
+            margin-top: 3px;
+        }
     }    
 }
 
@@ -326,7 +335,7 @@ select {
     }
 
     label {
-        margin: 0 10px 7px 0;
+        margin: 1px 10px 7px 0;
         color: #242424;
         vertical-align: middle;
     }
