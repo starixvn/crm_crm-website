@@ -97,8 +97,8 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             var isHavingData = customerManager.checkGuestCustomerInfoResult(customer);
             if (isHavingData) {
                 $scope.customer = customer;
-                $scope.oldCustomer.SiteSetting.Id = parseInt(customerManager.DOMElements.dropdownSite.val());
                 $scope.oldCustomer = angular.copy($scope.customer);
+                $scope.oldCustomer.SiteSetting.Id = parseInt(customerManager.DOMElements.dropdownSite.val());
             }
 
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
