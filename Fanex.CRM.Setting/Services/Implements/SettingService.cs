@@ -413,12 +413,14 @@ namespace Fanex.CRM.Setting.Services.Implements
             try
             {
                 result = CacheService.Get<List<SettingInfo>>(GetAllStatusSessionKey);
+                result = null;
                 if (result != null)
                 {
                     return result;
                 }
 
                 result = _repositoryInstance.GetAllStatus(new GetAllStatusCriteria());
+                result = result.OrderBy(s => s.DisplayOrder).ToList();
                 CacheService.Set(GetAllStatusSessionKey, result);
             }
             catch (Exception ex)

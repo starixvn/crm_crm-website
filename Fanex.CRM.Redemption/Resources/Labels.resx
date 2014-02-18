@@ -174,4 +174,13 @@
   <data name="Confirm_Ignore_EditRedemption_Changes" xml:space="preserve">
     <value>There are some changes on redemption input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="KIV" xml:space="preserve">
+    <value>KIV</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
 </root>

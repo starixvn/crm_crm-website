@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Redemption.Services.Implements
 {
     using System;
+    using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
@@ -19,6 +20,9 @@ namespace Fanex.CRM.Redemption.Services.Implements
     using Fanex.CRM.Redemption.Resources;
     using Fanex.CRM.Redemption.Services.Interfaces;
     using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
 
     /// <summary>
     /// Redemption Log Service.
@@ -27,14 +31,19 @@ namespace Fanex.CRM.Redemption.Services.Implements
     {
         private readonly IRedemptionLogRepository _repositoryInstance;
 
+        private ISettingService _serviceSetting;
+
         public RedemptionLogService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public RedemptionLogService(IRedemptionLogRepository repositoryInstance)
+        public RedemptionLogService(
+            IRedemptionLogRepository repositoryInstance,
+            ISettingService serviceSetting)
         {
             _repositoryInstance = repositoryInstance ?? new RedemptionLogRepository();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         /// <summary>
@@ -121,6 +130,39 @@ namespace Fanex.CRM.Redemption.Services.Implements
                 if (result != null && result.Code == ErrorCodeConstants.NoneError)
                 {
                     result.Message = Labels.Redemption_Log_InsertSuccess;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <returns>All status.</returns>
+        public List<SettingInfo> GetAllStatus()
+        {
+            var result = new List<SettingInfo>();
+            try
+            {
+                var allStatusSetting = _serviceSetting.GetAllStatus();
+                if (allStatusSetting == null)
+                {
+                    return result;
+                }
+
+                foreach (var status in allStatusSetting)
+                {
+                    if (status.Name == Labels.Open ||
+                        status.Name == Labels.Closed ||
+                        status.Name == Labels.KIV)
+                    {
+                        result.Add(status);
+                    }
                 }
             }
             catch (Exception ex)

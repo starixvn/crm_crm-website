@@ -21,8 +21,6 @@ function OpenPopup(url,
     }
 
     dialoghtml.appendTo($("body"));
-
-
     $("#dialog-modal").dialog({
         resizable: resizable,
         modal: modal,
