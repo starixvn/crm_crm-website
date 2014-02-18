@@ -39,203 +39,10 @@ function (
     $scope.isVerifyRelatedCustomer = false;
     $scope.isSetFocus = false;
 
-    $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
-        $scope.getAllExtension();
-        $scope.getAllCountry();
-        $scope.getCommunicationTool();
-        $scope.getAllLanguage();
-        $scope.getAllMainCategory();
-        $scope.getAllStatus();
-        $scope.getAllSite();
-        $scope.getAllRole();
-        $scope.getAllResponse();
-        $scope.getAllProduct();
+        $scope.getAllSettingForEdit();
         $scope.getNumberOfFeedbackSubjectTemplate();
-    };
-    $scope.getAllExtension = function () {
-        $scope.BlockUI();
-        $scope.isLoadedAllSite = false;
-        $editLogService.getAllExtension()
-            .then(function (data) {
-                $scope.extensionList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Extension'
-                });
-
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Extension'
-                });
-
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllCountry = function () {
-        $scope.BlockUI();
-        $editLogService.getAllCountry()
-            .then(function (data) {
-                $scope.countryList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Country'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Country'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getCommunicationTool = function () {
-        $scope.BlockUI();
-        $editLogService.getAllCommunicationTool()
-            .then(function (data) {
-                $scope.communicationToolList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'CommunicationTool'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'CommunicationTool'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllLanguage = function () {
-        $scope.BlockUI();
-        $editLogService.getAllLanguage()
-            .then(function (data) {
-                $scope.languageList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Language'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Language'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllMainCategory = function () {
-        $scope.BlockUI();
-        $editLogService.getAllMainCategory()
-            .then(function (data) {
-                $scope.mainCategoryList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'MainCategory'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'MainCategory'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllProduct = function () {
-        $scope.BlockUI();
-        $editLogService.getAllProduct()
-            .then(function (data) {
-                $scope.productList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Product'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Product'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllStatus = function () {
-        $scope.BlockUI();
-        $editLogService.getAllStatus()
-            .then(function (data) {
-                $scope.statusList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Status'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Status'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllSite = function () {
-        $scope.BlockUI();
-        $editLogService.getAllSite()
-            .then(function (data) {
-                $scope.siteList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Site'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Site'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllRole = function () {
-        $scope.BlockUI();
-        $editLogService.getAllRole()
-            .then(function (data) {
-                $scope.roleList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Role'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Role'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllResponse = function () {
-        $scope.BlockUI();
-        $editLogService.getAllResponse()
-            .then(function (data) {
-                $scope.responseList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Response'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Response'
-                });
-                $scope.completedLoadFilterInfo();
-            });
     };
     $scope.getNumberOfFeedbackSubjectTemplate = function () {
         $scope.BlockUI();
@@ -278,12 +85,8 @@ function (
             });
     };
     $scope.completedLoadFilterInfo = function () {
-        var numberOfLoadFilter = 10;
-        if ($scope.loadedFilter.length >= numberOfLoadFilter &&
-            $scope.isLoadedFeedbackSubjectTemplate) {
-            $scope.initSelectedLogInfo();
-            $scope.unblockUI();
-        }
+        $scope.initSelectedLogInfo();
+        $scope.unblockUI();
     };
     $scope.initSelectedLogInfo = function () {
         var i;
@@ -611,6 +414,29 @@ function (
         $scope.$apply(function () {
             $scope.isSetFocus = true;
         });
+    };
+    $scope.getAllSettingForEdit = function () {
+        $scope.BlockUI();
+        $scope.isLoadedAllSite = false;
+        $editLogService.getAllSettingForEdit()
+            .then(function (data) {
+                var allSetting = data.Result;
+                $scope.extensionList = allSetting.ExtensionList;
+                $scope.countryList = allSetting.CountryList;
+                $scope.communicationToolList = allSetting.CommunicationToolList;
+                $scope.languageList = allSetting.LanguageList;
+                $scope.mainCategoryList = allSetting.MainCategoryList;
+                $scope.productList = allSetting.ProductList;
+                $scope.statusList = allSetting.StatusList;
+                $scope.siteList = allSetting.SiteList;
+                $scope.roleList = allSetting.RoleList;
+                $scope.responseList = allSetting.ResponseList;
+                $scope.completedLoadFilterInfo();
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.completedLoadFilterInfo();
+            });
     };
     angular.element(document).ready(function () {
         $scope.$watch(function ($scope) {

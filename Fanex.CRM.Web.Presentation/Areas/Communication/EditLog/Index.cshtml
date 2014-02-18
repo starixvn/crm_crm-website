@@ -95,7 +95,7 @@
                     <select id="subCategory">
                         <option data-ng-repeat="subCategory in subCategoryList track by $index" data-ng-click="updateSelectedSubCategory(subCategory)"
                             value="subCategory.Id" data-ng-selected="subCategory.Id ==  communicationLog.SubCategory.Id"
-                            data-ng-bind="subCategory.Value"></option>
+                            data-ng-bind="subCategory.Name"></option>
                     </select>
                 </div>
             </div>
@@ -130,7 +130,7 @@
                     <select id="status">
                         <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
                             value="status.Id" data-ng-selected="status.Id === communicationLog.Status.Id"
-                            data-ng-bind="status.Value"></option>
+                            data-ng-bind="status.Name"></option>
                     </select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">

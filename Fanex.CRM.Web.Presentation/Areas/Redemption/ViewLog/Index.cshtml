@@ -39,7 +39,7 @@
                     <option data-ng-click="updateSelectedStatus();" value="crmConstants.Enums.Status.All">@Labels.All
                     </option>
                     <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
-                        value="status.Id" data-ng-bind="status.Value"></option>
+                        value="status.Id" data-ng-bind="status.Name"></option>
                 </select>
             </div>
             <div class="item">

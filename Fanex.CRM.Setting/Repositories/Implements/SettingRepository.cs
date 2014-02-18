@@ -170,9 +170,10 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                         {
                             var setting = new SettingInfo()
                             {
-                                Id = reader.GetInt32NotNull("Id"),
+                                Id = reader.GetInt32NotNull("LanguageId"),
                                 Name = reader.GetStringNotNull("Name"),
-                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder"),
+                                IsActive = reader.GetBooleanNotNull("IsActive")
                             };
 
                             result.Add(setting);
@@ -202,9 +203,10 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                         {
                             var setting = new SettingInfo()
                             {
-                                Id = reader.GetInt32NotNull("Id"),
+                                Id = reader.GetInt32NotNull("CommunicationId"),
                                 Name = reader.GetStringNotNull("Name"),
-                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder"),
+                                IsActive = reader.GetBooleanNotNull("IsActive")
                             };
 
                             result.Add(setting);
@@ -234,9 +236,10 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                         {
                             var setting = new SettingInfo()
                             {
-                                Id = reader.GetInt32NotNull("Id"),
+                                Id = reader.GetInt32NotNull("MainCategoryId"),
                                 Name = reader.GetStringNotNull("Name"),
-                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder"),
+                                IsActive = reader.GetBooleanNotNull("IsActive")
                             };
 
                             result.Add(setting);
@@ -258,6 +261,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
             var result = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
+                objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
                     if (reader != null)
@@ -266,9 +270,10 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                         {
                             var setting = new SettingInfo()
                             {
-                                Id = reader.GetInt32NotNull("Id"),
+                                Id = reader.GetInt32NotNull("SubCategoryId"),
                                 Name = reader.GetStringNotNull("Name"),
-                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder"),
+                                IsActive = reader.GetBooleanNotNull("IsActive")
                             };
 
                             result.Add(setting);
@@ -298,9 +303,8 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                         {
                             var setting = new SettingInfo()
                             {
-                                Id = reader.GetInt32NotNull("Id"),
-                                Name = reader.GetStringNotNull("Name"),
-                                DisplayOrder = reader.GetInt16NotNull("DisplayOrder")
+                                Id = reader.GetInt32NotNull("StatusId"),
+                                Name = reader.GetStringNotNull("Name")
                             };
 
                             result.Add(setting);

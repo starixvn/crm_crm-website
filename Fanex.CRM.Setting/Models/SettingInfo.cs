@@ -27,6 +27,8 @@ namespace Fanex.CRM.Setting.Models
 
         public bool IsSubSetting { get; set; }
 
+        public bool IsActive { get; set; }
+
         public int ParentId { get; set; }
 
         public List<SettingInfo> ChildSettings { get; set; }
