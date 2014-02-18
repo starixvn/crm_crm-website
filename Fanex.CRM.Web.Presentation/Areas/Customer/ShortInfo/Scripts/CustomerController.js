@@ -98,7 +98,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             if (isHavingData) {
                 $scope.customer = customer;
                 $scope.oldCustomer = angular.copy($scope.customer);
-                $scope.oldCustomer.SiteSetting.Id = parseInt(customerManager.DOMElements.dropdownSite.val());
+                $scope.changeDirtyFlag($scope);
             }
 
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
@@ -211,45 +211,49 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 $scope.isSetFocus = true;
             });
         };
+        $scope.changeDirtyFlag = function ($scope) {
+            if ($scope.oldCustomer &&
+                    $scope.customer &&
+                    ($scope.oldCustomer.SiteSetting.Id !== $scope.customer.SiteSetting.Id ||
+                    $scope.oldCustomer.Country.Id !== $scope.customer.Country.Id ||
+                    $scope.oldCustomer.FirstName !== $scope.customer.FirstName ||
+                    $scope.oldCustomer.LastName !== $scope.customer.LastName ||
+                    $scope.oldLanguages !== $scope.customer.SelectedLanguages ||
+
+                    $scope.oldCustomer.PhoneInfo[0].CountryCode !== $scope.customer.PhoneInfo[0].CountryCode ||
+                    $scope.oldCustomer.PhoneInfo[0].AreaCode !== $scope.customer.PhoneInfo[0].AreaCode ||
+                    $scope.oldCustomer.PhoneInfo[0].PhoneNumber !== $scope.customer.PhoneInfo[0].PhoneNumber ||
+
+                    $scope.oldCustomer.PhoneInfo[1].CountryCode !== $scope.customer.PhoneInfo[1].CountryCode ||
+                    $scope.oldCustomer.PhoneInfo[1].AreaCode !== $scope.customer.PhoneInfo[1].AreaCode ||
+                    $scope.oldCustomer.PhoneInfo[1].PhoneNumber !== $scope.customer.PhoneInfo[1].PhoneNumber ||
+
+                    $scope.oldCustomer.PhoneInfo[2].CountryCode !== $scope.customer.PhoneInfo[2].CountryCode ||
+                    $scope.oldCustomer.PhoneInfo[2].AreaCode !== $scope.customer.PhoneInfo[2].AreaCode ||
+                    $scope.oldCustomer.PhoneInfo[2].PhoneNumber !== $scope.customer.PhoneInfo[2].PhoneNumber ||
+
+                    $scope.oldCustomer.MobilePhone.CountryCode !== $scope.customer.MobilePhone.CountryCode ||
+                    $scope.oldCustomer.MobilePhone.AreaCode !== $scope.customer.MobilePhone.AreaCode ||
+                    $scope.oldCustomer.MobilePhone.PhoneNumber !== $scope.customer.MobilePhone.PhoneNumber ||
+
+                    $scope.oldCustomer.Email !== $scope.customer.Email ||
+                    $scope.oldCustomer.MSN !== $scope.customer.MSN ||
+                    $scope.oldCustomer.Skype !== $scope.customer.Skype ||
+
+                    $scope.oldCustomer.PersonalInfoContact[0] !== $scope.customer.PersonalInfoContact[0] ||
+                    $scope.oldCustomer.PersonalInfoContact[1] !== $scope.customer.PersonalInfoContact[1] ||
+                    $scope.oldCustomer.PersonalInfoContact[2] !== $scope.customer.PersonalInfoContact[2] ||
+                    $scope.oldCustomer.PersonalInfoContact[3] !== $scope.customer.PersonalInfoContact[3])) {
+                parent.homeManager.CachedData.isChangingDataLeftPanel = true;
+                parent.homeManager.CachedData.ignoreConfirmMessageLeftPanel = viewResources.Confirm_Ignore_EditCustomer_ChangesLeftPanel;
+            } else {
+                parent.homeManager.CachedData.isChangingDataLeftPanel = false;
+            }
+        };
+
         angular.element(document).ready(function () {
             $scope.$watch(function ($scope) {
-                if ($scope.oldCustomer &&
-                $scope.customer &&
-                ($scope.oldCustomer.SiteSetting.Id !== $scope.customer.SiteSetting.Id ||
-                $scope.oldCustomer.Country.Id !== $scope.customer.Country.Id ||
-                $scope.oldCustomer.FirstName !== $scope.customer.FirstName ||
-                $scope.oldCustomer.LastName !== $scope.customer.LastName ||
-                $scope.oldLanguages !== $scope.customer.SelectedLanguages ||
-
-                $scope.oldCustomer.PhoneInfo[0].CountryCode !== $scope.customer.PhoneInfo[0].CountryCode ||
-                $scope.oldCustomer.PhoneInfo[0].AreaCode !== $scope.customer.PhoneInfo[0].AreaCode ||
-                $scope.oldCustomer.PhoneInfo[0].PhoneNumber !== $scope.customer.PhoneInfo[0].PhoneNumber ||
-
-                $scope.oldCustomer.PhoneInfo[1].CountryCode !== $scope.customer.PhoneInfo[1].CountryCode ||
-                $scope.oldCustomer.PhoneInfo[1].AreaCode !== $scope.customer.PhoneInfo[1].AreaCode ||
-                $scope.oldCustomer.PhoneInfo[1].PhoneNumber !== $scope.customer.PhoneInfo[1].PhoneNumber ||
-
-                $scope.oldCustomer.PhoneInfo[2].CountryCode !== $scope.customer.PhoneInfo[2].CountryCode ||
-                $scope.oldCustomer.PhoneInfo[2].AreaCode !== $scope.customer.PhoneInfo[2].AreaCode ||
-                $scope.oldCustomer.PhoneInfo[2].PhoneNumber !== $scope.customer.PhoneInfo[2].PhoneNumber ||
-
-                $scope.oldCustomer.MobilePhone.CountryCode !== $scope.customer.MobilePhone.CountryCode ||
-                $scope.oldCustomer.MobilePhone.AreaCode !== $scope.customer.MobilePhone.AreaCode ||
-                $scope.oldCustomer.MobilePhone.PhoneNumber !== $scope.customer.MobilePhone.PhoneNumber ||
-
-                $scope.oldCustomer.Email !== $scope.customer.Email ||
-                $scope.oldCustomer.MSN !== $scope.customer.MSN ||
-                $scope.oldCustomer.Skype !== $scope.customer.Skype ||
-
-                $scope.oldCustomer.PersonalInfoContact[0] !== $scope.customer.PersonalInfoContact[0] ||
-                $scope.oldCustomer.PersonalInfoContact[1] !== $scope.customer.PersonalInfoContact[1] ||
-                $scope.oldCustomer.PersonalInfoContact[2] !== $scope.customer.PersonalInfoContact[2] ||
-                $scope.oldCustomer.PersonalInfoContact[3] !== $scope.customer.PersonalInfoContact[3])) {
-                    parent.homeManager.CachedData.isChangingDataLeftPanel = true;
-                    parent.homeManager.CachedData.ignoreConfirmMessageLeftPanel = viewResources.Confirm_Ignore_EditCustomer_ChangesLeftPanel;
-                } else {
-                    parent.homeManager.CachedData.isChangingDataLeftPanel = false;
-                }
+                $scope.changeDirtyFlag($scope);
             });
 
             $scope.setFocus();
