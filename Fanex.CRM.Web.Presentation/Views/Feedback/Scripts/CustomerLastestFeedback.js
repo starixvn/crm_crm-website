@@ -18,6 +18,7 @@ var _pageIndex = 1;
 var _pageSize = 20;
 var totalItems = 0;
 var maxHeightOfPopUp = ($(window).height() + 50);
+var maxWidthOfPopUp = ($(window).width() + 150);
 
 function tooltip(i) {
     var id = "tooltip" + i;
@@ -35,7 +36,7 @@ function openEditFeedback(url, type) {
     /* jshint unused: vars */
     $('.desTooltip').tipsy('hide');
     try {
-        parent.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 2000, function () {
+        parent.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, function () {
             topFeedback.loadLastedFeedback(false);
         }, function () { });
     } catch (e) { }

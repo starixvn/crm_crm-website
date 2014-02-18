@@ -875,7 +875,9 @@ namespace Fanex.CRM.DataAccess.Impl
                                                    : reader.GetString(reader.GetOrdinal("reviewername"))
                                 };
 
-                                feedback.SolvedDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate")));
+                                feedback.SolvedDate = !reader.IsDBNull(reader.GetOrdinal("solvedate")) ?
+                                    DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate"))):
+                                    null;
                             }
                             else
                             {
@@ -1541,8 +1543,9 @@ namespace Fanex.CRM.DataAccess.Impl
                                                 ? string.Empty
                                                 : reader.GetString(reader.GetOrdinal("reviewername")),
                                     };
-                                feedback.SolvedDate =
-                                 DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate")));
+                                feedback.SolvedDate = !reader.IsDBNull(reader.GetOrdinal("solvedate")) ?
+                                    DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate"))):
+                                    null;
                             }
                             else
                             {
@@ -1704,8 +1707,9 @@ namespace Fanex.CRM.DataAccess.Impl
                                                 ? string.Empty
                                                 : reader.GetString(reader.GetOrdinal("reviewername")),
                                     };
-                                feedback.SolvedDate =
-                                  DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate")));
+                                feedback.SolvedDate = !reader.IsDBNull(reader.GetOrdinal("solvedate")) ?
+                                    DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate"))):
+                                    null;
                             }
                             else
                             {

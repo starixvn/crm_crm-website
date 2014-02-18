@@ -8,6 +8,8 @@ var _pageIndex = 1;
 var _pageSize = 20;
 var totalItems = 0;
 var maxHeightOfPopUp = ($(window).height() + 50);
+var maxWidthOfPopUp = ($(window).width() + 150);
+
 var topFeedback;
 
 function tooltip(i) {
@@ -27,14 +29,14 @@ function openEditFeedback(url, type) {
     try {
         $('.desTooltip').tipsy('hide');
 
-        parent.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 1000, function () {
+        parent.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 1000, function () {
             topFeedback.loadLastedFeedback(false);
         }, function () {
         });
     }
     catch (e) {
         /* jshint newcap: false */
-        OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 1000, function () {
+        OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 1000, function () {
             topFeedback.loadLastedFeedback(false);
         }, function () {
         });
