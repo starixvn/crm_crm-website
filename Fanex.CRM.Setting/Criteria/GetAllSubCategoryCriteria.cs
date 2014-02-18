@@ -16,6 +16,7 @@ namespace Fanex.CRM.Setting.Criteria
     /// </summary>
     public class GetAllSubCategoryCriteria : CriteriaBase
     {
+        [SpParam(SqlParamName = "MainCategoryID")]
         public int ParentId { get; set; }
 
         public override string GetSettingKey()

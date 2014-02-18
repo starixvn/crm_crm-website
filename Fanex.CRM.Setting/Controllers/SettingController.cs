@@ -76,8 +76,7 @@ namespace Fanex.CRM.Setting.Controllers
         public JsonResult GetAllCommunicationTool()
         {
             var result = _serviceInstance.GetAllCommunicationTool();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

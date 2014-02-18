@@ -16,6 +16,8 @@ namespace Fanex.CRM.Communication.Controllers
     using Fanex.CRM.Communication.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -26,14 +28,19 @@ namespace Fanex.CRM.Communication.Controllers
     {
         private ICommunicationLogService _serviceLog;
 
+        private ISettingService _serviceSetting;
+
         public CommunicationLogController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public CommunicationLogController(ICommunicationLogService serviceInstance)
+        public CommunicationLogController(
+            ICommunicationLogService serviceLog,
+            ISettingService serviceSetting)
         {
-            _serviceLog = serviceInstance ?? new CommunicationLogService();
+            _serviceLog = serviceLog ?? new CommunicationLogService();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
@@ -45,6 +52,31 @@ namespace Fanex.CRM.Communication.Controllers
             });
 
             return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", communicationLogs);
+        }
+
+        /// <summary>
+        /// Gets all setting for edit.
+        /// </summary>
+        /// <returns>All setting for edit.</returns>
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        public ActionResult GetAllSettingForEdit()
+        {
+            var allSetting = new
+            {
+                ExtensionList = _serviceSetting.GetAllExtension(),
+                CountryList = _serviceSetting.GetAllCountry(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTool(),
+                LanguageList = _serviceSetting.GetAllLanguage(),
+                MainCategoryList = _serviceSetting.GetAllMainCategory(),
+                ProductList = _serviceSetting.GetAllProduct(),
+                StatusList = _serviceSetting.GetAllStatus(),
+                SiteList = _serviceSetting.GetAllSite(),
+                RoleList = _serviceSetting.GetAllRole(),
+                ResponseList = _serviceSetting.GetAllResponse()
+            };
+
+            return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

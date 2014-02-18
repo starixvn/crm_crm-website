@@ -5,7 +5,7 @@ insertLogApplication.directive('dropdownCommunicationTool', function () {
         restrict: 'A',
         template: '<option data-ng-repeat="communicationTool in communicationToolList track by $index"' +
                         ' data-ng-click="updateSelectedCommunicationTool(communicationTool);"' +
-                        ' value="{{ communicationTool.Id }}">{{ communicationTool.Value }}</option>',
+                        ' value="{{ communicationTool.Id }}">{{ communicationTool.Name }}</option>',
         replace: false,
         priority: 0,
         transclude: false,

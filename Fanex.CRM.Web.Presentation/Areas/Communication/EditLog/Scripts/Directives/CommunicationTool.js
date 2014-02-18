@@ -6,7 +6,7 @@ editLogApplication.directive('dropdownCommunicationTool', function () {
         template: '<option data-ng-repeat="communicationTool in communicationToolList track by $index"' +
                         ' data-ng-click="updateSelectedCommunicationTool(communicationTool);"' +
                         ' value="{{ communicationTool.Id }}"' +
-                        ' data-ng-selected="communicationTool.Id === communicationLog.CommunicationTool.Id">{{ communicationTool.Value }}</option>',
+                        ' data-ng-selected="communicationTool.Id === communicationLog.CommunicationTool.Id">{{ communicationTool.Name }}</option>',
         replace: false,
         priority: 0,
         transclude: false,

@@ -84,5 +84,13 @@ namespace Fanex.CRM.Redemption.Controllers
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
+
+        [HttpPost]
+        public JsonResult GetAllStatus()
+        {
+            var result = _serviceInstance.GetAllStatus();
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
     }
 }

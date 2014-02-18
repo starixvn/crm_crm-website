@@ -5,7 +5,7 @@ insertLogApplication.directive('dropdownLanguage', function () {
         restrict: 'A',
         template: '<option data-ng-repeat="language in languageList track by $index"' +
                         ' data-ng-click="updateSelectedLanguage(language);"' +
-                        ' value="{{ language.Id }}">{{ language.Value }}</option>',
+                        ' value="{{ language.Id }}">{{ language.Name }}</option>',
         replace: false,
         priority: 0,
         transclude: false,

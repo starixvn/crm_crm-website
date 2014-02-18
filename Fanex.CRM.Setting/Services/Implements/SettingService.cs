@@ -215,7 +215,6 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return result;
                 }
 
-                result = new List<CountryInfo>();
                 result = _repositoryInstance.GetAllCountry(new GetAllCountryCriteria());
                 CacheService.Set(GetAllCountrySessionKey, result);
             }
@@ -242,14 +241,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return result;
                 }
 
-                ////result = _repositoryInstance.GetAllLanguage(new GetAllLanguageCriteria());
-                result = new List<SettingInfo>();
-                result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.Language,
-                    ParentId = 0
-                });
-
+                result = _repositoryInstance.GetAllLanguage(new GetAllLanguageCriteria());
                 CacheService.Set(GetAllLanguageSessionKey, result);
             }
             catch (Exception ex)
@@ -307,14 +299,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return result;
                 }
 
-                ////result = _repositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
-                result = new List<SettingInfo>();
-                result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.CommunicationTool,
-                    ParentId = 0
-                });
-
+                result = _repositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
                 CacheService.Set(GetAllCommunicationToolSessionKey, result);
             }
             catch (Exception ex)
@@ -341,23 +326,15 @@ namespace Fanex.CRM.Setting.Services.Implements
                 }
 
                 result = new List<SettingInfo>();
-                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.MainCategory,
-                    ParentId = 0
-                });
-                ////rawData = _repositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
-
-                var allSettingRelation = GetAllSettingRelation();
-                var allSetting = GetAllSetting();
+                var rawData = _repositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
                 foreach (var data in rawData)
                 {
-                    data.ChildSettings = GetSubCategoryByParentId(data, allSettingRelation, allSetting);
-                    ////data.ChildSettings = _repositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
-                    ////{
-                    ////    ParentId = data.Id
-                    ////});
+                    data.ChildSettings = _repositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
+                    {
+                        ParentId = data.Id
+                    });
 
+                    data.ChildSettings = data.ChildSettings.OrderBy(s => s.DisplayOrder).ToList();
                     result.Add(data);
                 }
 
@@ -436,20 +413,14 @@ namespace Fanex.CRM.Setting.Services.Implements
             try
             {
                 result = CacheService.Get<List<SettingInfo>>(GetAllStatusSessionKey);
+                result = null;
                 if (result != null)
                 {
                     return result;
                 }
 
-                ////result = _repositoryInstance.GetAllStatus(new GetAllStatusCriteria());
-                result = new List<SettingInfo>();
-                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.Status,
-                    ParentId = 0
-                });
-
-                result = rawData;
+                result = _repositoryInstance.GetAllStatus(new GetAllStatusCriteria());
+                result = result.OrderBy(s => s.DisplayOrder).ToList();
                 CacheService.Set(GetAllStatusSessionKey, result);
             }
             catch (Exception ex)
@@ -534,59 +505,6 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <param name="allSetting">All setting.</param>
         /// <returns>The sub setting by parent identifier.</returns>
         public List<SettingInfo> GetSubSettingByParentId(
-            SettingInfo parentSetting,
-            List<SettingInfo> allSettingRelation,
-            List<SettingInfo> allSetting)
-        {
-            List<SettingInfo> subSettings = new List<SettingInfo>();
-            try
-            {
-                if (allSettingRelation == null || !allSettingRelation.Any())
-                {
-                    return subSettings;
-                }
-
-                foreach (var settingRelation in allSettingRelation)
-                {
-                    if (settingRelation.ParentId == parentSetting.Id)
-                    {
-                        for (var i = 0; i < allSetting.Count; i++)
-                        {
-                            var setting = allSetting[i];
-                            if (setting.Id == settingRelation.Id)
-                            {
-                                subSettings.Add(new SettingInfo
-                                {
-                                    Id = setting.Id,
-                                    DisplayOrder = setting.DisplayOrder,
-                                    Value = setting.Value,
-                                    Type = setting.Type,
-                                    ParentId = parentSetting.Id,
-                                    IsSubSetting = true
-                                });
-                            }
-                        }
-                    }
-                }
-
-                subSettings = subSettings.OrderBy(s => s.DisplayOrder).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-            return subSettings;
-        }
-
-        /// <summary>
-        /// Gets the sub category by parent identifier.
-        /// </summary>
-        /// <param name="parentSetting">The parent setting.</param>
-        /// <param name="allSettingRelation">All setting relation.</param>
-        /// <param name="allSetting">All setting.</param>
-        /// <returns>The sub category by parent identifier.</returns>
-        public List<SettingInfo> GetSubCategoryByParentId(
             SettingInfo parentSetting,
             List<SettingInfo> allSettingRelation,
             List<SettingInfo> allSetting)

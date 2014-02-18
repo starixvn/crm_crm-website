@@ -146,7 +146,7 @@ customerDetailApplication.directive('dropdownSiteContainer', function () {
                 dropdownLanguage.push({
                     id: prefixId + info.Id,
                     value: info.Id,
-                    text: info.Value,
+                    text: info.Name,
                     checked: isChecked,
                     enable: true,
                     cssClass: "",

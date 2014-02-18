@@ -79,6 +79,15 @@ namespace Fanex.CRM.Redemption.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Closed.
+        /// </summary>
+        public static string Closed {
+            get {
+                return ResourceManager.GetString("Closed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are some changes on redemption input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_EditRedemption_Changes {
@@ -138,6 +147,24 @@ namespace Fanex.CRM.Redemption.Resources {
         public static string Insert_Redemption_Log {
             get {
                 return ResourceManager.GetString("Insert_Redemption_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KIV.
+        /// </summary>
+        public static string KIV {
+            get {
+                return ResourceManager.GetString("KIV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        public static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
             }
         }
         

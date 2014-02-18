@@ -9,9 +9,11 @@
 
 namespace Fanex.CRM.Redemption.Services.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Models;
+    using Fanex.CRM.Setting.Models;
 
     public interface IRedemptionLogService
     {
@@ -22,5 +24,7 @@ namespace Fanex.CRM.Redemption.Services.Interfaces
         Result UpdateLog(UpdateLogCriteria criteria);
 
         Result InsertLog(InsertLogCriteria criteria);
+
+        List<SettingInfo> GetAllStatus();
     }
 }
