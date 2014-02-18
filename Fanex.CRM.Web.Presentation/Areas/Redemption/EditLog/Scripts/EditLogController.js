@@ -104,6 +104,7 @@ function (
     };
     $scope.updateSelectedStatus = function (status) {
         $scope.redemptionLog.Status = status;
+        $scope.updateChangeFlag();
     };
     $scope.updateSelectedSubject = function (subject) {
         $scope.redemptionLog.Subject = subject;
@@ -189,6 +190,7 @@ function (
     };
     $scope.updateChangeFlag = function () {
         if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
+            $scope.redemptionLog.Status.Id !== $scope.oldRedemptionLog.Status.Id ||
             $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
             parent.homeManager.CachedData.isChangingDataPopUp = true;
             parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_EditRedemption_Changes;

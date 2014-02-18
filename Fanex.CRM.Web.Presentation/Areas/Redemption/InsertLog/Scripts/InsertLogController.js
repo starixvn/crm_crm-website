@@ -13,15 +13,13 @@ function (
     $scope.redemptionLog = {
         ClaimedTime: new Date(currentDate),
         Subject: '',
-        Status: null,
+        Status: {
+            Id: 0,
+            Name: ''
+        },
         Remark: ''
     };
-    $scope.oldRedemptionLog = {
-        ClaimedTime: new Date(currentDate),
-        Subject: '',
-        Status: null,
-        Remark: ''
-    };
+    $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
     $scope.statusList = null;
     $scope.customerId = customerId;
     $scope.isSetFocus = false;
@@ -211,6 +209,7 @@ function (
     angular.element(document).ready(function () {
         $scope.$watch(function ($scope) {
             if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
+                $scope.redemptionLog.Status.Id !== $scope.oldRedemptionLog.Status.Id ||
                 $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
                 parent.homeManager.CachedData.isChangingDataPopUp = true;
                 parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertRedemption_Changes;

@@ -16,7 +16,8 @@
 <body>
     <div class="main container" data-ng-controller="customerDetailController">
         <div class="row panel-group">
-            <div class="row title group-header" data-ng-click="isShowPersonalInfo = !isShowPersonalInfo">@Labels.Personal_Info</div>
+            <div class="row title group-header" data-ng-class="isShowPersonalInfo ? '' : 'border-bottom-none'"
+                data-ng-click="isShowPersonalInfo = !isShowPersonalInfo">@Labels.Personal_Info</div>
             <div class="row content" data-ng-show="isShowPersonalInfo">
                 <div class="col-md-4">
                     <div class="row item">
@@ -215,7 +216,8 @@
             </div>
         </div>
         <div class="row panel-group">
-            <div class="row title group-header" data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo">
+            <div class="row title group-header" data-ng-class="isShowHomeAddressInfo ? '' : 'border-bottom-none'"
+                data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo">
                 @Labels.Home_Address</div>
             <div class="row content" data-ng-show="isShowHomeAddressInfo">
                 <div data-ng-repeat="addressLine in customerDetail.AddressInfo.LineList track by $index">
@@ -266,7 +268,8 @@
             </div>
         </div>
         <div class="row panel-group last">
-            <div class="row title group-header" data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
+            <div class="row title group-header" data-ng-class="isShowBankInfoInfo ? '' : 'border-bottom-none'"
+                data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
                 @Labels.Bank_Info</div>
             <div class="row content" data-ng-show="isShowBankInfoInfo">
                 <div class="row">
@@ -350,7 +353,8 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-save" data-ng-click="updateCustomerInfoDetail();" default-focus data-ng-model="isSetFocus">
+            <button class="btn btn-save" data-ng-click="updateCustomerInfoDetail();" default-focus
+                data-ng-model="isSetFocus">
                 <span id="button-save-customerinfodetail" class="hotkey">S</span>ave</button>
         </div>
     </div>

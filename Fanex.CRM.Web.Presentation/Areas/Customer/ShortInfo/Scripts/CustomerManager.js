@@ -30,6 +30,7 @@ var CustomerManager = function () {
         ViewResources: {
             GetCustomerByName_NoData: "There is no information",
             OK: "OK",
+            Cancel: "Cancel",
             SearchByGuest_DialogTitle: "Search By Guest",
             Select: 'Select',
             Symbol_NotApply: 'N/A',
@@ -206,6 +207,12 @@ var CustomerManager = function () {
                     self.CacheData.isConfirmSearchByGuest = true;
                     self.DOMElements.divResultPopUp.dialog("close");
                     self.getGuestCustomerInfoByUsername();
+                }
+            },
+            {
+                text: self.CacheData.ViewResources.Cancel,
+                click: function () {
+                    self.DOMElements.divResultPopUp.dialog('close');
                 }
             }]
         });
