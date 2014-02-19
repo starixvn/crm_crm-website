@@ -132,6 +132,7 @@
     <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\QueryString.cs" />
     <Compile Include="Helper\SystemTime.cs" />
+    <Compile Include="Models\PagedList.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\TimeInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

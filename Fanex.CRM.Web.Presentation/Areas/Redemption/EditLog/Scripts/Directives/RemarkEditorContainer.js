@@ -38,6 +38,7 @@ editLogApplication.directive('remarkEditorContainer', function () {
         });
 
         $('.jHtmlArea').find('iframe').css('height', '170px');
+        $('#remarkeditorbox').css('height', '194px');
     }
 
     return {

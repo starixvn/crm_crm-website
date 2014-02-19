@@ -88,6 +88,8 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Redemption_InsertLog(ref bundles);
             RegisterBundles_Redemption_EditLog(ref bundles);
             RegisterBundles_Remark(ref bundles);
+            RegisterBundles_ActivityLog(ref bundles);
+            RegisterBundles_SettingLog(ref bundles);
             RegisterBundles_Dashboard_ViewInfo(ref bundles);
             RegisterBundles_Dashboard_VerifyFlag(ref bundles);
         }
@@ -257,6 +259,54 @@ namespace Fanex.CRM.Web.View.App_Start
         }
 
         /// <summary>
+        /// Registers the activity log bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_ActivityLog(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/ActionLog/ActivityLogScripts").Include(
+                "~/Scripts/FanexGridV2/Fanex.Grid.js",
+                "~/Scripts/FanexGridV2/moment.js",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/ActionLog/ActivityLog/Scripts/ActivityLogApplication.js",
+                "~/Areas/ActionLog/ActivityLog/Scripts/ActivityLogService.js",
+                "~/Areas/ActionLog/ActivityLog/Scripts/ActivityLogController.js",
+                "~/Areas/ActionLog/ActivityLog/Scripts/Directives/*.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/ActionLog/ActivityLogStyles",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/ActionLog/ActivityLog/Styles/activityLog.less");
+        }
+
+        /// <summary>
+        /// Registers the bundles_ setting log.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_SettingLog(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/ActionLog/SettingLogScripts").Include(
+                "~/Scripts/FanexGridV2/Fanex.Grid.js",
+                "~/Scripts/FanexGridV2/moment.js",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/ActionLog/SettingLog/Scripts/SettingLogApplication.js",
+                "~/Areas/ActionLog/SettingLog/Scripts/SettingLogService.js",
+                "~/Areas/ActionLog/SettingLog/Scripts/SettingLogController.js",
+                "~/Areas/ActionLog/SettingLog/Scripts/Directives/*.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/ActionLog/SettingLogStyles",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/ActionLog/SettingLog/Styles/settingLog.less");
+        }
+
+        /// <summary>
         /// Registers the bundles dashboard view information.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
@@ -283,8 +333,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagApplication.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagService.js",
-                "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagController.js",
-                "~/Areas/Dashboard/VerifyFlag/Scripts/Directives/*.js"));
+                "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagController.js"));
 
             bundles.Add(new StyleBundle("~/Areas/Dashboard/VerifyFlagStyles").Include(
                 "~/Areas/Dashboard/VerifyFlag/Styles/VerifyFlag.less"));

@@ -15,7 +15,10 @@ insertLogApplication.directive('datePickerContainer', function () {
             minDate: null,
             maxDate: new Date(currentDate),
             showOtherMonths: true,
-            selectOtherMonths: true
+            selectOtherMonths: true,
+            onClose: function () {
+                $(this).blur();
+            }
         });
 
         txtCalendar.datepicker('setDate', new Date(currentDate));

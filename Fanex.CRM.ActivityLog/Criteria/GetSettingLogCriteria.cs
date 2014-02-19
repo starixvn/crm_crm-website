@@ -16,7 +16,7 @@ namespace Fanex.CRM.ActionLog.Criteria
     {
         public override string GetSettingKey()
         {
-            return "";
+            return "Acc_CRM_LogActionSettingList";
         }
 
         public override bool IsValid()

@@ -25,7 +25,7 @@
                             <label for="title">
                                 @Labels.Title</label></div>
                         <div class="col-md-7" data-ng-model="titleList" dropdown-title-container>
-                            <select id="customerinfodetail-titleoptions" tabindex="1" class="selTitle">
+                            <select id="customerinfodetail-titleoptions" tabindex="1" class="selTitle" default-focus data-ng-issetfocus="isSetFocus" >
                             </select>
                         </div>
                     </div>
@@ -353,8 +353,7 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-save" data-ng-click="updateCustomerInfoDetail();" default-focus
-                data-ng-model="isSetFocus">
+            <button class="btn btn-save" data-ng-click="updateCustomerInfoDetail();">
                 <span id="button-save-customerinfodetail" class="hotkey">S</span>ave</button>
         </div>
     </div>

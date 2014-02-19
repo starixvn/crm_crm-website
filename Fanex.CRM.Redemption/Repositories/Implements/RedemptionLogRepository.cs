@@ -111,20 +111,20 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
         /// <returns>Insert result.</returns>
         public Result InsertLog(InsertLogCriteria criteria)
         {
-            Result updateResult = null;
+            Result insertResult = null;
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 objectDB.ExecuteNonQuery();
                 var outputParams = objectDB.GetOuputParams();
-                updateResult = new Result
+                insertResult = new Result
                 {
                     Code = Converter.ToInt(outputParams["errcode"]),
                     Message = Converter.ToString2(outputParams["errmsg"])
                 };
             }
 
-            return updateResult;
+            return insertResult;
         }
 
         /// <summary>

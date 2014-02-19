@@ -25,16 +25,16 @@ namespace Fanex.CRM.Communication.Services.Implements
     /// </summary>
     public class CommunicationLogService : ICommunicationLogService
     {
-        private readonly ICommunicationLogRepository _repositoryLog;
+        private readonly ICommunicationLogRepository _communicationRepositoryLog;
 
         public CommunicationLogService()
             : this(null)
         {
         }
 
-        public CommunicationLogService(ICommunicationLogRepository repositoryInstance)
+        public CommunicationLogService(ICommunicationLogRepository communicationRepositoryInstance)
         {
-            _repositoryLog = repositoryInstance ?? new CommunicationLogRepository();
+            _communicationRepositoryLog = communicationRepositoryInstance ?? new CommunicationLogRepository();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             CustomerLogInfo logs = null;
             try
             {
-                var rawData = _repositoryLog.GetLogsByCustomerId(criteria);
+                var rawData = _communicationRepositoryLog.GetLogsByCustomerId(criteria);
                 logs = new CustomerLogInfo
                 {
                     CustomerId = criteria.CustomerId,
@@ -72,7 +72,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             LogInfo log = null;
             try
             {
-                var rawData = _repositoryLog.GetLogsByRunningNumber(criteria);
+                var rawData = _communicationRepositoryLog.GetLogsByRunningNumber(criteria);
                 log = rawData;
             }
             catch (Exception ex)
@@ -93,7 +93,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             Result updateResult = null;
             try
             {
-                updateResult = _repositoryLog.UpdateLog(criteria);
+                updateResult = _communicationRepositoryLog.UpdateLog(criteria);
                 if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
                 {
                     updateResult.Message = Labels.Communication_Logs_UpdateSuccess;
@@ -117,7 +117,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             Result insertResult = null;
             try
             {
-                insertResult = _repositoryLog.InsertLog(criteria);
+                insertResult = _communicationRepositoryLog.InsertLog(criteria);
                 if (insertResult != null && insertResult.Code == ErrorCodeConstants.NoneError)
                 {
                     insertResult.Message = Labels.Communication_Logs_InsertSuccess;

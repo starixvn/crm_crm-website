@@ -15,6 +15,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Repositories.Interfaces;
     using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// Setting Repository.
@@ -159,7 +160,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         /// <returns>All language.</returns>
         public List<SettingInfo> GetAllLanguage(GetAllLanguageCriteria criteria)
         {
-            var result = new List<SettingInfo>();
+            var allLanguage = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
@@ -176,13 +177,13 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                                 IsActive = reader.GetBooleanNotNull("IsActive")
                             };
 
-                            result.Add(setting);
+                            allLanguage.Add(setting);
                         }
                     }
                 }
             }
 
-            return result;
+            return allLanguage;
         }
 
         /// <summary>
@@ -192,7 +193,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         /// <returns>All communication tool.</returns>
         public List<SettingInfo> GetAllCommunicationTool(GetAllCommunicationToolCriteria criteria)
         {
-            var result = new List<SettingInfo>();
+            var allCommunicationTool = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
@@ -209,13 +210,13 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                                 IsActive = reader.GetBooleanNotNull("IsActive")
                             };
 
-                            result.Add(setting);
+                            allCommunicationTool.Add(setting);
                         }
                     }
                 }
             }
 
-            return result;
+            return allCommunicationTool;
         }
 
         /// <summary>
@@ -225,7 +226,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         /// <returns>All main category.</returns>
         public List<SettingInfo> GetAllMainCategory(GetAllMainCategoryCriteria criteria)
         {
-            var result = new List<SettingInfo>();
+            var allMainCategory = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
@@ -242,13 +243,13 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                                 IsActive = reader.GetBooleanNotNull("IsActive")
                             };
 
-                            result.Add(setting);
+                            allMainCategory.Add(setting);
                         }
                     }
                 }
             }
 
-            return result;
+            return allMainCategory;
         }
 
         /// <summary>
@@ -258,7 +259,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         /// <returns>All sub category.</returns>
         public List<SettingInfo> GetAllSubCategory(GetAllSubCategoryCriteria criteria)
         {
-            var result = new List<SettingInfo>();
+            var allSubCategory = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
@@ -276,13 +277,13 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                                 IsActive = reader.GetBooleanNotNull("IsActive")
                             };
 
-                            result.Add(setting);
+                            allSubCategory.Add(setting);
                         }
                     }
                 }
             }
 
-            return result;
+            return allSubCategory;
         }
 
         /// <summary>
@@ -292,7 +293,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         /// <returns>All sub Status.</returns>
         public List<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria)
         {
-            var result = new List<SettingInfo>();
+            var allStatus = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
@@ -307,13 +308,13 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                                 Name = reader.GetStringNotNull("Name")
                             };
 
-                            result.Add(setting);
+                            allStatus.Add(setting);
                         }
                     }
                 }
             }
 
-            return result;
+            return allStatus;
         }
 
         /// <summary>
@@ -323,7 +324,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         /// <returns>The feedback subject template by identifier.</returns>
         public List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria)
         {
-            List<FeedbackTemplate> result = new List<FeedbackTemplate>();
+            List<FeedbackTemplate> feedbackSubjectTemplate = new List<FeedbackTemplate>();
             using (var obj = new ObjectDb(criteria.GetSettingKey(), 500))
             {
                 obj.AssignParamValues(criteria.GetSpParams());
@@ -339,13 +340,42 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                                 Subject = reader.GetStringNotNull("subject")
                             };
 
-                            result.Add(feedbackTemplate);
+                            feedbackSubjectTemplate.Add(feedbackTemplate);
                         }
                     }
                 }
             }
 
-            return result;
+            return feedbackSubjectTemplate;
+        }
+
+        /// <summary>
+        /// Gets all log actions.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The log actions list.</returns>
+        public List<SettingInfo> GetAllLogAction(ICriteria criteria)
+        {
+            var actions = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            actions.Add(new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("ActionID"),
+                                Name = reader.GetStringNotNull("ActionName")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return actions;
         }
     }
 }

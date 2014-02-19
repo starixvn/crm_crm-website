@@ -173,7 +173,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Communication\EditLog\Scripts\Directives\DefaultFocus.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogService.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogController.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogApplication.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\FromDate.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ActivitiLogsContainer.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ToDate.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\SettingLogsContainer.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\FromDate.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\ToDate.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogService.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogController.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogApplication.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RelatedCustomer.js" />
@@ -193,7 +204,6 @@
     <Content Include="Areas\Communication\EditLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\CommunicationTool.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Country.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\EndTime.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Extension.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Language.js" />
@@ -217,20 +227,14 @@
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailController.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailDirective.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailService.js" />
-    <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DatePickerContainer.js" />
-    <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DefaultFocus.js" />
-    <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DropdownTitleContainer.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
-    <Content Include="Areas\Customer\ShortInfo\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon-arrow-left.png" />
-    <Content Include="Areas\Dashboard\VerifyFlag\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardApplication.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardController.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardService.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\CommunicationLogsContainer.js" />
-    <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\RedemptionLogsContainer.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\verifystatus.png" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
@@ -238,8 +242,6 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
-    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DefaultFocus.js" />
-    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DropdownStatusContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogApplication.js" />
@@ -247,8 +249,6 @@
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
-    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DefaultFocus.js" />
-    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DropdownStatusContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogApplication.js" />
@@ -345,6 +345,7 @@
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
     <Content Include="Areas\ActionLog\SettingLog\Index.cshtml" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\DefaultFocus.js" />
     <None Include="Areas\ActionLog\SettingLog\Styles\settingLog.less" />
     <None Include="Areas\Communication\EditLog\Styles\EditCommunicationLog.less" />
     <None Include="Areas\Communication\InsertLog\Styles\InsertCommunicationLog.less" />
@@ -487,7 +488,6 @@
     <Content Include="Scripts\FanexGrid\images\sorting_bg.gif" />
     <Content Include="Scripts\FanexGrid\images\sorting_desc.gif" />
     <Content Include="Scripts\FanexGrid\images\white-top-bottom.gif" />
-    <Content Include="Scripts\head.load.js" />
     <Content Include="Scripts\InputBox\close.gif" />
     <Content Include="Scripts\InputBox\jquery.fcbkcomplete.js" />
     <Content Include="Scripts\InputBox\jquery.fcbkcomplete.min.js" />
@@ -686,8 +686,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\ActionLog\ActivityLog\Scripts\" />
-    <Folder Include="Areas\ActionLog\SettingLog\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

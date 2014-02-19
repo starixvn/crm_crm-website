@@ -23,16 +23,16 @@ namespace Fanex.CRM.Customer.Controllers
     /// </summary>
     public class CustomerSettingController : BaseController
     {
-        private ICustomerService _serviceInstance;
+        private ICustomerService _customerServiceInstance;
 
         public CustomerSettingController()
             : this(null)
         {
         }
 
-        public CustomerSettingController(ICustomerService serviceInstance)
+        public CustomerSettingController(ICustomerService customerServiceInstance)
         {
-            _serviceInstance = serviceInstance ?? new CustomerService();
+            _customerServiceInstance = customerServiceInstance ?? new CustomerService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
@@ -45,8 +45,8 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
-            var result = _serviceInstance.GetCustomerInfoByUsername(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var customerInfo = _customerServiceInstance.GetCustomerInfoByUsername(criteria);
+            var jsonResult = Json(customerInfo, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
@@ -54,8 +54,8 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
-            var result = _serviceInstance.GetUplineInfoOfUser(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var uplineInfo = _customerServiceInstance.GetUplineInfoOfUser(criteria);
+            var jsonResult = Json(uplineInfo, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
@@ -63,8 +63,8 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
-            var result = _serviceInstance.UpdateCustomerSuggestion(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var updateResult = _customerServiceInstance.UpdateCustomerSuggestion(criteria);
+            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
@@ -72,8 +72,8 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
-            var result = _serviceInstance.UpdateCustomerInfo(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var updateResult = _customerServiceInstance.UpdateCustomerInfo(criteria);
+            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
     }

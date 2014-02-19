@@ -12,6 +12,7 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
     $scope.lastRemark = '';
     $scope.isShowSpecialRemark = true;
     $scope.isShowRemark = true;
+    $scope.isSetFocus = false;
 
     $scope.getRemarks = function () {
         $scope.blockUI();
@@ -162,11 +163,22 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
         } catch (e) { }
     };
 
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
+
     angular.element(document).ready(function () {
         $scope.getRemarks();
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: 'SpecialRemarks'
         });
+        $scope.setFocus();
     });
 } ]);
