@@ -32,14 +32,10 @@
                     <input id="toDate" type="text" class="textbox txtcalendar" />
                 </div>
             </div>
-            <div class="item afterButton">
+            <div class="item afterButton" data-ng-model="statusList" dropdown-status-container>
                 <label for="status">
                     @Labels.Status</label>
                 <select id="status">
-                    <option data-ng-click="updateSelectedStatus();" value="crmConstants.Enums.Status.All">@Labels.All
-                    </option>
-                    <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
-                        value="status.Id" data-ng-bind="status.Name"></option>
                 </select>
             </div>
             <div class="item">
@@ -82,7 +78,8 @@
             Subject:'@Labels.Subject',
             Claimed_Time: '@Labels.Claimed_Time',
             Status: '@Labels.Status',
-            Customer_Redemption_Logs: '@Labels.Customer_Redemption_Logs'
+            Customer_Redemption_Logs: '@Labels.Customer_Redemption_Logs',
+            All: '@Labels.All'
         }; 
     </script>
 </body>
