@@ -3,7 +3,9 @@
 hotKeyManager,
 viewResources,
 crmConstants,
-currentDate */
+currentDate,
+customerId,
+initFromDate */
 communicationApplication.controller('communicationController', ['$scope', '$http', '$communicationService',
 function (
     $scope,
