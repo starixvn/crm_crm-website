@@ -61,6 +61,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Type.
         /// </summary>
         public static string Bet_Type {
@@ -250,6 +259,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From date.
+        /// </summary>
+        public static string From_date {
+            get {
+                return ResourceManager.GetString("From_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Guest.
         /// </summary>
         public static string Guest {
@@ -264,6 +282,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Handled_By {
             get {
                 return ResourceManager.GetString("Handled_By", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handler.
+        /// </summary>
+        public static string Handler {
+            get {
+                return ResourceManager.GetString("Handler", resourceCulture);
             }
         }
         
@@ -471,6 +498,15 @@ namespace Fanex.CRM.Communication.Resources {
         public static string Symbol_NotApply {
             get {
                 return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To date.
+        /// </summary>
+        public static string To_date {
+            get {
+                return ResourceManager.GetString("To_date", resourceCulture);
             }
         }
         

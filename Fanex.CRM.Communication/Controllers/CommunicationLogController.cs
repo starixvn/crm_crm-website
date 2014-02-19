@@ -46,12 +46,7 @@ namespace Fanex.CRM.Communication.Controllers
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult Index(int customerId)
         {
-            CustomerLogInfo communicationLogs = _communicationServiceLog.GetLogsByCustomerId(new GetLogsByCustomerIdCriteria
-            {
-                CustomerId = customerId
-            });
-
-            return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", communicationLogs);
+            return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", customerId);
         }
 
         /// <summary>

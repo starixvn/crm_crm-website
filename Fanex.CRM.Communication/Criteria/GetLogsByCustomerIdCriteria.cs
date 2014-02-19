@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Communication.Criteria
 {
+    using System;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -18,6 +19,18 @@ namespace Fanex.CRM.Communication.Criteria
     {
         [SpParam(SqlParamName = "custid")]
         public int CustomerId { get; set; }
+
+        [SpParam(SqlParamName = "fromdate")]
+        public DateTime FromDate { get; set; }
+
+        [SpParam(SqlParamName = "todate")]
+        public DateTime ToDate { get; set; }
+
+        [SpParam(SqlParamName = "statusid")]
+        public int StatusId { get; set; }
+
+        [SpParam(SqlParamName = "handler")]
+        public int Handler { get; set; }
 
         public override string GetSettingKey()
         {
