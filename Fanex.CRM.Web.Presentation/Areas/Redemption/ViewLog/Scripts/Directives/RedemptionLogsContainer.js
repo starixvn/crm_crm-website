@@ -166,7 +166,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
             fullWidth: true,
             fullHeight: true,
             gridHeight: 150,
-            showDistinctRow: false,
+            showDistinctRow: true,
             showHighlightRow: true,
             headerColumnHeight: 29,
             bodyRowHeight: 29,
