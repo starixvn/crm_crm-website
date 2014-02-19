@@ -19,12 +19,6 @@ function setupCalendar(arrDateValues, arrIds) {
     }
 }
 
-function bindingEvent() {
-    $('#ddlcategory').change(function () {
-        bindingChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
-    });
-};
-
 function loadSubItem(obj, target, currValue) {
     if ($(obj).val() !== "") {
         if ($(obj).val() !== "0") {
@@ -44,7 +38,7 @@ function loadSubItem(obj, target, currValue) {
                         }
                     }
                     else {
-                        $('<option value="0">All</option>').appendTo($("#" + target));
+                        $('<option value="0">All</option>').appendTo();
                     }
                 },
                 error: function () { }
@@ -56,6 +50,12 @@ function loadSubItem(obj, target, currValue) {
         }
     }
 }
+
+function bindingEvent() {
+    $('#ddlcategory').change(function () {
+        bindingManageChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
+    });
+};
 
 function openEditFeedback(url) {
     try {
