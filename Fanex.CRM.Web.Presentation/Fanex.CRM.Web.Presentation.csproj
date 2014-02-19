@@ -223,10 +223,16 @@
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationController.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationDirective.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationService.js" />
+    <Content Include="Areas\Communication\ViewLog\Scripts\Directives\DropdownStatusContainer.js" />
+    <Content Include="Areas\Communication\ViewLog\Scripts\Directives\FromDate.js" />
+    <Content Include="Areas\Communication\ViewLog\Scripts\Directives\ToDate.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailApplication.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailController.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailDirective.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailService.js" />
+    <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DatePickerContainer.js" />
+    <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DefaultFocus.js" />
+    <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DropdownTitleContainer.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
@@ -235,6 +241,7 @@
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardController.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardService.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\CommunicationLogsContainer.js" />
+    <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\RedemptionLogsContainer.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\verifystatus.png" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
@@ -242,6 +249,8 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DefaultFocus.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DropdownStatusContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogApplication.js" />

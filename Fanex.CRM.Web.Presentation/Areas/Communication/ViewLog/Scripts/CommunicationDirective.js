@@ -181,6 +181,10 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
     }
 
     function renderCommunicationLogs(scope, element, attrs) {
+        if (scope.logs === null) {
+            return;
+        }
+
         /* jshint unused: vars */
         var tableCommunicationLogs = element.find("#table-communication-logs");
         var logList = scope.logs;
@@ -253,7 +257,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
-            bodyRowHeight: 29,
+            bodyRowHeight: 51,
             showPager: true,
             pagerOption: {
                 itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage,

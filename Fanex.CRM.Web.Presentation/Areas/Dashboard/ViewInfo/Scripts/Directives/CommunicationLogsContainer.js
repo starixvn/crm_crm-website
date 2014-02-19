@@ -57,7 +57,7 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
                 { HeaderText: viewResources.Feedback_Date, Width: 90, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
                 {
                     HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
-                    Width: 285,
+                    Width: 268,
                     Name: "ColCategory",
                     HeaderAlign: "center",
                     CellAlign: "left"
@@ -80,7 +80,7 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
-            bodyRowHeight: 29,
+            bodyRowHeight: 25,
             showPager: true,
             pagerOption: {
                 itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage,

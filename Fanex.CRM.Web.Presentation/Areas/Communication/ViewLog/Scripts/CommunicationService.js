@@ -1,6 +1,6 @@
 ﻿"use strict";
 /* global communicationApplication */
-communicationApplication.factory('$communicationService', ['$http', '$q', 
+communicationApplication.factory('$communicationService', ['$http', '$q',
 function ($http, $q) {
     var serviceInstance = {};
 
@@ -26,5 +26,27 @@ function ($http, $q) {
         return deferred.promise;
     };
 
+    serviceInstance.getAllStatus = function () {
+        var deferred = $q.defer();
+        $http.post(window.rootUrl + "Setting/GetAllStatus", null)
+             .success(function (data, status, headers, config) {
+                 deferred.resolve({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             }).error(function (data, status, headers, config) {
+                 deferred.reject({
+                     Result: data,
+                     Status: status,
+                     Headers: headers,
+                     Config: config
+                 });
+             });
+
+        return deferred.promise;
+    };
+
     return serviceInstance;
-}]);
+} ]);
