@@ -9838,7 +9838,7 @@ function (i, attr) {
 			.appendTo(document.body)
 			.css({
 			    width: this.width(),
-			    height: this.height()
+			    height: (this.height() - 5)
 			});
 
             if ($.fn.bgiframe) {

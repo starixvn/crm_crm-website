@@ -30,7 +30,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         public List<SettingInfo> GetAllSetting(GetAllSettingCriteria criteria)
         {
             var allsetting = new List<SettingInfo>();
-            using (var objectDB = new ObjectDb("Acc_CRM_SettingSel"))
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
@@ -154,13 +154,177 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         }
 
         /// <summary>
+        /// Gets all language.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All language.</returns>
+        public List<SettingInfo> GetAllLanguage(GetAllLanguageCriteria criteria)
+        {
+            var allLanguage = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("LanguageId"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder"),
+                                IsActive = reader.GetBooleanNotNull("IsActive")
+                            };
+
+                            allLanguage.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return allLanguage;
+        }
+
+        /// <summary>
+        /// Gets all communication tool.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All communication tool.</returns>
+        public List<SettingInfo> GetAllCommunicationTool(GetAllCommunicationToolCriteria criteria)
+        {
+            var allCommunicationTool = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("CommunicationId"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder"),
+                                IsActive = reader.GetBooleanNotNull("IsActive")
+                            };
+
+                            allCommunicationTool.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return allCommunicationTool;
+        }
+
+        /// <summary>
+        /// Gets all main category.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All main category.</returns>
+        public List<SettingInfo> GetAllMainCategory(GetAllMainCategoryCriteria criteria)
+        {
+            var allMainCategory = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("MainCategoryId"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder"),
+                                IsActive = reader.GetBooleanNotNull("IsActive")
+                            };
+
+                            allMainCategory.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return allMainCategory;
+        }
+
+        /// <summary>
+        /// Gets all sub category.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All sub category.</returns>
+        public List<SettingInfo> GetAllSubCategory(GetAllSubCategoryCriteria criteria)
+        {
+            var allSubCategory = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("SubCategoryId"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder"),
+                                IsActive = reader.GetBooleanNotNull("IsActive")
+                            };
+
+                            allSubCategory.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return allSubCategory;
+        }
+
+        /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All sub Status.</returns>
+        public List<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria)
+        {
+            var allStatus = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("StatusId"),
+                                Name = reader.GetStringNotNull("Name")
+                            };
+
+                            allStatus.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return allStatus;
+        }
+
+        /// <summary>
         /// Gets the feedback subject template by identifier.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The feedback subject template by identifier.</returns>
         public List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria)
         {
-            List<FeedbackTemplate> result = new List<FeedbackTemplate>();
+            List<FeedbackTemplate> feedbackSubjectTemplate = new List<FeedbackTemplate>();
             using (var obj = new ObjectDb(criteria.GetSettingKey(), 500))
             {
                 obj.AssignParamValues(criteria.GetSpParams());
@@ -176,13 +340,13 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                                 Subject = reader.GetStringNotNull("subject")
                             };
 
-                            result.Add(feedbackTemplate);
+                            feedbackSubjectTemplate.Add(feedbackTemplate);
                         }
                     }
                 }
             }
 
-            return result;
+            return feedbackSubjectTemplate;
         }
 
         /// <summary>

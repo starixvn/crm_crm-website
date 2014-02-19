@@ -23,7 +23,7 @@
 
         if (menuItem.Name.ToLower().Equals("home"))
         {
-        <li><a href="javascript:;" onclick="javascript:menuManager.getDashboardMenu();">@menuItem.Name</a>
+        <li><a href="javascript:;" onclick="javascript:menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);">@menuItem.Name</a>
         </li>
         }
         else if (lvl1MenuItemList.Count == 0)

@@ -26,16 +26,16 @@ namespace Fanex.CRM.Dashboard.Services.Implements
     /// </summary>
     public class DashboardService : IDashboardService
     {
-        private readonly IDashboardRepository _repositoryInstance;
+        private readonly IDashboardRepository _dashboardRepositoryInstance;
 
         public DashboardService()
             : this(null)
         {
         }
 
-        public DashboardService(IDashboardRepository repositoryInstance)
+        public DashboardService(IDashboardRepository dashboardRepositoryInstance)
         {
-            _repositoryInstance = repositoryInstance ?? new DashboardRepository();
+            _dashboardRepositoryInstance = dashboardRepositoryInstance ?? new DashboardRepository();
         }
 
         /// <summary>
@@ -45,18 +45,18 @@ namespace Fanex.CRM.Dashboard.Services.Implements
         /// <returns>The customer remarks.</returns>
         public List<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {
-            List<string> result = null;
+            List<string> remarks = null;
             try
             {
-                var rawData = _repositoryInstance.GetCustomerRemarks(criteria);
-                result = rawData;
+                var rawData = _dashboardRepositoryInstance.GetCustomerRemarks(criteria);
+                remarks = rawData;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return remarks;
         }
 
         /// <summary>
@@ -66,18 +66,18 @@ namespace Fanex.CRM.Dashboard.Services.Implements
         /// <returns>The customer information.</returns>
         public CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria)
         {
-            CustomerInfo result = null;
+            CustomerInfo customerInfo = null;
             try
             {
-                var rawData = _repositoryInstance.GetCustomerInfo(criteria);
-                result = rawData;
+                var rawData = _dashboardRepositoryInstance.GetCustomerInfo(criteria);
+                customerInfo = rawData;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return customerInfo;
         }
 
         /// <summary>
@@ -87,18 +87,18 @@ namespace Fanex.CRM.Dashboard.Services.Implements
         /// <returns>The redemption logs.</returns>
         public List<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
         {
-            List<RedemptionLogInfo> result = null;
+            List<RedemptionLogInfo> redemptionLogs = null;
             try
             {
-                var rawData = _repositoryInstance.GetRedemptionLogs(criteria);
-                result = rawData;
+                var rawData = _dashboardRepositoryInstance.GetRedemptionLogs(criteria);
+                redemptionLogs = rawData;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return redemptionLogs;
         }
 
         /// <summary>
@@ -108,18 +108,18 @@ namespace Fanex.CRM.Dashboard.Services.Implements
         /// <returns>The communication logs.</returns>
         public List<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
         {
-            List<CommunicationLogInfo> result = null;
+            List<CommunicationLogInfo> communicationLogs = null;
             try
             {
-                var rawData = _repositoryInstance.GetCommunicationLogs(criteria);
-                result = rawData;
+                var rawData = _dashboardRepositoryInstance.GetCommunicationLogs(criteria);
+                communicationLogs = rawData;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return communicationLogs;
         }
 
         /// <summary>
@@ -129,15 +129,15 @@ namespace Fanex.CRM.Dashboard.Services.Implements
         /// <returns>Update result.</returns>
         public Result UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
-            Result result = null;
+            Result updateResult = null;
             try
             {
-                var rawData = _repositoryInstance.UpdateCustomerVerifyFlag(criteria);
-                result = rawData;
-                if (result != null &&
-                    result.Code == ErrorCodeConstants.NoneError)
+                var rawData = _dashboardRepositoryInstance.UpdateCustomerVerifyFlag(criteria);
+                updateResult = rawData;
+                if (updateResult != null &&
+                    updateResult.Code == ErrorCodeConstants.NoneError)
                 {
-                    result.Message = Labels.Dashboard_VerifyFlag_UpdateSuccess;
+                    updateResult.Message = Labels.Dashboard_VerifyFlag_UpdateSuccess;
                 }
             }
             catch (Exception ex)
@@ -145,7 +145,7 @@ namespace Fanex.CRM.Dashboard.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return updateResult;
         }
     }
 }

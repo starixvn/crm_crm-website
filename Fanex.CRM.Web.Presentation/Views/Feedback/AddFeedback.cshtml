@@ -27,7 +27,7 @@
     </div>*@
 
     <div class="row panel-group">
-        <div class="row title">            
+        <div class="row title hand" onclick="showHideDetailBox(isShowCustinfoBox, 'CustInfo'); isShowCustinfoBox = !isShowCustinfoBox;">
             <b><span id="lblUserName" value=""></span></b>
         </div>
         <div class="CustInfo row content">
@@ -136,13 +136,16 @@
                     <input type="text" id="txtPIC3" class="textbox" />
                 </div>
             </div>
+            <div class="row item">
+                <lable class="checkbox">
+                    <input type="checkbox" id="chkIsOverrideCrmInfo" style="float: left; display: block;" />
+                Overwrite current CRM Info
+            </div>
         </div>
     </div>
 
     <div class="row panel-group">
-        <div class="row title">
-            @*<span class="icon-expand" id="btnShowHideDetail" onclick="downup('btnShowHideDetail', 'FeedbackDetail')">
-            </span>*@
+        <div class="row title hand" onclick="showHideDetailBox(isShowFeedbackDetailBox, 'FeedbackDetail'); isShowFeedbackDetailBox = !isShowFeedbackDetailBox;">
             Details
         </div>
         <div class="FeedbackDetail row content">
@@ -215,7 +218,7 @@
                     </label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlcategory" onchange="bindingChildByParentId('ddlsubcategory', AllSetting.Category, $('#ddlcategory').val()); ">
+                    <select id="ddlcategory">
                     </select>
                     <span class="hidden error errormsg" id="errorcategory"></span>
                 </div>
@@ -238,7 +241,7 @@
                     </label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlproduct" onchange="bindingChildByParentId('ddlbettype', AllSetting.Product, $('#ddlproduct').val());">
+                    <select id="ddlproduct">
                     </select>
                     <span class="error hidden errormsg" id="errorproudct"></span>
                 </div>
@@ -347,9 +350,7 @@
 
     <div class="row panel-group">
         <div class="row title">
-            <div class="pull-left">
-                @*<span class="icon-expand" id="btnShowHideDescription" onclick="downup('btnShowHideDescription', 'FeedbackDescription')">
-                </span>*@
+            <div class="pull-left hand" onclick="showHideDetailBox(isShowDescriptionBox, 'FeedbackDescription'); isShowDescriptionBox = !isShowDescriptionBox;">
                 Description<span class="hidden error errormsg" id="deseditererror"></span>
             </div>
             <div class="pull-right">
@@ -369,9 +370,7 @@
 
     <div class="row panel-group">
         <div class="row title">
-            <div class="pull-left">
-                @*<span class="icon-expand" id="btnShowHideSolution" onclick="downup('btnShowHideSolution', 'FeedbackSolution')">
-                </span>*@
+            <div class="pull-left hand" onclick="showHideDetailBox(isShowSolutionBox, 'FeedbackSolution'); isShowSolutionBox = !isShowSolutionBox;">
                 Solution<span class="hidden error errormsg" id="soleditererror"></span>
             </div>
             <div class="pull-right">
@@ -390,8 +389,8 @@
     </div>
 
     <div class="row panel-group">
-        <div class="row title hidden" id="reviewtitle">
-            <div class="pull-left">
+        <div class="row title hidden">
+            <div class="pull-left hand" id="reviewtitle" onclick="showHideDetailBox(isShowReviewBox, 'FeedbackReview'); isShowReviewBox = !isShowReviewBox;">
                 Review <span id="divisreview" class="">
                     <input type="checkbox" id="chkisreview" onclick="EnableUpdateReview(this);" style="float: left;
                         display: block;" />
@@ -403,7 +402,7 @@
                 <input type="button" class="btnedit " value="Edit" id="btnrevedit" onclick="initEdit('rev');" />
             </div>
         </div>
-        <div class="row content hidden" id="reviewbox">
+        <div class="row content hidden FeedbackReview" id="reviewbox">
             <div class="editerwrapper" id="reviewwrapper">
                 <div id="previewboxrev">
                 </div>

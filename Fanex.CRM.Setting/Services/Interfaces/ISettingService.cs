@@ -19,6 +19,8 @@ namespace Fanex.CRM.Setting.Services.Interfaces
 
         List<SiteInfo> GetAllSite();
 
+        List<SettingInfo> GetAllTitle();
+
         List<CountryInfo> GetAllCountry();
 
         List<SettingInfo> GetAllLanguage();
@@ -42,5 +44,7 @@ namespace Fanex.CRM.Setting.Services.Interfaces
         List<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria);
 
         List<SettingInfo> GetAllLogAction(GetActionCriteria criteria);
+
+        void ResetAllCache();
     }
 }

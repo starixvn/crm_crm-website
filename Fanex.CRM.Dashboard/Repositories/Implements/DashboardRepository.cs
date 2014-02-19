@@ -33,7 +33,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
         /// <returns>The customer remarks.</returns>
         public List<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {
-            List<string> result = new List<string>();
+            List<string> remarks = new List<string>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
@@ -43,13 +43,13 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                     {
                         while (reader.Read())
                         {
-                            result.Add(MappingDataFromSqlToRemarkObject(reader));
+                            remarks.Add(MappingDataFromSqlToRemarkObject(reader));
                         }
                     }
                 }
             }
 
-            return result;
+            return remarks;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
         /// <returns>The customer information.</returns>
         public CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria)
         {
-            CustomerInfo result = new CustomerInfo();
+            CustomerInfo customerInfo = new CustomerInfo();
 
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -70,15 +70,15 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                     {
                         while (reader.Read())
                         {
-                            result = MappingDataFromSqlToCustomerInfoObject(reader);
+                            customerInfo = MappingDataFromSqlToCustomerInfoObject(reader);
                         }
 
-                        result.Id = criteria.CustomerId;
+                        customerInfo.Id = criteria.CustomerId;
                     }
                 }
             }
 
-            return result;
+            return customerInfo;
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
         /// <returns>The redemption logs.</returns>
         public List<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
         {
-            List<RedemptionLogInfo> result = new List<RedemptionLogInfo>();
+            List<RedemptionLogInfo> redemptionLogs = new List<RedemptionLogInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
@@ -98,13 +98,13 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                     {
                         while (reader.Read())
                         {
-                            result.Add(MappingDataFromSqlToRedemptionLogObject(reader));
+                            redemptionLogs.Add(MappingDataFromSqlToRedemptionLogObject(reader));
                         }
                     }
                 }
             }
 
-            return result;
+            return redemptionLogs;
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
         /// <returns>The communication logs.</returns>
         public List<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
         {
-            List<CommunicationLogInfo> result = new List<CommunicationLogInfo>();
+            List<CommunicationLogInfo> communicationLogs = new List<CommunicationLogInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
@@ -124,13 +124,13 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                     {
                         while (reader.Read())
                         {
-                            result.Add(MappingDataFromSqlToCommunicationLogObject(reader));
+                            communicationLogs.Add(MappingDataFromSqlToCommunicationLogObject(reader));
                         }
                     }
                 }
             }
 
-            return result;
+            return communicationLogs;
         }
 
         /// <summary>
@@ -166,22 +166,27 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             Justification = "Reviewed. Suppression is OK here.")]
         private CustomerInfo MappingDataFromSqlToCustomerInfoObject(IDataReader reader)
         {
-            CustomerInfo result = new CustomerInfo
+            CustomerInfo customerInfo = new CustomerInfo
             {
                 Email = reader.GetStringNotNull("email"),
                 Passport = reader.GetStringNotNull("Passport"),
                 SecretCode = reader.GetStringNotNull("SecretCode"),
-                BetCredit = reader.GetDecimalNotNull("BetCredit"),
                 BirthDay = reader.GetDateTimeNotNull("Birthday").ToShortFormatedDate(),
 
                 IsVerifyEmail = reader.GetBooleanNotNull("IsVerifyEmail"),
                 IsVerifyPassport = reader.GetBooleanNotNull("IsVerifyPassport"),
                 IsVerifyBirthday = reader.GetBooleanNotNull("IsVerifyBirthday"),
                 IsVerifySecretCode = reader.GetBooleanNotNull("IsVerifySecretCode"),
-                IsVerifyBetCredit = reader.GetBooleanNotNull("IsVerifyBetCredit")
+                IsVerifyBetCredit = reader.GetBooleanNotNull("IsVerifyBetCredit"),
+                IsVerifyGivenCredit = reader.GetBooleanNotNull("IsVerifyGivenCredit"),
+
+                RoleId = reader.GetInt32NotNull("RoleId"),
+                IsCredit = reader.GetBooleanNotNull("IsCredit"),
+                BetCredit = reader.GetDecimalNotNull("BetCredit"),
+                GivenCredit = reader.GetDecimalNotNull("GivenCredit")
             };
 
-            return result;
+            return customerInfo;
         }
 
         /// <summary>
@@ -194,8 +199,8 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             Justification = "Reviewed. Suppression is OK here.")]
         private string MappingDataFromSqlToRemarkObject(IDataReader reader)
         {
-            string result = reader.GetStringNotNull("Remark");
-            return result;
+            string remark = reader.GetStringNotNull("Remark");
+            return remark;
         }
 
         /// <summary>
@@ -208,7 +213,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             Justification = "Reviewed. Suppression is OK here.")]
         private RedemptionLogInfo MappingDataFromSqlToRedemptionLogObject(IDataReader reader)
         {
-            var result = new RedemptionLogInfo
+            var redemptionLog = new RedemptionLogInfo
             {
                 Id = reader.GetInt32NotNull("RedemptionId"),
                 ClaimedTime = reader.GetDateTimeNotNull("ClaimTime").ToShortFormatedDate(),
@@ -219,7 +224,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                 }
             };
 
-            return result;
+            return redemptionLog;
         }
 
         /// <summary>
@@ -234,7 +239,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
         {
             var durationTime = reader.GetStringNotNull("Duration");
             var durationTimeArray = durationTime.Split(':');
-            var result = new CommunicationLogInfo
+            var communicationLog = new CommunicationLogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
                 FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate").ToShortFormatedDate(),
@@ -258,7 +263,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                 Reviewer = reader.GetStringNotNull("ReviewBy")
             };
 
-            return result;
+            return communicationLog;
         }
     }
 }

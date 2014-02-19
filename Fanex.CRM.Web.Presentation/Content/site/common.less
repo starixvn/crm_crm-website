@@ -116,6 +116,19 @@ select {
     width: 100%;
     padding: 2px;
     color: #666;
+
+    option {
+        min-height: 20px;
+        border-right: 1px solid @border-color;
+    }
+
+    optgroup {
+        border-right: 1px solid @border-color;
+
+        option {
+            border-right: none;
+        }
+    }
 }
 
 .textbox {
@@ -162,7 +175,7 @@ select {
     }
 
     &.btn-save {
-        margin-top: 8px;
+        margin-top: 7px;
     }
 }
 
@@ -199,13 +212,18 @@ select {
     border-width: 1px 1px 0 1px;
 
     .title {
-        height: 32px;
+        height: 28px;
         line-height: 18px;
         border-bottom: 1px solid @border-color;
-        padding: 6px;
+        padding: 3px 6px;
         color: #2f70b4;
         font-size: @font-size + 1;
         .gradient-vertical(#e7e7e7, #e2e2e2);
+
+        &.border-bottom-none {
+            border-bottom: none;
+        }
+
         /*
         .icon-expand {
             background: url(images/collapse-btn.png) no-repeat -3px -3px;
@@ -234,7 +252,7 @@ select {
         padding: 4px 0;
 
         .item {
-            padding: 4px 9px;
+            padding: 3px 9px;
 
             label {
                 margin-top: 2px;
@@ -286,6 +304,10 @@ select {
             padding: 0 18px 0 5px;
             cursor: pointer;
         }
+
+        label {
+            margin-top: 3px;
+        }
     }    
 }
 
@@ -313,7 +335,7 @@ select {
     }
 
     label {
-        margin: 0 10px 7px 0;
+        margin: 1px 10px 7px 0;
         color: #242424;
         vertical-align: middle;
     }
@@ -324,9 +346,9 @@ select {
     }
 
     .txtcalendar {
-        background:url(Images/calendar.png) #fff no-repeat 79px 3px;
+        background:url(Images/calendar.png) #fff no-repeat 84px 3px;
         padding: 0 18px 0 5px;
-        width: 100px;
+        width: 105px;
         cursor: pointer;
     }
 }

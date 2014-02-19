@@ -1,7 +1,8 @@
 ﻿"use strict";
 /* global verifyFlagApplication,
 hotKeyManager,
-viewResources */
+viewResources,
+crmConstants */
 verifyFlagApplication.controller('verifyFlagController', ['$scope',
     '$http',
     '$verifyFlagService',
@@ -12,6 +13,7 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
         $bootstrappedData) {
         $scope.customerInfo = $bootstrappedData.customerInfo;
         $scope.oldCustomerInfo = angular.copy($scope.customerInfo);
+        $scope.isSetFocus = false;
         $scope.updateCustomerVerifyFlag = function () {
             $scope.BlockUI();
             var selectedCriteria = {
@@ -20,7 +22,8 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
                 IsVerifyPassport: $scope.customerInfo.IsVerifyPassport,
                 IsVerifyBirthday: $scope.customerInfo.IsVerifyBirthday,
                 IsVerifySecretCode: $scope.customerInfo.IsVerifySecretCode,
-                IsVerifyBetCredit: $scope.customerInfo.IsVerifyBetCredit
+                IsVerifyBetCredit: $scope.customerInfo.IsVerifyBetCredit,
+                IsVerifyGivenCredit: $scope.customerInfo.IsVerifyGivenCredit
             };
             $verifyFlagService.updateCustomerVerifyFlag(selectedCriteria)
                 .then(function (data) {
@@ -61,7 +64,8 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
                 $scope.oldCustomerInfo.IsVerifyPassport !== $scope.customerInfo.IsVerifyPassport ||
                 $scope.oldCustomerInfo.IsVerifyBirthday !== $scope.customerInfo.IsVerifyBirthday ||
                 $scope.oldCustomerInfo.IsVerifySecretCode !== $scope.customerInfo.IsVerifySecretCode ||
-                $scope.oldCustomerInfo.IsVerifyBetCredit !== $scope.customerInfo.IsVerifyBetCredit) {
+                $scope.oldCustomerInfo.IsVerifyBetCredit !== $scope.customerInfo.IsVerifyBetCredit ||
+                $scope.oldCustomerInfo.IsVerifyGivenCredit !== $scope.customerInfo.IsVerifyGivenCredit) {
                 parent.homeManager.CachedData.isChangingDataPopUp = true;
                 /* jshint camelcase: false */
                 parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_EditVerifyFlag_Changes;
@@ -70,15 +74,38 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
             }
         };
 
+        $scope.isShowBetCredit = function () {
+            return $scope.customerInfo && $scope.customerInfo.Id > 0 &&
+               ($scope.customerInfo.RoleId === crmConstants.Enums.RoleId.Member ||
+                $scope.customerInfo.RoleId === crmConstants.Enums.RoleId.CRMMember ||
+                !$scope.customerInfo.IsCredit);
+        };
+        $scope.isShowGivenCredit = function () {
+            return $scope.customerInfo && $scope.customerInfo.Id > 0 &&
+               ($scope.customerInfo.RoleId === crmConstants.Enums.RoleId.Member ||
+                $scope.customerInfo.RoleId === crmConstants.Enums.RoleId.CRMMember) &&
+                $scope.customerInfo.IsCredit;
+        };
         /* jshint camelcase: false */
         $scope.invokeHotKey_CtrlS = function () {
             $scope.updateCustomerVerifyFlag();
+        };
+
+        $scope.completeSetFocus = function () {
+            $scope.isSetFocus = false;
+        };
+
+        $scope.setFocus = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
         };
         angular.element(document).ready(function () {
             $scope.$watch(function ($scope) {
                 $scope.updateChangeFlag();
             });
 
+            $scope.setFocus();
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,

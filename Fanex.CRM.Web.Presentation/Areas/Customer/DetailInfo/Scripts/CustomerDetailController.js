@@ -3,7 +3,8 @@
 customerDetail,
 crmConstants,
 viewResources,
-hotKeyManager */
+hotKeyManager,
+sharedScriptManager */
 customerDetailApplication.controller('customerDetailController', ['$scope', '$http', '$customerDetailService',
 function (
     $scope,
@@ -14,9 +15,14 @@ function (
     $scope.siteList = null;
     $scope.countryList = null;
     $scope.languageList = null;
+    $scope.titleList = null;
+
     $scope.isLoadedAllSite = false;
     $scope.isLoadedAllCountry = false;
     $scope.isLoadedAllLanguage = false;
+    $scope.isLoadedAllTitle = false;
+    $scope.isSetFocus = false;
+
     $scope.isShowPersonalInfo = true;
     $scope.isShowHomeAddressInfo = true;
     $scope.isShowBankInfoInfo = true;
@@ -47,10 +53,26 @@ function (
                 $scope.completedLoadDetailInfo();
             });
     };
+    $scope.getAllTitle = function () {
+        $scope.BlockUI();
+        $scope.isLoadedAllTitle = false;
+        $customerDetailService.getAllTitle()
+            .then(function (data) {
+                $scope.titleList = data.Result;
+                $scope.isLoadedAllTitle = true;
+                $scope.completedLoadDetailInfo();
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.isLoadedAllTitle = true;
+                $scope.completedLoadDetailInfo();
+            });
+    };
     $scope.completedLoadDetailInfo = function () {
         if ($scope.isLoadedAllSite &&
             $scope.isLoadedAllCountry &&
-            $scope.isLoadedAllLanguage) {
+            $scope.isLoadedAllLanguage &&
+            $scope.isLoadedAllTitle) {
             $scope.unblockUI();
         }
     };
@@ -173,7 +195,13 @@ function (
             BankName: customerDetail.BankInfo.Name,
             BankHolderName: customerDetail.BankInfo.HolderName,
             BankAccountNumber: customerDetail.BankInfo.AccountNumber,
-            BankSwiftCode: customerDetail.BankInfo.SwiftCode
+            BankSwiftCode: customerDetail.BankInfo.SwiftCode,
+
+            TitleId: customerDetail.Title.Id,
+            BirthDay: customerDetail.BirthDay,
+            BettingCode: customerDetail.BettingCode[0],
+            RefCode2: customerDetail.BettingCode[1],
+            IsVIP: customerDetail.IsVIP
         };
 
         $scope.BlockUI();
@@ -291,6 +319,7 @@ function (
                 $scope.oldSelectedLangueList = $scope.selectedLangueList;
                 $scope.oldCustomerDetail = angular.copy($scope.customerDetail);
                 $scope.updateIsChangeCustomerInfoFlag();
+                $scope.setFocus();
             },
             buttons: [{
                 text: viewResources.OK,
@@ -404,18 +433,59 @@ function (
             $scope.oldCustomerDetail.BankInfo.AddressInfo.Name !== $scope.customerDetail.BankInfo.AddressInfo.Name ||
             $scope.oldCustomerDetail.BankInfo.AddressInfo.HolderName !== $scope.customerDetail.BankInfo.AddressInfo.HolderName ||
             $scope.oldCustomerDetail.BankInfo.AddressInfo.AccountNumber !== $scope.customerDetail.BankInfo.AddressInfo.AccountNumber ||
-            $scope.oldCustomerDetail.BankInfo.AddressInfo.SwiftCode !== $scope.customerDetail.BankInfo.AddressInfo.SwiftCode)) {
+            $scope.oldCustomerDetail.BankInfo.AddressInfo.SwiftCode !== $scope.customerDetail.BankInfo.AddressInfo.SwiftCode ||
+            !sharedScriptManager.datesEqual(new Date($scope.oldCustomerDetail.BirthDay), new Date($scope.customerDetail.BirthDay)) ||
+            $scope.oldCustomerDetail.IsVIP !== $scope.customerDetail.IsVIP ||
+            $scope.oldCustomerDetail.BettingCode[0] !== $scope.customerDetail.BettingCode[0] ||
+            $scope.oldCustomerDetail.BettingCode[1] !== $scope.customerDetail.BettingCode[1] ||
+            $scope.oldCustomerDetail.Title.Id !== $scope.customerDetail.Title.Id)) {
             parent.homeManager.CachedData.isChangingData = true;
             parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_EditCustomer_ChangesTabDetail;
         } else {
             parent.homeManager.CachedData.isChangingData = false;
         }
     };
+    $scope.updateSelectedDate = function (selectedDate) {
+        $scope.customerDetail.BirthDay = selectedDate;
+    };
+    $scope.updateSelectedTitle = function (titleId) {
+        titleId = parseInt(titleId);
+        var titleInfo;
+        var titleListLength = $scope.titleList.length;
+        for (var i = 0; i < titleListLength; i++) {
+            var title = $scope.titleList[i];
+            if (title.Id === titleId) {
+                titleInfo = title;
+                break;
+            }
+        }
+
+        if (titleInfo) {
+            $scope.customerDetail.Title = titleInfo;
+        } else {
+            $scope.customerDetail.Title = {
+                Id: crmConstants.Enums.Title.NotApply
+            };
+        }
+
+        $scope.$apply();
+    };
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
     angular.element(document).ready(function () {
         $scope.initController();
+        $scope.setFocus();
         $scope.getAllSite();
         $scope.getAllCountry();
         $scope.getAllLanguage();
+        $scope.getAllTitle();
         $scope.$watch(function ($scope) {
             $scope.updateIsChangeCustomerInfoFlag();
         });

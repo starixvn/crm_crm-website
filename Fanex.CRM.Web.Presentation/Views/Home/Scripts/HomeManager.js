@@ -17,9 +17,10 @@ var HomeManager = function () {
     self.CachedData = {
         /* jshint camelcase: false */
         ViewResources: {
-            DefaultSearchCustomer: "Search...",
+            DefaultSearchCustomer: "Nickname or Username or Phone",
             Error_SearchCustomer_Empty: 'Please input username!',
             OK: "OK",
+            Cancel: "Cancel",
             Alert: 'Alert',
             Confirm_Ignore_Changes: 'Confirm Ignore Changes'
         },
@@ -150,10 +151,17 @@ var HomeManager = function () {
                     self.DOMElements.divResultPopUp.dialog("close");
                     callbackFunction();
                 }
+            },
+            {
+                text: self.CachedData.ViewResources.Cancel,
+                click: function () {
+                    self.DOMElements.divResultPopUp.dialog('close');
+                }
             }]
         });
     };
-    self.showConfirmIgnoreChangePopUp = function (ignoreFunction) {
+    self.showConfirmIgnoreChangePopUp = function (ignoreFunction,
+        cancelIgnoreFunction) {
         self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessagePopUp);
         self.DOMElements.divResultPopUp.removeClass("display-none");
         self.DOMElements.divResultPopUp.dialog({
@@ -169,6 +177,10 @@ var HomeManager = function () {
                 self.DOMElements.divResultPopUp.dialog("destroy");
                 parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+                if (cancelIgnoreFunction &&
+                    typeof (cancelIgnoreFunction) === "function") {
+                    cancelIgnoreFunction();
+                }
             },
             buttons: [{
                 text: self.CachedData.ViewResources.OK,
@@ -181,6 +193,12 @@ var HomeManager = function () {
                         typeof (ignoreFunction) === "function") {
                         ignoreFunction();
                     }
+                }
+            },
+            {
+                text: self.CachedData.ViewResources.Cancel,
+                click: function () {
+                    self.DOMElements.divResultPopUp.dialog('close');
                 }
             }]
         });
@@ -272,7 +290,7 @@ var HomeManager = function () {
         }
     };
     self.invokeHotKey_CtrlH = function () {
-        menuManager.getDashboardMenu();
+        menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);
     };
     self.invokeHotKey_CtrlM = function () {
         if (parent.dashboardManager) {

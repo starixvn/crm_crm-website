@@ -13,6 +13,7 @@ namespace Fanex.CRM.Customer.Models
     using System.Collections.Generic;
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Customer Information.
@@ -22,7 +23,7 @@ namespace Fanex.CRM.Customer.Models
     {
         public CustomerInfo()
         {
-            Title = new BaseModel();
+            Title = new SettingInfo();
             SiteSetting = new BaseModel();
             Country = new BaseModel();
             Languages = new List<BaseModel>();
@@ -32,7 +33,7 @@ namespace Fanex.CRM.Customer.Models
             UplineInfo = new List<CustomerInfo>();
         }
 
-        public BaseModel Title { get; set; }
+        public SettingInfo Title { get; set; }
 
         public BaseModel SiteSetting { get; set; }
 
@@ -60,7 +61,7 @@ namespace Fanex.CRM.Customer.Models
 
         public List<string> PersonalInfoContact { get; set; }
 
-        public DateTime BirthDay { get; set; }
+        public string BirthDay { get; set; }
 
         public string BirthDayString { get; set; }
 

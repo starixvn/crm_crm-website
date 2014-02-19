@@ -16,6 +16,10 @@ var CRMConstants = function () {
             NotApply: 0
         },
 
+        Title: {
+            NotApply: 0
+        },
+
         Country: {
             NotApply: 0
         },
@@ -58,6 +62,11 @@ var CRMConstants = function () {
             Number: "number",
             String: "string",
             Date: "Date"
+        },
+
+        RoleId: {
+            Member: 1,
+            CRMMember: 7000
         }
     };
 };

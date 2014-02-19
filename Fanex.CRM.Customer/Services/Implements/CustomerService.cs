@@ -34,7 +34,7 @@ namespace Fanex.CRM.Customer.Services.Implements
         private const string GetCustomerInfoByUsernameSessionKey = 
             "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
 
-        private readonly ICustomerRepository _repositoryInstance;
+        private readonly ICustomerRepository _customerRepositoryInstance;
 
         private readonly ISettingService _settingService;
         
@@ -44,10 +44,10 @@ namespace Fanex.CRM.Customer.Services.Implements
         }
 
         public CustomerService(
-            ICustomerRepository repositoryInstance,
+            ICustomerRepository customerRepositoryInstance,
             ISettingService settingService)
         {
-            _repositoryInstance = repositoryInstance ?? new CustomerRepository();
+            _customerRepositoryInstance = customerRepositoryInstance ?? new CustomerRepository();
             _settingService = settingService ?? new SettingService();
         }
 
@@ -68,25 +68,25 @@ namespace Fanex.CRM.Customer.Services.Implements
         /// <returns>The customer information by username.</returns>
         public CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
-            CustomerInfo result = null;
+            CustomerInfo customerInfo = null;
 
             try
             {
-                var rawData = _repositoryInstance.GetCustomerInfoByUsername(criteria);
-                result = rawData;
-                if (result != null)
+                var rawData = _customerRepositoryInstance.GetCustomerInfoByUsername(criteria);
+                customerInfo = rawData;
+                if (customerInfo != null)
                 {
-                    result.Role.Name = RoleSettingService.GetRoleName(result.Role.Id);
+                    customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
                     var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
                     {
-                        SettingId = result.SiteSetting.Id
+                        SettingId = customerInfo.SiteSetting.Id
                     });
-                    result.SiteSetting.Name = siteSetting.Value;
+                    customerInfo.SiteSetting.Name = siteSetting.Value;
                     if (!criteria.IsGuest)
                     {
-                        result.UplineInfo = GetUplineInfoOfUser(new GetUplineInfoOfUserCriteria
+                        customerInfo.UplineInfo = GetUplineInfoOfUser(new GetUplineInfoOfUserCriteria
                         {
-                            CustomerId = result.Id
+                            CustomerId = customerInfo.Id
                         });
                     }
 
@@ -102,7 +102,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return customerInfo;
         }
 
         /// <summary>
@@ -112,10 +112,10 @@ namespace Fanex.CRM.Customer.Services.Implements
         /// <returns>The up line information of user.</returns>
         public List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
-            List<CustomerInfo> result = new List<CustomerInfo>();
+            List<CustomerInfo> uplineInfoResult = new List<CustomerInfo>();
             try
             {
-                var rawData = _repositoryInstance.GetUplineInfoOfUser(criteria);
+                var rawData = _customerRepositoryInstance.GetUplineInfoOfUser(criteria);
                 for (var i = 0; i < rawData.Count; i++)
                 {
                     var uplineInfo = rawData[i];
@@ -125,7 +125,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                     }
 
                     uplineInfo.Role.Name = RoleSettingService.GetRoleName(uplineInfo.Role.Id);
-                    result.Add(uplineInfo);
+                    uplineInfoResult.Add(uplineInfo);
                 }
             }
             catch (Exception ex)
@@ -133,7 +133,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return uplineInfoResult;
         }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             {
                 if (criteria.CustomerId > 0)
                 {
-                    updateResult = _repositoryInstance.UpdateCustomerSuggestion(criteria);
+                    updateResult = _customerRepositoryInstance.UpdateCustomerSuggestion(criteria);
                 }
                 else
                 {
@@ -173,7 +173,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             var updateResult = new BaseModel();
             try
             {
-                updateResult = _repositoryInstance.UpdateCustomerInfo(criteria);
+                updateResult = _customerRepositoryInstance.UpdateCustomerInfo(criteria);
                 if (updateResult != null &&
                     updateResult.Id == ErrorCodeConstants.NoneError)
                 {
@@ -195,17 +195,17 @@ namespace Fanex.CRM.Customer.Services.Implements
         /// <returns>Update result.</returns>
         public bool UpdateCustomerSearchCountValue(UpdateCustomerSuggestionCriteria criteria)
         {
-            bool result = false;
+            bool updateResult = false;
             try
             {
-                result = _repositoryInstance.UpdateCustomerSearchCountValue(criteria);
+                updateResult = _customerRepositoryInstance.UpdateCustomerSearchCountValue(criteria);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return updateResult;
         }
     }
 }

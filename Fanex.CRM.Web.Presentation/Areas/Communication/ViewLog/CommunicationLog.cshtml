@@ -18,10 +18,10 @@
 <body>
     <div id="communicationcontroller" class="container main" data-ng-controller="communicationController">
         <div class="row row-item" data-ng-show="isShowResultMessage">
-            <div class="col-xs-11 col-sm-11 col-md-11">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
-                    <div>
-                        {{ resultMessage }}</div>
+                    <div data-ng-bind="resultMessage">
+                    </div>
                 </div>
             </div>
         </div>
@@ -32,7 +32,8 @@
             </div>
         </div>
         <div class="row btn-group">
-            <button class="btn" data-ng-click="insertCommunicationLog();">
+            <button id="buttoninsert" class="btn" data-ng-click="insertCommunicationLog();" 
+                default-focus data-ng-model="isSetFocus">
                 <span class="hotkey">I</span>nsert Case</button>
         </div>
     </div>
@@ -60,7 +61,7 @@
             Reviewed_By: '@Labels.Reviewed_By',
             Edit_Communication_Log: '@Labels.Edit_Communication_Log',
             Insert_Communication_Log: '@Labels.Insert_Communication_Log'
-        };
+        };        
     </script>
 </body>
 </html>

@@ -25,7 +25,7 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
                     Columns: [
                         {
                             Name: "ColRunningNumber",
-                            Value: '<div class="link editlog-link" data-logid="' + info.RunningNumber + '">' + info.RunningNumber + '</div>',
+                            Value: '<span class="link editlog-link" data-logid="' + info.RunningNumber + '">' + info.RunningNumber + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         {
@@ -91,10 +91,10 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
         };
 
         tableCommunicationLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var editLogLinks = tableCommunicationLogs.find(".editlog-link-td");
+        var editLogLinks = tableCommunicationLogs.find(".editlog-link-td .editlog-link");
         editLogLinks.unbind("click");
         editLogLinks.click(function () {
-            scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logid"));
+            scope.editCommunicationLog($(this).attr("data-logid"));
         });
 
         var editLogRows = tableCommunicationLogs.find(".editlog-link-row");

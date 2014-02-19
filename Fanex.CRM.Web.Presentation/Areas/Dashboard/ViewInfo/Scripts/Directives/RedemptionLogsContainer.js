@@ -22,7 +22,7 @@ dashboardApplication.directive('tableRedemptionLogsContainer', function () {
                     Columns: [
                         {
                             Name: "ColSubject",
-                            Value: '<div class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</div>',
+                            Value: '<span class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
@@ -47,17 +47,17 @@ dashboardApplication.directive('tableRedemptionLogsContainer', function () {
             fullWidth: true,
             fullHeight: true,
             gridHeight: 150,
-            showDistinctRow: false,
+            showDistinctRow: true,
             showHighlightRow: true,
             headerColumnHeight: 29,
             bodyRowHeight: 29
         };
 
         tableRedemptionLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var editLogLinks = tableRedemptionLogs.find(".editlog-link-td");
+        var editLogLinks = tableRedemptionLogs.find(".editlog-link-td .editlog-link");
         editLogLinks.unbind("click");
         editLogLinks.click(function () {
-            scope.editRedemptionLog($(this).find('.editlog-link').attr("data-logid"));
+            scope.editRedemptionLog($(this).attr("data-logid"));
         });
 
         var editLogRows = tableRedemptionLogs.find(".editlog-link-row");

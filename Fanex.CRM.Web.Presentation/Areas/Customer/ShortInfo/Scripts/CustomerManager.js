@@ -30,6 +30,7 @@ var CustomerManager = function () {
         ViewResources: {
             GetCustomerByName_NoData: "There is no information",
             OK: "OK",
+            Cancel: "Cancel",
             SearchByGuest_DialogTitle: "Search By Guest",
             Select: 'Select',
             Symbol_NotApply: 'N/A',
@@ -207,6 +208,12 @@ var CustomerManager = function () {
                     self.DOMElements.divResultPopUp.dialog("close");
                     self.getGuestCustomerInfoByUsername();
                 }
+            },
+            {
+                text: self.CacheData.ViewResources.Cancel,
+                click: function () {
+                    self.DOMElements.divResultPopUp.dialog('close');
+                }
             }]
         });
 
@@ -249,7 +256,7 @@ var CustomerManager = function () {
         if (parseInt(self.CacheData.getCustomerInfoParams.IsSearch) === 1 &&
             parseInt(self.CacheData.getCustomerInfoParams.IsReloadLeftPanel) !== 1) {
             try {
-                parent.menuManager.getDashboardMenu();                
+                parent.menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);
             } catch (e) {
             }
         }
@@ -361,7 +368,7 @@ var CustomerManager = function () {
                 dropdownLanguage.push({
                     id: prefixId + info.Id,
                     value: info.Id,
-                    text: info.Value,
+                    text: info.Name,
                     checked: isChecked,
                     enable: true,
                     cssClass: "",
@@ -396,6 +403,7 @@ var CustomerManager = function () {
         self.CacheData.controllerScope.customer.SelectedLanguages = self.DOMElements.dropdownLanguage.fanexMultiSelect("getItems", true).join(",");
         self.CacheData.controllerScope.oldLanguages = self.CacheData.controllerScope.customer.SelectedLanguages;
         self.CacheData.controllerScope.$apply();
+        self.DOMElements.dropdownLanguage.keyup(self.CacheData.controllerScope.textBoxKeyUp);
         self.CacheData.isLoadedLanguage = true;
     };
     self.IsCustomerKnowLanguage = function (languageId) {

@@ -13,17 +13,16 @@ function (
     $scope.redemptionLog = {
         ClaimedTime: new Date(currentDate),
         Subject: '',
-        Status: null,
+        Status: {
+            Id: 0,
+            Name: ''
+        },
         Remark: ''
     };
-    $scope.oldRedemptionLog = {
-        ClaimedTime: new Date(currentDate),
-        Subject: '',
-        Status: null,
-        Remark: ''
-    };
+    $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
     $scope.statusList = null;
     $scope.customerId = customerId;
+    $scope.isSetFocus = false;
     $scope.isSuccess = false;
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
@@ -46,6 +45,8 @@ function (
         $insertLogService.getAllStatus()
             .then(function (data) {
                 $scope.statusList = data.Result;
+                $scope.redemptionLog.Status.Id = $scope.statusList[0].Id;
+                $scope.oldRedemptionLog.Status.Id = $scope.statusList[0].Id;
                 $scope.loadedFilter.push({
                     Id: 'Status'
                 });
@@ -113,8 +114,20 @@ function (
     $scope.updateSelectedDate = function (selectedDate) {
         $scope.redemptionLog.ClaimedTime = selectedDate;
     };
-    $scope.updateSelectedStatus = function (status) {
-        $scope.redemptionLog.Status = status;
+    $scope.updateSelectedStatus = function (statusId) {
+        statusId = parseInt(statusId);
+        var statusLength = $scope.statusList.length;
+        var selectedStatus = null;
+        for (var i = 0; i < statusLength; i++) {
+            var status = $scope.statusList[i];
+            if (status.Id === statusId) {
+                selectedStatus = status;
+                break;
+            }
+        }
+
+        $scope.redemptionLog.Status = selectedStatus;
+        $scope.updateChangeFlag();
     };
     $scope.updateSelectedSubject = function (subject) {
         $scope.redemptionLog.Subject = subject;
@@ -144,7 +157,8 @@ function (
     };
     $scope.validateInsertLogCriteria = function (insertLogCriteria) {
         var result = true;
-        if (insertLogCriteria.Subject === '') {
+        if (insertLogCriteria.Subject === '' ||
+            insertLogCriteria.Subject === '<br>') {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */
@@ -152,7 +166,9 @@ function (
             result = false;
         }
 
-        if (result && insertLogCriteria.Remark === '') {
+        if (result &&
+            (insertLogCriteria.Remark === '' ||
+            insertLogCriteria.Remark === '<br>')) {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */
@@ -195,18 +211,32 @@ function (
         } catch (e) {
         }
     };
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
+    $scope.updateChangeFlag = function () {
+        if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
+                $scope.redemptionLog.Status.Id !== $scope.oldRedemptionLog.Status.Id ||
+                $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
+            parent.homeManager.CachedData.isChangingDataPopUp = true;
+            parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertRedemption_Changes;
+        } else {
+            parent.homeManager.CachedData.isChangingDataPopUp = false;
+        }
+    };
     angular.element(document).ready(function () {
         $scope.$watch(function ($scope) {
-            if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
-                $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
-                parent.homeManager.CachedData.isChangingDataPopUp = true;
-                parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertRedemption_Changes;
-            } else {
-                parent.homeManager.CachedData.isChangingDataPopUp = false;
-            }
+            $scope.updateChangeFlag();
         });
 
         parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
         $scope.initController();
+        $scope.setFocus();
     });
 } ]);

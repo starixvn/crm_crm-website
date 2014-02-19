@@ -55,6 +55,11 @@ var orgLengt = 0;
 var orgArrUser = "";
 var maxHeightOfPopUp = ($(window).height() + 50);
 var userName = '';
+var isShowCustinfoBox = false;
+var isShowFeedbackDetailBox = false;
+var isShowDescriptionBox = false;
+var isShowSolutionBox = false;
+var isShowReviewBox = false;
 
 // get stringUserName from db and trim to ArrUsername for render by fcbkcomplete
 function trimToArrayUserName(str) {
@@ -62,6 +67,16 @@ function trimToArrayUserName(str) {
     var subParent = newStr.split(',');
     return subParent;
 }
+
+function bindingEvent() {
+    $('#ddlcategory').change(function () {
+        bindingChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
+    });
+
+    $('#ddlproduct').change(function () {
+        bindingChildByParentId('ddlbettype', AllSetting.Product, parseInt($('#ddlproduct').val()));
+    });
+};
 
 function loadFeedbackAfterCallAjax(rs, Id) {
     /* jshint maxstatements: 68 */
@@ -94,6 +109,8 @@ function loadFeedbackAfterCallAjax(rs, Id) {
             if (!allowDeleteFeedback) {
                 $("select#ddlstatus option[value='11004']").remove();
             }
+
+            bindingEvent();
         },
         error: function () {
         },

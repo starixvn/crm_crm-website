@@ -6,7 +6,7 @@ gup, head, addDays */
 //Contain the template
 var AllSetting;
 var maxHeightOfPopUp = ($(window).height() + 50);
-var maxWidthOfPopUp = ($(window).width());
+var maxWidthOfPopUp = 987;
 var lastedFeedback;
 
 // -- Calendar --- //
@@ -38,7 +38,7 @@ function loadSubItem(obj, target, currValue) {
                         }
                     }
                     else {
-                        $('<option value="0">All</option>').appendTo($("#" + target));
+                        $('<option value="0">All</option>').appendTo();
                     }
                 },
                 error: function () { }
@@ -50,6 +50,12 @@ function loadSubItem(obj, target, currValue) {
         }
     }
 }
+
+function bindingEvent() {
+    $('#ddlcategory').change(function () {
+        bindingManageChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
+    });
+};
 
 function openEditFeedback(url) {
     try {
@@ -270,6 +276,8 @@ lastedFeedback = {
                 bindingSetting("ddlCustomerReponse", setting.Response, 0);
 
                 $("select#ddlstatus option[value='11004']").remove();
+
+                bindingEvent();
 
             },
             error: function () { }

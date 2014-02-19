@@ -4,6 +4,7 @@ moment,
 crmConstants,
 sharedScriptManager,
 viewResources */
+/* jshint camelcase: false */
 communicationApplication.directive('tableCommunicationLogsContainer', function () {
     var cachedLogs = [];
     function compareValues(sortInfo, valueA, valueB) {
@@ -28,7 +29,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             case sortDataTypeEnums.Date:
                 var dateA = new Date(valueA);
                 var dateB = new Date(valueB);
-                isGreaterThan = (sortInfo.sortFactor == 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
+                isGreaterThan = (sortInfo.sortFactor === 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
                                 0 :
                                 (dateB < dateA && sortInfo.sortFactor === 1) ||
                                 (dateA < dateB && sortInfo.sortFactor === -1) ?
@@ -61,7 +62,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             default:
                 sortInfo.sortFactor = 0;
                 break;
-        };
+        }
 
         switch (columnName) {
             case "ColRunningNumber":
@@ -123,8 +124,8 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
 
                 var dateA = new Date(1, 1, 1, valueA.Hours, valueA.Minutes, valueA.Seconds);
                 var dateB = new Date(1, 1, 1, valueB.Hours, valueB.Minutes, valueB.Seconds);
-                var isGreaterThan = isGreaterThan =
-                                (sortInfo.sortFactor == 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
+                var isGreaterThan =
+                                (sortInfo.sortFactor === 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
                                 0 :
                                 (dateB < dateA && sortInfo.sortFactor === 1) ||
                                 (dateA < dateB && sortInfo.sortFactor === -1) ?
@@ -137,6 +138,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
         return cachedLogs;
     }
 
+    /* jshint camelcase: false */
     function getGridOptions_SortedAndPagingData(sortInfo) {
         var logList = sortReport(sortInfo, cachedLogs);
         var bodyData = [];
@@ -148,7 +150,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                     Columns: [
                         {
                             Name: "ColRunningNumber",
-                            Value: '<div class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</div>',
+                            Value: '<span class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         {
@@ -195,7 +197,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                     Columns: [
                         {
                             Name: "ColRunningNumber",
-                            Value: '<div class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</div>',
+                            Value: '<span class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         {
@@ -268,10 +270,10 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                     return bodyRows;
                 },
                 afterGridSorted: function () {
-                    var editLogLinks = tableCommunicationLogs.find(".editlog-link-td");
+                    var editLogLinks = tableCommunicationLogs.find(".editlog-link-td .editlog-link");
                     editLogLinks.unbind("click");
                     editLogLinks.click(function () {
-                        scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
+                        scope.editCommunicationLog($(this).attr("data-logindex"));
                     });
 
                     var editLogRows = tableCommunicationLogs.find(".editlog-link-row");
@@ -283,10 +285,10 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
         };
 
         tableCommunicationLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var editLogLinks = tableCommunicationLogs.find(".editlog-link-td");
+        var editLogLinks = tableCommunicationLogs.find(".editlog-link-td .editlog-link");
         editLogLinks.unbind("click");
         editLogLinks.click(function () {
-            scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
+            scope.editCommunicationLog($(this).attr("data-logindex"));
         });
 
         var editLogRows = tableCommunicationLogs.find(".editlog-link-row");
@@ -302,6 +304,20 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             scope.$watch(attrs.ngModel, function (oldval, newval) {
                 /* jshint unused: vars */
                 renderCommunicationLogs(scope, element, attrs);
+            });
+        }
+    };
+}).directive('defaultFocus', function () {
+    return {
+        restrict: 'A',
+        scope: true,
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                if (newval && !oldval) {
+                    /* jshint unused: vars */
+                    element.focus();
+                    scope.completeSetFocus();
+                }
             });
         }
     };

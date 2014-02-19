@@ -1,40 +1,40 @@
-﻿///#source 1 1 ../src/core.js
-/*!
- * HeadJS     The only script in your <HEAD>
- * Author     Tero Piirainen  (tipiirai)
- * Maintainer Robert Hoffmann (itechnology)
- * License    MIT / http://bit.ly/mit-license
- *
- * Version 0.99
- * http://headjs.com
- */
-; (function (win, undefined) {
+﻿///#source 1 1 /src/1.0.0/core.js
+/*! head.core - v1.0.2 */
+/*
+* HeadJS     The only script in your <HEAD>
+* Author     Tero Piirainen  (tipiirai)
+* Maintainer Robert Hoffmann (itechnology)
+* License    MIT / http://bit.ly/mit-license
+* WebSite    http://headjs.com
+*/
+(function (win, undefined) {
     "use strict";
 
     // gt, gte, lt, lte, eq breakpoints would have been more simple to write as ['gt','gte','lt','lte','eq']
     // but then we would have had to loop over the collection on each resize() event,
     // a simple object with a direct access to true/false is therefore much more efficient
-    var doc   = win.document,
-        nav   = win.navigator,
-        loc   = win.location,
-        html  = doc.documentElement,
+    var doc = win.document,
+        nav = win.navigator,
+        loc = win.location,
+        html = doc.documentElement,
         klass = [],
-        conf  = {
-            screens   : [240, 320, 480, 640, 768, 800, 1024, 1280, 1440, 1680, 1920],
+        conf = {
+            screens: [240, 320, 480, 640, 768, 800, 1024, 1280, 1440, 1680, 1920],
             screensCss: { "gt": true, "gte": false, "lt": true, "lte": false, "eq": false },
-            browsers  : [
-                          { ie     : { min: 6, max: 11 } }
-                       //,{ chrome : { min: 8, max: 29 } }
-                       //,{ ff     : { min: 3, max: 24 } }
-                       //,{ ios    : { min: 3, max:  6 } }
-                       //,{ android: { min: 2, max:  4 } }
-                       //,{ webkit : { min: 9, max: 12 } }
-                       //,{ opera  : { min: 9, max: 12 } }
-                        ],
+            browsers: [
+                            { ie: { min: 6, max: 11} }
+            //,{ chrome : { min: 8, max: 33 } }
+            //,{ ff     : { min: 3, max: 26 } }
+            //,{ ios    : { min: 3, max:  7 } }
+            //,{ android: { min: 2, max:  4 } }
+            //,{ webkit : { min: 9, max: 12 } }
+            //,{ opera  : { min: 9, max: 12 } }
+            ],
             browserCss: { "gt": true, "gte": false, "lt": true, "lte": false, "eq": true },
-            section   : "-section",
-            page      : "-page",
-            head      : "head"
+            html5: true,
+            page: "-page",
+            section: "-section",
+            head: "head"
         };
 
     if (win.head_conf) {
@@ -50,7 +50,10 @@
     }
 
     function removeClass(name) {
-        var re = new RegExp(" \\b" + name + "\\b");
+        // need to test for both space and no space
+        // https://github.com/headjs/headjs/issues/270
+        // https://github.com/headjs/headjs/issues/226
+        var re = new RegExp(" ?\\b" + name + "\\b");
         html.className = html.className.replace(re, "");
     }
 
@@ -71,6 +74,7 @@
         if (!key) {
             html.className += " " + klass.join(" ");
             klass = [];
+
             return api;
         }
 
@@ -95,27 +99,28 @@
     api.feature("js", true);
 
     // browser type & version
-    var ua     = nav.userAgent.toLowerCase(),
-        mobile = /mobile|android|kindle|silk|midp|(windows nt 6\.2.+arm|touch)/.test(ua);
+    var ua = nav.userAgent.toLowerCase(),
+        mobile = /mobile|android|kindle|silk|midp|phone|(windows .+arm|touch)/.test(ua);
 
     // useful for enabling/disabling feature (we can consider a desktop navigator to have more cpu/gpu power)
-    api.feature("mobile" , mobile , true);
+    api.feature("mobile", mobile, true);
     api.feature("desktop", !mobile, true);
 
     // http://www.zytrax.com/tech/web/browser_ids.htm
     // http://www.zytrax.com/tech/web/mobile_ids.html
     ua = /(chrome|firefox)[ \/]([\w.]+)/.exec(ua) || // Chrome & Firefox
-         /(iphone|ipad|ipod)(?:.*version)?[ \/]([\w.]+)/.exec(ua) || // Mobile IOS
-         /(android)(?:.*version)?[ \/]([\w.]+)/.exec(ua) || // Mobile Webkit
-         /(webkit|opera)(?:.*version)?[ \/]([\w.]+)/.exec(ua) || // Safari & Opera
-         /(msie) ([\w.]+)/.exec(ua) || [];
-
+        /(iphone|ipad|ipod)(?:.*version)?[ \/]([\w.]+)/.exec(ua) || // Mobile IOS
+        /(android)(?:.*version)?[ \/]([\w.]+)/.exec(ua) || // Mobile Webkit
+        /(webkit|opera)(?:.*version)?[ \/]([\w.]+)/.exec(ua) || // Safari & Opera
+        /(msie) ([\w.]+)/.exec(ua) ||
+        /(trident).+rv:(\w.)+/.exec(ua) || [];
 
     var browser = ua[1],
         version = parseFloat(ua[2]);
-    
+
     switch (browser) {
         case "msie":
+        case "trident":
             browser = "ie";
             version = doc.documentMode || version;
             break;
@@ -137,7 +142,7 @@
 
     // Browser vendor and version
     api.browser = {
-        name   : browser,
+        name: browser,
         version: version
     };
     api.browser[browser] = true;
@@ -159,9 +164,7 @@
                         if (conf.browserCss.gte) {
                             pushClass("gte-" + key + v);
                         }
-                    }
-                    
-                    else if (version < v) {
+                    } else if (version < v) {
                         if (conf.browserCss.lt) {
                             pushClass("lt-" + key + v);
                         }
@@ -169,9 +172,7 @@
                         if (conf.browserCss.lte) {
                             pushClass("lte-" + key + v);
                         }
-                    }
-
-                    else if (version === v) {
+                    } else if (version === v) {
                         if (conf.browserCss.lte) {
                             pushClass("lte-" + key + v);
                         }
@@ -185,18 +186,17 @@
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 pushClass("no-" + key);
             }
         }
     }
-    
+
     pushClass(browser);
     pushClass(browser + parseInt(version, 10));
 
     // IE lt9 specific
-    if (browser === "ie" && version < 9) {
+    if (conf.html5 && browser === "ie" && version < 9) {
         // HTML5 support : you still need to add html5 css initialization styles to your site
         // See: assets/html5.css
         each("abbr|article|aside|audio|canvas|details|figcaption|figure|footer|header|hgroup|main|mark|meter|nav|output|progress|section|summary|time|video".split("|"), function (el) {
@@ -229,7 +229,7 @@
     // basic screen info
     api.screen = {
         height: win.screen.height,
-        width : win.screen.width
+        width: win.screen.width
     };
 
     // viewport resolutions: w-100, lt-480, lt-1024 ...
@@ -240,10 +240,10 @@
         // Viewport width
         var iw = win.innerWidth || html.clientWidth,
             ow = win.outerWidth || win.screen.width;
-        
+
         api.screen.innerWidth = iw;
         api.screen.outerWidth = ow;
-        
+
         // for debugging purposes, not really useful for anything else
         pushClass("w-" + iw);
 
@@ -256,19 +256,15 @@
                 if (conf.screensCss.gte) {
                     pushClass("gte-" + width);
                 }
-            }
-
-            else if (iw < width) {
+            } else if (iw < width) {
                 if (conf.screensCss.lt) {
                     pushClass("lt-" + width);
                 }
-                
+
                 if (conf.screensCss.lte) {
                     pushClass("lte-" + width);
                 }
-            }
-
-            else if (iw === width) {
+            } else if (iw === width) {
                 if (conf.screensCss.lte) {
                     pushClass("lte-" + width);
                 }
@@ -282,16 +278,16 @@
                 }
             }
         });
-        
+
         // Viewport height
         var ih = win.innerHeight || html.clientHeight,
             oh = win.outerHeight || win.screen.height;
 
         api.screen.innerHeight = ih;
         api.screen.outerHeight = oh;
-             
+
         // no need for onChange event to detect this
-        api.feature("portrait" , (ih > iw));
+        api.feature("portrait", (ih > iw));
         api.feature("landscape", (ih < iw));
     }
 
@@ -299,6 +295,7 @@
 
     // Throttle navigators from triggering too many resize events
     var resizeId = 0;
+
     function onResize() {
         win.clearTimeout(resizeId);
         resizeId = win.setTimeout(screenSize, 50);
@@ -309,47 +306,46 @@
         win.addEventListener("resize", onResize, false);
 
     } else {
+        // IE8 and less
         win.attachEvent("onresize", onResize);
     }
-}(window));
-
-///#source 1 1 ../src/css3.js
-/*!
- * HeadJS     The only script in your <HEAD>
- * Author     Tero Piirainen  (tipiirai)
- * Maintainer Robert Hoffmann (itechnology)
- * License    MIT / http://bit.ly/mit-license
- *
- * Version 0.99
- * http://headjs.com
- */
-;(function(win, undefined) {
+} (window));
+///#source 1 1 /src/1.0.0/css3.js
+/*! head.css3 - v1.0.0 */
+/*
+* HeadJS     The only script in your <HEAD>
+* Author     Tero Piirainen  (tipiirai)
+* Maintainer Robert Hoffmann (itechnology)
+* License    MIT / http://bit.ly/mit-license
+* WebSite    http://headjs.com
+*/
+(function (win, undefined) {
     "use strict";
 
     var doc = win.document,
-        /*
-            To add a new test:
+    /*
+    To add a new test:
 
-            head.feature("video", function() {
-                var tag = document.createElement('video');
-                return !!tag.canPlayType;
-            });
+    head.feature("video", function() {
+    var tag = document.createElement('video');
+    return !!tag.canPlayType;
+    });
 
-            Good place to grab more tests
+    Good place to grab more tests
 
-            https://github.com/Modernizr/Modernizr/blob/master/modernizr.js
-        */
+    https://github.com/Modernizr/Modernizr/blob/master/modernizr.js
+    */
 
-        /* CSS modernizer */
-         el       = doc.createElement("i"),
-         style    = el.style,
-         prefs    = " -o- -moz- -ms- -webkit- -khtml- ".split(" "),
-         domPrefs = "Webkit Moz O ms Khtml".split(" "),
+    /* CSS modernizer */
+        el = doc.createElement("i"),
+        style = el.style,
+        prefs = " -o- -moz- -ms- -webkit- -khtml- ".split(" "),
+        domPrefs = "Webkit Moz O ms Khtml".split(" "),
+        headVar = win.head_conf && win.head_conf.head || "head",
+        api = win[headVar];
 
-         headVar = win.head_conf && win.head_conf.head || "head",
-         api     = win[headVar];
+    // Thanks Paul Irish!
 
-     // Thanks Paul Irish!
     function testProps(props) {
         for (var i in props) {
             if (style[props[i]] !== undefined) {
@@ -369,29 +365,31 @@
     }
 
     var tests = {
-        gradient: function() {
+        // should we seperate linear/radial ? 
+        // seems like some browsers need a test for prefix http://caniuse.com/#feat=css-gradients
+        gradient: function () {
             var s1 = "background-image:",
                 s2 = "gradient(linear,left top,right bottom,from(#9f9),to(#fff));",
                 s3 = "linear-gradient(left top,#eee,#fff);";
 
-            style.cssText = (s1 + prefs.join(s2 + s1) + prefs.join(s3 + s1)).slice(0,-s1.length);
+            style.cssText = (s1 + prefs.join(s2 + s1) + prefs.join(s3 + s1)).slice(0, -s1.length);
             return !!style.backgroundImage;
         },
 
-        rgba: function() {
+        rgba: function () {
             style.cssText = "background-color:rgba(0,0,0,0.5)";
             return !!style.backgroundColor;
         },
 
-        opacity: function() {
+        opacity: function () {
             return el.style.opacity === "";
         },
 
-        textshadow: function() {
+        textshadow: function () {
             return style.textShadow === "";
         },
 
-        multiplebgs: function() {
+        multiplebgs: function () {
             style.cssText = "background:url(https://),url(https://),red url(https://)";
 
             // If the UA supports multiple backgrounds, there should be three occurrences
@@ -401,27 +399,27 @@
             return Object.prototype.toString.call(result) === "[object Array]" && result.length === 3;
         },
 
-        boxshadow: function() {
+        boxshadow: function () {
             return testAll("boxShadow");
         },
 
-        borderimage: function() {
+        borderimage: function () {
             return testAll("borderImage");
         },
 
-        borderradius: function() {
+        borderradius: function () {
             return testAll("borderRadius");
         },
 
-        cssreflections: function() {
+        cssreflections: function () {
             return testAll("boxReflect");
         },
 
-        csstransforms: function() {
+        csstransforms: function () {
             return testAll("transform");
         },
 
-        csstransitions: function() {
+        csstransitions: function () {
             return testAll("transition");
         },
         touch: function () {
@@ -432,10 +430,10 @@
         },
 
         /*
-            font-face support. Uses browser sniffing but is synchronous.
-            http://paulirish.com/2009/font-face-feature-detection/
+        font-face support. Uses browser sniffing but is synchronous.
+        http://paulirish.com/2009/font-face-feature-detection/
         */
-        fontface: function() {
+        fontface: function () {
             var browser = api.browser.name, version = api.browser.version;
 
             switch (browser) {
@@ -476,38 +474,37 @@
     // enable features at once
     api.feature();
 
-}(window));
-///#source 1 1 ../src/load.js
-/*!
- * HeadJS     The only script in your <HEAD>
- * Author     Tero Piirainen  (tipiirai)
- * Maintainer Robert Hoffmann (itechnology)
- * License    MIT / http://bit.ly/mit-license
- *
- * Version 0.99
- * http://headjs.com
- */
-; (function (win, undefined) {
+} (window));
+///#source 1 1 /src/1.0.0/load.js
+/*! head.load - v1.0.3 */
+/*
+* HeadJS     The only script in your <HEAD>
+* Author     Tero Piirainen  (tipiirai)
+* Maintainer Robert Hoffmann (itechnology)
+* License    MIT / http://bit.ly/mit-license
+* WebSite    http://headjs.com
+*/
+(function (win, undefined) {
     "use strict";
 
+    //#region variables
     var doc = win.document,
         domWaiters = [],
-        queue      = [], // waiters for the "head ready" event
-        handlers   = {}, // user functions waiting for events
-        assets     = {}, // loadable items in various states
-        isAsync    = "async" in doc.createElement("script") || "MozAppearance" in doc.documentElement.style || win.opera,
-        isHeadReady,
+        handlers = {}, // user functions waiting for events
+        assets = {}, // loadable items in various states
+        isAsync = "async" in doc.createElement("script") || "MozAppearance" in doc.documentElement.style || win.opera,
         isDomReady,
 
-        /*** public API ***/
+    /*** public API ***/
         headVar = win.head_conf && win.head_conf.head || "head",
-        api     = win[headVar] = (win[headVar] || function () { api.ready.apply(null, arguments); }),
+        api = win[headVar] = (win[headVar] || function () { api.ready.apply(null, arguments); }),
 
-        // states
+    // states
         PRELOADING = 1,
-        PRELOADED  = 2,
-        LOADING    = 3,
-        LOADED     = 4;
+        PRELOADED = 2,
+        LOADING = 3,
+        LOADED = 4;
+    //#endregion
 
     //#region PRIVATE functions
 
@@ -533,7 +530,7 @@
     }
 
     /* A must read: http://bonsaiden.github.com/JavaScript-Garden
-     ************************************************************/
+    ************************************************************/
     function is(type, obj) {
         var clas = Object.prototype.toString.call(obj).slice(8, -1);
         return obj !== undefined && obj !== null && clas === type;
@@ -551,7 +548,7 @@
         ///<summary>Converts a url to a file label</summary>
         var items = url.split("/"),
              name = items[items.length - 1],
-             i    = name.indexOf("?");
+             i = name.indexOf("?");
 
         return i !== -1 ? name.substring(0, i) : name;
     }
@@ -570,7 +567,7 @@
         callback._done = 1;
     }
     //#endregion
-    
+
     function conditional(test, success, failure, callback) {
         ///<summary>
         /// INFO: use cases:
@@ -606,7 +603,7 @@
             obj.success.push(obj.callback);
             api.load.apply(null, obj.success);
         }
-            // Do we have a fail case
+        // Do we have a fail case
         else if (!passed && !!obj.failure) {
             obj.failure.push(obj.callback);
             api.load.apply(null, obj.failure);
@@ -634,7 +631,7 @@
                 if (!!item[label]) {
                     asset = {
                         name: label,
-                        url : item[label]
+                        url: item[label]
                     };
                 }
             }
@@ -642,7 +639,7 @@
         else {
             asset = {
                 name: toLabel(item),
-                url : item
+                url: item
             };
         }
 
@@ -664,7 +661,7 @@
                 return false;
             }
         }
-        
+
         return true;
     }
 
@@ -679,7 +676,7 @@
     function preLoad(asset, callback) {
         if (asset.state === undefined) {
 
-            asset.state     = PRELOADING;
+            asset.state = PRELOADING;
             asset.onpreload = [];
 
             loadAsset({ url: asset.url, type: "cache" }, function () {
@@ -692,18 +689,23 @@
         /// <summary>preload with text/cache hack
         ///
         /// head.load("http://domain.com/file.js","http://domain.com/file.js", callBack)
+        /// head.load(["http://domain.com/file.js","http://domain.com/file.js"], callBack)
         /// head.load({ label1: "http://domain.com/file.js" }, { label2: "http://domain.com/file.js" }, callBack)
+        /// head.load([{ label1: "http://domain.com/file.js" }, { label2: "http://domain.com/file.js" }], callBack)
         /// </summary>
-
         var args = arguments,
+            callback = args[args.length - 1],
             rest = [].slice.call(args, 1),
             next = rest[0];
 
-        // wait for a while. immediate execution causes some browsers to ignore caching
-        if (!isHeadReady) {
-            queue.push(function () {
-                api.load.apply(null, args);
-            });
+        if (!isFunction(callback)) {
+            callback = null;
+        }
+
+        // if array, repush as args
+        if (isArray(args[0])) {
+            args[0].push(callback);
+            api.load.apply(null, args[0]);
 
             return api;
         }
@@ -711,10 +713,10 @@
         // multiple arguments
         if (!!next) {
             /* Preload with text/cache hack (not good!)
-             * http://blog.getify.com/on-script-loaders/
-             * http://www.nczonline.net/blog/2010/12/21/thoughts-on-script-loaders/
-             * If caching is not configured correctly on the server, then items could load twice !
-             *************************************************************************************/
+            * http://blog.getify.com/on-script-loaders/
+            * http://www.nczonline.net/blog/2010/12/21/thoughts-on-script-loaders/
+            * If caching is not configured correctly on the server, then items could load twice !
+            *************************************************************************************/
             each(rest, function (item) {
                 // item is not a callback or empty string
                 if (!isFunction(item) && !!item) {
@@ -739,28 +741,47 @@
         ///<summary>
         /// simply load and let browser take care of ordering
         ///
-        ///    head.load("http://domain.com/file.js","http://domain.com/file.js", callBack)
-        ///    head.load({ label1: "http://domain.com/file.js" }, { label2: "http://domain.com/file.js" }, callBack)
+        /// head.load("http://domain.com/file.js","http://domain.com/file.js", callBack)
+        /// head.load(["http://domain.com/file.js","http://domain.com/file.js"], callBack)
+        /// head.load({ label1: "http://domain.com/file.js" }, { label2: "http://domain.com/file.js" }, callBack)
+        /// head.load([{ label1: "http://domain.com/file.js" }, { label2: "http://domain.com/file.js" }], callBack)
         ///</summary>
         var args = arguments,
-             callback = args[args.length - 1],
-             items = {};
+            callback = args[args.length - 1],
+            items = {};
 
         if (!isFunction(callback)) {
             callback = null;
         }
 
+        // if array, repush as args
+        if (isArray(args[0])) {
+            args[0].push(callback);
+            api.load.apply(null, args[0]);
+
+            return api;
+        }
+
+        // JRH 262#issuecomment-26288601
+        // First populate the items array.
+        // When allLoaded is called, all items will be populated.
+        // Issue when lazy loaded, the callback can execute early.
         each(args, function (item, i) {
             if (item !== callback) {
                 item = getAsset(item);
                 items[item.name] = item;
+            }
+        });
 
-                load(item, callback && i === args.length - 2 ? function () {
+        each(args, function (item, i) {
+            if (item !== callback) {
+                item = getAsset(item);
+
+                load(item, function () {
                     if (allLoaded(items)) {
                         one(callback);
                     }
-
-                } : null);
+                });
             }
         });
 
@@ -790,9 +811,10 @@
         }
 
         asset.state = LOADING;
-        
+
         loadAsset(asset, function () {
             asset.state = LOADED;
+
             callback();
 
             // handlers for this asset
@@ -810,11 +832,18 @@
         });
     }
 
+    function getExtension(url) {
+        url = url || "";
+
+        var items = url.split("?")[0].split(".");
+        return items[items.length - 1].toLowerCase();
+    }
+
     /* Parts inspired from: https://github.com/cujojs/curl
     ******************************************************/
     function loadAsset(asset, callback) {
         callback = callback || noop;
-                
+
         function error(event) {
             event = event || win.event;
 
@@ -823,13 +852,13 @@
 
             // do callback
             callback();
-            
+
             // need some more detailed error handling here
         }
-        
+
         function process(event) {
             event = event || win.event;
-            
+
             // IE 7/8 (2 events on 1st load)
             // 1) event.type = readystatechange, s.readyState = loading
             // 2) event.type = readystatechange, s.readyState = loaded
@@ -874,59 +903,93 @@
 
             // !doc.documentMode is for IE6/7, IE8+ have documentMode
             if (event.type === "load" || (/loaded|complete/.test(ele.readyState) && (!doc.documentMode || doc.documentMode < 9))) {
+                // remove timeouts
+                win.clearTimeout(asset.errorTimeout);
+                win.clearTimeout(asset.cssTimeout);
+
                 // release event listeners
                 ele.onload = ele.onreadystatechange = ele.onerror = null;
-                
-                // do callback
+
+                // do callback   
                 callback();
             }
+        }
 
-            // emulates error on browsers that don't create an exception
-            // INFO: timeout not clearing ..why ?
-            //asset.timeout = win.setTimeout(function () {
-            //    error({ type: "timeout" });
-            //}, 3000);
+        function isCssLoaded() {
+            // should we test again ? 20 retries = 5secs ..after that, the callback will be triggered by the error handler at 7secs
+            if (asset.state !== LOADED && asset.cssRetries <= 20) {
+
+                // loop through stylesheets
+                for (var i = 0, l = doc.styleSheets.length; i < l; i++) {
+                    // do we have a match ?
+                    // we need to tests agains ele.href and not asset.url, because a local file will be assigned the full http path on a link element
+                    if (doc.styleSheets[i].href === ele.href) {
+                        process({ "type": "load" });
+                        return;
+                    }
+                }
+
+                // increment & try again
+                asset.cssRetries++;
+                asset.cssTimeout = win.setTimeout(isCssLoaded, 250);
+            }
         }
 
         var ele;
-        if (/\.css[^\.]*$/.test(asset.url)) {
-            ele      = doc.createElement("link");
+        var ext = getExtension(asset.url);
+
+        if (ext === "css") {
+            ele = doc.createElement("link");
             ele.type = "text/" + (asset.type || "css");
-            ele.rel  = "stylesheet";
+            ele.rel = "stylesheet";
             ele.href = asset.url;
+
+            /* onload supported for CSS on unsupported browsers
+            * Safari windows 5.1.7, FF < 10
+            */
+
+            // Set counter to zero
+            asset.cssRetries = 0;
+            asset.cssTimeout = win.setTimeout(isCssLoaded, 500);
         }
         else {
-            ele      = doc.createElement("script");
+            ele = doc.createElement("script");
             ele.type = "text/" + (asset.type || "javascript");
-            ele.src  = asset.url;
+            ele.src = asset.url;
         }
 
-        ele.onload  = ele.onreadystatechange = process;
+        ele.onload = ele.onreadystatechange = process;
         ele.onerror = error;
 
         /* Good read, but doesn't give much hope !
-         * http://blog.getify.com/on-script-loaders/
-         * http://www.nczonline.net/blog/2010/12/21/thoughts-on-script-loaders/
-         * https://hacks.mozilla.org/2009/06/defer/
-         */
+        * http://blog.getify.com/on-script-loaders/
+        * http://www.nczonline.net/blog/2010/12/21/thoughts-on-script-loaders/
+        * https://hacks.mozilla.org/2009/06/defer/
+        */
 
-        // ASYNC: load in parellel and execute as soon as possible
+        // ASYNC: load in parallel and execute as soon as possible
         ele.async = false;
         // DEFER: load in parallel but maintain execution order
         ele.defer = false;
 
+        // timout for asset loading
+        asset.errorTimeout = win.setTimeout(function () {
+            error({ type: "timeout" });
+        }, 7e3);
+
         // use insertBefore to keep IE from throwing Operation Aborted (thx Bryan Forbes!)
         var head = doc.head || doc.getElementsByTagName("head")[0];
-        // but insert at end of head, because otherwise if it is a stylesheet, it will not override values
+
+        // but insert at end of head, because otherwise if it is a stylesheet, it will not override values      
         head.insertBefore(ele, head.lastChild);
     }
 
     /* Parts inspired from: https://github.com/jrburke/requirejs
     ************************************************************/
     function init() {
-        var items =  doc.getElementsByTagName("script");
-        
-        //Look for a script with a data-head-init attribute
+        var items = doc.getElementsByTagName("script");
+
+        // look for a script with a data-head-init attribute
         for (var i = 0, l = items.length; i < l; i++) {
             var dataMain = items[i].getAttribute("data-headjs-load");
             if (!!dataMain) {
@@ -935,14 +998,15 @@
             }
         }
     }
-    
+
     function ready(key, callback) {
         ///<summary>
         /// INFO: use cases:
-        ///    head.ready(callBack)
-        ///    head.ready(document , callBack)
+        ///    head.ready(callBack);
+        ///    head.ready(document , callBack);
         ///    head.ready("file.js", callBack);
         ///    head.ready("label"  , callBack);
+        ///    head.ready(["label1", "label2"], callback);
         ///</summary>
 
         // DOM ready check: head.ready(document, function() { });
@@ -960,7 +1024,24 @@
         // shift arguments
         if (isFunction(key)) {
             callback = key;
-            key      = "ALL";
+            key = "ALL"; // holds all callbacks that where added without labels: ready(callBack)
+        }
+
+        // queue all items from key and return. The callback will be executed if all items from key are already loaded.
+        if (isArray(key)) {
+            var items = {};
+
+            each(key, function (item) {
+                items[item] = assets[item];
+
+                api.ready(item, function () {
+                    if (allLoaded(items)) {
+                        one(callback);
+                    }
+                });
+            });
+
+            return api;
         }
 
         // make sure arguments are sane
@@ -968,7 +1049,7 @@
             return api;
         }
 
-        // This can also be called when we trigger events based on filenames & labels
+        // this can also be called when we trigger events based on filenames & labels
         var asset = assets[key];
 
         // item already loaded --> execute and return
@@ -989,8 +1070,8 @@
     }
 
     /* Mix of stuff from jQuery & IEContentLoaded
-     * http://dev.w3.org/html5/spec/the-end.html#the-end
-     ***************************************************/
+    * http://dev.w3.org/html5/spec/the-end.html#the-end
+    ***************************************************/
     function domReady() {
         // Make sure body exists, at least, in case IE gets a little overzealous (jQuery ticket #5443).
         if (!doc.body) {
@@ -1002,7 +1083,7 @@
 
         if (!isDomReady) {
             isDomReady = true;
-            
+
             init();
             each(domWaiters, function (fn) {
                 one(fn);
@@ -1074,22 +1155,21 @@
                     // and execute any waiting functions
                     domReady();
                 }
-            }());
+            } ());
         }
     }
     //#endregion
 
     //#region Public Exports
     // INFO: determine which method to use for loading
-    api.load  = api.js = isAsync ? apiLoadAsync : apiLoadHack;
-    api.test  = conditional;
+    api.load = api.js = isAsync ? apiLoadAsync : apiLoadHack;
+    api.test = conditional;
     api.ready = ready;
     //#endregion
 
     //#region INIT
     // perform this when DOM is ready
     api.ready(doc, function () {
-
         if (allLoaded()) {
             each(handlers.ALL, function (callback) {
                 one(callback);
@@ -1100,19 +1180,5 @@
             api.feature("domloaded", true);
         }
     });
-
-    /*
-        We wait for 300 ms before asset loading starts. for some reason this is needed
-        to make sure assets are cached. Not sure why this happens yet. A case study:
-
-        https://github.com/headjs/headjs/issues/closed#issue/83
-    */
-    setTimeout(function () {
-        isHeadReady = true;
-        each(queue, function (fn) {
-            fn();
-        });
-
-    }, 300);
     //#endregion
-}(window));
+} (window));

@@ -28,8 +28,15 @@ numberOfFinish,
 isonauto,
 orgLengt,
 AddFeedback,
-trim
+trim,
+bindingEvent,
+isShowCustinfoBox,
+isShowDescriptionBox,
+isShowFeedbackDetailBox,
+isShowReviewBox,
+isShowSolutionBox
 */
+var bindingEvent;
 var feedbackNew = {
     "Id": 0,
     "IsOverrideCrmInfo": false,
@@ -135,6 +142,22 @@ var listFeedbacksLasted = [];
 var numberOfFeedbackItem = 0;
 var isonauto = false;
 var orgLengt = 0;
+var isShowCustinfoBox = false;
+var isShowFeedbackDetailBox = false;
+var isShowDescriptionBox = false;
+var isShowSolutionBox = false;
+var isShowReviewBox = false;
+
+
+function bindingEvent() {
+    $('#ddlcategory').change(function () {
+        bindingChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
+    });
+
+    $('#ddlproduct').change(function () {
+        bindingChildByParentId('ddlbettype', AllSetting.Product, parseInt($('#ddlproduct').val()));
+    });
+};
 
 function addFeedbackInfo(newFeedback) {
     //-------end----------------------------------
@@ -515,7 +538,8 @@ function getCRMInfoById(custId) {
                     if (!allowDeleteFeedback) {
                         $("select#ddlstatus option[value='11004']").remove();
                     }
-                    //getAutoFeedbackSubject();
+                    
+                    bindingEvent();
                 },
                 error: function () { },
                 complete: function () {
@@ -541,7 +565,6 @@ function getCRMInfoById(custId) {
         }
     });
 }
-
 
 head.ready(function () {
     initHTMLArea('editboxdes', 'desediter', '');

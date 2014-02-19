@@ -17,7 +17,10 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
             minDate: null,
             maxDate: new Date(currentDate),
             showOtherMonths: true,
-            selectOtherMonths: true
+            selectOtherMonths: true,
+            onClose: function () {
+                $(this).blur();
+            }
         });
 
         fromDatePicker.datepicker('setDate', new Date(initFromDate));
@@ -45,11 +48,8 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
             renderDatePicker(scope, element, attrs);
             scope.$watch(attrs.ngModel, function (newval, oldval) {
                 /* jshint unused: vars */
-                if (oldMaxValue === null ||
-                    new Date(newval) < oldMaxValue) {
-                    oldMaxValue = new Date(newval);
-                    fromDatePicker.datepicker("option", "maxDate", new Date(oldMaxValue));
-                }
+                oldMaxValue = new Date(newval);
+                fromDatePicker.datepicker("option", "maxDate", new Date(oldMaxValue));
             });
 
             oldValue = new Date(initFromDate);

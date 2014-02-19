@@ -151,6 +151,24 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Betting Code.
+        /// </summary>
+        public static string Betting_Code {
+            get {
+                return ResourceManager.GetString("Betting_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Birthday.
+        /// </summary>
+        public static string Birthday {
+            get {
+                return ResourceManager.GetString("Birthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string City {
@@ -556,6 +574,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ref Codes 2.
+        /// </summary>
+        public static string Ref_Codes_2 {
+            get {
+                return ResourceManager.GetString("Ref_Codes_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select.
         /// </summary>
         public static string Select {
@@ -624,6 +651,24 @@ namespace Fanex.CRM.Customer.Resources {
         public static string Symbol_NotApply {
             get {
                 return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VIP.
+        /// </summary>
+        public static string VIP {
+            get {
+                return ResourceManager.GetString("VIP", resourceCulture);
             }
         }
     }

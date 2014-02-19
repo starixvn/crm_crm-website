@@ -28,7 +28,8 @@ bindingSite,
 showPopup,
 getClientDateByTimeZone, 
 getAutoFeedbackSubject,
-downup
+downup,
+showHideDetailBox
 */
 
 var arr = [];
@@ -40,14 +41,15 @@ var bindingChildByParentId,
     trimSpacesOnEditor,
     checkContainsValue;
 
-function bindingSetting(id, data, currValue) {
+function bindingSetting(id, data, currValue) {    
     if (id === 'ddlproduct') {
         var defaultValue = { "Id": 0, "Type": 'Product', "Value": "N/A", "DisplayOrder": 0, "Child": null, "IsSub": false, "Parent": null };
         $("#tmplOption").tmpl(defaultValue).appendTo("#" + id);
     }
-
+    
     if (data && data.length > 0) {
         $("#tmplOption").tmpl(data).appendTo("#" + id);
+        
         if (currValue != null) {
             $("#" + id + " option[value='" + currValue + "']").attr("selected", "selected");
         }
@@ -77,13 +79,14 @@ function bindingSetting(id, data, currValue) {
 
 bindingChildByParentId = function (id, data, currValue, selectedId) {
     if (data) {
+        var totalItems = data.length;
         $('#' + id).empty();
         if (id === 'ddlbettype' || data.length === 0) {
             $('<option value="0">N/A</option>').appendTo($("#" + id));
         }
 
-        if (data.length > 0) {
-            for (var i = 0; i < data.length; i++) {
+        if (totalItems > 0) {
+            for (var i = 0; i < totalItems; i++) {
                 if (data[i].Child && data[i].Id === currValue) {
                     bindingSetting(id, data[i].Child, selectedId);
                 }
@@ -768,19 +771,11 @@ function getAutoFeedbackSubject() {
 
 }
 
-function downup(buttonId, detailBoxid) {
-    var showDetail = $('#' + buttonId).hasClass('icon-expand') ? true : false;
-
-    if (showDetail) {
-        $('.' + detailBoxid).addClass('hidden');
-
-        $('#' + buttonId).addClass('icon-collapse');
-        $('#' + buttonId).removeClass('icon-expand');
+function showHideDetailBox(isShow, detailBoxid) {
+    if (isShow) {
+        $('.' + detailBoxid).removeClass('hidden');
     }
     else {
-        $('.' + detailBoxid).removeClass('hidden');
-
-        $('#' + buttonId).addClass('icon-expand');
-        $('#' + buttonId).removeClass('icon-collapse');
+        $('.' + detailBoxid).addClass('hidden');
     }
 }

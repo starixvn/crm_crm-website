@@ -38,7 +38,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Content/site/customizeJqueryUI.less");
 
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
-                "~/Scripts/head.load.min.js"));
+                "~/Scripts/head.load.js"));
 
             bundles.Add(new ScriptBundle("~/scripts/respond").Include(
                 "~/Scripts/respond.js",
@@ -66,18 +66,6 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Views/Home/Scripts/LeftPanelManager.js",
                 "~/Views/Home/Scripts/HomeManager.js"));
 
-            bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
-                "~/Scripts/jscookies.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/Customer/ShortInfo/Scripts/CustomerApplication.js",
-                "~/Areas/Customer/ShortInfo/Scripts/CustomerService.js",
-                "~/Areas/Customer/ShortInfo/Scripts/CustomerController.js",
-                "~/Areas/Customer/ShortInfo/Scripts/CustomerManager.js"));
-
-            bundles.AddAndInclude(
-                "~/Areas/ShortCustomerInfo/Styles",
-                "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less");
-
             bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
                 "~/Scripts/AngularJS/angular.js"));
 
@@ -87,17 +75,11 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/Scripts/FanexMultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
 
-            bundles.Add(new ScriptBundle("~/Areas/DetailCustomerInfo/Scripts").Include(
-                "~/Scripts/jscookies.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
-                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
-                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js",
-                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailDirective.js"));
-
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
 
+            RegisterBundles_Customer_ShortInfo(ref bundles);
+            RegisterBundles_Customer_DetailInfo(ref bundles);
             RegisterBundles_TimePicker(ref bundles);
             RegisterBundles_CommunicationLog_ViewLog(ref bundles);
             RegisterBundles_CommunicationLog_Edit(ref bundles);
@@ -110,6 +92,38 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_SettingLog(ref bundles);
             RegisterBundles_Dashboard_ViewInfo(ref bundles);
             RegisterBundles_Dashboard_VerifyFlag(ref bundles);
+        }
+
+        /// <summary>
+        /// Registers the bundles customer short information.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        public static void RegisterBundles_Customer_ShortInfo(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
+                "~/Scripts/jscookies.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerApplication.js",
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerService.js",
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerController.js",
+                "~/Areas/Customer/ShortInfo/Scripts/Directives/*.js",
+                "~/Areas/Customer/ShortInfo/Scripts/CustomerManager.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/ShortCustomerInfo/Styles",
+                "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less");
+        }
+
+        public static void RegisterBundles_Customer_DetailInfo(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/DetailCustomerInfo/Scripts").Include(
+                "~/Scripts/jscookies.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailApplication.js",
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailService.js",
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailController.js",
+                "~/Areas/Customer/DetailInfo/Scripts/CustomerDetailDirective.js",
+                "~/Areas/Customer/DetailInfo/Scripts/Directives/*.js"));
         }
 
         public static void RegisterBundles_TimePicker(ref BundleCollection bundles)
@@ -227,7 +241,7 @@ namespace Fanex.CRM.Web.View.App_Start
         }
 
         /// <summary>
-        /// Registers the remark bundles.
+        /// Registers the bundles remark.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles_Remark(ref BundleCollection bundles)

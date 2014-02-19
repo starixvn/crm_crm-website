@@ -40,13 +40,13 @@
         <div class="row search-breadbrumb">
             <div class="col-xs-3 col-sm-3 col-md-3 search-frm">
                 <div class="text-search col-xs-9 col-sm-9 col-md-9">
-                    <input id="txtuserName" type="text" class="inputSearch" value="Search..." name="txtuserName"
-                        autocomplete="off" />
-                    <input id="btnSendMsg" type="button" class="searchSubmit" value=" " />
+                    <input id="txtuserName" type="text" class="inputSearch" value="@Resources.Language.Default_SearchTextbox" name="txtuserName"
+                        autocomplete="off" tabindex="2" />
+                    <input id="buttonsearch" type="button" class="searchSubmit" value=" " tabindex="1" />
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
                     <label>
-                        <input id="isGuest" type="checkbox" />
+                        <input id="isGuest" type="checkbox" tabindex="3" />
                         @Labels.Guest
                     </label>
                 </div>
@@ -57,12 +57,12 @@
         <div class="row contentbox">
             <div class="col-xs-3 col-sm-3 col-md-3 leftcontent">
                 <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="" marginheight="0"
-                    frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 99%;" allowtransparency="true">
+                    frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;" allowtransparency="true">
                 </iframe>
             </div>
             <div id="rightcontent" class="col-xs-9 col-sm-9 col-md-9 rightcontent">
                 <iframe id="centerFr" name="centerFr" src="BlankPage" scrolling="auto" marginwidth="0"
-                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 99%;"
+                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
                     allowtransparency="true"></iframe>
             </div>
         </div>

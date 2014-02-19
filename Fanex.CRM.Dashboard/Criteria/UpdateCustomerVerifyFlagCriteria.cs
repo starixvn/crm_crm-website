@@ -31,6 +31,8 @@ namespace Fanex.CRM.Dashboard.Criteria
 
         public bool IsVerifyBetCredit { get; set; }
 
+        public bool IsVerifyGivenCredit { get; set; }
+
         public int UserId
         {
             get
@@ -47,8 +49,10 @@ namespace Fanex.CRM.Dashboard.Criteria
             }
         }
 
+        [SpParam(SqlParamName = "errcode")]
         public int ErrorCode { get; set; }
 
+        [SpParam(SqlParamName = "errmsg")]
         public string ErrorMessage { get; set; }
 
         public override string GetSettingKey()

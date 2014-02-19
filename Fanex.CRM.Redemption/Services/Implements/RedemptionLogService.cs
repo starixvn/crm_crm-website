@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Redemption.Services.Implements
 {
     using System;
+    using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
@@ -19,22 +20,30 @@ namespace Fanex.CRM.Redemption.Services.Implements
     using Fanex.CRM.Redemption.Resources;
     using Fanex.CRM.Redemption.Services.Interfaces;
     using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
 
     /// <summary>
     /// Redemption Log Service.
     /// </summary>
     public class RedemptionLogService : IRedemptionLogService
     {
-        private readonly IRedemptionLogRepository _repositoryInstance;
+        private readonly IRedemptionLogRepository _logRepositoryInstance;
+
+        private ISettingService _serviceSetting;
 
         public RedemptionLogService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public RedemptionLogService(IRedemptionLogRepository repositoryInstance)
+        public RedemptionLogService(
+            IRedemptionLogRepository logRepositoryInstance,
+            ISettingService serviceSetting)
         {
-            _repositoryInstance = repositoryInstance ?? new RedemptionLogRepository();
+            _logRepositoryInstance = logRepositoryInstance ?? new RedemptionLogRepository();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         /// <summary>
@@ -44,11 +53,11 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// <returns>The logs by customer identifier.</returns>
         public CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            CustomerLogInfo result = null;
+            CustomerLogInfo customerInfo = null;
             try
             {
-                var rawData = _repositoryInstance.GetLogsByCustomerId(criteria);
-                result = new CustomerLogInfo
+                var rawData = _logRepositoryInstance.GetLogsByCustomerId(criteria);
+                customerInfo = new CustomerLogInfo
                 {
                     CustomerId = criteria.CustomerId,
                     Logs = rawData
@@ -59,7 +68,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return customerInfo;
         }
 
         /// <summary>
@@ -69,18 +78,18 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// <returns>The logs by running number.</returns>
         public LogInfo GetLogById(GetLogByIdCriteria criteria)
         {
-            LogInfo result = null;
+            LogInfo log = null;
             try
             {
-                var rawData = _repositoryInstance.GetLogById(criteria);
-                result = rawData;
+                var rawData = _logRepositoryInstance.GetLogById(criteria);
+                log = rawData;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return log;
         }
 
         /// <summary>
@@ -90,13 +99,13 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
-            Result result = null;
+            Result updateResult = null;
             try
             {
-                result = _repositoryInstance.UpdateLog(criteria);
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                updateResult = _logRepositoryInstance.UpdateLog(criteria);
+                if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
                 {
-                    result.Message = Labels.Redemption_Log_UpdateSuccess;
+                    updateResult.Message = Labels.Redemption_Log_UpdateSuccess;
                 }
             }
             catch (Exception ex)
@@ -104,7 +113,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return updateResult;
         }
 
         /// <summary>
@@ -114,13 +123,13 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// <returns>Insert result.</returns>
         public Result InsertLog(InsertLogCriteria criteria)
         {
-            Result result = null;
+            Result insertResult = null;
             try
             {
-                result = _repositoryInstance.InsertLog(criteria);
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                insertResult = _logRepositoryInstance.InsertLog(criteria);
+                if (insertResult != null && insertResult.Code == ErrorCodeConstants.NoneError)
                 {
-                    result.Message = Labels.Redemption_Log_InsertSuccess;
+                    insertResult.Message = Labels.Redemption_Log_InsertSuccess;
                 }
             }
             catch (Exception ex)
@@ -128,7 +137,58 @@ namespace Fanex.CRM.Redemption.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return insertResult;
+        }
+
+        /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <returns>All status.</returns>
+        public List<SettingInfo> GetAllStatus()
+        {
+            var allStatusResult = new List<SettingInfo>();
+            try
+            {
+                var allStatusSetting = _serviceSetting.GetAllStatus();
+                if (allStatusSetting == null)
+                {
+                    return allStatusResult;
+                }
+
+                allStatusResult = new List<SettingInfo> 
+                { 
+                    new SettingInfo(),
+                    new SettingInfo(),
+                    new SettingInfo()
+                };
+
+                foreach (var status in allStatusSetting)
+                {
+                    if (status.Name == Labels.Open)
+                    {
+                        allStatusResult[0] = status;
+                        continue;
+                    }
+
+                    if (status.Name == Labels.Closed)
+                    {
+                        allStatusResult[1] = status;
+                        continue;
+                    }
+
+                    if (status.Name == Labels.KIV)
+                    {
+                        allStatusResult[2] = status;
+                        continue;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allStatusResult;
         }
     }
 }

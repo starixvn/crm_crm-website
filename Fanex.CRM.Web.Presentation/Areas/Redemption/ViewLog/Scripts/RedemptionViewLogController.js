@@ -13,6 +13,7 @@ function (
     $redemptionViewLogService) {
     $scope.customerId = customerId;
     $scope.isSearched = false;
+    $scope.isSetFocus = false;
     $scope.searchCriteria = {
         CustomerId: customerId,
         FromDate: initFromDate,
@@ -63,10 +64,22 @@ function (
             Id: crmConstants.Enums.Status.All
         };
         $scope.unblockUI();
+        $scope.searchLogs();
     };
-    $scope.updateSelectedStatus = function (status) {
-        if (status) {
-            $scope.searchCriteria.Status = status;
+    $scope.updateSelectedStatus = function (statusId) {
+        statusId = parseInt(statusId);
+        var statusLength = $scope.statusList.length;
+        var selectedStatus = null;
+        for (var i = 0; i < statusLength; i++) {
+            var status = $scope.statusList[i];
+            if (status.Id === statusId) {
+                selectedStatus = status;
+                break;
+            }
+        }
+
+        if (selectedStatus) {
+            $scope.searchCriteria.Status = selectedStatus;
         }
         else {
             $scope.searchCriteria.Status = {
@@ -103,6 +116,9 @@ function (
             });
     };
     $scope.closeInsertView = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
         if (!parent.homeManager.CachedData.shouldReloadView) {
             return;
         }
@@ -129,7 +145,8 @@ function (
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
             var insertLogController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
             parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-            parent.homeManager.showConfirmIgnoreChangePopUp(insertLogController.ignoreChanges);
+            parent.homeManager.showConfirmIgnoreChangePopUp(insertLogController.ignoreChanges,
+                insertLogController.setFocus);
             return false;
         }
 
@@ -140,7 +157,8 @@ function (
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
             var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
             parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-            parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges);
+            parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges,
+                popUpController.setFocus);
             return false;
         }
 
@@ -148,6 +166,9 @@ function (
     };
 
     $scope.closeEditView = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
         if (!parent.homeManager.CachedData.shouldReloadView) {
             return;
         }
@@ -173,7 +194,7 @@ function (
             window.rootUrl + "Redemption/OpenInsertView?" + $.param({ customerId: $scope.customerId }),
             viewResources.Insert_Redemption_Log,
             $(parent.document).width() - 600,
-            500,
+            450,
             true,
             false,
             parent.window,
@@ -191,7 +212,7 @@ function (
             }),
             viewResources.Edit_Redemption_Log,
             $(parent.document).width() - 600,
-            500,
+            450,
             true,
             false,
             parent.window,
@@ -213,7 +234,17 @@ function (
         } catch (e) {
         }
     };
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
     angular.element(document).ready(function () {
         $scope.initController();
+        $scope.setFocus();
     });
 } ]);

@@ -16,15 +16,18 @@
 <body>
     <div class="main container" data-ng-controller="customerDetailController">
         <div class="row panel-group">
-            <div class="row title group-header" data-ng-click="isShowPersonalInfo = !isShowPersonalInfo">@Labels.Personal_Info</div>
+            <div class="row title group-header" data-ng-class="isShowPersonalInfo ? '' : 'border-bottom-none'"
+                data-ng-click="isShowPersonalInfo = !isShowPersonalInfo">@Labels.Personal_Info</div>
             <div class="row content" data-ng-show="isShowPersonalInfo">
                 <div class="col-md-4">
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="firstName">
-                                @Labels.First_Name</label></div>
-                        <div class="col-md-7">
-                            <input type="text" class="textbox" id="firstName" data-ng-model="customerDetail.FirstName" />
+                            <label for="title">
+                                @Labels.Title</label></div>
+                        <div class="col-md-7" data-ng-model="titleList" dropdown-title-container>
+                            <select id="customerinfodetail-titleoptions" tabindex="1" class="selTitle" default-focus
+                                data-ng-model="isSetFocus">
+                            </select>
                         </div>
                     </div>
                     <div class="row item">
@@ -32,9 +35,12 @@
                             <label for="contact1">
                                 @Labels.Contact_Number_1</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox code-country" id="contact1" data-ng-model="customerDetail.PhoneInfo[0].CountryCode" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[0].AreaCode" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[0].PhoneNumber" />
+                            <input type="text" class="textbox code-country" id="contact1" data-ng-model="customerDetail.PhoneInfo[0].CountryCode"
+                                tabindex="4" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[0].AreaCode"
+                                tabindex="5" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[0].PhoneNumber"
+                                tabindex="6" />
                         </div>
                     </div>
                     <div class="row item">
@@ -42,9 +48,12 @@
                             <label for="extension">
                                 @Labels.Fax</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.FaxInfo.AreaCode" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.FaxNumber" />
+                            <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode"
+                                tabindex="13" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.FaxInfo.AreaCode"
+                                tabindex="14" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.FaxNumber"
+                                tabindex="15" />
                         </div>
                     </div>
                     <div class="row item">
@@ -52,7 +61,8 @@
                             <label for="skype">
                                 @Labels.Skype</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="skype" data-ng-model="customerDetail.Skype" />
+                            <input type="text" class="textbox" id="skype" data-ng-model="customerDetail.Skype"
+                                tabindex="20" />
                         </div>
                     </div>
                     <div class="row item">
@@ -60,7 +70,103 @@
                             <label for="MSN">
                                 @Labels.MSN</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="MSN" data-ng-model="customerDetail.MSN" />
+                            <input type="text" class="textbox" id="MSN" data-ng-model="customerDetail.MSN" tabindex="23" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="MSN">
+                                @Labels.Birthday</label></div>
+                        <div class="col-md-7" date-picker-container>
+                            <input id="birthday" type="text" class="textbox timepicker txtcalendar" tabindex="26" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="language">
+                                @Labels.Language</label></div>
+                        <div class="col-md-7" dropdown-language data-ng-model="languageList">
+                            <select id="customerinfodetail-languageoptions" tabindex="29">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row row-item">
+                        <div class="col-xs-4 col-sm-3 col-md-3">
+                            <label for="isVIP" class="labelforcheckbox checkbox">
+                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" />
+                                @Labels.VIP</label></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="firstName">
+                                @Labels.First_Name</label></div>
+                        <div class="col-md-7">
+                            <input type="text" class="textbox" id="firstName" data-ng-model="customerDetail.FirstName"
+                                tabindex="2" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="contact2">
+                                @Labels.Contact_Number_2</label></div>
+                        <div class="col-md-7">
+                            <input type="text" class="textbox code-country" id="contact2" data-ng-model="customerDetail.PhoneInfo[1].CountryCode"
+                                tabindex="7" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[1].AreaCode"
+                                tabindex="8" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[1].PhoneNumber"
+                                tabindex="9" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="mobile">
+                                @Labels.Mobile</label></div>
+                        <div class="col-md-7">
+                            <input type="text" class="textbox code-country" id="mobile" data-ng-model="customerDetail.MobilePhone.CountryCode"
+                                tabindex="16" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.MobilePhone.AreaCode"
+                                tabindex="17" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.MobilePhone.PhoneNumber"
+                                tabindex="18" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="email">
+                                @Labels.Email</label></div>
+                        <div class="col-md-7">
+                            <input type="text" class="textbox" id="email" data-ng-model="customerDetail.Email"
+                                tabindex="21" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="passport">
+                                @Labels.Passport_Number</label></div>
+                        <div class="col-md-7">
+                            <input type="text" class="textbox" id="passport" data-ng-model="customerDetail.Passport.Name"
+                                tabindex="24" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="site">
+                                @Labels.Site</label></div>
+                        <div class="col-md-7" data-ng-model="siteList" dropdown-site-container>
+                            <select id="customerinfodetail-siteoptions" class="dropdown-siteinfo" tabindex="26">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="bettingcode">
+                                @Labels.Betting_Code</label></div>
+                        <div class="col-md-7" date-picker-container>
+                            <input type="text" class="textbox" id="bettingcode" data-ng-model="customerDetail.BettingCode[0]"
+                                tabindex="30" />
                         </div>
                     </div>
                 </div>
@@ -70,63 +176,8 @@
                             <label for="lastName">
                                 @Labels.Last_Name</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="lastName" data-ng-model="customerDetail.LastName" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-5">
-                            <label for="contact2">
-                                @Labels.Contact_Number_2</label></div>
-                        <div class="col-md-7">
-                            <input type="text" class="textbox code-country" id="contact2" data-ng-model="customerDetail.PhoneInfo[1].CountryCode" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[1].AreaCode" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[1].PhoneNumber" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-5">
-                            <label for="mobile">
-                                @Labels.Mobile</label></div>
-                        <div class="col-md-7">
-                            <input type="text" class="textbox code-country" id="mobile" data-ng-model="customerDetail.MobilePhone.CountryCode" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.MobilePhone.AreaCode" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.MobilePhone.PhoneNumber" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-5">
-                            <label for="email">
-                                @Labels.Email</label></div>
-                        <div class="col-md-7">
-                            <input type="text" class="textbox" id="email" data-ng-model="customerDetail.Email" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-5">
-                            <label for="passport">
-                                @Labels.Passport_Number</label></div>
-                        <div class="col-md-7">
-                            <input type="text" class="textbox" id="passport" data-ng-model="customerDetail.Passport.Name" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-5">
-                            <label for="site">
-                                @Labels.Site</label></div>
-                        <div class="col-md-7" data-ng-model="siteList" dropdown-site-container>
-                            <select id="customerinfodetail-siteoptions" class="dropdown-siteinfo">
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="row item">
-                        <div class="col-md-5">
-                            <label for="language">
-                                @Labels.Language</label></div>
-                        <div class="col-md-7" dropdown-language data-ng-model="languageList">
-                            <select id="customerinfodetail-languageoptions">
-                            </select>
+                            <input type="text" class="textbox" id="lastName" data-ng-model="customerDetail.LastName"
+                                tabindex="3" />
                         </div>
                     </div>
                     <div class="row item">
@@ -134,9 +185,12 @@
                             <label for="contact3">
                                 @Labels.Contact_Number_3</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox code-country" id="contact3" data-ng-model="customerDetail.PhoneInfo[2].CountryCode" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[2].AreaCode" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[2].PhoneNumber" />
+                            <input type="text" class="textbox code-country" id="contact3" data-ng-model="customerDetail.PhoneInfo[2].CountryCode"
+                                tabindex="10" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[2].AreaCode"
+                                tabindex="11" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[2].PhoneNumber"
+                                tabindex="12" />
                         </div>
                     </div>
                     <div data-ng-repeat="personalInfoContact in customerDetail.PersonalInfoContact track by $index">
@@ -145,15 +199,26 @@
                                 <label for="pic1">
                                     @Labels.PIC {{ $index + 1 }}</label></div>
                             <div class="col-md-7">
-                                <input type="text" class="textbox" id="pic{{ $index + 1 }}" data-ng-model="customerDetail.PersonalInfoContact[$index]" />
+                                <input type="text" class="textbox" id="pic{{ $index + 1 }}" data-ng-model="customerDetail.PersonalInfoContact[$index]"
+                                    tabindex="{{ 19 + $index * 3 }}" />
                             </div>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-5">
+                            <label for="refcode2">
+                                @Labels.Ref_Codes_2</label></div>
+                        <div class="col-md-7" date-picker-container>
+                            <input type="text" class="textbox" id="refcode2" data-ng-model="customerDetail.BettingCode[1]"
+                                tabindex="31" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row panel-group">
-            <div class="row title group-header" data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo">
+            <div class="row title group-header" data-ng-class="isShowHomeAddressInfo ? '' : 'border-bottom-none'"
+                data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo">
                 @Labels.Home_Address</div>
             <div class="row content" data-ng-show="isShowHomeAddressInfo">
                 <div data-ng-repeat="addressLine in customerDetail.AddressInfo.LineList track by $index">
@@ -204,7 +269,8 @@
             </div>
         </div>
         <div class="row panel-group last">
-            <div class="row title group-header" data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
+            <div class="row title group-header" data-ng-class="isShowBankInfoInfo ? '' : 'border-bottom-none'"
+                data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
                 @Labels.Bank_Info</div>
             <div class="row content" data-ng-show="isShowBankInfoInfo">
                 <div class="row">
@@ -300,18 +366,19 @@
     @Scripts.Render("~/Scripts/FanexMultipleSelect")
     @Scripts.Render("~/Areas/DetailCustomerInfo/Scripts")
     <script type="text/javascript"> 
-    window.rootUrl = '@Url.Content("~")'; 
-    var viewResources = { 
-        OK: 'OK',
-        Select: '@Labels.Select',
-        Symbol_NotApply: '@Labels.Symbol_NotApply',
-        Alert: '@Labels.Alert',
-        All_Languages: '@Labels.All_Languages',
-        No_languages_found: '@Labels.No_languages_found',
-        Symbol_NotApply: '@Labels.Symbol_NotApply',
-        Confirm_Ignore_EditCustomer_ChangesTabDetail: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesTabDetail)'
-      }; 
-    var customerDetail = @Html.Raw(jsonCustomerDetail); 
+        window.rootUrl = '@Url.Content("~")'; 
+        var currentDate = '@DateTime.Now';
+         var viewResources = { 
+            OK: 'OK',
+            Select: '@Labels.Select',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Alert: '@Labels.Alert',
+            All_Languages: '@Labels.All_Languages',
+            No_languages_found: '@Labels.No_languages_found',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Confirm_Ignore_EditCustomer_ChangesTabDetail: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesTabDetail)'
+          }; 
+        var customerDetail = @Html.Raw(jsonCustomerDetail); 
     </script>
 </body>
 </html>

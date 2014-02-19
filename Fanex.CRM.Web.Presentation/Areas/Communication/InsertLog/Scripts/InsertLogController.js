@@ -94,203 +94,12 @@ function (
     $scope.resultMessage = '';
     $scope.isEditingRelatedCustomer = false;
     $scope.isVerifyRelatedCustomer = false;
+    $scope.isSetFocus = false;
 
-    $scope.loadedFilter = [];
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
-        $scope.getAllExtension();
-        $scope.getAllCountry();
-        $scope.getCommunicationTool();
-        $scope.getAllLanguage();
-        $scope.getAllMainCategory();
-        $scope.getAllStatus();
-        $scope.getAllSite();
-        $scope.getAllRole();
-        $scope.getAllResponse();
+        $scope.getAllSettingForEdit();
         $scope.getNumberOfFeedbackSubjectTemplate();
-    };
-    $scope.getAllExtension = function () {
-        $scope.BlockUI();
-        $scope.isLoadedAllSite = false;
-        $insertLogService.getAllExtension()
-            .then(function (data) {
-                $scope.extensionList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Extension'
-                });
-
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Extension'
-                });
-
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllCountry = function () {
-        $scope.BlockUI();
-        $insertLogService.getAllCountry()
-            .then(function (data) {
-                $scope.countryList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Country'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Country'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getCommunicationTool = function () {
-        $scope.BlockUI();
-        $insertLogService.getAllCommunicationTool()
-            .then(function (data) {
-                $scope.communicationToolList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'CommunicationTool'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'CommunicationTool'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllLanguage = function () {
-        $scope.BlockUI();
-        $insertLogService.getAllLanguage()
-            .then(function (data) {
-                $scope.languageList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Language'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Language'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllMainCategory = function () {
-        $scope.BlockUI();
-        $insertLogService.getAllMainCategory()
-            .then(function (data) {
-                $scope.mainCategoryList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'MainCategory'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'MainCategory'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllProduct = function () {
-        $scope.BlockUI();
-        $insertLogService.getAllProduct()
-            .then(function (data) {
-                $scope.productList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Product'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Product'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllStatus = function () {
-        $scope.BlockUI();
-        $insertLogService.getAllStatus()
-            .then(function (data) {
-                $scope.statusList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Status'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Status'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllSite = function () {
-        $scope.BlockUI();
-        $insertLogService.getAllSite()
-            .then(function (data) {
-                $scope.siteList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Site'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Site'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllRole = function () {
-        $scope.BlockUI();
-        $insertLogService.getAllRole()
-            .then(function (data) {
-                $scope.roleList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Role'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Role'
-                });
-                $scope.completedLoadFilterInfo();
-            });
-    };
-    $scope.getAllResponse = function () {
-        $scope.BlockUI();
-        $insertLogService.getAllResponse()
-            .then(function (data) {
-                $scope.responseList = data.Result;
-                $scope.loadedFilter.push({
-                    Id: 'Response'
-                });
-                $scope.completedLoadFilterInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.loadedFilter.push({
-                    Id: 'Response'
-                });
-                $scope.completedLoadFilterInfo();
-            });
     };
     $scope.getNumberOfFeedbackSubjectTemplate = function () {
         $scope.BlockUI();
@@ -333,17 +142,8 @@ function (
             });
     };
     $scope.completedLoadFilterInfo = function () {
-        var numberOfLoadFilter = 10;
-        if ($scope.loadedFilter.length === numberOfLoadFilter - 1) {
-            $scope.getAllProduct();
-            return;
-        }
-
-        if ($scope.loadedFilter.length >= numberOfLoadFilter &&
-            $scope.isLoadedFeedbackSubjectTemplate) {
-            $scope.initSelectedLogInfo();
-            $scope.unblockUI();
-        }
+        $scope.initSelectedLogInfo();
+        $scope.unblockUI();
     };
     $scope.initSelectedLogInfo = function () {
         $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
@@ -354,20 +154,18 @@ function (
         var initEndTime = new Date(currentTime);
         initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);
         $scope.communicationLog.EndTime = initEndTime;
-        setTimeout(function () {
-            $scope.communicationLog.Extension = $scope.extensionList[0];
-            $scope.communicationLog.Country = $scope.countryList[0];
-            $scope.communicationLog.CommunicationTool = $scope.communicationToolList[0];
-            $scope.communicationLog.LanguageId = $scope.languageList[0].Id;
-            $scope.communicationLog.MainCategory = $scope.mainCategoryList[0];
-            $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
-            $scope.communicationLog.Product = $scope.productList[0];
-            $scope.communicationLog.BetType = $scope.betTypeList[0];
-            $scope.communicationLog.SiteInfo = $scope.statusList[0];
-            $scope.communicationLog.Status = $scope.siteList[0];
-            $scope.communicationLog.RoleInfo = $scope.roleList[0];
-            $scope.communicationLog.Response = $scope.responseList[0];
-        }, 1000);
+        $scope.communicationLog.Extension = $scope.extensionList[0];
+        $scope.communicationLog.Country = $scope.countryList[0];
+        $scope.communicationLog.CommunicationTool = $scope.communicationToolList[0];
+        $scope.communicationLog.LanguageId = $scope.languageList[0].Id;
+        $scope.communicationLog.MainCategory = $scope.mainCategoryList[0];
+        $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
+        $scope.communicationLog.Product = $scope.productList[0];
+        $scope.communicationLog.BetType = $scope.betTypeList[0];
+        $scope.communicationLog.SiteInfo = $scope.statusList[0];
+        $scope.communicationLog.Status = $scope.siteList[0];
+        $scope.communicationLog.RoleInfo = $scope.roleList[0];
+        $scope.communicationLog.Response = $scope.responseList[0];
 
         $scope.updateRemarkPrefix();
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
@@ -377,7 +175,7 @@ function (
         /* jshint camelcase: false */
         return sharedScriptManager.stringFormat("{0}/{1} ",
             [moment($scope.communicationLog.StartTime).format(crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix),
-            $scope.communicationLog.CommunicationTool.Value]);
+            $scope.communicationLog.CommunicationTool.Name]);
     };
     $scope.updateRemarkPrefix = function () {
         var remarkPrefix = $scope.generateRemarkPrefix();
@@ -648,6 +446,38 @@ function (
         $scope.isVerifyRelatedCustomer = true;
         $scope.isEditingRelatedCustomer = false;
     };
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
+    $scope.getAllSettingForEdit = function () {
+        $scope.BlockUI();
+        $scope.isLoadedAllSite = false;
+        $insertLogService.getAllSettingForEdit()
+            .then(function (data) {
+                var allSetting = data.Result;
+                $scope.extensionList = allSetting.ExtensionList;
+                $scope.countryList = allSetting.CountryList;
+                $scope.communicationToolList = allSetting.CommunicationToolList;
+                $scope.languageList = allSetting.LanguageList;
+                $scope.mainCategoryList = allSetting.MainCategoryList;
+                $scope.productList = allSetting.ProductList;
+                $scope.statusList = allSetting.StatusList;
+                $scope.siteList = allSetting.SiteList;
+                $scope.roleList = allSetting.RoleList;
+                $scope.responseList = allSetting.ResponseList;
+                $scope.completedLoadFilterInfo();
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.completedLoadFilterInfo();
+            });
+    };
+
     angular.element(document).ready(function () {
         $scope.$watch(function ($scope) {
             $scope.updateChangeFlag();
@@ -655,6 +485,7 @@ function (
 
         parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;
         $scope.initController();
+        $scope.setFocus();
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: "CustomerCommunicationLogs_Insert"

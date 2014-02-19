@@ -146,7 +146,7 @@ customerDetailApplication.directive('dropdownSiteContainer', function () {
                 dropdownLanguage.push({
                     id: prefixId + info.Id,
                     value: info.Id,
-                    text: info.Value,
+                    text: info.Name,
                     checked: isChecked,
                     enable: true,
                     cssClass: "",
@@ -173,6 +173,8 @@ customerDetailApplication.directive('dropdownSiteContainer', function () {
             selectedList: 3,
             listData: dropdownLanguage
         });
+
+        element.find("#customerinfodetail-languageoptions .fanex-multiselect-state-default").attr("tabindex", 29);
     }
 
     return {

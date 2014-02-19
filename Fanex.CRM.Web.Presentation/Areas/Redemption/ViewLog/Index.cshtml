@@ -32,14 +32,10 @@
                     <input id="toDate" type="text" class="textbox txtcalendar" />
                 </div>
             </div>
-            <div class="item afterButton">
+            <div class="item afterButton" data-ng-model="statusList" dropdown-status-container>
                 <label for="status">
                     @Labels.Status</label>
                 <select id="status">
-                    <option data-ng-click="updateSelectedStatus();" value="crmConstants.Enums.Status.All">@Labels.All
-                    </option>
-                    <option data-ng-repeat="status in statusList track by $index" data-ng-click="updateSelectedStatus(status)"
-                        value="status.Id">{{ status.Value}} </option>
                 </select>
             </div>
             <div class="item">
@@ -48,10 +44,10 @@
             </div>
         </div>
         <div class="row row-item" data-ng-show="isShowResultMessage">
-            <div class="col-xs-11 col-sm-11 col-md-11">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
-                    <div>
-                        {{ resultMessage }}</div>
+                    <div data-ng-bind="resultMessage">
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,7 +58,7 @@
             </div>
         </div>
         <div class="row btn-group">
-            <button class="btn" data-ng-click="insertLog();">
+            <button class="btn" data-ng-click="insertLog();" default-focus data-ng-model="isSetFocus">
                 <span class="hotkey">I</span>nsert Case</button>
         </div>
     </div>
@@ -82,7 +78,8 @@
             Subject:'@Labels.Subject',
             Claimed_Time: '@Labels.Claimed_Time',
             Status: '@Labels.Status',
-            Customer_Redemption_Logs: '@Labels.Customer_Redemption_Logs'
+            Customer_Redemption_Logs: '@Labels.Customer_Redemption_Logs',
+            All: '@Labels.All'
         }; 
     </script>
 </body>

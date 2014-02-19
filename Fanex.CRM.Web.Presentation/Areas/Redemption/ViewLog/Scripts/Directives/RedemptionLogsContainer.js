@@ -1,7 +1,9 @@
 ﻿"use strict";
 /* global redemptionViewLogApplication,
 viewResources,
-crmConstants */
+crmConstants,
+sharedScriptManager */
+/* jshint camelcase: false */
 redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function () {
     var cachedLogs = [];
     function compareValues(sortInfo, valueA, valueB) {
@@ -26,7 +28,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
             case sortDataTypeEnums.Date:
                 var dateA = new Date(valueA);
                 var dateB = new Date(valueB);
-                isGreaterThan = (sortInfo.sortFactor == 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
+                isGreaterThan = (sortInfo.sortFactor === 0 || sharedScriptManager.datesEqual(dateB, dateA)) ?
                                 0 :
                                 (dateB < dateA && sortInfo.sortFactor === 1) ||
                                 (dateA < dateB && sortInfo.sortFactor === -1) ?
@@ -59,7 +61,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
             default:
                 sortInfo.sortFactor = 0;
                 break;
-        };
+        }
 
         switch (columnName) {
             case "ColSubject":
@@ -94,6 +96,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
         return cachedLogs;
     }
 
+    /* jshint camelcase: false */
     function getGridOptions_SortedAndPagingData(sortInfo) {
         var logList = sortReport(sortInfo, cachedLogs);
         var bodyData = [];
@@ -105,7 +108,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                     Columns: [
                         {
                             Name: "ColSubject",
-                            Value: '<div class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</div>',
+                            Value: '<span class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
@@ -138,7 +141,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                     Columns: [
                         {
                             Name: "ColSubject",
-                            Value: '<div class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</div>',
+                            Value: '<span class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
@@ -163,7 +166,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
             fullWidth: true,
             fullHeight: true,
             gridHeight: 150,
-            showDistinctRow: false,
+            showDistinctRow: true,
             showHighlightRow: true,
             headerColumnHeight: 29,
             bodyRowHeight: 29,
@@ -176,10 +179,10 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                     return bodyRows;
                 },
                 afterGridSorted: function () {
-                    var editLogLinks = tableRedemptionLogs.find(".editlog-link-td");
+                    var editLogLinks = tableRedemptionLogs.find(".editlog-link-td .editlog-link");
                     editLogLinks.unbind("click");
                     editLogLinks.click(function () {
-                        scope.editLog($(this).find('.editlog-link').attr("data-logid"));
+                        scope.editLog($(this).attr("data-logid"));
                     });
 
                     var editLogRows = tableRedemptionLogs.find(".editlog-link-row");
@@ -191,10 +194,10 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
         };
 
         tableRedemptionLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var editLogLinks = tableRedemptionLogs.find(".editlog-link-td");
+        var editLogLinks = tableRedemptionLogs.find(".editlog-link-td .editlog-link");
         editLogLinks.unbind("click");
         editLogLinks.click(function () {
-            scope.editLog($(this).find('.editlog-link').attr("data-logid"));
+            scope.editLog($(this).attr("data-logid"));
         });
 
         var editLogRows = tableRedemptionLogs.find(".editlog-link-row");
