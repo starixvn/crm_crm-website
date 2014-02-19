@@ -6,7 +6,7 @@ gup, head, addDays */
 //Contain the template
 var AllSetting;
 var maxHeightOfPopUp = ($(window).height() + 50);
-var maxWidthOfPopUp = ($(window).width());
+var maxWidthOfPopUp = 987;
 var lastedFeedback;
 
 // -- Calendar --- //
