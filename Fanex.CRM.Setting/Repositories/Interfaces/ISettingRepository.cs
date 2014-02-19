@@ -12,6 +12,7 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
     using System.Collections.Generic;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
+    using Fanex.NAP.Framework.Data;
 
     public interface ISettingRepository
     {
@@ -24,5 +25,7 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
         List<SettingInfo> GetAllSettingRelation(GetAllSettingRelationCriteria criteria);
 
         List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria);
+
+        List<SettingInfo> GetAllLogAction(ICriteria criteria);
     }
 }

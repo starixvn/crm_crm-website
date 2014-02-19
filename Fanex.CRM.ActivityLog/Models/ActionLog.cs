@@ -11,24 +11,33 @@ namespace Fanex.CRM.ActionLog.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Action Log class.
     /// </summary>
     public abstract class ActionLog
     {
+        public ActionLog()
+        {
+            FieldNames = new List<string>(10);
+            OldValuesList = new List<string>(10);
+            NewValuesList = new List<string>(10);
+        }
+
         public DateTime LogDate { get; set; }
 
         public string Username { get; set; }
 
-        public string Action { get; set; }
+        public string ActionName { get; set; }
 
-        public string FieldName { get; set; }
+        public string OldValues { get; set; }
 
-        public string OldValue { get; set; }
+        public string NewValues { get; set; }
 
-        public string NewValue { get; set; }
+        public IList<string> FieldNames { get; set; }
+
+        public IList<string> OldValuesList { get; set; }
+
+        public IList<string> NewValuesList { get; set; }
     }
 }

@@ -9,10 +9,10 @@
 
 namespace Fanex.CRM.ActionLog.Repositories.Implements
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.CRM.ActionLog.Models;
     using Fanex.CRM.ActionLog.Repositories.Interfaces;
+    using Fanex.Data;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -20,16 +20,26 @@ namespace Fanex.CRM.ActionLog.Repositories.Implements
     /// </summary>
     public class ActionLogRepository : IActionLogRepository
     {
-        #region IActionLogRepository Members
+        #region Activity Log
 
-        public IList<ActivityLog> GetActivityLogs(ICriteria criteria)
+        public IEnumerable<ActivityLog> GetActivityLogs(ICriteria criteria)
         {
-            throw new NotImplementedException();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return objectDB.Query<ActivityLog>(criteria.GetSpParams());
+            }
         }
 
-        public IList<SettingLog> GetSettingLogs(ICriteria criteria)
+        #endregion
+
+        #region Setting Log
+
+        public IEnumerable<SettingLog> GetSettingLogs(ICriteria criteria)
         {
-            throw new NotImplementedException();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return objectDB.Query<SettingLog>(criteria.GetSpParams());
+            }
         }
 
         #endregion

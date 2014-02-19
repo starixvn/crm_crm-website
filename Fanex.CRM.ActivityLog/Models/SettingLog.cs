@@ -9,17 +9,12 @@
 
 namespace Fanex.CRM.ActionLog.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
     /// Setting Log model.
     /// </summary>
     public class SettingLog : ActionLog
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         public string Entity { get; set; }
     }

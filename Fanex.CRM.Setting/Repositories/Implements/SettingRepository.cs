@@ -15,6 +15,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Repositories.Interfaces;
     using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// Setting Repository.
@@ -182,6 +183,35 @@ namespace Fanex.CRM.Setting.Repositories.Implements
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Gets all log actions.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The log actions list.</returns>
+        public List<SettingInfo> GetAllLogAction(ICriteria criteria)
+        {
+            var actions = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            actions.Add(new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("ActionID"),
+                                Name = reader.GetStringNotNull("ActionName")
+                            });
+                        }
+                    }
+                }
+            }
+
+            return actions;
         }
     }
 }

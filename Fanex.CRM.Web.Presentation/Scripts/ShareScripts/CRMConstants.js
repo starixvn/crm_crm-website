@@ -27,6 +27,11 @@ var CRMConstants = function () {
         Status: {
             All: 0
         },
+
+        Action: {
+            All: 0
+        },
+
         Error: {
             None: 0
         },

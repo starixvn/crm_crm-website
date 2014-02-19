@@ -9,17 +9,17 @@
 
 namespace Fanex.CRM.ActionLog.Services.Interfaces
 {
-    using System.Collections.Generic;
+    using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// IActionLogService interface.
     /// </summary>
     public interface IActionLogService
     {
-        IList<ActivityLog> GetActivityLogs(ICriteria criteria);
+        PagedList<ActivityLog> GetActivityLogs(GetActivityLogCriteria criteria);
 
-        IList<SettingLog> GetSettingLogs(ICriteria criteria);
+        PagedList<SettingLog> GetSettingLogs(GetSettingLogCriteria criteria);
     }
 }

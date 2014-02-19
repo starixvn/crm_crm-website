@@ -18,8 +18,8 @@ namespace Fanex.CRM.ActionLog.Repositories.Interfaces
     /// </summary>
     public interface IActionLogRepository
     {
-        IList<ActivityLog> GetActivityLogs(ICriteria criteria);
+        IEnumerable<ActivityLog> GetActivityLogs(ICriteria criteria);
 
-        IList<SettingLog> GetSettingLogs(ICriteria criteria);
+        IEnumerable<SettingLog> GetSettingLogs(ICriteria criteria);
     }
 }

@@ -173,6 +173,18 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogService.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogController.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogApplication.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\FromDate.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ActivitiLogsContainer.js" />
+    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ToDate.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\SettingLogsContainer.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\FromDate.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\ToDate.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogService.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogController.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogApplication.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RelatedCustomer.js" />
@@ -675,8 +687,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\ActionLog\ActivityLog\Scripts\" />
-    <Folder Include="Areas\ActionLog\SettingLog\Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

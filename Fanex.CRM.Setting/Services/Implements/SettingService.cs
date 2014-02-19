@@ -13,7 +13,6 @@ namespace Fanex.CRM.Setting.Services.Implements
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Setting.Constants;
@@ -42,6 +41,8 @@ namespace Fanex.CRM.Setting.Services.Implements
         public const string GetAllStatusSessionKey = "Fanex.CRM.Setting.GetAllStatusSessionKey";
         public const string GetAllRoleSessionKey = "Fanex.CRM.Setting.GetAllRoleSessionKey";
         public const string GetAllResponseSessionKey = "Fanex.CRM.Setting.GetAllResponseSessionKey";
+        public const string GetAllActivityLogActionKey = "Fanex.CRM.Setting.GetAllActivityLogActionKey";
+        public const string GetAllSettingLogActionKey = "Fanex.CRM.Setting.GetAllSettingLogActionKey";
 
         private readonly ISettingRepository _repositoryInstance;
 
@@ -639,6 +640,36 @@ namespace Fanex.CRM.Setting.Services.Implements
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Gets all log actions.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The log actions list.</returns>
+        public List<SettingInfo> GetAllLogAction(GetActionCriteria criteria)
+        {
+            List<SettingInfo> actions = null;
+            string cachedKey = criteria.Type == SettingConstants.ActivityLog
+                ? GetAllActivityLogActionKey
+                : GetAllSettingLogActionKey;
+            try
+            {
+                actions = CacheService.Get<List<SettingInfo>>(cachedKey);
+                if (actions != null)
+                {
+                    return actions;
+                }
+
+                actions = _repositoryInstance.GetAllLogAction(criteria);
+                CacheService.Set(cachedKey, actions);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return actions;
         }
 
         private int GetSiteGroupId(int siteId)
