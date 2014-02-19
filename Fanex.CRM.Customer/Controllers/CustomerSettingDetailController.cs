@@ -24,22 +24,22 @@ namespace Fanex.CRM.Customer.Controllers
     /// </summary>
     public class CustomerSettingDetailController : BaseController
     {
-        private ICustomerDetailService _serviceInstance;
+        private ICustomerDetailService _customerServiceInstance;
 
         public CustomerSettingDetailController()
             : this(null)
         {
         }
 
-        public CustomerSettingDetailController(ICustomerDetailService serviceInstance)
+        public CustomerSettingDetailController(ICustomerDetailService customerServiceInstance)
         {
-            _serviceInstance = serviceInstance ?? new CustomerDetailService();
+            _customerServiceInstance = customerServiceInstance ?? new CustomerDetailService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult Index(string customerId)
         {
-            CustomerInfo customerDetail = _serviceInstance.GetCustomerInfoDetailById(new GetCustomerInfoDetailByIdCriteria
+            CustomerInfo customerDetail = _customerServiceInstance.GetCustomerInfoDetailById(new GetCustomerInfoDetailByIdCriteria
             {
                 CustomerId = customerId
             });
@@ -51,8 +51,8 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
-            var result = _serviceInstance.GetCustomerInfoDetailById(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var customerInfo = _customerServiceInstance.GetCustomerInfoDetailById(criteria);
+            var jsonResult = Json(customerInfo, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
@@ -60,8 +60,8 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
-            var result = _serviceInstance.UpdateCustomerInfoDetail(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var customerInfoDetail = _customerServiceInstance.UpdateCustomerInfoDetail(criteria);
+            var jsonResult = Json(customerInfoDetail, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
     }

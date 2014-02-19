@@ -20,118 +20,118 @@ namespace Fanex.CRM.Setting.Controllers
     /// </summary>
     public class SettingController : BaseController
     {
-        private ISettingService _serviceInstance;
+        private ISettingService _settingServiceInstance;
 
         public SettingController()
             : this(null)
         {
         }
 
-        public SettingController(ISettingService serviceInstance)
+        public SettingController(ISettingService settingServiceInstance)
         {
-            _serviceInstance = serviceInstance ?? new SettingService();
+            _settingServiceInstance = settingServiceInstance ?? new SettingService();
         }
 
         [HttpPost]
         public JsonResult GetAllSite()
         {
-            var result = _serviceInstance.GetAllSite();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allSite = _settingServiceInstance.GetAllSite();
+            var jsonResult = Json(allSite, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllTitle()
         {
-            var result = _serviceInstance.GetAllTitle();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allTitle = _settingServiceInstance.GetAllTitle();
+            var jsonResult = Json(allTitle, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllCountry()
         {
-            var result = _serviceInstance.GetAllCountry();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allCountry = _settingServiceInstance.GetAllCountry();
+            var jsonResult = Json(allCountry, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllLanguage()
         {
-            var result = _serviceInstance.GetAllLanguage();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allLanguage = _settingServiceInstance.GetAllLanguage();
+            var jsonResult = Json(allLanguage, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllExtension()
         {
-            var result = _serviceInstance.GetAllExtension();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allExtension = _settingServiceInstance.GetAllExtension();
+            var jsonResult = Json(allExtension, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllCommunicationTool()
         {
-            var result = _serviceInstance.GetAllCommunicationTool();
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var allCommunicationTool = _settingServiceInstance.GetAllCommunicationTool();
+            return Json(allCommunicationTool, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult GetAllMainCategory()
         {
-            var result = _serviceInstance.GetAllMainCategory();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allCategory = _settingServiceInstance.GetAllMainCategory();
+            var jsonResult = Json(allCategory, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllProduct()
         {
-            var result = _serviceInstance.GetAllProduct();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allProduct = _settingServiceInstance.GetAllProduct();
+            var jsonResult = Json(allProduct, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllStatus()
         {
-            var result = _serviceInstance.GetAllStatus();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allStatus = _settingServiceInstance.GetAllStatus();
+            var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllRole()
         {
-            var result = _serviceInstance.GetAllRole();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allRole = _settingServiceInstance.GetAllRole();
+            var jsonResult = Json(allRole, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllResponse()
         {
-            var result = _serviceInstance.GetAllResponse();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allResponse = _settingServiceInstance.GetAllResponse();
+            var jsonResult = Json(allResponse, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetNumberOfFeedbackSubjectTemplate()
         {
-            var result = _serviceInstance.GetNumberOfFeedbackSubjectTemplate();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var numberOfFeedbackSubjectTemplate = _settingServiceInstance.GetNumberOfFeedbackSubjectTemplate();
+            var jsonResult = Json(numberOfFeedbackSubjectTemplate, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria)
         {
-            var result = _serviceInstance.GetFeedbackSubjectTemplateByPagingIndex(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var feedbackSubjectTemplateByPagingIndex = _settingServiceInstance.GetFeedbackSubjectTemplateByPagingIndex(criteria);
+            var jsonResult = Json(feedbackSubjectTemplateByPagingIndex, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
     }

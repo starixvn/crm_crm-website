@@ -23,16 +23,16 @@ namespace Fanex.CRM.Dashboard.Controllers
     /// </summary>
     public class DashboardController : BaseController
     {
-        private IDashboardService _serviceInstance;
+        private IDashboardService _dashboardServiceInstance;
 
         public DashboardController()
             : this(null)
         {
         }
 
-        public DashboardController(IDashboardService serviceInstance)
+        public DashboardController(IDashboardService dashboardServiceInstance)
         {
-            _serviceInstance = serviceInstance ?? new DashboardService();
+            _dashboardServiceInstance = dashboardServiceInstance ?? new DashboardService();
         }
 
         public ActionResult Index(int customerId)
@@ -67,7 +67,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult OpenEditVerifyFlagView(int customerId)
         {
-            var customerInfo = _serviceInstance.GetCustomerInfo(new GetCustomerInfoCriteria
+            var customerInfo = _dashboardServiceInstance.GetCustomerInfo(new GetCustomerInfoCriteria
             {
                 CustomerId = customerId
             });
@@ -78,40 +78,40 @@ namespace Fanex.CRM.Dashboard.Controllers
         [HttpPost]
         public ActionResult GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {
-            var result = _serviceInstance.GetCustomerRemarks(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var remarks = _dashboardServiceInstance.GetCustomerRemarks(criteria);
+            var jsonResult = Json(remarks, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public ActionResult GetCustomerInfo(GetCustomerInfoCriteria criteria)
         {
-            var result = _serviceInstance.GetCustomerInfo(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var customerInfo = _dashboardServiceInstance.GetCustomerInfo(criteria);
+            var jsonResult = Json(customerInfo, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public ActionResult GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
         {
-            var result = _serviceInstance.GetRedemptionLogs(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var redemptionLogs = _dashboardServiceInstance.GetRedemptionLogs(criteria);
+            var jsonResult = Json(redemptionLogs, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public ActionResult GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
         {
-            var result = _serviceInstance.GetCommunicationLogs(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var communicationLogs = _dashboardServiceInstance.GetCommunicationLogs(criteria);
+            var jsonResult = Json(communicationLogs, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public ActionResult UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
-            var result = _serviceInstance.UpdateCustomerVerifyFlag(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var updateResult = _dashboardServiceInstance.UpdateCustomerVerifyFlag(criteria);
+            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
     }

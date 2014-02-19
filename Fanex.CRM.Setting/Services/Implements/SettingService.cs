@@ -44,16 +44,16 @@ namespace Fanex.CRM.Setting.Services.Implements
         public const string GetAllRoleSessionKey = "Fanex.CRM.Setting.GetAllRoleSessionKey";
         public const string GetAllResponseSessionKey = "Fanex.CRM.Setting.GetAllResponseSessionKey";
 
-        private readonly ISettingRepository _repositoryInstance;
+        private readonly ISettingRepository _settingRepositoryInstance;
 
         public SettingService()
             : this(null)
         {
         }
 
-        public SettingService(ISettingRepository repositoryInstance)
+        public SettingService(ISettingRepository settingRepositoryInstance)
         {
-            _repositoryInstance = repositoryInstance ?? new SettingRepository();
+            _settingRepositoryInstance = settingRepositoryInstance ?? new SettingRepository();
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 allSetting = CacheService.Get<List<SettingInfo>>(GetAllSettingSessionKey);
                 if (allSetting == null)
                 {
-                    allSetting = _repositoryInstance.GetAllSetting(new GetAllSettingCriteria());
+                    allSetting = _settingRepositoryInstance.GetAllSetting(new GetAllSettingCriteria());
                 }
 
                 CacheService.Set(GetAllSettingSessionKey, allSetting);
@@ -118,16 +118,16 @@ namespace Fanex.CRM.Setting.Services.Implements
             Justification = "Reviewed. Suppression is OK here.")]
         public List<SiteInfo> GetAllSite()
         {
-            var result = new List<SiteInfo>();
+            var allSite = new List<SiteInfo>();
             try
             {
-                result = CacheService.Get<List<SiteInfo>>(GetAllSiteSessionKey);
-                if (result != null)
+                allSite = CacheService.Get<List<SiteInfo>>(GetAllSiteSessionKey);
+                if (allSite != null)
                 {
-                    return result;
+                    return allSite;
                 }
 
-                result = new List<SiteInfo>();
+                allSite = new List<SiteInfo>();
                 var crmSite = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
                     SettingName = SettingTypeConstants.Site,
@@ -155,17 +155,17 @@ namespace Fanex.CRM.Setting.Services.Implements
                         siteGroup.ChildSites.Add(newSite);
                     }
 
-                    result.Add(siteGroup);
+                    allSite.Add(siteGroup);
                 }
 
-                CacheService.Set(GetAllSiteSessionKey, result);
+                CacheService.Set(GetAllSiteSessionKey, allSite);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allSite;
         }
 
         /// <summary>
@@ -174,30 +174,30 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All title.</returns>
         public List<SettingInfo> GetAllTitle()
         {
-            var result = new List<SettingInfo>();
+            var allTitle = new List<SettingInfo>();
             try
             {
-                result = CacheService.Get<List<SettingInfo>>(GetAllTitleSessionKey);
-                if (result != null)
+                allTitle = CacheService.Get<List<SettingInfo>>(GetAllTitleSessionKey);
+                if (allTitle != null)
                 {
-                    return result;
+                    return allTitle;
                 }
 
-                result = new List<SettingInfo>();
-                result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                allTitle = new List<SettingInfo>();
+                allTitle = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
                     SettingName = SettingTypeConstants.Title,
                     ParentId = 0
                 });
 
-                CacheService.Set(GetAllTitleSessionKey, result);
+                CacheService.Set(GetAllTitleSessionKey, allTitle);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allTitle;
         }
 
         /// <summary>
@@ -206,24 +206,24 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All country.</returns>
         public List<CountryInfo> GetAllCountry()
         {
-            var result = new List<CountryInfo>();
+            var allCountry = new List<CountryInfo>();
             try
             {
-                result = CacheService.Get<List<CountryInfo>>(GetAllCountrySessionKey);
-                if (result != null)
+                allCountry = CacheService.Get<List<CountryInfo>>(GetAllCountrySessionKey);
+                if (allCountry != null)
                 {
-                    return result;
+                    return allCountry;
                 }
 
-                result = _repositoryInstance.GetAllCountry(new GetAllCountryCriteria());
-                CacheService.Set(GetAllCountrySessionKey, result);
+                allCountry = _settingRepositoryInstance.GetAllCountry(new GetAllCountryCriteria());
+                CacheService.Set(GetAllCountrySessionKey, allCountry);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allCountry;
         }
 
         /// <summary>
@@ -232,24 +232,24 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All language.</returns>
         public List<SettingInfo> GetAllLanguage()
         {
-            var result = new List<SettingInfo>();
+            var allLanguage = new List<SettingInfo>();
             try
             {
-                result = CacheService.Get<List<SettingInfo>>(GetAllLanguageSessionKey);
-                if (result != null)
+                allLanguage = CacheService.Get<List<SettingInfo>>(GetAllLanguageSessionKey);
+                if (allLanguage != null)
                 {
-                    return result;
+                    return allLanguage;
                 }
 
-                result = _repositoryInstance.GetAllLanguage(new GetAllLanguageCriteria());
-                CacheService.Set(GetAllLanguageSessionKey, result);
+                allLanguage = _settingRepositoryInstance.GetAllLanguage(new GetAllLanguageCriteria());
+                CacheService.Set(GetAllLanguageSessionKey, allLanguage);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allLanguage;
         }
 
         /// <summary>
@@ -258,30 +258,30 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All extension.</returns>
         public List<SettingInfo> GetAllExtension()
         {
-            var result = new List<SettingInfo>();
+            var allExtension = new List<SettingInfo>();
             try
             {
-                result = CacheService.Get<List<SettingInfo>>(GetAllExtensionSessionKey);
-                if (result != null)
+                allExtension = CacheService.Get<List<SettingInfo>>(GetAllExtensionSessionKey);
+                if (allExtension != null)
                 {
-                    return result;
+                    return allExtension;
                 }
 
-                result = new List<SettingInfo>();
-                result = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                allExtension = new List<SettingInfo>();
+                allExtension = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
                     SettingName = SettingTypeConstants.Extension,
                     ParentId = 0
                 });
 
-                CacheService.Set(GetAllExtensionSessionKey, result);
+                CacheService.Set(GetAllExtensionSessionKey, allExtension);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allExtension;
         }
 
         /// <summary>
@@ -290,24 +290,24 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All communication tool.</returns>
         public List<SettingInfo> GetAllCommunicationTool()
         {
-            var result = new List<SettingInfo>();
+            var allCommunicationTool = new List<SettingInfo>();
             try
             {
-                result = CacheService.Get<List<SettingInfo>>(GetAllCommunicationToolSessionKey);
-                if (result != null)
+                allCommunicationTool = CacheService.Get<List<SettingInfo>>(GetAllCommunicationToolSessionKey);
+                if (allCommunicationTool != null)
                 {
-                    return result;
+                    return allCommunicationTool;
                 }
 
-                result = _repositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
-                CacheService.Set(GetAllCommunicationToolSessionKey, result);
+                allCommunicationTool = _settingRepositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
+                CacheService.Set(GetAllCommunicationToolSessionKey, allCommunicationTool);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allCommunicationTool;
         }
 
         /// <summary>
@@ -316,36 +316,36 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All main category.</returns>
         public List<SettingInfo> GetAllMainCategory()
         {
-            var result = new List<SettingInfo>();
+            var allMainCategory = new List<SettingInfo>();
             try
             {
-                result = CacheService.Get<List<SettingInfo>>(GetAllMainCategorySessionKey);
-                if (result != null)
+                allMainCategory = CacheService.Get<List<SettingInfo>>(GetAllMainCategorySessionKey);
+                if (allMainCategory != null)
                 {
-                    return result;
+                    return allMainCategory;
                 }
 
-                result = new List<SettingInfo>();
-                var rawData = _repositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
+                allMainCategory = new List<SettingInfo>();
+                var rawData = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
                 foreach (var data in rawData)
                 {
-                    data.ChildSettings = _repositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
+                    data.ChildSettings = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
                     {
                         ParentId = data.Id
                     });
 
                     data.ChildSettings = data.ChildSettings.OrderBy(s => s.DisplayOrder).ToList();
-                    result.Add(data);
+                    allMainCategory.Add(data);
                 }
 
-                CacheService.Set(GetAllMainCategorySessionKey, result);
+                CacheService.Set(GetAllMainCategorySessionKey, allMainCategory);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allMainCategory;
         }
 
         /// <summary>
@@ -354,16 +354,16 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All product.</returns>
         public List<SettingInfo> GetAllProduct()
         {
-            var result = new List<SettingInfo>();
+            var allProduct = new List<SettingInfo>();
             try
             {
-                result = CacheService.Get<List<SettingInfo>>(GetAllProductSessionKey);
-                if (result != null)
+                allProduct = CacheService.Get<List<SettingInfo>>(GetAllProductSessionKey);
+                if (allProduct != null)
                 {
-                    return result;
+                    return allProduct;
                 }
 
-                result = new List<SettingInfo>();
+                allProduct = new List<SettingInfo>();
                 var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
                     SettingName = SettingTypeConstants.Product,
@@ -379,7 +379,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     Value = Labels.Symbol_NotApply
                 };
 
-                result.Add(new SettingInfo
+                allProduct.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
                     Value = Labels.Symbol_NotApply,
@@ -390,17 +390,17 @@ namespace Fanex.CRM.Setting.Services.Implements
                 {
                     data.ChildSettings = GetSubSettingByParentId(data, allSettingRelation, allSetting);
                     data.ChildSettings.Insert(0, notApplySetting);
-                    result.Add(data);
+                    allProduct.Add(data);
                 }
 
-                CacheService.Set(GetAllProductSessionKey, result);
+                CacheService.Set(GetAllProductSessionKey, allProduct);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allProduct;
         }
 
         /// <summary>
@@ -409,26 +409,26 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All status.</returns>
         public List<SettingInfo> GetAllStatus()
         {
-            var result = new List<SettingInfo>();
+            var allStatus = new List<SettingInfo>();
             try
             {
-                result = CacheService.Get<List<SettingInfo>>(GetAllStatusSessionKey);
-                result = null;
-                if (result != null)
+                allStatus = CacheService.Get<List<SettingInfo>>(GetAllStatusSessionKey);
+                allStatus = null;
+                if (allStatus != null)
                 {
-                    return result;
+                    return allStatus;
                 }
 
-                result = _repositoryInstance.GetAllStatus(new GetAllStatusCriteria());
-                result = result.OrderBy(s => s.DisplayOrder).ToList();
-                CacheService.Set(GetAllStatusSessionKey, result);
+                allStatus = _settingRepositoryInstance.GetAllStatus(new GetAllStatusCriteria());
+                allStatus = allStatus.OrderBy(s => s.DisplayOrder).ToList();
+                CacheService.Set(GetAllStatusSessionKey, allStatus);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allStatus;
         }
 
         /// <summary>
@@ -437,31 +437,31 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All role value.</returns>
         public List<SettingInfo> GetAllRole()
         {
-            var result = new List<SettingInfo>();
+            var allRole = new List<SettingInfo>();
             try
             {
-                result = CacheService.Get<List<SettingInfo>>(GetAllRoleSessionKey);
-                if (result != null)
+                allRole = CacheService.Get<List<SettingInfo>>(GetAllRoleSessionKey);
+                if (allRole != null)
                 {
-                    return result;
+                    return allRole;
                 }
 
-                result = new List<SettingInfo>();
+                allRole = new List<SettingInfo>();
                 var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
                     SettingName = SettingTypeConstants.Role,
                     ParentId = 0
                 });
 
-                result = rawData;
-                CacheService.Set(GetAllRoleSessionKey, result);
+                allRole = rawData;
+                CacheService.Set(GetAllRoleSessionKey, allRole);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allRole;
         }
 
         /// <summary>
@@ -470,31 +470,31 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All response.</returns>
         public List<SettingInfo> GetAllResponse()
         {
-            var result = new List<SettingInfo>();
+            var allResponse = new List<SettingInfo>();
             try
             {
-                result = CacheService.Get<List<SettingInfo>>(GetAllResponseSessionKey);
-                if (result != null)
+                allResponse = CacheService.Get<List<SettingInfo>>(GetAllResponseSessionKey);
+                if (allResponse != null)
                 {
-                    return result;
+                    return allResponse;
                 }
 
-                result = new List<SettingInfo>();
+                allResponse = new List<SettingInfo>();
                 var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
                 {
                     SettingName = SettingTypeConstants.Response,
                     ParentId = 0
                 });
 
-                result = rawData;
-                CacheService.Set(GetAllResponseSessionKey, result);
+                allResponse = rawData;
+                CacheService.Set(GetAllResponseSessionKey, allResponse);
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allResponse;
         }
 
         /// <summary>
@@ -559,7 +559,7 @@ namespace Fanex.CRM.Setting.Services.Implements
             List<FeedbackTemplate> listFeedbackTemplate = new List<FeedbackTemplate>();
             try
             {
-                listFeedbackTemplate = _repositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
+                listFeedbackTemplate = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
                 {
                     TemplateId = 0
                 });
@@ -612,8 +612,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 CacheService.Delete(GetAllCountrySessionKey);
                 CacheService.Delete(GetAllTitleSessionKey);
                 CacheService.Delete(GetAllFeedbackTemplateSubjectSessionKey);
-
-
+                
                 CacheService.Delete(GetAllSiteSessionKey);
                 CacheService.Delete(GetAllLanguageSessionKey);
                 CacheService.Delete(GetAllExtensionSessionKey);
@@ -665,13 +664,13 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>The setting relation by name.</returns>
         private List<SettingInfo> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria)
         {
-            var result = new List<SettingInfo>();
+            var settingRelations = new List<SettingInfo>();
             try
             {
-                result = _repositoryInstance.GetSettingRelationByName(criteria);
-                if (result != null)
+                settingRelations = _settingRepositoryInstance.GetSettingRelationByName(criteria);
+                if (settingRelations != null)
                 {
-                    result = result.OrderBy(setting => setting.DisplayOrder).ToList();
+                    settingRelations = settingRelations.OrderBy(setting => setting.DisplayOrder).ToList();
                 }
             }
             catch (Exception ex)
@@ -679,7 +678,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return settingRelations;
         }
 
         /// <summary>
@@ -691,7 +690,7 @@ namespace Fanex.CRM.Setting.Services.Implements
             List<SettingInfo> settingRelations = new List<SettingInfo>();
             try
             {
-                settingRelations = _repositoryInstance.GetAllSettingRelation(new GetAllSettingRelationCriteria());
+                settingRelations = _settingRepositoryInstance.GetAllSettingRelation(new GetAllSettingRelationCriteria());
             }
             catch (Exception ex)
             {

@@ -29,7 +29,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
     /// </summary>
     public class RedemptionLogService : IRedemptionLogService
     {
-        private readonly IRedemptionLogRepository _repositoryInstance;
+        private readonly IRedemptionLogRepository _logRepositoryInstance;
 
         private ISettingService _serviceSetting;
 
@@ -39,10 +39,10 @@ namespace Fanex.CRM.Redemption.Services.Implements
         }
 
         public RedemptionLogService(
-            IRedemptionLogRepository repositoryInstance,
+            IRedemptionLogRepository logRepositoryInstance,
             ISettingService serviceSetting)
         {
-            _repositoryInstance = repositoryInstance ?? new RedemptionLogRepository();
+            _logRepositoryInstance = logRepositoryInstance ?? new RedemptionLogRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
@@ -53,11 +53,11 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// <returns>The logs by customer identifier.</returns>
         public CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            CustomerLogInfo result = null;
+            CustomerLogInfo customerInfo = null;
             try
             {
-                var rawData = _repositoryInstance.GetLogsByCustomerId(criteria);
-                result = new CustomerLogInfo
+                var rawData = _logRepositoryInstance.GetLogsByCustomerId(criteria);
+                customerInfo = new CustomerLogInfo
                 {
                     CustomerId = criteria.CustomerId,
                     Logs = rawData
@@ -68,7 +68,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return customerInfo;
         }
 
         /// <summary>
@@ -78,18 +78,18 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// <returns>The logs by running number.</returns>
         public LogInfo GetLogById(GetLogByIdCriteria criteria)
         {
-            LogInfo result = null;
+            LogInfo log = null;
             try
             {
-                var rawData = _repositoryInstance.GetLogById(criteria);
-                result = rawData;
+                var rawData = _logRepositoryInstance.GetLogById(criteria);
+                log = rawData;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return log;
         }
 
         /// <summary>
@@ -99,13 +99,13 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
-            Result result = null;
+            Result updateResult = null;
             try
             {
-                result = _repositoryInstance.UpdateLog(criteria);
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                updateResult = _logRepositoryInstance.UpdateLog(criteria);
+                if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
                 {
-                    result.Message = Labels.Redemption_Log_UpdateSuccess;
+                    updateResult.Message = Labels.Redemption_Log_UpdateSuccess;
                 }
             }
             catch (Exception ex)
@@ -113,7 +113,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return updateResult;
         }
 
         /// <summary>
@@ -123,13 +123,13 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// <returns>Insert result.</returns>
         public Result InsertLog(InsertLogCriteria criteria)
         {
-            Result result = null;
+            Result insertResult = null;
             try
             {
-                result = _repositoryInstance.InsertLog(criteria);
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                insertResult = _logRepositoryInstance.InsertLog(criteria);
+                if (insertResult != null && insertResult.Code == ErrorCodeConstants.NoneError)
                 {
-                    result.Message = Labels.Redemption_Log_InsertSuccess;
+                    insertResult.Message = Labels.Redemption_Log_InsertSuccess;
                 }
             }
             catch (Exception ex)
@@ -137,7 +137,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return insertResult;
         }
 
         /// <summary>
@@ -146,16 +146,16 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// <returns>All status.</returns>
         public List<SettingInfo> GetAllStatus()
         {
-            var result = new List<SettingInfo>();
+            var allStatusResult = new List<SettingInfo>();
             try
             {
                 var allStatusSetting = _serviceSetting.GetAllStatus();
                 if (allStatusSetting == null)
                 {
-                    return result;
+                    return allStatusResult;
                 }
 
-                result = new List<SettingInfo> 
+                allStatusResult = new List<SettingInfo> 
                 { 
                     new SettingInfo(),
                     new SettingInfo(),
@@ -166,19 +166,19 @@ namespace Fanex.CRM.Redemption.Services.Implements
                 {
                     if (status.Name == Labels.Open)
                     {
-                        result[0] = status;
+                        allStatusResult[0] = status;
                         continue;
                     }
 
                     if (status.Name == Labels.Closed)
                     {
-                        result[1] = status;
+                        allStatusResult[1] = status;
                         continue;
                     }
 
                     if (status.Name == Labels.KIV)
                     {
-                        result[2] = status;
+                        allStatusResult[2] = status;
                         continue;
                     }
                 }
@@ -188,7 +188,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return allStatusResult;
         }
     }
 }
