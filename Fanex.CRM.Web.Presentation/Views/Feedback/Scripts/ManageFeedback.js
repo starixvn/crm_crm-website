@@ -19,6 +19,12 @@ function setupCalendar(arrDateValues, arrIds) {
     }
 }
 
+function bindingEvent() {
+    $('#ddlcategory').change(function () {
+        bindingChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
+    });
+};
+
 function loadSubItem(obj, target, currValue) {
     if ($(obj).val() !== "") {
         if ($(obj).val() !== "0") {
@@ -270,6 +276,8 @@ lastedFeedback = {
                 bindingSetting("ddlCustomerReponse", setting.Response, 0);
 
                 $("select#ddlstatus option[value='11004']").remove();
+
+                bindingEvent();
 
             },
             error: function () { }

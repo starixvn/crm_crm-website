@@ -148,6 +148,17 @@ var isShowDescriptionBox = false;
 var isShowSolutionBox = false;
 var isShowReviewBox = false;
 
+
+function bindingEvent() {
+    $('#ddlcategory').change(function () {
+        bindingChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
+    });
+
+    $('#ddlproduct').change(function () {
+        bindingChildByParentId('ddlbettype', AllSetting.Product, parseInt($('#ddlproduct').val()));
+    });
+};
+
 function addFeedbackInfo(newFeedback) {
     //-------end----------------------------------
     try { parent.BlockUI(); } catch (e) { }
@@ -554,16 +565,6 @@ function getCRMInfoById(custId) {
         }
     });
 }
-
-bindingEvent = function () {
-    $('#ddlcategory').change(function () {
-        bindingChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
-    });
-
-    $('#ddlproduct').change(function () {
-        bindingChildByParentId('ddlbettype', AllSetting.Product, parseInt($('#ddlproduct').val()));
-    });
-};
 
 head.ready(function () {
     initHTMLArea('editboxdes', 'desediter', '');
