@@ -45,6 +45,8 @@ function (
         $insertLogService.getAllStatus()
             .then(function (data) {
                 $scope.statusList = data.Result;
+                $scope.redemptionLog.Status.Id = $scope.statusList[0].Id;
+                $scope.oldRedemptionLog.Status.Id = $scope.statusList[0].Id;
                 $scope.loadedFilter.push({
                     Id: 'Status'
                 });
@@ -112,8 +114,20 @@ function (
     $scope.updateSelectedDate = function (selectedDate) {
         $scope.redemptionLog.ClaimedTime = selectedDate;
     };
-    $scope.updateSelectedStatus = function (status) {
-        $scope.redemptionLog.Status = status;
+    $scope.updateSelectedStatus = function (statusId) {
+        statusId = parseInt(statusId);
+        var statusLength = $scope.statusList.length;
+        var selectedStatus = null;
+        for (var i = 0; i < statusLength; i++) {
+            var status = $scope.statusList[i];
+            if (status.Id === statusId) {
+                selectedStatus = status;
+                break;
+            }
+        }
+
+        $scope.redemptionLog.Status = selectedStatus;
+        $scope.updateChangeFlag();
     };
     $scope.updateSelectedSubject = function (subject) {
         $scope.redemptionLog.Subject = subject;
@@ -206,16 +220,19 @@ function (
             $scope.isSetFocus = true;
         });
     };
-    angular.element(document).ready(function () {
-        $scope.$watch(function ($scope) {
-            if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
+    $scope.updateChangeFlag = function () {
+        if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
                 $scope.redemptionLog.Status.Id !== $scope.oldRedemptionLog.Status.Id ||
                 $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
-                parent.homeManager.CachedData.isChangingDataPopUp = true;
-                parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertRedemption_Changes;
-            } else {
-                parent.homeManager.CachedData.isChangingDataPopUp = false;
-            }
+            parent.homeManager.CachedData.isChangingDataPopUp = true;
+            parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertRedemption_Changes;
+        } else {
+            parent.homeManager.CachedData.isChangingDataPopUp = false;
+        }
+    };
+    angular.element(document).ready(function () {
+        $scope.$watch(function ($scope) {
+            $scope.updateChangeFlag();
         });
 
         parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController = $scope;

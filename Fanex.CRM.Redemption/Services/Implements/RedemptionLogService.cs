@@ -155,13 +155,30 @@ namespace Fanex.CRM.Redemption.Services.Implements
                     return result;
                 }
 
+                result = new List<SettingInfo> { 
+                    new SettingInfo(),
+                    new SettingInfo(),
+                    new SettingInfo()
+                };
+
                 foreach (var status in allStatusSetting)
                 {
-                    if (status.Name == Labels.Open ||
-                        status.Name == Labels.Closed ||
-                        status.Name == Labels.KIV)
+                    if (status.Name == Labels.Open)
                     {
-                        result.Add(status);
+                        result[0] = status;
+                        continue;
+                    }
+
+                    if (status.Name == Labels.Closed)
+                    {
+                        result[1] = status;
+                        continue;
+                    }
+
+                    if (status.Name == Labels.KIV)
+                    {
+                        result[2] = status;
+                        continue;
                     }
                 }
             }

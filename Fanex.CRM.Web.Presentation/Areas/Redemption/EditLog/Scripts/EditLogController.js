@@ -3,14 +3,14 @@
 sharedScriptManager,
 hotKeyManager,
 viewResources */
-editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService', '$bootstrappedData',
+editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService', '$redemptionBootstrappedData',
 function (
     $scope,
     $http,
     $editLogService,
-    $bootstrappedData) {
-    $scope.redemptionLog = $bootstrappedData.redemptionLog;
-    $scope.oldRedemptionLog = angular.copy($bootstrappedData.redemptionLog);
+    $redemptionBootstrappedData) {
+    $scope.redemptionLog = $redemptionBootstrappedData.redemptionLog;
+    $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
     $scope.statusList = null;
 
     $scope.loadedFilter = [];
@@ -102,8 +102,19 @@ function (
     $scope.updateSelectedDate = function (selectedDate) {
         $scope.redemptionLog.ClaimedTime = selectedDate;
     };
-    $scope.updateSelectedStatus = function (status) {
-        $scope.redemptionLog.Status = status;
+    $scope.updateSelectedStatus = function (statusId) {
+        statusId = parseInt(statusId);
+        var statusLength = $scope.statusList.length;
+        var selectedStatus = null;
+        for (var i = 0; i < statusLength; i++) {
+            var status = $scope.statusList[i];
+            if (status.Id === statusId) {
+                selectedStatus = status;
+                break;
+            }
+        }
+
+        $scope.redemptionLog.Status = selectedStatus;
         $scope.updateChangeFlag();
     };
     $scope.updateSelectedSubject = function (subject) {
