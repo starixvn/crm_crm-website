@@ -23,16 +23,16 @@ namespace Fanex.CRM.Remark.Services.Implements
     /// </summary>
     public class RemarkService : IRemarkService
     {
-        private readonly IRemarkRepository _repositoryInstance;
+        private readonly IRemarkRepository _remarkRepository;
 
         public RemarkService()
             : this(null)
         {
         }
 
-        public RemarkService(IRemarkRepository repositoryInstance)
+        public RemarkService(IRemarkRepository remarkRepository)
         {
-            _repositoryInstance = repositoryInstance ?? new RemarkRepository();
+            _remarkRepository = remarkRepository ?? new RemarkRepository();
         }
 
         #region IRemarkService Members
@@ -44,7 +44,7 @@ namespace Fanex.CRM.Remark.Services.Implements
         /// <returns>The remark detail object.</returns>
         public Remarks GetRemarks(ICriteria criteria)
         {
-            var remark = _repositoryInstance.GetRemarks(criteria);
+            var remark = _remarkRepository.GetRemarks(criteria);
             return remark;
         }
 
@@ -93,7 +93,7 @@ namespace Fanex.CRM.Remark.Services.Implements
                 Remarks = remarkBuilder.ToString()
             };
 
-            return _repositoryInstance.UpdateRemarks(criteria);
+            return _remarkRepository.UpdateRemarks(criteria);
         }
 
         #endregion

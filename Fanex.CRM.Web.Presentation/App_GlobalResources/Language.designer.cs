@@ -151,7 +151,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nickname or Username or Phone.
+        ///   Looks up a localized string similar to Phone or Username or Nickname.
         /// </summary>
         internal static string Default_SearchTextbox {
             get {

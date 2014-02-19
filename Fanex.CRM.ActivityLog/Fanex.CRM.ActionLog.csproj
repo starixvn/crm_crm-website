@@ -53,8 +53,6 @@
   <ItemGroup>
     <Compile Include="Controllers\ActionLogController.cs" />
     <Compile Include="Models\ActionLog.cs" />
-    <Compile Include="Controllers\ActivityLogController.cs" />
-    <Compile Include="Controllers\SettingLogController.cs" />
     <Compile Include="Criteria\GetActionLogCriteria.cs" />
     <Compile Include="Criteria\GetActivityLogCriteria.cs" />
     <Compile Include="Criteria\GetSettingLogCriteria.cs" />

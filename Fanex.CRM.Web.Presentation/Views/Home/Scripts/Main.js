@@ -2,7 +2,8 @@
 /*global accUrlDefault, trimAllSpace, 
 userId, gup, userSearch, isGuestSearch,
 leftPanelManager,
-menuManager */
+menuManager,
+homeManager */
 
 /* exported accid, timerId, autosearch,
 isGuest, gotoURL, KeyPress, downup, onBlur,
@@ -191,9 +192,10 @@ $(document).ready(function () {
             rTime: function () {
                 return new Date().getMilliseconds();
             }
-        }
+        },
 
         //aditional parameters
+        closeSuggestion: homeManager.focusSearchTextbox
     });
 
     $('.autocomplete').mouseover(function () {
