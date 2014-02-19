@@ -68,6 +68,16 @@ function trimToArrayUserName(str) {
     return subParent;
 }
 
+function bindingEvent() {
+    $('#ddlcategory').change(function () {
+        bindingChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
+    });
+
+    $('#ddlproduct').change(function () {
+        bindingChildByParentId('ddlbettype', AllSetting.Product, parseInt($('#ddlproduct').val()));
+    });
+};
+
 function loadFeedbackAfterCallAjax(rs, Id) {
     /* jshint maxstatements: 68 */
     FeedbackItem = rs;
@@ -99,6 +109,8 @@ function loadFeedbackAfterCallAjax(rs, Id) {
             if (!allowDeleteFeedback) {
                 $("select#ddlstatus option[value='11004']").remove();
             }
+
+            bindingEvent();
         },
         error: function () {
         },
