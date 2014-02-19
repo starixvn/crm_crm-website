@@ -377,6 +377,8 @@
     <None Include="Areas\Redemption\EditLog\Styles\Redemption.less" />
     <None Include="Areas\Redemption\InsertLog\Styles\Redemption.less" />
     <None Include="Areas\Redemption\ViewLog\Styles\Redemption.less" />
+    <Content Include="Areas\Report\DynamicReport\Index.cshtml" />
+    <Content Include="Areas\Report\Web.config" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\reportgrid.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
@@ -736,6 +738,10 @@
     <ProjectReference Include="..\Fanex.CRM.Remark\Fanex.CRM.Remark.csproj">
       <Project>{4BDA9E77-3B01-4107-9EC7-643922220A9E}</Project>
       <Name>Fanex.CRM.Remark</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Report\Fanex.CRM.Report.csproj">
+      <Project>{CFD9409D-BC95-4C34-B080-4783619DD68E}</Project>
+      <Name>Fanex.CRM.Report</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.User\Fanex.CRM.User.csproj">
       <Project>{806C1CED-415D-4BA4-8B7D-9AF4ED42A880}</Project>
