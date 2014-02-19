@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global redemptionViewLogApplication,
-viewResources */
+viewResources,
+crmConstants */
 redemptionViewLogApplication.directive('dropdownStatusContainer', function () {
     function renderDropdown(scope, element, attrs) {
         /* jshint unused: vars */

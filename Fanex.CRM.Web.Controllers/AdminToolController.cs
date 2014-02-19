@@ -29,20 +29,27 @@ namespace Fanex.CRM.Web.Controllers
     {
         private ISettingService _settingService;
 
+        private Fanex.CRM.Setting.Services.Interfaces.ISettingService _settingServiceNew;
+
         private IFeedbackService _feedbackService;
 
         private ICountryService _countryService;
 
         public AdminToolController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
-        public AdminToolController(ISettingService settingService, IFeedbackService feedbackService, ICountryService countryService)
+        public AdminToolController(
+            ISettingService settingService,
+            IFeedbackService feedbackService,
+            ICountryService countryService,
+             Fanex.CRM.Setting.Services.Interfaces.ISettingService settingServiceNew)
         {
             _settingService = settingService ?? new SettingService();
             _feedbackService = feedbackService ?? new FeedbackService();
             _countryService = countryService ?? new CountryService();
+            _settingServiceNew = settingServiceNew ?? new Fanex.CRM.Setting.Services.Implements.SettingService();
         }
 
         #region Views
@@ -328,6 +335,7 @@ namespace Fanex.CRM.Web.Controllers
             {
                 string ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
                 result = _settingService.Delete(id, ip, userId);
+                _settingServiceNew.ResetAllCache();
             }
             catch (Exception ex)
             {
@@ -444,6 +452,8 @@ namespace Fanex.CRM.Web.Controllers
                 {
                     result = _settingService.Create(setting, ip, userId, parentId);
                 }
+
+                _settingServiceNew.ResetAllCache();
             }
             catch (Exception ex)
             {
@@ -495,6 +505,8 @@ namespace Fanex.CRM.Web.Controllers
                         result = _settingService.Update(setting, ip, userId);
                     }
                 }
+
+                _settingServiceNew.ResetAllCache();
             }
             catch (Exception ex)
             {
@@ -553,6 +565,7 @@ namespace Fanex.CRM.Web.Controllers
             {
                 string ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
                 result = _settingService.Create(settingId, settingName, ip, userId, parentId);
+                _settingServiceNew.ResetAllCache();
             }
             catch (Exception ex)
             {
@@ -586,6 +599,7 @@ namespace Fanex.CRM.Web.Controllers
             {
                 string ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
                 result = _settingService.Delete(settingId, ip, userId, parentId);
+                _settingServiceNew.ResetAllCache();
             }
             catch (Exception ex)
             {
@@ -616,6 +630,7 @@ namespace Fanex.CRM.Web.Controllers
             try
             {
                 result = _feedbackService.DeleteSubjectFeedbackTemplate(templateId);
+                _settingServiceNew.ResetAllCache();
             }
             catch (Exception ex)
             {
@@ -703,6 +718,7 @@ namespace Fanex.CRM.Web.Controllers
             try
             {
                 result = _feedbackService.EditSubjectFeedbackTemplate(templateId, newSubject);
+                _settingServiceNew.ResetAllCache();
             }
             catch (Exception ex)
             {
@@ -733,6 +749,7 @@ namespace Fanex.CRM.Web.Controllers
             try
             {
                 result = _feedbackService.AddSubjectFeedbackTemplate(subject);
+                _settingServiceNew.ResetAllCache();
             }
             catch (Exception ex)
             {

@@ -601,6 +601,35 @@ namespace Fanex.CRM.Setting.Services.Implements
             return result;
         }
 
+        /// <summary>
+        /// Resets all cache.
+        /// </summary>
+        public void ResetAllCache()
+        {
+            try
+            {
+                CacheService.Delete(GetAllSettingSessionKey);
+                CacheService.Delete(GetAllCountrySessionKey);
+                CacheService.Delete(GetAllTitleSessionKey);
+                CacheService.Delete(GetAllFeedbackTemplateSubjectSessionKey);
+
+
+                CacheService.Delete(GetAllSiteSessionKey);
+                CacheService.Delete(GetAllLanguageSessionKey);
+                CacheService.Delete(GetAllExtensionSessionKey);
+                CacheService.Delete(GetAllCommunicationToolSessionKey);
+                CacheService.Delete(GetAllMainCategorySessionKey);
+                CacheService.Delete(GetAllProductSessionKey);
+                CacheService.Delete(GetAllStatusSessionKey);
+                CacheService.Delete(GetAllRoleSessionKey);
+                CacheService.Delete(GetAllResponseSessionKey);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+        }
+        
         private int GetSiteGroupId(int siteId)
         {
             return IsLicenseeSite(siteId) ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup;

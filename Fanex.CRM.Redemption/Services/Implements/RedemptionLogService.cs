@@ -155,7 +155,8 @@ namespace Fanex.CRM.Redemption.Services.Implements
                     return result;
                 }
 
-                result = new List<SettingInfo> { 
+                result = new List<SettingInfo> 
+                { 
                     new SettingInfo(),
                     new SettingInfo(),
                     new SettingInfo()
