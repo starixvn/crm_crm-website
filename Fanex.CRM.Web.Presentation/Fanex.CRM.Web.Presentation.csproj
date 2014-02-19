@@ -224,6 +224,9 @@
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationController.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationDirective.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationService.js" />
+    <Content Include="Areas\Communication\ViewLog\Scripts\Directives\DropdownStatusContainer.js" />
+    <Content Include="Areas\Communication\ViewLog\Scripts\Directives\FromDate.js" />
+    <Content Include="Areas\Communication\ViewLog\Scripts\Directives\ToDate.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailApplication.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailController.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailDirective.js" />
@@ -241,6 +244,7 @@
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardController.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardService.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\CommunicationLogsContainer.js" />
+    <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\RedemptionLogsContainer.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\verifystatus.png" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />

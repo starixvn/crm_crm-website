@@ -143,7 +143,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationApplication.js",
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationService.js",
                 "~/Areas/Communication/ViewLog/Scripts/CommunicationController.js",
-                "~/Areas/Communication/ViewLog/Scripts/CommunicationDirective.js"));
+                "~/Areas/Communication/ViewLog/Scripts/CommunicationDirective.js",
+                "~/Areas/Communication/ViewLog/Scripts/Directives/*.js"));
 
             bundles.AddAndInclude(
                 "~/Areas/Communication/ViewLogStyles",

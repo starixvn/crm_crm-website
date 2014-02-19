@@ -258,4 +258,16 @@
   <data name="Running_No" xml:space="preserve">
     <value>Running No.</value>
   </data>
+  <data name="From_date" xml:space="preserve">
+    <value>From date</value>
+  </data>
+  <data name="To_date" xml:space="preserve">
+    <value>To date</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
+  </data>
 </root>

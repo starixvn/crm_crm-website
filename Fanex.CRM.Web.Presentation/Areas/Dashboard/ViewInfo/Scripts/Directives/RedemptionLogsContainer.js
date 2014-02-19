@@ -34,7 +34,7 @@ dashboardApplication.directive('tableRedemptionLogsContainer', function () {
 
         /* jshint camelcase: false */
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Subject, Width: 680, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
+            columns: [{ HeaderText: viewResources.Subject, Width: 663, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Claimed_Time, Width: 120, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Status, Width: 140, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center"}],
             showTitle: true,
