@@ -621,7 +621,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return actions;
                 }
 
-                actions = _repositoryInstance.GetAllLogAction(criteria);
+                actions = _settingRepositoryInstance.GetAllLogAction(criteria);
                 CacheService.Set(cachedKey, actions);
             }
             catch (Exception ex)

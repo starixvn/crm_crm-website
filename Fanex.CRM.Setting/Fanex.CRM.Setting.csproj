@@ -60,9 +60,14 @@
     <Compile Include="Constants\SiteConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Criteria\GetActionCriteria.cs" />
+    <Compile Include="Criteria\GetAllCommunicationToolCriteria.cs" />
     <Compile Include="Criteria\GetAllCountryCriteria.cs" />
+    <Compile Include="Criteria\GetAllLanguageCriteria.cs" />
+    <Compile Include="Criteria\GetAllMainCategoryCriteria.cs" />
     <Compile Include="Criteria\GetAllSettingCriteria.cs" />
     <Compile Include="Criteria\GetAllSettingRelationCriteria.cs" />
+    <Compile Include="Criteria\GetAllStatusCriteria.cs" />
+    <Compile Include="Criteria\GetAllSubCategoryCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackSubjectTemplateByIdCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackSubjectTemplateByPagingIndexCriteria.cs" />
     <Compile Include="Criteria\GetSettingByIdCriteria.cs" />

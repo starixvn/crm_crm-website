@@ -138,8 +138,8 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpGet]
         public JsonResult GetAllLogAction(GetActionCriteria criteria)
         {
-            var result = _serviceInstance.GetAllLogAction(criteria);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var actions = _settingServiceInstance.GetAllLogAction(criteria);
+            return Json(actions, JsonRequestBehavior.AllowGet);
         }
     }
 }

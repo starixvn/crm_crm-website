@@ -24,6 +24,7 @@ activityLogApplication.controller('activityLogController', ['$scope', '$activity
     $scope.actions = [];
     $scope.isUpdatingDate = false;
     $scope.isSearched = false;
+    $scope.isSetFocus = false;
 
     $scope.initController = function () {
         $scope.getActions();
@@ -106,7 +107,18 @@ activityLogApplication.controller('activityLogController', ['$scope', '$activity
         }
     };
 
+    $scope.completeSetFocus = function () {
+        $scope.isSetFocus = false;
+    };
+
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.isSetFocus = true;
+        });
+    };
+
     angular.element(document).ready(function () {
         $scope.initController();
+        $scope.setFocus();
     });
 } ]);

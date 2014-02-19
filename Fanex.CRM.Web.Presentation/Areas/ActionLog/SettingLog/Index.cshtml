@@ -38,7 +38,10 @@
             </select>
         </div>
         <div class="item">
-            <button class="btn" data-ng-click="searchSettingLogs()"><span class="hotkey">S</span>ubmit</button>
+            <button class="btn"
+                default-focus 
+                data-ng-model="isSetFocus"
+                data-ng-click="searchSettingLogs()"><span class="hotkey">S</span>ubmit</button>
         </div>
     </div>
     <div class="row">
