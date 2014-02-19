@@ -239,7 +239,7 @@
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DefaultFocus.js" />
-    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\OptionStatus.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DropdownStatusContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogApplication.js" />
@@ -248,6 +248,7 @@
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DefaultFocus.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DropdownStatusContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\OptionStatus.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />

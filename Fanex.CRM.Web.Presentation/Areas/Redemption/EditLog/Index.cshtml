@@ -39,11 +39,8 @@
                     <label for="status">
                         @Labels.Status</label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="col-xs-3 col-sm-3 col-md-3" data-ng-model="statusList" dropdown-status-container>
                     <select id="status" tabindex="2">
-                        <option data-ng-repeat="status in statusList track by $index" value="status.Id" data-status="status"
-                            data-ng-selected="status.Id === redemptionLog.Status.Id" option-status data-ng-bind="status.Name">
-                        </option>
                     </select>
                 </div>
             </div>
@@ -89,7 +86,7 @@
             Confirm_Ignore_EditRedemption_Changes: '@Html.Raw(Labels.Confirm_Ignore_EditRedemption_Changes)'
     };
 
-        editLogApplication.factory('$bootstrappedData', function () {
+        editLogApplication.factory('$redemptionBootstrappedData', function () {
             return {
                 redemptionLog: @Html.Raw(jsonLogInfo)
             };
