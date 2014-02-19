@@ -22,12 +22,7 @@
         </div>
         <div class="item">
             <label for="fromDate">@Labels.FromDate</label>
-            <div class="display-inline-block"
-                date-picker-from-date-container="fromDate"
-                data-dateFormat="M dd, yy"
-                data-initValue="@DateTime.Today.FirstDayOfMonth().ToShortFormatedDate()"
-                data-maxDate="@DateTime.Today.ToShortFormatedDate()"
-                data-ng-model="searchCriteria.MaxFromDate">
+            <div class="display-inline-block" data-ng-model="searchCriteria.MaxFromDate" date-picker-from-date-container>
                 <input id="fromDate" type="text" class="textbox txtcalendar" />
             </div>
         </div>
