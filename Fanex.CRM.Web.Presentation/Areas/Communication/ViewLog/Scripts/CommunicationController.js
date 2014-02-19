@@ -2,7 +2,8 @@
 /* global communicationApplication,
 hotKeyManager,
 viewResources,
-crmConstants */
+crmConstants,
+currentDate */
 communicationApplication.controller('communicationController', ['$scope', '$http', '$communicationService',
 function (
     $scope,

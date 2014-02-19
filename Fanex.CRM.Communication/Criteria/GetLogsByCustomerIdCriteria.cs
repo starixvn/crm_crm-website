@@ -30,7 +30,7 @@ namespace Fanex.CRM.Communication.Criteria
         public int StatusId { get; set; }
 
         [SpParam(SqlParamName = "handler")]
-        public int Handler { get; set; }
+        public string Handler { get; set; }
 
         public override string GetSettingKey()
         {
