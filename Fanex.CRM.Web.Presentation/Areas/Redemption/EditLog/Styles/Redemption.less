@@ -1,4 +1,5 @@
 @import "../../../../Content/site/variables.less";
+@import "../../../../Content/site/mixins.less";
 
 .redemption-filter {
    width: 969px;
@@ -25,4 +26,13 @@
 .subject-container div[popupcontainer=true]
 {
     margin-top: 26px;
+}
+
+/* Formatting for palette in html */
+div.jHtmlAreaColorPickerMenu {
+    width: 114px;
+
+    *, *:before, *:after {
+        .box-sizing(content-box);
+    }
 }
