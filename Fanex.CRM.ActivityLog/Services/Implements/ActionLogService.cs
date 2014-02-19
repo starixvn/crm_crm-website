@@ -25,16 +25,16 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     /// </summary>
     public class ActionLogService : IActionLogService
     {
-        private readonly IActionLogRepository _instanceRepository;
+        private readonly IActionLogRepository _actionLogRepository;
 
         public ActionLogService()
             : this(null)
         {
         }
 
-        public ActionLogService(IActionLogRepository instanceRepository)
+        public ActionLogService(IActionLogRepository actionLogRepository)
         {
-            _instanceRepository = instanceRepository ?? new ActionLogRepository();
+            _actionLogRepository = actionLogRepository ?? new ActionLogRepository();
         }
 
         #region Activity Log
@@ -43,10 +43,10 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         /// Gets the activity logs.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>Activity log list.</returns>
+        /// <returns>The activity log list with paging.</returns>
         public PagedList<ActivityLog> GetActivityLogs(GetActivityLogCriteria criteria)
         {
-            var activityLogs = _instanceRepository.GetActivityLogs(criteria);
+            var activityLogs = _actionLogRepository.GetActivityLogs(criteria);
             
             PagedList<ActivityLog> paginationActivityLogs = new PagedList<ActivityLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
             foreach (var log in paginationActivityLogs)
@@ -61,9 +61,14 @@ namespace Fanex.CRM.ActionLog.Services.Implements
 
         #region Setting Log
 
+        /// <summary>
+        /// Gets the setting logs.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The setting log list with paging.</returns>
         public PagedList<SettingLog> GetSettingLogs(GetSettingLogCriteria criteria)
         {
-            var settingLogs = _instanceRepository.GetSettingLogs(criteria);
+            var settingLogs = _actionLogRepository.GetSettingLogs(criteria);
 
             PagedList<SettingLog> paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
             foreach (var log in paginationSettingLogs)

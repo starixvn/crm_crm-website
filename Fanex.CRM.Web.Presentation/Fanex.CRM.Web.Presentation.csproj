@@ -179,6 +179,7 @@
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ActivitiLogsContainer.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ToDate.js" />
+    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\SettingLogsContainer.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\ToDate.js" />
@@ -236,7 +237,9 @@
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
+    <Content Include="Areas\Customer\ShortInfo\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon-arrow-left.png" />
+    <Content Include="Areas\Dashboard\VerifyFlag\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardApplication.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardController.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardService.js" />
@@ -258,6 +261,8 @@
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogService.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DefaultFocus.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DropdownStatusContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogApplication.js" />
@@ -271,6 +276,7 @@
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogApplication.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogController.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogService.js" />
+    <Content Include="Areas\Remark\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Remark\Scripts\Directives\PlaceHolder.js" />
     <Content Include="Areas\Remark\Scripts\Directives\LastRemarkEnterKeyUp.js" />
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
@@ -332,6 +338,7 @@
     <Content Include="Scripts\FanexGridV2\moment.js" />
     <Content Include="Scripts\FanexGridV2\numeral.js" />
     <Content Include="Scripts\head.js" />
+    <Content Include="Scripts\head.load.js" />
     <Content Include="Scripts\JQuery\jquery-1.8.2.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
     <Content Include="Scripts\MultipleSelect\fanex.multiSelect.css" />

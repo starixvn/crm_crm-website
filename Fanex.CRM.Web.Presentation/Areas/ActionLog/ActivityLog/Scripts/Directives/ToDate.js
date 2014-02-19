@@ -8,7 +8,7 @@ activityLogApplication.directive('datePickerToDateContainer', function () {
     var oldMinValue = null;
     function renderDatePicker(scope, element, attrs) {
         /* jshint unused: vars */
-        var toDatePicker = element.find('#toDate');
+        var toDatePicker = element.find("#toDate");
         toDatePicker.datepicker({
             dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,
             changeMonth: true,
@@ -16,15 +16,18 @@ activityLogApplication.directive('datePickerToDateContainer', function () {
             minDate: null,
             maxDate: new Date(currentDate),
             showOtherMonths: true,
-            selectOtherMonths: true
+            selectOtherMonths: true,
+            onClose: function () {
+                $(this).blur();
+            }
         });
 
         toDatePicker.datepicker('setDate', new Date(currentDate));
-        toDatePicker.datepicker('option', 'minDate', new Date(currentDate));
+        toDatePicker.datepicker("option", "minDate", new Date(currentDate));
     }
     function selectedDateChange(scope, element, attrs) {
         /* jshint unused: vars */
-        var toDatePicker = element.find('#toDate');
+        var toDatePicker = element.find("#toDate");
         var selectedDate = toDatePicker.val();
         var date = new Date(selectedDate);
         if (!isNaN(date.valueOf())) {
@@ -41,15 +44,12 @@ activityLogApplication.directive('datePickerToDateContainer', function () {
         restrict: 'A',
         scope: true,
         link: function (scope, element, attrs) {
-            var toDatePicker = element.find('#toDate');
+            var toDatePicker = element.find("#toDate");
             renderDatePicker(scope, element, attrs);
             scope.$watch(attrs.ngModel, function (newval, oldval) {
                 /* jshint unused: vars */
-                if (oldMinValue === null ||
-                    new Date(newval) < oldMinValue) {
-                    oldMinValue = new Date(newval);
-                    toDatePicker.datepicker('option', 'minDate', new Date(oldMinValue));
-                }
+                oldMinValue = new Date(newval);
+                toDatePicker.datepicker("option", "minDate", new Date(oldMinValue));
             });
 
             oldValue = new Date(currentDate);

@@ -62,7 +62,10 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
                 parent.dialogManager.alert(
                     remarkResources.Alert,
                     data.Result.Code === 0 ? remarkResources.UpdateRemarkSuccess : data.Result.Message,
-                    remarkResources.OK);
+                    remarkResources.OK,
+                    function () {
+                        $scope.setFocus(); 
+                    });
                 $scope.setPlaceHolder();
                 /*Must call getRemarks() function to reset change*/
                 $scope.getRemarks();

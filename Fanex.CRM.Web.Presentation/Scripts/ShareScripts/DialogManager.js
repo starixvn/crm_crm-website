@@ -9,7 +9,7 @@
         self.CachedData.resultPopup = $('#div-resultpopup');
     };
 
-    self.alert = function (title, message, okButton) {
+    self.alert = function (title, message, okButton, closeCallback) {
         self.CachedData.resultPopup.removeClass('display-none');
         self.CachedData.resultPopup.html(message);
         self.CachedData.resultPopup.dialog({
@@ -23,6 +23,9 @@
                 self.CachedData.resultPopup.dialog('destroy');
                 $(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.CachedData.resultPopup = $('#div-resultpopup');
+                if (closeCallback && typeof(closeCallback) === 'function') {
+                    closeCallback();
+                }
             },
             buttons: [{
                 text: okButton,

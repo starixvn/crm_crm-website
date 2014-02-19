@@ -23,16 +23,16 @@ namespace Fanex.CRM.ActionLog.Controllers
     /// </summary>
     public class ActionLogController : BaseController
     {
-        private readonly IActionLogService _serviceInstance;
+        private readonly IActionLogService _actionLogService;
 
         public ActionLogController()
             : this(null)
         { 
         }
 
-        public ActionLogController(IActionLogService serviceInstance)
+        public ActionLogController(IActionLogService actionLogService)
         {
-            _serviceInstance = serviceInstance ?? new ActionLogService();
+            _actionLogService = actionLogService ?? new ActionLogService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.ViewActivityLog, Policy = Constant.Policy.Read)]
@@ -46,7 +46,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         [HttpPost]
         public ActionResult GetActivityLog(GetActivityLogCriteria criteria)
         {
-            var activityLogs = _serviceInstance.GetActivityLogs(criteria);
+            var activityLogs = _actionLogService.GetActivityLogs(criteria);
             return Json(
                 new 
                 { 
@@ -67,7 +67,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         [HttpPost]
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)
         {
-            var settingLogs = _serviceInstance.GetSettingLogs(criteria);
+            var settingLogs = _actionLogService.GetSettingLogs(criteria);
             return Json(
                 new
                 {
