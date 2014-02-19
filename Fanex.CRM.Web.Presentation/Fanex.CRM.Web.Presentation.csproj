@@ -255,6 +255,7 @@
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogController.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogService.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\DefaultFocus.js" />
+    <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\DropdownStatusContainer.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\RedemptionLogsContainer.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\Directives\ToDate.js" />

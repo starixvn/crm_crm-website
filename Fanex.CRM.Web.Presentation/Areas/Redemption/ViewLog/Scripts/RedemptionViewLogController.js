@@ -65,9 +65,20 @@ function (
         };
         $scope.unblockUI();
     };
-    $scope.updateSelectedStatus = function (status) {
-        if (status) {
-            $scope.searchCriteria.Status = status;
+    $scope.updateSelectedStatus = function (statusId) {
+        statusId = parseInt(statusId);
+        var statusLength = $scope.statusList.length;
+        var selectedStatus = null;
+        for (var i = 0; i < statusLength; i++) {
+            var status = $scope.statusList[i];
+            if (status.Id === statusId) {
+                selectedStatus = status;
+                break;
+            }
+        }
+
+        if (selectedStatus) {
+            $scope.searchCriteria.Status = selectedStatus;
         }
         else {
             $scope.searchCriteria.Status = {
