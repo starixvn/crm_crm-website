@@ -8,7 +8,7 @@ var _pageIndex = 1;
 var _pageSize = 20;
 var totalItems = 0;
 var maxHeightOfPopUp = ($(window).height() + 50);
-var maxWidthOfPopUp = ($(window).width() + 150);
+var maxWidthOfPopUp = 987;
 
 var topFeedback;
 

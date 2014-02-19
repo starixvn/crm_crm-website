@@ -11,7 +11,7 @@ var deletedFeedback;
 
 //Contain the template
 var maxHeightOfPopUp = ($(window).height() + 50);
-var maxWidthOfPopUp = ($(window).width());
+var maxWidthOfPopUp = 987;
 
 // -- Calendar --- //
 function SetupCalendar(arrDateValues, arrIds) {
