@@ -5,6 +5,8 @@ lblErrorTimeDuration, accChart */
 
 var arrWidth = [];
 var maxHeightOfPopUp = ($(window).height() + 50);
+var maxWidthOfPopUp = 1030;
+var masterPage;
 
 function addDays(startDate, n) {
     var endDate = new Date();
@@ -148,7 +150,7 @@ var feedbackStatistic = {
 
         $('#feedbackstatistictitle').html(feedbackStatistic.title);
 
-        try { parent.BlockUI(); } catch (e) { }
+        try { masterPage.BlockUI(); } catch (e) { }
         $.ajax({
             type: "POST",
             url: window.rootUrl + "Reports/GetFeedbackStatistic",
@@ -244,10 +246,10 @@ var feedbackStatistic = {
                 mainreport.addClass('hidden');
                 showAlertMessage("errmsg", 'There is no information.', 1);
                 $('#pagination').html('&nbsp;');
-                try { parent.UnBlockUI(); } catch (e) { }
+                try { masterPage.UnBlockUI(); } catch (e) { }
             },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { }
+                try { masterPage.UnBlockUI(); } catch (e) { }
             }
 
         });
@@ -352,7 +354,7 @@ var feedbackStatistic = {
         var toDate = $('#txttodate').val();
 
         feedbackStatistic.type = parseInt($('#ddlType').val());
-        var valueid = feedbackStatistic.arrColumns[index];
+        var valueid = index === -1? 0 : feedbackStatistic.arrColumns[index];
 
         var url = "../Reports/FeedbackStatisticDetail?type=" + feedbackStatistic.type + "&valueid=" + valueid +
         "&maincatid=" + mainCatId + "&subcatid=" + subCatId + "&fromdate=" + fromDate + "&todate=" + toDate +
@@ -362,7 +364,7 @@ var feedbackStatistic = {
         '&tdd=' + feedbackStatistic.ToDuration.Day + '&tdh=' + feedbackStatistic.ToDuration.Hour +
         '&tdmi=' + feedbackStatistic.ToDuration.Minute + '&tds=' + feedbackStatistic.ToDuration.Second;
 
-        parent.OpenPopup(url, "Feedback Statistic Detail Report", 1020, maxHeightOfPopUp, true, false, window, 2000, null);
+        masterPage.OpenPopup(url, "Feedback Statistic Detail Report", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, null);
     },
     export2excel: function () {
         var url = "FeedbackStatistics?export=true&type=" + parseInt($('#ddlType').val()) +
@@ -476,18 +478,20 @@ head.ready(function () {
     var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
     var arrIds = ['txtfromdate', 'txttodate'];
     setupCalendar(arrDateValues, arrIds);
-//    try { topwnd = findMainWindow(window); } catch (e) { }
+    masterPage = parent;
+
     durationTimeForceNumberic();
 
-    try { parent.UnBlockUI(); } catch (e) { }
+    try { masterPage.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'feedbackstatisticbody',
         isShowPager: true
     };
     $("#feedbackstatisticgrid").initGrid(gridOpts);
-}
-    );
+    
+    
+});
 
 $.extend(feedbackStatistic, { chart: {
     data: null,
