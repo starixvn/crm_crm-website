@@ -1,13 +1,13 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="SettingLogController.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="DynamicReportController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
+//   <change who="Louis" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.ActionLog.Controllers
+namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Common;
@@ -16,18 +16,14 @@ namespace Fanex.CRM.ActionLog.Controllers
     using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
-    /// SettingLogController controller.
+    /// Dynamic Report Controller.
     /// </summary>
-    public class SettingLogController : BaseController
+    public class DynamicReportController : BaseController
     {
-        public SettingLogController()
-        {
-        }
-
-        [NapAuth(FunctionKey = FunctionPermission.ViewActivityLog, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
-            return View("~/Areas/ActionLog/SettingLog/Index.cshtml");
+            return View("~/Areas/Report/DynamicReport/Index.cshtml");
         }
     }
 }

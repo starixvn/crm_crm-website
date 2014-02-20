@@ -76,7 +76,7 @@ var DashboardManager = function () {
                 self.CachedData.currentMenuTabIndex = 5;
                 break;
             case subMenuIdEnum.ActivityLog:
-                menuManager.goToURL('centerFr', window.rootUrl + 'ActivityLog/Index?' + $.param({
+                menuManager.goToURL('centerFr', window.rootUrl + 'ActionLog/ActivityLog?' + $.param({
                     customerId: customer.Id
                 }));
                 self.CachedData.currentMenuTabIndex = 6;

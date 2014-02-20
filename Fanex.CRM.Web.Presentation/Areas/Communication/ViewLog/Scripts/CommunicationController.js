@@ -1,21 +1,38 @@
 ﻿"use strict";
-/* global communicationApplication, 
-communicationLogs, 
+/* global communicationApplication,
 hotKeyManager,
 viewResources,
-crmConstants */
+crmConstants,
+currentDate,
+customerId,
+initFromDate */
 communicationApplication.controller('communicationController', ['$scope', '$http', '$communicationService',
 function (
     $scope,
     $http,
     $communicationService) {
     $scope.isSetFocus = false;
-    $scope.logs = communicationLogs ? communicationLogs.Logs : null;
+    $scope.logs = null;
     $scope.isSuccess = false;
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
-    $scope.customerId = communicationLogs.CustomerId;
+    $scope.customerId = customerId;
+    $scope.statusList = [];
+    $scope.isUpdatingDate = false;
+    $scope.isSearched = true;
+    $scope.statusList = [];
+    $scope.searchCriteria = {
+        CustomerId: $scope.customerId,
+        FromDate: initFromDate,
+        ToDate: new Date(currentDate),
+        Status: null,
+        MinToDate: new Date(initFromDate),
+        MaxFromDate: new Date(currentDate),
+        Handler: ''
+    };
+
     $scope.initController = function () {
+        $scope.getAllStatus();
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: "CustomerCommunicationLogs"
@@ -167,6 +184,80 @@ function (
         $scope.$apply(function () {
             $scope.isSetFocus = true;
         });
+    };
+    $scope.getAllStatus = function () {
+        $scope.BlockUI();
+        $communicationService.getAllStatus()
+            .then(function (data) {
+                $scope.statusList = data.Result;
+                $scope.completedLoadFilterInfo();
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.completedLoadFilterInfo();
+            });
+    };
+    $scope.completedLoadFilterInfo = function () {
+        $scope.searchCriteria.Status = {
+            Id: crmConstants.Enums.Status.All
+        };
+        $scope.unblockUI();
+        $scope.searchCommunicationLogs();
+    };
+    $scope.updateSelectedStatus = function (statusId) {
+        statusId = parseInt(statusId);
+        var statusLength = $scope.statusList.length;
+        var selectedStatus = null;
+        for (var i = 0; i < statusLength; i++) {
+            var status = $scope.statusList[i];
+            if (status.Id === statusId) {
+                selectedStatus = status;
+                break;
+            }
+        }
+
+        if (selectedStatus) {
+            $scope.searchCriteria.Status = selectedStatus;
+        }
+        else {
+            $scope.searchCriteria.Status = {
+                Id: crmConstants.Enums.Status.All
+            };
+        }
+    };
+    $scope.updateFromDate = function (selectedDate) {
+        $scope.searchCriteria.FromDate = selectedDate;
+        $scope.searchCriteria.MinToDate = selectedDate;
+    };
+    $scope.searchCommunicationLogs = function () {
+        $scope.BlockUI();
+        var searchLogsCriteria = {
+            CustomerId: $scope.searchCriteria.CustomerId,
+            FromDate: $scope.searchCriteria.FromDate,
+            ToDate: $scope.searchCriteria.ToDate,
+            StatusId: $scope.searchCriteria.Status.Id,
+            Handler: $scope.searchCriteria.Handler
+        };
+
+        $communicationService.getLogsByCustomerId(searchLogsCriteria)
+            .then(function (data) {
+                $scope.logs = data.Result.Logs;
+                $scope.isSearched = true;
+                $scope.unblockUI();
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.isSearched = true;
+                $scope.unblockUI();
+            });
+    };
+    /* jshint camelcase: false */
+    $scope.invokeHotKey_CtrlS = function () {
+        $scope.searchCommunicationLogs();
+    };
+    $scope.updateToDate = function (selectedDate) {
+        $scope.searchCriteria.ToDate = selectedDate;
+        $scope.searchCriteria.MaxFromDate = selectedDate;
     };
     angular.element(document).ready(function () {
         $scope.initController();

@@ -24,16 +24,16 @@ namespace Fanex.CRM.Remark.Controllers
     /// </summary>
     public class RemarkController : BaseController
     {
-        private readonly IRemarkService _serviceInstance;
+        private readonly IRemarkService _remarkService;
 
         public RemarkController()
             : this(null)
         {
         }
 
-        public RemarkController(IRemarkService serviceInstance)
+        public RemarkController(IRemarkService remarkService)
         {
-            _serviceInstance = serviceInstance ?? new RemarkService();
+            _remarkService = remarkService ?? new RemarkService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
@@ -47,7 +47,7 @@ namespace Fanex.CRM.Remark.Controllers
         [HttpGet]
         public ActionResult GetRemarks(GetRemarkCriteria criteria)
         {
-            var remarks = _serviceInstance.GetRemarks(criteria);
+            var remarks = _remarkService.GetRemarks(criteria);
             remarks.CustId = criteria.CustomerId;
 
             return Json(remarks, JsonRequestBehavior.AllowGet);
@@ -57,7 +57,7 @@ namespace Fanex.CRM.Remark.Controllers
         [HttpPost]
         public ActionResult Update(Remarks model)
         {
-            var result = _serviceInstance.UpdateRemarks(model);
+            var result = _remarkService.UpdateRemarks(model);
             return Json(result, JsonRequestBehavior.DenyGet);
         }
     }

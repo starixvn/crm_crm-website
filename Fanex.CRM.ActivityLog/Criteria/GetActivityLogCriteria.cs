@@ -9,14 +9,19 @@
 
 namespace Fanex.CRM.ActionLog.Criteria
 {
+    using Fanex.NAP.Framework.Data;
+
     /// <summary>
     /// Get Activity Log criteria.
     /// </summary>
     public class GetActivityLogCriteria : GetActionLogCriteria
     {
+        [SpParam(SqlParamName = "CustId")]
+        public int CustomerId { get; set; }
+
         public override string GetSettingKey()
         {
-            return "";
+            return "Acc_CRM_LogActionActivityList";
         }
 
         public override bool IsValid()

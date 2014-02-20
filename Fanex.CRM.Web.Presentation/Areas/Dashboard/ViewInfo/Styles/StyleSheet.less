@@ -23,13 +23,17 @@
     }
 }
 
-.panel-group .content .item {
-    margin: 4px 6px;
-    padding: 0;
+.panel-group {
+    background-color: #fff;
 
-    &.bar {
-        border: 1px solid #bababa;
-        width: 230px;
+    .content .item {
+        margin: 4px 6px;
+        padding: 0;
+
+        &.bar {
+            border: 1px solid #bababa;
+            width: 230px;
+        }
     }
 }
 
@@ -45,24 +49,24 @@
     .editlog-link-row {
         cursor: pointer;
 
-        .editlog-link-td  {
+        .editlog-link  {
             color: @link-color;
             cursor: pointer;
 
             &:hover {
-                color: @link-color-hover;
+                color: @table-link-hover;
             }
         }
     }
 }
 
 #table-communication-logs {
-    .editlog-link-td  {
+    .editlog-link  {
         color: @link-color;
         cursor: pointer;
 
         &:hover {
-            color: @link-color-hover;
+            color: @table-link-hover;
         }
     }
     .maincategory {
@@ -72,6 +76,7 @@
     
     .subcategory  {
         font-style: italic;
+        margin-top: 5px;
     }
     
     .editlog-link-row {

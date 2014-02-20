@@ -42,5 +42,9 @@ namespace Fanex.CRM.Setting.Services.Interfaces
         int GetNumberOfFeedbackSubjectTemplate();
 
         List<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria);
+
+        List<SettingInfo> GetAllLogAction(GetActionCriteria criteria);
+
+        void ResetAllCache();
     }
 }

@@ -22,7 +22,7 @@ dashboardApplication.directive('tableRedemptionLogsContainer', function () {
                     Columns: [
                         {
                             Name: "ColSubject",
-                            Value: '<div class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</div>',
+                            Value: '<span class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
@@ -34,7 +34,7 @@ dashboardApplication.directive('tableRedemptionLogsContainer', function () {
 
         /* jshint camelcase: false */
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Subject, Width: 680, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
+            columns: [{ HeaderText: viewResources.Subject, Width: 663, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Claimed_Time, Width: 120, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Status, Width: 140, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center"}],
             showTitle: true,
@@ -47,17 +47,17 @@ dashboardApplication.directive('tableRedemptionLogsContainer', function () {
             fullWidth: true,
             fullHeight: true,
             gridHeight: 150,
-            showDistinctRow: false,
+            showDistinctRow: true,
             showHighlightRow: true,
             headerColumnHeight: 29,
             bodyRowHeight: 29
         };
 
         tableRedemptionLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var editLogLinks = tableRedemptionLogs.find(".editlog-link-td");
+        var editLogLinks = tableRedemptionLogs.find(".editlog-link-td .editlog-link");
         editLogLinks.unbind("click");
         editLogLinks.click(function () {
-            scope.editRedemptionLog($(this).find('.editlog-link').attr("data-logid"));
+            scope.editRedemptionLog($(this).attr("data-logid"));
         });
 
         var editLogRows = tableRedemptionLogs.find(".editlog-link-row");

@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.Data, Version=0.5.404.59, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependency\Fanex\Fanex.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.NAP.Core">
       <HintPath>..\Dependency\Fanex\Fanex.NAP.Core.dll</HintPath>
     </Reference>
@@ -49,12 +53,11 @@
   <ItemGroup>
     <Compile Include="Controllers\ActionLogController.cs" />
     <Compile Include="Models\ActionLog.cs" />
-    <Compile Include="Controllers\ActivityLogController.cs" />
-    <Compile Include="Controllers\SettingLogController.cs" />
     <Compile Include="Criteria\GetActionLogCriteria.cs" />
     <Compile Include="Criteria\GetActivityLogCriteria.cs" />
     <Compile Include="Criteria\GetSettingLogCriteria.cs" />
     <Compile Include="Models\ActivityLog.cs" />
+    <Compile Include="Models\NameValue.cs" />
     <Compile Include="Models\SettingLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\ActionLogRepository.cs" />

@@ -23,16 +23,16 @@ namespace Fanex.CRM.Redemption.Controllers
     /// </summary>
     public class RedemptionController : BaseController
     {
-        private IRedemptionLogService _serviceInstance;
+        private IRedemptionLogService _logServiceInstance;
 
         public RedemptionController()
             : this(null)
         {
         }
 
-        public RedemptionController(IRedemptionLogService serviceInstance)
+        public RedemptionController(IRedemptionLogService logServiceInstance)
         {
-            _serviceInstance = serviceInstance ?? new RedemptionLogService();
+            _logServiceInstance = logServiceInstance ?? new RedemptionLogService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Read)]
@@ -44,7 +44,7 @@ namespace Fanex.CRM.Redemption.Controllers
         [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
         public ActionResult OpenEditView(int logId)
         {
-            var logInfo = _serviceInstance.GetLogById(new GetLogByIdCriteria
+            var logInfo = _logServiceInstance.GetLogById(new GetLogByIdCriteria
             {
                 Id = logId
             });
@@ -62,8 +62,8 @@ namespace Fanex.CRM.Redemption.Controllers
         [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            var result = _serviceInstance.GetLogsByCustomerId(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var log = _logServiceInstance.GetLogsByCustomerId(criteria);
+            var jsonResult = Json(log, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
@@ -71,8 +71,8 @@ namespace Fanex.CRM.Redemption.Controllers
         [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
-            var result = _serviceInstance.UpdateLog(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var updateResult = _logServiceInstance.UpdateLog(criteria);
+            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
@@ -80,16 +80,16 @@ namespace Fanex.CRM.Redemption.Controllers
         [NapAuth(FunctionKey = FunctionPermission.RedemptionManagement, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
-            var result = _serviceInstance.InsertLog(criteria);
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var insertResult = _logServiceInstance.InsertLog(criteria);
+            var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
         public JsonResult GetAllStatus()
         {
-            var result = _serviceInstance.GetAllStatus();
-            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            var allStatus = _logServiceInstance.GetAllStatus();
+            var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
     }

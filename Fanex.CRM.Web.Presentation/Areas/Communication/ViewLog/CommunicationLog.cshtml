@@ -1,9 +1,10 @@
 ﻿@using Fanex.CRM.Communication.Resources;
 @using Newtonsoft.Json;
 @using Fanex.CRM.Communication.Models;
-@model CustomerLogInfo
+@using Fanex.CRM.Infrastructure.Extension;
+@model int
 @{
-    var jsonLogInfoList = JsonConvert.SerializeObject(Model);
+    var customerId = JsonConvert.SerializeObject(Model);
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communication-application">
@@ -17,6 +18,36 @@
 </head>
 <body>
     <div id="communicationcontroller" class="container main" data-ng-controller="communicationController">
+        <div class="row filter-frm one-row communication-filter">
+            <div class="item">
+                <label for="fromDate">
+                    @Labels.From_date</label>
+                <div class="display-inline-block" data-ng-model="searchCriteria.MaxFromDate" date-picker-from-date-container>
+                    <input id="fromDate" type="text" class="textbox txtcalendar" />
+                </div>
+            </div>
+            <div class="item">
+                <label for="toDate">
+                    @Labels.To_date</label>
+                <div class="display-inline-block" data-ng-model="searchCriteria.MinToDate" date-picker-to-date-container>
+                    <input id="toDate" type="text" class="textbox txtcalendar" />
+                </div>
+            </div>
+            <div class="item afterButton" data-ng-model="statusList" dropdown-status-container>
+                <label for="status">
+                    @Labels.Status</label>
+                <select id="status">
+                </select>
+            </div>
+            <div class="item">
+                <label for="username">@Labels.Handler</label>
+                <input type="text" class="textbox" id="handler" data-ng-model="searchCriteria.Handler" />
+            </div>
+            <div class="item">
+                <button class="btn" data-ng-click="searchCommunicationLogs()">
+                    <span class="hotkey">S</span>ubmit</button>
+            </div>
+        </div>
         <div class="row row-item" data-ng-show="isShowResultMessage">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
@@ -32,8 +63,8 @@
             </div>
         </div>
         <div class="row btn-group">
-            <button id="buttoninsert" class="btn" data-ng-click="insertCommunicationLog();" 
-                default-focus data-ng-model="isSetFocus">
+            <button id="buttoninsert" class="btn" data-ng-click="insertCommunicationLog();" default-focus
+                data-ng-model="isSetFocus">
                 <span class="hotkey">I</span>nsert Case</button>
         </div>
     </div>
@@ -47,7 +78,9 @@
     @Scripts.Render("~/Areas/Communication/ViewLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var communicationLogs = @Html.Raw(jsonLogInfoList);
+        var customerId = @customerId; 
+        var currentDate = '@DateTime.Now.ToShortFormatedDate()';
+        var initFromDate = '@DateTime.Now.FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = { 
             Customer_Communication_Logs: '@Labels.Customer_Communication_Logs',
             Running_No: '@Labels.Running_No',
@@ -60,7 +93,8 @@
             Handled_By: '@Labels.Handled_By',
             Reviewed_By: '@Labels.Reviewed_By',
             Edit_Communication_Log: '@Labels.Edit_Communication_Log',
-            Insert_Communication_Log: '@Labels.Insert_Communication_Log'
+            Insert_Communication_Log: '@Labels.Insert_Communication_Log',
+            All: '@Labels.All'
         };        
     </script>
 </body>

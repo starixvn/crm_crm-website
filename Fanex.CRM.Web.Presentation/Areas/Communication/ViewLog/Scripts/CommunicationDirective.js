@@ -150,7 +150,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                     Columns: [
                         {
                             Name: "ColRunningNumber",
-                            Value: '<div class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</div>',
+                            Value: '<span class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         {
@@ -181,6 +181,10 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
     }
 
     function renderCommunicationLogs(scope, element, attrs) {
+        if (scope.logs === null) {
+            return;
+        }
+
         /* jshint unused: vars */
         var tableCommunicationLogs = element.find("#table-communication-logs");
         var logList = scope.logs;
@@ -197,7 +201,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                     Columns: [
                         {
                             Name: "ColRunningNumber",
-                            Value: '<div class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</div>',
+                            Value: '<span class="link editlog-link" data-logindex="' + i + '">' + info.RunningNumber + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         {
@@ -253,7 +257,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
-            bodyRowHeight: 29,
+            bodyRowHeight: 51,
             showPager: true,
             pagerOption: {
                 itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage,
@@ -270,10 +274,10 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                     return bodyRows;
                 },
                 afterGridSorted: function () {
-                    var editLogLinks = tableCommunicationLogs.find(".editlog-link-td");
+                    var editLogLinks = tableCommunicationLogs.find(".editlog-link-td .editlog-link");
                     editLogLinks.unbind("click");
                     editLogLinks.click(function () {
-                        scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
+                        scope.editCommunicationLog($(this).attr("data-logindex"));
                     });
 
                     var editLogRows = tableCommunicationLogs.find(".editlog-link-row");
@@ -285,10 +289,10 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
         };
 
         tableCommunicationLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var editLogLinks = tableCommunicationLogs.find(".editlog-link-td");
+        var editLogLinks = tableCommunicationLogs.find(".editlog-link-td .editlog-link");
         editLogLinks.unbind("click");
         editLogLinks.click(function () {
-            scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
+            scope.editCommunicationLog($(this).attr("data-logindex"));
         });
 
         var editLogRows = tableCommunicationLogs.find(".editlog-link-row");

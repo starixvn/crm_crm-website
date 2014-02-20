@@ -64,6 +64,7 @@ function (
             Id: crmConstants.Enums.Status.All
         };
         $scope.unblockUI();
+        $scope.searchLogs();
     };
     $scope.updateSelectedStatus = function (statusId) {
         statusId = parseInt(statusId);

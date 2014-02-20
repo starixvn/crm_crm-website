@@ -15,12 +15,12 @@
 }
 
 #table-communication-logs {
-    .editlog-link-td  {
+    .editlog-link  {
         color: @link-color;
         cursor: pointer;
 
         &:hover {
-            color: @link-color-hover;
+            color: @table-link-hover;
         }
     }
     .maincategory {
@@ -30,16 +30,7 @@
     
     .subcategory  {
         font-style: italic;
-    }
-    
-    .row-solved td
-    {
-    }
-    .row-pending td
-    {
-    }
-    .row-closed td
-    {
+        margin-top: 5px;
     }
 }
 .editlog-link-row
@@ -50,4 +41,16 @@
 .display-none
 {
     display:none;
+}
+
+.communication-filter {
+   width: 969px;
+
+   .sel-status {
+        width: 100px;
+   }
+
+   .display-inline-block {
+        display: inline-block;
+    }
 }

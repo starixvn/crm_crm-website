@@ -28,7 +28,7 @@ namespace Fanex.CRM.Customer.Services.Implements
     /// </summary>
     public class CustomerDetailService : ICustomerDetailService
     {
-        private readonly ICustomerDetailRepository _repositoryInstance;
+        private readonly ICustomerDetailRepository _customerRepositoryInstance;
 
         private readonly ISettingService _settingService;
 
@@ -38,10 +38,10 @@ namespace Fanex.CRM.Customer.Services.Implements
         }
 
         public CustomerDetailService(
-            ICustomerDetailRepository repositoryInstance,
+            ICustomerDetailRepository customerRepositoryInstance,
             ISettingService settingService)
         {
-            _repositoryInstance = repositoryInstance ?? new CustomerDetailRepository();
+            _customerRepositoryInstance = customerRepositoryInstance ?? new CustomerDetailRepository();
             _settingService = settingService ?? new SettingService();
         }
 
@@ -52,19 +52,19 @@ namespace Fanex.CRM.Customer.Services.Implements
         /// <returns>The customer information detail by identifier.</returns>
         public CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
-            CustomerInfo result = null;
+            CustomerInfo customerInfo = null;
             try
             {
-                var rawData = _repositoryInstance.GetCustomerInfoDetailById(criteria);
-                result = rawData;
-                if (result != null)
+                var rawData = _customerRepositoryInstance.GetCustomerInfoDetailById(criteria);
+                customerInfo = rawData;
+                if (customerInfo != null)
                 {
-                    result.Role.Name = RoleSettingService.GetRoleName(result.Role.Id);
+                    customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
                     var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
                     {
-                        SettingId = result.SiteSetting.Id
+                        SettingId = customerInfo.SiteSetting.Id
                     });
-                    result.SiteSetting.Name = siteSetting.Value;
+                    customerInfo.SiteSetting.Name = siteSetting.Value;
                 }
             }
             catch (Exception ex)
@@ -72,7 +72,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return result;
+            return customerInfo;
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             var updateResult = new BaseModel();
             try
             {
-                updateResult = _repositoryInstance.UpdateCustomerInfoDetail(criteria);
+                updateResult = _customerRepositoryInstance.UpdateCustomerInfoDetail(criteria);
                 if (updateResult != null &&
                     updateResult.Id == ErrorCodeConstants.NoneError)
                 {
