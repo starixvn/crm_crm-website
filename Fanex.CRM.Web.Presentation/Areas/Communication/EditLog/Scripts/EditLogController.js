@@ -189,8 +189,8 @@ function (
         $scope.updateRemarkPrefix();
         $scope.updateChangeFlag();
     };
-    $scope.updateSelectedLanguage = function (languageId) {
-        $scope.communicationLog.LanguageId = languageId;
+    $scope.updateSelectedLanguage = function (language) {
+        $scope.communicationLog.LanguageId = language.Id;
         $scope.updateChangeFlag();
     };
     $scope.updateSelectedMainCategory = function (mainCategory) {

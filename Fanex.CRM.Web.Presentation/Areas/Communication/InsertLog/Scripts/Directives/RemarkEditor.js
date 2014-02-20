@@ -1,12 +1,12 @@
 ﻿"use strict";
 /* global insertLogApplication, viewResources */
- insertLogApplication.directive('remarkEditorContainer', function () {
+insertLogApplication.directive('remarkEditorContainer', function () {
     var editorId = "remarkeditorbox";
     function renderRemarkEditor(scope, element, attrs) {
         /* jshint unused: vars */
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-            scope.communicationLog.Remark +
+            (scope.communicationLog ? scope.communicationLog.Remark : '') +
         '</textarea>';
 
         element.html(editorHTML);

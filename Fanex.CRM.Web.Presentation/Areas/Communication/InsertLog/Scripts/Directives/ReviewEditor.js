@@ -6,6 +6,7 @@ insertLogApplication.directive('reviewEditorContainer', function () {
         /* jshint unused: vars */
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
+            (scope.communicationLog ? scope.communicationLog.Review : '') +
         '</textarea>';
 
         element.html(editorHTML);
