@@ -205,6 +205,7 @@
     <Content Include="Areas\Communication\EditLog\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\CommunicationTool.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Country.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\EndTime.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Extension.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Language.js" />

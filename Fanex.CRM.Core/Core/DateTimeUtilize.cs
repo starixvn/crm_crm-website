@@ -109,12 +109,6 @@ namespace Fanex.CRM.Infrastructure.Core
             return dateTime.Add(timeSpan._timeSpan);
         }
 
-        public static DateTime ChangeTimeZoneToClientDateTime()
-        {
-            DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return DateTime.Now.Add(timeSpan._timeSpan);
-        }
-
         public static DateTime ChangeTimeZoneToServerDateTime(DateTime dateTime)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
@@ -131,6 +125,12 @@ namespace Fanex.CRM.Infrastructure.Core
         {
             DateTime serverDateTime = ChangeTimeZoneToServerDateTime(dateTime);
             return new DateTime(serverDateTime.Year, serverDateTime.Month, serverDateTime.Day, 23, 59, 59);
+        }
+
+        public static DateTime GetCurrentClientTime()
+        {
+            DateTimeUtilize timeSpan = new DateTimeUtilize();
+            return DateTime.Now.Add(timeSpan._timeSpan);
         }
     }
 }
