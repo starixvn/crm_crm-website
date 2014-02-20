@@ -7,7 +7,8 @@ viewResources,
 getRelatedCustomer,
 customerId,
 verifyRelatedCustomer,
-hotKeyManager */
+hotKeyManager,
+currentTime */
 insertLogApplication.controller('insertLogController', ['$scope', '$http', '$insertLogService',
 function (
     $scope,
@@ -16,7 +17,7 @@ function (
     /* jshint maxstatements: 80 */
     $scope.communicationLog = {
         RunningNumber: 0,
-        FeedbackDate: new Date(),
+        FeedbackDate: new Date(currentTime),
         MainCategory: {
             Name: ''
         },
@@ -28,8 +29,8 @@ function (
         Duration: '',
         Handler: '',
         Reviewer: '',
-        StartTime: new Date(),
-        EndTime: new Date(),
+        StartTime: new Date(currentTime),
+        EndTime: new Date(currentTime),
         Extension: {
             Id: 0,
             Value: ''
@@ -149,7 +150,6 @@ function (
         $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
         $scope.betTypeList = $scope.productList[0].ChildSettings;
 
-        var currentTime = new Date();
         $scope.communicationLog.StartTime = new Date(currentTime);
         var initEndTime = new Date(currentTime);
         initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);

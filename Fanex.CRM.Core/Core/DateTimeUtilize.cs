@@ -114,5 +114,11 @@ namespace Fanex.CRM.Infrastructure.Core
             DateTimeUtilize timeSpan = new DateTimeUtilize();
             return dateTime.Subtract(timeSpan._timeSpan);
         }
+
+        public static DateTime GetCurrentClientTime()
+        {
+            DateTimeUtilize timeSpan = new DateTimeUtilize();
+            return DateTime.Now.Add(timeSpan._timeSpan);
+        }
     }
 }

@@ -1,10 +1,12 @@
-﻿@using Fanex.CRM.ActionLog.Resources;
-@using Newtonsoft.Json;
+﻿@using Newtonsoft.Json;
+@using Fanex.CRM.ActionLog.Resources;
 @using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
 
 @model int
 @{
     var customerId = JsonConvert.SerializeObject(Model);
+    var currentDate = DateTimeUtilize.GetCurrentClientTime();
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="activitylog-application">
@@ -55,9 +57,9 @@
     @Scripts.Render("~/Areas/ActionLog/ActivityLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var customerId = @customerId; 
-        var currentDate = '@DateTime.Today.ToShortFormatedDate()';
-        var initFromDate = '@DateTime.Today.FirstDayOfMonth().ToShortFormatedDate()';
+        var customerId = '@customerId';
+        var currentDate = '@currentDate.ToShortFormatedDate()';
+        var initFromDate = '@currentDate.FirstDayOfMonth().ToShortFormatedDate()';
         var activityLogResources = {
             All: '@Labels.All',
             LogDate: '@Labels.LogDate',

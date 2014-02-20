@@ -79,6 +79,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             var isHavingData = customerManager.checkCustomerInfoResult(customer);
             if (isHavingData) {
                 $scope.customer = customer;
+                $scope.oldLanguages = $scope.customer.SelectedLanguages;
                 $scope.oldCustomer = angular.copy($scope.customer);
             }
 
@@ -97,6 +98,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             var isHavingData = customerManager.checkGuestCustomerInfoResult(customer);
             if (isHavingData) {
                 $scope.customer = customer;
+                $scope.oldLanguages = $scope.customer.SelectedLanguages;
                 $scope.oldCustomer = angular.copy($scope.customer);
                 $scope.changeDirtyFlag($scope);
             }
