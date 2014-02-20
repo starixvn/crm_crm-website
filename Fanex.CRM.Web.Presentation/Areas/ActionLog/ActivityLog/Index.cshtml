@@ -6,7 +6,7 @@
 @model int
 @{
     var customerId = JsonConvert.SerializeObject(Model);
-    var currentDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime();
+    var currentDate = DateTimeUtilize.GetCurrentClientTime();
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="activitylog-application">

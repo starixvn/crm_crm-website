@@ -15,6 +15,7 @@ namespace Fanex.CRM.ActionLog.Repositories.Implements
     using Fanex.CRM.ActionLog.Models;
     using Fanex.CRM.ActionLog.Repositories.Interfaces;
     using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.Data;
 
     /// <summary>
@@ -31,8 +32,8 @@ namespace Fanex.CRM.ActionLog.Repositories.Implements
         /// <returns>The activity log list.</returns>
         public IList<ActivityLog> GetActivityLogs(GetActionLogCriteria criteria)
         {
-            criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerBeginDate(criteria.FromDate);
-            criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerEndDate(criteria.ToDate);
+            criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate).GetBeginDate();
+            criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate).GetEndDate();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
@@ -71,8 +72,8 @@ namespace Fanex.CRM.ActionLog.Repositories.Implements
         /// <returns>The setting log list.</returns>
         public IList<SettingLog> GetSettingLogs(GetActionLogCriteria criteria)
         {
-            criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerBeginDate(criteria.FromDate);
-            criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerEndDate(criteria.ToDate);
+            criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate).GetBeginDate();
+            criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate).GetEndDate();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
