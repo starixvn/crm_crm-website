@@ -100,7 +100,7 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
 
         tableActivityLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+        function ReRenderAfterPaged (page_index, itemsPerPage, jq) {
             /* jshint unused: vars */
             gridOptions.pagerOption.currentPage = page_index;
             gridOptions.pagerOption.itemsPerPage = itemsPerPage;
@@ -109,7 +109,7 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
             scope.searchActivityLogs(page_index, itemsPerPage);
             return false;
         }
-    };
+    }
 
     return {
         restrict: 'A',

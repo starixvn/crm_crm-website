@@ -1,6 +1,9 @@
 ﻿@using Fanex.CRM.ActionLog.Resources;
 @using Fanex.CRM.Infrastructure.Extension;
-
+@using Fanex.CRM.Infrastructure.Core;
+@{
+    var currentDate = DateTimeUtilize.GetCurrentClientTime();
+}
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="settinglog-application">
 <head>
@@ -51,8 +54,8 @@
     @Scripts.Render("~/Areas/ActionLog/SettingLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@DateTime.Today.ToShortFormatedDate()';
-        var initFromDate = '@DateTime.Today.FirstDayOfMonth().ToShortFormatedDate()';
+        var currentDate = '@currentDate.ToShortFormatedDate()';
+        var initFromDate = '@currentDate.FirstDayOfMonth().ToShortFormatedDate()';
         var settingLogResources = {
             All: '@Labels.All',
             LogDate: '@Labels.LogDate',

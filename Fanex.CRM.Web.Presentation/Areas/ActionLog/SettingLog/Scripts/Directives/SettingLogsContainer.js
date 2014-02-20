@@ -44,7 +44,7 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
                         Columns: row.concat([
                             { Name: 'ColFieldName', Value: '' },
                             { Name: 'ColOldValues', Value: '' },
-                            { Name: 'ColNewValues', Value: '' }]),
+                            { Name: 'ColNewValues', Value: ''}]),
                         CssClass: evenClass
                     });
                 }
@@ -104,7 +104,7 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
 
         tableSettingLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+        function ReRenderAfterPaged (page_index, itemsPerPage, jq) {
             /* jshint unused: vars */
             gridOptions.pagerOption.currentPage = page_index;
             gridOptions.pagerOption.itemsPerPage = itemsPerPage;
@@ -113,7 +113,7 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
             scope.searchSettingLogs(page_index, itemsPerPage);
             return false;
         }
-    };
+    }
 
     return {
         restrict: 'A',

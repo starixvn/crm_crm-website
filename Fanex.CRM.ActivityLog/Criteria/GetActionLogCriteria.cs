@@ -17,24 +17,11 @@ namespace Fanex.CRM.ActionLog.Criteria
     /// </summary>
     public abstract class GetActionLogCriteria : CriteriaBase
     {
-        private DateTime _toDate;
-
         public string Username { get; set; }
 
         public DateTime FromDate { get; set; }
 
-        public DateTime ToDate 
-        {
-            get
-            {
-                return new DateTime(_toDate.Year, _toDate.Month, _toDate.Day, 23, 59, 59);
-            }
-
-            set
-            {
-                _toDate = value;
-            }
-        }
+        public DateTime ToDate { get; set; }
 
         public int ActionId { get; set; }
 
