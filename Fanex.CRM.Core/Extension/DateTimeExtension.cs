@@ -50,16 +50,6 @@ namespace Fanex.CRM.Infrastructure.Extension
             return dateTime.FirstDayOfMonth().AddMonths(1).AddDays(-1);
         }
 
-        public static DateTime GetBeginDate(this DateTime date)
-        {
-            return new DateTime(date.Year, date.Month, date.Day, 0, 0, 0);
-        }
-
-        public static DateTime GetEndDate(this DateTime date)
-        {
-            return new DateTime(date.Year, date.Month, date.Day, 23, 59, 59);
-        }
-
         public static DateTime GetEndOfDate(this DateTime date)
         {
             if (date == null)
