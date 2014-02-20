@@ -70,10 +70,16 @@
             uid = 1;
             autocompleteElId = 'Autocomplete_' + uid;
 
+            var self = this;
             this.killerFn = function (e) {
                 if ($(e.target).parents('.autocomplete').size() === 0) {
                     me.killSuggestions();
                     me.disableKillerFn();
+                }
+
+                if (self.options.closeSuggestion &&
+                    typeof (self.options.closeSuggestion) === 'function') {
+                    self.options.closeSuggestion();
                 }
             };
 

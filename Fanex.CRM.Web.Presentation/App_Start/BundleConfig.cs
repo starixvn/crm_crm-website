@@ -98,7 +98,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles customer short information.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_Customer_ShortInfo(ref BundleCollection bundles)
+        private static void RegisterBundles_Customer_ShortInfo(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/ShortCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
@@ -114,7 +114,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less");
         }
 
-        public static void RegisterBundles_Customer_DetailInfo(ref BundleCollection bundles)
+        private static void RegisterBundles_Customer_DetailInfo(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/DetailCustomerInfo/Scripts").Include(
                 "~/Scripts/jscookies.js",
@@ -126,7 +126,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Customer/DetailInfo/Scripts/Directives/*.js"));
         }
 
-        public static void RegisterBundles_TimePicker(ref BundleCollection bundles)
+        private static void RegisterBundles_TimePicker(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Scripts/TimePicker").Include(
                      "~/Scripts/jquery-ui-timepicker-addon.js"));
@@ -136,7 +136,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles communication log view log.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_CommunicationLog_ViewLog(ref BundleCollection bundles)
+        private static void RegisterBundles_CommunicationLog_ViewLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -155,7 +155,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles communication log edit.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
+        private static void RegisterBundles_CommunicationLog_Edit(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/EditLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -173,7 +173,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles communication log insert.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_CommunicationLog_Insert(ref BundleCollection bundles)
+        private static void RegisterBundles_CommunicationLog_Insert(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/InsertLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -191,7 +191,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles redemption view log.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_Redemption_ViewLog(ref BundleCollection bundles)
+        private static void RegisterBundles_Redemption_ViewLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Redemption/ViewLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -209,7 +209,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles redemption insert log.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_Redemption_InsertLog(ref BundleCollection bundles)
+        private static void RegisterBundles_Redemption_InsertLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Redemption/InsertLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -227,7 +227,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles redemption edit log.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_Redemption_EditLog(ref BundleCollection bundles)
+        private static void RegisterBundles_Redemption_EditLog(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Redemption/EditLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -245,7 +245,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles remark.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_Remark(ref BundleCollection bundles)
+        private static void RegisterBundles_Remark(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Remark/RemarkScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -311,7 +311,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles dashboard view information.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_Dashboard_ViewInfo(ref BundleCollection bundles)
+        private static void RegisterBundles_Dashboard_ViewInfo(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/ViewInfoScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -328,7 +328,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the bundles dashboard verify flag.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        public static void RegisterBundles_Dashboard_VerifyFlag(ref BundleCollection bundles)
+        private static void RegisterBundles_Dashboard_VerifyFlag(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/VerifyFlagScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",

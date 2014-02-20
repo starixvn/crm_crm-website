@@ -17,7 +17,7 @@ var HomeManager = function () {
     self.CachedData = {
         /* jshint camelcase: false */
         ViewResources: {
-            DefaultSearchCustomer: "Nickname or Username or Phone",
+            DefaultSearchCustomer: "Phone or Username or Nickname",
             Error_SearchCustomer_Empty: 'Please input username!',
             OK: "OK",
             Cancel: "Cancel",
@@ -265,6 +265,9 @@ var HomeManager = function () {
                 self.loadLeftPanel();
             }
         }
+    };
+    self.focusSearchTextbox = function () {
+        self.DOMElements.TextboxUsername.focus();
     };
     self.invokeHotKey_CtrlG = function () {
         self.DOMElements.CheckboxIsGuest.attr("checked", "checked");
