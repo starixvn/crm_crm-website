@@ -65,7 +65,7 @@ namespace Fanex.CRM.Communication.Controllers
                 LanguageList = _serviceSetting.GetAllLanguage(),
                 MainCategoryList = _serviceSetting.GetAllMainCategory(),
                 ProductList = _serviceSetting.GetAllProduct(),
-                StatusList = _serviceSetting.GetAllStatus(),
+                StatusList = _communicationServiceLog.GetAllStatus(),
                 SiteList = _serviceSetting.GetAllSite(),
                 RoleList = _serviceSetting.GetAllRole(),
                 ResponseList = _serviceSetting.GetAllResponse()
@@ -115,6 +115,14 @@ namespace Fanex.CRM.Communication.Controllers
         {
             var insertResult = _communicationServiceLog.InsertLog(criteria);
             var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult GetAllStatus()
+        {
+            var allStatus = _communicationServiceLog.GetAllStatus();
+            var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
     }

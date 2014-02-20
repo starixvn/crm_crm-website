@@ -198,9 +198,10 @@
                     <label for="subject">
                         @Labels.Subject</label></div>
                 <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
-                    <input type="text" class="textbox" id="subject" data-ng-model="communicationLog.Subject"
+                    <input type="text" class="textbox " id="subject" data-ng-model="communicationLog.Subject"
                         subject-auto-complete />
                 </div>
+                @Html.Raw(Resources.Language.Html_Template_MandatoryField)
             </div>
         </div>
         <div class="row panel-group">

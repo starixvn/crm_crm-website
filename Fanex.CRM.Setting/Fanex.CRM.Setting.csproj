@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ErrorCodeConstants.cs" />
+    <Compile Include="Constants\PeriodTypeConstants.cs" />
     <Compile Include="Constants\RoleIdConstants.cs" />
     <Compile Include="Constants\SettingConstants.cs" />
     <Compile Include="Constants\SettingTypeConstants.cs" />

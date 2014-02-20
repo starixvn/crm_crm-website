@@ -268,6 +268,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;div class=&quot;col-xs-1 col-sm-1 col-md-1 mandatoryfield&quot;&gt;*&lt;/div&gt;.
+        /// </summary>
+        internal static string Html_Template_MandatoryField {
+            get {
+                return ResourceManager.GetString("Html_Template_MandatoryField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IBC Weekly Summary Report.
         /// </summary>
         internal static string ibcweeklysummaryreport {

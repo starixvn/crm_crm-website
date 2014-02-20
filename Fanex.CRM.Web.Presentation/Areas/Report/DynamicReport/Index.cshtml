@@ -1,1 +1,45 @@
-﻿adasdasd
+﻿@using Fanex.CRM.Report.Resources;
+@using Fanex.CRM.Report.Models;
+@using Fanex.CRM.Infrastructure.Core;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-dynamicreport-application">
+<head>
+    <title>@Labels.Dynamic_Report </title>
+    @Styles.Render("~/site/common")
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Areas/Report/DynamicReportStyles")
+</head>
+<body>
+    <div class="main container dynamicReportController" data-ng-controller="dynamicReportController">
+        <div class="row filter-frm one-row ">
+            <div class="row row-item">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <label for="periodtype">
+                        @Labels.Period_Type</label></div>
+                <div class="col-xs-1 col-sm-1 col-md-1 period-type-container" data-ng-model="periodTypeList">
+                    <select id="periodtype">
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-1 col-sm-1 col-md-1">
+                    <label for="reporttype">
+                        @Labels.Report_Type</label>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 report-type-container" data-ng-model="reportTypeList">
+                    <select id="reporttype">
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    @Scripts.Render("~/Areas/Report/DynamicReportScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';
+        var viewResources = {
+        };
+    </script>
+</body>
+</html>
