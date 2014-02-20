@@ -11,6 +11,7 @@ namespace Fanex.CRM.Infrastructure.Extension
 {
     using System;
     using System.Diagnostics;
+    using Fanex.CRM.Infrastructure.Common;
 
     /// <summary>
     /// Date Time Extension.
@@ -18,6 +19,8 @@ namespace Fanex.CRM.Infrastructure.Extension
     public static class DateTimeExtension
     {
         public const string ShortDateFormat = "MMM dd, yyyy";
+
+        private static readonly TimeSpan TimeSpan = new TimeSpan(AppSetting.TimeSpan, 0, 0);
 
         private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
 
@@ -59,6 +62,16 @@ namespace Fanex.CRM.Infrastructure.Extension
 
             date = date.AddDays(1).AddSeconds(-1);
             return date;
+        }
+
+        public static DateTime ChangeTimeZoneToClient(DateTime dateTime)
+        {
+            return dateTime.Add(TimeSpan);
+        }
+
+        public static DateTime ChangeTimeZoneToServer(DateTime dateTime)
+        {
+            return dateTime.Subtract(TimeSpan);
         }
     }
 }
