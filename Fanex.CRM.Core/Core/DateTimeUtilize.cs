@@ -102,5 +102,17 @@ namespace Fanex.CRM.Infrastructure.Core
         }
 
         #endregion
+
+        public static DateTime ChangeTimeZoneToClientDateTime(DateTime dateTime)
+        {
+            DateTimeUtilize timeSpan = new DateTimeUtilize();
+            return dateTime.Add(timeSpan._timeSpan);
+        }
+
+        public static DateTime ChangeTimeZoneToServerDateTime(DateTime dateTime)
+        {
+            DateTimeUtilize timeSpan = new DateTimeUtilize();
+            return dateTime.Subtract(timeSpan._timeSpan);
+        }
     }
 }
