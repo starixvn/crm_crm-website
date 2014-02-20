@@ -109,10 +109,28 @@ namespace Fanex.CRM.Infrastructure.Core
             return dateTime.Add(timeSpan._timeSpan);
         }
 
+        public static DateTime ChangeTimeZoneToClientDateTime()
+        {
+            DateTimeUtilize timeSpan = new DateTimeUtilize();
+            return DateTime.Now.Add(timeSpan._timeSpan);
+        }
+
         public static DateTime ChangeTimeZoneToServerDateTime(DateTime dateTime)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
             return dateTime.Subtract(timeSpan._timeSpan);
+        }
+
+        public static DateTime ChangeTimeZoneToServerBeginDate(DateTime dateTime)
+        {
+            DateTime serverDateTime = ChangeTimeZoneToServerDateTime(dateTime);
+            return new DateTime(serverDateTime.Year, serverDateTime.Month, serverDateTime.Day, 0, 0, 0);
+        }
+
+        public static DateTime ChangeTimeZoneToServerEndDate(DateTime dateTime)
+        {
+            DateTime serverDateTime = ChangeTimeZoneToServerDateTime(dateTime);
+            return new DateTime(serverDateTime.Year, serverDateTime.Month, serverDateTime.Day, 23, 59, 59);
         }
     }
 }

@@ -17,9 +17,9 @@ namespace Fanex.CRM.Infrastructure.Models
     /// </summary>
     public class PagedList<T> : List<T>
     {
-        public PagedList(IEnumerable<T> source, int pageIndex, int itemsPerPage)
+        public PagedList(IList<T> source, int pageIndex, int itemsPerPage)
         {
-            this.TotalItems = source.Count();
+            this.TotalItems = source.Count;
 
             this.ItemsPerPage = itemsPerPage;
             this.PageIndex = pageIndex;
