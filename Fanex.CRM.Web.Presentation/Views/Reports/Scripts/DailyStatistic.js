@@ -44,7 +44,7 @@ var dailyReport = {
     }
 };
 
-ibcDailySummaryReport = {
+var ibcDailySummaryReport = {
     title: '',
     colWidth: 75,
     loadCompleted: false,
@@ -88,7 +88,7 @@ ibcDailySummaryReport = {
                                 '',
                                 'style="font-weight: bold;"',
                                 arrNewData.Total.MainCategory));
-
+                            var totalSubCategories = arrNewData.DailySummaries.length;
                             for (var j = 0; j < arrNewData.DailySummaries.length; j++) {
                                 //content
                                 var css = (j % 2 === 0 ? "bgeven" : "bgodd");
@@ -107,7 +107,7 @@ ibcDailySummaryReport = {
                                 <div style="height:17px; width:300px;" class="table-cell l">Grand Total</div>\
                             </th>\
                         </tr>');
-                    mainreport.find(".col_footer_content thead").empty().empty().html(ibcDailySummaryReport.renderScollFooterReport(rs.GrandTotal, 0, "", ''));
+                    mainreport.find(".col_footer_content thead").empty().empty().html(ibcDailySummaryReport.renderScollFooterReport(rs.GrandTotal, 0, ""));
                     //------------------------------                   
                     var gridOpts = {
                         tblContentId: 'dailysummarybody',
@@ -127,31 +127,36 @@ ibcDailySummaryReport = {
                 }
             },
             error: function () {
-                try { parent.jQuery.unblockUI(); } catch (e) { } 
+                try { parent.jQuery.unblockUI(); } catch (e) { }
             },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
                 if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
-                                        try {
-                                            parent.jQuery.unblockUI();
-                                        } catch (e) {
-                                        }
+                    try {
+                        parent.jQuery.unblockUI();
+                    } catch (e) {
+                    }
                 }
             }
         });
     },
     renderHeaderReport: function (row) {
-        var html = '<tr>';
-        html += '<th><div class="table-cell" style="width:300px; height:30px;">Complaints/Enquiries</div></th>';
-        for (var i = 0; i < row.length; i++) {
-            html += '<th>\
+        var html = '';
+        if (row) {
+            html = '<tr>';
+            html += '<th><div class="table-cell" style="width:300px; height:30px;">Complaints/Enquiries</div></th>';
+            var totalCells = row.length;
+
+            for (var i = 0; i < totalCells; i++) {
+                html += '<th>\
                         <div class="table-cell" class="c" style="width: ' + ibcDailySummaryReport.colWidth + 'px; height:30px;">' +
                             row[i].Title +
                         '</div>\
                      </th>';
+            }
+            html += '<th><div class="table-cell" class="c" style="width: ' + ibcDailySummaryReport.colWidth + 'px; height:30px;">Grand Total</div></th>';
+            html += '</tr>';
         }
-        html += '<th><div class="table-cell" class="c" style="width: ' + ibcDailySummaryReport.colWidth + 'px; height:30px;">Grand Total</div></th>';
-        html += '</tr>';
 
         return html;
     },
@@ -176,44 +181,53 @@ ibcDailySummaryReport = {
         return html;
     },
     renderScrollGroup: function (row, id, css, style, title) {
-        var html = '<tr class="total">';
-        html += '<td>\
+        var html = '';
+        if (row) {
+            html = '<tr class="total">';
+            html += '<td>\
                     <div class="l b" style="width: 300px">\
                         <span class="tree-expanded" onclick="ibcDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' +
                         title +
                     '</div>\
                  </td>';
-
-        for (var i = 0; i < row.Cells.length; i++) {
-            html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
+            var totalCells = row.Cells.length;
+            for (var i = 0; i < totalCells; i++) {
+                html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
+            }
+            html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
+            html += '</tr>';
         }
-        html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
-        html += '</tr>';
 
         return html;
     },
     renderScollReport: function (row, id, css, style) {
-        var html = '<tr class="fb_' + id + ' ' + css + '">';
-        html += '<td ' + style + '><div style="width:300px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></td>';
-
-        for (var i = 0; i < row.Cells.length; i++) {
-            html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
+        var html = '';
+        if (row) {
+            var html = '<tr class="fb_' + id + ' ' + css + '">';
+            html += '<td ' + style + '><div style="width:300px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></td>';
+            var totalCells = row.Cells.length;
+            for (var i = 0; i < totalCells; i++) {
+                html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
+            }
+            html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
+            html += '</tr>';
         }
-        html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
-        html += '</tr>';
 
         return html;
     },
-    renderScollFooterReport: function (row, id, css, style) {
+    renderScollFooterReport: function (row, id, css) {
         /* jshint unused: vars */
-        var html = '<tr class="' + css + '">';
-        html += '<th><div class="table-cell" style="width:300px; height:17px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></th>';
-
-        for (var i = 0; i < row.Cells.length; i++) {
-            html += '<th><div style="width:' + ibcDailySummaryReport.colWidth + 'px;" class="table-cell c ' + css + '">' + row.Cells[i].Value + '</div></th>';
+        var html = '';
+        if (row) {
+            html = '<tr class="' + css + '">';
+            html += '<th><div class="table-cell" style="width:300px; height:17px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></th>';
+            var totalCells = row.Cells.length;
+            for (var i = 0; i < totalCells; i++) {
+                html += '<th><div style="width:' + ibcDailySummaryReport.colWidth + 'px;" class="table-cell c ' + css + '">' + row.Cells[i].Value + '</div></th>';
+            }
+            html += '<th><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="table-cell c ' + css + '">' + row.Total + '</div></th>';
+            html += '</tr>';
         }
-        html += '<th><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="table-cell c ' + css + '">' + row.Total + '</div></th>';
-        html += '</tr>';
 
         return html;
     },
@@ -267,7 +281,7 @@ ibcDailySummaryReport = {
     }
 };
 
-licenseeDailySummaryReport = {
+var licenseeDailySummaryReport = {
     totalWidth: 0,
     title: '',
     colWidth: 75,
@@ -299,10 +313,11 @@ licenseeDailySummaryReport = {
 
                     var arrFrozen = [];
                     var arrScroll = [];
-                    for (var i = 0; i < rs.DailySummaries.length; i++) {
+                    var totalMainCategories = rs.DailySummaries.length;
+                    for (var i = 0; i < totalMainCategories; i++) {
                         var arrNewData = rs.DailySummaries[i];
-
-                        if (arrNewData != null && arrNewData.DailySummaries.length > 0) {
+                        var totalSubcategories = arrNewData.DailySummaries.length;
+                        if (arrNewData != null && totalSubcategories > 0) {
                             var mainId = arrNewData.Total.MainCategoryId;
                             //group title
                             arrFrozen.push(licenseeDailySummaryReport.renderFrozenGroup(mainId, arrNewData.Total.MainCategory));
@@ -312,7 +327,8 @@ licenseeDailySummaryReport = {
                                 'style="font-weight: bold;"',
                                 arrNewData.Total.MainCategory));
 
-                            for (var j = 0; j < arrNewData.DailySummaries.length; j++) {
+
+                            for (var j = 0; j < totalSubcategories; j++) {
                                 //content
                                 var css = (j % 2 === 0 ? "bgeven" : "bgodd");
                                 var totalCss = arrNewData.DailySummaries[j].IsTotal === true ? 'style="font-weight: bold;"' : '';
@@ -331,7 +347,7 @@ licenseeDailySummaryReport = {
                                 <div style="height:17px; width:300px;" class="table-cell l">Grand Total</div>\
                             </th>\
                          </tr>');
-                    mainreport.find(".col_footer_content thead").empty().empty().html(ibcDailySummaryReport.renderScollFooterReport(rs.GrandTotal, 0, "", ''));
+                    mainreport.find(".col_footer_content thead").empty().empty().html(ibcDailySummaryReport.renderScollFooterReport(rs.GrandTotal, 0, ""));
                     //------------------------------                   
                     var gridOpts = {
                         tblContentId: 'licenseedailysummarybody',
@@ -368,17 +384,22 @@ licenseeDailySummaryReport = {
         });
     },
     renderHeaderReport: function (row) {
-        var html = '<tr>';
-        html += '<th><div class="table-cell" style="width:300px; height:30px;">Complaints/Enquiries</div></th>';
-        for (var i = 0; i < row.length; i++) {
-            html += '<th>\
+        var html = '';
+        if (row) {
+            html = '<tr>';
+            html += '<th><div class="table-cell" style="width:300px; height:30px;">Complaints/Enquiries</div></th>';
+            var totalCells = row.length;
+
+            for (var i = 0; i < totalCells; i++) {
+                html += '<th>\
                         <div class="table-cell" class="c" style="width: ' + licenseeDailySummaryReport.colWidth + 'px; height:30px;">' +
                              row[i].Title +
                         '</div>\
                      </th>';
+            }
+            html += '<th><div class="table-cell" class="c" style="width: ' + licenseeDailySummaryReport.colWidth + 'px; height:30px;">Grand Total</div></th>';
+            html += '</tr>';
         }
-        html += '<th><div class="table-cell" class="c" style="width: ' + licenseeDailySummaryReport.colWidth + 'px; height:30px;">Grand Total</div></th>';
-        html += '</tr>';
 
         return html;
     },
@@ -403,50 +424,61 @@ licenseeDailySummaryReport = {
         return html;
     },
     renderScrollGroup: function (row, id, css, style, title) {
-        var html = '<tr class="total">';
-        html += '<td>\
+        var html = '';
+        if (row && row.Cells) {
+            html = '<tr class="total">';
+            html += '<td>\
                     <div class="l b" style="width: 300px">\
                         <span class="tree-expanded" onclick="licenseeDailySummaryReport.toggleFeedback(this,\'' + (id) + '\')"></span>' +
                         title +
                     '</div>\
                  </td>';
+            var totalCells = row.Cells.length;
 
-        for (var i = 0; i < row.Cells.length; i++) {
-            html += '<td ' + style + '>\
+            for (var i = 0; i < totalCells; i++) {
+                html += '<td ' + style + '>\
                         <div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div>\
                      </td>';
+            }
+            html += '<td ' + style + '><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
+            html += '</tr>';
         }
-        html += '<td ' + style + '><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
-        html += '</tr>';
 
         return html;
     },
     renderScollReport: function (row, id, css, style) {
-        var html = '<tr class="fb_' + id + ' ' + css + '">';
-        html += '<td ' + style + '><div style="width:300px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></td>';
+        var html = '';
+        if (row && row.Cells) {
+            html = '<tr class="fb_' + id + ' ' + css + '">';
+            html += '<td ' + style + '><div style="width:300px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></td>';
+            var totalCells = row.Cells.length;
 
-        for (var i = 0; i < row.Cells.length; i++) {
-            html += '<td ' + style + '>\
+            for (var i = 0; i < row.Cells.length; i++) {
+                html += '<td ' + style + '>\
                         <div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div>\
                      </td>';
+            }
+            html += '<td ' + style + '><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
+            html += '</tr>';
         }
-        html += '<td ' + style + '><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
-        html += '</tr>';
-
         return html;
     },
-    renderScollFooterReport: function (row, id, css, style) {
+    renderScollFooterReport: function (row, id, css) {
         /* jshint unused: vars */
-        var html = '<tr class="' + css + '">';
-        html += '<th><div class="table-cell" style="width:300px; height:17px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></th>';
+        var html = '';
+        if (row && row.Cells) {
+            html = '<tr class="' + css + '">';
+            html += '<th><div class="table-cell" style="width:300px; height:17px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></th>';
+            var totalCells = row.Cells.length;
 
-        for (var i = 0; i < row.Cells.length; i++) {
-            html += '<th>\
+            for (var i = 0; i < totalCells; i++) {
+                html += '<th>\
                         <div style="width:' + licenseeDailySummaryReport.colWidth + 'px;" class="table-cell c ' + css + '">' + row.Cells[i].Value + '</div>\
                      </th>';
+            }
+            html += '<th><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="table-cell c ' + css + '">' + row.Total + '</div></th>';
+            html += '</tr>';
         }
-        html += '<th><div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="table-cell c ' + css + '">' + row.Total + '</div></th>';
-        html += '</tr>';
 
         return html;
     },
@@ -512,7 +544,7 @@ var pagerOpts = {
     current_page: 1
 };
 
-ibcDailyDetailReport = {
+var ibcDailyDetailReport = {
     title: '',
     totalRows: 0,
     pageIndex: 1,
@@ -520,7 +552,7 @@ ibcDailyDetailReport = {
     fromDate: '',
     toDate: '',
     gridHeight: 80,
-    freeWidth: 400,
+    freeWidth: 420,
     freeCols: 5,
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = ibcDailyDetailReport.pageSelectCallback;
@@ -623,7 +655,7 @@ ibcDailyDetailReport = {
         var solutions = replaceSpecialHtmlTag(row.Solution);
 
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width:60px;">&nbsp;</div></td>\
+            <td><div class="c" style="width:80px;">&nbsp;</div></td>\
             <td><div class="c" style="width:60px;">&nbsp;</div></td>\
             <td><div class="c" style="width:60px;">&nbsp;</div></td>\
             <td><div class="c" style="width:60px;">&nhsp;</div></td>\
@@ -647,7 +679,7 @@ ibcDailyDetailReport = {
     },
     renderFrozenRow: function (row, css) {
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width:60px;">' + row.FeedbackDate + '</div></td>\
+            <td><div class="c" style="width:80px;">' + row.FeedbackDate + '</div></td>\
             <td><div class="c" style="width:60px;">' + row.FeedbackTime + '</div></td>\
             <td><div class="c" style="width:60px;">' + (new Date(row.ResolutionDate).format("h:i A")) + '</div></td>\
             <td><div class="c" style="width:60px;">' + row.Duration + '</div></td>\
@@ -759,8 +791,10 @@ ibcDailyDetailReport = {
             }
 
             $('#dailydetailgridbody tbody tr:eq(' + i + ') td:eq(0) div').css('height', maxHeight).append(' ');
-            $('#dailydetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').append(' ').attr('style',
-                ' display:table-cell; vertical-align: middle; height:' + maxHeight + 'px');
+            $('#dailydetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').append(' ').css({ 
+                display: 'table-cell', 
+                'vertical-align': 'middle', 
+                height: maxHeight + ''});
         }
 
         var mainreport = $('#dailydetailgrid');
@@ -824,7 +858,7 @@ ibcDailyDetailReport = {
     }
 };
 
-licenseeDailyDetailReport = {
+var licenseeDailyDetailReport = {
     title: '',
     totalRows: 0,
     pageIndex: 1,
@@ -832,7 +866,7 @@ licenseeDailyDetailReport = {
     fromDate: '',
     toDate: '',
     gridHeight: 80,
-    freeWidth: 400,
+    freeWidth: 420,
     freeCols: 5,
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = licenseeDailyDetailReport.pageSelectCallback;
@@ -934,7 +968,7 @@ licenseeDailyDetailReport = {
         var compaints = replaceSpecialHtmlTag(row.Complaints);
         var solutions = replaceSpecialHtmlTag(row.Solution);
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width:60px;">&nbsp;</div></td>\
+            <td><div class="c" style="width:80px;">&nbsp;</div></td>\
             <td><div class="c" style="width:60px;">&nbsp;</div></td>\
             <td><div class="c" style="width:60px;">&nbsp;</div></td>\
             <td><div class="c" style="width:60px;">&nbsp;</div></td>\
@@ -958,7 +992,7 @@ licenseeDailyDetailReport = {
     },
     renderFrozenRow: function (row, css) {
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width:60px;">' + row.FeedbackDate + '</div></td>\
+            <td><div class="c" style="width:80px;">' + row.FeedbackDate + '</div></td>\
             <td><div class="c" style="width:60px;">' + row.FeedbackTime + '</div></td>\
             <td><div class="c" style="width:60px;">' + (new Date(row.ResolutionDate).format("h:i A")) + '</div></td>\
             <td><div class="c" style="width:60px;">' + row.Duration + '</div></td>\
