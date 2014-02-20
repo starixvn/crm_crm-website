@@ -16,6 +16,7 @@ namespace Fanex.CRM.Communication.Services.Implements
     using Fanex.CRM.Communication.Repositories.Interfaces;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services.Interfaces;
+    using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
@@ -93,6 +94,8 @@ namespace Fanex.CRM.Communication.Services.Implements
             Result updateResult = null;
             try
             {
+                criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
+                criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
                 updateResult = _communicationRepositoryLog.UpdateLog(criteria);
                 if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
                 {
@@ -117,6 +120,8 @@ namespace Fanex.CRM.Communication.Services.Implements
             Result insertResult = null;
             try
             {
+                criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
+                criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
                 insertResult = _communicationRepositoryLog.InsertLog(criteria);
                 if (insertResult != null && insertResult.Code == ErrorCodeConstants.NoneError)
                 {

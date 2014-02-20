@@ -16,6 +16,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Communication.Repositories.Interfaces;
+    using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
@@ -153,7 +154,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             var logInfo = new LogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate").ToShortFormatedDate(),
+                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToShortFormatedDate(),
                 MainCategory = new SettingInfo
                 {
                     Name = reader.GetStringNotNull("MainCategory")
@@ -191,7 +192,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             var logInfo = new LogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate").ToShortFormatedDate(),
+                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToShortFormatedDate(),
                 MainCategory = new SettingInfo
                 {
                     Id = reader.GetInt32NotNull("MainCategoryID")
@@ -201,8 +202,8 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                     Id = reader.GetInt32NotNull("SubCategoryID")
                 },
                 Subject = reader.GetStringNotNull("Subject"),
-                StartTime = reader.GetDateTimeNotNull("FeedbackDate"),
-                EndTime = reader.GetDateTimeNotNull("ResolutionDate"),
+                StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")),
+                EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ResolutionDate")),
                 Extension = new SettingInfo
                 {
                     Id = reader.GetInt32NotNull("StationID")

@@ -1,5 +1,6 @@
 ﻿@using Fanex.CRM.Communication.Resources;
 @using Fanex.CRM.Communication.Models;
+@using Fanex.CRM.Infrastructure.Core;
 @{
     var customerId = Model;
 }
@@ -250,7 +251,7 @@
     @Scripts.Render("~/Areas/Communication/InsertLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var currentTime = '@DateTime.Now';
+        var currentTime = '@DateTimeUtilize.ChangeTimeZoneToClientDateTime(DateTime.Now)';
         var customerId = '@customerId';
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply',

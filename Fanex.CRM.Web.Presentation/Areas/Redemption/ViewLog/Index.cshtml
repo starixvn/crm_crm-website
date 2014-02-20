@@ -2,6 +2,7 @@
 @using Newtonsoft.Json;
 @using Fanex.CRM.Redemption.Models;
 @using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
 @model int
 @{
     var customerId = JsonConvert.SerializeObject(Model);
@@ -70,8 +71,8 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 
-        var currentDate = '@DateTime.Now.ToShortFormatedDate()';
-        var initFromDate = '@DateTime.Now.FirstDayOfMonth().ToShortFormatedDate()';
+        var currentDate = '@DateTimeUtilize.ChangeTimeZoneToClientDateTime(DateTime.Now).ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.ChangeTimeZoneToClientDateTime(DateTime.Now.FirstDayOfMonth()).ToShortFormatedDate()';
         var viewResources = { 
             Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
             Insert_Redemption_Log: '@Labels.Insert_Redemption_Log',
