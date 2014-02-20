@@ -21,6 +21,10 @@
     <div id="communicationcontroller" class="container main" data-ng-controller="communicationController">
         <div class="row filter-frm one-row communication-filter">
             <div class="item">
+                <label for="username">@Labels.Handler</label>
+                <input type="text" class="textbox" id="handler" data-ng-model="searchCriteria.Handler" />
+            </div>
+            <div class="item">
                 <label for="fromDate">
                     @Labels.From_date</label>
                 <div class="display-inline-block" data-ng-model="searchCriteria.MaxFromDate" date-picker-from-date-container>
@@ -39,10 +43,6 @@
                     @Labels.Status</label>
                 <select id="status">
                 </select>
-            </div>
-            <div class="item">
-                <label for="username">@Labels.Handler</label>
-                <input type="text" class="textbox" id="handler" data-ng-model="searchCriteria.Handler" />
             </div>
             <div class="item">
                 <button class="btn" data-ng-click="searchCommunicationLogs()">
