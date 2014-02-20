@@ -60,5 +60,10 @@ namespace Fanex.CRM.Infrastructure.Extension
             date = date.AddDays(1).AddSeconds(-1);
             return date;
         }
+
+        public static DateTime GetDateFromDateTime(this DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+        }
     }
 }

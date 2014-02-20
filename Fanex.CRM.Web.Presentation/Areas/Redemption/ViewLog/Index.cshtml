@@ -71,8 +71,8 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 
-        var currentDate = '@DateTimeUtilize.ChangeTimeZoneToClientDateTime(DateTime.Now).ToShortFormatedDate()';
-        var initFromDate = '@DateTimeUtilize.ChangeTimeZoneToClientDateTime(DateTime.Now.FirstDayOfMonth()).ToShortFormatedDate()';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().GetDateFromDateTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().GetDateFromDateTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = { 
             Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
             Insert_Redemption_Log: '@Labels.Insert_Redemption_Log',

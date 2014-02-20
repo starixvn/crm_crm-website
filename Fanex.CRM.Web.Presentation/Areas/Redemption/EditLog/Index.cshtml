@@ -79,7 +79,7 @@
     @Scripts.Render("~/Areas/Redemption/EditLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@DateTimeUtilize.ChangeTimeZoneToClientDateTime(DateTime.Now)';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().GetDateFromDateTime()';
         var viewResources = {
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
             Redemption_Log_EmptySubject: '@Labels.Redemption_Log_EmptySubject',

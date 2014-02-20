@@ -5,10 +5,16 @@ var HotKeyManager = function () {
     self.CachedData = {
         KeyPress: [],
         ActiveDocumentManager: [],
-        isInvokeHotKey: false
+        isInvokeHotKey: false,
+        isSupportedBrowser: false
     };
 
     self.initPage = function () {
+        self.CachedData.isSupportedBrowser = $.browser.mozilla || $.browser.msie;
+        if (!self.CachedData.isSupportedBrowser) {
+            return;
+        }
+
         self.bindEvent();
         if (parent && parent.hotKeyManager) {
             self.CachedData.KeyPress = parent.hotKeyManager.CachedData.KeyPress;

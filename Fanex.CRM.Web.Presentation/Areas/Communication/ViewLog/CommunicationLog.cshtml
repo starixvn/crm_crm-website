@@ -80,8 +80,8 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 
-        var currentDate = '@DateTimeUtilize.ChangeTimeZoneToClientDateTime(DateTime.Now).ToShortFormatedDate()';
-        var initFromDate = '@DateTimeUtilize.ChangeTimeZoneToClientDateTime(DateTime.Now.FirstDayOfMonth()).ToShortFormatedDate()';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = { 
             Customer_Communication_Logs: '@Labels.Customer_Communication_Logs',
             Running_No: '@Labels.Running_No',

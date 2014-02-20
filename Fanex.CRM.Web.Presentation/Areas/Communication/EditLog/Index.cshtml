@@ -252,7 +252,7 @@
     @Scripts.Render("~/Areas/Communication/EditLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")'; 
-        var currentTime = '@DateTimeUtilize.ChangeTimeZoneToClientDateTime(DateTime.Now)'; 
+        var currentTime = '@DateTimeUtilize.GetCurrentClientTime()'; 
         var communicationLog = @Html.Raw(jsonLogInfo); 
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply', 
