@@ -123,6 +123,9 @@
   <data name="Dynamic_Report" xml:space="preserve">
     <value>Dynamic Report</value>
   </data>
+  <data name="From_date" xml:space="preserve">
+    <value>From date</value>
+  </data>
   <data name="Monthly" xml:space="preserve">
     <value>Monthly</value>
   </data>
@@ -131,6 +134,9 @@
   </data>
   <data name="Report_Type" xml:space="preserve">
     <value>Report Type</value>
+  </data>
+  <data name="To_date" xml:space="preserve">
+    <value>To date</value>
   </data>
   <data name="Weekly" xml:space="preserve">
     <value>Weekly</value>

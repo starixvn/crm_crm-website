@@ -18,6 +18,7 @@ namespace Fanex.CRM.Communication.Services.Implements
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
@@ -57,6 +58,8 @@ namespace Fanex.CRM.Communication.Services.Implements
             CustomerLogInfo logs = null;
             try
             {
+                criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate);
+                criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate).GetEndOfDate();
                 var rawData = _communicationRepositoryLog.GetLogsByCustomerId(criteria);
                 logs = new CustomerLogInfo
                 {

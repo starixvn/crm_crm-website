@@ -14,6 +14,13 @@ function (
     $scope.isSetFocus = false;
     $scope.periodTypeList = [];
     $scope.reportTypeList = [];
+    $scope.isUpdatingDate = false;
+    $scope.searchCriteria = {
+        FromDate: initFromDate,
+        ToDate: new Date(currentDate),
+        MinToDate: new Date(initFromDate),
+        MaxFromDate: new Date(currentDate)
+    };
     $scope.initController = function () {
         $scope.getAllSetting();
         hotKeyManager.CachedData.ActiveDocumentManager.push({

@@ -163,7 +163,7 @@ function (
         $scope.communicationLog.Product = $scope.productList[0];
         $scope.communicationLog.BetType = $scope.betTypeList[0];
         $scope.communicationLog.SiteInfo = $scope.statusList[0];
-        $scope.communicationLog.Status = $scope.siteList[0];
+        $scope.communicationLog.Status = $scope.statusList[0];
         $scope.communicationLog.RoleInfo = $scope.roleList[0];
         $scope.communicationLog.Response = $scope.responseList[0];
 
@@ -230,8 +230,8 @@ function (
         $scope.updateRemarkPrefix();
         $scope.updateChangeFlag();
     };
-    $scope.updateSelectedLanguage = function (languageId) {
-        $scope.communicationLog.LanguageId = languageId;
+    $scope.updateSelectedLanguage = function (language) {
+        $scope.communicationLog.LanguageId = language.Id;
         $scope.updateChangeFlag();
     };
     $scope.updateSelectedMainCategory = function (mainCategory) {

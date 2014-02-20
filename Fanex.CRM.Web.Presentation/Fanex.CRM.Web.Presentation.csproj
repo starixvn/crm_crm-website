@@ -364,6 +364,8 @@
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.js" />
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
+    <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
+    <Content Include="Scripts\ShareScripts\Directives\FromToDate\FromDate.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />

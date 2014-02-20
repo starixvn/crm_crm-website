@@ -79,6 +79,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From date.
+        /// </summary>
+        public static string From_date {
+            get {
+                return ResourceManager.GetString("From_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly.
         /// </summary>
         public static string Monthly {
@@ -102,6 +111,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Report_Type {
             get {
                 return ResourceManager.GetString("Report_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To date.
+        /// </summary>
+        public static string To_date {
+            get {
+                return ResourceManager.GetString("To_date", resourceCulture);
             }
         }
         
