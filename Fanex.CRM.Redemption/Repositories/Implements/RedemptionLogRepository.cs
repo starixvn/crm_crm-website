@@ -37,7 +37,6 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
             List<LogInfo> logs = new List<LogInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                criteria.ToDate = criteria.ToDate.GetEndOfDate();
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
