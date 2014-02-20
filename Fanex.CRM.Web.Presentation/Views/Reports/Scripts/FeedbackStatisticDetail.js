@@ -3,9 +3,11 @@
 /* exported openEditFeedback */
 
 var maxHeightOfPopUp = ($(window).height() + 50);
+var maxWidthOfPopUp = 980;
+
 var feedbackDetail;
 
-function viewStatistics() {
+function viewStatistics() {    
     var url = "../Reports/FeedbackStatisticDetail?type=" + feedbackDetail.type +
     "&valueid=" + feedbackDetail.valueId +
     "&maincatid=" + feedbackDetail.mainCategoryId +
@@ -22,11 +24,12 @@ function viewStatistics() {
     '&tdh=' + feedbackDetail.ToDuration.Hour +
     '&tdmi=' + feedbackDetail.ToDuration.Minute +
     '&tds=' + feedbackDetail.ToDuration.Second;
-    parent.OpenPopup(url, "Feedback Statistic Detail Report", 1020, maxHeightOfPopUp, true, false, null, 0, null, null);
+   
+    parent.OpenPopup(url, "Feedback Statistic Detail Report", 1030, maxHeightOfPopUp, true, false, null, 0, null, null);
 }
 
 function openEditFeedback(url) {
-    parent.OpenPopup(url, "Update Feedback", 1020, maxHeightOfPopUp, true, false, window, 2000,
+    parent.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000,
         function () {
             viewStatistics();
         },
