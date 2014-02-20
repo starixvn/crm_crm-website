@@ -59,7 +59,7 @@ var HomeManager = function () {
 
     self.cacheDOMElements = function () {
         self.DOMElements.TextboxUsername = $("#txtuserName");
-        self.DOMElements.ButtonSearch = $("#btnSendMsg");
+        self.DOMElements.ButtonSearch = $("#buttonsearch");
         self.DOMElements.ResultMessage = $("#div-resultpopup");
         self.DOMElements.CheckboxIsGuest = $("#isGuest");
         self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");

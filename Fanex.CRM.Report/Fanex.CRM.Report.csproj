@@ -55,20 +55,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DynamicReportController.cs" />
+    <Compile Include="Models\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\Implements\DynamicReportService.cs" />
+    <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Criteria\" />
-    <Folder Include="Models\" />
     <Folder Include="Repositories\Implements\" />
     <Folder Include="Repositories\Interfaces\" />
-    <Folder Include="Services\Implements\" />
-    <Folder Include="Services\Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.resx">
@@ -80,6 +80,10 @@
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Setting\Fanex.CRM.Setting.csproj">
+      <Project>{6BDF1D65-D49F-4371-B6EE-ABD10B5A8207}</Project>
+      <Name>Fanex.CRM.Setting</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

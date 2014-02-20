@@ -20,7 +20,6 @@ function (
     $scope.statusList = [];
     $scope.isUpdatingDate = false;
     $scope.isSearched = true;
-    $scope.statusList = [];
     $scope.searchCriteria = {
         CustomerId: $scope.customerId,
         FromDate: initFromDate,

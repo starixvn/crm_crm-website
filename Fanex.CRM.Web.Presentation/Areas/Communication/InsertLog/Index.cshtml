@@ -1,5 +1,6 @@
 ﻿@using Fanex.CRM.Communication.Resources;
 @using Fanex.CRM.Communication.Models;
+@using Fanex.CRM.Infrastructure.Core;
 @{
     var customerId = Model;
 }
@@ -197,9 +198,10 @@
                     <label for="subject">
                         @Labels.Subject</label></div>
                 <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
-                    <input type="text" class="textbox" id="subject" data-ng-model="communicationLog.Subject"
+                    <input type="text" class="textbox " id="subject" data-ng-model="communicationLog.Subject"
                         subject-auto-complete />
                 </div>
+                @Html.Raw(Resources.Language.Html_Template_MandatoryField)
             </div>
         </div>
         <div class="row panel-group">
@@ -250,7 +252,7 @@
     @Scripts.Render("~/Areas/Communication/InsertLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var currentTime = '@DateTime.Now';
+        var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';
         var customerId = '@customerId';
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply',

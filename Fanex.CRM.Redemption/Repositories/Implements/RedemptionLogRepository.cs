@@ -13,6 +13,7 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
+    using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
@@ -140,7 +141,7 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
             var logInfo = new LogInfo
             {
                 Id = reader.GetInt32NotNull("Id"),
-                ClaimedTime = reader.GetDateTimeNotNull("ClaimTime").ToShortFormatedDate(),
+                ClaimedTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ClaimTime")).ToShortFormatedDate(),
                 Subject = reader.GetStringNotNull("Subject"),
                 Status = new SettingInfo
                 {
@@ -165,7 +166,7 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
             {
                 Id = reader.GetInt32NotNull("Id"),
                 CustomerId = reader.GetInt32NotNull("CustId"),
-                ClaimedTime = reader.GetDateTimeNotNull("ClaimTime").ToShortFormatedDate(),
+                ClaimedTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ClaimTime")).ToShortFormatedDate(),
                 Subject = reader.GetStringNotNull("Subject"),
                 Remark = reader.GetStringNotNull("Remark"),
                 Status = new SettingInfo

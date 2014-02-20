@@ -2,6 +2,7 @@
 @using Newtonsoft.Json;
 @using Fanex.CRM.Communication.Models;
 @using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
 @model int
 @{
     var customerId = JsonConvert.SerializeObject(Model);
@@ -19,6 +20,10 @@
 <body>
     <div id="communicationcontroller" class="container main" data-ng-controller="communicationController">
         <div class="row filter-frm one-row communication-filter">
+            <div class="item">
+                <label for="username">@Labels.Handler</label>
+                <input type="text" class="textbox" id="handler" data-ng-model="searchCriteria.Handler" />
+            </div>
             <div class="item">
                 <label for="fromDate">
                     @Labels.From_date</label>
@@ -38,10 +43,6 @@
                     @Labels.Status</label>
                 <select id="status">
                 </select>
-            </div>
-            <div class="item">
-                <label for="username">@Labels.Handler</label>
-                <input type="text" class="textbox" id="handler" data-ng-model="searchCriteria.Handler" />
             </div>
             <div class="item">
                 <button class="btn" data-ng-click="searchCommunicationLogs()">
@@ -79,8 +80,8 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 
-        var currentDate = '@DateTime.Now.ToShortFormatedDate()';
-        var initFromDate = '@DateTime.Now.FirstDayOfMonth().ToShortFormatedDate()';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = { 
             Customer_Communication_Logs: '@Labels.Customer_Communication_Logs',
             Running_No: '@Labels.Running_No',

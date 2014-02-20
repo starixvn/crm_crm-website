@@ -11,6 +11,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
@@ -102,6 +103,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
             Result updateResult = null;
             try
             {
+                criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
                 updateResult = _logRepositoryInstance.UpdateLog(criteria);
                 if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
                 {
@@ -126,6 +128,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
             Result insertResult = null;
             try
             {
+                criteria.ClaimedTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ClaimedTime);
                 insertResult = _logRepositoryInstance.InsertLog(criteria);
                 if (insertResult != null && insertResult.Code == ErrorCodeConstants.NoneError)
                 {

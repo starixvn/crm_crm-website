@@ -36,3 +36,5 @@ F:\Nexcel\GitLab\Rome\CRM\crm-website\Fanex.CRM.Report\obj\Debug\Fanex.CRM.Repor
 F:\Nexcel\GitLab\Rome\CRM\crm-website\Fanex.CRM.Report\obj\Debug\Fanex.CRM.Report.csproj.GenerateResource.Cache
 F:\Nexcel\GitLab\Rome\CRM\crm-website\Fanex.CRM.Report\obj\Debug\Fanex.CRM.Report.dll
 F:\Nexcel\GitLab\Rome\CRM\crm-website\Fanex.CRM.Report\obj\Debug\Fanex.CRM.Report.pdb
+F:\Nexcel\GitLab\Rome\CRM\crm-website\Fanex.CRM.Report\bin\Debug\Fanex.CRM.Setting.dll
+F:\Nexcel\GitLab\Rome\CRM\crm-website\Fanex.CRM.Report\bin\Debug\Fanex.CRM.Setting.pdb

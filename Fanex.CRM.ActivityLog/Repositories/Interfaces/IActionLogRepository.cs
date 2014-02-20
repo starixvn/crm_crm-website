@@ -10,16 +10,16 @@
 namespace Fanex.CRM.ActionLog.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
-    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// IActionLogRepository interface.
     /// </summary>
     public interface IActionLogRepository
     {
-        IEnumerable<ActivityLog> GetActivityLogs(ICriteria criteria);
+        IList<ActivityLog> GetActivityLogs(GetActionLogCriteria criteria);
 
-        IEnumerable<SettingLog> GetSettingLogs(ICriteria criteria);
+        IList<SettingLog> GetSettingLogs(GetActionLogCriteria criteria);
     }
 }
