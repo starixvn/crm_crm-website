@@ -263,7 +263,7 @@ var feedbackStatistic = {
                         title +
                     '</div>\
                  </td>';
-        html += '<td colspan=' + totalCol + '><div style="width:' + width + 'px;">&nbsp;</div></td></tr>';
+        html += '<td colspan=' + totalCol + '><div style="width:' + width + 'px; height:17px;">&nbsp;</div></td></tr>';
         return html;
     },
     renderFeedbackScrollDetailRow: function (row, id, css, style) {
@@ -272,7 +272,7 @@ var feedbackStatistic = {
             html = '<tr class="fb_' + id + ' ' + css + '">';
             html += '<td ' + style + '><div style="width:400px; height:17px;"><span class="child">&nbsp;&nbsp;</span>' + row.SubCategory + '</div></td>';
             for (var i = 0; i < row.Cells.length; i++) {
-                html += '<td ' + style + '><div style="width:110px;" class="c ' + css + '">' + number(i, row) + '</div></td>';
+                html += '<td ' + style + '><div style="width:110px; height:17px;" class="c ' + css + '">' + number(i, row) + '</div></td>';
             }
             html += '</tr>';
         }
