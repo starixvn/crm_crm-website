@@ -89,6 +89,18 @@ var SharedScriptManager = function () {
     self.datesEqual = function (dateA, dateB) {
         return !(dateA > dateB || dateB > dateA);
     };
+
+    self.setNoCachingHttpRequest = function (application) {
+        application.config(['$httpProvider', function ($httpProvider) {
+            //initialize get if not there
+            if (!$httpProvider.defaults.headers.get) {
+                $httpProvider.defaults.headers.get = {};
+            }
+
+            //disable IE ajax request caching
+            $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
+        }]);
+    };
 };
 
 var sharedScriptManager = new SharedScriptManager();

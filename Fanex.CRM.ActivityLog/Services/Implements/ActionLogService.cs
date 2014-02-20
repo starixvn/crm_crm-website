@@ -11,6 +11,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Xml;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
@@ -18,7 +19,6 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using Fanex.CRM.ActionLog.Repositories.Interfaces;
     using Fanex.CRM.ActionLog.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// ActionLogService class.
@@ -46,7 +46,9 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         /// <returns>The activity log list with paging.</returns>
         public PagedList<ActivityLog> GetActivityLogs(GetActivityLogCriteria criteria)
         {
-            var activityLogs = _actionLogRepository.GetActivityLogs(criteria);
+            // Exclude rows whose OldValues = NewValues = NULL/Empty.
+            var activityLogs = _actionLogRepository.GetActivityLogs(criteria)
+                .Where(l => !string.IsNullOrWhiteSpace(l.OldValues) && !string.IsNullOrWhiteSpace(l.NewValues));
             
             PagedList<ActivityLog> paginationActivityLogs = new PagedList<ActivityLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
             foreach (var log in paginationActivityLogs)
@@ -68,7 +70,9 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         /// <returns>The setting log list with paging.</returns>
         public PagedList<SettingLog> GetSettingLogs(GetSettingLogCriteria criteria)
         {
-            var settingLogs = _actionLogRepository.GetSettingLogs(criteria);
+            // Exclude rows whose OldValues = NewValues = NULL/Empty.
+            var settingLogs = _actionLogRepository.GetSettingLogs(criteria)
+                .Where(l => !string.IsNullOrWhiteSpace(l.OldValues) && !string.IsNullOrWhiteSpace(l.NewValues));
 
             PagedList<SettingLog> paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
             foreach (var log in paginationSettingLogs)

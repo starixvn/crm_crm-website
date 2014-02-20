@@ -271,6 +271,6 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>Phone or Username or Nickname</value>
   </data>
   <data name="Html_Template_MandatoryField" xml:space="preserve">
-    <value>&lt;div class="col-xs-1 col-sm-1 col-md-1 mandatoryfield"&gt;*&lt;/div&gt;</value>
+    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
   </data>
 </root>

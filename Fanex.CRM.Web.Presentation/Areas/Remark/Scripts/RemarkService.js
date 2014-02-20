@@ -5,7 +5,7 @@ remarkApplication.factory('$remarkService', ['$http', '$q', function ($http, $q)
 
     serviceInstance.getRemarks = function (customerId) {
         var deferred = $q.defer();
-        $http.get(window.rootUrl + 'Remark/GetRemarks?customerId=' + customerId)
+        $http.get(window.rootUrl + 'Remark/GetRemarks?' + $.param({customerId: customerId }))
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

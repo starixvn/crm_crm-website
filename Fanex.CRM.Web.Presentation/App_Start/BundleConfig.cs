@@ -348,7 +348,9 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",
-                "~/Areas/Report/DynamicReport/Scripts/Directives/*.js"));
+                "~/Areas/Report/DynamicReport/Scripts/Directives/*.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/FromToDate/FromDate.js"));
 
             bundles.Add(new StyleBundle("~/Areas/Report/DynamicReportStyles").Include(
                 "~/Areas/Report/DynamicReport/Styles/DynamicReport.less"));
