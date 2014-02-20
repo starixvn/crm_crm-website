@@ -9,9 +9,11 @@
 
 namespace Fanex.CRM.Communication.Services.Interfaces
 {
+    using System.Collections.Generic;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Models;
 
     public interface ICommunicationLogService
     {
@@ -22,5 +24,7 @@ namespace Fanex.CRM.Communication.Services.Interfaces
         Result UpdateLog(UpdateLogCriteria criteria);
 
         Result InsertLog(InsertLogCriteria criteria);
+
+        List<SettingInfo> GetAllStatus();
     }
 }

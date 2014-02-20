@@ -186,6 +186,7 @@
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogService.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogController.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogApplication.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RelatedCustomer.js" />
@@ -283,6 +284,11 @@
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\PeriodTypeContainer.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\ReportTypeContainer.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportController.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportService.js" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -358,6 +364,8 @@
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.js" />
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
+    <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
+    <Content Include="Scripts\ShareScripts\Directives\FromToDate\FromDate.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
@@ -380,7 +388,7 @@
     <None Include="Areas\Redemption\ViewLog\Styles\Redemption.less" />
     <Content Include="Areas\Report\DynamicReport\Index.cshtml" />
     <Content Include="Areas\Report\Web.config" />
-    <None Include="Areas\Report\DynamicReport\Styles\Redemption.less" />
+    <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\reportgrid.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
@@ -706,7 +714,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Report\DynamicReport\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

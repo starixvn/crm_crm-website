@@ -196,9 +196,12 @@
             <div class="row row-item">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <label for="subject">
-                        @Labels.Subject</label></div>
+                        @Labels.Subject
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
+                </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
-                    <input type="text" class="textbox" id="subject" data-ng-model="communicationLog.Subject"
+                    <input type="text" class="textbox " id="subject" data-ng-model="communicationLog.Subject"
                         subject-auto-complete />
                 </div>
             </div>

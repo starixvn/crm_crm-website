@@ -20,7 +20,6 @@ function (
     $scope.statusList = [];
     $scope.isUpdatingDate = false;
     $scope.isSearched = true;
-    $scope.statusList = [];
     $scope.searchCriteria = {
         CustomerId: $scope.customerId,
         FromDate: initFromDate,
@@ -80,7 +79,7 @@ function (
         }
 
         $scope.$apply();
-        $scope.getLogsByCustomerId();
+        $scope.searchCommunicationLogs();
     };
     $scope.closeInsertView = function () {
         $scope.$apply(function () {
@@ -103,7 +102,7 @@ function (
         }
 
         $scope.$apply();
-        $scope.getLogsByCustomerId();
+        $scope.searchCommunicationLogs();
     };
     $scope.beforeCloseInsertView = function () {
         if (parent.homeManager.CachedData.isChangingDataPopUp &&
