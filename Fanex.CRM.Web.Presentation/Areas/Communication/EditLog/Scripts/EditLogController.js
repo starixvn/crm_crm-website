@@ -435,6 +435,12 @@ function (
         $scope.isEditingRelatedCustomer = true;
     };
     $scope.updateLog = function () {
+        if (!$scope.hasReviewPermission &&
+            $scope.oldCommunicationLog.IsReviewed &&
+            !$scope.communicationLog.IsReviewed) {
+            return;
+        }
+
         $scope.isShowResultMessage = false;
         var relatedCustomer = getRelatedCustomer();
         if (!$scope.isVerifyRelatedCustomer && $scope.isEditingRelatedCustomer && relatedCustomer) {
