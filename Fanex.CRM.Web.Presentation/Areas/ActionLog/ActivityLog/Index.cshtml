@@ -18,32 +18,32 @@
 <body>
 <div class="container main" data-ng-controller="activityLogController">
     <div class="row filter-frm one-row redemption-filter">
-        <div class="item">
-            <label for="username">@Labels.CSDUsername</label>
-            <input type="text" class="textbox" id="username" data-ng-model="searchCriteria.Username" />
-        </div>
-        <div class="item">
-            <label for="fromDate">@Labels.FromDate</label>
-            <div class="display-inline-block" data-ng-model="searchCriteria.MaxFromDate" date-picker-from-date-container>
-                <input id="fromDate" type="text" class="textbox txtcalendar" />
+        <form data-ng-submit="searchActivityLogs()">
+            <div class="item">
+                <label for="username">@Labels.CSDUsername</label>
+                <input type="text" class="textbox" id="username" data-ng-model="searchCriteria.Username" />
             </div>
-        </div>
-        <div class="item">
-            <label for="toDate">@Labels.ToDate</label>
-            <div class="display-inline-block" data-ng-model="searchCriteria.MinToDate" date-picker-to-date-container>
-                <input id="toDate" type="text" class="textbox txtcalendar" />
+            <div class="item">
+                <label for="fromDate">@Labels.FromDate</label>
+                <div class="display-inline-block" data-ng-model="searchCriteria.MaxFromDate" date-picker-from-date-container>
+                    <input id="fromDate" type="text" class="textbox txtcalendar" />
+                </div>
             </div>
-        </div>
-        <div class="item afterButton">
-            <label for="action">@Labels.Action</label>
-            <select id="action" class="sel-action" data-ng-model="searchCriteria.Action" ng-options="a.Name for a in actions">
-            </select>
-        </div>
-        <div class="item">
-            <button class="btn" data-ng-click="searchActivityLogs()"
-                default-focus 
-                data-ng-model="isSetFocus"><span class="hotkey">S</span>ubmit</button>
-        </div>
+            <div class="item">
+                <label for="toDate">@Labels.ToDate</label>
+                <div class="display-inline-block" data-ng-model="searchCriteria.MinToDate" date-picker-to-date-container>
+                    <input id="toDate" type="text" class="textbox txtcalendar" />
+                </div>
+            </div>
+            <div class="item afterButton">
+                <label for="action">@Labels.Action</label>
+                <select id="action" class="sel-action" data-ng-model="searchCriteria.Action" ng-options="a.Name for a in actions">
+                </select>
+            </div>
+            <div class="item">
+                <button class="btn"><span class="hotkey">S</span>ubmit</button>
+            </div>
+        </form>
     </div>
     <div class="row">
         <div data-ng-model="activityLogs" table-activity-logs-container>
@@ -69,7 +69,8 @@
             OldValue: '@Labels.OldValue',
             NewValue: '@Labels.NewValue',
             Customer_Activity_Logs: '@Labels.Customer_Activity_Logs'
-        }; 
+        };
+        $('#username').focus(); 
     </script>
 </body>
 </html>

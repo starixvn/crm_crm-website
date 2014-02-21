@@ -179,7 +179,6 @@
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ActivitiLogsContainer.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ToDate.js" />
-    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\SettingLogsContainer.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\ToDate.js" />
@@ -383,7 +382,6 @@
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
     <Content Include="Areas\ActionLog\SettingLog\Index.cshtml" />
-    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\DefaultFocus.js" />
     <None Include="Areas\ActionLog\SettingLog\Styles\settingLog.less" />
     <None Include="Areas\Communication\EditLog\Styles\EditCommunicationLog.less" />
     <None Include="Areas\Communication\InsertLog\Styles\InsertCommunicationLog.less" />
