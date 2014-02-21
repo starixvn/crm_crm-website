@@ -198,6 +198,7 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Role.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Site.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\SolutionEditor.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\Status.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\SubCategory.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\EditLogApplication.js" />
