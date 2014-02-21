@@ -11,11 +11,11 @@ editLogApplication.directive('dropdownSubCategory', function () {
             for (var i = 0; i < subCategoryListLength; i++) {
                 var subCategory = scope.subCategoryList[i];
                 dropdown.append(
-                    '<option value="' + subCategory.Id +
+                    '<option value="' + subCategory.Id + '"' +
                         (scope.communicationLog.SubCategory.Name !== '' && subCategory.Name === scope.communicationLog.SubCategory.Name ?
                             ' selected="selected"' :
                             '') +
-                        '">' + subCategory.Name + '</option>');
+                        '>' + subCategory.Name + '</option>');
             }
 
             element.change(function () {

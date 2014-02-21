@@ -11,11 +11,11 @@ editLogApplication.directive('dropdownExtension', function () {
             for (var i = 0; i < extensionListLength; i++) {
                 var extension = scope.extensionList[i];
                 dropdown.append(
-                    '<option value="' + extension.Id + 
+                    '<option value="' + extension.Id +'"' +
                         (extension.Id === scope.communicationLog.Extension.Id ?
                         ' selected="selected"' :
                         '') +
-                        '">' + extension.Value + '</option>');
+                        '>' + extension.Value + '</option>');
             }
 
             element.change(function () {

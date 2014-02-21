@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 /* global redemptionViewLogApplication,
 crmConstants,
 currentDate,
@@ -18,7 +18,7 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
-            onSelect: function() {},
+            onSelect: function () { $(this).change(); },
             onClose: function () {
                 $(this).blur();
             }
@@ -41,6 +41,24 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
         return selectedDate;
     }
 
+    function datePickerOnChange(scope, element, attrs) {
+        var fromDatePicker = element.find("#fromDate");
+        var selectedDate = selectedDateChange(scope, element, attrs);
+        if (isNaN(oldValue.valueOf()) ||
+                    !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
+            oldValue = selectedDate;
+            if (!scope.isUpdatingDate) {
+                scope.isUpdatingDate = true;
+                scope.$apply(function () {
+                    scope.updateFromDate(selectedDate);
+                    scope.isUpdatingDate = false;
+                });
+            }
+
+            fromDatePicker.datepicker('setDate', selectedDate);
+        }
+    }
+
     return {
         restrict: 'A',
         scope: true,
@@ -55,20 +73,7 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
 
             oldValue = new Date(initFromDate);
             element.on('change', function () {
-                var selectedDate = selectedDateChange(scope, element, attrs);
-                if (isNaN(oldValue.valueOf()) ||
-                    !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
-                    oldValue = selectedDate;
-                    if (!scope.isUpdatingDate) {
-                        scope.isUpdatingDate = true;
-                        scope.$apply(function () {
-                            scope.updateFromDate(selectedDate);
-                            scope.isUpdatingDate = false;
-                        });
-                    }
-
-                    fromDatePicker.datepicker('setDate', selectedDate);
-                }
+                datePickerOnChange(scope, element, attrs);
             });
         }
     };

@@ -11,10 +11,10 @@ editLogApplication.directive('dropdownLanguage', function () {
             for (var i = 0; i < languageListLength; i++) {
                 var language = scope.languageList[i];
                 dropdown.append(
-                    '<option value="' + language.Id +
+                    '<option value="' + language.Id + '"' +
                       (language.Id === scope.communicationLog.LanguageId ?
                         ' selected="selected"' :
-                        '') + '">' + language.Name + '</option>');
+                        '') + '>' + language.Name + '</option>');
             }
 
             element.change(function () {
