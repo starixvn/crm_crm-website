@@ -38,6 +38,7 @@ function (
     $scope.isEditingRelatedCustomer = false;
     $scope.isVerifyRelatedCustomer = false;
     $scope.isSetFocus = false;
+    $scope.hasReviewPermission = hasReviewPermission;
 
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
@@ -434,9 +435,13 @@ function (
         $scope.isEditingRelatedCustomer = true;
     };
     $scope.updateLog = function () {
+        if ($scope.oldCommunicationLog.IsReviewed) {
+            return;
+        }
+
         $scope.isShowResultMessage = false;
         var relatedCustomer = getRelatedCustomer();
-        if (!$scope.isVerifyRelatedCustomer && $scope.isEditingRelatedCustomer) {
+        if (!$scope.isVerifyRelatedCustomer && $scope.isEditingRelatedCustomer && relatedCustomer) {
             /* jshint camelcase: false */
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
@@ -466,8 +471,8 @@ function (
             StatusId: $scope.communicationLog.Status.Id,
             Remark: $scope.communicationLog.Remark,
             Solution: $scope.communicationLog.Solution,
-            IsReviewed: $scope.communicationLog.IsReviewed,
-            Review: $scope.communicationLog.Review,
+            IsReviewed: $scope.hasReviewPermission && $scope.communicationLog.IsReviewed,
+            Review: $scope.hasReviewPermission ? $scope.communicationLog.Review : "",
             Subject: $scope.communicationLog.Subject
         };
 
