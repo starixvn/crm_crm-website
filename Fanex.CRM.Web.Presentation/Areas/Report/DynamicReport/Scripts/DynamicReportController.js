@@ -15,6 +15,18 @@ function (
     $scope.periodTypeList = [];
     $scope.reportTypeList = [];
     $scope.isUpdatingDate = false;
+    $scope.isUpdateFromDatePicker = false;
+    $scope.fromDateOptions = {
+        currentDate: currentDate,
+        initFromDate: initFromDate,
+        maxDate: currentDate
+    };
+    $scope.toDateOptions = {
+        currentDate: currentDate,
+        initFromDate: initFromDate,
+        minDate: currentDate
+    };
+
     $scope.searchCriteria = {
         FromDate: initFromDate,
         ToDate: new Date(currentDate),
@@ -26,6 +38,10 @@ function (
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: "Report_DynamicReport"
+        });
+
+        $scope.$apply(function () {
+            $scope.isUpdateFromDatePicker = true;
         });
     };
 

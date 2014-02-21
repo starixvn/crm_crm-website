@@ -32,8 +32,8 @@ namespace Fanex.CRM.ActionLog.Repositories.Implements
         /// <returns>The activity log list.</returns>
         public IList<ActivityLog> GetActivityLogs(GetActionLogCriteria criteria)
         {
-            criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate).GetBeginDate();
-            criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate).GetEndDate();
+            criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate.GetEndOfDate());
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
@@ -72,8 +72,8 @@ namespace Fanex.CRM.ActionLog.Repositories.Implements
         /// <returns>The setting log list.</returns>
         public IList<SettingLog> GetSettingLogs(GetActionLogCriteria criteria)
         {
-            criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate).GetBeginDate();
-            criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate).GetEndDate();
+            criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate.GetEndOfDate());
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))

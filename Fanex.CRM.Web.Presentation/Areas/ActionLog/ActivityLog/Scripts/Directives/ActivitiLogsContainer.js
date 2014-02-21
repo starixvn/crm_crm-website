@@ -7,6 +7,17 @@ moment */
 activityLogApplication.directive('tableActivityLogsContainer', function () {
     /* jshint camelcase: false */
     function renderActivityLogs(scope, element, attrs) {
+        var gridOptions;    
+        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+            /* jshint unused: vars */
+            gridOptions.pagerOption.currentPage = page_index;
+            gridOptions.pagerOption.itemsPerPage = itemsPerPage;
+            tableActivityLogs.fanexGrid(gridOptions);
+
+            scope.searchActivityLogs(page_index, itemsPerPage);
+            return false;
+        }
+
         /* jshint unused: vars */
         if (!scope.isSearched) {
             return;
@@ -48,10 +59,7 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
                 }
                 else {
                     for (var j = 0; j < mergeRowNumber; j++) {
-                        if (j !== 0) {
-                            row = [];
-                        }
-
+                        row = j !== 0 ? [] : row;
                         bodyData.push({
                             Columns: row.concat([
                                 { Name: 'ColFieldName', Value: fieldNames[j] },
@@ -65,7 +73,7 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
         }
 
         /* jshint camelcase: false */
-        var gridOptions = {
+        gridOptions = {
             columns: [{ HeaderText: activityLogResources.LogDate, Width: 80, Name: 'ColLogDate', HeaderAlign: 'center', CellAlign: 'center' },
                 { HeaderText: activityLogResources.CSDUsername, Width: 100, Name: 'ColUsername', HeaderAlign: 'center', CellAlign: 'left' },
                 { HeaderText: activityLogResources.Action, Width: 270, Name: 'ColAction', HeaderAlign: 'center', CellAlign: 'left' },
@@ -99,16 +107,6 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
         };
 
         tableActivityLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-
-        function ReRenderAfterPaged (page_index, itemsPerPage, jq) {
-            /* jshint unused: vars */
-            gridOptions.pagerOption.currentPage = page_index;
-            gridOptions.pagerOption.itemsPerPage = itemsPerPage;
-            tableActivityLogs.fanexGrid(gridOptions);
-
-            scope.searchActivityLogs(page_index, itemsPerPage);
-            return false;
-        }
     }
 
     return {

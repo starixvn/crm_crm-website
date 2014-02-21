@@ -76,6 +76,7 @@ casinoDailyStatistics = {
                     //--------------
                     var arrFrozen = [];
                     var arrScroll = [];
+                    var totalMainCategories = rs.DailySummary.length;
                     for (var i = 0; i < rs.DailySummary.length; i++) {
                         var arrNewData = rs.DailySummary[i];
                         if (arrNewData != null && arrNewData.SystemSummary.length > 0) {
@@ -121,39 +122,41 @@ casinoDailyStatistics = {
             },
             error: function () { },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { }
             }
         });
     },
     renderHeaderReport: function (row) {
-        var totalGroupCels = row.SystemSummary[0].Cells.length;
-        var totalWidth = (casinoDailyStatistics.columnWidthDefault * totalGroupCels);
-        var totalCels = row.SystemSummary.length;
-
         var html = '';
-        var summary;
+        if (row) {
+            var totalGroupCels = row.SystemSummary[0].Cells.length;
+            var totalWidth = (casinoDailyStatistics.columnWidthDefault * totalGroupCels);
+            var totalCels = row.SystemSummary.length;
 
-        //--------------------------
-        html += '<tr>';
-        html += '<th rowspan="2"><div class="table-cell c" style="width:300px; heigth:39px;">Category</div></th>';
-        for (var i = 0; i < totalCels; i++) {
-            summary = row.SystemSummary[i];
-            html += '<th colspan="' + totalGroupCels + '"><div class="c table-cell" style="width: ' + totalWidth + 'px">' + summary.Sytem + '</div></th>';
-        }
-        html += '</tr>';
-        //--------------------------
-        html += '<tr>';
-        for (var k = 0; k < totalCels; k++) {
-            summary = row.SystemSummary[k];
-            for (var j = 0; j < totalGroupCels; j++) {
-                html += '<th>\
+            var summary;
+
+            //--------------------------
+            html += '<tr>';
+            html += '<th rowspan="2"><div class="table-cell c" style="width:300px; heigth:39px;">Category</div></th>';
+            for (var i = 0; i < totalCels; i++) {
+                summary = row.SystemSummary[i];
+                html += '<th colspan="' + totalGroupCels + '"><div class="c table-cell" style="width: ' + totalWidth + 'px">' + summary.Sytem + '</div></th>';
+            }
+            html += '</tr>';
+            //--------------------------
+            html += '<tr>';
+            for (var k = 0; k < totalCels; k++) {
+                summary = row.SystemSummary[k];
+                for (var j = 0; j < totalGroupCels; j++) {
+                    html += '<th>\
                             <div style="width:' + casinoDailyStatistics.columnWidthDefault +
                                 'px" class="c table-cell">' + summary.Cells[j].Title + '</div>\
                          </th>';
+                }
             }
+            html += '</tr>';
+            //--------------------------
         }
-        html += '</tr>';
-        //--------------------------
         return html;
     },
     renderFrozenGroup: function (title, css) {
@@ -163,20 +166,24 @@ casinoDailyStatistics = {
         return html;
     },
     renderScrollGroup: function (row, css, style, title) {
-        var html = '<tr class="' + css + '">';
-        html += '<td><div class="l b" style="width:300px; ">' + title + '</div></td>';
-        for (var i = 0; i < row.length; i++) {
-            var summary = row[i];
-            for (var j = 0; j < summary.Cells.length; j++) {
-                html += '<td ' + style + '>\
+        var html = '';
+        if (row) {
+            html = '<tr class="' + css + '">';
+            html += '<td><div class="l b" style="width:300px; ">' + title + '</div></td>';
+            var totalCells = row.length;
+            for (var i = 0; i < totalCells; i++) {
+                var summary = row[i];
+                for (var j = 0; j < summary.Cells.length; j++) {
+                    html += '<td ' + style + '>\
                             <div class="c ' + css +
                                 '" style="width:' + casinoDailyStatistics.columnWidthDefault + 'px;">' +
                                     summary.Cells[j].Value +
                             '</div>\
                          </td>';
+                }
             }
+            html += '</tr>';
         }
-        html += '</tr>';
 
         return html;
     },
@@ -189,7 +196,8 @@ casinoDailyStatistics = {
             var i;
             for (i = 0; i < detail.length; i++) {
                 var summary = detail[i];
-                for (var j = 0; j < summary.Cells.length; j++) {
+                var totalCells = summary.Cells.length;
+                for (var j = 0; j < totalCells; j++) {
                     html += '<th><div class="c " style="width:' + casinoDailyStatistics.columnWidthDefault + 'px;">' + summary.Cells[j].Value + '</div></th>';
                 }
             }
@@ -243,8 +251,8 @@ casinoDailyDetail = {
     pageSize: 50,
     fromDate: '',
     toDate: '',
-    gridHeight: 80,
-    freeWidth: 400,
+    gridHeight: 100,
+    freeWidth: 420,
     freeCols: 5,
     /*jshint camelcase: false */
     initPager: function (total_items, items_per_page, current_page) {
@@ -295,7 +303,8 @@ casinoDailyDetail = {
                 if (rs && rs.DailyComplaints && rs.DailyComplaints.length > 0) {
                     var arrScroll = [];
                     var arrFrozen = [];
-                    for (var i = 0; i < rs.DailyComplaints.length; i++) {
+                    var totalMainCategories = rs.DailyComplaints.length;
+                    for (var i = 0; i < totalMainCategories; i++) {
                         casinoDailyDetail.totalRows = parseInt(rs.total);
                         var row = rs.DailyComplaints[i];
                         var css = (i % 2 === 0 ? "bgeven" : "bgodd");
@@ -336,7 +345,7 @@ casinoDailyDetail = {
     },
     renderScrollRow: function (row, css) {
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
+            <td><div class="c" style="width: 80px;">&nbsp;</div></td>\
             <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
             <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
             <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
@@ -360,7 +369,7 @@ casinoDailyDetail = {
     },
     renderFrozenRow: function (row, css) {
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width: 60px;">' + row.FeedbackDate + '</div></td>\
+            <td><div class="c" style="width: 80px;">' + row.FeedbackDate + '</div></td>\
             <td><div class="c" style="width: 60px;">' + row.FeedbackTime + '</div></td>\
             <td><div class="c" style="width: 60px;">' + (new Date(row.ResolutionDate).format("h:i A")) + '</div></td>\
             <td><div class="c" style="width: 60px;">' + row.Duration + '</div></td>\
@@ -494,7 +503,7 @@ casinoDailyDetail = {
         $('#btnExportDetail').addClass('hidden');
 
         var html = '<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:80px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
@@ -505,7 +514,7 @@ casinoDailyDetail = {
         var mainreport = $('#dailydetailgrid');
 
         $("#dailydetailfirstcol tbody").empty().html('<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:80px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\

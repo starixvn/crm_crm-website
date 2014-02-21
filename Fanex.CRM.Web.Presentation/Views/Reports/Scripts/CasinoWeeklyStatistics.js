@@ -45,8 +45,8 @@ var casinoWeeklySummary = {
                     //--------------
                     var arrFrozen = [];
                     var arrScroll = [];
-
-                    for (var i = 0; i < rs.DailySummaries.length; i++) {
+                    var totalMainCategories = rs.DailySummaries.length;
+                    for (var i = 0; i < totalMainCategories; i++) {
                         var arrNewData = rs.DailySummaries[i];
 
                         if (arrNewData != null && arrNewData.DailySummaries.length > 0) {
@@ -96,22 +96,25 @@ var casinoWeeklySummary = {
             },
             error: function () { },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { }
             }
         });
     },
     renderHeaderReport: function (row) {
-        var html = '<tr>';
-        html += '<th><div class="c table-cell" style="width: 300px; height:30px;">Category</div></th>';
-        for (var i = 0; i < row.length; i++) {
-            html += '<th>\
+        var html = '';
+        if (row) {
+            html = '<tr>';
+            html += '<th><div class="c table-cell" style="width: 300px; height:30px;">Category</div></th>';
+            var totalCells = row.length;
+            for (var i = 0; i < totalCells; i++) {
+                html += '<th>\
                         <div class="table-cell c" style="width: ' + casinoWeeklySummary.columnWidthDefault +
                             'px; height:30px;">' + row[i].Title.replace('_', ' ') + '</div>\
                      </th>';
+            }
+            html += '<th><div class="table-cell c" style="width: ' + casinoWeeklySummary.columnWidthDefault + 'px; height:30px;">Grand Total</div></th>';
+            html += '</tr>';
         }
-        html += '<th><div class="table-cell c" style="width: ' + casinoWeeklySummary.columnWidthDefault + 'px; height:30px;">Grand Total</div></th>';
-        html += '</tr>';
-
         return html;
     },
     renderFrozenGroup: function (id, title, css) {
@@ -121,28 +124,36 @@ var casinoWeeklySummary = {
         return html;
     },
     renderScrollGroup: function (row, id, css, style, title) {
-        var html = '<tr class="' + css + '">';
-        html += '<td><div class="l b" style="width:300px;">' + title + '</div></td>';
-        for (var i = 0; i < row.Cells.length; i++) {
-            html += '<td ' + style + '>\
+        var html = '';
+        if (row) {
+            html = '<tr class="' + css + '">';
+            html += '<td><div class="l b" style="width:300px;">' + title + '</div></td>';
+            var totalCells = row.Cells.length;
+            for (var i = 0; i < totalCells; i++) {
+                html += '<td ' + style + '>\
                         <div class="c ' + css + '" style="width:' + casinoWeeklySummary.columnWidthDefault + 'px;">' + row.Cells[i].Value + '</div>\
                      </td>';
+            }
+            html += '<td ' + style + '><div class="c ' + css + '" style="width:' + casinoWeeklySummary.columnWidthDefault + 'px;">' + row.Total + '</div></td>';
+            html += '</tr>';
         }
-        html += '<td ' + style + '><div class="c ' + css + '" style="width:' + casinoWeeklySummary.columnWidthDefault + 'px;">' + row.Total + '</div></td>';
-        html += '</tr>';
 
         return html;
     },
     renderFooter: function (row) {
-        var html = '<tr>';
-        html += '<th><div class="c table-cell" style="width:300px; height:17px;">' + row.Total + '</div></th>';
-        for (var i = 0; i < row.Cells.length; i++) {
-            html += '<th>\
+        var html = '';
+        if (row) {
+            var html = '<tr>';
+            html += '<th><div class="c table-cell" style="width:300px; height:17px;">' + row.Total + '</div></th>';
+            var totalCells = row.Cells.length;
+            for (var i = 0; i < totalCells; i++) {
+                html += '<th>\
                         <div class="table-cell c" style="width:' + casinoWeeklySummary.columnWidthDefault + 'px; height:17px;">' + row.Cells[i].Value + '</div>\
                      </th>';
+            }
+            html += '<th><div class="c table-cell" style="width:' + casinoWeeklySummary.columnWidthDefault + 'px; height:17px;">' + row.Total + '</div></th>';
+            html += '</tr>';
         }
-        html += '<th><div class="c table-cell" style="width:' + casinoWeeklySummary.columnWidthDefault + 'px; height:17px;">' + row.Total + '</div></th>';
-        html += '</tr>';
 
         return html;
     },
@@ -189,8 +200,8 @@ casinoWeeklyDetail = {
     pageSize: 50,
     fromDate: '',
     toDate: '',
-    gridHeight: 80,
-    freeWidth: 400,
+    gridHeight: 100,
+    freeWidth: 420,
     freeCols: 5,
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = casinoWeeklyDetail.pageSelectCallback;
@@ -239,7 +250,8 @@ casinoWeeklyDetail = {
                 if (rs && rs.DailyComplaints && rs.DailyComplaints.length > 0) {
                     var arrScroll = [];
                     var arrFrozen = [];
-                    for (var i = 0; i < rs.DailyComplaints.length; i++) {
+                    var totalMainCategories = rs.DailyComplaints.length;
+                    for (var i = 0; i < totalMainCategories; i++) {
                         casinoWeeklyDetail.totalRows = parseInt(rs.total);
                         var row = rs.DailyComplaints[i];
                         var css = (i % 2 === 0 ? "bgeven" : "bgodd");
@@ -279,7 +291,7 @@ casinoWeeklyDetail = {
     },
     renderScrollRow: function (row, css) {
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
+            <td><div class="c" style="width: 80px;">&nbsp;</div></td>\
             <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
             <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
             <td><div class="c" style="width: 60px;">&nbsp;</div></td>\
@@ -302,7 +314,7 @@ casinoWeeklyDetail = {
     },
     renderFrozenRow: function (row, css) {
         var html = '<tr class="' + css + '">\
-            <td><div class="c" style="width: 60px;">' + row.FeedbackDate + '</div></td>\
+            <td><div class="c" style="width: 80px;">' + row.FeedbackDate + '</div></td>\
             <td><div class="c" style="width: 60px;">' + row.FeedbackTime + '</div></td>\
             <td><div class="c" style="width: 60px;">' + (new Date(row.ResolutionDate).format("h:i A")) + '</div></td>\
             <td><div class="c" style="width: 60px;">' + row.Duration + '</div></td>\
@@ -435,7 +447,7 @@ casinoWeeklyDetail = {
         $('#btnExportDetail').addClass('hidden');
 
         var html = '<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:80px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
@@ -446,7 +458,7 @@ casinoWeeklyDetail = {
         var mainreport = $('#weeklydetailgrid');
 
         $("#weeklydetailfirstcol tbody").empty().html('<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:80px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\

@@ -1,23 +1,37 @@
 ﻿"use strict";
 /* global editLogApplication */
 editLogApplication.directive('dropdownExtension', function () {
+    function renderDropdown(scope, element, attrs) {
+        /* jshint unused: vars */
+        if (scope.extensionList) {
+            var dropdown = element.find("#ext");
+            dropdown.empty();
+            /* jshint camelcase: false */
+            var extensionListLength = scope.extensionList.length;
+            for (var i = 0; i < extensionListLength; i++) {
+                var extension = scope.extensionList[i];
+                dropdown.append(
+                    '<option value="' + extension.Id + 
+                        (extension.Id === scope.communicationLog.Extension.Id ?
+                        ' selected="selected"' :
+                        '') +
+                        '">' + extension.Value + '</option>');
+            }
+
+            element.change(function () {
+                scope.updateSelectedExtension(dropdown.find('option:selected').val());
+            });
+        }
+    }
+
     return {
         restrict: 'A',
-        template: '<option data-ng-repeat="extention in extensionList track by $index"' +
-            ' data-ng-click="updateSelectedExtension(extention);"' +
-            ' value="{{ extention.Id }}"' +
-            ' data-ng-selected="extention.Id === communicationLog.Extension.Id">{{ extention.Value }}</option>',
-        replace: false,
-        priority: 0,
-        transclude: false,
         scope: true,
-        terminal: false,
-        require: false,
-        compile: function compile(tElement, tAttrs, transclude) {
-            /* jshint unused: vars */
-        },
-        link: function (scope, elem, attrs) {
-            /* jshint unused: vars */
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
+                renderDropdown(scope, element, attrs);
+            });
         }
     };
 });

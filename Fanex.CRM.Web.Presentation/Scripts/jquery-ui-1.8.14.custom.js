@@ -9833,12 +9833,12 @@ function (i, attr) {
                 // handle window resize
                 $(window).bind('resize.dialog-overlay', $.ui.dialog.overlay.resize);
             }
-
+           
             var $el = (this.oldInstances.pop() || $('<div></div>').addClass('ui-widget-overlay'))
 			.appendTo(document.body)
 			.css({
 			    width: this.width(),
-			    height: (this.height() - 5)
+			    height: ((parseInt(this.height().substring(0, this.height().length - 2)) - 1) + 'px')
 			});
 
             if ($.fn.bgiframe) {
@@ -9932,13 +9932,13 @@ function (i, attr) {
             $.each($.ui.dialog.overlay.instances, function () {
                 $overlays = $overlays.add(this);
             });
-
+            
             $overlays.css({
                 width: 0,
                 height: 0
             }).css({
                 width: $.ui.dialog.overlay.width(),
-                height: $.ui.dialog.overlay.height()
+                height: ((parseInt($.ui.dialog.overlay.height().substring(0, $.ui.dialog.overlay.height().length - 2)) - 1) + 'px')
             });
         }
     });
