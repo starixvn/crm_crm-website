@@ -47,6 +47,14 @@ namespace Fanex.CRM.ActionLog.Controllers
         public ActionResult GetActivityLog(GetActivityLogCriteria criteria)
         {
             var activityLogs = _actionLogService.GetActivityLogs(criteria);
+
+            if (activityLogs == null || activityLogs.Count == 0)
+            {
+                return Json(
+                null,
+                JsonRequestBehavior.AllowGet);
+            }
+
             return Json(
                 new 
                 { 
@@ -68,6 +76,14 @@ namespace Fanex.CRM.ActionLog.Controllers
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)
         {
             var settingLogs = _actionLogService.GetSettingLogs(criteria);
+
+            if (settingLogs == null || settingLogs.Count == 0)
+            {
+                return Json(
+                null,
+                JsonRequestBehavior.AllowGet);
+            }
+                        
             return Json(
                 new
                 {

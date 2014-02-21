@@ -163,9 +163,14 @@ function emailValidate(email) {
     return true;
 };
 
-function replaceSpaceForIE9(text) {
+function replaceSpaceForIE9(text) {    
+    if ($.browser.msie && $.browser.version < 9 || !$.browser.msie) {
+        return text;
+    }
+
     var expr = new RegExp('>[ \t\r\n\v\f]*<', 'g');
     var html = text.replace(expr, '><');
+
     return html;
 }
 
