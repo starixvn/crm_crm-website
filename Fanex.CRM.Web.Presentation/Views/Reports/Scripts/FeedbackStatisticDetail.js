@@ -6,7 +6,6 @@ var maxHeightOfPopUp = ($(window).height() + 50);
 var maxWidthOfPopUp = 980;
 var feedbackDetail;
 var masterPage;
-var currentPage = null;
 
 function viewStatistics() {
     var url = "../Reports/FeedbackStatisticDetail?type=" + feedbackDetail.type +
@@ -32,10 +31,10 @@ function viewStatistics() {
 function openEditFeedback(url) {
     masterPage.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, currentPage, 2000,
         function () {
-            currentPage.viewStatistics();
+            viewStatistics();
         },
         function () {
-            currentPage.viewStatistics();
+            viewStatistics();
         }
     );
 }
@@ -289,7 +288,6 @@ feedbackDetail = {
 $(document).ready(
     function () {
         masterPage = parent;
-        currentPage = window;
 
         feedbackDetail.fDate = decodeURIComponent(gup("fromdate").replace(/\+/g, " "));
         feedbackDetail.tDate = decodeURIComponent(gup("todate").replace(/\+/g, " "));
