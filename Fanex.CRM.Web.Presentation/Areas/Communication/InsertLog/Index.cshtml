@@ -1,6 +1,10 @@
 ﻿@using Fanex.CRM.Communication.Resources;
 @using Fanex.CRM.Communication.Models;
 @using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Service.Interface;
+@using Fanex.CRM.Service.Impl;
+@using Fanex.CRM.Infrastructure.Common;
+@using Fanex.NAP.Core.Business;
 @{
     var customerId = Model;
 }
@@ -213,7 +217,7 @@
                 <label for="review">
                     @Labels.Reviewed</label>
                 <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
-                    data-ng-model="communicationLog.IsReviewed" />
+                    data-ng-model="communicationLog.IsReviewed" data-ng-disabled="!hasReviewPermission" />
             </div>
             <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">
                 <div id="revieweditorboxcontainer" data-ng-model="communicationLog.Review" review-editor-container>
@@ -225,6 +229,10 @@
                 <span class="hotkey">S</span>ave</button>
         </div>
     </div>
+    @{
+        IPermissionService permission = new PermissionService();
+        var hasReviewPermission = permission.HasPermission(FunctionPermission.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
+    }
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/TimePicker")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
@@ -242,6 +250,7 @@
         window.rootUrl = '@Url.Content("~")';
         var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';
         var customerId = '@customerId';
+        var hasReviewPermission = @hasReviewPermission;
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             Select: '@Labels.Select',

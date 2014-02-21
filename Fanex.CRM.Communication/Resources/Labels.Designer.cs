@@ -151,6 +151,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have review permission!.
+        /// </summary>
+        public static string Communication_Logs_NoReviewPermission {
+            get {
+                return ResourceManager.GetString("Communication_Logs_NoReviewPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update communication log successfully!.
         /// </summary>
         public static string Communication_Logs_UpdateSuccess {

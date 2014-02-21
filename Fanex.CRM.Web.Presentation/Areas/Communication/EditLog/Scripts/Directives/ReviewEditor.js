@@ -38,6 +38,10 @@ editLogApplication.directive('reviewEditorContainer', function () {
                 }]
            ]
         });
+
+        if (!scope.hasReviewPermission) {
+            element.find(".jHtmlArea").attr("disabled", "true");
+        }
     }
 
     return {

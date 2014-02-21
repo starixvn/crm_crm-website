@@ -282,4 +282,7 @@
   <data name="Solved" xml:space="preserve">
     <value>Solved</value>
   </data>
+  <data name="Communication_Logs_NoReviewPermission" xml:space="preserve">
+    <value>You don't have review permission!</value>
+  </data>
 </root>

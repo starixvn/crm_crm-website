@@ -221,14 +221,13 @@
                     data-ng-model="communicationLog.IsReviewed" data-ng-disabled="!hasReviewPermission" />
             </div>
             <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">
-                <div id="revieweditorboxcontainer" data-ng-model="communicationLog.Review" review-editor-container
-                    data-ng-disabled="!hasReviewPermission">
+                <div id="revieweditorboxcontainer" data-ng-model="communicationLog.Review" review-editor-container>
                 </div>
             </div>
         </div>
         <div class="row">
             <button class="btn btn-save" data-ng-click="updateLog();" default-focus data-ng-model="isSetFocus"
-                data-ng-show="!oldCommunicationLog.IsReviewed">
+                data-ng-show="(!oldCommunicationLog.IsReviewed || !communicationLog.IsReviewed) && hasReviewPermission">
                 <span class="hotkey">S</span>ave</button>
         </div>
     </div>

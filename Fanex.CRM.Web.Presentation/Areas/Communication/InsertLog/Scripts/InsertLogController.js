@@ -96,6 +96,7 @@ function (
     $scope.isEditingRelatedCustomer = false;
     $scope.isVerifyRelatedCustomer = false;
     $scope.isSetFocus = false;
+    $scope.hasReviewPermission = hasReviewPermission;
 
     $scope.isUpdatingTime = false;
     $scope.initController = function () {

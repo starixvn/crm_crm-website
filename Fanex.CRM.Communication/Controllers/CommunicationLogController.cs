@@ -20,6 +20,8 @@ namespace Fanex.CRM.Communication.Controllers
     using Fanex.CRM.Setting.Services.Interfaces;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Communication.Resources;
 
     /// <summary>
     /// Communication Log Controller.
@@ -104,7 +106,19 @@ namespace Fanex.CRM.Communication.Controllers
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
-            var updateResult = _communicationServiceLog.UpdateLog(criteria);
+            Result updateResult;
+            if (criteria.IsReviewed && !HasHostPermission(FunctionPermission.ReviewFeedback))
+            {
+                updateResult = new Result
+                {
+                    Code = ErrorCodeConstants.NoPermission,
+                    Message = Labels.Communication_Logs_NoReviewPermission
+                };
+
+                return Json(updateResult, JsonRequestBehavior.AllowGet);
+            }
+
+            updateResult = _communicationServiceLog.UpdateLog(criteria);
             var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -113,7 +127,19 @@ namespace Fanex.CRM.Communication.Controllers
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
-            var insertResult = _communicationServiceLog.InsertLog(criteria);
+            Result insertResult;
+            if (criteria.IsReviewed && !HasHostPermission(FunctionPermission.ReviewFeedback))
+            {
+                insertResult = new Result
+                {
+                    Code = ErrorCodeConstants.NoPermission,
+                    Message = Labels.Communication_Logs_NoReviewPermission
+                };
+
+                return Json(insertResult, JsonRequestBehavior.AllowGet);
+            }
+
+            insertResult = _communicationServiceLog.InsertLog(criteria);
             var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
