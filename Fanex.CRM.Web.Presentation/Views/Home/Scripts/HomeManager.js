@@ -75,6 +75,8 @@ var HomeManager = function () {
         //        self.DOMElements.TextboxUsername.unbind("keyup");
         self.DOMElements.TextboxUsername.keyup(self.TextboxUsernameKeyUp);
 
+        self.DOMElements.TextboxUsername.keypress(self.TextboxUsernameKeyPress);
+
         self.DOMElements.ButtonSearch.unbind("click");
         self.DOMElements.ButtonSearch.click(self.ButtonSearchClick);
 
@@ -106,6 +108,25 @@ var HomeManager = function () {
         }
 
         self.DOMElements.TextboxUsername.val($.URLDecode(inputValue));
+        if (self.DOMElements.TextboxUsername.val() ===
+            self.CachedData.ViewResources.DefaultSearchCustomer) {
+            if (!self.DOMElements.TextboxUsername.hasClass("font-style-italic")) {
+                self.DOMElements.TextboxUsername.addClass("font-style-italic");
+            }
+        }
+    };
+
+    self.TextboxUsernameKeyPress = function (e) {
+        if (self.DOMElements.TextboxUsername.val() !==
+            self.CachedData.ViewResources.DefaultSearchCustomer) {
+            if (self.DOMElements.TextboxUsername.hasClass("font-style-italic")) {
+                self.DOMElements.TextboxUsername.removeClass("font-style-italic");
+            }
+        } else {
+            if (!self.DOMElements.TextboxUsername.hasClass("font-style-italic")) {
+                self.DOMElements.TextboxUsername.addClass("font-style-italic");
+            }
+        }
     };
 
     self.TextboxUsernameKeyUp = function (e) {

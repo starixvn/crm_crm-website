@@ -7,7 +7,7 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Setting.Constants
+namespace Fanex.CRM.Infrastructure.Common
 {
     /// <summary>
     /// Error Code Constants.
@@ -15,5 +15,7 @@ namespace Fanex.CRM.Setting.Constants
     public class ErrorCodeConstants
     {
         public const int NoneError = 0;
+
+        public const int NoPermission = 403;
     }
 }
