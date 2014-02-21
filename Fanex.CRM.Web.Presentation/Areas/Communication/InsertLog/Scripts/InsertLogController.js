@@ -354,7 +354,7 @@ function (
         }
 
         if (productInfo) {
-            $scope.communicationLog.BetType = productInfo;
+            $scope.communicationLog.BetType = betTypeInfo;
             $scope.$apply();
             $scope.updateChangeFlag();
         }

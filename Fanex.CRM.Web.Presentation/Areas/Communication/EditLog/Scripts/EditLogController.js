@@ -176,9 +176,23 @@ function (
         $scope.updateRemarkPrefix();
         $scope.updateChangeFlag();
     };
-    $scope.updateSelectedExtension = function (extention) {
-        $scope.communicationLog.Extension = extention;
-        $scope.updateChangeFlag();
+    $scope.updateSelectedExtension = function (extentionId) {
+        extentionId = parseInt(extentionId);
+        var extensionInfo;
+        var extensionListLength = $scope.extensionList.length;
+        for (var i = 0; i < extensionListLength; i++) {
+            var extension = $scope.extensionList[i];
+            if (extension.Id === extentionId) {
+                extensionInfo = extension;
+                break;
+            }
+        }
+
+        if (extensionInfo) {
+            $scope.communicationLog.Extension = extensionInfo;
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        }
     };
     $scope.updateSelectedCountry = function (countryInfoId) {
         countryInfoId = parseInt(countryInfoId);
@@ -202,36 +216,128 @@ function (
 
         $scope.updateChangeFlag();
     };
-    $scope.updateSelectedCommunicationTool = function (communicationTool) {
-        $scope.communicationLog.CommunicationTool = communicationTool;
+    $scope.updateSelectedCommunicationTool = function (communicationToolId) {
+        communicationToolId = parseInt(communicationToolId);
+        var communicationToolInfo;
+        var communicationToolListLength = $scope.communicationToolList.length;
+        for (var i = 0; i < communicationToolListLength; i++) {
+            var communicationTool = $scope.communicationToolList[i];
+            if (communicationTool.Id === communicationToolId) {
+                communicationToolInfo = communicationTool;
+                break;
+            }
+        }
+
+        if (communicationToolInfo) {
+            $scope.communicationLog.CommunicationTool = communicationToolInfo;
+        }
+
+        $scope.$apply();
         $scope.updateRemarkPrefix();
         $scope.updateChangeFlag();
     };
-    $scope.updateSelectedLanguage = function (language) {
-        $scope.communicationLog.LanguageId = language.Id;
+    $scope.updateSelectedLanguage = function (languageId) {
+        $scope.communicationLog.LanguageId = languageId;
+        $scope.$apply();
         $scope.updateChangeFlag();
     };
-    $scope.updateSelectedMainCategory = function (mainCategory) {
-        $scope.communicationLog.MainCategory = mainCategory;
-        $scope.subCategoryList = mainCategory.ChildSettings;
-        $scope.updateChangeFlag();
+    $scope.updateSelectedMainCategory = function (mainCategoryId) {
+        mainCategoryId = parseInt(mainCategoryId);
+        var mainCategoryInfo;
+        var mainCategoryListLength = $scope.mainCategoryList.length;
+        for (var i = 0; i < mainCategoryListLength; i++) {
+            var mainCategory = $scope.mainCategoryList[i];
+            if (mainCategory.Id === mainCategoryId) {
+                mainCategoryInfo = mainCategory;
+                break;
+            }
+        }
+
+        if (mainCategoryInfo) {
+            $scope.communicationLog.MainCategory = mainCategoryInfo;
+            $scope.subCategoryList = mainCategoryInfo.ChildSettings;
+            $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        }
     };
-    $scope.updateSelectedSubCategory = function (subCategory) {
-        $scope.communicationLog.SubCategory = subCategory;
-        $scope.updateChangeFlag();
+    $scope.updateSelectedSubCategory = function (subCategoryId) {
+        subCategoryId = parseInt(subCategoryId);
+        var subCategoryInfo;
+        var subCategoryListLength = $scope.subCategoryList.length;
+        for (var i = 0; i < subCategoryListLength; i++) {
+            var subCategory = $scope.subCategoryList[i];
+            if (subCategory.Id === subCategoryId) {
+                subCategoryInfo = subCategory;
+                break;
+            }
+        }
+
+        if (subCategoryInfo) {
+            $scope.communicationLog.SubCategory = subCategoryInfo;
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        }
     };
-    $scope.updateSelectedProduct = function (product) {
-        $scope.communicationLog.Product = product;
-        $scope.communicationLog.BetType = product.ChildSettings[0];
-        $scope.betTypeList = product.ChildSettings;
-        $scope.updateChangeFlag();
+    $scope.updateSelectedProduct = function (productId) {
+        productId = parseInt(productId);
+        var productInfo;
+        var productListLength = $scope.productList.length;
+        for (var i = 0; i < productListLength; i++) {
+            var product = $scope.productList[i];
+            if (product.Id === productId) {
+                productInfo = product;
+                break;
+            }
+        }
+
+        if (productInfo) {
+            $scope.communicationLog.Product = productInfo;
+            $scope.betTypeList = productInfo.ChildSettings;
+            $scope.communicationLog.BetType = $scope.betTypeList[0];
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        }
     };
-    $scope.updateSelectedBetType = function (betType) {
-        $scope.communicationLog.BetType = betType;
-        $scope.updateChangeFlag();
+    $scope.updateSelectedBetType = function (betTypeId) {
+        betTypeId = parseInt(betTypeId);
+        var betTypeInfo;
+        var betTypeListLength = $scope.betTypeList.length;
+        for (var i = 0; i < betTypeListLength; i++) {
+            var betType = $scope.betTypeList[i];
+            if (betType.Id === betTypeId) {
+                betTypeInfo = betType;
+                break;
+            }
+        }
+
+        if (productInfo) {
+            $scope.communicationLog.BetType = betTypeInfo;
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        }
     };
-    $scope.updateSelectedSite = function (site) {
-        if (site) {
+    $scope.updateSelectedSite = function (siteId) {
+        siteId = parseInt(siteId);
+        var siteInfo;
+        var siteGroupLength = $scope.siteList.length;
+        for (var i = 0; i < siteGroupLength; i++) {
+            var siteGroup = $scope.siteList[i];
+            var siteLength = siteGroup.ChildSites.length;
+            for (var j = 0; j < siteLength; j++) {
+                var site = siteGroup.ChildSites[j];
+                if (site.Id === siteId) {
+                    siteInfo = site;
+                    break;
+                }
+            }
+
+            if (siteInfo) {
+                break;
+            }
+        }
+
+        if (siteId) {
             $scope.communicationLog.SiteInfo = site;
         } else {
             $scope.communicationLog.SiteInfo = {
@@ -242,17 +348,59 @@ function (
 
         $scope.updateChangeFlag();
     };
-    $scope.updateSelectedStatus = function (status) {
-        $scope.communicationLog.Status = status;
-        $scope.updateChangeFlag();
+    $scope.updateSelectedStatus = function (statusId) {
+        statusId = parseInt(statusId);
+        var statusInfo;
+        var statusListLength = $scope.statusList.length;
+        for (var i = 0; i < statusListLength; i++) {
+            var status = $scope.statusList[i];
+            if (status.Id === statusId) {
+                statusInfo = status;
+                break;
+            }
+        }
+
+        if (statusInfo) {
+            $scope.communicationLog.Status = statusInfo;
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        }
     };
-    $scope.updateSelectedRole = function (role) {
-        $scope.communicationLog.Role = role;
-        $scope.updateChangeFlag();
+    $scope.updateSelectedRole = function (roleId) {
+        roleId = parseInt(roleId);
+        var roleInfo;
+        var roleListLength = $scope.roleList.length;
+        for (var i = 0; i < roleListLength; i++) {
+            var role = $scope.roleList[i];
+            if (role.Id === roleId) {
+                roleInfo = role;
+                break;
+            }
+        }
+
+        if (roleInfo) {
+            $scope.communicationLog.Role = roleInfo;
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        }
     };
-    $scope.updateSelectedRespones = function (response) {
-        $scope.communicationLog.Response = response;
-        $scope.updateChangeFlag();
+    $scope.updateSelectedResponse = function (responseId) {
+        responseId = parseInt(responseId);
+        var responseInfo;
+        var responseListLength = $scope.responseList.length;
+        for (var i = 0; i < responseListLength; i++) {
+            var response = $scope.responseList[i];
+            if (response.Id === responseId) {
+                responseInfo = response;
+                break;
+            }
+        }
+
+        if (responseInfo) {
+            $scope.communicationLog.Response = responseInfo;
+            $scope.$apply();
+            $scope.updateChangeFlag();
+        }
     };
     $scope.updateRemark = function (remark) {
         $scope.communicationLog.Remark = remark;
