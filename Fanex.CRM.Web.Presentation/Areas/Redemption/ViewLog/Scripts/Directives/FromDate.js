@@ -19,9 +19,8 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
             showOtherMonths: true,
             selectOtherMonths: true,
             onSelect: function() {},
-            onClose: function (e) {
+            onClose: function () {
                 $(this).blur();
-                e.preventDefault();
             }
         });
 
