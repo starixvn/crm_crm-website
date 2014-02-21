@@ -1,62 +1,35 @@
 ﻿"use strict";
-
-
-
-
-/* global redemptionViewLogApplication,
+/* global DialogManager,
 crmConstants,
-currentDate,
-sharedScriptManager,
-initFromDate */
-redemptionViewLogApplication.directive('datePickerFromDateContainer', function () {
-    var oldValue = null;
-    var oldMaxValue = null;
-    function renderDatePicker(scope, element, attrs) {
-        /* jshint unused: vars */
-        var fromDatePicker = element.find("#fromDate");
-        fromDatePicker.datepicker({
-            dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,
-            changeMonth: true,
-            changeYear: true,
-            minDate: null,
-            maxDate: new Date(currentDate),
-            showOtherMonths: true,
-            selectOtherMonths: true,
-            onClose: function () {
-                $(this).blur();
+sharedScriptManager */
+var directiveManager = directiveManager || {};
+directiveManager.registerFromDateCalendar = function (angularApplication) {
+    angularApplication.directive('datePickerFromDateContainer', function () {
+        var oldValue = null;
+        var oldMaxValue = null;
+        var isRenderedCalendar = false;
+        function renderDatePicker(scope, element, attrs) {
+            if (scope.fromDateOptions === null) {
+                return;
             }
-        });
 
-        fromDatePicker.datepicker('setDate', new Date(initFromDate));
-    }
-    function selectedDateChange(scope, element, attrs) {
-        /* jshint unused: vars */
-        var fromDatePicker = element.find("#fromDate");
-        var selectedDate = fromDatePicker.val();
-        var date = new Date(selectedDate);
-        if (!isNaN(date.valueOf())) {
-            selectedDate = date;
-        } else {
-            selectedDate = oldValue;
-            oldValue = date;
-        }
-
-        return selectedDate;
-    }
-
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
+            /* jshint unused: vars */
             var fromDatePicker = element.find("#fromDate");
-            renderDatePicker(scope, element, attrs);
-            scope.$watch(attrs.ngModel, function (newval, oldval) {
-                /* jshint unused: vars */
-                oldMaxValue = new Date(newval);
-                fromDatePicker.datepicker("option", "maxDate", new Date(oldMaxValue));
+            fromDatePicker.datepicker({
+                dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,
+                changeMonth: true,
+                changeYear: true,
+                minDate: null,
+                maxDate: new Date(scope.fromDateOptions.maxDate),
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                onClose: function () {
+                    $(this).blur();
+                }
             });
 
-            oldValue = new Date(initFromDate);
+            fromDatePicker.datepicker('setDate', new Date(scope.fromDateOptions.initFromDate));
+            oldValue = new Date(scope.fromDateOptions.initFromDate);
             element.on('change', function () {
                 var selectedDate = selectedDateChange(scope, element, attrs);
                 if (isNaN(oldValue.valueOf()) ||
@@ -74,5 +47,41 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
                 }
             });
         }
-    };
-});
+        function selectedDateChange(scope, element, attrs) {
+            /* jshint unused: vars */
+            var fromDatePicker = element.find("#fromDate");
+            var selectedDate = fromDatePicker.val();
+            var date = new Date(selectedDate);
+            if (!isNaN(date.valueOf())) {
+                selectedDate = date;
+            } else {
+                selectedDate = oldValue;
+                oldValue = date;
+            }
+
+            return selectedDate;
+        }
+
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                var fromDatePicker = element.find("#fromDate");
+                scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    /* jshint unused: vars */
+                    if (newval && !oldval) {
+                        if (!isRenderedCalendar) {
+                            renderDatePicker(scope, element, attrs);
+                        } else {
+                            oldMaxValue = new Date(newval);
+                            fromDatePicker.datepicker("option", "maxDate", new Date(scope.fromDateOptions.maxDate));
+                        }
+
+                        scope.isupdateFromDatePicker = false;
+                    }
+                });
+            }
+        };
+    });
+};
+

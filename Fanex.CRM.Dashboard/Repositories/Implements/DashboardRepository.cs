@@ -20,6 +20,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;
+    using Fanex.CRM.Infrastructure.Core;
 
     /// <summary>
     /// Dashboard Repository.
@@ -216,7 +217,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             var redemptionLog = new RedemptionLogInfo
             {
                 Id = reader.GetInt32NotNull("RedemptionId"),
-                ClaimedTime = reader.GetDateTimeNotNull("ClaimTime").ToShortFormatedDate(),
+                ClaimedTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ClaimTime")).ToShortFormatedDate(),
                 Subject = reader.GetStringNotNull("Subject"),
                 Status = new SettingInfo
                 {
@@ -242,7 +243,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             var communicationLog = new CommunicationLogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = reader.GetDateTimeNotNull("FeedbackDate").ToShortFormatedDate(),
+                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToShortFormatedDate(),
                 MainCategory = new SettingInfo
                 {
                     Name = reader.GetStringNotNull("MainCategory")

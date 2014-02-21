@@ -3,26 +3,42 @@
 viewResources,
 crmConstants */
 insertLogApplication.directive('dropdownSite', function () {
+    function renderDropdown(scope, element, attrs) {
+        /* jshint unused: vars */
+        if (scope.siteList) {
+            var dropdown = element.find("#site");
+            dropdown.empty();
+            var optionHtml =
+                '<option value="' + crmConstants.Enums.Site.NotApply + '">' + viewResources.Select + '</option>';
+
+            var siteGroupLength = scope.siteList.length;
+            for (var i = 0; i < siteGroupLength; i++) {
+                var siteGroup = scope.siteList[i];
+                optionHtml += '<optgroup label="' + siteGroup.Name +
+                    '" value="' + siteGroup.Id + '">';
+                var siteLength = siteGroup.ChildSites.length;
+                for (var j = 0; j < siteLength; j++) {
+                    var site = siteGroup.ChildSites[j];
+                    optionHtml += '<option value="' + site.Id + '">' + site.Name + '</option>';
+                }
+
+                optionHtml += '</optgroup>';
+            }
+
+            dropdown.append(optionHtml);
+            element.change(function () {
+                scope.updateSelectedSite(dropdown.find('option:selected').val());
+            });
+        }
+    }
     return {
         restrict: 'A',
-        template: '<option value="' + crmConstants.Enums.Site.NotApply + '"' +
-                     ' data-ng-click="updateSelectedSite();">' + viewResources.Select + '</option>\
-                   <optgroup data-ng-repeat="siteGroup in siteList track by $index" label="{{ siteGroup.Name }}" value="{{ siteGroup.Id }}">\
-                        <option data-ng-repeat="site in siteGroup.ChildSites track by $index"' +
-                            ' data-ng-click="updateSelectedSite(site);"' +
-                            ' value="{{ site.Id }}">{{ site.Name }}</option>\
-                   </optgroup>',
-        replace: false,
-        priority: 0,
-        transclude: false,
         scope: true,
-        terminal: false,
-        require: false,
-        compile: function compile(tElement, tAttrs, transclude) {
-            /* jshint unused: vars */
-        },
-        link: function (scope, elem, attrs) {
-            /* jshint unused: vars */
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
+                renderDropdown(scope, element, attrs);
+            });
         }
     };
 });

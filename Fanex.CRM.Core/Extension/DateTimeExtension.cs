@@ -62,18 +62,14 @@ namespace Fanex.CRM.Infrastructure.Extension
 
         public static DateTime GetEndOfDate(this DateTime date)
         {
-            if (date == null)
-            {
-                date = DateTime.Today;
-            }
-
-            date = date.AddDays(1).AddSeconds(-1);
+            date = new DateTime(date.Year, date.Month, date.Day).AddDays(1).AddSeconds(-1);
             return date;
         }
 
-        public static DateTime GetDateFromDateTime(this DateTime dateTime)
+        public static DateTime GetStartOfDate(this DateTime date)
         {
-            return new DateTime(dateTime.Year, dateTime.Month, dateTime.Day);
+            date = new DateTime(date.Year, date.Month, date.Day);
+            return date;
         }
     }
 }

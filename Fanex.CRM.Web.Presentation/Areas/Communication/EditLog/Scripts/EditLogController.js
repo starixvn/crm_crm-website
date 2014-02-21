@@ -180,8 +180,26 @@ function (
         $scope.communicationLog.Extension = extention;
         $scope.updateChangeFlag();
     };
-    $scope.updateSelectedCountry = function (country) {
-        $scope.communicationLog.Country = country;
+    $scope.updateSelectedCountry = function (countryInfoId) {
+        countryInfoId = parseInt(countryInfoId);
+        var countryInfo;
+        var countryListLength = $scope.countryList.length;
+        for (var i = 0; i < countryListLength; i++) {
+            var country = $scope.countryList[i];
+            if (country.Id === countryInfoId) {
+                countryInfo = country;
+                break;
+            }
+        }
+
+        if (countryInfo) {
+            $scope.communicationLog.Country = countryInfo;
+        } else {
+            $scope.communicationLog.Country = {
+                Id: crmConstants.Enums.Country.NotApply
+            };
+        }
+
         $scope.updateChangeFlag();
     };
     $scope.updateSelectedCommunicationTool = function (communicationTool) {

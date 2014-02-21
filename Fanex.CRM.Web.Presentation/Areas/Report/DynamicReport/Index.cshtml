@@ -34,7 +34,7 @@
                 <div class="item">
                     <label for="fromDate">
                         @Labels.From_date</label>
-                    <div class="display-inline-block date-picker-from-date-container" data-ng-model="searchCriteria.MaxFromDate">
+                    <div class="display-inline-block " data-ng-model="isUpdateFromDatePicker" date-picker-from-date-container>
                         <input id="fromDate" type="text" class="textbox txtcalendar" />
                     </div>
                 </div>
@@ -56,6 +56,9 @@
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+
+        directiveManager.registerFromDateCalendar(dynamicReportApplication);
+        directiveManager.registerToDateCalendar(dynamicReportApplication);
         var viewResources = {
         };
     </script>

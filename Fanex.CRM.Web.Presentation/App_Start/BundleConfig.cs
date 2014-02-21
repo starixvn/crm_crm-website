@@ -345,12 +345,12 @@ namespace Fanex.CRM.Web.View.App_Start
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/DynamicReportScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/FromToDate/FromDate.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",
-                "~/Areas/Report/DynamicReport/Scripts/Directives/*.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/FromToDate/FromDate.js"));
+                "~/Areas/Report/DynamicReport/Scripts/Directives/*.js"));
 
             bundles.Add(new StyleBundle("~/Areas/Report/DynamicReportStyles").Include(
                 "~/Areas/Report/DynamicReport/Styles/DynamicReport.less"));

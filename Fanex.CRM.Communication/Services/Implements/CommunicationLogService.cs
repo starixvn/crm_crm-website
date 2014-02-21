@@ -59,7 +59,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             try
             {
                 criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate).GetEndOfDate();
+                criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate.GetEndOfDate());
                 var rawData = _communicationRepositoryLog.GetLogsByCustomerId(criteria);
                 logs = new CustomerLogInfo
                 {

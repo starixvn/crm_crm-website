@@ -1,28 +1,36 @@
 ﻿"use strict";
 /* global editLogApplication, crmConstants, viewResources */
 editLogApplication.directive('dropdownCountry', function () {
+    function renderDropdown(scope, element, attrs) {
+        /* jshint unused: vars */
+        if (scope.countryList) {
+            var dropdown = element.find("#country");
+            dropdown.empty();
+            /* jshint camelcase: false */
+            dropdown.append(
+                '<option value="' + crmConstants.Enums.Country.NotApply + '">' + viewResources.Symbol_NotApply +
+                '</option>');
+            var countryListLength = scope.countryList.length;
+            for (var i = 0; i < countryListLength; i++) {
+                var country = scope.countryList[i];
+                dropdown.append(
+                    '<option value="' + country.Id + '">' + country.Name + '</option>');
+            }
+
+            element.change(function () {
+                scope.updateSelectedCountry(dropdown.find('option:selected').val());
+            });
+        }
+    }
+
     return {
-        /* jshint camelcase: false */
         restrict: 'A',
-        template: '<option value="' + crmConstants.Enums.Country.NotApply +
-                        ' data-ng-click="updateSelectedCountry(country);">' +
-                        viewResources.Symbol_NotApply +
-                  '</option>\
-                   <option data-ng-repeat="country in countryList track by $index"' +
-                        ' data-ng-click="updateSelectedCountry(country);"' +
-                        ' data-ng-selected="country.Id === communicationLog.Country.Id"' +
-                        ' value="{{ country.Id }}">{{ country.Name }}</option>',
-        replace: false,
-        priority: 0,
-        transclude: false,
         scope: true,
-        terminal: false,
-        require: false,
-        compile: function compile(tElement, tAttrs, transclude) {
-            /* jshint unused: vars */
-        },
-        link: function (scope, elem, attrs) {
-            /* jshint unused: vars */
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
+                renderDropdown(scope, element, attrs);
+            });
         }
     };
 });
