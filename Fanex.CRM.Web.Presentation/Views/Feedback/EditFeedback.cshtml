@@ -375,15 +375,14 @@
     <div class="row panel-group">
         <div class="row title" id="reviewtitle">
             <div class="pull-left hand" onclick="showHideDetailBox(isShowReviewBox, 'FeedbackReview'); isShowReviewBox = !isShowReviewBox;">
-                Review <span id="divisreview" class="">
-                    <input type="checkbox" id="chkisreview" onclick="EnableUpdateReview(this);" style="float: left;
+                Review
+                    <input type="checkbox" id="chkisreview" onclick="updateFeedback.reviewCheckBox();" style="float: left;
                         display: block;" />
-                </span>
+                    <span id="lblUpdateReview" class="hidden"></span><span id="lblEditedBy"><!--Reviewed--></span>
+                    <span class="hidden error errormsg" id="revieweditererror"></span>
             </div>
-            <div class="pull-right" id="editreview" style="display: none;">
-                <input type="button" class="btnreview  hidden" value="Preview" id="btnrevreview"
-                    onclick="initReview('rev');" />
-                <input type="button" class="btnedit " value="Edit" id="btnrevedit" onclick="initEdit('rev');" />
+            <div class="pull-right" id="editreview">
+                <input type="button" class="btnrecover hidden" value="Remove" id="btnUnReview" onclick="updateFeedback.unReview();" />
             </div>
         </div>
         <div class="row content FeedbackReview" id="reviewbox">
@@ -396,8 +395,7 @@
         </div>
     </div>
     <div class="row btn-group">
-        <button class="btn updateFeedback" onclick="EditFeedback();" id="btnsubmitbottom">
-            Save</button>
+        <input type="button" class="btn updateFeedback" onclick="EditFeedback();" id="btnsubmitbottom" value="Save" />
     </div>
 </div>
 @*<div class="main">
