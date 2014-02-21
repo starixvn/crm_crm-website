@@ -1,23 +1,37 @@
 ﻿"use strict";
 /* global editLogApplication */
 editLogApplication.directive('dropdownMainCategory', function () {
+    function renderDropdown(scope, element, attrs) {
+        /* jshint unused: vars */
+        if (scope.extensionList) {
+            var dropdown = element.find("#mainCategory");
+            dropdown.empty();
+            /* jshint camelcase: false */
+            var mainCategoryListLength = scope.mainCategoryList.length;
+            for (var i = 0; i < mainCategoryListLength; i++) {
+                var mainCategory = scope.mainCategoryList[i];
+                dropdown.append(
+                    '<option value="' + mainCategory.Id +
+                         (scope.communicationLog.MainCategory.Name !== '' && mainCategory.Name === scope.communicationLog.MainCategory.Name ?
+                            ' selected="selected"' :
+                            '') +
+                    '">' + mainCategory.Name + '</option>');
+            }
+
+            element.change(function () {
+                scope.updateSelectedMainCategory(dropdown.find('option:selected').val());
+            });
+        }
+    }
+
     return {
         restrict: 'A',
-        template: '<option data-ng-repeat="mainCategory in mainCategoryList track by $index"' +
-                        ' data-ng-click="updateSelectedMainCategory(mainCategory);"' +
-                        ' value="{{ mainCategory.Id }}"' +
-                        ' data-ng-selected="mainCategory.Id == communicationLog.MainCategory.Id">{{ mainCategory.Name }}</option>',
-        replace: false,
-        priority: 0,
-        transclude: false,
         scope: true,
-        terminal: false,
-        require: false,
-        compile: function compile(tElement, tAttrs, transclude) {
-            /* jshint unused: vars */
-        },
-        link: function (scope, elem, attrs) {
-            /* jshint unused: vars */
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
+                renderDropdown(scope, element, attrs);
+            });
         }
     };
 });
