@@ -353,7 +353,7 @@ function (
             }
         }
 
-        if (productInfo) {
+        if (betTypeInfo) {
             $scope.communicationLog.BetType = betTypeInfo;
             $scope.$apply();
             $scope.updateChangeFlag();
@@ -379,8 +379,8 @@ function (
             }
         }
 
-        if (siteId) {
-            $scope.communicationLog.SiteInfo = site;
+        if (siteInfo) {
+            $scope.communicationLog.SiteInfo = siteInfo;
         } else {
             $scope.communicationLog.SiteInfo = {
                 Id: crmConstants.Enums.Site.NotApply,

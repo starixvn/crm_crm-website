@@ -48,7 +48,10 @@
             <div class="row row-item">
                 <div class="col-xs-2 col-sm-2 col-md-2">
                     <label for="subject">
-                        @Labels.Subject</label></div>
+                        @Labels.Subject
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
+                </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
                     <input type="text" class="textbox" id="subject" data-ng-model="redemptionLog.Subject"
                         subject-auto-complete />
@@ -57,7 +60,9 @@
         </div>
         <div class="row panel-group last">
             <div class="row title">
-                @Labels.Remark</div>
+                @Labels.Remark
+                @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+            </div>
             <div class="row content multi-text">
                 <div id="remarkeditorboxcontainer" data-ng-model="redemptionLog.Remark" remark-editor-container>
                 </div>

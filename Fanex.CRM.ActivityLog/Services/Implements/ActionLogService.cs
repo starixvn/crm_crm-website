@@ -48,7 +48,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             // Exclude rows whose OldValues = NewValues = NULL/Empty.
             var activityLogs = _actionLogRepository.GetActivityLogs(criteria)
-                .Where(l => !string.IsNullOrWhiteSpace(l.OldValues) && !string.IsNullOrWhiteSpace(l.NewValues));
+                .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase));
             
             PagedList<ActivityLog> paginationActivityLogs = new PagedList<ActivityLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
             foreach (var log in paginationActivityLogs)
@@ -72,7 +72,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             // Exclude rows whose OldValues = NewValues = NULL/Empty.
             var settingLogs = _actionLogRepository.GetSettingLogs(criteria)
-                .Where(l => !string.IsNullOrWhiteSpace(l.OldValues) && !string.IsNullOrWhiteSpace(l.NewValues));
+                .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase));
 
             PagedList<SettingLog> paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
             foreach (var log in paginationSettingLogs)

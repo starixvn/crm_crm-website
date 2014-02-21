@@ -58,8 +58,8 @@ namespace Fanex.CRM.Redemption.Services.Implements
             CustomerLogInfo customerInfo = null;
             try
             {
-                criteria.FromDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.ToDate.GetEndOfDate());
+                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
                 var rawData = _logRepositoryInstance.GetLogsByCustomerId(criteria);
                 customerInfo = new CustomerLogInfo
                 {
