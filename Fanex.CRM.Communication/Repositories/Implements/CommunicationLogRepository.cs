@@ -248,7 +248,6 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                 CustomerId = reader.GetInt32NotNull("CustId")
             };
 
-            logInfo.IsReviewed = logInfo.Reviewer != string.Empty;
             return logInfo;
         }
 

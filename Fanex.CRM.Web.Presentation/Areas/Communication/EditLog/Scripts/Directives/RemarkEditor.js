@@ -2,13 +2,15 @@
 /* global editLogApplication, 
 communicationLog,
 viewResources */
- editLogApplication.directive('remarkEditorContainer', function () {
+editLogApplication.directive('remarkEditorContainer', function () {
     var editorId = "remarkeditorbox";
     function renderRemarkEditor(scope, element, attrs) {
         /* jshint unused: vars */
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-            communicationLog.Remark +
+        (communicationLog.Remark.indexOf(" ", communicationLog.Remark.length - 1) !== -1 ?
+            communicationLog.Remark.substring(0, communicationLog.Remark.length - 1) + "&nbsp;" :
+            communicationLog.Remark) +
         '</textarea>';
 
         element.html(editorHTML);
@@ -38,6 +40,7 @@ viewResources */
                 }]
            ]
         });
+
     }
 
     return {
