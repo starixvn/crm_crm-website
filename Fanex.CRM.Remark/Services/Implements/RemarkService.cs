@@ -9,7 +9,9 @@
 
 namespace Fanex.CRM.Remark.Services.Implements
 {
+    using System;
     using System.Text;
+    using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
@@ -44,8 +46,17 @@ namespace Fanex.CRM.Remark.Services.Implements
         /// <returns>The remark detail object.</returns>
         public Remarks GetRemarks(ICriteria criteria)
         {
-            var remark = _remarkRepository.GetRemarks(criteria);
-            return remark;
+            Remarks customerRemarks = null;
+            try
+            {
+                customerRemarks = _remarkRepository.GetRemarks(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return customerRemarks;
         }
 
         /// <summary>
@@ -55,45 +66,58 @@ namespace Fanex.CRM.Remark.Services.Implements
         /// <returns>The result object.</returns>
         public Result UpdateRemarks(Remarks model)
         {
-            StringBuilder remarkBuilder = new StringBuilder(1024);
-            remarkBuilder.Append("<Remarks>");
-            if (model.SpecialRemarks != null)
+            try
             {
-                foreach (string remark in model.SpecialRemarks)
+                StringBuilder remarkBuilder = new StringBuilder(1024);
+                remarkBuilder.Append("<Remarks>");
+                if (model.SpecialRemarks != null)
                 {
-                    if (remark == null || remark.Trim().Length == 0)
+                    foreach (string remark in model.SpecialRemarks)
                     {
-                        continue;
+                        if (remark == null || remark.Trim().Length == 0)
+                        {
+                            continue;
+                        }
+
+                        remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
+                            .Append(" IsSpecial=\"1\" />");
                     }
-
-                    remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
-                        .Append(" IsSpecial=\"1\" />");
                 }
-            }
 
-            if (model.NormalRemarks != null)
+                if (model.NormalRemarks != null)
+                {
+                    foreach (string remark in model.NormalRemarks)
+                    {
+                        if (remark == null || remark.Trim().Length == 0)
+                        {
+                            continue;
+                        }
+
+                        remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
+                            .Append(" IsSpecial=\"0\" />");
+                    }
+                }
+
+                remarkBuilder.Append("</Remarks>");
+
+                ICriteria criteria = new UpdateRemarkCriteria
+                {
+                    CustId = model.CustId,
+                    Remarks = remarkBuilder.ToString()
+                };
+
+                return _remarkRepository.UpdateRemarks(criteria);
+            }
+            catch (Exception ex)
             {
-                foreach (string remark in model.NormalRemarks)
+                LogExtensions.ExceptionHandler(ex);
+                return new Result()
                 {
-                    if (remark == null || remark.Trim().Length == 0)
-                    {
-                        continue;
-                    }
-
-                    remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
-                        .Append(" IsSpecial=\"0\" />");
-                }
+                    Code = (int)Fanex.CRM.Infrastructure.Common.Enumerations.ErrorCode.SystemError,
+                    Message = Fanex.CRM.Remark.Resources.Labels.UpdateRemarkUnSuccess
+                };
             }
-
-            remarkBuilder.Append("</Remarks>");
-
-            ICriteria criteria = new UpdateRemarkCriteria 
-            { 
-                CustId = model.CustId,
-                Remarks = remarkBuilder.ToString()
-            };
-
-            return _remarkRepository.UpdateRemarks(criteria);
+            
         }
 
         #endregion
