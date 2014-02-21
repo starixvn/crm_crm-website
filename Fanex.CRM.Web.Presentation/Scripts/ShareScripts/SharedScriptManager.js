@@ -3,7 +3,7 @@
 var SharedScriptManager = function () {
     var self = this;
     self.cachedData = {
-        pagingOptions: [50, 100, 200],
+        pagingOptions: [5, 50, 100, 200],
         defaultItemsPerPage: 50,
         maxFeedbackSubjectTemplateNumberOnLoad: 100000
     },
