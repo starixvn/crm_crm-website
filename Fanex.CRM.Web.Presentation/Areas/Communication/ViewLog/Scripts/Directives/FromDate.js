@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 /* global communicationApplication,
 crmConstants,
 currentDate,
@@ -7,6 +7,7 @@ initFromDate */
 communicationApplication.directive('datePickerFromDateContainer', function () {
     var oldValue = null;
     var oldMaxValue = null;
+    var isOnSelect = false;
     function renderDatePicker(scope, element, attrs) {
         /* jshint unused: vars */
         var fromDatePicker = element.find("#fromDate");
@@ -18,6 +19,11 @@ communicationApplication.directive('datePickerFromDateContainer', function () {
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
+            onSelect: function () {
+                isOnSelect = true;
+                $(this).change();
+                isOnSelect = false;
+            },
             onClose: function () {
                 $(this).blur();
             }
@@ -37,7 +43,31 @@ communicationApplication.directive('datePickerFromDateContainer', function () {
             oldValue = date;
         }
 
+        if (selectedDate > scope.searchCriteria.MaxFromDate) {
+            selectedDate = scope.searchCriteria.MaxFromDate;
+        }
+
         return selectedDate;
+    }
+
+    function datePickerOnChange(scope, element, attrs) {
+        var fromDatePicker = element.find("#fromDate");
+        var selectedDate = selectedDateChange(scope, element, attrs);
+        if (isNaN(oldValue.valueOf()) ||
+            !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
+            oldValue = selectedDate;
+            if (!scope.isUpdatingDate) {
+                scope.isUpdatingDate = true;
+                scope.$apply(function () {
+                    scope.updateFromDate(selectedDate);
+                    scope.isUpdatingDate = false;
+                });
+            }
+
+            if (!isOnSelect) {
+                fromDatePicker.datepicker('setDate', selectedDate);
+            }
+        }
     }
 
     return {
@@ -54,20 +84,7 @@ communicationApplication.directive('datePickerFromDateContainer', function () {
 
             oldValue = new Date(initFromDate);
             element.on('change', function () {
-                var selectedDate = selectedDateChange(scope, element, attrs);
-                if (isNaN(oldValue.valueOf()) ||
-                    !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
-                    oldValue = selectedDate;
-                    if (!scope.isUpdatingDate) {
-                        scope.isUpdatingDate = true;
-                        scope.$apply(function () {
-                            scope.updateFromDate(selectedDate);
-                            scope.isUpdatingDate = false;
-                        });
-                    }
-
-                    fromDatePicker.datepicker('setDate', selectedDate);
-                }
+                datePickerOnChange(scope, element, attrs);
             });
         }
     };
