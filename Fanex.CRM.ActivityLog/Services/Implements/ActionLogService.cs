@@ -20,14 +20,17 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using Fanex.CRM.ActionLog.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Service.Implements;
 
     /// <summary>
     /// ActionLogService class.
     /// </summary>
     public class ActionLogService : IActionLogService
     {
+        private const string ActivityLogKey = "Fanex.CRM.ActionLog.ActivityLog";
+        private const string SettingLogKey = "Fanex.CRM.ActionLog.SettingLog";
         private readonly IActionLogRepository _actionLogRepository;
-
+        
         public ActionLogService()
             : this(null)
         {
@@ -49,9 +52,18 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             try
             {
-                // Exclude rows whose OldValues = NewValues = NULL/Empty.
-                var activityLogs = _actionLogRepository.GetActivityLogs(criteria)
-                    .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase));
+                var activityLogs = CacheService.Get<IList<ActivityLog>>(ActivityLogKey);
+                if (criteria.PageIndex == 0 || activityLogs == null)
+                {
+                    // Exclude rows whose OldValues = NewValues = NULL/Empty.
+                    activityLogs = _actionLogRepository.GetActivityLogs(criteria)
+                        .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    if (activityLogs != null && activityLogs.Count > 0)
+                    {
+                        CacheService.Set(ActivityLogKey, activityLogs);
+                    }
+                }
 
                 PagedList<ActivityLog> paginationActivityLogs = new PagedList<ActivityLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
                 foreach (var log in paginationActivityLogs)
@@ -66,7 +78,6 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
                 return null;
             }
-            
         }
 
         #endregion
@@ -82,10 +93,19 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             try
             {
-                // Exclude rows whose OldValues = NewValues = NULL/Empty.
-                var settingLogs = _actionLogRepository.GetSettingLogs(criteria)
-                    .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase));
-
+                var settingLogs = CacheService.Get<IList<SettingLog>>(SettingLogKey);
+                if (criteria.PageIndex == 0 || settingLogs == null)
+                {
+                    // Exclude rows whose OldValues = NewValues = NULL/Empty.
+                    settingLogs = _actionLogRepository.GetSettingLogs(criteria)
+                        .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    if (settingLogs != null && settingLogs.Count > 0)
+                    {
+                        CacheService.Set(SettingLogKey, settingLogs);
+                    }
+                }
+                
                 PagedList<SettingLog> paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
                 foreach (var log in paginationSettingLogs)
                 {
@@ -99,7 +119,6 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
                 return null;
             }
-            
         }
 
         #endregion

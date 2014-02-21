@@ -43,6 +43,10 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
             oldValue = date;
         }
 
+        if (selectedDate > scope.searchCriteria.MaxFromDate) {
+            selectedDate = scope.searchCriteria.MaxFromDate;
+        }
+
         return selectedDate;
     }
 
