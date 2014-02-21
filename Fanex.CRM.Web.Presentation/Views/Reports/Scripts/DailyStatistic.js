@@ -44,7 +44,7 @@ var dailyReport = {
     }
 };
 
-var ibcDailySummaryReport = {
+ibcDailySummaryReport = {
     title: '',
     colWidth: 75,
     loadCompleted: false,
@@ -89,7 +89,7 @@ var ibcDailySummaryReport = {
                                 'style="font-weight: bold;"',
                                 arrNewData.Total.MainCategory));
                             var totalSubCategories = arrNewData.DailySummaries.length;
-                            for (var j = 0; j < arrNewData.DailySummaries.length; j++) {
+                            for (var j = 0; j < totalSubCategories; j++) {
                                 //content
                                 var css = (j % 2 === 0 ? "bgeven" : "bgodd");
                                 var totalCss = arrNewData.DailySummaries[j].IsTotal === true ? 'style="font-weight: bold;"' : '';
@@ -281,7 +281,7 @@ var ibcDailySummaryReport = {
     }
 };
 
-var licenseeDailySummaryReport = {
+licenseeDailySummaryReport = {
     totalWidth: 0,
     title: '',
     colWidth: 75,
@@ -453,7 +453,7 @@ var licenseeDailySummaryReport = {
             html += '<td ' + style + '><div style="width:300px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></td>';
             var totalCells = row.Cells.length;
 
-            for (var i = 0; i < row.Cells.length; i++) {
+            for (var i = 0; i < totalCells; i++) {
                 html += '<td ' + style + '>\
                         <div style="width:' + licenseeDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div>\
                      </td>';
@@ -544,14 +544,14 @@ var pagerOpts = {
     current_page: 1
 };
 
-var ibcDailyDetailReport = {
+ibcDailyDetailReport = {
     title: '',
     totalRows: 0,
     pageIndex: 1,
     pageSize: 50,
     fromDate: '',
     toDate: '',
-    gridHeight: 80,
+    gridHeight: 100,
     freeWidth: 420,
     freeCols: 5,
     initPager: function (total_items, items_per_page, current_page) {
@@ -827,7 +827,7 @@ var ibcDailyDetailReport = {
         $('#btnExportDetail').addClass('hidden');
 
         var html = '<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:80px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
@@ -838,7 +838,7 @@ var ibcDailyDetailReport = {
         var mainreport = $('#dailydetailgrid');
 
         $("#dailydetailfirstcol tbody").empty().html('<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:80px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
@@ -858,14 +858,14 @@ var ibcDailyDetailReport = {
     }
 };
 
-var licenseeDailyDetailReport = {
+licenseeDailyDetailReport = {
     title: '',
     totalRows: 0,
     pageIndex: 1,
     pageSize: 50,
     fromDate: '',
     toDate: '',
-    gridHeight: 80,
+    gridHeight: 100,
     freeWidth: 420,
     freeCols: 5,
     initPager: function (total_items, items_per_page, current_page) {
@@ -1125,7 +1125,7 @@ var licenseeDailyDetailReport = {
         $('#btnLicenseeExportDetail').addClass('hidden');
 
         var html = '<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:80px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
@@ -1136,7 +1136,7 @@ var licenseeDailyDetailReport = {
         var mainreport = $('#licenseedetailgrid');
 
         $("#licenseedetailfirstcol tbody").empty().html('<tr>\
-            <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
+            <td style="border-right:0px none;"><div class="c" style="width:80px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
