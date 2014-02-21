@@ -270,8 +270,8 @@ namespace Fanex.CRM.DataAccess.Impl
                     }
 
                     param.Add("ip", ip);
-                    param.Add("errcode", 4);
-                    param.Add("errmsg", 4000);
+                    param.Add("errcode", 0);
+                    param.Add("errmsg", string.Empty);
 
                     obj.AssignParamValues(param);
                     numberOfRecordsAffected = obj.ExecuteNonQuery();
@@ -355,8 +355,8 @@ namespace Fanex.CRM.DataAccess.Impl
 
                     param.Add("isoverwrite", entity.IsOverrideCrmInfo);
                     param.Add("ip", ip);
-                    param.Add("errcode", 4);
-                    param.Add("errmsg", 4000);
+                    param.Add("errcode", 0);
+                    param.Add("errmsg", string.Empty);
 
                     obj.AssignParamValues(param);
                     numberOfRecordsAffected = obj.ExecuteNonQuery();
@@ -448,8 +448,8 @@ namespace Fanex.CRM.DataAccess.Impl
 
                 param.Add("isoverwrite", entity.IsOverrideCrmInfo);
                 param.Add("ip", ip);
-                param.Add("errcode", 4);
-                param.Add("errmsg", 4000);
+                param.Add("errcode", 0);
+                param.Add("errmsg", string.Empty);
                 obj.AssignParamValues(param);
                 numberOfRecordsAffected = obj.ExecuteNonQuery();
 
@@ -1914,7 +1914,7 @@ namespace Fanex.CRM.DataAccess.Impl
             {
                 using (var obj = new ObjectDb("FeedSubjectTemplateInsert", 500))
                 {
-                    var param = new Hashtable { { "subject", subject }, { "errcode", 4 }, { "errmsg", 4000 } };
+                    var param = new Hashtable { { "subject", subject }, { "errcode", 0 }, { "errmsg", string.Empty } };
                     obj.AssignParamValues(param);
                     obj.ExecuteNonQuery();
 
@@ -1944,7 +1944,7 @@ namespace Fanex.CRM.DataAccess.Impl
             {
                 using (var obj = new ObjectDb("FeedSubjectTemplateUpdate", 500))
                 {
-                    var param = new Hashtable { { "templateid", id }, { "subject", newSubject }, { "errcode", 4 }, { "errmsg", 4000 } };
+                    var param = new Hashtable { { "templateid", id }, { "subject", newSubject }, { "errcode", 0 }, { "errmsg", string.Empty } };
                     obj.AssignParamValues(param);
                     obj.ExecuteNonQuery();
 
@@ -1973,7 +1973,7 @@ namespace Fanex.CRM.DataAccess.Impl
             {
                 using (var obj = new ObjectDb("FeedSubjectTemplateDelete", 500))
                 {
-                    var param = new Hashtable { { "templateid", id }, { "errcode", 4 }, { "errmsg", 4000 } };
+                    var param = new Hashtable { { "templateid", id }, { "errcode", 0 }, { "errmsg", string.Empty } };
                     obj.AssignParamValues(param);
                     obj.ExecuteNonQuery();
 

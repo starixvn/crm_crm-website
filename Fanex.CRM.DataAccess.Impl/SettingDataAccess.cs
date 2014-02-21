@@ -45,8 +45,8 @@ namespace Fanex.CRM.DataAccess.Impl
                             { "settingvalue", entity.Value },
                             { "displayorder", entity.DisplayOrder },
                             { "ip", ip },
-                            { "errcode", 4 },
-                            { "errmsg", 4000 }
+                            { "errcode", 0 },
+                            { "errmsg", string.Empty }
                         };
                     obj.AssignParamValues(param);
 
@@ -90,8 +90,8 @@ namespace Fanex.CRM.DataAccess.Impl
                             { "displayorder", entity.DisplayOrder },
                             { "ip", ip },
                             { "parentid", parentId },
-                            { "errcode", 4 },
-                            { "errmsg", 4000 }
+                            { "errcode", 0 },
+                            { "errmsg", string.Empty }
                         };
                     obj.AssignParamValues(param);
 
@@ -131,8 +131,8 @@ namespace Fanex.CRM.DataAccess.Impl
                             { "userid", userId },
                             { "settingid", id },
                             { "ip", ip },
-                            { "errcode", 4 },
-                            { "errmsg", 4000 }
+                            { "errcode", 0 },
+                            { "errmsg", string.Empty }
                         };
                     obj.AssignParamValues(param);
 
@@ -275,8 +275,8 @@ namespace Fanex.CRM.DataAccess.Impl
                             { "settingname", settingName },
                             { "parentid", parentId },
                             { "ip", ip },
-                            { "errcode", 4 },
-                            { "errmsg", 4000 }
+                            { "errcode", 0 },
+                            { "errmsg", string.Empty }
                         };
 
                     obj.AssignParamValues(param);
@@ -320,8 +320,8 @@ namespace Fanex.CRM.DataAccess.Impl
                             { "settingid", settingId },
                             { "parentid", parentId },
                             { "ip", ip },
-                            { "errcode", 4 },
-                            { "errmsg", 4000 }
+                            { "errcode", 0 },
+                            { "errmsg", string.Empty }
                         };
 
                     obj.AssignParamValues(param);

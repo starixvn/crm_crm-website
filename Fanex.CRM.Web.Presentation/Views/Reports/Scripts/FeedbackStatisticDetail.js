@@ -4,10 +4,11 @@
 
 var maxHeightOfPopUp = ($(window).height() + 50);
 var maxWidthOfPopUp = 980;
-
 var feedbackDetail;
+var masterPage;
+var currentPage = null;
 
-function viewStatistics() {    
+function viewStatistics() {
     var url = "../Reports/FeedbackStatisticDetail?type=" + feedbackDetail.type +
     "&valueid=" + feedbackDetail.valueId +
     "&maincatid=" + feedbackDetail.mainCategoryId +
@@ -24,17 +25,17 @@ function viewStatistics() {
     '&tdh=' + feedbackDetail.ToDuration.Hour +
     '&tdmi=' + feedbackDetail.ToDuration.Minute +
     '&tds=' + feedbackDetail.ToDuration.Second;
-   
-    parent.OpenPopup(url, "Feedback Statistic Detail Report", 1030, maxHeightOfPopUp, true, false, null, 0, null, null);
+    
+    masterPage.OpenPopup(url, "Feedback Statistic Detail Report", 1030, (maxHeightOfPopUp + 5), true, false, null, 2000, null);
 }
 
 function openEditFeedback(url) {
-    parent.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000,
+    masterPage.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, currentPage, 2000,
         function () {
-            viewStatistics();
+            currentPage.viewStatistics();
         },
         function () {
-            viewStatistics();
+            currentPage.viewStatistics();
         }
     );
 }
@@ -97,7 +98,7 @@ feedbackDetail = {
         feedbackDetail.title = 'Feedback Statistic Detail Report from ' + feedbackDetail.fDate + ' to ' + feedbackDetail.tDate;
         $("#gridtitle").html(feedbackDetail.title);
 
-        try { parent.BlockUI(); } catch (e) { }
+        try { masterPage.BlockUI(); } catch (e) { }
         var mainreport = $("#feedbackstatisticgrid");
         $('#errmsg').html('');
 
@@ -144,7 +145,7 @@ feedbackDetail = {
                 $('#pagination').html('&nbsp;');
             },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { }
+                try { masterPage.UnBlockUI(); } catch (e) { }
 
             }
         });
@@ -287,7 +288,8 @@ feedbackDetail = {
 
 $(document).ready(
     function () {
-//        try { topwnd = findMainWindow(window); } catch (e) { }
+        masterPage = parent;
+        currentPage = window;
 
         feedbackDetail.fDate = decodeURIComponent(gup("fromdate").replace(/\+/g, " "));
         feedbackDetail.tDate = decodeURIComponent(gup("todate").replace(/\+/g, " "));
@@ -312,5 +314,7 @@ $(document).ready(
             isShowPager: true
         };
         $("#feedbackstatisticgrid").initGrid(gridOpts);
+
+        
     }
 );
