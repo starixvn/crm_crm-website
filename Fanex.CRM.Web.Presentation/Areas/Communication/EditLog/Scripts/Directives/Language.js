@@ -1,23 +1,36 @@
 ﻿"use strict";
 /* global editLogApplication */
 editLogApplication.directive('dropdownLanguage', function () {
+    function renderDropdown(scope, element, attrs) {
+        /* jshint unused: vars */
+        if (scope.languageList) {
+            var dropdown = element.find("#language");
+            dropdown.empty();
+            /* jshint camelcase: false */
+            var languageListLength = scope.languageList.length;
+            for (var i = 0; i < languageListLength; i++) {
+                var language = scope.languageList[i];
+                dropdown.append(
+                    '<option value="' + language.Id +
+                      (language.Id === scope.communicationLog.LanguageId ?
+                        ' selected="selected"' :
+                        '') + '">' + language.Name + '</option>');
+            }
+
+            element.change(function () {
+                scope.updateSelectedLanguage(dropdown.find('option:selected').val());
+            });
+        }
+    }
+
     return {
         restrict: 'A',
-        template: '<option data-ng-repeat="language in languageList track by $index"' +
-                        ' data-ng-click="updateSelectedLanguage(language);"' +
-                        ' value="{{ language.Id }}"' +
-                        ' data-ng-selected="language.Id === communicationLog.LanguageId">{{ language.Name }}</option>',
-        replace: false,
-        priority: 0,
-        transclude: false,
         scope: true,
-        terminal: false,
-        require: false,
-        compile: function compile(tElement, tAttrs, transclude) {
-            /* jshint unused: vars */
-        },
-        link: function (scope, elem, attrs) {
-            /* jshint unused: vars */
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
+                renderDropdown(scope, element, attrs);
+            });
         }
     };
 });

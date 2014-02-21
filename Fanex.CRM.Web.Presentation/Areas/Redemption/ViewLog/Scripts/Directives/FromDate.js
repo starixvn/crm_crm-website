@@ -18,8 +18,10 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
-            onClose: function () {
+            onSelect: function() {},
+            onClose: function (e) {
                 $(this).blur();
+                e.preventDefault();
             }
         });
 

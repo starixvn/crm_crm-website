@@ -491,8 +491,8 @@ namespace Fanex.CRM.DataAccess.Impl
                 param.Add("specialremark", customer.SpecialRemark);
                 param.Add("isupdateusername", isUpdateUserName);
 
-                param.Add("errcode", 4);
-                param.Add("errmsg", 4000);
+                param.Add("errcode", 0);
+                param.Add("errmsg", string.Empty);
 
                 obj.AssignParamValues(param);
                 var isSuccess = obj.ExecuteNonQuery() > 0;

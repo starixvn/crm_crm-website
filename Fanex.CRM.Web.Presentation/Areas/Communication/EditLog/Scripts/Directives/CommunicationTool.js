@@ -1,23 +1,37 @@
 ﻿"use strict";
-/* global editLogApplication */ 
+/* global editLogApplication */
 editLogApplication.directive('dropdownCommunicationTool', function () {
+    function renderDropdown(scope, element, attrs) {
+        /* jshint unused: vars */
+        if (scope.communicationToolList) {
+            var dropdown = element.find("#communicationTool");
+            dropdown.empty();
+            /* jshint camelcase: false */
+            var communicationToolListLength = scope.communicationToolList.length;
+            for (var i = 0; i < communicationToolListLength; i++) {
+                var communicationTool = scope.communicationToolList[i];
+                dropdown.append(
+                    '<option value="' + communicationTool.Id +
+                        (communicationTool.Id === scope.communicationLog.CommunicationTool.Id ?
+                        ' selected="selected"' :
+                        '') +
+                    '">' + communicationTool.Name + '</option>');
+            }
+
+            element.change(function () {
+                scope.updateSelectedCommunicationTool(dropdown.find('option:selected').val());
+            });
+        }
+    }
+
     return {
         restrict: 'A',
-        template: '<option data-ng-repeat="communicationTool in communicationToolList track by $index"' +
-                        ' data-ng-click="updateSelectedCommunicationTool(communicationTool);"' +
-                        ' value="{{ communicationTool.Id }}"' +
-                        ' data-ng-selected="communicationTool.Id === communicationLog.CommunicationTool.Id">{{ communicationTool.Name }}</option>',
-        replace: false,
-        priority: 0,
-        transclude: false,
         scope: true,
-        terminal: false,
-        require: false,
-        compile: function compile(tElement, tAttrs, transclude) {
-            /* jshint unused: vars */
-        },
-        link: function (scope, elem, attrs) {
-            /* jshint unused: vars */
+        link: function (scope, element, attrs) {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                /* jshint unused: vars */
+                renderDropdown(scope, element, attrs);
+            });
         }
     };
 });

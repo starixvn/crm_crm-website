@@ -12,6 +12,7 @@ namespace Fanex.CRM.Infrastructure.Core
     using System;
     using DNAide.Core;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Extension;
 
     /// <summary>
     /// Date Time Utilize.
@@ -119,6 +120,16 @@ namespace Fanex.CRM.Infrastructure.Core
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
             return DateTime.Now.Add(timeSpan._timeSpan);
+        }
+
+        public static DateTime ChangeClientFromTimeToServerTime(DateTime clientFromTime)
+        {
+            return DateTimeUtilize.ChangeTimeZoneToServerDateTime(clientFromTime.Date);
+        }
+
+        public static DateTime ChangeClientToTimeToServerTime(DateTime clientToTime)
+        {
+            return DateTimeUtilize.ChangeTimeZoneToServerDateTime(clientToTime.GetEndOfDate());
         }
     }
 }
