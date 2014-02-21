@@ -9,11 +9,11 @@ editLogApplication.directive('dropdownSite', function () {
             var dropdown = element.find("#site");
             dropdown.empty();
             var optionHtml =
-                '<option value="' + crmConstants.Enums.Site.NotApply +
+                '<option value="' + crmConstants.Enums.Site.NotApply +'"' +
                      (crmConstants.Enums.Site.NotApply === scope.communicationLog.CommunicationTool.Id ?
                         ' selected="selected"' :
                         '') +
-                '">' + viewResources.Select + '</option>';
+                '>' + viewResources.Select + '</option>';
 
             var siteGroupLength = scope.siteList.length;
             for (var i = 0; i < siteGroupLength; i++) {
@@ -23,11 +23,11 @@ editLogApplication.directive('dropdownSite', function () {
                 var siteLength = siteGroup.ChildSites.length;
                 for (var j = 0; j < siteLength; j++) {
                     var site = siteGroup.ChildSites[j];
-                    optionHtml += '<option value="' + site.Id +
+                    optionHtml += '<option value="' + site.Id + '"' +
                         (site.Id === scope.communicationLog.SiteInfo.Id ?
                         ' selected="selected"' :
                         '') +
-                        '">' + site.Name + '</option>';
+                        '>' + site.Name + '</option>';
                 }
 
                 optionHtml += '</optgroup>';

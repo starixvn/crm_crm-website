@@ -23,7 +23,6 @@ directiveManager.registerFromDateCalendar = function (angularApplication) {
                 maxDate: new Date(scope.fromDateOptions.maxDate),
                 showOtherMonths: true,
                 selectOtherMonths: true,
-                onSelect: function () { },
                 onClose: function () {
                     $(this).blur();
                 }

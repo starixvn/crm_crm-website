@@ -11,11 +11,11 @@ editLogApplication.directive('dropdownProduct', function () {
             for (var i = 0; i < productListLength; i++) {
                 var product = scope.productList[i];
                 dropdown.append(
-                    '<option value="' + product.Id +
+                    '<option value="' + product.Id + '"' +
                         (product.Id === scope.communicationLog.Product.Id ?
                         ' selected="selected"' :
                         '') +
-                    '">' + product.Value + '</option>');
+                    '>' + product.Value + '</option>');
             }
 
             element.change(function () {

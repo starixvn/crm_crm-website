@@ -421,7 +421,7 @@ function (
         }
 
         if (roleInfo) {
-            $scope.communicationLog.Role = roleInfo;
+            $scope.communicationLog.RoleInfo = roleInfo;
             $scope.$apply();
             $scope.updateChangeFlag();
         }

@@ -124,7 +124,23 @@ function (
             }
         }
 
-        $scope.betTypeList = $scope.productList[0].ChildSettings;
+        if ($scope.productList !== null) {
+            var productId = communicationLog.Product.Id;
+            var productInfo;
+            var productListLength = $scope.productList.length;
+            for (var i = 0; i < productListLength; i++) {
+                var product = $scope.productList[i];
+                if (product.Id === productId) {
+                    productInfo = product;
+                    break;
+                }
+            }
+
+            if (productInfo) {
+                $scope.betTypeList = productInfo.ChildSettings;
+            }
+        }
+
         $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
         $scope.updateRemarkPrefix();
 
@@ -379,7 +395,7 @@ function (
         }
 
         if (roleInfo) {
-            $scope.communicationLog.Role = roleInfo;
+            $scope.communicationLog.RoleInfo = roleInfo;
             $scope.$apply();
             $scope.updateChangeFlag();
         }
