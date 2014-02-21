@@ -18,6 +18,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using Fanex.CRM.ActionLog.Repositories.Implements;
     using Fanex.CRM.ActionLog.Repositories.Interfaces;
     using Fanex.CRM.ActionLog.Services.Interfaces;
+    using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
@@ -46,17 +47,26 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         /// <returns>The activity log list with paging.</returns>
         public PagedList<ActivityLog> GetActivityLogs(GetActivityLogCriteria criteria)
         {
-            // Exclude rows whose OldValues = NewValues = NULL/Empty.
-            var activityLogs = _actionLogRepository.GetActivityLogs(criteria)
-                .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase));
-            
-            PagedList<ActivityLog> paginationActivityLogs = new PagedList<ActivityLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
-            foreach (var log in paginationActivityLogs)
+            try
             {
-                GetNewAndOldValues(log);
-            }
+                // Exclude rows whose OldValues = NewValues = NULL/Empty.
+                var activityLogs = _actionLogRepository.GetActivityLogs(criteria)
+                    .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase));
 
-            return paginationActivityLogs;
+                PagedList<ActivityLog> paginationActivityLogs = new PagedList<ActivityLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
+                foreach (var log in paginationActivityLogs)
+                {
+                    GetNewAndOldValues(log);
+                }
+
+                return paginationActivityLogs;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                return null;
+            }
+            
         }
 
         #endregion
@@ -70,17 +80,26 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         /// <returns>The setting log list with paging.</returns>
         public PagedList<SettingLog> GetSettingLogs(GetSettingLogCriteria criteria)
         {
-            // Exclude rows whose OldValues = NewValues = NULL/Empty.
-            var settingLogs = _actionLogRepository.GetSettingLogs(criteria)
-                .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase));
-
-            PagedList<SettingLog> paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
-            foreach (var log in paginationSettingLogs)
+            try
             {
-                GetNewAndOldValues(log);
-            }
+                // Exclude rows whose OldValues = NewValues = NULL/Empty.
+                var settingLogs = _actionLogRepository.GetSettingLogs(criteria)
+                    .Where(l => !string.Equals(l.OldValues, l.NewValues, StringComparison.OrdinalIgnoreCase));
 
-            return paginationSettingLogs;
+                PagedList<SettingLog> paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
+                foreach (var log in paginationSettingLogs)
+                {
+                    GetNewAndOldValues(log);
+                }
+
+                return paginationSettingLogs;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                return null;
+            }
+            
         }
 
         #endregion
