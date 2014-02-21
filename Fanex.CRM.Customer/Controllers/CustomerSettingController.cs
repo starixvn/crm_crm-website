@@ -60,7 +60,6 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
             var updateResult = _customerServiceInstance.UpdateCustomerSuggestion(criteria);

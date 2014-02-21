@@ -140,6 +140,10 @@ editLogApplication.directive('timePickerStartTimeContainer', function () {
                     }
 
                     datePicker.datepicker('setDate', selectedTime);
+                } else {
+                    scope.$apply(function () {
+                        scope.updateRemarkPrefix();
+                    });
                 }
             });
         }

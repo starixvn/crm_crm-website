@@ -145,7 +145,12 @@ function ShowPopupEditSetting(Id) {
 function DeleteSettingByById(Id, Value) {
 
     $("#divPopup").html('Are you sure you want to delete Setting ' + Value + '?');
-    $("#divPopup").dialog({ width: 380, height: 120, zIndex: 500, resizable: false, modal: true,
+    $("#divPopup").dialog({
+        width: 380,
+        height: 120,
+        zIndex: 2000,
+        resizable: false, 
+        modal: true,
         position: [200, 200],
         close: function (event, ui) {
             /*jshint unused: vars */
@@ -186,8 +191,6 @@ function DeleteSettingByById(Id, Value) {
                     }
                 ]
     });
-
-
 }
 
 head.ready(

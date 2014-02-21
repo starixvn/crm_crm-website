@@ -34,10 +34,10 @@ namespace Fanex.CRM.Communication.Criteria
         [SpParam(SqlParamName = "countryid")]
         public int CountryId { get; set; }
 
-        [SpParam(SqlParamName = "resolutiondate")]
+        [SpParam(SqlParamName = "feedbackdate")]
         public DateTime StartTime { get; set; }
 
-        [SpParam(SqlParamName = "solvedate")]
+        [SpParam(SqlParamName = "resolutiondate")]
         public DateTime EndTime { get; set; }
 
         [SpParam(SqlParamName = "communicationid")]
