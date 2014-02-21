@@ -11,11 +11,11 @@ editLogApplication.directive('dropdownBetType', function () {
             for (var i = 0; i < betTypeListLength; i++) {
                 var betType = scope.betTypeList[i];
                 dropdown.append(
-                    '<option value="' + betType.Id +
+                    '<option value="' + betType.Id + '"' +
                         (betType.Id === scope.communicationLog.BetType.Id ?
                         ' selected="selected"' :
                         '') +
-                    '">' + betType.Value + '</option>');
+                    '>' + betType.Value + '</option>');
             }
 
             element.change(function () {

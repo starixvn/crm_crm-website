@@ -17,7 +17,6 @@ communicationApplication.directive('datePickerToDateContainer', function () {
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
-            onSelect: function () { },
             onClose: function () {
                 $(this).blur();
             }

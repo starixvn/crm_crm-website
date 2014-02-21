@@ -11,11 +11,11 @@ editLogApplication.directive('dropdownResponse', function () {
             for (var i = 0; i < responseListLength; i++) {
                 var response = scope.responseList[i];
                 dropdown.append(
-                    '<option value="' + response.Id +
+                    '<option value="' + response.Id + '"' +
                         (response.Id === scope.communicationLog.Response.Id ?
                         ' selected="selected"' :
                         '') +
-                    '">' + response.Value + '</option>');
+                    '>' + response.Value + '</option>');
             }
 
             element.change(function () {

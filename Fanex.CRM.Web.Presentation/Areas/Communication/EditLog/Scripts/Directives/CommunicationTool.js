@@ -11,11 +11,11 @@ editLogApplication.directive('dropdownCommunicationTool', function () {
             for (var i = 0; i < communicationToolListLength; i++) {
                 var communicationTool = scope.communicationToolList[i];
                 dropdown.append(
-                    '<option value="' + communicationTool.Id +
+                    '<option value="' + communicationTool.Id + '"' +
                         (communicationTool.Id === scope.communicationLog.CommunicationTool.Id ?
                         ' selected="selected"' :
                         '') +
-                    '">' + communicationTool.Name + '</option>');
+                    '>' + communicationTool.Name + '</option>');
             }
 
             element.change(function () {
