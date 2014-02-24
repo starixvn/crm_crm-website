@@ -37,5 +37,7 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
         List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria);
 
         List<SettingInfo> GetAllLogAction(ICriteria criteria);
+
+        List<SettingInfo> GetAllBetType(GetAllBetTypeCriteria criteria);
     }
 }

@@ -15,7 +15,7 @@ editLogApplication.directive('dropdownBetType', function () {
                         (betType.Id === scope.communicationLog.BetType.Id ?
                         ' selected="selected"' :
                         '') +
-                    '>' + betType.Value + '</option>');
+                    '>' + betType.Name + '</option>');
             }
 
             element.change(function () {

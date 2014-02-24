@@ -7,7 +7,8 @@ crmConstants,
 viewResources,
 getRelatedCustomer,
 verifyRelatedCustomer,
-hotKeyManager */
+hotKeyManager,
+hasReviewPermission */
 editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService',
 function (
     $scope,
@@ -129,7 +130,7 @@ function (
             var productId = communicationLog.Product.Id;
             var productInfo;
             var productListLength = $scope.productList.length;
-            for (var i = 0; i < productListLength; i++) {
+            for (i = 0; i < productListLength; i++) {
                 var product = $scope.productList[i];
                 if (product.Id === productId) {
                     productInfo = product;
@@ -249,8 +250,8 @@ function (
             $scope.communicationLog.CommunicationTool = communicationToolInfo;
         }
 
-        $scope.$apply();
         $scope.updateRemarkPrefix();
+        $scope.$apply();
         $scope.updateChangeFlag();
     };
     $scope.updateSelectedLanguage = function (languageId) {

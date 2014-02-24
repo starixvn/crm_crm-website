@@ -4,12 +4,12 @@ activityLogResources,
 crmConstants,
 sharedScriptManager,
 moment */
+/* jshint unused: vars */
 activityLogApplication.directive('tableActivityLogsContainer', function () {
     /* jshint camelcase: false */
     function renderActivityLogs(scope, element, attrs) {
         var gridOptions;    
         function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
-            /* jshint unused: vars */
             gridOptions.pagerOption.currentPage = page_index;
             gridOptions.pagerOption.itemsPerPage = itemsPerPage;
             tableActivityLogs.fanexGrid(gridOptions);
