@@ -377,5 +377,39 @@ namespace Fanex.CRM.Setting.Repositories.Implements
 
             return actions;
         }
+
+        /// <summary>
+        /// Gets all bet type.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All bet type.</returns>
+        public List<SettingInfo> GetAllBetType(GetAllBetTypeCriteria criteria)
+        {
+            var allBetType = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo()
+                            {
+                                Id = reader.GetInt32NotNull("BetTypeId"),
+                                Name = reader.GetStringNotNull("Name"),
+                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder"),
+                                IsActive = reader.GetBooleanNotNull("IsActive")
+                            };
+
+                            allBetType.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return allBetType;
+        }
     }
 }

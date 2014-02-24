@@ -143,7 +143,7 @@ var casinoWeeklySummary = {
     renderFooter: function (row) {
         var html = '';
         if (row) {
-            var html = '<tr>';
+            html = '<tr>';
             html += '<th><div class="c table-cell" style="width:300px; height:17px;">' + row.Total + '</div></th>';
             var totalCells = row.Cells.length;
             for (var i = 0; i < totalCells; i++) {

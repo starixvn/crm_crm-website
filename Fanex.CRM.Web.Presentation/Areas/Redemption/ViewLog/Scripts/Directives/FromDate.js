@@ -7,6 +7,7 @@ initFromDate */
 redemptionViewLogApplication.directive('datePickerFromDateContainer', function () {
     var oldValue = null;
     var oldMaxValue = null;
+    var isOnSelect = false;
     function renderDatePicker(scope, element, attrs) {
         /* jshint unused: vars */
         var fromDatePicker = element.find("#fromDate");
@@ -18,7 +19,11 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
-            onSelect: function () { $(this).change(); },
+            onSelect: function () {
+                isOnSelect = true;
+                $(this).change();
+                isOnSelect = false;
+            },
             onClose: function () {
                 $(this).blur();
             }
@@ -38,6 +43,10 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
             oldValue = date;
         }
 
+        if (selectedDate > scope.searchCriteria.MaxFromDate) {
+            selectedDate = scope.searchCriteria.MaxFromDate;
+        }
+
         return selectedDate;
     }
 
@@ -45,7 +54,7 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
         var fromDatePicker = element.find("#fromDate");
         var selectedDate = selectedDateChange(scope, element, attrs);
         if (isNaN(oldValue.valueOf()) ||
-                    !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
+            !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
             oldValue = selectedDate;
             if (!scope.isUpdatingDate) {
                 scope.isUpdatingDate = true;
@@ -55,7 +64,9 @@ redemptionViewLogApplication.directive('datePickerFromDateContainer', function (
                 });
             }
 
-            fromDatePicker.datepicker('setDate', selectedDate);
+            if (!isOnSelect) {
+                fromDatePicker.datepicker('setDate', selectedDate);
+            }
         }
     }
 

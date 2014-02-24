@@ -13,7 +13,7 @@ insertLogApplication.directive('datePickerContainer', function () {
             changeMonth: true,
             changeYear: true,
             minDate: null,
-            maxDate: new Date(currentDate),
+            maxDate: null,
             showOtherMonths: true,
             selectOtherMonths: true,
             onClose: function () {

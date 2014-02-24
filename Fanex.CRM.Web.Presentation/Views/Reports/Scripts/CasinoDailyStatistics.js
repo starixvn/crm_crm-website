@@ -77,7 +77,7 @@ casinoDailyStatistics = {
                     var arrFrozen = [];
                     var arrScroll = [];
                     var totalMainCategories = rs.DailySummary.length;
-                    for (var i = 0; i < rs.DailySummary.length; i++) {
+                    for (var i = 0; i < totalMainCategories; i++) {
                         var arrNewData = rs.DailySummary[i];
                         if (arrNewData != null && arrNewData.SystemSummary.length > 0) {
                             var css = (i % 2 === 0 ? "bgeven" : "bgodd");

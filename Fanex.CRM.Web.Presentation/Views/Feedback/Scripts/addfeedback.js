@@ -157,7 +157,7 @@ function bindingEvent() {
     $('#ddlproduct').change(function () {
         bindingChildByParentId('ddlbettype', AllSetting.Product, parseInt($('#ddlproduct').val()));
     });
-};
+}
 
 function addFeedbackInfo(newFeedback) {
     //-------end----------------------------------

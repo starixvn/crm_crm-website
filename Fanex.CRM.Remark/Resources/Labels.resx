@@ -138,4 +138,7 @@
   <data name="UpdateRemarkSuccess" xml:space="preserve">
     <value>Update remark successfully!</value>
   </data>
+  <data name="UpdateRemarkUnSuccess" xml:space="preserve">
+    <value>Update remark unsuccessfully!</value>
+  </data>
 </root>

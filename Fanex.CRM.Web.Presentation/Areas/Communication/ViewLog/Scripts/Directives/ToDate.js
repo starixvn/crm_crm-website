@@ -6,6 +6,7 @@ sharedScriptManager */
 communicationApplication.directive('datePickerToDateContainer', function () {
     var oldValue = null;
     var oldMinValue = null;
+    var isOnSelect = false;
     function renderDatePicker(scope, element, attrs) {
         /* jshint unused: vars */
         var toDatePicker = element.find("#toDate");
@@ -17,6 +18,11 @@ communicationApplication.directive('datePickerToDateContainer', function () {
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
+            onSelect: function () {
+                isOnSelect = true;
+                $(this).change();
+                isOnSelect = false;
+            },
             onClose: function () {
                 $(this).blur();
             }
@@ -25,6 +31,7 @@ communicationApplication.directive('datePickerToDateContainer', function () {
         toDatePicker.datepicker('setDate', new Date(currentDate));
         toDatePicker.datepicker("option", "minDate", new Date(currentDate));
     }
+
     function selectedDateChange(scope, element, attrs) {
         /* jshint unused: vars */
         var toDatePicker = element.find("#toDate");
@@ -37,7 +44,31 @@ communicationApplication.directive('datePickerToDateContainer', function () {
             oldValue = date;
         }
 
+        if (selectedDate < scope.searchCriteria.MinToDate) {
+            selectedDate = scope.searchCriteria.MinToDate;
+        }
+
         return selectedDate;
+    }
+
+    function datePickerOnChange(scope, element, attrs) {
+        var toDatePicker = element.find("#toDate");
+        var selectedDate = selectedDateChange(scope, element, attrs);
+        if (isNaN(oldValue.valueOf()) ||
+                    !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
+            oldValue = selectedDate;
+            if (!scope.isUpdatingDate) {
+                scope.isUpdatingDate = true;
+                scope.$apply(function () {
+                    scope.updateToDate(selectedDate);
+                    scope.isUpdatingDate = false;
+                });
+            }
+
+            if (!isOnSelect) {
+                toDatePicker.datepicker('setDate', selectedDate);
+            }
+        }
     }
 
     return {
@@ -54,20 +85,7 @@ communicationApplication.directive('datePickerToDateContainer', function () {
 
             oldValue = new Date(currentDate);
             element.on('change', function () {
-                var selectedDate = selectedDateChange(scope, element, attrs);
-                if (isNaN(oldValue.valueOf()) ||
-                    !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
-                    oldValue = selectedDate;
-                    if (!scope.isUpdatingDate) {
-                        scope.isUpdatingDate = true;
-                        scope.$apply(function () {
-                            scope.updateToDate(selectedDate);
-                            scope.isUpdatingDate = false;
-                        });
-                    }
-
-                    toDatePicker.datepicker('setDate', selectedDate);
-                }
+                datePickerOnChange(scope, element, attrs);
             });
         }
     };

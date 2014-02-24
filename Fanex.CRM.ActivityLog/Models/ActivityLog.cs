@@ -14,6 +14,7 @@ namespace Fanex.CRM.ActionLog.Models
     /// <summary>
     /// Activity Log model.
     /// </summary>
+    [Serializable]
     public class ActivityLog : ActionLog
     {
     }

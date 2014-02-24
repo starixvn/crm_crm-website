@@ -222,3 +222,8 @@ var getRelatedCustomer = function () {
 var deleteRelatedCust = function (custId) {
     $("#" + custId).parent().remove();
 };
+
+var getRelatedCustomerLength = function () {
+    return ($(".related-customer-container #holder > li").length - 1) +
+           ($(".related-customer-container #typeCust").val() !== "" ? 1 : 0);
+};

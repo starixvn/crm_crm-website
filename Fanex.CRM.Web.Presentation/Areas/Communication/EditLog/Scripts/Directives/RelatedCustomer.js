@@ -6,7 +6,10 @@ trim,
 verifyRelatedCustomer,
 checkDuplicateRelated,
 getRelatedCustomer,
-deleteRelatedCust */
+deleteRelatedCust,
+getRelatedCustomerLength,
+isOldRelatedCustomer,
+verifyRelatedCustomerForUpdate */
 var orgLengt = 0;
 var orgArrUser = "";
 var arrCust = [];
@@ -139,6 +142,8 @@ editLogApplication.directive('relatedCustomerContainer', function () {
         }
 
         typeCust.removeAttr("disabled");
+
+        scope.updateOldRelatedCustomer($(".related-customer-container #holder").html());
         element.change(function () {
             scope.$apply(function () {
                 scope.updateEditFlag();
@@ -175,6 +180,24 @@ var verifyRelatedCustomer = function (scope) {
             completedVerifyRelatedCustomer,
             null,
             scope.unblockUI);
+    }
+};
+var verifyRelatedCustomerForUpdate = function (scope) {
+    var arrUser = [];
+    var userName = "";
+    $('#txtrelatedcustomer option').each(function (i, option) {
+        arrUser[i] = $(option).text();
+    });
+
+    userName = arrUser.join(",");
+    if (userName !== "") {
+        scope.BlockUI();
+        sharedScriptManager.CallAjax(self,
+            window.rootUrl + "Customer/VerifyUserName",
+            { UserName: userName },
+            completedVerifyRelatedCustomer,
+            null,
+            scope.updateLog);
     }
 };
 var checkContainsValue = function (a, e) {
@@ -222,4 +245,38 @@ var getRelatedCustomer = function () {
 };
 var deleteRelatedCust = function (custId) {
     $("#" + custId).parent().remove();
+};
+
+var getRelatedCustomerLength = function () {
+    return ($(".related-customer-container #holder > li").length - 1) +
+           ($(".related-customer-container #typeCust").val() !== "" ? 1 : 0);
+};
+
+var isOldRelatedCustomer = function (oldRelatedCustomer) {
+    var typeCustElement = $(".related-customer-container #typeCust").val() === "" ?
+    '<li class="bit-input" id="txtrelatedcustomer_annoninput"><input style="width: auto;" id="typeCust" class="maininput" size="1" autocomplete="off" type="text"></li>' :
+    '';
+
+    var initTypeCustElement = '<li class="bit-input" id="txtrelatedcustomer_annoninput"><input id="typeCust" class="maininput" size="1" autocomplete="off" type="text"></li>';
+    var newRelatedCustomer = $(".related-customer-container #holder").html().replace(/class="bit-box deleted"/g, 'class="bit-box"');
+    if (oldRelatedCustomer.indexOf(initTypeCustElement, oldRelatedCustomer.length - initTypeCustElement.length) !== -1) {
+        oldRelatedCustomer = oldRelatedCustomer.substring(0, oldRelatedCustomer.length - initTypeCustElement.length);
+    }
+
+    if (newRelatedCustomer.indexOf(initTypeCustElement, newRelatedCustomer.length - initTypeCustElement.length) !== -1) {
+        newRelatedCustomer = newRelatedCustomer.substring(0, newRelatedCustomer.length - initTypeCustElement.length);
+    }
+
+    if (typeCustElement !== '' &&
+        oldRelatedCustomer.indexOf(typeCustElement, oldRelatedCustomer.length - typeCustElement.length) === -1) {
+        oldRelatedCustomer += typeCustElement;
+    }
+
+    if (newRelatedCustomer !== '' &&
+        newRelatedCustomer.indexOf(typeCustElement, newRelatedCustomer.length - typeCustElement.length) === -1) {
+        newRelatedCustomer += typeCustElement;
+    }
+
+    oldRelatedCustomer.replace(/class="bit-box deleted"/g, 'class="bit-box"');
+    return oldRelatedCustomer === newRelatedCustomer;
 };

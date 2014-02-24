@@ -185,7 +185,8 @@ ibcDailySummaryReport = {
                  </td>';
             var totalCells = row.Cells.length;
             for (var i = 0; i < totalCells; i++) {
-                html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
+                html += '<td ' + style + '><div style="width:' + 
+                    ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
             }
             html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
             html += '</tr>';
@@ -200,7 +201,8 @@ ibcDailySummaryReport = {
             html += '<td ' + style + '><div style="width:300px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></td>';
             var totalCells = row.Cells.length;
             for (var i = 0; i < totalCells; i++) {
-                html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
+                html += '<td ' + style + '><div style="width:' + 
+                    ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
             }
             html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
             html += '</tr>';
@@ -216,7 +218,8 @@ ibcDailySummaryReport = {
             html += '<th><div class="table-cell" style="width:300px; height:17px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></th>';
             var totlaCells = row.Cells.length;
             for (var i = 0; i < totlaCells; i++) {
-                html += '<th><div style="width:' + ibcDailySummaryReport.colWidth + 'px;" class="table-cell c ' + css + '">' + row.Cells[i].Value + '</div></th>';
+                html += '<th><div style="width:' + 
+                    ibcDailySummaryReport.colWidth + 'px;" class="table-cell c ' + css + '">' + row.Cells[i].Value + '</div></th>';
             }
             html += '<th><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="table-cell c ' + css + '">' + row.Total + '</div></th>';
             html += '</tr>';

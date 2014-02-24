@@ -9,9 +9,12 @@
 
 namespace Fanex.CRM.ActionLog.Models
 {
+    using System;
+
     /// <summary>
     /// Setting Log model.
     /// </summary>
+    [Serializable]
     public class SettingLog : ActionLog
     {
         public int Id { get; set; }

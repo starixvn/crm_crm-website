@@ -67,6 +67,12 @@ var CRMConstants = function () {
         RoleId: {
             Member: 1,
             CRMMember: 7000
+        },
+
+        DatePickerType: {
+            FromDate: "FromDate",
+            ToDate: "ToDate",
+            SinglePicker: "SinglePicker"
         }
     };
 };

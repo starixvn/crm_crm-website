@@ -8,7 +8,9 @@ getRelatedCustomer,
 customerId,
 verifyRelatedCustomer,
 hotKeyManager,
-currentTime */
+currentTime,
+hasReviewPermission,
+getRelatedCustomerLength */
 insertLogApplication.controller('insertLogController', ['$scope', '$http', '$insertLogService',
 function (
     $scope,
@@ -96,6 +98,7 @@ function (
     $scope.isEditingRelatedCustomer = false;
     $scope.isVerifyRelatedCustomer = false;
     $scope.isSetFocus = false;
+    $scope.hasReviewPermission = hasReviewPermission;
 
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
@@ -274,8 +277,8 @@ function (
             $scope.communicationLog.CommunicationTool = communicationToolInfo;
         }
 
-        $scope.$apply();
         $scope.updateRemarkPrefix();
+        $scope.$apply();
         $scope.updateChangeFlag();
     };
     $scope.updateSelectedLanguage = function (languageId) {
@@ -466,7 +469,9 @@ function (
     $scope.insertLog = function () {
         $scope.isShowResultMessage = false;
         var relatedCustomer = getRelatedCustomer();
-        if (!$scope.isVerifyRelatedCustomer && $scope.isEditingRelatedCustomer) {
+        var inputCustomerLength = getRelatedCustomerLength();
+        if ($scope.isEditingRelatedCustomer &&
+            inputCustomerLength) {
             /* jshint camelcase: false */
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
