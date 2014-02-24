@@ -2,6 +2,7 @@
 /* global DialogManager,
 crmConstants,
 sharedScriptManager */
+/* jshint unused: vars */
 var directiveManager = directiveManager || {};
 directiveManager.registerDatePickerContainer = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
@@ -20,7 +21,6 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
         };
 
         var oldValue = null;
-        var oldMaxValue = null;
         var isRenderedCalendar = false;
         var isOnSelect = false;
 
@@ -30,8 +30,7 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
                 return;
             }
 
-            /* jshint unused: vars */
-            var datePicker = element.find(registerParams.PickerId);
+            var datePicker = element.find("#" + registerParams.PickerId);
             datePicker.datepicker({
                 dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,
                 changeMonth: true,
@@ -40,7 +39,6 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
                 maxDate: options.MaxDate ? new Date(options.MaxDate) : null,
                 showOtherMonths: true,
                 selectOtherMonths: true,
-                currentDate: options.InitDate ? new Date(options.InitDate) : null,
                 onSelect: function () {
                     isOnSelect = true;
                     $(this).change();
@@ -51,14 +49,17 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
                 }
             });
 
+            datePicker.datepicker("setDate", options.InitDate ? new Date(options.InitDate) : null);
             oldValue = new Date(options.InitDate);
             element.on('change', function () {
-                onChangeDateEvent();
-
+                onChangeDateEvent(scope, element, attrs);
             });
+
+            isRenderedCalendar = true;
         }
 
-        function onChangeDateEvent() {
+        function onChangeDateEvent(scope, element, attrs) {
+            var options = scope[registerParams.OptionName];
             var selectedDate = selectedDateChange(scope, element, attrs);
             if (isNaN(oldValue.valueOf()) ||
                 !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
@@ -81,23 +82,20 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
             }
         }
 
-        function setLimitDate(scope, selectedDate, options) {
-            if (options.MinDate &&
-                selectedDate < options.MinDate) {
+        function setLimitDate(scope, selectedDate, options, datePicker) {
+            if (options.MinDate) {
                 selectedDate = options.MinDate;
                 datePicker.datepicker("option", "minDate", new Date(options.MinDate));
             }
 
-            if (options.MaxDate &&
-                options.MaxDate < selectedDate) {
+            if (options.MaxDate) {
                 selectedDate = options.MaxDate;
                 datePicker.datepicker("option", "maxDate", new Date(options.MaxDate));
             }
         }
 
         function selectedDateChange(scope, element, attrs) {
-            /* jshint unused: vars */
-            var datePicker = element.find(registerParams.PickerId);
+            var datePicker = element.find("#" + registerParams.PickerId);
             var selectedDate = datePicker.val();
             var date = new Date(selectedDate);
             if (!isNaN(date.valueOf())) {
@@ -110,28 +108,26 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
             return selectedDate;
         }
 
-        function ngModelChange(newVal, oldVal) {
-            /* jshint unused: vars */
+        function ngModelChange(scope, element, attrs, newVal, oldVal) {
             var options = scope[registerParams.OptionName];
-            var datePicker = element.find(registerParams.PickerId);
-            if (newval && !oldval) {
+            var datePicker = element.find("#" + registerParams.PickerId);
+            if (newVal && !oldVal) {
                 if (!isRenderedCalendar) {
                     renderDatePicker(scope, element, attrs);
                 } else {
-                    oldMaxValue = new Date(newval);
-                    setLimitDate(scope, selectedDate, options);
+                    setLimitDate(scope, oldValue, options, datePicker);
                 }
 
-                scope.IsRerenderPicker = false;
+                options.IsRerenderPicker = false;
             }
         }
 
         return {
-            restrict: 'A',
+            restrict: registerParams.RestrictType,
             scope: true,
             link: function (scope, element, attrs) {
-                scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    ngModelChange(newval, oldval);
+                scope.$watch(attrs.ngModel, function (newVal, oldVal) {
+                    ngModelChange(scope, element, attrs, newVal, oldVal);
                 });
             }
         };

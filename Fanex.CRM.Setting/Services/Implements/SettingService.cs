@@ -301,6 +301,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 }
 
                 allCommunicationTool = _settingRepositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
+                allCommunicationTool = allCommunicationTool.OrderBy(s => s.DisplayOrder).ToList();
                 CacheService.Set(GetAllCommunicationToolSessionKey, allCommunicationTool);
             }
             catch (Exception ex)

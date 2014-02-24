@@ -142,10 +142,6 @@ editLogApplication.directive('timePickerEndTimeContainer', function () {
                     }
 
                     datePicker.datepicker('setDate', selectedTime);
-                } else {
-                    scope.$apply(function () {
-                        scope.updateRemarkPrefix();
-                    });
                 }
             });
         }

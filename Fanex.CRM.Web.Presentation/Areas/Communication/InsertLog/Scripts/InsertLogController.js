@@ -9,7 +9,8 @@ customerId,
 verifyRelatedCustomer,
 hotKeyManager,
 currentTime,
-hasReviewPermission */
+hasReviewPermission,
+getRelatedCustomerLength */
 insertLogApplication.controller('insertLogController', ['$scope', '$http', '$insertLogService',
 function (
     $scope,
@@ -468,7 +469,9 @@ function (
     $scope.insertLog = function () {
         $scope.isShowResultMessage = false;
         var relatedCustomer = getRelatedCustomer();
-        if (!$scope.isVerifyRelatedCustomer && $scope.isEditingRelatedCustomer && relatedCustomer) {
+        var inputCustomerLength = getRelatedCustomerLength();
+        if ($scope.isEditingRelatedCustomer &&
+            inputCustomerLength) {
             /* jshint camelcase: false */
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;

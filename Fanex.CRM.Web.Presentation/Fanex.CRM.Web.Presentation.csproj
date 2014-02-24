@@ -295,9 +295,7 @@
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
-    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\PeriodTypeContainer.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\ReportTypeContainer.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportController.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportService.js" />
@@ -378,6 +376,7 @@
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
     <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
     <Content Include="Scripts\ShareScripts\Directives\DatePicker.js" />
+    <Content Include="Scripts\ShareScripts\Directives\DropdownList.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />

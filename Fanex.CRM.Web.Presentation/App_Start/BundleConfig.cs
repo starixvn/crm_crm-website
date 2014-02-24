@@ -347,6 +347,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",
