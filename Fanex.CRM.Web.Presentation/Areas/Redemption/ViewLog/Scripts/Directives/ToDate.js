@@ -15,7 +15,7 @@ redemptionViewLogApplication.directive('datePickerToDateContainer', function () 
             changeMonth: true,
             changeYear: true,
             minDate: null,
-            maxDate: new Date(currentDate),
+            maxDate: null,
             showOtherMonths: true,
             selectOtherMonths: true,
             onSelect: function () {

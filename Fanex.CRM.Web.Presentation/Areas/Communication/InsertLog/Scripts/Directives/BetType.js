@@ -11,7 +11,7 @@ insertLogApplication.directive('dropdownBetType', function () {
             for (var i = 0; i < betTypeListLength; i++) {
                 var betType = scope.betTypeList[i];
                 dropdown.append(
-                    '<option value="' + betType.Id + '">' + betType.Value + '</option>');
+                    '<option value="' + betType.Id + '">' + betType.Name + '</option>');
             }
 
             element.change(function () {

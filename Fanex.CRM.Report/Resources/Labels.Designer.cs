@@ -88,6 +88,33 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From month.
+        /// </summary>
+        public static string From_month {
+            get {
+                return ResourceManager.GetString("From_month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From week.
+        /// </summary>
+        public static string From_week {
+            get {
+                return ResourceManager.GetString("From_week", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From year.
+        /// </summary>
+        public static string From_year {
+            get {
+                return ResourceManager.GetString("From_year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly.
         /// </summary>
         public static string Monthly {
@@ -97,11 +124,11 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Period Type.
+        ///   Looks up a localized string similar to Period type.
         /// </summary>
-        public static string Period_Type {
+        public static string Period_type {
             get {
-                return ResourceManager.GetString("Period_Type", resourceCulture);
+                return ResourceManager.GetString("Period_type", resourceCulture);
             }
         }
         
@@ -120,6 +147,33 @@ namespace Fanex.CRM.Report.Resources {
         public static string To_date {
             get {
                 return ResourceManager.GetString("To_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To month.
+        /// </summary>
+        public static string To_month {
+            get {
+                return ResourceManager.GetString("To_month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To week.
+        /// </summary>
+        public static string To_week {
+            get {
+                return ResourceManager.GetString("To_week", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To year.
+        /// </summary>
+        public static string To_year {
+            get {
+                return ResourceManager.GetString("To_year", resourceCulture);
             }
         }
         

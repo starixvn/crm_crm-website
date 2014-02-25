@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global OpenPopup, reRenderGrid, replaceSpaceForIE9, bindingSetting,
-gup, head, addDays */
+gup, head, addDays,
+bindingManageChildByParentId */
 /* exported loadSubItem, openEditFeedback */
 
 //Contain the template
@@ -55,7 +56,7 @@ function bindingEvent() {
     $('#ddlcategory').change(function () {
         bindingManageChildByParentId('ddlsubcategory', AllSetting.Category, parseInt($('#ddlcategory').val()));
     });
-};
+}
 
 function openEditFeedback(url) {
     try {

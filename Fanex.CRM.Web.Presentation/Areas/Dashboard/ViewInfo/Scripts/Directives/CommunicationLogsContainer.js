@@ -75,8 +75,9 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
             footerRows: footerData,
             numberOfFrozenColumn: 0,
             fullWidth: true,
-            fullHeight: true,
-            gridHeight: 150,
+            fullHeight: false,
+
+            gridHeight: $(window).height() - $("#table-redemption-logs").height() - 450,
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,

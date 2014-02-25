@@ -2,12 +2,15 @@
 /* global editLogApplication,
 communicationLog,
 sharedScriptManager,
-moment,
 crmConstants,
 viewResources,
 getRelatedCustomer,
 verifyRelatedCustomer,
-hotKeyManager */
+hotKeyManager,
+hasReviewPermission,
+verifyRelatedCustomerForUpdate,
+isOldRelatedCustomer,
+getRelatedCustomerLength */
 editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService',
 function (
     $scope,
@@ -31,12 +34,13 @@ function (
     $scope.feedbackSubjectTemplateList = [];
     $scope.feedbackSubjectTemplateTotalPage = 0;
     $scope.isLoadedFeedbackSubjectTemplate = false;
-    $scope.lastRemarkPrefix = '';
+
     $scope.isSuccess = false;
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
     $scope.isEditingRelatedCustomer = false;
     $scope.isVerifyRelatedCustomer = false;
+    $scope.oldRelatedCustomer = '';
     $scope.isSetFocus = false;
     $scope.hasReviewPermission = hasReviewPermission;
 
@@ -129,7 +133,7 @@ function (
             var productId = communicationLog.Product.Id;
             var productInfo;
             var productListLength = $scope.productList.length;
-            for (var i = 0; i < productListLength; i++) {
+            for (i = 0; i < productListLength; i++) {
                 var product = $scope.productList[i];
                 if (product.Id === productId) {
                     productInfo = product;
@@ -143,31 +147,13 @@ function (
         }
 
         $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
-        $scope.updateRemarkPrefix();
-
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.updateChangeFlag();
     };
-    $scope.generateRemarkPrefix = function () {
-        /* jshint camelcase: false */
-        return sharedScriptManager.stringFormat("{0}/{1} ",
-            [moment($scope.communicationLog.StartTime).format(crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix),
-            $scope.communicationLog.CommunicationTool.Name]);
-    };
-    $scope.updateRemarkPrefix = function () {
-        var remarkPrefix = $scope.generateRemarkPrefix();
-        if ($scope.communicationLog.Remark.indexOf($scope.lastRemarkPrefix) === 0) {
-            $scope.communicationLog.Remark = $scope.communicationLog.Remark.substring($scope.lastRemarkPrefix.length, $scope.communicationLog.Remark.length);
-        }
 
-        if ($scope.communicationLog.Remark.indexOf(remarkPrefix) === -1) {
-            $scope.communicationLog.Remark = remarkPrefix + $scope.communicationLog.Remark;
-            $scope.lastRemarkPrefix = remarkPrefix;
-        }
-    };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
-        $scope.updateLog();
+        $scope.preupdateLog();
     };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlE = function () {
@@ -180,7 +166,6 @@ function (
             $scope.communicationLog.EndTime.setMinutes(selectedTime.getMinutes() + 1);
         }
 
-        $scope.updateRemarkPrefix();
         $scope.updateChangeFlag();
     };
     $scope.updateEndTime = function (selectedTime) {
@@ -190,7 +175,6 @@ function (
             $scope.communicationLog.StartTime.setMinutes(selectedTime.getMinutes() - 1);
         }
 
-        $scope.updateRemarkPrefix();
         $scope.updateChangeFlag();
     };
     $scope.updateSelectedExtension = function (extentionId) {
@@ -250,7 +234,6 @@ function (
         }
 
         $scope.$apply();
-        $scope.updateRemarkPrefix();
         $scope.updateChangeFlag();
     };
     $scope.updateSelectedLanguage = function (languageId) {
@@ -434,16 +417,20 @@ function (
     $scope.updateEditFlag = function () {
         $scope.isEditingRelatedCustomer = true;
     };
-    $scope.updateLog = function () {
-        if (!$scope.hasReviewPermission &&
-            $scope.oldCommunicationLog.IsReviewed &&
+    $scope.updateOldRelatedCustomer = function (oldRelatedCustomer) {
+        $scope.oldRelatedCustomer = oldRelatedCustomer;
+    };
+    $scope.preupdateLog = function () {
+        if ($scope.oldCommunicationLog.IsReviewed &&
             !$scope.communicationLog.IsReviewed) {
             return;
         }
 
         $scope.isShowResultMessage = false;
-        var relatedCustomer = getRelatedCustomer();
-        if (!$scope.isVerifyRelatedCustomer && $scope.isEditingRelatedCustomer && relatedCustomer) {
+        var inputCustomerLength = getRelatedCustomerLength();
+        if (!isOldRelatedCustomer($scope.oldRelatedCustomer) &&
+            $scope.isEditingRelatedCustomer &&
+            inputCustomerLength) {
             /* jshint camelcase: false */
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
@@ -451,8 +438,16 @@ function (
             return;
         }
 
+        $scope.updateLog();
+    };
+
+    $scope.updateLog = function () {
         $scope.isShowResultMessage = false;
         $scope.isSuccess = true;
+        var relatedCustomer = isOldRelatedCustomer($scope.oldRelatedCustomer) ?
+            $scope.communicationLog.RelatedCustomerIds :
+            getRelatedCustomer();
+
         var updateCriteria = {
             FeedbackId: $scope.communicationLog.RunningNumber,
             CustomerId: $scope.communicationLog.CustomerId,
@@ -595,6 +590,11 @@ function (
         verifyRelatedCustomer($scope);
         $scope.isEditingRelatedCustomer = false;
     };
+    $scope.verifyRelatedCustomerForUpdate = function () {
+        verifyRelatedCustomerForUpdate($scope);
+        $scope.isEditingRelatedCustomer = false;
+    };
+
     $scope.completeSetFocus = function () {
         $scope.isSetFocus = false;
     };

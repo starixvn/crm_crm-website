@@ -301,6 +301,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 }
 
                 allCommunicationTool = _settingRepositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
+                allCommunicationTool = allCommunicationTool.OrderBy(s => s.DisplayOrder).ToList();
                 CacheService.Set(GetAllCommunicationToolSessionKey, allCommunicationTool);
             }
             catch (Exception ex)
@@ -371,13 +372,10 @@ namespace Fanex.CRM.Setting.Services.Implements
                     ParentId = 0
                 });
 
-                var allSettingRelation = GetAllSettingRelation();
-                var allSetting = GetAllSetting();
-
                 var notApplySetting = new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
-                    Value = Labels.Symbol_NotApply
+                    Name = Labels.Symbol_NotApply
                 };
 
                 allProduct.Add(new SettingInfo
@@ -389,7 +387,12 @@ namespace Fanex.CRM.Setting.Services.Implements
 
                 foreach (var data in rawData)
                 {
-                    data.ChildSettings = GetSubSettingByParentId(data, allSettingRelation, allSetting);
+                    data.ChildSettings = _settingRepositoryInstance.GetAllBetType(new GetAllBetTypeCriteria
+                    {
+                        ParentId = data.Id
+                    });
+
+                    data.ChildSettings = data.ChildSettings.OrderBy(s => s.DisplayOrder).ToList();
                     data.ChildSettings.Insert(0, notApplySetting);
                     allProduct.Add(data);
                 }
@@ -643,7 +646,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 CacheService.Delete(GetAllCountrySessionKey);
                 CacheService.Delete(GetAllTitleSessionKey);
                 CacheService.Delete(GetAllFeedbackTemplateSubjectSessionKey);
-                
+
                 CacheService.Delete(GetAllSiteSessionKey);
                 CacheService.Delete(GetAllLanguageSessionKey);
                 CacheService.Delete(GetAllExtensionSessionKey);
@@ -659,7 +662,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
             }
         }
-        
+
         private int GetSiteGroupId(int siteId)
         {
             return IsLicenseeSite(siteId) ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup;

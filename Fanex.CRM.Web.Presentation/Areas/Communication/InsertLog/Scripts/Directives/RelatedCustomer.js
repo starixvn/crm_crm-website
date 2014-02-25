@@ -6,25 +6,19 @@ trim,
 verifyRelatedCustomer,
 checkDuplicateRelated,
 getRelatedCustomer,
-deleteRelatedCust */
+deleteRelatedCust,
+getRelatedCustomerLength */
 var orgLengt = 0;
 var orgArrUser = "";
 var arrCust = [];
+var userIdList = [];
+var userList = [];
 var renderRelated = function (row) {
     var userName = "";
     $('#related td').each(function (i, td) {
         /* jshint unused: vars */
         arrCust[i] = this.id;
     });
-
-    if (arrCust != null && arrCust.length > 0) {
-        for (var i = 0; i < arrCust.length; i++) {
-            if (row.CustId === arrCust[i] && row.CustId !== 0) {
-                userName = userName + arrCust[i];
-                return null;
-            }
-        }
-    }
 
     var html;
     if (row.CustId !== 0) {
@@ -60,10 +54,10 @@ var completedVerifyRelatedCustomer = function (rs) {
     var i;
     if (rs != null && rs.length > 0) {
         var userId = '';
-        var userIdList = [];
         for (i = 0; i < rs.length; i++) {
-            if (parseInt(rs[i].CustId) !== 0) {
+            if (userIdList.indexOf(rs[i].CustId) === -1) {
                 userIdList.push(rs[i].CustId);
+                userList.push(rs[i]);
             }
         }
 
@@ -80,10 +74,9 @@ var completedVerifyRelatedCustomer = function (rs) {
         }
     });
     var arr = [];
-    arrCust = [];
-    for (i = 0; i < rs.length; i++) {
-        arr.push(renderRelated(rs[i]));
-        arrCust.push(rs[i].CustId);
+    for (i = 0; i < userList.length; i++) {
+        arr.push(renderRelated(userList[i]));
+        arrCust.push(userList[i].CustId);
     }
 
     $("#related").html(arr.join(''));
@@ -221,4 +214,11 @@ var getRelatedCustomer = function () {
 };
 var deleteRelatedCust = function (custId) {
     $("#" + custId).parent().remove();
+    userList.splice(userIdList.indexOf(custId), 1);
+    userIdList.splice(userIdList.indexOf(custId), 1);
+};
+
+var getRelatedCustomerLength = function () {
+    return ($(".related-customer-container #holder > li").length - 1) +
+           ($(".related-customer-container #typeCust").val() !== "" ? 1 : 0);
 };

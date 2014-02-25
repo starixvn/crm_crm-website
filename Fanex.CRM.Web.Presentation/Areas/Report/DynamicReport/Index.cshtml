@@ -16,17 +16,9 @@
             <div class="row row-item">
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                     <label for="periodtype">
-                        @Labels.Period_Type</label></div>
-                <div class="col-xs-2 col-sm-2 col-md-2 period-type-container" data-ng-model="periodTypeList">
+                        @Labels.Period_type</label></div>
+                <div class="col-xs-2 col-sm-2 col-md-2 period-type-container" data-ng-model="periodTypeOptions.DataList">
                     <select id="periodtype">
-                    </select>
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-1 col-sm-1 col-md-1">
-                    <label for="reporttype">
-                        @Labels.Report_Type</label>
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 report-type-container" data-ng-model="reportTypeList">
-                    <select id="reporttype">
                     </select>
                 </div>
             </div>
@@ -34,16 +26,56 @@
                 <div class="item">
                     <label for="fromDate">
                         @Labels.From_date</label>
-                    <div class="display-inline-block " data-ng-model="isUpdateFromDatePicker" date-picker-from-date-container>
+                    <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
                         <input id="fromDate" type="text" class="textbox txtcalendar" />
                     </div>
                 </div>
                 <div class="item">
                     <label for="toDate">
                         @Labels.To_date</label>
-                    <div class="display-inline-block date-picker-to-date-container" data-ng-model="searchCriteria.MinToDate">
+                    <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
                         <input id="toDate" type="text" class="textbox txtcalendar" />
                     </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item">
+                    <label for="fromweek">
+                        @Labels.From_week</label>
+                    <div class="display-inline-block week-picker-from-week-container" data-ng-model="fromWeekOptions.IsRerenderPicker">
+                        <input id="fromweek" type="text" readonly="readonly" class="weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
+                            data-maxdate="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                            data-value="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                            data-isendweek="false" />
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="toDate">
+                        @Labels.To_week</label>
+                    <div class="display-inline-block week-picker-to-week-container" data-ng-model="toWeekOptions.IsRerenderPicker">
+                        <input id="toweek" type="text" readonly="readonly" class="weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
+                             data-maxdate="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                             data-value="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                             data-isendweek="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions.IsRerenderPicker">
+                    <label for="frommonth">
+                        @Labels.From_month</label>
+                    <select id="frommonth_month">
+                    </select>
+                    <select id="frommonth_year">
+                    </select>
+                </div>
+                <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions.IsRerenderPicker">
+                    <label for="tomonth">
+                        @Labels.To_month</label>
+                    <select id="tomonth_month">
+                    </select>
+                    <select id="tomonth_year">
+                    </select>
                 </div>
             </div>
         </div>
@@ -52,15 +84,9 @@
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
     @Scripts.Render("~/Areas/Report/DynamicReportScripts")
-    <script type="text/javascript">
-        window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
-        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
-
-        directiveManager.registerFromDateCalendar(dynamicReportApplication);
-        directiveManager.registerToDateCalendar(dynamicReportApplication);
-        var viewResources = {
-        };
-    </script>
+    <script type="text/javascript">        window.rootUrl = '@Url.Content("~")'; var currentDate
+    = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()'; var initFromDate
+    = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var viewResources = {}; </script>
 </body>
 </html>
