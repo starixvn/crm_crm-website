@@ -16,6 +16,12 @@ namespace Fanex.CRM.Report.Services.Interfaces
     {
         List<SettingInfo> GetAllPeriodType();
 
-        List<SettingInfo> GetAllReportType();
+        List<SettingInfo> GetAllProduct();
+
+        List<SiteInfo> GetAllSite();
+
+        List<SettingInfo> GetAllStatus();
+
+        List<SettingInfo> GetAllResponse();
     }
 }

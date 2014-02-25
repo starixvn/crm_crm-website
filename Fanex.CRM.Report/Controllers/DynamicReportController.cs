@@ -12,10 +12,12 @@ namespace Fanex.CRM.Report.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Report.Services.Implements;
+    using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.CRM.Report.Services.Interfaces;
-    using Fanex.CRM.Report.Services.Implements;
 
     /// <summary>
     /// Dynamic Report Controller.
@@ -34,7 +36,6 @@ namespace Fanex.CRM.Report.Controllers
             _dynamicReportService = dynamicReportService ?? new DynamicReportService();
         }
 
-
         [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
@@ -52,7 +53,12 @@ namespace Fanex.CRM.Report.Controllers
             var allSetting = new
             {
                 PeriodTypeList = _dynamicReportService.GetAllPeriodType(),
-                ReportTypeList = _dynamicReportService.GetAllReportType()
+                ProductList = _dynamicReportService.GetAllProduct(),
+                SiteList = _dynamicReportService.GetAllSite(),
+                StatusList = _dynamicReportService.GetAllStatus(),
+                ResponseList = _dynamicReportService.GetAllResponse(),
+                RoleList = _dynamicReportService.GetAllRole(),
+                CommunicationToolList = _dynamicReportService.GetAllCommunicationTool()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

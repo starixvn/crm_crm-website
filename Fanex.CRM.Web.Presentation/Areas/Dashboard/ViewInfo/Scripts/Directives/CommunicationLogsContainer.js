@@ -57,7 +57,7 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
                 { HeaderText: viewResources.Feedback_Date, Width: 90, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
                 {
                     HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
-                    Width: 268,
+                    Width: 280,
                     Name: "ColCategory",
                     HeaderAlign: "center",
                     CellAlign: "left"
@@ -77,18 +77,13 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
             fullWidth: true,
             fullHeight: false,
 
-            gridHeight: $(window).height() - $("#table-redemption-logs").height() - 450,
+            gridHeight: $(window).height() - $("#table-redemption-logs").height() -
+                $(".specialRemark").height() - 100,
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
             bodyRowHeight: 25,
-            showPager: true,
-            pagerOption: {
-                itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage,
-                currentPage: 0,
-                itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: bodyData.length
-            }
+            showPager: false
         };
 
         tableCommunicationLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);

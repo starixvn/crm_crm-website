@@ -16,12 +16,31 @@ namespace Fanex.CRM.Report.Services.Implements
     using Fanex.CRM.Report.Services.Interfaces;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
 
     /// <summary>
     /// Dynamic Report Service.
     /// </summary>
     public class DynamicReportService : IDynamicReportService
     {
+        private ISettingService _serviceSetting;
+
+        public DynamicReportService()
+            : this(null)
+        {
+        }
+
+        public DynamicReportService(
+            ISettingService serviceSetting)
+        {
+            _serviceSetting = serviceSetting ?? new SettingService();
+        }
+
+        /// <summary>
+        /// Gets all period type.
+        /// </summary>
+        /// <returns>All period type.</returns>
         public List<SettingInfo> GetAllPeriodType()
         {
             var allPeriodType = new List<SettingInfo>();
@@ -56,23 +75,110 @@ namespace Fanex.CRM.Report.Services.Implements
             return allPeriodType;
         }
 
-        public List<SettingInfo> GetAllReportType()
+        /// <summary>
+        /// Gets all product.
+        /// </summary>
+        /// <returns>All product.</returns>      
+        public List<SettingInfo> GetAllProduct()
         {
-            var allReportType = new List<SettingInfo>();
+            var allProduct = new List<SettingInfo>();
             try
             {
-                allReportType.Add(new SettingInfo
+                var rawData = _serviceSetting.GetAllProduct();
+                foreach (var rawProduct in rawData)
                 {
-                    Id = PeriodTypeConstants.Yearly,
-                    Name = Labels.Yearly
-                });
+                    var product = rawProduct;
+                    if (rawProduct.Id == SettingConstants.NotApply)
+                    {
+                        product.Value = Labels.All;
+                    }
+
+                    allProduct.Add(product);
+                }
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allReportType;
+            return allProduct;
+        }
+
+        /// <summary>
+        /// Gets all site.
+        /// </summary>
+        /// <returns>All site value.</returns>
+        public List<SiteInfo> GetAllSite()
+        {
+            var allSite = new List<SiteInfo>();
+            try
+            {
+                allSite = _serviceSetting.GetAllSite();
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allSite;
+        }
+
+        /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <returns>All status.</returns>
+        public List<SettingInfo> GetAllStatus()
+        {
+            var allStatus = new List<SettingInfo>();
+            try
+            {
+                var rawData = _serviceSetting.GetAllStatus();
+                allStatus.Add(new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Name = Labels.All
+                });
+
+                foreach (var rawStatus in rawData)
+                {
+                    allStatus.Add(rawStatus);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allStatus;
+        }
+
+        /// <summary>
+        /// Gets all response.
+        /// </summary>
+        /// <returns>All response.</returns>
+        public List<SettingInfo> GetAllResponse()
+        {
+            var allResponse = new List<SettingInfo>();
+            try
+            {
+                var rawData = _serviceSetting.GetAllResponse();
+                allResponse.Add(new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
+
+                foreach (var rawResponse in rawData)
+                {
+                    allResponse.Add(rawResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allResponse;
         }
     }
 }

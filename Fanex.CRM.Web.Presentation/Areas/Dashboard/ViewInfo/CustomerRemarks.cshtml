@@ -1,7 +1,7 @@
 ﻿@using Fanex.CRM.Dashboard.Resources;
 <div class="row panel-group last specialRemark">
     <div class="row title">
-        @Labels.Special_Remark
+        @Labels.Last_5_Special_Remark
     </div>
     <ul class="custinfo row content list-unstyled">
         <li data-ng-repeat="remark in customerRemarks track by $index" data-ng-bind="$index + 1 + '. ' + customerRemarks[$index]"></li>

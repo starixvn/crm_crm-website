@@ -187,6 +187,24 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last 5 Redemption Log.
+        /// </summary>
+        public static string Last_5_Redemption_Log {
+            get {
+                return ResourceManager.GetString("Last_5_Redemption_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last 5 Special Remark.
+        /// </summary>
+        public static string Last_5_Special_Remark {
+            get {
+                return ResourceManager.GetString("Last_5_Special_Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main.
         /// </summary>
         public static string Main {

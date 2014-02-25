@@ -24,13 +24,14 @@ directiveManager.registerDropdownContainer = function (angularApplication, regis
             }
 
             dataList = options.DataList;
-            var dropdown = element.find("#" + registerParams.TargetPlugInId);
+            var dropdown = element.find("#" + registerParams.PickerId);
             dropdown.empty();
             var optionHtml = '';
             var dataListLength = options.DataList.length;
             for (var i = 0; i < dataListLength; i++) {
                 var data = options.DataList[i];
-                optionHtml += '<option value="' + data.Id + '">' + data.Name + '</option>';
+                optionHtml += '<option value="' + data[registerParams.DataPropertyName.Id] + '">' +
+                   data[registerParams.DataPropertyName.Name] + '</option>';
             }
 
             dropdown.append(optionHtml);
