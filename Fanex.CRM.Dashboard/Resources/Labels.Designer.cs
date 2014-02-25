@@ -277,7 +277,7 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sub Category.
+        ///   Looks up a localized string similar to Subcategory.
         /// </summary>
         public static string Sub_Category {
             get {

@@ -342,7 +342,7 @@ var feedbackStatistic = {
     },
     renderFeedbackHeader: function (row) {
         var html = '<tr>';
-        html += '<th><div class="table-cell maxheight" style="width:400px;" >Sub Category</div></th>';
+        html += '<th><div class="table-cell maxheight" style="width:400px;" >Subcategory</div></th>';
         for (var i = 0; i < row.length; i++) {
             html += '<th><div class="table-cell maxheight" style="width:110px;">' + row[i] + '</div></th>';
         }
