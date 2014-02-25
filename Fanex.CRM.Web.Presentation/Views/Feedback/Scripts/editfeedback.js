@@ -604,13 +604,16 @@ var updateFeedback = {
     msn: '',
     resolutionTitme: '',
     reviewCheckBox: function () {
+        isShowReviewBox = true;
         if ($("#chkisreview").attr("checked")) {
-            initEdit('rev');
+            initEdit('rev');            
         }
         else {
             initReview('rev');
             $('#revieweditererror').addClass('hidden');
         }
+
+        showHideDetailBox(true, 'FeedbackReview'); 
     },
     getData: function () {
         /* jshint maxstatements: 75 */
