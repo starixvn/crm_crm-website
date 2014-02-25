@@ -342,7 +342,7 @@ var feedbackStatistic = {
     },
     renderFeedbackHeader: function (row) {
         var html = '<tr>';
-        html += '<th><div class="table-cell maxheight" style="width:400px;" >Sub Category</div></th>';
+        html += '<th><div class="table-cell maxheight" style="width:400px;" >Subcategory</div></th>';
         for (var i = 0; i < row.length; i++) {
             html += '<th><div class="table-cell maxheight" style="width:110px;">' + row[i] + '</div></th>';
         }
@@ -487,7 +487,7 @@ var feedbackStatistic = {
                     "&tSecond=" + feedbackStatistic.ToDuration.Second;
 
         var url = "../Reports/FeedbackStatisticsDetailView?" + inputParams;
-        masterPage.OpenPopup(url, "Feedback Statistic Detail Report", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, null);
+        masterPage.OpenPopup(url, "Feedback Statistic Detail Report", (maxWidthOfPopUp + 15), maxHeightOfPopUp, true, false, window, 2000, null, null);
     }
 };
 

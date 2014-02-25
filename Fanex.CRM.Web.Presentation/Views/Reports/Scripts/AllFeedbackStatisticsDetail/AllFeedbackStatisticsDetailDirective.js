@@ -72,7 +72,11 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
                             Value: info.Username
                         },
                         {
-                            Name: "ColCategory",
+                            Name: "ColMainCategory",
+                            Value: info.MainCategory
+                        },
+                        {
+                            Name: "ColSubcategory",
                             Value: info.SubCategory
                         },
                         {
@@ -92,7 +96,8 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
             columns: [
                 { HeaderText: 'Feedback', Width: 380, Name: "ColFeedback", HeaderAlign: "center", CellAlign: "left", Sort: false },
                 { HeaderText: 'Customer', Width: 130, Name: "ColCustomer", HeaderAlign: "center", CellAlign: "center", Sort: false },
-                { HeaderText: 'Category', Width: 200, Name: "ColCategory", HeaderAlign: "center", CellAlign: "left", Sort: false },
+                { HeaderText: 'Main Category', Width: 200, Name: "ColMainCategory", HeaderAlign: "center", CellAlign: "left", Sort: false },
+                { HeaderText: 'Subcategory', Width: 200, Name: "ColSubcategory", HeaderAlign: "center", CellAlign: "left", Sort: false },
                 { HeaderText: 'Status', Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: false },
                 { HeaderText: 'Related Customer', Width: 180, Name: "CoRelatedCustomer", HeaderAlign: "center", CellAlign: "center", Sort: false}],
             showTitle: true,
@@ -123,12 +128,6 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
         };
 
         tableFeedbacks.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-
-        var editLogLinks = tableFeedbacks.find(".desTooltip");
-        editLogLinks.unbind("click");
-        editLogLinks.click(function () {
-            scope.editFeedback($(this).attr("data-logindex"));
-        });
     }
 
     return {

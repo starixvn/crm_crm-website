@@ -520,7 +520,7 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sub Category.
+        ///   Looks up a localized string similar to Subcategory.
         /// </summary>
         public static string Sub_Category {
             get {

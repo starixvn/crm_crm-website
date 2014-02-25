@@ -189,8 +189,7 @@ feedbackDetail = {
                        <td>\
                             <div style="width:380px">\
                                 <div class="lnksubject">\
-                                    <a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' +
-                                        row.ID + '&rep=2\', 1);">\
+                                    <a class="desTooltip" href="JavaScript:void(0);">\
                                         <b>' + row.Subject + '</b>\
                                     </a>\
                                 </div>\
