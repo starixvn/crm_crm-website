@@ -57,8 +57,8 @@ namespace Fanex.CRM.Report.Controllers
                 SiteList = _dynamicReportService.GetAllSite(),
                 StatusList = _dynamicReportService.GetAllStatus(),
                 ResponseList = _dynamicReportService.GetAllResponse(),
-                RoleList = _dynamicReportService.GetAllRole(),
-                CommunicationToolList = _dynamicReportService.GetAllCommunicationTool()
+                //RoleList = _dynamicReportService.GetAllRole(),
+                //CommunicationToolList = _dynamicReportService.GetAllCommunicationTool()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
