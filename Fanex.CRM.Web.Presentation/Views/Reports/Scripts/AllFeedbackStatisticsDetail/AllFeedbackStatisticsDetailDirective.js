@@ -123,12 +123,6 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
         };
 
         tableFeedbacks.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-
-        var editLogLinks = tableFeedbacks.find(".desTooltip");
-        editLogLinks.unbind("click");
-        editLogLinks.click(function () {
-            scope.editFeedback($(this).attr("data-logindex"));
-        });
     }
 
     return {
