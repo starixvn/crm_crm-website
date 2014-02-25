@@ -78,13 +78,17 @@ namespace Fanex.CRM.Communication.Repositories.Implements
 
                     if (reader.NextResult())
                     {
-                        List<string> relatedCustomer = new List<string>();
+                        List<string> relatedCustomers = new List<string>();
+                        List<int> relatedCustomerIds = new List<int>();
                         while (reader.Read())
                         {
-                            relatedCustomer.Add(GetRelatedUserNameFromDataReader(reader));
+                            var relatedCustomer = GetRelatedUserNameFromDataReader(reader);
+                            relatedCustomers.Add(relatedCustomer.Name);
+                            relatedCustomerIds.Add(relatedCustomer.Id);
                         }
 
-                        log.RelatedCustomers = string.Join(",", relatedCustomer);
+                        log.RelatedCustomers = string.Join(",", relatedCustomers);
+                        log.RelatedCustomerIds = string.Join(",", relatedCustomerIds);
                     }
                 }
             }
@@ -251,9 +255,13 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             return logInfo;
         }
 
-        private string GetRelatedUserNameFromDataReader(IDataReader reader)
+        private BaseModel GetRelatedUserNameFromDataReader(IDataReader reader)
         {
-            return reader.GetStringNotNull("UserName");
+            return new BaseModel
+            {
+                Name = reader.GetStringNotNull("UserName"),
+                Id = reader.GetInt32NotNull("CustID")
+            };
         }
     }
 }

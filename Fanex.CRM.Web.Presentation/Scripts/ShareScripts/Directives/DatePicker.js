@@ -1,24 +1,24 @@
 ﻿"use strict";
-/* global DialogManager,
+/* global directiveManager: true,
 crmConstants,
 sharedScriptManager */
 /* jshint unused: vars */
-var directiveManager = directiveManager || {};
+directiveManager = directiveManager || {};
 directiveManager.registerDatePickerContainer = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        var defaultRegisterParams = {
-            PlugInName: null,
-            OptionName: null,
-            PickerId: null
-        };
+        //        var defaultRegisterParams = {
+        //            PlugInName: null,
+        //            OptionName: null,
+        //            PickerId: null
+        //        };
 
-        var defaultOption = {
-            MinDate: null,
-            MaxDate: null,
-            InitDate: null,
-            IsRerenderPicker: null,
-            OnChangeDateEvent: null
-        };
+        //        var defaultOption = {
+        //            MinDate: null,
+        //            MaxDate: null,
+        //            InitDate: null,
+        //            IsRerenderPicker: null,
+        //            OnChangeDateEvent: null
+        //        };
 
         var oldValue = null;
         var isRenderedCalendar = false;
@@ -59,6 +59,7 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
         }
 
         function onChangeDateEvent(scope, element, attrs) {
+            var datePicker = element.find("#" + registerParams.PickerId);
             var options = scope[registerParams.OptionName];
             var selectedDate = selectedDateChange(scope, element, attrs);
             if (isNaN(oldValue.valueOf()) ||

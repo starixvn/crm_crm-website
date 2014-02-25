@@ -344,10 +344,14 @@ namespace Fanex.CRM.Web.View.App_Start
         private static void RegisterBundles_Report_DynamicReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/DynamicReportScripts").Include(
+                "~/Scripts/FanexGridV2/moment.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/WeekPicker/WeekPickerManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/WeekPicker.js",
+                "~/Scripts/ShareScripts/Directives/MonthPicker.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",

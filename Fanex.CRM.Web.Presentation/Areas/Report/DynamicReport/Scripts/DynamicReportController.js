@@ -14,9 +14,13 @@ function (
     $scope.periodTypeList = [];
     $scope.isUpdatingDate = false;
 
+    $scope.periodTypeOptions = null;
     $scope.fromDateOptions = null;
     $scope.toDateOptions = null;
-    $scope.periodTypeOptions = null;
+    $scope.fromWeekOptions = null;
+    $scope.toWeekOptions = null;
+    $scope.fromMonthOptions = null;
+    $scope.toMonthOptions = null;
     $scope.searchCriteria = {
         FromDate: initFromDate,
         ToDate: new Date(currentDate),
@@ -52,6 +56,46 @@ function (
             OnChangeEvent: $scope.updatePeriodType
         };
 
+        $scope.$apply();
+        weekPickerManager.registerWeekPicker();
+        $scope.fromWeekOptions = {
+            CurrentDate: currentDate,
+            InitDate: initFromDate,
+            MaxDate: currentDate,
+            IsRerenderPicker: false,
+            OnChangeDateEvent: $scope.updateFromWeek
+        };
+        $scope.toWeekOptions = {
+            CurrentDate: currentDate,
+            InitDate: initFromDate,
+            MaxDate: currentDate,
+            IsRerenderPicker: false,
+            OnChangeDateEvent: $scope.updateToWeek
+        };
+
+        currentDate = new Date(currentDate);
+        $scope.fromMonthOptions = {
+            CurrentDate: currentDate,
+            InitDate: initFromDate,
+            MaxDate: new Date(currentDate.getFullYear() + 10, currentDate.getMonth(), currentDate.getDate()),
+            MinDate: new Date(currentDate.getFullYear() - 10, currentDate.getMonth(), currentDate.getDate()),
+            IsRerenderPicker: false,
+            OnChangeEvent: $scope.updateFromMonth
+        };
+
+        $scope.fromMonthOptions.IsRerenderPicker = true;
+        $scope.$apply();
+
+        $scope.toMonthOptions = {
+            CurrentDate: currentDate,
+            InitDate: initFromDate,
+            MaxDate: new Date(currentDate.getFullYear() + 10, currentDate.getMonth(), currentDate.getDate()),
+            MinDate: new Date(currentDate.getFullYear() - 10, currentDate.getMonth(), currentDate.getDate()),
+            IsRerenderPicker: false,
+            OnChangeDateEvent: $scope.updateFromWeek
+        };
+
+        $scope.toMonthOptions.IsRerenderPicker = true;
         $scope.$apply();
     };
 
@@ -98,6 +142,28 @@ function (
     };
     $scope.updatePeriodType = function (periodType) {
         $scope.searchCriteria.PeriodType = periodType;
+    };
+
+    $scope.updateFromWeek = function (fromDate) {
+        $scope.searchCriteria.FromDate = fromDate;
+    };
+    $scope.updateToWeek = function (fromDate, toDate) {
+        $scope.searchCriteria.ToDate = toDate;
+    };
+    $scope.updateFromMonth = function (month, year) {
+        var selectedDate = new Date(year, month, 1);
+        $scope.fromMonthOptions = {
+            CurrentDate: selectedDate,
+            InitDate: initFromDate,
+            MaxDate: new Date(selectedDate.getFullYear() + 10, selectedDate.getMonth(), selectedDate.getDate()),
+            MinDate: new Date(selectedDate.getFullYear() - 10, selectedDate.getMonth(), selectedDate.getDate()),
+            IsRerenderPicker: false,
+            OnChangeDateEvent: $scope.updateFromMonth,
+            SelectedYear: year,
+            SelectedMonth: month
+        };
+
+        $scope.$apply();
     };
 
     $scope.unblockUI = function () {

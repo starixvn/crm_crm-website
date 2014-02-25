@@ -13,21 +13,14 @@ verifyRelatedCustomerForUpdate */
 var orgLengt = 0;
 var orgArrUser = "";
 var arrCust = [];
+var userIdList = [];
+var userList = [];
 var renderRelated = function (row) {
     var userName = "";
     $('#related td').each(function (i, td) {
         /* jshint unused: vars */
         arrCust[i] = this.id;
     });
-
-    if (arrCust != null && arrCust.length > 0) {
-        for (var i = 0; i < arrCust.length; i++) {
-            if (row.CustId === arrCust[i] && row.CustId !== 0) {
-                userName = userName + arrCust[i];
-                return null;
-            }
-        }
-    }
 
     var html;
     if (row.CustId !== 0) {
@@ -63,10 +56,12 @@ var completedVerifyRelatedCustomer = function (rs) {
     var i;
     if (rs != null && rs.length > 0) {
         var userId = '';
-        var userIdList = [];
         for (i = 0; i < rs.length; i++) {
             if (parseInt(rs[i].CustId) !== 0) {
-                userIdList.push(rs[i].CustId);
+                if (userIdList.indexOf(rs[i].CustId) === -1) {
+                    userIdList.push(rs[i].CustId);
+                    userList.push(rs[i]);
+                }
             }
         }
 
@@ -83,10 +78,9 @@ var completedVerifyRelatedCustomer = function (rs) {
         }
     });
     var arr = [];
-    arrCust = [];
-    for (i = 0; i < rs.length; i++) {
-        arr.push(renderRelated(rs[i]));
-        arrCust.push(rs[i].CustId);
+    for (i = 0; i < userList.length; i++) {
+        arr.push(renderRelated(userList[i]));
+        arrCust.push(userList[i].CustId);
     }
 
     $("#related").html(arr.join(''));
@@ -245,6 +239,8 @@ var getRelatedCustomer = function () {
 };
 var deleteRelatedCust = function (custId) {
     $("#" + custId).parent().remove();
+    userList.splice(userIdList.indexOf(custId), 1);
+    userIdList.splice(userIdList.indexOf(custId), 1);
 };
 
 var getRelatedCustomerLength = function () {
@@ -254,10 +250,14 @@ var getRelatedCustomerLength = function () {
 
 var isOldRelatedCustomer = function (oldRelatedCustomer) {
     var typeCustElement = $(".related-customer-container #typeCust").val() === "" ?
-    '<li class="bit-input" id="txtrelatedcustomer_annoninput"><input style="width: auto;" id="typeCust" class="maininput" size="1" autocomplete="off" type="text"></li>' :
-    '';
+        ('<li class="bit-input" id="txtrelatedcustomer_annoninput">' +
+        '<input style="width: auto;" id="typeCust" class="maininput" size="1" autocomplete="off" type="text">' +
+        '</li>') :
+        '';
 
-    var initTypeCustElement = '<li class="bit-input" id="txtrelatedcustomer_annoninput"><input id="typeCust" class="maininput" size="1" autocomplete="off" type="text"></li>';
+    var initTypeCustElement = '<li class="bit-input" id="txtrelatedcustomer_annoninput">' +
+        '<input id="typeCust" class="maininput" size="1" autocomplete="off" type="text">' +
+        '</li>';
     var newRelatedCustomer = $(".related-customer-container #holder").html().replace(/class="bit-box deleted"/g, 'class="bit-box"');
     if (oldRelatedCustomer.indexOf(initTypeCustElement, oldRelatedCustomer.length - initTypeCustElement.length) !== -1) {
         oldRelatedCustomer = oldRelatedCustomer.substring(0, oldRelatedCustomer.length - initTypeCustElement.length);

@@ -428,12 +428,8 @@ function (
 
         $scope.isShowResultMessage = false;
         var inputCustomerLength = getRelatedCustomerLength();
-        if (isOldRelatedCustomer($scope.oldRelatedCustomer)) {
-            $scope.verifyRelatedCustomerForUpdate();
-            return;
-        }
-
-        if ($scope.isEditingRelatedCustomer &&
+        if (!isOldRelatedCustomer($scope.oldRelatedCustomer) &&
+            $scope.isEditingRelatedCustomer &&
             inputCustomerLength) {
             /* jshint camelcase: false */
             $scope.isShowResultMessage = true;
@@ -448,7 +444,10 @@ function (
     $scope.updateLog = function () {
         $scope.isShowResultMessage = false;
         $scope.isSuccess = true;
-        var relatedCustomer = getRelatedCustomer();
+        var relatedCustomer = isOldRelatedCustomer($scope.oldRelatedCustomer) ?
+            $scope.communicationLog.RelatedCustomerIds :
+            getRelatedCustomer();
+
         var updateCriteria = {
             FeedbackId: $scope.communicationLog.RunningNumber,
             CustomerId: $scope.communicationLog.CustomerId,
