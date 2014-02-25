@@ -23,7 +23,7 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
 
     function renderFeedbacks(scope, element) {
         /* jshint unused: vars */
-        if (scope.feedbacks === null || scope.feedbacks.rows === null) {
+        if (scope.feedbacks === null) {
             return;
         }
 
@@ -106,10 +106,10 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
-            gridHeight: 50,
+            gridHeight: 0,
             showDistinctRow: false,
             showHighlightRow: true,
-            headerColumnHeight: 29,
+            headerColumnHeight: 34,
             bodyRowHeight: 51,
             showPager: true,
             customPager: true,
