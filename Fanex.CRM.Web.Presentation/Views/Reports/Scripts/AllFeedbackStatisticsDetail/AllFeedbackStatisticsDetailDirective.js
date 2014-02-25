@@ -92,7 +92,7 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
             columns: [
                 { HeaderText: 'Feedback', Width: 380, Name: "ColFeedback", HeaderAlign: "center", CellAlign: "left", Sort: false },
                 { HeaderText: 'Customer', Width: 130, Name: "ColCustomer", HeaderAlign: "center", CellAlign: "center", Sort: false },
-                { HeaderText: 'Category', Width: 200, Name: "ColCategory", HeaderAlign: "center", CellAlign: "left", Sort: false },
+                { HeaderText: 'Subcategory', Width: 200, Name: "ColCategory", HeaderAlign: "center", CellAlign: "left", Sort: false },
                 { HeaderText: 'Status', Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: false },
                 { HeaderText: 'Related Customer', Width: 180, Name: "CoRelatedCustomer", HeaderAlign: "center", CellAlign: "center", Sort: false}],
             showTitle: true,
