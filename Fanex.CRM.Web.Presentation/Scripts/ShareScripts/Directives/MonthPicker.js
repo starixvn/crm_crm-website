@@ -1,5 +1,6 @@
 ﻿"use strict";
-/* global directiveManager: true */
+/* global directiveManager: true,
+crmConstants */
 /* jshint unused: vars */
 directiveManager = directiveManager || {};
 directiveManager.registerMonthPickerContainer = function (angularApplication, registerParams) {
@@ -16,6 +17,8 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
         //            IsRerenderPicker: null,
         //            OnChangeEvent: null
         //        };
+
+        var isRenderedPicker = false;
 
         function getYearOptions(options) {
             var date = new Date(options.MaxDate);
@@ -36,7 +39,7 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
 
             var yearOptions = '';
             for (var i = minYear; i <= maxYear; i++) {
-                if (i == currentYear) {
+                if (i === currentYear) {
                     yearOptions += '<option selected="selected" value=' + i + '>' + i + '</option>';
                 }
                 else {
@@ -45,31 +48,38 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
             }
 
             return yearOptions;
-        };
+        }
 
         function getMonthOptions(options) {
             var date = new Date(options.MaxDate);
-            var current_month = date.getMonth() + 1;
-            var current_year = date.getFullYear();
-            if (options.SelectedYear < current_year && options.selectedMonth) {
-                current_month = options.SelectedMonth;
+            var currentMonth = date.getMonth() + 1;
+            var currentYear = date.getFullYear();
+            if (options.SelectedYear < currentYear && options.selectedMonth) {
+                currentMonth = options.SelectedMonth;
             }
 
             var year = parseInt(options.SelectedYear);
-            if (options.MinMonth == null) {
-                options.MinMonth = 1;
+            if (options.MinMonth === null ||
+                options.MinMonth === undefined) {
+                if (options.MinDate &&
+                    options.MinDate.getFullYear() === options.SelectedYear) {
+                    options.MinMonth = options.MinDate.getMonth() + 1;
+                } else {
+                    options.MinMonth = 1;
+                }
             }
 
-            if (options.MaxMonth == null) {
-                options.MaxMonth = current_month;
-                if (options.SelectedYear && year != current_year) {
+            if (options.MaxMonth === null ||
+                options.MaxMonth === undefined) {
+                options.MaxMonth = currentMonth;
+                if (options.SelectedYear && year !== currentYear) {
                     options.MaxMonth = 12;
                 }
             }
 
             var monthOptions = '';
             for (var i = options.MinMonth - 1; i <= options.MaxMonth - 1; i++) {
-                if (i == current_month - 1) {
+                if (i === (options.SelectedMonth ? options.SelectedMonth : currentMonth) - 1) {
                     monthOptions += '<option selected="selected" value=' + (i + 1) + '>' +
                         crmConstants.MonthNames[i] + '</option>';
                 }
@@ -101,22 +111,27 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
             var monthOptions = getMonthOptions({
                 MaxDate: options.MaxDate,
                 MinDate: options.MinDate,
-                SelectedYear: yearDropdown.val(),
-                SelectedMonth: null
+                SelectedYear: parseInt(yearDropdown.val()),
+                SelectedMonth: options.SelectedMonth
             });
             monthDropdown.empty().append(monthOptions);
 
-            monthDropdown.unbind("change");
-            monthDropdown.change(function () {
-                onChangeEvent(scope, monthDropdown.val(), yearDropdown.val());
-                ngModelChange(scope, element, attrs, newVal, oldVal);
-            });
+            if (!isRenderedPicker) {
+                monthDropdown.unbind("change");
+                monthDropdown.change(function () {
+                    onChangeEvent(scope, monthDropdown.val(), yearDropdown.val());
+                    ngModelChange(scope, element, attrs, newVal, oldVal);
+                });
 
-            yearDropdown.unbind("change");
-            yearDropdown.change(function () {
-                onChangeEvent(scope, monthDropdown.val(), yearDropdown.val());
-                ngModelChange(scope, element, attrs, newVal, oldVal);
-            });
+                yearDropdown.unbind("change");
+                yearDropdown.change(function () {
+                    onChangeEvent(scope, parseInt(monthDropdown.val()), parseInt(yearDropdown.val()));
+                    ngModelChange(scope, element, attrs, newVal, oldVal);
+                });
+            }
+
+            isRenderedPicker = true;
+            options.IsRerenderPicker = false;
         }
 
         function onChangeEvent(scope, month, year) {

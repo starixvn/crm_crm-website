@@ -1,5 +1,6 @@
 ﻿"use strict";
-/* global editLogApplication */
+/* global editLogApplication,
+crmConstants */
 editLogApplication.directive('dropdownCommunicationTool', function () {
     function renderDropdown(scope, element, attrs) {
         /* jshint unused: vars */
@@ -14,6 +15,9 @@ editLogApplication.directive('dropdownCommunicationTool', function () {
                     '<option value="' + communicationTool.Id + '"' +
                         (communicationTool.Id === scope.communicationLog.CommunicationTool.Id ?
                         ' selected="selected"' :
+                        '') +
+                        (communicationTool.Id === crmConstants.Enums.CommunicationTool.NotApply ?
+                        ' disabled="disabled"' :
                         '') +
                     '>' + communicationTool.Name + '</option>');
             }

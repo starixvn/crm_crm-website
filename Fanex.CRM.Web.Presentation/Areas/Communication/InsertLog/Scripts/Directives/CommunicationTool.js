@@ -1,5 +1,6 @@
 ﻿"use strict";
-/* global insertLogApplication */
+/* global insertLogApplication,
+crmConstants */
 insertLogApplication.directive('dropdownCommunicationTool', function () {
     function renderDropdown(scope, element, attrs) {
         /* jshint unused: vars */
@@ -10,6 +11,10 @@ insertLogApplication.directive('dropdownCommunicationTool', function () {
             var communicationToolListLength = scope.communicationToolList.length;
             for (var i = 0; i < communicationToolListLength; i++) {
                 var communicationTool = scope.communicationToolList[i];
+                if (communicationTool.Id === crmConstants.Enums.CommunicationTool.NotApply) {
+                    continue;
+                }
+
                 dropdown.append(
                     '<option value="' + communicationTool.Id + '">' + communicationTool.Name + '</option>');
             }

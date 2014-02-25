@@ -141,8 +141,8 @@
   <data name="Period_type" xml:space="preserve">
     <value>Period type</value>
   </data>
-  <data name="Report_Type" xml:space="preserve">
-    <value>Report Type</value>
+  <data name="Report_type" xml:space="preserve">
+    <value>Report type</value>
   </data>
   <data name="To_date" xml:space="preserve">
     <value>To date</value>
