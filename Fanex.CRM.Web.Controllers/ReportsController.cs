@@ -74,6 +74,12 @@ namespace Fanex.CRM.Web.Controllers
             return View();
         }
 
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
+        public ActionResult FeedbackStatisticsDetailView()
+        {
+            return View("~/Views/Reports/AllFeedbackStattisticsDetail.cshtml");
+        }
+
         #endregion
 
         #region Post Actions
