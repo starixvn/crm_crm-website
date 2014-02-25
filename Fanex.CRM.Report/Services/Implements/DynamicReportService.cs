@@ -180,5 +180,99 @@ namespace Fanex.CRM.Report.Services.Implements
 
             return allResponse;
         }
+
+        /// <summary>
+        /// Gets all role.
+        /// </summary>
+        /// <returns>All role value.</returns>
+        public List<SettingInfo> GetAllRole()
+        {
+            var allRole = new List<SettingInfo>();
+            try
+            {
+                var rawData = _serviceSetting.GetAllResponse();
+                allRole.Add(new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
+
+                foreach (var rawRole in rawData)
+                {
+                    allRole.Add(rawRole);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allRole;
+        }
+
+        /// <summary>
+        /// Gets all communication tool.
+        /// </summary>
+        /// <returns>All communication tool.</returns>
+        public List<SettingInfo> GetAllCommunicationTool()
+        {
+            var allCommunicationTool = new List<SettingInfo>();
+            try
+            {
+                var rawData = _serviceSetting.GetAllResponse();
+                allCommunicationTool.Add(new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
+
+                foreach (var rawCommunicationTool in rawData)
+                {
+                    allCommunicationTool.Add(rawCommunicationTool);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allCommunicationTool;
+        }
+
+        /// <summary>
+        /// Gets all main category.
+        /// </summary>
+        /// <returns>All main category.</returns>
+        public List<SettingInfo> GetAllMainCategory()
+        {
+            var allMainCategory = new List<SettingInfo>();
+            try
+            {
+                var rawData = _serviceSetting.GetAllMainCategory();
+                allMainCategory.Add(new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Name = Labels.All,
+                    ChildSettings = new List<SettingInfo>
+                    {
+                        new SettingInfo {
+                            Id = SettingConstants.NotApply,
+                            Name = Labels.All,
+                        }
+                    }
+                });
+
+                foreach (var rawMainCategory in rawData)
+                {
+                    allMainCategory.Add(rawMainCategory);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allMainCategory;
+        }
     }
 }

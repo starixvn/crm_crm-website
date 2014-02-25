@@ -133,6 +133,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main Category.
+        /// </summary>
+        public static string Main_Category {
+            get {
+                return ResourceManager.GetString("Main_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly.
         /// </summary>
         public static string Monthly {
@@ -210,6 +219,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub Category.
+        /// </summary>
+        public static string Sub_Category {
+            get {
+                return ResourceManager.GetString("Sub_Category", resourceCulture);
             }
         }
         

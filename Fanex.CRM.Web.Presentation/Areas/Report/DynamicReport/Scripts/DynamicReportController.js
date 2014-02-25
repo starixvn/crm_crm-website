@@ -28,6 +28,10 @@ function (
     $scope.siteOptions = null;
     $scope.statusOptions = null;
     $scope.responseOptions = null;
+    $scope.roleOptions = null;
+    $scope.communicationToolOptions = null;
+    $scope.mainCategoryOptions = null;
+    $scope.subCategoryOptions = null;
     $scope.searchCriteria = {
         FromDate: initFromDate,
         ToDate: new Date(currentDate),
@@ -161,6 +165,22 @@ function (
             OnChangeEvent: $scope.updateSelectedResponse
         };
 
+        $scope.roleOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedRole
+        };
+        $scope.communicationToolOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedCommunicationTool
+        };
+        $scope.mainCategoryOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedMainCategory
+        };
+        $scope.subCategoryOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedSubCategory
+        };
         $scope.$apply();
     };
     $scope.getAllSetting = function () {
@@ -174,6 +194,10 @@ function (
                 $scope.siteOptions.DataList = allSetting.SiteList;
                 $scope.statusOptions.DataList = allSetting.StatusList;
                 $scope.responseOptions.DataList = allSetting.ResponseList;
+                $scope.roleOptions.DataList = allSetting.RoleList;
+                $scope.communicationToolOptions.DataList = allSetting.CommunicationToolList;
+                $scope.mainCategoryOptions.DataList = allSetting.MainCategoryList;
+                $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
@@ -187,6 +211,10 @@ function (
         $scope.searchCriteria.Site = $scope.siteOptions.DataList[0];
         $scope.searchCriteria.Status = $scope.statusOptions.DataList[0];
         $scope.searchCriteria.Response = $scope.responseOptions.DataList[0];
+        $scope.searchCriteria.Role = $scope.roleOptions.DataList[0];
+        $scope.searchCriteria.CommunicationTool = $scope.communicationToolOptions.DataList[0];
+        $scope.searchCriteria.MainCategory = $scope.mainCategoryOptions.DataList[0];
+        $scope.searchCriteria.SubCategory = $scope.subCategoryOptions.DataList[0];
 
         $scope.unblockUI();
     };

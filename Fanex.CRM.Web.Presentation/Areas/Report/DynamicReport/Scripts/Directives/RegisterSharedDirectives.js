@@ -17,7 +17,6 @@ function dynamicReportRegisterPicker() {
         };
         directiveManager.registerDropdownContainer(dynamicReportApplication, reportTypeRegisterParams);
     }
-
     function registerDatePicker() {
         var fromDateRegisterParams = {
             PlugInName: 'datePickerFromDateContainer',
@@ -147,6 +146,66 @@ function dynamicReportRegisterPicker() {
 
         directiveManager.registerDropdownContainer(dynamicReportApplication, responseRegisterParams);
     }
+    function registerRolePicker() {
+        var roleRegisterParams = {
+            PlugInName: 'rolePickerContainer',
+            OptionName: 'roleOptions',
+            PickerId: 'role',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(dynamicReportApplication, roleRegisterParams);
+    }
+    function registerCommunicationToolPicker() {
+        var communicationToolRegisterParams = {
+            PlugInName: 'communicationToolPickerContainer',
+            OptionName: 'communicationToolOptions',
+            PickerId: 'communication-tool',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(dynamicReportApplication, communicationToolRegisterParams);
+    }
+    function registerMainCategoryPicker() {
+        var mainCategoryRegisterParams = {
+            PlugInName: 'mainCategoryPickerContainer',
+            OptionName: 'mainCategoryOptions',
+            PickerId: 'main-category',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(dynamicReportApplication, mainCategoryRegisterParams);
+    }    
+    function registerSubCategoryPicker() {
+        var subCategoryRegisterParams = {
+            PlugInName: 'subCategoryPickerContainer',
+            OptionName: 'subCategoryOptions',
+            PickerId: 'sub-category',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(dynamicReportApplication, subCategoryRegisterParams);
+    }
 
     registerReportTypePicker();
     registerDatePicker();
@@ -157,6 +216,10 @@ function dynamicReportRegisterPicker() {
     registerSitePicker();
     registerStatusPicker();
     registerResponsePicker();
+    registerRolePicker();
+    registerCommunicationToolPicker();
+    registerMainCategoryPicker();
+    registerSubCategoryPicker();
 }
 
 dynamicReportRegisterPicker();

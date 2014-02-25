@@ -23,5 +23,11 @@ namespace Fanex.CRM.Report.Services.Interfaces
         List<SettingInfo> GetAllStatus();
 
         List<SettingInfo> GetAllResponse();
+
+        List<SettingInfo> GetAllRole();
+
+        List<SettingInfo> GetAllCommunicationTool();
+
+        List<SettingInfo> GetAllMainCategory();
     }
 }

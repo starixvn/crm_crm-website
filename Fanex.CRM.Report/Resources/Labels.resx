@@ -141,6 +141,9 @@
   <data name="From_year" xml:space="preserve">
     <value>From year</value>
   </data>
+  <data name="Main_Category" xml:space="preserve">
+    <value>Main Category</value>
+  </data>
   <data name="Monthly" xml:space="preserve">
     <value>Monthly</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
+  </data>
+  <data name="Sub_Category" xml:space="preserve">
+    <value>Sub Category</value>
   </data>
   <data name="To_date" xml:space="preserve">
     <value>To date</value>
