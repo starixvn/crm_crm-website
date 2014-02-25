@@ -269,6 +269,7 @@ namespace Fanex.CRM.Service.Impl
         }
 
         #endregion
+
         #region export licensee summary
         /// <summary>
         /// Excel 2 excel - Licensee daily summary report.
@@ -368,6 +369,7 @@ namespace Fanex.CRM.Service.Impl
         }
 
         #endregion
+
         #region export casino summary
         /// <summary>
         /// Export 2 excel - Casino daily summary report.
@@ -398,6 +400,7 @@ namespace Fanex.CRM.Service.Impl
         }
 
         #endregion
+
         #region export casino detail
         /// <summary>
         /// Export 2 excel - Casino daily report.
@@ -461,6 +464,7 @@ namespace Fanex.CRM.Service.Impl
         }
 
         #endregion
+
         #region export casino weekly summary
         /// <summary>
         /// Export 2 excel - Casino weekly summary report.
@@ -559,6 +563,54 @@ namespace Fanex.CRM.Service.Impl
             return result;
         }
 
+        #region all feedback statistics detail
+        /// <summary>
+        /// Export 2 Excel Feedback Statistic Detail.
+        /// </summary>
+        /// <param name="type">Filter by: Creator/country/role...</param>
+        /// <param name="fromDate">From Date.</param>
+        /// <param name="toDate">To Date value.</param>
+        /// <param name="reportTitle">Report Title.</param>
+        public void ExportExcelAllFeedbackStatisticsDetail(int type, string fromDate, string toDate, string reportTitle)
+        {
+            try
+            {
+                var getSessionData = CacheService.Get<DataGridViewDTO>(_feedbackStatisticDetailMappedSessionKey);
+
+                var startRow = 2;
+                var startCol = 0;
+                var reportName = "FeedbackStatisticDetail";
+                var excelFile = new ExcelFile();
+                var sheetData = excelFile.Worksheets.Add(reportName);
+                var nextRow = 0;
+
+                sheetData.Cells.GetSubrangeAbsolute(startRow - 2, startCol, startRow - 2, startCol + 4).Merged = true;
+                sheetData.Cells.GetSubrangeAbsolute(startRow - 2, startCol, startRow - 2, startCol + 4).Style.Font.Weight = ExcelFont.BoldWeight;
+                sheetData.Cells.GetSubrangeAbsolute(startRow - 2, startCol, startRow - 2, startCol + 4).Value = reportTitle;
+                ExportExcelFeedbackStatisticDetailAssignHeader(ref sheetData, startRow, startCol);
+
+                if (getSessionData != null && getSessionData.Rows.Count > 0)
+                {
+                    foreach (FeedbackView feedbackView in getSessionData.Rows)
+                    {
+                        ExportExcelFeedbackStatisticDetailAssignContentWithoutMainCategory(ref sheetData, startRow, startCol, ref nextRow, feedbackView);
+                    }
+                }
+                else
+                {
+                    sheetData.Cells[startRow, startCol].Style.Font.Color = Color.Red;
+                    sheetData.Cells[startRow, startCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblThereisnoinfomation");
+                }
+
+                ReponseExcelFile(excelFile, string.Format("{0}-{1:MMddyyyy}-{2:MMddyyyy}", reportName, CastAide.AsDateTime(fromDate), CastAide.AsDateTime(toDate)));
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+        }
+        #endregion
+        
         #region private function
 
         /// <summary>
@@ -635,6 +687,59 @@ namespace Fanex.CRM.Service.Impl
             sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;
             sheetData.Cells[startRow + nextRow, startCol + nextCol].Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
             sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = string.Format("{0} \n  {1}", feedbackView.MainCategory, feedbackView.SubCategory);
+            sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;
+            sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = feedbackView.Status;
+            sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;
+            sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = feedbackView.RelatedUsername;
+            nextRow++;
+        }
+
+        /// <summary>
+        /// Assign data to content report.
+        /// </summary>
+        /// <param name="sheetData">Report work sheet.</param>
+        /// <param name="startRow">Start row index.</param>
+        /// <param name="startCol">Start column index.</param>
+        /// <param name="nextRow">Next column index.</param>
+        /// <param name="feedbackView">Feedback view.</param>
+        private static void ExportExcelFeedbackStatisticDetailAssignContentWithoutMainCategory(
+            ref ExcelWorksheet sheetData,
+            int startRow,
+            int startCol,
+            ref int nextRow,
+            FeedbackView feedbackView)
+        {
+            var nextCol = 0;
+            Color color;
+            switch (feedbackView.Status.ToLower())
+            {
+                case "closed":
+                    color = Color.FromArgb(204, 199, 186);
+                    break;
+                case "pending":
+                    color = Color.FromArgb(251, 236, 136);
+                    break;
+                default:
+                    color = Color.FromArgb(255, 255, 255);
+                    break;
+            }
+
+            var currentRowFormat = new ExcelUtils().GetStyleTitle(color, HorizontalAlignmentStyle.Left, ExcelFont.NormalWeight);
+
+            sheetData.Rows[startRow + nextRow].Height = 4 * 256;
+            var reviewBy =
+                string.IsNullOrEmpty(feedbackView.Reviewer) ? string.Empty : string.Format("\n Reviewed by {0} on {1}", feedbackView.Reviewer, feedbackView.ReviewDate);
+            var createBy = string.Format("\n By {0} on {1} (GMT -4)", feedbackView.Creator, feedbackView.CreateDate);
+            var solvingDuration = string.IsNullOrEmpty(feedbackView.DurationTime) ? string.Empty : string.Format("\n Solving Duration: {0}", feedbackView.DurationTime);
+            sheetData.Cells[startRow + nextRow, startCol].Style = currentRowFormat;
+            sheetData.Cells[startRow + nextRow, startCol].Value =
+                string.Format("{0} \n Feedback date {1} {2} {3} {4}", feedbackView.Subject, feedbackView.FeedbackDate, createBy, solvingDuration, reviewBy);
+            currentRowFormat = new ExcelUtils().GetStyleTitle(color, HorizontalAlignmentStyle.Center, ExcelFont.NormalWeight);
+            sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;
+            sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = feedbackView.Username;
+            sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;
+            sheetData.Cells[startRow + nextRow, startCol + nextCol].Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
+            sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = string.Format("{0}", feedbackView.SubCategory);
             sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;
             sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = feedbackView.Status;
             sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;

@@ -125,5 +125,11 @@ namespace Fanex.CRM.Service.Interface
         Result AllowExportLicenseeStatisticDetail();
 
         DataTable GetAutoSuggestionCustomer(string userName);
+
+        void ExportExcelAllFeedbackStatisticsDetail(
+            int type,
+            string fromDate,
+            string toDate,
+            string reportTitle);
     }
 }

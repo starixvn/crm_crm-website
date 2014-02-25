@@ -4,7 +4,6 @@ sharedScriptManager,
 crmConstants*/
 
 allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', function () {
-    
 
     function durationTimeFormat(time) {
         var html = '';
@@ -12,7 +11,7 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
             html = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Solving Duration: " + time;
         }
         return html;
-    };
+    }
 
     function reviewerFormat(reviewer, reviewDate) {
         var html = '';
@@ -20,9 +19,7 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
             html = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reviewed&nbsp;by&nbsp;<b>' + reviewer + '</b>&nbsp;on&nbsp;' + reviewDate + '<br>';
         }
         return html;
-    };
-
-
+    }
 
     function renderFeedbacks(scope, element) {
         /* jshint unused: vars */
@@ -40,8 +37,7 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
 
             scope.pagingFeedbackStatisticsDetail(page_index, itemsPerPage);
             return false;
-        };
-
+        }
 
         var tableFeedbacks = element.find("#table-feedbackstatistics");
         var feedbacks = scope.feedbacks.rows;
@@ -50,8 +46,8 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
 
         tableFeedbacks.empty();
         if (feedbacks && feedbacks.length > 0) {
-            var logLength = feedbacks.length;
-            for (var i = 0; i < logLength; i++) {
+            var totalFeedbacks = feedbacks.length;
+            for (var i = 0; i < totalFeedbacks; i++) {
                 var info = feedbacks[i];
                 bodyData.push({
                     Columns: [
@@ -91,6 +87,7 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
                 });
             }
         }
+
         gridOptions = {
             columns: [
                 { HeaderText: 'Feedback', Width: 380, Name: "ColFeedback", HeaderAlign: "center", CellAlign: "left", Sort: false },
@@ -100,7 +97,9 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
                 { HeaderText: 'Related Customer', Width: 180, Name: "CoRelatedCustomer", HeaderAlign: "center", CellAlign: "center", Sort: false}],
             showTitle: true,
             titleInfo: {
-                text: 'Feedback Statistic Detail Report from'
+                text: 'Feedback Statistic Detail Report from ' + scope.requestParams.param.FromDate + ' to ' + scope.requestParams.param.ToDate,
+                showExcelButton: true,
+                exportExcelFunction: scope.exportDataToExcelFile
             },
             bodyRows: bodyData,
             footerRows: footerData,
@@ -116,7 +115,7 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
             customPager: true,
             pagerOption: {
                 itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage,
-                currentPage: scope.requestParams.CurrentPage,
+                currentPage: scope.requestParams.param.CurrentPage,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
                 totalItem: scope.feedbacks.total,
                 pagerSelectCallBack: ReRenderAfterPaged
@@ -130,7 +129,7 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
         editLogLinks.click(function () {
             scope.editFeedback($(this).attr("data-logindex"));
         });
-    };
+    }
 
     return {
         restrict: 'A',

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE>
+﻿@using Fanex.Common;
+<!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="allfeedbackstatisticsdetail-application">
 <head>
     @Styles.Render("~/site/common")
@@ -12,6 +13,19 @@
         <div id="table-feedbackstatistics" class="freegrid display-none">
         </div>
     </div>
+
+    <iframe id="frm" width="0" height="0" frameborder="0" style="display: none"></iframe>
+    @{
+        if (Request["export"] != null && Converter.ToBool(Request["export"]))
+        {  
+            var type = Converter.ToInt(Request["type"]);
+            var fDate = Converter.ToString2(Request["fdate"]);
+            var tDate = Converter.ToString2(Request["tdate"]);
+            var reportTitle = Converter.ToString2(Request["title"]);
+            Fanex.CRM.Service.Interface.IFeedbackService feedbackService = new Fanex.CRM.Service.Impl.FeedbackService();
+            feedbackService.ExportExcelAllFeedbackStatisticsDetail(type, fDate, tDate, reportTitle);
+        }
+    }
 
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")

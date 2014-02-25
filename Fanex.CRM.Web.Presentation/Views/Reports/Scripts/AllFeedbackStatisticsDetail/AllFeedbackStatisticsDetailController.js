@@ -2,7 +2,9 @@
 /* global allFeedbackStatisticsDetailApplication,
 paramsRequest,
 gup,
+sharedScriptManager,
 decodeURIComponent*/
+
 allFeedbackStatisticsDetailApplication.controller('allFeedbackStatisticsDetailController', ['$scope', '$http', '$allFeedbackStatisticsDetailService',
 function (
     $scope,
@@ -90,9 +92,9 @@ function (
     $scope.pagingFeedbackStatisticsDetail = function (pageIndex, itemsPerPage) {
         $scope.BlockUI();
 
-        $scope.requestParams.CurrentPage = pageIndex;
-        $scope.requestParams.FromCache = true;
-        $scope.requestParams.ItemPerPage = itemsPerPage;
+        $scope.requestParams.param.CurrentPage = pageIndex;
+        $scope.requestParams.param.FromCache = true;
+        $scope.requestParams.param.ItemPerPage = itemsPerPage;
 
         $allFeedbackStatisticsDetailService.getAllFeedbackStatisticsDetail($scope.requestParams)
                 .then(function (data) {
@@ -103,6 +105,25 @@ function (
                     /* jshint unused: vars */
                     $scope.unblockUI();
                 });
+    };
+
+    $scope.exportDataToExcelFile = function () {
+        $allFeedbackStatisticsDetailService.checkingExportStatus()
+            .then(
+                function (data) {
+                    if (data.Result.ErrCode === 0) {
+                        var url = 'FeedbackStatisticsDetailView?export=true&type=' + $scope.requestParams.param.Type +
+                            '&fdate=' + $scope.requestParams.param.FromDate +
+                            '&tdate=' + $scope.requestParams.param.ToDate +
+                            '&title=' + $('#reporttile').html();
+
+                        $('#frm').attr('src', url);
+                    }
+                },
+                function () {
+                }
+            );
+
     };
 
     angular.element(document).ready(function () {
