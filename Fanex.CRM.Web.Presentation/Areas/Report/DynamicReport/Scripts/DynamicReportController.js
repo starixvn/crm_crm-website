@@ -24,6 +24,10 @@ function (
     $scope.toMonthOptions = null;
     $scope.fromYearOptions = null;
     $scope.toYearOptions = null;
+    $scope.productOptions = null;
+    $scope.siteOptions = null;
+    $scope.statusOptions = null;
+    $scope.responseOptions = null;
     $scope.searchCriteria = {
         FromDate: initFromDate,
         ToDate: new Date(currentDate),
@@ -40,7 +44,7 @@ function (
     };
     $scope.initPicker = function () {
         $scope.reportTypeOptions = {
-            DataList: $scope.reportTypeList,
+            DataList: [],
             OnChangeEvent: $scope.updateReportType
         };
 
@@ -135,6 +139,29 @@ function (
 
         $scope.toYearOptions.IsRerenderPicker = true;
         $scope.$apply();
+
+        $scope.productOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedProduct
+        };
+
+        $scope.siteOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedSite,
+            AllText: viewResources.All,
+            IsIncludeNA: true
+        };
+
+        $scope.statusOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedStatus
+        };
+        $scope.responseOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedResponse
+        };
+
+        $scope.$apply();
     };
     $scope.getAllSetting = function () {
         $scope.BlockUI();
@@ -143,7 +170,10 @@ function (
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.reportTypeOptions.DataList = allSetting.PeriodTypeList;
-                $scope.searchCriteria.ReportType = $scope.reportTypeOptions.DataList[0];
+                $scope.productOptions.DataList = allSetting.ProductList;
+                $scope.siteOptions.DataList = allSetting.SiteList;
+                $scope.statusOptions.DataList = allSetting.StatusList;
+                $scope.responseOptions.DataList = allSetting.ResponseList;
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
@@ -152,6 +182,12 @@ function (
             });
     };
     $scope.completedLoadFilterInfo = function () {
+        $scope.searchCriteria.ReportType = $scope.reportTypeOptions.DataList[0];
+        $scope.searchCriteria.Product = $scope.productOptions.DataList[0];
+        $scope.searchCriteria.Site = $scope.siteOptions.DataList[0];
+        $scope.searchCriteria.Status = $scope.statusOptions.DataList[0];
+        $scope.searchCriteria.Response = $scope.responseOptions.DataList[0];
+
         $scope.unblockUI();
     };
     $scope.updateFromDate = function (selectedDate) {

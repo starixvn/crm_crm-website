@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Remark.Services.Implements
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
@@ -64,6 +65,9 @@ namespace Fanex.CRM.Remark.Services.Implements
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns>The result object.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public Result UpdateRemarks(Remarks model)
         {
             try
@@ -117,7 +121,6 @@ namespace Fanex.CRM.Remark.Services.Implements
                     Message = Fanex.CRM.Remark.Resources.Labels.UpdateRemarkUnSuccess
                 };
             }
-            
         }
 
         #endregion

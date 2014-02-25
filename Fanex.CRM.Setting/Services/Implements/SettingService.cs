@@ -354,6 +354,9 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// Gets all product.
         /// </summary>
         /// <returns>All product.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public List<SettingInfo> GetAllProduct()
         {
             var allProduct = new List<SettingInfo>();

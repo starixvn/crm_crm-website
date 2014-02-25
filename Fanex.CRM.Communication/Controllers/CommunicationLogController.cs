@@ -11,17 +11,16 @@ namespace Fanex.CRM.Communication.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Communication.Criteria;
-    using Fanex.CRM.Communication.Models;
+    using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services.Implements;
     using Fanex.CRM.Communication.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Communication.Resources;
 
     /// <summary>
     /// Communication Log Controller.
@@ -102,6 +101,11 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/InsertLog/Index.cshtml", customerId);
         }
 
+        /// <summary>
+        /// Updates the log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Update Result.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
@@ -123,6 +127,11 @@ namespace Fanex.CRM.Communication.Controllers
             return jsonResult;
         }
 
+        /// <summary>
+        /// Inserts the log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Insert result.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)

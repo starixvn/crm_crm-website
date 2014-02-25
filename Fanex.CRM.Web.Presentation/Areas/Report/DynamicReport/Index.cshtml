@@ -92,6 +92,48 @@
                     </select>
                 </div>
             </div>
+            <div class="row row-item">
+                <div class="item product-picker-container" data-ng-model="productOptions.DataList">
+                    <label for="product">
+                        @Labels.Product</label>
+                    <select id="product">
+                    </select>
+                </div>
+                <div class="item site-picker-container" data-ng-model="siteOptions.DataList">
+                    <label for="site">
+                        @Labels.Site</label>
+                    <select id="site">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item status-picker-container" data-ng-model="statusOptions.DataList">
+                    <label for="status">
+                        @Labels.Status</label>
+                    <select id="status">
+                    </select>
+                </div>
+                <div class="item response-picker-container" data-ng-model="responseOptions.DataList">
+                    <label for="response">
+                        @Labels.Response</label>
+                    <select id="response">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item role-picker-container" data-ng-model="roleOptions.DataList">
+                    <label for="role">
+                        @Labels.Role</label>
+                    <select id="role">
+                    </select>
+                </div>
+                <div class="item communication-tool-picker-container" data-ng-model="communitionToolOptions.DataList">
+                    <label for="communication-tool">
+                        @Labels.Communication_Tool</label>
+                    <select id="communication-tool">
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
@@ -102,7 +144,9 @@
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
-        var viewResources = {}; 
+        var viewResources = {
+            All: '@Labels.All'
+        }; 
     </script>
 </body>
 </html>

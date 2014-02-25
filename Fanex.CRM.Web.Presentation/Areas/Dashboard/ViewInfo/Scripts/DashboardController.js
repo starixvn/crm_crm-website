@@ -30,7 +30,6 @@ dashboardApplication.controller('dashboardController', ['$scope',
             $scope.getCustomerRemarks();
             $scope.getCustomerInfo();
             $scope.getRedemptionLogs();
-            $scope.getCommunicationLogs();
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,
                 Id: "Dashboard_MainTab"
@@ -38,6 +37,12 @@ dashboardApplication.controller('dashboardController', ['$scope',
         };
 
         $scope.completedLoadDashboard = function () {
+            if ($scope.isLoadedRedemptionLogs &&
+                !$scope.isLoadedCommunicationLogs) {
+                $scope.getCommunicationLogs();
+                return;
+            }
+
             if ($scope.isLoadedCustomerInfo &&
                 $scope.isLoadedCustomerRemarks &&
                 $scope.isLoadedRedemptionLogs &&

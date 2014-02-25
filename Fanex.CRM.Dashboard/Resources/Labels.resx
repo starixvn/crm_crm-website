@@ -198,4 +198,10 @@
   <data name="Given_Credit" xml:space="preserve">
     <value>Given Credit</value>
   </data>
+  <data name="Last_5_Redemption_Log" xml:space="preserve">
+    <value>Last 5 Redemption Log</value>
+  </data>
+  <data name="Last_5_Special_Remark" xml:space="preserve">
+    <value>Last 5 Special Remark</value>
+  </data>
 </root>

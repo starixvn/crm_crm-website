@@ -378,6 +378,7 @@
     <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
     <Content Include="Scripts\ShareScripts\Directives\DatePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DropdownList.js" />
+    <Content Include="Scripts\ShareScripts\Directives\DropdownSite.js" />
     <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />

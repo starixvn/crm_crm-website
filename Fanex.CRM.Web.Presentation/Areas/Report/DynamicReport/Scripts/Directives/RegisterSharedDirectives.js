@@ -7,8 +7,13 @@ function dynamicReportRegisterPicker() {
         var reportTypeRegisterParams = {
             PlugInName: 'reportTypeContainer',
             OptionName: 'reportTypeOptions',
-            TargetPlugInId: 'reporttype',
-            RestrictType: 'C'
+            PickerId: 'reporttype',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
         };
         directiveManager.registerDropdownContainer(dynamicReportApplication, reportTypeRegisterParams);
     }
@@ -29,7 +34,6 @@ function dynamicReportRegisterPicker() {
         directiveManager.registerDatePickerContainer(dynamicReportApplication, fromDateRegisterParams);
         directiveManager.registerDatePickerContainer(dynamicReportApplication, toDateRegisterParams);
     }
-
     function registerWeekPicker() {
         var fromWeekRegisterParams = {
             PlugInName: 'weekPickerFromWeekContainer',
@@ -46,7 +50,6 @@ function dynamicReportRegisterPicker() {
         directiveManager.registerWeekPickerContainer(dynamicReportApplication, fromWeekRegisterParams);
         directiveManager.registerWeekPickerContainer(dynamicReportApplication, toWeekRegisterParams);
     }
-
     function registerMonthPicker() {
         var fromMonthRegisterParams = {
             PlugInName: 'monthPickerFromMonthContainer',
@@ -71,7 +74,6 @@ function dynamicReportRegisterPicker() {
         directiveManager.registerMonthPickerContainer(dynamicReportApplication, fromMonthRegisterParams);
         directiveManager.registerMonthPickerContainer(dynamicReportApplication, toMonthRegisterParams);
     }
-
     function registerYearPicker() {
         var fromYearRegisterParams = {
             PlugInName: 'yearPickerFromDateContainer',
@@ -90,12 +92,71 @@ function dynamicReportRegisterPicker() {
         directiveManager.registerYearPickerContainer(dynamicReportApplication, fromYearRegisterParams);
         directiveManager.registerYearPickerContainer(dynamicReportApplication, toYearRegisterParams);
     }
+    function registerProductPicker() {
+        var productRegisterParams = {
+            PlugInName: 'productPickerContainer',
+            OptionName: 'productOptions',
+            PickerId: 'product',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(dynamicReportApplication, productRegisterParams);
+    }
+    function registerSitePicker() {
+        var siteRegisterParams = {
+            PlugInName: 'sitePickerContainer',
+            OptionName: 'siteOptions',
+            PickerId: 'site',
+            RestrictType: 'C',
+        };
+
+        directiveManager.registerDropdownSiteContainer(dynamicReportApplication, siteRegisterParams);
+    }
+    function registerStatusPicker() {
+        var statusRegisterParams = {
+            PlugInName: 'statusPickerContainer',
+            OptionName: 'statusOptions',
+            PickerId: 'status',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(dynamicReportApplication, statusRegisterParams);
+    }
+    function registerResponsePicker() {
+        var responseRegisterParams = {
+            PlugInName: 'responsePickerContainer',
+            OptionName: 'responseOptions',
+            PickerId: 'response',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(dynamicReportApplication, responseRegisterParams);
+    }
 
     registerReportTypePicker();
     registerDatePicker();
     registerWeekPicker();
     registerMonthPicker();
     registerYearPicker();
+    registerProductPicker();
+    registerSitePicker();
+    registerStatusPicker();
+    registerResponsePicker();
 }
 
 dynamicReportRegisterPicker();
