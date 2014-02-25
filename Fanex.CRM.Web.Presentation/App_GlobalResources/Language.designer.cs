@@ -358,6 +358,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main Category.
+        /// </summary>
+        internal static string lblMainCategory {
+            get {
+                return ResourceManager.GetString("lblMainCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage Feedback.
         /// </summary>
         internal static string lblManageFeedback {

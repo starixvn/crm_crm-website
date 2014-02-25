@@ -487,7 +487,7 @@ var feedbackStatistic = {
                     "&tSecond=" + feedbackStatistic.ToDuration.Second;
 
         var url = "../Reports/FeedbackStatisticsDetailView?" + inputParams;
-        masterPage.OpenPopup(url, "Feedback Statistic Detail Report", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, null);
+        masterPage.OpenPopup(url, "Feedback Statistic Detail Report", (maxWidthOfPopUp + 15), maxHeightOfPopUp, true, false, window, 2000, null, null);
     }
 };
 

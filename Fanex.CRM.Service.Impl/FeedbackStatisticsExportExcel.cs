@@ -584,16 +584,16 @@ namespace Fanex.CRM.Service.Impl
                 var sheetData = excelFile.Worksheets.Add(reportName);
                 var nextRow = 0;
 
-                sheetData.Cells.GetSubrangeAbsolute(startRow - 2, startCol, startRow - 2, startCol + 4).Merged = true;
-                sheetData.Cells.GetSubrangeAbsolute(startRow - 2, startCol, startRow - 2, startCol + 4).Style.Font.Weight = ExcelFont.BoldWeight;
-                sheetData.Cells.GetSubrangeAbsolute(startRow - 2, startCol, startRow - 2, startCol + 4).Value = reportTitle;
-                ExportExcelFeedbackStatisticDetailAssignHeaderWithoutMainCategory(ref sheetData, startRow, startCol);
+                sheetData.Cells.GetSubrangeAbsolute(startRow - 2, startCol, startRow - 2, startCol + 5).Merged = true;
+                sheetData.Cells.GetSubrangeAbsolute(startRow - 2, startCol, startRow - 2, startCol + 5).Style.Font.Weight = ExcelFont.BoldWeight;
+                sheetData.Cells.GetSubrangeAbsolute(startRow - 2, startCol, startRow - 2, startCol + 5).Value = reportTitle;
+                ExportExcelFeedbackStatisticDetailAssignHeaderSplittingMainCategoryAndSubcategory(ref sheetData, startRow, startCol);
 
                 if (getSessionData != null && getSessionData.Rows.Count > 0)
                 {
                     foreach (FeedbackView feedbackView in getSessionData.Rows)
                     {
-                        ExportExcelFeedbackStatisticDetailAssignContentWithoutMainCategory(ref sheetData, startRow, startCol, ref nextRow, feedbackView);
+                        ExportExcelFeedbackStatisticDetailAssignContentSplittingtMainCategoryAndSubcategory(ref sheetData, startRow, startCol, ref nextRow, feedbackView);
                     }
                 }
                 else
@@ -700,20 +700,23 @@ namespace Fanex.CRM.Service.Impl
         /// <param name="sheetData">Report work sheet.</param>
         /// <param name="startRow">Start row index.</param>
         /// <param name="startCol">Start column index.</param>
-        private static void ExportExcelFeedbackStatisticDetailAssignHeaderWithoutMainCategory(ref ExcelWorksheet sheetData, int startRow, int startCol)
+        private static void ExportExcelFeedbackStatisticDetailAssignHeaderSplittingMainCategoryAndSubcategory(ref ExcelWorksheet sheetData, int startRow, int startCol)
         {
             var nextCol = 0;
             var headerFormart = new ExcelUtils().GetStyleTitle(Color.FromArgb(205, 222, 255));
             sheetData.Columns[startCol].Width = 45 * 256;
             sheetData.Columns[startCol + 1].Width = 15 * 256;
             sheetData.Columns[startCol + 2].Width = 25 * 256;
-            sheetData.Columns[startCol + 3].Width = 10 * 256;
-            sheetData.Columns[startCol + 4].Width = 15 * 256;
+            sheetData.Columns[startCol + 3].Width = 25 * 256;
+            sheetData.Columns[startCol + 4].Width = 10 * 256;
+            sheetData.Columns[startCol + 5].Width = 15 * 256;
 
             sheetData.Cells[startRow - 1, startCol].Style = headerFormart;
             sheetData.Cells[startRow - 1, startCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblFeedback");
             sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = headerFormart;
             sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblCustomer");
+            sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = headerFormart;
+            sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblMainCategory");
             sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = headerFormart;
             sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblSubCategory");
             sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = headerFormart;
@@ -730,7 +733,7 @@ namespace Fanex.CRM.Service.Impl
         /// <param name="startCol">Start column index.</param>
         /// <param name="nextRow">Next column index.</param>
         /// <param name="feedbackView">Feedback view.</param>
-        private static void ExportExcelFeedbackStatisticDetailAssignContentWithoutMainCategory(
+        private static void ExportExcelFeedbackStatisticDetailAssignContentSplittingtMainCategoryAndSubcategory(
             ref ExcelWorksheet sheetData,
             int startRow,
             int startCol,
@@ -765,6 +768,9 @@ namespace Fanex.CRM.Service.Impl
             currentRowFormat = new ExcelUtils().GetStyleTitle(color, HorizontalAlignmentStyle.Center, ExcelFont.NormalWeight);
             sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;
             sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = feedbackView.Username;
+            sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;
+            sheetData.Cells[startRow + nextRow, startCol + nextCol].Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
+            sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = string.Format("{0}", feedbackView.MainCategory);
             sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = currentRowFormat;
             sheetData.Cells[startRow + nextRow, startCol + nextCol].Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
             sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = string.Format("{0}", feedbackView.SubCategory);

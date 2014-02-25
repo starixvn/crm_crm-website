@@ -273,4 +273,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Html_Template_MandatoryField" xml:space="preserve">
     <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
   </data>
+  <data name="lblMainCategory" xml:space="preserve">
+    <value>Main Category</value>
+  </data>
 </root>
