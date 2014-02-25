@@ -133,11 +133,11 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report Type.
+        ///   Looks up a localized string similar to Report type.
         /// </summary>
-        public static string Report_Type {
+        public static string Report_type {
             get {
-                return ResourceManager.GetString("Report_Type", resourceCulture);
+                return ResourceManager.GetString("Report_type", resourceCulture);
             }
         }
         

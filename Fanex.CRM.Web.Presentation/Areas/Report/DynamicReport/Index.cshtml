@@ -15,14 +15,14 @@
         <div class="row filter-frm one-row ">
             <div class="row row-item">
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                    <label for="periodtype">
-                        @Labels.Period_type</label></div>
-                <div class="col-xs-2 col-sm-2 col-md-2 period-type-container" data-ng-model="periodTypeOptions.DataList">
-                    <select id="periodtype">
+                    <label for="reporttype">
+                        @Labels.Report_type</label></div>
+                <div class="col-xs-2 col-sm-2 col-md-2 report-type-container" data-ng-model="reportTypeOptions.DataList">
+                    <select id="reporttype">
                     </select>
                 </div>
             </div>
-            <div class="row row-item">
+            <div class="row row-item" data-ng-show="searchCriteria.ReportType.Id === crmConstants.Enums.PeriodType.Daily">
                 <div class="item">
                     <label for="fromDate">
                         @Labels.From_date</label>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row row-item">
+            <div class="row row-item" data-ng-show="searchCriteria.ReportType.Id === crmConstants.Enums.PeriodType.Weekly">
                 <div class="item">
                     <label for="fromweek">
                         @Labels.From_week</label>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row row-item">
+            <div class="row row-item" data-ng-show="searchCriteria.ReportType.Id === crmConstants.Enums.PeriodType.Monthly">
                 <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions.IsRerenderPicker">
                     <label for="frommonth">
                         @Labels.From_month</label>
@@ -78,15 +78,31 @@
                     </select>
                 </div>
             </div>
+            <div class="row row-item" data-ng-show="searchCriteria.ReportType.Id === crmConstants.Enums.PeriodType.Yearly">
+                <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions.IsRerenderPicker">
+                    <label for="frommonth">
+                        @Labels.From_year</label>
+                    <select id="fromdate_year">
+                    </select>
+                </div>
+                <div class="item year-picker-to-date-container" data-ng-model="toYearOptions.IsRerenderPicker">
+                    <label for="tomonth">
+                        @Labels.To_year</label>
+                    <select id="todate_year">
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
     @Scripts.Render("~/Areas/Report/DynamicReportScripts")
-    <script type="text/javascript">        window.rootUrl = '@Url.Content("~")'; var currentDate
-    = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()'; var initFromDate
-    = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
-        var viewResources = {}; </script>
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var viewResources = {}; 
+    </script>
 </body>
 </html>

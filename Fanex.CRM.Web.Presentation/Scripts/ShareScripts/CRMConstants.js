@@ -19,6 +19,9 @@ var CRMConstants = function () {
         Title: {
             NotApply: 0
         },
+        CommunicationTool: {
+            NotApply: 1005
+        },
 
         Country: {
             NotApply: 0
@@ -74,6 +77,13 @@ var CRMConstants = function () {
             FromDate: "FromDate",
             ToDate: "ToDate",
             SinglePicker: "SinglePicker"
+        },
+
+        PeriodType: {
+            Daily: 1,
+            Weekly: 2,
+            Monthly: 3,
+            Yearly: 4
         }
     };
 

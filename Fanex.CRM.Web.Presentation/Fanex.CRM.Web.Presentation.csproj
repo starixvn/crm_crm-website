@@ -239,6 +239,7 @@
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationService.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\Directives\DropdownStatusContainer.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\Directives\FromDate.js" />
+    <Content Include="Areas\Communication\ViewLog\Scripts\Directives\SearchByEnter.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\Directives\ToDate.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailApplication.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailController.js" />
@@ -379,6 +380,7 @@
     <Content Include="Scripts\ShareScripts\Directives\DropdownList.js" />
     <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
+    <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />

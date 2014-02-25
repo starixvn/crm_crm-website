@@ -14,7 +14,6 @@ var arrCust = [];
 var userIdList = [];
 var userList = [];
 var renderRelated = function (row) {
-    var userName = "";
     $('#related td').each(function (i, td) {
         /* jshint unused: vars */
         arrCust[i] = this.id;

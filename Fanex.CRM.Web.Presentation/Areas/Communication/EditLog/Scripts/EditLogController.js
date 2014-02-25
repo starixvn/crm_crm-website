@@ -422,7 +422,8 @@ function (
     };
     $scope.preupdateLog = function () {
         if ($scope.oldCommunicationLog.IsReviewed &&
-            !$scope.communicationLog.IsReviewed) {
+            !$scope.communicationLog.IsReviewed &&
+            !$scope.hasReviewPermission) {
             return;
         }
 
