@@ -24,17 +24,29 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                     SubRows: []
                 };
 
+                var childsLength = periodReport.ChildReports.length;
+                for (var j = 0; j < childsLength; j++) {
+                    var info = periodReport.ChildReports[j];
+                    var currentSubRow =
+                    {
+                        Columns: [{ Name: "ColNo", Value: j + 1 },
+                            { Name: "ColRunningNumber", Value: info.RunningNumber, MergeColNumber: 8}]
+                    };
+
+                    currentRow.SubRows.push(currentSubRow);
+                }
+
                 bodyData.push(currentRow);
             }
         }
 
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Symbol_No, Width: 80, Name: "ColNo", HeaderAlign: "center", CellAlign: "left" },
+            columns: [{ HeaderText: viewResources.Symbol_No, Width: 60, Name: "ColNo", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
                 { HeaderText: viewResources.Running_No, Width: 80, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Feedback_Date, Width: 90, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
                 {
                     HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
-                    Width: 180,
+                    Width: 200,
                     Name: "ColCategory",
                     HeaderAlign: "center",
                     CellAlign: "left"
@@ -46,19 +58,25 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 { HeaderText: viewResources.Reviewed_By, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,
             titleInfo: {
-                text: dynamicReport.Name
+                text: dynamicReport.Name,
+                showExcelButton: true,
+                exportExcelFunction: function () {
+                    exportReport();
+                },
+                showCollapseExpandButton: true
             },
             bodyRows: bodyData,
             footerRows: footerData,
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
-            gridHeight: 150,
+            gridHeight: 250,
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
             bodyRowHeight: 51,
             showPager: true,
+            showTree: true,
             pagerOption: {
                 itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage,
                 currentPage: 0,

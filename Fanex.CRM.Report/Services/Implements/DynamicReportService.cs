@@ -528,7 +528,10 @@ namespace Fanex.CRM.Report.Services.Implements
             {
                 var periodReport = new DynamicReport
                 {
-                    Name = periodGroup.Key.ToShortFormatedDate(),
+                    Name = string.Format(
+                        Labels.DynamicReport_DailyReport_Title,
+                        Labels.Daily,
+                        periodGroup.Key.ToShortFormatedDate()),
                     ChildReports = new List<DynamicReport>()
                 };
 

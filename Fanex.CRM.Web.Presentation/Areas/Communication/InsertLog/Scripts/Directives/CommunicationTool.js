@@ -1,6 +1,5 @@
 ﻿"use strict";
-/* global insertLogApplication,
-crmConstants */
+/* global insertLogApplication */
 insertLogApplication.directive('dropdownCommunicationTool', function () {
     function renderDropdown(scope, element, attrs) {
         /* jshint unused: vars */

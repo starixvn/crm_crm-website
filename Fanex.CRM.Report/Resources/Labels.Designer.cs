@@ -106,6 +106,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} Communication Logs for {1}.
+        /// </summary>
+        public static string DynamicReport_DailyReport_Title {
+            get {
+                return ResourceManager.GetString("DynamicReport_DailyReport_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Communication Logs From {1} To {2}.
         /// </summary>
         public static string DynamicReport_Title {

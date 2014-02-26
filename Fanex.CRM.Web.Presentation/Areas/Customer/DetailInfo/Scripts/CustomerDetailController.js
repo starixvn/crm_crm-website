@@ -320,6 +320,7 @@ function (
                 $scope.oldCustomerDetail = angular.copy($scope.customerDetail);
                 $scope.updateIsChangeCustomerInfoFlag();
                 $scope.setFocus();
+                $scope.$apply();
             },
             buttons: [{
                 text: viewResources.OK,
@@ -475,13 +476,12 @@ function (
     };
 
     $scope.setFocus = function () {
-        $scope.$apply(function () {
-            $scope.isSetFocus = true;
-        });
+        $scope.isSetFocus = true;
     };
     angular.element(document).ready(function () {
         $scope.initController();
         $scope.setFocus();
+        $scope.$apply();
         $scope.getAllSite();
         $scope.getAllCountry();
         $scope.getAllLanguage();
