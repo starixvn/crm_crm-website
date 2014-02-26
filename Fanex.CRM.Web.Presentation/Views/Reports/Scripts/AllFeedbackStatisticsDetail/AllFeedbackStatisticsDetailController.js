@@ -1,6 +1,5 @@
 ﻿"use strict";
 /* global allFeedbackStatisticsDetailApplication,
-paramsRequest,
 gup,
 sharedScriptManager,
 decodeURIComponent*/
@@ -26,7 +25,7 @@ function (
         } catch (e) {
         }
     };
-
+    
     $scope.getAllFeedbackStatisticsDetail = function () {
         $scope.BlockUI();
 
@@ -38,7 +37,7 @@ function (
                 function (data) {
                     /* jshint unused: vars */
                     $scope.unblockUI();
-                });
+                }); 
     };
 
     $scope.pagingFeedbackStatisticsDetail = function (pageIndex, itemsPerPage) {
@@ -53,8 +52,8 @@ function (
                     $scope.feedbacks = data.Result;
                     $scope.unblockUI();
                 },
-                function (data) {
-                    /* jshint unused: vars */
+                function (data) { 
+                /* jshint unused: vars */
                     $scope.unblockUI();
                 });
     };

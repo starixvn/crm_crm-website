@@ -28,9 +28,8 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
         }
 
         var gridOptions;
-
+        /* jshint unused: vars */
         function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
-            /* jshint unused: vars */
             gridOptions.pagerOption.currentPage = page_index;
             gridOptions.pagerOption.itemsPerPage = itemsPerPage;
             tableFeedbacks.fanexGrid(gridOptions);
@@ -110,8 +109,8 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
             footerRows: footerData,
             numberOfFrozenColumn: 0,
             fullWidth: true,
-            fullHeight: true,
-            gridHeight: 0,
+            fullHeight: false,
+            gridHeight: ($(parent.document).height() - 130),
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 34,

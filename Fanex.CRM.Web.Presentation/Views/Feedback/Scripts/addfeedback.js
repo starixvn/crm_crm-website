@@ -165,6 +165,132 @@ function bindingEvent() {
     });
 }
 
+function bindPersonalInfoTab(customer) {
+    var personal = cachedElements.personalInfo;
+    personal.FirstName.val(customer.FirstName);
+    personal.LastName.val(customer.LastName);
+    personal.ContactNumber1.PhoneNumber.val(customer.ContactNumber1.PhoneNumber);
+    personal.ContactNumber1.CountryCode.val(customer.ContactNumber1.CountryCode);
+    personal.ContactNumber1.AreaCode.val(customer.ContactNumber1.AreaCode);
+    personal.ContactNumber2.PhoneNumber.val(customer.ContactNumber2.PhoneNumber);
+    personal.ContactNumber2.CountryCode.val(customer.ContactNumber2.CountryCode);
+    personal.ContactNumber2.AreaCode.val(customer.ContactNumber2.AreaCode);
+    personal.ContactNumber3.PhoneNumber.val(customer.ContactNumber3.PhoneNumber);
+    personal.ContactNumber3.CountryCode.val(customer.ContactNumber3.CountryCode);
+    personal.ContactNumber3.AreaCode.val(customer.ContactNumber3.AreaCode);
+    personal.Fax.FaxNumber.val(customer.Fax.FaxNumber);
+    personal.Fax.CountryCode.val(customer.Fax.CountryCode);
+    personal.Fax.AreaCode.val(customer.Fax.AreaCode);
+    personal.Mobile.PhoneNumber.val(customer.Mobile.PhoneNumber);
+    personal.Mobile.CountryCode.val(customer.Mobile.CountryCode);
+    personal.Mobile.AreaCode.val(customer.Mobile.AreaCode);
+    personal.Skype.val(customer.Skype);
+    personal.Email.val(customer.Email);
+    personal.MSN.val(customer.MSN);
+    personal.PassportNumber.val(customer.PassportNumber);
+    personal.Birthday.val(customer.Birthday);
+    personal.Site.val(customer.Site);
+    //    if (personal.Languages.fanexMultiSelect('getItems', true).length === customer.Languages.length) {
+    //        personal.Languages.fanexMultiSelect('setCheckAll', true);
+    //    }
+    //    else {
+
+    //    }
+    personal.Country.val(customer.Country);
+    personal.BettingCode.val(customer.BettingCode);
+    personal.RefCodes2.val(customer.RefCodes2);
+    personal.IsVIP.prop("checked", customer.IsVIP);
+    personal.PIC1.val(customer.PIC1);
+    personal.PIC2.val(customer.PIC2);
+    personal.PIC3.val(customer.PIC3);
+    personal.PIC3.val(customer.PIC3);
+}
+
+function getPersonalInfoTabData() {
+    var personal = cachedElements.personalInfo;
+    return {
+        Title: {
+            Id: personal.Title.val().trim()
+        },
+        FirstName: personal.FirstName.val().trim(),
+        LastName: personal.LastName.val().trim(),
+        ContactNumber1: {
+            PhoneNumber: personal.ContactNumber1.PhoneNumber.val().trim(),
+            CountryCode: personal.ContactNumber1.CountryCode.val().trim(),
+            AreaCode: personal.ContactNumber1.AreaCode.val().trim()
+        },
+        ContactNumber2: {
+            PhoneNumber: personal.ContactNumber2.PhoneNumber.val().trim(),
+            CountryCode: personal.ContactNumber2.CountryCode.val().trim(),
+            AreaCode: personal.ContactNumber2.AreaCode.val().trim()
+        },
+        ContactNumber3: {
+            PhoneNumber: personal.ContactNumber3.PhoneNumber.val().trim(),
+            CountryCode: personal.ContactNumber3.CountryCode.val().trim(),
+            AreaCode: personal.ContactNumber3.AreaCode.val().trim()
+        },
+        Fax: {
+            FaxNumber: personal.Fax.FaxNumber.val().trim(),
+            CountryCode: personal.Fax.CountryCode.val().trim(),
+            AreaCode: personal.Fax.AreaCode.val().trim()
+        },
+        Mobile: {
+            PhoneNumber: personal.Mobile.PhoneNumber.val().trim(),
+            CountryCode: personal.Mobile.CountryCode.val().trim(),
+            AreaCode: personal.Mobile.AreaCode.val().trim()
+        },
+        Skype: personal.Skype.val().trim(),
+        Email: personal.Email.val().trim(),
+        MSN: personal.MSN.val().trim(),
+        PassportNumber: personal.PassportNumber.val().trim(),
+        Birthday: personal.Birthday.datepicker("getDate"),
+        Site: personal.Site.val(),
+        Languages: personal.Languages.fanexMultiSelect('getItems', true).join(','),
+        BettingCode: personal.BettingCode.val().trim(),
+        RefCodes2: personal.RefCodes2.val().trim(),
+        IsVIP: personal.IsVIP.prop("checked"),
+        PIC1: personal.PIC1.val().trim(),
+        PIC2: personal.PIC2.val().trim(),
+        PIC3: personal.PIC3.val().trim(),
+        PIC4: personal.PIC4.val().trim()
+    };
+}
+
+function getDetailsTabData() {
+    var details = cachedElements.details;
+    var relatedCustomers = details.IsRelatedCustomer.prop("checked") ? getRelatedCustomer() : [];
+    return {
+        FeedbackDate: details.FeedbackDate.datetimepicker("getDate"),
+        CsExtension: {
+            Id: details.CSExtension.val()
+        },
+        ResolutionTime: details.ResolutionTime.datetimepicker("getDate"),
+        Communication: {
+            Id: details.Communication.val()
+        },
+        Category: {
+            Id: details.Category.val()
+        },
+        SubCategory: {
+            Id: details.SubCategory.val()
+        },
+        Product: {
+            Id: details.Product.val()
+        },
+        BetType: {
+            Id: details.BetType.val()
+        },
+        Status: {
+            Id: details.Status.val()
+        },
+        Response: {
+            Id: details.Response.val()
+        },
+        RelatedCustomer: relatedCustomers,
+        Subject: details.Response.val().trim()
+    };
+}
+
 function addFeedbackInfo(newFeedback) {
     //-------end----------------------------------
     try { parent.BlockUI(); } catch (e) { }
@@ -568,132 +694,6 @@ function cacheHtmlElements() {
 
     cachedElements.description = $("#desediter");
     cachedElements.solution = $("#solediter");
-}
-
-function bindPersonalInfoTab(customer) {
-    var personal = cachedElements.personalInfo;
-    personal.FirstName.val(customer.FirstName);
-    personal.LastName.val(customer.LastName);
-    personal.ContactNumber1.PhoneNumber.val(customer.ContactNumber1.PhoneNumber);
-    personal.ContactNumber1.CountryCode.val(customer.ContactNumber1.CountryCode);
-    personal.ContactNumber1.AreaCode.val(customer.ContactNumber1.AreaCode);
-    personal.ContactNumber2.PhoneNumber.val(customer.ContactNumber2.PhoneNumber);
-    personal.ContactNumber2.CountryCode.val(customer.ContactNumber2.CountryCode);
-    personal.ContactNumber2.AreaCode.val(customer.ContactNumber2.AreaCode);
-    personal.ContactNumber3.PhoneNumber.val(customer.ContactNumber3.PhoneNumber);
-    personal.ContactNumber3.CountryCode.val(customer.ContactNumber3.CountryCode);
-    personal.ContactNumber3.AreaCode.val(customer.ContactNumber3.AreaCode);
-    personal.Fax.FaxNumber.val(customer.Fax.FaxNumber);
-    personal.Fax.CountryCode.val(customer.Fax.CountryCode);
-    personal.Fax.AreaCode.val(customer.Fax.AreaCode);
-    personal.Mobile.PhoneNumber.val(customer.Mobile.PhoneNumber);
-    personal.Mobile.CountryCode.val(customer.Mobile.CountryCode);
-    personal.Mobile.AreaCode.val(customer.Mobile.AreaCode);
-    personal.Skype.val(customer.Skype);
-    personal.Email.val(customer.Email);
-    personal.MSN.val(customer.MSN);
-    personal.PassportNumber.val(customer.PassportNumber);
-    personal.Birthday.val(customer.Birthday);
-    personal.Site.val(customer.Site);
-//    if (personal.Languages.fanexMultiSelect('getItems', true).length === customer.Languages.length) {
-//        personal.Languages.fanexMultiSelect('setCheckAll', true);
-//    }
-//    else {
-
-//    }
-    personal.Country.val(customer.Country);
-    personal.BettingCode.val(customer.BettingCode);
-    personal.RefCodes2.val(customer.RefCodes2);
-    personal.IsVIP.prop("checked", customer.IsVIP);
-    personal.PIC1.val(customer.PIC1);
-    personal.PIC2.val(customer.PIC2);
-    personal.PIC3.val(customer.PIC3);
-    personal.PIC3.val(customer.PIC3);
-}
-
-function getPersonalInfoTabData() {
-    var personal = cachedElements.personalInfo;
-    return {
-        Title: {
-            Id: personal.Title.val().trim()
-        },
-        FirstName: personal.FirstName.val().trim(),
-        LastName: personal.LastName.val().trim(),
-        ContactNumber1: {
-            PhoneNumber: personal.ContactNumber1.PhoneNumber.val().trim(),
-            CountryCode: personal.ContactNumber1.CountryCode.val().trim(),
-            AreaCode: personal.ContactNumber1.AreaCode.val().trim()
-        },
-        ContactNumber2: {
-            PhoneNumber: personal.ContactNumber2.PhoneNumber.val().trim(),
-            CountryCode: personal.ContactNumber2.CountryCode.val().trim(),
-            AreaCode: personal.ContactNumber2.AreaCode.val().trim()
-        },
-        ContactNumber3: {
-            PhoneNumber: personal.ContactNumber3.PhoneNumber.val().trim(),
-            CountryCode: personal.ContactNumber3.CountryCode.val().trim(),
-            AreaCode: personal.ContactNumber3.AreaCode.val().trim()
-        },
-        Fax: {
-            FaxNumber: personal.Fax.FaxNumber.val().trim(),
-            CountryCode: personal.Fax.CountryCode.val().trim(),
-            AreaCode: personal.Fax.AreaCode.val().trim()
-        },
-        Mobile: {
-            PhoneNumber: personal.Mobile.PhoneNumber.val().trim(),
-            CountryCode: personal.Mobile.CountryCode.val().trim(),
-            AreaCode: personal.Mobile.AreaCode.val().trim()
-        },
-        Skype: personal.Skype.val().trim(),
-        Email: personal.Email.val().trim(),
-        MSN: personal.MSN.val().trim(),
-        PassportNumber: personal.PassportNumber.val().trim(),
-        Birthday: personal.Birthday.datepicker("getDate"),
-        Site: personal.Site.val(),
-        Languages: personal.Languages.fanexMultiSelect('getItems', true).join(','),
-        BettingCode: personal.BettingCode.val().trim(),
-        RefCodes2: personal.RefCodes2.val().trim(),
-        IsVIP: personal.IsVIP.prop("checked"),
-        PIC1: personal.PIC1.val().trim(),
-        PIC2: personal.PIC2.val().trim(),
-        PIC3: personal.PIC3.val().trim(),
-        PIC4: personal.PIC4.val().trim()
-    };
-}
-
-function getDetailsTabData() {
-    var details = cachedElements.details;
-    var relatedCustomers = details.IsRelatedCustomer.prop("checked") ? getRelatedCustomer() : [];
-    return {
-        FeedbackDate: details.FeedbackDate.datetimepicker("getDate"),
-        CsExtension: {
-            Id: details.CSExtension.val()
-        },
-        ResolutionTime: details.ResolutionTime.datetimepicker("getDate"),
-        Communication: {
-            Id: details.Communication.val()
-        },
-        Category: {
-            Id: details.Category.val()
-        },
-        SubCategory: {
-            Id: details.SubCategory.val()
-        },
-        Product: {
-            Id: details.Product.val()
-        },
-        BetType : {
-            Id: details.BetType.val()
-        },
-        Status: {
-            Id: details.Status.val()
-        },
-        Response: {
-            Id: details.Response.val()
-        },
-        RelatedCustomer: relatedCustomers,
-        Subject: details.Response.val().trim()
-    };
 }
 
 head.ready(function () {
