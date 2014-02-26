@@ -29,7 +29,8 @@ showPopup,
 getClientDateByTimeZone, 
 getAutoFeedbackSubject,
 downup,
-showHideDetailBox
+showHideDetailBox,
+dropdownMultiSelect
 */
 
 var arr = [];

@@ -1,6 +1,5 @@
 ﻿"use strict";
 /* global allFeedbackStatisticsDetailApplication,
-paramsRequest,
 gup,
 sharedScriptManager,
 decodeURIComponent*/
