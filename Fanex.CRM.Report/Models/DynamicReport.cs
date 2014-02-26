@@ -9,10 +9,76 @@
 
 namespace Fanex.CRM.Report.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Models;
+
     /// <summary>
     /// Dynamic Report.
     /// </summary>
-    public class DynamicReport
+    public class DynamicReport : BaseModel
     {
+        public int ReportTypeId { get; set; }
+
+        public int CustomerId { get; set; }
+
+        public int RunningNumber { get; set; }
+
+        public DateTime FeedbackDate { get; set; }
+
+        public string FeedbackDateString { get; set; }
+
+        public SettingInfo MainCategory { get; set; }
+
+        public SettingInfo SubCategory { get; set; }
+
+        public string StatusName { get; set; }
+
+        public string Subject { get; set; }
+
+        public TimeInfo Duration { get; set; }
+
+        public string Handler { get; set; }
+
+        public string Reviewer { get; set; }
+
+        public string StartTime { get; set; }
+
+        public string EndTime { get; set; }
+
+        public SettingInfo Extension { get; set; }
+
+        public CountryInfo Country { get; set; }
+
+        public SettingInfo CommunicationTool { get; set; }
+
+        public int LanguageId { get; set; }
+
+        public SettingInfo Product { get; set; }
+
+        public SettingInfo BetType { get; set; }
+
+        public SettingInfo Status { get; set; }
+
+        public SettingInfo SiteInfo { get; set; }
+
+        public SettingInfo RoleInfo { get; set; }
+
+        public SettingInfo Response { get; set; }
+
+        public string RelatedCustomers { get; set; }
+
+        public string RelatedCustomerIds { get; set; }
+
+        public string Remark { get; set; }
+
+        public string Solution { get; set; }
+
+        public string Review { get; set; }
+
+        public bool IsReviewed { get; set; }
+
+        public List<DynamicReport> ChildReports { get; set; }
     }
 }

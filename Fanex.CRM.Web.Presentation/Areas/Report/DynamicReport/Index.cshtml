@@ -8,6 +8,8 @@
     <title>@Labels.Dynamic_Report </title>
     @Styles.Render("~/site/common")
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Areas/Report/DynamicReportStyles")
 </head>
 <body>
@@ -148,18 +150,61 @@
                     </select>
                 </div>
             </div>
+            <div class="row row-item">
+                <div class="item">
+                    <label for="handler">
+                        @Labels.Hanlde_by</label>
+                    <input type="text" class="textbox search-by-enter" id="handler" data-ng-model="searchCriteria.Handler" />
+                </div>
+                <div class="item">
+                    <label for="reviewer">
+                        @Labels.Review_by</label>
+                    <input type="text" class="textbox search-by-enter" id="reviewer" data-ng-model="searchCriteria.Reviewer" />
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item extension-picker-container" data-ng-model="extensionOptions.DataList">
+                    <label for="extension">
+                        @Labels.Extension</label>
+                    <select id="extension">
+                    </select>
+                </div>
+                <div class="item">
+                    <button id="button-submit" class="btn default-focus" data-ng-click="getDynamicReport()"
+                        data-ng-model="defaultFocusOptions.IsSetFocus">
+                        <span class="hotkey">S</span>ubmit</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div data-ng-model="dynamicReport" class="table-dynamic-report-container">
+                <div id="table-dynamic-report" class="freegrid display-none">
+                </div>
+            </div>
         </div>
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
     @Scripts.Render("~/Areas/Report/DynamicReportScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = {
-            All: '@Labels.All'
+            All: '@Labels.All',
+            Running_No: '@Labels.Running_No',
+            Feedback_Date: '@Labels.Feedback_Date',
+            Main_Category: '@Labels.Main_Category',
+            Sub_Category: '@Labels.Sub_Category',
+            Subject: '@Labels.Subject',
+            Status: '@Labels.Status',
+            Duration: '@Labels.Duration',
+            Handled_By: '@Labels.Handled_By',
+            Reviewed_By: '@Labels.Reviewed_By',
+            Symbol_No: '@Labels.Symbol_No'
         }; 
     </script>
 </body>

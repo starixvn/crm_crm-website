@@ -235,6 +235,7 @@ $(document).ready(function () {
         }
 
         $('#txtuserName').val(userSearch);
+        $('#txtuserName').removeClass("font-style-italic");
         leftPanelManager.loadLeftPanel(userSearch, true);
         menuManager.showLeftPanel();
     }

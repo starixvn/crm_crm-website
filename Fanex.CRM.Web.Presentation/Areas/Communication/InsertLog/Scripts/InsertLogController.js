@@ -562,7 +562,15 @@ function (
     };
     $scope.validateInsertLogCriteria = function (criteria) {
         var result = true;
-        if (criteria.Subject === '') {
+        if (criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
+            result = false;
+        }
+
+        if (result && criteria.Subject === '') {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */
@@ -570,7 +578,8 @@ function (
             result = false;
         }
 
-        if ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>') {
+        if (result &&
+            ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */
@@ -578,7 +587,8 @@ function (
             result = false;
         }
 
-        if ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>') {
+        if (result &&
+            ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */
@@ -586,7 +596,8 @@ function (
             result = false;
         }
 
-        if (criteria.IsReviewed &&
+        if (result &&
+            criteria.IsReviewed &&
             ($.trim(criteria.Review) === '' || criteria.Review === '<br>')) {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;

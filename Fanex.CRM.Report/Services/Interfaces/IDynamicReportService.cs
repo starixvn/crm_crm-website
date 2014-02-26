@@ -10,6 +10,8 @@
 namespace Fanex.CRM.Report.Services.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Report.Criteria;
+    using Fanex.CRM.Report.Models;
     using Fanex.CRM.Setting.Models;
 
     public interface IDynamicReportService
@@ -29,5 +31,9 @@ namespace Fanex.CRM.Report.Services.Interfaces
         List<SettingInfo> GetAllCommunicationTool();
 
         List<SettingInfo> GetAllMainCategory();
+
+        List<SettingInfo> GetAllExtension();
+
+        DynamicReport GetDynamicReport(GetDynamicReportCriteria criteria);
     }
 }

@@ -32,10 +32,25 @@ function (
     $scope.communicationToolOptions = null;
     $scope.mainCategoryOptions = null;
     $scope.subCategoryOptions = null;
+    $scope.extensionOptions = null;
+    $scope.defaultFocusOptions = null;
+    $scope.dynamicReport = null;
     $scope.searchCriteria = {
+        ReportType: null,
         FromDate: initFromDate,
         ToDate: new Date(currentDate),
-        ReportType: null
+
+        Product: null,
+        Site: null,
+        Status: null,
+        Response: null,
+        Role: null,
+        CommunicationTool: null,
+        MainCategory: null,
+        SubCategory: null,
+        Handler: null,
+        Reviewer: null,
+        Extension: null
     };
     $scope.initController = function () {
         $scope.getAllSetting();
@@ -45,6 +60,14 @@ function (
         });
 
         $scope.initPicker();
+
+        $scope.defaultFocusOptions = {
+            IsSetFocus: false,
+            OnChangeEvent: $scope.completeSetFocus
+        };
+
+        $scope.defaultFocusOptions.IsSetFocus = true;
+        $scope.$apply();
     };
     $scope.initPicker = function () {
         $scope.reportTypeOptions = {
@@ -181,6 +204,11 @@ function (
             DataList: [],
             OnChangeEvent: $scope.updateSelectedSubCategory
         };
+        $scope.extensionOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedExtension
+        };
+
         $scope.$apply();
     };
     $scope.getAllSetting = function () {
@@ -198,6 +226,7 @@ function (
                 $scope.communicationToolOptions.DataList = allSetting.CommunicationToolList;
                 $scope.mainCategoryOptions.DataList = allSetting.MainCategoryList;
                 $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
+                $scope.extensionOptions.DataList = allSetting.ExtensionList;
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
@@ -215,13 +244,12 @@ function (
         $scope.searchCriteria.CommunicationTool = $scope.communicationToolOptions.DataList[0];
         $scope.searchCriteria.MainCategory = $scope.mainCategoryOptions.DataList[0];
         $scope.searchCriteria.SubCategory = $scope.subCategoryOptions.DataList[0];
+        $scope.searchCriteria.Extension = {
+            Id: crmConstants.Enums.Site.NotApply,
+            Name: viewResources.All
+        };
 
         $scope.unblockUI();
-    };
-    $scope.updateFromDate = function (selectedDate) {
-        $scope.searchCriteria.FromDate = selectedDate;
-        $scope.toDateOptions.MinDate = selectedDate;
-        $scope.updateToDatePicker(true);
     };
     $scope.updateFromDatePicker = function (isOnApply) {
         $scope.fromDateOptions.IsRerenderPicker = true;
@@ -234,6 +262,11 @@ function (
         if (!isOnApply) {
             $scope.$apply();
         }
+    };
+    $scope.updateFromDate = function (selectedDate) {
+        $scope.searchCriteria.FromDate = selectedDate;
+        $scope.toDateOptions.MinDate = selectedDate;
+        $scope.updateToDatePicker(true);
     };
     $scope.updateToDate = function (selectedDate) {
         $scope.searchCriteria.ToDate = selectedDate;
@@ -403,6 +436,70 @@ function (
         $scope.fromYearOptions.IsRerenderPicker = true;
         $scope.searchCriteria.ToDate = new Date(toYear, 1, 1);
         $scope.$apply();
+    };
+    $scope.completeSetFocus = function () {
+        $scope.defaultFocusOptions.IsSetFocus = false;
+    };
+
+    $scope.updateSelectedStatus = function (status) {
+        $scope.searchCriteria.Status = status;
+        $scope.$apply();
+    };
+    $scope.updateSelectedResponse = function (response) {
+        $scope.searchCriteria.Response = response;
+        $scope.$apply();
+    };
+    $scope.updateSelectedRole = function (role) {
+        $scope.searchCriteria.Role = role;
+        $scope.$apply();
+    };
+    $scope.updateSelectedCommunicationTool = function (communicationTool) {
+        $scope.searchCriteria.CommunicationTool = communicationTool;
+        $scope.$apply();
+    };
+    $scope.updateSelectedMainCategory = function (mainCategory) {
+        $scope.searchCriteria.MainCategory = mainCategory;
+        $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
+        $scope.searchCriteria.SubCategory = mainCategory.ChildSettings[0];
+        $scope.$apply();
+    };
+    $scope.updateSelectedSubCategory = function (subCategory) {
+        $scope.searchCriteria.SubCategory = subCategory;
+        $scope.$apply();
+    };
+    $scope.updateSelectedExtension = function (extension) {
+        $scope.searchCriteria.Extension = extension;
+        $scope.$apply();
+    };
+    $scope.getDynamicReport = function () {
+        $scope.BlockUI();
+        var getReportCriteria = {
+            ReportType: $scope.searchCriteria.ReportType.Id,
+            FromDate: $scope.searchCriteria.FromDate,
+            ToDate: $scope.searchCriteria.ToDate,
+
+            ProductId: $scope.searchCriteria.Product.Id,
+            SiteId: $scope.searchCriteria.Site.Id,
+            StatusId: $scope.searchCriteria.Status.Id,
+            ResponseId: $scope.searchCriteria.Response.Id,
+            RoleId: $scope.searchCriteria.Role.Id,
+            CommunicationToolId: $scope.searchCriteria.CommunicationTool.Id,
+            MainCategoryId: $scope.searchCriteria.MainCategory.Id,
+            SubCategoryId: $scope.searchCriteria.SubCategory.Id,
+            HandlerId: $scope.searchCriteria.Handler,
+            ReviewerId: $scope.searchCriteria.Reviewer,
+            ExtensionId: $scope.searchCriteria.Extension.Id
+        };
+
+        $dynamicReportService.getDynamicReport(getReportCriteria)
+            .then(function (data) {
+                $scope.dynamicReport = data.Result;
+                $scope.unblockUI();
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.unblockUI();
+            });
     };
 
     $scope.unblockUI = function () {

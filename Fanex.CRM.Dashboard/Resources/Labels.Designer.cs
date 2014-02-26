@@ -169,11 +169,11 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to information verified.
+        ///   Looks up a localized string similar to Information Verified.
         /// </summary>
-        public static string information_verified {
+        public static string Information_Verified {
             get {
-                return ResourceManager.GetString("information_verified", resourceCulture);
+                return ResourceManager.GetString("Information_Verified", resourceCulture);
             }
         }
         

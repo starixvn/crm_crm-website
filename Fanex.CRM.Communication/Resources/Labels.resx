@@ -285,4 +285,7 @@
   <data name="Communication_Logs_NoReviewPermission" xml:space="preserve">
     <value>You don't have review permission!</value>
   </data>
+  <data name="Communication_Log_NACommmunicationTool" xml:space="preserve">
+    <value>Communication tool is mandatory!</value>
+  </data>
 </root>
