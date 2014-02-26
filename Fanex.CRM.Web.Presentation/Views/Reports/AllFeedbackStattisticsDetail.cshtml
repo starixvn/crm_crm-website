@@ -1,0 +1,45 @@
+﻿@using Fanex.Common;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="allfeedbackstatisticsdetail-application">
+<head>
+    @Styles.Render("~/site/common")
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Views/Reports/Styles/reports.less")" rel="stylesheet" type="text/css" />  
+</head>
+<body data-ng-controller="allFeedbackStatisticsDetailController">
+    <div data-ng-model="feedbacks" table-feedbacks-container>
+        <div id="table-feedbackstatistics" class="freegrid display-none">
+        </div>
+    </div>
+
+    <iframe id="frm" width="0" height="0" frameborder="0" style="display: none"></iframe>
+    @{
+        if (Request["export"] != null && Converter.ToBool(Request["export"]))
+        {  
+            var type = Converter.ToInt(Request["type"]);
+            var fDate = Converter.ToString2(Request["fdate"]);
+            var tDate = Converter.ToString2(Request["tdate"]);
+            var reportTitle = Converter.ToString2(Request["title"]);
+            Fanex.CRM.Service.Interface.IFeedbackService feedbackService = new Fanex.CRM.Service.Impl.FeedbackService();
+            feedbackService.ExportExcelAllFeedbackStatisticsDetail(type, fDate, tDate, reportTitle);
+        }
+    }
+
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    <script type="text/javascript" src="~/Scripts/common.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    
+    <script type="text/javascript" src="~/Views/Reports/Scripts/AllFeedbackStatisticsDetail/AllFeedbackStatisticsDetailApplication.js"></script>
+    <script type="text/javascript" src="~/Views/Reports/Scripts/AllFeedbackStatisticsDetail/AllFeedbackStatisticsDetailService.js"></script>
+    <script type="text/javascript" src="~/Views/Reports/Scripts/AllFeedbackStatisticsDetail/AllFeedbackStatisticsDetailController.js"></script>
+    <script type="text/javascript" src="~/Views/Reports/Scripts/AllFeedbackStatisticsDetail/AllFeedbackStatisticsDetailDirective.js"></script>
+
+    <script type="text/javascript" language="javascript">
+        window.rootUrl = '@Url.Content("~")';
+    </script>
+</body>
+</html>

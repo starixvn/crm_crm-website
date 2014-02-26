@@ -204,7 +204,7 @@ var feedbackStatistic = {
                     mainreport.find(".col_footer_content thead")
                               .empty()
                               .empty()
-                              .append(feedbackStatistic.renderFeedbackScrollFooterRow(rs.GrandTotal, 0, "", ''));
+                              .append(feedbackStatistic.renderFeedbackScrollFooterRow(rs.GrandTotal, 0, ""));
                     //------------------------------
 
                     /*#region set height of header*/
@@ -301,7 +301,7 @@ var feedbackStatistic = {
         }
         return html;
     },
-    renderFeedbackScrollFooterRow: function (row, id, css, style) {
+    renderFeedbackScrollFooterRow: function (row, id, css) {
         /* jshint unused: vars */
         var html = '';
         if (row) {
@@ -342,7 +342,7 @@ var feedbackStatistic = {
     },
     renderFeedbackHeader: function (row) {
         var html = '<tr>';
-        html += '<th><div class="table-cell maxheight" style="width:400px;" >Sub Category</div></th>';
+        html += '<th><div class="table-cell maxheight" style="width:400px;" >Subcategory</div></th>';
         for (var i = 0; i < row.length; i++) {
             html += '<th><div class="table-cell maxheight" style="width:110px;">' + row[i] + '</div></th>';
         }
@@ -354,7 +354,7 @@ var feedbackStatistic = {
         var toDate = $('#txttodate').val();
 
         feedbackStatistic.type = parseInt($('#ddlType').val());
-        var valueid = index === -1? 0 : feedbackStatistic.arrColumns[index];
+        var valueid = feedbackStatistic.arrColumns[index];
 
         var url = "../Reports/FeedbackStatisticDetail?type=" + feedbackStatistic.type + "&valueid=" + valueid +
         "&maincatid=" + mainCatId + "&subcatid=" + subCatId + "&fromdate=" + fromDate + "&todate=" + toDate +
@@ -467,6 +467,27 @@ var feedbackStatistic = {
 
         }
         feedbackStatistic.chart.setData(items);
+    },
+    viewAllStatisticsDetail: function () {
+        var fromDate = $('#txtfromdate').val();
+        var toDate = $('#txttodate').val();
+        feedbackStatistic.type = parseInt($('#ddlType').val());
+
+        var inputParams =
+                    "type=" + feedbackStatistic.type +
+                    "&fromDate=" + fromDate +
+                    "&toDate=" + toDate +
+                    "&fDay=" + feedbackStatistic.FromDuration.Day +
+                    "&fHour=" + feedbackStatistic.FromDuration.Hour +
+                    "&fMinute=" + feedbackStatistic.FromDuration.Minute +
+                    "&fSecond=" + feedbackStatistic.FromDuration.Second +
+                    "&tDay=" + feedbackStatistic.ToDuration.Day +
+                    "&tHour=" + feedbackStatistic.ToDuration.Hour +
+                    "&tMinute=" + feedbackStatistic.ToDuration.Minute +
+                    "&tSecond=" + feedbackStatistic.ToDuration.Second;
+
+        var url = "../Reports/FeedbackStatisticsDetailView?" + inputParams;
+        masterPage.OpenPopup(url, "Feedback Statistic Detail Report", (maxWidthOfPopUp + 15), maxHeightOfPopUp, true, false, window, 2000, null, null);
     }
 };
 

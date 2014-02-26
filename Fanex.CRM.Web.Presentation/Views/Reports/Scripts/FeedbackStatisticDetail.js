@@ -29,7 +29,7 @@ function viewStatistics() {
 }
 
 function openEditFeedback(url) {
-    masterPage.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, currentPage, 2000,
+    masterPage.OpenPopup(url, "Update Feedback", maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000,
         function () {
             viewStatistics();
         },
@@ -189,8 +189,7 @@ feedbackDetail = {
                        <td>\
                             <div style="width:380px">\
                                 <div class="lnksubject">\
-                                    <a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' +
-                                        row.ID + '&rep=2\', 1);">\
+                                    <a class="desTooltip" href="JavaScript:void(0);">\
                                         <b>' + row.Subject + '</b>\
                                     </a>\
                                 </div>\
@@ -225,7 +224,6 @@ feedbackDetail = {
         });
     },
     export2excel: function () {
-
         $.ajax({
             type: "POST",
             url: window.rootUrl + "Reports/AllowExportFeedbackStatisticDetail",
@@ -242,6 +240,7 @@ feedbackDetail = {
                             '&fdate=' + feedbackDetail.fDate +
                             '&tdate=' + feedbackDetail.tDate +
                             '&title=' + feedbackDetail.title;
+
                         $('#frm').attr('src', url);
                     }
                     else {
@@ -287,7 +286,9 @@ feedbackDetail = {
 
 $(document).ready(
     function () {
-        masterPage = parent;
+        try {
+            masterPage = parent;
+        } catch (e) { }
 
         feedbackDetail.fDate = decodeURIComponent(gup("fromdate").replace(/\+/g, " "));
         feedbackDetail.tDate = decodeURIComponent(gup("todate").replace(/\+/g, " "));
@@ -311,8 +312,7 @@ $(document).ready(
             tblContentId: 'feedbackstatisticbody',
             isShowPager: true
         };
-        $("#feedbackstatisticgrid").initGrid(gridOpts);
 
-        
+        $("#feedbackstatisticgrid").initGrid(gridOpts);
     }
 );

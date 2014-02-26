@@ -319,7 +319,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             scope.$watch(attrs.ngModel, function (newval, oldval) {
                 if (newval && !oldval) {
                     /* jshint unused: vars */
-                    element.focus();
+                    element.find("#handler").focus();
                     scope.completeSetFocus();
                 }
             });

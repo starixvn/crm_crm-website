@@ -60,6 +60,7 @@
     <Compile Include="Constants\SiteConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Criteria\GetActionCriteria.cs" />
+    <Compile Include="Criteria\GetAllBetTypeCriteria.cs" />
     <Compile Include="Criteria\GetAllCommunicationToolCriteria.cs" />
     <Compile Include="Criteria\GetAllCountryCriteria.cs" />
     <Compile Include="Criteria\GetAllLanguageCriteria.cs" />

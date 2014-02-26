@@ -87,7 +87,7 @@ namespace Fanex.CRM.Communication.Criteria
         {
             get
             {
-                return AppSession.CurrentUser.Id;
+                return IsReviewed ? AppSession.CurrentUser.Id : 0;
             }
         }
 

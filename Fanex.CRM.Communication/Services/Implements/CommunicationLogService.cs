@@ -109,7 +109,13 @@ namespace Fanex.CRM.Communication.Services.Implements
             {
                 criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
                 criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
+                if (!criteria.IsReviewed)
+                {
+                    criteria.Review = string.Empty;
+                }
+
                 updateResult = _communicationRepositoryLog.UpdateLog(criteria);
+
                 if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
                 {
                     updateResult.Message = Labels.Communication_Logs_UpdateSuccess;

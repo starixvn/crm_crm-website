@@ -1,7 +1,6 @@
 ﻿"use strict";
 /* global editLogApplication,
 crmConstants,
-currentDate,
 sharedScriptManager */
 editLogApplication.directive('datePickerContainer', function () {
     var oldValue = null;
@@ -13,7 +12,7 @@ editLogApplication.directive('datePickerContainer', function () {
             changeMonth: true,
             changeYear: true,
             minDate: null,
-            maxDate: new Date(currentDate),
+            maxDate: null,
             showOtherMonths: true,
             selectOtherMonths: true,
             onClose: function () {

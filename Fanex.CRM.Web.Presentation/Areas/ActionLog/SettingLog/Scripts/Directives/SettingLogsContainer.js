@@ -4,12 +4,12 @@ settingLogResources,
 crmConstants,
 sharedScriptManager,
 moment */
+/* jshint unused: vars */
 settingLogApplication.directive('tableSettingLogsContainer', function () {
     /* jshint camelcase: false */
     function renderSettingLogs(scope, element, attrs) {
         var gridOptions;
         function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
-            /* jshint unused: vars */
             gridOptions.pagerOption.currentPage = page_index;
             gridOptions.pagerOption.itemsPerPage = itemsPerPage;
             tableSettingLogs.fanexGrid(gridOptions);

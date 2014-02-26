@@ -15,6 +15,7 @@ namespace Fanex.CRM.Infrastructure.Models
     /// <summary>
     /// Based class for pagination.
     /// </summary>
+    /// <typeparam name="T">Paged List Type.</typeparam>
     public class PagedList<T> : List<T>
     {
         public PagedList(IEnumerable<T> source, int pageIndex, int itemsPerPage)
@@ -35,10 +36,10 @@ namespace Fanex.CRM.Infrastructure.Models
             this.AddRange(source.Skip(pageIndex * itemsPerPage).Take(itemsPerPage).ToList());
         }
 
-        public int PageIndex { get;  set; }
+        public int PageIndex { get; set; }
 
-        public int ItemsPerPage { get;  set; }
+        public int ItemsPerPage { get; set; }
 
-        public int TotalItems { get;  set; }
+        public int TotalItems { get; set; }
     }
 }

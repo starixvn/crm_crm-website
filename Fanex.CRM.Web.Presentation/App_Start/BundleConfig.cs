@@ -335,18 +335,30 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagApplication.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagService.js",
-                "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagController.js"));
+                "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagController.js",
+                "~/Areas/Dashboard/VerifyFlag/Scripts/Directives/*.js"));
 
             bundles.Add(new StyleBundle("~/Areas/Dashboard/VerifyFlagStyles").Include(
                 "~/Areas/Dashboard/VerifyFlag/Styles/VerifyFlag.less"));
         }
 
+        /// <summary>
+        /// Registers the bundles dynamic report.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_DynamicReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/DynamicReportScripts").Include(
+                "~/Scripts/FanexGridV2/moment.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/WeekPicker/WeekPickerManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/FromToDate/FromDate.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DropdownSite.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/WeekPicker.js",
+                "~/Scripts/ShareScripts/Directives/MonthPicker.js",
+                "~/Scripts/ShareScripts/Directives/YearPicker.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",

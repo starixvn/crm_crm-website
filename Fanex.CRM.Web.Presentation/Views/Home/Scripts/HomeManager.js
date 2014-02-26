@@ -4,6 +4,7 @@ keyboardManager,
 leftPanelManager,
 menuManager */
 /* exported shouldReloadLogs */
+/* jshint unused: vars */
 var shouldReloadLogs = false;
 var HomeManager = function () {
     var self = this;

@@ -33,7 +33,12 @@ inputMultipleRelatedNote
 /* exported settings,
 orgArrUser,
 ddls,
-EditFeedback
+EditFeedback,
+isShowCustinfoBox,
+isShowDescriptionBox,
+isShowFeedbackDetailBox,
+isShowReviewBox,
+isShowSolutionBox
 */
 var getNumOfFeedbackItems,
     appendListFeedbacksLasted,
@@ -76,7 +81,7 @@ function bindingEvent() {
     $('#ddlproduct').change(function () {
         bindingChildByParentId('ddlbettype', AllSetting.Product, parseInt($('#ddlproduct').val()));
     });
-};
+}
 
 function loadFeedbackAfterCallAjax(rs, Id) {
     /* jshint maxstatements: 68 */
@@ -599,13 +604,16 @@ var updateFeedback = {
     msn: '',
     resolutionTitme: '',
     reviewCheckBox: function () {
+        isShowReviewBox = true;
         if ($("#chkisreview").attr("checked")) {
-            initEdit('rev');
+            initEdit('rev');            
         }
         else {
             initReview('rev');
             $('#revieweditererror').addClass('hidden');
         }
+
+        showHideDetailBox(true, 'FeedbackReview'); 
     },
     getData: function () {
         /* jshint maxstatements: 75 */

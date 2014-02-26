@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Communication_Tool" xml:space="preserve">
+    <value>Communication Tool</value>
+  </data>
   <data name="Daily" xml:space="preserve">
     <value>Daily</value>
   </data>
@@ -126,17 +132,59 @@
   <data name="From_date" xml:space="preserve">
     <value>From date</value>
   </data>
+  <data name="From_month" xml:space="preserve">
+    <value>From month</value>
+  </data>
+  <data name="From_week" xml:space="preserve">
+    <value>From week</value>
+  </data>
+  <data name="From_year" xml:space="preserve">
+    <value>From year</value>
+  </data>
+  <data name="Main_Category" xml:space="preserve">
+    <value>Main Category</value>
+  </data>
   <data name="Monthly" xml:space="preserve">
     <value>Monthly</value>
   </data>
-  <data name="Period_Type" xml:space="preserve">
-    <value>Period Type</value>
+  <data name="Period_type" xml:space="preserve">
+    <value>Period type</value>
   </data>
-  <data name="Report_Type" xml:space="preserve">
-    <value>Report Type</value>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="Report_type" xml:space="preserve">
+    <value>Report type</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>Response</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>Site</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Sub_Category" xml:space="preserve">
+    <value>Sub Category</value>
   </data>
   <data name="To_date" xml:space="preserve">
     <value>To date</value>
+  </data>
+  <data name="To_month" xml:space="preserve">
+    <value>To month</value>
+  </data>
+  <data name="To_week" xml:space="preserve">
+    <value>To week</value>
+  </data>
+  <data name="To_year" xml:space="preserve">
+    <value>To year</value>
   </data>
   <data name="Weekly" xml:space="preserve">
     <value>Weekly</value>

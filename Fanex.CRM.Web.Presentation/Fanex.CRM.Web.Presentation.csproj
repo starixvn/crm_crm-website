@@ -239,6 +239,7 @@
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationService.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\Directives\DropdownStatusContainer.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\Directives\FromDate.js" />
+    <Content Include="Areas\Communication\ViewLog\Scripts\Directives\SearchByEnter.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\Directives\ToDate.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailApplication.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\CustomerDetailController.js" />
@@ -295,8 +296,7 @@
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
-    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\PeriodTypeContainer.js" />
-    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\ReportTypeContainer.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportController.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportService.js" />
@@ -376,8 +376,12 @@
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
     <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
-    <Content Include="Scripts\ShareScripts\Directives\FromToDate\FromDate.js" />
-    <Content Include="Scripts\ShareScripts\Directives\FromToDate\ToDate.js" />
+    <Content Include="Scripts\ShareScripts\Directives\DatePicker.js" />
+    <Content Include="Scripts\ShareScripts\Directives\DropdownList.js" />
+    <Content Include="Scripts\ShareScripts\Directives\DropdownSite.js" />
+    <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
+    <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
+    <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
@@ -404,6 +408,7 @@
     <None Include="Content\site\reportgrid.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
+    <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
     <Content Include="Views\Customer\Styles\StyleSheet.css" />
@@ -690,6 +695,10 @@
     <Content Include="Views\Home\Styles\Images\Banner\R_main_btn.png" />
     <Content Include="Views\Home\Styles\Images\Banner\up.gif" />
     <Content Include="Views\Home\Styles\Images\Banner\up_down.png" />
+    <Content Include="Views\Reports\Scripts\AllFeedbackStatisticsDetail\AllFeedbackStatisticsDetailApplication.js" />
+    <Content Include="Views\Reports\Scripts\AllFeedbackStatisticsDetail\AllFeedbackStatisticsDetailController.js" />
+    <Content Include="Views\Reports\Scripts\AllFeedbackStatisticsDetail\AllFeedbackStatisticsDetailDirective.js" />
+    <Content Include="Views\Reports\Scripts\AllFeedbackStatisticsDetail\AllFeedbackStatisticsDetailService.js" />
     <Content Include="Views\Reports\Scripts\CasinoDailyStatistics.js" />
     <Content Include="Views\Reports\Scripts\CasinoWeeklyStatistics.js" />
     <Content Include="Views\Reports\Scripts\DailyStatistic.js" />
@@ -724,6 +733,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\_DashboardMenu.cshtml" />
     <Content Include="Views\Home\_SearchCustomerRemind.cshtml" />
+    <Content Include="Views\Reports\AllFeedbackStattisticsDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

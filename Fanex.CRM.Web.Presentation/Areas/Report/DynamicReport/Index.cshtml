@@ -15,35 +15,137 @@
         <div class="row filter-frm one-row ">
             <div class="row row-item">
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                    <label for="periodtype">
-                        @Labels.Period_Type</label></div>
-                <div class="col-xs-2 col-sm-2 col-md-2 period-type-container" data-ng-model="periodTypeList">
-                    <select id="periodtype">
-                    </select>
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-1 col-sm-1 col-md-1">
                     <label for="reporttype">
-                        @Labels.Report_Type</label>
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 report-type-container" data-ng-model="reportTypeList">
+                        @Labels.Report_type</label></div>
+                <div class="col-xs-2 col-sm-2 col-md-2 report-type-container" data-ng-model="reportTypeOptions.DataList">
                     <select id="reporttype">
                     </select>
                 </div>
             </div>
-            <div class="row row-item">
+            <div class="row row-item" data-ng-show="searchCriteria.ReportType.Id === crmConstants.Enums.PeriodType.Daily">
                 <div class="item">
                     <label for="fromDate">
                         @Labels.From_date</label>
-                    <div class="display-inline-block " data-ng-model="isUpdateFromDatePicker" date-picker-from-date-container>
+                    <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
                         <input id="fromDate" type="text" class="textbox txtcalendar" />
                     </div>
                 </div>
                 <div class="item">
                     <label for="toDate">
                         @Labels.To_date</label>
-                    <div class="display-inline-block date-picker-to-date-container" data-ng-model="searchCriteria.MinToDate">
+                    <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
                         <input id="toDate" type="text" class="textbox txtcalendar" />
                     </div>
+                </div>
+            </div>
+            <div class="row row-item" data-ng-show="searchCriteria.ReportType.Id === crmConstants.Enums.PeriodType.Weekly">
+                <div class="item">
+                    <label for="fromweek">
+                        @Labels.From_week</label>
+                    <div class="display-inline-block week-picker-from-week-container" data-ng-model="fromWeekOptions.IsRerenderPicker">
+                        <input id="fromweek" type="text" readonly="readonly" class="weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
+                            data-maxdate="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                            data-value="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                            data-isendweek="false" />
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="toDate">
+                        @Labels.To_week</label>
+                    <div class="display-inline-block week-picker-to-week-container" data-ng-model="toWeekOptions.IsRerenderPicker">
+                        <input id="toweek" type="text" readonly="readonly" class="weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
+                             data-maxdate="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                             data-value="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                             data-isendweek="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item" data-ng-show="searchCriteria.ReportType.Id === crmConstants.Enums.PeriodType.Monthly">
+                <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions.IsRerenderPicker">
+                    <label for="frommonth">
+                        @Labels.From_month</label>
+                    <select id="frommonth_month">
+                    </select>
+                    <select id="frommonth_year">
+                    </select>
+                </div>
+                <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions.IsRerenderPicker">
+                    <label for="tomonth">
+                        @Labels.To_month</label>
+                    <select id="tomonth_month">
+                    </select>
+                    <select id="tomonth_year">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item" data-ng-show="searchCriteria.ReportType.Id === crmConstants.Enums.PeriodType.Yearly">
+                <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions.IsRerenderPicker">
+                    <label for="frommonth">
+                        @Labels.From_year</label>
+                    <select id="fromdate_year">
+                    </select>
+                </div>
+                <div class="item year-picker-to-date-container" data-ng-model="toYearOptions.IsRerenderPicker">
+                    <label for="tomonth">
+                        @Labels.To_year</label>
+                    <select id="todate_year">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item product-picker-container" data-ng-model="productOptions.DataList">
+                    <label for="product">
+                        @Labels.Product</label>
+                    <select id="product">
+                    </select>
+                </div>
+                <div class="item site-picker-container" data-ng-model="siteOptions.DataList">
+                    <label for="site">
+                        @Labels.Site</label>
+                    <select id="site">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item status-picker-container" data-ng-model="statusOptions.DataList">
+                    <label for="status">
+                        @Labels.Status</label>
+                    <select id="status">
+                    </select>
+                </div>
+                <div class="item response-picker-container" data-ng-model="responseOptions.DataList">
+                    <label for="response">
+                        @Labels.Response</label>
+                    <select id="response">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item role-picker-container" data-ng-model="roleOptions.DataList">
+                    <label for="role">
+                        @Labels.Role</label>
+                    <select id="role">
+                    </select>
+                </div>
+                <div class="item communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
+                    <label for="communication-tool">
+                        @Labels.Communication_Tool</label>
+                    <select id="communication-tool">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
+                    <label for="main-category">
+                        @Labels.Main_Category</label>
+                    <select id="main-category">
+                    </select>
+                </div>
+                <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
+                    <label for="sub-category">
+                        @Labels.Sub_Category</label>
+                    <select id="sub-category">
+                    </select>
                 </div>
             </div>
         </div>
@@ -56,11 +158,9 @@
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
-
-        directiveManager.registerFromDateCalendar(dynamicReportApplication);
-        directiveManager.registerToDateCalendar(dynamicReportApplication);
         var viewResources = {
-        };
+            All: '@Labels.All'
+        }; 
     </script>
 </body>
 </html>

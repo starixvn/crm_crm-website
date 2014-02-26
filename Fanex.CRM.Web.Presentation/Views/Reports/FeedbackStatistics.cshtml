@@ -18,6 +18,7 @@
                     <option value="7">By Product</option>
                     <option value="8">By Category</option>
                     <option value="9">By Licensees</option>
+                    <option value="10">By Communication Tool</option>
                 </select>
             </div>
             <div class="item">
@@ -86,7 +87,7 @@
                     Title</div>
                 <div class="grid-toolbox">
                     <input type="button" value=" " id="btnChart" class="btnCharting" onclick="feedbackStatistic.chart.viewByTotal()" />
-                    <input type="button" onclick="feedbackStatistic.viewStatistics(0, 0, -1);" value="  " id="btnLFeedbackStatisticDetail"
+                    <input type="button" onclick="feedbackStatistic.viewAllStatisticsDetail();" value="  " id="btFeedbackStatisticDetail"
                         class="btnViewDetail" title="Feedback Statistics Detail" />
                     <input type="button" onclick="feedbackStatistic.export2excel()" value="  " id="btnExport"
                         class="btnExcel" title="Export to Excel" />
@@ -98,7 +99,7 @@
                         <tr>
                             <th>
                                 <div style="width: 400px;" class="table-cell maxheight">
-                                    Sub Category</div>
+                                    Subcategory</div>
                             </th>
                         </tr>
                     </thead>

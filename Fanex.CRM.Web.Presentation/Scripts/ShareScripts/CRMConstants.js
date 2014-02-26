@@ -19,6 +19,9 @@ var CRMConstants = function () {
         Title: {
             NotApply: 0
         },
+        CommunicationTool: {
+            NotApply: 1005
+        },
 
         Country: {
             NotApply: 0
@@ -46,7 +49,8 @@ var CRMConstants = function () {
             MM_DD_YYYY_HH_MM_TT_String_Moment: 'MM/DD/YYYY hh:mm A',
             HH_MM_TT_TimePicker: 'hh:mm TT',
             MM_DD_YYYY_HH_MM_TT_StringFormat: "{0}/{1}/{2} {3}:{4} {5}",
-            StartTime_RemarkPrefix: 'YYYYMMDD/hh:mmA'
+            StartTime_RemarkPrefix: 'YYYYMMDD/hh:mmA',
+            MMM_DD_YYYY_WeekPicker: 'MMM DD, YYYY'
         },
 
         DateTime: {
@@ -67,8 +71,25 @@ var CRMConstants = function () {
         RoleId: {
             Member: 1,
             CRMMember: 7000
+        },
+
+        CalendarPickerType: {
+            FromDate: "FromDate",
+            ToDate: "ToDate",
+            SinglePicker: "SinglePicker"
+        },
+
+        PeriodType: {
+            Daily: 1,
+            Weekly: 2,
+            Monthly: 3,
+            Yearly: 4
         }
     };
+
+    self.MonthNames = ['January', 'February', 'March', 'April',
+                       'May', 'June', 'July', 'August',
+                       'September', 'October', 'November', 'December'];
 };
 
 var crmConstants = new CRMConstants();

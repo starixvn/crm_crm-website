@@ -65,6 +65,8 @@ namespace Fanex.CRM.Communication.Models
 
         public string RelatedCustomers { get; set; }
 
+        public string RelatedCustomerIds { get; set; }
+
         public string Remark { get; set; }
 
         public string Solution { get; set; }

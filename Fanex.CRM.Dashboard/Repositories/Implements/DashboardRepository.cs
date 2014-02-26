@@ -16,11 +16,11 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Dashboard.Repositories.Interfaces;
+    using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;
-    using Fanex.CRM.Infrastructure.Core;
 
     /// <summary>
     /// Dashboard Repository.
