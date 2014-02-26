@@ -47,7 +47,7 @@ function ($http, $q) {
              });
 
         return deferred.promise;
-    }
+    };
 
     return serviceInstance;
 } ]);

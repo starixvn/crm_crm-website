@@ -28,9 +28,8 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
         }
 
         var gridOptions;
-
-        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
-            /* jshint unused: vars */
+        /* jshint unused: vars */
+        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {            
             gridOptions.pagerOption.currentPage = page_index;
             gridOptions.pagerOption.itemsPerPage = itemsPerPage;
             tableFeedbacks.fanexGrid(gridOptions);
