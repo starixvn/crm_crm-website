@@ -79,7 +79,6 @@ namespace Fanex.CRM.Entities
         public bool IsReviewed { get; set; }
         [DataMember]
         public int UpdateReviewMode { get; set; }
-
         [DataMember]
         public bool IsOverrideCrmInfo { get; set; }
     }

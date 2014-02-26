@@ -13,7 +13,10 @@ function showAlertMessage(containerid, msg, type) {
         default:
             break;
     }
-    var t = setTimeout("clearMessage('" + containerid + "')", 8000);
+    /* only clear message if it's type is success. */
+    if (type === 0) {
+        var t = setTimeout("clearMessage('" + containerid + "')", 8000);
+    }
     window.scroll(0, 0);
     parent.scroll(0, 0);
 }

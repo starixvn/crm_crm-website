@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Entities
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
     
     /// <summary>
@@ -20,26 +21,50 @@ namespace Fanex.CRM.Entities
     public class CustomerInfo
     {
         [DataMember]
-        public int Id { get; set; }
-        [DataMember]
         public Setting Title { get; set; }
         [DataMember]
         public string FirstName { get; set; }
         [DataMember]
         public string LastName { get; set; }
         [DataMember]
-        public string Fax { get; set; }
+        public PhoneInfo ContactNumber1 { get; set; }
         [DataMember]
-        public string Phone { get; set; }
+        public PhoneInfo ContactNumber2 { get; set; }
         [DataMember]
-        public string MobilePhone { get; set; }
+        public PhoneInfo ContactNumber3 { get; set; }
         [DataMember]
-        public string Email { get; set; }
+        public FaxInfo Fax { get; set; }
+        [DataMember]
+        public PhoneInfo Mobile { get; set; }
+        [DataMember]
+        public string PIC1 { get; set; }
+        [DataMember]
+        public string PIC2 { get; set; }
+        [DataMember]
+        public string PIC3 { get; set; }
+        [DataMember]
+        public string PIC4 { get; set; }
         [DataMember]
         public string Skype { get; set; }
         [DataMember]
+        public string Email { get; set; }
+        [DataMember]
         public string MSN { get; set; }
         [DataMember]
-        public DateTime? BirthDay { get; set; }       
+        public string PassportNumber { get; set; }
+        [DataMember]
+        public DateTime? BirthDay { get; set; }
+        [DataMember]
+        public int Site { get; set; }
+        [DataMember]
+        public int Country { get; set; }
+        [DataMember]
+        public IList<int> Languages { get; set; }
+        [DataMember]
+        public string BettingCode { get; set; }
+        [DataMember]
+        public string RefCodes2 { get; set; }
+        [DataMember]
+        public bool IsVIP { get; set; }
     }
 }

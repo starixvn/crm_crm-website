@@ -20,6 +20,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;
+    using System;
 
     /// <summary>
     /// Customer Detail Repository.
@@ -116,7 +117,9 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                     PhoneNumber = reader.GetStringNotNull("MobilePhone")
                 },
 
-                BirthDay = reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate(),
+                BirthDay = reader["BirthDay"] != DBNull.Value ?
+                    reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate():
+                    string.Empty,
                 Skype = reader.GetStringNotNull("Skype"),
                 MSN = reader.GetStringNotNull("msn"),
                 Id = reader.GetInt32NotNull("CustId"),

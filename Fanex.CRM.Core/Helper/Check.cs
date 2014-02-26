@@ -13,6 +13,7 @@ namespace Fanex.CRM.Infrastructure.Helper
     using System.Collections.Generic;
     using System.Diagnostics;
     using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Common;
 
     /// <summary>
     /// Check class.
@@ -227,10 +228,10 @@ namespace Fanex.CRM.Infrastructure.Helper
                 }
             }
 
-             [DebuggerStepThrough]
+            [DebuggerStepThrough]
             public static void IsValidIP(string argument, string argumentName)
             {
-               if (!argument.IsValidIP())
+               if (!AppSetting.IsLocalTest && !argument.IsValidIP())
                {
                    throw new ArgumentException("\"{0}\" is not a valid IP.".FormatWith(argumentName), argumentName);
                }

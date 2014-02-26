@@ -21,12 +21,18 @@ customerDetailApplication.directive('datePickerContainer', function () {
             }
         });
 
-        txtCalendar.datepicker('setDate', new Date(scope.customerDetail.BirthDay));
+        if (scope.customerDetail.BirthDay) {
+            txtCalendar.datepicker('setDate', new Date(scope.customerDetail.BirthDay));
+        }
     }
     function selectedDateChange(scope, element, attrs) {
         /* jshint unused: vars */
         var fromDatePicker = element.find(".txtcalendar");
         var selectedDate = fromDatePicker.val();
+        if (selectedDate === null || selectedDate === '') {
+            return selectedDate;
+        }
+
         var date = new Date(selectedDate);
         if (!isNaN(date.valueOf())) {
             selectedDate = date;

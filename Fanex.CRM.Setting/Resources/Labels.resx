@@ -120,6 +120,9 @@
   <data name="Agent" xml:space="preserve">
     <value>Agent</value>
   </data>
+  <data name="Credit" xml:space="preserve">
+    <value>Credit</value>
+  </data>
   <data name="Error_GetAllSetting" xml:space="preserve">
     <value>(SettingService GetAll) - {0}</value>
   </data>

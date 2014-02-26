@@ -682,7 +682,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 case SiteConstants.LicenseeGroup:
                     return Labels.Licensee;
                 case SiteConstants.IBCGroup:
-                    return Labels.IBC;
+                    return Labels.Credit;
                 default:
                     return string.Empty;
             }

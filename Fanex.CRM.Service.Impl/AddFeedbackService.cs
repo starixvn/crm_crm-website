@@ -31,7 +31,6 @@ namespace Fanex.CRM.Service.Impl
         /// <returns>Return result.</returns>
         public Result AddGuestFeedback(Feedback feedback)
         {
-            var ip = Helper.GetClientIP();
             var entity = feedback;
             Result result = new Result();
             try
@@ -42,6 +41,7 @@ namespace Fanex.CRM.Service.Impl
                     return result;
                 }
 
+                var ip = Helper.GetClientIP();
                 Check.Argument.IsValidIP(ip, "Ip");
                 _repository.AddGuestFeedback(entity, ip, ref result);
             }
@@ -66,7 +66,6 @@ namespace Fanex.CRM.Service.Impl
         public Result AddFeedback(Feedback feedback)
         {
             var entity = feedback;
-            var ip = Helper.GetClientIP();
             Result result = new Result();
             try
             {
@@ -76,8 +75,8 @@ namespace Fanex.CRM.Service.Impl
                     return result;
                 }
 
+                var ip = Helper.GetClientIP();
                 Check.Argument.IsValidIP(ip, "Ip");
-
                 _repository.AddFeedback(entity, ip, ref result);
             }
             catch (Exception ex)

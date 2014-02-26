@@ -69,7 +69,6 @@ function bindingSetting(id, data, currValue) {
             bindingChildByParentId('ddlsubcategory', AllSetting.Category, AllSetting.Category[0].Id, 0);
             $('#hIsNotChild').val('1');
             return false;
-
         }
         else if (id !== 'ddlbettype') {
             $('<option value="0">N/A</option>').appendTo($("#" + id));
@@ -682,6 +681,48 @@ function bindingSite(id, rs, currentValue) {
     $('#' + id).append(siteArr.join(''));
 
     $("#" + id + " option[value='" + currentValue + "']").attr("selected", "selected");
+}
+
+function dropdownMultiSelect(prefixId, elementId, result) {
+    /* jshint unused: vars */
+    var dropdown = $('#' + elementId);
+    var dropdownLanguage = [];
+    var optionLength = result ? result.length : 0;
+    if (optionLength > 0) {
+        for (var i = 0; i < optionLength; i++) {
+            var info = result[i];
+            dropdownLanguage.push({
+                id: prefixId + info.Id,
+                value: info.Id,
+                text: info.Value,
+                checked: false,
+                enable: true,
+                cssClass: "",
+                items: []
+            });
+        }
+    }
+
+    /* jshint camelcase: false */
+    dropdown.fanexMultiSelect(
+        {
+            minWidth: 171,
+            maxHeight: 450,
+            shadow: true,
+            showHeader: true,
+            isCheckAll: false,
+            showFooter: false,
+            showTooltip: false,
+            checkAllText: 'All Languages',
+            isUsedCustomCheckAllText: true,
+            customCheckAllText: 'All Languages',
+            noItemText: 'N/A',
+            noneSelectedText: 'N/A',
+            selectedList: 3,
+            listData: dropdownLanguage
+        });
+
+    //element.find("#customerinfodetail-languageoptions .fanex-multiselect-state-default").attr("tabindex", 29);
 }
 
 function showPopup(obj, content) {

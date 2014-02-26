@@ -39,7 +39,7 @@ var checkSpecialCharacters,
     bindingEvent;
 
 var settings = ["Title", "Status", "Station", "Response", "Communication", "Language"];
-var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication", "ddllanguage"];
+var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication"];
 var listObjToValidate = ["txtsubject", "txtidentity"];
 var listEditorToValidate = ["desediter"];
 
@@ -73,21 +73,23 @@ function loadFeedbackSetting() {
         data: '{"Id":' + 0 + '}',
         success: function (setting) {
             AllSetting = setting;
-
+            // Identity Information
             bindingSetting("ddltitle", setting.Title, 13000);
+            bindingSite("ddlSiteInfo", setting.Site, 0);
+            dropdownMultiSelect("ddlLanguageInfo", "ddlLanguageInfo", setting.Language);
+
+            // Details
             bindingSetting("ddlcategory", setting.Category, 0);
             bindingSetting("ddlproduct", setting.Product, 0);
-            bindingSetting("ddlrole", setting.Role, 7004);
+            //bindingSetting("ddlrole", setting.Role, 7004);
             bindingSetting("ddlstatus", setting.Status, 0);
             bindingSetting("ddlresponse", setting.Response, 0);
             bindingSetting("ddlcommunication", setting.Communication, 0);
-            bindingSetting("ddllanguage", setting.Language, 0);
             bindingSetting("ddlcsextension", setting.Extension, 0);
             bindingCountry("ddlcountry", setting.Country, 0);
 
             bindingChildByParentId('ddlsubcategory', setting.Category, (setting.Category ? setting.Category[0].Id : 3000), 0);
             bindingChildByParentId('ddlbettype', setting.Product, 0, 0);
-            bindingSite('ddlsite', setting.Site, 0);
 
             if (!allowDeleteFeedback) {
                 $("select#ddlstatus option[value='11004']").remove();
@@ -144,7 +146,7 @@ function AddGuestFeedback() {
         var currentDate = new Date();
         var selectDate = Date.parse($("#txtdate").val());
 
-        var serverTime = new Date($('#hServerTime').val());
+        var serverTime = new Date(clientTime);
         serverTime.setMinutes(currentDate.getMinutes());
         serverTime.setSeconds(currentDate.getSeconds());
 
@@ -152,7 +154,7 @@ function AddGuestFeedback() {
             showAlertMessage("errmsg", errMsgFeedbackDateGreatter, 1);
             return false;
         }
-        if (Date.parse($("#txtdate").val()) >= Date.parse($("#txtResolutionTime").val())) {
+        if (selectDate >= Date.parse($("#txtResolutionTime").val())) {
             showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
             return false;
         }
@@ -168,20 +170,21 @@ function AddGuestFeedback() {
             return false;
         }
         //----------check length of data
-        if ($('#txtidentity').val().length > 50) {
+        /*var identity = $('#txtidentity').val().trim();
+        if (identity.length > 50) {
             $('#txtidentity').focus();
-            //$('#txtidentity').css('color:red');
             showAlertMessage("errmsg", 'Max length of Username is 50', 1);
             return false;
         }
-        if ($('#txtfirstname').val().length > 50) {
-            $('#txtfirstname').focus();
-            //$('#txtfirstname').css({ color: 'red'});
+        var firstName = $('#firstNameInfo').val().trim();
+        if (firstName.length > 50) {
+            $('#firstNameInfo').focus();
             showAlertMessage("errmsg", 'Max length of First Name is 50', 1);
             return false;
         }
-        if ($('#txtlastname').val().length > 50) {
-            $('#txtlastname').focus();
+        var lastName = 
+        if ($('#lastNameInfo').val().length > 50) {
+            $('#lastNameInfo').focus();
             showAlertMessage("errmsg", 'Max length of Last Name is 50', 1);
             return false;
         }
@@ -255,7 +258,7 @@ function AddGuestFeedback() {
             //$('#txtfirstname').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of Review is 8000', 1);
             return false;
-        }
+        }*/
         //------------------------
         /* jshint newcap: false */
         DoAdd();
@@ -263,7 +266,6 @@ function AddGuestFeedback() {
 }
 
 DoAdd = function () {
-
     try { parent.BlockUI(); } catch (e) { }
     var newFeedback = getFeedbacktData();
     var feedback = { feedback: newFeedback };
@@ -278,7 +280,6 @@ DoAdd = function () {
                 showAlertMessage("errmsg", successMsg, 0);
                 parent.$("#isGuest").attr("checked", true);
                 parent.leftPanelManager.loadLeftPanel($("#txtidentity").val().trim(), true);
-
             }
             else {
                 showAlertMessage("errmsg", rs.ErrMsg, 1);
@@ -295,24 +296,61 @@ DoAdd = function () {
 
 getFeedbacktData = function () {
     /* jshint maxstatements: 83 */
-    var UserName = $("#txtidentity").val().trim();
-    var Title = $("#ddltitle").val();
-    var FirstName = $("#txtfirstname").val().trim();
-    var LastName = $("#txtlastname").val().trim();
-    var Phone = $("#txtphone").val().trim();
-    var MobilePhone = $("#txtmobilephone").val().trim();
-    var Fax = $("#txtfax").val().trim();
-    var Email = $("#txtEmail").val().trim();
-    var LanguageID = $("#ddllanguage").val();
-    var CountryID = $("#ddlcountry").val();
+    var customerInfo = {
+        Title: {
+            Id: $("#ddltitle").val()
+        },
+        FirstName: $("#firstNameInfo").val().trim(),
+        LastName: $("#lastNameInfo").val().trim(),
+        ContactNumber1: {
+            CountryCode: $("#contact1InfoCountry").val().trim(),
+            AreaCode: $("#contact1InfoArea").val().trim(),
+            PhoneNumber: $("#contact1InfoPhone").val().trim()
+        },
+        ContactNumber2: {
+            CountryCode: $("#contact2InfoCountry").val().trim(),
+            AreaCode: $("#contact2InfoArea").val().trim(),
+            PhoneNumber: $("#contact2InfoPhone").val().trim()
+        },
+        ContactNumber3: {
+            CountryCode: $("#contact3InfoCountry").val().trim(),
+            AreaCode: $("#contact3InfoArea").val().trim(),
+            PhoneNumber: $("#contact3InfoPhone").val().trim()
+        },
+        Fax: {
+            CountryCode: $("#faxInfoCountry").val().trim(),
+            AreaCode: $("#faxInfoArea").val().trim(),
+            FaxNumber: $("#faxInfoFax").val().trim()
+        },
+        Mobile: {
+            CountryCode: $("#mobileInfoCountry").val().trim(),
+            AreaCode: $("#mobileInfoArea").val().trim(),
+            PhoneNumber: $("#mobileInfoPhone").val().trim()
+        },
+        PIC1: $("#pic1Info").val().trim(),
+        PIC2: $("#pic2Info").val().trim(),
+        PIC3: $("#pic3Info").val().trim(),
+        PIC4: $("#pic4Info").val().trim(),
+        Skype: $("#skypeInfo").val().trim(),
+        Email: $("#emailInfo").val().trim(),
+        MSN: $("#msnInfo").val().trim(),
+        PassportNumber: $("#passportInfo").val().trim(),
+        Birthday: $("#birthdayInfo").datepicker("getDate"),
+        Site: $("#ddlSiteInfo").val(),
+        Country: $("#ddlcountry").val(),
+        Languages: $("#ddlLanguageInfo").fanexMultiSelect('getItems', true).join(","),
+        BettingCode: $("#bettingCodeInfo").val().trim(),
+        RefCodes2: $("#refCodes2Info").val().trim(),
+        IsVIP: $("#isVIP").prop("checked")
+    }
+
     var FeedBackDate = $("#txtdate").val();
     var Creator = accId;
     var CommunitationID = $("#ddlcommunication").val();
     var StationID = $("#ddlcsextension").val();
     var MainCategoryID = $("#ddlcategory").val();
     var SubCategoryID = $("#ddlsubcategory").val();
-    var SiteID = $("#ddlsite").val();
-    //    var RoleID = $("#ddlrole").val();
+    //var RoleID = $("#ddlrole").val();
     var ProductID = $("#ddlproduct").val();
     var BettypeID = $("#ddlbettype").val();
     var ResponseID = $("#ddlresponse").val();
@@ -335,38 +373,18 @@ getFeedbacktData = function () {
         Reviewer = 0;
         Review = "";
     }
-    var skype = $('#txtSkype').val().trim();
-    var msn = $('#txtMSN').val().trim();
+
     var resolutionTitme = $('#txtResolutionTime').val();
-
-    // insert by David.Tran 07-03-2012
-    var pic1 = $("#txtPIC1").val().trim();
-    var pic2 = $("#txtPIC2").val().trim();
-    var pic3 = $("#txtPIC3").val().trim();
-    //
-
-
     feedbackNew.Customer.Id = 0;
-    feedbackNew.Customer.UserName = UserName;
-    feedbackNew.CustomerInfo.Title.Id = Title;
-    feedbackNew.CustomerInfo.FirstName = FirstName;
-    feedbackNew.CustomerInfo.LastName = LastName;
-    feedbackNew.CustomerInfo.Phone = Phone;
-    feedbackNew.CustomerInfo.MobilePhone = MobilePhone;
-    feedbackNew.CustomerInfo.Fax = Fax;
-    feedbackNew.CustomerInfo.Email = Email;
-    feedbackNew.CustomerInfo.Skype = skype;
-    feedbackNew.CustomerInfo.MSN = msn;
+    feedbackNew.Customer.UserName = $("#txtidentity").val().trim();
+    feedbackNew.CustomerInfo = customerInfo;
     feedbackNew.FeedbackDate = FeedBackDate;
     feedbackNew.Role.Id = 7004;
-    feedbackNew.Language.Id = LanguageID;
-    feedbackNew.Country.Id = CountryID;
     feedbackNew.Creator.Id = Creator;
     feedbackNew.Communication.Id = CommunitationID;
     feedbackNew.CsExtension.Id = StationID;
     feedbackNew.Category.Id = MainCategoryID;
     feedbackNew.SubCategory.Id = SubCategoryID;
-    feedbackNew.Site.Id = SiteID;
     feedbackNew.Product.Id = ProductID;
     feedbackNew.BetType.Id = BettypeID;
     feedbackNew.Response.Id = ResponseID;
@@ -376,11 +394,6 @@ getFeedbacktData = function () {
     feedbackNew.Subject = Subject.trim();
     feedbackNew.Description = Description.trim();
     feedbackNew.Solution = Solution.trim();
-
-    // insert by David 08-03-2012
-    feedbackNew.Customer.Pic1 = pic1;
-    feedbackNew.Customer.Pic2 = pic2;
-    feedbackNew.Customer.Pic3 = pic3;
     //
     if (IsUpdateReviewed) {
         feedbackNew.IsReviewed = true;
@@ -393,6 +406,7 @@ getFeedbacktData = function () {
     }
 
     feedbackNew.ResolutionTime = resolutionTitme;
+    feedbackNew.IsOverrideCrmInfo = $("#isOverrideCrmInfo").prop("checked")
     return feedbackNew;
 };
 
@@ -449,12 +463,12 @@ head.ready(function () {
     var feedbackdate = new Date(clientTime);
     var resolutiondate = new Date(clientTime);
     resolutiondate.setMinutes(feedbackdate.getMinutes() + 1);
-    $('#hServerTime').val(feedbackdate);
 
     var arrDateValues = [feedbackdate.format("m/d/Y H:i"), resolutiondate.format("m/d/Y H:i")];
     var arrIds = ['txtdate', 'txtResolutionTime'];
     /* jshint newcap: false */
     SetupCalendar(arrDateValues, arrIds);
+    $("#birthdayInfo").datepicker({ dateFormat: "mm/dd/yy" });
 
     $('#btnRelatedHelp').tipsy({
         gravity: 'nw',
@@ -472,7 +486,6 @@ head.ready(function () {
         height: 10,
         cache: false,
         newel: true
-        //                    select_all_text: "select",
     });
     if ($("#chkisrelated").attr('checked')) {
         $("#typeCust").val("");
@@ -482,15 +495,12 @@ head.ready(function () {
     $("#btnsubmitbottom").removeAttr("disabled");
     //add input listen for auto complete Subject name input text box
     $("#txtsubject").keyup(function (e) {
-        if (e.keyCode === 37 ||
-        e.keyCode === 38 ||
-        e.keyCode === 39 ||
-         e.keyCode === 40) {
+        var keyCode = e.keyCode;
+        if (keyCode === 37 || keyCode === 38 || keyCode === 39 || keyCode === 40) {
             return true;
         }
-        else if (e.keyCode !== 13) {
+        else if (keyCode !== 13) {
             var rows = [];
-
             if ($(this).val() !== "") {
                 rows = jlinq.from(listFeedbacksLasted).starts("Subject", $(this).val()).sort("Subject").select();
                 rows = jlinq.from(rows).skip(0).take(15);
@@ -506,6 +516,8 @@ head.ready(function () {
             }
         }
     });
+
+    $("#txtidentity").focus();
 });
 
 feedbackNew = {

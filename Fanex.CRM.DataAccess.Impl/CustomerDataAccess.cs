@@ -14,6 +14,8 @@ namespace Fanex.CRM.DataAccess.Impl
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using Fanex.Common;
     using Fanex.CRM.DataAccess.Interface;
     using Fanex.CRM.Entities;
     using Fanex.CRM.Infrastructure.Configuration;
@@ -80,51 +82,7 @@ namespace Fanex.CRM.DataAccess.Impl
                     {
                         while (reader.Read())
                         {
-                            customer.CustomerInfo = new CustomerInfo
-                            {
-                                Title =
-                                    new Setting
-                                    {
-                                        Id =
-                                            reader["TitleID"] != DBNull.Value
-                                                ? reader.GetInt32(reader["TitleID"] != null ? reader.GetOrdinal("TitleID") : 0)
-                                                : 0
-                                    },
-                                FirstName =
-                                    reader["FirstName"] != DBNull.Value
-                                        ? (reader["FirstName"] != null ? reader.GetString(reader.GetOrdinal("FirstName")) : string.Empty)
-                                        : string.Empty,
-                                LastName =
-                                    reader["LastName"] != DBNull.Value
-                                        ? (reader["LastName"] != null ? reader.GetString(reader.GetOrdinal("LastName")) : string.Empty)
-                                        : string.Empty,
-                                Email =
-                                    reader["Email"] != DBNull.Value
-                                        ? (reader["Email"] != null ? reader.GetString(reader.GetOrdinal("Email")) : string.Empty)
-                                        : string.Empty,
-                                Fax =
-                                    reader["Fax"] != DBNull.Value
-                                        ? (reader["Fax"] != null ? reader.GetString(reader.GetOrdinal("Fax")) : string.Empty)
-                                        : string.Empty,
-                                MobilePhone =
-                                    reader["MobilePhone"] != DBNull.Value
-                                        ? (reader["MobilePhone"] != null ? reader.GetString(reader.GetOrdinal("MobilePhone")) : string.Empty)
-                                        : string.Empty,
-                                Phone =
-                                    reader["Phone"] != DBNull.Value
-                                        ? (reader["Phone"] != null ? reader.GetString(reader.GetOrdinal("Phone")) : string.Empty)
-                                        : string.Empty,
-                                BirthDay = reader["BirthDay"] != DBNull.Value ?
-                                    (reader["BirthDay"] != null ? reader.GetDateTime(reader.GetOrdinal("BirthDay")) : DateTime.Now)
-                                    : DateTime.Now,
-                                Skype = reader["Skype"] != DBNull.Value
-                                    ? (reader["Skype"] != null ? reader.GetString(reader.GetOrdinal("Skype")) : string.Empty)
-                                    : string.Empty,
-                                MSN = reader["msn"] != DBNull.Value
-                                        ? (reader["msn"] != null ? reader.GetString(reader.GetOrdinal("msn")) : string.Empty)
-                                        : string.Empty
-                            };
-
+                            customer.CustomerInfo = GetCustomerInformation(reader);
                             customer.Id = reader["CustId"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("CustId")) : 0;
                             customer.UserName = reader["UserName"] != DBNull.Value
                                                     ? reader.GetString(reader.GetOrdinal("UserName"))
@@ -278,7 +236,7 @@ namespace Fanex.CRM.DataAccess.Impl
                                     reader["Email"] != DBNull.Value
                                         ? reader.GetString(reader.GetOrdinal("Email"))
                                         : string.Empty,
-                                Fax =
+                                /*Fax =
                                     reader["Fax"] != DBNull.Value
                                         ? reader.GetString(reader.GetOrdinal("Fax"))
                                         : string.Empty,
@@ -289,7 +247,7 @@ namespace Fanex.CRM.DataAccess.Impl
                                 Phone =
                                     reader["Phone"] != DBNull.Value
                                         ? reader.GetString(reader.GetOrdinal("Phone"))
-                                        : string.Empty,
+                                        : string.Empty,*/
                                 Skype = reader["Skype"] != DBNull.Value
                                     ? reader.GetString(reader.GetOrdinal("Skype"))
                                     : string.Empty,
@@ -437,7 +395,7 @@ namespace Fanex.CRM.DataAccess.Impl
             using (var obj = new ObjectDb("Customer_CustomerInfoDetail_Update"))
             {
                 var param = new Hashtable();
-                param.Add("userid", customer.Creator.Id);
+                /*param.Add("userid", customer.Creator.Id);
                 param.Add("custid", customer.Id);
                 param.Add("username", customer.UserName);
                 param.Add("firstname", customer.CustomerInfo.FirstName);
@@ -489,7 +447,7 @@ namespace Fanex.CRM.DataAccess.Impl
 
                 param.Add("accountholdername", customer.BankInfo.AccountHolderName);
                 param.Add("specialremark", customer.SpecialRemark);
-                param.Add("isupdateusername", isUpdateUserName);
+                param.Add("isupdateusername", isUpdateUserName);*/
 
                 param.Add("errcode", 0);
                 param.Add("errmsg", string.Empty);
@@ -632,6 +590,72 @@ namespace Fanex.CRM.DataAccess.Impl
                 { "SearchCount", 1 }
             };
             customers.Insert(customer);
+        }
+
+        /// <summary>
+        /// Gets the customer information.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>The customer info object.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        private CustomerInfo GetCustomerInformation(IDataReader reader)
+        {
+            return new CustomerInfo
+            {
+                Title = new Setting
+                {
+                    Id = Converter.ToInt(reader["TitleID"])
+                },
+                FirstName = Converter.ToString2(reader["FirstName"]),
+                LastName = Converter.ToString2(reader["LastName"]),
+                ContactNumber1 = new PhoneInfo
+                {
+                    PhoneNumber = Converter.ToString2(reader["Phone"]),
+                    CountryCode = Converter.ToString2(reader["PhoneCountryCode"]),
+                    AreaCode = Converter.ToString2(reader["PhoneAreaCode"])
+                },
+                ContactNumber2 = new PhoneInfo
+                {
+                    PhoneNumber = Converter.ToString2(reader["Phone2"]),
+                    CountryCode = Converter.ToString2(reader["Phone2CountryCode"]),
+                    AreaCode = Converter.ToString2(reader["Phone2AreaCode"])
+                },
+                ContactNumber3 = new PhoneInfo
+                {
+                    PhoneNumber = Converter.ToString2(reader["Phone3"]),
+                    CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
+                    AreaCode = Converter.ToString2(reader["Phone3AreaCode"])
+                },
+                Fax = new FaxInfo 
+                {
+                    FaxNumber = Converter.ToString2(reader["Fax"]),
+                    CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
+                    AreaCode = Converter.ToString2(reader["FaxAreaCode"])
+                },
+                Mobile = new PhoneInfo
+                {
+                    PhoneNumber = Converter.ToString2(reader["MobilePhone"]),
+                    CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
+                    AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"])
+                },
+                Skype = Converter.ToString2(reader["Skype"]),
+                Email = Converter.ToString2(reader["Email"]),
+                MSN = Converter.ToString2(reader["MSN"]),
+                PassportNumber = Converter.ToString2(reader["Passport"]),
+                BirthDay = Converter.ToDateTime(reader["Birthday"]),
+                Site = Converter.ToInt(reader["SiteId"]),
+                Languages = Converter.ToString2(reader["LaguageId"])
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(l => Converter.ToInt(l))
+                    .ToList(),
+                BettingCode = Converter.ToString2(reader["BettingCode"]),
+                RefCodes2 = Converter.ToString2(reader["RefCode2"]),
+                IsVIP = Converter.ToBool(reader["IsVIP"]),
+                PIC1 = Converter.ToString2(reader["PIC1"]),
+                PIC2 = Converter.ToString2(reader["PIC2"]),
+                PIC3 = Converter.ToString2(reader["PIC3"]),
+                PIC4 = Converter.ToString2(reader["PIC4"])
+            };
         }
     }
 }

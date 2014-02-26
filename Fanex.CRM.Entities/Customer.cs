@@ -49,17 +49,18 @@ namespace Fanex.CRM.Entities
 
         [DataMember]
         public int Id { get; set; }
-        [DataMember]
-        public CustomerInfo CustomerInfo { get; set; }
-
-        [DataMember]
-        public int RoleId { get; set; }
 
         [DataMember]
         public string UserName { get; set; }
 
         [DataMember]
         public string NickName { get; set; }
+
+        [DataMember]
+        public CustomerInfo CustomerInfo { get; set; }
+
+        [DataMember]
+        public int RoleId { get; set; }
 
         [DataMember]
         public string Pic1 { get; set; }
