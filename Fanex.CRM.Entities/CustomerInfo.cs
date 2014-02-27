@@ -55,6 +55,19 @@ namespace Fanex.CRM.Entities
         [DataMember]
         public DateTime? BirthDay { get; set; }
         [DataMember]
+        public string BirthDayString 
+        {
+            get
+            {
+                if (!BirthDay.HasValue)
+                {
+                    return string.Empty;
+                }
+
+                return BirthDay.Value.ToString("MM/dd/yyyy");
+            }
+        }
+        [DataMember]
         public int Site { get; set; }
         [DataMember]
         public int Country { get; set; }

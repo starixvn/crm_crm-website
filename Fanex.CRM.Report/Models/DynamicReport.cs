@@ -17,17 +17,19 @@ namespace Fanex.CRM.Report.Models
     /// <summary>
     /// Dynamic Report.
     /// </summary>
-    public class DynamicReport : BaseModel
+    public class DynamicReport
     {
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
         public int ReportTypeId { get; set; }
 
         public int CustomerId { get; set; }
 
         public int RunningNumber { get; set; }
 
-        public DateTime FeedbackDate { get; set; }
-
-        public string FeedbackDateString { get; set; }
+        public PeriodRange PeriodRange { get; set; }
 
         public SettingInfo MainCategory { get; set; }
 
@@ -80,5 +82,30 @@ namespace Fanex.CRM.Report.Models
         public bool IsReviewed { get; set; }
 
         public List<DynamicReport> ChildReports { get; set; }
+
+        public int TotalLogs
+        {
+            get
+            {
+                if (ChildReports == null ||
+                    ChildReports.Count == 0)
+                {
+                    return 0;
+                }
+
+                var totalItem = 0;
+                foreach (var childReport in ChildReports)
+                {
+                    totalItem += childReport.TotalLogs;
+                }
+
+                if (totalItem == 0)
+                {
+                    return ChildReports.Count;
+                }
+
+                return totalItem;
+            }
+        }
     }
 }

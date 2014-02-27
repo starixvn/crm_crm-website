@@ -27,6 +27,7 @@ directiveManager.registerWeekPickerContainer = function (angularApplication, reg
         }
 
         function onChangeDateEvent(fromDate, toDate) {
+            var options = scope[registerParams.OptionName];
             if (options.OnChangeDateEvent &&
                 typeof (options.OnChangeDateEvent) === "function") {
                 options.OnChangeDateEvent(fromDate, toDate);

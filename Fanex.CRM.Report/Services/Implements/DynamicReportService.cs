@@ -338,7 +338,10 @@ namespace Fanex.CRM.Report.Services.Implements
                     new DynamicReport 
                     {
                         RunningNumber = 10500,
-                        FeedbackDate = new DateTime(2014,2,26),
+                        PeriodRange = new PeriodRange{
+                            FromDate = criteria.ToDate,
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
                         MainCategory = new SettingInfo
                         {
                             Name = "General Network/Database Issues"
@@ -361,7 +364,10 @@ namespace Fanex.CRM.Report.Services.Implements
                     new DynamicReport 
                     {
                         RunningNumber = 41844,
-                        FeedbackDate = new DateTime(2014,2,26),
+                        PeriodRange = new PeriodRange{
+                            FromDate =  new DateTime(2014,2,26),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
                         MainCategory = new SettingInfo
                         {
                             Name = "General Network/Database Issues"
@@ -384,7 +390,10 @@ namespace Fanex.CRM.Report.Services.Implements
                     new DynamicReport 
                     {
                         RunningNumber = 41843,
-                        FeedbackDate = new DateTime(2014,2,26),
+                        PeriodRange = new PeriodRange{
+                            FromDate = new DateTime(2014,2,26),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
                         MainCategory = new SettingInfo
                         {
                             Name = "General Network/Database Issues"
@@ -407,7 +416,10 @@ namespace Fanex.CRM.Report.Services.Implements
                     new DynamicReport 
                     {
                         RunningNumber = 41840,
-                        FeedbackDate = new DateTime(2014,1,25),
+                        PeriodRange = new PeriodRange{
+                            FromDate = new DateTime(2014,1,25),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
                         MainCategory = new SettingInfo
                         {
                             Name = "General Network/Database Issues"
@@ -430,7 +442,10 @@ namespace Fanex.CRM.Report.Services.Implements
                     new DynamicReport 
                     {
                         RunningNumber = 41838,
-                        FeedbackDate = new DateTime(2012,1,24),
+                        PeriodRange = new PeriodRange{
+                            FromDate = new DateTime(2012,1,24),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
                         MainCategory = new SettingInfo
                         {
                             Name = "General Network/Database Issues"
@@ -453,7 +468,10 @@ namespace Fanex.CRM.Report.Services.Implements
                     new DynamicReport 
                     {
                         RunningNumber = 41836,
-                        FeedbackDate = new DateTime(2012,1,24),
+                        PeriodRange = new PeriodRange{
+                            FromDate = new DateTime(2012,1,24),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
                         MainCategory = new SettingInfo
                         {
                             Name = "General Network/Database Issues"
@@ -487,13 +505,13 @@ namespace Fanex.CRM.Report.Services.Implements
                         dynamicReport = GetDynamicReportByDaily(rawData, criteria);
                         break;
                     case PeriodTypeConstants.Weekly:
-                        dynamicReport = GetDynamicReportByDaily(rawData, criteria);
+                        dynamicReport = GetDynamicReportByWeekly(rawData, criteria);
                         break;
                     case PeriodTypeConstants.Monthly:
-                        dynamicReport = GetDynamicReportByDaily(rawData, criteria);
+                        dynamicReport = GetDynamicReportByMonthly(rawData, criteria);
                         break;
                     case PeriodTypeConstants.Yearly:
-                        dynamicReport = GetDynamicReportByDaily(rawData, criteria);
+                        dynamicReport = GetDynamicReportByYearly(rawData, criteria);
                         break;
                     default:
                         break;
@@ -504,6 +522,136 @@ namespace Fanex.CRM.Report.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+            }
+
+            return dynamicReport;
+        }
+
+        private DynamicReport GetDynamicReportByYearly(
+            List<DynamicReport> rawData,
+            GetDynamicReportCriteria criteria)
+        {
+            DynamicReport dynamicReport = new DynamicReport
+            {
+                Id = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).Year.ToString(),
+                ChildReports = new List<DynamicReport>(),
+                Name = string.Format(
+                    Labels.DynamicReport_Title,
+                    Labels.Yearly,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+            };
+
+            var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.Year);
+            foreach (var periodGroup in periodGroups)
+            {
+                var periodReport = new DynamicReport
+                {
+                    Name = string.Format(
+                        Labels.DynamicReport_PeriodReport_Title,
+                        Labels.Yearly,
+                        periodGroup.Key),
+                    ChildReports = new List<DynamicReport>(),
+                    PeriodRange = new PeriodRange
+                    {
+                        FromDate = new DateTime(periodGroup.Key, 1, 1),
+                        ToDate = new DateTime(periodGroup.Key, 12, 31)
+                    }
+                };
+
+                periodReport.PeriodRange.FromDateString = periodReport.PeriodRange.FromDate.ToShortFormatedDate();
+                periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
+                foreach (var data in periodGroup)
+                {
+                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    periodReport.ChildReports.Add(data);
+                }
+
+                dynamicReport.ChildReports.Add(periodReport);
+            }
+
+            return dynamicReport;
+        }
+
+        private DynamicReport GetDynamicReportByMonthly(
+            List<DynamicReport> rawData,
+            GetDynamicReportCriteria criteria)
+        {
+            DynamicReport dynamicReport = new DynamicReport
+            {
+                Id = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToMonthYear(),
+                ChildReports = new List<DynamicReport>(),
+                Name = string.Format(
+                    Labels.DynamicReport_Title,
+                    Labels.Monthly,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+            };
+
+            var periodGroups = rawData.GroupBy(data => new DateTime(data.PeriodRange.FromDate.Year, data.PeriodRange.FromDate.Month, data.PeriodRange.FromDate.Day));
+            foreach (var periodGroup in periodGroups)
+            {
+                var periodReport = new DynamicReport
+                {
+                    Name = string.Format(
+                        Labels.DynamicReport_PeriodReport_Title,
+                        Labels.Monthly,
+                        periodGroup.Key.ToMonthYear()),
+                    ChildReports = new List<DynamicReport>(),
+                    PeriodRange = new PeriodRange
+                    {
+                        FromDate = periodGroup.Key,
+                        ToDate = periodGroup.Key.LastDayOfMonth()
+                    }
+                };
+
+                periodReport.PeriodRange.FromDateString = periodReport.PeriodRange.FromDate.ToShortFormatedDate();
+                periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
+                foreach (var data in periodGroup)
+                {
+                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    periodReport.ChildReports.Add(data);
+                }
+
+                dynamicReport.ChildReports.Add(periodReport);
+            }
+
+            return dynamicReport;
+        }
+
+        private DynamicReport GetDynamicReportByWeekly(
+            List<DynamicReport> rawData,
+            GetDynamicReportCriteria criteria)
+        {
+            DynamicReport dynamicReport = new DynamicReport
+            {
+                ChildReports = new List<DynamicReport>(),
+                Name = string.Format(
+                    Labels.DynamicReport_Title,
+                    Labels.Weekly,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+            };
+
+            var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.FirstDayOfWeek().ToShortFormatedDate() + " - " + data.PeriodRange.FromDate.LastDayOfWeek().ToShortFormatedDate());
+            foreach (var periodGroup in periodGroups)
+            {
+                var periodReport = new DynamicReport
+                {
+                    Name = string.Format(
+                        Labels.DynamicReport_PeriodReport_Title,
+                        Labels.Weekly,
+                        periodGroup.Key),
+                    ChildReports = new List<DynamicReport>()
+                };
+
+                foreach (var data in periodGroup)
+                {
+                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    periodReport.ChildReports.Add(data);
+                }
+
+                dynamicReport.ChildReports.Add(periodReport);
             }
 
             return dynamicReport;
@@ -523,13 +671,13 @@ namespace Fanex.CRM.Report.Services.Implements
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            var periodGroups = rawData.GroupBy(data => data.FeedbackDate);
+            var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate);
             foreach (var periodGroup in periodGroups)
             {
                 var periodReport = new DynamicReport
                 {
                     Name = string.Format(
-                        Labels.DynamicReport_DailyReport_Title,
+                        Labels.DynamicReport_PeriodReport_Title,
                         Labels.Daily,
                         periodGroup.Key.ToShortFormatedDate()),
                     ChildReports = new List<DynamicReport>()
@@ -537,7 +685,7 @@ namespace Fanex.CRM.Report.Services.Implements
 
                 foreach (var data in periodGroup)
                 {
-                    data.FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.FeedbackDate);
+                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
                     periodReport.ChildReports.Add(data);
                 }
 

@@ -84,17 +84,21 @@ var HotKeyManager = function () {
     self.invokeHotKey = function () {
         var isCustomHotKey = false;
         var numberOfKeyPress = self.getNumberOfKeyPress();
-        switch (numberOfKeyPress) {
-            case 2:
-                isCustomHotKey = self.handle2KeyHotKey();
-                break;
-            case 3:
-                isCustomHotKey = self.handle3KeyHotKey();
-                break;
-            default:
-                isCustomHotKey = false;
-                break;
-        }
+        do {
+            switch (numberOfKeyPress) {
+                case 2:
+                    isCustomHotKey = self.handle2KeyHotKey();
+                    break;
+                case 3:
+                    isCustomHotKey = self.handle3KeyHotKey();
+                    break;
+                default:
+                    isCustomHotKey = false;
+                    break;
+            }
+
+            numberOfKeyPress--;
+        } while (numberOfKeyPress > 1 && !isCustomHotKey);
 
         return isCustomHotKey;
     };

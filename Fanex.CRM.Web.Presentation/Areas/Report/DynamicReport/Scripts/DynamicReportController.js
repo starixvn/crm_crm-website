@@ -6,6 +6,7 @@ crmConstants,
 currentDate: true,
 initFromDate: true,
 weekPickerManager */
+/* jshint camelcase: false */
 dynamicReportApplication.controller('dynamicReportController', ['$scope', '$http', '$dynamicReportService',
 function (
     $scope,
@@ -34,7 +35,6 @@ function (
     $scope.subCategoryOptions = null;
     $scope.extensionOptions = null;
     $scope.defaultFocusOptions = null;
-    $scope.dynamicReport = null;
     $scope.searchCriteria = {
         ReportType: null,
         FromDate: initFromDate,
@@ -52,6 +52,19 @@ function (
         Reviewer: null,
         Extension: null
     };
+
+    $scope.reportByYearly = null;
+    $scope.reportByMonthly = null;
+    $scope.reportByWeekly = null;
+    $scope.reportByDaily = null;
+
+    $scope.paramsByYearly = null;
+    $scope.paramsByMonthly = null;
+    $scope.paramsByWeekly = null;
+    $scope.paramsByDaily = null;
+    $scope.reportLevel = crmConstants.Enums.PeriodType.NotApply;
+    $scope.lastSelectedParams = null;
+
     $scope.initController = function () {
         $scope.getAllSetting();
         hotKeyManager.CachedData.ActiveDocumentManager.push({
@@ -68,6 +81,10 @@ function (
 
         $scope.defaultFocusOptions.IsSetFocus = true;
         $scope.$apply();
+    };
+
+    $scope.invokeHotKey_CtrlS = function () {
+        $scope.getDynamicReport();
     };
     $scope.initPicker = function () {
         $scope.reportTypeOptions = {
@@ -491,9 +508,56 @@ function (
             ExtensionId: $scope.searchCriteria.Extension.Id
         };
 
+        getReportCriteria.ReportType = 4;
+        $scope.lastSelectedParams = getReportCriteria;
+        $scope.reportLevel = getReportCriteria.ReportType;
         $dynamicReportService.getDynamicReport(getReportCriteria)
             .then(function (data) {
-                $scope.dynamicReport = data.Result;
+                $scope.completedGetDynamicReport(data.Result);
+                $scope.unblockUI();
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.unblockUI();
+            });
+    };
+
+    $scope.completedGetDynamicReport = function (dynamicReport) {
+        switch ($scope.lastSelectedParams.ReportType) {
+            case crmConstants.Enums.PeriodType.Yearly:
+                $scope.reportByYearly = dynamicReport;
+                $scope.paramsByYearly = angular.copy($scope.lastSelectedParams);
+                break;
+            case crmConstants.Enums.PeriodType.Monthly:
+                $scope.reportByMonthly = dynamicReport;
+                $scope.paramsByMonthly = angular.copy($scope.lastSelectedParams);
+                break;
+            case crmConstants.Enums.PeriodType.Weekly:
+                $scope.reportByWeekly = dynamicReport;
+                $scope.paramsByWeekly = angular.copy($scope.lastSelectedParams);
+                break;
+            case crmConstants.Enums.PeriodType.Daily:
+                $scope.reportByDaily = dynamicReport;
+                $scope.paramsByDaily = angular.copy($scope.lastSelectedParams);
+                break;
+            default:
+                break;
+        }
+    };
+
+    $scope.getMonthlyReport = function (subReportIndex) {
+        var subReport = $scope.reportByYearly.ChildReports[subReportIndex];
+
+        $scope.BlockUI();
+        $scope.paramsByMonthly = angular.copy($scope.paramsByYearly);
+        $scope.paramsByMonthly.ReportType = crmConstants.Enums.PeriodType.Monthly;
+        $scope.paramsByMonthly.FromDate = subReport.PeriodRange.FromDateString;
+        $scope.paramsByMonthly.ToDate = subReport.PeriodRange.ToDateString;
+
+        $scope.reportLevel = crmConstants.Enums.PeriodType.Monthly;
+        $dynamicReportService.getDynamicReport($scope.paramsByMonthly)
+            .then(function (data) {
+                $scope.reportByMonthly = data.Result;
                 $scope.unblockUI();
             },
             function (data) {

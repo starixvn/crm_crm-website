@@ -133,6 +133,16 @@ var MenuManager = function () {
         self.DOMElements.SubMenu.html(activeMenu);
     };
 
+    self.setActiveClassForLeftPanel = function (menu) {
+        var activeMenu =
+        '<ul class="breadcrumbsMenu list-inline list-unstyled">\
+            <li><span class="icon-home"></span></li>\
+            <li class="active">' + menu + '</li>\
+        </ul>';
+
+        self.DOMElements.SubMenu.html(activeMenu);
+    };
+
     self.clearSubmenuInfo = function () {
         parent.$('#divSubMenu').html('');
     };
