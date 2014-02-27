@@ -296,7 +296,8 @@
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
-    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportContainer.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportMonthlyContainer.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportYearlyContainer.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportController.js" />

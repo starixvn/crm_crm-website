@@ -310,8 +310,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
         $scope.isShowBetCredit = function () {
             return $scope.customerInfo && $scope.customerInfo.Id > 0 &&
                ($scope.customerInfo.RoleId === crmConstants.Enums.RoleId.Member ||
-                $scope.customerInfo.RoleId === crmConstants.Enums.RoleId.CRMMember ||
-                !$scope.customerInfo.IsCredit);
+                $scope.customerInfo.RoleId === crmConstants.Enums.RoleId.CRMMember);
         };
         $scope.isShowGivenCredit = function () {
             return $scope.customerInfo && $scope.customerInfo.Id > 0 &&

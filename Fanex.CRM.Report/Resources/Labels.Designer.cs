@@ -108,9 +108,9 @@ namespace Fanex.CRM.Report.Resources {
         /// <summary>
         ///   Looks up a localized string similar to {0} Communication Logs for {1}.
         /// </summary>
-        public static string DynamicReport_DailyReport_Title {
+        public static string DynamicReport_PeriodReport_Title {
             get {
-                return ResourceManager.GetString("DynamicReport_DailyReport_Title", resourceCulture);
+                return ResourceManager.GetString("DynamicReport_PeriodReport_Title", resourceCulture);
             }
         }
         

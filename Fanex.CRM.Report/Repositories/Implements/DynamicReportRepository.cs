@@ -74,7 +74,10 @@ namespace Fanex.CRM.Report.Repositories.Implements
             var communication = new DynamicReport
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")),
+                PeriodRange = new PeriodRange
+                {
+                    FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate"))
+                },
                 MainCategory = new SettingInfo
                 {
                     Name = reader.GetStringNotNull("MainCategory")
