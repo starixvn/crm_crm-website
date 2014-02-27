@@ -17,17 +17,19 @@ directiveManager.registerWeekPickerContainer = function (angularApplication, reg
         //            OnChangeEvent: null
         //        };
 
+        var selfScope;
         function ngModelChange(scope, element, attrs, newVal, oldVal) {
             var options = scope[registerParams.OptionName];
             if (options === null) {
                 return;
             }
 
+            selfScope = scope;
             element.find("#" + registerParams.PickerId).weekpicker('onSelect', onChangeDateEvent);
         }
 
         function onChangeDateEvent(fromDate, toDate) {
-            var options = scope[registerParams.OptionName];
+            var options = selfScope[registerParams.OptionName];
             if (options.OnChangeDateEvent &&
                 typeof (options.OnChangeDateEvent) === "function") {
                 options.OnChangeDateEvent(fromDate, toDate);

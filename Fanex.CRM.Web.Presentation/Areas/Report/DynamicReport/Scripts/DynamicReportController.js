@@ -53,16 +53,7 @@ function (
         Extension: null
     };
 
-    $scope.reportByYearly = null;
-    $scope.reportByMonthly = null;
-    $scope.reportByWeekly = null;
-    $scope.reportByDaily = null;
-
-    $scope.paramsByYearly = null;
-    $scope.paramsByMonthly = null;
-    $scope.paramsByWeekly = null;
-    $scope.paramsByDaily = null;
-    $scope.reportLevel = crmConstants.Enums.PeriodType.NotApply;
+    $scope.dynamicReport = null;
     $scope.lastSelectedParams = null;
 
     $scope.initController = function () {
@@ -508,12 +499,10 @@ function (
             ExtensionId: $scope.searchCriteria.Extension.Id
         };
 
-        getReportCriteria.ReportType = 4;
         $scope.lastSelectedParams = getReportCriteria;
-        $scope.reportLevel = getReportCriteria.ReportType;
         $dynamicReportService.getDynamicReport(getReportCriteria)
             .then(function (data) {
-                $scope.completedGetDynamicReport(data.Result);
+                $scope.dynamicReport = data.Result;
                 $scope.unblockUI();
             },
             function (data) {
@@ -522,48 +511,29 @@ function (
             });
     };
 
-    $scope.completedGetDynamicReport = function (dynamicReport) {
-        switch ($scope.lastSelectedParams.ReportType) {
-            case crmConstants.Enums.PeriodType.Yearly:
-                $scope.reportByYearly = dynamicReport;
-                $scope.paramsByYearly = angular.copy($scope.lastSelectedParams);
-                break;
-            case crmConstants.Enums.PeriodType.Monthly:
-                $scope.reportByMonthly = dynamicReport;
-                $scope.paramsByMonthly = angular.copy($scope.lastSelectedParams);
-                break;
-            case crmConstants.Enums.PeriodType.Weekly:
-                $scope.reportByWeekly = dynamicReport;
-                $scope.paramsByWeekly = angular.copy($scope.lastSelectedParams);
-                break;
-            case crmConstants.Enums.PeriodType.Daily:
-                $scope.reportByDaily = dynamicReport;
-                $scope.paramsByDaily = angular.copy($scope.lastSelectedParams);
-                break;
-            default:
-                break;
-        }
+    $scope.viewCommunicationLog = function (communicationLog) {
+        var url = window.rootUrl + "CommunicationLog/ViewDetailById?" + $.param({
+            logId: communicationLog.RunningNumber
+        });
+
+        parent.OpenPopup(
+            url,
+            "Communication Log Detail",
+            $(parent.document).width() - 300,
+            $(parent.document).height() - 80,
+            true,
+            false,
+            parent.window,
+            3000,
+            null,
+            $scope.closeEditView,
+            null,
+            null);
     };
-
-    $scope.getMonthlyReport = function (subReportIndex) {
-        var subReport = $scope.reportByYearly.ChildReports[subReportIndex];
-
-        $scope.BlockUI();
-        $scope.paramsByMonthly = angular.copy($scope.paramsByYearly);
-        $scope.paramsByMonthly.ReportType = crmConstants.Enums.PeriodType.Monthly;
-        $scope.paramsByMonthly.FromDate = subReport.PeriodRange.FromDateString;
-        $scope.paramsByMonthly.ToDate = subReport.PeriodRange.ToDateString;
-
-        $scope.reportLevel = crmConstants.Enums.PeriodType.Monthly;
-        $dynamicReportService.getDynamicReport($scope.paramsByMonthly)
-            .then(function (data) {
-                $scope.reportByMonthly = data.Result;
-                $scope.unblockUI();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.unblockUI();
-            });
+    $scope.closeEditView = function () {
+        //        $scope.$apply(function () {
+        //            $scope.isSetFocus = true;
+        //        });
     };
 
     $scope.unblockUI = function () {

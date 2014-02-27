@@ -84,6 +84,8 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_CommunicationLog_ViewLog(ref bundles);
             RegisterBundles_CommunicationLog_Edit(ref bundles);
             RegisterBundles_CommunicationLog_Insert(ref bundles);
+            RegisterBundles_CommunicationLog_ViewDetailById(ref bundles);
+
             RegisterBundles_Redemption_ViewLog(ref bundles);
             RegisterBundles_Redemption_InsertLog(ref bundles);
             RegisterBundles_Redemption_EditLog(ref bundles);
@@ -186,6 +188,29 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.AddAndInclude(
                 "~/Areas/Communication/InsertLogStyles",
                 "~/Areas/Communication/InsertLog/Styles/InsertCommunicationLog.less");
+        }
+
+        /// <summary>
+        /// Registers the bundles communication log view detail by identify.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_CommunicationLog_ViewDetailById(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Communication/ViewDetailByIdScripts").Include(
+                 "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DropdownSite.js",
+                "~/Scripts/ShareScripts/Directives/HtmlArea.js",
+                "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
+                "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
+                "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdApplication.js",
+                "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdService.js",
+                "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdController.js",
+                "~/Areas/Communication/ViewDetailById/Scripts/Directives/*.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/Communication/ViewDetailByIdStyles",
+                "~/Areas/Communication/ViewDetailById/Styles/ViewDetailById.less");
         }
 
         /// <summary>
