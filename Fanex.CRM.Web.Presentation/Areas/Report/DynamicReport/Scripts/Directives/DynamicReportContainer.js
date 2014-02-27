@@ -4,7 +4,8 @@ crmConstants,
 sharedScriptManager,
 viewResources */
 /* jshint unused: vars */
-dynamicReportApplication.directive('tableDynamicReportYearlyContainer', function () {
+dynamicReportApplication.directive('tableDynamicReportContainer', function () {
+    var cachedDynamicReport;
     function getGripOtions(dynamicReport) {
         var bodyData = [];
         var footerData = [];
@@ -16,8 +17,8 @@ dynamicReportApplication.directive('tableDynamicReportYearlyContainer', function
                 {
                     Columns: [{
                         Name: "ColNo",
-                        Value: periodReport.Name +
-                            ' <span class="link viewsubreport-link" data-subreportindex="' + i + '">' + periodReport.TotalLogs + '</span>',
+                        Value: sharedScriptManager.stringFormat("{0} [{1}]",
+                            [periodReport.Name, periodReport.TotalLogs]),
                         MergeColNumber: 9
                     }],
                     SubRows: []
@@ -41,7 +42,7 @@ dynamicReportApplication.directive('tableDynamicReportYearlyContainer', function
                                     (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
                             },
                             { Name: "ColSubject", Value: info.RunningNumber },
-                            { Name: "ColStatus", Value: info.RunningNumber },
+                            { Name: "ColStatus", Value: info.StatusName },
                             {
                                 Name: "ColDuration",
                                 Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
@@ -90,7 +91,7 @@ dynamicReportApplication.directive('tableDynamicReportYearlyContainer', function
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
-            gridHeight: 250,
+            gridExpandHeight: 280 + crmConstants.MarginBottomPage,
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
@@ -108,20 +109,34 @@ dynamicReportApplication.directive('tableDynamicReportYearlyContainer', function
         return gridOptions;
     }
 
+    function bindLogLink(tableDynamicReport, scope) {
+        var viewLogLinks = tableDynamicReport.find(".viewcommunicationlog-link-td .viewcommunicationlog-link");
+        viewLogLinks.unbind("click");
+        viewLogLinks.click(function () {
+            var subReportIndex = parseInt($(this).attr("data-subreportindex"));
+            var logIndex = parseInt($(this).attr("data-logindex"));
+            scope.viewCommunicationLog(cachedDynamicReport.ChildReports[subReportIndex].ChildReports[logIndex]);
+        });
+
+        var viewLogRows = tableDynamicReport.find(".viewcommunicationlog-link-row");
+        viewLogRows.dblclick(function () {
+            var subReportIndex = parseInt($(this).find('.viewcommunicationlog-link').attr("data-subreportindex"));
+            var logIndex = parseInt($(this).find('.viewcommunicationlog-link').attr("data-logindex"));
+            scope.viewCommunicationLog(cachedDynamicReport.ChildReports[subReportIndex].ChildReports[logIndex]);
+        });
+    };
+
     function renderDynamicReport(scope, element, attrs) {
-        if (scope.reportByYearly === null) {
+        if (scope.dynamicReport === null) {
             return;
         }
 
-        var tableDynamicReport = element.find("#table-dynamic-report-yearly");
-        var dynamicReport = scope.reportByYearly;
+        var tableDynamicReport = element.find("#table-dynamic-report");
+        var dynamicReport = scope.dynamicReport;
+        cachedDynamicReport = dynamicReport;
         var gridOptions = getGripOtions(dynamicReport);
         tableDynamicReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-
-        var subReportLinks = tableDynamicReport.find(".viewsubreport-link");
-        subReportLinks.click(function () {
-            scope.getMonthlyReport(parseInt($(this).attr("data-subreportindex")));
-        });
+        bindLogLink(tableDynamicReport, scope);
     }
 
     return {

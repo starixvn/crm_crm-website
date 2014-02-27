@@ -1,0 +1,234 @@
+﻿@using Fanex.CRM.Communication.Resources;
+@using Newtonsoft.Json;
+@using Fanex.CRM.Communication.Models;
+@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.NAP.Core.Business;
+@using Fanex.CRM.Service.Interface;
+@using Fanex.CRM.Service.Impl;
+@using Fanex.CRM.Infrastructure.Common;
+@{
+    var jsonLogInfo = JsonConvert.SerializeObject(Model);
+}
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communicationlog-viewdetailbyid-application">
+<head>
+    <title>@Labels.Edit_Communication_Log </title>
+    @Styles.Render("~/site/common")
+    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Styles/FanexMultipleSelect")
+    @Styles.Render("~/Areas/Communication/ViewDetailByIdStyles")
+</head>
+<body>
+    <div class="main popup container editlogcontroller" data-ng-controller="viewDetailByIdController">
+        <div class="row form-group">
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <label for="startTime">
+                        @Labels.Start_Time</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div data-ng-model="startTimeOptions" class="time-picker-start-time-container">
+                        <input id="startTime" type="text" class="textbox timepicker txtcalendar" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="ext">
+                        @Labels.Ext</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 extension-picker-container" data-ng-model="endTimeOptions">
+                    <select id="extension" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <label for="endTime">
+                        @Labels.End_Time</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div data-ng-model="endTimeOptions" class="time-picker-end-time-container">
+                        <input id="endTime" type="text" class="textbox timepicker txtcalendar" disabled="disabled" />
+                    </div>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="country">
+                        @Labels.Country</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 country-picker-container" data-ng-model="countryOptions.DataList">
+                    <select id="country" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <label for="communicationTool">
+                        @Labels.Communication_Tool</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
+                    <select id="communication-tool" disabled="disabled">
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="language">
+                        @Labels.Language</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 language-picker-container" data-ng-model="languageOptions.DataList">
+                    <select id="language" class="languageoptions" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <label for="mainCategory">
+                        @Labels.Main_Category</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
+                    <select id="main-category" disabled="disabled">
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="subcategory">
+                        @Labels.Sub_Category</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3  sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
+                    <select id="sub-category" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <label for="product">
+                        @Labels.Product</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 product-picker-container" data-ng-model="productOptions.DataList">
+                    <select id="product" disabled="disabled">
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="betType">
+                        @Labels.Bet_Type</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 bet-type-picker-container" data-ng-model="betTypeOptions.DataList">
+                    <select id="bet-type" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <label for="status">
+                        @Labels.Status</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 status-picker-container" data-ng-model="statusOptions.DataList">
+                    <select id="status" disabled="disabled">
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="site">
+                        @Labels.Site</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 site-picker-container" data-ng-model="siteOptions.DataList">
+                    <select id="site" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <label for="role">
+                        @Labels.Role</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3 role-picker-container" data-ng-model="roleOptions.DataList">
+                    <select id="role" disabled="disabled">
+                    </select>
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
+                    <label for="response">
+                        @Labels.Response</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3  response-picker-container" data-ng-model="responseOptions.DataList">
+                    <select id="response" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <label for="relatedTo">
+                        @Labels.Related_To</label></div>
+                <input id="chkisrelated" type="checkbox" ng-class="display-none" class="display-none"
+                    checked="checked" />
+                <div class="col-xs-8 col-sm-8 col-md-8 related-customer-container" data-ng-class="related-customer-container">
+                    <select type="text" class="textbox" id="txtrelatedcustomer" name="relatedTo" disabled="disabled">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <label for="subject">
+                        @Labels.Subject
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
+                    <input id="subject" type="text" class="textbox subject-auto-complete" data-ng-model="subjectOptions.Subject"
+                        disabled="disabled" />
+                </div>
+            </div>
+        </div>
+        <div class="row panel-group">
+            <div class="row title">
+                @Labels.Remark
+                @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+            </div>
+            <div class="row content multi-text">
+                <div id="remarkeditorboxcontainer" class="remark-editor-container" data-ng-model="remarkOptions">
+                </div>
+            </div>
+        </div>
+        <div class="row panel-group">
+            <div class="row title">
+                @Labels.Solution
+                @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+            </div>
+            <div class="row content multi-text">
+                <div id="solutionkeditorboxcontainer" data-ng-model="solutionOptions" class="solution-editor-container">
+                </div>
+            </div>
+        </div>
+        <div class="row panel-group last">
+            <div class="row title">
+                <label for="review">
+                    @Labels.Reviewed</label>
+                <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
+                    data-ng-model="communicationLog.IsReviewed" disabled="disabled" />
+            </div>
+            <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">
+                <div id="revieweditorboxcontainer" data-ng-model="reviewOptions" class="review-editor-container">
+                </div>
+            </div>
+        </div>
+    </div>
+    @{
+        IPermissionService permission = new PermissionService();
+        var hasReviewPermission = permission.HasPermission(FunctionPermission.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
+    }
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/TimePicker")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render("~/Scripts/FanexMultipleSelect")
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
+    <script type="text/javascript" src="~/Scripts/common.js"></script>
+    <script type="text/javascript" src="~/Scripts/InputBox/jquery.fcbkcomplete.js"></script>
+    @Scripts.Render("~/Areas/Communication/ViewDetailByIdScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")'; 
+        var currentTime = '@DateTimeUtilize.GetCurrentClientTime()'; 
+        var communicationLog = @Html.Raw(jsonLogInfo); 
+        var hasReviewPermission = @hasReviewPermission;
+        var viewResources = {
+            Symbol_NotApply: '@Labels.Symbol_NotApply', 
+            Select:'@Labels.Select', 
+            Insert_Edit_Block: '@Labels.Insert_Edit_Block',           
+            Communication_Logs_VerifyRelatedCustomer:'@Labels.Communication_Logs_VerifyRelatedCustomer'
+        }; 
+    </script>
+</body>
+</html>

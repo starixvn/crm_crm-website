@@ -23,6 +23,8 @@ namespace Fanex.CRM.Infrastructure.Extension
 
         public const string MonthYearFormat = "MMM yyyy";
 
+        private const int NumberDayInWeek = 7;
+
         private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
 
         private static readonly DateTime MaxDate = new DateTime(9999, 12, 31, 23, 59, 59, 999);
@@ -88,14 +90,13 @@ namespace Fanex.CRM.Infrastructure.Extension
 
         public static DateTime FirstDayOfWeek(this DateTime dateTime)
         {
-            var dayOfWeek = (int)dateTime.DayOfWeek + 1;
+            var dayOfWeek = (int)dateTime.DayOfWeek - 1;
             return dateTime.AddDays(-dayOfWeek);
         }
 
         public static DateTime LastDayOfWeek(this DateTime dateTime)
         {
-            var numberDayInWeek = 7;
-            return dateTime.FirstDayOfWeek().AddDays(numberDayInWeek - 1);
+            return dateTime.FirstDayOfWeek().AddDays(NumberDayInWeek - 1);
         }
     }
 }

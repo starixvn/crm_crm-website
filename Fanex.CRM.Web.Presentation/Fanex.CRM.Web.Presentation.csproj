@@ -233,6 +233,12 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogController.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\InsertLogService.js" />
     <Content Include="Areas\Communication\InsertLog\Styles\Images\close.gif" />
+    <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Communication\ViewDetailById\Scripts\Directives\RelatedCustomer.js" />
+    <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdApplication.js" />
+    <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdController.js" />
+    <Content Include="Areas\Communication\ViewDetailById\Scripts\ViewDetailByIdService.js" />
+    <Content Include="Areas\Communication\ViewDetailById\Styles\Images\close.gif" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationApplication.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationController.js" />
     <Content Include="Areas\Communication\ViewLog\Scripts\CommunicationDirective.js" />
@@ -296,8 +302,7 @@
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
-    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportMonthlyContainer.js" />
-    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportYearlyContainer.js" />
+    <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportContainer.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportController.js" />
@@ -381,10 +386,13 @@
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
     <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
     <Content Include="Scripts\ShareScripts\Directives\DatePicker.js" />
+    <Content Include="Scripts\ShareScripts\Directives\DateTimePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DefaultFocus.js" />
     <Content Include="Scripts\ShareScripts\Directives\DropdownList.js" />
     <Content Include="Scripts\ShareScripts\Directives\DropdownSite.js" />
+    <Content Include="Scripts\ShareScripts\Directives\HtmlArea.js" />
     <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
+    <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
@@ -394,6 +402,8 @@
     <None Include="Areas\ActionLog\SettingLog\Styles\settingLog.less" />
     <None Include="Areas\Communication\EditLog\Styles\EditCommunicationLog.less" />
     <None Include="Areas\Communication\InsertLog\Styles\InsertCommunicationLog.less" />
+    <Content Include="Areas\Communication\ViewDetailById\Index.cshtml" />
+    <None Include="Areas\Communication\ViewDetailById\Styles\ViewDetailById.less" />
     <None Include="Areas\Communication\ViewLog\Styles\Communication.less" />
     <None Include="Areas\Customer\DetailInfo\Styles\StyleSheet.less" />
     <Content Include="Areas\Dashboard\ViewInfo\CustomerRemarks.cshtml" />
