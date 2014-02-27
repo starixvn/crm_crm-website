@@ -15,7 +15,7 @@ namespace Fanex.CRM.DataAccess.Impl
     using Fanex.CRM.DataAccess.Interface;
     using Fanex.CRM.Entities;
     using Fanex.Data;
-
+    using Converter = Fanex.Common.Converter;
     /// <summary>
     /// Setting Data Access.
     /// </summary>
@@ -53,8 +53,8 @@ namespace Fanex.CRM.DataAccess.Impl
                     obj.ExecuteNonQuery();
                     if (obj.GetParameterValue("errcode") != DBNull.Value)
                     {
-                        result.ErrCode = Convert.ToInt32(obj.GetParameterValue("errcode"));
-                        result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
+                        result.ErrCode = Converter.ToInt(obj.GetParameterValue("errcode"));
+                        result.ErrMsg = Converter.ToString2(obj.GetParameterValue("errmsg"));
                     }
                 }
             }
@@ -98,8 +98,8 @@ namespace Fanex.CRM.DataAccess.Impl
                     obj.ExecuteNonQuery();
                     if (obj.GetParameterValue("errcode") != DBNull.Value)
                     {
-                        result.ErrCode = Convert.ToInt32(obj.GetParameterValue("errcode"));
-                        result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
+                        result.ErrCode = Converter.ToInt(obj.GetParameterValue("errcode"));
+                        result.ErrMsg = Converter.ToString2(obj.GetParameterValue("errmsg"));
                     }
                 }
             }
@@ -139,8 +139,8 @@ namespace Fanex.CRM.DataAccess.Impl
                     obj.ExecuteNonQuery();
                     if (obj.GetParameterValue("errcode") != DBNull.Value)
                     {
-                        result.ErrCode = Convert.ToInt32(obj.GetParameterValue("errcode"));
-                        result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
+                        result.ErrCode = Converter.ToInt(obj.GetParameterValue("errcode"));
+                        result.ErrMsg = Converter.ToString2(obj.GetParameterValue("errmsg"));
                     }
                 }
             }
@@ -171,10 +171,10 @@ namespace Fanex.CRM.DataAccess.Impl
                             allsetting.Add(
                                 new Setting()
                                     {
-                                        Id = reader.GetInt32(reader.GetOrdinal("SettingId")),
-                                        Type = reader.GetString(reader.GetOrdinal("SettingName")),
-                                        Value = reader.GetString(reader.GetOrdinal("SettingValue")),
-                                        DisplayOrder = reader.GetInt32(reader.GetOrdinal("DisplayOrder"))
+                                        Id = Converter.ToInt(reader.GetOrdinal("SettingId"), 0),
+                                        Type = Converter.ToString2(reader.GetOrdinal("SettingName")),
+                                        Value = Converter.ToString2(reader.GetOrdinal("SettingValue")),
+                                        DisplayOrder = Converter.ToInt(reader.GetOrdinal("DisplayOrder"), 0)
                                     });
                         }
                     }
@@ -203,9 +203,9 @@ namespace Fanex.CRM.DataAccess.Impl
                             settingRelations.Add(
                                 new SettingRelation()
                                     {
-                                        SettingId = reader.GetInt32(reader.GetOrdinal("SettingID")),
-                                        ParentId = reader.GetInt32(reader.GetOrdinal("ParentId")),
-                                        Order = reader["DisplayOrder"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("DisplayOrder")) : 0
+                                        SettingId = Converter.ToInt(reader.GetOrdinal("SettingID"), 0),
+                                        ParentId = Converter.ToInt(reader.GetOrdinal("ParentId"), 0),
+                                        Order = Converter.ToInt(reader.GetOrdinal("DisplayOrder"), 0)
                                     });
                         }
                     }
@@ -239,10 +239,10 @@ namespace Fanex.CRM.DataAccess.Impl
                             allsetting.Add(
                                 new Setting()
                                 {
-                                    Id = reader.GetInt32(reader.GetOrdinal("SettingId")),
-                                    Value = reader.GetString(reader.GetOrdinal("SettingValue")),
-                                    IsSub = reader.GetInt32(reader.GetOrdinal("IsSub")) == 1,
-                                    DisplayOrder = reader["DisplayOrder"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("DisplayOrder")) : 0
+                                    Id = Converter.ToInt(reader.GetOrdinal("SettingId"), 0),
+                                    Value = Converter.ToString2(reader.GetOrdinal("SettingValue")),
+                                    IsSub = Converter.ToInt(reader.GetOrdinal("IsSub"), 0) == 1,
+                                    DisplayOrder = Converter.ToInt(reader.GetOrdinal("DisplayOrder"), 0)
                                 });
                         }
                     }
@@ -284,8 +284,8 @@ namespace Fanex.CRM.DataAccess.Impl
 
                     if (obj.GetParameterValue("errcode") != DBNull.Value)
                     {
-                        result.ErrCode = Convert.ToInt32(obj.GetParameterValue("errcode"));
-                        result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
+                        result.ErrCode = Converter.ToInt(obj.GetParameterValue("errcode"));
+                        result.ErrMsg = Converter.ToString2(obj.GetParameterValue("errmsg"));
                     }
                 }
             }
@@ -329,8 +329,8 @@ namespace Fanex.CRM.DataAccess.Impl
 
                     if (obj.GetParameterValue("errcode") != DBNull.Value)
                     {
-                        result.ErrCode = Convert.ToInt32(obj.GetParameterValue("errcode"));
-                        result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
+                        result.ErrCode = Converter.ToInt(obj.GetParameterValue("errcode"));
+                        result.ErrMsg = Converter.ToString2(obj.GetParameterValue("errmsg"));
                     }
                 }
             }
