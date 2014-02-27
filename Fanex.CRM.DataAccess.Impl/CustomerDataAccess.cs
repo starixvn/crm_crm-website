@@ -73,16 +73,18 @@ namespace Fanex.CRM.DataAccess.Impl
         {
             var customer = new Customer();
 
-            using (var obj = new ObjectDb("Customer_CustomerInfoDetail_GetInfoById"))
+            using (var obj = new ObjectDb("Customer_CustomerInfoDetail_GetInfoById_New"))
             {
                 obj.AddInParameter("custid", DbType.Int32, custId);
                 using (var reader = obj.ExecuteReader())
                 {
                     if (reader != null)
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
-                            customer.CustomerInfo = GetCustomerInformation(reader);
+                            var customerInfo = GetCustomerInformation(reader);
+                            customer.CustomerInfo = customerInfo;
+                            
                             customer.Id = reader["CustId"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("CustId")) : 0;
                             customer.UserName = reader["UserName"] != DBNull.Value
                                                     ? reader.GetString(reader.GetOrdinal("UserName"))
@@ -92,45 +94,16 @@ namespace Fanex.CRM.DataAccess.Impl
                                                     ? reader.GetString(reader.GetOrdinal("UserName2"))
                                                     : string.Empty) : string.Empty;
 
-                            customer.Pic1 = reader["PIC1"] != DBNull.Value ? (reader["PIC1"] != null ? reader.GetString(reader.GetOrdinal("PIC1")) : string.Empty) : string.Empty;
-                            customer.Pic2 = reader["PIC2"] != DBNull.Value ? (reader["PIC2"] != null ? reader.GetString(reader.GetOrdinal("PIC2")) : string.Empty) : string.Empty;
-                            customer.Pic3 = reader["PIC3"] != DBNull.Value ? (reader["PIC3"] != null ? reader.GetString(reader.GetOrdinal("PIC3")) : string.Empty) : string.Empty;
+                            customer.Pic1 = customerInfo.PIC1;
+                            customer.Pic2 = customerInfo.PIC2;
+                            customer.Pic3 = customerInfo.PIC3;
 
                             customer.Site = new Setting
                             {
-                                Id =
-                                    reader["SiteID"] != DBNull.Value
-                                        ? reader.GetInt32(reader["SiteID"] != null ? reader.GetOrdinal("SiteID") : 0)
-                                        : 0
+                                Id = customerInfo.Site
                             };
 
-                            customer.BankInfo = new BankInfo
-                            {
-                                BankName =
-                                    reader["Wire_BankName"] != DBNull.Value
-                                        ? (reader["Wire_BankName"] != null ? reader.GetString(reader.GetOrdinal("Wire_BankName")) : string.Empty)
-                                        : string.Empty,
-                                BankAddress =
-                                    reader["Wire_BankAddress"] != DBNull.Value
-                                        ? (reader["Wire_BankAddress"] != null ? reader.GetString(reader.GetOrdinal("Wire_BankAddress")) : string.Empty)
-                                        : string.Empty,
-                                SwiftCode =
-                                    reader["Wire_SwiftCode"] != DBNull.Value
-                                        ? (reader["Wire_SwiftCode"] != null ? reader.GetString(reader.GetOrdinal("Wire_SwiftCode")) : string.Empty)
-                                        : string.Empty,
-                                AccountName =
-                                    reader["Wire_AccountName"] != DBNull.Value
-                                        ? (reader["Wire_AccountName"] != null ? reader.GetString(reader.GetOrdinal("Wire_AccountName")) : string.Empty)
-                                        : string.Empty,
-                                AccountNo =
-                                    reader["Wire_AccountNo"] != DBNull.Value
-                                        ? (reader["Wire_AccountNo"] != null ? reader.GetString(reader.GetOrdinal("Wire_AccountNo")) : string.Empty)
-                                        : string.Empty,
-                                AccountHolderName =
-                                    reader["AccountHolderName"] != DBNull.Value
-                                        ? (reader["AccountHolderName"] != null ? reader.GetString(reader.GetOrdinal("AccountHolderName")) : string.Empty)
-                                        : string.Empty
-                            };
+                            customer.BankInfo = GetCustomerBankInfo(reader);
 
                             customer.Creator = new User
                             {
@@ -169,16 +142,21 @@ namespace Fanex.CRM.DataAccess.Impl
                             customer.RefCode2 = reader["RefCode2"] != DBNull.Value
                                 ? (reader["RefCode2"] != null ? reader.GetString(reader.GetOrdinal("RefCode2")) : string.Empty)
                                                     : string.Empty;
-                            customer.Remark = reader["Remark"] != DBNull.Value
-                                ? (reader["Remark"] != null ? reader.GetString(reader.GetOrdinal("Remark")) : string.Empty)
-                                                    : string.Empty;
-                            customer.SpecialRemark = reader["Remark2"] != DBNull.Value
-                                ? (reader["Remark2"] != null ? reader.GetString(reader.GetOrdinal("Remark2")) : string.Empty)
-                                                    : string.Empty;
+                            //customer.Remark = reader["Remark"] != DBNull.Value
+                            //    ? (reader["Remark"] != null ? reader.GetString(reader.GetOrdinal("Remark")) : string.Empty)
+                            //                        : string.Empty;
+                            //customer.SpecialRemark = reader["Remark2"] != DBNull.Value
+                            //    ? (reader["Remark2"] != null ? reader.GetString(reader.GetOrdinal("Remark2")) : string.Empty)
+                            //                        : string.Empty;
 
-                            customer.Language = reader["LanguageID"] != DBNull.Value
-                                ? reader.GetInt32(reader["LanguageID"] != null ? reader.GetOrdinal("LanguageID") : 0)
-                                                    : 0;
+                            //customer.Language = reader["LanguageID"] != DBNull.Value
+                            //    ? reader.GetInt32(reader["LanguageID"] != null ? reader.GetOrdinal("LanguageID") : 0)
+                            //                        : 0;
+                        }
+
+                        if (reader.NextResult())
+                        {
+                            customer.CustomerInfo.Languages = GetCustomerLanguages(reader);
                         }
                     }
                 }
@@ -644,11 +622,8 @@ namespace Fanex.CRM.DataAccess.Impl
                 PassportNumber = Converter.ToString2(reader["Passport"]),
                 BirthDay = Converter.ToDateTime(reader["Birthday"]),
                 Site = Converter.ToInt(reader["SiteId"]),
-                Languages = Converter.ToString2(reader["LaguageId"])
-                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(l => Converter.ToInt(l))
-                    .ToList(),
-                BettingCode = Converter.ToString2(reader["BettingCode"]),
+                Country = Converter.ToInt(reader["CountryId"]),
+                BettingCode = Converter.ToString2(reader["RefCode1"]),
                 RefCodes2 = Converter.ToString2(reader["RefCode2"]),
                 IsVIP = Converter.ToBool(reader["IsVIP"]),
                 PIC1 = Converter.ToString2(reader["PIC1"]),
@@ -656,6 +631,52 @@ namespace Fanex.CRM.DataAccess.Impl
                 PIC3 = Converter.ToString2(reader["PIC3"]),
                 PIC4 = Converter.ToString2(reader["PIC4"])
             };
+        }
+
+        private BankInfo GetCustomerBankInfo(IDataReader reader)
+        {
+            /*return new BankInfo
+            {
+                Name = Converter.ToString2(reader["Wire_BankName"]),
+                SwiftCode = Converter.ToString2(reader["Wire_SwiftCode"),
+                AccountName = Converter.ToString2(reader["Wire_AccountName"),
+                AccountNumber = Converter.ToString2(reader.GetStringNotNull("Wire_AccountNo"),
+                HolderName = Converter.ToString2(reader.GetStringNotNull("AccountHolderName"),
+                AddressInfo = new AddressInfo
+                {
+                    LineList = new List<string> 
+                    {
+                        reader.GetStringNotNull("BankLine1"),
+                        reader.GetStringNotNull("BankLine2"),
+                        reader.GetStringNotNull("BankLine3"),
+                    },
+
+                    City = reader.GetStringNotNull("BankCity"),
+                    State = reader.GetStringNotNull("BankState"),
+                    PostCode = reader.GetStringNotNull("BankCode"),
+                    Country = new CountryInfo
+                    {
+                        Id = reader.GetInt32NotNull("BankCountryID")
+                    }
+                }
+            };*/
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the customer language.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>The language list.</returns>
+        private IList<int> GetCustomerLanguages(IDataReader reader)
+        {
+            IList<int> languages = new List<int>();
+            while (reader.Read())
+            {
+                languages.Add(Converter.ToInt(reader["LanguageId"]));
+            }
+
+            return languages;
         }
     }
 }
