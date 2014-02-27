@@ -15,6 +15,7 @@ namespace Fanex.CRM.DataAccess.Impl
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using DNAide.Core;
+    using Fanex.Common;
     using Fanex.CRM.DataAccess.Interface;
     using Fanex.CRM.Entities;
     using Fanex.CRM.Entities.ViewModel;
@@ -328,26 +329,55 @@ namespace Fanex.CRM.DataAccess.Impl
             int numberOfRecordsAffected = -1;
             try
             {
+                var customerInfo = entity.CustomerInfo;
+                var contactNo1 = customerInfo.ContactNumber1;
+                var contactNo2 = customerInfo.ContactNumber2;
+                var contactNo3 = customerInfo.ContactNumber3;
+                var mobile = customerInfo.Mobile;
+                var fax = customerInfo.Fax;
                 using (var obj = new ObjectDb("CustomerFeedbackIns", 500))
                 {
                     var param = new Hashtable();
-                    /*param.Add("userid", entity.Creator.Id);
+                    param.Add("userid", entity.Creator.Id);
                     param.Add("custid", entity.Customer.Id);
                     param.Add("username", entity.Customer.UserName);
                     param.Add("creatorid", entity.Creator.Id);
-                    param.Add("titleid", entity.CustomerInfo.Title.Id);
-                    param.Add("firstname", !string.IsNullOrEmpty(entity.CustomerInfo.FirstName) ? entity.CustomerInfo.FirstName : string.Empty);
-                    param.Add("lastname", !string.IsNullOrEmpty(entity.CustomerInfo.LastName) ? entity.CustomerInfo.LastName : string.Empty);
-                    param.Add("phone", !string.IsNullOrEmpty(entity.CustomerInfo.Phone) ? entity.CustomerInfo.Phone : string.Empty);
-                    param.Add("mobilephone", !string.IsNullOrEmpty(entity.CustomerInfo.MobilePhone) ? entity.CustomerInfo.MobilePhone : string.Empty);
-                    param.Add("fax", !string.IsNullOrEmpty(entity.CustomerInfo.Fax) ? entity.CustomerInfo.Fax : string.Empty);
+                    // Personal information.
+                    param.Add("firstname", customerInfo.FirstName);
+                    param.Add("lastname", customerInfo.LastName);
+                    param.Add("titleid", customerInfo.Title.Id);
+                    param.Add("birthday", customerInfo.BirthDay);
+                    param.Add("phone", contactNo1.PhoneNumber);
+                    param.Add("phonecountrycode", contactNo1.CountryCode);
+                    param.Add("phoneareacode", contactNo1.AreaCode);
+                    param.Add("phone2", contactNo2.PhoneNumber);
+                    param.Add("phone2countrycode", contactNo2.CountryCode);
+                    param.Add("phone2areacode", contactNo2.AreaCode);
+                    param.Add("phone3", contactNo3.PhoneNumber);
+                    param.Add("phone3countrycode", contactNo3.CountryCode);
+                    param.Add("phone3areacode", contactNo3.AreaCode);
+                    param.Add("passport", customerInfo.PassportNumber);
+                    param.Add("mobilephone", mobile.PhoneNumber);
+                    param.Add("mobilephonecountrycode", mobile.CountryCode);
+                    param.Add("mobilephoneareacode", mobile.AreaCode);
+                    param.Add("fax", fax.FaxNumber);
+                    param.Add("faxcountrycode", fax.CountryCode);
+                    param.Add("faxareacode", fax.AreaCode);
+                    param.Add("email", customerInfo.Email);
+                    param.Add("skype", customerInfo.Skype);
+                    param.Add("msn", customerInfo.MSN);
+                    param.Add("bettingcode", customerInfo.BettingCode);
+                    param.Add("refcode2", customerInfo.RefCodes2);
+                    param.Add("pic1", customerInfo.PIC1);
+                    param.Add("pic2", customerInfo.PIC2);
+                    param.Add("pic3", customerInfo.PIC3);
+                    param.Add("pic4", customerInfo.PIC4);
+                    param.Add("siteid", customerInfo.Site);
+                    param.Add("countryid", customerInfo.Country);
+                    param.Add("languageid", string.Join(",", customerInfo.Languages));
+                    param.Add("isvip", customerInfo.IsVIP);
 
-                    param.Add("email", !string.IsNullOrEmpty(entity.CustomerInfo.Email) ? entity.CustomerInfo.Email : string.Empty);
-                    param.Add("skype", !string.IsNullOrEmpty(entity.CustomerInfo.Skype) ? entity.CustomerInfo.Skype : string.Empty);
-                    param.Add("msn", !string.IsNullOrEmpty(entity.CustomerInfo.MSN) ? entity.CustomerInfo.MSN : string.Empty);
-
-                    param.Add("languageid", entity.Language.Id);
-                    param.Add("countryid", entity.Country.Id);
+                    // Detail tab.
                     param.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(entity.FeedbackDate));
                     param.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(entity.ResolutionTime));
 
@@ -355,25 +385,24 @@ namespace Fanex.CRM.DataAccess.Impl
                     param.Add("stationid", entity.CsExtension.Id);
                     param.Add("maincategoryid", entity.Category.Id);
                     param.Add("subcategoryid", entity.SubCategory.Id);
-                    param.Add("siteid", entity.Site.Id);
                     param.Add("roleid", entity.Role.Id);
                     param.Add("productid", entity.Product.Id);
                     param.Add("bettypeid", entity.BetType.Id);
                     param.Add("responseid", entity.Response.Id);
                     param.Add("statusid", entity.Status.Id);
 
-                    param.Add("relatedcustid", entity.RelatedCustomer.UserName);
+                    if (entity.RelatedCustomer != null && !string.IsNullOrWhiteSpace(entity.RelatedCustomer.UserName))
+                    {
+                        param.Add("relatedcustid", entity.RelatedCustomer.UserName);
+                    }
 
                     param.Add("subject", entity.Subject);
                     param.Add("description", entity.Description);
                     param.Add("solution", entity.Solution);
                     param.Add("isreviewed", entity.IsReviewed);
-                    param.Add("review", entity.Review);
-                    param.Add("pic1", entity.Customer.Pic1);
-                    param.Add("pic2", entity.Customer.Pic2);
-                    param.Add("pic3", entity.Customer.Pic3);*/
-                    if (entity.Reviewer.Id > 0)
+                    if (entity.IsReviewed)
                     {
+                        param.Add("review", entity.Review);
                         param.Add("reviewerid", entity.Reviewer.Id);
                     }
 
@@ -385,8 +414,8 @@ namespace Fanex.CRM.DataAccess.Impl
                     obj.AssignParamValues(param);
                     numberOfRecordsAffected = obj.ExecuteNonQuery();
 
-                    result.ErrCode = Convert.ToInt32(obj.GetParameterValue("errcode"));
-                    result.ErrMsg = Convert.ToString(obj.GetParameterValue("errmsg"));
+                    result.ErrCode = Converter.ToInt(obj.GetParameterValue("errcode"));
+                    result.ErrMsg = Converter.ToString2(obj.GetParameterValue("errmsg"));
                 }
             }
             catch (Exception ex)
@@ -412,62 +441,87 @@ namespace Fanex.CRM.DataAccess.Impl
         public bool EditFeedback(Feedback entity, int userId, string ip, ref Result result)
         {
             var numberOfRecordsAffected = -1;
+
+            var customerInfo = entity.CustomerInfo;
+            var contactNo1 = customerInfo.ContactNumber1;
+            var contactNo2 = customerInfo.ContactNumber2;
+            var contactNo3 = customerInfo.ContactNumber3;
+            var mobile = customerInfo.Mobile;
+            var fax = customerInfo.Fax;
             using (var obj = new ObjectDb("FeedbackInfoUpd", 500))
             {
                 var param = new Hashtable();
-                /*param.Add("feedbackid", entity.Id);
-                param.Add("userid", userId);
+                param.Add("feedbackid", entity.Id);
+                param.Add("userid", entity.Creator.Id);
                 param.Add("custid", entity.Customer.Id);
-                param.Add("pic1", entity.Customer.Pic1);
-                param.Add("pic2", entity.Customer.Pic2);
-                param.Add("pic3", entity.Customer.Pic3);
-                param.Add("titleid", entity.CustomerInfo.Title.Id);
-                param.Add("firstname", !string.IsNullOrEmpty(entity.CustomerInfo.FirstName) ? entity.CustomerInfo.FirstName : string.Empty);
-                param.Add("lastname", !string.IsNullOrEmpty(entity.CustomerInfo.LastName) ? entity.CustomerInfo.LastName : string.Empty);
-                param.Add("phone", !string.IsNullOrEmpty(entity.CustomerInfo.Phone) ? entity.CustomerInfo.Phone : string.Empty);
-                param.Add("mobilephone", !string.IsNullOrEmpty(entity.CustomerInfo.MobilePhone) ? entity.CustomerInfo.MobilePhone : string.Empty);
-                param.Add("fax", !string.IsNullOrEmpty(entity.CustomerInfo.Fax) ? entity.CustomerInfo.Fax : string.Empty);
+                // Personal information.
+                param.Add("firstname", customerInfo.FirstName);
+                param.Add("lastname", customerInfo.LastName);
+                param.Add("titleid", customerInfo.Title.Id);
+                param.Add("birthday", customerInfo.BirthDay);
+                param.Add("phone", contactNo1.PhoneNumber);
+                param.Add("phonecountrycode", contactNo1.CountryCode);
+                param.Add("phoneareacode", contactNo1.AreaCode);
+                param.Add("phone2", contactNo2.PhoneNumber);
+                param.Add("phone2countrycode", contactNo2.CountryCode);
+                param.Add("phone2areacode", contactNo2.AreaCode);
+                param.Add("phone3", contactNo3.PhoneNumber);
+                param.Add("phone3countrycode", contactNo3.CountryCode);
+                param.Add("phone3areacode", contactNo3.AreaCode);
+                param.Add("passport", customerInfo.PassportNumber);
+                param.Add("mobilephone", mobile.PhoneNumber);
+                param.Add("mobilephonecountrycode", mobile.CountryCode);
+                param.Add("mobilephoneareacode", mobile.AreaCode);
+                param.Add("fax", fax.FaxNumber);
+                param.Add("faxcountrycode", fax.CountryCode);
+                param.Add("faxareacode", fax.AreaCode);
+                param.Add("email", customerInfo.Email);
+                param.Add("skype", customerInfo.Skype);
+                param.Add("msn", customerInfo.MSN);
+                param.Add("bettingcode", customerInfo.BettingCode);
+                param.Add("refcode2", customerInfo.RefCodes2);
+                param.Add("pic1", customerInfo.PIC1);
+                param.Add("pic2", customerInfo.PIC2);
+                param.Add("pic3", customerInfo.PIC3);
+                param.Add("pic4", customerInfo.PIC4);
+                param.Add("siteid", customerInfo.Site);
+                param.Add("countryid", customerInfo.Country);
+                param.Add("languageid", string.Join(",", customerInfo.Languages));
+                param.Add("isvip", customerInfo.IsVIP);
 
-                param.Add("email", !string.IsNullOrEmpty(entity.CustomerInfo.Email) ? entity.CustomerInfo.Email : string.Empty);
-                param.Add("skype", !string.IsNullOrEmpty(entity.CustomerInfo.Skype) ? entity.CustomerInfo.Skype : string.Empty);
-                param.Add("msn", !string.IsNullOrEmpty(entity.CustomerInfo.MSN) ? entity.CustomerInfo.MSN : string.Empty);
-
-                param.Add("languageid", entity.Language.Id);
-                param.Add("countryid", entity.Country.Id);
+                // Detail tab.
                 param.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(entity.FeedbackDate));
                 param.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(entity.ResolutionTime));
                 param.Add("communicationid", entity.Communication.Id);
                 param.Add("stationid", entity.CsExtension.Id);
                 param.Add("maincategoryid", entity.Category.Id);
                 param.Add("subcategoryid", entity.SubCategory.Id);
-                param.Add("siteid", entity.Site.Id);
                 param.Add("roleid", entity.Role.Id);
                 param.Add("productid", entity.Product.Id);
                 param.Add("bettypeid", entity.BetType.Id);
                 param.Add("responseid", entity.Response.Id);
-                param.Add("statusid", entity.Status.Id);*/
+                param.Add("statusid", entity.Status.Id);
 
-                var relatedUsername = !string.IsNullOrEmpty(entity.RelatedCustomer.UserName) ?
+                if (entity.RelatedCustomer != null && !string.IsNullOrWhiteSpace(entity.RelatedCustomer.UserName))
+                {
+                    var relatedUsername = !string.IsNullOrEmpty(entity.RelatedCustomer.UserName) ?
                         (entity.RelatedCustomer.UserName.Equals("_") ?
                         string.Empty :
                         entity.RelatedCustomer.UserName) :
                         null;
-                param.Add("relatedcustid", relatedUsername);
+                    param.Add("relatedcustid", relatedUsername);
+                }
 
                 param.Add("subject", entity.Subject);
                 param.Add("description", entity.Description);
-                param.Add("solution", !string.IsNullOrEmpty(entity.Solution) ? entity.Solution : string.Empty);
+                param.Add("solution", entity.Solution);
 
                 param.Add("updatereviewedmode", entity.UpdateReviewMode);
-                param.Add("review", !string.IsNullOrEmpty(entity.Review) ? entity.Review : string.Empty);
-                if (entity.Reviewer.Id > 0)
+                param.Add("isreviewed", entity.IsReviewed);
+                if (entity.IsReviewed)
                 {
+                    param.Add("review", entity.Review);
                     param.Add("reviewerid", entity.Reviewer.Id);
-                    param.Add("isreviewed", true);
-                }
-                else
-                {
-                    param.Add("isreviewed", false);
                 }
 
                 param.Add("isoverwrite", entity.IsOverrideCrmInfo);
@@ -733,15 +787,7 @@ namespace Fanex.CRM.DataAccess.Impl
                     param.Add("responseid", responseId);
                 }
 
-                if (isReviewed == 1)
-                {
-                    param.Add("isreviewed", true);
-                }
-                else if (isReviewed == -1)
-                {
-                    param.Add("isreviewed", false);
-                }
-
+                param.Add("isreviewed", isReviewed == 1 ? true : false);
                 obj.AssignParamValues(param);
                 using (var reader = obj.ExecuteReader())
                 {
@@ -749,178 +795,7 @@ namespace Fanex.CRM.DataAccess.Impl
                     {
                         while (reader.Read())
                         {
-                            var feedback = new Feedback();
-                            feedback.Id = reader.GetInt32(reader.GetOrdinal("feedbackid"));
-
-                            if (!reader.IsDBNull(reader.GetOrdinal("custid")))
-                            {
-                                feedback.Customer = new Customer
-                                {
-                                    Id = reader.GetInt32(reader.GetOrdinal("custid")),
-                                    UserName = reader.GetString(reader.GetOrdinal("username")),
-                                };
-                            }
-
-                            feedback.CustomerInfo = new CustomerInfo
-                                {
-                                    Title =
-                                        new Setting
-                                            {
-                                                Id =
-                                                    reader.IsDBNull(reader.GetOrdinal("titleid"))
-                                                        ? 0
-                                                        : reader.GetInt32(reader.GetOrdinal("titleid"))
-                                            },
-                                    Email =
-                                        reader.IsDBNull(reader.GetOrdinal("email"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("email")),
-                                    /*Fax =
-                                        reader.IsDBNull(reader.GetOrdinal("fax"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("fax")),*/
-                                    FirstName =
-                                        reader.IsDBNull(reader.GetOrdinal("firstname"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("firstname")),
-                                    LastName =
-                                        reader.IsDBNull(reader.GetOrdinal("lastname"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("lastname"))/*,
-                                    MobilePhone =
-                                        reader.IsDBNull(reader.GetOrdinal("mobilephone"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("mobilephone")),
-                                    Phone =
-                                        reader.IsDBNull(reader.GetOrdinal("phone"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("phone"))*/
-                                };
-
-                            feedback.Language = new Setting
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("languageid"))
-                            };
-
-                            feedback.Country = new Country
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("countryid"))
-                            };
-
-                            feedback.CreateDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("createdate")));
-
-                            feedback.Creator = new User
-                            {
-                                Id = reader.IsDBNull(reader.GetOrdinal("creatorid")) ? 0 : reader.GetInt32(reader.GetOrdinal("creatorid")),
-                                Username = reader.IsDBNull(reader.GetOrdinal("creatorname")) ? string.Empty : reader.GetString(reader.GetOrdinal("creatorname"))
-                            };
-
-                            feedback.FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("feedbackdate")));
-                            feedback.ResolutionTime = !reader.IsDBNull(reader.GetOrdinal("resolutiondate"))
-                                                          ? DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("resolutiondate")))
-                                                          : null;
-
-                            feedback.Communication = new Setting
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("communicationid"))
-                            };
-
-                            feedback.CsExtension = new Setting
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("StationID"))
-                            };
-
-                            feedback.Category = new Setting
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("maincategoryid"))
-                            };
-
-                            feedback.SubCategory = new Setting
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("subcategoryid"))
-                            };
-
-                            feedback.Site = new Setting
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("subcategoryid"))
-                            };
-
-                            feedback.Role = new Setting
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("roleid"))
-                            };
-
-                            feedback.Role = new Setting
-                            {
-                                Id = reader.GetOrdinal("productid")
-                            };
-
-                            feedback.BetType = new Setting
-                            {
-                                Id = reader.IsDBNull(reader.GetOrdinal("bettypeid"))
-                                ? 0
-                                : reader.GetInt32(reader.GetOrdinal("bettypeid"))
-                            };
-
-                            feedback.Response = new Setting { Id = reader.GetInt32(reader.GetOrdinal("responseid")) };
-
-                            feedback.Status = new Setting
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("statusid"))
-                            };
-
-                            feedback.Subject = reader.IsDBNull(reader.GetOrdinal("subject"))
-                                 ? string.Empty
-                                 : reader.GetString(reader.GetOrdinal("subject"));
-
-                            feedback.Description = reader.IsDBNull(reader.GetOrdinal("description"))
-                                ? string.Empty
-                                : reader.GetString(reader.GetOrdinal("description"));
-
-                            feedback.Solution = reader.IsDBNull(reader.GetOrdinal("solution"))
-                                ? string.Empty
-                                : reader.GetString(reader.GetOrdinal("solution"));
-
-                            feedback.Review = reader.IsDBNull(reader.GetOrdinal("review"))
-                                ? string.Empty
-                                : reader.GetString(reader.GetOrdinal("review"));
-
-                            var reviewerId = reader.IsDBNull(reader.GetOrdinal("reviewerid"))
-                                ? 0
-                                : reader.GetInt32(reader.GetOrdinal("reviewerid"));
-
-                            if (reviewerId > 0)
-                            {
-                                feedback.Reviewer = new User
-                                {
-                                    Id = reviewerId,
-                                    Username = reader.IsDBNull(reader.GetOrdinal("reviewername"))
-                                                   ? string.Empty
-                                                   : reader.GetString(reader.GetOrdinal("reviewername"))
-                                };
-
-                                feedback.SolvedDate = !reader.IsDBNull(reader.GetOrdinal("solvedate")) ?
-                                    DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate"))):
-                                    null;
-                            }
-                            else
-                            {
-                                feedback.Reviewer = new User
-                                {
-                                    Id = 0,
-                                    Username = string.Empty
-                                };
-                            }
-
-                            feedback.RelatedCustomer = new Customer
-                            {
-                                Id = 0,
-                                UserName = reader.GetBoolean(reader.GetOrdinal("isRelated")) ?
-                                    (reader.IsDBNull(reader.GetOrdinal("username")) ? string.Empty : reader.GetString(reader.GetOrdinal("username"))) :
-                                    (reader.IsDBNull(reader.GetOrdinal("relatedCustomer")) ? string.Empty : reader.GetString(reader.GetOrdinal("relatedCustomer")))
-                            };
-
-                            lstFeedbacks.Add(feedback);
+                            lstFeedbacks.Add(GetFeedbackInformation(reader));
                         }
                     }
                 }
@@ -1451,7 +1326,6 @@ namespace Fanex.CRM.DataAccess.Impl
                 param.Add("custid", custId);
                 param.Add("top", selectTop);
                 obj.AssignParamValues(param);
-
                 using (var reader = obj.ExecuteReader())
                 {
                     if (reader != null)
@@ -1612,148 +1486,13 @@ namespace Fanex.CRM.DataAccess.Impl
             using (var obj = new ObjectDb("FeedbackSelTopFeedback", 500))
             {
                 obj.AddInParameter("top", DbType.Int32, selectTop);
-
                 using (var reader = obj.ExecuteReader())
                 {
                     if (reader != null)
                     {
                         while (reader.Read())
                         {
-                            var feedback = new Feedback();
-                            feedback.Id = reader.GetInt32(reader.GetOrdinal("feedbackid"));
-
-                            if (!reader.IsDBNull(reader.GetOrdinal("custid")))
-                            {
-                                feedback.Customer = new Customer
-                                    {
-                                        Id = reader.GetInt32(reader.GetOrdinal("custid")),
-                                        UserName = reader.GetString(reader.GetOrdinal("username")),
-                                    };
-                            }
-
-                            feedback.CustomerInfo = new CustomerInfo
-                                {
-                                    Title =
-                                        new Setting
-                                            {
-                                                Id =
-                                                    reader.IsDBNull(reader.GetOrdinal("titleid"))
-                                                        ? 0
-                                                        : reader.GetInt32(reader.GetOrdinal("titleid"))
-                                            },
-                                    Email =
-                                        reader.IsDBNull(reader.GetOrdinal("email"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("email")),
-                                    /*Fax =
-                                        reader.IsDBNull(reader.GetOrdinal("fax"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("fax")),*/
-                                    FirstName =
-                                        reader.IsDBNull(reader.GetOrdinal("firstname"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("firstname")),
-                                    LastName =
-                                        reader.IsDBNull(reader.GetOrdinal("lastname"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("lastname"))/*,
-                                    MobilePhone =
-                                        reader.IsDBNull(reader.GetOrdinal("mobilephone"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("mobilephone")),
-                                    Phone =
-                                        reader.IsDBNull(reader.GetOrdinal("phone"))
-                                            ? string.Empty
-                                            : reader.GetString(reader.GetOrdinal("phone"))*/
-                                };
-
-                            feedback.Language = new Setting { Id = reader.GetInt32(reader.GetOrdinal("languageid")) };
-                            feedback.Country = new Country { Id = reader.GetInt32(reader.GetOrdinal("countryid")) };
-                            feedback.CreateDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("createdate")));
-                            feedback.Creator = new User
-                                {
-                                    Id = reader.GetInt32(reader.GetOrdinal("creatorid")),
-                                    Username = reader.GetString(reader.GetOrdinal("creatorname"))
-                                };
-
-                            feedback.FeedbackDate =
-                                DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("feedbackdate")));
-                            feedback.ResolutionTime = !reader.IsDBNull(reader.GetOrdinal("resolutiondate"))
-                                                          ? DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("resolutiondate")))
-                                                          : null;
-                            feedback.Communication = new Setting { Id = reader.GetInt32(reader.GetOrdinal("communicationid")) };
-                            feedback.CsExtension = new Setting { Id = reader.GetInt32(reader.GetOrdinal("StationID")) };
-                            feedback.Category = new Setting { Id = reader.GetInt32(reader.GetOrdinal("maincategoryid")), };
-                            feedback.SubCategory = new Setting { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
-                            feedback.Site = new Setting { Id = reader.GetInt32(reader.GetOrdinal("subcategoryid")) };
-                            feedback.Role = new Setting { Id = reader.GetInt32(reader.GetOrdinal("roleid")) };
-                            feedback.Role = new Setting { Id = reader.GetOrdinal("productid") };
-                            feedback.BetType = new Setting
-                                {
-                                    Id =
-                                        reader.IsDBNull(reader.GetOrdinal("bettypeid"))
-                                            ? 0
-                                            : reader.GetInt32(reader.GetOrdinal("bettypeid"))
-                                };
-
-                            var responseId = reader.GetInt32(reader.GetOrdinal("responseid"));
-                            feedback.Response = new Setting { Id = responseId };
-
-                            feedback.Status = new Setting { Id = reader.GetInt32(reader.GetOrdinal("statusid")) };
-
-                            feedback.Subject = reader.IsDBNull(reader.GetOrdinal("subject"))
-                                 ? string.Empty
-                                 : reader.GetString(reader.GetOrdinal("subject"));
-
-                            feedback.Description = reader.IsDBNull(reader.GetOrdinal("description"))
-                                ? string.Empty
-                                : reader.GetString(reader.GetOrdinal("description"));
-
-                            feedback.Solution = reader.IsDBNull(reader.GetOrdinal("solution"))
-                                ? string.Empty
-                                : reader.GetString(reader.GetOrdinal("solution"));
-
-                            feedback.Review = reader.IsDBNull(reader.GetOrdinal("review"))
-                                ? string.Empty
-                                : reader.GetString(reader.GetOrdinal("review"));
-
-                            var reviewerId = reader.IsDBNull(reader.GetOrdinal("reviewerid"))
-                                ? 0
-                                : reader.GetInt32(reader.GetOrdinal("reviewerid"));
-
-                            if (reviewerId > 0)
-                            {
-                                feedback.Reviewer = new User
-                                    {
-                                        Id = reviewerId,
-                                        Username =
-                                            reader.IsDBNull(reader.GetOrdinal("reviewername"))
-                                                ? string.Empty
-                                                : reader.GetString(reader.GetOrdinal("reviewername")),
-                                    };
-                                feedback.SolvedDate = !reader.IsDBNull(reader.GetOrdinal("solvedate")) ?
-                                    DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("solvedate"))):
-                                    null;
-                            }
-                            else
-                            {
-                                feedback.Reviewer = new User { Id = 0, Username = string.Empty };
-                            }
-
-                            feedback.RelatedCustomer = new Customer
-                                {
-                                    Id = 0,
-                                    UserName =
-                                        reader.GetBoolean(reader.GetOrdinal("isRelated"))
-                                            ? (reader.IsDBNull(reader.GetOrdinal("username"))
-                                                   ? string.Empty
-                                                   : reader.GetString(reader.GetOrdinal("username")))
-                                            : (reader.IsDBNull(reader.GetOrdinal("relatedCustomer"))
-                                                   ? string.Empty
-                                                   : reader.GetString(reader.GetOrdinal("relatedCustomer")))
-                                };
-
-                            lstFeedbacks.Add(feedback);
+                            lstFeedbacks.Add(GetFeedbackInformation(reader));
                         }
                     }
                 }
@@ -2023,6 +1762,135 @@ namespace Fanex.CRM.DataAccess.Impl
                 obj.AssignParamValues(param);
                 return obj.ExecuteDataSet();
             }
+        }
+
+        /// <summary>
+        /// Gets the feedback information.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>The feedback object.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        private Feedback GetFeedbackInformation(IDataReader reader)
+        {
+            var feedback = new Feedback
+            {
+                Id = Converter.ToInt(reader["feedbackid"]),
+                Customer = new Customer
+                {
+                    Id = Converter.ToInt(reader["custid"]),
+                    UserName = Converter.ToString2(reader["username"])
+                },
+                CustomerInfo = GetCustomerInformation(reader),
+                Creator = new User
+                {
+                    Id = Converter.ToInt(reader["creatorid"]),
+                    Username = Converter.ToString2(reader["creatorname"]),
+                },
+                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["feedbackdate"])),
+                ResolutionTime = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["resolutiondate"])),
+                CreateDate = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["createdate"])),
+                SolvedDate = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["solvedate"])),
+                Communication = new Setting
+                {
+                    Id = Converter.ToInt(reader["communicationid"])
+                },
+                CsExtension = new Setting
+                {
+                    Id = Converter.ToInt(reader["stationid"])
+                },
+                Category = new Setting
+                {
+                    Id = Converter.ToInt(reader["maincategoryid"])
+                },
+                SubCategory = new Setting
+                {
+                    Id = Converter.ToInt(reader["subcategoryid"])
+                },
+                Site = new Setting
+                {
+                    Id = Converter.ToInt(reader["siteid"])
+                },
+                Role = new Setting
+                {
+                    Id = Converter.ToInt(reader["roleid"])
+                },
+                Product = new Setting
+                {
+                    Id = Converter.ToInt(reader["productid"])
+                },
+                BetType = new Setting
+                {
+                    Id = Converter.ToInt(reader["bettypeid"])
+                },
+                Response = new Setting
+                {
+                    Id = Converter.ToInt(reader["responseid"])
+                },
+                Status = new Setting
+                {
+                    Id = Converter.ToInt(reader["statusid"])
+                },
+                Description = Converter.ToString2(reader["description"]),
+                Solution = Converter.ToString2(reader["solution"]),
+                IsReviewed = Converter.ToBool(reader["isreviewed"]),
+                Review = Converter.ToString2(reader["review"]),
+                Reviewer = new User 
+                {
+                    Id = Converter.ToInt(reader["reviewerid"]),
+                    Username = Converter.ToString2(reader["reviewername"])
+                },
+                Subject = Converter.ToString2(reader["subject"]),
+                
+            };
+            
+            feedback.RelatedCustomer = new Customer
+            {
+                UserName = Converter.ToBool(reader["isrelated"])
+                    ? Converter.ToString2(reader["relatedcustomer"])
+                    : feedback.Customer.UserName
+            };
+
+            return feedback;
+        }
+
+        /// <summary>
+        /// Gets the customer information.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>The customer info object.</returns>
+        private CustomerInfo GetCustomerInformation(IDataReader reader)
+        {
+            return new CustomerInfo
+            {
+                Title = new Setting
+                {
+                    Id = Converter.ToInt(reader["titleid"]),
+                },
+                FirstName = Converter.ToString2(reader["firstname"]),
+                LastName = Converter.ToString2(reader["lastname"]),
+                ContactNumber1 = new PhoneInfo
+                {
+                    AreaCode = Converter.ToString2(reader["phoneareacode"]),
+                    CountryCode = Converter.ToString2(reader["phonecountrycode"]),
+                    PhoneNumber = Converter.ToString2(reader["phone"])
+                },
+                Mobile = new PhoneInfo
+                {
+                    AreaCode = Converter.ToString2(reader["mobilephoneareacode"]),
+                    CountryCode = Converter.ToString2(reader["mobilephonecountrycode"]),
+                    PhoneNumber = Converter.ToString2(reader["mobilephone"])
+                },
+                Fax = new FaxInfo
+                {
+                    AreaCode = Converter.ToString2(reader["faxareacode"]),
+                    CountryCode = Converter.ToString2(reader["faxcountrycode"]),
+                    FaxNumber = Converter.ToString2(reader["fax"])
+                },
+                Email = Converter.ToString2(reader["email"]),
+                Skype = Converter.ToString2(reader["skype"]),
+                MSN = Converter.ToString2(reader["msn"]),
+                Country = Converter.ToInt(reader["countryid"])
+            };
         }
     }
 }

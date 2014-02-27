@@ -2,7 +2,6 @@
 /* global jlinq, 
 showAlertMessage,
 errMsgFeedbackDateGreatter, 
-accId, 
 errMsgResolutionDateGreatter, 
 successMsg, 
 bindingSetting, 
@@ -128,7 +127,7 @@ var feedbackNew = {
     "SubCategory": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
     "Subject": "", "UpdateReviewMode": 0
 };
-var settings = ["Title", "Status", "Station", "Response", "Communication", "Language"];
+var settings = ["Title", "Status", "Station", "Response", "Communication"];
 var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication"];
 var listObjToValidate = ["txtsubject"];
 var listEditorToValidate = ["desediter"];
@@ -193,56 +192,115 @@ function addFeedbackInfo(newFeedback) {
 }
 
 function getFeedbackData() {
-    var feedbackData = {
-        Reviewer: 0,
-        Review: "",
-        CustId: custId,
-        UserName: custName,
-        Creator: accId,
-        RoleID: $("#ddlrole").val(),
-        RelatedCustID: "",
+    var newFeedback = {
+        Customer: {
+            Id: custId,
+            UserName: custName
+        },
+        CustomerInfo: {
+            Title: {
+                Id: $("#ddltitle").val()
+            },
+            FirstName: $("#firstNameInfo").val().trim(),
+            LastName: $("#lastNameInfo").val().trim(),
+            ContactNumber1: {
+                CountryCode: $("#contact1InfoCountry").val().trim(),
+                AreaCode: $("#contact1InfoArea").val().trim(),
+                PhoneNumber: $("#contact1InfoPhone").val().trim()
+            },
+            ContactNumber2: {
+                CountryCode: $("#contact2InfoCountry").val().trim(),
+                AreaCode: $("#contact2InfoArea").val().trim(),
+                PhoneNumber: $("#contact2InfoPhone").val().trim()
+            },
+            ContactNumber3: {
+                CountryCode: $("#contact3InfoCountry").val().trim(),
+                AreaCode: $("#contact3InfoArea").val().trim(),
+                PhoneNumber: $("#contact3InfoPhone").val().trim()
+            },
+            Fax: {
+                CountryCode: $("#faxInfoCountry").val().trim(),
+                AreaCode: $("#faxInfoArea").val().trim(),
+                FaxNumber: $("#faxInfoFax").val().trim()
+            },
+            Mobile: {
+                CountryCode: $("#mobileInfoCountry").val().trim(),
+                AreaCode: $("#mobileInfoArea").val().trim(),
+                PhoneNumber: $("#mobileInfoPhone").val().trim()
+            },
+            Skype: $('#skypeInfo').val().trim(),
+            Email: $("#emailInfo").val().trim(),
+            MSN: $('#msnInfo').val().trim(),
+            PassportNumber: $('#passportInfo').val().trim(),
+            Birthday: $('#birthdayInfo').datepicker("getDate"),
+            BirthdayString: $('#birthdayInfo').val(),
+            Site: $('#ddlsite').val(),
+            Languages: $("#ddllanguage").fanexMultiSelect('getItems', true),
+            Country: $("#ddlcountry").val(),
+            BettingCode: $("#bettingCodeInfo").val().trim(),
+            RefCodes2: $("#refCodes2Info").val().trim(),
+            IsVIP: $("#isVIP").prop("checked"),
+            PIC1: $("#pic1Info").val().trim(),
+            PIC2: $("#pic2Info").val().trim(),
+            PIC3: $("#pic3Info").val().trim(),
+            PIC4: $("#pic4Info").val().trim()
+        },
+        FeedBackDate: $("#txtdate").val(),
+        ResolutionTitme: $('#txtResolutionTime').val(),
+        CsExtension: {
+            Id: $("#ddlcsextension").val()
+        },
+        Communication: {
+            Id: $("#ddlcommunication").val()
+        },
+        Category: {
+            Id: $("#ddlcategory").val()
+        },
+        SubCategory: {
+            Id: $("#ddlsubcategory").val()
+        },
+        Product: {
+            Id: $("#ddlproduct").val()
+        },
+        Bettype: {
+            Id: $("#ddlbettype").val()
+        },
+        Status: {
+            Id: $("#ddlstatus").val()
+        },
+        Role: {
+            Id: $("#ddlrole").val()
+        },
+        Response: {
+            Id: $("#ddlresponse").val()
+        },
+        Subject: $("#txtsubject").val().trim(),
         Description: $("#desediter").htmlarea("toHtmlString"),
         Solution: $("#solediter").htmlarea("toHtmlString"),
-        IsUpdateReviewed: $("#chkisreview").attr("checked")
+        IsReviewed: $("#chkisreview").prop("checked")
     };
 
-    if ($("#chkisrelated").attr("checked")) {
-        feedbackData.RelatedCustID = getRelatedCustomer();
+    if ($("#chkisrelated").prop("checked")) {
+        newFeedback.RelatedCustomer = {
+            Id: 0,
+            UserName: getRelatedCustomer()
+        }
     }
 
-    if (feedbackData.IsUpdateReviewed) {
-        feedbackData.Reviewer = accId;
-        feedbackData.Review = $("#revediter").htmlarea("toHtmlString");
+    if (newFeedback.IsReviewed) {
+        newFeedback.Reviewer = {
+            Id: accId
+        };
+        newFeedback.Review = $("#revediter").htmlarea("toHtmlString");
     }
 
-    var feedbackNew = getDetailsTabData();
-    feedbackNew.CustomerInfo = getPersonalInfoTabData();
-    feedbackNew.Description = cachedElements.description.htmlarea("toHtmlString");
-    feedbackNew.Solution = cachedElements.solution.htmlarea("toHtmlString");
-
-    feedbackNew.Customer.Id = feedbackData.CustId;
-    feedbackNew.Customer.UserName = feedbackData.UserName;
-    feedbackNew.Role.Id = feedbackData.RoleID;
-    feedbackNew.Creator.Id = feedbackData.Creator;
-    feedbackNew.RelatedCustomer.Id = 0;
-    feedbackNew.RelatedCustomer.UserName = feedbackData.RelatedCustID;
-    
-    feedbackNew.IsReviewed = feedbackData.IsUpdateReviewed;
-    if (feedbackData.IsUpdateReviewed) {
-        feedbackNew.Reviewer.Id = feedbackData.Reviewer;
-        feedbackNew.Review = feedbackData.Review.trim();
-    }
-    else {
-        feedbackNew.Reviewer.Id = 0;
-    }
-
-    return feedbackNew;
+    return newFeedback;
 }
 
 function DoAdd() {
     var newFeedback = getFeedbackData();
     //-------check override crm info--------------
-    if ($('#chkIsOverrideCrmInfo').attr('checked')) {
+    if ($('#chkIsOverrideCrmInfo').prop('checked')) {
         $("#divOverrideCRMInfo").html('Current CRM Info will be overrided, please double check before Submit!');
         $("#divOverrideCRMInfo").dialog({ width: 400, height: 120, zIndex: 500, resizable: false,
             close: function (event, ui) {
@@ -261,7 +319,6 @@ function DoAdd() {
                 click: function () {
                     newFeedback.IsOverrideCrmInfo = false;
                     $(this).dialog("close");
-                    //addFeedbackInfo(newFeedback);
                 }
             }]
         });
@@ -297,24 +354,32 @@ function AddFeedback() {
             showAlertMessage("errmsg", "Please choose communication!", 1);
             return false;
         }
+        if ($('#ddlproduct option:selected').val() == 0) {
+            showAlertMessage("errmsg", "Please choose product!", 1);
+            return false;
+        }
+        if ($('#ddlbettype option:selected').val() == 0) {
+            showAlertMessage("errmsg", "Please choose bet type!", 1);
+            return false;
+        }
         if ($('#hIsNotChild').val() === '1') {
             showAlertMessage("errmsg",
             "There is no Subcategory for Category [" + $("#ddlcategory option:selected").text() + "]. Please add a Subcategory or choose another Category.", 1);
             return false;
         }
+        
         //----------check length of data
-
-        if ($('#txtfirstname').val().length > 50) {
-            $('#txtfirstname').focus();
+        if ($('#firstNameInfo').val().length > 50) {
+            $('#firstNameInfo').focus();
             showAlertMessage("errmsg", 'Max length of First Name is 50', 1);
             return false;
         }
-        if ($('#txtlastname').val().length > 50) {
-            $('#txtlastname').focus();
+        if ($('#lastNameInfo').val().length > 50) {
+            $('#lastNameInfo').focus();
             showAlertMessage("errmsg", 'Max length of Last Name is 50', 1);
             return false;
         }
-        if ($('#txtphone').val().length > 50) {
+        /*if ($('#txtphone').val().length > 50) {
             $('#txtphone').focus();
             showAlertMessage("errmsg", 'Max length of Phone is 50', 1);
             return false;
@@ -328,19 +393,19 @@ function AddFeedback() {
             $('#txtfax').focus();
             showAlertMessage("errmsg", 'Max length of Fax is 50', 1);
             return false;
-        }
-        if ($('#txtEmail').val().length > 254) {
-            $('#txtEmail').focus();
+        }*/
+        if ($('#emailInfo').val().length > 254) {
+            $('#emailInfo').focus();
             showAlertMessage("errmsg", 'Max length of Email is 254', 1);
             return false;
         }
-        if ($('#txtSkype').val().length > 100) {
-            $('#txtSkype').focus();
+        if ($('#skypeInfo').val().length > 100) {
+            $('#skypeInfo').focus();
             showAlertMessage("errmsg", 'Max length of Skype is 100', 1);
             return false;
         }
-        if ($('#txtMSN').val().length > 100) {
-            $('#txtMSN').focus();
+        if ($('#msnInfo').val().length > 100) {
+            $('#msnInfo').focus();
             showAlertMessage("errmsg", 'Max length of MSN is 100', 1);
             return false;
         }
@@ -350,39 +415,39 @@ function AddFeedback() {
             return false;
         }
 
-        if ($('#txtPIC1').val().length > 100) {
-            $('#txtPIC1').focus();
+        if ($('#pic1Info').val().length > 100) {
+            $('#pic1Info').focus();
             showAlertMessage("errmsg", 'Max length of PIC1 is 100', 1);
             return false;
         }
 
-        if ($('#txtPIC2').val().length > 100) {
-            $('#txtPIC2').focus();
+        if ($('#pic2Info').val().length > 100) {
+            $('#pic2Info').focus();
             showAlertMessage("errmsg", 'Max length of PIC2 is 100', 1);
             return false;
         }
 
-        if ($('#txtPIC3').val().length > 100) {
-            $('#txtPIC3').focus();
+        if ($('#pic3Info').val().length > 100) {
+            $('#pic3Info').focus();
             showAlertMessage("errmsg", 'Max length of PIC3 is 100', 1);
             return false;
         }
 
         if ($("#desediter").htmlarea("toHtmlString").length > 8000) {
             $('#desediter').focus();
-            //$('#txtfirstname').css({ color: 'red'});
+            //$('#firstNameInfo').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of Description is 8000', 1);
             return false;
         }
         if ($("#solediter").htmlarea("toHtmlString").length > 8000) {
             $('#solediter').focus();
-            //$('#txtfirstname').css({ color: 'red'});
+            //$('#firstNameInfo').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of Solution is 8000', 1);
             return false;
         }
         if ($("#revediter").htmlarea("toHtmlString").length > 8000) {
             $('#revediter').focus();
-            //$('#txtfirstname').css({ color: 'red'});
+            //$('#firstNameInfo').css({ color: 'red'});
             showAlertMessage("errmsg", 'Max length of Review is 8000', 1);
             return false;
         }
@@ -449,7 +514,37 @@ function getCRMInfoById(custId) {
         dataType: "json",
         data: '{"custId":' + custId + '}',
         success: function (rs) {
-            bindPersonalInfoTab(rs.CustomerInfo);
+            var customerInfo = rs.CustomerInfo;
+            $("#firstNameInfo").val(customerInfo.FirstName);
+            $("#lastNameInfo").val(customerInfo.LastName);
+            $("#contact1InfoCountry").val(customerInfo.ContactNumber1.CountryCode);
+            $("#contact1InfoArea").val(customerInfo.ContactNumber1.AreaCode);
+            $("#contact1InfoPhone").val(customerInfo.ContactNumber1.PhoneNumber);
+            $("#contact2InfoCountry").val(customerInfo.ContactNumber2.CountryCode);
+            $("#contact2InfoArea").val(customerInfo.ContactNumber2.AreaCode);
+            $("#contact2InfoPhone").val(customerInfo.ContactNumber2.PhoneNumber);
+            $("#contact3InfoCountry").val(customerInfo.ContactNumber3.CountryCode);
+            $("#contact3InfoArea").val(customerInfo.ContactNumber3.AreaCode);
+            $("#contact3InfoPhone").val(customerInfo.ContactNumber3.PhoneNumber);
+            $("#faxInfoCountry").val(customerInfo.Fax.CountryCode);
+            $("#faxInfoArea").val(customerInfo.Fax.AreaCode);
+            $("#faxInfoFax").val(customerInfo.Fax.FaxNumber);
+            $("#mobileInfoCountry").val(customerInfo.Mobile.CountryCode);
+            $("#mobileInfoArea").val(customerInfo.Mobile.AreaCode);
+            $("#mobileInfoPhone").val(customerInfo.Mobile.FaxNumber);
+            $("#skypeInfo").val(customerInfo.Skype);
+            $("#emailInfo").val(customerInfo.Email);
+            $("#msnInfo").val(customerInfo.MSN);
+            $("#passportInfo").val(customerInfo.PassportNumber);
+            $("#birthdayInfo").datepicker("setDate", customerInfo.BirthDayString);
+            $("#bettingCodeInfo").val(customerInfo.BettingCode);
+            $("#refCodes2Info").val(customerInfo.RefCodes2);
+            $("#isVIP").prop("checked", customerInfo.IsVIP);
+            $("#pic1Info").val(customerInfo.PIC1);
+            $("#pic2Info").val(customerInfo.PIC2);
+            $("#pic3Info").val(customerInfo.PIC3);
+            $("#pic4Info").val(customerInfo.PIC4);
+
             $.ajax({
                 type: "POST",
                 url: window.rootUrl + "AdminTool/SelAllSetting",
@@ -458,33 +553,30 @@ function getCRMInfoById(custId) {
                 data: '{"Id":' + 0 + '}',
                 success: function (setting) {
                     AllSetting = setting;
+                    bindingSetting("ddltitle", setting.Title, customerInfo.Title.Id);
+                    bindingCountry("ddlcountry", setting.Country, customerInfo.Country);
+                    dropdownMultiSelect("ddllanguage", "ddllanguage", setting.Language, customerInfo.Languages);
+                    bindingSite('ddlsite', setting.Site, customerInfo.Site);
 
-                    bindingSetting("ddltitle", setting.Title, rs.CustomerInfo.Title.Id);
+                    bindingSetting("ddlcsextension", setting.Extension, 0);
                     bindingSetting("ddlcategory", setting.Category, 0);
                     bindingSetting("ddlproduct", setting.Product, 0);
                     bindingSetting("ddlrole", setting.Role, rs.RoleId);
                     bindingSetting("ddlstatus", setting.Status, 0);
                     bindingSetting("ddlresponse", setting.Response, 0);
                     bindingSetting("ddlcommunication", setting.Communication, 0);
-                    bindingSetting("ddllanguage", setting.Language, rs.Language);
-                    bindingSetting("ddlcsextension", setting.Extension, 0);
-                    bindingCountry("ddlcountry", setting.Country, rs.Country);
-
+                    // Select childs.
                     bindingChildByParentId('ddlsubcategory', setting.Category, (setting.Category ? setting.Category[0].Id : 3000), 0);
                     bindingChildByParentId('ddlbettype', setting.Product, 0, 0);
-                    bindingSite('ddlsite', setting.Site, rs.Site.Id);
-
                     if (!allowDeleteFeedback) {
                         $("select#ddlstatus option[value='11004']").remove();
                     }
-
                     bindingEvent();
                 },
                 error: function () { },
                 complete: function () {
                     try {
                         parent.UnBlockUI();
-
                     } catch (e) { }
 
                     //get lasted feedbacks data
@@ -492,208 +584,14 @@ function getCRMInfoById(custId) {
                     setInterval(function () { getNumOfFeedbackItems(); }, 100000);
                     //add input listen for auto complete Subject name input text box
                 }
-
-
             });
 
             if (rs.RelatedCustomer != null && rs.RelatedCustomer.UserName !== "") {
-                $("#chkisrelated").attr("checked", true);
-                //                $("#txtrelatedcustomer").removeAttr("disabled").val(rs.RelatedCustomer.UserName);
+                $("#chkisrelated").prop("checked", true);
                 $("#btnverify").removeAttr("disabled");
             }
         }
     });
-}
-
-function cacheHtmlElements() {
-    cachedElements.personalInfo = {
-        Title: $("#ddltitle"),
-        FirstName: $("#txtfirstname"),
-        LastName: $("#txtlastname"),
-        ContactNumber1: {
-            PhoneNumber: $("#Contact1"),
-            CountryCode: $("#Contact1CountryCode"),
-            AreaCode: $("#Contact1AreaCode")
-        },
-        ContactNumber2: {
-            PhoneNumber: $("#Contact2"),
-            CountryCode: $("#Contact2CountryCode"),
-            AreaCode: $("#Contact2AreaCode")
-        },
-        ContactNumber3: {
-            PhoneNumber: $("#Contact3"),
-            CountryCode: $("#Contact3CountryCode"),
-            AreaCode: $("#Contact3AreaCode")
-        },
-        Fax: {
-            FaxNumber: $("#txtfax"),
-            FaxCountryCode: $("#FaxCountryCode"),
-            FaxAreaCode: $("#FaxAreaCode")
-        },
-        Mobile: {
-            PhoneNumber: $("#Mobile"),
-            CountryCode: $("#MobileCountryCode"),
-            AreaCode: $("#MobileAreaCode")
-        },
-        Skype: $("#txtSkype"),
-        Email: $("#txtEmail"),
-        MSN: $("#txtMSN"),
-        PassportNumber: $("#PassportNumber"),
-        Birthday: $("#Birthday"),
-        Site: $("#ddlsite"),
-        Languages: $("#ddllanguage"),
-        BettingCode: $("#BettingCode"),
-        RefCodes2: $("#RefCodes2"),
-        IsVIP: $("#IsVIP"),
-        PIC1: $("#txtPIC1"),
-        PIC2: $("#txtPIC2"),
-        PIC3: $("#txtPIC3"),
-        PIC4: $("#PIC4")
-    };
-    
-    cachedElements.details = {
-        FeedbackDate: $("#txtdate"),
-        CsExtension: $("#ddlcsextension"),
-        ResolutionTime: $("#txtResolutionTime"),
-        Communication: $("#ddlcommunication"),
-        Category: $("#ddlcategory"),
-        SubCategory: $("#ddlsubcategory"),
-        Product: $("#ddlproduct"),
-        BetType : $("#ddlbettype"),
-        Status: $("#ddlstatus"),
-        Response: $("#ddlresponse"),
-        IsRelatedCustomer: $("#chkisrelated"),
-        Subject: $("#txtsubject")
-    };
-
-    cachedElements.description = $("#desediter");
-    cachedElements.solution = $("#solediter");
-}
-
-function bindPersonalInfoTab(customer) {
-    var personal = cachedElements.personalInfo;
-    personal.FirstName.val(customer.FirstName);
-    personal.LastName.val(customer.LastName);
-    personal.ContactNumber1.PhoneNumber.val(customer.ContactNumber1.PhoneNumber);
-    personal.ContactNumber1.CountryCode.val(customer.ContactNumber1.CountryCode);
-    personal.ContactNumber1.AreaCode.val(customer.ContactNumber1.AreaCode);
-    personal.ContactNumber2.PhoneNumber.val(customer.ContactNumber2.PhoneNumber);
-    personal.ContactNumber2.CountryCode.val(customer.ContactNumber2.CountryCode);
-    personal.ContactNumber2.AreaCode.val(customer.ContactNumber2.AreaCode);
-    personal.ContactNumber3.PhoneNumber.val(customer.ContactNumber3.PhoneNumber);
-    personal.ContactNumber3.CountryCode.val(customer.ContactNumber3.CountryCode);
-    personal.ContactNumber3.AreaCode.val(customer.ContactNumber3.AreaCode);
-    personal.Fax.FaxNumber.val(customer.Fax.FaxNumber);
-    personal.Fax.CountryCode.val(customer.Fax.CountryCode);
-    personal.Fax.AreaCode.val(customer.Fax.AreaCode);
-    personal.Mobile.PhoneNumber.val(customer.Mobile.PhoneNumber);
-    personal.Mobile.CountryCode.val(customer.Mobile.CountryCode);
-    personal.Mobile.AreaCode.val(customer.Mobile.AreaCode);
-    personal.Skype.val(customer.Skype);
-    personal.Email.val(customer.Email);
-    personal.MSN.val(customer.MSN);
-    personal.PassportNumber.val(customer.PassportNumber);
-    personal.Birthday.val(customer.Birthday);
-    personal.Site.val(customer.Site);
-//    if (personal.Languages.fanexMultiSelect('getItems', true).length === customer.Languages.length) {
-//        personal.Languages.fanexMultiSelect('setCheckAll', true);
-//    }
-//    else {
-
-//    }
-    personal.Country.val(customer.Country);
-    personal.BettingCode.val(customer.BettingCode);
-    personal.RefCodes2.val(customer.RefCodes2);
-    personal.IsVIP.prop("checked", customer.IsVIP);
-    personal.PIC1.val(customer.PIC1);
-    personal.PIC2.val(customer.PIC2);
-    personal.PIC3.val(customer.PIC3);
-    personal.PIC3.val(customer.PIC3);
-}
-
-function getPersonalInfoTabData() {
-    var personal = cachedElements.personalInfo;
-    return {
-        Title: {
-            Id: personal.Title.val().trim()
-        },
-        FirstName: personal.FirstName.val().trim(),
-        LastName: personal.LastName.val().trim(),
-        ContactNumber1: {
-            PhoneNumber: personal.ContactNumber1.PhoneNumber.val().trim(),
-            CountryCode: personal.ContactNumber1.CountryCode.val().trim(),
-            AreaCode: personal.ContactNumber1.AreaCode.val().trim()
-        },
-        ContactNumber2: {
-            PhoneNumber: personal.ContactNumber2.PhoneNumber.val().trim(),
-            CountryCode: personal.ContactNumber2.CountryCode.val().trim(),
-            AreaCode: personal.ContactNumber2.AreaCode.val().trim()
-        },
-        ContactNumber3: {
-            PhoneNumber: personal.ContactNumber3.PhoneNumber.val().trim(),
-            CountryCode: personal.ContactNumber3.CountryCode.val().trim(),
-            AreaCode: personal.ContactNumber3.AreaCode.val().trim()
-        },
-        Fax: {
-            FaxNumber: personal.Fax.FaxNumber.val().trim(),
-            CountryCode: personal.Fax.CountryCode.val().trim(),
-            AreaCode: personal.Fax.AreaCode.val().trim()
-        },
-        Mobile: {
-            PhoneNumber: personal.Mobile.PhoneNumber.val().trim(),
-            CountryCode: personal.Mobile.CountryCode.val().trim(),
-            AreaCode: personal.Mobile.AreaCode.val().trim()
-        },
-        Skype: personal.Skype.val().trim(),
-        Email: personal.Email.val().trim(),
-        MSN: personal.MSN.val().trim(),
-        PassportNumber: personal.PassportNumber.val().trim(),
-        Birthday: personal.Birthday.datepicker("getDate"),
-        Site: personal.Site.val(),
-        Languages: personal.Languages.fanexMultiSelect('getItems', true).join(','),
-        BettingCode: personal.BettingCode.val().trim(),
-        RefCodes2: personal.RefCodes2.val().trim(),
-        IsVIP: personal.IsVIP.prop("checked"),
-        PIC1: personal.PIC1.val().trim(),
-        PIC2: personal.PIC2.val().trim(),
-        PIC3: personal.PIC3.val().trim(),
-        PIC4: personal.PIC4.val().trim()
-    };
-}
-
-function getDetailsTabData() {
-    var details = cachedElements.details;
-    var relatedCustomers = details.IsRelatedCustomer.prop("checked") ? getRelatedCustomer() : [];
-    return {
-        FeedbackDate: details.FeedbackDate.datetimepicker("getDate"),
-        CsExtension: {
-            Id: details.CSExtension.val()
-        },
-        ResolutionTime: details.ResolutionTime.datetimepicker("getDate"),
-        Communication: {
-            Id: details.Communication.val()
-        },
-        Category: {
-            Id: details.Category.val()
-        },
-        SubCategory: {
-            Id: details.SubCategory.val()
-        },
-        Product: {
-            Id: details.Product.val()
-        },
-        BetType : {
-            Id: details.BetType.val()
-        },
-        Status: {
-            Id: details.Status.val()
-        },
-        Response: {
-            Id: details.Response.val()
-        },
-        RelatedCustomer: relatedCustomers,
-        Subject: details.Response.val().trim()
-    };
 }
 
 head.ready(function () {
@@ -705,9 +603,7 @@ head.ready(function () {
     try { parent.BlockUI(); } catch (e) { }
     custId = gup("custid") === "" ? 0 : parseInt(gup("custid"));
     custName = $.URLDecode(gup("custName"));
-
     $("#lblUserName").attr("value", custId).html(custName);
-    getCRMInfoById(custId);
 
     var feedbackdate = new Date(clientTime);
     var resolutiondate = new Date(clientTime);
@@ -718,6 +614,10 @@ head.ready(function () {
     var arrIds = ['txtdate', 'txtResolutionTime'];
     /* jshint newcap: false */
     SetupCalendar(arrDateValues, arrIds);
+    $("#birthdayInfo").datepicker({
+        dateFormat: "mm/dd/yy",
+        maxDate: new Date(clientTime)
+    });
 
     $('#btnRelatedHelp').tipsy({ gravity: 'nw', title: function () { return inputMultipleRelatedNote; } });
     $("#txtrelatedcustomer").fcbkcomplete({
@@ -764,5 +664,5 @@ head.ready(function () {
         }
     });
 
-    cacheHtmlElements();
+    getCRMInfoById(custId);
 });

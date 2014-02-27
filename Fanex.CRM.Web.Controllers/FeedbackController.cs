@@ -43,7 +43,7 @@ namespace Fanex.CRM.Web.Controllers
 
         #region Views
         [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult AddFeedback()
+        public ActionResult AddFeedback(int custId, string custName)
         {
             ViewBag.Title = "Add Feedback";
             return View();
@@ -371,9 +371,22 @@ namespace Fanex.CRM.Web.Controllers
         public JsonResult AddFeedback(Feedback feedback)
         {
             var result = new Result();
-            JsonResult jsonResult;
             try
             {
+                var userId = AppSession.CurrentUser.Id;
+                feedback.Creator = new User
+                {
+                    Id = userId
+                };
+
+                if (feedback.IsReviewed)
+                {
+                    feedback.Reviewer = new User
+                    {
+                        Id = userId
+                    };
+                }
+
                 result = _feedbackService.AddFeedback(feedback);
             }
             catch (Exception ex)
@@ -381,9 +394,7 @@ namespace Fanex.CRM.Web.Controllers
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            jsonResult = Json(result);
-            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return jsonResult;
+            return Json(result, JsonRequestBehavior.DenyGet);
         }
 
         #endregion
