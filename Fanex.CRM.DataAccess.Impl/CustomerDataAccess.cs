@@ -49,8 +49,8 @@ namespace Fanex.CRM.DataAccess.Impl
                         {
                             var releatedCustomer = new RelatedCustomer()
                                                {
-                                                   CustId = reader.GetInt32(reader.GetOrdinal("custid")),
-                                                   UserName = reader.GetString(reader.GetOrdinal("val"))
+                                                   CustId = Fanex.Common.Converter.ToInt(reader.GetOrdinal("custid")),
+                                                   UserName = Fanex.Common.Converter.ToString2(reader.GetOrdinal("val"))
                                                };
                             result.Add(releatedCustomer);
                         }
@@ -85,14 +85,10 @@ namespace Fanex.CRM.DataAccess.Impl
                             var customerInfo = GetCustomerInformation(reader);
                             customer.CustomerInfo = customerInfo;
                             
-                            customer.Id = reader["CustId"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("CustId")) : 0;
-                            customer.UserName = reader["UserName"] != DBNull.Value
-                                                    ? reader.GetString(reader.GetOrdinal("UserName"))
-                                                    : string.Empty;
-                            customer.RoleId = reader["roleid"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("roleid")) : 0;
-                            customer.NickName = custId > 0 ? (reader["UserName2"] != DBNull.Value
-                                                    ? reader.GetString(reader.GetOrdinal("UserName2"))
-                                                    : string.Empty) : string.Empty;
+                            customer.Id = Fanex.Common.Converter.ToInt(reader.GetOrdinal("CustId"), 0);
+                            customer.UserName = Fanex.Common.Converter.ToString2("UserName");
+                            customer.RoleId = Fanex.Common.Converter.ToInt(reader.GetOrdinal("roleid"), 0);
+                            customer.NickName = custId > 0 ? Fanex.Common.Converter.ToString2(reader.GetOrdinal("UserName2")) : string.Empty;
 
                             customer.Pic1 = customerInfo.PIC1;
                             customer.Pic2 = customerInfo.PIC2;
@@ -108,40 +104,22 @@ namespace Fanex.CRM.DataAccess.Impl
                             customer.Creator = new User
                             {
                                 Id =
-                                    reader["CreatorID"] != DBNull.Value
-                                        ? reader.GetInt32(reader["CreatorID"] != null ? reader.GetOrdinal("CreatorID") : 0)
-                                        : 0,
+                                    Fanex.Common.Converter.ToInt(reader.GetOrdinal("CreatorID"), 0),
                                 Username =
-                                    reader["CreatorName"] != DBNull.Value
-                                        ? (reader["CreatorName"] != null ? reader.GetString(reader.GetOrdinal("CreatorName")) : string.Empty)
-                                        : string.Empty
+                                    Fanex.Common.Converter.ToString2(reader.GetOrdinal("CreatorName"))
                             };
 
-                            customer.Country = reader["CountryID"] != DBNull.Value
-                                ? reader.GetInt32(reader["CountryID"] != null ? reader.GetOrdinal("CountryID") : 0)
-                                                    : 0;
+                            customer.Country = Fanex.Common.Converter.ToInt(reader.GetOrdinal("CountryID"), 0);
 
-                            customer.Question = reader["Question"] != DBNull.Value
-                                ? (reader["Question"] != null ? reader.GetString(reader.GetOrdinal("Question")) : string.Empty)
-                                                    : string.Empty;
-                            customer.Answer = reader["Answer"] != DBNull.Value
-                                ? (reader["Answer"] != null ? reader.GetString(reader.GetOrdinal("Answer")) : string.Empty)
-                                                  : string.Empty;
+                            customer.Question = Fanex.Common.Converter.ToString2(reader.GetOrdinal("Question"));
+                            customer.Answer = Fanex.Common.Converter.ToString2(reader.GetOrdinal("Answer"));
 
-                            customer.IsVip = reader["IsVIP"] != DBNull.Value ?
-                                (reader["IsVIP"] != null ? reader.GetBoolean(reader.GetOrdinal("IsVIP")) : false)
-                                    : false;
-                            customer.CreatedDate = reader["CreateDate"] != DBNull.Value
-                                ? (reader["CreateDate"] != null ? reader.GetDateTime(reader.GetOrdinal("CreateDate")) : DateTime.Now)
-                                                       : DateTime.Now;
+                            customer.IsVip = Fanex.Common.Converter.ToBool(reader.GetOrdinal("IsVIP"), false);
+                            customer.CreatedDate = Fanex.Common.Converter.ToDateTime(reader.GetOrdinal("CreateDate"), DateTime.Now);
 
-                            customer.BettingCode = reader["RefCode1"] != DBNull.Value
-                                ? (reader["RefCode1"] != null ? reader.GetString(reader.GetOrdinal("RefCode1")) : string.Empty)
-                                : string.Empty;
+                            customer.BettingCode = Fanex.Common.Converter.ToString2(reader.GetOrdinal("RefCode1"));
 
-                            customer.RefCode2 = reader["RefCode2"] != DBNull.Value
-                                ? (reader["RefCode2"] != null ? reader.GetString(reader.GetOrdinal("RefCode2")) : string.Empty)
-                                                    : string.Empty;
+                            customer.RefCode2 = Fanex.Common.Converter.ToString2(reader.GetOrdinal("RefCode2"));
                             //customer.Remark = reader["Remark"] != DBNull.Value
                             //    ? (reader["Remark"] != null ? reader.GetString(reader.GetOrdinal("Remark")) : string.Empty)
                             //                        : string.Empty;
