@@ -14,6 +14,7 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
         $scope.customerInfo = $bootstrappedData.customerInfo;
         $scope.oldCustomerInfo = angular.copy($scope.customerInfo);
         $scope.isSetFocus = false;
+        $scope.crmConstants = crmConstants;
         $scope.updateCustomerVerifyFlag = function () {
             $scope.BlockUI();
             var selectedCriteria = {
@@ -77,8 +78,7 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
         $scope.isShowBetCredit = function () {
             return $scope.customerInfo && $scope.customerInfo.Id > 0 &&
                ($scope.customerInfo.RoleId === crmConstants.Enums.RoleId.Member ||
-                $scope.customerInfo.RoleId === crmConstants.Enums.RoleId.CRMMember ||
-                !$scope.customerInfo.IsCredit);
+                $scope.customerInfo.RoleId === crmConstants.Enums.RoleId.CRMMember);
         };
         $scope.isShowGivenCredit = function () {
             return $scope.customerInfo && $scope.customerInfo.Id > 0 &&
@@ -93,6 +93,9 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
 
         $scope.completeSetFocus = function () {
             $scope.isSetFocus = false;
+        };
+        $scope.getFormatedCredit = function (creditAmount) {
+            return numeral(creditAmount).format(crmConstants.Enums.FormatConstant.TwoDecimalNumber);
         };
 
         $scope.setFocus = function () {

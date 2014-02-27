@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Dashboard.Repositories.Implements
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -172,7 +173,9 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
                 Email = reader.GetStringNotNull("email"),
                 Passport = reader.GetStringNotNull("Passport"),
                 SecretCode = reader.GetStringNotNull("SecretCode"),
-                BirthDay = reader.GetDateTimeNotNull("Birthday").ToShortFormatedDate(),
+                BirthDay = reader["BirthDay"] != DBNull.Value ?
+                    reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate() :
+                    string.Empty,
 
                 IsVerifyEmail = reader.GetBooleanNotNull("IsVerifyEmail"),
                 IsVerifyPassport = reader.GetBooleanNotNull("IsVerifyPassport"),

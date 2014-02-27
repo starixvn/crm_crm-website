@@ -10,9 +10,11 @@
 namespace Fanex.CRM.Infrastructure.Core
 {
     using System;
+    using System.Collections.Generic;
     using DNAide.Core;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// Date Time Utilize.

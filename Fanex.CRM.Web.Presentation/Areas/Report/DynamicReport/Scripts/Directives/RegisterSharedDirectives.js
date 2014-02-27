@@ -206,6 +206,36 @@ function dynamicReportRegisterPicker() {
 
         directiveManager.registerDropdownContainer(dynamicReportApplication, subCategoryRegisterParams);
     }
+    function registerExtensionPicker() {
+        var extensionRegisterParams = {
+            PlugInName: 'extensionPickerContainer',
+            OptionName: 'extensionOptions',
+            PickerId: 'extension',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(dynamicReportApplication, extensionRegisterParams);
+    }
+    function registerDefaultFocus() {
+        var defaultFocusRegisterParams = {
+            PlugInName: 'defaultFocus',
+            OptionName: 'defaultFocusOptions',
+            PickerId: null,
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDefaultFocus(dynamicReportApplication, defaultFocusRegisterParams);
+    }
 
     registerReportTypePicker();
     registerDatePicker();
@@ -220,6 +250,8 @@ function dynamicReportRegisterPicker() {
     registerCommunicationToolPicker();
     registerMainCategoryPicker();
     registerSubCategoryPicker();
+    registerExtensionPicker();
+    registerDefaultFocus();
 }
 
 dynamicReportRegisterPicker();

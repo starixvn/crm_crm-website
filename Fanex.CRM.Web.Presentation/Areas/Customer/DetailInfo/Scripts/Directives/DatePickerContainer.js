@@ -21,15 +21,19 @@ customerDetailApplication.directive('datePickerContainer', function () {
             }
         });
 
-        if (scope.customerDetail.BirthDay) {
-            txtCalendar.datepicker('setDate', new Date(scope.customerDetail.BirthDay));
-        }
+        txtCalendar.datepicker('setDate', 
+            (scope.customerDetail && scope.customerDetail.BirthDay ?
+                new Date(scope.customerDetail.BirthDay) :
+                new Date(currentDate)));        
     }
     function selectedDateChange(scope, element, attrs) {
         /* jshint unused: vars */
         var fromDatePicker = element.find(".txtcalendar");
         var selectedDate = fromDatePicker.val();
-        if (selectedDate === null || selectedDate === '') {
+        if ((scope.oldCustomerDetail.BirthDay === null ||
+            scope.oldCustomerDetail.BirthDay === '') &&
+            (selectedDate === null ||
+            selectedDate === '')) {
             return selectedDate;
         }
 
@@ -51,7 +55,9 @@ customerDetailApplication.directive('datePickerContainer', function () {
             var txtCalendar = element.find(".txtcalendar");
             renderDatePicker(scope, element, attrs);
 
-            oldValue = new Date(scope.customerDetail.BirthDay);
+            oldValue = scope.customerDetail && scope.customerDetail.BirthDay ?
+                new Date(scope.customerDetail.BirthDay) :
+                new Date(currentDate);
             element.on('change', function () {
                 var selectedDate = selectedDateChange(scope, element, attrs);
                 if (isNaN(oldValue.valueOf()) ||

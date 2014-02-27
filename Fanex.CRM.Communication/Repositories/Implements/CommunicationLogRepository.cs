@@ -179,7 +179,6 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                 Reviewer = reader.GetStringNotNull("ReviewBy")
             };
 
-            logInfo.IsReviewed = logInfo.Reviewer != string.Empty;
             return logInfo;
         }
 
@@ -206,8 +205,8 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                     Id = reader.GetInt32NotNull("SubCategoryID")
                 },
                 Subject = reader.GetStringNotNull("Subject"),
-                StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")),
-                EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ResolutionDate")),
+                StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDate(),
+                EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ResolutionDate")).ToLongFormatedDate(),
                 Extension = new SettingInfo
                 {
                     Id = reader.GetInt32NotNull("StationID")

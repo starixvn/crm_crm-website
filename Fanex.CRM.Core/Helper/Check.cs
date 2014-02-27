@@ -12,8 +12,8 @@ namespace Fanex.CRM.Infrastructure.Helper
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Extension;
 
     /// <summary>
     /// Check class.

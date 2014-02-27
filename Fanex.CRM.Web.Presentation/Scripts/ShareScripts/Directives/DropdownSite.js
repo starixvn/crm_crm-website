@@ -61,7 +61,20 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
         }
 
         function getSelectedItem(selectedId) {
+            var options = scope[registerParams.OptionName];
+            if (options === null ||
+                options.DataList === null) {
+                return;
+            }
+
             selectedId = parseInt(selectedId);
+            if (selectedId === crmConstants.Enums.Site.NotApply) {
+                return {
+                    Id: crmConstants.Enums.Site.NotApply,
+                    Name: options.AllText
+                };
+            }
+
             var dataListLength = dataList.length;
             var selectedItem = null;
             for (var i = 0; i < dataListLength; i++) {

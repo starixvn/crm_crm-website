@@ -19,6 +19,10 @@ namespace Fanex.CRM.Infrastructure.Extension
     {
         public const string ShortDateFormat = "MMM dd, yyyy";
 
+        public const string LongDateFormat = "MM/dd/yyyy HH:mm tt";
+
+        public const string MonthYearFormat = "MMM yyyy";
+
         private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
 
         private static readonly DateTime MaxDate = new DateTime(9999, 12, 31, 23, 59, 59, 999);
@@ -40,6 +44,11 @@ namespace Fanex.CRM.Infrastructure.Extension
             return date.ToString(ShortDateFormat);
         }
 
+        public static string ToLongFormatedDate(this DateTime date)
+        {
+            return date.ToString(LongDateFormat);
+        }
+
         public static DateTime FirstDayOfMonth(this DateTime dateTime)
         {
             return new DateTime(dateTime.Year, dateTime.Month, 1);
@@ -48,6 +57,16 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static DateTime LastDayOfMonth(this DateTime dateTime)
         {
             return dateTime.FirstDayOfMonth().AddMonths(1).AddDays(-1);
+        }
+
+        public static DateTime FirstDayOfYear(this DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, 1, 1);
+        }
+
+        public static DateTime LastDayOfYear(this DateTime dateTime)
+        {
+            return dateTime.FirstDayOfYear().AddYears(1).AddDays(-1);
         }
 
         public static DateTime GetEndOfDate(this DateTime date)
@@ -60,6 +79,23 @@ namespace Fanex.CRM.Infrastructure.Extension
         {
             date = new DateTime(date.Year, date.Month, date.Day);
             return date;
+        }
+
+        public static string ToMonthYear(this DateTime date)
+        {
+            return date.ToString(MonthYearFormat);
+        }
+
+        public static DateTime FirstDayOfWeek(this DateTime dateTime)
+        {
+            var dayOfWeek = (int)dateTime.DayOfWeek + 1;
+            return dateTime.AddDays(-dayOfWeek);
+        }
+
+        public static DateTime LastDayOfWeek(this DateTime dateTime)
+        {
+            var numberDayInWeek = 7;
+            return dateTime.FirstDayOfWeek().AddDays(numberDayInWeek - 1);
         }
     }
 }

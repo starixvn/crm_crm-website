@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Repositories.Implements
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -20,7 +21,6 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;
-    using System;
 
     /// <summary>
     /// Customer Detail Repository.
@@ -118,7 +118,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 },
 
                 BirthDay = reader["BirthDay"] != DBNull.Value ?
-                    reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate():
+                    reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate() :
                     string.Empty,
                 Skype = reader.GetStringNotNull("Skype"),
                 MSN = reader.GetStringNotNull("msn"),

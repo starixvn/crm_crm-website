@@ -39,9 +39,9 @@ namespace Fanex.CRM.Communication.Models
 
         public string Reviewer { get; set; }
 
-        public DateTime StartTime { get; set; }
+        public string StartTime { get; set; }
 
-        public DateTime EndTime { get; set; }
+        public string EndTime { get; set; }
 
         public SettingInfo Extension { get; set; }
 

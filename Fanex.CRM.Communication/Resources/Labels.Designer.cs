@@ -133,6 +133,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Communication tool is mandatory!.
+        /// </summary>
+        public static string Communication_Log_NACommmunicationTool {
+            get {
+                return ResourceManager.GetString("Communication_Log_NACommmunicationTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Communication Logs.
         /// </summary>
         public static string Communication_Logs {

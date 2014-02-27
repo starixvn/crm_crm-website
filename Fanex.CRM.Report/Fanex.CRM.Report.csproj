@@ -55,8 +55,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DynamicReportController.cs" />
+    <Compile Include="Criteria\GetDynamicReportCriteria.cs" />
     <Compile Include="Models\DynamicReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Implements\DynamicReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IDynamicReportRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -65,15 +68,12 @@
     <Compile Include="Services\Implements\DynamicReportService.cs" />
     <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Criteria\" />
-    <Folder Include="Repositories\Implements\" />
-    <Folder Include="Repositories\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

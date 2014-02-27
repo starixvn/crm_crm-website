@@ -332,6 +332,7 @@ namespace Fanex.CRM.Web.View.App_Start
         private static void RegisterBundles_Dashboard_VerifyFlag(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/VerifyFlagScripts").Include(
+                "~/Scripts/FanexGridV2/numeral.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagApplication.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagService.js",
@@ -359,6 +360,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/Directives/WeekPicker.js",
                 "~/Scripts/ShareScripts/Directives/MonthPicker.js",
                 "~/Scripts/ShareScripts/Directives/YearPicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",

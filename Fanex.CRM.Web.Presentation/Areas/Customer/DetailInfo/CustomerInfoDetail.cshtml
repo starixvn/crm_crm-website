@@ -1,6 +1,8 @@
 @using Fanex.CRM.Customer.Resources;
 @using Fanex.CRM.Customer.Models;
 @using Newtonsoft.Json;
+@using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
 @model CustomerInfo
 @{
     var jsonCustomerDetail = JsonConvert.SerializeObject(Model);
@@ -25,7 +27,8 @@
                             <label for="title">
                                 @Labels.Title</label></div>
                         <div class="col-md-7" data-ng-model="titleList" dropdown-title-container>
-                            <select id="customerinfodetail-titleoptions" tabindex="1" class="selTitle" default-focus data-ng-issetfocus="isSetFocus" >
+                            <select id="customerinfodetail-titleoptions" tabindex="1" class="selTitle" default-focus
+                                data-ng-issetfocus="isSetFocus">
                             </select>
                         </div>
                     </div>
@@ -366,8 +369,8 @@
     @Scripts.Render("~/Areas/DetailCustomerInfo/Scripts")
     <script type="text/javascript"> 
         window.rootUrl = '@Url.Content("~")'; 
-        var currentDate = '@DateTime.Now';
-         var viewResources = { 
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var viewResources = { 
             OK: 'OK',
             Select: '@Labels.Select',
             Symbol_NotApply: '@Labels.Symbol_NotApply',

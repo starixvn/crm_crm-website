@@ -12,10 +12,9 @@ namespace Fanex.CRM.Report.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Report.Criteria;
     using Fanex.CRM.Report.Services.Implements;
     using Fanex.CRM.Report.Services.Interfaces;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -47,7 +46,7 @@ namespace Fanex.CRM.Report.Controllers
         /// </summary>
         /// <returns>All setting.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.DynamicReport, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSetting()
         {
             var allSetting = new
@@ -59,10 +58,20 @@ namespace Fanex.CRM.Report.Controllers
                 ResponseList = _dynamicReportService.GetAllResponse(),
                 RoleList = _dynamicReportService.GetAllRole(),
                 CommunicationToolList = _dynamicReportService.GetAllCommunicationTool(),
-                MainCategoryList = _dynamicReportService.GetAllMainCategory()
+                MainCategoryList = _dynamicReportService.GetAllMainCategory(),
+                ExtensionList = _dynamicReportService.GetAllExtension()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.DynamicReport, Policy = Constant.Policy.Read)]
+        public ActionResult GetDynamicReport(GetDynamicReportCriteria criteria)
+        {
+            var logs = _dynamicReportService.GetDynamicReport(criteria);
+            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
+            return jsonResult;
         }
     }
 }

@@ -942,12 +942,17 @@ namespace Fanex.CRM.DataAccess.Impl
 
                             feedback.Language = new Setting
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("languageid"))
+                                Id = 
+                                    reader.IsDBNull(reader.GetOrdinal("languageid")) 
+                                        ? 0
+                                        : reader.GetInt32(reader.GetOrdinal("languageid"))
                             };
 
                             feedback.Country = new Country
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("countryid"))
+                                Id = reader.IsDBNull(reader.GetOrdinal("countryid"))
+                                        ? 0
+                                        : reader.GetInt32(reader.GetOrdinal("countryid"))
                             };
 
                             feedback.CreateDate = DateTimeUtilize.ChangeTimeZoneToClient(reader.GetDateTime(reader.GetOrdinal("createdate")));
@@ -991,7 +996,9 @@ namespace Fanex.CRM.DataAccess.Impl
 
                             feedback.Site = new Setting
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("subcategoryid"))
+                                Id = reader.IsDBNull(reader.GetOrdinal("siteid"))
+                                ? 0
+                                : reader.GetInt32(reader.GetOrdinal("siteid"))
                             };
 
                             feedback.Role = new Setting
@@ -1031,7 +1038,7 @@ namespace Fanex.CRM.DataAccess.Impl
                                 ? string.Empty
                                 : reader.GetString(reader.GetOrdinal("solution"));
 
-                            feedback.Review = reader.IsDBNull(reader.GetOrdinal("review"))
+                            feedback.Review = reader.IsDBNull(reader.GetOrdinal("rerview"))
                                 ? string.Empty
                                 : reader.GetString(reader.GetOrdinal("review"));
 

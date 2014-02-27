@@ -50,7 +50,10 @@ var CRMConstants = function () {
             HH_MM_TT_TimePicker: 'hh:mm TT',
             MM_DD_YYYY_HH_MM_TT_StringFormat: "{0}/{1}/{2} {3}:{4} {5}",
             StartTime_RemarkPrefix: 'YYYYMMDD/hh:mmA',
-            MMM_DD_YYYY_WeekPicker: 'MMM DD, YYYY'
+            MMM_DD_YYYY_WeekPicker: 'MMM DD, YYYY',
+
+            IntNumber: '0,0',
+            TwoDecimalNumber: '0,0.00'
         },
 
         DateTime: {
@@ -80,6 +83,7 @@ var CRMConstants = function () {
         },
 
         PeriodType: {
+            NotApply: 0,
             Daily: 1,
             Weekly: 2,
             Monthly: 3,

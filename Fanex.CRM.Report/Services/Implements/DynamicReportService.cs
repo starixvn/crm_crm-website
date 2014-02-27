@@ -11,29 +11,42 @@ namespace Fanex.CRM.Report.Services.Implements
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Report.Criteria;
+    using Fanex.CRM.Report.Models;
+    using Fanex.CRM.Report.Repositories.Implements;
+    using Fanex.CRM.Report.Repositories.Interfaces;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.Interfaces;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Infrastructure.Extension;
 
     /// <summary>
     /// Dynamic Report Service.
     /// </summary>
     public class DynamicReportService : IDynamicReportService
     {
+        private IDynamicReportRepository _dynamicReportRepository;
+
         private ISettingService _serviceSetting;
 
         public DynamicReportService()
-            : this(null)
+            : this(null, null)
         {
         }
 
         public DynamicReportService(
+            IDynamicReportRepository dynamicReportRepository,
             ISettingService serviceSetting)
         {
+            _dynamicReportRepository = dynamicReportRepository ?? new DynamicReportRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
@@ -255,7 +268,8 @@ namespace Fanex.CRM.Report.Services.Implements
                     Name = Labels.All,
                     ChildSettings = new List<SettingInfo>
                     {
-                        new SettingInfo {
+                        new SettingInfo
+                        {
                             Id = SettingConstants.NotApply,
                             Name = Labels.All,
                         }
@@ -273,6 +287,412 @@ namespace Fanex.CRM.Report.Services.Implements
             }
 
             return allMainCategory;
+        }
+
+        /// <summary>
+        /// Gets all extension.
+        /// </summary>
+        /// <returns>All extension.</returns>
+        public List<SettingInfo> GetAllExtension()
+        {
+            var allExtension = new List<SettingInfo>();
+            try
+            {
+                var rawData = _serviceSetting.GetAllExtension();
+                foreach (var rawExtension in rawData)
+                {
+                    if (rawExtension.Id == ExtensionConstants.NotApply)
+                    {
+                        rawExtension.Value = Labels.All;
+                    }
+
+                    allExtension.Add(rawExtension);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allExtension;
+        }
+
+        /// <summary>
+        /// Gets the dynamic report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The dynamic report.</returns>      
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public DynamicReport GetDynamicReport(GetDynamicReportCriteria criteria)
+        {
+            DynamicReport dynamicReport = null;
+            try
+            {
+                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+                //var rawData = _dynamicReportRepository.GetDynamicReport(criteria);
+                var rawData = new List<DynamicReport>
+                {
+                    new DynamicReport 
+                    {
+                        RunningNumber = 10500,
+                        PeriodRange = new PeriodRange{
+                            FromDate = criteria.ToDate,
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
+                        MainCategory = new SettingInfo
+                        {
+                            Name = "General Network/Database Issues"
+                        },
+                        SubCategory = new SettingInfo
+                        {
+                            Name = "Agency Site Network Issue"
+                        },
+                        Subject = "New super 2",
+                        StatusName = "Open",
+                        Duration = new TimeInfo
+                        {
+                            Hours = 1,
+                            Minutes = 0,
+                            Seconds = 0
+                        },
+                        Handler = "sa",
+                        Reviewer ="sa"
+                    },
+                    new DynamicReport 
+                    {
+                        RunningNumber = 41844,
+                        PeriodRange = new PeriodRange{
+                            FromDate =  new DateTime(2014,2,26),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
+                        MainCategory = new SettingInfo
+                        {
+                            Name = "General Network/Database Issues"
+                        },
+                        SubCategory = new SettingInfo
+                        {
+                            Name = "Agency Site Network Issue"
+                        },
+                        Subject = "New super 2",
+                        StatusName = "Open",
+                        Duration = new TimeInfo
+                        {
+                            Hours = 1,
+                            Minutes = 0,
+                            Seconds = 0
+                        },
+                        Handler = "sa",
+                        Reviewer ="sa"
+                    },
+                    new DynamicReport 
+                    {
+                        RunningNumber = 41843,
+                        PeriodRange = new PeriodRange{
+                            FromDate = new DateTime(2014,2,26),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
+                        MainCategory = new SettingInfo
+                        {
+                            Name = "General Network/Database Issues"
+                        },
+                        SubCategory = new SettingInfo
+                        {
+                            Name = "Agency Site Network Issue"
+                        },
+                        Subject = "New super 2",
+                        StatusName = "Open",
+                        Duration = new TimeInfo
+                        {
+                            Hours = 1,
+                            Minutes = 0,
+                            Seconds = 0
+                        },
+                        Handler = "sa",
+                        Reviewer ="sa"
+                    },
+                    new DynamicReport 
+                    {
+                        RunningNumber = 41840,
+                        PeriodRange = new PeriodRange{
+                            FromDate = new DateTime(2014,1,25),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
+                        MainCategory = new SettingInfo
+                        {
+                            Name = "General Network/Database Issues"
+                        },
+                        SubCategory = new SettingInfo
+                        {
+                            Name = "Agency Site Network Issue"
+                        },
+                        Subject = "New super 2",
+                        StatusName = "Open",
+                        Duration = new TimeInfo
+                        {
+                            Hours = 1,
+                            Minutes = 0,
+                            Seconds = 0
+                        },
+                        Handler = "sa",
+                        Reviewer ="sa"
+                    },
+                    new DynamicReport 
+                    {
+                        RunningNumber = 41838,
+                        PeriodRange = new PeriodRange{
+                            FromDate = new DateTime(2012,1,24),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
+                        MainCategory = new SettingInfo
+                        {
+                            Name = "General Network/Database Issues"
+                        },
+                        SubCategory = new SettingInfo
+                        {
+                            Name = "Agency Site Network Issue"
+                        },
+                        Subject = "New super 2",
+                        StatusName = "Open",
+                        Duration = new TimeInfo
+                        {
+                            Hours = 1,
+                            Minutes = 0,
+                            Seconds = 0
+                        },
+                        Handler = "sa",
+                        Reviewer ="sa"
+                    },
+                    new DynamicReport 
+                    {
+                        RunningNumber = 41836,
+                        PeriodRange = new PeriodRange{
+                            FromDate = new DateTime(2012,1,24),
+                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
+                        },
+                        MainCategory = new SettingInfo
+                        {
+                            Name = "General Network/Database Issues"
+                        },
+                        SubCategory = new SettingInfo
+                        {
+                            Name = "Agency Site Network Issue"
+                        },
+                        Subject = "New super 2",
+                        StatusName = "Open",
+                        Duration = new TimeInfo
+                        {
+                            Hours = 1,
+                            Minutes = 0,
+                            Seconds = 0
+                        },
+                        Handler = "sa",
+                        Reviewer ="sa"
+                    }
+                };
+
+                if (rawData == null ||
+                    rawData.Count == 0)
+                {
+                    return dynamicReport;
+                }
+
+                switch (criteria.ReportType)
+                {
+                    case PeriodTypeConstants.Daily:
+                        dynamicReport = GetDynamicReportByDaily(rawData, criteria);
+                        break;
+                    case PeriodTypeConstants.Weekly:
+                        dynamicReport = GetDynamicReportByWeekly(rawData, criteria);
+                        break;
+                    case PeriodTypeConstants.Monthly:
+                        dynamicReport = GetDynamicReportByMonthly(rawData, criteria);
+                        break;
+                    case PeriodTypeConstants.Yearly:
+                        dynamicReport = GetDynamicReportByYearly(rawData, criteria);
+                        break;
+                    default:
+                        break;
+                }
+
+                dynamicReport.ReportTypeId = criteria.ReportType;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return dynamicReport;
+        }
+
+        private DynamicReport GetDynamicReportByYearly(
+            List<DynamicReport> rawData,
+            GetDynamicReportCriteria criteria)
+        {
+            DynamicReport dynamicReport = new DynamicReport
+            {
+                Id = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).Year.ToString(),
+                ChildReports = new List<DynamicReport>(),
+                Name = string.Format(
+                    Labels.DynamicReport_Title,
+                    Labels.Yearly,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+            };
+
+            var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.Year);
+            foreach (var periodGroup in periodGroups)
+            {
+                var periodReport = new DynamicReport
+                {
+                    Name = string.Format(
+                        Labels.DynamicReport_PeriodReport_Title,
+                        Labels.Yearly,
+                        periodGroup.Key),
+                    ChildReports = new List<DynamicReport>(),
+                    PeriodRange = new PeriodRange
+                    {
+                        FromDate = new DateTime(periodGroup.Key, 1, 1),
+                        ToDate = new DateTime(periodGroup.Key, 12, 31)
+                    }
+                };
+
+                periodReport.PeriodRange.FromDateString = periodReport.PeriodRange.FromDate.ToShortFormatedDate();
+                periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
+                foreach (var data in periodGroup)
+                {
+                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    periodReport.ChildReports.Add(data);
+                }
+
+                dynamicReport.ChildReports.Add(periodReport);
+            }
+
+            return dynamicReport;
+        }
+
+        private DynamicReport GetDynamicReportByMonthly(
+            List<DynamicReport> rawData,
+            GetDynamicReportCriteria criteria)
+        {
+            DynamicReport dynamicReport = new DynamicReport
+            {
+                Id = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToMonthYear(),
+                ChildReports = new List<DynamicReport>(),
+                Name = string.Format(
+                    Labels.DynamicReport_Title,
+                    Labels.Monthly,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+            };
+
+            var periodGroups = rawData.GroupBy(data => new DateTime(data.PeriodRange.FromDate.Year, data.PeriodRange.FromDate.Month, data.PeriodRange.FromDate.Day));
+            foreach (var periodGroup in periodGroups)
+            {
+                var periodReport = new DynamicReport
+                {
+                    Name = string.Format(
+                        Labels.DynamicReport_PeriodReport_Title,
+                        Labels.Monthly,
+                        periodGroup.Key.ToMonthYear()),
+                    ChildReports = new List<DynamicReport>(),
+                    PeriodRange = new PeriodRange
+                    {
+                        FromDate = periodGroup.Key,
+                        ToDate = periodGroup.Key.LastDayOfMonth()
+                    }
+                };
+
+                periodReport.PeriodRange.FromDateString = periodReport.PeriodRange.FromDate.ToShortFormatedDate();
+                periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
+                foreach (var data in periodGroup)
+                {
+                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    periodReport.ChildReports.Add(data);
+                }
+
+                dynamicReport.ChildReports.Add(periodReport);
+            }
+
+            return dynamicReport;
+        }
+
+        private DynamicReport GetDynamicReportByWeekly(
+            List<DynamicReport> rawData,
+            GetDynamicReportCriteria criteria)
+        {
+            DynamicReport dynamicReport = new DynamicReport
+            {
+                ChildReports = new List<DynamicReport>(),
+                Name = string.Format(
+                    Labels.DynamicReport_Title,
+                    Labels.Weekly,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+            };
+
+            var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.FirstDayOfWeek().ToShortFormatedDate() + " - " + data.PeriodRange.FromDate.LastDayOfWeek().ToShortFormatedDate());
+            foreach (var periodGroup in periodGroups)
+            {
+                var periodReport = new DynamicReport
+                {
+                    Name = string.Format(
+                        Labels.DynamicReport_PeriodReport_Title,
+                        Labels.Weekly,
+                        periodGroup.Key),
+                    ChildReports = new List<DynamicReport>()
+                };
+
+                foreach (var data in periodGroup)
+                {
+                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    periodReport.ChildReports.Add(data);
+                }
+
+                dynamicReport.ChildReports.Add(periodReport);
+            }
+
+            return dynamicReport;
+        }
+
+        private DynamicReport GetDynamicReportByDaily(
+            List<DynamicReport> rawData,
+            GetDynamicReportCriteria criteria)
+        {
+            DynamicReport dynamicReport = new DynamicReport
+            {
+                ChildReports = new List<DynamicReport>(),
+                Name = string.Format(
+                    Labels.DynamicReport_Title,
+                    Labels.Daily,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+            };
+
+            var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate);
+            foreach (var periodGroup in periodGroups)
+            {
+                var periodReport = new DynamicReport
+                {
+                    Name = string.Format(
+                        Labels.DynamicReport_PeriodReport_Title,
+                        Labels.Daily,
+                        periodGroup.Key.ToShortFormatedDate()),
+                    ChildReports = new List<DynamicReport>()
+                };
+
+                foreach (var data in periodGroup)
+                {
+                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    periodReport.ChildReports.Add(data);
+                }
+
+                dynamicReport.ChildReports.Add(periodReport);
+            }
+
+            return dynamicReport;
         }
     }
 }

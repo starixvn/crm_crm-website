@@ -281,11 +281,8 @@ namespace Fanex.CRM.Web.Controllers
                 {
                     BirthDay = !string.IsNullOrEmpty(birthDay) ? DateTime.Parse(birthDay) : DateTime.Now,
                     Email = email,
-                    //Fax = fax,
                     FirstName = firstName,
                     LastName = lastName,
-                    //MobilePhone = mobilePhone,
-                    //Phone = phone,
                     Title = new Setting { Id = titleId },
                     Skype = skype,
                     MSN = msn
