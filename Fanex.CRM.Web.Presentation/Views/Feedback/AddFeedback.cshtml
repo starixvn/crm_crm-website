@@ -1,9 +1,11 @@
-﻿@using Fanex.CRM.Infrastructure.Common
+﻿@using Resources
+@using Fanex.CRM.Infrastructure.Common
 @using Fanex.NAP.Core.Business
 <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/InputBox/style.css")" rel="stylesheet" type="text/css" />
+<link href="@Url.Content("~/Scripts/MultipleSelect/fanex.multiSelect.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.less?ver=1")" rel="stylesheet" type="text/css" />    
 
 <!--Template area-->
@@ -32,318 +34,375 @@
         </div>
         <div class="CustInfo row content">
             <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="ddltitle">
-                        Title</label></div>
-                <div class="col-xs-3 col-sm-3 col-md-1">
-                    <select id="ddltitle">
-                    </select><span class="hidden error errormsg" id="errortitle"></span>
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddltitle">@Language.Title</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddltitle" tabindex="2"></select>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="contact1Info">@Language.ContactNumber1</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox code-country" id="contact1InfoCountry" tabindex="5" />
+                            <input type="text" class="textbox code-area" id="contact1InfoArea" tabindex="6" />
+                            <input type="text" class="textbox phone" id="contact1InfoPhone" tabindex="7" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="faxInfo">@Language.Fax</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox code-country" id="faxInfoCountry" tabindex="14" />
+                            <input type="text" class="textbox code-area" id="faxInfoArea" tabindex="15" />
+                            <input type="text" class="textbox phone" id="faxInfoFax" tabindex="16" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="skypeInfo">@Language.Skype</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="skypeInfo" tabindex="21" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="msnInfo">@Language.MSN</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="msnInfo" tabindex="24" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="birthdayInfo">@Language.Birthday</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox timepicker txtcalendar" id="birthdayInfo" tabindex="27" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddllanguage">@Language._Language</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddllanguage" tabindex="30"></select>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="refCodes2Info">@Language.RefCodes2</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="refCodes2Info" tabindex="33" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <label for="chkIsOverrideCrmInfo" class="labelforcheckbox checkbox">
+                                <input type="checkbox" id="chkIsOverrideCrmInfo" />
+                                @Language.OverwriteCRMInfo</lable>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="txtfirstname">
-                        First Name</label></div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtfirstname" class="textbox" />
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="firstNameInfo">@Language.FirstName</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="firstNameInfo" tabindex="4" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="contact2Info">@Language.ContactNumber2</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox code-country" id="contact2InfoCountry" tabindex="8" />
+                            <input type="text" class="textbox code-area" id="contact2InfoArea" tabindex="9" />
+                            <input type="text" class="textbox phone" id="contact2InfoPhone" tabindex="10" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="mobileInfo">@Language.Mobile</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox code-country" id="mobileInfoCountry" tabindex="17" />
+                            <input type="text" class="textbox code-area" id="mobileInfoArea" tabindex="18" />
+                            <input type="text" class="textbox phone" id="mobileInfoPhone" tabindex="19" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="emailInfo">@Language.Email</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="emailInfo" tabindex="22" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="passportInfo">@Language.PassportNumber</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="passportInfo" tabindex="25" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlsite">@Language.Site</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlsite" class="dropdown-siteinfo" tabindex="28"></select>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlcountry">@Language.country</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlcountry" tabindex="31"></select>
+                            <span class="error errormsg hidden" id="errorcountry"></span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <label for="isVIP" class="labelforcheckbox checkbox">
+                                <input id="isVIP" type="checkbox" tabindex="34" />@Language.VIP</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="txtlastname">
-                        Last Name
-                    </label>
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="lastNameInfo">@Language.LastName</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="lastNameInfo" tabindex="3" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="contact3Info">@Language.ContactNumber3</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox code-country" id="contact3InfoCountry" tabindex="11" />
+                            <input type="text" class="textbox code-area" id="contact3InfoArea" tabindex="12" />
+                            <input type="text" class="textbox phone" id="contact3InfoPhone" tabindex="13" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="pic1Info">@Language.PIC1</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="pic1Info" tabindex="20" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="pic2Info">@Language.PIC2</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="pic2Info" tabindex="23" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="pic3Info">@Language.PIC3</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="pic3Info" tabindex="26" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="pic4Info">@Language.PIC4</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="pic4Info" tabindex="29" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="bettingCodeInfo">@Language.BettingCode</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" class="textbox" id="bettingCodeInfo" tabindex="32" />
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtlastname" class="textbox" />
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="txtphone">
-                        Phone</label></div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtphone" class="textbox" />
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="txtmobilephone">
-                        Mobile Phone
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtmobilephone" class="textbox" />
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="txtfax">
-                        Fax
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtfax" class="textbox" />
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="txtEmail">
-                        Email
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtEmail" class="textbox" />
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="txtPIC1">
-                        PIC1
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtPIC1" class="textbox" />
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="txtMSN">
-                        MSN
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtMSN" class="textbox" />
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="txtPIC2">
-                        PIC2
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtPIC2" class="textbox" />
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="txtSkype">
-                        Skype
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtSkype" class="textbox" />
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="txtPIC3">
-                        PIC3
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtPIC3" class="textbox" />
-                </div>
-            </div>
-            <div class="row item">
-                <lable class="checkbox">
-                    <input type="checkbox" id="chkIsOverrideCrmInfo" style="float: left; display: block;" />
-                Overwrite current CRM Info
-                </lable>
             </div>
         </div>
     </div>
 
     <div class="row panel-group">
         <div class="row title hand" onclick="showHideDetailBox(isShowFeedbackDetailBox, 'FeedbackDetail'); isShowFeedbackDetailBox = !isShowFeedbackDetailBox;">
-            Details
+            @Language.Details
         </div>
         <div class="FeedbackDetail row content">
             <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="txtdate">
-                        Feedback Date
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtdate" class="txtcalendar textbox" readonly />
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="ddlcsextension">
-                        CS Extension/Station
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlcsextension">
-                    </select>
-                    <span class="hidden error errormsg" id="errorcsextension"></span>
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="txtResolutionTime">
-                        Resolution Time
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <input type="text" id="txtResolutionTime" class="txtcalendar textbox" readonly />
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="ddlcountry">
-                        Country
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlcountry">
-                    </select>
-                    <span class="error errormsg hidden" id="errorcountry"></span>
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="ddlcommunication">
-                        Communication
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlcommunication">
-                    </select>
-                    <span class="hidden error errormsg" id="errorcommunication"></span>
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="ddllanguage">
-                        Language
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddllanguage">
-                    </select>
-                    <span class="hidden error errormsg" id="errorlanguage"></span>
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="ddlcategory">
-                        Category
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlcategory">
-                    </select>
-                    <span class="hidden error errormsg" id="errorcategory"></span>
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="ddlsubcategory">
-                        SubCategory
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlsubcategory">
-                    </select>
-                    <input type="hidden" id="hIsNotChild" value="0" />
-                    <span class="hidden error errormsg" id="errorsubcategory"></span>
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="ddlproduct">
-                        Product
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlproduct">
-                    </select>
-                    <span class="error hidden errormsg" id="errorproudct"></span>
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="ddlbettype">
-                        Bet Type
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlbettype">
-                    </select>
-                    <span class="hidden error errormsg" id="errorbettype"></span>
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="ddlstatus">
-                        Status
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlstatus">
-                    </select>
-                    <span class="error errormsg hidden" id="errorstatus"></span>
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="ddlsite">
-                        Site
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlsite">
-                    </select>
-                    <span class="error errormsg hidden" id="errorsite"></span>
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="ddlstatus">
-                        Role
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlrole" name="D3"></select>
-                    <span id="errorrole" class="error errormsg hidden"></span>
-                </div>
-                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-2 col-sm-2 col-md-2">
-                    <label for="ddlresponse">
-                        Response
-                    </label>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="ddlresponse">
-                    </select>
-                    <span class="error errormsg hidden" id="errorresponse"></span>
-                </div>
-            </div>
-            <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label class="checkbox">
-                        <input type="checkbox" id="chkisrelated" onclick="checkIsRelated(this);" style="float: left;
-                            display: block;" />
-                        Is Related to Customer
-                    </label>
-                </div>
-                <div class="col-xs-8 col-sm-9 col-md-9">
-                    <div class="row">
-                        <div class="col-xs-11 col-sm-11 col-md-11">
-                            <input type="button" value="  " id="btnRelatedHelp" class="btnHelp pull-left" title="Related Help" />
-                            <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
-                            </select>
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="txtdate">@Language.FeedbackDate</label>
                         </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                            <button class="btn pull-right" onclick="verifyUserName();" class="btn" id="btnverify"
-                                disabled>
-                               Verify</button>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" id="txtdate" class="txtcalendar textbox" tabindex="36" readonly />
                         </div>
                     </div>
-                    <div id="ColorGuide" class="row hidden colorGuide">
-                        <div class="col-sm-2 col-md-2 relate-customer">
-                            Customer</div>
-                        <div class="col-sm-2 col-md-2 relate-guest">
-                            Guest</div>
-                        <div class="col-sm-2 col-md-2 relate-invalid">
-                            Invalid</div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlcommunication">@Language.Communication</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlcommunication" tabindex="39"></select>
+                            <span class="hidden error errormsg" id="errorcommunication"></span>
+                        </div>
                     </div>
-                    <div id="trRelatedInfo" class="row hidden">
-                        <table id="related">
-                        </table>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlproduct">@Language.Product</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlproduct" tabindex="42"></select>
+                            <span class="error hidden errormsg" id="errorproudct"></span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlrole">@Language.Role</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlrole" name="D3" tabindex="42"></select>
+                            <span class="error hidden errormsg" id="errorrole"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="txtResolutionTime">@Language.ResolutionTime</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <input type="text" id="txtResolutionTime" class="txtcalendar textbox" tabindex="38" readonly />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlcategory">@Language.Category</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlcategory" tabindex="40"></select>
+                            <span class="hidden error errormsg" id="errorcategory"></span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlbettype">@Language.BetType</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlbettype" tabindex="43"></select>
+                            <span class="hidden error errormsg" id="errorbettype"></span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlresponse">@Language.Response</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlresponse" tabindex="45"></select>
+                            <span class="error errormsg hidden" id="errorresponse"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlcsextension">@Language.CSExtension</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlcsextension" tabindex="37"></select>
+                            <span class="hidden error errormsg" id="errorcsextension"></span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlsubcategory">@Language.SubCategory</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlsubcategory" tabindex="41"></select>
+                            <input type="hidden" id="hIsNotChild" value="0" />
+                            <span class="hidden error errormsg" id="errorsubcategory"></span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlstatus">@Language.Status</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlstatus" tabindex="44"></select>
+                            <span class="error errormsg hidden" id="errorstatus"></span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row item">
-                <div class="col-xs-3 col-sm-2 col-md-2">
-                    <label for="txtsubject">
-                        Subject
-                    </label>
+                <div class="row item">
+                    <div class="col-xs-3 col-sm-2 col-md-2">
+                        <label class="labelforcheckbox checkbox">
+                            <input type="checkbox" id="chkisrelated" onclick="checkIsRelated(this);" style="float: left;
+                                display: block;" />
+                            @Language.IsRelatedCustomer
+                        </label>
+                    </div>
+                    <div class="col-xs-9 col-sm-10 col-md-10">
+                        <div class="row">
+                            <div class="col-xs-11 col-sm-11 col-md-11">
+                                <input type="button" value="  " id="btnRelatedHelp" class="btnHelp pull-left" title="Related Help" />
+                                <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
+                                </select>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                                <button class="btn pull-right" onclick="verifyUserName();" class="btn" id="btnverify"
+                                    disabled>
+                                   @Language.Verify</button>
+                            </div>
+                        </div>
+                        <div id="ColorGuide" class="row hidden colorGuide">
+                            <div class="col-sm-2 col-md-2 relate-customer">
+                                Invalid.Customer</div>
+                            <div class="col-sm-2 col-md-2 relate-guest">
+                                Invalid.Guest</div>
+                            <div class="col-sm-2 col-md-2 relate-invalid">
+                                Invalid.Invalid</div>
+                        </div>
+                        <div id="trRelatedInfo" class="row hidden">
+                            <table id="related">
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-9">
-                    <input type="text" id="txtsubject" class="textbox" autocomplete="off" /><span class="hidden error errormsg"
-                        id="errorsubject"></span>
+            </div>
+            <div class="row item">
+                <div class="row item">
+                    <div class="col-xs-3 col-sm-2 col-md-2">
+                        <label for="txtsubject">
+                            @Language.Subject
+                        </label>
+                    </div>
+                    <div class="col-xs-9 col-sm-10 col-md-10">
+                        <input type="text" id="txtsubject" class="textbox" autocomplete="off" /><span class="hidden error errormsg"
+                            id="errorsubject"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -352,11 +411,11 @@
     <div class="row panel-group">
         <div class="row title">
             <div class="pull-left hand" onclick="showHideDetailBox(isShowDescriptionBox, 'FeedbackDescription'); isShowDescriptionBox = !isShowDescriptionBox;">
-                Description<span class="hidden error errormsg" id="deseditererror"></span>
+                @Language.Description<span class="hidden error errormsg" id="deseditererror"></span>
             </div>
             <div class="pull-right">
-                <input type="button" class="btnreview " value="Preview" id="btndesreview" onclick="initReview('des');" />
-                <input type="button" class="btnedit hidden" value="Edit" id="btndesedit" onclick="initEdit('des');" />
+                <input type="button" class="btnreview " value="@Language.Preview" id="btndesreview" onclick="initReview('des');" />
+                <input type="button" class="btnedit hidden" value="@Language.Edit" id="btndesedit" onclick="initEdit('des');" />
             </div>
         </div>
         <div class="FeedbackDescription row content">
@@ -372,11 +431,11 @@
     <div class="row panel-group">
         <div class="row title">
             <div class="pull-left hand" onclick="showHideDetailBox(isShowSolutionBox, 'FeedbackSolution'); isShowSolutionBox = !isShowSolutionBox;">
-                Solution<span class="hidden error errormsg" id="soleditererror"></span>
+                @Language.solution<span class="hidden error errormsg" id="soleditererror"></span>
             </div>
             <div class="pull-right">
-                <input type="button" class="btnreview " value="Preview" id="btnsolreview" onclick="initReview('sol');" />
-                <input type="button" class="btnedit hidden" value="Edit" id="btnsoledit" onclick="initEdit('sol');" />
+                <input type="button" class="btnreview " value="@Language.Preview" id="btnsolreview" onclick="initReview('sol');" />
+                <input type="button" class="btnedit hidden" value="@Language.Edit" id="btnsoledit" onclick="initEdit('sol');" />
             </div>
         </div>
         <div class="FeedbackSolution row content">
@@ -418,428 +477,44 @@
             Save</button>
     </div>
 </div>
-
-@*<div class="main">
-    <div class="maincontent">
-        <table border="0" cellpadding="0px" cellspacing="0px" class="maincontent_header">
-            <tr>
-                <td class="maincontent_headerL">
-                    <img class="maincontent_iconLeft" alt="" src="../Content/site/Images/imgBg.png" />
-                </td>
-                <td class="maincontent_headerC">
-                    Add Customer Feedback
-                </td>
-                <td class="maincontent_headerR">
-                </td>
-            </tr>
-        </table>
-        <div class="bg_table">
-            <div class="errmsg" id="errmsg">
-            </div>
-            <div id="sContent" style="">
-                <table class="tblcollapse" style="width: 100%; text-align: left">
-                    <tr>
-                        <td colspan="4">
-                            <input type="button" onclick="AddFeedback();" class="btn" id="btnsubmit" value="Submit"
-                                disabled />
-                        </td>
-                    </tr>
-                    <tr class="title">
-                        <td colspan="4" class="c">
-                            <input type="button" id="btnShowHideCustInfo" class="updown" value="" onclick="downup('btnShowHideCustInfo', 'CustInfo')" />
-                            <b><span id="lblUserName" value="">
-                                <!--UserName-->
-                            </span></b>
-                        </td>
-                    </tr>
-                    <tr class="CustInfo solid_bottom">
-                        <td style="border-right: 0px; width: 25%" class="b">
-                            Title
-                        </td>
-                        <td style="border-left: 0px; width: 75%" colspan="3">
-                            <select id="ddltitle">
-                            </select>
-                        </td>
-                    </tr>
-                    <tr class="CustInfo solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            First Name
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <input type="text" id="txtfirstname" />
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            Last Name
-                        </td>
-                        <td style="border-left: 0px">
-                            <input type="text" id="txtlastname" />
-                        </td>
-                    </tr>
-                    <tr class="CustInfo solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            Phone
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <input type="text" id="txtphone" />
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            Mobile Phone
-                        </td>
-                        <td style="border-left: 0px">
-                            <input type="text" id="txtmobilephone" />
-                        </td>
-                    </tr>
-                    <tr class="CustInfo solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            Fax
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <input type="text" id="txtfax" />
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            Email
-                        </td>
-                        <td style="border-left: 0px">
-                            <input type="text" id="txtEmail" />
-                        </td>
-                    </tr>
-                    <tr class="CustInfo solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            PIC1
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <input type="text" id="txtPIC1" />
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            MSN
-                        </td>
-                        <td style="border-left: 0px">
-                            <input type="text" id="txtMSN" />
-                        </td>
-                    </tr>
-                    <tr class="CustInfo solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            PIC2
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <input type="text" id="txtPIC2" />
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            Skype
-                        </td>
-                        <td style="border-left: 0px">
-                            <input type="text" id="txtSkype" />
-                        </td>
-                    </tr>
-                    <tr class="CustInfo solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            PIC3
-                        </td>
-                        <td colspan="3" style="border-left: 0px;">
-                            <input type="text" id="txtPIC3" />
-                        </td>
-                    </tr>
-                    <tr class="CustInfo solid_bottom">
-                        <td colspan="4" class="b" style="border-right: 0px">
-                            <input type="checkbox" id="chkIsOverrideCrmInfo" style="float:left; display:block;" />
-                            &nbsp; Overwrite current CRM Info
-                        </td>
-                    </tr>
-                    <tr class="title">
-                        <td colspan="4">
-                            <input type="button" id="btnShowHideDetail" class="updown" value="" onclick="downup('btnShowHideDetail', 'FeedbackDetail')" />
-                            <b>Details</b>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDetail solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            Feedback Date
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <input type="text" id="txtdate" class="txtcalendar" readonly />
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            CS Extension/Station
-                        </td>
-                        <td style="border-left: 0px">
-                            <select id="ddlcsextension">
-                            </select>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDetail solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            Resolution Time
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <input type="text" id="txtResolutionTime" class="txtcalendar" readonly />
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            Country
-                        </td>
-                        <td style="border-left: 0px">
-                            <select id="ddlcountry" name="D1">
-                            </select>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDetail solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            Communication
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <select id="ddlcommunication">
-                            </select>
-                            <span class="hidden error errormsg" id="errorcommunication"></span>
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            Language
-                        </td>
-                        <td style="border-left: 0px">
-                            <select id="ddllanguage">
-                            </select>
-                            <span class="hidden error errormsg" id="errorlanguage"></span>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDetail solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            Category
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <select id="ddlcategory" onchange="bindingChildByParentId('ddlsubcategory', AllSetting.Category, $('#ddlcategory').val());  ">
-                            </select>
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            SubCategory
-                        </td>
-                        <td style="border-left: 0px">
-                            <select id="ddlsubcategory">
-                            </select>
-                            <input type="hidden" id="hIsNotChild" value="0" />
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDetail solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            Product
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <select id="ddlproduct" onchange="bindingChildByParentId('ddlbettype', AllSetting.Product, $('#ddlproduct').val());">
-                            </select>
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            Bet Type
-                        </td>
-                        <td style="border-left: 0px">
-                            <select id="ddlbettype">
-                            </select>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDetail solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            Status
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <select id="ddlstatus" name="D2">
-                            </select>
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            Site
-                        </td>
-                        <td style="border-left: 0px">
-                            <select id="ddlsite">
-                            </select>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDetail solid_bottom">
-                        <td class="b" style="border-right: 0px">
-                            Role
-                        </td>
-                        <td style="border-left: 0px; border-right:1px solid #E5E5E5;">
-                            <select id="ddlrole" name="D3">
-                            </select>
-                            <span id="errorrole" class="error errormsg hidden"></span>
-                        </td>
-                        <td class="b" style="border-right: 0px">
-                            Response
-                        </td>
-                        <td style="width: 30%" style="border-left: 0px">
-                            <select id="ddlresponse">
-                            </select>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDetail solid_bottom">
-                        <td class="b" style="border-right:1px solid #E5E5E5;">
-                            <input type="checkbox" id="chkisrelated" onclick="checkIsRelated(this);" style="float:left; display:block;" />
-                            Is Related to Customer
-                        </td>
-                        <td colspan="3">
-                            <table>
-                                <tr>
-                                    <td style="border: 0px">
-                                        <input type="button" value="  " id="btnRelatedHelp" class="btnHelp" title="Related Help" />
-                                    </td>
-                                    <td style="border: 0px">
-                                        <select id="txtrelatedcustomer" name="txtrelatedcustomer" disabled>
-                                        </select>
-                                    </td>
-                                    <td style="border: 0px">
-                                        <input type="button" onclick="verifyUserName();" class="btn" id="btnverify" value="Verify"
-                                            disabled />
-                                    </td>
-                                </tr>
-                                <tr class="hidden">
-                                    <td style="border: 0px">
-                                    </td>
-                                    <td colspan='2' style="border: 0px">
-                                        <span class="" id="lblverify" value="0"></span>
-                                    </td>
-                                </tr>
-                                <tr id="ColorGuide" class="hidden">
-                                    <td style="border: 0px"></td>
-                                    <td style="border: 0px" colspan='2'>
-                                        <table style="width:100%">
-                                            <tr>
-                                            <td style="border: 0px; width:5%"><div style="border:1 solid green ; background-color:green; width:30px; height:10px"></div></td>
-                                            <td style="border: 0px; width:25%">Customer</td>
-                                            <td style="border: 0px; width:5%"><div style="border:1 solid #0066CC ; background-color:#0066CC; width:30px; height:10px"></div></td>
-                                            <td style="border: 0px; width:25%">Guest</td>
-                                            <td style="border: 0px; width:5%"><div style="border:1 solid red ; background-color:red; width:30px; height:10px"></div></td>
-                                            <td style="border: 0px; width:25%">Invalid</td>
-                                            </tr>
-                                        </table>
-                                    </td>     
-                                </tr>
-                                <tr id="trRelatedInfo" class="hidden">
-                                    <td style="border: 0px"></td>
-                                    <td style="border: 0px">
-                                        <table id="related">
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDetail solid_bottom">
-                        <td class="b" style="border-right:1px solid #E5E5E5;">
-                            Subject
-                        </td>
-                        <td colspan="3">
-                            <input type="text" id="txtsubject" style="width: 500px;" /><span class="hidden error errormsg"
-                                id="errorsubject"></span>
-                        </td>
-                    </tr>
-                    <tr class="title">
-                        <td colspan="4">
-                            <div class="lblediter">
-                                <input type="button" id="btnShowHideDescription" class="updown" value="" onclick="downup('btnShowHideDescription', 'FeedbackDescription')" />
-                                Description <span class="hidden error errormsg" id="deseditererror"></span>
-                            </div>
-                            <div class="editreview">
-                                <input type="button" class="btnreview " value="Preview" id="btndesreview" onclick="initReview('des');" /><input
-                                    type="button" class="btnedit hidden" value="Edit" id="btndesedit" onclick="initEdit('des');" /></div>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackDescription">
-                        <td colspan="4">
-                            <div class="editerwrapper" id="descriptionwrapper">
-                                <div id="previewboxdes" class="hidden">
-                                </div>
-                                <div id="editboxdes">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="title">
-                        <td colspan="4">
-                            <div class="lblediter">
-                                <input type="button" id="btnShowHideSolution" class="updown" value="" onclick="downup('btnShowHideSolution', 'FeedbackSolution')" />
-                                Solution <span class="hidden error errormsg" id="soleditererror"></span>
-                            </div>
-                            <div class="editreview">
-                                <input type="button" class="btnreview " value="Preview" id="btnsolreview" onclick="initReview('sol');" /><input
-                                    type="button" class="btnedit hidden" value="Edit" id="btnsoledit" onclick="initEdit('sol');" /></div>
-                        </td>
-                    </tr>
-                    <tr class="FeedbackSolution">
-                        <td colspan="4">
-                            <div class="editerwrapper" id="solutionwrapper">
-                                <div id="previewboxsol" class="hidden">
-                                </div>
-                                <div id="editboxsol">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="title hidden" id="reviewtitle">
-                        <td colspan="4">
-                            <div class="lblediter">
-                                Review
-                                <input type="checkbox" id="chkisreview" onclick="EnableUpdateReview(this);" />
-                                <span id="lblUpdateReview"></span>
-                            </div>
-                            <div class="editreview" id="editreview" style="display: none;">
-                                <input type="button" class="btnreview hidden" value="Preview" id="btnrevreview" onclick="initReview('rev');" />
-                                <input type="button" class="btnedit " value="Edit" id="btnrevedit" onclick="initEdit('rev');" /></div>
-                        </td>
-                    </tr>
-                    <tr id="reviewbox" class="hidden">
-                        <td colspan="4">
-                            <div class="editerwrapper" id="reviewwrapper">
-                                <div id="previewboxrev">
-                                </div>
-                                <div id="editboxrev" class="hidden">
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <input type="button" class="btn" id="btnsubmitbottom" onclick="AddFeedback();" value="Submit" disabled />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>*@
-
 <input type="hidden" id="hServerTime" />
 <div id="divOverrideCRMInfo" class="selector" style="display: none;"></div>
-    @{
-        Fanex.CRM.Service.Interface.IPermissionService permission = new Fanex.CRM.Service.Impl.PermissionService();
-        var getClientTime = Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeTimeZoneToClient(DateTime.Now);
-        }
+@{
+    Fanex.CRM.Service.Interface.IPermissionService permission = new Fanex.CRM.Service.Impl.PermissionService();
+    var getClientTime = Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeTimeZoneToClient(DateTime.Now);
+}
 <script language="javascript" type="text/javascript">
-    window.rootUrl = '@Url.Content("~")';
-    var accname = "@AppSession.CurrentUser.Username";
-        var accId = @AppSession.CurrentUser.Id;
-        var errorMsg = "@Resources.ErrorMsg.lblErrorInputRequiredDate";
-        var errorMsgInvalidUser="@Resources.ErrorMsg.lblInvalidUserName";
-        var successMsg="@Resources.ErrorMsg.lblAddFeedbackSuccess";
-        var desvalue = "";
-        var solvalue = "";
-        var revvalue = "";
-        var allowUpdateReview='@(false).ToString().ToLower()';
-        var inputMultipleRelatedNote="@Resources.Language.lblInputMultipleRealteFeedbackCustomerNote";
-        var errMsgFeedbackDateGreatter='@Resources.ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate';
-        var errMsgResolutionDateGreatter='@Resources.ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime';
-        var allowDeleteFeedback = @permission.HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host).ToString().ToLower();
-        var clientTime = '@getClientTime';
+    window.rootUrl = "@Url.Content("~")";
+    var errorMsg = "@Resources.ErrorMsg.lblErrorInputRequiredDate";
+    var errorMsgInvalidUser = "@Resources.ErrorMsg.lblInvalidUserName";
+    var successMsg = "@Resources.ErrorMsg.lblAddFeedbackSuccess";
+    var desvalue = "";
+    var solvalue = "";
+    var revvalue = "";
+    var allowUpdateReview = "false";
+    var inputMultipleRelatedNote = "@Resources.Language.lblInputMultipleRealteFeedbackCustomerNote";
+    var errMsgFeedbackDateGreatter = '@Resources.ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate';
+    var errMsgResolutionDateGreatter = '@Resources.ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime';
+    var allowDeleteFeedback = "@permission.HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host).ToString().ToLower()";
+    var clientTime = "@getClientTime";
 
-    head.js("@Url.Content("~/Scripts/jquery.js")", function () {
-            head.js("@Url.Content("~/Scripts/json2.js")")
-                .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.js")",
-                    "@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js")")
-                .js("@Url.Content("~/Scripts/jquery.tmpl.js")")
-                .js("@Url.Content("~/Scripts/autocomplete/jquery.autocomplete.client.js")")
-                .js("@Url.Content("~/Scripts/autocomplete/jquery.highlight-3.js")")
-                .js("@Url.Content("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")")
-                .js("@Url.Content("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")",
-                    "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")")
-                .js("@Url.Content("~/Scripts/stdlib.js")")
-                .js("@Url.Content("~/Scripts/dialogbox.js")")
-                .js("@Url.Content("~/Scripts/common.js")")
-                .js("@Url.Content("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")")
-                .js("@Url.Content("~/Scripts/InputBox/jquery.fcbkcomplete.js?ver=4")")
-                .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=2")")
-                .js("@Url.Content("~/Views/Feedback/Scripts/addfeedback.js?ver=1")");
-        });   
+    head.js("@Url.Content("~/Scripts/JQuery/jquery-1.8.2.js")", function () {
+        head.js("@Url.Content("~/Scripts/json2.js")")
+            .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.js")",
+                "@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js")")
+            .js("@Url.Content("~/Scripts/jquery.tmpl.js")")
+            .js("@Url.Content("~/Scripts/autocomplete/jquery.autocomplete.client.js")")
+            .js("@Url.Content("~/Scripts/autocomplete/jquery.highlight-3.js")")
+            .js("@Url.Content("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")")
+            .js("@Url.Content("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")",
+                "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")")
+            .js("@Url.Content("~/Scripts/stdlib.js")")
+            .js("@Url.Content("~/Scripts/dialogbox.js")")
+            .js("@Url.Content("~/Scripts/common.js")")
+            .js("@Url.Content("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")")
+            .js("@Url.Content("~/Scripts/InputBox/jquery.fcbkcomplete.js?ver=4")")
+            .js("@Url.Content("~/Scripts/MultipleSelect/fanex.multiSelect.js")")
+            .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=2")")
+            .js("@Url.Content("~/Views/Feedback/Scripts/addfeedback.js?ver=1")");
+    });   
 </script>

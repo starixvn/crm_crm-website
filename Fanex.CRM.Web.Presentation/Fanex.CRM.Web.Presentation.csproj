@@ -312,6 +312,8 @@
     <Content Include="Content\site\Images\delete-icon.png" />
     <Content Include="Content\site\Images\error.png" />
     <Content Include="Content\site\Images\excel.png" />
+    <Content Include="Content\site\Images\ico-collapse.png" />
+    <Content Include="Content\site\Images\ico-expand.png" />
     <Content Include="Content\site\Images\loading100x100.gif" />
     <Content Include="Content\site\Images\next-pre-icon-cal.png" />
     <Content Include="Content\site\Images\sort-ico.png" />

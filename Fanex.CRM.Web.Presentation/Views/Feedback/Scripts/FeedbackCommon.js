@@ -684,9 +684,8 @@ function bindingSite(id, rs, currentValue) {
     $("#" + id + " option[value='" + currentValue + "']").attr("selected", "selected");
 }
 
-function dropdownMultiSelect(prefixId, elementId, result) {
+function dropdownMultiSelect(prefixId, elementId, result, defaultValues) {
     /* jshint unused: vars */
-    var dropdown = $('#' + elementId);
     var dropdownLanguage = [];
     var optionLength = result ? result.length : 0;
     if (optionLength > 0) {
@@ -696,7 +695,7 @@ function dropdownMultiSelect(prefixId, elementId, result) {
                 id: prefixId + info.Id,
                 value: info.Id,
                 text: info.Value,
-                checked: false,
+                checked: checkMultiSelect(info.Id, defaultValues),
                 enable: true,
                 cssClass: "",
                 items: []
@@ -705,6 +704,7 @@ function dropdownMultiSelect(prefixId, elementId, result) {
     }
 
     /* jshint camelcase: false */
+    var dropdown = $('#' + elementId);
     dropdown.fanexMultiSelect(
         {
             minWidth: 171,
@@ -724,6 +724,17 @@ function dropdownMultiSelect(prefixId, elementId, result) {
         });
 
     //element.find("#customerinfodetail-languageoptions .fanex-multiselect-state-default").attr("tabindex", 29);
+}
+
+function checkMultiSelect(id, defaultValues) {
+    var length = defaultValues ? defaultValues.length : 0;
+    for (var i = 0; i < length; i++) {
+        if (id === defaultValues[i]) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function showPopup(obj, content) {

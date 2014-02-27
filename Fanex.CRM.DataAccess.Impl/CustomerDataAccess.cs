@@ -49,8 +49,8 @@ namespace Fanex.CRM.DataAccess.Impl
                         {
                             var releatedCustomer = new RelatedCustomer()
                                                {
-                                                   CustId = reader.GetInt32(reader.GetOrdinal("custid")),
-                                                   UserName = reader.GetString(reader.GetOrdinal("val"))
+                                                   CustId = Fanex.Common.Converter.ToInt(reader.GetOrdinal("custid")),
+                                                   UserName = Fanex.Common.Converter.ToString2(reader.GetOrdinal("val"))
                                                };
                             result.Add(releatedCustomer);
                         }
@@ -73,112 +73,68 @@ namespace Fanex.CRM.DataAccess.Impl
         {
             var customer = new Customer();
 
-            using (var obj = new ObjectDb("Customer_CustomerInfoDetail_GetInfoById"))
+            using (var obj = new ObjectDb("Customer_CustomerInfoDetail_GetInfoById_New"))
             {
                 obj.AddInParameter("custid", DbType.Int32, custId);
                 using (var reader = obj.ExecuteReader())
                 {
                     if (reader != null)
                     {
-                        while (reader.Read())
+                        if (reader.Read())
                         {
-                            customer.CustomerInfo = GetCustomerInformation(reader);
-                            customer.Id = reader["CustId"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("CustId")) : 0;
-                            customer.UserName = reader["UserName"] != DBNull.Value
-                                                    ? reader.GetString(reader.GetOrdinal("UserName"))
-                                                    : string.Empty;
-                            customer.RoleId = reader["roleid"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("roleid")) : 0;
-                            customer.NickName = custId > 0 ? (reader["UserName2"] != DBNull.Value
-                                                    ? reader.GetString(reader.GetOrdinal("UserName2"))
-                                                    : string.Empty) : string.Empty;
+                            var customerInfo = GetCustomerInformation(reader);
+                            customer.CustomerInfo = customerInfo;
+                            
+                            customer.Id = Fanex.Common.Converter.ToInt(reader.GetOrdinal("CustId"), 0);
+                            customer.UserName = Fanex.Common.Converter.ToString2("UserName");
+                            customer.RoleId = Fanex.Common.Converter.ToInt(reader.GetOrdinal("roleid"), 0);
+                            customer.NickName = custId > 0 ? Fanex.Common.Converter.ToString2(reader.GetOrdinal("UserName2")) : string.Empty;
 
-                            customer.Pic1 = reader["PIC1"] != DBNull.Value ? (reader["PIC1"] != null ? reader.GetString(reader.GetOrdinal("PIC1")) : string.Empty) : string.Empty;
-                            customer.Pic2 = reader["PIC2"] != DBNull.Value ? (reader["PIC2"] != null ? reader.GetString(reader.GetOrdinal("PIC2")) : string.Empty) : string.Empty;
-                            customer.Pic3 = reader["PIC3"] != DBNull.Value ? (reader["PIC3"] != null ? reader.GetString(reader.GetOrdinal("PIC3")) : string.Empty) : string.Empty;
+                            customer.Pic1 = customerInfo.PIC1;
+                            customer.Pic2 = customerInfo.PIC2;
+                            customer.Pic3 = customerInfo.PIC3;
 
                             customer.Site = new Setting
                             {
-                                Id =
-                                    reader["SiteID"] != DBNull.Value
-                                        ? reader.GetInt32(reader["SiteID"] != null ? reader.GetOrdinal("SiteID") : 0)
-                                        : 0
+                                Id = customerInfo.Site
                             };
 
-                            customer.BankInfo = new BankInfo
-                            {
-                                BankName =
-                                    reader["Wire_BankName"] != DBNull.Value
-                                        ? (reader["Wire_BankName"] != null ? reader.GetString(reader.GetOrdinal("Wire_BankName")) : string.Empty)
-                                        : string.Empty,
-                                BankAddress =
-                                    reader["Wire_BankAddress"] != DBNull.Value
-                                        ? (reader["Wire_BankAddress"] != null ? reader.GetString(reader.GetOrdinal("Wire_BankAddress")) : string.Empty)
-                                        : string.Empty,
-                                SwiftCode =
-                                    reader["Wire_SwiftCode"] != DBNull.Value
-                                        ? (reader["Wire_SwiftCode"] != null ? reader.GetString(reader.GetOrdinal("Wire_SwiftCode")) : string.Empty)
-                                        : string.Empty,
-                                AccountName =
-                                    reader["Wire_AccountName"] != DBNull.Value
-                                        ? (reader["Wire_AccountName"] != null ? reader.GetString(reader.GetOrdinal("Wire_AccountName")) : string.Empty)
-                                        : string.Empty,
-                                AccountNo =
-                                    reader["Wire_AccountNo"] != DBNull.Value
-                                        ? (reader["Wire_AccountNo"] != null ? reader.GetString(reader.GetOrdinal("Wire_AccountNo")) : string.Empty)
-                                        : string.Empty,
-                                AccountHolderName =
-                                    reader["AccountHolderName"] != DBNull.Value
-                                        ? (reader["AccountHolderName"] != null ? reader.GetString(reader.GetOrdinal("AccountHolderName")) : string.Empty)
-                                        : string.Empty
-                            };
+                            customer.BankInfo = GetCustomerBankInfo(reader);
 
                             customer.Creator = new User
                             {
                                 Id =
-                                    reader["CreatorID"] != DBNull.Value
-                                        ? reader.GetInt32(reader["CreatorID"] != null ? reader.GetOrdinal("CreatorID") : 0)
-                                        : 0,
+                                    Fanex.Common.Converter.ToInt(reader.GetOrdinal("CreatorID"), 0),
                                 Username =
-                                    reader["CreatorName"] != DBNull.Value
-                                        ? (reader["CreatorName"] != null ? reader.GetString(reader.GetOrdinal("CreatorName")) : string.Empty)
-                                        : string.Empty
+                                    Fanex.Common.Converter.ToString2(reader.GetOrdinal("CreatorName"))
                             };
 
-                            customer.Country = reader["CountryID"] != DBNull.Value
-                                ? reader.GetInt32(reader["CountryID"] != null ? reader.GetOrdinal("CountryID") : 0)
-                                                    : 0;
+                            customer.Country = Fanex.Common.Converter.ToInt(reader.GetOrdinal("CountryID"), 0);
 
-                            customer.Question = reader["Question"] != DBNull.Value
-                                ? (reader["Question"] != null ? reader.GetString(reader.GetOrdinal("Question")) : string.Empty)
-                                                    : string.Empty;
-                            customer.Answer = reader["Answer"] != DBNull.Value
-                                ? (reader["Answer"] != null ? reader.GetString(reader.GetOrdinal("Answer")) : string.Empty)
-                                                  : string.Empty;
+                            customer.Question = Fanex.Common.Converter.ToString2(reader.GetOrdinal("Question"));
+                            customer.Answer = Fanex.Common.Converter.ToString2(reader.GetOrdinal("Answer"));
 
-                            customer.IsVip = reader["IsVIP"] != DBNull.Value ?
-                                (reader["IsVIP"] != null ? reader.GetBoolean(reader.GetOrdinal("IsVIP")) : false)
-                                    : false;
-                            customer.CreatedDate = reader["CreateDate"] != DBNull.Value
-                                ? (reader["CreateDate"] != null ? reader.GetDateTime(reader.GetOrdinal("CreateDate")) : DateTime.Now)
-                                                       : DateTime.Now;
+                            customer.IsVip = Fanex.Common.Converter.ToBool(reader.GetOrdinal("IsVIP"), false);
+                            customer.CreatedDate = Fanex.Common.Converter.ToDateTime(reader.GetOrdinal("CreateDate"), DateTime.Now);
 
-                            customer.BettingCode = reader["RefCode1"] != DBNull.Value
-                                ? (reader["RefCode1"] != null ? reader.GetString(reader.GetOrdinal("RefCode1")) : string.Empty)
-                                : string.Empty;
+                            customer.BettingCode = Fanex.Common.Converter.ToString2(reader.GetOrdinal("RefCode1"));
 
-                            customer.RefCode2 = reader["RefCode2"] != DBNull.Value
-                                ? (reader["RefCode2"] != null ? reader.GetString(reader.GetOrdinal("RefCode2")) : string.Empty)
-                                                    : string.Empty;
-                            customer.Remark = reader["Remark"] != DBNull.Value
-                                ? (reader["Remark"] != null ? reader.GetString(reader.GetOrdinal("Remark")) : string.Empty)
-                                                    : string.Empty;
-                            customer.SpecialRemark = reader["Remark2"] != DBNull.Value
-                                ? (reader["Remark2"] != null ? reader.GetString(reader.GetOrdinal("Remark2")) : string.Empty)
-                                                    : string.Empty;
+                            customer.RefCode2 = Fanex.Common.Converter.ToString2(reader.GetOrdinal("RefCode2"));
+                            //customer.Remark = reader["Remark"] != DBNull.Value
+                            //    ? (reader["Remark"] != null ? reader.GetString(reader.GetOrdinal("Remark")) : string.Empty)
+                            //                        : string.Empty;
+                            //customer.SpecialRemark = reader["Remark2"] != DBNull.Value
+                            //    ? (reader["Remark2"] != null ? reader.GetString(reader.GetOrdinal("Remark2")) : string.Empty)
+                            //                        : string.Empty;
 
-                            customer.Language = reader["LanguageID"] != DBNull.Value
-                                ? reader.GetInt32(reader["LanguageID"] != null ? reader.GetOrdinal("LanguageID") : 0)
-                                                    : 0;
+                            //customer.Language = reader["LanguageID"] != DBNull.Value
+                            //    ? reader.GetInt32(reader["LanguageID"] != null ? reader.GetOrdinal("LanguageID") : 0)
+                            //                        : 0;
+                        }
+
+                        if (reader.NextResult())
+                        {
+                            customer.CustomerInfo.Languages = GetCustomerLanguages(reader);
                         }
                     }
                 }
@@ -644,11 +600,8 @@ namespace Fanex.CRM.DataAccess.Impl
                 PassportNumber = Converter.ToString2(reader["Passport"]),
                 BirthDay = Converter.ToDateTime(reader["Birthday"]),
                 Site = Converter.ToInt(reader["SiteId"]),
-                Languages = Converter.ToString2(reader["LaguageId"])
-                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(l => Converter.ToInt(l))
-                    .ToList(),
-                BettingCode = Converter.ToString2(reader["BettingCode"]),
+                Country = Converter.ToInt(reader["CountryId"]),
+                BettingCode = Converter.ToString2(reader["RefCode1"]),
                 RefCodes2 = Converter.ToString2(reader["RefCode2"]),
                 IsVIP = Converter.ToBool(reader["IsVIP"]),
                 PIC1 = Converter.ToString2(reader["PIC1"]),
@@ -656,6 +609,52 @@ namespace Fanex.CRM.DataAccess.Impl
                 PIC3 = Converter.ToString2(reader["PIC3"]),
                 PIC4 = Converter.ToString2(reader["PIC4"])
             };
+        }
+
+        private BankInfo GetCustomerBankInfo(IDataReader reader)
+        {
+            /*return new BankInfo
+            {
+                Name = Converter.ToString2(reader["Wire_BankName"]),
+                SwiftCode = Converter.ToString2(reader["Wire_SwiftCode"),
+                AccountName = Converter.ToString2(reader["Wire_AccountName"),
+                AccountNumber = Converter.ToString2(reader.GetStringNotNull("Wire_AccountNo"),
+                HolderName = Converter.ToString2(reader.GetStringNotNull("AccountHolderName"),
+                AddressInfo = new AddressInfo
+                {
+                    LineList = new List<string> 
+                    {
+                        reader.GetStringNotNull("BankLine1"),
+                        reader.GetStringNotNull("BankLine2"),
+                        reader.GetStringNotNull("BankLine3"),
+                    },
+
+                    City = reader.GetStringNotNull("BankCity"),
+                    State = reader.GetStringNotNull("BankState"),
+                    PostCode = reader.GetStringNotNull("BankCode"),
+                    Country = new CountryInfo
+                    {
+                        Id = reader.GetInt32NotNull("BankCountryID")
+                    }
+                }
+            };*/
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the customer language.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>The language list.</returns>
+        private IList<int> GetCustomerLanguages(IDataReader reader)
+        {
+            IList<int> languages = new List<int>();
+            while (reader.Read())
+            {
+                languages.Add(Converter.ToInt(reader["LanguageId"]));
+            }
+
+            return languages;
         }
     }
 }
