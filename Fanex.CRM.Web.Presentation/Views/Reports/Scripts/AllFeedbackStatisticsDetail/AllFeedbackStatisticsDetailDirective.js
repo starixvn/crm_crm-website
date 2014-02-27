@@ -20,20 +20,20 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
         }
         return html;
     }
-
+    
     function renderFeedbacks(scope, element) {
-        /* jshint unused: vars */
+        
         if (scope.feedbacks === null) {
             return;
         }
 
         var gridOptions;
         /* jshint unused: vars */
+        /* jshint camelcase: false */
         function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
             gridOptions.pagerOption.currentPage = page_index;
             gridOptions.pagerOption.itemsPerPage = itemsPerPage;
             tableFeedbacks.fanexGrid(gridOptions);
-
             scope.pagingFeedbackStatisticsDetail(page_index, itemsPerPage);
             return false;
         }
