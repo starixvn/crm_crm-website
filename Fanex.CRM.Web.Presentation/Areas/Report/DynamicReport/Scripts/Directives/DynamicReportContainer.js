@@ -2,7 +2,8 @@
 /* global dynamicReportApplication,
 crmConstants,
 sharedScriptManager,
-viewResources */
+viewResources,
+moment */
 /* jshint unused: vars */
 /* jshint camelcase: false */
 dynamicReportApplication.directive('tableDynamicReportContainer', function () {
@@ -37,11 +38,14 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                         Columns: [{ Name: "ColNo", Value: j + 1 },
                             {
                                 Name: "ColRunningNumber",
-                                Value: '<span class="link viewcommunicationlog-link" data-subreportindex="' + 
+                                Value: '<span class="link viewcommunicationlog-link" data-subreportindex="' +
                                     i + '" data-logindex="' + j + '">' + info.RunningNumber + '</span>',
                                 TdClass: 'viewcommunicationlog-link-td'
                             },
-                            { Name: "ColFeedbackDate", Value: info.PeriodRange.FromDateString },
+                            {
+                                Name: "ColFeedbackDate",
+                                Value: moment(new Date(info.PeriodRange.FromDateString)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
+                            },
                             {
                                 Name: "ColCategory",
                                 Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
@@ -55,7 +59,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                                 [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
                             },
                             { Name: "ColHandler", Value: info.Handler },
-                            { Name: "ColReviewer", Value: info.Reviewer }],
+                            { Name: "ColReviewer", Value: info.Reviewer}],
                         CssClass: 'viewcommunicationlog-link-row row-' + info.StatusName.toLowerCase()
                     };
 
