@@ -5,9 +5,12 @@ viewResources,
 crmConstants,
 currentDate: true,
 initFromDate: true,
-weekPickerManager */
+weekPickerManager,
+moment,
+sharedScriptManager */
 /* jshint camelcase: false */
 /* jshint unused: vars */
+/* jshint maxstatements: 412 */
 dynamicReportApplication.controller('dynamicReportController', ['$scope', '$http', '$dynamicReportService',
 function (
     $scope,

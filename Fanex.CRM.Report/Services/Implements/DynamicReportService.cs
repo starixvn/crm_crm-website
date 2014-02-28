@@ -768,6 +768,10 @@ namespace Fanex.CRM.Report.Services.Implements
             }
         }
 
+        /// <summary>
+        /// Sets the index of the status color.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
         private void SetStatusColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             var closedBackgroundColor = Color.FromArgb(221, 221, 221);
@@ -789,6 +793,13 @@ namespace Fanex.CRM.Report.Services.Implements
                 PendingBackgroundColorIndex);
         }
 
+        /// <summary>
+        /// Exports the dynamic report row.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="currentColumn">The current column.</param>
+        /// <param name="info">The information.</param>
+        /// <param name="infoIndex">Index of the information.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

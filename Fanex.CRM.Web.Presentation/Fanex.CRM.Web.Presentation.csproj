@@ -86,6 +86,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Fanex\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\Dependency\Fanex\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>

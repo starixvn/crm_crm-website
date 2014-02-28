@@ -4,6 +4,7 @@ crmConstants,
 sharedScriptManager,
 viewResources */
 /* jshint unused: vars */
+/* jshint camelcase: false */
 dynamicReportApplication.directive('tableDynamicReportContainer', function () {
     var cachedDynamicReport;
     var cachedGridOptions;
@@ -36,7 +37,8 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                         Columns: [{ Name: "ColNo", Value: j + 1 },
                             {
                                 Name: "ColRunningNumber",
-                                Value: '<span class="link viewcommunicationlog-link" data-subreportindex="' + i + '" data-logindex="' + j + '">' + info.RunningNumber + '</span>',
+                                Value: '<span class="link viewcommunicationlog-link" data-subreportindex="' + 
+                                    i + '" data-logindex="' + j + '">' + info.RunningNumber + '</span>',
                                 TdClass: 'viewcommunicationlog-link-td'
                             },
                             { Name: "ColFeedbackDate", Value: info.PeriodRange.FromDateString },
@@ -132,7 +134,8 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             var logIndex = parseInt($(this).find('.viewcommunicationlog-link').attr("data-logindex"));
             scope.viewCommunicationLog(cachedDynamicReport.ChildReports[subReportIndex].ChildReports[logIndex]);
         });
-    };
+    }
+
     function renderDynamicReport(scope, element, attrs) {
         if (scope.dynamicReport === null) {
             return;
