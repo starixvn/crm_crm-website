@@ -35,6 +35,10 @@ var CRMConstants = function () {
             All: 0
         },
 
+        Extension: {
+            All: 0
+        },
+
         Action: {
             All: 0
         },
@@ -96,6 +100,7 @@ var CRMConstants = function () {
     self.MonthNames = ['January', 'February', 'March', 'April',
                        'May', 'June', 'July', 'August',
                        'September', 'October', 'November', 'December'];
+    self.MarginBottomPage = 15;
 };
 
 var crmConstants = new CRMConstants();

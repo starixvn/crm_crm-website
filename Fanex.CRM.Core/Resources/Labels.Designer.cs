@@ -79,6 +79,15 @@ namespace Fanex.CRM.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no data..
+        /// </summary>
+        public static string ResultMessage_NoInfo {
+            get {
+                return ResourceManager.GetString("ResultMessage_NoInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome.
         /// </summary>
         public static string Welcome {

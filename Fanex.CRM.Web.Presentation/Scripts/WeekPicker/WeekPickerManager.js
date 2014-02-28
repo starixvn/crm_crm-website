@@ -45,7 +45,7 @@
                     day = 7;
                 }
 
-                defaults.startDate.setDate(dat - day + 1);
+                defaults.startDate.setDate(dat - day);
                 defaults.endDate = new Date(date.getFullYear(), date.getMonth(), 1);
                 defaults.endDate.setDate(dat - day + 7);
                 if (options.maxDate &&
@@ -112,7 +112,8 @@
                 var offset = $this.offset();
 
                 $this.addClass("datepicker hasDatepicker");
-                $this.after("<div class='weekcalendar'></div>"); //<img style='position: relative;margin-top: 1px' class='ui-datepicker-trigger' src='" + $("#currentDomain").val() + "/App_Themes/" + currentTheme + "/Images/calendar1.gif' alt='' title=''>
+                $this.after("<div class='weekcalendar'></div>"); 
+                //<img style='position: relative;margin-top: 1px' class='ui-datepicker-trigger' src='" + $("#currentDomain").val() + "/App_Themes/" + currentTheme + "/Images/calendar1.gif' alt='' title=''>
                 $calendar = $this.next();
                 $calendar.css({ "position": "absolute", "z-index": 1000, "margin-top": offset.top, "float": "left" });
                 var ishover = false;
@@ -122,7 +123,7 @@
                     buttonImageOnly: true,
                     buttonText: "",
                     //buttonImage: $("#currentDomain").val() + "/App_Themes/" + currentTheme + "/Images/calendar.gif",
-                    firstDay: 1,
+                    firstDay: 0,
                     showOtherMonths: true,
                     selectOtherMonths: true,
                     showWeek: true,

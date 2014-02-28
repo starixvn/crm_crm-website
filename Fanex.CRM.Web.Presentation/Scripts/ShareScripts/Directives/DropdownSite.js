@@ -44,7 +44,11 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
                 var siteLength = siteGroup.ChildSites.length;
                 for (var j = 0; j < siteLength; j++) {
                     var site = siteGroup.ChildSites[j];
-                    optionHtml += '<option value="' + site.Id + '">' + site.Name + '</option>';
+                    optionHtml += '<option value="' + site.Id + '"' +
+                        (site.Id === options.SelectedId ?
+                        ' selected="selected"' :
+                        '') +
+                    '>' + site.Name + '</option>';
                 }
 
                 optionHtml += '</optgroup>';
@@ -89,7 +93,7 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
         }
 
         return {
-            restrict: 'C',
+            restrict: registerParams.RestrictType,
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {

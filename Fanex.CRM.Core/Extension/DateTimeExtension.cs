@@ -19,9 +19,13 @@ namespace Fanex.CRM.Infrastructure.Extension
     {
         public const string ShortDateFormat = "MMM dd, yyyy";
 
+        public const string ShortDateFormatWithSlash = "MM/dd/_yyyy";
+
         public const string LongDateFormat = "MM/dd/yyyy HH:mm tt";
 
         public const string MonthYearFormat = "MMM yyyy";
+
+        private const int NumberDayInWeek = 7;
 
         private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
 
@@ -42,6 +46,11 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static string ToShortFormatedDate(this DateTime date)
         {
             return date.ToString(ShortDateFormat);
+        }
+
+        public static string ToShortFormatedDateWithSlash(this DateTime date)
+        {
+            return date.ToString(ShortDateFormatWithSlash);
         }
 
         public static string ToLongFormatedDate(this DateTime date)
@@ -88,14 +97,13 @@ namespace Fanex.CRM.Infrastructure.Extension
 
         public static DateTime FirstDayOfWeek(this DateTime dateTime)
         {
-            var dayOfWeek = (int)dateTime.DayOfWeek + 1;
+            var dayOfWeek = (int)dateTime.DayOfWeek;
             return dateTime.AddDays(-dayOfWeek);
         }
 
         public static DateTime LastDayOfWeek(this DateTime dateTime)
         {
-            var numberDayInWeek = 7;
-            return dateTime.FirstDayOfWeek().AddDays(numberDayInWeek - 1);
+            return dateTime.FirstDayOfWeek().AddDays(NumberDayInWeek - 1);
         }
     }
 }

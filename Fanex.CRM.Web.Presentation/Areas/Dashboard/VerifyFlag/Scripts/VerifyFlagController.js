@@ -2,7 +2,8 @@
 /* global verifyFlagApplication,
 hotKeyManager,
 viewResources,
-crmConstants */
+crmConstants,
+numeral */
 verifyFlagApplication.controller('verifyFlagController', ['$scope',
     '$http',
     '$verifyFlagService',

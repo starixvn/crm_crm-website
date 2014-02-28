@@ -135,7 +135,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             var url = '../Feedback/ManageFeedback?' + $.param({
                 custid: $scope.customer.Id,
                 custName: $scope.customer.Name,
-                isGuest: 0
+                isGuest: $(customerManager.DOMElements.checkboxIsGuest).prop('checked') ? 1 : 0
             });
             parent.menuManager.goToURL('centerFr', url);
             parent.menuManager.setActiveClassForLeftPanel('Manage Feedback');

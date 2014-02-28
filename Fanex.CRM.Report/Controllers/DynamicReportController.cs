@@ -73,5 +73,11 @@ namespace Fanex.CRM.Report.Controllers
             var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
+
+        public ActionResult ExportDynamicReport(GetDynamicReportCriteria criteria)
+        {
+            _dynamicReportService.ExportDynamicReport(criteria);
+            return new EmptyResult();
+        }
     }
 }

@@ -11,7 +11,7 @@ directiveManager.registerDefaultFocus = function (angularApplication, registerPa
         //        };
 
         return {
-            restrict: 'C',
+            restrict: registerParams.RestrictType,
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {

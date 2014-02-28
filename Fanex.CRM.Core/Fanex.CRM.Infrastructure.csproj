@@ -78,6 +78,9 @@
     <Reference Include="Nexcel.Statistics">
       <HintPath>..\Dependency\Nexcel.Statistics.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\Dependency\Fanex\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\Dependency\StructureMap.dll</HintPath>
     </Reference>
@@ -116,6 +119,7 @@
     <Compile Include="Configuration\WebConfigApplicationSettings.cs" />
     <Compile Include="Core\DateTimeUtilize.cs" />
     <Compile Include="Extension\IDataReaderExtension.cs" />
+    <Compile Include="Extension\NpoiExcelExtensions.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Extension\DateTimeExtension.cs" />
     <Compile Include="Extension\EnumerableExtension.cs" />
@@ -133,6 +137,7 @@
     <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\QueryString.cs" />
     <Compile Include="Helper\SystemTime.cs" />
+    <Compile Include="Models\ExportExcelInfo.cs" />
     <Compile Include="Models\PagedList.cs" />
     <Compile Include="Models\PeriodRange.cs" />
     <Compile Include="Models\Result.cs" />

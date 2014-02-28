@@ -58,6 +58,28 @@ namespace Fanex.CRM.Setting.Services.Implements
         }
 
         /// <summary>
+        /// Gets the name of the period type.
+        /// </summary>
+        /// <param name="periodType">Type of the period.</param>
+        /// <returns>The name of the period type.</returns>
+        public static string GetPeriodTypeName(int periodType)
+        {
+            switch (periodType)
+            {
+                case PeriodTypeConstants.Daily:
+                    return Labels.Daily;
+                case PeriodTypeConstants.Weekly:
+                    return Labels.Weekly;
+                case PeriodTypeConstants.Monthly:
+                    return Labels.Monthly;
+                case PeriodTypeConstants.Yearly:
+                    return Labels.Yearly;
+                default:
+                    return string.Empty;
+            }
+        }
+
+        /// <summary>
         /// Gets the setting by identifier.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

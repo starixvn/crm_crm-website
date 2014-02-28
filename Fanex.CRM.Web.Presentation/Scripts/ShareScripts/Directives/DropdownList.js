@@ -30,7 +30,12 @@ directiveManager.registerDropdownContainer = function (angularApplication, regis
             var dataListLength = options.DataList.length;
             for (var i = 0; i < dataListLength; i++) {
                 var data = options.DataList[i];
-                optionHtml += '<option value="' + data[registerParams.DataPropertyName.Id] + '">' +
+                optionHtml +=
+                    '<option value="' + data[registerParams.DataPropertyName.Id] + '"' +
+                        (data[registerParams.DataPropertyName.Id] === options.SelectedId ?
+                        ' selected="selected"' :
+                        '') +
+                   '>' +
                    data[registerParams.DataPropertyName.Name] + '</option>';
             }
 
@@ -60,7 +65,7 @@ directiveManager.registerDropdownContainer = function (angularApplication, regis
         }
 
         return {
-            restrict: 'C',
+            restrict: registerParams.RestrictType,
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {

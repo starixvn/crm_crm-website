@@ -4,20 +4,25 @@ crmConstants,
 sharedScriptManager,
 viewResources */
 /* jshint unused: vars */
-dynamicReportApplication.directive('tableDynamicReportYearlyContainer', function () {
+dynamicReportApplication.directive('tableDynamicReportContainer', function () {
+    var cachedDynamicReport;
+    var cachedGridOptions;
+    var selfScope;
+    var cachedTable;
+
     function getGripOtions(dynamicReport) {
         var bodyData = [];
         var footerData = [];
-        if (dynamicReport && dynamicReport.ChildReports.length > 0) {
-            var childReportLength = dynamicReport.ChildReports.length;
+        var childReportLength = dynamicReport ? dynamicReport.ChildReports.length : 0;
+        if (childReportLength > 0) {
             for (var i = 0; i < childReportLength; i++) {
                 var periodReport = dynamicReport.ChildReports[i];
                 var currentRow =
                 {
                     Columns: [{
                         Name: "ColNo",
-                        Value: periodReport.Name +
-                            ' <span class="link viewsubreport-link" data-subreportindex="' + i + '">' + periodReport.TotalLogs + '</span>',
+                        Value: sharedScriptManager.stringFormat("{0} [{1}]",
+                            [periodReport.Name, periodReport.TotalChildReports]),
                         MergeColNumber: 9
                     }],
                     SubRows: []
@@ -40,15 +45,15 @@ dynamicReportApplication.directive('tableDynamicReportYearlyContainer', function
                                 Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
                                     (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
                             },
-                            { Name: "ColSubject", Value: info.RunningNumber },
-                            { Name: "ColStatus", Value: info.RunningNumber },
+                            { Name: "ColSubject", Value: info.Subject },
+                            { Name: "ColStatus", Value: info.StatusName },
                             {
                                 Name: "ColDuration",
                                 Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
                                 [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
                             },
-                            { Name: "ColHandler", Value: info.RunningNumber },
-                            { Name: "ColReviewer", Value: info.RunningNumber}],
+                            { Name: "ColHandler", Value: info.Handler },
+                            { Name: "ColReviewer", Value: info.Reviewer }],
                         CssClass: 'viewcommunicationlog-link-row row-' + info.StatusName.toLowerCase()
                     };
 
@@ -60,28 +65,30 @@ dynamicReportApplication.directive('tableDynamicReportYearlyContainer', function
         }
 
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Symbol_No, Width: 60, Name: "ColNo", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
+            columns: [{ HeaderText: viewResources.Symbol_No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
                 { HeaderText: viewResources.Running_No, Width: 80, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Feedback_Date, Width: 90, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
                 {
                     HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
-                    Width: 200,
+                    Width: 240,
                     Name: "ColCategory",
                     HeaderAlign: "center",
                     CellAlign: "left"
                 },
                 { HeaderText: viewResources.Subject, Width: 130, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Status, Width: 70, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Duration, Width: 80, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Duration, Width: 60, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handled_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Reviewed_By, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,
             titleInfo: {
-                text: sharedScriptManager.stringFormat("{0} [{1}]",
-                    [dynamicReport.Name, dynamicReport.TotalLogs]),
+                text: dynamicReport ?
+                        sharedScriptManager.stringFormat("{0} [{1}]",
+                            [dynamicReport.Name, dynamicReport.TotalChildReports]) :
+                        "",
                 showExcelButton: true,
                 exportExcelFunction: function () {
-                    exportReport();
+                    selfScope.exportReport();
                 },
                 showCollapseExpandButton: true
             },
@@ -90,38 +97,60 @@ dynamicReportApplication.directive('tableDynamicReportYearlyContainer', function
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
-            gridHeight: 250,
+            gridExpandHeight: 230 + crmConstants.MarginBottomPage,
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
             bodyRowHeight: 51,
             showPager: true,
             showTree: true,
+            treeParentPaddingLeft: 5,
+            customPager: true,
             pagerOption: {
-                itemsPerPage: sharedScriptManager.cachedData.defaultItemsPerPage,
-                currentPage: 0,
+                itemsPerPage: selfScope.lastSelectedParams.PageSize,
+                currentPage: selfScope.lastSelectedParams.PageIndex,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: bodyData.length
+                totalItem: dynamicReport ? dynamicReport.TotalChildReports : 0,
+                pagerSelectCallBack: ReRenderAfterPaged
             }
         };
 
         return gridOptions;
     }
+    function bindLogLink(tableDynamicReport, scope) {
+        var viewLogLinks = tableDynamicReport.find(".viewcommunicationlog-link-td .viewcommunicationlog-link");
+        viewLogLinks.unbind("click");
+        viewLogLinks.click(function () {
+            var subReportIndex = parseInt($(this).attr("data-subreportindex"));
+            var logIndex = parseInt($(this).attr("data-logindex"));
+            scope.viewCommunicationLog(cachedDynamicReport.ChildReports[subReportIndex].ChildReports[logIndex]);
+        });
 
+        var viewLogRows = tableDynamicReport.find(".viewcommunicationlog-link-row");
+        viewLogRows.dblclick(function () {
+            var subReportIndex = parseInt($(this).find('.viewcommunicationlog-link').attr("data-subreportindex"));
+            var logIndex = parseInt($(this).find('.viewcommunicationlog-link').attr("data-logindex"));
+            scope.viewCommunicationLog(cachedDynamicReport.ChildReports[subReportIndex].ChildReports[logIndex]);
+        });
+    };
     function renderDynamicReport(scope, element, attrs) {
-        if (scope.reportByYearly === null) {
+        if (scope.dynamicReport === null) {
             return;
         }
 
-        var tableDynamicReport = element.find("#table-dynamic-report-yearly");
-        var dynamicReport = scope.reportByYearly;
+        selfScope = scope;
+        var tableDynamicReport = element.find("#table-dynamic-report");
+        cachedTable = tableDynamicReport;
+        var dynamicReport = scope.dynamicReport;
+        cachedDynamicReport = dynamicReport;
         var gridOptions = getGripOtions(dynamicReport);
+        cachedGridOptions = gridOptions;
         tableDynamicReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-
-        var subReportLinks = tableDynamicReport.find(".viewsubreport-link");
-        subReportLinks.click(function () {
-            scope.getMonthlyReport(parseInt($(this).attr("data-subreportindex")));
-        });
+        bindLogLink(tableDynamicReport, scope);
+    }
+    function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+        selfScope.pagingDynamicReport(page_index, itemsPerPage);
+        return false;
     }
 
     return {
