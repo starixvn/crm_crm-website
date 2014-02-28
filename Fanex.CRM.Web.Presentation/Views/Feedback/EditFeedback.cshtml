@@ -373,11 +373,11 @@
         </div>
     </div>
 
-    <div class="row panel-group">
+    <div class="row panel-group last">
         <div class="row title" id="reviewtitle">
             <div class="pull-left hand" onclick="showHideDetailBox(isShowReviewBox, 'FeedbackReview'); isShowReviewBox = !isShowReviewBox;">
-                Review
-                    <input type="checkbox" id="chkisreview" onclick="updateFeedback.reviewCheckBox();" class="hidden" style="float: left; display: block;" />
+                    <label for="review">Review</label>
+                    <input type="checkbox" id="chkisreview" onclick="updateFeedback.reviewCheckBox();" class="hidden review"/>
                     <span id="lblUpdateReview" class="hidden"></span><span id="lblEditedBy"><!--Reviewed--></span>
                     <span class="hidden error errormsg" id="revieweditererror"></span>
             </div>
