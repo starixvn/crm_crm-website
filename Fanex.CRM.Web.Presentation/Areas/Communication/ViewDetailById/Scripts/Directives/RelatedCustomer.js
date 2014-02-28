@@ -1,5 +1,5 @@
 ﻿"use strict";
-/* global editLogApplication,
+/* global viewDetailByIdApplication,
 sharedScriptManager */
 /* exported orgArrUser, 
 trim,

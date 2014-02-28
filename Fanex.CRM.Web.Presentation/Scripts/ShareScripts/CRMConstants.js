@@ -35,6 +35,10 @@ var CRMConstants = function () {
             All: 0
         },
 
+        Extension: {
+            All: 0
+        },
+
         Action: {
             All: 0
         },

@@ -1,4 +1,6 @@
-﻿var hotKeyManager;
+﻿/* jshint camelcase: false */
+
+var hotKeyManager;
 var HotKeyManager = function () {
     var self = this;
 
@@ -15,7 +17,9 @@ var HotKeyManager = function () {
             return;
         }
 
+        self.CachedData.KeyPress = [];
         self.bindEvent();
+
         if (parent && parent.hotKeyManager) {
             self.CachedData.KeyPress = parent.hotKeyManager.CachedData.KeyPress;
         }
@@ -45,6 +49,11 @@ var HotKeyManager = function () {
 
         $(document).keyup(function (eventObject) {
             var isCustomHotKey = self.keyUp(eventObject);
+        });
+
+        $(document).blur(function () {
+            self.CachedData.KeyPress = [];
+            parent.hotKeyManager.CachedData.KeyPress = [];
         });
     };
     self.keyDown = function (eventObject) {
@@ -240,7 +249,6 @@ var HotKeyManager = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
         for (var i = 0; i < activeDocumentLength; i++) {
             var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
-            console.log(self.CachedData.ActiveDocumentManager[i].Id);
             if (typeof (activeDocumentManager.invokeHotKey_CtrlD) === "function") {
                 self.CachedData.isInvokeHotKey = true;
                 activeDocumentManager.invokeHotKey_CtrlD();

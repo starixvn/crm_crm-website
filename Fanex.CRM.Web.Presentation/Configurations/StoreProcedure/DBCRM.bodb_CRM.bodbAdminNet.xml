@@ -95,6 +95,6 @@
   </Function>
 
   <Function Name="Report">
-    <Setting Key="Report_DynamicReport_GetReport" SpName="Acc_CRM_DynamicReportSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_DynamicReport_GetReport" SpName="Acc_CRM_Rpt_DynamicFeedback" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>

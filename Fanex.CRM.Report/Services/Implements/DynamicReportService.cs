@@ -12,10 +12,13 @@ namespace Fanex.CRM.Report.Services.Implements
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
     using System.Linq;
     using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Report.Repositories.Implements;
@@ -26,13 +29,24 @@ namespace Fanex.CRM.Report.Services.Implements
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Extension;
+    using NPOI.HSSF.UserModel;
+    using NPOI.HSSF.Util;
+    using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
 
     /// <summary>
     /// Dynamic Report Service.
     /// </summary>
     public class DynamicReportService : IDynamicReportService
     {
+        public const string DynamicReportSessionKey = "Fanex.CRM.Report.DynamicReport.DynamicReportSessionKey";
+
+        public readonly short ClosedBackgroundColorIndex = (short)HSSFColor.DARK_TEAL.index;
+
+        public readonly short CheckedBackgroundColorIndex = (short)HSSFColor.LIGHT_ORANGE.index;
+
+        public readonly short PendingBackgroundColorIndex = (short)HSSFColor.ORANGE.index;
+
         private IDynamicReportRepository _dynamicReportRepository;
 
         private ISettingService _serviceSetting;
@@ -330,194 +344,48 @@ namespace Fanex.CRM.Report.Services.Implements
             DynamicReport dynamicReport = null;
             try
             {
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                //var rawData = _dynamicReportRepository.GetDynamicReport(criteria);
-                var rawData = new List<DynamicReport>
+                if (criteria.PageIndex != 0)
                 {
-                    new DynamicReport 
+                    dynamicReport = CacheService.Get<DynamicReport>(DynamicReportSessionKey);
+                }
+
+                if (criteria.PageIndex == 0 || dynamicReport == null)
+                {
+                    criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+                    criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+                    var rawData = _dynamicReportRepository.GetDynamicReport(criteria);
+                    if (rawData == null ||
+                        rawData.Count == 0)
                     {
-                        RunningNumber = 10500,
-                        PeriodRange = new PeriodRange{
-                            FromDate = criteria.ToDate,
-                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
-                        },
-                        MainCategory = new SettingInfo
-                        {
-                            Name = "General Network/Database Issues"
-                        },
-                        SubCategory = new SettingInfo
-                        {
-                            Name = "Agency Site Network Issue"
-                        },
-                        Subject = "New super 2",
-                        StatusName = "Open",
-                        Duration = new TimeInfo
-                        {
-                            Hours = 1,
-                            Minutes = 0,
-                            Seconds = 0
-                        },
-                        Handler = "sa",
-                        Reviewer ="sa"
-                    },
-                    new DynamicReport 
-                    {
-                        RunningNumber = 41844,
-                        PeriodRange = new PeriodRange{
-                            FromDate =  new DateTime(2014,2,26),
-                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
-                        },
-                        MainCategory = new SettingInfo
-                        {
-                            Name = "General Network/Database Issues"
-                        },
-                        SubCategory = new SettingInfo
-                        {
-                            Name = "Agency Site Network Issue"
-                        },
-                        Subject = "New super 2",
-                        StatusName = "Open",
-                        Duration = new TimeInfo
-                        {
-                            Hours = 1,
-                            Minutes = 0,
-                            Seconds = 0
-                        },
-                        Handler = "sa",
-                        Reviewer ="sa"
-                    },
-                    new DynamicReport 
-                    {
-                        RunningNumber = 41843,
-                        PeriodRange = new PeriodRange{
-                            FromDate = new DateTime(2014,2,26),
-                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
-                        },
-                        MainCategory = new SettingInfo
-                        {
-                            Name = "General Network/Database Issues"
-                        },
-                        SubCategory = new SettingInfo
-                        {
-                            Name = "Agency Site Network Issue"
-                        },
-                        Subject = "New super 2",
-                        StatusName = "Open",
-                        Duration = new TimeInfo
-                        {
-                            Hours = 1,
-                            Minutes = 0,
-                            Seconds = 0
-                        },
-                        Handler = "sa",
-                        Reviewer ="sa"
-                    },
-                    new DynamicReport 
-                    {
-                        RunningNumber = 41840,
-                        PeriodRange = new PeriodRange{
-                            FromDate = new DateTime(2014,1,25),
-                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
-                        },
-                        MainCategory = new SettingInfo
-                        {
-                            Name = "General Network/Database Issues"
-                        },
-                        SubCategory = new SettingInfo
-                        {
-                            Name = "Agency Site Network Issue"
-                        },
-                        Subject = "New super 2",
-                        StatusName = "Open",
-                        Duration = new TimeInfo
-                        {
-                            Hours = 1,
-                            Minutes = 0,
-                            Seconds = 0
-                        },
-                        Handler = "sa",
-                        Reviewer ="sa"
-                    },
-                    new DynamicReport 
-                    {
-                        RunningNumber = 41838,
-                        PeriodRange = new PeriodRange{
-                            FromDate = new DateTime(2012,1,24),
-                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
-                        },
-                        MainCategory = new SettingInfo
-                        {
-                            Name = "General Network/Database Issues"
-                        },
-                        SubCategory = new SettingInfo
-                        {
-                            Name = "Agency Site Network Issue"
-                        },
-                        Subject = "New super 2",
-                        StatusName = "Open",
-                        Duration = new TimeInfo
-                        {
-                            Hours = 1,
-                            Minutes = 0,
-                            Seconds = 0
-                        },
-                        Handler = "sa",
-                        Reviewer ="sa"
-                    },
-                    new DynamicReport 
-                    {
-                        RunningNumber = 41836,
-                        PeriodRange = new PeriodRange{
-                            FromDate = new DateTime(2012,1,24),
-                            FromDateString = criteria.ToDate.ToShortFormatedDate(),
-                        },
-                        MainCategory = new SettingInfo
-                        {
-                            Name = "General Network/Database Issues"
-                        },
-                        SubCategory = new SettingInfo
-                        {
-                            Name = "Agency Site Network Issue"
-                        },
-                        Subject = "New super 2",
-                        StatusName = "Open",
-                        Duration = new TimeInfo
-                        {
-                            Hours = 1,
-                            Minutes = 0,
-                            Seconds = 0
-                        },
-                        Handler = "sa",
-                        Reviewer ="sa"
+                        return dynamicReport;
                     }
-                };
 
-                if (rawData == null ||
-                    rawData.Count == 0)
-                {
-                    return dynamicReport;
+                    switch (criteria.ReportType)
+                    {
+                        case PeriodTypeConstants.Daily:
+                            dynamicReport = GetDynamicReportByDaily(rawData, criteria);
+                            break;
+                        case PeriodTypeConstants.Weekly:
+                            dynamicReport = GetDynamicReportByWeekly(rawData, criteria);
+                            break;
+                        case PeriodTypeConstants.Monthly:
+                            dynamicReport = GetDynamicReportByMonthly(rawData, criteria);
+                            break;
+                        case PeriodTypeConstants.Yearly:
+                            dynamicReport = GetDynamicReportByYearly(rawData, criteria);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    dynamicReport.ReportTypeId = criteria.ReportType;
+                    dynamicReport.TotalChildReports = dynamicReport.ChildReports.Count;
+                    CacheService.Set(DynamicReportSessionKey, dynamicReport);
                 }
 
-                switch (criteria.ReportType)
-                {
-                    case PeriodTypeConstants.Daily:
-                        dynamicReport = GetDynamicReportByDaily(rawData, criteria);
-                        break;
-                    case PeriodTypeConstants.Weekly:
-                        dynamicReport = GetDynamicReportByWeekly(rawData, criteria);
-                        break;
-                    case PeriodTypeConstants.Monthly:
-                        dynamicReport = GetDynamicReportByMonthly(rawData, criteria);
-                        break;
-                    case PeriodTypeConstants.Yearly:
-                        dynamicReport = GetDynamicReportByYearly(rawData, criteria);
-                        break;
-                    default:
-                        break;
-                }
-
-                dynamicReport.ReportTypeId = criteria.ReportType;
+                dynamicReport.ChildReports = dynamicReport.ChildReports.Skip(criteria.PageSize * criteria.PageIndex)
+                    .Take(criteria.PageSize)
+                    .ToList();
             }
             catch (Exception ex)
             {
@@ -527,6 +395,55 @@ namespace Fanex.CRM.Report.Services.Implements
             return dynamicReport;
         }
 
+        /// <summary>
+        /// Exports the dynamic report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        public void ExportDynamicReport(GetDynamicReportCriteria criteria)
+        {
+            try
+            {
+                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+                DynamicReport dynamicReport = CacheService.Get<DynamicReport>(DynamicReportSessionKey);
+                if (dynamicReport == null)
+                {
+                    dynamicReport = GetDynamicReport(criteria);
+                }
+
+                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
+                {
+                    ExcelFile = new HSSFWorkbook(),
+                    StartRow = 0,
+                    StartColumn = 0,
+                    CurrentRow = 0,
+                    MaxColumnIndex = 8
+                };
+
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.DynamicReport_SheetName);
+                SetStatusColorIndex(ref exportExcelInfo);
+                ExportDynamicReportHeader(ref exportExcelInfo, criteria, dynamicReport);
+                ExportDynamicReportBody(ref exportExcelInfo, criteria, dynamicReport);
+                string reportName = string.Format(
+                     Labels.DynamicReport_ExcelTitle,
+                     SettingService.GetPeriodTypeName(criteria.ReportType),
+                     criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
+                     criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
+
+                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets the dynamic report by yearly.
+        /// </summary>
+        /// <param name="rawData">The raw data.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The dynamic report by yearly.</returns>
         private DynamicReport GetDynamicReportByYearly(
             List<DynamicReport> rawData,
             GetDynamicReportCriteria criteria)
@@ -538,8 +455,8 @@ namespace Fanex.CRM.Report.Services.Implements
                 Name = string.Format(
                     Labels.DynamicReport_Title,
                     Labels.Yearly,
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+                    criteria.FromDate.ToShortFormatedDate(),
+                    criteria.ToDate.ToShortFormatedDate())
             };
 
             var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.Year);
@@ -563,16 +480,23 @@ namespace Fanex.CRM.Report.Services.Implements
                 periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
                     periodReport.ChildReports.Add(data);
                 }
 
+                periodReport.TotalChildReports = periodReport.ChildReports.Count;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
             return dynamicReport;
         }
 
+        /// <summary>
+        /// Gets the dynamic report by monthly.
+        /// </summary>
+        /// <param name="rawData">The raw data.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The dynamic report by monthly.</returns>
         private DynamicReport GetDynamicReportByMonthly(
             List<DynamicReport> rawData,
             GetDynamicReportCriteria criteria)
@@ -584,11 +508,11 @@ namespace Fanex.CRM.Report.Services.Implements
                 Name = string.Format(
                     Labels.DynamicReport_Title,
                     Labels.Monthly,
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+                    criteria.FromDate.ToShortFormatedDate(),
+                    criteria.ToDate.ToShortFormatedDate())
             };
 
-            var periodGroups = rawData.GroupBy(data => new DateTime(data.PeriodRange.FromDate.Year, data.PeriodRange.FromDate.Month, data.PeriodRange.FromDate.Day));
+            var periodGroups = rawData.GroupBy(data => new DateTime(data.PeriodRange.FromDate.Year, data.PeriodRange.FromDate.Month, 1));
             foreach (var periodGroup in periodGroups)
             {
                 var periodReport = new DynamicReport
@@ -609,16 +533,23 @@ namespace Fanex.CRM.Report.Services.Implements
                 periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
                     periodReport.ChildReports.Add(data);
                 }
 
+                periodReport.TotalChildReports = periodReport.ChildReports.Count;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
             return dynamicReport;
         }
 
+        /// <summary>
+        /// Gets the dynamic report by weekly.
+        /// </summary>
+        /// <param name="rawData">The raw data.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The dynamic report by weekly.</returns>
         private DynamicReport GetDynamicReportByWeekly(
             List<DynamicReport> rawData,
             GetDynamicReportCriteria criteria)
@@ -629,11 +560,14 @@ namespace Fanex.CRM.Report.Services.Implements
                 Name = string.Format(
                     Labels.DynamicReport_Title,
                     Labels.Weekly,
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+                    criteria.FromDate.ToShortFormatedDate(),
+                    criteria.ToDate.ToShortFormatedDate())
             };
 
-            var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.FirstDayOfWeek().ToShortFormatedDate() + " - " + data.PeriodRange.FromDate.LastDayOfWeek().ToShortFormatedDate());
+            var periodGroups = rawData.GroupBy(data =>
+                data.PeriodRange.FromDate.FirstDayOfWeek().ToShortFormatedDate() +
+                " - " +
+                data.PeriodRange.FromDate.LastDayOfWeek().ToShortFormatedDate());
             foreach (var periodGroup in periodGroups)
             {
                 var periodReport = new DynamicReport
@@ -647,16 +581,23 @@ namespace Fanex.CRM.Report.Services.Implements
 
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
                     periodReport.ChildReports.Add(data);
                 }
 
+                periodReport.TotalChildReports = periodReport.ChildReports.Count;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
             return dynamicReport;
         }
 
+        /// <summary>
+        /// Gets the dynamic report by daily.
+        /// </summary>
+        /// <param name="rawData">The raw data.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The dynamic report by daily.</returns>
         private DynamicReport GetDynamicReportByDaily(
             List<DynamicReport> rawData,
             GetDynamicReportCriteria criteria)
@@ -667,11 +608,11 @@ namespace Fanex.CRM.Report.Services.Implements
                 Name = string.Format(
                     Labels.DynamicReport_Title,
                     Labels.Daily,
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
+                    criteria.FromDate.ToShortFormatedDate(),
+                    criteria.ToDate.ToShortFormatedDate())
             };
 
-            var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate);
+            var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.ToShortFormatedDate());
             foreach (var periodGroup in periodGroups)
             {
                 var periodReport = new DynamicReport
@@ -679,20 +620,327 @@ namespace Fanex.CRM.Report.Services.Implements
                     Name = string.Format(
                         Labels.DynamicReport_PeriodReport_Title,
                         Labels.Daily,
-                        periodGroup.Key.ToShortFormatedDate()),
+                        periodGroup.Key),
                     ChildReports = new List<DynamicReport>()
                 };
 
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.PeriodRange.FromDate);
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
                     periodReport.ChildReports.Add(data);
                 }
 
+                periodReport.TotalChildReports = periodReport.ChildReports.Count;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
             return dynamicReport;
+        }
+
+        /// <summary>
+        /// Exports the dynamic report header.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="dynamicReport">The dynamic report.</param>
+        private void ExportDynamicReportHeader(
+            ref ExportExcelInfo exportExcelInfo,
+            GetDynamicReportCriteria criteria,
+            DynamicReport dynamicReport)
+        {
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile);
+            var currentColumn = exportExcelInfo.StartColumn;
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 120 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 300 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
+
+            string reportTitle = string.Format(
+                Labels.DynamicReport_TitleWithNumberOfLog,
+                SettingService.GetPeriodTypeName(criteria.ReportType),
+                criteria.FromDate.ToShortFormatedDate(),
+                criteria.ToDate.ToShortFormatedDate(),
+                dynamicReport != null ? "[" + dynamicReport.TotalChildReports + "]" : string.Empty);
+
+            CellRangeAddress cellRangeAddress;
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                exportExcelInfo.StartColumn,
+                exportExcelInfo.MaxColumnIndex);
+            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
+            exportExcelInfo.CurrentRow += 2;
+
+            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+            exportExcelInfo.CurrentRow++;
+
+            IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            currentColumn = exportExcelInfo.StartColumn;
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Symbol_No, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Running_No, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Feedback_Date, headerStyle);
+            NpoiExcelExtensions.RenderCell(
+                ref row,
+                ref currentColumn,
+                string.Format("{0}/{1}", Labels.Main_Category, Labels.Sub_Category),
+                headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Subject, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Status, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Duration, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Handled_By, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Reviewed_By, headerStyle);
+            exportExcelInfo.CurrentRow++;
+        }
+
+        /// <summary>
+        /// Exports the dynamic report body.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="dynamicReport">The dynamic report.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private void ExportDynamicReportBody(
+            ref ExportExcelInfo exportExcelInfo,
+            GetDynamicReportCriteria criteria,
+            DynamicReport dynamicReport)
+        {
+            if (dynamicReport == null || dynamicReport.ChildReports.Count == 0)
+            {
+                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                return;
+            }
+
+            var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
+            var periodGroupBackgroundColorIndex = (short)HSSFColor.DARK_YELLOW.index;
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                periodGroupBackgroundColor,
+                periodGroupBackgroundColorIndex);
+            ICellStyle periodGroupTitleStyle = NpoiExcelExtensions.TextStyle(
+                exportExcelInfo.ExcelFile,
+                periodGroupBackgroundColorIndex,
+                true,
+                NpoiExcelExtensions.Alignment.Left);
+            var font = exportExcelInfo.ExcelFile.CreateFont();
+            font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
+            font.FontName = NpoiExcelExtensions.FontName;
+            font.Color = (short)HSSFColor.BLUE.index;
+            font.Boldweight = (short)FontBoldWeight.BOLD;
+            periodGroupTitleStyle.SetFont(font);
+            NpoiExcelExtensions.SetBorderToCell(periodGroupTitleStyle);
+
+            IRow row;
+            CellRangeAddress cellRangeAddress;
+            int currentColumn;
+            var childReportLength = dynamicReport.ChildReports.Count;
+            for (var i = 0; i < childReportLength; i++)
+            {
+                var periodReport = dynamicReport.ChildReports[i];
+                var childsLength = periodReport.ChildReports.Count;
+
+                row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+                currentColumn = exportExcelInfo.StartColumn;
+                cellRangeAddress = new CellRangeAddress(
+                    exportExcelInfo.CurrentRow,
+                    exportExcelInfo.CurrentRow + 1,
+                    exportExcelInfo.StartColumn,
+                    exportExcelInfo.MaxColumnIndex);
+                NpoiExcelExtensions.RenderMergedCells(
+                    ref exportExcelInfo,
+                    cellRangeAddress,
+                    string.Format("{0} [{1}]", periodReport.Name, childsLength),
+                    periodGroupTitleStyle);
+                exportExcelInfo.CurrentRow += 2;
+                for (var j = 0; j < childsLength; j++)
+                {
+                    row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+                    currentColumn = exportExcelInfo.StartColumn;
+                    var info = periodReport.ChildReports[j];
+                    ExportDynamicReportRow(ref exportExcelInfo, ref currentColumn, info, j);
+                }
+            }
+        }
+
+        private void SetStatusColorIndex(ref ExportExcelInfo exportExcelInfo)
+        {
+            var closedBackgroundColor = Color.FromArgb(221, 221, 221);
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                closedBackgroundColor,
+                ClosedBackgroundColorIndex);
+
+            var checkedBackgroundColor = Color.FromArgb(242, 242, 242);
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                checkedBackgroundColor,
+                CheckedBackgroundColorIndex);
+
+            var pendingBackgroundColor = Color.FromArgb(240, 237, 196);
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                pendingBackgroundColor,
+                PendingBackgroundColorIndex);
+        }
+
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private void ExportDynamicReportRow(
+            ref ExportExcelInfo exportExcelInfo,
+            ref int currentColumn,
+            DynamicReport info,
+            int infoIndex)
+        {
+            short rowBackGroundColorIndex;
+            if (string.Equals(info.StatusName, Labels.Closed, StringComparison.OrdinalIgnoreCase))
+            {
+                rowBackGroundColorIndex = ClosedBackgroundColorIndex;
+            }
+            else if (string.Equals(info.StatusName, Labels.Checked, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(info.StatusName, Labels.Solved, StringComparison.OrdinalIgnoreCase))
+            {
+                rowBackGroundColorIndex = CheckedBackgroundColorIndex;
+            }
+            else if (string.Equals(info.StatusName, Labels.Pending, StringComparison.OrdinalIgnoreCase))
+            {
+                rowBackGroundColorIndex = PendingBackgroundColorIndex;
+            }
+            else
+            {
+                rowBackGroundColorIndex = NpoiExcelExtensions.BackgroundColorIndex;
+            }
+
+            ICellStyle intStyle = NpoiExcelExtensions.IntNumberStyle(
+               exportExcelInfo.ExcelFile,
+               rowBackGroundColorIndex,
+               false,
+               HorizontalAlignment.LEFT);
+            ICellStyle textStyle = NpoiExcelExtensions.TextStyle(
+                exportExcelInfo.ExcelFile,
+                rowBackGroundColorIndex,
+                false,
+                NpoiExcelExtensions.Alignment.Left);
+            ICellStyle centerTextStyle = NpoiExcelExtensions.TextStyle(
+                exportExcelInfo.ExcelFile,
+                rowBackGroundColorIndex,
+                false,
+                NpoiExcelExtensions.Alignment.Center);
+
+            CellRangeAddress cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                currentColumn,
+                currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                infoIndex + 1,
+                intStyle);
+            currentColumn++;
+
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                currentColumn,
+                currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                info.RunningNumber,
+                textStyle);
+            currentColumn++;
+
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                currentColumn,
+                currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                info.PeriodRange.FromDate.ToShortFormatedDate() + "\n" + info.PeriodRange.FromDate.ToLongTimeString(),
+                centerTextStyle);
+            currentColumn++;
+
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                currentColumn,
+                currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                info.MainCategory.Name + "\n" + info.SubCategory.Name,
+                textStyle);
+            currentColumn++;
+
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                currentColumn,
+                currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                info.Subject,
+                textStyle);
+            currentColumn++;
+
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                currentColumn,
+                currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                info.StatusName,
+                centerTextStyle);
+            currentColumn++;
+
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                currentColumn,
+                currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                string.Format(Labels.Format_Duration, info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds),
+                centerTextStyle);
+            currentColumn++;
+
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                currentColumn,
+                currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                info.Handler,
+                textStyle);
+            currentColumn++;
+
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                currentColumn,
+                currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                info.Reviewer,
+                textStyle);
+            currentColumn++;
+            exportExcelInfo.CurrentRow += 2;
         }
     }
 }

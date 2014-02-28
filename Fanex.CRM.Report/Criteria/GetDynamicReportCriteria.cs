@@ -17,7 +17,7 @@ namespace Fanex.CRM.Report.Criteria
     /// </summary>
     public class GetDynamicReportCriteria : CriteriaBase
     {
-        [SpParam(SqlParamName = "reporttype")]
+        [SpParam(Ignored = true)]
         public int ReportType { get; set; }
 
         [SpParam(SqlParamName = "fromdate")]
@@ -41,7 +41,7 @@ namespace Fanex.CRM.Report.Criteria
         [SpParam(SqlParamName = "roleid")]
         public int RoleId { get; set; }
 
-        [SpParam(SqlParamName = "communicationtoolid")]
+        [SpParam(SqlParamName = "communicationid")]
         public int CommunicationToolId { get; set; }
 
         [SpParam(SqlParamName = "maincategoryid")]
@@ -50,14 +50,20 @@ namespace Fanex.CRM.Report.Criteria
         [SpParam(SqlParamName = "subcategoryid")]
         public int SubCategoryId { get; set; }
 
-        [SpParam(SqlParamName = "handler")]
+        [SpParam(SqlParamName = "handleby")]
         public string Handler { get; set; }
 
-        [SpParam(SqlParamName = "reviewer")]
+        [SpParam(SqlParamName = "reviewby")]
         public string Reviewer { get; set; }
 
-        [SpParam(SqlParamName = "extensionid")]
+        [SpParam(SqlParamName = "extension")]
         public int ExtensionId { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int PageIndex { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int PageSize { get; set; }
 
         public override string GetSettingKey()
         {

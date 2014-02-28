@@ -82,6 +82,10 @@
       <HintPath>..\packages\JavaScriptEngineSwitcher.V8.1.0.0\lib\net40\JavaScriptEngineSwitcher.V8.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependency\Fanex\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
@@ -388,6 +392,7 @@
     <Content Include="Scripts\ShareScripts\Directives\DatePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DateTimePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DefaultFocus.js" />
+    <Content Include="Scripts\ShareScripts\Directives\DownloadFile.js" />
     <Content Include="Scripts\ShareScripts\Directives\DropdownList.js" />
     <Content Include="Scripts\ShareScripts\Directives\DropdownSite.js" />
     <Content Include="Scripts\ShareScripts\Directives\HtmlArea.js" />

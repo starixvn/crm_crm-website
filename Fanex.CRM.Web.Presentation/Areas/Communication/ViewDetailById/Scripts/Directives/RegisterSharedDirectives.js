@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global viewDetailByIdApplication, 
-directiveManager */
+directiveManager,
+crmConstants */
 
 function viewDetailByIdApplicationRegisterPicker() {
     function registerProductPicker() {

@@ -386,6 +386,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/Directives/MonthPicker.js",
                 "~/Scripts/ShareScripts/Directives/YearPicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",

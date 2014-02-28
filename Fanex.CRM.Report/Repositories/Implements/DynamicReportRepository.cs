@@ -94,8 +94,8 @@ namespace Fanex.CRM.Report.Repositories.Implements
                     Minutes = Converter.ToInt(durationTimeArray[1]),
                     Seconds = Converter.ToInt(durationTimeArray[2])
                 },
-                Handler = reader.GetStringNotNull("HandleBy"),
-                Reviewer = reader.GetStringNotNull("ReviewBy")
+                Handler = reader.GetStringNotNull("HandledBy"),
+                Reviewer = reader.GetStringNotNull("ReviewedBy")
             };
 
             return communication;

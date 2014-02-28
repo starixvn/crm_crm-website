@@ -17,6 +17,7 @@ namespace Fanex.CRM.Report.Models
     /// <summary>
     /// Dynamic Report.
     /// </summary>
+    [Serializable]
     public class DynamicReport
     {
         public string Id { get; set; }
@@ -83,29 +84,6 @@ namespace Fanex.CRM.Report.Models
 
         public List<DynamicReport> ChildReports { get; set; }
 
-        public int TotalLogs
-        {
-            get
-            {
-                if (ChildReports == null ||
-                    ChildReports.Count == 0)
-                {
-                    return 0;
-                }
-
-                var totalItem = 0;
-                foreach (var childReport in ChildReports)
-                {
-                    totalItem += childReport.TotalLogs;
-                }
-
-                if (totalItem == 0)
-                {
-                    return ChildReports.Count;
-                }
-
-                return totalItem;
-            }
-        }
+        public int TotalChildReports { get; set; }
     }
 }

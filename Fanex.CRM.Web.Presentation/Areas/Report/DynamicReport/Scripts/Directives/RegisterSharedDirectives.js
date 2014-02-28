@@ -236,7 +236,16 @@ function dynamicReportRegisterPicker() {
 
         directiveManager.registerDefaultFocus(dynamicReportApplication, defaultFocusRegisterParams);
     }
+    function registerDownloadFile() {
+        var downloadFileRegisterParams = {
+            PlugInName: 'downloadFileContainer',
+            OptionName: 'downloadFileOptions',
+            RestrictType: 'C'
+        };
 
+        directiveManager.registerDownloadFile(dynamicReportApplication, downloadFileRegisterParams);
+    }
+    
     registerReportTypePicker();
     registerDatePicker();
     registerWeekPicker();
@@ -252,6 +261,7 @@ function dynamicReportRegisterPicker() {
     registerSubCategoryPicker();
     registerExtensionPicker();
     registerDefaultFocus();
+    registerDownloadFile();
 }
 
 dynamicReportRegisterPicker();

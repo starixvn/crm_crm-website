@@ -49,8 +49,8 @@ namespace Fanex.CRM.DataAccess.Impl
                         {
                             var releatedCustomer = new RelatedCustomer()
                                                {
-                                                   CustId = Fanex.Common.Converter.ToInt(reader.GetOrdinal("custid")),
-                                                   UserName = Fanex.Common.Converter.ToString2(reader.GetOrdinal("val"))
+                                                   CustId = Fanex.Common.Converter.ToInt(reader["custid"]),
+                                                   UserName = Fanex.Common.Converter.ToString2(reader["val"])
                                                };
                             result.Add(releatedCustomer);
                         }
@@ -84,7 +84,7 @@ namespace Fanex.CRM.DataAccess.Impl
                         {
                             var customerInfo = GetCustomerInformation(reader);
                             customer.CustomerInfo = customerInfo;
-                            
+
                             customer.Id = Fanex.Common.Converter.ToInt(reader.GetOrdinal("CustId"), 0);
                             customer.UserName = Fanex.Common.Converter.ToString2("UserName");
                             customer.RoleId = Fanex.Common.Converter.ToInt(reader.GetOrdinal("roleid"), 0);
@@ -582,7 +582,7 @@ namespace Fanex.CRM.DataAccess.Impl
                     CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
                     AreaCode = Converter.ToString2(reader["Phone3AreaCode"])
                 },
-                Fax = new FaxInfo 
+                Fax = new FaxInfo
                 {
                     FaxNumber = Converter.ToString2(reader["Fax"]),
                     CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
@@ -611,6 +611,11 @@ namespace Fanex.CRM.DataAccess.Impl
             };
         }
 
+        /// <summary>
+        /// Gets the customer bank information.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>The customer bank information.</returns>
         private BankInfo GetCustomerBankInfo(IDataReader reader)
         {
             /*return new BankInfo

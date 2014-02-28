@@ -138,23 +138,20 @@
   <data name="Feedback_Date" xml:space="preserve">
     <value>Feedback Date</value>
   </data>
-  <data name="From_date" xml:space="preserve">
-    <value>From date</value>
+  <data name="From_Date" xml:space="preserve">
+    <value>From Date</value>
   </data>
-  <data name="From_month" xml:space="preserve">
-    <value>From month</value>
+  <data name="From_Month" xml:space="preserve">
+    <value>From Month</value>
   </data>
-  <data name="From_week" xml:space="preserve">
-    <value>From week</value>
+  <data name="From_Week" xml:space="preserve">
+    <value>From Week</value>
   </data>
-  <data name="From_year" xml:space="preserve">
-    <value>From year</value>
+  <data name="From_Year" xml:space="preserve">
+    <value>From Year</value>
   </data>
   <data name="Handled_By" xml:space="preserve">
     <value>Handled By</value>
-  </data>
-  <data name="Hanlde_by" xml:space="preserve">
-    <value>Hanlde by</value>
   </data>
   <data name="Main_Category" xml:space="preserve">
     <value>Main Category</value>
@@ -176,9 +173,6 @@
   </data>
   <data name="Reviewed_By" xml:space="preserve">
     <value>Reviewed By</value>
-  </data>
-  <data name="Review_by" xml:space="preserve">
-    <value>Review by</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
@@ -204,17 +198,17 @@
   <data name="Symbol_No" xml:space="preserve">
     <value>#</value>
   </data>
-  <data name="To_date" xml:space="preserve">
-    <value>To date</value>
+  <data name="To_Date" xml:space="preserve">
+    <value>To Date</value>
   </data>
-  <data name="To_month" xml:space="preserve">
-    <value>To month</value>
+  <data name="To_Month" xml:space="preserve">
+    <value>To Month</value>
   </data>
-  <data name="To_week" xml:space="preserve">
-    <value>To week</value>
+  <data name="To_Week" xml:space="preserve">
+    <value>To Week</value>
   </data>
-  <data name="To_year" xml:space="preserve">
-    <value>To year</value>
+  <data name="To_Year" xml:space="preserve">
+    <value>To Year</value>
   </data>
   <data name="Weekly" xml:space="preserve">
     <value>Weekly</value>
@@ -227,5 +221,32 @@
   </data>
   <data name="DynamicReport_PeriodReport_Title" xml:space="preserve">
     <value>{0} Communication Logs for {1}</value>
+  </data>
+  <data name="DynamicReport_SheetName" xml:space="preserve">
+    <value>Dynamic Report</value>
+  </data>
+  <data name="Group_By" xml:space="preserve">
+    <value>Group By</value>
+  </data>
+  <data name="DynamicReport_ExcelTitle" xml:space="preserve">
+    <value>{0}_Communication_Logs_From_{1}_To_{2}</value>
+  </data>
+  <data name="DynamicReport_TitleWithNumberOfLog" xml:space="preserve">
+    <value>{0} Communication Logs From {1} To {2} {3}</value>
+  </data>
+  <data name="Format_Duration" xml:space="preserve">
+    <value>{0}:{1}:{2}</value>
+  </data>
+  <data name="Checked" xml:space="preserve">
+    <value>Checked</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Solved" xml:space="preserve">
+    <value>Solved</value>
   </data>
 </root>

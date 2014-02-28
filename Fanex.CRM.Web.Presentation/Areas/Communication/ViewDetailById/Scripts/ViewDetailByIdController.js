@@ -2,10 +2,10 @@
 /* global viewDetailByIdApplication,
 communicationLog,
 sharedScriptManager,
-crmConstants,
 viewResources,
-hotKeyManager,
-hasReviewPermission */
+hasReviewPermission,
+currentTime */
+/* jshint camelcase: false */
 viewDetailByIdApplication.controller('viewDetailByIdController', ['$scope', '$http', '$viewDetailByIdService',
 function (
     $scope,

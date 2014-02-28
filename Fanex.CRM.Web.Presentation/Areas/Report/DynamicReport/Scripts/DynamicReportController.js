@@ -7,6 +7,7 @@ currentDate: true,
 initFromDate: true,
 weekPickerManager */
 /* jshint camelcase: false */
+/* jshint unused: vars */
 dynamicReportApplication.controller('dynamicReportController', ['$scope', '$http', '$dynamicReportService',
 function (
     $scope,
@@ -35,6 +36,8 @@ function (
     $scope.subCategoryOptions = null;
     $scope.extensionOptions = null;
     $scope.defaultFocusOptions = null;
+    $scope.downloadFileOptions = null;
+
     $scope.searchCriteria = {
         ReportType: null,
         FromDate: initFromDate,
@@ -50,7 +53,9 @@ function (
         SubCategory: null,
         Handler: null,
         Reviewer: null,
-        Extension: null
+        Extension: null,
+        PageIndex: 0,
+        PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
     };
 
     $scope.dynamicReport = null;
@@ -238,14 +243,16 @@ function (
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
-                /* jshint unused: vars */
                 $scope.completedLoadFilterInfo();
             });
     };
     $scope.completedLoadFilterInfo = function () {
         $scope.searchCriteria.ReportType = $scope.reportTypeOptions.DataList[0];
         $scope.searchCriteria.Product = $scope.productOptions.DataList[0];
-        $scope.searchCriteria.Site = $scope.siteOptions.DataList[0];
+        $scope.searchCriteria.Site = {
+            Id: crmConstants.Enums.Site.NotApply,
+            Name: viewResources.All
+        };
         $scope.searchCriteria.Status = $scope.statusOptions.DataList[0];
         $scope.searchCriteria.Response = $scope.responseOptions.DataList[0];
         $scope.searchCriteria.Role = $scope.roleOptions.DataList[0];
@@ -253,7 +260,7 @@ function (
         $scope.searchCriteria.MainCategory = $scope.mainCategoryOptions.DataList[0];
         $scope.searchCriteria.SubCategory = $scope.subCategoryOptions.DataList[0];
         $scope.searchCriteria.Extension = {
-            Id: crmConstants.Enums.Site.NotApply,
+            Id: crmConstants.Enums.Extension.NotApply,
             Name: viewResources.All
         };
 
@@ -483,8 +490,8 @@ function (
         $scope.BlockUI();
         var getReportCriteria = {
             ReportType: $scope.searchCriteria.ReportType.Id,
-            FromDate: $scope.searchCriteria.FromDate,
-            ToDate: $scope.searchCriteria.ToDate,
+            FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+            ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
 
             ProductId: $scope.searchCriteria.Product.Id,
             SiteId: $scope.searchCriteria.Site.Id,
@@ -496,7 +503,9 @@ function (
             SubCategoryId: $scope.searchCriteria.SubCategory.Id,
             HandlerId: $scope.searchCriteria.Handler,
             ReviewerId: $scope.searchCriteria.Reviewer,
-            ExtensionId: $scope.searchCriteria.Extension.Id
+            ExtensionId: $scope.searchCriteria.Extension.Id,
+            PageIndex: $scope.searchCriteria.PageIndex,
+            PageSize: $scope.searchCriteria.PageSize
         };
 
         $scope.lastSelectedParams = getReportCriteria;
@@ -506,7 +515,19 @@ function (
                 $scope.unblockUI();
             },
             function (data) {
-                /* jshint unused: vars */
+                $scope.unblockUI();
+            });
+    };
+    $scope.pagingDynamicReport = function (pageIndex, pageSize) {
+        $scope.BlockUI();
+        $scope.lastSelectedParams.PageIndex = pageIndex;
+        $scope.lastSelectedParams.PageSize = pageSize;
+        $dynamicReportService.getDynamicReport($scope.lastSelectedParams)
+            .then(function (data) {
+                $scope.dynamicReport = data.Result;
+                $scope.unblockUI();
+            },
+            function (data) {
                 $scope.unblockUI();
             });
     };
@@ -534,6 +555,14 @@ function (
         //        $scope.$apply(function () {
         //            $scope.isSetFocus = true;
         //        });
+    };
+    $scope.exportReport = function () {
+        $scope.downloadFileOptions = {
+            URL: window.rootUrl + "DynamicReport/ExportDynamicReport",
+            Params: $scope.lastSelectedParams
+        };
+
+        $scope.$apply();
     };
 
     $scope.unblockUI = function () {

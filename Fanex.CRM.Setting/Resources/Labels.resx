@@ -123,6 +123,9 @@
   <data name="Credit" xml:space="preserve">
     <value>Credit</value>
   </data>
+  <data name="Daily" xml:space="preserve">
+    <value>Daily</value>
+  </data>
   <data name="Error_GetAllSetting" xml:space="preserve">
     <value>(SettingService GetAll) - {0}</value>
   </data>
@@ -150,10 +153,19 @@
   <data name="Member" xml:space="preserve">
     <value>Member</value>
   </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
   <data name="Super" xml:space="preserve">
     <value>Super</value>
   </data>
   <data name="Symbol_NotApply" xml:space="preserve">
     <value>N/A</value>
+  </data>
+  <data name="Weekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Yearly</value>
   </data>
 </root>
