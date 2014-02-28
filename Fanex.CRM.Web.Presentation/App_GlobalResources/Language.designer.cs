@@ -793,6 +793,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Review.
+        /// </summary>
+        internal static string Review {
+            get {
+                return ResourceManager.GetString("Review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role.
         /// </summary>
         internal static string Role {

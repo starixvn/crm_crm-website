@@ -148,7 +148,6 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         /// <param name="log">The log object.</param>
         private void GetNewAndOldValues(ActionLog log)
         {
-            string oldString = null, newString = null;
             IList<NameValue> oldValuesList = null, newValuesList = null;
             string oldValues = log.OldValues,
                 newValues = log.NewValues;
@@ -163,16 +162,32 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 newValuesList = ParseXMLString(newValues);
             }
 
-            int oldCount = oldValuesList == null ? 0 : oldValuesList.Count;
-            int newCount = newValuesList == null ? 0 : newValuesList.Count;
+            if (newValues.IndexOf("Acc_CRM_CustomerRemarkUpd", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                oldValues.IndexOf("Acc_CRM_CustomerRemarkUpd", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                GetNewAndOldValues4RemarkLog(log, oldValuesList, newValuesList);
+            }
+            else
+            {
+                GetNewAndOldValues(log, oldValuesList, newValuesList);
+            }
+            
+            log.OldValues = log.NewValues = null;
+        }
+
+        private void GetNewAndOldValues(ActionLog log, IList<NameValue> oldValues, IList<NameValue> newValues)
+        {
+            string oldString = null, newString = null;
+            int oldCount = oldValues == null ? 0 : oldValues.Count;
+            int newCount = newValues == null ? 0 : newValues.Count;
             if (oldCount == 0)
             {
                 for (int i = 0; i < newCount; i++)
                 {
-                    newString = newValuesList[i].Value;
+                    newString = newValues[i].Value;
                     if (!string.IsNullOrWhiteSpace(newString))
                     {
-                        log.FieldNames.Add(newValuesList[i].Name);
+                        log.FieldNames.Add(newValues[i].Name);
                         log.NewValuesList.Add(newString);
                     }
                 }
@@ -181,18 +196,124 @@ namespace Fanex.CRM.ActionLog.Services.Implements
             {
                 for (int i = 0; i < newCount; i++)
                 {
-                    oldString = oldValuesList[i].Value;
-                    newString = newValuesList[i].Value;
+                    oldString = oldValues[i].Value;
+                    newString = newValues[i].Value;
                     if (!string.Equals(oldString, newString, StringComparison.OrdinalIgnoreCase))
                     {
-                        log.FieldNames.Add(newValuesList[i].Name);
+                        log.FieldNames.Add(newValues[i].Name);
                         log.OldValuesList.Add(oldString);
                         log.NewValuesList.Add(newString);
                     }
                 }
             }
-
-            log.OldValues = log.NewValues = null;
         }
+
+        #region Remark Log
+
+        /// <summary>
+        /// Gets the new and old values4 remark log.
+        /// </summary>
+        /// <param name="log">The log parameter.</param>
+        /// <param name="oldValues">The old values.</param>
+        /// <param name="newValues">The new values.</param>
+        private void GetNewAndOldValues4RemarkLog(ActionLog log, IList<NameValue> oldValues, IList<NameValue> newValues)
+        {
+            IList<string> oldRemarks = null, oldSpecialRemarks = null;
+            IList<string> newRemarks = null, newSpecialRemarks = null;
+            if (oldValues != null)
+            {
+                GetRemarkLogList(oldValues, out oldRemarks, out oldSpecialRemarks);
+            }
+
+            if (newValues != null)
+            {
+                GetRemarkLogList(newValues, out newRemarks, out newSpecialRemarks);
+            }
+
+            CompareNewAndOldRemarks(log, oldRemarks, newRemarks, false);
+            CompareNewAndOldRemarks(log, oldSpecialRemarks, newSpecialRemarks, true);
+        }
+
+        /// <summary>
+        /// Gets the remark log list.
+        /// </summary>
+        /// <param name="sources">The sources.</param>
+        /// <param name="remarks">The remarks.</param>
+        /// <param name="specialRemarks">The special remarks.</param>
+        private void GetRemarkLogList(IList<NameValue> sources, out IList<string> remarks, out IList<string> specialRemarks)
+        {
+            remarks = new List<string>();
+            specialRemarks = new List<string>();
+            foreach (NameValue item in sources)
+            {
+                if (string.Equals(item.Name, "remark", StringComparison.OrdinalIgnoreCase))
+                {
+                    remarks.Add(item.Value);
+                }
+                else
+                {
+                    specialRemarks.Add(item.Value);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Compares the new and old remarks.
+        /// </summary>
+        /// <param name="log">The log parameter.</param>
+        /// <param name="oldList">The old list.</param>
+        /// <param name="newList">The new list.</param>
+        /// <param name="isSpecialRemark">If set to <c>true</c> [is special remark].</param>
+        private void CompareNewAndOldRemarks(ActionLog log, IList<string> oldList, IList<string> newList, bool isSpecialRemark = true)
+        {
+            string oldString, newString;
+            int oldCount = oldList == null ? 0 : oldList.Count;
+            int newCount = newList == null ? 0 : newList.Count;
+            if (oldCount == 0)
+            {
+                for (int i = 0; i < newCount; i++)
+                {
+                    newString = newList[i];
+                    if (!string.IsNullOrWhiteSpace(newString))
+                    {
+                        log.FieldNames.Add(isSpecialRemark ? "SpecialRemark" : "Remark");
+                        log.NewValuesList.Add(newString);
+                    }
+                }
+            }
+            else
+            {
+                //// balance between oldList and newList
+                if (newCount > oldCount)
+                {
+                    for (int i = oldCount; i < newCount; i++)
+                    {
+                        oldList.Add(string.Empty);
+                    }
+                }
+                else if (oldCount > newCount)
+                {
+                    for (int i = newCount; i < oldCount; i++)
+                    {
+                        newList.Add(string.Empty);
+                    }
+                }
+
+                newCount = newList.Count;
+                for (int i = 0; i < newCount; i++)
+                {
+                    oldString = oldList[i];
+                    newString = newList[i];
+                    if (!string.Equals(oldString, newString, StringComparison.OrdinalIgnoreCase))
+                    {
+                        log.FieldNames.Add(isSpecialRemark ? "SpecialRemark" : "Remark");
+                        log.OldValuesList.Add(oldString);
+                        log.NewValuesList.Add(newString);
+                    }
+                }
+            }
+        }
+
+        #endregion
     }
 }

@@ -408,4 +408,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Role" xml:space="preserve">
     <value>Role</value>
   </data>
+  <data name="Review" xml:space="preserve">
+    <value>Review</value>
+  </data>
 </root>

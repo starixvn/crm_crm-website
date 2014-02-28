@@ -36,106 +36,15 @@ isShowReviewBox,
 isShowSolutionBox
 */
 var bindingEvent;
-var feedbackNew = {
-    "Id": 0,
-    "IsOverrideCrmInfo": false,
-    "BetType": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "Category": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "Communication": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "Country": { "Id": 0, "CountryCode": 0, "CountryName": null, "DisplayOrder": 0, "IsActive": false },
-    "CreateDate": null,
-    "Creator": { "Id": 0, "IsAllowUpdateReview": false, "Password": null, "RoleId": 0, "Username": "" },
-    "CsExtension": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "Customer": {
-        "Id": 0,
-        "Answer": null,
-        "BankInfo": null,
-        "BettingCode": null,
-        "Country": 0,
-        "CountryName": null,
-        "CreatedDate": null,
-        "Creator": null,
-        "CustomerInfo": null,
-        "IsVip": false,
-        "Language": 0,
-        "NickName": null,
-        "Pic1": null,
-        "Pic2": null,
-        "Pic3": null,
-        "Question": null,
-        "RefCode2": null,
-        "RelatedCustomer": null,
-        "Remark": null,
-        "RoleId": 0,
-        "RoleName": "",
-        "Site": null,
-        "SpecialRemark": null,
-        "UserName": ""
-    },
-    "CustomerInfo": {
-        "BirthDay": null,
-        "Email": " ",
-        "Fax": " ",
-        "FirstName": " ",
-        "LastName": " ",
-        "MSN": " ",
-        "MobilePhone": " ",
-        "Phone": " ",
-        "Skype": " ",
-        "Title": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null }
-    },
-    "Description": "",
-    "FeedbackDate": "/Date(1317709320000+0700)/",
-    "IsReviewed": false,
-    "Language": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "Priority": null, "Product": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "RelatedCustomer": {
-        "Id": 0,
-        "Answer": null,
-        "BankInfo": null,
-        "BettingCode": null,
-        "Country": 0,
-        "CountryName": null,
-        "CreatedDate": null,
-        "Creator": null,
-        "CustomerInfo": null,
-        "IsVip": false,
-        "Language": 0,
-        "NickName": null,
-        "Pic1": null,
-        "Pic2": null,
-        "Pic3": null,
-        "Question": null,
-        "RefCode2": null,
-        "RelatedCustomer": null,
-        "Remark": null,
-        "RoleId": 0,
-        "RoleName": "",
-        "Site": null,
-        "SpecialRemark": null,
-        "UserName": ""
-    },
-    "ResolutionTime": null,
-    "Response": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "Review": "", "Reviewer": { "Id": 0, "IsAllowUpdateReview": false, "Password": null, "RoleId": 0, "Username": "" },
-    "Role": { "Id": 7004, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "Site": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "Solution": " ",
-    "SolvedDate": null,
-    "Status": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "StrFeedbackDate": "",
-    "SubCategory": { "Id": 0, "Child": null, "DisplayOrder": 0, "IsSub": false, "Parent": null, "Type": null, "Value": null },
-    "Subject": "", "UpdateReviewMode": 0
-};
-var settings = ["Title", "Status", "Station", "Response", "Communication"];
-var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication"];
+//var settings = ["Title", "Status", "Station", "Response", "Communication"];
+//var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication"];
 var listObjToValidate = ["txtsubject"];
 var listEditorToValidate = ["desediter"];
 var custName = "";
-var roleName = "";
+//var roleName = "";
 var custId = 0;
-var role = 0;
-var numberOfFinish = 0;
+//var role = 0;
+//var numberOfFinish = 0;
 var AllSetting;
 var listFeedbacksLasted = [];
 var numberOfFeedbackItem = 0;
@@ -146,13 +55,6 @@ var isShowFeedbackDetailBox = false;
 var isShowDescriptionBox = false;
 var isShowSolutionBox = false;
 var isShowReviewBox = false;
-
-var cachedElements = {
-    personalInfo: {},
-    details: {},
-    description: '',
-    solution: ''
-};
 
 function bindingEvent() {
     $('#ddlcategory').change(function () {
@@ -301,8 +203,10 @@ function DoAdd() {
     var newFeedback = getFeedbackData();
     //-------check override crm info--------------
     if ($('#chkIsOverrideCrmInfo').prop('checked')) {
-        $("#divOverrideCRMInfo").html('Current CRM Info will be overrided, please double check before Submit!');
-        $("#divOverrideCRMInfo").dialog({ width: 400, height: 120, zIndex: 500, resizable: false,
+        var divPopup = parent.$("#div-resultpopup");
+        divPopup.html('Current CRM Info will be overrided, please double check before Submit!');
+        divPopup.removeClass("display-none");
+        divPopup.dialog({ width: 400, height: 150, zIndex: 500, resizable: false, modal: true,
             close: function (event, ui) {
                 /* jshint unused: vars */
             },
@@ -310,7 +214,7 @@ function DoAdd() {
                 text: "Ok",
                 click: function () {
                     newFeedback.IsOverrideCrmInfo = true;
-                    $(this).dialog("close");
+                    divPopup.dialog("close");
                     addFeedbackInfo(newFeedback);
                 }
             },
@@ -318,7 +222,7 @@ function DoAdd() {
                 text: 'Cancel',
                 click: function () {
                     newFeedback.IsOverrideCrmInfo = false;
-                    $(this).dialog("close");
+                    divPopup.dialog("close");
                 }
             }]
         });
@@ -348,6 +252,11 @@ function AddFeedback() {
         }
         if (Date.parse($("#txtdate").val()) >= Date.parse($("#txtResolutionTime").val())) {
             showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
+            return false;
+        }
+        var languageIds = $("#ddllanguage").fanexMultiSelect('getItems', true);
+        if (!languageIds || languageIds.length === 0) {
+            showAlertMessage("errmsg", "Please choose language!", 1);
             return false;
         }
         if ($('#ddlcommunication option:selected').text().toLowerCase() === 'n/a') {
