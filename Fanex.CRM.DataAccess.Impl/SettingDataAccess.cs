@@ -171,10 +171,10 @@ namespace Fanex.CRM.DataAccess.Impl
                             allsetting.Add(
                                 new Setting()
                                     {
-                                        Id = Converter.ToInt(reader.GetOrdinal("SettingId"), 0),
-                                        Type = Converter.ToString2(reader.GetOrdinal("SettingName")),
-                                        Value = Converter.ToString2(reader.GetOrdinal("SettingValue")),
-                                        DisplayOrder = Converter.ToInt(reader.GetOrdinal("DisplayOrder"), 0)
+                                        Id = Converter.ToInt(reader["settingid"], 0),
+                                        Type = Converter.ToString2(reader["settingname"]),
+                                        Value = Converter.ToString2(reader["settingvalue"]),
+                                        DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
                                     });
                         }
                     }
@@ -203,9 +203,9 @@ namespace Fanex.CRM.DataAccess.Impl
                             settingRelations.Add(
                                 new SettingRelation()
                                     {
-                                        SettingId = Converter.ToInt(reader.GetOrdinal("SettingID"), 0),
-                                        ParentId = Converter.ToInt(reader.GetOrdinal("ParentId"), 0),
-                                        Order = Converter.ToInt(reader.GetOrdinal("DisplayOrder"), 0)
+                                        SettingId = Converter.ToInt(reader["settingid"], 0),
+                                        ParentId = Converter.ToInt(reader["parentid"], 0),
+                                        Order = Converter.ToInt(reader["displayorder"], 0)
                                     });
                         }
                     }
@@ -239,10 +239,10 @@ namespace Fanex.CRM.DataAccess.Impl
                             allsetting.Add(
                                 new Setting()
                                 {
-                                    Id = Converter.ToInt(reader.GetOrdinal("SettingId"), 0),
-                                    Value = Converter.ToString2(reader.GetOrdinal("SettingValue")),
-                                    IsSub = Converter.ToInt(reader.GetOrdinal("IsSub"), 0) == 1,
-                                    DisplayOrder = Converter.ToInt(reader.GetOrdinal("DisplayOrder"), 0)
+                                    Id = Converter.ToInt(reader["settingid"], 0),
+                                    Value = Converter.ToString2(reader["settingvalue"]),
+                                    IsSub = Converter.ToInt(reader["issub"], 0) == 1,
+                                    DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
                                 });
                         }
                     }
