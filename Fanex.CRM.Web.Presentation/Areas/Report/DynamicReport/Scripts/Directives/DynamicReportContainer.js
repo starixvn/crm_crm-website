@@ -44,7 +44,8 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                             },
                             {
                                 Name: "ColFeedbackDate",
-                                Value: moment(new Date(info.PeriodRange.FromDateString)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
+                                Value: moment(new Date(info.PeriodRange.FromDateString))
+                                    .format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
                             },
                             {
                                 Name: "ColCategory",

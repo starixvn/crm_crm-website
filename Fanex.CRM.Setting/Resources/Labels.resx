@@ -120,8 +120,14 @@
   <data name="Agent" xml:space="preserve">
     <value>Agent</value>
   </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
   <data name="Credit" xml:space="preserve">
     <value>Credit</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
   </data>
   <data name="Daily" xml:space="preserve">
     <value>Daily</value>
@@ -156,11 +162,17 @@
   <data name="Monthly" xml:space="preserve">
     <value>Monthly</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="Super" xml:space="preserve">
     <value>Super</value>
   </data>
   <data name="Symbol_NotApply" xml:space="preserve">
     <value>N/A</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
   </data>
   <data name="Weekly" xml:space="preserve">
     <value>Weekly</value>

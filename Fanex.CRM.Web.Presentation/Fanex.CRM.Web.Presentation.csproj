@@ -309,6 +309,10 @@
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
+    <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportApplication.js" />
+    <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportController.js" />
+    <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportService.js" />
+    <Content Include="Areas\Report\CustomerReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportContainer.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
@@ -400,6 +404,8 @@
     <Content Include="Scripts\ShareScripts\Directives\DropdownSite.js" />
     <Content Include="Scripts\ShareScripts\Directives\HtmlArea.js" />
     <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
+    <Content Include="Scripts\ShareScripts\Directives\MultiSelect.js" />
+    <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
@@ -426,6 +432,8 @@
     <None Include="Areas\Redemption\ViewLog\Styles\Redemption.less" />
     <Content Include="Areas\Report\DynamicReport\Index.cshtml" />
     <Content Include="Areas\Report\Web.config" />
+    <Content Include="Areas\Report\CustomerReport\Index.cshtml" />
+    <None Include="Areas\Report\CustomerReport\Styles\CustomerReport.less" />
     <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\reportgrid.less" />

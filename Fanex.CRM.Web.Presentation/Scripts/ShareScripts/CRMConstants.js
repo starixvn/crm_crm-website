@@ -94,6 +94,11 @@ var CRMConstants = function () {
             Weekly: 2,
             Monthly: 3,
             Yearly: 4
+        },
+
+        MultiSelectType: {
+            GetIdList: 0,
+            GetFullInfoList: 1
         }
     };
 

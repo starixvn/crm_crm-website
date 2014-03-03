@@ -53,8 +53,8 @@
         showHeader: true,
         showFooter: false,
         showTooltip: true,
-        maxHeight: 400, 
-        minWidth: 200, 
+        maxHeight: 400,
+        minWidth: 200,
         checkAllText: 'Check All',
         noItemText: 'No item.',
         footerButtonText: 'Update Result Table',
@@ -73,7 +73,7 @@
         customCheckAllText: 'All Checked',
         showParentSelectedText: false,
         onLeave: function () { },
-        onCheck: function () { }, 
+        onCheck: function () { },
         onOpen: function () { },
         onCheckAll: function () { },
         onFooterButtonClick: function () { }
@@ -267,7 +267,7 @@
                 //    tempHtml.push('<li class="' + liClasses + '" style="' + liStyle + '">');
                 //}
                 //else {
-                    tempHtml.push('<li class="' + liClasses + '">');
+                tempHtml.push('<li class="' + liClasses + '">');
                 //}
 
                 if (me.isShowGroup) {
@@ -380,7 +380,7 @@
                             arrayItemChecked.push($checked[i].title);
                         }
                         value = arrayItemChecked.join(', ');
-                        if (value.length * 8 > options.minWidth) {
+                        if (!options.selectedList || value.length * 8 > options.minWidth) {
                             value = options.selectedText.replace('#', numChecked);
                         }
                     }
@@ -431,14 +431,14 @@
                 options = me.options;
             // build header links
             me.$headerCheckbox.click(function (e) {
-                    var $this = $(this);
-                    if ($this.prop('checked')) {
-                        me.$allCheckBoxInputs.prop('checked', true);
-                    }
-                    else {
-                        me.$allCheckBoxInputs.prop('checked', false);
-                    }
-                });
+                var $this = $(this);
+                if ($this.prop('checked')) {
+                    me.$allCheckBoxInputs.prop('checked', true);
+                }
+                else {
+                    me.$allCheckBoxInputs.prop('checked', false);
+                }
+            });
             //build footer link
             if (options.showFooter) {
                 me.$footer.find('a').click(function (e) {

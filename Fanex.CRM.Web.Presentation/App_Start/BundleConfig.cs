@@ -95,6 +95,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Dashboard_ViewInfo(ref bundles);
             RegisterBundles_Dashboard_VerifyFlag(ref bundles);
             RegisterBundles_Report_DynamicReport(ref bundles);
+            RegisterBundles_Report_CustomerReport(ref bundles);
         }
 
         /// <summary>
@@ -375,7 +376,6 @@ namespace Fanex.CRM.Web.View.App_Start
         private static void RegisterBundles_Report_DynamicReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/DynamicReportScripts").Include(
-                "~/Scripts/FanexGridV2/moment.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/WeekPicker/WeekPickerManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
@@ -387,6 +387,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/Directives/YearPicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportApplication.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportService.js",
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",
@@ -394,6 +395,31 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Report/DynamicReportStyles").Include(
                 "~/Areas/Report/DynamicReport/Styles/DynamicReport.less"));
+        }
+
+        /// <summary>
+        /// Registers the bundles customer report.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_Report_CustomerReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/CustomerReportScripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DropdownSite.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/CustomerReport/Scripts/CustomerReportApplication.js",
+                "~/Areas/Report/CustomerReport/Scripts/CustomerReportService.js",
+                "~/Areas/Report/CustomerReport/Scripts/CustomerReportController.js",
+                "~/Areas/Report/CustomerReport/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Report/CustomerReportStyles").Include(
+                "~/Areas/Report/CustomerReport/Styles/CustomerReport.less"));
         }
     }
 

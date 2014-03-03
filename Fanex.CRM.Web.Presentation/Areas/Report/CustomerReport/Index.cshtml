@@ -1,0 +1,147 @@
+﻿@using Fanex.CRM.Report.Resources;
+@using Fanex.CRM.Report.Models;
+@using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-customerreport-application">
+<head>
+    <title>@Labels.Dynamic_Report </title>
+    @Styles.Render("~/site/common")
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Styles/FanexMultipleSelect")
+    @Styles.Render("~/Areas/Report/CustomerReportStyles")
+</head>
+<body class="customerReportController" data-ng-controller="customerReportController">
+    <div class="main container">
+        <div class="row filter-frm one-row ">
+            <div class="row row-item">
+                <div class="item">
+                    <label for="reporttype" class="width-70 pull-left">
+                        @Labels.Birthday</label>
+                </div>
+                <div class="pull-left">
+                    <div class="item">
+                        <label for="fromDate" class="width-80">
+                            @Labels.From_Date</label>
+                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                            <input id="fromDate" type="text" class="textbox txtcalendar" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="toDate">
+                            @Labels.To_Date</label>
+                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                            <input id="toDate" type="text" class="textbox txtcalendar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item">
+                    <label for="firstname" class="width-70">
+                        @Labels.First_Name</label>
+                    <input type="text" class="textbox search-by-enter" id="firstname" data-ng-model="searchCriteria.FirstName" />
+                </div>
+                <div class="item">
+                    <label for="reviewer" class="width-80">
+                        @Labels.Last_Name</label>
+                    <input type="text" class="textbox search-by-enter txtReview" id="lastname" data-ng-model="searchCriteria.LastName" />
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item">
+                    <label for="country" class="width-70 pull-left">
+                        @Labels.Country</label>
+                    <div class="country-picker-container pull-left" data-ng-model="countryOptions.DataList">
+                        <select id="country">
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="language" class="width-70 pull-left">
+                        @Labels.Language</label>
+                    <div class="language-picker-container pull-left" data-ng-model="languageOptions.DataList">
+                        <select id="language">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item">
+                    <label for="site" class="width-70 pull-left">
+                        @Labels.Site</label>
+                    <div class="site-picker-container pull-left" data-ng-model="siteOptions.DataList">
+                        <select id="site">
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="title" class="width-70 pull-left">
+                        @Labels.Title</label>
+                    <div class="title-picker-container pull-left" data-ng-model="titleOptions.DataList">
+                        <select id="title">
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="customertype" class="width-70 pull-left">
+                        @Labels.Customer_Type</label>
+                    <div class="customer-type-picker-container pull-left" data-ng-model="customerTypeOptions.DataList">
+                        <select id="customertype">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-4 col-sm-3 col-md-3">
+                    <label for="viptype" class="width-70 pull-left">
+                        @Labels.VIP</label>
+                    <div class="vip-type-picker-container pull-left" data-ng-model="vipTypeOptions.DataList">
+                        <select id="viptype">
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <button id="button-submit" class="btn default-focus" data-ng-click="getCustomerReport();"
+                        data-ng-model="defaultFocusOptions.IsSetFocus">
+                        <span class="hotkey">S</span>ubmit</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div data-ng-model="customerReport" class="table-customer-report-container">
+                <div id="table-customer-report" class="freegrid display-none table-customer-report">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="download-file-container" data-ng-model="downloadFileOptions">
+        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render("~/Scripts/FanexMultipleSelect")
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
+    @Scripts.Render("~/Areas/Report/CustomerReportScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var viewResources = {
+            All: '@Labels.All',
+            All_Languages: '@Labels.All_Languages',
+            No_language_found: '@Labels.No_language_found',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+
+            All_Countries: '@Labels.All_Countries',
+            No_country_found: '@Labels.No_country_found',
+            All_Sites: '@Labels.All_Sites',
+            No_site_found: '@Labels.No_site_found'
+        }; 
+    </script>
+</body>
+</html>

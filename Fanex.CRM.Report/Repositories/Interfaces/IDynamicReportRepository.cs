@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Report.Repositories.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Report.Criteria;
+    using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
 
     public interface IDynamicReportRepository

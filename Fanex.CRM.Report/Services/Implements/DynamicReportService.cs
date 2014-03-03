@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Services.Implements
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Service.Implements;
-    using Fanex.CRM.Report.Criteria;
+    using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Report.Repositories.Implements;
     using Fanex.CRM.Report.Repositories.Interfaces;

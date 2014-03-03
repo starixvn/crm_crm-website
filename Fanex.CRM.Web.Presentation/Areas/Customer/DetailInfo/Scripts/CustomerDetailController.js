@@ -198,7 +198,7 @@ function (
             BankSwiftCode: customerDetail.BankInfo.SwiftCode,
 
             TitleId: customerDetail.Title.Id,
-            BirthDay: customerDetail.BirthDay,
+            BirthDay: customerDetail.BirthDayString,
             BettingCode: customerDetail.BettingCode[0],
             RefCode2: customerDetail.BettingCode[1],
             IsVIP: customerDetail.IsVIP
@@ -435,7 +435,7 @@ function (
             $scope.oldCustomerDetail.BankInfo.AddressInfo.HolderName !== $scope.customerDetail.BankInfo.AddressInfo.HolderName ||
             $scope.oldCustomerDetail.BankInfo.AddressInfo.AccountNumber !== $scope.customerDetail.BankInfo.AddressInfo.AccountNumber ||
             $scope.oldCustomerDetail.BankInfo.AddressInfo.SwiftCode !== $scope.customerDetail.BankInfo.AddressInfo.SwiftCode ||
-            !sharedScriptManager.datesEqual(new Date($scope.oldCustomerDetail.BirthDay), new Date($scope.customerDetail.BirthDay)) ||
+            !sharedScriptManager.datesEqual(new Date($scope.oldCustomerDetail.BirthDayString), new Date($scope.customerDetail.BirthDayString)) ||
             $scope.oldCustomerDetail.IsVIP !== $scope.customerDetail.IsVIP ||
             $scope.oldCustomerDetail.BettingCode[0] !== $scope.customerDetail.BettingCode[0] ||
             $scope.oldCustomerDetail.BettingCode[1] !== $scope.customerDetail.BettingCode[1] ||
@@ -447,7 +447,7 @@ function (
         }
     };
     $scope.updateSelectedDate = function (selectedDate) {
-        $scope.customerDetail.BirthDay = selectedDate;
+        $scope.customerDetail.BirthDayString = selectedDate;
     };
     $scope.updateSelectedTitle = function (titleId) {
         titleId = parseInt(titleId);

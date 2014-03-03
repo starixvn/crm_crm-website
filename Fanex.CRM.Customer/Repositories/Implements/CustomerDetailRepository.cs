@@ -117,7 +117,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                     PhoneNumber = reader.GetStringNotNull("MobilePhone")
                 },
 
-                BirthDay = reader["BirthDay"] != DBNull.Value ?
+                BirthDayString = reader["BirthDay"] != DBNull.Value ?
                     reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate() :
                     string.Empty,
                 Skype = reader.GetStringNotNull("Skype"),

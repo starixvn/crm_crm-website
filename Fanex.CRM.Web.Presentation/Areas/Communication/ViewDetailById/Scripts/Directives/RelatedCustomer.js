@@ -110,7 +110,6 @@ viewDetailByIdApplication.directive('relatedCustomerContainer', function () {
         });
 
         relatedTo.attr("disabled", "disabled");
-        var typeCust = element.find("#typeCust");
         if (scope.communicationLog.RelatedCustomers && scope.communicationLog.RelatedCustomers !== '') {
             var relatedCustomers = [{ "Customer": []}];
             var arrUserName = scope.communicationLog.RelatedCustomers.split(",");
