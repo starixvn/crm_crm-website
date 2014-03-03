@@ -155,8 +155,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                         },
                         {
                             Name: "ColFeedbackDate",
-                            /* jshint camelcase: false */
-                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
+                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
                         },
                         {
                             Name: "ColCategory",
@@ -206,8 +205,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                         },
                         {
                             Name: "ColFeedbackDate",
-                            /* jshint camelcase: false */
-                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
+                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
                         },
                         {
                             Name: "ColCategory",

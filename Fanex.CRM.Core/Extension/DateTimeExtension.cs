@@ -21,7 +21,7 @@ namespace Fanex.CRM.Infrastructure.Extension
 
         public const string ShortDateFormatWithSlash = "MM/dd/_yyyy";
 
-        public const string LongDateFormat = "MM/dd/yyyy hh:mm tt";
+        public const string LongDateTimeFormat = "MM/dd/yyyy hh:mm tt";
 
         public const string MonthYearFormat = "MMM yyyy";
 
@@ -53,9 +53,9 @@ namespace Fanex.CRM.Infrastructure.Extension
             return date.ToString(ShortDateFormatWithSlash);
         }
 
-        public static string ToLongFormatedDate(this DateTime date)
+        public static string ToLongFormatedDateTime(this DateTime date)
         {
-            return date.ToString(LongDateFormat);
+            return date.ToString(LongDateTimeFormat);
         }
 
         public static DateTime FirstDayOfMonth(this DateTime dateTime)

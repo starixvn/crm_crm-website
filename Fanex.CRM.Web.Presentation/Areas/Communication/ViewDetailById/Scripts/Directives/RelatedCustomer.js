@@ -134,7 +134,8 @@ viewDetailByIdApplication.directive('relatedCustomerContainer', function () {
             orgLengt = relatedCustomers.length;
         }
 
-        typeCust.removeAttr("disabled");
+        element.find(".bit-box .closebutton").remove();
+        element.find("#typeCust").attr("disabled", "disabled");
     }
 
     return {

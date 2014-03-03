@@ -379,7 +379,6 @@ namespace Fanex.CRM.Report.Services.Implements
                     }
 
                     dynamicReport.ReportTypeId = criteria.ReportType;
-                    dynamicReport.TotalChildReports = dynamicReport.ChildReports.Count;
                     CacheService.Set(DynamicReportSessionKey, dynamicReport);
                 }
 
@@ -480,11 +479,12 @@ namespace Fanex.CRM.Report.Services.Implements
                 periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
                     periodReport.ChildReports.Add(data);
                 }
 
                 periodReport.TotalChildReports = periodReport.ChildReports.Count;
+                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
@@ -533,11 +533,12 @@ namespace Fanex.CRM.Report.Services.Implements
                 periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
                     periodReport.ChildReports.Add(data);
                 }
 
                 periodReport.TotalChildReports = periodReport.ChildReports.Count;
+                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
@@ -581,11 +582,12 @@ namespace Fanex.CRM.Report.Services.Implements
 
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
                     periodReport.ChildReports.Add(data);
                 }
 
                 periodReport.TotalChildReports = periodReport.ChildReports.Count;
+                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
@@ -626,11 +628,12 @@ namespace Fanex.CRM.Report.Services.Implements
 
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
                     periodReport.ChildReports.Add(data);
                 }
 
                 periodReport.TotalChildReports = periodReport.ChildReports.Count;
+                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 

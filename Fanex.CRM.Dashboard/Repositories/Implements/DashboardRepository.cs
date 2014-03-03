@@ -246,7 +246,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             var communicationLog = new CommunicationLogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToShortFormatedDate(),
+                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDateTime(),
                 MainCategory = new SettingInfo
                 {
                     Name = reader.GetStringNotNull("MainCategory")
