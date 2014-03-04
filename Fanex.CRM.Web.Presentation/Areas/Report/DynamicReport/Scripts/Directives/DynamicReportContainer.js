@@ -142,14 +142,14 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
     }
 
     function renderDynamicReport(scope, element, attrs) {
-        if (scope.dynamicReport === null) {
+        if (scope.dynamicReportOptions.DataList === null) {
             return;
         }
 
         selfScope = scope;
         var tableDynamicReport = element.find("#table-dynamic-report");
         cachedTable = tableDynamicReport;
-        var dynamicReport = scope.dynamicReport;
+        var dynamicReport = scope.dynamicReportOptions.DataList;
         cachedDynamicReport = dynamicReport;
         var gridOptions = getGripOtions(dynamicReport);
         cachedGridOptions = gridOptions;
@@ -166,8 +166,21 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         scope: true,
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (oldval, newval) {
-                /* jshint unused: vars */
-                renderDynamicReport(scope, element, attrs);
+                if (!scope.dynamicReportOptions.IsUpdateGrid) {
+                    return;
+                }
+
+                if (scope.dynamicReportOptions.IsResize && cachedTable) {
+                    var gridHeight = scope.isShowFilter ?
+                        230 + crmConstants.MarginBottomPage :
+                        50 + crmConstants.MarginBottomPage;
+                    cachedTable.fanexGrid("resizeHeight", gridHeight);
+                    scope.dynamicReportOptions.IsResize = false;
+                } else {
+                    renderDynamicReport(scope, element, attrs);
+                }
+
+                scope.dynamicReportOptions.IsUpdateGrid = false;
             });
         }
     };

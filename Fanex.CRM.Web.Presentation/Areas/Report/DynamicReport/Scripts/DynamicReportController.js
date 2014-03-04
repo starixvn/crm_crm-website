@@ -17,6 +17,7 @@ function (
     $http,
     $dynamicReportService) {
     $scope.isSetFocus = false;
+    $scope.isShowFilter = true;
     $scope.isUpdatingDate = false;
     $scope.crmConstants = crmConstants;
 
@@ -60,8 +61,11 @@ function (
         PageIndex: 0,
         PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
     };
-
-    $scope.dynamicReport = null;
+    $scope.dynamicReportOptions = {
+        DataList: null,
+        IsResize: false,
+        IsUpdateGrid: false
+    };
     $scope.lastSelectedParams = null;
 
     $scope.initController = function () {
@@ -514,7 +518,8 @@ function (
         $scope.lastSelectedParams = getReportCriteria;
         $dynamicReportService.getDynamicReport(getReportCriteria)
             .then(function (data) {
-                $scope.dynamicReport = data.Result;
+                $scope.dynamicReportOptions.DataList = data.Result;
+                $scope.dynamicReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },
             function (data) {
@@ -527,7 +532,8 @@ function (
         $scope.lastSelectedParams.PageSize = pageSize;
         $dynamicReportService.getDynamicReport($scope.lastSelectedParams)
             .then(function (data) {
-                $scope.dynamicReport = data.Result;
+                $scope.dynamicReportOptions.DataList = data.Result;
+                $scope.dynamicReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },
             function (data) {
@@ -566,6 +572,12 @@ function (
         };
 
         $scope.$apply();
+    };
+
+    $scope.showHideFilterBox = function () {
+        $scope.isShowFilter = !$scope.isShowFilter;
+        $scope.dynamicReportOptions.IsUpdateGrid = true;
+        $scope.dynamicReportOptions.IsResize = true;
     };
 
     $scope.unblockUI = function () {
