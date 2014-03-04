@@ -33,10 +33,10 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         public string SiteIds { get; set; }
 
         [SpParam(SqlParamName = "birthday")]
-        public DateTime FromDateBirthDay { get; set; }
+        public DateTime? FromDateBirthDay { get; set; }
 
         [SpParam(SqlParamName = "todatebirthday")]
-        public DateTime ToDateBirthDay { get; set; }
+        public DateTime? ToDateBirthDay { get; set; }
 
         [SpParam(SqlParamName = "titleid")]
         public int TitleId { get; set; }
@@ -52,6 +52,9 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
 
         [SpParam(Ignored = true)]
         public int PageSize { get; set; }
+
+        [SpParam(Ignored = true)]
+        public bool IsGetFullReport { get; set; }
 
         public override string GetSettingKey()
         {

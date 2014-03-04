@@ -124,6 +124,18 @@ namespace Fanex.CRM.Infrastructure.Core
             return DateTime.Now.Add(timeSpan._timeSpan);
         }
 
+        public static DateTime ChangeClientFromTimeToServerTime(DateTime? clientFromTime)
+        {
+            DateTime fromTime = clientFromTime ?? DateTime.Now;
+            return ChangeClientFromTimeToServerTime(fromTime);
+        }
+
+        public static DateTime ChangeClientToTimeToServerTime(DateTime? clientToTime)
+        {
+            DateTime toTime = clientToTime ?? DateTime.Now;
+            return ChangeClientToTimeToServerTime(toTime);
+        }
+
         public static DateTime ChangeClientFromTimeToServerTime(DateTime clientFromTime)
         {
             return DateTimeUtilize.ChangeTimeZoneToServerDateTime(clientFromTime.Date);

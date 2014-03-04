@@ -61,7 +61,7 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
         function onChangeDateEvent(scope, element, attrs) {
             var datePicker = element.find("#" + registerParams.PickerId);
             var options = scope[registerParams.OptionName];
-            var selectedDate = selectedDateChange(scope, element, attrs);
+            var selectedDate = selectedDateChange(scope, element, attrs, options);
             if (isNaN(oldValue.valueOf()) ||
                 !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
                 oldValue = selectedDate;
@@ -84,20 +84,33 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
         }
 
         function setLimitDate(scope, selectedDate, options, datePicker) {
-            if (options.MinDate) {
-                selectedDate = options.MinDate;
+            var isAllowNull = options.IsAllowNullDate !== undefined &&
+                options.IsAllowNullDate !== null &&
+                options.IsAllowNullDate === true;
+            if (isAllowNull && options.MinDate === null) {
+                datePicker.datepicker("option", "minDate", null);
+            } else if (options.MinDate) {
                 datePicker.datepicker("option", "minDate", new Date(options.MinDate));
             }
 
-            if (options.MaxDate) {
-                selectedDate = options.MaxDate;
+            if (isAllowNull && options.MaxDate === null) {
+                datePicker.datepicker("option", "maxDate", null);
+            } else if (options.MaxDate) {
                 datePicker.datepicker("option", "maxDate", new Date(options.MaxDate));
             }
         }
 
-        function selectedDateChange(scope, element, attrs) {
+        function selectedDateChange(scope, element, attrs, options) {
             var datePicker = element.find("#" + registerParams.PickerId);
             var selectedDate = datePicker.val();
+            if ((options.IsAllowNullDate !== undefined &&
+                options.IsAllowNullDate !== null &&
+                options.IsAllowNullDate === true) &&
+                (selectedDate === null ||
+                selectedDate === '')) {
+                return selectedDate;
+            }
+            
             var date = new Date(selectedDate);
             if (!isNaN(date.valueOf())) {
                 selectedDate = date;

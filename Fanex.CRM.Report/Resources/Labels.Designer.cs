@@ -160,6 +160,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Report.
+        /// </summary>
+        public static string CustomerReport_SheetName {
+            get {
+                return ResourceManager.GetString("CustomerReport_SheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Report.
+        /// </summary>
+        public static string CustomerReport_Title {
+            get {
+                return ResourceManager.GetString("CustomerReport_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Daily.
         /// </summary>
         public static string Daily {
@@ -516,6 +534,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Suspended {
             get {
                 return ResourceManager.GetString("Suspended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to √.
+        /// </summary>
+        public static string Symbol_IsVIP {
+            get {
+                return ResourceManager.GetString("Symbol_IsVIP", resourceCulture);
             }
         }
         

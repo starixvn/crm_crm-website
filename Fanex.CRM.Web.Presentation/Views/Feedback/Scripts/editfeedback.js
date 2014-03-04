@@ -28,7 +28,9 @@ checkDuplicateRelated,
 head,
 jlinq,
 gup,
-inputMultipleRelatedNote
+inputMultipleRelatedNote,
+dropdownMultiSelect,
+showHideDetailBox
 */
 /* exported settings,
 orgArrUser,
@@ -84,7 +86,7 @@ function bindingEvent() {
 }
 
 function loadFeedbackAfterCallAjax(rs, Id) {
-    /* jshint maxstatements: 68 */
+    /* jshint maxstatements: 200 */
     FeedbackItem = rs;
     var customerInfo = rs.CustomerInfo;
     $.ajax({
@@ -273,18 +275,18 @@ function LoadFeedback(Id) {
 // Get data from form to update 
 function getFeedbackData() {
     /* jshint maxstatements: 86 */
-//    var RelatedCustID = null;
-//    if ($("#chkisrelated").prop("checked")) {
-//        if ($('#txtrelatedcustomer option').length === 0) {
-//            RelatedCustID = getRelatedCustomer();
-//        }
-//    }
-//    else {
-//        RelatedCustID = "_";
-//    }
-    var RelatedCustID = ($("#chkisrelated").prop("checked") && $('#txtrelatedcustomer option').length === 0)
-        ? getRelatedCustomer()
-        : "_";
+    //    var RelatedCustID = null;
+    //    if ($("#chkisrelated").prop("checked")) {
+    //        if ($('#txtrelatedcustomer option').length === 0) {
+    //            RelatedCustID = getRelatedCustomer();
+    //        }
+    //    }
+    //    else {
+    //        RelatedCustID = "_";
+    //    }
+    var RelatedCustID = ($("#chkisrelated").prop("checked") && $('#txtrelatedcustomer option').length === 0) ?
+        getRelatedCustomer() :
+        "_";
     var IsUpdateReviewed = $("#chkisreview").prop("checked");
     var reviewContent = $("#revediter").htmlarea("toHtmlString");
     var Reviewer = 0;
@@ -485,11 +487,11 @@ function EditFeedback() {
             showAlertMessage("errmsg", "Please chosse communication!", 1);
             return false;
         }
-        if ($('#ddlproduct option:selected').val() == 0) {
+        if (parseInt($('#ddlproduct option:selected').val()) === 0) {
             showAlertMessage("errmsg", "Please choose product!", 1);
             return false;
         }
-        if ($('#ddlbettype option:selected').val() == 0) {
+        if (parseInt($('#ddlbettype option:selected').val()) === 0) {
             showAlertMessage("errmsg", "Please choose bet type!", 1);
             return false;
         }
@@ -514,19 +516,19 @@ function EditFeedback() {
             return false;
         }
         /*if ($('#txtphone').val().length > 50) {
-            $('#txtphone').focus();
-            showAlertMessage("errmsg", 'Max length of Phone is 50', 1);
-            return false;
+        $('#txtphone').focus();
+        showAlertMessage("errmsg", 'Max length of Phone is 50', 1);
+        return false;
         }
         if ($('#txtmobilephone').val().length > 50) {
-            $('#txtmobilephone').focus();
-            showAlertMessage("errmsg", 'Max length of Mobile phone is 50', 1);
-            return false;
+        $('#txtmobilephone').focus();
+        showAlertMessage("errmsg", 'Max length of Mobile phone is 50', 1);
+        return false;
         }
         if ($('#txtfax').val().length > 50) {
-            $('#txtfax').focus();
-            showAlertMessage("errmsg", 'Max length of Fax is 50', 1);
-            return false;
+        $('#txtfax').focus();
+        showAlertMessage("errmsg", 'Max length of Fax is 50', 1);
+        return false;
         }*/
         if ($('#emailInfo').val().length > 254) {
             $('#emailInfo').focus();
@@ -633,14 +635,14 @@ var updateFeedback = {
     reviewCheckBox: function () {
         isShowReviewBox = true;
         if ($("#chkisreview").prop("checked")) {
-            initEdit('rev');            
+            initEdit('rev');
         }
         else {
             initReview('rev');
             $('#revieweditererror').addClass('hidden');
         }
 
-        showHideDetailBox(true, 'FeedbackReview'); 
+        showHideDetailBox(true, 'FeedbackReview');
     },
     getData: function () {
         /* jshint maxstatements: 75 */
@@ -857,7 +859,7 @@ var updateFeedback = {
             success: function (rs) {
                 if (rs.ErrCode === 0) {
                     showAlertMessage("errmsg", successMsg, 0);
-                    parent.afterUpdate(true);  
+                    parent.afterUpdate(true);
                     //-------------                    
                     window.setTimeout(function () {
                         updateFeedback.openEditFeedback(updateFeedback.feedbackId);

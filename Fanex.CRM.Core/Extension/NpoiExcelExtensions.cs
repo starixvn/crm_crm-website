@@ -343,17 +343,17 @@ namespace Fanex.CRM.Infrastructure.Extension
                 currentRow,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            IRow row = exportExcelInfo.Worksheet.GetRow(cellRangeAddress.FirstRow) ??
-               exportExcelInfo.Worksheet.CreateRow(cellRangeAddress.FirstRow);
-            ICell cell = row.GetCell(cellRangeAddress.FirstColumn) ??
-                row.CreateCell(cellRangeAddress.FirstColumn);
-            cell.SetCellValue(Labels.ResultMessage_NoInfo);
-            cell.CellStyle = NpoiExcelExtensions.TextStyle(
+            var textStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 BackgroundColorIndex,
                 true,
                 Alignment.Center);
-            exportExcelInfo.Worksheet.AddMergedRegion(cellRangeAddress);
+
+            RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
+                Labels.ResultMessage_NoInfo,
+                textStyle);
         }
 
         /// <summary>
@@ -427,6 +427,11 @@ namespace Fanex.CRM.Infrastructure.Extension
                 color.R,
                 color.G,
                 color.B);
+        }
+
+        public static string StandardizeExcelReportName(string excelReportName)
+        {
+            return excelReportName.Replace(" ", "_").Replace("/", "_");
         }
     }
 }

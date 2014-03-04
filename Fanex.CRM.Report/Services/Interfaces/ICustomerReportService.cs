@@ -16,7 +16,7 @@ namespace Fanex.CRM.Report.Repositories.Interfaces
 
     public interface ICustomerReportService
     {
-        List<CustomerInfo> GetCustomerReport(GetCustomerReportCriteria criteria);
+        CustomerReportInfo GetCustomerReport(GetCustomerReportCriteria criteria);
 
         List<SiteInfo> GetAllSite();
 
@@ -29,5 +29,7 @@ namespace Fanex.CRM.Report.Repositories.Interfaces
         List<SettingInfo> GetAllCustomerType();
 
         List<SettingInfo> GetAllVIPType();
+
+        void ExportCustomerReport(GetCustomerReportCriteria criteria);
     }
 }

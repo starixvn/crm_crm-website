@@ -16,7 +16,8 @@ errMsgFeedbackDateGreatter,
 errMsgResolutionDateGreatter,
 SetupCalendar,
 inputMultipleRelatedNote,
-jlinq
+jlinq,
+dropdownMultiSelect
 */
 /* exported feedbackNew, 
 settings,
@@ -342,7 +343,7 @@ getFeedbacktData = function () {
         BettingCode: $("#bettingCodeInfo").val().trim(),
         RefCodes2: $("#refCodes2Info").val().trim(),
         IsVIP: $("#isVIP").prop("checked")
-    }
+    };
 
     var FeedBackDate = $("#txtdate").val();
     var Creator = accId;
@@ -406,7 +407,7 @@ getFeedbacktData = function () {
     }
 
     feedbackNew.ResolutionTime = resolutionTitme;
-    feedbackNew.IsOverrideCrmInfo = $("#isOverrideCrmInfo").prop("checked")
+    feedbackNew.IsOverrideCrmInfo = $("#isOverrideCrmInfo").prop("checked");
     return feedbackNew;
 };
 

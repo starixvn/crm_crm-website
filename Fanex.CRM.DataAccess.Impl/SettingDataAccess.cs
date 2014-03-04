@@ -16,6 +16,7 @@ namespace Fanex.CRM.DataAccess.Impl
     using Fanex.CRM.Entities;
     using Fanex.Data;
     using Converter = Fanex.Common.Converter;
+
     /// <summary>
     /// Setting Data Access.
     /// </summary>

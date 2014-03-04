@@ -5,7 +5,8 @@ viewResources,
 crmConstants,
 currentDate: true,
 initFromDate: true,
-moment */
+moment,
+sharedScriptManager */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 /* jshint maxstatements: 412 */
@@ -38,7 +39,9 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             SiteIds: '',
             Title: null,
             CustomerType: null,
-            VIPType: null
+            VIPType: null,
+            PageIndex: 0,
+            PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
         };
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
@@ -65,16 +68,18 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 InitDate: initFromDate,
                 MaxDate: currentDate,
                 IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateFromDate
+                OnChangeDateEvent: $scope.updateFromDate,
+                IsAllowNullDate: false
             };
             $scope.updateFromDatePicker();
 
             $scope.toDateOptions = {
                 CurrentDate: currentDate,
                 InitDate: currentDate,
-                MaxDate: currentDate,
+                MinDate: currentDate,
                 IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateToDate
+                OnChangeDateEvent: $scope.updateToDate,
+                IsAllowNullDate: false
             };
             $scope.updateToDatePicker();
 
@@ -186,6 +191,17 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope.updateSelectedTitle = function (title) {
             $scope.searchCriteria.Title = title;
         };
+        $scope.updateFromDate = function (selectedDate) {
+            $scope.searchCriteria.FromDate = selectedDate;
+            $scope.toDateOptions.MinDate = selectedDate && selectedDate !== "" ? selectedDate : null;
+            $scope.updateToDatePicker(true);
+        };
+        $scope.updateToDate = function (selectedDate) {
+            $scope.searchCriteria.ToDate = selectedDate;
+            $scope.fromDateOptions.MaxDate = selectedDate && selectedDate !== "" ? selectedDate : null;
+            $scope.updateFromDatePicker(true);
+        };
+
         $scope.updateSelectedVIPType = function (vipType) {
             $scope.searchCriteria.VIPType = vipType;
         };
@@ -206,7 +222,9 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 SiteIds: $scope.searchCriteria.SiteIds,
                 TitleId: $scope.searchCriteria.Title.Id,
                 CustomerTypeId: $scope.searchCriteria.CustomerType.Id,
-                VIPTypeId: $scope.searchCriteria.VIPType.Id
+                VIPTypeId: $scope.searchCriteria.VIPType.Id,
+                PageIndex: $scope.searchCriteria.PageIndex,
+                PageSize: $scope.searchCriteria.PageSize
             };
 
             $scope.lastSelectedParams = getReportCriteria;
@@ -218,6 +236,27 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 function (data) {
                     $scope.unblockUI();
                 });
+        };
+        $scope.pagingCustomerReport = function (pageIndex, pageSize) {
+            $scope.BlockUI();
+            $scope.lastSelectedParams.PageIndex = pageIndex;
+            $scope.lastSelectedParams.PageSize = pageSize;
+            $customerReportService.getCustomerReport($scope.lastSelectedParams)
+                .then(function (data) {
+                    $scope.customerReport = data.Result;
+                    $scope.unblockUI();
+                },
+                function (data) {
+                    $scope.unblockUI();
+                });
+        };
+        $scope.exportReport = function () {
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + "CustomerReport/ExportCustomerReport",
+                Params: $scope.lastSelectedParams
+            };
+
+            $scope.$apply();
         };
 
         $scope.completeSetFocus = function () {

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="DynamicReport.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="DynamicReportInfo.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -15,10 +15,10 @@ namespace Fanex.CRM.Report.Models
     using Fanex.CRM.Setting.Models;
 
     /// <summary>
-    /// Dynamic Report.
+    /// Dynamic Report Information.
     /// </summary>
     [Serializable]
-    public class DynamicReport
+    public class DynamicReportInfo
     {
         public string Id { get; set; }
 
@@ -82,7 +82,7 @@ namespace Fanex.CRM.Report.Models
 
         public bool IsReviewed { get; set; }
 
-        public List<DynamicReport> ChildReports { get; set; }
+        public List<DynamicReportInfo> ChildReports { get; set; }
 
         public int TotalChildReports { get; set; }
     }

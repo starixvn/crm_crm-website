@@ -24,16 +24,14 @@ customerDetailApplication.directive('datePickerContainer', function () {
         txtCalendar.datepicker('setDate',
             (scope.customerDetail && scope.customerDetail.BirthDayString ?
                 new Date(scope.customerDetail.BirthDayString) :
-                new Date(currentDate)));        
+                new Date(currentDate)));
     }
     function selectedDateChange(scope, element, attrs) {
         /* jshint unused: vars */
         var fromDatePicker = element.find(".txtcalendar");
         var selectedDate = fromDatePicker.val();
-        if ((scope.oldCustomerDetail.BirthDayString === null ||
-            scope.oldCustomerDetail.BirthDayString === '') &&
-            (selectedDate === null ||
-            selectedDate === '')) {
+        if (selectedDate === null ||
+            selectedDate === '') {
             return selectedDate;
         }
 

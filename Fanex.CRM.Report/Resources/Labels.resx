@@ -300,4 +300,13 @@
   <data name="Customer_Type" xml:space="preserve">
     <value>Customer_Type</value>
   </data>
+  <data name="CustomerReport_Title" xml:space="preserve">
+    <value>Customer Report</value>
+  </data>
+  <data name="CustomerReport_SheetName" xml:space="preserve">
+    <value>Customer Report</value>
+  </data>
+  <data name="Symbol_IsVIP" xml:space="preserve">
+    <value>√</value>
+  </data>
 </root>

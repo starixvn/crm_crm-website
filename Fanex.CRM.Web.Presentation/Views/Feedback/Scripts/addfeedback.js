@@ -17,7 +17,9 @@ clientTime,
 SetupCalendar,
 inputMultipleRelatedNote, 
 head, 
-gup 
+gup,
+accId,
+dropdownMultiSelect
 */
 /* exported settings, 
 ddls,
@@ -35,7 +37,6 @@ isShowFeedbackDetailBox,
 isShowReviewBox,
 isShowSolutionBox
 */
-var bindingEvent;
 //var settings = ["Title", "Status", "Station", "Response", "Communication"];
 //var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication"];
 var listObjToValidate = ["txtsubject"];
@@ -186,7 +187,7 @@ function getFeedbackData() {
         newFeedback.RelatedCustomer = {
             Id: 0,
             UserName: getRelatedCustomer()
-        }
+        };
     }
 
     if (newFeedback.IsReviewed) {
@@ -263,11 +264,11 @@ function AddFeedback() {
             showAlertMessage("errmsg", "Please choose communication!", 1);
             return false;
         }
-        if ($('#ddlproduct option:selected').val() == 0) {
+        if (parseInt($('#ddlproduct option:selected').val()) === 0) {
             showAlertMessage("errmsg", "Please choose product!", 1);
             return false;
         }
-        if ($('#ddlbettype option:selected').val() == 0) {
+        if (parseInt($('#ddlbettype option:selected').val()) === 0) {
             showAlertMessage("errmsg", "Please choose bet type!", 1);
             return false;
         }
@@ -276,7 +277,7 @@ function AddFeedback() {
             "There is no Subcategory for Category [" + $("#ddlcategory option:selected").text() + "]. Please add a Subcategory or choose another Category.", 1);
             return false;
         }
-        
+
         //----------check length of data
         if ($('#firstNameInfo').val().length > 50) {
             $('#firstNameInfo').focus();
@@ -289,19 +290,19 @@ function AddFeedback() {
             return false;
         }
         /*if ($('#txtphone').val().length > 50) {
-            $('#txtphone').focus();
-            showAlertMessage("errmsg", 'Max length of Phone is 50', 1);
-            return false;
+        $('#txtphone').focus();
+        showAlertMessage("errmsg", 'Max length of Phone is 50', 1);
+        return false;
         }
         if ($('#txtmobilephone').val().length > 50) {
-            $('#txtmobilephone').focus();
-            showAlertMessage("errmsg", 'Max length of Mobile phone is 50', 1);
-            return false;
+        $('#txtmobilephone').focus();
+        showAlertMessage("errmsg", 'Max length of Mobile phone is 50', 1);
+        return false;
         }
         if ($('#txtfax').val().length > 50) {
-            $('#txtfax').focus();
-            showAlertMessage("errmsg", 'Max length of Fax is 50', 1);
-            return false;
+        $('#txtfax').focus();
+        showAlertMessage("errmsg", 'Max length of Fax is 50', 1);
+        return false;
         }*/
         if ($('#emailInfo').val().length > 254) {
             $('#emailInfo').focus();
