@@ -12,12 +12,14 @@ namespace Fanex.CRM.Remark.Services.Implements
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
+    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
     using Fanex.CRM.Remark.Repositories.Implements;
     using Fanex.CRM.Remark.Repositories.Interfaces;
+    using Fanex.CRM.Remark.Resources;
     using Fanex.CRM.Remark.Services.Interfaces;
     using Fanex.NAP.Framework.Data;
 
@@ -76,9 +78,9 @@ namespace Fanex.CRM.Remark.Services.Implements
                 remarkBuilder.Append("<Remarks>");
                 if (model.SpecialRemarks != null)
                 {
-                    foreach (string remark in model.SpecialRemarks)
+                    foreach (var remark in model.SpecialRemarks)
                     {
-                        if (remark == null || remark.Trim().Length == 0)
+                        if (remark == null)
                         {
                             continue;
                         }
@@ -90,9 +92,9 @@ namespace Fanex.CRM.Remark.Services.Implements
 
                 if (model.NormalRemarks != null)
                 {
-                    foreach (string remark in model.NormalRemarks)
+                    foreach (var remark in model.NormalRemarks)
                     {
-                        if (remark == null || remark.Trim().Length == 0)
+                        if (remark == null)
                         {
                             continue;
                         }
@@ -117,8 +119,8 @@ namespace Fanex.CRM.Remark.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
                 return new Result()
                 {
-                    Code = (int)Fanex.CRM.Infrastructure.Common.Enumerations.ErrorCode.SystemError,
-                    Message = Fanex.CRM.Remark.Resources.Labels.UpdateRemarkUnSuccess
+                    Code = (int)Enumerations.ErrorCode.SystemError,
+                    Message = Labels.UpdateRemarkUnSuccess
                 };
             }
         }

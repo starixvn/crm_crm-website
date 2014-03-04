@@ -40,13 +40,11 @@ namespace Fanex.CRM.Remark.Repositories.Implements
                 {
                     if (reader != null)
                     {
-                        bool isSpecial;
-                        string remark;
+                        string remark = null;
                         while (reader.Read())
                         {
-                            isSpecial = Converter.ToBool(reader["IsSpecial"]);
                             remark = Converter.ToString2(reader["Remark"]);
-                            if (isSpecial)
+                            if (Converter.ToBool(reader["IsSpecial"]))
                             {
                                 specialRemarks.Add(remark);
                             }
