@@ -69,17 +69,17 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 MaxDate: currentDate,
                 IsRerenderPicker: false,
                 OnChangeDateEvent: $scope.updateFromDate,
-                IsAllowNullDate: false
+                IsAllowNullDate: true
             };
             $scope.updateFromDatePicker();
 
             $scope.toDateOptions = {
                 CurrentDate: currentDate,
                 InitDate: currentDate,
-                MinDate: currentDate,
+                MaxDate: currentDate,
                 IsRerenderPicker: false,
                 OnChangeDateEvent: $scope.updateToDate,
-                IsAllowNullDate: false
+                IsAllowNullDate: true
             };
             $scope.updateToDatePicker();
 

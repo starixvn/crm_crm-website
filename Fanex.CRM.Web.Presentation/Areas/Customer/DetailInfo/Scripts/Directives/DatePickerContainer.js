@@ -3,10 +3,12 @@
 crmConstants,
 currentDate,
 sharedScriptManager */
+/* jshint unused: vars */
 customerDetailApplication.directive('datePickerContainer', function () {
     var oldValue = null;
+    var isOnSelect = false;
+
     function renderDatePicker(scope, element, attrs) {
-        /* jshint unused: vars */
         var txtCalendar = element.find(".txtcalendar");
         txtCalendar.datepicker({
             dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,
@@ -16,6 +18,11 @@ customerDetailApplication.directive('datePickerContainer', function () {
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
+            onSelect: function () {
+                isOnSelect = true;
+                $(this).change();
+                isOnSelect = false;
+            },
             onClose: function () {
                 $(this).blur();
             }
@@ -58,7 +65,8 @@ customerDetailApplication.directive('datePickerContainer', function () {
                 new Date(currentDate);
             element.on('change', function () {
                 var selectedDate = selectedDateChange(scope, element, attrs);
-                if (isNaN(oldValue.valueOf()) ||
+                if (oldValue === "" ||
+                    isNaN(oldValue.valueOf()) ||
                     !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
                     oldValue = selectedDate;
                     if (!scope.isUpdatingDate) {
@@ -69,7 +77,9 @@ customerDetailApplication.directive('datePickerContainer', function () {
                         });
                     }
 
-                    txtCalendar.datepicker('setDate', selectedDate);
+                    if (!isOnSelect) {
+                        txtCalendar.datepicker('setDate', selectedDate);
+                    }
                 }
             });
         }
