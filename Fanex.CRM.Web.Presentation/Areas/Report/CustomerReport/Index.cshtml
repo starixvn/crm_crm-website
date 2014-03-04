@@ -26,14 +26,14 @@
                         <label for="fromDate" class="width-80">
                             @Labels.From_Date</label>
                         <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                            <input id="fromDate" type="text" class="textbox txtcalendar" />
+                            <input id="fromDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
                         </div>
                     </div>
                     <div class="item">
                         <label for="toDate">
                             @Labels.To_Date</label>
                         <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                            <input id="toDate" type="text" class="textbox txtcalendar" />
+                            <input id="toDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
                         </div>
                     </div>
                 </div>
@@ -140,7 +140,17 @@
             All_Countries: '@Labels.All_Countries',
             No_country_found: '@Labels.No_country_found',
             All_Sites: '@Labels.All_Sites',
-            No_site_found: '@Labels.No_site_found'
+            No_site_found: '@Labels.No_site_found',
+
+            VIP: '@Labels.VIP',
+            Title: '@Labels.Title',
+            First_Name: '@Labels.First_Name',
+            Last_Name: '@Labels.Last_Name',
+            Country: '@Labels.Country',
+            Language: '@Labels.Language',
+            Site: '@Labels.Site',
+            Birthday: '@Labels.Birthday',
+            CustomerReport_Title: '@Labels.CustomerReport_Title'
         }; 
     </script>
 </body>

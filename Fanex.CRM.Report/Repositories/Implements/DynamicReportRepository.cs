@@ -32,9 +32,9 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The dynamic report.</returns>
-        public List<DynamicReport> GetDynamicReport(GetDynamicReportCriteria criteria)
+        public List<DynamicReportInfo> GetDynamicReport(GetDynamicReportCriteria criteria)
         {
-            List<DynamicReport> communicationList = new List<DynamicReport>();
+            List<DynamicReportInfo> communicationList = new List<DynamicReportInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
@@ -65,13 +65,13 @@ namespace Fanex.CRM.Report.Repositories.Implements
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private DynamicReport MappingDataFromSqlToCommunicationInfoObject(
+        private DynamicReportInfo MappingDataFromSqlToCommunicationInfoObject(
             IDataReader reader,
             GetDynamicReportCriteria criteria)
         {
             var durationTime = reader.GetStringNotNull("Duration");
             var durationTimeArray = durationTime.Split(':');
-            var communication = new DynamicReport
+            var communication = new DynamicReportInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
                 PeriodRange = new PeriodRange

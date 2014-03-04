@@ -27,11 +27,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
     /// </summary>
     public class CustomerReportRepository : ICustomerReportRepository
     {
+        /// <summary>
+        /// Gets the customer report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The customer report.</returns>
         public List<CustomerInfo> GetCustomerReport(GetCustomerReportCriteria criteria)
         {
             criteria.CountryIds = null;
             criteria.SiteIds = null;
             criteria.LanguageIds = null;
+            criteria.FromDateBirthDay = null;
             List<CustomerInfo> customerReport = new List<CustomerInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -55,7 +61,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// Mappings the data from SQL to log information object.
         /// </summary>
         /// <param name="reader">The reader.</param>
-        /// <param name="criteria">The criteria.</param>
         /// <returns>
         /// Log Info Object.
         /// </returns>

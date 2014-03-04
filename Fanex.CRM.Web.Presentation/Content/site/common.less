@@ -356,6 +356,31 @@ select {
         width: 105px;
         cursor: pointer;
     }
+
+    /* collapse or expand for filter form */
+    .icon-collapse {
+        background: url(images/ico-collapse-expanse-filter.png) no-repeat;
+        width: 25px;
+        height: 10px;
+        margin: auto;
+        cursor: pointer;
+    }
+
+    &.expand-filter {
+        padding-bottom: 0;
+    }
+
+    &.collapse-filter {
+        padding: 0;
+        background: none;
+        border-width: 2px 0 0;
+
+        .icon-expand {
+            .icon-collapse;
+            margin-top: -1px;
+            background-position: 0 -11px;
+        }
+    }
 }
 
 /* Fom insert/edit */

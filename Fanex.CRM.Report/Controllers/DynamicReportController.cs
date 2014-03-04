@@ -13,7 +13,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Report.Criteria.DynamicReport;
-    using Fanex.CRM.Report.Services.Implements;
+    using Fanex.CRM.Report.Services.Implements.DynamicReport;
     using Fanex.CRM.Report.Services.Interfaces;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;

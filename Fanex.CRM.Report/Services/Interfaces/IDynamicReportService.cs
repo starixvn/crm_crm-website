@@ -34,7 +34,7 @@ namespace Fanex.CRM.Report.Services.Interfaces
 
         List<SettingInfo> GetAllExtension();
 
-        DynamicReport GetDynamicReport(GetDynamicReportCriteria criteria);
+        DynamicReportInfo GetDynamicReport(GetDynamicReportCriteria criteria);
 
         void ExportDynamicReport(GetDynamicReportCriteria criteria);
     }

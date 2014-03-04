@@ -11,8 +11,8 @@ namespace Fanex.CRM.Report.Models.CustomerReport
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Setting.Models;
 
     /// <summary>

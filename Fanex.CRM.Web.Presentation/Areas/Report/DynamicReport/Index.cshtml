@@ -14,7 +14,7 @@
 </head>
 <body class="dynamicReportController" data-ng-controller="dynamicReportController">
     <div class="main container">
-        <div class="row filter-frm one-row ">
+        <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
             <div class="row row-item">
                 <div class="item">
                     <label for="reporttype" class="width-70 pull-left">
@@ -172,9 +172,15 @@
                         <span class="hotkey">S</span>ubmit</button>
                 </div>
             </div>
+            <div class="icon-collapse" data-ng-click="showHideFilterBox();">
+            </div>
         </div>
-        <div class="row">
-            <div data-ng-model="dynamicReport" class="table-dynamic-report-container">
+        <div class="row filter-frm one-row collapse-filter" data-ng-class="{ 'display-none': isShowFilter }">
+            <div class="icon-expand" data-ng-click="showHideFilterBox();">
+            </div>
+        </div>
+        <div>
+            <div data-ng-model="dynamicReportOptions.IsUpdateGrid" class="table-dynamic-report-container">
                 <div id="table-dynamic-report" class="freegrid display-none table-dynamic-report">
                 </div>
             </div>

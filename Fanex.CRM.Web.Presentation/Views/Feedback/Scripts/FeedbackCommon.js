@@ -40,7 +40,8 @@ var bindingChildByParentId,
     checkDuplicateRelated,
     trimSpace,
     trimSpacesOnEditor,
-    checkContainsValue;
+    checkContainsValue,
+    checkMultiSelect;
 
 function bindingSetting(id, data, currValue) {    
     if (id === 'ddlproduct') {
@@ -726,7 +727,7 @@ function dropdownMultiSelect(prefixId, elementId, result, defaultValues) {
     //element.find("#customerinfodetail-languageoptions .fanex-multiselect-state-default").attr("tabindex", 29);
 }
 
-function checkMultiSelect(id, defaultValues) {
+checkMultiSelect = function (id, defaultValues) {
     var length = defaultValues ? defaultValues.length : 0;
     for (var i = 0; i < length; i++) {
         if (id === defaultValues[i]) {
@@ -735,7 +736,7 @@ function checkMultiSelect(id, defaultValues) {
     }
 
     return false;
-}
+};
 
 function showPopup(obj, content) {
 

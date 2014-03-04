@@ -11,7 +11,14 @@ namespace Fanex.CRM.Report.Repositories.Implements
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Models.CustomerReport;
     using Fanex.CRM.Report.Repositories.Interfaces;
@@ -20,12 +27,18 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
 
     /// <summary>
     /// Customer Report Service.
     /// </summary>
     public class CustomerReportService : ICustomerReportService
     {
+        public readonly string CustomerReportSessionKey = "Fanex.CRM.Report.CustomerReport.CustomerReportSessionKey_" +
+            (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
+
         private ICustomerReportRepository _customerReportRepository;
 
         private ISettingService _serviceSetting;
@@ -43,12 +56,32 @@ namespace Fanex.CRM.Report.Repositories.Implements
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        public List<CustomerInfo> GetCustomerReport(GetCustomerReportCriteria criteria)
+        /// <summary>
+        /// Gets the customer report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The customer report.</returns>
+        public CustomerReportInfo GetCustomerReport(GetCustomerReportCriteria criteria)
         {
-            var customerReport = new List<CustomerInfo>();
+            var customerReport = new CustomerReportInfo();
             try
             {
-                customerReport = _customerReportRepository.GetCustomerReport(criteria);
+                customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
+                if (customerReport == null)
+                {
+                    customerReport = new CustomerReportInfo();
+                    criteria.FromDateBirthDay = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDateBirthDay);
+                    criteria.ToDateBirthDay = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDateBirthDay);
+                    customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria);
+                    customerReport.TotalCustomer = customerReport.CustomerList.Count;
+                    CacheService.Set(CustomerReportSessionKey, customerReport);
+                    if (!criteria.IsGetFullReport)
+                    {
+                        customerReport.CustomerList = customerReport.CustomerList.Skip(criteria.PageSize * criteria.PageIndex)
+                           .Take(criteria.PageSize)
+                           .ToList();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -56,6 +89,42 @@ namespace Fanex.CRM.Report.Repositories.Implements
             }
 
             return customerReport;
+        }
+
+        /// <summary>
+        /// Exports the customer report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        public void ExportCustomerReport(GetCustomerReportCriteria criteria)
+        {
+            try
+            {
+                criteria.FromDateBirthDay = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDateBirthDay);
+                criteria.ToDateBirthDay = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDateBirthDay);
+                criteria.IsGetFullReport = true;
+                CustomerReportInfo customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
+                if (customerReport == null)
+                {
+                    customerReport = GetCustomerReport(criteria);
+                }
+
+                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
+                {
+                    ExcelFile = new HSSFWorkbook(),
+                    StartRow = 0,
+                    StartColumn = 0,
+                    CurrentRow = 0,
+                    MaxColumnIndex = 7
+                };
+
+                ExportCustomerReportBody(ref exportExcelInfo, criteria, customerReport);
+                string reportName = Labels.CustomerReport_Title;
+                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExcelExtensions.StandardizeExcelReportName(reportName));
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
         }
 
         /// <summary>
@@ -87,12 +156,14 @@ namespace Fanex.CRM.Report.Repositories.Implements
             try
             {
                 allTitle = _serviceSetting.GetAllTitle();
-                allTitle.Insert(0, new SettingInfo
-                {
-                    Value = Labels.All,
-                    Id = TitleConstants.All,
-                    DisplayOrder = 0
-                });
+                allTitle.Insert(
+                    0,
+                    new SettingInfo
+                    {
+                        Value = Labels.All,
+                        Id = TitleConstants.All,
+                        DisplayOrder = 0
+                    });
             }
             catch (Exception ex)
             {
@@ -176,6 +247,139 @@ namespace Fanex.CRM.Report.Repositories.Implements
             }
 
             return allVIPType;
+        }
+
+        /// <summary>
+        /// Exports the customer report header.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        private void ExportCustomerReportHeader(ref ExportExcelInfo exportExcelInfo)
+        {
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile);
+            var currentColumn = exportExcelInfo.StartColumn;
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 400 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
+
+            string reportTitle = Labels.CustomerReport_Title;
+            CellRangeAddress cellRangeAddress;
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                exportExcelInfo.StartColumn,
+                exportExcelInfo.MaxColumnIndex);
+            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
+            exportExcelInfo.CurrentRow += 2;
+
+            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+            exportExcelInfo.CurrentRow++;
+
+            IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            currentColumn = exportExcelInfo.StartColumn;
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.VIP, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Title, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.First_Name, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Last_Name, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Language, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Site, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Birthday, headerStyle);
+            exportExcelInfo.CurrentRow++;
+        }
+
+        /// <summary>
+        /// Exports the dynamic report body.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="customerReport">The customer report.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private void ExportCustomerReportBody(
+            ref ExportExcelInfo exportExcelInfo,
+            GetCustomerReportCriteria criteria,
+            CustomerReportInfo customerReport)
+        {
+            if (customerReport == null || customerReport.CustomerList.Count == 0)
+            {
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.CustomerReport_SheetName);
+                ExportCustomerReportHeader(ref exportExcelInfo);
+                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                return;
+            }
+
+            IRow row;
+            int currentColumn;
+            var reportLength = customerReport.CustomerList.Count;
+            exportExcelInfo.TextStyle = NpoiExcelExtensions.TextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExcelExtensions.BackgroundColorIndex,
+                false,
+                NpoiExcelExtensions.Alignment.Left);
+            var centerTextStyle = NpoiExcelExtensions.TextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExcelExtensions.BackgroundColorIndex,
+                false,
+                NpoiExcelExtensions.Alignment.Center);
+
+            var numberOfSheet = (reportLength / NpoiExcelExtensions.MaxRowPerSheet) +
+                (reportLength % NpoiExcelExtensions.MaxRowPerSheet != 0 ? 1 : 0);
+            for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+            {
+                var sheetName = numberOfSheet > 1 ?
+                    string.Format("{0} - {1}", Labels.CustomerReport_SheetName, sheetIndex + 1) :
+                    Labels.CustomerReport_SheetName;
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
+                exportExcelInfo.CurrentRow = 0;
+                ExportCustomerReportHeader(ref exportExcelInfo);
+                var startIndex = sheetIndex * NpoiExcelExtensions.MaxRowPerSheet;
+                var endIndex = startIndex + NpoiExcelExtensions.MaxRowPerSheet;
+                for (var i = startIndex; i < endIndex && i < reportLength; i++)
+                {
+                    row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+                    currentColumn = exportExcelInfo.StartColumn;
+                    var customer = customerReport.CustomerList[i];
+                    ExportCustomerReportRow(ref exportExcelInfo, ref row, ref currentColumn, customer, centerTextStyle);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Exports the dynamic report row.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="row">The current row.</param>
+        /// <param name="currentColumn">The current column.</param>
+        /// <param name="customer">The customer.</param>
+        /// <param name="centerTextStyle">The center text style.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private void ExportCustomerReportRow(
+            ref ExportExcelInfo exportExcelInfo,
+            ref IRow row,
+            ref int currentColumn,
+            CustomerInfo customer,
+            ICellStyle centerTextStyle)
+        {
+            customer.IsVIP = true;
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Title.Name, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.FirstName, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.LastName, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Country.Name, exportExcelInfo.TextStyle);
+
+            var customerLanguages = string.Join(", ", customer.Languages.Select(language => language.Name));
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customerLanguages, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.SiteSetting.Name, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.BirthDayString, centerTextStyle);
+            exportExcelInfo.CurrentRow++;
         }
     }
 }

@@ -27,6 +27,10 @@ namespace Fanex.CRM.Infrastructure.Models
 
         public int CurrentRow { get; set; }
 
+        public int CurrentColumn { get; set; }
+
         public int MaxColumnIndex { get; set; }
+
+        public ICellStyle TextStyle { get; set; }
     }
 }

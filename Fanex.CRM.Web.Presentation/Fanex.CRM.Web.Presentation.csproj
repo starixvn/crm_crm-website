@@ -59,6 +59,9 @@
     <Reference Include="dotless.Core">
       <HintPath>..\Dependency\dotless.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Enyim.Caching">
+      <HintPath>..\Dependency\Fanex\Enyim.Caching.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Caching, Version=1.0.4456.33785, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Caching.dll</HintPath>
@@ -312,6 +315,7 @@
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportApplication.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportController.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportService.js" />
+    <Content Include="Areas\Report\CustomerReport\Scripts\Directives\CustomerReportContainer.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportContainer.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\RegisterSharedDirectives.js" />
@@ -323,6 +327,7 @@
     <Content Include="Content\site\Images\delete-icon.png" />
     <Content Include="Content\site\Images\error.png" />
     <Content Include="Content\site\Images\excel.png" />
+    <Content Include="Content\site\Images\ico-collapse-expanse-filter.png" />
     <Content Include="Content\site\Images\ico-collapse.png" />
     <Content Include="Content\site\Images\ico-expand.png" />
     <Content Include="Content\site\Images\loading100x100.gif" />

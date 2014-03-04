@@ -9,14 +9,14 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
+    using System.Web.Mvc;
+    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Repositories.Implements;
     using Fanex.CRM.Report.Repositories.Interfaces;
-    using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.CRM.Infrastructure.Common;
     using Fanex.NAP.Core.Business;
-    using System.Web.Mvc;
-    using Fanex.CRM.Report.Criteria.CustomerReport;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Customer Report Controller.
@@ -69,6 +69,12 @@ namespace Fanex.CRM.Report.Controllers
             var customerReport = _customerReportService.GetCustomerReport(criteria);
             var jsonResult = Json(customerReport, JsonRequestBehavior.AllowGet);
             return jsonResult;
+        }
+
+        public ActionResult ExportCustomerReport(GetCustomerReportCriteria criteria)
+        {
+            _customerReportService.ExportCustomerReport(criteria);
+            return new EmptyResult();
         }
     }
 }
