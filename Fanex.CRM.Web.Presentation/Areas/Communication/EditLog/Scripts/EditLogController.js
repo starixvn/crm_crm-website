@@ -146,6 +146,10 @@ function (
             }
         }
 
+        $scope.communicationLog.LanguageId = ($scope.communicationLog.LanguageId === crmConstants.Enums.Language.NotApply ?
+              $scope.languageList[0].Id :
+              $scope.communicationLog.LanguageId);
+
         $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.updateChangeFlag();

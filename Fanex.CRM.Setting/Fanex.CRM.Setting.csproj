@@ -53,12 +53,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\CustomerTypeConstants.cs" />
     <Compile Include="Constants\ExtensionConstants.cs" />
     <Compile Include="Constants\PeriodTypeConstants.cs" />
     <Compile Include="Constants\RoleIdConstants.cs" />
     <Compile Include="Constants\SettingConstants.cs" />
     <Compile Include="Constants\SettingTypeConstants.cs" />
     <Compile Include="Constants\SiteConstants.cs" />
+    <Compile Include="Constants\TitleConstants.cs" />
+    <Compile Include="Constants\VIPTypeConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Criteria\GetActionCriteria.cs" />
     <Compile Include="Criteria\GetAllBetTypeCriteria.cs" />

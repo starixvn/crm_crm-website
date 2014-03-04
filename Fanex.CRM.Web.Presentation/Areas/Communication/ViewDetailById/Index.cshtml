@@ -36,7 +36,7 @@
                     <label for="ext">
                         @Labels.Ext</label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 extension-picker-container" data-ng-model="endTimeOptions">
+                <div class="col-xs-3 col-sm-3 col-md-3 extension-picker-container" data-ng-model="extensionOptions.DataList">
                     <select id="extension" disabled="disabled">
                     </select>
                 </div>
@@ -159,7 +159,6 @@
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <label for="subject">
                         @Labels.Subject
-                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                     </label>
                 </div>
                 <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
@@ -171,20 +170,20 @@
         <div class="row panel-group">
             <div class="row title">
                 @Labels.Remark
-                @Html.Raw(Resources.Language.Html_Template_MandatoryField)
             </div>
             <div class="row content multi-text">
-                <div id="remarkeditorboxcontainer" class="remark-editor-container" data-ng-model="remarkOptions">
+                <div>
+                    @Html.Raw(Model.Remark)
                 </div>
             </div>
         </div>
         <div class="row panel-group">
             <div class="row title">
                 @Labels.Solution
-                @Html.Raw(Resources.Language.Html_Template_MandatoryField)
             </div>
             <div class="row content multi-text">
-                <div id="solutionkeditorboxcontainer" data-ng-model="solutionOptions" class="solution-editor-container">
+                <div>
+                    @Html.Raw(Model.Solution)
                 </div>
             </div>
         </div>
@@ -196,7 +195,8 @@
                     data-ng-model="communicationLog.IsReviewed" disabled="disabled" />
             </div>
             <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">
-                <div id="revieweditorboxcontainer" data-ng-model="reviewOptions" class="review-editor-container">
+                <div>
+                    @Html.Raw(Model.Review)
                 </div>
             </div>
         </div>

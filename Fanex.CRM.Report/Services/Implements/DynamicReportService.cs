@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Services.Implements
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Service.Implements;
-    using Fanex.CRM.Report.Criteria;
+    using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Report.Repositories.Implements;
     using Fanex.CRM.Report.Repositories.Interfaces;
@@ -379,7 +379,6 @@ namespace Fanex.CRM.Report.Services.Implements
                     }
 
                     dynamicReport.ReportTypeId = criteria.ReportType;
-                    dynamicReport.TotalChildReports = dynamicReport.ChildReports.Count;
                     CacheService.Set(DynamicReportSessionKey, dynamicReport);
                 }
 
@@ -480,11 +479,12 @@ namespace Fanex.CRM.Report.Services.Implements
                 periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
                     periodReport.ChildReports.Add(data);
                 }
 
                 periodReport.TotalChildReports = periodReport.ChildReports.Count;
+                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
@@ -533,11 +533,12 @@ namespace Fanex.CRM.Report.Services.Implements
                 periodReport.PeriodRange.ToDateString = periodReport.PeriodRange.ToDate.ToShortFormatedDate();
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
                     periodReport.ChildReports.Add(data);
                 }
 
                 periodReport.TotalChildReports = periodReport.ChildReports.Count;
+                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
@@ -581,11 +582,12 @@ namespace Fanex.CRM.Report.Services.Implements
 
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
                     periodReport.ChildReports.Add(data);
                 }
 
                 periodReport.TotalChildReports = periodReport.ChildReports.Count;
+                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
@@ -626,11 +628,12 @@ namespace Fanex.CRM.Report.Services.Implements
 
                 foreach (var data in periodGroup)
                 {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDate();
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
                     periodReport.ChildReports.Add(data);
                 }
 
                 periodReport.TotalChildReports = periodReport.ChildReports.Count;
+                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
                 dynamicReport.ChildReports.Add(periodReport);
             }
 
@@ -768,6 +771,10 @@ namespace Fanex.CRM.Report.Services.Implements
             }
         }
 
+        /// <summary>
+        /// Sets the index of the status color.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
         private void SetStatusColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             var closedBackgroundColor = Color.FromArgb(221, 221, 221);
@@ -789,6 +796,13 @@ namespace Fanex.CRM.Report.Services.Implements
                 PendingBackgroundColorIndex);
         }
 
+        /// <summary>
+        /// Exports the dynamic report row.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="currentColumn">The current column.</param>
+        /// <param name="info">The information.</param>
+        /// <param name="infoIndex">Index of the information.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

@@ -16,7 +16,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Report.Criteria;
+    using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Report.Repositories.Interfaces;
     using Fanex.CRM.Setting.Models;

@@ -4,6 +4,7 @@ moment,
 crmConstants,
 sharedScriptManager,
 viewResources */
+/* jshint camelcase: false */
 dashboardApplication.directive('tableCommunicationLogsContainer', function () {
     function renderCommunicationLogs(scope, element, attrs) {
         if (scope.communicationLogs == null) {
@@ -30,8 +31,7 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
                         },
                         {
                             Name: "ColFeedbackDate",
-                            /* jshint camelcase: false */
-                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment)
+                            Value: moment(new Date(info.FeedbackDate)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment)
                         },
                         {
                             Name: "ColCategory",

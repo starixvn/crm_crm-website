@@ -41,13 +41,9 @@
                 var dat = date.getDate();
                 var day = date.getDay();
                 defaults.startDate = new Date(date.getFullYear(), date.getMonth(), 1);
-                if (day == 0) {
-                    day = 7;
-                }
-
-                defaults.startDate.setDate(dat - day);
+                defaults.startDate.setDate(dat - (day - defaults.firstDay));
                 defaults.endDate = new Date(date.getFullYear(), date.getMonth(), 1);
-                defaults.endDate.setDate(dat - day + 7);
+                defaults.endDate.setDate(dat - (day - defaults.firstDay) + 6);
                 if (options.maxDate &&
                     options.maxDate < defaults.endDate) {
                     defaults.endDate = options.maxDate;
@@ -112,7 +108,7 @@
                 var offset = $this.offset();
 
                 $this.addClass("datepicker hasDatepicker");
-                $this.after("<div class='weekcalendar'></div>"); 
+                $this.after("<div class='weekcalendar'></div>");
                 //<img style='position: relative;margin-top: 1px' class='ui-datepicker-trigger' src='" + $("#currentDomain").val() + "/App_Themes/" + currentTheme + "/Images/calendar1.gif' alt='' title=''>
                 $calendar = $this.next();
                 $calendar.css({ "position": "absolute", "z-index": 1000, "margin-top": offset.top, "float": "left" });

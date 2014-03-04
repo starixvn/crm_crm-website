@@ -527,6 +527,76 @@ namespace Fanex.CRM.Setting.Services.Implements
         }
 
         /// <summary>
+        /// Gets all customer type.
+        /// </summary>
+        /// <returns>All customer type.</returns>
+        public List<SettingInfo> GetAllCustomerType()
+        {
+            var allCustomerType = new List<SettingInfo>();
+            try
+            {
+                allCustomerType.Add(new SettingInfo
+                {
+                    Id = CustomerTypeConstants.All,
+                    Value = Labels.All
+                });
+
+                allCustomerType.Add(new SettingInfo
+                {
+                    Id = CustomerTypeConstants.Customer,
+                    Value = Labels.Customer
+                });
+
+                allCustomerType.Add(new SettingInfo
+                {
+                    Id = CustomerTypeConstants.Guest,
+                    Value = Labels.Guest
+                });
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allCustomerType;
+        }
+
+        /// <summary>
+        /// Gets all VIP type.
+        /// </summary>
+        /// <returns>All VIP type.</returns>
+        public List<SettingInfo> GetAllVIPType()
+        {
+            var allVIPType = new List<SettingInfo>();
+            try
+            {
+                allVIPType.Add(new SettingInfo
+                {
+                    Id = VIPTypeConstants.All,
+                    Value = Labels.All
+                });
+
+                allVIPType.Add(new SettingInfo
+                {
+                    Id = VIPTypeConstants.VIP,
+                    Value = Labels.VIP
+                });
+
+                allVIPType.Add(new SettingInfo
+                {
+                    Id = VIPTypeConstants.None,
+                    Value = Labels.None
+                });
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allVIPType;
+        }
+
+        /// <summary>
         /// Gets the sub setting by parent identifier.
         /// </summary>
         /// <param name="parentSetting">The parent setting.</param>

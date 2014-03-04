@@ -21,17 +21,17 @@ customerDetailApplication.directive('datePickerContainer', function () {
             }
         });
 
-        txtCalendar.datepicker('setDate', 
-            (scope.customerDetail && scope.customerDetail.BirthDay ?
-                new Date(scope.customerDetail.BirthDay) :
+        txtCalendar.datepicker('setDate',
+            (scope.customerDetail && scope.customerDetail.BirthDayString ?
+                new Date(scope.customerDetail.BirthDayString) :
                 new Date(currentDate)));        
     }
     function selectedDateChange(scope, element, attrs) {
         /* jshint unused: vars */
         var fromDatePicker = element.find(".txtcalendar");
         var selectedDate = fromDatePicker.val();
-        if ((scope.oldCustomerDetail.BirthDay === null ||
-            scope.oldCustomerDetail.BirthDay === '') &&
+        if ((scope.oldCustomerDetail.BirthDayString === null ||
+            scope.oldCustomerDetail.BirthDayString === '') &&
             (selectedDate === null ||
             selectedDate === '')) {
             return selectedDate;

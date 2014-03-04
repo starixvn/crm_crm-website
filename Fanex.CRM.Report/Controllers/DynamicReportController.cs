@@ -12,7 +12,7 @@ namespace Fanex.CRM.Report.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
-    using Fanex.CRM.Report.Criteria;
+    using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Services.Implements;
     using Fanex.CRM.Report.Services.Interfaces;
     using Fanex.NAP.Core.Business;
@@ -35,7 +35,7 @@ namespace Fanex.CRM.Report.Controllers
             _dynamicReportService = dynamicReportService ?? new DynamicReportService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.DynamicReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View("~/Areas/Report/DynamicReport/Index.cshtml");

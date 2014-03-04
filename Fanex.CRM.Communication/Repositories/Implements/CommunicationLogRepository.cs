@@ -158,7 +158,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             var logInfo = new LogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToShortFormatedDate(),
+                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDateTime(),
                 MainCategory = new SettingInfo
                 {
                     Name = reader.GetStringNotNull("MainCategory")
@@ -205,8 +205,8 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                     Id = reader.GetInt32NotNull("SubCategoryID")
                 },
                 Subject = reader.GetStringNotNull("Subject"),
-                StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDate(),
-                EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ResolutionDate")).ToLongFormatedDate(),
+                StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDateTime(),
+                EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ResolutionDate")).ToLongFormatedDateTime(),
                 Extension = new SettingInfo
                 {
                     Id = reader.GetInt32NotNull("StationID")

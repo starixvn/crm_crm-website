@@ -5,9 +5,12 @@ viewResources,
 crmConstants,
 currentDate: true,
 initFromDate: true,
-weekPickerManager */
+weekPickerManager,
+moment,
+sharedScriptManager */
 /* jshint camelcase: false */
 /* jshint unused: vars */
+/* jshint maxstatements: 412 */
 dynamicReportApplication.controller('dynamicReportController', ['$scope', '$http', '$dynamicReportService',
 function (
     $scope,
@@ -541,14 +544,14 @@ function (
             url,
             "Communication Log Detail",
             $(parent.document).width() - 300,
-            $(parent.document).height() - 80,
+            600,
             true,
             false,
             parent.window,
             3000,
             null,
             $scope.closeEditView,
-            null,
+            ['center', 50],
             null);
     };
     $scope.closeEditView = function () {

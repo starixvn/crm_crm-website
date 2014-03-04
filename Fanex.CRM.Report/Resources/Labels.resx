@@ -249,4 +249,55 @@
   <data name="Solved" xml:space="preserve">
     <value>Solved</value>
   </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Suspended</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="First_Name" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Last_Name" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="All_Languages" xml:space="preserve">
+    <value>All Languages</value>
+  </data>
+  <data name="No_language_found" xml:space="preserve">
+    <value>No language found.</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="All_Countries" xml:space="preserve">
+    <value>All Countries</value>
+  </data>
+  <data name="All_Sites" xml:space="preserve">
+    <value>All Sites</value>
+  </data>
+  <data name="No_country_found" xml:space="preserve">
+    <value>No country found.</value>
+  </data>
+  <data name="No_site_found" xml:space="preserve">
+    <value>No site found.</value>
+  </data>
+  <data name="Customer_Type" xml:space="preserve">
+    <value>Customer_Type</value>
+  </data>
 </root>
