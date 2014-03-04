@@ -134,20 +134,16 @@ namespace Fanex.CRM.DataAccess.Impl
                     
                     param.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(entity.FeedbackDate));
                     param.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(entity.ResolutionTime));
-
-                    param.Add("communicationid", entity.Communication.Id);
                     param.Add("stationid", entity.CsExtension.Id);
+                    param.Add("communicationid", entity.Communication.Id);
                     param.Add("maincategoryid", entity.Category.Id);
                     param.Add("subcategoryid", entity.SubCategory.Id);
-                    
-                    param.Add("roleid", entity.Role.Id);
                     param.Add("productid", entity.Product.Id);
                     param.Add("bettypeid", entity.BetType.Id);
-                    param.Add("responseid", entity.Response.Id);
                     param.Add("statusid", entity.Status.Id);
-
+                    param.Add("roleid", entity.Role.Id);
+                    param.Add("responseid", entity.Response.Id);
                     param.Add("relatedcustid", entity.RelatedCustomer.UserName);
-
                     param.Add("subject", entity.Subject);
                     param.Add("description", entity.Description);
                     param.Add("solution", entity.Solution);

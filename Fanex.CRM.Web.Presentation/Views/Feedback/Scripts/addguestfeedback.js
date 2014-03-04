@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 /* global bindingSetting,
 bindingCountry,
 bindingChildByParentId,
@@ -16,11 +16,9 @@ errMsgFeedbackDateGreatter,
 errMsgResolutionDateGreatter,
 SetupCalendar,
 inputMultipleRelatedNote,
-jlinq,
-dropdownMultiSelect
+jlinq
 */
-/* exported feedbackNew, 
-settings,
+/* exported settings,
 ddls,
 numberOfFinish,
 orgLengt,
@@ -36,7 +34,6 @@ var checkSpecialCharacters,
     getFeedbacktData,
     getNumOfFeedbackItems,
     appendListFeedbacksLasted,
-    feedbackNew,
     bindingEvent;
 
 var settings = ["Title", "Status", "Station", "Response", "Communication", "Language"];
@@ -82,7 +79,6 @@ function loadFeedbackSetting() {
             // Details
             bindingSetting("ddlcategory", setting.Category, 0);
             bindingSetting("ddlproduct", setting.Product, 0);
-            //bindingSetting("ddlrole", setting.Role, 7004);
             bindingSetting("ddlstatus", setting.Status, 0);
             bindingSetting("ddlresponse", setting.Response, 0);
             bindingSetting("ddlcommunication", setting.Communication, 0);
@@ -121,7 +117,6 @@ checkSpecialCharacters = function (id) {
     var iChars = "!`#%^&*()=[]\\\';,/{}|\":<>?~";
 
     var data = $("#" + id).val();
-
     for (var i = 0; i < data.length; i++) {
         if (iChars.indexOf(data.charAt(i)) !== -1) {
             $(("#" + id).replace("ddl", "error")
@@ -161,6 +156,10 @@ function AddGuestFeedback() {
         }
         if ($('#ddlcommunication option:selected').text().toLowerCase() === 'n/a') {
             showAlertMessage("errmsg", "Please choose communication!", 1);
+            return false;
+        }
+        if ($('#ddlproduct option:selected').val() === 0) {
+            showAlertMessage("errmsg", "Please choose product!", 1);
             return false;
         }
         if ($('#hIsNotChild').val() === '1') {
@@ -279,7 +278,7 @@ DoAdd = function () {
         success: function (rs) {
             if (rs.ErrCode === 0) {
                 showAlertMessage("errmsg", successMsg, 0);
-                parent.$("#isGuest").attr("checked", true);
+                parent.$("#isGuest").prop("checked", true);
                 parent.leftPanelManager.loadLeftPanel($("#txtidentity").val().trim(), true);
             }
             else {
@@ -343,72 +342,72 @@ getFeedbacktData = function () {
         BettingCode: $("#bettingCodeInfo").val().trim(),
         RefCodes2: $("#refCodes2Info").val().trim(),
         IsVIP: $("#isVIP").prop("checked")
+    }
+
+    // related customers
+    var feedback = {
+        Creator: {
+            Id: accId
+        },
+        Customer: {
+            Id: 0,
+            UserName: $("#txtidentity").val().trim()
+        },
+        CustomerInfo: customerInfo,
+        FeedbackDate: $("#txtdate").val(),
+        ResolutionTime: $('#txtResolutionTime').val(),
+        CsExtension: {
+            Id: $("#ddlcsextension").val()
+        },
+        Communication: {
+            Id: $("#ddlcommunication").val()
+        },
+        Category: {
+            Id: $("#ddlcategory").val()
+        },
+        SubCategory: {
+            Id: $("#ddlsubcategory").val()
+        },
+        Product: {
+            Id: $("#ddlproduct").val()
+        },
+        BetType: {
+            Id: $("#ddlbettype").val()
+        },
+        Status: {
+            Id: $("#ddlstatus").val()
+        },
+        Role: {
+            Id: 7004 // $("#ddlrole").val()
+        },
+        Response: {
+            Id: $("#ddlresponse").val()
+        },
+        RelatedCustomer: {
+            Id: 0,
+            UserName: $("#chkisrelated").prop("checked") ? getRelatedCustomer() : ""
+        },
+        Subject: $("#txtsubject").val().trim(),
+        Description: $("#desediter").htmlarea("toHtmlString").trim(),
+        Solution: $("#solediter").htmlarea("toHtmlString").trim()
     };
 
-    var FeedBackDate = $("#txtdate").val();
-    var Creator = accId;
-    var CommunitationID = $("#ddlcommunication").val();
-    var StationID = $("#ddlcsextension").val();
-    var MainCategoryID = $("#ddlcategory").val();
-    var SubCategoryID = $("#ddlsubcategory").val();
-    //var RoleID = $("#ddlrole").val();
-    var ProductID = $("#ddlproduct").val();
-    var BettypeID = $("#ddlbettype").val();
-    var ResponseID = $("#ddlresponse").val();
-    var StatusID = $("#ddlstatus").val();
-    var RelatedCustID = "";
-    if ($("#chkisrelated").attr("checked")) {
-        RelatedCustID = getRelatedCustomer();
-    }
-    var Subject = $("#txtsubject").val().trim();
-    var Description = $("#desediter").htmlarea("toHtmlString");
-    var Solution = $("#solediter").htmlarea("toHtmlString");
-    var IsUpdateReviewed = $("#chkisreview").attr("checked");
-    var Reviewer;
-    var Review;
+    // reviewed
+    var IsUpdateReviewed = $("#chkisreview").prop("checked");
+    var Reviewer = 0;
+    var Review = "";
     if (IsUpdateReviewed) {
         Reviewer = accId;
         Review = $("#revediter").htmlarea("toHtmlString");
     }
-    else {
-        Reviewer = 0;
-        Review = "";
-    }
 
-    var resolutionTitme = $('#txtResolutionTime').val();
-    feedbackNew.Customer.Id = 0;
-    feedbackNew.Customer.UserName = $("#txtidentity").val().trim();
-    feedbackNew.CustomerInfo = customerInfo;
-    feedbackNew.FeedbackDate = FeedBackDate;
-    feedbackNew.Role.Id = 7004;
-    feedbackNew.Creator.Id = Creator;
-    feedbackNew.Communication.Id = CommunitationID;
-    feedbackNew.CsExtension.Id = StationID;
-    feedbackNew.Category.Id = MainCategoryID;
-    feedbackNew.SubCategory.Id = SubCategoryID;
-    feedbackNew.Product.Id = ProductID;
-    feedbackNew.BetType.Id = BettypeID;
-    feedbackNew.Response.Id = ResponseID;
-    feedbackNew.Status.Id = StatusID;
-    feedbackNew.RelatedCustomer.Id = 0;
-    feedbackNew.RelatedCustomer.UserName = RelatedCustID;
-    feedbackNew.Subject = Subject.trim();
-    feedbackNew.Description = Description.trim();
-    feedbackNew.Solution = Solution.trim();
-    //
-    if (IsUpdateReviewed) {
-        feedbackNew.IsReviewed = true;
-        feedbackNew.Reviewer.Id = Reviewer;
-        feedbackNew.Review = Review.trim();
-    }
-    else {
-        feedbackNew.IsReviewed = false;
-        feedbackNew.Reviewer.Id = 0;
-    }
+    feedback.IsReviewed = IsUpdateReviewed;
+    feedback.Reviewer = {
+        Id: Reviewer
+    };
+    feedback.Review = Review.trim();
 
-    feedbackNew.ResolutionTime = resolutionTitme;
-    feedbackNew.IsOverrideCrmInfo = $("#isOverrideCrmInfo").prop("checked");
-    return feedbackNew;
+    return feedback;
 };
 
 //mark because it may conflict with other function 
@@ -488,12 +487,14 @@ head.ready(function () {
         cache: false,
         newel: true
     });
-    if ($("#chkisrelated").attr('checked')) {
-        $("#typeCust").val("");
-        $("#typeCust").removeAttr("disabled");
+    if ($("#chkisrelated").prop('checked')) {
+        var typeCust = $("#typeCust");
+        typeCust.val("");
+        typeCust.removeAttr("disabled");
     }
     $("#btnsubmit").removeAttr("disabled");
     $("#btnsubmitbottom").removeAttr("disabled");
+    
     //add input listen for auto complete Subject name input text box
     $("#txtsubject").keyup(function (e) {
         var keyCode = e.keyCode;
@@ -520,211 +521,3 @@ head.ready(function () {
 
     $("#txtidentity").focus();
 });
-
-feedbackNew = {
-    "Id": 0,
-    "BetType": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "Category": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "Communication": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "Country": {
-        "Id": 0,
-        "CountryCode": 0,
-        "CountryName": null,
-        "DisplayOrder": 0,
-        "IsActive": false
-    },
-    "CreateDate": null,
-    "Creator": {
-        "Id": 0,
-        "IsAllowUpdateReview": false,
-        "Password": null,
-        "RoleId": 0,
-        "Username": ""
-    },
-    "CsExtension": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "Customer": {
-        "Id": 0,
-        "Answer": null,
-        "BankInfo": null,
-        "BettingCode": null,
-        "Country": 0,
-        "CountryName": null,
-        "CreatedDate": null,
-        "Creator": null,
-        "CustomerInfo": null,
-        "IsVip": false,
-        "Language": 0,
-        "NickName": null,
-        "Pic1": null,
-        "Pic2": null,
-        "Pic3": null,
-        "Question": null,
-        "RefCode2": null,
-        "RelatedCustomer": null,
-        "Remark": null,
-        "RoleId": 0,
-        "RoleName": "",
-        "Site": null,
-        "SpecialRemark": null,
-        "UserName": ""
-    },
-    "CustomerInfo": {
-        "BirthDay": null,
-        "Email": " ",
-        "Fax": " ",
-        "FirstName": " ",
-        "LastName": " ",
-        "MSN": " ",
-        "MobilePhone": " ",
-        "Phone": " ",
-        "Skype": " ",
-        "Title": {
-            "Id": 0,
-            "Child": null,
-            "DisplayOrder": 0,
-            "IsSub": false,
-            "Parent": null,
-            "Type": null,
-            "Value": null
-        }
-    },
-    "Description": "",
-    "FeedbackDate": "/Date(1317709320000+0700)/",
-    "IsReviewed": false,
-    "Language": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "Priority": null,
-    "Product": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "RelatedCustomer": {
-        "Id": 0,
-        "Answer": null,
-        "BankInfo": null,
-        "BettingCode": null,
-        "Country": 0,
-        "CountryName": null,
-        "CreatedDate": null,
-        "Creator": null,
-        "CustomerInfo": null,
-        "IsVip": false,
-        "Language": 0,
-        "NickName": null,
-        "Pic1": null,
-        "Pic2": null,
-        "Pic3": null,
-        "Question": null,
-        "RefCode2": null,
-        "RelatedCustomer": null,
-        "Remark": null,
-        "RoleId": 0,
-        "RoleName": "",
-        "Site": null,
-        "SpecialRemark": null,
-        "UserName": ""
-    },
-    "ResolutionTime": null,
-    "Response": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "Review": "",
-    "Reviewer": {
-        "Id": 0,
-        "IsAllowUpdateReview": false,
-        "Password": null,
-        "RoleId": 0,
-        "Username": ""
-    },
-    "Role": {
-        "Id": 7004,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "Site": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "Solution": " ",
-    "SolvedDate": null,
-    "Status": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "StrFeedbackDate": "",
-    "SubCategory": {
-        "Id": 0,
-        "Child": null,
-        "DisplayOrder": 0,
-        "IsSub": false,
-        "Parent": null,
-        "Type": null,
-        "Value": null
-    },
-    "Subject": "",
-    "UpdateReviewMode": 0
-};

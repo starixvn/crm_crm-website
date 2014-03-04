@@ -62,7 +62,8 @@
         </div>
         <div class="row">
             <button class="btn btn-save"
-                default-focus 
+                default-focus
+                data-ng-disabled="!isDataChanged" 
                 data-ng-model="isSetFocus"
                 data-ng-click="updateRemarks()"><span class="hotkey">S</span>ave</button>
         </div>
