@@ -1,5 +1,6 @@
 ﻿"use strict";
-/* global remarkApplication */
+/* global remarkApplication,
+keyboardManager */
 remarkApplication.directive('onEnterKeyup', function () {
     return {
         restrict: 'A',
@@ -8,7 +9,7 @@ remarkApplication.directive('onEnterKeyup', function () {
         },
         link: function (scope, element, attrs) {
             element.bind('keyup', function (event) {
-                if (event.which === 13) {
+                if (event.which === keyboardManager.Enums.KeyCode.Enter) {
                     scope.$apply(function () {
                         scope.onEnterKeyup();
                     });

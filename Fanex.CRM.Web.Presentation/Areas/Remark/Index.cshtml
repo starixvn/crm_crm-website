@@ -30,7 +30,7 @@
                             <span data-ng-bind="remarks.SpecialRemarks.length + 1 + '. '"></span>
                             <input type="text" class="textbox-remark" defaulttext="@Labels.SpecialRemarkPlaceHolder"
                                 data-ng-model="lastSpecialRemark"
-                                on-enter-keyup="insertSpecialRemark" 
+                                on-enter-keyup="insertSpecialRemark()" 
                                 custom-place-holder/>
                         </div>
                     </li>
@@ -53,7 +53,7 @@
                             <span data-ng-bind="remarks.NormalRemarks.length + 1 + '. '"></span>
                             <input type="text" class="textbox-remark" defaulttext="@Labels.RemarkPlaceHolder"
                                 data-ng-model="lastRemark"
-                                on-enter-keyup="insertRemark"
+                                on-enter-keyup="insertRemark()"
                                 custom-place-holder/>
                         </div>
                     </li>

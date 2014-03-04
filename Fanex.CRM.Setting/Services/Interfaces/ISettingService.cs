@@ -15,6 +15,8 @@ namespace Fanex.CRM.Setting.Services.Interfaces
 
     public interface ISettingService
     {
+        List<SettingInfo> GetAllSetting();
+
         SettingInfo GetSettingById(GetSettingByIdCriteria criteria);
 
         List<SiteInfo> GetAllSite();

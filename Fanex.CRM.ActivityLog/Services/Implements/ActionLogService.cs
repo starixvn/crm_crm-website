@@ -29,7 +29,9 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     {
         private const string ActivityLogKey = "Fanex.CRM.ActionLog.ActivityLog";
         private const string SettingLogKey = "Fanex.CRM.ActionLog.SettingLog";
+        
         private readonly IActionLogRepository _actionLogRepository;
+        private readonly IDictionary<string, string> _settingHash;
         
         public ActionLogService()
             : this(null)
@@ -39,6 +41,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         public ActionLogService(IActionLogRepository actionLogRepository)
         {
             _actionLogRepository = actionLogRepository ?? new ActionLogRepository();
+            _settingHash = CacheManager.GetAllSetting();
         }
 
         #region Activity Log
@@ -68,7 +71,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 PagedList<ActivityLog> paginationActivityLogs = new PagedList<ActivityLog>(activityLogs, criteria.PageIndex, criteria.ItemsPerPage);
                 foreach (var log in paginationActivityLogs)
                 {
-                    GetNewAndOldValues(log);
+                    FilterOldNewResults(log);
                 }
 
                 return paginationActivityLogs;
@@ -109,7 +112,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 PagedList<SettingLog> paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
                 foreach (var log in paginationSettingLogs)
                 {
-                    GetNewAndOldValues(log);
+                    FilterOldNewResults(log);
                 }
 
                 return paginationSettingLogs;
@@ -124,196 +127,122 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         #endregion
 
         /// <summary>
+        /// Filters the old and new results.
+        /// </summary>
+        /// <param name="log">The log parameter.</param>
+        private void FilterOldNewResults(ActionLog log)
+        {
+            string oldValue = log.OldValues, newValue = log.NewValues;
+            if (string.Equals(oldValue, newValue, StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
+
+            IDictionary<string, string> oldResults = null, newResults = null;
+            if (!string.IsNullOrWhiteSpace(oldValue))
+            {
+                oldResults = ParseXMLString(oldValue);
+            }
+
+            if (!string.IsNullOrWhiteSpace(newValue))
+            {
+                newResults = ParseXMLString(newValue);
+            }
+
+            int oldCount = oldResults == null ? 0 : oldResults.Count;
+            int newCount = newResults == null ? 0 : newResults.Count;
+            if (oldCount == 0)
+            {
+                foreach (string key in newResults.Keys)
+                {
+                    log.FieldNames.Add(key);
+                    log.NewValuesList.Add(GetNameById(key, newResults[key]));
+                }
+            }
+            else if (oldCount == newCount)
+            {
+                string oldString, newString;
+                foreach (string key in newResults.Keys)
+                {
+                    oldString = oldResults[key];
+                    newString = newResults[key];
+                    if (!string.Equals(oldString, newString, StringComparison.OrdinalIgnoreCase))
+                    {
+                        log.FieldNames.Add(key);
+                        log.OldValuesList.Add(GetNameById(key, oldString));
+                        log.NewValuesList.Add(GetNameById(key, newString));
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Parses the XML string.
         /// </summary>
         /// <param name="xml">The XML string.</param>
-        /// <returns>Name value list.</returns>
-        private IList<NameValue> ParseXMLString(string xml)
+        /// <returns>The hash result.</returns>
+        private IDictionary<string, string> ParseXMLString(string xml)
         {
             XmlDocument document = new XmlDocument();
             document.LoadXml(xml);
 
-            IList<NameValue> results = new List<NameValue>();
+            IDictionary<string, string> results = new Dictionary<string, string>();
             foreach (XmlNode node in document.ChildNodes[0].ChildNodes)
             {
-                results.Add(new NameValue { Name = node.Name, Value = node.InnerText });
+                if (!results.ContainsKey(node.Name))
+                {
+                    results.Add(node.Name, node.InnerText);
+                }
+                else
+                {
+                    results[node.Name] += "<br/>" + node.InnerText;
+                }
             }
 
             return results;
         }
 
-        /// <summary>
-        /// Gets the new and old values.
-        /// </summary>
-        /// <param name="log">The log object.</param>
-        private void GetNewAndOldValues(ActionLog log)
+        private string GetNameById(string key, string value)
         {
-            IList<NameValue> oldValuesList = null, newValuesList = null;
-            string oldValues = log.OldValues,
-                newValues = log.NewValues;
+            string keyLower = key.ToLower();
+            if (string.Equals(keyLower, "LanguageID", StringComparison.OrdinalIgnoreCase))
+            {
+                return GetMultipleSettingValue(keyLower, value);   
+            }
+
+            return GetSettingValue(keyLower + value, value);
+        }
+
+        private string GetSettingValue(string key, string defaultValue)
+        {
+            string settingValue;
+            if (!_settingHash.TryGetValue(key, out settingValue))
+            {
+                return defaultValue;
+            }
+
+            return settingValue;
+        }
+
+        /// <summary>
+        /// Gets the multiple setting value.
+        /// </summary>
+        /// <param name="key">The key string.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The value from hash.
+        /// </returns>
+        private string GetMultipleSettingValue(string key, string value)
+        {
+            var valueList = value.Split(new char[] { ',' });
             
-            if (!string.IsNullOrWhiteSpace(oldValues))
+            int keyCount = valueList.Length;
+            for (int i = 0; i < keyCount; i++)
             {
-                oldValuesList = ParseXMLString(oldValues);
+                valueList[i] = GetSettingValue(key + valueList[i], valueList[i]);
             }
 
-            if (!string.IsNullOrWhiteSpace(newValues))
-            {
-                newValuesList = ParseXMLString(newValues);
-            }
-
-            if (newValues.IndexOf("Acc_CRM_CustomerRemarkUpd", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                oldValues.IndexOf("Acc_CRM_CustomerRemarkUpd", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                GetNewAndOldValues4RemarkLog(log, oldValuesList, newValuesList);
-            }
-            else
-            {
-                GetNewAndOldValues(log, oldValuesList, newValuesList);
-            }
-            
-            log.OldValues = log.NewValues = null;
+            return string.Join(",", valueList);
         }
-
-        private void GetNewAndOldValues(ActionLog log, IList<NameValue> oldValues, IList<NameValue> newValues)
-        {
-            string oldString = null, newString = null;
-            int oldCount = oldValues == null ? 0 : oldValues.Count;
-            int newCount = newValues == null ? 0 : newValues.Count;
-            if (oldCount == 0)
-            {
-                for (int i = 0; i < newCount; i++)
-                {
-                    newString = newValues[i].Value;
-                    if (!string.IsNullOrWhiteSpace(newString))
-                    {
-                        log.FieldNames.Add(newValues[i].Name);
-                        log.NewValuesList.Add(newString);
-                    }
-                }
-            }
-            else if (oldCount == newCount)
-            {
-                for (int i = 0; i < newCount; i++)
-                {
-                    oldString = oldValues[i].Value;
-                    newString = newValues[i].Value;
-                    if (!string.Equals(oldString, newString, StringComparison.OrdinalIgnoreCase))
-                    {
-                        log.FieldNames.Add(newValues[i].Name);
-                        log.OldValuesList.Add(oldString);
-                        log.NewValuesList.Add(newString);
-                    }
-                }
-            }
-        }
-
-        #region Remark Log
-
-        /// <summary>
-        /// Gets the new and old values4 remark log.
-        /// </summary>
-        /// <param name="log">The log parameter.</param>
-        /// <param name="oldValues">The old values.</param>
-        /// <param name="newValues">The new values.</param>
-        private void GetNewAndOldValues4RemarkLog(ActionLog log, IList<NameValue> oldValues, IList<NameValue> newValues)
-        {
-            IList<string> oldRemarks = null, oldSpecialRemarks = null;
-            IList<string> newRemarks = null, newSpecialRemarks = null;
-            if (oldValues != null)
-            {
-                GetRemarkLogList(oldValues, out oldRemarks, out oldSpecialRemarks);
-            }
-
-            if (newValues != null)
-            {
-                GetRemarkLogList(newValues, out newRemarks, out newSpecialRemarks);
-            }
-
-            CompareNewAndOldRemarks(log, oldRemarks, newRemarks, false);
-            CompareNewAndOldRemarks(log, oldSpecialRemarks, newSpecialRemarks, true);
-        }
-
-        /// <summary>
-        /// Gets the remark log list.
-        /// </summary>
-        /// <param name="sources">The sources.</param>
-        /// <param name="remarks">The remarks.</param>
-        /// <param name="specialRemarks">The special remarks.</param>
-        private void GetRemarkLogList(IList<NameValue> sources, out IList<string> remarks, out IList<string> specialRemarks)
-        {
-            remarks = new List<string>();
-            specialRemarks = new List<string>();
-            foreach (NameValue item in sources)
-            {
-                if (string.Equals(item.Name, "remark", StringComparison.OrdinalIgnoreCase))
-                {
-                    remarks.Add(item.Value);
-                }
-                else
-                {
-                    specialRemarks.Add(item.Value);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Compares the new and old remarks.
-        /// </summary>
-        /// <param name="log">The log parameter.</param>
-        /// <param name="oldList">The old list.</param>
-        /// <param name="newList">The new list.</param>
-        /// <param name="isSpecialRemark">If set to <c>true</c> [is special remark].</param>
-        private void CompareNewAndOldRemarks(ActionLog log, IList<string> oldList, IList<string> newList, bool isSpecialRemark = true)
-        {
-            string oldString, newString;
-            int oldCount = oldList == null ? 0 : oldList.Count;
-            int newCount = newList == null ? 0 : newList.Count;
-            if (oldCount == 0)
-            {
-                for (int i = 0; i < newCount; i++)
-                {
-                    newString = newList[i];
-                    if (!string.IsNullOrWhiteSpace(newString))
-                    {
-                        log.FieldNames.Add(isSpecialRemark ? "SpecialRemark" : "Remark");
-                        log.NewValuesList.Add(newString);
-                    }
-                }
-            }
-            else
-            {
-                //// balance between oldList and newList
-                if (newCount > oldCount)
-                {
-                    for (int i = oldCount; i < newCount; i++)
-                    {
-                        oldList.Add(string.Empty);
-                    }
-                }
-                else if (oldCount > newCount)
-                {
-                    for (int i = newCount; i < oldCount; i++)
-                    {
-                        newList.Add(string.Empty);
-                    }
-                }
-
-                newCount = newList.Count;
-                for (int i = 0; i < newCount; i++)
-                {
-                    oldString = oldList[i];
-                    newString = newList[i];
-                    if (!string.Equals(oldString, newString, StringComparison.OrdinalIgnoreCase))
-                    {
-                        log.FieldNames.Add(isSpecialRemark ? "SpecialRemark" : "Remark");
-                        log.OldValuesList.Add(oldString);
-                        log.NewValuesList.Add(newString);
-                    }
-                }
-            }
-        }
-
-        #endregion
     }
 }
