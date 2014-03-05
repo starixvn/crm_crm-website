@@ -63,7 +63,6 @@
         <div class="row">
             <button class="btn btn-save"
                 default-focus
-                data-ng-disabled="!isDataChanged" 
                 data-ng-model="isSetFocus"
                 data-ng-click="updateRemarks()"><span class="hotkey">S</span>ave</button>
         </div>
@@ -79,7 +78,7 @@
             Alert: '@Labels.Alert',
             OK: '@Labels.OK',
             UpdateRemarkSuccess: '@Labels.UpdateRemarkSuccess',
-            Confirm_Ignore_EditCustomer_ChangesTabDetail: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesTabDetail)'
+            Confirm_Ignore_EditCustomer_ChangesTabRemark: '@Html.Raw(Labels.ConfirmIgnoreDataChange)'
         };
     </script>
 </body>

@@ -87,7 +87,7 @@ namespace Fanex.CRM.DataAccess.Impl
 
                             customer.Id = Fanex.Common.Converter.ToInt(reader.GetOrdinal("CustId"), 0);
                             customer.UserName = Fanex.Common.Converter.ToString2("UserName");
-                            customer.RoleId = Fanex.Common.Converter.ToInt(reader.GetOrdinal("roleid"), 0);
+                            customer.RoleId = Converter.ToInt(reader["roleid"]);
                             customer.NickName = custId > 0 ? Fanex.Common.Converter.ToString2(reader.GetOrdinal("UserName2")) : string.Empty;
 
                             customer.Pic1 = customerInfo.PIC1;

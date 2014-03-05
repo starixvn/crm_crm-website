@@ -178,7 +178,6 @@ function getRelatedCustomer() {
     });
 
     if (arrUser != null) {
-
         if (arrUser.length === 0) {
             userName = "_";
             return userName;
@@ -480,7 +479,6 @@ function verifyUserName() {
             }
         }
     }
-
 
     if ($("#chkisrelated").attr("checked") && userName !== "") {
         $("#lblverify").addClass("smallloading").removeClass("hidden");

@@ -13,7 +13,6 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
     $scope.isShowSpecialRemark = true;
     $scope.isShowRemark = true;
     $scope.isSetFocus = false;
-    $scope.isDataChanged = false;
 
     $scope.getRemarks = function () {
         $scope.blockUI();
@@ -101,10 +100,6 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
 
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
-        if (!$scope.isDataChanged) {
-            return;
-        }
-
         $scope.updateRemarks();
     };
 
@@ -116,10 +111,10 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
     };
 
     $scope.checkFormDataChange = function () {
-        $scope.isDataChanged = $scope.compareOldNewValues();
-        parent.homeManager.CachedData.isChangingData = $scope.isDataChanged;
-        if ($scope.isDataChanged) {
-            parent.homeManager.CachedData.ignoreConfirmMessage = remarkResources.Confirm_Ignore_EditCustomer_ChangesTabDetail;
+        var isDataChange = $scope.compareOldNewValues();
+        parent.homeManager.CachedData.isChangingData = isDataChange;
+        if (isDataChange) {
+            parent.homeManager.CachedData.ignoreConfirmMessage = remarkResources.Confirm_Ignore_EditCustomer_ChangesTabRemark;
         }
     };
 

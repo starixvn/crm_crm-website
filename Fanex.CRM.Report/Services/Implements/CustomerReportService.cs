@@ -63,15 +63,15 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>The customer report.</returns>
         public CustomerReportInfo GetCustomerReport(GetCustomerReportCriteria criteria)
         {
-            var customerReport = new CustomerReportInfo();
+            CustomerReportInfo customerReport = null;
             try
             {
-                if (criteria.PageIndex != 0)
+                if (criteria.IsGetFromCached)
                 {
                     customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
                 }
 
-                if (criteria.PageIndex == 0 || customerReport == null)
+                if (customerReport == null)
                 {
                     customerReport = new CustomerReportInfo();
                     criteria.FromDateBirthDay = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDateBirthDay);

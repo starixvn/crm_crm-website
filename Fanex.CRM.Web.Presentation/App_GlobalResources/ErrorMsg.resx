@@ -177,4 +177,7 @@
   <data name="lblNoDeletedFeedbackPermission" xml:space="preserve">
     <value>You don't have permission to delete feedback.</value>
   </data>
+  <data name="lblNotYetVerifyFeedbackRelatedCustomer" xml:space="preserve">
+    <value>You must verify the username of related customer before adding this feedback!</value>
+  </data>
 </root>

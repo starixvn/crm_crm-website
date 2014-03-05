@@ -85,7 +85,6 @@ function addFeedbackInfo(newFeedback) {
             else {
                 showAlertMessage("errmsg", rs.ErrMsg, 1);
             }
-
         },
         error: function () {
             showAlertMessage("errmsg", "Insert failed", 1);
@@ -149,7 +148,7 @@ function getFeedbackData() {
             PIC4: $("#pic4Info").val().trim()
         },
         FeedBackDate: $("#txtdate").val(),
-        ResolutionTitme: $('#txtResolutionTime').val(),
+        ResolutionTime: $('#txtResolutionTime').val(),
         CsExtension: {
             Id: $("#ddlcsextension").val()
         },
@@ -237,21 +236,29 @@ function AddFeedback() {
     /* jshint maxstatements: 81 */
     $("#errmsg").empty();
     $("#lblverify").html('');
-    //check related customer
+    // check input parameters
     if (feedbackObjectValidate(listEditorToValidate, listObjToValidate)) {
+        var birthdayText = $("#birthdayInfo").val().trim();
+        if (birthdayText.length !== 0) {
+            var birthday = new Date(birthdayText);
+            if (isNaN(birthday)) {
+                showAlertMessage("errmsg", "Birthday is invalid!", 1);
+                return false;
+            }
+        }
+
         //does not submit when feedback date > current date
         var currentDate = new Date();
-        var selectDate = Date.parse($("#txtdate").val());
-
-        var serverTime = new Date($('#hServerTime').val());
+        var serverTime = new Date(clientTime);
         serverTime.setMinutes(currentDate.getMinutes());
         serverTime.setSeconds(currentDate.getSeconds());
 
-        if (selectDate > serverTime) {
+        var feedbackDate = Date.parse($("#txtdate").val());
+        if (feedbackDate > serverTime) {
             showAlertMessage("errmsg", errMsgFeedbackDateGreatter, 1);
             return false;
         }
-        if (Date.parse($("#txtdate").val()) >= Date.parse($("#txtResolutionTime").val())) {
+        if (feedbackDate >= Date.parse($("#txtResolutionTime").val())) {
             showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
             return false;
         }
@@ -277,93 +284,31 @@ function AddFeedback() {
             "There is no Subcategory for Category [" + $("#ddlcategory option:selected").text() + "]. Please add a Subcategory or choose another Category.", 1);
             return false;
         }
-
         //----------check length of data
-        if ($('#firstNameInfo').val().length > 50) {
-            $('#firstNameInfo').focus();
-            showAlertMessage("errmsg", 'Max length of First Name is 50', 1);
-            return false;
-        }
-        if ($('#lastNameInfo').val().length > 50) {
-            $('#lastNameInfo').focus();
-            showAlertMessage("errmsg", 'Max length of Last Name is 50', 1);
-            return false;
-        }
-        /*if ($('#txtphone').val().length > 50) {
-        $('#txtphone').focus();
-        showAlertMessage("errmsg", 'Max length of Phone is 50', 1);
-        return false;
-        }
-        if ($('#txtmobilephone').val().length > 50) {
-        $('#txtmobilephone').focus();
-        showAlertMessage("errmsg", 'Max length of Mobile phone is 50', 1);
-        return false;
-        }
-        if ($('#txtfax').val().length > 50) {
-        $('#txtfax').focus();
-        showAlertMessage("errmsg", 'Max length of Fax is 50', 1);
-        return false;
-        }*/
-        if ($('#emailInfo').val().length > 254) {
-            $('#emailInfo').focus();
-            showAlertMessage("errmsg", 'Max length of Email is 254', 1);
-            return false;
-        }
-        if ($('#skypeInfo').val().length > 100) {
-            $('#skypeInfo').focus();
-            showAlertMessage("errmsg", 'Max length of Skype is 100', 1);
-            return false;
-        }
-        if ($('#msnInfo').val().length > 100) {
-            $('#msnInfo').focus();
-            showAlertMessage("errmsg", 'Max length of MSN is 100', 1);
-            return false;
-        }
-        if ($('#txtsubject').val().length > 200) {
-            $('#txtsubject').focus();
-            showAlertMessage("errmsg", 'Max length of Subject is 200', 1);
-            return false;
-        }
-
-        if ($('#pic1Info').val().length > 100) {
-            $('#pic1Info').focus();
-            showAlertMessage("errmsg", 'Max length of PIC1 is 100', 1);
-            return false;
-        }
-
-        if ($('#pic2Info').val().length > 100) {
-            $('#pic2Info').focus();
-            showAlertMessage("errmsg", 'Max length of PIC2 is 100', 1);
-            return false;
-        }
-
-        if ($('#pic3Info').val().length > 100) {
-            $('#pic3Info').focus();
-            showAlertMessage("errmsg", 'Max length of PIC3 is 100', 1);
-            return false;
-        }
-
         if ($("#desediter").htmlarea("toHtmlString").length > 8000) {
             $('#desediter').focus();
-            //$('#firstNameInfo').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of Description is 8000', 1);
+            showAlertMessage("errmsg", 'Max length of Description is 8000!', 1);
             return false;
         }
         if ($("#solediter").htmlarea("toHtmlString").length > 8000) {
             $('#solediter').focus();
-            //$('#firstNameInfo').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of Solution is 8000', 1);
+            showAlertMessage("errmsg", 'Max length of Solution is 8000!', 1);
             return false;
         }
         if ($("#revediter").htmlarea("toHtmlString").length > 8000) {
             $('#revediter').focus();
-            //$('#firstNameInfo').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of Review is 8000', 1);
+            showAlertMessage("errmsg", 'Max length of Review is 8000!', 1);
             return false;
         }
-
+        //----------check related customer
+        if ($("#chkisrelated").prop("checked")) {
+            var customerIds = getRelatedCustomer();
+            if (customerIds === "_") {
+                showAlertMessage("errmsg", errMsgNotYetVerifyFeedbackRelatedCustomer, 1);
+                return false;
+            }
+        }
         //------------------------
-
         /* jshint newcap: false */
         DoAdd();
     }
@@ -495,11 +440,10 @@ function getCRMInfoById(custId) {
                     //add input listen for auto complete Subject name input text box
                 }
             });
-
-            if (rs.RelatedCustomer != null && rs.RelatedCustomer.UserName !== "") {
+            /*if (rs.RelatedCustomer != null && rs.RelatedCustomer.UserName !== "") {
                 $("#chkisrelated").prop("checked", true);
                 $("#btnverify").removeAttr("disabled");
-            }
+            }*/
         }
     });
 }
@@ -518,7 +462,6 @@ head.ready(function () {
     var feedbackdate = new Date(clientTime);
     var resolutiondate = new Date(clientTime);
     resolutiondate.setMinutes(feedbackdate.getMinutes() + 1);
-    $('#hServerTime').val(feedbackdate);
 
     var arrDateValues = [feedbackdate.format("m/d/Y H:i"), resolutiondate.format("m/d/Y H:i")];
     var arrIds = ['txtdate', 'txtResolutionTime'];
