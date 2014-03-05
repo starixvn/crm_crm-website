@@ -178,7 +178,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                     var bodyRows = getGridOptions_SortedAndPagingData(sortInfo);
                     return bodyRows;
                 },
-                afterGridSorted: function () {
+                afterGridSorted: function (currentBodyRows, columnName, currentDirection) {
                     var editLogLinks = tableRedemptionLogs.find(".editlog-link-td .editlog-link");
                     editLogLinks.unbind("click");
                     editLogLinks.click(function () {
@@ -189,6 +189,8 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                     editLogRows.dblclick(function () {
                         scope.editLog($(this).find('.editlog-link').attr("data-logid"));
                     });
+
+                    return currentBodyRows;
                 }
             }
         };
