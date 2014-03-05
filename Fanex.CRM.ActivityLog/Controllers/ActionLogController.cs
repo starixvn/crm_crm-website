@@ -42,6 +42,11 @@ namespace Fanex.CRM.ActionLog.Controllers
             return View("~/Areas/ActionLog/ActivityLog/Index.cshtml", customerId);
         }
 
+        /// <summary>
+        /// Gets the activity log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns></returns>
         [NapAuth(FunctionKey = FunctionPermission.ViewActivityLog, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetActivityLog(GetActivityLogCriteria criteria)
@@ -71,6 +76,11 @@ namespace Fanex.CRM.ActionLog.Controllers
             return View("~/Areas/ActionLog/SettingLog/Index.cshtml");
         }
 
+        /// <summary>
+        /// Gets the setting log.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns></returns>
         [NapAuth(FunctionKey = FunctionPermission.ViewActivityLog, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)
