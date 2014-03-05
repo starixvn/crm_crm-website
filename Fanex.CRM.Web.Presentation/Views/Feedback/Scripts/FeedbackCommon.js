@@ -704,25 +704,24 @@ function dropdownMultiSelect(prefixId, elementId, result, defaultValues) {
 
     /* jshint camelcase: false */
     var dropdown = $('#' + elementId);
-    dropdown.fanexMultiSelect(
-        {
-            minWidth: 171,
-            maxHeight: 450,
-            shadow: true,
-            showHeader: true,
-            isCheckAll: false,
-            showFooter: false,
-            showTooltip: false,
-            checkAllText: 'All Languages',
-            isUsedCustomCheckAllText: true,
-            customCheckAllText: 'All Languages',
-            noItemText: 'N/A',
-            noneSelectedText: 'N/A',
-            selectedList: 3,
-            listData: dropdownLanguage
-        });
+    dropdown.fanexMultiSelect({
+        minWidth: 171,
+        maxHeight: 450,
+        shadow: true,
+        showHeader: true,
+        isCheckAll: false,
+        showFooter: false,
+        showTooltip: false,
+        checkAllText: 'All Languages',
+        isUsedCustomCheckAllText: true,
+        customCheckAllText: 'All Languages',
+        noItemText: 'N/A',
+        noneSelectedText: 'N/A',
+        selectedList: 3,
+        listData: dropdownLanguage
+    });
 
-    //element.find("#customerinfodetail-languageoptions .fanex-multiselect-state-default").attr("tabindex", 29);
+    dropdown.find(".fanex-multiselect-state-default").attr("tabindex", 31);
 }
 
 checkMultiSelect = function (id, defaultValues) {

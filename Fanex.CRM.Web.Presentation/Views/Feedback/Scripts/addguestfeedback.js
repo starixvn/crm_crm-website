@@ -413,11 +413,12 @@ head.ready(function () {
         cache: false,
         newel: true
     });
+    var typeCust = $("#typeCust");
     if ($("#chkisrelated").prop('checked')) {
-        var typeCust = $("#typeCust");
         typeCust.val("");
         typeCust.removeAttr("disabled");
     }
+    typeCust.attr("tabindex", 46);
     $("#btnsubmit").removeAttr("disabled");
     $("#btnsubmitbottom").removeAttr("disabled");
     
