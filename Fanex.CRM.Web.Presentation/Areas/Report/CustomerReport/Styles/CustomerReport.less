@@ -1,9 +1,63 @@
+@import "../../../../Content/site/variables.less";
 
+.container {
+    .filter-frm {
+        label, select, .textbox {
+            float: left;
+        }
 
-#table-customer-report 
-{
-    .icon-vip    
-    {
+        .width-50 {
+            width: 50px;
+        }
+
+        .width-70 {
+            width: 66px;
+        }
+
+        .width-85 {
+            width: 85px;
+        }
+
+        .fanex-multiselect-widget input[type="text"] {
+            width: 138px!important;
+        }
+
+        .search-by-enter, .selCustomerType, .selVipType, .selTitle {
+            width: 140px;
+        }
+
+        .dateBirth {
+            border: 1px solid #CDCDCD;
+            padding: 5px 0;
+            width: 535px;
+
+            legend {
+                width: auto;
+                font-size: @font-size;
+                margin: 0 5px 13px 2px;
+            }
+
+            .fromDate {
+                margin: -13px 0 0 37px;
+            }
+
+            .toDate {
+                margin: -13px 0 0 89px;
+            }
+        }
+
+        .default-focus {
+            margin: 23px 0 0 16px;
+        }
+
+        .txtcalendar {
+            width: 141px;
+            background-position: 117px 3px;
+        }
+    }
+}
+#table-customer-report {
+    .icon-vip {
         background-color: #0000FF;
     }
 }
