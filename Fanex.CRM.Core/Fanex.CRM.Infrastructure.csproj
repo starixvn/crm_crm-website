@@ -109,6 +109,7 @@
     <Compile Include="Common\Enumerations.cs" />
     <Compile Include="Common\ErrorCodeConstants.cs" />
     <Compile Include="Common\FunctionPermission.cs" />
+    <Compile Include="Common\SortDirectionConstants.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoCollection.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoElement.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoSection.cs" />

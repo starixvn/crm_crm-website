@@ -55,7 +55,6 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// Exports the dynamic report row.
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="currentColumn">The current column.</param>
         /// <param name="info">The information.</param>
         /// <param name="infoIndex">Index of the information.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",

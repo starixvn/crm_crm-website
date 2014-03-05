@@ -41,7 +41,10 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             CustomerType: null,
             VIPType: null,
             PageIndex: 0,
-            PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
+            PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
+            SortField: '',
+            SortDirection: '',
+            IsGetFromCached: false
         };
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
@@ -224,7 +227,10 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 CustomerTypeId: $scope.searchCriteria.CustomerType.Id,
                 VIPTypeId: $scope.searchCriteria.VIPType.Id,
                 PageIndex: $scope.searchCriteria.PageIndex,
-                PageSize: $scope.searchCriteria.PageSize
+                PageSize: $scope.searchCriteria.PageSize,
+                SortField: $scope.searchCriteria.SortField,
+                SortDirection: $scope.searchCriteria.SortDirection,
+                IsGetFromCached: false
             };
 
             $scope.lastSelectedParams = getReportCriteria;
@@ -241,6 +247,19 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             $scope.BlockUI();
             $scope.lastSelectedParams.PageIndex = pageIndex;
             $scope.lastSelectedParams.PageSize = pageSize;
+            $scope.lastSelectedParams.IsGetFromCached = true;
+            $customerReportService.getCustomerReport($scope.lastSelectedParams)
+                .then(function (data) {
+                    $scope.customerReport = data.Result;
+                    $scope.unblockUI();
+                },
+                function (data) {
+                    $scope.unblockUI();
+                });
+        };
+        $scope.sortCustomerReport = function () {
+            $scope.BlockUI();
+            $scope.lastSelectedParams.IsGetFromCached = true;
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
                 .then(function (data) {
                     $scope.customerReport = data.Result;

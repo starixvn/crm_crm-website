@@ -271,7 +271,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                     var bodyRows = getGridOptions_SortedAndPagingData(sortInfo);
                     return bodyRows;
                 },
-                afterGridSorted: function () {
+                afterGridSorted: function (currentBodyRows, columnName, currentDirection) {
                     var editLogLinks = tableCommunicationLogs.find(".editlog-link-td .editlog-link");
                     editLogLinks.unbind("click");
                     editLogLinks.click(function () {
@@ -282,6 +282,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                     editLogRows.dblclick(function () {
                         scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logindex"));
                     });
+                    return currentBodyRows;
                 }
             }
         };
