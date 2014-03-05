@@ -78,16 +78,15 @@ namespace Fanex.CRM.Report.Repositories.Implements
                     criteria.ToDateBirthDay = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDateBirthDay);
                     customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria);
                     customerReport.TotalCustomer = customerReport.CustomerList.Count;
-                }
-
-                if (customerReport != null)
-                {
                     if (!string.IsNullOrEmpty(criteria.SortField) &&
                         !string.IsNullOrEmpty(criteria.SortDirection))
                     {
                         customerReport.CustomerList = SortCustomerList(customerReport.CustomerList, criteria);
                     }
+                }
 
+                if (customerReport != null)
+                {
                     CacheService.Set(CustomerReportSessionKey, customerReport);
                     if (!criteria.IsGetFullReport)
                     {
@@ -396,7 +395,36 @@ namespace Fanex.CRM.Report.Repositories.Implements
             exportExcelInfo.CurrentRow++;
         }
 
+        /// <summary>
+        /// Sorts the customer list.
+        /// </summary>
+        /// <param name="customerList">The customer list.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Sorted Customer List.</returns>
         private List<CustomerInfo> SortCustomerList(
+            List<CustomerInfo> customerList,
+            GetCustomerReportCriteria criteria)
+        {
+            if (string.Equals(criteria.SortDirection, SortDirectionConstants.ASC, StringComparison.OrdinalIgnoreCase))
+            {
+                return SortCustomerListByAscending(customerList, criteria);
+            }
+
+            if (string.Equals(criteria.SortDirection, SortDirectionConstants.DESC, StringComparison.OrdinalIgnoreCase))
+            {
+                return SortCustomerListByDescending(customerList, criteria);
+            }
+
+            return customerList;
+        }
+
+        /// <summary>
+        /// Sorts the customer list by ascending.
+        /// </summary>
+        /// <param name="customerList">The customer list.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Sorted Customer List.</returns>
+        private List<CustomerInfo> SortCustomerListByAscending(
             List<CustomerInfo> customerList,
             GetCustomerReportCriteria criteria)
         {
@@ -404,28 +432,32 @@ namespace Fanex.CRM.Report.Repositories.Implements
             switch (criteria.SortField)
             {
                 case "IsVIP":
-                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.FirstName).ToList();
+                    sortedCustomerList = sortedCustomerList
+                        .OrderBy(customerInfo => customerInfo.IsVIP ? 1 : 0)
+                        .ToList();
                     break;
                 case "TitleName":
-                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.Title.Name, customerB.Title.Name));
                     break;
                 case "FirstName":
-                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.FirstName, customerB.FirstName));
                     break;
                 case "LastName":
-                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.LastName, customerB.LastName));
                     break;
                 case "CountryName":
-                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.Country.Name, customerB.Country.Name));
                     break;
                 case "Languages":
-                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(GetCustomerLanguages(customerA), GetCustomerLanguages(customerB)));
                     break;
                 case "SiteSettingName":
-                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.SiteSetting.Name, customerB.SiteSetting.Name));
                     break;
                 case "BirthDay":
-                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    sortedCustomerList = sortedCustomerList
+                       .OrderBy(customerInfo => customerInfo.BirthDay)
+                       .ToList();
                     break;
                 default:
                     sortedCustomerList = customerList;
@@ -433,6 +465,60 @@ namespace Fanex.CRM.Report.Repositories.Implements
             }
 
             return sortedCustomerList;
+        }
+
+        /// <summary>
+        /// Sorts the customer list by descending.
+        /// </summary>
+        /// <param name="customerList">The customer list.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Sorted Customer List.</returns>
+        private List<CustomerInfo> SortCustomerListByDescending(
+            List<CustomerInfo> customerList,
+            GetCustomerReportCriteria criteria)
+        {
+            var sortedCustomerList = customerList;
+            switch (criteria.SortField)
+            {
+                case "IsVIP":
+                    sortedCustomerList = sortedCustomerList
+                        .OrderByDescending(customerInfo => customerInfo.IsVIP ? 1 : 0)
+                        .ToList();
+                    break;
+                case "TitleName":
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.Title.Name, customerA.Title.Name));
+                    break;
+                case "FirstName":
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.FirstName, customerA.FirstName));
+                    break;
+                case "LastName":
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.LastName, customerA.LastName));
+                    break;
+                case "CountryName":
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.Country.Name, customerA.Country.Name));
+                    break;
+                case "Languages":
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(GetCustomerLanguages(customerB), GetCustomerLanguages(customerA)));
+                    break;
+                case "SiteSettingName":
+                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.SiteSetting.Name, customerA.SiteSetting.Name));
+                    break;
+                case "BirthDay":
+                    sortedCustomerList = sortedCustomerList
+                       .OrderByDescending(customerInfo => customerInfo.BirthDay)
+                       .ToList();
+                    break;
+                default:
+                    sortedCustomerList = customerList;
+                    break;
+            }
+
+            return sortedCustomerList;
+        }
+
+        private string GetCustomerLanguages(CustomerInfo customerInfo)
+        {
+            return string.Join(", ", customerInfo.Languages.Select(language => language.Name));
         }
     }
 }

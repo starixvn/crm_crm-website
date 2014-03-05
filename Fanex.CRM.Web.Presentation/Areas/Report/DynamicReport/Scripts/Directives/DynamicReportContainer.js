@@ -12,6 +12,12 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
     var selfScope;
     var cachedTable;
 
+    function getGridHeight() {
+        return selfScope.isShowFilter ?
+            230 + crmConstants.MarginBottomPage :
+            50 + crmConstants.MarginBottomPage;
+    }
+
     function getGripOtions(dynamicReport) {
         var bodyData = [];
         var footerData = [];
@@ -104,7 +110,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
-            gridExpandHeight: 230 + crmConstants.MarginBottomPage,
+            gridExpandHeight: getGridHeight(),
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
@@ -171,10 +177,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 }
 
                 if (scope.dynamicReportOptions.IsResize && cachedTable) {
-                    var gridHeight = scope.isShowFilter ?
-                        230 + crmConstants.MarginBottomPage :
-                        50 + crmConstants.MarginBottomPage;
-                    cachedTable.fanexGrid("resizeHeight", gridHeight);
+                    cachedTable.fanexGrid("resizeHeight", getGridHeight());
                     scope.dynamicReportOptions.IsResize = false;
                 } else {
                     renderDynamicReport(scope, element, attrs);
