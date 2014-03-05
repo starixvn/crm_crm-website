@@ -43,7 +43,8 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             PageIndex: 0,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
             SortField: '',
-            SortDirection: ''
+            SortDirection: '',
+            IsGetFromCached: false
         };
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
@@ -228,7 +229,8 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize,
                 SortField: $scope.searchCriteria.SortField,
-                SortDirection: $scope.searchCriteria.SortDirection
+                SortDirection: $scope.searchCriteria.SortDirection,
+                IsGetFromCached: false
             };
 
             $scope.lastSelectedParams = getReportCriteria;
@@ -245,6 +247,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             $scope.BlockUI();
             $scope.lastSelectedParams.PageIndex = pageIndex;
             $scope.lastSelectedParams.PageSize = pageSize;
+            $scope.lastSelectedParams.IsGetFromCached = true;
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
                 .then(function (data) {
                     $scope.customerReport = data.Result;
@@ -256,6 +259,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         };
         $scope.sortCustomerReport = function () {
             $scope.BlockUI();
+            $scope.lastSelectedParams.IsGetFromCached = true;
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
                 .then(function (data) {
                     $scope.customerReport = data.Result;

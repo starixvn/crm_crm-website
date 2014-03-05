@@ -59,7 +59,8 @@ function (
         Reviewer: null,
         Extension: null,
         PageIndex: 0,
-        PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
+        PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
+        IsGetFromCached: false
     };
     $scope.dynamicReportOptions = {
         DataList: null,
@@ -512,7 +513,8 @@ function (
             Reviewer: $scope.searchCriteria.Reviewer,
             ExtensionId: $scope.searchCriteria.Extension.Id,
             PageIndex: $scope.searchCriteria.PageIndex,
-            PageSize: $scope.searchCriteria.PageSize
+            PageSize: $scope.searchCriteria.PageSize,
+            IsGetFromCached: false
         };
 
         $scope.lastSelectedParams = getReportCriteria;
@@ -530,6 +532,7 @@ function (
         $scope.BlockUI();
         $scope.lastSelectedParams.PageIndex = pageIndex;
         $scope.lastSelectedParams.PageSize = pageSize;
+        $scope.lastSelectedParams.IsGetFromCached = true;
         $dynamicReportService.getDynamicReport($scope.lastSelectedParams)
             .then(function (data) {
                 $scope.dynamicReportOptions.DataList = data.Result;

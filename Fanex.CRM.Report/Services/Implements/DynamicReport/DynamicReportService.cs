@@ -346,12 +346,12 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             DynamicReportInfo dynamicReport = null;
             try
             {
-                if (criteria.PageIndex != 0)
+                if (criteria.IsGetFromCached)
                 {
                     dynamicReport = CacheService.Get<DynamicReportInfo>(DynamicReportSessionKey);
                 }
 
-                if (criteria.PageIndex == 0 || dynamicReport == null)
+                if (dynamicReport == null)
                 {
                     criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
                     criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
