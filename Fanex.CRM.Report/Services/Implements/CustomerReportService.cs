@@ -66,14 +66,28 @@ namespace Fanex.CRM.Report.Repositories.Implements
             var customerReport = new CustomerReportInfo();
             try
             {
-                customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
-                if (customerReport == null)
+                if (criteria.PageIndex != 0)
+                {
+                    customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
+                }
+
+                if (criteria.PageIndex == 0 || customerReport == null)
                 {
                     customerReport = new CustomerReportInfo();
                     criteria.FromDateBirthDay = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDateBirthDay);
                     criteria.ToDateBirthDay = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDateBirthDay);
                     customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria);
                     customerReport.TotalCustomer = customerReport.CustomerList.Count;
+                }
+
+                if (customerReport != null)
+                {
+                    if (!string.IsNullOrEmpty(criteria.SortField) &&
+                        !string.IsNullOrEmpty(criteria.SortDirection))
+                    {
+                        customerReport.CustomerList = SortCustomerList(customerReport.CustomerList, criteria);
+                    }
+
                     CacheService.Set(CustomerReportSessionKey, customerReport);
                     if (!criteria.IsGetFullReport)
                     {
@@ -380,6 +394,45 @@ namespace Fanex.CRM.Report.Repositories.Implements
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.SiteSetting.Name, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.BirthDayString, centerTextStyle);
             exportExcelInfo.CurrentRow++;
+        }
+
+        private List<CustomerInfo> SortCustomerList(
+            List<CustomerInfo> customerList,
+            GetCustomerReportCriteria criteria)
+        {
+            var sortedCustomerList = customerList;
+            switch (criteria.SortField)
+            {
+                case "IsVIP":
+                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.FirstName).ToList();
+                    break;
+                case "TitleName":
+                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    break;
+                case "FirstName":
+                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    break;
+                case "LastName":
+                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    break;
+                case "CountryName":
+                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    break;
+                case "Languages":
+                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    break;
+                case "SiteSettingName":
+                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    break;
+                case "BirthDay":
+                    sortedCustomerList = sortedCustomerList.OrderBy(customerInfo => customerInfo.IsVIP).ToList();
+                    break;
+                default:
+                    sortedCustomerList = customerList;
+                    break;
+            }
+
+            return sortedCustomerList;
         }
     }
 }

@@ -508,8 +508,8 @@ function (
             CommunicationToolId: $scope.searchCriteria.CommunicationTool.Id,
             MainCategoryId: $scope.searchCriteria.MainCategory.Id,
             SubCategoryId: $scope.searchCriteria.SubCategory.Id,
-            HandlerId: $scope.searchCriteria.Handler,
-            ReviewerId: $scope.searchCriteria.Reviewer,
+            Handler: $scope.searchCriteria.Handler,
+            Reviewer: $scope.searchCriteria.Reviewer,
             ExtensionId: $scope.searchCriteria.Extension.Id,
             PageIndex: $scope.searchCriteria.PageIndex,
             PageSize: $scope.searchCriteria.PageSize

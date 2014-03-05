@@ -31,8 +31,6 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             for (var i = 0; i < reportLength; i++) {
                 var customer = customerReport.CustomerList[i];
                 var customerLanguages = getCustomerLanguages(customer);
-
-
                 bodyData.push({
                     Columns: [{ Name: "ColVIP", TdClass: 'icon-' + (customer.IsVIP ? 'vip' : '') },
                         { Name: "ColTitle", Value: customer.Title.Name },
@@ -46,15 +44,21 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             }
         }
 
+        var sortColumnIndex = getSortColumnIndex();
+        var headerColumns = [{ HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.Title, Width: 40, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
+            { HeaderText: viewResources.First_Name, Width: 120, Name: "ColFirstName", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.Last_Name, Width: 120, Name: "ColLastName", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.Country, Width: 140, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true}];
+        if (sortColumnIndex !== -1) {
+            headerColumns[sortColumnIndex].SortDirection = cachedData.scope.lastSelectedParams.SortDirection;
+        }
+
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Title, Width: 40, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
-                { HeaderText: viewResources.First_Name, Width: 120, Name: "ColFirstName", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Last_Name, Width: 120, Name: "ColLastName", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Country, Width: 140, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true}],
+            columns: headerColumns,
             showTitle: true,
             titleInfo: {
                 text: viewResources.CustomerReport_Title,
@@ -82,10 +86,64 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
                 totalItem: customerReport.TotalCustomer,
                 pagerSelectCallBack: ReRenderAfterPaged
+            },
+            sortOption: {
+                serverSortFunction: function (sortColumnName, sortDirection) {
+                    cachedData.scope.lastSelectedParams.SortField = getSortField(sortColumnName);
+                    cachedData.scope.lastSelectedParams.SortDirection = sortDirection;
+                    cachedData.scope.sortCustomerReport();
+                }
             }
         };
 
         return gridOptions;
+    }
+
+    function getSortField(sortColumnName) {
+        switch (sortColumnName) {
+            case "ColVIP":
+                return "IsVIP";
+            case "ColTitle":
+                return "TitleName";
+            case "ColFirstName":
+                return "FirstName";
+            case "ColLastName":
+                return "LastName";
+            case "ColCountry":
+                return "CountryName";
+            case "ColLanguage":
+                return "Languages";
+            case "ColSite":
+                return "SiteSettingName";
+            case "ColBirthday":
+                return "BirthDay";
+            default:
+                return "";
+        }
+    }
+
+    function getSortColumnIndex() {
+        var sortField = cachedData.scope.lastSelectedParams.SortField;
+        switch (sortField) {
+            case "IsVIP":
+                return 0;
+            case "TitleName":
+                return 1;
+            case "FirstName":
+                return 2;
+            case "LastName":
+                return 3;
+            case "CountryName":
+                return 4;
+            case "Languages":
+                return 5;
+            case "SiteSettingName":
+                return 6;
+            case "BirthDay":
+                return 7;
+            default:
+                return -1;
+        }
     }
 
     function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
