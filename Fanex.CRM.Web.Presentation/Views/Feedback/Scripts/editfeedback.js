@@ -104,7 +104,6 @@ function loadFeedbackAfterCallAjax(rs, Id) {
             bindingSetting("ddlstatus", setting.Status, rs.Status.Id);
             bindingSetting("ddlresponse", setting.Response, rs.Response.Id);
             bindingSetting("ddlcommunication", setting.Communication, rs.Communication.Id);
-            //bindingSetting("ddllanguage", setting.Language, rs.Language.Id);
             dropdownMultiSelect("ddllanguage", "ddllanguage", setting.Language, customerInfo.Languages);
             bindingSetting("ddlcsextension", setting.Extension, rs.CsExtension.Id);
             bindingCountry("ddlcountry", setting.Country, rs.Country.Id);
@@ -162,7 +161,6 @@ function loadFeedbackAfterCallAjax(rs, Id) {
     var feedbackdate = new Date(clientTime);
     var resolutiondate = new Date(clientTime);
     resolutiondate.setMinutes(feedbackdate.getMinutes() + 1);
-    $('#hServerTime').val(feedbackdate);
     if (rs.FeedbackDate != null) {
         feedbackdate = new Date(rs.FeedbackDate);
     }
@@ -184,12 +182,12 @@ function loadFeedbackAfterCallAjax(rs, Id) {
     SetupCalendar(arrDateValues, arrIds);
     //-------------------
 
-    if (rs.RelatedCustomer != null && rs.RelatedCustomer.UserName !== "") {
+    var relatedCustomer = rs.RelatedCustomer ? rs.RelatedCustomer.UserName : "";
+    if (relatedCustomer !== "") {
         var i;
-        $("#chkisrelated").attr("checked", true);
-        //                $("#txtrelatedcustomer").removeAttr("disabled").val(rs.RelatedCustomer.UserName);
+        $("#chkisrelated").prop("checked", true);
         var MyJson = [{ "Customer": []}];
-        var arrUserName = trimToArrayUserName(rs.RelatedCustomer.UserName);
+        var arrUserName = trimToArrayUserName(relatedCustomer);
         for (i = 0; i < arrUserName.length; i++) {
             MyJson[i] = { title: arrUserName[i], value: arrUserName[i] };
         }
@@ -275,18 +273,9 @@ function LoadFeedback(Id) {
 // Get data from form to update 
 function getFeedbackData() {
     /* jshint maxstatements: 86 */
-    //    var RelatedCustID = null;
-    //    if ($("#chkisrelated").prop("checked")) {
-    //        if ($('#txtrelatedcustomer option').length === 0) {
-    //            RelatedCustID = getRelatedCustomer();
-    //        }
-    //    }
-    //    else {
-    //        RelatedCustID = "_";
-    //    }
-    var RelatedCustID = ($("#chkisrelated").prop("checked") && $('#txtrelatedcustomer option').length === 0) ?
-        getRelatedCustomer() :
-        "_";
+    var RelatedCustID = ($("#chkisrelated").prop("checked") && $('#txtrelatedcustomer option').length === 0)
+        ? getRelatedCustomer()
+        : "_";
     var IsUpdateReviewed = $("#chkisreview").prop("checked");
     var reviewContent = $("#revediter").htmlarea("toHtmlString");
     var Reviewer = 0;
@@ -449,6 +438,7 @@ function DoUpdate() {
 // Verify input data, if it valid doing update edit feedback by call function DoUpdate()
 function EditFeedback() {
     /* jshint maxstatements: 88 */
+    $("#errmsg").empty();
     $("#lblverify").html('');
 
     if ($("#chkisreview").prop("checked") &&
@@ -463,18 +453,26 @@ function EditFeedback() {
     }
 
     if (feedbackObjectValidate(listEditorToValidate, listObjToValidate)) {
-        var currentDate = new Date();
-        var selectDate = Date.parse($("#txtdate").val());
+        var birthdayText = $("#birthdayInfo").val().trim();
+        if (birthdayText.length !== 0) {
+            var birthday = new Date(birthdayText);
+            if (isNaN(birthday)) {
+                showAlertMessage("errmsg", "Birthday is invalid!", 1);
+                return false;
+            }
+        }
 
-        var serverTime = new Date($('#hServerTime').val());
+        var currentDate = new Date();
+        var serverTime = new Date(clientTime);
         serverTime.setMinutes(currentDate.getMinutes());
         serverTime.setSeconds(currentDate.getSeconds());
 
-        if (selectDate > serverTime) {
+        var feedbackDate = Date.parse($("#txtdate").val());
+        if (feedbackDate > serverTime) {
             showAlertMessage("errmsg", errMsgFeedbackDateGreatter, 1);
             return false;
         }
-        if (Date.parse($("#txtdate").val()) >= Date.parse($("#txtResolutionTime").val())) {
+        if (feedbackDate >= Date.parse($("#txtResolutionTime").val())) {
             showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
             return false;
         }
@@ -503,91 +501,28 @@ function EditFeedback() {
             return false;
         }
         //----------check length of data
-
-        if ($('#firstNameInfo').val().length > 50) {
-            $('#firstNameInfo').focus();
-            //$('#firstNameInfo').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of First Name is 50', 1);
-            return false;
-        }
-        if ($('#lastNameInfo').val().length > 50) {
-            $('#lastNameInfo').focus();
-            showAlertMessage("errmsg", 'Max length of Last Name is 50', 1);
-            return false;
-        }
-        /*if ($('#txtphone').val().length > 50) {
-        $('#txtphone').focus();
-        showAlertMessage("errmsg", 'Max length of Phone is 50', 1);
-        return false;
-        }
-        if ($('#txtmobilephone').val().length > 50) {
-        $('#txtmobilephone').focus();
-        showAlertMessage("errmsg", 'Max length of Mobile phone is 50', 1);
-        return false;
-        }
-        if ($('#txtfax').val().length > 50) {
-        $('#txtfax').focus();
-        showAlertMessage("errmsg", 'Max length of Fax is 50', 1);
-        return false;
-        }*/
-        if ($('#emailInfo').val().length > 254) {
-            $('#emailInfo').focus();
-            showAlertMessage("errmsg", 'Max length of Email is 254', 1);
-            return false;
-        }
-        if ($('#skypeInfo').val().length > 100) {
-            $('#skypeInfo').focus();
-            showAlertMessage("errmsg", 'Max length of Skype is 100', 1);
-            return false;
-        }
-        if ($('#msnInfo').val().length > 100) {
-            $('#msnInfo').focus();
-            showAlertMessage("errmsg", 'Max length of MSN is 100', 1);
-            return false;
-        }
-        if ($('#txtsubject').val().length > 200) {
-            $('#txtsubject').focus();
-            showAlertMessage("errmsg", 'Max length of Subject is 200', 1);
-            return false;
-        }
-        if ($('#pic1Info').val().length > 100) {
-            if ($('#pic1Info').val().length > 50) {
-                $('#pic1Info').focus();
-                //$('#firstNameInfo').css({ color: 'red'});
-                showAlertMessage("errmsg", 'Max length of PIC1 is 100', 1);
-                return false;
-            }
-        }
-
-        if ($('#pic2Info').val().length > 100) {
-            $('#pic2Info').focus();
-            //$('#firstNameInfo').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of PIC2 is 100', 1);
-            return false;
-        }
-        if ($('#pic3Info').val().length > 100) {
-            $('#pic3Info').focus();
-            //$('#firstNameInfo').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of PIC3 is 100', 1);
-            return false;
-        }
         if ($("#desediter").htmlarea("toHtmlString").length > 8000) {
             $('#desediter').focus();
-            //$('#firstNameInfo').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of Description is 8000', 1);
+            showAlertMessage("errmsg", 'Max length of Description is 8000!', 1);
             return false;
         }
         if ($("#solediter").htmlarea("toHtmlString").length > 8000) {
             $('#solediter').focus();
-            //$('#firstNameInfo').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of Solution is 8000', 1);
+            showAlertMessage("errmsg", 'Max length of Solution is 8000!', 1);
             return false;
         }
         if ($("#revediter").htmlarea("toHtmlString").length > 8000) {
             $('#revediter').focus();
-            //$('#firstNameInfo').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of Review is 8000', 1);
+            showAlertMessage("errmsg", 'Max length of Review is 8000!', 1);
             return false;
+        }
+        //----------check related customer
+        if ($("#chkisrelated").prop("checked")) {
+            var customerIds = getRelatedCustomer();
+            if (customerIds === "_") {
+                showAlertMessage("errmsg", errMsgNotYetVerifyFeedbackRelatedCustomer, 1);
+                return false;
+            }
         }
         //------------------------
         /* jshint newcap: false */
@@ -631,7 +566,7 @@ var updateFeedback = {
     review: '',
     skype: '',
     msn: '',
-    resolutionTitme: '',
+    resolutionTime: '',
     reviewCheckBox: function () {
         isShowReviewBox = true;
         if ($("#chkisreview").prop("checked")) {
@@ -690,7 +625,7 @@ var updateFeedback = {
         updateFeedback.review = "";
         updateFeedback.skype = $('#skypeInfo').val();
         updateFeedback.msn = $('#msnInfo').val();
-        updateFeedback.resolutionTitme = $('#txtResolutionTime').val();
+        updateFeedback.resolutionTime = $('#txtResolutionTime').val();
 
         feedbackEdit.Creator.Id = updateFeedback.userId;
         feedbackEdit.Id = updateFeedback.feedbackId;
@@ -727,7 +662,7 @@ var updateFeedback = {
         feedbackEdit.Review = updateFeedback.review.trim();
         feedbackEdit.UpdateReviewMode = updateFeedback.isUpdateReviewMode;
 
-        feedbackEdit.ResolutionTime = updateFeedback.resolutionTitme;
+        feedbackEdit.ResolutionTime = updateFeedback.resolutionTime;
 
         feedbackEdit.Customer.Pic1 = $("#pic1Info").val().trim();
         feedbackEdit.Customer.Pic2 = $("#pic2Info").val().trim();
@@ -749,7 +684,7 @@ var updateFeedback = {
             var currentDate = new Date();
             var selectDate = Date.parse($("#txtdate").val());
 
-            var serverTime = new Date($('#hServerTime').val());
+            var serverTime = new Date(clientTime);
             serverTime.setMinutes(currentDate.getMinutes());
             serverTime.setSeconds(currentDate.getSeconds());
 

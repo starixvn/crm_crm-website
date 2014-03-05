@@ -67,7 +67,6 @@ namespace Fanex.CRM.Entities
                 return BirthDay.Value.ToString("MM/dd/yyyy");
             }
         }
-
         [DataMember]
         public int Site { get; set; }
         [DataMember]

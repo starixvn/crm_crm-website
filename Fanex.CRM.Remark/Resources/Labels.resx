@@ -120,6 +120,9 @@
   <data name="Alert" xml:space="preserve">
     <value>Alert</value>
   </data>
+  <data name="ConfirmIgnoreDataChange" xml:space="preserve">
+    <value>There are some changes on customer information on Remark tab!&lt;br/&gt;Are you sure you want to ignore these changes?</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
