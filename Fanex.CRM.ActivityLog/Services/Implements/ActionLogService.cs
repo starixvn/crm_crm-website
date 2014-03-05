@@ -242,7 +242,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 valueList[i] = GetSettingValue(key + valueList[i], valueList[i]);
             }
 
-            return string.Join(",", valueList);
+            return string.Join(", ", valueList);
         }
     }
 }

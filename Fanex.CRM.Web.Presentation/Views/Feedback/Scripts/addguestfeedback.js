@@ -9,6 +9,7 @@ showAlertMessage,
 successMsg,
 accId,
 getRelatedCustomer,
+dropdownMultiSelect,
 head,
 clientTime,
 initHTMLArea,
@@ -36,7 +37,7 @@ var checkSpecialCharacters,
     appendListFeedbacksLasted,
     bindingEvent;
 
-var settings = ["Title", "Status", "Station", "Response", "Communication", "Language"];
+var settings = ["Title", "Status", "Station", "Response", "Communication"];
 var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication"];
 var listObjToValidate = ["txtsubject", "txtidentity"];
 var listEditorToValidate = ["desediter"];
@@ -115,14 +116,13 @@ $("#txtidentity").blur(function () {
 
 checkSpecialCharacters = function (id) {
     var iChars = "!`#%^&*()=[]\\\';,/{}|\":<>?~";
-
     var data = $("#" + id).val();
     for (var i = 0; i < data.length; i++) {
         if (iChars.indexOf(data.charAt(i)) !== -1) {
             $(("#" + id).replace("ddl", "error")
                         .replace("txt", "error"))
                         .removeClass("hidden")
-                        .html("Your Indentity has special characters. !`#%^&*()=[]\\\';,/{}|\":<>?~");
+                        .html("Your Indentity has special characters. " + iChars);
             return false;
         }
     }
@@ -139,18 +139,26 @@ function AddGuestFeedback() {
     }
 
     if (feedbackObjectValidate(listEditorToValidate, listObjToValidate)) {
-        var currentDate = new Date();
-        var selectDate = Date.parse($("#txtdate").val());
+        var birthdayText = $("#birthdayInfo").val().trim();
+        if (birthdayText.length !== 0) {
+            var birthday = new Date(birthdayText);
+            if (isNaN(birthday)) {
+                showAlertMessage("errmsg", "Birthday is invalid!", 1);
+                return false;
+            }
+        }
 
+        var currentDate = new Date();
         var serverTime = new Date(clientTime);
         serverTime.setMinutes(currentDate.getMinutes());
         serverTime.setSeconds(currentDate.getSeconds());
 
-        if (selectDate > serverTime) {
+        var feedbackDate = Date.parse($("#txtdate").val());
+        if (feedbackDate > serverTime) {
             showAlertMessage("errmsg", errMsgFeedbackDateGreatter, 1);
             return false;
         }
-        if (selectDate >= Date.parse($("#txtResolutionTime").val())) {
+        if (feedbackDate >= Date.parse($("#txtResolutionTime").val())) {
             showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
             return false;
         }
@@ -169,96 +177,14 @@ function AddGuestFeedback() {
                 "]. Please add a Subcategory or choose another Category.", 1);
             return false;
         }
-        //----------check length of data
-        /*var identity = $('#txtidentity').val().trim();
-        if (identity.length > 50) {
-            $('#txtidentity').focus();
-            showAlertMessage("errmsg", 'Max length of Username is 50', 1);
-            return false;
+        //----------check related customer
+        if ($("#chkisrelated").prop("checked")) {
+            var customerIds = getRelatedCustomer();
+            if (customerIds === "_") {
+                showAlertMessage("errmsg", errMsgNotYetVerifyFeedbackRelatedCustomer, 1);
+                return false;
+            }
         }
-        var firstName = $('#firstNameInfo').val().trim();
-        if (firstName.length > 50) {
-            $('#firstNameInfo').focus();
-            showAlertMessage("errmsg", 'Max length of First Name is 50', 1);
-            return false;
-        }
-        var lastName = 
-        if ($('#lastNameInfo').val().length > 50) {
-            $('#lastNameInfo').focus();
-            showAlertMessage("errmsg", 'Max length of Last Name is 50', 1);
-            return false;
-        }
-        if ($('#txtphone').val().length > 50) {
-            $('#txtphone').focus();
-            showAlertMessage("errmsg", 'Max length of Phone is 50', 1);
-            return false;
-        }
-        if ($('#txtmobilephone').val().length > 50) {
-            $('#txtmobilephone').focus();
-            showAlertMessage("errmsg", 'Max length of Mobile phone is 50', 1);
-            return false;
-        }
-        if ($('#txtfax').val().length > 50) {
-            $('#txtfax').focus();
-            showAlertMessage("errmsg", 'Max length of Fax is 50', 1);
-            return false;
-        }
-        if ($('#txtEmail').val().length > 254) {
-            $('#txtEmail').focus();
-            showAlertMessage("errmsg", 'Max length of Email is 254', 1);
-            return false;
-        }
-        if ($('#txtSkype').val().length > 100) {
-            $('#txtSkype').focus();
-            showAlertMessage("errmsg", 'Max length of Skype is 100', 1);
-            return false;
-        }
-        if ($('#txtMSN').val().length > 100) {
-            $('#txtMSN').focus();
-            showAlertMessage("errmsg", 'Max length of MSN is 100', 1);
-            return false;
-        }
-        if ($('#txtsubject').val().length > 200) {
-            $('#txtsubject').focus();
-            showAlertMessage("errmsg", 'Max length of Subject is 200', 1);
-            return false;
-        }
-        if ($('#txtPIC1').val().length > 100) {
-            $('#txtPIC1').focus();
-            //$('#txtfirstname').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of PIC1 is 100', 1);
-            return false;
-        }
-        if ($('#txtPIC2').val().length > 100) {
-            $('#txtPIC2').focus();
-            //$('#txtfirstname').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of PIC2 is 100', 1);
-            return false;
-        }
-        if ($('#txtPIC3').val().length > 100) {
-            $('#txtPIC3').focus();
-            //$('#txtfirstname').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of PIC3 is 100', 1);
-            return false;
-        }
-        if ($("#desediter").htmlarea("toHtmlString").length > 8000) {
-            $('#desediter').focus();
-            //$('#txtfirstname').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of Description is 8000', 1);
-            return false;
-        }
-        if ($("#solediter").htmlarea("toHtmlString").length > 8000) {
-            $('#solediter').focus();
-            //$('#txtfirstname').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of Solution is 8000', 1);
-            return false;
-        }
-        if ($("#revediter").htmlarea("toHtmlString").length > 8000) {
-            $('#revediter').focus();
-            //$('#txtfirstname').css({ color: 'red'});
-            showAlertMessage("errmsg", 'Max length of Review is 8000', 1);
-            return false;
-        }*/
         //------------------------
         /* jshint newcap: false */
         DoAdd();
@@ -342,7 +268,7 @@ getFeedbacktData = function () {
         BettingCode: $("#bettingCodeInfo").val().trim(),
         RefCodes2: $("#refCodes2Info").val().trim(),
         IsVIP: $("#isVIP").prop("checked")
-    }
+    };
 
     // related customers
     var feedback = {

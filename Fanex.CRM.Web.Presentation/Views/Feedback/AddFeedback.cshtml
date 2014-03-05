@@ -477,7 +477,6 @@
             Save</button>
     </div>
 </div>
-<input type="hidden" id="hServerTime" />
 <div id="divOverrideCRMInfo" class="selector" style="display: none;"></div>
 @{
     Fanex.CRM.Service.Interface.IPermissionService permission = new Fanex.CRM.Service.Impl.PermissionService();
@@ -493,8 +492,9 @@
     var revvalue = "";
     var allowUpdateReview = "false";
     var inputMultipleRelatedNote = "@Language.lblInputMultipleRealteFeedbackCustomerNote";
-    var errMsgFeedbackDateGreatter = '@ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate';
-    var errMsgResolutionDateGreatter = '@ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime';
+    var errMsgFeedbackDateGreatter = "@ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate";
+    var errMsgResolutionDateGreatter = "@ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime";
+    var errMsgNotYetVerifyFeedbackRelatedCustomer = "@ErrorMsg.lblNotYetVerifyFeedbackRelatedCustomer";
     var allowDeleteFeedback = "@permission.HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host).ToString().ToLower()";
     var clientTime = "@getClientTime";
 
