@@ -356,12 +356,6 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
                     criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
                     var rawData = _dynamicReportRepository.GetDynamicReport(criteria);
-                    if (rawData == null ||
-                        rawData.Count == 0)
-                    {
-                        return dynamicReport;
-                    }
-
                     switch (criteria.ReportType)
                     {
                         case PeriodTypeConstants.Daily:
@@ -462,6 +456,12 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     criteria.ToDate.ToShortFormatedDate())
             };
 
+            if (rawData == null ||
+                rawData.Count == 0)
+            {
+                return dynamicReport;
+            }
+
             var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.Year);
             foreach (var periodGroup in periodGroups)
             {
@@ -516,6 +516,12 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     criteria.ToDate.ToShortFormatedDate())
             };
 
+            if (rawData == null ||
+                rawData.Count == 0)
+            {
+                return dynamicReport;
+            }
+
             var periodGroups = rawData.GroupBy(data => new DateTime(data.PeriodRange.FromDate.Year, data.PeriodRange.FromDate.Month, 1));
             foreach (var periodGroup in periodGroups)
             {
@@ -569,6 +575,12 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     criteria.ToDate.ToShortFormatedDate())
             };
 
+            if (rawData == null ||
+                rawData.Count == 0)
+            {
+                return dynamicReport;
+            }
+
             var periodGroups = rawData.GroupBy(data =>
                 data.PeriodRange.FromDate.FirstDayOfWeek().ToShortFormatedDate() +
                 " - " +
@@ -617,6 +629,12 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     criteria.FromDate.ToShortFormatedDate(),
                     criteria.ToDate.ToShortFormatedDate())
             };
+
+            if (rawData == null ||
+                rawData.Count == 0)
+            {
+                return dynamicReport;
+            }
 
             var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.ToShortFormatedDate());
             foreach (var periodGroup in periodGroups)
