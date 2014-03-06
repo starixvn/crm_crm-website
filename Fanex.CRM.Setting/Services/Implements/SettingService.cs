@@ -113,15 +113,16 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <returns>All setting.</returns>
         public List<SettingInfo> GetAllSetting()
         {
-            var allSetting = new List<SettingInfo>();
+            List<SettingInfo> allSetting = null;
             try
             {
                 allSetting = CacheService.Get<List<SettingInfo>>(GetAllSettingSessionKey);
-                if (allSetting == null)
+                if (allSetting != null)
                 {
-                    allSetting = _settingRepositoryInstance.GetAllSetting(new GetAllSettingCriteria());
+                    return allSetting;
                 }
-
+                
+                allSetting = _settingRepositoryInstance.GetAllSetting(new GetAllSettingCriteria());
                 CacheService.Set(GetAllSettingSessionKey, allSetting);
             }
             catch (Exception ex)

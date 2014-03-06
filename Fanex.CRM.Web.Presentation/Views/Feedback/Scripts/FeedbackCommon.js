@@ -721,7 +721,7 @@ function dropdownMultiSelect(prefixId, elementId, result, defaultValues) {
         listData: dropdownLanguage
     });
 
-    dropdown.find(".fanex-multiselect-state-default").attr("tabindex", 31);
+    $('#' + elementId + " .fanex-multiselect-state-default").attr("tabindex", 31);
 }
 
 checkMultiSelect = function (id, defaultValues) {

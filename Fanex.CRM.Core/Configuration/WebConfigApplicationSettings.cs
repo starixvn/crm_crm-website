@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Infrastructure.Configuration
 {
+    using System;
     using System.Collections.Generic;
     using System.Configuration;
     using DNAide.Core;
@@ -18,6 +19,8 @@ namespace Fanex.CRM.Infrastructure.Configuration
     /// </summary>
     public class WebConfigApplicationSettings : IApplicationSettings
     {
+        private static IDictionary<string, bool> actionLogKeyHash = null;
+
         public static List<string> NotAuthenticateAction
         {
             get
@@ -68,6 +71,30 @@ namespace Fanex.CRM.Infrastructure.Configuration
             get
             {
                 return ConfigurationManager.AppSettings["CRMMongoUserNameHint"];
+            }
+        }
+
+        public static IDictionary<string, bool> ActionLogKey
+        {
+            get
+            {
+                if (actionLogKeyHash == null)
+                {
+                    actionLogKeyHash = new Dictionary<string, bool>();
+
+                    string[] stringArray = ConfigurationManager.AppSettings["CRMActionLogKey"]
+                        .Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string item in stringArray)
+                    {
+                        string lowerKey = item.ToLowerInvariant();
+                        if (!actionLogKeyHash.ContainsKey(lowerKey))
+                        {
+                            actionLogKeyHash.Add(lowerKey, true);    
+                        }
+                    }
+                }
+
+                return actionLogKeyHash;
             }
         }
 

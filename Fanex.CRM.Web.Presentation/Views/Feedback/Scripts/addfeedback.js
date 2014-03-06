@@ -518,4 +518,6 @@ head.ready(function () {
     });
 
     getCRMInfoById(custId);
+    $("#ddltitle").focus();
+    $("#typeCust").attr("tabindex", 48);
 });

@@ -13,7 +13,10 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.CRM.Infrastructure.Service.Implements;
+    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Setting.Repositories.Implements;
+    using Fanex.CRM.Setting.Repositories.Interfaces;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
 
@@ -28,7 +31,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
 
         static CacheManager()
         {
-            SettingServiceInstance = new SettingService();
+            SettingServiceInstance = SettingServiceInstance ?? new SettingService();
         }
 
         /// <summary>
@@ -90,11 +93,10 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 return null;
             }
 
-            string keyFormat = "{0}{1}{2}";
             IDictionary<string, string> settingHash = new Dictionary<string, string>(128);
             foreach (SettingInfo setting in settingInfos)
             {
-                settingHash.Add(string.Format(keyFormat, setting.Type.ToLower(), "id", setting.Id), setting.Value);
+                settingHash.Add(setting.Id.ToString(), setting.Value);
             }
 
             return settingHash;

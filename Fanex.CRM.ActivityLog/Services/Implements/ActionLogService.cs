@@ -18,6 +18,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using Fanex.CRM.ActionLog.Repositories.Implements;
     using Fanex.CRM.ActionLog.Repositories.Interfaces;
     using Fanex.CRM.ActionLog.Services.Interfaces;
+    using Fanex.CRM.Infrastructure.Configuration;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Service.Implements;
@@ -32,6 +33,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         
         private readonly IActionLogRepository _actionLogRepository;
         private readonly IDictionary<string, string> _settingHash;
+        private readonly IDictionary<string, bool> _actionLogKeyHash;
         
         public ActionLogService()
             : this(null)
@@ -42,6 +44,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             _actionLogRepository = actionLogRepository ?? new ActionLogRepository();
             _settingHash = CacheManager.GetAllSetting();
+            _actionLogKeyHash = WebConfigApplicationSettings.ActionLogKey;
         }
 
         #region Activity Log
@@ -156,7 +159,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 foreach (string key in newResults.Keys)
                 {
                     log.FieldNames.Add(key);
-                    log.NewValuesList.Add(GetNameById(key, newResults[key]));
+                    log.NewValuesList.Add(GetSettingValue(key, newResults[key]));
                 }
             }
             else if (oldCount == newCount)
@@ -169,8 +172,8 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                     if (!string.Equals(oldString, newString, StringComparison.OrdinalIgnoreCase))
                     {
                         log.FieldNames.Add(key);
-                        log.OldValuesList.Add(GetNameById(key, oldString));
-                        log.NewValuesList.Add(GetNameById(key, newString));
+                        log.OldValuesList.Add(GetSettingValue(key, oldString));
+                        log.NewValuesList.Add(GetSettingValue(key, newString));
                     }
                 }
             }
@@ -202,23 +205,36 @@ namespace Fanex.CRM.ActionLog.Services.Implements
             return results;
         }
 
-        private string GetNameById(string key, string value)
+        /// <summary>
+        /// Gets the name by id.
+        /// </summary>
+        /// <param name="key">The key parameter.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The value of key.
+        /// </returns>
+        private string GetSettingValue(string key, string value)
         {
-            string keyLower = key.ToLower();
+            string keyLower = key.ToLowerInvariant();
+            if (!_actionLogKeyHash.ContainsKey(keyLower))
+            {
+                return value;
+            }
+            
             if (string.Equals(keyLower, "LanguageID", StringComparison.OrdinalIgnoreCase))
             {
-                return GetMultipleSettingValue(keyLower, value);   
+                return GetMultipleSettingValue(value);   
             }
 
-            return GetSettingValue(keyLower + value, value);
+            return GetSettingValue(value);
         }
 
-        private string GetSettingValue(string key, string defaultValue)
+        private string GetSettingValue(string key)
         {
             string settingValue;
             if (!_settingHash.TryGetValue(key, out settingValue))
             {
-                return defaultValue;
+                settingValue = key;
             }
 
             return settingValue;
@@ -227,19 +243,18 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         /// <summary>
         /// Gets the multiple setting value.
         /// </summary>
-        /// <param name="key">The key string.</param>
         /// <param name="value">The value.</param>
         /// <returns>
         /// The value from hash.
         /// </returns>
-        private string GetMultipleSettingValue(string key, string value)
+        private string GetMultipleSettingValue(string value)
         {
             var valueList = value.Split(new char[] { ',' });
             
             int keyCount = valueList.Length;
             for (int i = 0; i < keyCount; i++)
             {
-                valueList[i] = GetSettingValue(key + valueList[i], valueList[i]);
+                valueList[i] = GetSettingValue(valueList[i]);
             }
 
             return string.Join(", ", valueList);
