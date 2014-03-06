@@ -1,6 +1,5 @@
 ﻿"use strict";
-/* global editLogApplication,
-crmConstants */
+/* global editLogApplication */
 /* jshint unused: vars */
 /* jshint camelcase: false */
 editLogApplication.directive('dropdownCommunicationTool', function () {

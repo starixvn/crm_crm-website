@@ -1,5 +1,7 @@
 ﻿"use strict";
-/* global editLogApplication */
+/* global editLogApplication,
+viewResources,
+crmConstants */
 /* jshint unused: vars */
 /* jshint camelcase: false */
 editLogApplication.directive('dropdownLanguage', function () {
