@@ -13,6 +13,12 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
         gridOptions: null
     };
 
+    function getGridHeight() {
+        return cachedData.scope.isShowFilter ?
+            200 + crmConstants.MarginBottomPage :
+            50 + crmConstants.MarginBottomPage;
+    }
+
     function getCustomerLanguages(customer) {
         var languageLength = customer.Languages.length;
         var languages = [];
@@ -72,7 +78,7 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
-            gridExpandHeight: 230 + crmConstants.MarginBottomPage,
+            gridExpandHeight: getGridHeight(),
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
@@ -153,14 +159,14 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
     }
 
     function renderCustomerReport(scope, element, attrs) {
-        if (scope.customerReport === null) {
+        if (scope.customerReportOptions.DataList === null) {
             return;
         }
 
         cachedData.scope = scope;
         var tableCustomerReport = element.find("#table-customer-report");
         cachedData.reportTable = tableCustomerReport;
-        var customerReport = scope.customerReport;
+        var customerReport = scope.customerReportOptions.DataList;
         cachedData.customerReport = customerReport;
         var gridOptions = getGripOtions(customerReport);
         cachedData.gridOptions = gridOptions;
@@ -172,7 +178,18 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
         scope: true,
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (oldval, newval) {
-                renderCustomerReport(scope, element, attrs);
+                if (!scope.customerReportOptions.IsUpdateGrid) {
+                    return;
+                }
+
+                if (scope.customerReportOptions.IsResize && cachedData.reportTable) {
+                    cachedData.reportTable.fanexGrid("resizeHeight", getGridHeight());
+                    scope.customerReportOptions.IsResize = false;
+                } else {
+                    renderCustomerReport(scope, element, attrs);
+                }
+
+                scope.customerReportOptions.IsUpdateGrid = false;
             });
         }
     };

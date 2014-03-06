@@ -15,7 +15,7 @@
 </head>
 <body class="customerReportController" data-ng-controller="customerReportController">
     <div class="main container">
-        <div class="row filter-frm one-row expand-filter ">
+        <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
             <div class="row row-item">
                 <div class="item">
                     <label for="firstname" class="width-70">
@@ -80,17 +80,17 @@
             </div>
             <div class="row row-item">
                 <fieldset class="dateBirth pull-left">
-                    <legend>Date Of Birth</legend>
+                    <legend>@Labels.Date_Of_Birth</legend>
                     <div class="item fromDate">
                         <label for="fromDate" class="width-80">
-                            From</label>
+                            @Labels.From</label>
                         <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
                             <input id="fromDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
                         </div>
                     </div>
                     <div class="item toDate">
                         <label for="toDate">
-                            To</label>
+                            @Labels.To</label>
                         <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
                             <input id="toDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
                         </div>
@@ -102,11 +102,15 @@
                         <span class="hotkey">S</span>ubmit</button>
                 </div>
             </div>
-            <div class="icon-collapse">
+            <div class="icon-collapse" data-ng-click="showHideFilterBox();">
+            </div>
+        </div>
+        <div class="row filter-frm one-row collapse-filter" data-ng-class="{ 'display-none': isShowFilter }">
+            <div class="icon-expand" data-ng-click="showHideFilterBox();">
             </div>
         </div>
         <div class="row">
-            <div data-ng-model="customerReport" class="table-customer-report-container">
+            <div data-ng-model="customerReportOptions.IsUpdateGrid" class="table-customer-report-container">
                 <div id="table-customer-report" class="freegrid display-none table-customer-report">
                 </div>
             </div>

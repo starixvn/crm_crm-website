@@ -15,6 +15,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope,
         $http,
         $customerReportService) {
+        $scope.isShowFilter = true;
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
         $scope.siteOptions = null;
@@ -25,7 +26,11 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope.defaultFocusOptions = null;
         $scope.downloadFileOptions = null;
         $scope.vipTypeOptions = null;
-        $scope.customerReport = null;
+        $scope.customerReportOptions = {
+            DataList: null,
+            IsResize: false,
+            IsUpdateGrid: false
+        };
 
         $scope.isUpdatingDate = false;
         $scope.searchCriteria = {
@@ -236,7 +241,8 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             $scope.lastSelectedParams = getReportCriteria;
             $customerReportService.getCustomerReport(getReportCriteria)
                 .then(function (data) {
-                    $scope.customerReport = data.Result;
+                    $scope.customerReportOptions.DataList = data.Result;
+                    $scope.customerReportOptions.IsUpdateGrid = true;
                     $scope.unblockUI();
                 },
                 function (data) {
@@ -250,7 +256,8 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             $scope.lastSelectedParams.IsGetFromCached = true;
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
                 .then(function (data) {
-                    $scope.customerReport = data.Result;
+                    $scope.customerReportOptions.DataList = data.Result;
+                    $scope.customerReportOptions.IsUpdateGrid = true;
                     $scope.unblockUI();
                 },
                 function (data) {
@@ -262,7 +269,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             $scope.lastSelectedParams.IsGetFromCached = true;
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
                 .then(function (data) {
-                    $scope.customerReport = data.Result;
+                    $scope.customerReportOptions.DataList = data.Result;
                     $scope.unblockUI();
                 },
                 function (data) {
@@ -277,7 +284,11 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
 
             $scope.$apply();
         };
-
+        $scope.showHideFilterBox = function () {
+            $scope.isShowFilter = !$scope.isShowFilter;
+            $scope.customerReportOptions.IsUpdateGrid = true;
+            $scope.customerReportOptions.IsResize = true;
+        };
         $scope.completeSetFocus = function () {
             $scope.defaultFocusOptions.IsSetFocus = false;
         };

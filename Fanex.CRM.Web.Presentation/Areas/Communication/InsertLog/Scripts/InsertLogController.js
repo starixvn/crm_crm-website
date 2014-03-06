@@ -11,6 +11,7 @@ hotKeyManager,
 currentTime,
 hasReviewPermission,
 getRelatedCustomerLength */
+/* jshint camelcase: false */
 insertLogApplication.controller('insertLogController', ['$scope', '$http', '$insertLogService',
 function (
     $scope,
@@ -158,14 +159,26 @@ function (
         initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);
         $scope.communicationLog.EndTime = initEndTime;
         $scope.communicationLog.Extension = $scope.extensionList[0];
-        $scope.communicationLog.Country = $scope.countryList[0];
+        $scope.communicationLog.Country = {
+            Id: crmConstants.Enums.Country.NotApply
+        };
+
+        $scope.communicationLog.Product = {
+            Id: crmConstants.Enums.Product.NotApply
+        };
+
+        $scope.communicationLog.BetType = {
+            Id: crmConstants.Enums.BetType.NotApply
+        };
+
+        $scope.communicationLog.SiteInfo = {
+            Id: crmConstants.Enums.Site.NotApply
+        };
+
+        $scope.communicationLog.LanguageId = crmConstants.Enums.Language.NotApply;
         $scope.communicationLog.CommunicationTool = $scope.communicationToolList[0];
-        $scope.communicationLog.LanguageId = $scope.languageList[0].Id;
         $scope.communicationLog.MainCategory = $scope.mainCategoryList[0];
         $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
-        $scope.communicationLog.Product = $scope.productList[0];
-        $scope.communicationLog.BetType = $scope.betTypeList[0];
-        $scope.communicationLog.SiteInfo = $scope.statusList[0];
         $scope.communicationLog.Status = $scope.statusList[0];
         $scope.communicationLog.RoleInfo = $scope.roleList[0];
         $scope.communicationLog.Response = $scope.responseList[0];
@@ -562,36 +575,49 @@ function (
     };
     $scope.validateInsertLogCriteria = function (criteria) {
         var result = true;
-        if (criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
-            $scope.isShowResultMessage = true;
-            $scope.isSuccess = false;
-            /* jshint camelcase: false */
+        if (result && criteria.CountryId === crmConstants.Enums.Country.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NACountry;
+            result = false;
+        }
+
+        if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
             result = false;
         }
 
+        if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NALanguage;
+            result = false;
+        }
+
+        if (result && criteria.ProductId === crmConstants.Enums.Product.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NAProduct;
+            result = false;
+        }
+
+        if (result && criteria.BetTypeId === crmConstants.Enums.BetType.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NABetType;
+            result = false;
+        }
+
+        if (result && criteria.SiteId === crmConstants.Enums.Product.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NASite;
+            result = false;
+        }
+
         if (result && criteria.Subject === '') {
-            $scope.isShowResultMessage = true;
-            $scope.isSuccess = false;
-            /* jshint camelcase: false */
             $scope.resultMessage = viewResources.Communication_Log_EmptySubject;
             result = false;
         }
 
         if (result &&
             ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
-            $scope.isShowResultMessage = true;
-            $scope.isSuccess = false;
-            /* jshint camelcase: false */
             $scope.resultMessage = viewResources.Communication_Log_EmptyRemark;
             result = false;
         }
 
         if (result &&
             ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
-            $scope.isShowResultMessage = true;
-            $scope.isSuccess = false;
-            /* jshint camelcase: false */
             $scope.resultMessage = viewResources.Communication_Log_EmptySolution;
             result = false;
         }
@@ -599,15 +625,15 @@ function (
         if (result &&
             criteria.IsReviewed &&
             ($.trim(criteria.Review) === '' || criteria.Review === '<br>')) {
-            $scope.isShowResultMessage = true;
-            $scope.isSuccess = false;
-            /* jshint camelcase: false */
             $scope.resultMessage = viewResources.Communication_Log_EmptyReview;
             result = false;
         }
 
         if (result) {
             $scope.isShowResultMessage = false;
+        } else {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
         }
 
         return result;

@@ -1,19 +1,21 @@
 ﻿"use strict";
 /* global insertLogApplication */
+/* jshint camelcase: false */
 insertLogApplication.directive('dropdownLanguage', function () {
     function renderDropdown(scope, element, attrs) {
         /* jshint unused: vars */
         if (scope.languageList) {
             var dropdown = element.find("#language");
             dropdown.empty();
-            /* jshint camelcase: false */
+            var optionHtml = '<option value="' + crmConstants.Enums.Language.NotApply + '">' + viewResources.Symbol_NotApply +
+                '</option>';
             var languageListLength = scope.languageList.length;
             for (var i = 0; i < languageListLength; i++) {
                 var language = scope.languageList[i];
-                dropdown.append(
-                    '<option value="' + language.Id + '">' + language.Name + '</option>');
+                optionHtml += '<option value="' + language.Id + '">' + language.Name + '</option>';
             }
 
+            dropdown.append(optionHtml);
             element.change(function () {
                 scope.updateSelectedLanguage(dropdown.find('option:selected').val());
             });

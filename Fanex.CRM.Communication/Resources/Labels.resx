@@ -288,4 +288,19 @@
   <data name="Communication_Log_NACommmunicationTool" xml:space="preserve">
     <value>Communication tool is mandatory!</value>
   </data>
+  <data name="Communication_Log_NABetType" xml:space="preserve">
+    <value>Bet Type is mandatory!</value>
+  </data>
+  <data name="Communication_Log_NACountry" xml:space="preserve">
+    <value>Country is mandatory!</value>
+  </data>
+  <data name="Communication_Log_NALanguage" xml:space="preserve">
+    <value>Language is mandatory!</value>
+  </data>
+  <data name="Communication_Log_NAProduct" xml:space="preserve">
+    <value>Product is mandatory!</value>
+  </data>
+  <data name="Communication_Log_NASite" xml:space="preserve">
+    <value>Site is mandatory!</value>
+  </data>
 </root>
