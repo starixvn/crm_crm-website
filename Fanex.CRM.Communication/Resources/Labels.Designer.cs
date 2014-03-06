@@ -133,11 +133,56 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bet Type is mandatory!.
+        /// </summary>
+        public static string Communication_Log_NABetType {
+            get {
+                return ResourceManager.GetString("Communication_Log_NABetType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Communication tool is mandatory!.
         /// </summary>
         public static string Communication_Log_NACommmunicationTool {
             get {
                 return ResourceManager.GetString("Communication_Log_NACommmunicationTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country is mandatory!.
+        /// </summary>
+        public static string Communication_Log_NACountry {
+            get {
+                return ResourceManager.GetString("Communication_Log_NACountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language is mandatory!.
+        /// </summary>
+        public static string Communication_Log_NALanguage {
+            get {
+                return ResourceManager.GetString("Communication_Log_NALanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product is mandatory!.
+        /// </summary>
+        public static string Communication_Log_NAProduct {
+            get {
+                return ResourceManager.GetString("Communication_Log_NAProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site is mandatory!.
+        /// </summary>
+        public static string Communication_Log_NASite {
+            get {
+                return ResourceManager.GetString("Communication_Log_NASite", resourceCulture);
             }
         }
         

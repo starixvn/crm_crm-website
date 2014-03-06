@@ -11,6 +11,7 @@ hasReviewPermission,
 verifyRelatedCustomerForUpdate,
 isOldRelatedCustomer,
 getRelatedCustomerLength */
+/* jshint camelcase: false */
 editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService',
 function (
     $scope,
@@ -146,10 +147,6 @@ function (
             }
         }
 
-        $scope.communicationLog.LanguageId = ($scope.communicationLog.LanguageId === crmConstants.Enums.Language.NotApply ?
-              $scope.languageList[0].Id :
-              $scope.communicationLog.LanguageId);
-
         $scope.isEditingRelatedCustomer = ($scope.communicationLog.RelatedCustomers !== '');
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.updateChangeFlag();
@@ -241,6 +238,7 @@ function (
         $scope.updateChangeFlag();
     };
     $scope.updateSelectedLanguage = function (languageId) {
+        languageId = parseInt(languageId);
         $scope.communicationLog.LanguageId = languageId;
         $scope.$apply();
         $scope.updateChangeFlag();
@@ -537,41 +535,65 @@ function (
     };
     $scope.validateUpdateLogCriteria = function (criteria) {
         var result = true;
-        if (criteria.Subject === '') {
-            $scope.isShowResultMessage = true;
-            $scope.isSuccess = false;
-            /* jshint camelcase: false */
+        if (result && criteria.CountryId === crmConstants.Enums.Country.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NACountry;
+            result = false;
+        }
+
+        if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
+            result = false;
+        }
+
+        if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NALanguage;
+            result = false;
+        }
+
+        if (result && criteria.ProductId === crmConstants.Enums.Product.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NAProduct;
+            result = false;
+        }
+
+        if (result && criteria.BetTypeId === crmConstants.Enums.BetType.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NABetType;
+            result = false;
+        }
+
+        if (result && criteria.SiteId === crmConstants.Enums.Product.NotApply) {
+            $scope.resultMessage = viewResources.Communication_Log_NASite;
+            result = false;
+        }
+
+        if (result && criteria.Subject === '') {
             $scope.resultMessage = viewResources.Communication_Log_EmptySubject;
             result = false;
         }
 
-        if ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>') {
-            $scope.isShowResultMessage = true;
-            $scope.isSuccess = false;
-            /* jshint camelcase: false */
+        if (result &&
+            ($.trim(criteria.Remark) === '' || criteria.Remark === '<br>')) {
             $scope.resultMessage = viewResources.Communication_Log_EmptyRemark;
             result = false;
         }
 
-        if ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>') {
-            $scope.isShowResultMessage = true;
-            $scope.isSuccess = false;
-            /* jshint camelcase: false */
+        if (result &&
+            ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
             $scope.resultMessage = viewResources.Communication_Log_EmptySolution;
             result = false;
         }
 
-        if (criteria.IsReviewed &&
+        if (result &&
+            criteria.IsReviewed &&
             ($.trim(criteria.Review) === '' || criteria.Review === '<br>')) {
-            $scope.isShowResultMessage = true;
-            $scope.isSuccess = false;
-            /* jshint camelcase: false */
             $scope.resultMessage = viewResources.Communication_Log_EmptyReview;
             result = false;
         }
 
         if (result) {
             $scope.isShowResultMessage = false;
+        } else {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
         }
 
         return result;

@@ -8,7 +8,8 @@ var HotKeyManager = function () {
         KeyPress: [],
         ActiveDocumentManager: [],
         isInvokeHotKey: false,
-        isSupportedBrowser: false
+        isSupportedBrowser: false,
+        isIgnoreKey: false
     };
 
     self.initPage = function () {
@@ -27,28 +28,40 @@ var HotKeyManager = function () {
 
     self.bindEvent = function () {
         $(document).keydown(function (eventObject) {
+            if (self.CachedData.isIgnoreKey || parent.hotKeyManager.CachedData.isIgnoreKey) {
+                self.preventBubbleEvent(eventObject);
+                return false;
+            }
+
+            self.CachedData.isIgnoreKey = true;
+            parent.hotKeyManager.CachedData.isIgnoreKey = true;
+            var keyCode = parseInt(eventObject.keyCode);
+            self.CachedData.KeyPress[keyCode.toString()] = true;
             var isCustomHotKey = self.keyDown(eventObject);
             if (!self.CachedData.isInvokeHotKey) {
                 parent.hotKeyManager.CachedData.KeyPress = hotKeyManager.CachedData.KeyPress;
                 isCustomHotKey = parent.hotKeyManager.invokeHotKey();
+                if (parent.hotKeyManager.CachedData.isInvokeHotKey) {
+                    self.CachedData.isInvokeHotKey = true;
+                    parent.hotKeyManager.delayInvokeHotKey();
+                    self.delayInvokeHotKey();
+                }
             }
 
-            if (isCustomHotKey) {
-                if (eventObject.preventDefault) {
-                    eventObject.stopPropagation();
-                    eventObject.preventDefault();
-                } else {
-                    eventObject.returnValue = false;
-                    window.event.returnValue = false;
-                    window.event.keyCode = 0;
-                }
-
+            if (isCustomHotKey || self.CachedData.isInvokeHotKey) {
+                self.CachedData.isInvokeHotKey = false;
+                self.preventBubbleEvent(eventObject);
+                self.CachedData.isIgnoreKey = false;
+                parent.hotKeyManager.CachedData.isIgnoreKey = false;
                 return false;
             }
+
+            self.CachedData.isIgnoreKey = false;
+            parent.hotKeyManager.CachedData.isIgnoreKey = false;
         });
 
         $(document).keyup(function (eventObject) {
-            var isCustomHotKey = self.keyUp(eventObject);
+            self.keyUp(eventObject);
         });
 
         $(document).blur(function () {
@@ -58,8 +71,6 @@ var HotKeyManager = function () {
     };
     self.keyDown = function (eventObject) {
         if (!self.CachedData.isInvokeHotKey) {
-            var keyCode = parseInt(eventObject.keyCode);
-            self.CachedData.KeyPress[keyCode.toString()] = true;
             var isCustomHotKey = false;
             self.CachedData.isInvokeHotKey = false;
             // Use follow line to test working flow
@@ -75,12 +86,24 @@ var HotKeyManager = function () {
 
             return isCustomHotKey;
         }
-    };
 
+        return false;
+    };
+    self.preventBubbleEvent = function (eventObject) {
+        if (eventObject.preventDefault) {
+            eventObject.stopPropagation();
+            eventObject.preventDefault();
+        } else {
+            eventObject.returnValue = false;
+            window.event.returnValue = false;
+            window.event.keyCode = 0;
+        }
+    };
     self.delayInvokeHotKey = function () {
-        setTimeout(function () {
-            self.CachedData.isInvokeHotKey = false;
-        }, 100);
+        //        setTimeout(function () {
+        //            self.CachedData.isInvokeHotKey = false;
+        //        }, 100);
+        self.CachedData.isInvokeHotKey = false;
     };
     self.keyUp = function (eventObject) {
         if (self.CachedData.ActiveDocumentManager.length === 0) {
@@ -254,6 +277,8 @@ var HotKeyManager = function () {
                 activeDocumentManager.invokeHotKey_CtrlD();
             }
         }
+
+        return self.CachedData.isInvokeHotKey;
     };
     self.invokeHotKey_CtrlC = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
@@ -400,4 +425,5 @@ var HotKeyManager = function () {
 hotKeyManager = new HotKeyManager();
 $(document).ready(function () {
     hotKeyManager.initPage();
+    hotKeyManager.CachedData.isIgnoreKey = false;
 });

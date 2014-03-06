@@ -1,27 +1,25 @@
 ﻿"use strict";
 /* global editLogApplication,
 crmConstants */
+/* jshint unused: vars */
+/* jshint camelcase: false */
 editLogApplication.directive('dropdownCommunicationTool', function () {
     function renderDropdown(scope, element, attrs) {
-        /* jshint unused: vars */
         if (scope.communicationToolList) {
             var dropdown = element.find("#communicationTool");
             dropdown.empty();
-            /* jshint camelcase: false */
+            var optionHtml = '';
             var communicationToolListLength = scope.communicationToolList.length;
             for (var i = 0; i < communicationToolListLength; i++) {
                 var communicationTool = scope.communicationToolList[i];
-                dropdown.append(
-                    '<option value="' + communicationTool.Id + '"' +
+                optionHtml += '<option value="' + communicationTool.Id + '"' +
                         (communicationTool.Id === scope.communicationLog.CommunicationTool.Id ?
                         ' selected="selected"' :
                         '') +
-                        (communicationTool.Id === crmConstants.Enums.CommunicationTool.NotApply ?
-                        ' disabled="disabled"' :
-                        '') +
-                    '>' + communicationTool.Name + '</option>');
+                '>' + communicationTool.Name + '</option>';
             }
 
+            dropdown.append(optionHtml);
             element.change(function () {
                 scope.updateSelectedCommunicationTool(dropdown.find('option:selected').val());
             });

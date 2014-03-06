@@ -31,6 +31,14 @@ var CRMConstants = function () {
             NotApply: 0
         },
 
+        Product: {
+            NotApply: 0
+        },
+
+        BetType: {
+            NotApply: 0
+        },
+
         Status: {
             All: 0
         },

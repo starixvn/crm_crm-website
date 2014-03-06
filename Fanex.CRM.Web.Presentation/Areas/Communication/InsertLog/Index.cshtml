@@ -59,7 +59,9 @@
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="country">
-                        @Labels.Country</label>
+                        @Labels.Country
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3" dropdown-country data-ng-model="countryList">
                     <select id="country">
@@ -69,14 +71,19 @@
             <div class="row row-item">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <label for="communicationTool">
-                        @Labels.Communication_Tool</label></div>
+                        @Labels.Communication_Tool
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
+                </div>
                 <div class="col-xs-3 col-sm-3 col-md-3" dropdown-communication-tool data-ng-model="communicationToolList">
                     <select id="communicationTool">
                     </select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="language">
-                        @Labels.Language</label>
+                        @Labels.Language
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3" dropdown-language data-ng-model="languageList">
                     <select id="language" class="languageoptions">
@@ -103,14 +110,19 @@
             <div class="row row-item">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <label for="product">
-                        @Labels.Product</label></div>
+                        @Labels.Product
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
+                </div>
                 <div class="col-xs-3 col-sm-3 col-md-3" dropdown-product data-ng-model="productList">
                     <select id="product">
                     </select>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="betType">
-                        @Labels.Bet_Type</label>
+                        @Labels.Bet_Type
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3" dropdown-bet-type data-ng-model="betTypeList">
                     <select id="betType">
@@ -127,7 +139,9 @@
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="site">
-                        @Labels.Site</label>
+                        @Labels.Site
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)
+                    </label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3" dropdown-site data-ng-model="siteList">
                     <select id="site">
@@ -260,6 +274,13 @@
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             Communication_Logs_VerifyRelatedCustomer: '@Labels.Communication_Logs_VerifyRelatedCustomer',
             Communication_Log_NACommmunicationTool:'@Labels.Communication_Log_NACommmunicationTool',
+
+            Communication_Log_NACountry:'@Labels.Communication_Log_NACountry',
+            Communication_Log_NALanguage:'@Labels.Communication_Log_NALanguage',
+            Communication_Log_NAProduct:'@Labels.Communication_Log_NAProduct',
+            Communication_Log_NABetType:'@Labels.Communication_Log_NABetType',
+            Communication_Log_NASite:'@Labels.Communication_Log_NASite',       
+            
             Communication_Log_EmptySubject: '@Labels.Communication_Log_EmptySubject',
             Communication_Log_EmptyRemark: '@Labels.Communication_Log_EmptyRemark',
             Communication_Log_EmptyReview: '@Labels.Communication_Log_EmptyReview',
