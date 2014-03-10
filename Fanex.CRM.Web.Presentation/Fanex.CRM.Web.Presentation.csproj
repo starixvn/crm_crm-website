@@ -54,7 +54,7 @@
     </Reference>
     <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependency\Fanex\Couchbase.dll</HintPath>
+      <HintPath>..\Dependency\Fanex\Couchbase.dll</HintPath>
     </Reference>
     <Reference Include="dotless.Core">
       <HintPath>..\Dependency\dotless.Core.dll</HintPath>
@@ -64,15 +64,15 @@
     </Reference>
     <Reference Include="Fanex.Caching, Version=1.0.4456.33785, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Caching.dll</HintPath>
+      <HintPath>..\Dependency\Fanex\Fanex.Caching.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Common.dll</HintPath>
+      <HintPath>..\Dependency\Fanex\Fanex.Common.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Data, Version=1.0.111.9, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependency\Fanex\Fanex.Data.dll</HintPath>
+      <HintPath>..\Dependency\Fanex\Fanex.Data.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -102,12 +102,12 @@
     </Reference>
     <Reference Include="MongoDB.Bson, Version=1.4.0.4468, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependency\NoSql\MongoDB\MongoDB.Bson.dll</HintPath>
+      <HintPath>..\Dependency\NoSql\MongoDB\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MongoDB.Driver, Version=1.4.0.4468, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Dependency\NoSql\MongoDB\MongoDB.Driver.dll</HintPath>
+      <HintPath>..\Dependency\NoSql\MongoDB\MongoDB.Driver.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MsieJavaScriptEngine">
@@ -441,6 +441,7 @@
     <None Include="Areas\Report\CustomerReport\Styles\CustomerReport.less" />
     <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
+    <None Include="Content\site\customizeMultiSelect.less" />
     <None Include="Content\site\reportgrid.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
