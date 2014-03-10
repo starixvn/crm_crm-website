@@ -44,7 +44,9 @@
 
     .fanex-multiselect-div, .fanex-multiselect-helper-reset {
         label {
-            padding-left: 13px;
+            padding-left: 0;
+            float: none;
+            margin-bottom: 3px;
         }
 
         input {
@@ -54,7 +56,24 @@
         }
     }
 
+    .fanex-multiselect-div {
+        margin-left: 20px !important;
+    }
+
+    .rtFirst .fanex-multiselect-div {
+        margin-left: 21px !important;
+
+        label {
+            margin-bottom: 1px;
+        }
+    }
+
+
     .fanex-multiselect-helper-reset label {
         padding-left: 20px;
+    }
+
+    .fanex-multiselect-treeview .rtLI {
+        clear: both;
     }
 }

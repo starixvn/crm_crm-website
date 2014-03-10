@@ -116,6 +116,7 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.AddAndInclude(
                 "~/Areas/ShortCustomerInfo/Styles",
+                "~/Content/site/customizeMultiSelect.less",
                 "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less");
         }
 
