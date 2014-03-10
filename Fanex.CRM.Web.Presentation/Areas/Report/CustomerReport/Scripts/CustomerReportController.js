@@ -130,7 +130,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedSite,
                 AllText: viewResources.All_Sites,
-                MinWidth: 250,
+                MinWidth: 350,
                 MaxHeight: 450,
                 NoItemText: viewResources.No_site_found,
                 NoneSelectedText: viewResources.Symbol_NotApply,
