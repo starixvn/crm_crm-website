@@ -18,6 +18,12 @@ editLogApplication.directive('solutionEditorContainer', function () {
             changeEvent: function () {
                 scope.updateSolution(editor.htmlarea("toHtmlString"));
             },
+            keyUpEvent: function (eventObject) {
+                hotKeyManager.keyUp(eventObject);
+            },
+            keyDownEvent: function (eventObject) {
+                return hotKeyManager.documentKeyDown(eventObject);
+            },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],

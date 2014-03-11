@@ -591,6 +591,7 @@ function (
             $scope.isSuccess = false;
         }
 
+        $scope.$apply();
         return result;
     };
     $scope.unblockUI = function () {

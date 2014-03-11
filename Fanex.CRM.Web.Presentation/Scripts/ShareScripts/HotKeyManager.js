@@ -38,6 +38,7 @@ var HotKeyManager = function () {
             var keyCode = parseInt(eventObject.keyCode);
             self.CachedData.KeyPress[keyCode.toString()] = true;
             var isCustomHotKey = self.keyDown(eventObject);
+
             if (!self.CachedData.isInvokeHotKey) {
                 parent.hotKeyManager.CachedData.KeyPress = hotKeyManager.CachedData.KeyPress;
                 isCustomHotKey = parent.hotKeyManager.invokeHotKey();
@@ -46,6 +47,8 @@ var HotKeyManager = function () {
                     parent.hotKeyManager.delayInvokeHotKey();
                     self.delayInvokeHotKey();
                 }
+            } else {
+                self.delayInvokeHotKey();
             }
 
             if (isCustomHotKey || self.CachedData.isInvokeHotKey) {
@@ -65,10 +68,38 @@ var HotKeyManager = function () {
         });
 
         $(document).blur(function () {
-            self.CachedData.KeyPress = [];
-            parent.hotKeyManager.CachedData.KeyPress = [];
+            self.documentBlur();
         });
     };
+    self.documentKeyDown = function (eventObject) {
+        if (self.CachedData.isIgnoreKey || parent.hotKeyManager.CachedData.isIgnoreKey) {
+            self.preventBubbleEvent(eventObject);
+            return false;
+        }
+
+        self.CachedData.isIgnoreKey = true;
+        var keyCode = parseInt(eventObject.keyCode);
+        self.CachedData.KeyPress[keyCode.toString()] = true;
+        var isCustomHotKey = self.keyDown(eventObject);
+        if (self.CachedData.isInvokeHotKey) {
+            self.delayInvokeHotKey();
+        }
+
+        if (isCustomHotKey || self.CachedData.isInvokeHotKey) {
+            self.CachedData.isInvokeHotKey = false;
+            self.preventBubbleEvent(eventObject);
+            self.CachedData.isIgnoreKey = false;
+            return false;
+        }
+
+        self.CachedData.isIgnoreKey = false;
+        return true;
+    };
+    self.documentBlur = function () {
+        self.CachedData.KeyPress = [];
+        parent.hotKeyManager.CachedData.KeyPress = [];
+    };
+
     self.keyDown = function (eventObject) {
         if (!self.CachedData.isInvokeHotKey) {
             var isCustomHotKey = false;
@@ -80,10 +111,6 @@ var HotKeyManager = function () {
             }
 
             isCustomHotKey = self.invokeHotKey();
-            if (self.CachedData.isInvokeHotKey) {
-                self.delayInvokeHotKey();
-            }
-
             return isCustomHotKey;
         }
 
@@ -299,6 +326,8 @@ var HotKeyManager = function () {
                 activeDocumentManager.invokeHotKey_CtrlI();
             }
         }
+
+        return self.CachedData.isInvokeHotKey;
     };
     self.invokeHotKey_CtrlV = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;

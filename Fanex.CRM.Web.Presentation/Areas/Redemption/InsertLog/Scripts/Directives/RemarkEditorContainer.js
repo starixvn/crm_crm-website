@@ -16,6 +16,18 @@ insertLogApplication.directive('remarkEditorContainer', function () {
             changeEvent: function () {
                 scope.updateRemark(editor.htmlarea("toHtmlString"));
             },
+            keyUpEvent: function (eventObject) {
+                hotKeyManager.keyUp(eventObject);
+            },
+            keyDownEvent: function (eventObject) {
+                var isBubble = hotKeyManager.documentKeyDown(eventObject);
+                if (isBubble) {
+                    parent.hotKeyManager.CachedData.KeyPress = hotKeyManager.CachedData.KeyPress;
+                    isBubble = parent.hotKeyManager.documentKeyDown(eventObject);
+                }
+
+                return isBubble;
+            },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],

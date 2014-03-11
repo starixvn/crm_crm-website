@@ -134,6 +134,7 @@ function (
     };
     $scope.insertLog = function () {
         $scope.BlockUI();
+        hotKeyManager.documentBlur();
         var insertLogCriteria = {
             ClaimedTime: $scope.redemptionLog.ClaimedTime,
             Subject: $scope.redemptionLog.Subject,

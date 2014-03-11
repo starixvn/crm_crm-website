@@ -122,6 +122,7 @@ function (
     };
     $scope.updateLog = function () {
         $scope.BlockUI();
+        hotKeyManager.documentBlur();
         var updateLogCriteria = {
             Id: $scope.redemptionLog.Id,
             ClaimedTime: $scope.redemptionLog.ClaimedTime,

@@ -151,14 +151,22 @@ function (
         $scope.unblockUI();
     };
     $scope.initSelectedLogInfo = function () {
+        if ($scope.mainCategoryList === null ||
+            $scope.mainCategoryList === undefined) {
+            return;
+        }
+
         $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
         $scope.betTypeList = $scope.productList[0].ChildSettings;
+
 
         $scope.communicationLog.StartTime = new Date(currentTime);
         var initEndTime = new Date(currentTime);
         initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);
         $scope.communicationLog.EndTime = initEndTime;
+
         $scope.communicationLog.Extension = $scope.extensionList[0];
+
         $scope.communicationLog.Country = {
             Id: crmConstants.Enums.Country.NotApply
         };
