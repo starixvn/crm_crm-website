@@ -63,9 +63,9 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>The customer report.</returns>
         public CustomerReportInfo GetCustomerReport(GetCustomerReportCriteria criteria)
         {
-            CustomerReportInfo customerReport = null;
             try
             {
+                CustomerReportInfo customerReport = null;
                 if (criteria.IsGetFromCached)
                 {
                     customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
@@ -95,13 +95,15 @@ namespace Fanex.CRM.Report.Repositories.Implements
                            .ToList();
                     }
                 }
+
+                return customerReport;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return customerReport;
+            return null;
         }
 
         /// <summary>
@@ -146,17 +148,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All site value.</returns>
         public List<SiteInfo> GetAllSite()
         {
-            var allSite = new List<SiteInfo>();
             try
             {
-                allSite = _serviceSetting.GetAllSite();
+                var allSite = _serviceSetting.GetAllSite();
+                return allSite;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allSite;
+            return new List<SiteInfo>();
         }
 
         /// <summary>
@@ -165,10 +167,9 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All title.</returns>
         public List<SettingInfo> GetAllTitle()
         {
-            var allTitle = new List<SettingInfo>();
             try
             {
-                allTitle = _serviceSetting.GetAllTitle();
+                var allTitle = _serviceSetting.GetAllTitle();
                 allTitle.Insert(
                     0,
                     new SettingInfo
@@ -177,13 +178,15 @@ namespace Fanex.CRM.Report.Repositories.Implements
                         Id = TitleConstants.All,
                         DisplayOrder = 0
                     });
+
+                return allTitle;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allTitle;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -192,17 +195,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All country.</returns>
         public List<CountryInfo> GetAllCountry()
         {
-            var allCountry = new List<CountryInfo>();
             try
             {
-                allCountry = _serviceSetting.GetAllCountry();
+                var allCountry = _serviceSetting.GetAllCountry();
+                return allCountry;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allCountry;
+            return new List<CountryInfo>();
         }
 
         /// <summary>
@@ -211,17 +214,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All language.</returns>
         public List<SettingInfo> GetAllLanguage()
         {
-            var allLanguage = new List<SettingInfo>();
             try
             {
-                allLanguage = _serviceSetting.GetAllLanguage();
+                var allLanguage = _serviceSetting.GetAllLanguage();
+                return allLanguage;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allLanguage;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -230,17 +233,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All customer type.</returns>
         public List<SettingInfo> GetAllCustomerType()
         {
-            var allCustomerType = new List<SettingInfo>();
             try
             {
-                allCustomerType = _serviceSetting.GetAllCustomerType();
+                var allCustomerType = _serviceSetting.GetAllCustomerType();
+                return allCustomerType;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allCustomerType;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -249,17 +252,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All VIP type.</returns>
         public List<SettingInfo> GetAllVIPType()
         {
-            var allVIPType = new List<SettingInfo>();
             try
             {
-                allVIPType = _serviceSetting.GetAllVIPType();
+                var allVIPType = _serviceSetting.GetAllVIPType();
+                return allVIPType;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allVIPType;
+            return new List<SettingInfo>();
         }
 
         /// <summary>

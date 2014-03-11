@@ -72,9 +72,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <returns>All period type.</returns>
         public List<SettingInfo> GetAllPeriodType()
         {
-            var allPeriodType = new List<SettingInfo>();
             try
             {
+                var allPeriodType = new List<SettingInfo>();
                 allPeriodType.Add(new SettingInfo
                 {
                     Id = PeriodTypeConstants.Daily,
@@ -95,13 +95,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     Id = PeriodTypeConstants.Yearly,
                     Name = Labels.Yearly
                 });
+
+                return allPeriodType;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allPeriodType;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -110,9 +112,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <returns>All product.</returns>      
         public List<SettingInfo> GetAllProduct()
         {
-            var allProduct = new List<SettingInfo>();
             try
             {
+                var allProduct = new List<SettingInfo>();
                 var rawData = _serviceSetting.GetAllProduct();
                 allProduct.Add(new SettingInfo
                 {
@@ -130,13 +132,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
 
                     allProduct.Add(product);
                 }
+
+                return allProduct;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allProduct;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -145,17 +149,17 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <returns>All site value.</returns>
         public List<SiteInfo> GetAllSite()
         {
-            var allSite = new List<SiteInfo>();
             try
             {
-                allSite = _serviceSetting.GetAllSite();
+                var allSite = _serviceSetting.GetAllSite();
+                return allSite;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allSite;
+            return new List<SiteInfo>();
         }
 
         /// <summary>
@@ -164,9 +168,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <returns>All status.</returns>
         public List<SettingInfo> GetAllStatus()
         {
-            var allStatus = new List<SettingInfo>();
             try
             {
+                var allStatus = new List<SettingInfo>();
                 var rawData = _serviceSetting.GetAllStatus();
                 allStatus.Add(new SettingInfo
                 {
@@ -178,13 +182,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 {
                     allStatus.Add(rawStatus);
                 }
+
+                return allStatus;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allStatus;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -193,9 +199,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <returns>All response.</returns>
         public List<SettingInfo> GetAllResponse()
         {
-            var allResponse = new List<SettingInfo>();
             try
             {
+                var allResponse = new List<SettingInfo>();
                 var rawData = _serviceSetting.GetAllResponse();
                 allResponse.Add(new SettingInfo
                 {
@@ -207,13 +213,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 {
                     allResponse.Add(rawResponse);
                 }
+
+                return allResponse;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allResponse;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -222,9 +230,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <returns>All role value.</returns>
         public List<SettingInfo> GetAllRole()
         {
-            var allRole = new List<SettingInfo>();
             try
             {
+                var allRole = new List<SettingInfo>();
                 var rawData = _serviceSetting.GetAllRole();
                 allRole.Add(new SettingInfo
                 {
@@ -236,13 +244,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 {
                     allRole.Add(rawRole);
                 }
+
+                return allRole;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allRole;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -251,9 +261,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <returns>All communication tool.</returns>
         public List<SettingInfo> GetAllCommunicationTool()
         {
-            var allCommunicationTool = new List<SettingInfo>();
             try
             {
+                var allCommunicationTool = new List<SettingInfo>();
                 var rawData = _serviceSetting.GetAllCommunicationTool();
                 allCommunicationTool.Add(new SettingInfo
                 {
@@ -270,13 +280,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
 
                     allCommunicationTool.Add(rawCommunicationTool);
                 }
+
+                return allCommunicationTool;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allCommunicationTool;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -285,9 +297,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <returns>All main category.</returns>
         public List<SettingInfo> GetAllMainCategory()
         {
-            var allMainCategory = new List<SettingInfo>();
             try
             {
+                var allMainCategory = new List<SettingInfo>();
                 var rawData = _serviceSetting.GetAllMainCategory();
                 allMainCategory.Add(new SettingInfo
                 {
@@ -307,13 +319,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 {
                     allMainCategory.Add(rawMainCategory);
                 }
+
+                return allMainCategory;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allMainCategory;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -322,9 +336,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <returns>All extension.</returns>
         public List<SettingInfo> GetAllExtension()
         {
-            var allExtension = new List<SettingInfo>();
             try
             {
+                var allExtension = new List<SettingInfo>();
                 var rawData = _serviceSetting.GetAllExtension();
                 allExtension.Add(new SettingInfo
                 {
@@ -341,13 +355,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
 
                     allExtension.Add(rawExtension);
                 }
+
+                return allExtension;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allExtension;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -360,9 +376,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             Justification = "Reviewed. Suppression is OK here.")]
         public DynamicReportInfo GetDynamicReport(GetDynamicReportCriteria criteria)
         {
-            DynamicReportInfo dynamicReport = null;
             try
             {
+                DynamicReportInfo dynamicReport = null;
                 if (criteria.IsGetFromCached)
                 {
                     dynamicReport = CacheService.Get<DynamicReportInfo>(DynamicReportSessionKey);
@@ -401,13 +417,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                         .Take(criteria.PageSize)
                         .ToList();
                 }
+
+                return dynamicReport;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return dynamicReport;
+            return null;
         }
 
         /// <summary>
