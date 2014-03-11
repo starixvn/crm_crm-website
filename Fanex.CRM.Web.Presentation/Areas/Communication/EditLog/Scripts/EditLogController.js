@@ -540,11 +540,6 @@ function (
             result = false;
         }
 
-        if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
-            result = false;
-        }
-
         if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NALanguage;
             result = false;
