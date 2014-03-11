@@ -114,12 +114,18 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             try
             {
                 var rawData = _serviceSetting.GetAllProduct();
+                allProduct.Add(new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
+
                 foreach (var rawProduct in rawData)
                 {
                     var product = rawProduct;
                     if (rawProduct.Id == SettingConstants.NotApply)
                     {
-                        product.Value = Labels.All;
+                        continue;
                     }
 
                     allProduct.Add(product);
@@ -219,7 +225,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             var allRole = new List<SettingInfo>();
             try
             {
-                var rawData = _serviceSetting.GetAllResponse();
+                var rawData = _serviceSetting.GetAllRole();
                 allRole.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
@@ -248,15 +254,20 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             var allCommunicationTool = new List<SettingInfo>();
             try
             {
-                var rawData = _serviceSetting.GetAllResponse();
+                var rawData = _serviceSetting.GetAllCommunicationTool();
                 allCommunicationTool.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
-                    Value = Labels.All
+                    Name = Labels.All
                 });
 
                 foreach (var rawCommunicationTool in rawData)
                 {
+                    if (rawCommunicationTool.Id == CommunicationToolConstants.NotApply)
+                    {
+                        continue;
+                    }
+
                     allCommunicationTool.Add(rawCommunicationTool);
                 }
             }
@@ -315,11 +326,17 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             try
             {
                 var rawData = _serviceSetting.GetAllExtension();
+                allExtension.Add(new SettingInfo
+                {
+                    Id = ExtensionConstants.NotApply,
+                    Value = Labels.All
+                });
+
                 foreach (var rawExtension in rawData)
                 {
                     if (rawExtension.Id == ExtensionConstants.NotApply)
                     {
-                        rawExtension.Value = Labels.All;
+                        continue;
                     }
 
                     allExtension.Add(rawExtension);
