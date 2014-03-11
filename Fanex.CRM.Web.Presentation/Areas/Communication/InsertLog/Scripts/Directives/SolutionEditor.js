@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global insertLogApplication,
-viewResources */
+viewResources,
+hotKeyManager */
 insertLogApplication.directive('solutionEditorContainer', function () {
     var editorId = "solutioneditorbox";
     function renderEditor(scope, element, attrs) {

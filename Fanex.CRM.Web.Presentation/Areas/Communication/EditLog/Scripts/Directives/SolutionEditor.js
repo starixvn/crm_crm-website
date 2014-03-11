@@ -1,7 +1,8 @@
 ﻿"use strict";
 /* global editLogApplication,
 communicationLog,
-viewResources */
+viewResources,
+hotKeyManager */
 editLogApplication.directive('solutionEditorContainer', function () {
     var editorId = "solutioneditorbox";
     function renderEditor(scope, element, attrs) {

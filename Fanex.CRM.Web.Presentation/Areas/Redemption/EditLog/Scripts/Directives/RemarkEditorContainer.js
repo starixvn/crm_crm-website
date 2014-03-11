@@ -1,5 +1,7 @@
 ﻿"use strict";
-/* global editLogApplication, viewResources */
+/* global editLogApplication,
+viewResources,
+hotKeyManager */
 editLogApplication.directive('remarkEditorContainer', function () {
     var editorId = "remarkeditorbox";
     function renderRemarkEditor(scope, element, attrs) {

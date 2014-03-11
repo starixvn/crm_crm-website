@@ -1,7 +1,8 @@
 ﻿"use strict";
 /* global editLogApplication, 
 communicationLog,
-viewResources */
+viewResources,
+hotKeyManager */
 editLogApplication.directive('reviewEditorContainer', function () {
     var editorId = "revieweditorbox";
     function renderEditor(scope, element, attrs) {
