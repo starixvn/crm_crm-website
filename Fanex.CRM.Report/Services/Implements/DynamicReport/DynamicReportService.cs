@@ -723,8 +723,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             string reportTitle = string.Format(
                 Labels.DynamicReport_TitleWithNumberOfLog,
                 SettingService.GetPeriodTypeName(criteria.ReportType),
-                criteria.FromDate.ToShortFormatedDate(),
-                criteria.ToDate.ToShortFormatedDate(),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate(),
                 dynamicReport != null ? "[" + dynamicReport.TotalChildReports + "]" : string.Empty);
 
             CellRangeAddress cellRangeAddress;
