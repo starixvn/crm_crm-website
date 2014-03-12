@@ -82,23 +82,28 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
     }
 
     function sortReport(sortInfo, cachedLogs) {
-        if (sortInfo.sortField === "Subject" ||
-            sortInfo.sortField === "ClaimedTime") {
-            return cachedLogs.sort(function (elementA, elementB) {
-                var valueA = elementA[sortInfo.sortField];
-                var valueB = elementB[sortInfo.sortField];
-                var isGreaterThan = compareValues(sortInfo, valueA, valueB);
-                return isGreaterThan;
-            });
-        }
-
-        if (sortInfo.sortField === "StatusName") {
-            return cachedLogs.sort(function (elementA, elementB) {
-                var valueA = elementA.Status.Value;
-                var valueB = elementB.Status.Value;
-                var isGreaterThan = compareValues(sortInfo, valueA, valueB);
-                return isGreaterThan;
-            });
+        switch (sortInfo.sortField) {
+            case "Subject":
+                return cachedLogs.sort(function (elementA, elementB) {
+                    var valueA = elementA[sortInfo.sortField].toLowerCase();
+                    var valueB = elementB[sortInfo.sortField].toLowerCase();
+                    var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                    return isGreaterThan;
+                });
+            case "ClaimedTime":
+                return cachedLogs.sort(function (elementA, elementB) {
+                    var valueA = elementA[sortInfo.sortField];
+                    var valueB = elementB[sortInfo.sortField];
+                    var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                    return isGreaterThan;
+                });
+            case "StatusName":
+                return cachedLogs.sort(function (elementA, elementB) {
+                    var valueA = elementA.Status.Value.toLowerCase();
+                    var valueB = elementB.Status.Value.toLowerCase();
+                    var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                    return isGreaterThan;
+                });
         }
 
         return cachedLogs;

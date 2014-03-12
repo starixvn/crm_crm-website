@@ -384,7 +384,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
             CustomerInfo customer,
             ICellStyle centerTextStyle)
         {
-            customer.IsVIP = true;
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Title.Name, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.FirstName, exportExcelInfo.TextStyle);
@@ -440,22 +439,22 @@ namespace Fanex.CRM.Report.Repositories.Implements
                         .ToList();
                     break;
                 case "TitleName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.Title.Name, customerB.Title.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Title.Name, customerB.Title.Name, true));
                     break;
                 case "FirstName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.FirstName, customerB.FirstName));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.FirstName, customerB.FirstName, true));
                     break;
                 case "LastName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.LastName, customerB.LastName));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.LastName, customerB.LastName, true));
                     break;
                 case "CountryName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.Country.Name, customerB.Country.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Country.Name, customerB.Country.Name, true));
                     break;
                 case "Languages":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(GetCustomerLanguages(customerA), GetCustomerLanguages(customerB)));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(GetCustomerLanguages(customerA), GetCustomerLanguages(customerB), true));
                     break;
                 case "SiteSettingName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.SiteSetting.Name, customerB.SiteSetting.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.SiteSetting.Name, customerB.SiteSetting.Name, true));
                     break;
                 case "BirthDay":
                     sortedCustomerList = sortedCustomerList
@@ -489,22 +488,22 @@ namespace Fanex.CRM.Report.Repositories.Implements
                         .ToList();
                     break;
                 case "TitleName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.Title.Name, customerA.Title.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.Title.Name, customerA.Title.Name, true));
                     break;
                 case "FirstName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.FirstName, customerA.FirstName));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.FirstName, customerA.FirstName, true));
                     break;
                 case "LastName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.LastName, customerA.LastName));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.LastName, customerA.LastName, true));
                     break;
                 case "CountryName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.Country.Name, customerA.Country.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.Country.Name, customerA.Country.Name, true));
                     break;
                 case "Languages":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(GetCustomerLanguages(customerB), GetCustomerLanguages(customerA)));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(GetCustomerLanguages(customerB), GetCustomerLanguages(customerA), true));
                     break;
                 case "SiteSettingName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.SiteSetting.Name, customerA.SiteSetting.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.SiteSetting.Name, customerA.SiteSetting.Name, true));
                     break;
                 case "BirthDay":
                     sortedCustomerList = sortedCustomerList
