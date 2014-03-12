@@ -38,10 +38,10 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
                 var customer = customerReport.CustomerList[i];
                 var customerLanguages = getCustomerLanguages(customer);
                 bodyData.push({
-                    Columns: [{ Name: "ColVIP", TdClass: 'icon-' + (customer.IsVIP ? 'vip' : '') },
-                        { Name: "ColTitle", Value: customer.Title.Name },
+                    Columns: [{ Name: "ColTitle", Value: customer.Title.Name },
                         { Name: "ColFirstName", Value: customer.FirstName },
                         { Name: "ColLastName", Value: customer.LastName },
+                        { Name: "ColVIP", TdClass: 'icon-' + (customer.IsVIP ? 'vip' : '') },
                         { Name: "ColCountry", Value: customer.Country.Name },
                         { Name: "ColLanguage", Value: customerLanguages },
                         { Name: "ColSite", Value: customer.SiteSetting.Name },
@@ -51,10 +51,10 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
         }
 
         var sortColumnIndex = getSortColumnIndex();
-        var headerColumns = [{ HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
-            { HeaderText: viewResources.Title, Width: 40, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
+        var headerColumns = [{ HeaderText: viewResources.Title, Width: 40, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
             { HeaderText: viewResources.First_Name, Width: 120, Name: "ColFirstName", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Last_Name, Width: 120, Name: "ColLastName", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Country, Width: 140, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true },
@@ -132,13 +132,13 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
     function getSortColumnIndex() {
         var sortField = cachedData.scope.lastSelectedParams.SortField;
         switch (sortField) {
-            case "IsVIP":
-                return 0;
             case "TitleName":
-                return 1;
+                return 0;
             case "FirstName":
-                return 2;
+                return 1;
             case "LastName":
+                return 2;
+            case "IsVIP":
                 return 3;
             case "CountryName":
                 return 4;
