@@ -6,10 +6,12 @@ var HotKeyManager = function () {
 
     self.CachedData = {
         KeyPress: [],
+        BeforeBlurKeyPress: [],
         ActiveDocumentManager: [],
         isInvokeHotKey: false,
         isSupportedBrowser: false,
-        isIgnoreKey: false
+        isIgnoreKey: false,
+        isBubbleToParent: true
     };
 
     self.initPage = function () {
@@ -19,10 +21,20 @@ var HotKeyManager = function () {
         }
 
         self.CachedData.KeyPress = [];
+        self.updateKeyPressValue(false);
         self.bindEvent();
 
         if (parent && parent.hotKeyManager) {
-            self.CachedData.KeyPress = parent.hotKeyManager.CachedData.KeyPress;
+            self.CachedData.KeyPress = parent.hotKeyManager.CachedData.BeforeBlurKeyPress.slice(0);
+            self.CachedData.BeforeBlurKeyPress = self.CachedData.KeyPress;
+        }
+    };
+
+    self.updateKeyPressValue = function (isUpdateToParent) {
+        self.CachedData.BeforeBlurKeyPress = self.CachedData.KeyPress.slice(0);
+        if (isUpdateToParent && parent && parent.hotKeyManager) {
+            parent.hotKeyManager.CachedData.KeyPress = self.CachedData.KeyPress.slice(0);
+            parent.hotKeyManager.CachedData.BeforeBlurKeyPress = self.CachedData.BeforeBlurKeyPress.slice(0);
         }
     };
 
@@ -37,10 +49,10 @@ var HotKeyManager = function () {
             parent.hotKeyManager.CachedData.isIgnoreKey = true;
             var keyCode = parseInt(eventObject.keyCode);
             self.CachedData.KeyPress[keyCode.toString()] = true;
+            self.updateKeyPressValue(true);
             var isCustomHotKey = self.keyDown(eventObject);
 
-            if (!self.CachedData.isInvokeHotKey) {
-                parent.hotKeyManager.CachedData.KeyPress = hotKeyManager.CachedData.KeyPress;
+            if (!self.CachedData.isInvokeHotKey && self.CachedData.isBubbleToParent) {
                 isCustomHotKey = parent.hotKeyManager.invokeHotKey();
                 if (parent.hotKeyManager.CachedData.isInvokeHotKey) {
                     self.CachedData.isInvokeHotKey = true;
@@ -80,6 +92,7 @@ var HotKeyManager = function () {
         self.CachedData.isIgnoreKey = true;
         var keyCode = parseInt(eventObject.keyCode);
         self.CachedData.KeyPress[keyCode.toString()] = true;
+        self.updateKeyPressValue(true);
         var isCustomHotKey = self.keyDown(eventObject);
         if (self.CachedData.isInvokeHotKey) {
             self.delayInvokeHotKey();
@@ -96,8 +109,8 @@ var HotKeyManager = function () {
         return true;
     };
     self.documentBlur = function () {
+        self.CachedData.BeforeBlurKeyPress = self.CachedData.KeyPress.slice(0);
         self.CachedData.KeyPress = [];
-        parent.hotKeyManager.CachedData.KeyPress = [];
     };
 
     self.keyDown = function (eventObject) {
@@ -139,6 +152,7 @@ var HotKeyManager = function () {
 
         var keyCode = parseInt(eventObject.keyCode);
         self.CachedData.KeyPress[keyCode.toString()] = false;
+        self.updateKeyPressValue(true);
     };
     self.invokeHotKey = function () {
         var isCustomHotKey = false;

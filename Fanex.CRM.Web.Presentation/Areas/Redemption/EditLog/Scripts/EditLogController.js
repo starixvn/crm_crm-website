@@ -29,6 +29,8 @@ function (
             Value: $scope,
             Id: "CustomerCommunicationLogs_Edit"
         });
+
+        hotKeyManager.CachedData.isBubbleToParent = false;
     };
     $scope.getAllStatus = function () {
         $scope.BlockUI();

@@ -39,6 +39,8 @@ function (
             Value: $scope,
             Id: "CustomerCommunicationLogs_Insert"
         });
+
+        hotKeyManager.CachedData.isBubbleToParent = false;
     };
     $scope.getAllStatus = function () {
         $scope.BlockUI();

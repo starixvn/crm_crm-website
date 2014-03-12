@@ -662,5 +662,7 @@ function (
             Value: $scope,
             Id: "CustomerCommunicationLogs_Edit"
         });
+
+        hotKeyManager.CachedData.isBubbleToParent = false;
     });
 } ]);
