@@ -34,10 +34,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>The customer report.</returns>
         public List<CustomerInfo> GetCustomerReport(GetCustomerReportCriteria criteria)
         {
-            criteria.CountryIds = null;
-            criteria.SiteIds = null;
-            criteria.LanguageIds = null;
-            criteria.FromDateBirthDay = null;
             List<CustomerInfo> customerReport = new List<CustomerInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {

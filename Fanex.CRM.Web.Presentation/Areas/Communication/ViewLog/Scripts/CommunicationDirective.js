@@ -125,6 +125,15 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
             });
         }
 
+        if (sortInfo.sortField === "Category") {
+            return cachedLogs.sort(function (elementA, elementB) {
+                var valueA = (elementA.MainCategory.Name + "<br/>" + elementA.SubCategory.Name);
+                var valueB = (elementB.MainCategory.Name + "<br/>" + elementB.SubCategory.Name);
+                var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                return isGreaterThan;
+            });
+        }
+
         if (sortInfo.sortField === "Duration") {
             return cachedLogs.sort(function (elementA, elementB) {
                 var valueA = elementA[sortInfo.sortField];

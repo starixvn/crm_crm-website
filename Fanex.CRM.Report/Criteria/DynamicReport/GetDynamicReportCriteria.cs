@@ -50,10 +50,10 @@ namespace Fanex.CRM.Report.Criteria.DynamicReport
         [SpParam(SqlParamName = "subcategoryid")]
         public int SubCategoryId { get; set; }
 
-        [SpParam(SqlParamName = "handleby")]
+        [SpParam(SqlParamName = "handledby")]
         public string Handler { get; set; }
 
-        [SpParam(SqlParamName = "reviewby")]
+        [SpParam(SqlParamName = "reviewedby")]
         public string Reviewer { get; set; }
 
         [SpParam(SqlParamName = "extension")]

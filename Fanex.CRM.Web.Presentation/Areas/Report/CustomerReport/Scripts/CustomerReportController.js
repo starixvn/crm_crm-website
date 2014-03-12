@@ -198,6 +198,9 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope.updateSelectedTitle = function (title) {
             $scope.searchCriteria.Title = title;
         };
+        $scope.updateSelectedCustomerType = function (customerType) {
+            $scope.searchCriteria.CustomerType = customerType;
+        };
         $scope.updateFromDate = function (selectedDate) {
             $scope.searchCriteria.FromDate = selectedDate;
             $scope.toDateOptions.MinDate = selectedDate && selectedDate !== "" ? selectedDate : null;

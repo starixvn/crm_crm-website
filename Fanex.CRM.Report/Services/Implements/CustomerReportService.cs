@@ -74,8 +74,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
                 if (customerReport == null)
                 {
                     customerReport = new CustomerReportInfo();
-                    criteria.FromDateBirthDay = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDateBirthDay);
-                    criteria.ToDateBirthDay = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDateBirthDay);
                     customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria);
                     customerReport.TotalCustomer = customerReport.CustomerList.Count;
                     if (!string.IsNullOrEmpty(criteria.SortField) &&
@@ -114,8 +112,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
         {
             try
             {
-                criteria.FromDateBirthDay = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDateBirthDay);
-                criteria.ToDateBirthDay = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDateBirthDay);
                 criteria.IsGetFullReport = true;
                 CustomerReportInfo customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
                 if (customerReport == null)

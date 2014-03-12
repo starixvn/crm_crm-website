@@ -487,8 +487,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 Name = string.Format(
                     Labels.DynamicReport_Title,
                     Labels.Yearly,
-                    criteria.FromDate.ToShortFormatedDate(),
-                    criteria.ToDate.ToShortFormatedDate())
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
             if (rawData == null ||
@@ -547,8 +547,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 Name = string.Format(
                     Labels.DynamicReport_Title,
                     Labels.Monthly,
-                    criteria.FromDate.ToShortFormatedDate(),
-                    criteria.ToDate.ToShortFormatedDate())
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
             if (rawData == null ||
@@ -606,8 +606,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 Name = string.Format(
                     Labels.DynamicReport_Title,
                     Labels.Weekly,
-                    criteria.FromDate.ToShortFormatedDate(),
-                    criteria.ToDate.ToShortFormatedDate())
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
             if (rawData == null ||
@@ -661,8 +661,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 Name = string.Format(
                     Labels.DynamicReport_Title,
                     Labels.Daily,
-                    criteria.FromDate.ToShortFormatedDate(),
-                    criteria.ToDate.ToShortFormatedDate())
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
             if (rawData == null ||
