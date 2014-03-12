@@ -155,6 +155,7 @@ function (
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
         $scope.preupdateLog();
+        $scope.$apply();
     };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlE = function () {
@@ -535,11 +536,6 @@ function (
     };
     $scope.validateUpdateLogCriteria = function (criteria) {
         var result = true;
-        if (result && criteria.CountryId === crmConstants.Enums.Country.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NACountry;
-            result = false;
-        }
-
         if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NALanguage;
             result = false;
@@ -552,11 +548,6 @@ function (
 
         if (result && criteria.BetTypeId === crmConstants.Enums.BetType.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NABetType;
-            result = false;
-        }
-
-        if (result && criteria.SiteId === crmConstants.Enums.Product.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NASite;
             result = false;
         }
 
@@ -591,7 +582,6 @@ function (
             $scope.isSuccess = false;
         }
 
-        $scope.$apply();
         return result;
     };
     $scope.unblockUI = function () {

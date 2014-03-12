@@ -583,11 +583,6 @@ function (
     };
     $scope.validateInsertLogCriteria = function (criteria) {
         var result = true;
-        if (result && criteria.CountryId === crmConstants.Enums.Country.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NACountry;
-            result = false;
-        }
-
         if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NALanguage;
             result = false;
@@ -600,11 +595,6 @@ function (
 
         if (result && criteria.BetTypeId === crmConstants.Enums.BetType.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NABetType;
-            result = false;
-        }
-
-        if (result && criteria.SiteId === crmConstants.Enums.Product.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NASite;
             result = false;
         }
 
