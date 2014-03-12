@@ -274,9 +274,9 @@ namespace Fanex.CRM.Report.Repositories.Implements
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile);
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 400 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
@@ -297,10 +297,10 @@ namespace Fanex.CRM.Report.Repositories.Implements
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.VIP, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Title, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.First_Name, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Last_Name, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.VIP, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Language, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Site, headerStyle);
@@ -384,10 +384,10 @@ namespace Fanex.CRM.Report.Repositories.Implements
             CustomerInfo customer,
             ICellStyle centerTextStyle)
         {
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Title.Name, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.FirstName, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.LastName, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Country.Name, exportExcelInfo.TextStyle);
 
             var customerLanguages = string.Join(", ", customer.Languages.Select(language => language.Name));
