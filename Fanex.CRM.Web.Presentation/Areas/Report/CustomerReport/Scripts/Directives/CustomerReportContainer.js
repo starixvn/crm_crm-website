@@ -41,7 +41,11 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
                     Columns: [{ Name: "ColTitle", Value: customer.Title.Name },
                         { Name: "ColFirstName", Value: customer.FirstName },
                         { Name: "ColLastName", Value: customer.LastName },
-                        { Name: "ColVIP", TdClass: 'icon-' + (customer.IsVIP ? 'vip' : '') },
+                        {
+                            Name: "ColVIP",
+                            TdClass: 'icon-' + (customer.IsVIP ? 'vip' : ''),
+                            Value: customer.IsVIP ? "<span class='glyphicon glyphicon-ok'></span>" : ''
+                        },
                         { Name: "ColCountry", Value: customer.Country.Name },
                         { Name: "ColLanguage", Value: customerLanguages },
                         { Name: "ColSite", Value: customer.SiteSetting.Name },
