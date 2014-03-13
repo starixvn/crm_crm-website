@@ -380,7 +380,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
             CustomerInfo customer,
             ICellStyle centerTextStyle)
         {
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Title.Name, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Title.Name, centerTextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.FirstName, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.LastName, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
