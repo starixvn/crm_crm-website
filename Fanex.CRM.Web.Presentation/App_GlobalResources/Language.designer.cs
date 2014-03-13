@@ -775,6 +775,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;span class=&quot;mandatoryfield&quot;&gt;*&lt;/span&gt;.
+        /// </summary>
+        internal static string RequiredFieldTemplate {
+            get {
+                return ResourceManager.GetString("RequiredFieldTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resolution Time.
         /// </summary>
         internal static string ResolutionTime {

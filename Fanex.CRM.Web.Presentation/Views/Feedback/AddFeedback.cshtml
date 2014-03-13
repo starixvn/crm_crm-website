@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="row panel-group">
-        <div class="row title hand" onclick="showHideDetailBox(isShowCustinfoBox, 'CustInfo'); isShowCustinfoBox = !isShowCustinfoBox;">
+        <div class="row title hand" onclick="showHideDetailBox(isShowCustinfoBox, 'CustInfo', $(this)); isShowCustinfoBox = !isShowCustinfoBox;">
             <b><span id="lblUserName" value=""></span></b>
         </div>
         <div class="CustInfo row content">
@@ -237,7 +237,7 @@
     </div>
 
     <div class="row panel-group">
-        <div class="row title hand" onclick="showHideDetailBox(isShowFeedbackDetailBox, 'FeedbackDetail'); isShowFeedbackDetailBox = !isShowFeedbackDetailBox;">
+        <div class="row title hand" onclick="showHideDetailBox(isShowFeedbackDetailBox, 'FeedbackDetail', $(this)); isShowFeedbackDetailBox = !isShowFeedbackDetailBox;">
             @Language.Details
         </div>
         <div class="FeedbackDetail row content">
@@ -402,7 +402,7 @@
 
     <div class="row panel-group">
         <div class="row title">
-            <div class="pull-left hand" onclick="showHideDetailBox(isShowDescriptionBox, 'FeedbackDescription'); isShowDescriptionBox = !isShowDescriptionBox;">
+            <div class="pull-left hand" onclick="showHideDetailBox(isShowDescriptionBox, 'FeedbackDescription', $(this).parent()); isShowDescriptionBox = !isShowDescriptionBox;">
                 @Language.Description<span class="hidden error errormsg" id="deseditererror"></span>
             </div>
             <div class="pull-right">
@@ -422,7 +422,7 @@
 
     <div class="row panel-group">
         <div class="row title">
-            <div class="pull-left hand" onclick="showHideDetailBox(isShowSolutionBox, 'FeedbackSolution'); isShowSolutionBox = !isShowSolutionBox;">
+            <div class="pull-left hand" onclick="showHideDetailBox(isShowSolutionBox, 'FeedbackSolution', $(this).parent()); isShowSolutionBox = !isShowSolutionBox;">
                 @Language.solution<span class="hidden error errormsg" id="soleditererror"></span>
             </div>
             <div class="pull-right">

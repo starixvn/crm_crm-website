@@ -171,8 +171,12 @@ function loadFeedbackAfterCallAjax(rs, Id) {
     }
 
     $("#birthdayInfo").datepicker({
-        dateFormat: "mm/dd/yy",
-        maxDate: new Date(clientTime)
+        dateFormat: "M dd, yy",
+        maxDate: new Date(clientTime),
+        changeMonth: true,
+        changeYear: true,
+        showOtherMonths: true,
+        selectOtherMonths: true
     });
     $("#birthdayInfo").datepicker("setDate", customerInfo.BirthDayString);
 
@@ -216,14 +220,16 @@ function loadFeedbackAfterCallAjax(rs, Id) {
 
     $("#txtsubject").val(rs.Subject);
 
-    if (rs.Reviewer != null) {
+    if (rs.Reviewer) {
         revvalue = rs.Review;
         var strsoldate = "";
         if (rs.SolvedDate != null) {
             strsoldate = rs.SolvedDate;
         }
 
-        $("#lblEditedBy").text("(Reviewed by " + rs.Reviewer.Username + " on " + strsoldate + ")");
+        if (revvalue.length !== 0) {
+            $("#lblEditedBy").text("(Reviewed by " + rs.Reviewer.Username + " on " + strsoldate + ")");
+        }
         $("#previewboxrev").html(revvalue);
         initHTMLArea('editboxrev', 'revediter', revvalue);
     }
@@ -502,13 +508,27 @@ function EditFeedback() {
             return false;
         }
         //----------check length of data
-        if ($("#desediter").htmlarea("toHtmlString").length > 8000) {
+        var descriptionLen = $("#desediter").htmlarea("toHtmlString").trim().length;
+        if (descriptionLen === 0) {
+            $('#desediter').focus();
+            showAlertMessage("errmsg", 'Please input description!', 1);
+            return false;
+        }
+        if (descriptionLen > 8000) {
             $('#desediter').focus();
             showAlertMessage("errmsg", 'Max length of Description is 8000!', 1);
             return false;
         }
-        if ($("#solediter").htmlarea("toHtmlString").length > 8000) {
-            $('#solediter').focus();
+
+        var solutionElement = $("#solediter");
+        var solutionValue = solutionElement.htmlarea("toHtmlString");
+        if (solutionValue === '' || solutionValue === '<br>') {
+            solutionElement.focus();
+            showAlertMessage("errmsg", 'Please input solution!', 1);
+            return false;
+        }
+        if (solutionValue.length > 8000) {
+            solutionElement.focus();
             showAlertMessage("errmsg", 'Max length of Solution is 8000!', 1);
             return false;
         }

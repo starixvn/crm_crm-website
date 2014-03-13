@@ -408,18 +408,21 @@ function SetupCalendar(arrDateValues, arrIds) {
         var index = arrIds[i];
         var valueIndex = arrDateValues[i];
 
-        $('#' + index).datetimepicker(
-        {
+        $('#' + index).datetimepicker({
+            dateFormat: 'M dd, yy',
             timeFormat: 'hh:mm TT',
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
-            //showSecond: true,
-            ampm: true
+            ampm: true,
+            changeMonth: true,
+            changeYear: true,
+            showOtherMonths: true,
+            selectOtherMonths: true
         });
 
         if (valueIndex != null && valueIndex !== "") {
-            $('#' + index).datepicker('setDate', (new Date(valueIndex)));
+            $('#' + index).datepicker('setDate', valueIndex);
         }
     }
 }
@@ -623,14 +626,8 @@ function DeleteRelatedCust(custId) {
 }
 function feedbackObjectValidate(editorObj, otherObj) {
     var result = true;
-
-    $(".errormsg").each(function () {
-        if ($(this).hasClass("hidden") === false) {
-            $(this).addClass("hidden");
-        }
-    });
+    $(".errormsg").addClass("hidden");
     //---editor
-
     for (var i = 0; i < editorObj.length; i++) {
         if (trimSpace(trimSpacesOnEditor($("#" + editorObj[i]).htmlarea("toHtmlString"))) === "") {
             $("#" + editorObj[i].replace("editer", "editererror")).removeClass("hidden").html("This information is required");
@@ -639,15 +636,60 @@ function feedbackObjectValidate(editorObj, otherObj) {
         }
     }
     //----other
+    var element;
     for (var j = 0; j < otherObj.length; j++) {
-        if ($("#" + otherObj[j]).val() === "") {
+        element = $("#" + otherObj[j]);
+        if (element.val() === "") {
             $("#" + otherObj[j].replace("ddl", "error").replace("txt", "error")).removeClass("hidden").html("This information is required");
-            $("#" + otherObj[j]).focus();
+            element.focus();
             result = false;
         }
     }
     //-------------
     return result;
+}
+
+function validateInputData(editors, textboxes, comboboxes) {
+    /* data structure of input data: { element: '', error: { control: '', message: '' } } */
+    var result = true;
+    /* editors */
+    var editorsLen = editors ? editors.length : 0;
+    for (var i = 0; i < editorsLen; i++) {
+        if (trimSpace(trimSpacesOnEditor(editors[i].element.htmlarea("toHtmlString"))) === "") {
+            editors[i].error.control.removeClass("hidden").html(editors[i].error.message);
+            editors[i].element.focus();
+            result = false;
+        }
+    }
+    /* textboxes */
+    var textboxesLen = textboxes ? textboxes.length : 0;
+    for (var i = 0; i < textboxesLen; i++) {
+        if (trimSpace(textboxes[i].element.val()) === "") {
+            textboxes[i].error.control.removeClass("hidden").html(textboxes[i].error.message);
+            textboxes[i].element.focus();
+            result = false;
+        }
+    }
+    /* comboboxes */
+    var comboboxesLen = comboboxes ? comboboxes.length : 0;
+    for (var i = 0; i < comboboxesLen; i++) {
+        var text = comboboxes[i].element.val();
+        if (text === "" || text === "0" || text.toLowerCase === "n/a") {
+            comboboxes[i].error.control.removeClass("hidden").html(comboboxes[i].error.message);
+            comboboxes[i].element.focus();
+            result = false;
+        }
+    }
+    //-------------
+    return result;
+}
+
+function validatePersonalTab() {
+    var i
+}
+
+function validateDetail() {
+
 }
 
 function bindingSite(id, rs, currentValue) {
@@ -822,11 +864,18 @@ function getAutoFeedbackSubject() {
 
 }
 
-function showHideDetailBox(isShow, detailBoxid) {
+function showHideDetailBox(isShow, detailBoxid, $this) {
+    var container = $('.' + detailBoxid);
     if (isShow) {
-        $('.' + detailBoxid).removeClass('hidden');
+        container.removeClass('hidden');
+        if ($this) {
+            $this.removeClass('border-bottom-none');
+        }
     }
     else {
-        $('.' + detailBoxid).addClass('hidden');
+        container.addClass('hidden');
+        if ($this) {
+            $this.addClass('border-bottom-none');
+        }
     }
 }

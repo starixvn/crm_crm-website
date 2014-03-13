@@ -59,7 +59,7 @@ namespace Fanex.CRM.Entities
         {
             get
             {
-                if (!BirthDay.HasValue)
+                if (!BirthDay.HasValue || BirthDay.Value == DateTime.MinValue)
                 {
                     return string.Empty;
                 }
@@ -67,6 +67,7 @@ namespace Fanex.CRM.Entities
                 return BirthDay.Value.ToString("MM/dd/yyyy");
             }
         }
+
         [DataMember]
         public int Site { get; set; }
         [DataMember]

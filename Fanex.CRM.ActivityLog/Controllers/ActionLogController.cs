@@ -46,7 +46,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         /// Gets the activity log.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns></returns>
+        /// <returns>The JSON result.</returns>
         [NapAuth(FunctionKey = FunctionPermission.ViewActivityLog, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetActivityLog(GetActivityLogCriteria criteria)
@@ -80,7 +80,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         /// Gets the setting log.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns></returns>
+        /// <returns>The JSON result.</returns>
         [NapAuth(FunctionKey = FunctionPermission.ViewActivityLog, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)

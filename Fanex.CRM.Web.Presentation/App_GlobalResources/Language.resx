@@ -411,4 +411,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Review" xml:space="preserve">
     <value>Review</value>
   </data>
+  <data name="RequiredFieldTemplate" xml:space="preserve">
+    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
+  </data>
 </root>

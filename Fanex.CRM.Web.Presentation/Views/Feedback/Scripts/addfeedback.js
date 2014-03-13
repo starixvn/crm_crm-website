@@ -391,7 +391,9 @@ function getCRMInfoById(custId) {
             $("#emailInfo").val(customerInfo.Email);
             $("#msnInfo").val(customerInfo.MSN);
             $("#passportInfo").val(customerInfo.PassportNumber);
-            $("#birthdayInfo").datepicker("setDate", customerInfo.BirthDayString);
+            if (customerInfo.BirthDayString !== '') {
+                $("#birthdayInfo").datepicker("setDate", new Date(customerInfo.BirthDayString));
+            }
             $("#bettingCodeInfo").val(customerInfo.BettingCode);
             $("#refCodes2Info").val(customerInfo.RefCodes2);
             $("#isVIP").prop("checked", customerInfo.IsVIP);
@@ -441,8 +443,8 @@ function getCRMInfoById(custId) {
                 }
             });
             /*if (rs.RelatedCustomer != null && rs.RelatedCustomer.UserName !== "") {
-                $("#chkisrelated").prop("checked", true);
-                $("#btnverify").removeAttr("disabled");
+            $("#chkisrelated").prop("checked", true);
+            $("#btnverify").removeAttr("disabled");
             }*/
         }
     });
@@ -463,13 +465,17 @@ head.ready(function () {
     var resolutiondate = new Date(clientTime);
     resolutiondate.setMinutes(feedbackdate.getMinutes() + 1);
 
-    var arrDateValues = [feedbackdate.format("m/d/Y H:i"), resolutiondate.format("m/d/Y H:i")];
+    var arrDateValues = [feedbackdate, resolutiondate];
     var arrIds = ['txtdate', 'txtResolutionTime'];
     /* jshint newcap: false */
     SetupCalendar(arrDateValues, arrIds);
     $("#birthdayInfo").datepicker({
-        dateFormat: "mm/dd/yy",
-        maxDate: new Date(clientTime)
+        dateFormat: "M dd, yy",
+        maxDate: new Date(clientTime),
+        changeMonth: true,
+        changeYear: true,
+        showOtherMonths: true,
+        selectOtherMonths: true
     });
 
     $('#btnRelatedHelp').tipsy({ gravity: 'nw', title: function () { return inputMultipleRelatedNote; } });

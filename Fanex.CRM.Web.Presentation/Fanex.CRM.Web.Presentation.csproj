@@ -448,6 +448,7 @@
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
     <Content Include="Views\Customer\Styles\StyleSheet.css" />
+    <Content Include="Views\Feedback\Scripts\feedbackdata.js" />
     <Content Include="Views\Feedback\Styles\Images\bg-topSelected.png" />
     <Content Include="Views\Feedback\Styles\Images\del-icon.png" />
     <Content Include="Views\Home\Scripts\DashboardManager.js" />

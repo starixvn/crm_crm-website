@@ -12,10 +12,18 @@ var lastedFeedback;
 
 // -- Calendar --- //
 function setupCalendar(arrDateValues, arrIds) {
+    var config = {
+        dateFormat: 'M dd, yy',
+        changeMonth: true,
+        changeYear: true,
+        showOtherMonths: true,
+        selectOtherMonths: true
+    }
     for (var i = 0; i < arrIds.length; i++) {
-        if (arrDateValues[i] != null && arrDateValues[i] !== "") {
-            $('#' + arrIds[i]).datepicker();
-            $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
+        if (arrDateValues[i]) {
+            var datepickerElement = $('#' + arrIds[i]);
+            datepickerElement.datepicker(config);
+            datepickerElement.datepicker('setDate', arrDateValues[i]);
         }
     }
 }
@@ -288,13 +296,9 @@ lastedFeedback = {
 
 head.ready(
     function () {
-        var fdate, tdate;
-        fdate = addDays(new Date(), -1);
-        tdate = new Date();
-        var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
-
-        var arrIds = ['txtfromdate', 'txttodate'];
-        setupCalendar(arrDateValues, arrIds);
+        var tdate = new Date();
+        var fdate = addDays(tdate, -1);
+        setupCalendar([fdate, tdate], ['txtfromdate', 'txttodate']);
 
         var gridOpts = {
             tblContentId: 'latestfeedbackbody',
