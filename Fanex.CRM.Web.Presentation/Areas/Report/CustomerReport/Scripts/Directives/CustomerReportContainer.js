@@ -37,6 +37,15 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             for (var i = 0; i < reportLength; i++) {
                 var customer = customerReport.CustomerList[i];
                 var customerLanguages = getCustomerLanguages(customer);
+
+                var contactInfo = [];
+                var contactLength = customer.PhoneInfo.length;
+                for (var j = 0; j < contactLength; j++) {
+                    var contact = customer.PhoneInfo[j];
+                    contactInfo.push(sharedScriptManager.stringFormat("{0}-{1}-{2}",
+                        [contact.CountryCode, contact.AreaCode, contact.PhoneNumber]));
+                }
+
                 bodyData.push({
                     Columns: [{ Name: "ColTitle", Value: customer.Title.Name },
                         { Name: "ColFirstName", Value: customer.FirstName },
@@ -46,23 +55,47 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
                             TdClass: 'icon-' + (customer.IsVIP ? 'vip' : ''),
                             Value: customer.IsVIP ? "<span class='glyphicon glyphicon-ok'></span>" : ''
                         },
-                        { Name: "ColCountry", Value: customer.Country.Name },
-                        { Name: "ColLanguage", Value: customerLanguages },
+                        {
+                            Name: "ColContactNumber",
+                            Value: contactInfo.join("<div class='contactpadding'>&nbsp;</div>")
+                        },
+                        {
+                            Name: "ColMobile",
+                            Value: sharedScriptManager.stringFormat("{0}-{1}-{2}",
+                                [customer.MobilePhone.CountryCode, customer.MobilePhone.AreaCode, customer.MobilePhone.PhoneNumber])
+                        },
+                        {
+                            Name: "ColFax",
+                            Value: sharedScriptManager.stringFormat("{0}-{1}-{2}",
+                                [customer.FaxInfo.CountryCode, customer.FaxInfo.AreaCode, customer.FaxInfo.FaxNumber])
+                        },
+                        { Name: "ColSkype", Value: customer.Skype },
+                        { Name: "ColEmail", Value: customer.Email },
+
+                        { Name: "ColBirthday", Value: customer.BirthDayString },
                         { Name: "ColSite", Value: customer.SiteSetting.Name },
-                        { Name: "ColBirthday", Value: customer.BirthDayString}]
+                        { Name: "ColCountry", Value: customer.Country.Name },
+                        { Name: "ColLanguage", Value: customerLanguages}]
                 });
             }
         }
 
         var sortColumnIndex = getSortColumnIndex();
-        var headerColumns = [{ HeaderText: viewResources.Title, Width: 40, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
+        var headerColumns = [{ HeaderText: viewResources.Title, Width: 60, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
             { HeaderText: viewResources.First_Name, Width: 120, Name: "ColFirstName", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Last_Name, Width: 120, Name: "ColLastName", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
-            { HeaderText: viewResources.Country, Width: 140, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left", Sort: true },
-            { HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
+
+            { HeaderText: viewResources.Contact_Number, Width: 180, Name: "ColContactNumber", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: viewResources.Mobile, Width: 180, Name: "ColMobile", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: viewResources.Fax, Width: 180, Name: "ColFax", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: viewResources.Skype, Width: 140, Name: "ColSkype", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: viewResources.Email, Width: 140, Name: "ColEmail", HeaderAlign: "center", CellAlign: "left" },
+
+            { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true },
             { HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true },
-            { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true}];
+            { HeaderText: viewResources.Country, Width: 140, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true}];
         if (sortColumnIndex !== -1) {
             headerColumns[sortColumnIndex].SortDirection = cachedData.scope.lastSelectedParams.SortDirection;
         }
