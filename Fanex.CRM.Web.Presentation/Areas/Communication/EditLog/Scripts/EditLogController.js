@@ -44,6 +44,8 @@ function (
     $scope.oldRelatedCustomer = '';
     $scope.isSetFocus = false;
     $scope.hasReviewPermission = hasReviewPermission;
+    $scope.isShowRemarkBox = true;
+    $scope.isShowSolutionBox = true;
 
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
