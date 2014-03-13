@@ -466,7 +466,7 @@
 
     <div class="row btn-group">
         <button class="btn" onclick="AddFeedback();">
-            Save</button>
+            <span class="hotkey">S</span>ave</button>
     </div>
 </div>
 <div id="divOverrideCRMInfo" class="selector" style="display: none;"></div>
@@ -507,6 +507,8 @@
             .js("@Url.Content("~/Scripts/InputBox/jquery.fcbkcomplete.js?ver=4")")
             .js("@Url.Content("~/Scripts/MultipleSelect/fanex.multiSelect.js")")
             .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=2")")
-            .js("@Url.Content("~/Views/Feedback/Scripts/addfeedback.js?ver=1")");
+            .js("@Url.Content("~/Views/Feedback/Scripts/addfeedback.js?ver=1")")
+            .js("@Url.Content("~/Scripts/ShareScripts/KeyboardManager.js")")
+            .js("@Url.Content("~/Scripts/ShareScripts/HotKeyManager.js")");
     });   
 </script>

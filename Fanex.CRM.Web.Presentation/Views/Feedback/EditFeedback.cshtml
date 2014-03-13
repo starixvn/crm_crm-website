@@ -462,7 +462,8 @@
         </div>
     </div>
     <div class="row btn-group">
-        <input type="button" class="btn updateFeedback" onclick="EditFeedback();" id="btnsubmitbottom" value="Save" />
+        <button id="btnsubmitbottom"class="btn updateFeedback" onclick="EditFeedback();">
+            <span class="hotkey">S</span>ave</button>
     </div>
 </div>
 <div id="divPopup" class="selector" style="display: none;">
@@ -507,6 +508,8 @@
             .js("@Url.Content("~/Scripts/InputBox/jquery.fcbkcomplete.js")")
             .js("@Url.Content("~/Scripts/MultipleSelect/fanex.multiSelect.js")")
             .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=2")")
-            .js("@Url.Content("~/Views/Feedback/Scripts/editfeedback.js?ver=1")");
+            .js("@Url.Content("~/Views/Feedback/Scripts/editfeedback.js?ver=1")")
+            .js("@Url.Content("~/Scripts/ShareScripts/KeyboardManager.js")")
+            .js("@Url.Content("~/Scripts/ShareScripts/HotKeyManager.js")");
     });   
 </script>

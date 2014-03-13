@@ -167,7 +167,7 @@ appendListFeedbacksLasted = function (range) {
 
 /* jshint camelcase: false */
 var invokeHotKey_CtrlS = function () {
-    alert(123);
+    AddGuestFeedback();
 };
 
 head.ready(function () {
@@ -178,10 +178,10 @@ head.ready(function () {
     feedbackData.initialize();
 
     /* register hot key */
-    /*hotKeyManager.CachedData.ActiveDocumentManager.push({
+    hotKeyManager.CachedData.ActiveDocumentManager.push({
         Value: window,
         Id: 'AddGuestFeedback'
-    });*/
-    
+    });
+
     $("#txtidentity").focus();
 });

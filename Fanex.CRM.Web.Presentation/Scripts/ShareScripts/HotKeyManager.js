@@ -51,7 +51,7 @@ var HotKeyManager = function () {
             self.CachedData.KeyPress[keyCode.toString()] = true;
             self.updateKeyPressValue(true);
             var isCustomHotKey = self.keyDown(eventObject);
-
+                                    
             if (!self.CachedData.isInvokeHotKey && self.CachedData.isBubbleToParent) {
                 isCustomHotKey = parent.hotKeyManager.invokeHotKey();
                 if (parent.hotKeyManager.CachedData.isInvokeHotKey) {

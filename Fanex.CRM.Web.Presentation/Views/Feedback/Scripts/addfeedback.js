@@ -451,6 +451,11 @@ function getCRMInfoById(custId) {
     });
 }
 
+/* jshint camelcase: false */
+var invokeHotKey_CtrlS = function () {
+    AddFeedback();
+};
+
 head.ready(function () {
     initHTMLArea('editboxdes', 'desediter', '');
     initHTMLArea('editboxsol', 'solediter', '');
@@ -527,4 +532,10 @@ head.ready(function () {
     getCRMInfoById(custId);
     $("#ddltitle").focus();
     $("#typeCust").attr("tabindex", 48);
+
+    /* register hot key */
+    hotKeyManager.CachedData.ActiveDocumentManager.push({
+        Value: window,
+        Id: 'AddGuestFeedback'
+    });
 });

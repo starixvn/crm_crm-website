@@ -962,6 +962,11 @@ appendListFeedbacksLasted = function (range) {
     });
 };
 
+/* jshint camelcase: false */
+var invokeHotKey_CtrlS = function () {
+    EditFeedback();
+};
+
 head.ready(function () {
     //try { parentWnd = findMainWindow(window); } catch (e) { }
     $("#txtsubject").keyup(function (e) {
@@ -1016,7 +1021,14 @@ head.ready(function () {
 
     $("#btnsubmit").removeAttr("disabled");
     $("#btnsubmitbottom").removeAttr("disabled");
+    $("#btnsubmitbottom").focus();
     responsePage = gup('rep');
+
+    /* register hot key */
+    hotKeyManager.CachedData.ActiveDocumentManager.push({
+        Value: window,
+        Id: 'AddGuestFeedback'
+    });
 });
 
 feedbackEdit = {
