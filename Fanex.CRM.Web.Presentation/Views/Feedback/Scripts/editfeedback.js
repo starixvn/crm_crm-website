@@ -227,6 +227,10 @@ function loadFeedbackAfterCallAjax(rs, Id) {
             strsoldate = rs.SolvedDate;
         }
 
+        if (rs.Reviewer.Id > 0) {
+            $("#chkisreview").prop('checked', true);
+        }
+
         if (revvalue.length !== 0) {
             $("#lblEditedBy").text("(Reviewed by " + rs.Reviewer.Username + " on " + strsoldate + ")");
         }

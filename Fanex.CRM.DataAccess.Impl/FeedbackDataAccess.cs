@@ -381,7 +381,7 @@ namespace Fanex.CRM.DataAccess.Impl
 
                 param.Add("updatereviewedmode", entity.UpdateReviewMode);
                 param.Add("isreviewed", entity.IsReviewed);
-                if (entity.IsReviewed)
+                if (entity.UpdateReviewMode == 1)
                 {
                     param.Add("review", entity.Review);
                     param.Add("reviewerid", entity.Reviewer.Id);
