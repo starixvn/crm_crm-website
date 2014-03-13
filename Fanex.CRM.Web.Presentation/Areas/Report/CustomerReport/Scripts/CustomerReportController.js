@@ -4,7 +4,6 @@ hotKeyManager,
 viewResources,
 crmConstants,
 currentDate: true,
-initFromDate: true,
 moment,
 sharedScriptManager */
 /* jshint camelcase: false */
@@ -34,8 +33,8 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
 
         $scope.isUpdatingDate = false;
         $scope.searchCriteria = {
-            FromDate: initFromDate,
-            ToDate: new Date(currentDate),
+            FromDate: '',
+            ToDate: '',
             FirstName: '',
             LastName: '',
 
@@ -73,7 +72,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope.initPicker = function () {
             $scope.fromDateOptions = {
                 CurrentDate: currentDate,
-                InitDate: initFromDate,
+                InitDate: null,
                 MaxDate: currentDate,
                 IsRerenderPicker: false,
                 OnChangeDateEvent: $scope.updateFromDate,
@@ -83,7 +82,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
 
             $scope.toDateOptions = {
                 CurrentDate: currentDate,
-                InitDate: currentDate,
+                InitDate: null,
                 MaxDate: currentDate,
                 IsRerenderPicker: false,
                 OnChangeDateEvent: $scope.updateToDate,
@@ -130,7 +129,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedSite,
                 AllText: viewResources.All_Sites,
-                MinWidth: 250,
+                MinWidth: 350,
                 MaxHeight: 450,
                 NoItemText: viewResources.No_site_found,
                 NoneSelectedText: viewResources.Symbol_NotApply,
@@ -199,6 +198,9 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope.updateSelectedTitle = function (title) {
             $scope.searchCriteria.Title = title;
         };
+        $scope.updateSelectedCustomerType = function (customerType) {
+            $scope.searchCriteria.CustomerType = customerType;
+        };
         $scope.updateFromDate = function (selectedDate) {
             $scope.searchCriteria.FromDate = selectedDate;
             $scope.toDateOptions.MinDate = selectedDate && selectedDate !== "" ? selectedDate : null;
@@ -219,8 +221,12 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope.getCustomerReport = function () {
             $scope.BlockUI();
             var getReportCriteria = {
-                FromDateBirthDay: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-                ToDateBirthDay: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                FromDateBirthDay: $scope.searchCriteria.FromDate ?
+                    moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                    '',
+                ToDateBirthDay: $scope.searchCriteria.ToDate ?
+                    moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                    '',
 
                 FirstName: $scope.searchCriteria.FirstName,
                 LastName: $scope.searchCriteria.LastName,
@@ -270,6 +276,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
                 .then(function (data) {
                     $scope.customerReportOptions.DataList = data.Result;
+                    $scope.customerReportOptions.IsUpdateGrid = true;
                     $scope.unblockUI();
                 },
                 function (data) {

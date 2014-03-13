@@ -280,8 +280,7 @@ function LoadFeedback(Id) {
 // Get data from form to update 
 function getFeedbackData() {
     /* jshint maxstatements: 86 */
-    var RelatedCustID = ($("#chkisrelated").prop("checked") && $('#txtrelatedcustomer option').length === 0)
-        ? getRelatedCustomer()
+    var RelatedCustID = ($("#chkisrelated").prop("checked") && $('#txtrelatedcustomer option').length === 0) ? getRelatedCustomer()
         : "_";
     var IsUpdateReviewed = $("#chkisreview").prop("checked");
     var reviewContent = $("#revediter").htmlarea("toHtmlString");

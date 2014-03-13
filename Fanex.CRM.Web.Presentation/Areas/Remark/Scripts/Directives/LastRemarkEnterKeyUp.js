@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global remarkApplication,
 keyboardManager */
+/* jshint unused: vars */
 remarkApplication.directive('onEnterKeyup', function () {
     return {
         restrict: 'A',

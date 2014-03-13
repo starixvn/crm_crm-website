@@ -100,6 +100,8 @@ function (
     $scope.isVerifyRelatedCustomer = false;
     $scope.isSetFocus = false;
     $scope.hasReviewPermission = hasReviewPermission;
+    $scope.isShowRemarkBox = true;
+    $scope.isShowSolutionBox = true;
 
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
@@ -151,14 +153,22 @@ function (
         $scope.unblockUI();
     };
     $scope.initSelectedLogInfo = function () {
+        if ($scope.mainCategoryList === null ||
+            $scope.mainCategoryList === undefined) {
+            return;
+        }
+
         $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
         $scope.betTypeList = $scope.productList[0].ChildSettings;
+
 
         $scope.communicationLog.StartTime = new Date(currentTime);
         var initEndTime = new Date(currentTime);
         initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);
         $scope.communicationLog.EndTime = initEndTime;
+
         $scope.communicationLog.Extension = $scope.extensionList[0];
+
         $scope.communicationLog.Country = {
             Id: crmConstants.Enums.Country.NotApply
         };
@@ -575,11 +585,6 @@ function (
     };
     $scope.validateInsertLogCriteria = function (criteria) {
         var result = true;
-        if (result && criteria.CountryId === crmConstants.Enums.Country.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NACountry;
-            result = false;
-        }
-
         if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
             result = false;
@@ -597,11 +602,6 @@ function (
 
         if (result && criteria.BetTypeId === crmConstants.Enums.BetType.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NABetType;
-            result = false;
-        }
-
-        if (result && criteria.SiteId === crmConstants.Enums.Product.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NASite;
             result = false;
         }
 
@@ -699,5 +699,7 @@ function (
             Value: $scope,
             Id: "CustomerCommunicationLogs_Insert"
         });
+
+        hotKeyManager.CachedData.isBubbleToParent = false;
     });
 } ]);

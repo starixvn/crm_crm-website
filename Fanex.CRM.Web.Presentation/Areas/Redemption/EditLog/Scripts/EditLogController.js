@@ -29,6 +29,8 @@ function (
             Value: $scope,
             Id: "CustomerCommunicationLogs_Edit"
         });
+
+        hotKeyManager.CachedData.isBubbleToParent = false;
     };
     $scope.getAllStatus = function () {
         $scope.BlockUI();
@@ -122,6 +124,7 @@ function (
     };
     $scope.updateLog = function () {
         $scope.BlockUI();
+        hotKeyManager.documentBlur();
         var updateLogCriteria = {
             Id: $scope.redemptionLog.Id,
             ClaimedTime: $scope.redemptionLog.ClaimedTime,

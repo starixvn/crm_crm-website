@@ -103,15 +103,32 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
     }
 
     function sortReport(sortInfo, cachedLogs) {
-        if (sortInfo.sortField === "RunningNumber" ||
-            sortInfo.sortField === "FeedbackDate" ||
-            sortInfo.sortField === "Subject" ||
+        if (sortInfo.sortField === "Subject" ||
             sortInfo.sortField === "StatusName" ||
             sortInfo.sortField === "Handler" ||
             sortInfo.sortField === "Reviewer") {
             return cachedLogs.sort(function (elementA, elementB) {
+                var valueA = elementA[sortInfo.sortField].toLowerCase();
+                var valueB = elementB[sortInfo.sortField].toLowerCase();
+                var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                return isGreaterThan;
+            });
+        }
+
+        if (sortInfo.sortField === "RunningNumber" ||
+            sortInfo.sortField === "FeedbackDate") {
+            return cachedLogs.sort(function (elementA, elementB) {
                 var valueA = elementA[sortInfo.sortField];
                 var valueB = elementB[sortInfo.sortField];
+                var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                return isGreaterThan;
+            });
+        }
+
+        if (sortInfo.sortField === "Category") {
+            return cachedLogs.sort(function (elementA, elementB) {
+                var valueA = (elementA.MainCategory.Name + "<br/>" + elementA.SubCategory.Name);
+                var valueB = (elementB.MainCategory.Name + "<br/>" + elementB.SubCategory.Name);
                 var isGreaterThan = compareValues(sortInfo, valueA, valueB);
                 return isGreaterThan;
             });

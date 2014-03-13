@@ -18,7 +18,7 @@ customerDetailApplication.directive('datePickerContainer', function () {
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
-            onSelect: function () {
+            onSelect: function (dateText, inst) {
                 isOnSelect = true;
                 $(this).change();
                 isOnSelect = false;
@@ -28,10 +28,9 @@ customerDetailApplication.directive('datePickerContainer', function () {
             }
         });
 
-        txtCalendar.datepicker('setDate',
-            (scope.customerDetail && scope.customerDetail.BirthDayString ?
-                new Date(scope.customerDetail.BirthDayString) :
-                new Date(currentDate)));
+        if (scope.customerDetail && scope.customerDetail.BirthDayString) {
+            txtCalendar.datepicker('setDate', new Date(scope.customerDetail.BirthDayString));
+        }
     }
     function selectedDateChange(scope, element, attrs) {
         /* jshint unused: vars */
@@ -60,8 +59,8 @@ customerDetailApplication.directive('datePickerContainer', function () {
             var txtCalendar = element.find(".txtcalendar");
             renderDatePicker(scope, element, attrs);
 
-            oldValue = scope.customerDetail && scope.customerDetail.BirthDay ?
-                new Date(scope.customerDetail.BirthDay) :
+            oldValue = scope.customerDetail && scope.customerDetail.BirthDayString ?
+                new Date(scope.customerDetail.BirthDayString) :
                 new Date(currentDate);
             element.on('change', function () {
                 var selectedDate = selectedDateChange(scope, element, attrs);

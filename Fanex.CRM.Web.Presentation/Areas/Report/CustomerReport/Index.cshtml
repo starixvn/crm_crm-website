@@ -10,8 +10,8 @@
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Styles/FanexMultipleSelect")
     @Styles.Render("~/Areas/Report/CustomerReportStyles")
+    @Styles.Render("~/Styles/FanexMultipleSelect")
 </head>
 <body class="customerReportController" data-ng-controller="customerReportController">
     <div class="main container">
@@ -105,7 +105,7 @@
             <div class="icon-collapse" data-ng-click="showHideFilterBox();">
             </div>
         </div>
-        <div class="row filter-frm one-row collapse-filter" data-ng-class="{ 'display-none': isShowFilter }">
+        <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
             <div class="icon-expand" data-ng-click="showHideFilterBox();">
             </div>
         </div>

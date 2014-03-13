@@ -173,7 +173,7 @@ function RegisterTemplate(aplication) {
 
             DataPropertyName: {
                 Id: "Id",
-                Name: "Value"
+                Name: "Name"
             }
         };
 

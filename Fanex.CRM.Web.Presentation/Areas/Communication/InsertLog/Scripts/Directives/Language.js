@@ -1,5 +1,7 @@
 ﻿"use strict";
-/* global insertLogApplication */
+/* global insertLogApplication,
+viewResources,
+crmConstants */
 /* jshint camelcase: false */
 insertLogApplication.directive('dropdownLanguage', function () {
     function renderDropdown(scope, element, attrs) {

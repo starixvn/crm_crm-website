@@ -6,10 +6,12 @@ var HotKeyManager = function () {
 
     self.CachedData = {
         KeyPress: [],
+        BeforeBlurKeyPress: [],
         ActiveDocumentManager: [],
         isInvokeHotKey: false,
         isSupportedBrowser: false,
-        isIgnoreKey: false
+        isIgnoreKey: false,
+        isBubbleToParent: true
     };
 
     self.initPage = function () {
@@ -19,10 +21,20 @@ var HotKeyManager = function () {
         }
 
         self.CachedData.KeyPress = [];
+        self.updateKeyPressValue(false);
         self.bindEvent();
 
         if (parent && parent.hotKeyManager) {
-            self.CachedData.KeyPress = parent.hotKeyManager.CachedData.KeyPress;
+            self.CachedData.KeyPress = parent.hotKeyManager.CachedData.BeforeBlurKeyPress.slice(0);
+            self.CachedData.BeforeBlurKeyPress = self.CachedData.KeyPress;
+        }
+    };
+
+    self.updateKeyPressValue = function (isUpdateToParent) {
+        self.CachedData.BeforeBlurKeyPress = self.CachedData.KeyPress.slice(0);
+        if (isUpdateToParent && parent && parent.hotKeyManager) {
+            parent.hotKeyManager.CachedData.KeyPress = self.CachedData.KeyPress.slice(0);
+            parent.hotKeyManager.CachedData.BeforeBlurKeyPress = self.CachedData.BeforeBlurKeyPress.slice(0);
         }
     };
 
@@ -37,15 +49,18 @@ var HotKeyManager = function () {
             parent.hotKeyManager.CachedData.isIgnoreKey = true;
             var keyCode = parseInt(eventObject.keyCode);
             self.CachedData.KeyPress[keyCode.toString()] = true;
+            self.updateKeyPressValue(true);
             var isCustomHotKey = self.keyDown(eventObject);
-            if (!self.CachedData.isInvokeHotKey) {
-                parent.hotKeyManager.CachedData.KeyPress = hotKeyManager.CachedData.KeyPress;
+
+            if (!self.CachedData.isInvokeHotKey && self.CachedData.isBubbleToParent) {
                 isCustomHotKey = parent.hotKeyManager.invokeHotKey();
                 if (parent.hotKeyManager.CachedData.isInvokeHotKey) {
                     self.CachedData.isInvokeHotKey = true;
                     parent.hotKeyManager.delayInvokeHotKey();
                     self.delayInvokeHotKey();
                 }
+            } else {
+                self.delayInvokeHotKey();
             }
 
             if (isCustomHotKey || self.CachedData.isInvokeHotKey) {
@@ -65,10 +80,39 @@ var HotKeyManager = function () {
         });
 
         $(document).blur(function () {
-            self.CachedData.KeyPress = [];
-            parent.hotKeyManager.CachedData.KeyPress = [];
+            self.documentBlur();
         });
     };
+    self.documentKeyDown = function (eventObject) {
+        if (self.CachedData.isIgnoreKey || parent.hotKeyManager.CachedData.isIgnoreKey) {
+            self.preventBubbleEvent(eventObject);
+            return false;
+        }
+
+        self.CachedData.isIgnoreKey = true;
+        var keyCode = parseInt(eventObject.keyCode);
+        self.CachedData.KeyPress[keyCode.toString()] = true;
+        self.updateKeyPressValue(true);
+        var isCustomHotKey = self.keyDown(eventObject);
+        if (self.CachedData.isInvokeHotKey) {
+            self.delayInvokeHotKey();
+        }
+
+        if (isCustomHotKey || self.CachedData.isInvokeHotKey) {
+            self.CachedData.isInvokeHotKey = false;
+            self.preventBubbleEvent(eventObject);
+            self.CachedData.isIgnoreKey = false;
+            return false;
+        }
+
+        self.CachedData.isIgnoreKey = false;
+        return true;
+    };
+    self.documentBlur = function () {
+        self.CachedData.BeforeBlurKeyPress = self.CachedData.KeyPress.slice(0);
+        self.CachedData.KeyPress = [];
+    };
+
     self.keyDown = function (eventObject) {
         if (!self.CachedData.isInvokeHotKey) {
             var isCustomHotKey = false;
@@ -80,10 +124,6 @@ var HotKeyManager = function () {
             }
 
             isCustomHotKey = self.invokeHotKey();
-            if (self.CachedData.isInvokeHotKey) {
-                self.delayInvokeHotKey();
-            }
-
             return isCustomHotKey;
         }
 
@@ -112,6 +152,7 @@ var HotKeyManager = function () {
 
         var keyCode = parseInt(eventObject.keyCode);
         self.CachedData.KeyPress[keyCode.toString()] = false;
+        self.updateKeyPressValue(true);
     };
     self.invokeHotKey = function () {
         var isCustomHotKey = false;
@@ -299,6 +340,8 @@ var HotKeyManager = function () {
                 activeDocumentManager.invokeHotKey_CtrlI();
             }
         }
+
+        return self.CachedData.isInvokeHotKey;
     };
     self.invokeHotKey_CtrlV = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;

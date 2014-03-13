@@ -377,9 +377,26 @@
                 t.updateTextArea();
             };
 
+            var fnKeyUp = function (eventObject) {
+                t.updateTextArea();
+                if (options && typeof (options.keyUpEvent) === "function") {
+                    options.keyUpEvent(eventObject);
+                }
+            };
+
+            var fnKeyDown = function (eventObject) {
+                t.updateTextArea();
+                if (options && typeof (options.keyDownEvent) === "function") {
+                    var isBubbleEvent = options.keyDownEvent(eventObject);
+                    if (!isBubbleEvent) {
+                        return false;
+                    }
+                }
+            };
+
             $(this.editor.body).click(fnTA).
-                keyup(fnTA).
-                keydown(fnTA).
+                keyup(fnKeyUp).
+                keydown(fnKeyDown).
                 mousedown(fnTA).
                 blur(fnTA);
 

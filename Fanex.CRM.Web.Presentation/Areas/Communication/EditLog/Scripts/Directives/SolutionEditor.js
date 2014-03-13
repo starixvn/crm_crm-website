@@ -1,7 +1,8 @@
 ﻿"use strict";
 /* global editLogApplication,
 communicationLog,
-viewResources */
+viewResources,
+hotKeyManager */
 editLogApplication.directive('solutionEditorContainer', function () {
     var editorId = "solutioneditorbox";
     function renderEditor(scope, element, attrs) {
@@ -17,6 +18,12 @@ editLogApplication.directive('solutionEditorContainer', function () {
         editor.htmlarea({
             changeEvent: function () {
                 scope.updateSolution(editor.htmlarea("toHtmlString"));
+            },
+            keyUpEvent: function (eventObject) {
+                hotKeyManager.keyUp(eventObject);
+            },
+            keyDownEvent: function (eventObject) {
+                return hotKeyManager.documentKeyDown(eventObject);
             },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],

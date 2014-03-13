@@ -63,9 +63,9 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>The customer report.</returns>
         public CustomerReportInfo GetCustomerReport(GetCustomerReportCriteria criteria)
         {
-            CustomerReportInfo customerReport = null;
             try
             {
+                CustomerReportInfo customerReport = null;
                 if (criteria.IsGetFromCached)
                 {
                     customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
@@ -74,8 +74,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
                 if (customerReport == null)
                 {
                     customerReport = new CustomerReportInfo();
-                    criteria.FromDateBirthDay = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDateBirthDay);
-                    criteria.ToDateBirthDay = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDateBirthDay);
                     customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria);
                     customerReport.TotalCustomer = customerReport.CustomerList.Count;
                     if (!string.IsNullOrEmpty(criteria.SortField) &&
@@ -95,13 +93,15 @@ namespace Fanex.CRM.Report.Repositories.Implements
                            .ToList();
                     }
                 }
+
+                return customerReport;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return customerReport;
+            return null;
         }
 
         /// <summary>
@@ -112,8 +112,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
         {
             try
             {
-                criteria.FromDateBirthDay = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDateBirthDay);
-                criteria.ToDateBirthDay = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDateBirthDay);
                 criteria.IsGetFullReport = true;
                 CustomerReportInfo customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
                 if (customerReport == null)
@@ -146,17 +144,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All site value.</returns>
         public List<SiteInfo> GetAllSite()
         {
-            var allSite = new List<SiteInfo>();
             try
             {
-                allSite = _serviceSetting.GetAllSite();
+                var allSite = _serviceSetting.GetAllSite();
+                return allSite;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allSite;
+            return new List<SiteInfo>();
         }
 
         /// <summary>
@@ -165,10 +163,9 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All title.</returns>
         public List<SettingInfo> GetAllTitle()
         {
-            var allTitle = new List<SettingInfo>();
             try
             {
-                allTitle = _serviceSetting.GetAllTitle();
+                var allTitle = _serviceSetting.GetAllTitle();
                 allTitle.Insert(
                     0,
                     new SettingInfo
@@ -177,13 +174,15 @@ namespace Fanex.CRM.Report.Repositories.Implements
                         Id = TitleConstants.All,
                         DisplayOrder = 0
                     });
+
+                return allTitle;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allTitle;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -192,17 +191,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All country.</returns>
         public List<CountryInfo> GetAllCountry()
         {
-            var allCountry = new List<CountryInfo>();
             try
             {
-                allCountry = _serviceSetting.GetAllCountry();
+                var allCountry = _serviceSetting.GetAllCountry();
+                return allCountry;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allCountry;
+            return new List<CountryInfo>();
         }
 
         /// <summary>
@@ -211,17 +210,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All language.</returns>
         public List<SettingInfo> GetAllLanguage()
         {
-            var allLanguage = new List<SettingInfo>();
             try
             {
-                allLanguage = _serviceSetting.GetAllLanguage();
+                var allLanguage = _serviceSetting.GetAllLanguage();
+                return allLanguage;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allLanguage;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -230,17 +229,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All customer type.</returns>
         public List<SettingInfo> GetAllCustomerType()
         {
-            var allCustomerType = new List<SettingInfo>();
             try
             {
-                allCustomerType = _serviceSetting.GetAllCustomerType();
+                var allCustomerType = _serviceSetting.GetAllCustomerType();
+                return allCustomerType;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allCustomerType;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -249,17 +248,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// <returns>All VIP type.</returns>
         public List<SettingInfo> GetAllVIPType()
         {
-            var allVIPType = new List<SettingInfo>();
             try
             {
-                allVIPType = _serviceSetting.GetAllVIPType();
+                var allVIPType = _serviceSetting.GetAllVIPType();
+                return allVIPType;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return allVIPType;
+            return new List<SettingInfo>();
         }
 
         /// <summary>
@@ -271,9 +270,9 @@ namespace Fanex.CRM.Report.Repositories.Implements
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile);
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 400 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
@@ -294,10 +293,10 @@ namespace Fanex.CRM.Report.Repositories.Implements
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.VIP, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Title, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.First_Name, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Last_Name, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.VIP, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Language, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Site, headerStyle);
@@ -381,11 +380,10 @@ namespace Fanex.CRM.Report.Repositories.Implements
             CustomerInfo customer,
             ICellStyle centerTextStyle)
         {
-            customer.IsVIP = true;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Title.Name, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.FirstName, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.LastName, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Country.Name, exportExcelInfo.TextStyle);
 
             var customerLanguages = string.Join(", ", customer.Languages.Select(language => language.Name));
@@ -437,22 +435,22 @@ namespace Fanex.CRM.Report.Repositories.Implements
                         .ToList();
                     break;
                 case "TitleName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.Title.Name, customerB.Title.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Title.Name, customerB.Title.Name, true));
                     break;
                 case "FirstName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.FirstName, customerB.FirstName));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.FirstName, customerB.FirstName, true));
                     break;
                 case "LastName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.LastName, customerB.LastName));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.LastName, customerB.LastName, true));
                     break;
                 case "CountryName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.Country.Name, customerB.Country.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Country.Name, customerB.Country.Name, true));
                     break;
                 case "Languages":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(GetCustomerLanguages(customerA), GetCustomerLanguages(customerB)));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(GetCustomerLanguages(customerA), GetCustomerLanguages(customerB), true));
                     break;
                 case "SiteSettingName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerA.SiteSetting.Name, customerB.SiteSetting.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.SiteSetting.Name, customerB.SiteSetting.Name, true));
                     break;
                 case "BirthDay":
                     sortedCustomerList = sortedCustomerList
@@ -486,22 +484,22 @@ namespace Fanex.CRM.Report.Repositories.Implements
                         .ToList();
                     break;
                 case "TitleName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.Title.Name, customerA.Title.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.Title.Name, customerA.Title.Name, true));
                     break;
                 case "FirstName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.FirstName, customerA.FirstName));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.FirstName, customerA.FirstName, true));
                     break;
                 case "LastName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.LastName, customerA.LastName));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.LastName, customerA.LastName, true));
                     break;
                 case "CountryName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.Country.Name, customerA.Country.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.Country.Name, customerA.Country.Name, true));
                     break;
                 case "Languages":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(GetCustomerLanguages(customerB), GetCustomerLanguages(customerA)));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(GetCustomerLanguages(customerB), GetCustomerLanguages(customerA), true));
                     break;
                 case "SiteSettingName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.CompareOrdinal(customerB.SiteSetting.Name, customerA.SiteSetting.Name));
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.SiteSetting.Name, customerA.SiteSetting.Name, true));
                     break;
                 case "BirthDay":
                     sortedCustomerList = sortedCustomerList

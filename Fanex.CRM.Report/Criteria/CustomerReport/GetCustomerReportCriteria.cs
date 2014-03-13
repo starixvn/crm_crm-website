@@ -32,10 +32,10 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         [SpParam(SqlParamName = "siteid")]
         public string SiteIds { get; set; }
 
-        [SpParam(SqlParamName = "birthday")]
+        [SpParam(SqlParamName = "frombirthday")]
         public DateTime? FromDateBirthDay { get; set; }
 
-        [SpParam(SqlParamName = "todatebirthday")]
+        [SpParam(SqlParamName = "tobirthday")]
         public DateTime? ToDateBirthDay { get; set; }
 
         [SpParam(SqlParamName = "titleid")]

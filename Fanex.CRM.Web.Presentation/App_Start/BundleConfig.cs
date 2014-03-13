@@ -71,6 +71,7 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new ScriptBundle("~/Styles/FanexMultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.css",
+                "~/Content/site/customizeMultiSelect.less",
                 "~/Areas/Customer/DetailInfo/Styles/StyleSheet.less"));
             bundles.Add(new ScriptBundle("~/Scripts/FanexMultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
@@ -115,6 +116,7 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.AddAndInclude(
                 "~/Areas/ShortCustomerInfo/Styles",
+                "~/Content/site/customizeMultiSelect.less",
                 "~/Areas/Customer/ShortInfo/Styles/StyleSheet.less");
         }
 

@@ -39,6 +39,8 @@ function (
             Value: $scope,
             Id: "CustomerCommunicationLogs_Insert"
         });
+
+        hotKeyManager.CachedData.isBubbleToParent = false;
     };
     $scope.getAllStatus = function () {
         $scope.BlockUI();
@@ -134,6 +136,7 @@ function (
     };
     $scope.insertLog = function () {
         $scope.BlockUI();
+        hotKeyManager.documentBlur();
         var insertLogCriteria = {
             ClaimedTime: $scope.redemptionLog.ClaimedTime,
             Subject: $scope.redemptionLog.Subject,

@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global insertLogApplication,
-viewResources */
+viewResources,
+hotKeyManager */
 insertLogApplication.directive('solutionEditorContainer', function () {
     var editorId = "solutioneditorbox";
     function renderEditor(scope, element, attrs) {
@@ -16,6 +17,12 @@ insertLogApplication.directive('solutionEditorContainer', function () {
         editor.htmlarea({
             changeEvent: function () {
                 scope.updateSolution(editor.htmlarea("toHtmlString"));
+            },
+            keyUpEvent: function (eventObject) {
+                hotKeyManager.keyUp(eventObject);
+            },
+            keyDownEvent: function (eventObject) {
+                return hotKeyManager.documentKeyDown(eventObject);
             },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],

@@ -1,5 +1,7 @@
 ﻿"use strict";
-/* global insertLogApplication, viewResources */
+/* global insertLogApplication,
+viewResources,
+hotKeyManager */
 insertLogApplication.directive('remarkEditorContainer', function () {
     var editorId = "remarkeditorbox";
     function renderRemarkEditor(scope, element, attrs) {
@@ -17,6 +19,12 @@ insertLogApplication.directive('remarkEditorContainer', function () {
         editor.htmlarea({
             changeEvent: function () {
                 scope.updateRemark(editor.htmlarea("toHtmlString"));
+            },
+            keyUpEvent: function (eventObject) {
+                hotKeyManager.keyUp(eventObject);
+            },
+            keyDownEvent: function (eventObject) {
+                return hotKeyManager.documentKeyDown(eventObject);
             },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],

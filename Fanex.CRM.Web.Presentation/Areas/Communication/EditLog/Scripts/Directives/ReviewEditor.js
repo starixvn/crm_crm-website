@@ -1,7 +1,8 @@
 ﻿"use strict";
 /* global editLogApplication, 
 communicationLog,
-viewResources */
+viewResources,
+hotKeyManager */
 editLogApplication.directive('reviewEditorContainer', function () {
     var editorId = "revieweditorbox";
     function renderEditor(scope, element, attrs) {
@@ -17,6 +18,12 @@ editLogApplication.directive('reviewEditorContainer', function () {
         editor.htmlarea({
             changeEvent: function () {
                 scope.updateReview(editor.htmlarea("toHtmlString"));
+            },
+            keyUpEvent: function (eventObject) {
+                hotKeyManager.keyUp(eventObject);
+            },
+            keyDownEvent: function (eventObject) {
+                return hotKeyManager.documentKeyDown(eventObject);
             },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
