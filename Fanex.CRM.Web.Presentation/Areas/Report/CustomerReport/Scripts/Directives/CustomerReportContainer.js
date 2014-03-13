@@ -81,7 +81,7 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
         }
 
         var sortColumnIndex = getSortColumnIndex();
-        var headerColumns = [{ HeaderText: viewResources.Title, Width: 60, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
+        var headerColumns = [{ HeaderText: viewResources.Title, Width: 50, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
             { HeaderText: viewResources.First_Name, Width: 120, Name: "ColFirstName", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Last_Name, Width: 120, Name: "ColLastName", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
