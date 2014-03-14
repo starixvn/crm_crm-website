@@ -30,6 +30,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
+    using NPOI.HSSF.Util;
 
     /// <summary>
     /// Customer Report Service.
@@ -265,6 +266,9 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// Exports the customer report header.
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private void ExportCustomerReportHeader(ref ExportExcelInfo exportExcelInfo)
         {
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile);
@@ -346,10 +350,15 @@ namespace Fanex.CRM.Report.Repositories.Implements
                 return;
             }
 
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                NpoiExcelExtensions.EvenRowColor,
+                NpoiExcelExtensions.EvenRowColorIndex);
+
             IRow row;
             int currentColumn;
             var reportLength = customerReport.CustomerList.Count;
-            exportExcelInfo.TextStyle = NpoiExcelExtensions.TextStyle(
+            var textStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
@@ -357,6 +366,17 @@ namespace Fanex.CRM.Report.Repositories.Implements
             var centerTextStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
+                false,
+                NpoiExcelExtensions.Alignment.Center);
+
+            var evenRowTextStyle = NpoiExcelExtensions.TextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExcelExtensions.EvenRowColorIndex,
+                false,
+                NpoiExcelExtensions.Alignment.Left);
+            var evenRowCenterTextStyle = NpoiExcelExtensions.TextStyle(
+                exportExcelInfo.ExcelFile,
+                NpoiExcelExtensions.EvenRowColorIndex,
                 false,
                 NpoiExcelExtensions.Alignment.Center);
 
@@ -377,7 +397,22 @@ namespace Fanex.CRM.Report.Repositories.Implements
                     row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
                     currentColumn = exportExcelInfo.StartColumn;
                     var customer = customerReport.CustomerList[i];
-                    ExportCustomerReportRow(ref exportExcelInfo, ref row, ref currentColumn, customer, centerTextStyle);
+                    var isEvenRow = (i + 1) % 2 == 0;
+                    if (isEvenRow)
+                    {
+                        exportExcelInfo.TextStyle = evenRowTextStyle;
+                    }
+                    else
+                    {
+                        exportExcelInfo.TextStyle = textStyle;
+                    }
+
+                    ExportCustomerReportRow(
+                        ref exportExcelInfo,
+                        ref row,
+                        ref currentColumn,
+                        customer,
+                        isEvenRow ? evenRowCenterTextStyle : centerTextStyle);
                 }
             }
         }

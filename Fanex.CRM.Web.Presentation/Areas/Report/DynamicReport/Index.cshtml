@@ -169,10 +169,13 @@
                 </div>
             </div>
             <div class="row">
-                <div class="item subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
+                <div>
                     <label for="subject" class="lblSubject width-70">
                         @Labels.Subject</label>
-                    <input id="subject" type="text" class="textbox subject-auto-complete txtSubject" data-ng-model="subjectOptions.Subject" />
+                </div>
+                <div class="item subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
+                    <input id="subject" type="text" class="textbox subject-auto-complete txtSubject"
+                        data-ng-model="subjectOptions.Subject" />
                 </div>
                 <div class="item">
                     <button id="button-submit" class="btn default-focus" data-ng-click="getDynamicReport()"
