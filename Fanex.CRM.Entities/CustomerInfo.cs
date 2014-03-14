@@ -10,7 +10,6 @@
 namespace Fanex.CRM.Entities
 {
     using System;
-    using System.Collections.Generic;
     using System.Runtime.Serialization;
     
     /// <summary>
@@ -70,10 +69,6 @@ namespace Fanex.CRM.Entities
 
         [DataMember]
         public int Site { get; set; }
-        [DataMember]
-        public int Country { get; set; }
-        [DataMember]
-        public IList<int> Languages { get; set; }
         [DataMember]
         public string BettingCode { get; set; }
         [DataMember]

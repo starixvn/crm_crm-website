@@ -725,45 +725,17 @@ function bindingSite(id, rs, currentValue) {
     $("#" + id + " option[value='" + currentValue + "']").attr("selected", "selected");
 }
 
-function dropdownMultiSelect(prefixId, elementId, result, defaultValues) {
-    /* jshint unused: vars */
-    var dropdownLanguage = [];
-    var optionLength = result ? result.length : 0;
-    if (optionLength > 0) {
-        for (var i = 0; i < optionLength; i++) {
-            var info = result[i];
-            dropdownLanguage.push({
-                id: prefixId + info.Id,
-                value: info.Id,
-                text: info.Value,
-                checked: checkMultiSelect(info.Id, defaultValues),
-                enable: true,
-                cssClass: "",
-                items: []
-            });
-        }
+function bindingLanguage(elementId, result, defaultValues) {
+    if (!result || result.length === 0) {
+        return;
     }
 
-    /* jshint camelcase: false */
-    var dropdown = $('#' + elementId);
-    dropdown.fanexMultiSelect({
-        minWidth: 171,
-        maxHeight: 450,
-        shadow: true,
-        showHeader: true,
-        isCheckAll: false,
-        showFooter: false,
-        showTooltip: false,
-        checkAllText: 'All Languages',
-        isUsedCustomCheckAllText: true,
-        customCheckAllText: 'All Languages',
-        noItemText: 'N/A',
-        noneSelectedText: 'N/A',
-        selectedList: 3,
-        listData: dropdownLanguage
-    });
+    if (result[0].Id !== 0) {
+        // add default 'Select' text
+        result.splice(0, 0, { Id: 0, Value: 'N/A' });
+    }
 
-    $('#' + elementId + " .fanex-multiselect-state-default").attr("tabindex", 31);
+    bindingSetting(elementId, result, defaultValues);
 }
 
 checkMultiSelect = function (id, defaultValues) {
