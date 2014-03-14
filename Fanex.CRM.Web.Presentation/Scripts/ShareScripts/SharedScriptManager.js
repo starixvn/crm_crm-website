@@ -6,7 +6,7 @@ var SharedScriptManager = function () {
         pagingOptions: [50, 100, 200],
         defaultItemsPerPage: 50,
         maxFeedbackSubjectTemplateNumberOnLoad: 100000,
-        yearRangeDatePicker: "-50:+0"
+        yearRangeDatePicker: "-100:+0"
     },
 
     self.CallAjax = function (currentHandler,
