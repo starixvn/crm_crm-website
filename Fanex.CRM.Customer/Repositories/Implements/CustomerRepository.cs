@@ -230,7 +230,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 Name = reader.GetStringNotNull("UserName"),
                 Role = new BaseModel
                 {
-                    Id = reader.GetByteNotNull("roleid")
+                    Id = reader.GetInt32NotNull("roleid")
                 },
                 SiteSetting = new BaseModel
                 {
