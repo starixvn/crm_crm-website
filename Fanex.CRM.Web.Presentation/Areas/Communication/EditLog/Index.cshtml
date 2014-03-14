@@ -228,13 +228,13 @@
             </div>
         </div>
         <div class="row panel-group last">
-            <div class="row title">
+            <div class="row title" data-ng-class="!hasReviewPermission || !communicationLog.IsReviewed ? 'border-bottom-none' : ''">
                 <label for="review">
                     @Labels.Reviewed</label>
                 <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
                     data-ng-model="communicationLog.IsReviewed" data-ng-disabled="!hasReviewPermission" />
             </div>
-            <div data-ng-class="{'display-none': hasReviewPermission}">
+            <div data-ng-class="{'display-none': hasReviewPermission }">
                 @Html.Raw(Model.Review)
             </div>
             <div class="row content multi-text" data-ng-class="{'display-none': !hasReviewPermission || !communicationLog.IsReviewed}">

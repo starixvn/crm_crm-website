@@ -340,6 +340,17 @@ function RegisterTemplate(aplication) {
 
         directiveManager.registerMultiSelectContainer(self.aplication, countryRegisterParams);
     };
+
+    self.registerToggleElement = function () {
+        var countryRegisterParams = {
+            PlugInName: 'toggleElement',
+            OptionName: 'toggleElementOptions',
+            PickerId: null,
+            RestrictType: 'C'
+        };
+
+        directiveManager.registerToggleElement(self.aplication, countryRegisterParams);
+    };
 }
 
 
