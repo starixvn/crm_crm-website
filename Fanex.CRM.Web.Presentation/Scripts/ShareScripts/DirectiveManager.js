@@ -1,3 +1,3 @@
 ﻿"use strict";
-/* export DirectiveManager */
+/* exported directiveManager */
 var directiveManager = {};

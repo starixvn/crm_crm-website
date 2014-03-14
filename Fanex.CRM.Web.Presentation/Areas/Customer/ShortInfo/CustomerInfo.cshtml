@@ -15,13 +15,13 @@
 <body class="leftPanel">
     <div id="divContent" class="container left-container customerinfo-container display-none"
         data-ng-controller="customerController">
-        <div class="customer-uplineinfo-container" data-ng-repeat="uplineInfo in customer.UplineInfo">
+        <div class="customer-uplineinfo-container" data-ng-repeat="uplineInfo in customer.UplineInfo track by $index">
             <div class="row item">
                 <div class="col-xs-3 col-sm-3 col-md-3 text-left" data-ng-bind="uplineInfo.Role.Name">
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 text-left username">
-                    <a data-ng-href="#" data-ng-click="searchUplineInfo(uplineInfo.Name)" data-ng-bind="uplineInfo.Name">
-                    </a>
+                    <a data-ng-href="#" tabindex="{{ $index + 1 }}" data-ng-click="searchUplineInfo(uplineInfo.Name)"
+                        data-ng-bind="uplineInfo.Name"></a>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 text-right status" data-ng-bind="uplineInfo.Status">
                 </div>
@@ -89,7 +89,8 @@
             <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                 @Labels.Last_Name</div>
             <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <input type="text" class="textbox" data-ng-model="customer.LastName" data-ng-keyup="textBoxKeyUp($event);" />
+                <input type="text" class="textbox" data-ng-model="customer.LastName" data-ng-keyup="textBoxKeyUp($event);"
+                    tabindex="7" />
             </div>
         </div>
         <div class="row item no-border-bg">

@@ -394,11 +394,18 @@
                 }
             };
 
+            var fnBlur = function () {
+                t.updateTextArea();
+                if (options && typeof (options.blurEvent) === "function") {
+                    options.blurEvent();
+                }
+            };
+
             $(this.editor.body).click(fnTA).
                 keyup(fnKeyUp).
                 keydown(fnKeyDown).
                 mousedown(fnTA).
-                blur(fnTA);
+                blur(fnBlur);
 
             $('form').submit(function () { t.toggleHTMLView(); t.toggleHTMLView(); });
             //$(this.textarea[0].form).submit(function() { //this.textarea.closest("form").submit(function() {

@@ -156,8 +156,11 @@ function (
 
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
-        $scope.preupdateLog();
-        $scope.$apply();
+        if (!$scope.oldCommunicationLog.IsReviewed || 
+            !$scope.communicationLog.IsReviewed) {
+            $scope.preupdateLog();
+            $scope.$apply();
+        }
     };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlE = function () {

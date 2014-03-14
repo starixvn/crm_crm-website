@@ -5,7 +5,8 @@ var SharedScriptManager = function () {
     self.cachedData = {
         pagingOptions: [50, 100, 200],
         defaultItemsPerPage: 50,
-        maxFeedbackSubjectTemplateNumberOnLoad: 100000
+        maxFeedbackSubjectTemplateNumberOnLoad: 100000,
+        yearRangeDatePicker: "-100:+0"
     },
 
     self.CallAjax = function (currentHandler,
@@ -99,7 +100,7 @@ var SharedScriptManager = function () {
 
             //disable IE ajax request caching
             $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
-        }]);
+        } ]);
     };
 };
 

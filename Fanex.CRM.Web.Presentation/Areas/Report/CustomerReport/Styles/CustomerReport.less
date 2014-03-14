@@ -56,15 +56,20 @@
         }
     }
 }
-#table-customer-report {
-    .icon-vip {
-        background-color: #0000FF;
-    }
-}
 
 .main.container 
 {
     overflow-y: hidden;
+
+    .icon-vip {
+        .table-cell {
+            text-align: center;
+        }
+
+        .glyphicon-ok {
+            color: #466AB6;
+        }
+    }
 }
 
 #fanex-multiselect-options-country
@@ -74,4 +79,9 @@
 #fanex-multiselect-options-site 
 {
     width: 180px!important;
+}
+
+.contactpadding
+{
+    height: 5px;
 }
