@@ -204,4 +204,7 @@
   <data name="Last_5_Special_Remark" xml:space="preserve">
     <value>Last 5 Special Remark</value>
   </data>
+  <data name="There_is_no_data" xml:space="preserve">
+    <value>There is no data</value>
+  </data>
 </root>

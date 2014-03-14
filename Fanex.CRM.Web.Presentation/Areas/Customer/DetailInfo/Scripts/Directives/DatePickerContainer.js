@@ -18,6 +18,7 @@ customerDetailApplication.directive('datePickerContainer', function () {
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
+            yearRange: "-50:+0",
             onSelect: function (dateText, inst) {
                 isOnSelect = true;
                 $(this).change();
