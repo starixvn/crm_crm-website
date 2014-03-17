@@ -525,6 +525,10 @@ function (
         $scope.searchCriteria.Status = status;
         $scope.$apply();
     };
+    $scope.updateSelectedProduct = function (product) {
+        $scope.searchCriteria.Product = product;
+        $scope.$apply();
+    };
     $scope.updateSelectedResponse = function (response) {
         $scope.searchCriteria.Response = response;
         $scope.$apply();

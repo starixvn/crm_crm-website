@@ -107,6 +107,12 @@ var CRMConstants = function () {
         MultiSelectType: {
             GetIdList: 0,
             GetFullInfoList: 1
+        },
+
+        MessageType: {
+            Success: 1,
+            Warning: 2,
+            Error: 3
         }
     };
 
