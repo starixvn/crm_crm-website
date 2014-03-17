@@ -1,6 +1,7 @@
 'use strict';
-var feedbackData = undefined;
-var settingData = undefined;
+/* jshint camelcase: false */
+var feedbackData;
+var settingData;
 
 var isShowCustinfoBox = false;
 var isShowFeedbackDetailBox = false;
@@ -16,7 +17,6 @@ function AddGuestFeedback() {
     });
 }
 
-/* jshint camelcase: false */
 var invokeHotKey_CtrlS = function () {
     AddGuestFeedback();
 };

@@ -684,14 +684,6 @@ function validateInputData(editors, textboxes, comboboxes) {
     return result;
 }
 
-function validatePersonalTab() {
-    var i
-}
-
-function validateDetail() {
-
-}
-
 function bindingSite(id, rs, currentValue) {
     var creditArr = [];
     var licenseeArr = [];

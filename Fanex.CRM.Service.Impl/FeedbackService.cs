@@ -182,14 +182,6 @@ namespace Fanex.CRM.Service.Impl
                 if (lstFeedback != null && lstFeedback.Count() > 0)
                 {
                     lstFeedbackPaging = lstFeedback.Select(c => c).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-                    //Parallel.ForEach(
-                    //    lstFeedbackPaging,
-                    //    feedback =>
-                    //    {
-                    //        feedback.MainCategory = _settingService.GetById(feedback.MainCategoryId).Value;
-                    //        feedback.SubCategory = _settingService.GetById(feedback.SubCategoryId).Value;
-                    //        feedback.Status = _settingService.GetById(feedback.StatusId).Value;
-                    //    });
                 }
 
                 feedbackdto.Rows = lstFeedbackPaging;
@@ -258,14 +250,6 @@ namespace Fanex.CRM.Service.Impl
                 if (listFeedback != null && listFeedback.Count() > 0)
                 {
                     lstFeedbackPaging = listFeedback.Select(c => c).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-                    //Parallel.ForEach(
-                    //    lstFeedbackPaging,
-                    //    feedback =>
-                    //    {
-                    //        feedback.MainCategory = _settingService.GetById(feedback.MainCategoryId).Value;
-                    //        feedback.SubCategory = _settingService.GetById(feedback.SubCategoryId).Value;
-                    //        feedback.Status = _settingService.GetById(feedback.StatusId).Value;
-                    //    });
                 }
 
                 feedbackdto.Rows = lstFeedbackPaging;
@@ -377,15 +361,6 @@ namespace Fanex.CRM.Service.Impl
                     {
                         feedbackViewPaging.Add(CreateFeedbackView(feedback));
                     }
-
-                    //Parallel.ForEach(
-                    //    feedbackViewPaging,
-                    //    feedback =>
-                    //    {
-                    //        feedback.MainCategory = _settingService.GetById(feedback.MainCategoryId).Value;
-                    //        feedback.SubCategory = _settingService.GetById(feedback.SubCategoryId).Value;
-                    //        feedback.Status = _settingService.GetById(feedback.StatusId).Value;
-                    //    });
 
                     pagingResult.Rows = feedbackViewPaging;
                     pagingResult.PageIndex = param.CurrentPage;
@@ -570,15 +545,6 @@ namespace Fanex.CRM.Service.Impl
                 if (lstFeedback != null && lstFeedback.Count() > 0)
                 {
                     lstFeedbackPaging = lstFeedback.Select(c => c).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-
-                    //Parallel.ForEach(
-                    //    lstFeedbackPaging,
-                    //    feedback =>
-                    //    {
-                    //        feedback.MainCategory = _settingService.GetById(feedback.MainCategoryId).Value;
-                    //        feedback.SubCategory = _settingService.GetById(feedback.SubCategoryId).Value;
-                    //        feedback.Status = _settingService.GetById(feedback.StatusId).Value;
-                    //    });
                 }
 
                 feedbackdto.Rows = lstFeedbackPaging;
@@ -621,14 +587,6 @@ namespace Fanex.CRM.Service.Impl
                 if (lstFeedback != null && lstFeedback.Count() > 0)
                 {
                     lstFeedbackPaging = lstFeedback.Select(c => c).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-                    //Parallel.ForEach(
-                    //    lstFeedbackPaging,
-                    //    feedback =>
-                    //    {
-                    //        feedback.MainCategory = _settingService.GetById(feedback.MainCategoryId).Value;
-                    //        feedback.SubCategory = _settingService.GetById(feedback.SubCategoryId).Value;
-                    //        feedback.Status = _settingService.GetById(feedback.StatusId).Value;
-                    //    });
                 }
 
                 feedbackdto.Rows = lstFeedbackPaging;

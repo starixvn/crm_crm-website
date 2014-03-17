@@ -14,7 +14,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
@@ -30,7 +29,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using NPOI.HSSF.Util;
 
     /// <summary>
     /// Customer Report Service.

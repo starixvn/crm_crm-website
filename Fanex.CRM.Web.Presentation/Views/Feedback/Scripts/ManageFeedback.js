@@ -18,7 +18,8 @@ function setupCalendar(arrDateValues, arrIds) {
         changeYear: true,
         showOtherMonths: true,
         selectOtherMonths: true
-    }
+    };
+
     for (var i = 0; i < arrIds.length; i++) {
         if (arrDateValues[i]) {
             var datepickerElement = $('#' + arrIds[i]);

@@ -3,8 +3,8 @@
 hotKeyManager,
 remarkResources,
 customerId */
-remarkApplication.controller('remarkController', ['$scope', '$remarkService', function (
-    $scope, $remarkService) {
+remarkApplication.controller('remarkController', ['$scope', '$remarkService', '$timeout', function (
+    $scope, $remarkService, $timeout) {
     $scope.customerId = customerId;
     $scope.remarks = null;
     $scope.oldRemarks = null;
@@ -13,6 +13,10 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
     $scope.isShowSpecialRemark = true;
     $scope.isShowRemark = true;
     $scope.isSetFocus = false;
+    $scope.alertResult = {
+        IsSuccess: true,
+        Message: ''
+    };
 
     $scope.getRemarks = function () {
         $scope.blockUI();
@@ -59,13 +63,16 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', fu
         }
         $remarkService.updateRemarks($scope.remarks)
             .then(function (data) {
-                parent.dialogManager.alert(
-                    remarkResources.Alert,
-                    data.Result.Code === 0 ? remarkResources.UpdateRemarkSuccess : data.Result.Message,
-                    remarkResources.OK,
-                    function () {
-                        $scope.setFocus();
-                    });
+                var isSuccess = data.Result.Code === 0;
+                $scope.alertResult = {
+                    IsSuccess: isSuccess,
+                    Message: isSuccess ? remarkResources.UpdateRemarkSuccess : data.Result.Message
+                };
+                if (isSuccess) {
+                    $timeout(function () {
+                        $scope.alertResult.Message = '';
+                    }, 3000);
+                }
                 $scope.setPlaceHolder();
                 /*Must call getRemarks() function to reset change*/
                 $scope.getRemarks();

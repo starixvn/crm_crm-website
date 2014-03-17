@@ -452,11 +452,8 @@ namespace Fanex.CRM.DataAccess.Impl
                                     : reader.GetInt32(reader.GetOrdinal("titleid"))
                                 },
                                 Email = reader.IsDBNull(reader.GetOrdinal("email")) ? string.Empty : reader.GetString(reader.GetOrdinal("email")),
-                                //Fax = reader.IsDBNull(reader.GetOrdinal("fax")) ? string.Empty : reader.GetString(reader.GetOrdinal("fax")),
                                 FirstName = reader.IsDBNull(reader.GetOrdinal("firstname")) ? string.Empty : reader.GetString(reader.GetOrdinal("firstname")),
                                 LastName = reader.IsDBNull(reader.GetOrdinal("lastname")) ? string.Empty : reader.GetString(reader.GetOrdinal("lastname")),
-                                //MobilePhone = reader.IsDBNull(reader.GetOrdinal("mobilephone")) ? string.Empty : reader.GetString(reader.GetOrdinal("mobilephone")),
-                                //Phone = reader.IsDBNull(reader.GetOrdinal("phone")) ? string.Empty : reader.GetString(reader.GetOrdinal("phone"))
                             };
 
                             feedback.Language = new Setting
@@ -892,15 +889,7 @@ namespace Fanex.CRM.DataAccess.Impl
                                 LastName =
                                     reader.IsDBNull(reader.GetOrdinal("lastname"))
                                         ? string.Empty
-                                        : reader.GetString(reader.GetOrdinal("lastname"))/*,
-                                MobilePhone =
-                                    reader.IsDBNull(reader.GetOrdinal("mobilephone"))
-                                        ? string.Empty
-                                        : reader.GetString(reader.GetOrdinal("mobilephone")),
-                                Phone =
-                                    reader.IsDBNull(reader.GetOrdinal("phone"))
-                                        ? string.Empty
-                                        : reader.GetString(reader.GetOrdinal("phone"))*/
+                                        : reader.GetString(reader.GetOrdinal("lastname"))
                             };
 
                             feedback.Language = new Setting
@@ -1396,10 +1385,12 @@ namespace Fanex.CRM.DataAccess.Impl
                 {
                     Id = Converter.ToInt(reader["bettypeid"])
                 },
-                Country = new Country {
+                Country = new Country 
+                {
                     Id = Converter.ToInt(reader["countryid"])
                 },
-                Language = new Setting {
+                Language = new Setting 
+                {
                     Id = Converter.ToInt(reader["languageid"])
                 },
                 Response = new Setting
@@ -1421,8 +1412,6 @@ namespace Fanex.CRM.DataAccess.Impl
                 Subject = Converter.ToString2(reader["subject"])
             };
 
-            //feedback.IsReviewed = feedback.Reviewer.Id > 0;
-            //feedback.IsReviewed = Converter.ToBool(reader["isreviewed"]);
             return feedback;
         }
 

@@ -134,11 +134,11 @@ function FeedbackData(userId, customerId, clientTime) {
                     msn: $('#msnInfo'),
                     passportNumber: $('#passportInfo'),
                     birthday: $('#birthdayInfo'),
-                    site: $('#ddlsite'),
+                    //site: $('#ddlsite'),
                     country: $('#ddlcountry'),
                     language: $('#ddllanguage'),
-                    bettingCode: $('#bettingCodeInfo'),
-                    refCodes2: $('#refCodes2Info'),
+                    //bettingCode: $('#bettingCodeInfo'),
+                    //refCodes2: $('#refCodes2Info'),
                     isVIP: $('#isVIP'),
                     pic1: $('#pic1Info'),
                     pic2: $('#pic2Info'),
@@ -327,9 +327,9 @@ function FeedbackData(userId, customerId, clientTime) {
                 MSN: personal.msn.val().trim(),
                 PassportNumber: personal.passportNumber.val().trim(),
                 Birthday: personal.birthday.datepicker('getDate'),
-                Site: personal.site.val(),
-                BettingCode: personal.bettingCode.val().trim(),
-                RefCodes2: personal.refCodes2.val().trim(),
+                //Site: personal.site.val(),
+                //BettingCode: personal.bettingCode.val().trim(),
+                //RefCodes2: personal.refCodes2.val().trim(),
                 IsVIP: personal.isVIP.prop('checked'),
                 PIC1: personal.pic1.val().trim(),
                 PIC2: personal.pic2.val().trim(),
@@ -556,8 +556,8 @@ FeedbackData.prototype.setFeedbackData = function (data) {
     personal.msn.val(customerInfo.MSN);
     personal.passportNumber.val(customerInfo.PassportNumber);
     personal.birthday.datepicker('setDate', new Date(customerInfo.BirthDayString));
-    personal.bettingCode.val(customerInfo.BettingCode);
-    personal.refCodes2.val(customerInfo.RefCodes2);
+    //personal.bettingCode.val(customerInfo.BettingCode);
+    //personal.refCodes2.val(customerInfo.RefCodes2);
     personal.isVIP.prop('checked', customerInfo.IsVIP);
     personal.pic1.val(customerInfo.PIC1);
     personal.pic2.val(customerInfo.PIC2);

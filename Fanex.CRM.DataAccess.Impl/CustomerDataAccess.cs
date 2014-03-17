@@ -120,22 +120,7 @@ namespace Fanex.CRM.DataAccess.Impl
                             customer.BettingCode = Fanex.Common.Converter.ToString2(reader.GetOrdinal("RefCode1"));
 
                             customer.RefCode2 = Fanex.Common.Converter.ToString2(reader.GetOrdinal("RefCode2"));
-                            //customer.Remark = reader["Remark"] != DBNull.Value
-                            //    ? (reader["Remark"] != null ? reader.GetString(reader.GetOrdinal("Remark")) : string.Empty)
-                            //                        : string.Empty;
-                            //customer.SpecialRemark = reader["Remark2"] != DBNull.Value
-                            //    ? (reader["Remark2"] != null ? reader.GetString(reader.GetOrdinal("Remark2")) : string.Empty)
-                            //                        : string.Empty;
-
-                            //customer.Language = reader["LanguageID"] != DBNull.Value
-                            //    ? reader.GetInt32(reader["LanguageID"] != null ? reader.GetOrdinal("LanguageID") : 0)
-                            //                        : 0;
                         }
-
-                        /*if (reader.NextResult())
-                        {
-                            customer.CustomerInfo.Languages = GetCustomerLanguages(reader);
-                        }*/
                     }
                 }
             }

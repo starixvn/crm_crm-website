@@ -36,8 +36,10 @@ isShowCustinfoBox,
 isShowDescriptionBox,
 isShowFeedbackDetailBox,
 isShowReviewBox,
-isShowSolutionBox
+isShowSolutionBox,
+hotKeyManager
 */
+/* jshint camelcase: false */
 //var settings = ["Title", "Status", "Station", "Response", "Communication"];
 //var ddls = ["ddltitle", "ddlstatus", "ddlcsextension", "ddlresponse", "ddlcommunication"];
 var listObjToValidate = ["txtsubject"];
@@ -454,7 +456,6 @@ function getCRMInfoById(custId) {
     });
 }
 
-/* jshint camelcase: false */
 var invokeHotKey_CtrlS = function () {
     AddFeedback();
 };

@@ -117,7 +117,7 @@ function Setting(allowDeleteFeedback) {
 
                 populateSelect($('#ddltitle'), self.settings.Title);
                 buildCountrySetting($('#ddlcountry'), self.settings.Country, { Id: 0, Value: 'N/A' });
-                buildSiteSetting($('#ddlsite'), self.settings.Site, { Id: 0, Value: 'Select' });
+                // buildSiteSetting($('#ddlsite'), self.settings.Site, { Id: 0, Value: 'Select' });
 
                 populateSelect($('#ddlcsextension'), self.settings.Extension);
                 populateSelect($('#ddlcommunication'), self.settings.Communication);
