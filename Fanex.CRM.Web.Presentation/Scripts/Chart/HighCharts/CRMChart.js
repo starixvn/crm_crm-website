@@ -11,9 +11,6 @@
         subtitle: {
             text: ''
         },
-        xAxis: {
-            categories: []
-        },
         yAxis: {
             min: 0,
             title: {
@@ -35,7 +32,6 @@
                 borderWidth: 0
             }
         },
-        series: [],
         credits: {
             enabled: false
         }

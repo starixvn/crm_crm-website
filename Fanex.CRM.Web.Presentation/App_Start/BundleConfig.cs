@@ -434,6 +434,8 @@ namespace Fanex.CRM.Web.View.App_Start
         {
             bundles.Add(new ScriptBundle("~/CRM/Chart/Scripts").Include(
                 "~/Scripts/Chart/HighCharts/highcharts.js",
+                "~/Scripts/Chart/HighCharts/data.js",
+                "~/Scripts/Chart/HighCharts/drilldown.js",
                 "~/Scripts/Chart/HighCharts/CRMChart.js"));
         }
     }
