@@ -156,7 +156,7 @@ function (
 
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
-        if (!$scope.oldCommunicationLog.IsReviewed || 
+        if (!$scope.oldCommunicationLog.IsReviewed ||
             !$scope.communicationLog.IsReviewed) {
             $scope.preupdateLog();
             $scope.$apply();
@@ -548,16 +548,6 @@ function (
 
         if (result && criteria.LanguageId === crmConstants.Enums.Language.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NALanguage;
-            result = false;
-        }
-
-        if (result && criteria.ProductId === crmConstants.Enums.Product.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NAProduct;
-            result = false;
-        }
-
-        if (result && criteria.BetTypeId === crmConstants.Enums.BetType.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NABetType;
             result = false;
         }
 
