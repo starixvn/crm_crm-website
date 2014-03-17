@@ -24,6 +24,8 @@ namespace Fanex.CRM.Report.Models
 
         public string Name { get; set; }
 
+        public string ShortName { get; set; }
+
         public int ReportTypeId { get; set; }
 
         public int CustomerId { get; set; }

@@ -77,6 +77,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             }
         }
 
+        var viewChartIcon = '<input id="button-viewchart" class="btnCharting" type="button" value=" ">';
         var gridOptions = {
             columns: [{ HeaderText: viewResources.Symbol_No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
                 { HeaderText: viewResources.Running_No, Width: 80, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
@@ -103,7 +104,8 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 exportExcelFunction: function () {
                     selfScope.exportReport();
                 },
-                showCollapseExpandButton: true
+                showCollapseExpandButton: true,
+                customButtons: viewChartIcon
             },
             bodyRows: bodyData,
             footerRows: footerData,
@@ -161,10 +163,44 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         cachedGridOptions = gridOptions;
         tableDynamicReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
         bindLogLink(tableDynamicReport, scope);
+        element.find("#button-viewchart").click(function () {
+            viewChart(scope, element, attrs);
+        });
     }
+
     function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
         selfScope.pagingDynamicReport(page_index, itemsPerPage);
         return false;
+    }
+
+    function viewChart(scope, element, attrs) {
+        parent.crmChart.title = cachedDynamicReport.Name;
+        var xAxisCategories = [];
+        var chartSeries = [];
+        var chartSerie = null;
+        var childReportLength = cachedDynamicReport ? cachedDynamicReport.ChildReports.length : 0;
+        xAxisCategories.push(cachedDynamicReport.ShortName);
+        for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
+            var periodReport = cachedDynamicReport.ChildReports[xIndex];
+            chartSerie = {
+                name: periodReport.ShortName,
+                data: [periodReport.TotalChildReports]
+            };
+
+            chartSeries.push(chartSerie);
+        }
+
+        var chartOptions = {
+            xAxis: {
+                categories: xAxisCategories
+            },
+            series: chartSeries,
+            tooltip: {
+                valueSuffix: viewResources.DynamicReport_ChartSuffix
+            }
+        };
+
+        parent.crmChart.viewChart(chartOptions);
     }
 
     return {

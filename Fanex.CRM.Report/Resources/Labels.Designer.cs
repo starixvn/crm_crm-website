@@ -223,6 +223,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  Log(s).
+        /// </summary>
+        public static string DynamicReport_ChartSuffix {
+            get {
+                return ResourceManager.GetString("DynamicReport_ChartSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0}_Communication_Logs_From_{1}_To_{2}.
         /// </summary>
         public static string DynamicReport_ExcelTitle {
@@ -246,6 +255,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string DynamicReport_SheetName {
             get {
                 return ResourceManager.GetString("DynamicReport_SheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} To {1}.
+        /// </summary>
+        public static string DynamicReport_ShortTitle {
+            get {
+                return ResourceManager.GetString("DynamicReport_ShortTitle", resourceCulture);
             }
         }
         
