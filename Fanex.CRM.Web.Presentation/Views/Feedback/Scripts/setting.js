@@ -1,7 +1,9 @@
 ﻿'use strict';
-function Setting(allowDeleteFeedback) {
+/* global showAlertMessage,
+clearMessage */
+function Setting(allowDelete) {
     var self = this;
-    var allowDeleteFeedback = allowDeleteFeedback;
+    var allowDeleteFeedback = allowDelete;
 
     function populateSelectWithGroup(element, setting, settingDefault) {
         element.empty();
@@ -47,9 +49,9 @@ function Setting(allowDeleteFeedback) {
             { Group: 'Credit', Childs: [] },
             { Group: 'Licensee', Childs: []}];
 
-        $.each(setting, function (index, val) {
-            sites[val.SiteType].Childs.push({ Id: val.SiteId, Value: val.SiteName })
-        });
+            $.each(setting, function (index, val) {
+                sites[val.SiteType].Childs.push({ Id: val.SiteId, Value: val.SiteName });
+            });
 
         populateSelectWithGroup(element, sites, settingDefault);
     }
@@ -61,7 +63,7 @@ function Setting(allowDeleteFeedback) {
 
         var countries = [];
         $.each(setting, function (index, val) {
-            countries.push({ Id: val.Id, Value: val.CountryName })
+            countries.push({ Id: val.Id, Value: val.CountryName });
         });
 
         populateSelect(element, countries, settingDefault);
@@ -70,7 +72,7 @@ function Setting(allowDeleteFeedback) {
     function bindingChildByParentId(element, childElement, setting, parentValue, settingDefault) {
         var totalItems = setting ? setting.length : 0;
         for (var i = 0; i < totalItems; i++) {
-            if (setting[i].Id == parentValue) {
+            if (setting[i].Id === parseInt(parentValue)) {
                 if ((setting[i].Child && setting[i].Child.length > 0) || settingDefault) {
                     clearMessage('errmsg');
                     populateSelect(childElement, setting[i].Child, settingDefault);
@@ -88,7 +90,7 @@ function Setting(allowDeleteFeedback) {
         /* don't have child categories */
         childElement.empty();
         childElement.append($('<option>').attr('value', 0).html('N/A'));
-    };
+    }
 
     function bindingCategoryAndProductEvents() {
         $('#ddlcategory').change(function () {
@@ -135,7 +137,7 @@ function Setting(allowDeleteFeedback) {
                 populateSelect(categoryElement, self.settings.Category);
                 bindingChildByParentId(categoryElement, $('#ddlsubcategory'), self.settings.Category, categoryElement.val());
 
-                var productElement = $('#ddlproduct'); ;
+                var productElement = $('#ddlproduct');
                 populateSelect(productElement, self.settings.Product, { Id: 0, Value: 'N/A' });
                 bindingChildByParentId(productElement, $('#ddlbettype'), self.settings.Product, productElement.val(), { Id: 0, Value: 'N/A' });
             },

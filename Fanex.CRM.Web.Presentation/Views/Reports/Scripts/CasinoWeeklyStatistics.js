@@ -6,6 +6,7 @@ head, fromDate, toDate, val, accChart */
 var arrWidth = [];
 var maxHeightOfPopUp = ($(window).height() + 50);
 var casinoWeeklyDetail;
+var crmChart;
 
 var casinoWeeklySummary = {
     title: '',
@@ -15,6 +16,7 @@ var casinoWeeklySummary = {
     columnWidthDefault: 90,
     totalWidth: 0,
     gridHeight: 90,
+    chartSetting: { categories: [], series: [] },
     getWeeklySummary: function () {
         var mainreport = $("#weeklysummarygrid");
         mainreport.addClass('hidden');
@@ -167,19 +169,48 @@ var casinoWeeklySummary = {
         casinoWeeklyDetail.getDailyDetailReport(false);
     },
     assignChartData: function (rs) {
-        var items = [];
-        for (var i = 0; i < rs.DailySummaries.length; i++) {
-            var item = rs.DailySummaries[i];
-            var chartInfo = {};
-            chartInfo.Name = "'" + item.Total.MainCategory + "'";
-            for (var j = 0; j < item.Total.Cells.length; j++) {
-                var cell = item.Total.Cells[j];
-                chartInfo[cell.Title] = cell.Value;
+        var categories = [];
+        var series = [];
+
+        if (rs && rs.DailySummaries) {
+            var items = [];
+            var totalMainCategories = rs.DailySummaries.length;
+            var totalCols = rs.GrandTotal.Cells.length;
+
+            for (var i = 0; i < totalMainCategories; i++) {
+                var mainCategoryDetail = rs.DailySummaries[i].Total;
+                var categoryName = mainCategoryDetail.MainCategory;
+                var detailData = [];
+
+                for (var k = 0; k < totalCols; k++) {
+                    detailData.push(mainCategoryDetail.Cells[k].Value);
+
+                    if (i === totalMainCategories - 1) {
+                        categories.push(mainCategoryDetail.Cells[k].Title);
+                    }
+                }
+
+                series.push({ name: categoryName, data: detailData });
             }
 
-            items.push(chartInfo);
+            this.chartSetting.categories = categories;
+            this.chartSetting.series = series;
         }
-        casinoWeeklySummary.chart.setData(items);
+    },
+    viewChart: function () {
+        var chartOptions = {
+            xAxis: {
+                categories: this.chartSetting.categories
+            },
+            series: this.chartSetting.series,
+            tooltip: {
+                valueSuffix: ' Feedback(s)'
+            }
+        };
+
+        crmChart.title = $('#gridtitle').html();
+
+        crmChart.viewChart(chartOptions);
     }
 };
 
@@ -497,148 +528,6 @@ head.ready(function () {
     };
 
     $("#weeklydetailgrid").initGrid(gridOptions);
-});
 
-$.extend(casinoWeeklySummary, { chart: {
-    data: null,
-    categories: [],
-    setData: function (_data) {
-        this.data = _data;
-        if (_data) {
-            var val = _data[0];
-            var objIndex = 0;
-            var newCategories = [];
-            jQuery.each(val, function (name, value) {
-                /* jshint unused: vars */
-                if (objIndex !== 0) {
-                    var item = { field: name, label: name, enable: true };
-                    newCategories.push(item);
-                }
-
-                objIndex++;
-            });
-            this.categories = newCategories;
-        }
-    },
-    viewByTotal: function () {
-        if (this.data != null) {
-            var data_items = this.data;
-            var serial_data = [];
-            var categories = [];
-            for (var i = 0, len = data_items.length; i < len; i++) {
-                var item = data_items[i];
-                var toData = [];
-                for (var j = 0, categoriesLength = this.categories.length; j < categoriesLength; j++) {
-                    var cate = this.categories[j];
-                    if (!cate.enable) {
-                        continue;
-                    }
-
-                    toData.push(casinoWeeklySummary.chart.toNumber(val));
-                    if (i === 0) {
-                        categories.push(cate.label);
-                    }
-                }
-
-                serial_data.push({
-                    name: item.Name,
-                    data: toData,
-                    cursor: 'pointer'
-                });
-            }
-            // init chart total
-            var opts = {
-                container: 'chart_content',
-                type: 'spline',
-                title: $('#gridtitle').html(),
-                width: 1000,
-                height: (maxHeightOfPopUp - 100),
-                categories: categories,
-                series: serial_data,
-                legendY: (maxHeightOfPopUp - 210)
-            };
-            if ($('#chart_content').length === 0) {
-                this.initViewChart(opts);
-            }
-            accChart.renderSVG(opts);
-        }
-    },
-    initViewChart: function (opts) {
-        $('<div />').attr('id', 'chart_shadow').addClass('chart_shadow').appendTo('body').show();
-        $('<div />').attr('id', 'chart_popup').addClass('chart_popup')
-            .css({ width: 1000 })
-            .appendTo('body');
-        $('<div />').attr('id', 'chart_setting').addClass('chart_setting').appendTo('#chart_popup');
-        $('<div />').attr('id', 'chart_title')
-             .addClass('chart_title')
-             .append('<div class="setting" title="Setting">&nbsp;</div>\
-                      <div class="title">' + opts.title + '</div>\
-                      <div class="close" title="Close">&nbsp;</div>')
-             .appendTo('#chart_popup');
-        $('<div />').attr('id', 'chart_content').addClass('chart_content')
-             .css({ width: opts.width, height: opts.height })
-             .appendTo('#chart_popup');
-        $('#chart_popup').css("left", 10);
-        $('#chart_popup').css("top", 10);
-        $('#chart_popup').show();
-        $('#chart_popup').draggable({
-            handle: '#chart_title'
-        });
-        $('div.setting').bind('click', function (e) {
-            /* jshint unused: vars */
-            if ($('#chart_setting').is(':hidden')) {
-                $('#chart_setting').slideDown();
-                $(this).attr('title', 'Hide setting');
-            } else {
-                $('#chart_setting').slideUp();
-                $(this).attr('title', 'Display setting');
-            }
-        });
-        $('div.close').bind('click', function (e) {
-            /* jshint unused: vars */
-            casinoWeeklySummary.chart.close();
-        });
-        this.renderSetting();
-    },
-    renderSetting: function () {
-        $('#chart_setting').html('<ul id="ul_setting"></ul>');
-        //        var tpl_cate = '{{each categories}}<li>\
-        //                            <input class="setcheck" type="checkbox" {{if $value.enable}}checked="${$value.enable}"{{/if}} value="${$index}"/>\
-        //                            ${$value.enable}&nbsp;${$value.label}</li>{{/each}}';
-        //$('<div />').append(tpl_cate).tmpl(this).appendTo("#ul_setting");
-        $.each(this.categories, function (ind, cate) {
-            var is_checked = (cate.enable === true) ? 'checked' : '';
-            var _itemTpl = '<li><input class="setcheck" ' + is_checked + ' type="checkbox" value="' + ind + '"/>&nbsp;' + cate.label + '</li>';
-            $("#ul_setting").append(_itemTpl);
-        });
-        $('#chart_setting').css({ width: 185, 'margin-top': 27 });
-        if ($.browser.msie) {
-            if ($.browser.version.indexOf('7') !== -1) {
-                $('#chart_setting').css({ 'margin-left': -1000 });
-                $('#ul_setting').css({ 'margin-left': 10 });
-            }
-        }
-        window.setTimeout(function () {
-            $('input.setcheck').bind('click', function (e) {
-                /* jshint unused: vars */
-                var checked = $(this).attr("checked");
-                var index = $(this).val();
-                casinoWeeklySummary.chart.categories[index].enable = checked;
-                casinoWeeklySummary.chart.viewByTotal();
-            });
-        });
-    },
-    close: function () {
-        $('#chart_shadow').fadeOut();
-        $('#chart_popup').fadeOut();
-        window.setTimeout(function () {
-            $('#chart_shadow').remove();
-            $('#chart_popup').remove();
-        }, 1000);
-    },
-    toNumber: function (numText) {
-        numText = "".concat(numText);
-        return parseFloat(numText.replace(/,/gi, ''));
-    }
-}
+    crmChart = parent.crmChart;
 });

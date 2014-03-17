@@ -1,4 +1,11 @@
 'use strict';
+/* global Setting,
+FeedbackData,
+hotKeyManager,
+head,
+clientTime,
+allowDeleteFeedback,
+accId */
 /* jshint camelcase: false */
 var feedbackData;
 var settingData;
@@ -18,7 +25,7 @@ function AddGuestFeedback() {
 }
 
 var invokeHotKey_CtrlS = function () {
-    AddGuestFeedback();
+    this.AddGuestFeedback();
 };
 
 head.ready(function () {

@@ -232,15 +232,16 @@ casinoDailyStatistics = {
 
         if (rs && rs.GrandTotal) {
             var feedbackSummary = rs.GrandTotal;
-            var totalSubcategories = feedbackSummary.length;
+            var totalSubcategories = feedbackSummary.SystemSummary.length;
+            var groupIndex = 0;
 
             for (var i = 0; i < totalSubcategories; i++) {
                 var categoryDetail = feedbackSummary.SystemSummary[i];
                 var categoryName = categoryDetail.Sytem;
-                var totalFeedbacks = feedbackSummary.SumAllFeedbacks[i];
+                var totalFeedbacks = rs.SumAllFeedbacks[i];
 
                 if (totalFeedbacks !== 0) {
-                    var percent = (totalFeedbacks / (1)) * 100;
+                    var percent = ((rs.SumAllFeedbacks[i]) / (eval(rs.SumAllFeedbacks.join('+')))) * 100;
                     mainCategories.push({
                         name: categoryName,
                         y: percent,
@@ -256,11 +257,22 @@ casinoDailyStatistics = {
 
                     for (var j = 0; j < totalCols; j++) {
                         var item = categoryDetail.Cells[j];
-                        subcategories[i].data.push([
-                            item.Title,
-                            item.Value
-                        ]);
+                        var totalSubFeedBacks = 0;
+                        if (item.Value !== 0) {
+                            if (totalSubFeedBacks === 0) {
+                                for (var k = 0; k < totalCols; k++) {
+                                    totalSubFeedBacks += categoryDetail.Cells[k].Value;
+                                }
+                            }
+                            var subPercent = (item.Value / totalSubFeedBacks) * 100;
+                            subcategories[groupIndex].data.push([
+                                item.Title,
+                                subPercent
+                            ]);
+                        }
                     }
+
+                    groupIndex++;
                 }
             }
 
@@ -269,11 +281,17 @@ casinoDailyStatistics = {
         }
     },
     viewChart: function () {
-        console.log(this.chartSetting.mainCategories);
-        console.log(this.chartSetting.subcategories);
 
         var chartOptions = {
-            type: 'pie',
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
             plotOptions: {
                 series: {
                     dataLabels: {
@@ -284,19 +302,21 @@ casinoDailyStatistics = {
             },
             tooltip: {
                 headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
+                footerFormat: ''
             },
+            series: [{
+                name: 'Summary',
+                colorByPoint: true,
+                data: this.chartSetting.mainCategories
+            }],
             drilldown: {
                 series: this.chartSetting.subcategories
             }
         };
 
-        crmChart.title = 'testing';
-        crmChart.series = [{
-            name: 'Feedbacks',
-            colorByPoint: true,
-            data: this.chartSetting.mainCategories
-        }];
+
+        crmChart.title = $('#gridtitle').html();
 
         crmChart.viewChart(chartOptions);
     }
