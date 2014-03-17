@@ -337,6 +337,8 @@
     <Content Include="Content\site\Images\warning.png" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
+    <Content Include="Scripts\Chart\HighCharts\CRMChart.js" />
+    <Content Include="Scripts\Chart\HighCharts\highcharts.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.css" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Pagination.css" />
@@ -398,6 +400,7 @@
     <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.css" />
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.js" />
+    <Content Include="Scripts\ShareScripts\Controllers\FromToDatePicker.js" />
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
     <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
@@ -412,10 +415,12 @@
     <Content Include="Scripts\ShareScripts\Directives\MultiSelect.js" />
     <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
+    <Content Include="Scripts\ShareScripts\Directives\ToggleElement.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
+    <Content Include="Scripts\ShareScripts\SharedControllerManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
     <Content Include="Areas\ActionLog\SettingLog\Index.cshtml" />
     <None Include="Areas\ActionLog\SettingLog\Styles\settingLog.less" />

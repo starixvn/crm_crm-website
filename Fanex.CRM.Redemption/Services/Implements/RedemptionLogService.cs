@@ -21,6 +21,8 @@ namespace Fanex.CRM.Redemption.Services.Implements
     using Fanex.CRM.Redemption.Repositories.Interfaces;
     using Fanex.CRM.Redemption.Resources;
     using Fanex.CRM.Redemption.Services.Interfaces;
+    using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
@@ -154,7 +156,11 @@ namespace Fanex.CRM.Redemption.Services.Implements
             var allStatusResult = new List<SettingInfo>();
             try
             {
-                var allStatusSetting = _serviceSetting.GetAllStatus();
+                var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
+                {
+                    ViewType = ViewTypeConstants.Redemption
+                });
+
                 if (allStatusSetting == null)
                 {
                     return allStatusResult;

@@ -27,6 +27,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.Interfaces;
     using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
@@ -171,7 +172,11 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             try
             {
                 var allStatus = new List<SettingInfo>();
-                var rawData = _serviceSetting.GetAllStatus();
+                var rawData = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
+                {
+                    ViewType = ViewTypeConstants.CommunicationTool
+                });
+
                 allStatus.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
@@ -180,7 +185,13 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
 
                 foreach (var rawStatus in rawData)
                 {
-                    allStatus.Add(rawStatus);
+                    if (rawStatus.Name == Labels.Checked ||
+                        rawStatus.Name == Labels.Solved ||
+                        rawStatus.Name == Labels.Closed ||
+                        rawStatus.Name == Labels.Pending)
+                    {
+                        allStatus.Add(rawStatus);
+                    }
                 }
 
                 return allStatus;

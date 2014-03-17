@@ -59,6 +59,9 @@ namespace Fanex.CRM.Report.Criteria.DynamicReport
         [SpParam(SqlParamName = "extension")]
         public int ExtensionId { get; set; }
 
+        [SpParam(SqlParamName = "subject")]
+        public string Subject { get; set; }
+
         [SpParam(Ignored = true)]
         public int PageIndex { get; set; }
 

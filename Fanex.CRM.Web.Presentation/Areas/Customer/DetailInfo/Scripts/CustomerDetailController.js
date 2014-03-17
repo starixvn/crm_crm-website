@@ -329,6 +329,12 @@ function (
                 }
             }]
         });
+
+        if (parseInt(updateResult.Id) === crmConstants.Enums.Error.None) {
+            setTimeout(function () {
+                $scope.DOMElements.divResultPopUp.dialog("close");
+            }, 3000);
+        }
     };
     $scope.shouldReloadLeftPanel = function () {
         if ($scope.customerDetail &&

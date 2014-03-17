@@ -403,6 +403,33 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Line 1.
+        /// </summary>
+        public static string Line_1 {
+            get {
+                return ResourceManager.GetString("Line_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line 2.
+        /// </summary>
+        public static string Line_2 {
+            get {
+                return ResourceManager.GetString("Line_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line 3.
+        /// </summary>
+        public static string Line_3 {
+            get {
+                return ResourceManager.GetString("Line_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Category.
         /// </summary>
         public static string Main_Category {

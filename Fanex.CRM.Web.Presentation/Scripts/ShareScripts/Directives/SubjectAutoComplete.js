@@ -1,5 +1,7 @@
 ﻿"use strict";
-/* global directiveManager */
+/* global directiveManager: true,
+jlinq,
+keyboardManager */
 /* jshint unused: vars */
 /* jshint camelcase: false */
 directiveManager = directiveManager || {};
@@ -26,7 +28,8 @@ directiveManager.registerSubjectAutoComplete = function (angularApplication, reg
             }
 
             var suggestionItemNumber = options.NumberOfSuggestItems;
-            element.keyup(function (e) {
+            var picker = registerParams.PickerId ? element.find("#" + registerParams.PickerId) : element;
+            picker.keyup(function (e) {
                 if (isAutoSuggest(e.keyCode)) {
                     var rows = [];
                     var inputValue = $(this).val();
@@ -48,10 +51,10 @@ directiveManager.registerSubjectAutoComplete = function (angularApplication, reg
                 }
             });
 
-            element.change(function () {
+            picker.change(function () {
                 if (options.OnChangeEvent &&
                     typeof (options.OnChangeEvent) === "function") {
-                    options.OnChangeEvent(element.val());
+                    options.OnChangeEvent(picker.val());
                 }
             });
         }
@@ -60,7 +63,9 @@ directiveManager.registerSubjectAutoComplete = function (angularApplication, reg
             restrict: registerParams.RestrictType,
             scope: true,
             link: function (scope, element, attrs) {
-                bindingAutoSuggestionSubject(scope, element, attrs);
+                scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    bindingAutoSuggestionSubject(scope, element, attrs);
+                });
             }
         };
     });

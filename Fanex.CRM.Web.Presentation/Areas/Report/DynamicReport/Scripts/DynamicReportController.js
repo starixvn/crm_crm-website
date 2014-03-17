@@ -42,6 +42,11 @@ function (
     $scope.defaultFocusOptions = null;
     $scope.downloadFileOptions = null;
 
+    $scope.feedbackSubjectTemplateList = [];
+    $scope.feedbackSubjectTemplateTotalPage = 0;
+    $scope.isLoadedFeedbackSubjectTemplate = false;
+    $scope.subjectOptions = null;
+
     $scope.searchCriteria = {
         ReportType: null,
         FromDate: initFromDate,
@@ -58,6 +63,7 @@ function (
         Handler: null,
         Reviewer: null,
         Extension: null,
+        Subject: null,
         PageIndex: 0,
         PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
         IsGetFromCached: false
@@ -70,6 +76,7 @@ function (
     $scope.lastSelectedParams = null;
 
     $scope.initController = function () {
+        $scope.getNumberOfFeedbackSubjectTemplate();
         $scope.getAllSetting();
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
@@ -272,6 +279,16 @@ function (
             Name: viewResources.All
         };
 
+        if ($scope.isLoadedFeedbackSubjectTemplate) {
+            $scope.subjectOptions = {
+                NumberOfSuggestItems: 15,
+                SubjectList: $scope.feedbackSubjectTemplateList,
+                Subject: '',
+                IsUpdate: true,
+                OnChangeEvent: $scope.updateSelectedSubject
+            };
+        }
+
         $scope.unblockUI();
     };
     $scope.updateFromDatePicker = function (isOnApply) {
@@ -463,6 +480,46 @@ function (
     $scope.completeSetFocus = function () {
         $scope.defaultFocusOptions.IsSetFocus = false;
     };
+    $scope.getNumberOfFeedbackSubjectTemplate = function () {
+        $scope.BlockUI();
+        $dynamicReportService.getNumberOfFeedbackSubjectTemplate()
+            .then(function (data) {
+                var numberOfFeedbackItem = data.Result;
+                $scope.feedbackSubjectTemplateList = [];
+                var totalPage = Math.round((numberOfFeedbackItem / sharedScriptManager.cachedData.maxFeedbackSubjectTemplateNumberOnLoad) + 0.5);
+                $scope.feedbackSubjectTemplateTotalPage = totalPage;
+                $scope.isLoadedFeedbackSubjectTemplate = false;
+                for (var i = 1; i <= totalPage; i++) {
+                    $scope.getFeedbackSubjectTemplateByPagingIndex(i);
+                }
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $scope.isLoadedFeedbackSubjectTemplate = true;
+            });
+    };
+    $scope.getFeedbackSubjectTemplateByPagingIndex = function (pagingIndex) {
+        $scope.BlockUI();
+        $dynamicReportService.getFeedbackSubjectTemplateByPagingIndex({ PagingIndex: pagingIndex })
+            .then(function (data) {
+                var feedbackSubjectTemplate = data.Result;
+                if (feedbackSubjectTemplate != null && feedbackSubjectTemplate.length > 0) {
+                    $scope.feedbackSubjectTemplateList = $scope.feedbackSubjectTemplateList.concat(feedbackSubjectTemplate);
+                }
+
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.completedLoadFilterInfo();
+                }
+            },
+            function (data) {
+                /* jshint unused: vars */
+                if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
+                    $scope.isLoadedFeedbackSubjectTemplate = true;
+                    $scope.completedLoadFilterInfo();
+                }
+            });
+    };
 
     $scope.updateSelectedStatus = function (status) {
         $scope.searchCriteria.Status = status;
@@ -494,6 +551,10 @@ function (
         $scope.searchCriteria.Extension = extension;
         $scope.$apply();
     };
+    $scope.updateSelectedSite = function (site) {
+        $scope.searchCriteria.Site = site;
+        $scope.$apply();
+    };
     $scope.getDynamicReport = function () {
         $scope.BlockUI();
         var getReportCriteria = {
@@ -512,6 +573,7 @@ function (
             Handler: $scope.searchCriteria.Handler,
             Reviewer: $scope.searchCriteria.Reviewer,
             ExtensionId: $scope.searchCriteria.Extension.Id,
+            Subject: $scope.searchCriteria.Subject,
             PageIndex: $scope.searchCriteria.PageIndex,
             PageSize: $scope.searchCriteria.PageSize,
             IsGetFromCached: false
@@ -542,6 +604,10 @@ function (
             function (data) {
                 $scope.unblockUI();
             });
+    };
+    $scope.updateSelectedSubject = function (subject) {
+        $scope.searchCriteria.Subject = subject;
+        $scope.$apply();
     };
 
     $scope.viewCommunicationLog = function (communicationLog) {

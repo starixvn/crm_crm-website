@@ -62,6 +62,7 @@
     <Compile Include="Constants\SettingTypeConstants.cs" />
     <Compile Include="Constants\SiteConstants.cs" />
     <Compile Include="Constants\TitleConstants.cs" />
+    <Compile Include="Constants\ViewTypeConstants.cs" />
     <Compile Include="Constants\VIPTypeConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Criteria\GetActionCriteria.cs" />

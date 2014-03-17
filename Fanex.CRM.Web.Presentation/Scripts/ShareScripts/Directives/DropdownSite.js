@@ -58,13 +58,13 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
             element.change(function () {
                 if (options.OnChangeEvent &&
                     typeof (options.OnChangeEvent) === "function") {
-                    var selectedItem = getSelectedItem(dropdown.find('option:selected').val());
+                    var selectedItem = getSelectedItem(scope, dropdown.find('option:selected').val());
                     options.OnChangeEvent(selectedItem);
                 }
             });
         }
 
-        function getSelectedItem(selectedId) {
+        function getSelectedItem(scope, selectedId) {
             var options = scope[registerParams.OptionName];
             if (options === null ||
                 options.DataList === null) {
@@ -83,10 +83,15 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
             var selectedItem = null;
             for (var i = 0; i < dataListLength; i++) {
                 var data = dataList[i];
-                if (data.Id === selectedId) {
-                    selectedItem = data;
-                    break;
+                var siteLength = data.ChildSites.length;
+                for (var j = 0; j < siteLength; j++) {
+                    var site = data.ChildSites[j];
+                    if (site.Id === selectedId) {
+                        selectedItem = site;
+                        break;
+                    }
                 }
+
             }
 
             return selectedItem;

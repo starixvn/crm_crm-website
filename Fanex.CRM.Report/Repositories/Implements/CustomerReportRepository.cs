@@ -90,39 +90,49 @@ namespace Fanex.CRM.Report.Repositories.Implements
 
                  FaxInfo = new FaxInfo
                  {
-                     CountryCode = "1001001" ?? Converter.ToString2(reader["FaxCountryCode"]),
-                     AreaCode = "1001001" ?? Converter.ToString2(reader.GetStringNotNull("FaxAreaCode")),
-                     FaxNumber = "1001001" ?? Converter.ToString2(reader.GetStringNotNull("Fax"))
+                     CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
+                     AreaCode = Converter.ToString2(reader.GetStringNotNull("FaxAreaCode")),
+                     FaxNumber = Converter.ToString2(reader.GetStringNotNull("Fax"))
                  },
                  MobilePhone = new PhoneInfo
                  {
-                     CountryCode = "1001001" ?? Converter.ToString2(reader["MobilePhoneCountryCode"]),
-                     AreaCode = "1001001" ?? Converter.ToString2(reader["MobilePhoneAreaCode"]),
-                     PhoneNumber = "1001001" ?? Converter.ToString2(reader["MobilePhone"])
+                     CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
+                     AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"]),
+                     PhoneNumber = Converter.ToString2(reader["MobilePhone"])
                  },
-                 Skype = "1001001" ?? Converter.ToString2(reader["Skype"]),
-                 Email = "1001001" ?? Converter.ToString2(reader["Email"]),
+                 Skype = Converter.ToString2(reader["Skype"]),
+                 Email = Converter.ToString2(reader["Email"]),
+
+                 AddressInfo = new AddressInfo
+                 {
+                     LineList = new List<string>
+                    {
+                        reader.GetStringNotNull("Line1"),
+                        reader.GetStringNotNull("Line2"),
+                        reader.GetStringNotNull("Line3"),
+                    }
+                 }
              };
 
             customerInfo.PhoneInfo.Add(new PhoneInfo
             {
-                CountryCode = "1001001" ?? Converter.ToString2(reader["PhoneCountryCode"]),
-                AreaCode = "1001001" ?? Converter.ToString2(reader["PhoneAreaCode"]),
-                PhoneNumber = "1001001" ?? Converter.ToString2(reader["Phone"])
+                CountryCode = Converter.ToString2(reader["PhoneCountryCode"]),
+                AreaCode = Converter.ToString2(reader["PhoneAreaCode"]),
+                PhoneNumber = Converter.ToString2(reader["Phone"])
             });
 
             customerInfo.PhoneInfo.Add(new PhoneInfo
             {
-                CountryCode = "1001001" ?? Converter.ToString2(reader["Phone2CountryCode"]),
-                AreaCode = "1001001" ?? Converter.ToString2(reader["Phone2AreaCode"]),
-                PhoneNumber = "1001001" ?? Converter.ToString2(reader["Phone2"])
+                CountryCode = Converter.ToString2(reader["Phone2CountryCode"]),
+                AreaCode = Converter.ToString2(reader["Phone2AreaCode"]),
+                PhoneNumber = Converter.ToString2(reader["Phone2"])
             });
 
             customerInfo.PhoneInfo.Add(new PhoneInfo
             {
-                CountryCode = "1001001" ?? Converter.ToString2(reader["Phone3CountryCode"]),
-                AreaCode = "1001001" ?? Converter.ToString2(reader["Phone3AreaCode"]),
-                PhoneNumber = "1001001" ?? Converter.ToString2(reader["Phone3"])
+                CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
+                AreaCode = Converter.ToString2(reader["Phone3AreaCode"]),
+                PhoneNumber = Converter.ToString2(reader["Phone3"])
             });
 
             var languages = Converter.ToString2(reader["Language"]);

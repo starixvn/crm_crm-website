@@ -485,6 +485,12 @@ var CustomerManager = function () {
                 }
             }]
         });
+
+        if (parseInt(updateResult.Id) === crmConstants.Enums.Error.None) {
+            setTimeout(function () {
+                self.DOMElements.divResultPopUp.dialog("close");
+            }, 3000);
+        }
     };
 
     self.unblockUI = function () {

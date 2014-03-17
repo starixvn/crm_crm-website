@@ -98,7 +98,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult GetAllStatus()
         {
-            var allStatus = _settingServiceInstance.GetAllStatus();
+            var allStatus = _settingServiceInstance.GetAllStatus(new GetAllStatusCriteria());
             var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
