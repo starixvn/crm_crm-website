@@ -650,11 +650,12 @@ function feedbackObjectValidate(editorObj, otherObj) {
 }
 
 function validateInputData(editors, textboxes, comboboxes) {
+    var i = 0;
     /* data structure of input data: { element: '', error: { control: '', message: '' } } */
     var result = true;
     /* editors */
     var editorsLen = editors ? editors.length : 0;
-    for (var i = 0; i < editorsLen; i++) {
+    for (i = 0; i < editorsLen; i++) {
         if (trimSpace(trimSpacesOnEditor(editors[i].element.htmlarea("toHtmlString"))) === "") {
             editors[i].error.control.removeClass("hidden").html(editors[i].error.message);
             editors[i].element.focus();
@@ -663,7 +664,7 @@ function validateInputData(editors, textboxes, comboboxes) {
     }
     /* textboxes */
     var textboxesLen = textboxes ? textboxes.length : 0;
-    for (var i = 0; i < textboxesLen; i++) {
+    for (i = 0; i < textboxesLen; i++) {
         if (trimSpace(textboxes[i].element.val()) === "") {
             textboxes[i].error.control.removeClass("hidden").html(textboxes[i].error.message);
             textboxes[i].element.focus();
@@ -672,7 +673,7 @@ function validateInputData(editors, textboxes, comboboxes) {
     }
     /* comboboxes */
     var comboboxesLen = comboboxes ? comboboxes.length : 0;
-    for (var i = 0; i < comboboxesLen; i++) {
+    for (i = 0; i < comboboxesLen; i++) {
         var text = comboboxes[i].element.val();
         if (text === "" || text === "0" || text.toLowerCase === "n/a") {
             comboboxes[i].error.control.removeClass("hidden").html(comboboxes[i].error.message);

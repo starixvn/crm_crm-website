@@ -31,7 +31,9 @@ jlinq,
 gup,
 inputMultipleRelatedNote,
 dropdownMultiSelect,
-showHideDetailBox
+showHideDetailBox,
+hotKeyManager,
+bindingLanguage
 */
 /* exported settings,
 orgArrUser,
@@ -965,7 +967,7 @@ appendListFeedbacksLasted = function (range) {
 
 /* jshint camelcase: false */
 var invokeHotKey_CtrlS = function () {
-    EditFeedback();
+    this.EditFeedback();
 };
 
 head.ready(function () {
