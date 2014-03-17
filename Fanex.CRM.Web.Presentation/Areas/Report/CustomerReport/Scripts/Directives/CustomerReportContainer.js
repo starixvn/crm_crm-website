@@ -120,7 +120,7 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             headerColumns[sortColumnIndex].SortDirection = cachedData.scope.lastSelectedParams.SortDirection;
         }
 
-        var gridOptions = {
+         var gridOptions = {
             columns: headerColumns,
             showTitle: true,
             titleInfo: {

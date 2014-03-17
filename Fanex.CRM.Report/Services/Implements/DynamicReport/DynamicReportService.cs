@@ -499,6 +499,10 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     Labels.DynamicReport_Title,
                     Labels.Yearly,
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
+                ShortName = string.Format(
+                    Labels.DynamicReport_ShortTitle,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
@@ -517,6 +521,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                         Labels.DynamicReport_PeriodReport_Title,
                         Labels.Yearly,
                         periodGroup.Key),
+                    ShortName = periodGroup.Key.ToString(),
                     ChildReports = new List<DynamicReportInfo>(),
                     PeriodRange = new PeriodRange
                     {
@@ -559,6 +564,10 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     Labels.DynamicReport_Title,
                     Labels.Monthly,
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
+                ShortName = string.Format(
+                    Labels.DynamicReport_ShortTitle,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
@@ -577,6 +586,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                         Labels.DynamicReport_PeriodReport_Title,
                         Labels.Monthly,
                         periodGroup.Key.ToMonthYear()),
+                    ShortName = periodGroup.Key.ToMonthYear(),
                     ChildReports = new List<DynamicReportInfo>(),
                     PeriodRange = new PeriodRange
                     {
@@ -618,6 +628,10 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     Labels.DynamicReport_Title,
                     Labels.Weekly,
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
+                ShortName = string.Format(
+                    Labels.DynamicReport_ShortTitle,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
@@ -639,6 +653,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                         Labels.DynamicReport_PeriodReport_Title,
                         Labels.Weekly,
                         periodGroup.Key),
+                    ShortName = periodGroup.Key.ToString(),
                     ChildReports = new List<DynamicReportInfo>()
                 };
 
@@ -673,6 +688,10 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     Labels.DynamicReport_Title,
                     Labels.Daily,
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
+                ShortName = string.Format(
+                    Labels.DynamicReport_ShortTitle,
+                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
@@ -691,6 +710,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                         Labels.DynamicReport_PeriodReport_Title,
                         Labels.Daily,
                         periodGroup.Key),
+                    ShortName = periodGroup.Key.ToString(),
                     ChildReports = new List<DynamicReportInfo>()
                 };
 

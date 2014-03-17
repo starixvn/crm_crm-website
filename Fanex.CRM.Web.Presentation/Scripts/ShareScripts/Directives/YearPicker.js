@@ -39,10 +39,10 @@ directiveManager.registerYearPickerContainer = function (angularApplication, reg
             var yearOptions = '';
             for (var i = minYear; i <= maxYear; i++) {
                 if (i === currentYear) {
-                    yearOptions += '<option selected="selected" value=' + i + '>' + i + '</option>';
+                    yearOptions += '<option selected="selected" value="' + i + '">' + i + '</option>';
                 }
                 else {
-                    yearOptions += '<option value=' + i + '>' + i + '</option>';
+                    yearOptions += '<option value="' + i + '">' + i + '</option>';
                 }
             }
 

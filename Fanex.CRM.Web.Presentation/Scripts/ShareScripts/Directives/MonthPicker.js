@@ -32,7 +32,7 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
                 maxYear = date.getFullYear();
             }
 
-            var currentYear = options.SelectedYear;
+            var currentYear = parseInt(options.SelectedYear);
             if (currentYear == null) {
                 currentYear = maxYear;
             }
@@ -40,10 +40,10 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
             var yearOptions = '';
             for (var i = minYear; i <= maxYear; i++) {
                 if (i === currentYear) {
-                    yearOptions += '<option selected="selected" value=' + i + '>' + i + '</option>';
+                    yearOptions += '<option selected="selected" value="' + i + '">' + i + '</option>';
                 }
                 else {
-                    yearOptions += '<option value=' + i + '>' + i + '</option>';
+                    yearOptions += '<option value="' + i + '">' + i + '</option>';
                 }
             }
 
@@ -80,11 +80,11 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
             var monthOptions = '';
             for (var i = options.MinMonth - 1; i <= options.MaxMonth - 1; i++) {
                 if (i === (options.SelectedMonth ? options.SelectedMonth : currentMonth) - 1) {
-                    monthOptions += '<option selected="selected" value=' + (i + 1) + '>' +
+                    monthOptions += '<option selected="selected" value="' + (i + 1) + '">' +
                         crmConstants.MonthNames[i] + '</option>';
                 }
                 else {
-                    monthOptions += '<option value=' + (i + 1) + '>' +
+                    monthOptions += '<option value="' + (i + 1) + '">' +
                         crmConstants.MonthNames[i] + '</option>';
                 }
             }
