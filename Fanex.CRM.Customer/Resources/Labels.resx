@@ -321,4 +321,10 @@
   <data name="VIP" xml:space="preserve">
     <value>VIP</value>
   </data>
+  <data name="Ref_Codes" xml:space="preserve">
+    <value>Ref Codes</value>
+  </data>
+  <data name="Secret_Code" xml:space="preserve">
+    <value>Secret Code</value>
+  </data>
 </root>

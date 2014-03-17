@@ -406,6 +406,7 @@
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
     <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
+    <Content Include="Scripts\ShareScripts\Directives\BlockUI.js" />
     <Content Include="Scripts\ShareScripts\Directives\DatePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DateTimePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DefaultFocus.js" />
