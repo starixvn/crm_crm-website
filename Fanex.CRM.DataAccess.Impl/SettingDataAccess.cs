@@ -12,6 +12,7 @@ namespace Fanex.CRM.DataAccess.Impl
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Data;
     using Fanex.CRM.DataAccess.Interface;
     using Fanex.CRM.Entities;
     using Fanex.Data;
@@ -214,6 +215,39 @@ namespace Fanex.CRM.DataAccess.Impl
             }
 
             return settingRelations;
+        }
+
+        /// <summary>
+        /// Gets the status setting.
+        /// </summary>
+        /// <param name="type">The type parameter.</param>
+        /// <returns>The setting list.</returns>
+        public IList<Setting> GetStatusSetting(int type)
+        {
+            using (var obj = new ObjectDb("Setting_SettingInfo_GetAllStatus"))
+            {
+                obj.AddInParameter("type", DbType.Int32, type);
+                using (var reader = obj.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        IList<Setting> settings = new List<Setting>(); 
+                        while (reader.Read())
+                        {
+                            settings.Add(
+                                new Setting()
+                                {
+                                    Id = Converter.ToInt(reader["statusid"]),
+                                    Value = Converter.ToString2(reader["name"])
+                                });
+                        }
+
+                        return settings;
+                    }
+                }
+            }
+
+            return null;
         }
 
         #endregion

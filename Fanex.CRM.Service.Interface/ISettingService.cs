@@ -51,5 +51,7 @@ namespace Fanex.CRM.Service.Interface
         AllSetting SelAllSetting();
 
         List<Site> SelAllSite();
+
+        IList<Setting> GetStatusSetting(int type);
     }
 }

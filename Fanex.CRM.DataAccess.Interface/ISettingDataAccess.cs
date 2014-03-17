@@ -20,6 +20,8 @@ namespace Fanex.CRM.DataAccess.Interface
 
         IEnumerable<Setting> GetSettingRelationByName(string settingName, int parentId);
 
+        IList<Setting> GetStatusSetting(int type);
+
         Result Add(Setting entity, string ip, int userId, int parentId);
 
         Result Add(string settingId, string settingName, string ip, int userId, int parentId);

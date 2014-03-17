@@ -695,8 +695,9 @@ namespace Fanex.CRM.Service.Impl
                 allSetting.Role = new List<Setting>();
                 allSetting.Role = GetByType("Role").ToList();
 
-                allSetting.Status = new List<Setting>();
-                allSetting.Status = GetByType("Status").ToList();
+                /*allSetting.Status = new List<Setting>();
+                allSetting.Status = GetByType("Status").ToList();*/
+                allSetting.Status = GetStatusSetting(1);
 
                 allSetting.Response = new List<Setting>();
                 allSetting.Response = GetByType("Response").ToList();
@@ -762,6 +763,38 @@ namespace Fanex.CRM.Service.Impl
         }
 
         #endregion
+
+        /// <summary>
+        /// Gets the status setting.
+        /// </summary>
+        /// <param name="type">The type parameter.</param>
+        /// <returns>The setting list.</returns>
+        public IList<Setting> GetStatusSetting(int type)
+        {
+            IList<Setting> settings = null;
+            string key = type == 1 ? Constants.FeedbackStatusKey : Constants.AllStatusKey;
+            try
+            {
+                settings = CacheService.Get<IList<Setting>>(key);
+                if (settings != null)
+                {
+                    return settings;
+                }
+
+                settings = this._repository.GetStatusSetting(type);
+                if (settings != null)
+                {
+                    CacheService.Set(key, settings);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                Helper.SendMailErrorNotice(string.Format("(SettingService GetStatusSetting) - {0}", ex.Message));
+            }
+
+            return settings;
+        }
 
         private static void ClearCache()
         {

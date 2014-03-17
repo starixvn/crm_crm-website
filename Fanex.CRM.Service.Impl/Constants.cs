@@ -20,5 +20,7 @@ namespace Fanex.CRM.Service.Impl
         public const string AllSettingType = "AllSettingType_V2012";
         public const string FeedbackStatistics = "FeedbackStatistics_V2012";
         public const string IbcSite = "IbcSiteKey_V2012";
+        public const string AllStatusKey = "Fanex.CRM.Setting.GetAllStatusSessionKey_V2012";
+        public const string FeedbackStatusKey = "Fanex.CRM.Setting.GeFeedbackStatusSessionKey_V2012";
     }
 }

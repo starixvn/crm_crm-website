@@ -51,7 +51,7 @@ namespace Fanex.CRM.Entities
         public List<Site> Site { get; set; }
 
         [DataMember]
-        public List<Setting> Status { get; set; }
+        public IList<Setting> Status { get; set; }
 
         [DataMember]
         public List<Setting> Response { get; set; }
