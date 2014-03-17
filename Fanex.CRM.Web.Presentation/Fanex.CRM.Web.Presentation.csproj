@@ -333,6 +333,7 @@
     <Content Include="Content\site\Images\ico-expand.png" />
     <Content Include="Content\site\Images\loading100x100.gif" />
     <Content Include="Content\site\Images\next-pre-icon-cal.png" />
+    <Content Include="Content\site\Images\ResultMessage\sprites-image.png" />
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
@@ -417,6 +418,7 @@
     <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\MultiSelect.js" />
     <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
+    <Content Include="Scripts\ShareScripts\Directives\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Scripts\ShareScripts\Directives\ToggleElement.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
@@ -450,6 +452,7 @@
     <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\customizeMultiSelect.less" />
+    <None Include="Content\site\resultMessage.less" />
     <None Include="Content\site\reportgrid.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />

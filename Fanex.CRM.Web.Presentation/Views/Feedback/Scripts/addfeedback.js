@@ -20,7 +20,9 @@ head,
 gup,
 accId,
 dropdownMultiSelect,
-errMsgNotYetVerifyFeedbackRelatedCustomer
+errMsgNotYetVerifyFeedbackRelatedCustomer,
+hotKeyManager,
+bindingLanguage
 */
 /* exported settings, 
 ddls,
@@ -457,7 +459,7 @@ function getCRMInfoById(custId) {
 }
 
 var invokeHotKey_CtrlS = function () {
-    AddFeedback();
+    this.AddFeedback();
 };
 
 head.ready(function () {

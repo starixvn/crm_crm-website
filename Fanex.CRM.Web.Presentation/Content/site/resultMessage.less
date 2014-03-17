@@ -1,0 +1,62 @@
+/********************************************************/
+/*                     PopUp Message                  */
+/********************************************************/
+.result-message-container
+{
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: #333333;
+    font-weight: bold;
+    max-width: 800px;
+    padding: 6px;
+    position: absolute;
+    top: 10px;
+    z-index: 99999 !important;
+    
+    &.error
+    {
+        background: none repeat scroll 0 0 #FFD4D4;
+        border: 1px solid #FF0000;
+    }
+    
+    &.success, &.warning
+    {
+        background: none repeat scroll 0 0 #E6F1C9;
+        border: 1px solid #CFE493;
+    }
+    
+    #button-closemessage
+    {
+        background: url("Images/ResultMessage/sprites-image.png") no-repeat scroll -79px -39px transparent;
+        border: 2px solid #333333;
+        border-radius: 3px 3px 3px 3px;
+        display: block;
+        float: right;
+        font-size: 0;
+        margin: 0 0 0 10px;
+        outline-style: none;
+        position: relative;
+        text-indent: -99999px;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+        
+        &:hover
+        {
+            background: url("Images/ResultMessage/sprites-image.png") no-repeat scroll -79px -27px #333333;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
