@@ -35,7 +35,7 @@ namespace Fanex.CRM.Setting.Services.Interfaces
 
         List<SettingInfo> GetAllProduct();
 
-        List<SettingInfo> GetAllStatus();
+        List<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria);
 
         List<SettingInfo> GetAllRole();
 

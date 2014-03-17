@@ -121,7 +121,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                 {
                     return allSetting;
                 }
-                
+
                 allSetting = _settingRepositoryInstance.GetAllSetting(new GetAllSettingCriteria());
                 CacheService.Set(GetAllSettingSessionKey, allSetting);
             }
@@ -436,8 +436,11 @@ namespace Fanex.CRM.Setting.Services.Implements
         /// <summary>
         /// Gets all status.
         /// </summary>
-        /// <returns>All status.</returns>
-        public List<SettingInfo> GetAllStatus()
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>
+        /// All status.
+        /// </returns>
+        public List<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria)
         {
             var allStatus = new List<SettingInfo>();
             try
@@ -449,7 +452,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     return allStatus;
                 }
 
-                allStatus = _settingRepositoryInstance.GetAllStatus(new GetAllStatusCriteria());
+                allStatus = _settingRepositoryInstance.GetAllStatus(criteria);
                 allStatus = allStatus.OrderBy(s => s.DisplayOrder).ToList();
                 CacheService.Set(GetAllStatusSessionKey, allStatus);
             }
