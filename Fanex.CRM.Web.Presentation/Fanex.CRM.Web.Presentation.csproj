@@ -337,6 +337,8 @@
     <Content Include="Content\site\Images\warning.png" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
+    <Content Include="Scripts\Chart\HighCharts\CRMChart.js" />
+    <Content Include="Scripts\Chart\HighCharts\highcharts.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.css" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Pagination.css" />

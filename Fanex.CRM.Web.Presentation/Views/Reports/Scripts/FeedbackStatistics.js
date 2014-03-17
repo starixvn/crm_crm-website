@@ -1,12 +1,13 @@
 ﻿"use strict";
 /* global showAlertMessage, lblErroTimeDate, head,
-lblErrorTimeDuration, accChart */
+lblErrorTimeDuration */
 /* exported arrWidth */
 
 var arrWidth = [];
 var maxHeightOfPopUp = ($(window).height() + 50);
 var maxWidthOfPopUp = 1030;
 var masterPage;
+var crmChart;
 
 function addDays(startDate, n) {
     var endDate = new Date();
@@ -99,6 +100,7 @@ var feedbackStatistic = {
         Minute: 0,
         Second: 0
     },
+    chartSetting: { categories: [], series: [] },
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = feedbackStatistic.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
@@ -446,27 +448,32 @@ var feedbackStatistic = {
         return params;
     },
     assignChartData: function (rs) {
-        var items = [];
-        for (var i = 0; i < rs.rows.length; i++) {
-            var item = rs.rows[i];
-            for (var k = 0; k < item.FeedbackStatistics.length; k++) {
-                var cItem = item.FeedbackStatistics[k];
-                if (cItem.IsTotal) {
-                    var chartInfo = {};
-                    chartInfo.Name = "'" + cItem.MainCategory + "'";
-                    for (var j = 0; j < cItem.Cells.length; j++) {
-                        var cell = cItem.Cells[j];
-                        var colName = rs.ColumnNames[j];
-                        colName = colName.replace(/[^a-zA-Z 0-9 ]/g, "");
-                        colName = colName.replace(/ /g, "");
-                        chartInfo["FB_" + colName] = cell;
+        var categories = [];
+        var series = [];
+
+        if (rs && rs.rows) {
+            var totalMaincategories = rs.rows.length;
+            var totalColumnsName = rs.ColumnNames.length;
+
+            for (var i = 0; i < totalColumnsName; i++) {
+                series.push({ name: rs.ColumnNames[i], data: [] });
+            }
+
+            for (var k = 0; k < totalMaincategories; k++) {
+                var category = rs.rows[k];
+                if (category && category.FeedbackStatistics) {
+                    var totalSubCategoris = category.FeedbackStatistics.length - 1;
+                    categories.push(category.FeedbackStatistics[0].MainCategory);
+
+                    for (var j = 0; j < totalColumnsName; j++) {
+                        series[j].data.push(category.FeedbackStatistics[totalSubCategoris].Cells[j]);
                     }
-                    items.push(chartInfo);
                 }
             }
 
+            this.chartSetting.categories = categories;
+            this.chartSetting.series = series;
         }
-        feedbackStatistic.chart.setData(items);
     },
     viewAllStatisticsDetail: function () {
         var fromDate = $('#txtfromdate').val();
@@ -488,6 +495,20 @@ var feedbackStatistic = {
 
         var url = "../Reports/FeedbackStatisticsDetailView?" + inputParams;
         masterPage.OpenPopup(url, "Feedback Statistic Detail Report", (maxWidthOfPopUp + 15), maxHeightOfPopUp, true, false, window, 2000, null, null);
+    },
+    viewChart: function () {
+        crmChart.title = $('#feedbackstatistictitle').html();
+        var chartOptions = {
+            xAxis: {
+                categories: this.chartSetting.categories
+            },
+            series: this.chartSetting.series,
+            tooltip: {
+                valueSuffix: ' Feedback(s)'
+            }
+        };
+
+        crmChart.viewChart(chartOptions);
     }
 };
 
@@ -510,149 +531,6 @@ head.ready(function () {
         isShowPager: true
     };
     $("#feedbackstatisticgrid").initGrid(gridOpts);
-    
-    
-});
 
-$.extend(feedbackStatistic, { chart: {
-    data: null,
-    categories: [],
-    setData: function (_data) {
-        this.data = _data;
-        if (_data) {
-            var val = _data[0];
-            var objIndex = 0;
-            var newCategories = [];
-            jQuery.each(val, function (name, value) {
-                /* jshint unused: vars */
-                if (objIndex !== 0) {
-                    var item = { field: name, label: name, enable: true };
-                    newCategories.push(item);
-                }
-                objIndex++;
-            });
-            this.categories = newCategories;
-        }
-    },
-    viewByTotal: function () {
-        if (this.data != null) {
-            var data_items = this.data;
-            var serial_data = []; var categories = [];
-            for (var i = 0, len = data_items.length; i < len; i++) {
-                var item = data_items[i];
-                var toData = [];
-                for (var j = 0, categoriesLength = this.categories.length; j < categoriesLength; j++) {
-                    var cate = this.categories[j];
-                    if (!cate.enable) {
-                        continue;
-                    }
-
-                    var val = item[cate.field];
-                    toData.push(feedbackStatistic.chart.toNumber(val));
-                    if (i === 0) {
-                        categories.push(cate.label);
-                    }
-                }
-
-                serial_data.push({
-                    name: item.Name,
-                    data: toData,
-                    cursor: 'pointer'
-                });
-            }
-            // init chart total
-            var opts = {
-                container: 'chart_content',
-                type: 'spline',
-                title: $('#feedbackstatistictitle').html(),
-                width: 1000,
-                height: (maxHeightOfPopUp - 100),
-                categories: categories,
-                series: serial_data,
-                legendY: (maxHeightOfPopUp - 140)
-            };
-            if ($('#chart_content').length === 0) {
-                this.initViewChart(opts);
-            }
-            accChart.renderSVG(opts);
-        }
-    },
-    initViewChart: function (opts) {
-        $('<div />').attr('id', 'chart_shadow').addClass('chart_shadow').appendTo('body').show();
-        $('<div />').attr('id', 'chart_popup').addClass('chart_popup')
-            .css({ width: 1000 })
-            .appendTo('body');
-        $('<div />').attr('id', 'chart_setting').addClass('chart_setting').appendTo('#chart_popup');
-        $('<div />').attr('id', 'chart_title')
-             .addClass('chart_title')
-             .append('<div class="setting" title="Setting">&nbsp;</div>\
-                    <div class="title">' + opts.title + '</div>\
-                    <div class="close" title="Close">&nbsp;</div>')
-             .appendTo('#chart_popup');
-        $('<div />').attr('id', 'chart_content').addClass('chart_content')
-             .css({ width: opts.width, height: opts.height })
-             .appendTo('#chart_popup');
-        $('#chart_popup').css("left", 10);
-        $('#chart_popup').css("top", 10);
-        $('#chart_popup').show();
-        $('#chart_popup').draggable({
-            handle: '#chart_title'
-        });
-        $('div.setting').bind('click', function (e) {
-            /* jshint unused: vars */
-            if ($('#chart_setting').is(':hidden')) {
-                $('#chart_setting').slideDown();
-                $(this).attr('title', 'Hide setting');
-            } else {
-                $('#chart_setting').slideUp();
-                $(this).attr('title', 'Display setting');
-            }
-        });
-        $('div.close').bind('click', function (e) {
-            /* jshint unused: vars */
-            feedbackStatistic.chart.close();
-        });
-        this.renderSetting();
-    },
-    renderSetting: function () {
-        $('#chart_setting').html('<ul id="ul_setting"></ul>');
-        //        var tpl_cate = '{{each categories}}<li>\
-        //                            <input class="setcheck" type="checkbox" {{if $value.enable}}checked="${$value.enable}"{{/if}} value="${$index}"/>\
-        //                            ${$value.enable}&nbsp;${$value.label}</li>{{/each}}';
-        //$('<div />').append(tpl_cate).tmpl(this).appendTo("#ul_setting");
-        $.each(this.categories, function (ind, cate) {
-            var is_checked = (cate.enable === true) ? 'checked' : '';
-            var _itemTpl = '<li><input class="setcheck" ' + is_checked + ' type="checkbox" value="' + ind + '"/>&nbsp;' + cate.label + '</li>';
-            $("#ul_setting").append(_itemTpl);
-        });
-        $('#chart_setting').css({ width: 185, 'margin-top': 27 });
-        if ($.browser.msie) {
-            if ($.browser.version.indexOf('7') !== -1) {
-                $('#chart_setting').css({ 'margin-left': -1000 });
-                $('#ul_setting').css({ 'margin-left': 10 });
-            }
-        }
-        window.setTimeout(function () {
-            $('input.setcheck').bind('click', function (e) {
-                /* jshint unused: vars */
-                var checked = $(this).attr("checked");
-                var index = $(this).val();
-                feedbackStatistic.chart.categories[index].enable = checked;
-                feedbackStatistic.chart.viewByTotal();
-            });
-        });
-    },
-    close: function () {
-        $('#chart_shadow').fadeOut();
-        $('#chart_popup').fadeOut();
-        window.setTimeout(function () {
-            $('#chart_shadow').remove();
-            $('#chart_popup').remove();
-        }, 1000);
-    },
-    toNumber: function (numText) {
-        numText = "".concat(numText);
-        return parseFloat(numText.replace(/,/gi, ''));
-    }
-}
+    crmChart = parent.crmChart;
 });

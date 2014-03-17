@@ -2,7 +2,6 @@
 <link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css?ver=1")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/Paging/pagination.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Scripts/Chart/jchart.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Views/Reports/Styles/reports.less?ver=2")" rel="stylesheet" type="text/css" />
 
 <div class="container main">
@@ -38,7 +37,7 @@
                 <div class="grid-title-lable" id="gridtitle">
                 </div>
                 <div class="grid-toolbox">
-                    <input type="button" value=" " id="btnChart" class="btnCharting" onclick="ibcDailySummaryReport.chart.viewByTotal()" />
+                    <input type="button" value=" " id="btnChart" class="btnCharting" onclick="ibcDailySummaryReport.viewChart();" />
                     <input type="button" onclick="ibcDailySummaryReport.viewDetail();" value="  " id="btnViewDetail"
                         class="btnViewDetail" title="View Detail" />
                     <input type="button" onclick="ibcDailySummaryReport.exportExcel();" value="  " id="btnExport"
@@ -111,7 +110,7 @@
                 </div>
                 <div class="grid-toolbox">
                     <input type="button" value=" " id="btnLicenseeSummaryCharting" class="btnCharting"
-                        onclick="licenseeDailySummaryReport.chart.viewByTotal()" />
+                        onclick="licenseeDailySummaryReport.viewChart();" />
                     <input type="button" onclick="licenseeDailySummaryReport.viewDetail();" value="  "
                         id="btnLicenseeSummaryViewDetail" class="btnViewDetail" title="View Detail" />
                     <input type="button" onclick="licenseeDailySummaryReport.exportExcel();" value="  "
@@ -709,8 +708,6 @@
                     .js("@Url.Content("~/Scripts/stdlib.js")")                    
                     .js("@Url.Content("~/Scripts/Paging/jpager.js")")
                     .js("@Url.Content("~/Scripts/FanexGrid/FanexGrid.js?ver=10")")
-                    .js("@Url.Content("~/Scripts/Chart/highcharts.dev.js")",
-                        "@Url.Content("~/Scripts/Chart/accchart.js?ver=8")")
                     .js("@Url.Content("~/Scripts/common.js?ver=2")")
                     .js("@Url.Content("~/Views/Reports/Scripts/DailyStatistic.js?ver=20")");
             });   

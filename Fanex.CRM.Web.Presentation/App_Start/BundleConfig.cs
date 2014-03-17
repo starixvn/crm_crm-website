@@ -97,6 +97,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Dashboard_VerifyFlag(ref bundles);
             RegisterBundles_Report_DynamicReport(ref bundles);
             RegisterBundles_Report_CustomerReport(ref bundles);
+            RegisterBundles_Chart(ref bundles);
         }
 
         /// <summary>
@@ -423,6 +424,17 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Report/CustomerReportStyles").Include(
                 "~/Areas/Report/CustomerReport/Styles/CustomerReport.less"));
+        }
+
+        /// <summary>
+        /// Registers the bundles chart.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_Chart(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/CRM/Chart/Scripts").Include(
+                "~/Scripts/Chart/HighCharts/highcharts.js",
+                "~/Scripts/Chart/HighCharts/CRMChart.js"));
         }
     }
 
