@@ -62,35 +62,35 @@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.Site</div>
+            <label for="customerinfo-siteoptions" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                @Labels.Site</label>
             <div class="col-xs-9 col-sm-9 col-md-9 text-left">
                 <select id="customerinfo-siteoptions" tabindex="4" data-ng-keyup="textBoxKeyUp($event);">
                 </select>
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.Country</div>
+            <label for="customerinfo-countryoptions" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                @Labels.Country</label>
             <div class="col-xs-9 col-sm-9 col-md-9 text-left">
                 <select id="customerinfo-countryoptions" tabindex="5" data-ng-keyup="textBoxKeyUp($event);">
                 </select>
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.First_Name</div>
+            <label for="firstname" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                @Labels.First_Name</label>
             <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <input type="text" class="textbox" data-ng-model="customer.FirstName" data-ng-keyup="textBoxKeyUp($event);"
-                    tabindex="6" />
+                <input id="firstname" type="text" class="textbox" data-ng-model="customer.FirstName"
+                    data-ng-keyup="textBoxKeyUp($event);" tabindex="6" />
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.Last_Name</div>
+            <label for="lastname" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                @Labels.Last_Name</label>
             <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                <input type="text" class="textbox" data-ng-model="customer.LastName" data-ng-keyup="textBoxKeyUp($event);"
-                    tabindex="7" />
+                <input id="lastname" type="text" class="textbox" data-ng-model="customer.LastName"
+                    data-ng-keyup="textBoxKeyUp($event);" tabindex="7" />
             </div>
         </div>
         <div class="row item no-border-bg">
@@ -102,8 +102,8 @@
             </div>
         </div>
         <div class="row item no-border-bg">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                @Labels.Language</div>
+            <label class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                @Labels.Language</label>
             <div class="col-xs-9 col-sm-9 col-md-9 text-left">
                 <select id="customerinfo-languageoptions">
                 </select>
@@ -115,10 +115,10 @@
         <div data-ng-show="isShowCommunicationTool">
             <div class="customer-phoneinfo-container" data-ng-repeat="phoneInfo in customer.PhoneInfo">
                 <div class="row item no-border-bg">
-                    <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                        @Labels.Phone {{ $index + 1 }}</div>
+                    <label for="phone{{ $index + 1 }}" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                        @Labels.Phone {{ $index + 1 }}</label>
                     <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                        <input type="text" class="textbox code-country" data-ng-model="phoneInfo.CountryCode"
+                        <input id="phone{{ $index + 1 }}" type="text" class="textbox code-country" data-ng-model="phoneInfo.CountryCode"
                             data-ng-keyup="textBoxKeyUp($event);" />
                         <input type="text" class="textbox code-area" data-ng-model="phoneInfo.AreaCode" data-ng-keyup="textBoxKeyUp($event);" />
                         <input type="text" class="textbox phone" data-ng-model="phoneInfo.PhoneNumber" data-ng-keyup="textBoxKeyUp($event);" />
@@ -126,10 +126,10 @@
                 </div>
             </div>
             <div class="row item no-border-bg">
-                <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                    @Labels.Mobile</div>
+                <label for="mobile" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.Mobile</label>
                 <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input type="text" class="textbox code-country label-left" data-ng-model="customer.MobilePhone.CountryCode"
+                    <input id="mobile" type="text" class="textbox code-country label-left" data-ng-model="customer.MobilePhone.CountryCode"
                         data-ng-keyup="textBoxKeyUp($event);" />
                     <input type="text" class="textbox code-area" data-ng-model="customer.MobilePhone.AreaCode"
                         data-ng-keyup="textBoxKeyUp($event);" />
@@ -138,32 +138,32 @@
                 </div>
             </div>
             <div class="row item no-border-bg">
-                <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                    @Labels.Email</div>
+                <label for="email" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.Email</label>
                 <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input type="text" class="textbox" data-ng-model="customer.Email" data-ng-keyup="textBoxKeyUp($event);" />
+                    <input id="email" type="text" class="textbox" data-ng-model="customer.Email" data-ng-keyup="textBoxKeyUp($event);" />
                 </div>
             </div>
             <div class="row item no-border-bg">
-                <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                    @Labels.MSN</div>
+                <label for="msn" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.MSN</label>
                 <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input type="text" class="textbox" data-ng-model="customer.MSN" data-ng-keyup="textBoxKeyUp($event);" />
+                    <input id="msn" type="text" class="textbox" data-ng-model="customer.MSN" data-ng-keyup="textBoxKeyUp($event);" />
                 </div>
             </div>
             <div class="row item no-border-bg">
-                <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                    @Labels.Skype</div>
+                <label for="skype" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    @Labels.Skype</label>
                 <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <input type="text" class="textbox" data-ng-model="customer.Skype" data-ng-keyup="textBoxKeyUp($event);" />
+                    <input id="skype" type="text" class="textbox" data-ng-model="customer.Skype" data-ng-keyup="textBoxKeyUp($event);" />
                 </div>
             </div>
             <div class="customer-personalInfoContact-container" data-ng-repeat="personalInfoContact in customer.PersonalInfoContact track by $index">
                 <div class="row item no-border-bg">
-                    <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
-                        @Labels.PIC {{ $index + 1 }}</div>
+                    <label for="pic{{ $index + 1 }}" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                        @Labels.PIC {{ $index + 1 }}</label>
                     <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                        <input type="text" class="textbox" data-ng-model="customer.PersonalInfoContact[$index]"
+                        <input id="pic{{ $index + 1 }}" type="text" class="textbox" data-ng-model="customer.PersonalInfoContact[$index]"
                             data-ng-change="editPersonalInfo(this);" data-ng-keyup="textBoxKeyUp($event);" />
                     </div>
                 </div>

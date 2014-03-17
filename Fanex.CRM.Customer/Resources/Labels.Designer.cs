@@ -574,11 +574,29 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ref Codes.
+        /// </summary>
+        public static string Ref_Codes {
+            get {
+                return ResourceManager.GetString("Ref_Codes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ref Codes 2.
         /// </summary>
         public static string Ref_Codes_2 {
             get {
                 return ResourceManager.GetString("Ref_Codes_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret Code.
+        /// </summary>
+        public static string Secret_Code {
+            get {
+                return ResourceManager.GetString("Secret_Code", resourceCulture);
             }
         }
         
