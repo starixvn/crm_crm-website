@@ -23,7 +23,8 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
                 <div class="row item">
                     <div class="col-xs-5 col-sm-5 col-md-5" onclick="showHideDetailBox(isShowCustinfoBox, 'CustInfo', $(this).parent().parent().parent()); isShowCustinfoBox = !isShowCustinfoBox;">
-                        @Language.lblIdentityInformation:
+                        @Language.lblIdentityInformation
+                        @Html.Raw(Language.RequiredFieldTemplate)
                     </div>
                     <div class="col-xs-7 col-sm-7 col-md-7">
                         <input id="txtidentity" type="text" class="textbox txtidentity" tabindex="1" />
@@ -246,7 +247,6 @@
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
                             <label for="ddlproduct">@Language.Product</label>
-                            @Html.Raw(Language.RequiredFieldTemplate)
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
                             <select id="ddlproduct" tabindex="39">
@@ -287,7 +287,6 @@
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
                             <label for="ddlbettype">@Language.BetType</label>
-                            @Html.Raw(Language.RequiredFieldTemplate)
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
                             <select id="ddlbettype" tabindex="40">
