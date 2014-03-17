@@ -71,7 +71,7 @@ function FeedbackData(userId, customerId, clientTime) {
         var iChars = "!`#%^&*()=[]\\\';,/{}|\":<>?~";
         for (var i = 0; i < identity.length; i++) {
             if (iChars.indexOf(identity.charAt(i)) !== -1) {
-                showMessage('Your Indentity has special characters. ' + iChars, 1);
+                showMessage('Your Indentity Information has special characters. ' + iChars, 1);
                 return false;
             }
         }
@@ -194,7 +194,7 @@ function FeedbackData(userId, customerId, clientTime) {
         if (self.customerId <= 0) {
             var identity = feedback.identity.val().trim();
             if (identity.length === 0) {
-                showMessage('Please input Indentity!', 1);
+                showMessage('Please input Indentity Information!', 1);
                 return false;
             }
 
