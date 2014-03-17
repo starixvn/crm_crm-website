@@ -234,11 +234,6 @@ function FeedbackData(userId, customerId, clientTime) {
             return false;
         }
 
-        if (details.product.val() === '0') {
-            showMessage('Please choose product!', 1);
-            return false;
-        }
-
         if (feedback.personal.language.val() === '0') {
             showMessage('Please choose language!', 1);
             return false;

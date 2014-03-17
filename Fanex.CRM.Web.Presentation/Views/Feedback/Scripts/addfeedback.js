@@ -275,14 +275,6 @@ function AddFeedback() {
             showAlertMessage("errmsg", "Please choose communication!", 1);
             return false;
         }
-        if (parseInt($('#ddlproduct option:selected').val()) === 0) {
-            showAlertMessage("errmsg", "Please choose product!", 1);
-            return false;
-        }
-        if (parseInt($('#ddlbettype option:selected').val()) === 0) {
-            showAlertMessage("errmsg", "Please choose bet type!", 1);
-            return false;
-        }
         if ($("#ddllanguage").val() === '0') {
             showAlertMessage("errmsg", "Please choose language!", 1);
             return false;
