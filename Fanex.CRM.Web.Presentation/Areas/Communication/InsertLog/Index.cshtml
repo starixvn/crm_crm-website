@@ -227,7 +227,7 @@
             </div>
         </div>
         <div class="row panel-group last">
-            <div class="row title">
+            <div class="row title" data-ng-class="communicationLog.IsReviewed ? '' : 'border-bottom-none'">
                 <label for="review">
                     @Labels.Reviewed</label>
                 <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"

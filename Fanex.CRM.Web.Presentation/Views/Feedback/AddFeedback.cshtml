@@ -5,7 +5,6 @@
 <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/InputBox/style.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Scripts/MultipleSelect/fanex.multiSelect.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Views/Feedback/Styles/StyleSheet.less?ver=1")" rel="stylesheet" type="text/css" />    
 
 <!--Template area-->
@@ -82,19 +81,10 @@
                 </div>
                 <div class="row item">
                     <div class="col-xs-5 col-sm-5 col-md-5">
-                        <label for="ddlcountry">@Language.country</label>
+                        <label for="bettingCodeInfo">@Language.BettingCode</label>
                     </div>
                     <div class="col-xs-7 col-sm-7 col-md-7">
-                        <select id="ddlcountry" tabindex="30"></select>
-                        <span class="error errormsg hidden" id="errorcountry"></span>
-                    </div>
-                </div>
-                <div class="row item">
-                    <div class="col-xs-5 col-sm-5 col-md-5">
-                        <label for="refCodes2Info">@Language.RefCodes2</label>
-                    </div>
-                    <div class="col-xs-7 col-sm-7 col-md-7">
-                        <input type="text" class="textbox" id="refCodes2Info" tabindex="33" />
+                        <input type="text" class="textbox" id="bettingCodeInfo" tabindex="32" />
                     </div>
                 </div>
                 <div class="row item">
@@ -160,16 +150,10 @@
                 </div>
                 <div class="row item">
                     <div class="col-xs-5 col-sm-5 col-md-5">
-                        <label for="ddllanguage">@Language._Language</label>
+                        <label for="refCodes2Info">@Language.RefCodes2</label>
                     </div>
                     <div class="col-xs-7 col-sm-7 col-md-7">
-                        <select id="ddllanguage" tabindex="31"></select>
-                    </div>
-                </div>
-                <div class="row item">
-                    <div class="col-xs-3 col-sm-3 col-md-3">
-                        <label for="isVIP" class="labelforcheckbox checkbox">
-                            <input id="isVIP" type="checkbox" tabindex="34" />@Language.VIP</label>
+                        <input type="text" class="textbox" id="refCodes2Info" tabindex="33" />
                     </div>
                 </div>
             </div>
@@ -225,11 +209,9 @@
                     </div>
                 </div>
                 <div class="row item">
-                    <div class="col-xs-5 col-sm-5 col-md-5">
-                        <label for="bettingCodeInfo">@Language.BettingCode</label>
-                    </div>
-                    <div class="col-xs-7 col-sm-7 col-md-7">
-                        <input type="text" class="textbox" id="bettingCodeInfo" tabindex="32" />
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        <label for="isVIP" class="labelforcheckbox checkbox">
+                            <input id="isVIP" type="checkbox" tabindex="34" />@Language.VIP</label>
                     </div>
                 </div>
             </div>
@@ -254,6 +236,7 @@
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
                             <label for="ddlcommunication">@Language.Communication</label>
+                            @Html.Raw(Language.RequiredFieldTemplate)
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
                             <select id="ddlcommunication" tabindex="39"></select>
@@ -263,6 +246,7 @@
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
                             <label for="ddlproduct">@Language.Product</label>
+                            @Html.Raw(Language.RequiredFieldTemplate)
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
                             <select id="ddlproduct" tabindex="42"></select>
@@ -271,11 +255,20 @@
                     </div>
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
-                            <label for="ddlrole">@Language.Role</label>
+                            <label for="ddllanguage">@Language._Language</label>
+                            @Html.Raw(Language.RequiredFieldTemplate)
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
-                            <select id="ddlrole" name="D3" tabindex="45"></select>
-                            <span class="error hidden errormsg" id="errorrole"></span>
+                            <select id="ddllanguage" tabindex="31"></select>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlresponse">@Language.Response</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlresponse" tabindex="46"></select>
+                            <span class="error errormsg hidden" id="errorresponse"></span>
                         </div>
                     </div>
                 </div>
@@ -291,6 +284,7 @@
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
                             <label for="ddlcategory">@Language.Category</label>
+                            @Html.Raw(Language.RequiredFieldTemplate)
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
                             <select id="ddlcategory" tabindex="40"></select>
@@ -300,6 +294,7 @@
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
                             <label for="ddlbettype">@Language.BetType</label>
+                            @Html.Raw(Language.RequiredFieldTemplate)
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
                             <select id="ddlbettype" tabindex="43"></select>
@@ -308,11 +303,11 @@
                     </div>
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
-                            <label for="ddlresponse">@Language.Response</label>
+                            <label for="ddlstatus">@Language.Status</label>
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
-                            <select id="ddlresponse" tabindex="46"></select>
-                            <span class="error errormsg hidden" id="errorresponse"></span>
+                            <select id="ddlstatus" tabindex="44"></select>
+                            <span class="error errormsg hidden" id="errorstatus"></span>
                         </div>
                     </div>
                 </div>
@@ -329,6 +324,7 @@
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
                             <label for="ddlsubcategory">@Language.SubCategory</label>
+                            @Html.Raw(Language.RequiredFieldTemplate)
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
                             <select id="ddlsubcategory" tabindex="41"></select>
@@ -338,11 +334,20 @@
                     </div>
                     <div class="row item">
                         <div class="col-xs-5 col-sm-5 col-md-5">
-                            <label for="ddlstatus">@Language.Status</label>
+                            <label for="ddlcountry">@Language.country</label>
                         </div>
                         <div class="col-xs-7 col-sm-7 col-md-7">
-                            <select id="ddlstatus" tabindex="44"></select>
-                            <span class="error errormsg hidden" id="errorstatus"></span>
+                            <select id="ddlcountry" tabindex="30"></select>
+                            <span class="error errormsg hidden" id="errorcountry"></span>
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                            <label for="ddlrole">@Language.Role</label>
+                        </div>
+                        <div class="col-xs-7 col-sm-7 col-md-7">
+                            <select id="ddlrole" name="D3" tabindex="45"></select>
+                            <span class="error hidden errormsg" id="errorrole"></span>
                         </div>
                     </div>
                 </div>
@@ -390,6 +395,7 @@
                         <label for="txtsubject">
                             @Language.Subject
                         </label>
+                        @Html.Raw(Language.RequiredFieldTemplate)
                     </div>
                     <div class="col-xs-9 col-sm-10 col-md-10">
                         <input type="text" id="txtsubject" class="textbox" autocomplete="off" tabindex="50" /><span class="hidden error errormsg"
@@ -403,7 +409,9 @@
     <div class="row panel-group">
         <div class="row title">
             <div class="pull-left hand" onclick="showHideDetailBox(isShowDescriptionBox, 'FeedbackDescription', $(this).parent()); isShowDescriptionBox = !isShowDescriptionBox;">
-                @Language.Description<span class="hidden error errormsg" id="deseditererror"></span>
+                @Language.Description
+                @Html.Raw(Language.RequiredFieldTemplate)
+                <span class="hidden error errormsg" id="deseditererror"></span>
             </div>
             <div class="pull-right">
                 <input type="button" class="btnreview " value="@Language.Preview" id="btndesreview" onclick="initReview('des');" />
@@ -505,7 +513,6 @@
             .js("@Url.Content("~/Scripts/common.js")")
             .js("@Url.Content("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")")
             .js("@Url.Content("~/Scripts/InputBox/jquery.fcbkcomplete.js?ver=4")")
-            .js("@Url.Content("~/Scripts/MultipleSelect/fanex.multiSelect.js")")
             .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=2")")
             .js("@Url.Content("~/Views/Feedback/Scripts/addfeedback.js?ver=1")")
             .js("@Url.Content("~/Scripts/ShareScripts/KeyboardManager.js")")

@@ -24,6 +24,9 @@ editLogApplication.directive('remarkEditorContainer', function () {
             keyDownEvent: function (eventObject) {
                 return hotKeyManager.documentKeyDown(eventObject);
             },
+            blurEvent: function () {
+                return hotKeyManager.documentBlur();
+            },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],

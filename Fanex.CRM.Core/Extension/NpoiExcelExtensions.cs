@@ -47,6 +47,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static readonly short HeaderTitleColorIndex = (short)HSSFColor.PINK.index;
         public static readonly short BorderColorIndex = (short)HSSFColor.GREY_80_PERCENT.index;
         public static readonly short BackgroundColorIndex = (short)HSSFColor.WHITE.index;
+        public static readonly short EvenRowColorIndex = (short)HSSFColor.CORAL.index;
 
         private const string IntNumberFormat = "#,#";
         private const string TwoDecimalDigitNumber = "##,##0.00";

@@ -18,6 +18,7 @@ customerDetailApplication.directive('datePickerContainer', function () {
             maxDate: new Date(currentDate),
             showOtherMonths: true,
             selectOtherMonths: true,
+            yearRange: sharedScriptManager.cachedData.yearRangeDatePicker,
             onSelect: function (dateText, inst) {
                 isOnSelect = true;
                 $(this).change();

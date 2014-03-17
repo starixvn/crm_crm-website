@@ -10,6 +10,9 @@
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/autocomplete/styles.css")"  />
     @Styles.Render("~/Areas/Report/DynamicReportStyles")
 </head>
 <body class="dynamicReportController" data-ng-controller="dynamicReportController">
@@ -166,6 +169,14 @@
                 </div>
             </div>
             <div class="row">
+                <div>
+                    <label for="subject" class="lblSubject width-70">
+                        @Labels.Subject</label>
+                </div>
+                <div class="item subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
+                    <input id="subject" type="text" class="textbox subject-auto-complete txtSubject"
+                        data-ng-model="subjectOptions.Subject" />
+                </div>
                 <div class="item">
                     <button id="button-submit" class="btn default-focus" data-ng-click="getDynamicReport()"
                         data-ng-model="defaultFocusOptions.IsSetFocus">
@@ -194,6 +205,11 @@
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
     @Scripts.Render("~/Areas/Report/DynamicReportScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';

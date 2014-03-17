@@ -30,6 +30,9 @@ insertLogApplication.directive('remarkEditorContainer', function () {
 
                 return isBubble;
             },
+            blurEvent: function () {
+                return hotKeyManager.documentBlur();
+            },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],

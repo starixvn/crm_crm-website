@@ -132,10 +132,10 @@ namespace Fanex.CRM.DataAccess.Impl
                             //                        : 0;
                         }
 
-                        if (reader.NextResult())
+                        /*if (reader.NextResult())
                         {
                             customer.CustomerInfo.Languages = GetCustomerLanguages(reader);
-                        }
+                        }*/
                     }
                 }
             }
@@ -600,7 +600,6 @@ namespace Fanex.CRM.DataAccess.Impl
                 PassportNumber = Converter.ToString2(reader["Passport"]),
                 BirthDay = Converter.ToDateTime(reader["Birthday"]),
                 Site = Converter.ToInt(reader["SiteId"]),
-                Country = Converter.ToInt(reader["CountryId"]),
                 BettingCode = Converter.ToString2(reader["RefCode1"]),
                 RefCodes2 = Converter.ToString2(reader["RefCode2"]),
                 IsVIP = Converter.ToBool(reader["IsVIP"]),

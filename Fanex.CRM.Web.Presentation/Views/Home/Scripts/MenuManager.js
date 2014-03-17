@@ -125,22 +125,28 @@ var MenuManager = function () {
     self.setActiveClassForSubMenu = function (mainMenu, subMenu) {
         var activeMenu =
         '<ul class="breadcrumbsMenu list-inline list-unstyled">\
-            <li><span class="icon-home"></span></li>\
+            <li><span class="icon-home touchable-element"></span></li>\
             <li>' + mainMenu + '</li>\
             <li class="active">' + subMenu + '</li>\
         </ul>';
 
         self.DOMElements.SubMenu.html(activeMenu);
+        self.DOMElements.SubMenu.find(".breadcrumbsMenu .icon-home").click(function () {
+            menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);
+        });
     };
 
     self.setActiveClassForLeftPanel = function (menu) {
         var activeMenu =
         '<ul class="breadcrumbsMenu list-inline list-unstyled">\
-            <li><span class="icon-home"></span></li>\
+            <li><span class="icon-home touchable-element"></span></li>\
             <li class="active">' + menu + '</li>\
         </ul>';
 
         self.DOMElements.SubMenu.html(activeMenu);
+        self.DOMElements.SubMenu.find(".breadcrumbsMenu .icon-home").click(function () {
+            menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);
+        });
     };
 
     self.clearSubmenuInfo = function () {

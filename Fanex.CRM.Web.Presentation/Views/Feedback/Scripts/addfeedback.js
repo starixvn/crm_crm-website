@@ -138,8 +138,6 @@ function getFeedbackData() {
             Birthday: $('#birthdayInfo').datepicker("getDate"),
             BirthdayString: $('#birthdayInfo').val(),
             Site: $('#ddlsite').val(),
-            Languages: $("#ddllanguage").fanexMultiSelect('getItems', true),
-            Country: $("#ddlcountry").val(),
             BettingCode: $("#bettingCodeInfo").val().trim(),
             RefCodes2: $("#refCodes2Info").val().trim(),
             IsVIP: $("#isVIP").prop("checked"),
@@ -167,6 +165,12 @@ function getFeedbackData() {
         },
         Bettype: {
             Id: $("#ddlbettype").val()
+        },
+        Country: {
+            Id: $("#ddlcountry").val()
+        },
+        Language: {
+            Id: $("#ddllanguage").val()
         },
         Status: {
             Id: $("#ddlstatus").val()
@@ -263,11 +267,6 @@ function AddFeedback() {
             showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
             return false;
         }
-        var languageIds = $("#ddllanguage").fanexMultiSelect('getItems', true);
-        if (!languageIds || languageIds.length === 0) {
-            showAlertMessage("errmsg", "Please choose language!", 1);
-            return false;
-        }
         if ($('#ddlcommunication option:selected').text().toLowerCase() === 'n/a') {
             showAlertMessage("errmsg", "Please choose communication!", 1);
             return false;
@@ -278,6 +277,10 @@ function AddFeedback() {
         }
         if (parseInt($('#ddlbettype option:selected').val()) === 0) {
             showAlertMessage("errmsg", "Please choose bet type!", 1);
+            return false;
+        }
+        if ($("#ddllanguage").val() === '0') {
+            showAlertMessage("errmsg", "Please choose language!", 1);
             return false;
         }
         if ($('#hIsNotChild').val() === '1') {
@@ -412,14 +415,14 @@ function getCRMInfoById(custId) {
                 success: function (setting) {
                     AllSetting = setting;
                     bindingSetting("ddltitle", setting.Title, customerInfo.Title.Id);
-                    bindingCountry("ddlcountry", setting.Country, customerInfo.Country);
-                    dropdownMultiSelect("ddllanguage", "ddllanguage", setting.Language, customerInfo.Languages);
                     bindingSite('ddlsite', setting.Site, customerInfo.Site);
 
                     bindingSetting("ddlcsextension", setting.Extension, 0);
                     bindingSetting("ddlcategory", setting.Category, 0);
                     bindingSetting("ddlproduct", setting.Product, 0);
                     bindingSetting("ddlrole", setting.Role, rs.RoleId);
+                    bindingCountry("ddlcountry", setting.Country, 0);
+                    bindingLanguage("ddllanguage", setting.Language, 0);
                     bindingSetting("ddlstatus", setting.Status, 0);
                     bindingSetting("ddlresponse", setting.Response, 0);
                     bindingSetting("ddlcommunication", setting.Communication, 0);
@@ -481,7 +484,8 @@ head.ready(function () {
         changeMonth: true,
         changeYear: true,
         showOtherMonths: true,
-        selectOtherMonths: true
+        selectOtherMonths: true,
+        yearRange: '-100:+0'
     });
 
     $('#btnRelatedHelp').tipsy({ gravity: 'nw', title: function () { return inputMultipleRelatedNote; } });

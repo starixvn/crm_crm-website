@@ -19,6 +19,7 @@ function dynamicReportRegisterPicker() {
     dynamicReportRegister.registerExtensionPicker();
     dynamicReportRegister.registerDefaultFocus();
     dynamicReportRegister.registerDownloadFile();
+    dynamicReportRegister.registerSubjectAutoComplete();
 }
 
 dynamicReportRegisterPicker();

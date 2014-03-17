@@ -15,7 +15,8 @@
 <body>
     <div class="container main" data-ng-controller="remarkController">
         <div class="row panel-group last">
-            <div class="row title group-header" data-ng-click="isShowSpecialRemark = !isShowSpecialRemark">@Labels.SpecialRemark</div>
+            <div class="row title group-header" data-ng-click="isShowSpecialRemark = !isShowSpecialRemark"
+                data-ng-class="isShowSpecialRemark ? '' : 'border-bottom-none'">@Labels.SpecialRemark</div>
             <div class="row content" data-ng-show="isShowSpecialRemark">
                 <ul class="list-remark col-xs-11 col-sm-11 col-md-11">
                     <li data-ng-repeat="remark in remarks.SpecialRemarks track by $index">
@@ -38,7 +39,8 @@
             </div>
         </div>
         <div class="row panel-group last remark">
-            <div class="row title group-header" data-ng-click="isShowRemark = !isShowRemark">@Labels.Remark</div>
+            <div class="row title group-header" data-ng-click="isShowRemark = !isShowRemark"
+                data-ng-class="isShowRemark ? '' : 'border-bottom-none'">@Labels.Remark</div>
             <div class="row content" data-ng-show="isShowRemark">
                 <ul class="list-remark col-xs-11 col-sm-11 col-md-11">
                     <li data-ng-repeat="remark in remarks.NormalRemarks track by $index">

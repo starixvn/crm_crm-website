@@ -340,6 +340,28 @@ function RegisterTemplate(aplication) {
 
         directiveManager.registerMultiSelectContainer(self.aplication, countryRegisterParams);
     };
+
+    self.registerToggleElement = function () {
+        var countryRegisterParams = {
+            PlugInName: 'toggleElement',
+            OptionName: 'toggleElementOptions',
+            PickerId: null,
+            RestrictType: 'C'
+        };
+
+        directiveManager.registerToggleElement(self.aplication, countryRegisterParams);
+    };
+
+    self.registerSubjectAutoComplete = function () {
+        var subjectAutoCompleteRegisterParams = {
+            PlugInName: 'subjectAutoCompleteContainer',
+            OptionName: 'subjectOptions',
+            PickerId: "subject",
+            RestrictType: 'C'
+        };
+
+        directiveManager.registerSubjectAutoComplete(self.aplication, subjectAutoCompleteRegisterParams);
+    }
 }
 
 

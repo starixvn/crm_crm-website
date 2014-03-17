@@ -105,7 +105,7 @@ function loadFeedbackAfterCallAjax(rs, Id) {
             bindingSetting("ddlstatus", setting.Status, rs.Status.Id);
             bindingSetting("ddlresponse", setting.Response, rs.Response.Id);
             bindingSetting("ddlcommunication", setting.Communication, rs.Communication.Id);
-            dropdownMultiSelect("ddllanguage", "ddllanguage", setting.Language, customerInfo.Languages);
+            bindingLanguage("ddllanguage", setting.Language, rs.Language.Id);
             bindingSetting("ddlcsextension", setting.Extension, rs.CsExtension.Id);
             bindingCountry("ddlcountry", setting.Country, rs.Country.Id);
 
@@ -176,9 +176,12 @@ function loadFeedbackAfterCallAjax(rs, Id) {
         changeMonth: true,
         changeYear: true,
         showOtherMonths: true,
-        selectOtherMonths: true
+        selectOtherMonths: true,
+        yearRange: '-100:+0'
     });
-    $("#birthdayInfo").datepicker("setDate", customerInfo.BirthDayString);
+    if (customerInfo.BirthDayString !== '') {
+        $("#birthdayInfo").datepicker("setDate", new Date(customerInfo.BirthDayString));
+    }
 
     //-------------------            
     var arrDateValues = [feedbackdate, resolutiondate];
@@ -229,9 +232,6 @@ function loadFeedbackAfterCallAjax(rs, Id) {
 
         if (rs.Reviewer.Id > 0) {
             $("#chkisreview").prop('checked', true);
-        }
-
-        if (revvalue.length !== 0) {
             $("#lblEditedBy").text("(Reviewed by " + rs.Reviewer.Username + " on " + strsoldate + ")");
         }
         $("#previewboxrev").html(revvalue);
@@ -336,8 +336,6 @@ function getFeedbackData() {
         Birthday: $('#birthdayInfo').datepicker("getDate"),
         BirthdayString: $('#birthdayInfo').val(),
         Site: $('#ddlsite').val(),
-        Languages: $("#ddllanguage").fanexMultiSelect('getItems', true),
-        Country: $("#ddlcountry").val(),
         BettingCode: $("#bettingCodeInfo").val().trim(),
         RefCodes2: $("#refCodes2Info").val().trim(),
         IsVIP: $("#isVIP").prop("checked"),
@@ -357,8 +355,8 @@ function getFeedbackData() {
     feedbackEdit.Status.Id = $("#ddlstatus").val();
     feedbackEdit.Role.Id = $("#ddlrole").val();
     feedbackEdit.Response.Id = $("#ddlresponse").val();
-    //feedbackEdit.Country.Id = feedbackEdit.CustomerInfo.Country.Id;
-    // feedbackEdit.Site.Id = feedbackEdit.CustomerInfo.Site.Id;
+    feedbackEdit.Country.Id = $("#ddlcountry").val();
+    feedbackEdit.Language.Id = $("#ddllanguage").val();
     feedbackEdit.RelatedCustomer.Id = 0;
     feedbackEdit.RelatedCustomer.UserName = RelatedCustID;
     feedbackEdit.Subject = $("#txtsubject").val().trim();
@@ -486,11 +484,6 @@ function EditFeedback() {
             showAlertMessage("errmsg", errMsgResolutionDateGreatter, 1);
             return false;
         }
-        var languageIds = $("#ddllanguage").fanexMultiSelect('getItems', true);
-        if (!languageIds || languageIds.length === 0) {
-            showAlertMessage("errmsg", "Please choose language!", 1);
-            return false;
-        }
         if ($('#ddlcommunication option:selected').text().toLowerCase() === 'n/a') {
             showAlertMessage("errmsg", "Please chosse communication!", 1);
             return false;
@@ -501,6 +494,10 @@ function EditFeedback() {
         }
         if (parseInt($('#ddlbettype option:selected').val()) === 0) {
             showAlertMessage("errmsg", "Please choose bet type!", 1);
+            return false;
+        }
+        if ($("#ddllanguage").val() === '0') {
+            showAlertMessage("errmsg", "Please choose language!", 1);
             return false;
         }
 
@@ -541,13 +538,13 @@ function EditFeedback() {
             return false;
         }
         //----------check related customer
-        if ($("#chkisrelated").prop("checked")) {
+        /*if ($("#chkisrelated").prop("checked")) {
             var customerIds = getRelatedCustomer();
             if (customerIds === "_") {
                 showAlertMessage("errmsg", errMsgNotYetVerifyFeedbackRelatedCustomer, 1);
                 return false;
             }
-        }
+        }*/
         //------------------------
         /* jshint newcap: false */
         DoUpdate();
@@ -1033,6 +1030,7 @@ head.ready(function () {
         Value: window,
         Id: 'AddGuestFeedback'
     });
+    $("#btnsubmitbottom").focus();
 });
 
 feedbackEdit = {

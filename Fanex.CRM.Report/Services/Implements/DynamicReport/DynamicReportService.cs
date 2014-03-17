@@ -180,7 +180,13 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
 
                 foreach (var rawStatus in rawData)
                 {
-                    allStatus.Add(rawStatus);
+                    if (rawStatus.Name == Labels.Checked ||
+                        rawStatus.Name == Labels.Solved ||
+                        rawStatus.Name == Labels.Closed ||
+                        rawStatus.Name == Labels.Pending)
+                    {
+                        allStatus.Add(rawStatus);
+                    }
                 }
 
                 return allStatus;
