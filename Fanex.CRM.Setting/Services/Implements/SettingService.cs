@@ -445,7 +445,6 @@ namespace Fanex.CRM.Setting.Services.Implements
             var allStatus = new List<SettingInfo>();
             try
             {
-                allStatus = CacheService.Get<List<SettingInfo>>(GetAllStatusSessionKey);
                 allStatus = null;
                 if (allStatus != null)
                 {
@@ -454,7 +453,6 @@ namespace Fanex.CRM.Setting.Services.Implements
 
                 allStatus = _settingRepositoryInstance.GetAllStatus(criteria);
                 allStatus = allStatus.OrderBy(s => s.DisplayOrder).ToList();
-                CacheService.Set(GetAllStatusSessionKey, allStatus);
             }
             catch (Exception ex)
             {
