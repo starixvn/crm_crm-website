@@ -727,6 +727,7 @@
     <Content Include="Content\site\ui-darkness\jquery-ui-1.8.14.custom.css" />
     <Content Include="Views\Home\Scripts\Main.js" />
     <Content Include="Views\Home\Styles\Images\br-arrow-ico.png" />
+    <Content Include="Views\Home\Styles\Images\clock.png" />
     <Content Include="Views\Home\Styles\Images\home-ico.png" />
     <Content Include="Views\Home\_Menu.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
