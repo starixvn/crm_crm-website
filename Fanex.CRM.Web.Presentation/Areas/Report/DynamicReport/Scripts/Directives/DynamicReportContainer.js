@@ -184,7 +184,20 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             var periodReport = cachedDynamicReport.ChildReports[xIndex];
             chartSerie = {
                 name: periodReport.ShortName,
-                data: [periodReport.TotalChildReports]
+                data: [periodReport.TotalChildReports],
+                dataLabels: {
+                    enabled: true,
+                    rotation: -90,
+                    color: '#FFFFFF',
+                    align: 'right',
+                    x: 4,
+                    y: 10,
+                    style: {
+                        fontSize: '13px',
+                        fontFamily: 'Verdana, sans-serif',
+                        textShadow: '0 0 3px black'
+                    }
+                }
             };
 
             chartSeries.push(chartSerie);
