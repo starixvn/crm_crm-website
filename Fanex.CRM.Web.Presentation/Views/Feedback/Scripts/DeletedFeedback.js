@@ -3,7 +3,8 @@
 replaceSpaceForIE9,
 head,
 addDays,
-bindSetting
+bindSetting,
+clientTime
 */
 /* exported loadSubItem,
 openEditFeedback */

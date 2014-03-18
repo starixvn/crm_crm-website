@@ -9,21 +9,21 @@
         <option value="${Id}">${Value}</option>
 </script>
 <div class="main container">
-    <div class="row filter-frm one-row redemption-filter">
+    <div class="row filter-frm one-row deleteFeedback">
         <div class="row row-item">
             <div class="item">
                 <label for="txtusername" class="width-80">
                     Username</label>
                 <input type="text" id="txtusername" class="textbox txtUsername" />
                 &nbsp;
-                <select id="ddlguest">
+                <select id="ddlguest" class="selGuest">
                     <option value="-1">All</option>
                     <option value="0">Customer</option>
                     <option value="1">Guest</option>
                 </select>
             </div>
             <div class="item">
-                <label for="txtfromdate" class="width-80">
+                <label for="txtfromdate" class="width-70">
                     From date</label>
                 <input type="text" id="txtfromdate" readonly="readonly" class="textbox txtcalendar" />
             </div>
@@ -31,10 +31,6 @@
                 <label for="txttodate">
                     To date</label>
                 <input type="text" id="txttodate" readonly="readonly" class="textbox txtcalendar" />
-            </div>
-            <div class="item">
-                <button class="btn" onclick="deletedFeedback.loadDeletedFeedback(false);">
-                    Submit</button>
             </div>
         </div>
         <div class="row row-item">
@@ -46,7 +42,7 @@
                 </select>
             </div>
             <div class="item">
-                <label for="ddlsubcategory" class="width-80">
+                <label for="ddlsubcategory" class="width-70">
                     Subcategory</label>
                 <select id="ddlsubcategory" class="selSubCategory">
                     <option value="0">All</option>
@@ -62,14 +58,14 @@
                 </select>
             </div>
             <div class="item">
-                <label for="ddlstatus">
-                    Status</label>
-                <select id="ddlstatus" class="selStatus">
+                <label for="ddlCustomerReponse">
+                    Customer Response</label>
+                <select id="ddlCustomerReponse" class="selResponse">
                     <option value="0">All</option>
                 </select>
             </div>
             <div class="item">
-                <label for="ddlIsReviewed" class="width-80">
+                <label for="ddlIsReviewed" class="width-70">
                     Is Reviewed</label>
                 <select id="ddlIsReviewed" class="selReviewed">
                     <option value="0">All</option>
@@ -78,11 +74,8 @@
                 </select>
             </div>
             <div class="item">
-                <label for="ddlCustomerReponse">
-                    Customer Response</label>
-                <select id="ddlCustomerReponse" class="selResponse">
-                    <option value="0">All</option>
-                </select>
+                <button class="btn" onclick="deletedFeedback.loadDeletedFeedback(false);">
+                    Submit</button>
             </div>
         </div>
     </div>

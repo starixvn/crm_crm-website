@@ -367,6 +367,7 @@ function getFeedbackData() {
     feedbackEdit.UpdateReviewMode = IsUpdateReviewed ? 1 : 0;
     feedbackEdit.Reviewer.Id = Reviewer;
     feedbackEdit.Review = Review.trim();
+    userName = $("#lblUserName").html();
     return feedbackEdit;
 }
 

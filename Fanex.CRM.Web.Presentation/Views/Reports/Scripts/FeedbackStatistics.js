@@ -97,7 +97,7 @@ var feedbackStatistic = {
     arrColumns: [],
     title: '',
     type: '',
-    gridHeight: 100,
+    gridHeight: 145,
     FromDuration: {
         Day: 0,
         Hour: 0,
