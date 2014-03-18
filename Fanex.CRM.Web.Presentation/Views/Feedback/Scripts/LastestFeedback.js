@@ -93,11 +93,11 @@ topFeedback = {
                         fullWidth: true,
                         fullHeight: true,
                         gridHeight: 55,
-                        freezeWidth: 400,
+                        freezeWidth: 450,
                         numberFreezeCol: 1
                     };
                     mainreport.removeClass("hidden").gridScroller(gridOpts);
-                    reRenderGrid('lastedfeedbackgrid', 'latestfeedbackbodyHeader', 'latestfeedbackbody', 55, 400, 1, 400);
+                    reRenderGrid('lastedfeedbackgrid', 'latestfeedbackbodyHeader', 'latestfeedbackbody', 55, 450, 1, 450);
 
                     var getSmallestDate = new Date(topFeedback.getMinDate(rs.rows));
                     $('#txtfromdate').datepicker("setDate", getSmallestDate);
@@ -132,7 +132,7 @@ topFeedback = {
         }
 
         var html = '<tr class="' + trStyle + '">\
-                       <td><div style="width:400px">\
+                       <td><div style="width:450px">\
                                 <div class="lnksubject"><a class="desTooltip" id = "tooltip' + i + '"  href="JavaScript:void(0);"\
                                 onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' + row.ID + '&rep=2\', 1);HideTooltip(' + i + ');" >\
                                 <b>' + row.Subject + '</b></a></div>\
@@ -141,9 +141,9 @@ topFeedback = {
                                 ' + topFeedback.durationTimeFormat(row.DurationTime) + '<br>\
                                 ' + topFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) + '\
                             </div></td>\
-                        <td><div style="width:220px">' + row.MainCategory + '<br/>&nbsp;&nbsp;&nbsp;' + row.SubCategory + '</div></td>\
+                        <td><div style="width:200px">' + row.MainCategory + '<br/>&nbsp;&nbsp;&nbsp;' + row.SubCategory + '</div></td>\
                         <td><div class="c" style="width:50px">&nbsp;' + row.Status + '</div></td>\
-                        <td><div class="c" style="width:260px">&nbsp;' + row.RelatedUsername + '</div></td>\
+                        <td><div class="c" style="width:230px">&nbsp;' + row.RelatedUsername + '</div></td>\
                 </tr>';
         return html;
     },

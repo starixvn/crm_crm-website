@@ -188,6 +188,7 @@
         window.rootUrl = '@Url.Content("~")';
         var accname = "@AppSession.CurrentUser.Username";
         var accId = @AppSession.CurrentUser.Id;
+        var clientTime = "@Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeTimeZoneToClient(DateTime.Now)";
 
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
                 head.js("@Url.Content("~/Scripts/json2.js")")
