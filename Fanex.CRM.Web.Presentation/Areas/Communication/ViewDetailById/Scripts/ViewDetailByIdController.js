@@ -274,9 +274,18 @@ function (
                 $scope.mainCategoryOptions.DataList = allSetting.MainCategoryList;
                 $scope.extensionOptions.DataList = allSetting.ExtensionList;
 
-                $scope.countryOptions.DataList = allSetting.CountryList;
                 $scope.languageOptions.DataList = allSetting.LanguageList;
                 $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
+
+                $scope.countryOptions.DataList = [];
+                $scope.countryOptions.DataList.push({
+                    Id: crmConstants.Enums.Country.NotApply,
+                    Name: viewResources.Symbol_NotApply
+                });
+
+                $scope.countryOptions.DataList.concat(allSetting.CountryList);
+
+
                 $scope.completedLoadFilterInfo();
             },
             function (data) {

@@ -522,7 +522,7 @@ var feedbackStatistic = {
 };
 
 head.ready(function () {
-    var tdate = new Date();
+    var tdate = new Date(currentDate);
     var fdate = addDays(tdate, -7);
 
     var arrDateValues = [fdate, tdate];

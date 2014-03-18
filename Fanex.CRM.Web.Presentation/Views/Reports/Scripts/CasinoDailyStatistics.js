@@ -29,8 +29,16 @@ var pagerOpts = {
 
 // -- Calendar --- //
 function setupCalendar(arrDateValues, arrIds) {
+    var config = {
+        dateFormat: 'M dd, yy',
+        changeMonth: true,
+        changeYear: true,
+        showOtherMonths: true,
+        selectOtherMonths: true
+    };
+
     for (var i = 0; i < arrIds.length; i++) {
-        $('#' + arrIds[i]).datepicker();
+        $('#' + arrIds[i]).datepicker(config);
         if (arrDateValues[i] != null && arrDateValues[i] !== "") {
             $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
         }
@@ -614,7 +622,7 @@ casinoDailyDetail = {
 };
 
 head.ready(function () {
-    var arrDateValues = [(new Date(fromDate)).format("m/d/Y"), (new Date(toDate)).format("m/d/Y")];
+    var arrDateValues = [(new Date(fromDate)).format("M d, Y"), (new Date(toDate)).format("M d, Y")];
     var arrIds = ['txtfromdate', 'txttodate'];
     setupCalendar(arrDateValues, arrIds);
 

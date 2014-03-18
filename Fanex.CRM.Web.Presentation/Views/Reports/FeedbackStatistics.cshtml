@@ -1,4 +1,6 @@
 ﻿@using DNAide.Core
+@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Extension;
 <link href="@Url.Content("~/Scripts/Paging/pagination.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
@@ -21,36 +23,39 @@
                 </select>
             </div>
             <div class="item">
-                <label for="txtfromdate">From date</label>
+                <label for="txtfromdate">
+                    From date</label>
                 <input type="text" id="txtfromdate" readonly="readonly" class="textbox txtcalendar" />
             </div>
             <div class="item">
-                <label for="txttodate">To date</label>
-                <input type="text" id="txttodate" readonly="readonly" class="textbox txtcalendar"/>
+                <label for="txttodate">
+                    To date</label>
+                <input type="text" id="txttodate" readonly="readonly" class="textbox txtcalendar" />
             </div>
             <div class="item">
-                <button id="btnSearch" name="btnSearch" class="btn" onclick="feedbackStatistic.loadFeedback(0);" >Submit</button>
+                <button id="btnSearch" name="btnSearch" class="btn" onclick="feedbackStatistic.loadFeedback(0);">
+                    Submit</button>
             </div>
         </div>
         <div class="row row-item">
             <div class="item width-100">
-                 From Duration
+                From Duration
             </div>
             <div class="item day">
                 <input type="text" id="txtFDDay" class="textbox" />
-                            Day
+                Day
             </div>
             <div class="item day">
-                 <input type="text" id="txtFDHour" class="textbox" />
-                            Hour
+                <input type="text" id="txtFDHour" class="textbox" />
+                Hour
             </div>
             <div class="item day">
-                 <input type="text" id="txtFDMinute" class="textbox" />
-                            Minute
+                <input type="text" id="txtFDMinute" class="textbox" />
+                Minute
             </div>
             <div class="item day">
-                 <input type="text" id="txtFDSecond" class="textbox" />
-                            Second
+                <input type="text" id="txtFDSecond" class="textbox" />
+                Second
             </div>
         </div>
         <div class="row">
@@ -58,26 +63,26 @@
                 To Duration
             </div>
             <div class="item day">
-                <input type="text" id="txtTDDay" class="textbox"/>
-                            Day
+                <input type="text" id="txtTDDay" class="textbox" />
+                Day
             </div>
             <div class="item day">
-                 <input type="text" id="txtTDHour" class="textbox"/>
-                            Hour
+                <input type="text" id="txtTDHour" class="textbox" />
+                Hour
             </div>
             <div class="item day">
-                 <input type="text" id="txtTDMinute" class="textbox"/>
-                            Minute
+                <input type="text" id="txtTDMinute" class="textbox" />
+                Minute
             </div>
             <div class="item day">
-                 <input type="text" id="txtTDSecond" class="textbox"/>
-                            Second
+                <input type="text" id="txtTDSecond" class="textbox" />
+                Second
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-7 col-sm-7 col-md-5" id="errmsg">
-                </div>
+        </div>
     </div>
     <div class="row">
         <div id="feedbackstatisticgrid" class="freegrid hidden">
@@ -86,8 +91,8 @@
                     Title</div>
                 <div class="grid-toolbox">
                     <input type="button" value=" " id="btnChart" class="btnCharting" onclick="feedbackStatistic.viewChart();" />
-                    <input type="button" onclick="feedbackStatistic.viewAllStatisticsDetail();" value="  " id="btFeedbackStatisticDetail"
-                        class="btnViewDetail" title="Feedback Statistics Detail" />
+                    <input type="button" onclick="feedbackStatistic.viewAllStatisticsDetail();" value="  "
+                        id="btFeedbackStatisticDetail" class="btnViewDetail" title="Feedback Statistics Detail" />
                     <input type="button" onclick="feedbackStatistic.export2excel()" value="  " id="btnExport"
                         class="btnExcel" title="Export to Excel" />
                 </div>
@@ -174,7 +179,8 @@
         window.rootUrl = '@Url.Content("~")';
         var lblErrorTimeDuration = "@Resources.ErrorMsg.lblErrorTimeDuration";
         var lblErroTimeDate = "@Resources.ErrorMsg.lblErroTimeDate";
-
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+      
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
                 head.js("@Url.Content("~/Scripts/json2.js")")
                     .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.js")",

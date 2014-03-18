@@ -511,8 +511,8 @@ casinoWeeklyDetail = {
 };
 
 head.ready(function () {
-    $('#txtfromdate').val((new Date(fromDate)).format("m/d/Y"));
-    $('#txttodate').val((new Date(toDate)).format("m/d/Y"));
+    $('#txtfromdate').val((new Date(fromDate)).format("M d, Y"));
+    $('#txttodate').val((new Date(toDate)).format("M d, Y"));
 
 //    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
