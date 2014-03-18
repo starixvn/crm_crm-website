@@ -23,6 +23,8 @@ namespace Fanex.CRM.Communication.Models
 
         public int CustomerId { get; set; }
 
+        public string CustomerName { get; set; }
+
         public string FeedbackDate { get; set; }
 
         public SettingInfo MainCategory { get; set; }

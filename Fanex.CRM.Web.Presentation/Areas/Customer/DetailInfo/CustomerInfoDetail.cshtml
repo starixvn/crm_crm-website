@@ -24,7 +24,7 @@
                 <div class="col-md-4">
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="title">
+                            <label for="customerinfodetail-titleoptions">
                                 @Labels.Title</label></div>
                         <div class="col-md-7" data-ng-model="titleList" dropdown-title-container>
                             <select id="customerinfodetail-titleoptions" tabindex="1" class="selTitle" default-focus
@@ -47,7 +47,7 @@
                     </div>
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="extension">
+                            <label for="faxInfo">
                                 @Labels.Fax</label></div>
                         <div class="col-md-7">
                             <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode"
@@ -63,21 +63,22 @@
                             <label for="skype">
                                 @Labels.Skype</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="skype" data-ng-model="customerDetail.Skype"
+                            <input id="skype" type="text" class="textbox" id="skype" data-ng-model="customerDetail.Skype"
                                 tabindex="20" />
                         </div>
                     </div>
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="MSN">
+                            <label for="msn">
                                 @Labels.MSN</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="MSN" data-ng-model="customerDetail.MSN" tabindex="23" />
+                            <input id="msn" type="text" class="textbox" id="MSN" data-ng-model="customerDetail.MSN"
+                                tabindex="23" />
                         </div>
                     </div>
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="MSN">
+                            <label for="birthday">
                                 @Labels.Birthday</label></div>
                         <div class="col-md-7" date-picker-container>
                             <input id="birthday" type="text" class="textbox timepicker txtcalendar" tabindex="26" />
@@ -155,7 +156,7 @@
                     </div>
                     <div class="row item">
                         <div class="col-md-5">
-                            <label for="site">
+                            <label for="customerinfodetail-siteoptions">
                                 @Labels.Site</label></div>
                         <div class="col-md-7" data-ng-model="siteList" dropdown-site-container>
                             <select id="customerinfodetail-siteoptions" class="dropdown-siteinfo" tabindex="27">
@@ -165,7 +166,7 @@
                     <div class="row item">
                         <div class="col-md-5">
                             <label for="bettingcode">
-                                @Labels.Betting_Code</label></div>
+                                @Labels.Secret_Code</label></div>
                         <div class="col-md-7" date-picker-container>
                             <input type="text" class="textbox" id="bettingcode" data-ng-model="customerDetail.BettingCode[0]"
                                 tabindex="30" />
@@ -198,7 +199,7 @@
                     <div data-ng-repeat="personalInfoContact in customerDetail.PersonalInfoContact track by $index">
                         <div class="row item">
                             <div class="col-md-5">
-                                <label for="pic1">
+                                <label for="pic{{ $index + 1 }}">
                                     @Labels.PIC {{ $index + 1 }}</label></div>
                             <div class="col-md-7">
                                 <input type="text" class="textbox" id="pic{{ $index + 1 }}" data-ng-model="customerDetail.PersonalInfoContact[$index]"
@@ -209,7 +210,7 @@
                     <div class="row item">
                         <div class="col-md-5">
                             <label for="refcode2">
-                                @Labels.Ref_Codes_2</label></div>
+                                @Labels.Ref_Codes</label></div>
                         <div class="col-md-7" date-picker-container>
                             <input type="text" class="textbox" id="refcode2" data-ng-model="customerDetail.BettingCode[1]"
                                 tabindex="31" />
@@ -253,7 +254,7 @@
                 <div class="row">
                     <div class="item col-md-4">
                         <div class="col-md-5">
-                            <label for="country">
+                            <label for="customerinfodetail-countryoptions">
                                 @Labels.Country</label></div>
                         <div class="col-md-7" data-ng-model="countryList" dropdown-country-container>
                             <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo">
@@ -338,7 +339,7 @@
                 <div class="row">
                     <div class="item    col-md-4">
                         <div class="col-md-5">
-                            <label for="b-country">
+                            <label for="customerinfodetail-countryoptions-bank">
                                 @Labels.Country</label></div>
                         <div class="col-md-7" data-ng-model="countryList" dropdown-country-bank-container>
                             <select id="customerinfodetail-countryoptions-bank" class="dropdown-countryinfo">

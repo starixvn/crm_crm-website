@@ -595,16 +595,6 @@ function (
             result = false;
         }
 
-        if (result && criteria.ProductId === crmConstants.Enums.Product.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NAProduct;
-            result = false;
-        }
-
-        if (result && criteria.BetTypeId === crmConstants.Enums.BetType.NotApply) {
-            $scope.resultMessage = viewResources.Communication_Log_NABetType;
-            result = false;
-        }
-
         if (result && criteria.Subject === '') {
             $scope.resultMessage = viewResources.Communication_Log_EmptySubject;
             result = false;
