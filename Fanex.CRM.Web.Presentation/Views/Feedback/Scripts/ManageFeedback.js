@@ -297,7 +297,7 @@ lastedFeedback = {
 
 head.ready(
     function () {
-        var tdate = new Date();
+        var tdate = new Date(clientTime);
         var fdate = addDays(tdate, -1);
         setupCalendar([fdate, tdate], ['txtfromdate', 'txttodate']);
 

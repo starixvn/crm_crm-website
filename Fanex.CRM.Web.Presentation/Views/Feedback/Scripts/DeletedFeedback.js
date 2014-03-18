@@ -246,7 +246,7 @@ deletedFeedback = {
 };
 
 head.ready(function () {
-    var tdate = new Date();
+    var tdate = new Date(clientTime);
     var fdate = addDays(new Date(), -1);
     /* jshint newcap: false */
     SetupCalendar([fdate, tdate], ['txtfromdate', 'txttodate']);
