@@ -29,10 +29,19 @@ function durationTimeForceNumberic() {
 
 // -- Calendar --- //
 function setupCalendar(arrDateValues, arrIds) {
+    var config = {
+        dateFormat: 'M dd, yy',
+        changeMonth: true,
+        changeYear: true,
+        showOtherMonths: true,
+        selectOtherMonths: true
+    };
+
     for (var i = 0; i < arrIds.length; i++) {
-        $('#' + arrIds[i]).datepicker();
-        if (arrDateValues[i] != null && arrDateValues[i] !== "") {
-            $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
+        if (arrDateValues[i]) {
+            var datepickerElement = $('#' + arrIds[i]);
+            datepickerElement.datepicker(config);
+            datepickerElement.datepicker('setDate', arrDateValues[i]);
         }
     }
 }
@@ -513,11 +522,10 @@ var feedbackStatistic = {
 };
 
 head.ready(function () {
-    var fdate, tdate;
-    fdate = addDays(new Date(), -7);
-    tdate = new Date();
+    var tdate = new Date();
+    var fdate = addDays(tdate, -7);
 
-    var arrDateValues = [fdate.format("m/d/Y"), tdate.format("m/d/Y")];
+    var arrDateValues = [fdate, tdate];
     var arrIds = ['txtfromdate', 'txttodate'];
     setupCalendar(arrDateValues, arrIds);
     masterPage = parent;
