@@ -6,7 +6,8 @@ var SharedScriptManager = function () {
         pagingOptions: [50, 100, 200],
         defaultItemsPerPage: 50,
         maxFeedbackSubjectTemplateNumberOnLoad: 100000,
-        yearRangeDatePicker: "-100:+0"
+        yearRangeDatePicker: "-100:+0",
+        numberOfYearPerSelection: 50
     },
 
     self.CallAjax = function (currentHandler,
@@ -24,17 +25,17 @@ var SharedScriptManager = function () {
             beforeSend: function () {
             },
             success: function (rs) {
-                if (successFunction && typeof (successFunction) == 'function') {
+                if (successFunction && typeof (successFunction) === 'function') {
                     successFunction.call(currentHandler, rs);
                 }
             },
             error: function (jqXHR, event, ajaxSettings) {
-                if (errorFunction && typeof (errorFunction) == 'function') {
+                if (errorFunction && typeof (errorFunction) === 'function') {
                     errorFunction.call(currentHandler);
                 }
             },
             complete: function () {
-                if (completeFunction && typeof (completeFunction) == 'function') {
+                if (completeFunction && typeof (completeFunction) === 'function') {
                     completeFunction();
                 }
             }

@@ -124,6 +124,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        public static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Closed.
         /// </summary>
         public static string Closed {
@@ -520,6 +529,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post Code.
+        /// </summary>
+        public static string Post_Code {
+            get {
+                return ResourceManager.GetString("Post_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product.
         /// </summary>
         public static string Product {
@@ -606,6 +624,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Solved {
             get {
                 return ResourceManager.GetString("Solved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        public static string State {
+            get {
+                return ResourceManager.GetString("State", resourceCulture);
             }
         }
         

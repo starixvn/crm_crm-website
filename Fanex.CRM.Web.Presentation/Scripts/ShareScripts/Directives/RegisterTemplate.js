@@ -49,6 +49,7 @@ function RegisterTemplate(aplication) {
             PickerId: 'toweek',
             RestrictType: 'C'
         };
+
         directiveManager.registerWeekPickerContainer(self.aplication, fromWeekRegisterParams);
         directiveManager.registerWeekPickerContainer(self.aplication, toWeekRegisterParams);
     };
@@ -361,7 +362,7 @@ function RegisterTemplate(aplication) {
         };
 
         directiveManager.registerSubjectAutoComplete(self.aplication, subjectAutoCompleteRegisterParams);
-    }
+    };
 }
 
 

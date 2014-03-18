@@ -132,9 +132,10 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
 
             isRenderedPicker = true;
             options.IsRerenderPicker = false;
+            updateInitValue(scope, element, attrs);
         }
 
-        function onChangeEvent(scope, month, year) {
+        function onChangeEvent(scope, month, year, isAlreadyApply) {
             var options = scope[registerParams.OptionName];
             if (options === null) {
                 return;
@@ -142,8 +143,14 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
 
             if (options.OnChangeEvent &&
                 typeof (options.OnChangeEvent) === "function") {
-                options.OnChangeEvent(month, year);
+                options.OnChangeEvent(month, year, isAlreadyApply);
             }
+        }
+
+        function updateInitValue(scope, element, attrs) {
+            var month = parseInt(element.find("#" + registerParams.PickerId.Month).val());
+            var year = parseInt(element.find("#" + registerParams.PickerId.Year).val());
+            onChangeEvent(scope, month, year, true);
         }
 
         return {
@@ -152,7 +159,7 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newVal, oldVal) {
                     ngModelChange(scope, element, attrs, newVal, oldVal);
-                });
+                }, true);
             }
         };
     });

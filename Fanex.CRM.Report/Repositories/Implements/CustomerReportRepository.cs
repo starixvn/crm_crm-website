@@ -106,11 +106,15 @@ namespace Fanex.CRM.Report.Repositories.Implements
                  AddressInfo = new AddressInfo
                  {
                      LineList = new List<string>
-                    {
-                        reader.GetStringNotNull("Line1"),
-                        reader.GetStringNotNull("Line2"),
-                        reader.GetStringNotNull("Line3"),
-                    }
+                     {
+                         reader.GetStringNotNull("Line1"),
+                         reader.GetStringNotNull("Line2"),
+                         reader.GetStringNotNull("Line3"),
+                     },
+
+                     City = reader.GetStringNotNull("City"),
+                     State = reader.GetStringNotNull("State"),
+                     PostCode = reader.GetStringNotNull("PostCode")
                  }
              };
 
