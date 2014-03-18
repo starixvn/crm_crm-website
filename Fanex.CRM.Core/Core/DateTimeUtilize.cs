@@ -37,7 +37,6 @@ namespace Fanex.CRM.Infrastructure.Core
         public static string ChangeTimeZoneToClient(DateTime time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            //return time.Add(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm tt");
             return time.Add(timeSpan._timeSpan).ToString("MMM dd, yyyy hh:mm tt");
         }
 

@@ -12,6 +12,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using System.Xml;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
@@ -19,9 +20,9 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using Fanex.CRM.ActionLog.Repositories.Interfaces;
     using Fanex.CRM.ActionLog.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Configuration;
+    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Service.Implements;
 
     /// <summary>
     /// ActionLogService class.
@@ -58,7 +59,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             try
             {
-                var activityLogs = CacheService.Get<IList<ActivityLog>>(ActivityLogKey);
+                var activityLogs = (IList<ActivityLog>)SessionExtension.GetSession(HttpContext.Current.Session, ActivityLogKey); 
                 if (criteria.PageIndex == 0 || activityLogs == null)
                 {
                     // Exclude rows whose OldValues = NewValues = NULL/Empty.
@@ -67,7 +68,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                         .ToList();
                     if (activityLogs != null && activityLogs.Count > 0)
                     {
-                        CacheService.Set(ActivityLogKey, activityLogs);
+                        SessionExtension.AddSession(HttpContext.Current.Session, ActivityLogKey, activityLogs);
                     }
                 }
 
@@ -99,7 +100,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             try
             {
-                var settingLogs = CacheService.Get<IList<SettingLog>>(SettingLogKey);
+                var settingLogs = (IList<SettingLog>)SessionExtension.GetSession(HttpContext.Current.Session, SettingLogKey); 
                 if (criteria.PageIndex == 0 || settingLogs == null)
                 {
                     // Exclude rows whose OldValues = NewValues = NULL/Empty.
@@ -108,7 +109,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                         .ToList();
                     if (settingLogs != null && settingLogs.Count > 0)
                     {
-                        CacheService.Set(SettingLogKey, settingLogs);
+                        SessionExtension.AddSession(HttpContext.Current.Session, SettingLogKey, settingLogs);
                     }
                 }
                 
