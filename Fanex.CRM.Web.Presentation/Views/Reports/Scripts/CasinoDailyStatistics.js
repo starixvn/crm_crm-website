@@ -248,41 +248,59 @@ casinoDailyStatistics = {
                 var categoryDetail = feedbackSummary.SystemSummary[i];
                 var categoryName = categoryDetail.Sytem;
                 var totalFeedbacks = rs.SumAllFeedbacks[i];
+                if (totalFeedbacks === 0) {
+                    continue;
+                }
 
-                if (totalFeedbacks !== 0) {
-                    var percent = ((rs.SumAllFeedbacks[i]) / (eval(rs.SumAllFeedbacks.join('+')))) * 100;
-                    mainCategories.push({
-                        name: categoryName,
-                        y: percent,
-                        drilldown: categoryName
-                    });
+                var sumAllFeedbacksLength = rs.SumAllFeedbacks.length;
+                var sumAllFeedbacksAmount = 0;
+                for (var l = 0; l < sumAllFeedbacksLength; l++) {
+                    sumAllFeedbacksAmount += parseFloat(rs.SumAllFeedbacks[l]);
+                }
 
-                    var totalCols = categoryDetail.Cells.length;
-                    subcategories.push({
-                        name: categoryName,
-                        id: categoryName,
-                        data: []
-                    });
+                var percent = ((rs.SumAllFeedbacks[i]) / (sumAllFeedbacksAmount)) * 100;
+                mainCategories.push({
+                    name: categoryName,
+                    y: percent,
+                    drilldown: categoryName
+                });
 
-                    for (var j = 0; j < totalCols; j++) {
-                        var item = categoryDetail.Cells[j];
-                        var totalSubFeedBacks = 0;
-                        if (item.Value !== 0) {
-                            if (totalSubFeedBacks === 0) {
-                                for (var k = 0; k < totalCols; k++) {
-                                    totalSubFeedBacks += categoryDetail.Cells[k].Value;
-                                }
-                            }
-                            var subPercent = (item.Value / totalSubFeedBacks) * 100;
-                            subcategories[groupIndex].data.push([
-                                item.Title,
-                                subPercent
-                            ]);
-                        }
+                var totalCols = categoryDetail.Cells.length;
+                subcategories.push({
+                    name: categoryName,
+                    id: categoryName,
+                    data: []
+                });
+
+                for (var j = 0; j < totalCols; j++) {
+                    var item = categoryDetail.Cells[j];
+                    var totalSubFeedBacks = 0;
+                    if (item.Value !== 0) {
+                        continue;
                     }
 
-                    groupIndex++;
+                    var subPercent;
+                    if (totalSubFeedBacks !== 0) {
+                        subPercent = (item.Value / totalSubFeedBacks) * 100;
+                        subcategories[groupIndex].data.push([
+                            item.Title,
+                            subPercent
+                        ]);
+                        continue;
+                    }
+
+                    for (var k = 0; k < totalCols; k++) {
+                        totalSubFeedBacks += categoryDetail.Cells[k].Value;
+                    }
+
+                    subPercent = (item.Value / totalSubFeedBacks) * 100;
+                    subcategories[groupIndex].data.push([
+                            item.Title,
+                            subPercent
+                        ]);
                 }
+
+                groupIndex++;
             }
 
             this.chartSetting.mainCategories = mainCategories;
@@ -426,7 +444,7 @@ casinoDailyDetail = {
                 casinoDailyDetail.renderNoDataRow();
             },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { }
             }
         });
     },
@@ -627,7 +645,7 @@ head.ready(function () {
     var arrIds = ['txtfromdate', 'txttodate'];
     setupCalendar(arrDateValues, arrIds);
 
-//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+    //    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'dailysummarybody',
