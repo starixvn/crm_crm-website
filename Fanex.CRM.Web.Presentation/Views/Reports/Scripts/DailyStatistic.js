@@ -1,7 +1,9 @@
 ﻿"use strict";
 /* global replaceSpecialHtmlTag, replaceSpaceForIE9, emailListValidate,
-head, fromDate, toDate, accChart */
-/* exported arrWidth, addDays */
+head, fromDate, toDate */
+/* exported arrWidth, addDays,
+maxHeightOfPopUp */
+/* jshint unused: vars */
 
 var arrWidth = [];
 var maxHeightOfSummaryReport = ($(window).height() - 115) / 2;
@@ -281,7 +283,7 @@ ibcDailySummaryReport = {
         var series = [];
 
         if (rs && rs.DailySummaries) {
-            var items = [];
+            //            var items = [];
             var totalMainCategories = rs.DailySummaries.length;
             var totalCols = rs.GrandTotal.Cells.length;
 
@@ -563,7 +565,7 @@ licenseeDailySummaryReport = {
         var series = [];
 
         if (rs && rs.DailySummaries) {
-            var items = [];
+            //            var items = [];
             var totalMainCategories = rs.DailySummaries.length;
             var totalCols = rs.GrandTotal.Cells.length;
 

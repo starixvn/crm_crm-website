@@ -1,8 +1,9 @@
 ﻿"use strict";
 /* global replaceSpecialHtmlTag, replaceSpaceForIE9, emailListValidate, head,
-fromDate, toDate, accChart */
+fromDate, toDate */
 /* exported arrWidth, maxHeightOfPopUp, maxWidthOfPopUp,
 addDays */
+/* jshint unused: vars */
 
 var arrWidth = [];
 var maxHeightOfPopUp = ($(window).height() + 50);

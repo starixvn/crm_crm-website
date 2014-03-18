@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global showAlertMessage, lblErroTimeDate, head,
-lblErrorTimeDuration */
+lblErrorTimeDuration,
+currentDate */
 /* exported arrWidth */
 
 var arrWidth = [];

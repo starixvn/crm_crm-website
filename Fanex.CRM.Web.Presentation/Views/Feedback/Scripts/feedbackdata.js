@@ -3,7 +3,6 @@
 successMsg,
 jlinq,
 showAlertMessage,
-clearMessage,
 inputMultipleRelatedNote,
 initHTMLArea,
 errMsgFeedbackDateGreatter,
@@ -12,14 +11,14 @@ errMsgResolutionDateGreatter
 /* jshint maxstatements: 3000 */
 function FeedbackData(userId, customerId, clientTime) {
     var self = this;
-    
-    /* private variables and functions */
-    var feedback = {};
-    var listFeedbacksLasted = [];
 
-    function removeMessage() {
-        clearMessage('errmsg');
-    }
+    /* private variables and functions */
+    //    var feedback = {};
+    //    var listFeedbacksLasted = [];
+
+    //    function removeMessage() {
+    //        clearMessage('errmsg');
+    //    }
 
     function showMessage(message, type) {
         if (!type) {
@@ -37,7 +36,7 @@ function FeedbackData(userId, customerId, clientTime) {
         try { parent.UnBlockUI(); } catch (e) { }
     }
 
-    function setupDateTimepicker (elements) {
+    function setupDateTimepicker(elements) {
         var config = {
             dateFormat: 'M dd, yy',
             timeFormat: 'hh:mm TT',
@@ -53,7 +52,7 @@ function FeedbackData(userId, customerId, clientTime) {
         });
     }
 
-    function getRelatedCustomers () {
+    function getRelatedCustomers() {
         var arrUser = [];
         $('#related td').each(function (i, td) {
             /* jshint unused: vars */
@@ -67,7 +66,7 @@ function FeedbackData(userId, customerId, clientTime) {
         return arrUser.join(',');
     }
 
-    function checkSpecialCharacters (identity) {
+    function checkSpecialCharacters(identity) {
         var iChars = "!`#%^&*()=[]\\\';,/{}|\":<>?~";
         for (var i = 0; i < identity.length; i++) {
             if (iChars.indexOf(identity.charAt(i)) !== -1) {
@@ -189,7 +188,7 @@ function FeedbackData(userId, customerId, clientTime) {
         return self.feedback;
     }
 
-    function validateFeedbackData () {
+    function validateFeedbackData() {
         var feedback = getFeedback();
         if (self.customerId <= 0) {
             var identity = feedback.identity.val().trim();
@@ -258,7 +257,7 @@ function FeedbackData(userId, customerId, clientTime) {
         return true;
     }
 
-    function getFeedbackData () {
+    function getFeedbackData() {
         if (!validateFeedbackData()) {
             return undefined;
         }

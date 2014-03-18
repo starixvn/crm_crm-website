@@ -4,7 +4,8 @@ communicationLog,
 sharedScriptManager,
 viewResources,
 hasReviewPermission,
-currentTime */
+currentTime,
+crmConstants */
 /* jshint camelcase: false */
 viewDetailByIdApplication.controller('viewDetailByIdController', ['$scope', '$http', '$viewDetailByIdService',
 function (

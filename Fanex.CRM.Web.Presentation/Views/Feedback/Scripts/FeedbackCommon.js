@@ -30,7 +30,9 @@ getClientDateByTimeZone,
 getAutoFeedbackSubject,
 downup,
 showHideDetailBox,
-dropdownMultiSelect
+dropdownMultiSelect,
+bindingLanguage,
+validateInputData
 */
 
 var arr = [];
