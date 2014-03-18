@@ -1,7 +1,9 @@
 ﻿"use strict";
 /* global replaceSpecialHtmlTag, replaceSpaceForIE9, emailListValidate, 
-head, fromDate, toDate, accChart */
-/* exported arrWidth, addDays, SetupCalendar */
+head, fromDate, toDate */
+/* exported arrWidth, addDays, SetupCalendar,
+maxHeightOfPopUp */
+/* jshint unused: vars */
 
 var arrWidth = [];
 var maxHeightOfSummaryReport = ($(window).height() - 115) / 2;
@@ -19,8 +21,16 @@ function addDays(startDate, n) {
 
 // -- Calendar --- //
 function SetupCalendar(arrDateValues, arrIds) {
+    var config = {
+        dateFormat: 'M dd, yy',
+        changeMonth: true,
+        changeYear: true,
+        showOtherMonths: true,
+        selectOtherMonths: true
+    };
+
     for (var i = 0; i < arrIds.length; i++) {
-        $('#' + arrIds[i]).datepicker();
+        $('#' + arrIds[i]).datepicker(config);
         if (arrDateValues[i] != null && arrDateValues[i] !== "") {
             $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
         }
@@ -186,7 +196,7 @@ ibcDailySummaryReport = {
                  </td>';
             var totalCells = row.Cells.length;
             for (var i = 0; i < totalCells; i++) {
-                html += '<td ' + style + '><div style="width:' + 
+                html += '<td ' + style + '><div style="width:' +
                     ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
             }
             html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
@@ -202,7 +212,7 @@ ibcDailySummaryReport = {
             html += '<td ' + style + '><div style="width:300px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></td>';
             var totalCells = row.Cells.length;
             for (var i = 0; i < totalCells; i++) {
-                html += '<td ' + style + '><div style="width:' + 
+                html += '<td ' + style + '><div style="width:' +
                     ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Cells[i].Value + '</div></td>';
             }
             html += '<td ' + style + '><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="c ' + css + '">' + row.Total + '</div></td>';
@@ -219,7 +229,7 @@ ibcDailySummaryReport = {
             html += '<th><div class="table-cell" style="width:300px; height:17px;"><span class="child">&nbsp;&nbsp;</span>' + row.MainCategory + '</div></th>';
             var totlaCells = row.Cells.length;
             for (var i = 0; i < totlaCells; i++) {
-                html += '<th><div style="width:' + 
+                html += '<th><div style="width:' +
                     ibcDailySummaryReport.colWidth + 'px;" class="table-cell c ' + css + '">' + row.Cells[i].Value + '</div></th>';
             }
             html += '<th><div style="width:' + ibcDailySummaryReport.colWidth + 'px" class="table-cell c ' + css + '">' + row.Total + '</div></th>';
@@ -266,7 +276,7 @@ ibcDailySummaryReport = {
         var series = [];
 
         if (rs && rs.DailySummaries) {
-            var items = [];
+            //            var items = [];
             var totalMainCategories = rs.DailySummaries.length;
             var totalCols = rs.GrandTotal.Cells.length;
 
@@ -547,7 +557,7 @@ licenseeDailySummaryReport = {
         var series = [];
 
         if (rs && rs.DailySummaries) {
-            var items = [];
+            //            var items = [];
             var totalMainCategories = rs.DailySummaries.length;
             var totalCols = rs.GrandTotal.Cells.length;
 
@@ -699,7 +709,7 @@ ibcDailyDetailReport = {
                 ibcDailyDetailReport.renderNoDataRow();
             },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { }
             }
 
         });
@@ -1010,7 +1020,7 @@ licenseeDailyDetailReport = {
                 licenseeDailyDetailReport.renderNoDataRow();
             },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { }
             }
 
         });
@@ -1208,9 +1218,9 @@ licenseeDailyDetailReport = {
 };
 
 head.ready(function () {
-    $('#txtfromdate').val((new Date(fromDate)).format("m/d/Y"));
-    $('#txttodate').val((new Date(toDate)).format("m/d/Y"));
-//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+    $('#txtfromdate').val(new Date(fromDate).format("M d, Y"));
+    $('#txttodate').val(new Date(toDate).format("M d, Y"));
+    //    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOptions = {
         tblContentId: 'dailysummarybody',

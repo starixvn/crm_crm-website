@@ -6,6 +6,12 @@ head,
 clientTime,
 allowDeleteFeedback,
 accId */
+/* exported AddGuestFeedback,
+invokeHotKey_CtrlS,
+isShowCustinfoBox,
+isShowDescriptionBox,
+isShowFeedbackDetailBox,
+isShowSolutionBox */
 /* jshint camelcase: false */
 var feedbackData;
 var settingData;

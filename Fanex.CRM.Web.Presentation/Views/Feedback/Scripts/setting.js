@@ -1,28 +1,29 @@
 ﻿'use strict';
 /* global showAlertMessage,
 clearMessage */
+/* exported Setting */
 function Setting(allowDelete) {
     var self = this;
     var allowDeleteFeedback = allowDelete;
 
-    function populateSelectWithGroup(element, setting, settingDefault) {
-        element.empty();
-        if (setting) {
-            var group = null, option = null;
-            if (settingDefault) {
-                element.append($('<option>').attr('value', settingDefault.Id).html(settingDefault.Value));
-            }
-            $.each(setting, function (index, grp) {
-                group = $('<optgroup>').attr('label', grp.Group);
-                $.each(grp.Childs, function (ind, val) {
-                    option = $('<option>').attr('value', val.Id).html(val.Value);
-                    group.append(option);
-                });
+    //    function populateSelectWithGroup(element, setting, settingDefault) {
+    //        element.empty();
+    //        if (setting) {
+    //            var group = null, option = null;
+    //            if (settingDefault) {
+    //                element.append($('<option>').attr('value', settingDefault.Id).html(settingDefault.Value));
+    //            }
+    //            $.each(setting, function (index, grp) {
+    //                group = $('<optgroup>').attr('label', grp.Group);
+    //                $.each(grp.Childs, function (ind, val) {
+    //                    option = $('<option>').attr('value', val.Id).html(val.Value);
+    //                    group.append(option);
+    //                });
 
-                element.append(group);
-            });
-        }
-    }
+    //                element.append(group);
+    //            });
+    //        }
+    //    }
 
     function populateSelect(element, setting, settingDefault) {
         element.empty();
@@ -40,21 +41,21 @@ function Setting(allowDelete) {
         }
     }
 
-    function buildSiteSetting(element, setting, settingDefault) {
-        if (!setting) {
-            return;
-        }
+    //    function buildSiteSetting(element, setting, settingDefault) {
+    //        if (!setting) {
+    //            return;
+    //        }
 
-        var sites = [
-            { Group: 'Credit', Childs: [] },
-            { Group: 'Licensee', Childs: []}];
+    //        var sites = [
+    //            { Group: 'Credit', Childs: [] },
+    //            { Group: 'Licensee', Childs: []}];
 
-            $.each(setting, function (index, val) {
-                sites[val.SiteType].Childs.push({ Id: val.SiteId, Value: val.SiteName });
-            });
+    //            $.each(setting, function (index, val) {
+    //                sites[val.SiteType].Childs.push({ Id: val.SiteId, Value: val.SiteName });
+    //            });
 
-        populateSelectWithGroup(element, sites, settingDefault);
-    }
+    //        populateSelectWithGroup(element, sites, settingDefault);
+    //    }
 
     function buildCountrySetting(element, setting, settingDefault) {
         if (!setting) {
@@ -78,9 +79,9 @@ function Setting(allowDelete) {
                     populateSelect(childElement, setting[i].Child, settingDefault);
                 }
                 else {
-                    childElement.empty();                   
+                    childElement.empty();
                     showAlertMessage('errmsg', 'There is no Subcategory for Category [' +
-                        element.find('option:selected').text() + 
+                        element.find('option:selected').text() +
                         ']. Please add a Subcategory or choose another Category.', 1);
                 }
                 return;

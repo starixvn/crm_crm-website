@@ -75,11 +75,13 @@ namespace Fanex.CRM.Report.Repositories.Implements
                     customerReport = new CustomerReportInfo();
                     customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria);
                     customerReport.TotalCustomer = customerReport.CustomerList.Count;
-                    if (!string.IsNullOrEmpty(criteria.SortField) &&
-                        !string.IsNullOrEmpty(criteria.SortDirection))
-                    {
-                        customerReport.CustomerList = SortCustomerList(customerReport.CustomerList, criteria);
-                    }
+                }
+
+                if (criteria.IsSortReport &&
+                    !string.IsNullOrEmpty(criteria.SortField) &&
+                    !string.IsNullOrEmpty(criteria.SortDirection))
+                {
+                    customerReport.CustomerList = SortCustomerList(customerReport.CustomerList, criteria);
                 }
 
                 if (customerReport != null)

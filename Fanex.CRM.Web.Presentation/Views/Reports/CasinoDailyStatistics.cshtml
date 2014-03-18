@@ -1,4 +1,6 @@
 ﻿@using DNAide.Core
+@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Extension;
 <link href="@Url.Content("~/Scripts/Paging/pagination.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
@@ -354,8 +356,8 @@
     </div>
 </div>
 @{
-    string fDate = DateTime.Now.ToString("MM/dd/yyyy");
-    string tDate = DateTime.Now.ToString("MM/dd/yyyy");
+    string fDate = DateTimeUtilize.GetCurrentClientTime().ToString("MM/dd/yyyy");
+    string tDate = DateTimeUtilize.GetCurrentClientTime().ToString("MM/dd/yyyy");
 
     if (Request["export"] != null && CastAide.AsBoolean(Request["export"]))
     {

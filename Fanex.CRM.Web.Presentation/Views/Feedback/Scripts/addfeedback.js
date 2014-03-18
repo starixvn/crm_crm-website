@@ -19,7 +19,6 @@ inputMultipleRelatedNote,
 head, 
 gup,
 accId,
-dropdownMultiSelect,
 errMsgNotYetVerifyFeedbackRelatedCustomer,
 hotKeyManager,
 bindingLanguage
@@ -39,7 +38,8 @@ isShowDescriptionBox,
 isShowFeedbackDetailBox,
 isShowReviewBox,
 isShowSolutionBox,
-hotKeyManager
+hotKeyManager,
+invokeHotKey_CtrlS
 */
 /* jshint camelcase: false */
 //var settings = ["Title", "Status", "Station", "Response", "Communication"];

@@ -1,7 +1,9 @@
 ﻿"use strict";
 /* global replaceSpecialHtmlTag, replaceSpaceForIE9, emailListValidate, 
-head, fromDate, toDate, val, accChart */
-/* exported arrWidth */
+head, fromDate, toDate */
+/* exported arrWidth,
+maxHeightOfPopUp */
+/* jshint unused: vars */
 
 var arrWidth = [];
 var maxHeightOfPopUp = ($(window).height() + 50);
@@ -173,7 +175,7 @@ var casinoWeeklySummary = {
         var series = [];
 
         if (rs && rs.DailySummaries) {
-            var items = [];
+            //            var items = [];
             var totalMainCategories = rs.DailySummaries.length;
             var totalCols = rs.GrandTotal.Cells.length;
 
@@ -316,7 +318,7 @@ casinoWeeklyDetail = {
                 casinoWeeklyDetail.renderNoDataRow();
             },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { }
             }
         });
     },
@@ -511,10 +513,10 @@ casinoWeeklyDetail = {
 };
 
 head.ready(function () {
-    $('#txtfromdate').val((new Date(fromDate)).format("m/d/Y"));
-    $('#txttodate').val((new Date(toDate)).format("m/d/Y"));
+    $('#txtfromdate').val((new Date(fromDate)).format("M d, Y"));
+    $('#txttodate').val((new Date(toDate)).format("M d, Y"));
 
-//    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
+    //    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }
 
     var gridOpts = {
         tblContentId: 'weeklysummarybody',

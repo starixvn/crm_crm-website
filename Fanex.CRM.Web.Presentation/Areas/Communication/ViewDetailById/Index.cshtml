@@ -27,8 +27,8 @@
                 <b><span id="label-customername" data-ng-bind="communicationLog.CustomerName"></span>
                 </b>
             </div>
-            <div class="row form-group">
-                <div class="row row-item">
+            <div class="row content">
+                <div class="row row-item item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="startTime">
                             @Labels.Start_Time</label></div>
@@ -46,7 +46,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row row-item">
+                <div class="row row-item item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="endTime">
                             @Labels.End_Time</label></div>
@@ -64,7 +64,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row row-item">
+                <div class="row row-item item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="communicationTool">
                             @Labels.Communication_Tool</label></div>
@@ -81,7 +81,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row row-item">
+                <div class="row row-item item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="mainCategory">
                             @Labels.Main_Category</label></div>
@@ -98,7 +98,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row row-item">
+                <div class="row row-item item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="product">
                             @Labels.Product</label></div>
@@ -115,7 +115,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row row-item">
+                <div class="row row-item item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="status">
                             @Labels.Status</label></div>
@@ -132,7 +132,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row row-item">
+                <div class="row row-item item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="role">
                             @Labels.Role</label></div>
@@ -149,7 +149,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row row-item">
+                <div class="row row-item item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="relatedTo">
                             @Labels.Related_To</label></div>
@@ -160,7 +160,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row row-item">
+                <div class="row item">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                         <label for="subject">
                             @Labels.Subject
@@ -178,7 +178,7 @@
                 @Labels.Remark
             </div>
             <div class="row content multi-text">
-                <div>
+                <div class="item">
                     @Html.Raw(Model.Remark)
                 </div>
             </div>
@@ -188,7 +188,7 @@
                 @Labels.Solution
             </div>
             <div class="row content multi-text">
-                <div>
+                <div class="item">
                     @Html.Raw(Model.Solution)
                 </div>
             </div>
@@ -201,7 +201,7 @@
                     data-ng-model="communicationLog.IsReviewed" disabled="disabled" />
             </div>
             <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">
-                <div>
+                <div class="item">
                     @Html.Raw(Model.Review)
                 </div>
             </div>

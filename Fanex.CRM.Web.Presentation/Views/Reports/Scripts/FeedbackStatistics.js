@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global showAlertMessage, lblErroTimeDate, head,
-lblErrorTimeDuration */
+lblErrorTimeDuration,
+currentDate */
 /* exported arrWidth */
 
 var arrWidth = [];
@@ -522,7 +523,7 @@ var feedbackStatistic = {
 };
 
 head.ready(function () {
-    var tdate = new Date();
+    var tdate = new Date(currentDate);
     var fdate = addDays(tdate, -7);
 
     var arrDateValues = [fdate, tdate];

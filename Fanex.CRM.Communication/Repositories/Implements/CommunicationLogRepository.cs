@@ -249,7 +249,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                     Id = reader.GetInt32NotNull("CountryID")
                 },
                 CustomerId = reader.GetInt32NotNull("CustId"),
-                CustomerName = "louis.nguyen"
+                CustomerName = reader.GetStringNotNull("UserName")
             };
 
             return logInfo;

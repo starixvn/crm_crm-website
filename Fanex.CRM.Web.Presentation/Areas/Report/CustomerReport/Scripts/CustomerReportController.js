@@ -260,6 +260,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             $scope.lastSelectedParams.PageIndex = pageIndex;
             $scope.lastSelectedParams.PageSize = pageSize;
             $scope.lastSelectedParams.IsGetFromCached = true;
+            $scope.lastSelectedParams.IsSortReport = false;
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
                 .then(function (data) {
                     $scope.customerReportOptions.DataList = data.Result;
@@ -273,6 +274,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope.sortCustomerReport = function () {
             $scope.BlockUI();
             $scope.lastSelectedParams.IsGetFromCached = true;
+            $scope.lastSelectedParams.IsSortReport = true;
             $customerReportService.getCustomerReport($scope.lastSelectedParams)
                 .then(function (data) {
                     $scope.customerReportOptions.DataList = data.Result;

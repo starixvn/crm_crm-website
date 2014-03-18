@@ -1,5 +1,6 @@
 ﻿'use strict';
 /* global remarkApplication */
+/* jshint unused: vars */
 remarkApplication.directive('alertBox', function () {
     var templateHtml = '<div data-ng-hide="dialogIsHidden()" class="row row-item">\
         <div class="col-xs-12 col-sm-12 col-md-12">\

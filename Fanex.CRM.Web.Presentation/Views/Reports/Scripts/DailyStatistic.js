@@ -1,7 +1,9 @@
 ﻿"use strict";
 /* global replaceSpecialHtmlTag, replaceSpaceForIE9, emailListValidate,
-head, fromDate, toDate, accChart */
-/* exported arrWidth, addDays */
+head, fromDate, toDate */
+/* exported arrWidth, addDays,
+maxHeightOfPopUp */
+/* jshint unused: vars */
 
 var arrWidth = [];
 var maxHeightOfSummaryReport = ($(window).height() - 115) / 2;
@@ -20,8 +22,16 @@ function addDays(startDate, n) {
 
 // -- Calendar --- //
 function SetupCalendar(arrDateValues, arrIds) {
+    var config = {
+        dateFormat: 'M dd, yy',
+        changeMonth: true,
+        changeYear: true,
+        showOtherMonths: true,
+        selectOtherMonths: true
+    };
+
     for (var i = 0; i < arrIds.length; i++) {
-        $('#' + arrIds[i]).datepicker();
+        $('#' + arrIds[i]).datepicker(config);
         if (arrDateValues[i] != null && arrDateValues[i] !== "") {
             $('#' + arrIds[i]).val(arrDateValues[i]).datepicker('setDate', (new Date(arrDateValues[i])));
         }
@@ -273,10 +283,10 @@ ibcDailySummaryReport = {
         var series = [];
 
         if (rs && rs.DailySummaries) {
-            var items = [];
+            //            var items = [];
             var totalMainCategories = rs.DailySummaries.length;
             var totalCols = rs.GrandTotal.Cells.length;
-            
+
             for (var i = 0; i < totalMainCategories; i++) {
                 var mainCategoryDetail = rs.DailySummaries[i].Total;
                 var categoryName = mainCategoryDetail.MainCategory;
@@ -307,7 +317,7 @@ ibcDailySummaryReport = {
                 valueSuffix: ' Feedback(s)'
             }
         };
-        crmChart.title = $('#gridtitle').html();        
+        crmChart.title = $('#gridtitle').html();
 
         crmChart.viewChart(chartOptions);
     }
@@ -555,7 +565,7 @@ licenseeDailySummaryReport = {
         var series = [];
 
         if (rs && rs.DailySummaries) {
-            var items = [];
+            //            var items = [];
             var totalMainCategories = rs.DailySummaries.length;
             var totalCols = rs.GrandTotal.Cells.length;
 
@@ -706,7 +716,7 @@ ibcDailyDetailReport = {
                 ibcDailyDetailReport.renderNoDataRow();
             },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { }
             }
 
         });
@@ -853,10 +863,11 @@ ibcDailyDetailReport = {
             }
 
             $('#dailydetailgridbody tbody tr:eq(' + i + ') td:eq(0) div').css('height', maxHeight).append(' ');
-            $('#dailydetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').append(' ').css({ 
-                display: 'table-cell', 
-                'vertical-align': 'middle', 
-                height: maxHeight + ''});
+            $('#dailydetailfirstcol tbody tr:eq(' + i + ') td:eq(0) div').append(' ').css({
+                display: 'table-cell',
+                'vertical-align': 'middle',
+                height: maxHeight + ''
+            });
         }
 
         var mainreport = $('#dailydetailgrid');
@@ -1020,7 +1031,7 @@ licenseeDailyDetailReport = {
                 licenseeDailyDetailReport.renderNoDataRow();
             },
             complete: function () {
-                try { parent.UnBlockUI(); } catch (e) { } 
+                try { parent.UnBlockUI(); } catch (e) { }
             }
 
         });
@@ -1220,7 +1231,7 @@ licenseeDailyDetailReport = {
 };
 
 head.ready(function () {
-    var arrDateValues = [(new Date(fromDate)).format("m/d/Y"), (new Date(toDate)).format("m/d/Y")];
+    var arrDateValues = [(new Date(fromDate)), (new Date(toDate))];
     var arrIds = ['txtfromdate', 'txttodate'];
     /* jshint newcap: false */
     SetupCalendar(arrDateValues, arrIds);

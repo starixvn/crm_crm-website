@@ -1,9 +1,10 @@
 ﻿@using DNAide.Core
+@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Extension;
 <link href="@Url.Content("~/Scripts/FanexGrid/FanexGrid.css?ver=1")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Content/site/customizeFanexGrid.less?ver=1")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/Paging/pagination.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Views/Reports/Styles/reports.less?ver=2")" rel="stylesheet" type="text/css" />
-
 <div class="container main">
     <div class="row filter-frm one-row">
         <div class="row row-item">
@@ -103,7 +104,6 @@
                 </div>
             </div>
         </div>
-
         <div id="licenseedailysummarygrid" class="freegrid hidden" style="margin-top: 10px">
             <div class="grid-title">
                 <div class="grid-title-lable" id="licenseeSummaryTitle">
@@ -176,7 +176,6 @@
                 </div>
             </div>
         </div>
-
         <div id="dailydetailgrid" class="freegrid hidden">
             <div class="grid-title">
                 <div class="grid-title-lable" id="detailTitle">
@@ -415,7 +414,6 @@
                 </table>
             </div>
         </div>
-
         <div id="licenseedetailgrid" class="freegrid hidden">
             <div class="grid-title">
                 <div class="grid-title-lable" id="licenseeDetailTitle">
@@ -667,8 +665,8 @@
 </div>
 <iframe id="frm" width="0" height="0" frameborder="0" style="display: none"></iframe>
 @{
-    string fDate = DateTime.Now.ToString("MM/dd/yyyy");
-    string tDate = DateTime.Now.ToString("MM/dd/yyyy");
+    string fDate = DateTimeUtilize.GetCurrentClientTime().ToString("MM/dd/yyyy");
+    string tDate = DateTimeUtilize.GetCurrentClientTime().ToString("MM/dd/yyyy");
 
     if (Request["export"] != null && CastAide.AsBoolean(Request["export"]))
     {
@@ -700,6 +698,7 @@
         window.rootUrl = '@Url.Content("~")';
         var fromDate = '@fDate';
         var toDate = '@tDate';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
 
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
                 head.js("@Url.Content("~/Scripts/json2.js")")
