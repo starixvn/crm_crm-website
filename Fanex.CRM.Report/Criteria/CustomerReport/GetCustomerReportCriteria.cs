@@ -65,6 +65,9 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         [SpParam(Ignored = true)]
         public string SortDirection { get; set; }
 
+        [SpParam(Ignored = true)]
+        public bool IsSortReport { get; set; }
+
         public override string GetSettingKey()
         {
             return "Report_CustomerReport_GetReport";
