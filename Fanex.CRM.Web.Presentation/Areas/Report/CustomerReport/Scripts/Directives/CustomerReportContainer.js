@@ -198,13 +198,13 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             case "IsVIP":
                 return 3;
             case "CountryName":
-                return 4;
+                return 11;
             case "Languages":
-                return 5;
+                return 12;
             case "SiteSettingName":
-                return 6;
+                return 10;
             case "BirthDay":
-                return 7;
+                return 9;
             default:
                 return -1;
         }
