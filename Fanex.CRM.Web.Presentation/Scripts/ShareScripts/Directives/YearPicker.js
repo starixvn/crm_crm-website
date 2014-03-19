@@ -74,9 +74,10 @@ directiveManager.registerYearPickerContainer = function (angularApplication, reg
 
             isRenderedPicker = true;
             options.IsRerenderPicker = false;
+            updateInitValue(scope, element, attrs);
         }
 
-        function onChangeEvent(scope, year) {
+        function onChangeEvent(scope, year, isAlreadyApply) {
             var options = scope[registerParams.OptionName];
             if (options === null) {
                 return;
@@ -84,8 +85,13 @@ directiveManager.registerYearPickerContainer = function (angularApplication, reg
 
             if (options.OnChangeEvent &&
                 typeof (options.OnChangeEvent) === "function") {
-                options.OnChangeEvent(year);
+                options.OnChangeEvent(year, isAlreadyApply);
             }
+        }
+
+        function updateInitValue(scope, element, attrs) {
+            var year = parseInt(element.find("#" + registerParams.PickerId).val());
+            onChangeEvent(scope, year, true);
         }
 
         return {
@@ -94,7 +100,7 @@ directiveManager.registerYearPickerContainer = function (angularApplication, reg
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newVal, oldVal) {
                     ngModelChange(scope, element, attrs, newVal, oldVal);
-                });
+                }, true);
             }
         };
     });

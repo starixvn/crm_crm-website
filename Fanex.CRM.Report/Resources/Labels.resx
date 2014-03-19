@@ -351,4 +351,13 @@
   <data name="DynamicReport_ShortTitle" xml:space="preserve">
     <value>{0} To {1}</value>
   </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Post_Code" xml:space="preserve">
+    <value>Post Code</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
 </root>

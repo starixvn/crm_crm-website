@@ -58,9 +58,13 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
             isRenderedCalendar = true;
         }
 
-        function onChangeDateEvent(scope, element, attrs) {
+        function onChangeDateEvent(scope, element, attrs, isAlreadyApply) {
             var txtCalendar = element.find("#" + registerParams.PickerId);
             var options = scope[registerParams.OptionName];
+            if (options == null) {
+                return;
+            }
+
             var selectedDate = selectedDateChange(scope, element, attrs, options);
             if (oldValue === "" ||
                 isNaN(oldValue.valueOf()) ||
@@ -68,12 +72,14 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
                 oldValue = selectedDate;
                 if (!scope.isUpdatingDate) {
                     scope.IsUpdatingDate = true;
-                    scope.$apply(function () {
-                        if (options.OnChangeDateEvent &&
-                            typeof (options.OnChangeDateEvent) === "function") {
-                            options.OnChangeDateEvent(selectedDate);
-                        }
-                    });
+                    if (options.OnChangeDateEvent &&
+                        typeof (options.OnChangeDateEvent) === "function") {
+                        options.OnChangeDateEvent(selectedDate);
+                    }
+
+                    if (!isAlreadyApply) {
+                        scope.$apply();
+                    }
 
                     scope.IsUpdatingDate = false;
                 }
@@ -134,6 +140,25 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
                 }
 
                 options.IsRerenderPicker = false;
+                updateInitValue(scope, element, attrs);
+            }
+        }
+
+        function updateInitValue(scope, element, attrs) {
+            var options = scope[registerParams.OptionName];
+            if (options == null) {
+                return;
+            }
+
+            var selectedDate = selectedDateChange(scope, element, attrs, options);
+            if (!scope.isUpdatingDate) {
+                scope.IsUpdatingDate = true;
+                if (options.OnChangeDateEvent &&
+                        typeof (options.OnChangeDateEvent) === "function") {
+                    options.OnChangeDateEvent(selectedDate);
+                }
+
+                scope.IsUpdatingDate = false;
             }
         }
 

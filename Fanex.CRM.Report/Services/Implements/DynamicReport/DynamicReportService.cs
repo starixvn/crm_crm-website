@@ -14,6 +14,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     using System.Diagnostics.CodeAnalysis;
     using System.Drawing;
     using System.Linq;
+    using System.Web;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
@@ -392,7 +393,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 DynamicReportInfo dynamicReport = null;
                 if (criteria.IsGetFromCached)
                 {
-                    dynamicReport = CacheService.Get<DynamicReportInfo>(DynamicReportSessionKey);
+                    dynamicReport = (DynamicReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, DynamicReportSessionKey);
                 }
 
                 if (dynamicReport == null)
@@ -419,17 +420,21 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     }
 
                     dynamicReport.ReportTypeId = criteria.ReportType;
-                    CacheService.Set(DynamicReportSessionKey, dynamicReport);
+                    SessionExtension.AddSession(HttpContext.Current.Session, DynamicReportSessionKey, dynamicReport);
                 }
 
-                if (!criteria.IsGetFullReport)
+                return new DynamicReportInfo
                 {
-                    dynamicReport.ChildReports = dynamicReport.ChildReports.Skip(criteria.PageSize * criteria.PageIndex)
-                        .Take(criteria.PageSize)
-                        .ToList();
-                }
-
-                return dynamicReport;
+                    Id = dynamicReport.Id,
+                    Name = dynamicReport.Name,
+                    ShortName = dynamicReport.ShortName,
+                    ChildReports = criteria.IsGetFullReport ?
+                        dynamicReport.ChildReports :
+                        dynamicReport.ChildReports.Skip(criteria.PageSize * criteria.PageIndex)
+                             .Take(criteria.PageSize)
+                             .ToList(),
+                    TotalChildReports = dynamicReport.TotalChildReports
+                };
             }
             catch (Exception ex)
             {
@@ -487,6 +492,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <param name="rawData">The raw data.</param>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The dynamic report by yearly.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private DynamicReportInfo GetDynamicReportByYearly(
             List<DynamicReportInfo> rawData,
             GetDynamicReportCriteria criteria)
@@ -552,6 +560,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <param name="rawData">The raw data.</param>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The dynamic report by monthly.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private DynamicReportInfo GetDynamicReportByMonthly(
             List<DynamicReportInfo> rawData,
             GetDynamicReportCriteria criteria)

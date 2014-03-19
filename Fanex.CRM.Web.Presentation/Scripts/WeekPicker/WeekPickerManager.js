@@ -101,6 +101,8 @@
                 }
                 else if (options == "setDate") {
                     selectWeek(func);
+                } else if (options == "updateInitDate") {
+                    selectWeek(defaults.date);
                 }
             }
             else {

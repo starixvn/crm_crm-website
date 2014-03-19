@@ -91,7 +91,10 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
 
                         { Name: "ColLine1", Value: customer.AddressInfo.LineList[0] },
                         { Name: "ColLine2", Value: customer.AddressInfo.LineList[1] },
-                        { Name: "ColLine3", Value: customer.AddressInfo.LineList[2]}]
+                        { Name: "ColLine3", Value: customer.AddressInfo.LineList[2] },
+                        { Name: "ColCity", Value: customer.AddressInfo.City },
+                        { Name: "ColState", Value: customer.AddressInfo.State },
+                        { Name: "ColPostCode", Value: customer.AddressInfo.PostCode}]
                 });
             }
         }
@@ -115,12 +118,15 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
 
             { HeaderText: viewResources.Line_1, Width: 140, Name: "ColLine1", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: viewResources.Line_2, Width: 140, Name: "ColLine2", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: viewResources.Line_3, Width: 140, Name: "ColLine3", HeaderAlign: "center", CellAlign: "left"}];
+            { HeaderText: viewResources.Line_3, Width: 140, Name: "ColLine3", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: viewResources.City, Width: 100, Name: "ColCity", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: viewResources.State, Width: 100, Name: "ColState", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: viewResources.Post_Code, Width: 100, Name: "ColPostCode", HeaderAlign: "center", CellAlign: "left"}];
         if (sortColumnIndex !== -1) {
             headerColumns[sortColumnIndex].SortDirection = cachedData.scope.lastSelectedParams.SortDirection;
         }
 
-         var gridOptions = {
+        var gridOptions = {
             columns: headerColumns,
             showTitle: true,
             titleInfo: {

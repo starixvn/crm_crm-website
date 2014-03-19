@@ -44,20 +44,20 @@
                     </div>
                 </div>
                 <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Weekly}">
-                    <div class="item">
+                    <div class="item" data-ng-model="fromWeekOptions.IsRerenderPicker">
                         <label for="fromweek" class="width-80">
                             @Labels.From_Week</label>
-                        <div class="display-inline-block week-picker-from-week-container" data-ng-model="fromWeekOptions.IsRerenderPicker">
+                        <div class="display-inline-block week-picker-from-week-container">
                             <input id="fromweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
                                 data-maxdate="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
                                 data-value="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
                                 data-isendweek="false" />
                         </div>
                     </div>
-                    <div class="item">
+                    <div class="item" data-ng-model="toWeekOptions.IsRerenderPicker">
                         <label for="toDate">
                             @Labels.To_Week</label>
-                        <div class="display-inline-block week-picker-to-week-container" data-ng-model="toWeekOptions.IsRerenderPicker">
+                        <div class="display-inline-block week-picker-to-week-container">
                             <input id="toweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
                                  data-maxdate="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
                                  data-value="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Monthly}">
-                    <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions.IsRerenderPicker">
+                    <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions">
                         <label for="frommonth" class="width-80">
                             @Labels.From_Month</label>
                         <select id="frommonth_month">
@@ -74,7 +74,7 @@
                         <select id="frommonth_year">
                         </select>
                     </div>
-                    <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions.IsRerenderPicker">
+                    <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions">
                         <label for="tomonth">
                             @Labels.To_Month</label>
                         <select id="tomonth_month">
@@ -84,13 +84,13 @@
                     </div>
                 </div>
                 <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Yearly}">
-                    <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions.IsRerenderPicker">
+                    <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions">
                         <label for="frommonth" class="width-80">
                             @Labels.From_Year</label>
                         <select id="fromdate_year" class="selYear">
                         </select>
                     </div>
-                    <div class="item year-picker-to-date-container" data-ng-model="toYearOptions.IsRerenderPicker">
+                    <div class="item year-picker-to-date-container" data-ng-model="toYearOptions">
                         <label for="tomonth" class="width-50">
                             @Labels.To_Year</label>
                         <select id="todate_year" class="selYear toYear">
