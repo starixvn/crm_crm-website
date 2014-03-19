@@ -643,6 +643,12 @@ function (
                 $scope.completedLoadFilterInfo();
             });
     };
+    $scope.getReviewedInfo = function () {
+        return sharedScriptManager.stringFormat(
+            viewResources.ReviewedInformation,
+            [$scope.communicationLog.Reviewer, $scope.communicationLog.ReviewedTimeString]);
+    };
+
     angular.element(document).ready(function () {
         $scope.$watch(function ($scope) {
             $scope.updateChangeFlag();

@@ -21,7 +21,7 @@ namespace Fanex.CRM.Infrastructure.Extension
 
         public const string ShortDateFormatWithSlash = "MM/dd/_yyyy";
 
-        public const string LongDateTimeFormat = "MM/dd/yyyy hh:mm tt";
+        public const string LongDateTimeFormat = "MMM dd, yyyy hh:mm tt";
 
         public const string MonthYearFormat = "MMM yyyy";
 

@@ -231,6 +231,9 @@
                     @Labels.Reviewed</label>
                 <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
                     data-ng-model="communicationLog.IsReviewed" data-ng-disabled="!hasReviewPermission" />
+                <label class="label-reivewedbyinfo" data-ng-class="{'display-none': !oldCommunicationLog.IsReviewed }"
+                    data-ng-bind="getReviewedInfo();">
+                </label>
             </div>
             <div data-ng-class="{'display-none': hasReviewPermission }">
                 @Html.Raw(Model.Review)
@@ -286,7 +289,8 @@
             Communication_Log_NALanguage:'@Labels.Communication_Log_NALanguage',
             Communication_Log_NAProduct:'@Labels.Communication_Log_NAProduct',
             Communication_Log_NABetType:'@Labels.Communication_Log_NABetType',
-            Communication_Log_NASite:'@Labels.Communication_Log_NASite'
+            Communication_Log_NASite:'@Labels.Communication_Log_NASite',
+            ReviewedInformation: '@Labels.ReviewedInformation'
   }; 
     </script>
 </body>
