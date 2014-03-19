@@ -43,7 +43,12 @@ function FeedbackData(userId, customerId, clientTime) {
             stepHour: 1,
             stepMinute: 1,
             stepSecond: 1,
-            ampm: true
+            ampm: true,
+            changeMonth: true,
+            changeYear: true,
+            showOtherMonths: true,
+            selectOtherMonths: true,
+            yearRange: '-10:+0'
         };
 
         $.each(elements, function (ind, val) {
