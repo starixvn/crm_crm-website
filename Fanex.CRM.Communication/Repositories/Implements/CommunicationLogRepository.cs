@@ -252,9 +252,8 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                 CustomerId = reader.GetInt32NotNull("CustId"),
                 CustomerName = reader.GetStringNotNull("UserName"),
 
-                Reviewer = "louis.nguyen" ?? reader.GetStringNotNull("Reviewer"),
-                ReviewedTimeString = (new DateTime(2014, 3, 17, 5, 59, 0)).ToLongFormatedDateTime() ??
-                    reader.GetDateTimeNotNull("ReviewedTime").ToLongFormatedDateTime()
+                Reviewer = reader.GetStringNotNull("reviewer"),
+                ReviewedTimeString = reader.GetDateTimeNotNull("SolveDate").ToLongFormatedDateTime()
             };
 
             return logInfo;
