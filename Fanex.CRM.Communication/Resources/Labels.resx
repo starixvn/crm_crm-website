@@ -303,4 +303,7 @@
   <data name="Communication_Log_NASite" xml:space="preserve">
     <value>Site is mandatory!</value>
   </data>
+  <data name="ReviewedInformation" xml:space="preserve">
+    <value>(Reviewed by {0} on {1})</value>
+  </data>
 </root>

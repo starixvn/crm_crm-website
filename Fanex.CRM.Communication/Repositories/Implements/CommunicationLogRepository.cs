@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Communication.Repositories.Implements
 {
+    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
@@ -249,7 +250,11 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                     Id = reader.GetInt32NotNull("CountryID")
                 },
                 CustomerId = reader.GetInt32NotNull("CustId"),
-                CustomerName = reader.GetStringNotNull("UserName")
+                CustomerName = reader.GetStringNotNull("UserName"),
+
+                Reviewer = "louis.nguyen" ?? reader.GetStringNotNull("Reviewer"),
+                ReviewedTimeString = (new DateTime(2014, 3, 17, 5, 59, 0)).ToLongFormatedDateTime() ??
+                    reader.GetDateTimeNotNull("ReviewedTime").ToLongFormatedDateTime()
             };
 
             return logInfo;
