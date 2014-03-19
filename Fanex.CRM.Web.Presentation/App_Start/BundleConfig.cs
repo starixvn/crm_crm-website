@@ -64,7 +64,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Views/Home/Scripts/MenuManager.js",
                 "~/Views/Home/Scripts/LeftPanelManager.js",
-                "~/Views/Home/Scripts/HomeManager.js"));
+                "~/Views/Home/Scripts/HomeManager.js",
+                "~/Scripts/FanexGridV2/moment.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
                 "~/Scripts/AngularJS/angular.js"));
