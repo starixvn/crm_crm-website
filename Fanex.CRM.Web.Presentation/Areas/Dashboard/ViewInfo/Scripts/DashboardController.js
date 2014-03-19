@@ -161,20 +161,20 @@ dashboardApplication.controller('dashboardController', ['$scope',
             parent.homeManager.CachedData.shouldReloadView = false;
             /* jshint camelcase: false */
             parent.OpenPopup(
-            window.rootUrl + "Redemption/OpenEditView?" + $.param({
-                logId: logId
-            }),
-            viewResources.Edit_Redemption_Log,
-            $(parent.document).width() - 600,
-            450,
-            true,
-            false,
-            parent.window,
-            3000,
-            null,
-            $scope.closeEditRedemptionLogView,
-            ['center', 120],
-            $scope.beforeCloseEditRedemptionLogView);
+                window.rootUrl + "Redemption/OpenEditView?" + $.param({
+                    logId: logId
+                }),
+                viewResources.Edit_Redemption_Log,
+                $(parent.document).width() - 600,
+                450,
+                true,
+                false,
+                parent.window,
+                3000,
+                null,
+                $scope.closeEditRedemptionLogView,
+                ['center', 120],
+                $scope.beforeCloseEditRedemptionLogView);
         };
         $scope.closeEditCommunicationLogView = function () {
             $scope.$apply(function () {
@@ -206,18 +206,18 @@ dashboardApplication.controller('dashboardController', ['$scope',
             });
             /* jshint camelcase: false */
             parent.OpenPopup(
-            url,
-            viewResources.Edit_Communication_Log,
-            $(parent.document).width() - 300,
-            $(parent.document).height() - 40,
-            true,
-            false,
-            parent.window,
-            3000,
-            null,
-            $scope.closeEditCommunicationLogView,
-            ['center', 120],
-            $scope.beforeCloseEditCommunicationLogView);
+                url,
+                viewResources.Edit_Communication_Log,
+                $(parent.document).width() - 300,
+                $(parent.document).height() - 40,
+                true,
+                false,
+                parent.window,
+                3000,
+                null,
+                $scope.closeEditCommunicationLogView,
+                ['center', 20],
+                $scope.beforeCloseEditCommunicationLogView);
         };
         $scope.beforeCloseEditCommunicationLogView = function () {
             if (parent.homeManager.CachedData.isChangingDataPopUp &&
