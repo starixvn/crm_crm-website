@@ -420,7 +420,8 @@ function SetupCalendar(arrDateValues, arrIds) {
             changeMonth: true,
             changeYear: true,
             showOtherMonths: true,
-            selectOtherMonths: true
+            selectOtherMonths: true,
+            yearRange: '-10:+0'
         });
 
         if (valueIndex != null && valueIndex !== "") {

@@ -57,6 +57,8 @@ namespace Fanex.CRM.DataAccess.Impl
                     if (reader != null && reader.Read())
                     {
                         feedback = GetFeedbackInformation(reader);
+                        feedback.IsReviewed = Converter.ToBool(reader["IsReviewed"]);
+
                         feedback.CustomerInfo = GetCustomerformation(reader);
                         feedback.RelatedCustomer = GetRealtedCustomer(reader);
 
@@ -378,7 +380,7 @@ namespace Fanex.CRM.DataAccess.Impl
 
                 param.Add("updatereviewedmode", entity.UpdateReviewMode);
                 param.Add("isreviewed", entity.IsReviewed);
-                if (entity.UpdateReviewMode == 1)
+                if (entity.IsReviewed)
                 {
                     param.Add("review", entity.Review);
                     param.Add("reviewerid", entity.Reviewer.Id);
@@ -648,7 +650,18 @@ namespace Fanex.CRM.DataAccess.Impl
                     param.Add("responseid", responseId);
                 }
 
-                param.Add("isreviewed", isReviewed == 1 ? true : false);
+                /// 0 : All
+                /// 1 : Reviewed
+                /// -1: Not reviewed
+                if (isReviewed == 1)
+                {
+                    param.Add("isreviewed", true);
+                }
+                else if (isReviewed == -1)
+                {
+                    param.Add("isreviewed", false);    
+                }
+
                 obj.AssignParamValues(param);
                 using (var reader = obj.ExecuteReader())
                 {
