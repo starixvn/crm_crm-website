@@ -910,6 +910,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GMT+8.
+        /// </summary>
+        internal static string TimeZoneGMT {
+            get {
+                return ResourceManager.GetString("TimeZoneGMT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         internal static string Title {

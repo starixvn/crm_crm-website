@@ -56,15 +56,16 @@ var CRMConstants = function () {
         },
         /* jshint camelcase: false */
         FormatConstant: {
-            ShortDate_String_Moment: 'MMM D, YYYY',
+            ShortDate_String_Moment: 'MMM DD, YYYY',
             M_DD_YY_STRING: 'M dd, yy',
             MM_DD_YYYY_HH_MM_TT_String_Moment: 'MM/DD/YYYY hh:mm A',
-            MM_DD_YYYY_HH_MM_TT_2Line_String_Moment: 'MMM D, YYYY<br/>hh:mm A',
+            MM_DD_YYYY_HH_MM_TT_2Line_String_Moment: 'MMM DD, YYYY<br/>hh:mm A',
             HH_MM_TT_String_Moment: 'hh:mm A',
             HH_MM_TT_TimePicker: 'hh:mm TT',
             MM_DD_YYYY_HH_MM_TT_StringFormat: "{0}/{1}/{2} {3}:{4} {5}",
             StartTime_RemarkPrefix: 'YYYYMMDD/hh:mmA',
             MMM_DD_YYYY_WeekPicker: 'MMM DD, YYYY',
+            HH_MM_SS_MMM_DD_YYYY_String_Moment: 'hh:mm:ss A MMM DD, YYYY',
 
             IntNumber: '0,0',
             TwoDecimalNumber: '0,0.00'

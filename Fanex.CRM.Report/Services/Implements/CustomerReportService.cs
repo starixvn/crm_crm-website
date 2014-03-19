@@ -13,6 +13,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using System.Web;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
@@ -67,7 +68,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
                 CustomerReportInfo customerReport = null;
                 if (criteria.IsGetFromCached)
                 {
-                    customerReport = CacheService.Get<CustomerReportInfo>(CustomerReportSessionKey);
+                    customerReport = (CustomerReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, CustomerReportSessionKey);
                 }
 
                 if (customerReport == null)
@@ -86,16 +87,18 @@ namespace Fanex.CRM.Report.Repositories.Implements
 
                 if (customerReport != null)
                 {
-                    CacheService.Set(CustomerReportSessionKey, customerReport);
-                    if (!criteria.IsGetFullReport)
-                    {
-                        customerReport.CustomerList = customerReport.CustomerList.Skip(criteria.PageSize * criteria.PageIndex)
-                           .Take(criteria.PageSize)
-                           .ToList();
-                    }
+                    SessionExtension.AddSession(HttpContext.Current.Session, CustomerReportSessionKey, customerReport);
                 }
 
-                return customerReport;
+                return new CustomerReportInfo
+                {
+                    CustomerList = criteria.IsGetFullReport ?
+                        customerReport.CustomerList :
+                        customerReport.CustomerList.Skip(criteria.PageSize * criteria.PageIndex)
+                           .Take(criteria.PageSize)
+                           .ToList(),
+                    TotalCustomer = customerReport.TotalCustomer
+                };
             }
             catch (Exception ex)
             {
@@ -126,7 +129,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
                     StartRow = 0,
                     StartColumn = 0,
                     CurrentRow = 0,
-                    MaxColumnIndex = 15
+                    MaxColumnIndex = 18
                 };
 
                 ExportCustomerReportBody(ref exportExcelInfo, criteria, customerReport);
@@ -286,11 +289,14 @@ namespace Fanex.CRM.Report.Repositories.Implements
 
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 400 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
 
             string reportTitle = Labels.CustomerReport_Title;
             CellRangeAddress cellRangeAddress;
@@ -320,11 +326,14 @@ namespace Fanex.CRM.Report.Repositories.Implements
 
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Birthday, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Site, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Language, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_1, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_2, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_3, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.City, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.State, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Post_Code, headerStyle);
             exportExcelInfo.CurrentRow++;
         }
 
@@ -495,13 +504,16 @@ namespace Fanex.CRM.Report.Repositories.Implements
 
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.BirthDayString, centerTextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.SiteSetting.Name, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Country.Name, exportExcelInfo.TextStyle);
 
             var customerLanguages = string.Join(", ", customer.Languages.Select(language => language.Name));
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customerLanguages, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[0], exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[1], exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[2], exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.City, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Country.Name, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.State, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.PostCode, exportExcelInfo.TextStyle);
 
             exportExcelInfo.CurrentRow++;
         }

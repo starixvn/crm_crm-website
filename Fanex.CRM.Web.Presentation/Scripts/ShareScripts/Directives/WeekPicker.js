@@ -18,21 +18,26 @@ directiveManager.registerWeekPickerContainer = function (angularApplication, reg
         //        };
 
         var selfScope;
+        var isAlreadyApply = false;
         function ngModelChange(scope, element, attrs, newVal, oldVal) {
             var options = scope[registerParams.OptionName];
-            if (options === null) {
-                return;
-            }
-
             selfScope = scope;
-            element.find("#" + registerParams.PickerId).weekpicker('onSelect', onChangeDateEvent);
+            var picker = element.find("#" + registerParams.PickerId);
+            picker.on('change', function () {
+                picker.weekpicker('onSelect', onChangeDateEvent);
+            });
+
+            picker.weekpicker('onSelect', onChangeDateEvent);
+            //            isAlreadyApply = true;
+            //            element.find("#" + registerParams.PickerId).weekpicker('updateInitDate', null);
+            //            isAlreadyApply = false;
         }
 
-        function onChangeDateEvent(fromDate, toDate) {
+        function onChangeDateEvent(fromDate, toDate, picker) {
             var options = selfScope[registerParams.OptionName];
             if (options.OnChangeDateEvent &&
                 typeof (options.OnChangeDateEvent) === "function") {
-                options.OnChangeDateEvent(fromDate, toDate);
+                options.OnChangeDateEvent(fromDate, toDate, picker, isAlreadyApply);
             }
         }
 

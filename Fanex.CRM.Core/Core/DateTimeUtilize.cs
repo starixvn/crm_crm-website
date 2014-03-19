@@ -34,6 +34,12 @@ namespace Fanex.CRM.Infrastructure.Core
         }
 
         #region Convert time client <->server
+        public static string ChangeFullTimeZoneToClient(DateTime time)
+        {
+            DateTimeUtilize timeSpan = new DateTimeUtilize();
+            return time.Add(timeSpan._timeSpan).ToString("hh:mm:ss tt MMM dd, yyyy");
+        }
+
         public static string ChangeTimeZoneToClient(DateTime time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();

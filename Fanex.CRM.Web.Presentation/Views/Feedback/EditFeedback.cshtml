@@ -452,7 +452,7 @@
         <div class="row title" id="reviewtitle">
             <div class="pull-left hand" onclick="showHideDetailBox(isShowReviewBox, 'FeedbackReview'); isShowReviewBox = !isShowReviewBox;">
                 <label for="chkisreview">@Language.Review</label>
-                    <input type="checkbox" id="chkisreview" onclick="updateFeedback.reviewCheckBox();" class="hidden" />
+                    <input type="checkbox" class="review" id="chkisreview" onclick="updateFeedback.reviewCheckBox();" disabled />
                     <span id="lblUpdateReview" class="hidden"></span><span id="lblEditedBy"><!--Reviewed--></span>
                     <span class="hidden error errormsg" id="revieweditererror"></span>
             </div>
@@ -470,7 +470,7 @@
         </div>
     </div>
     <div class="row btn-group">
-        <button id="btnsubmitbottom"class="btn updateFeedback" onclick="EditFeedback();">
+        <button id="btnsubmitbottom"class="btn updateFeedback" onclick="EditFeedback();" class="hidden">
             <span class="hotkey">S</span>ave</button>
     </div>
 </div>

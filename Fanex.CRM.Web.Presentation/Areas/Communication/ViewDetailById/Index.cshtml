@@ -199,6 +199,9 @@
                     @Labels.Reviewed</label>
                 <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
                     data-ng-model="communicationLog.IsReviewed" disabled="disabled" />
+                <label class="label-reivewedbyinfo" data-ng-class="{'display-none': !communicationLog.IsReviewed }"
+                    data-ng-bind="getReviewedInfo();">
+                </label>
             </div>
             <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">
                 <div class="item">
@@ -233,7 +236,8 @@
             Symbol_NotApply: '@Labels.Symbol_NotApply', 
             Select:'@Labels.Select', 
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',           
-            Communication_Logs_VerifyRelatedCustomer:'@Labels.Communication_Logs_VerifyRelatedCustomer'
+            Communication_Logs_VerifyRelatedCustomer:'@Labels.Communication_Logs_VerifyRelatedCustomer',
+            ReviewedInformation: '@Labels.ReviewedInformation'
         }; 
     </script>
 </body>

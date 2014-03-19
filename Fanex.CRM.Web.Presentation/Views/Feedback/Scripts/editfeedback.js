@@ -232,7 +232,6 @@ function loadFeedbackAfterCallAjax(rs, Id) {
         }
 
         if (rs.Reviewer.Id > 0) {
-            $("#chkisreview").prop('checked', true);
             $("#lblEditedBy").text("(Reviewed by " + rs.Reviewer.Username + " on " + strsoldate + ")");
         }
         $("#previewboxrev").html(revvalue);
@@ -244,21 +243,22 @@ function loadFeedbackAfterCallAjax(rs, Id) {
 
     //Permission
     feedbackIsReview = rs.IsReviewed;
+    if (feedbackIsReview) {
+        $("#chkisreview").prop('checked', true);
+        initEdit('rev');
+    }
 
     if (allowUpdateReview) {
+        $('#chkisreview').prop("disabled", false);
         if (feedbackIsReview) {
             $(".updateFeedback").addClass("hidden");
-            $("#btnUnReview").removeClass("hidden");
         } else {
-            $("#chkisreview").removeClass("hidden");
-            $("#lblUpdateReview").removeClass("hidden");
-            $("#btnrevedit").removeClass("hidden");
             $(".updateFeedback").removeClass("hidden");
         }
     }
     else {
         if (feedbackIsReview) {
-            $(".updateFeedback").addClass("hidden");
+            $("#btnsubmitbottom").addClass("hidden");
         }
     }
 
@@ -294,7 +294,7 @@ function getFeedbackData() {
     if (IsUpdateReviewed && reviewContent !== '<br>' && reviewContent !== '') {
         Reviewer = accId;
         Review = reviewContent;
-    }
+    } 
 
     feedbackEdit.Id = id;
     feedbackEdit.Creator.Id = accId;
@@ -364,7 +364,8 @@ function getFeedbackData() {
     feedbackEdit.Description = $("#desediter").htmlarea("toHtmlString").trim();
     feedbackEdit.Solution = $("#solediter").htmlarea("toHtmlString").trim();
 
-    feedbackEdit.UpdateReviewMode = IsUpdateReviewed ? 1 : 0;
+    feedbackEdit.IsReviewed = IsUpdateReviewed;
+    feedbackEdit.UpdateReviewMode = IsUpdateReviewed ? 1 : 2;
     feedbackEdit.Reviewer.Id = Reviewer;
     feedbackEdit.Review = Review.trim();
     userName = $("#lblUserName").html();
@@ -584,12 +585,19 @@ var updateFeedback = {
     resolutionTime: '',
     reviewCheckBox: function () {
         isShowReviewBox = true;
-        if ($("#chkisreview").prop("checked")) {
+        var isReviewChecked = $("#chkisreview").prop("checked");
+        if (isReviewChecked) {
             initEdit('rev');
+            if (feedbackIsReview) {
+                $("#btnsubmitbottom").addClass("hidden");
+            }
         }
         else {
             initReview('rev');
             $('#revieweditererror').addClass('hidden');
+            if (feedbackIsReview) {
+                $("#btnsubmitbottom").removeClass("hidden");
+            }
         }
 
         showHideDetailBox(true, 'FeedbackReview');

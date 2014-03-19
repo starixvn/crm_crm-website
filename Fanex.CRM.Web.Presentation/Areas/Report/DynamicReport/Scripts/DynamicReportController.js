@@ -16,6 +16,8 @@ function (
     $scope,
     $http,
     $dynamicReportService) {
+    weekPickerManager.registerWeekPicker();
+
     $scope.isSetFocus = false;
     $scope.isShowFilter = true;
     $scope.isUpdatingDate = false;
@@ -49,7 +51,7 @@ function (
 
     $scope.searchCriteria = {
         ReportType: null,
-        FromDate: initFromDate,
+        FromDate: new Date(initFromDate),
         ToDate: new Date(currentDate),
 
         Product: null,
@@ -98,32 +100,6 @@ function (
         $scope.getDynamicReport();
     };
     $scope.initPicker = function () {
-        $scope.reportTypeOptions = {
-            DataList: [],
-            OnChangeEvent: $scope.updateReportType
-        };
-
-        $scope.$apply();
-
-        $scope.fromDateOptions = {
-            CurrentDate: currentDate,
-            InitDate: initFromDate,
-            MaxDate: currentDate,
-            IsRerenderPicker: false,
-            OnChangeDateEvent: $scope.updateFromDate
-        };
-        $scope.updateFromDatePicker();
-
-        $scope.toDateOptions = {
-            CurrentDate: currentDate,
-            InitDate: currentDate,
-            MaxDate: currentDate,
-            IsRerenderPicker: false,
-            OnChangeDateEvent: $scope.updateToDate
-        };
-        $scope.updateToDatePicker();
-
-        weekPickerManager.registerWeekPicker();
         $scope.fromWeekOptions = {
             CurrentDate: currentDate,
             InitDate: initFromDate,
@@ -131,6 +107,7 @@ function (
             IsRerenderPicker: false,
             OnChangeDateEvent: $scope.updateFromWeek
         };
+
         $scope.toWeekOptions = {
             CurrentDate: currentDate,
             InitDate: initFromDate,
@@ -139,13 +116,26 @@ function (
             OnChangeDateEvent: $scope.updateToWeek
         };
 
+        $scope.fromWeekOptions.IsRerenderPicker = true;
+        $scope.toWeekOptions.IsRerenderPicker = true;
+        $scope.$apply();
+
+        $scope.reportTypeOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateReportType
+        };
+
+        $scope.$apply();
+
         currentDate = new Date(currentDate);
         initFromDate = new Date(initFromDate);
         $scope.fromMonthOptions = {
             CurrentDate: currentDate,
             InitDate: initFromDate,
             MaxDate: initFromDate,
-            MinDate: new Date(initFromDate.getFullYear() - 10, initFromDate.getMonth(), initFromDate.getDate()),
+            MinDate: new Date(initFromDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection,
+                initFromDate.getMonth(),
+                initFromDate.getDate()),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateFromMonth,
             SelectedYear: initFromDate.getFullYear(),
@@ -161,7 +151,7 @@ function (
             MaxDate: currentDate,
             MinDate: currentDate,
             IsRerenderPicker: false,
-            OnChangeDateEvent: $scope.updateToMonth,
+            OnChangeEvent: $scope.updateToMonth,
             SelectedYear: currentDate.getFullYear(),
             SelectedMonth: currentDate.getMonth() + 1
         };
@@ -173,7 +163,9 @@ function (
             CurrentDate: currentDate,
             InitDate: initFromDate,
             MaxDate: initFromDate,
-            MinDate: new Date(initFromDate.getFullYear() - 10, initFromDate.getMonth(), initFromDate.getDate()),
+            MinDate: new Date(initFromDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection,
+                initFromDate.getMonth(),
+                initFromDate.getDate()),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateFromYear,
             SelectedYear: initFromDate.getFullYear()
@@ -188,7 +180,7 @@ function (
             MaxDate: currentDate,
             MinDate: currentDate,
             IsRerenderPicker: false,
-            OnChangeDateEvent: $scope.updateToYear,
+            OnChangeEvent: $scope.updateToYear,
             SelectedYear: currentDate.getFullYear()
         };
 
@@ -238,6 +230,25 @@ function (
         };
 
         $scope.$apply();
+
+        $scope.fromDateOptions = {
+            CurrentDate: currentDate,
+            InitDate: initFromDate,
+            MaxDate: currentDate,
+            IsRerenderPicker: false,
+            OnChangeDateEvent: $scope.updateFromDate
+        };
+
+        $scope.toDateOptions = {
+            CurrentDate: currentDate,
+            InitDate: currentDate,
+            MaxDate: currentDate,
+            IsRerenderPicker: false,
+            OnChangeDateEvent: $scope.updateToDate
+        };
+
+        $scope.updateFromDatePicker();
+        $scope.updateToDatePicker();
     };
     $scope.getAllSetting = function () {
         $scope.BlockUI();
@@ -315,19 +326,53 @@ function (
     };
     $scope.updateReportType = function (reportType) {
         $scope.searchCriteria.ReportType = reportType;
+        var reportTypeId = parseInt(reportType.Id);
+
+        $scope.searchCriteria.FromDate = new Date(initFromDate);
+        $scope.searchCriteria.ToDate = new Date(currentDate);
+        switch (reportTypeId) {
+            case crmConstants.Enums.PeriodType.Daily:
+                $scope.fromDateOptions.IsRerenderPicker = true;
+                $scope.toDateOptions.IsRerenderPicker = true;
+                break;
+            case crmConstants.Enums.PeriodType.Weekly:
+                var date = new Date(currentDate);
+                var dat = date.getDate();
+                var day = date.getDay();
+
+                $scope.searchCriteria.FromDate = new Date(date.getFullYear(), date.getMonth(), 1);
+                $scope.searchCriteria.FromDate.setDate(dat - day);
+                $scope.searchCriteria.ToDate = new Date(currentDate);
+                break;
+            case crmConstants.Enums.PeriodType.Monthly:
+                $scope.fromMonthOptions.IsRerenderPicker = true;
+                $scope.toMonthOptions.IsRerenderPicker = true;
+                break;
+            case crmConstants.Enums.PeriodType.Yearly:
+                $scope.fromYearOptions.IsRerenderPicker = true;
+                $scope.toYearOptions.IsRerenderPicker = true;
+                break;
+        }
+
         $scope.$apply();
     };
-    $scope.updateFromWeek = function (fromDate) {
+    $scope.updateFromWeek = function (fromDate, toDate, picker, isAlreadyApply) {
         $scope.searchCriteria.FromDate = fromDate;
+        if (!isAlreadyApply) {
+            $scope.$apply();
+        }
     };
-    $scope.updateToWeek = function (fromDate, toDate) {
+    $scope.updateToWeek = function (fromDate, toDate, picker, isAlreadyApply) {
         $scope.searchCriteria.ToDate = toDate;
+        if (!isAlreadyApply) {
+            $scope.$apply();
+        }
     };
-    $scope.updateFromMonth = function (month, year) {
+    $scope.updateFromMonth = function (month, year, isAlreadyApply) {
         var selectedDate = new Date(year, month - 1, 1);
         var selectedYear = selectedDate.getFullYear();
         var toDate = $scope.searchCriteria.ToDate;
-        var maxFromYear = selectedYear + 10;
+        var maxFromYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
         var maxFromMonth = 11;
         if (toDate.getFullYear() < maxFromYear) {
             maxFromYear = toDate.getFullYear();
@@ -338,14 +383,14 @@ function (
             CurrentDate: selectedDate,
             InitDate: initFromDate,
             MaxDate: new Date(maxFromYear, maxFromMonth, 1),
-            MinDate: new Date(selectedDate.getFullYear() - 10, selectedDate.getMonth(), 1),
+            MinDate: new Date(selectedDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection, selectedDate.getMonth(), 1),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateFromMonth,
             SelectedYear: year,
             SelectedMonth: month
         };
 
-        var maxToYear = toDate.getFullYear() + 10;
+        var maxToYear = toDate.getFullYear() + sharedScriptManager.cachedData.numberOfYearPerSelection;
         var maxToMonth = 11;
         if (currentDate.getFullYear() < maxToYear) {
             maxToYear = currentDate.getFullYear();
@@ -365,12 +410,14 @@ function (
 
         $scope.searchCriteria.FromDate = selectedDate;
         $scope.toMonthOptions.IsRerenderPicker = true;
-        $scope.$apply();
+        if (!isAlreadyApply) {
+            $scope.$apply();
+        }
     };
-    $scope.updateToMonth = function (month, year) {
+    $scope.updateToMonth = function (month, year, isAlreadyApply) {
         var selectedDate = new Date(year, month - 1, 1);
         var selectedYear = selectedDate.getFullYear();
-        var maxToYear = selectedYear + 10;
+        var maxToYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
         var maxToMonth = 11;
         if (currentDate.getFullYear() < maxToYear) {
             maxToYear = currentDate.getFullYear();
@@ -393,7 +440,7 @@ function (
             CurrentDate: fromDate,
             InitDate: currentDate,
             MaxDate: new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()),
-            MinDate: new Date(fromDate.getFullYear() - 10, fromDate.getMonth(), 1),
+            MinDate: new Date(fromDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection, fromDate.getMonth(), 1),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateFromMonth,
             SelectedYear: $scope.searchCriteria.FromDate.getFullYear(),
@@ -402,13 +449,15 @@ function (
 
         $scope.searchCriteria.ToDate = selectedDate;
         $scope.fromMonthOptions.IsRerenderPicker = true;
-        $scope.$apply();
+        if (!isAlreadyApply) {
+            $scope.$apply();
+        }
     };
-    $scope.updateFromYear = function (fromYear) {
-        var selectedDate = new Date(fromYear, 1, 1);
+    $scope.updateFromYear = function (fromYear, isAlreadyApply) {
+        var selectedDate = new Date(fromYear, 0, 1);
         var selectedYear = fromYear;
         var toDate = $scope.searchCriteria.ToDate;
-        var maxFromYear = selectedYear + 10;
+        var maxFromYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
         if (toDate.getFullYear() < maxFromYear) {
             maxFromYear = toDate.getFullYear();
         }
@@ -417,13 +466,13 @@ function (
             CurrentDate: selectedDate,
             InitDate: initFromDate,
             MaxDate: new Date(maxFromYear, 11, 1),
-            MinDate: new Date(selectedDate.getFullYear() - 10, 1, 1),
+            MinDate: new Date(selectedDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection, 0, 1),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateFromYear,
             SelectedYear: fromYear
         };
 
-        var maxToYear = toDate.getFullYear() + 10;
+        var maxToYear = toDate.getFullYear() + sharedScriptManager.cachedData.numberOfYearPerSelection;
         if (currentDate.getFullYear() < maxToYear) {
             maxToYear = currentDate.getFullYear();
         }
@@ -432,31 +481,34 @@ function (
             CurrentDate: toDate,
             InitDate: currentDate,
             MaxDate: new Date(maxToYear, 11, 1),
-            MinDate: new Date(selectedDate.getFullYear(), 1, 1),
-            IsRerenderPicker: false,
+            MinDate: new Date(selectedDate.getFullYear(), 0, 1),
+            IsRerenderPicker: true,
             OnChangeEvent: $scope.updateToYear,
             SelectedYear: $scope.searchCriteria.ToDate.getFullYear()
         };
 
         $scope.searchCriteria.FromDate = selectedDate;
-        $scope.toYearOptions.IsRerenderPicker = true;
-        $scope.searchCriteria.FromDate = new Date(fromYear, 1, 1);
-        $scope.$apply();
+        $scope.searchCriteria.FromDate = new Date(fromYear, 0, 1);
+        if (!isAlreadyApply) {
+            $scope.toYearOptions.IsRerenderPicker = true;
+            $scope.$apply();
+        }
     };
-    $scope.updateToYear = function (toYear) {
-        var selectedDate = new Date(toYear, 1, 1);
+    $scope.updateToYear = function (toYear, isAlreadyApply) {
+        var selectedDate = new Date(toYear, 0, 1);
         var selectedYear = toYear;
-        var maxToYear = selectedYear + 10;
+        var maxToYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
         if (currentDate.getFullYear() < maxToYear) {
             maxToYear = currentDate.getFullYear();
         }
 
         var fromDate = $scope.searchCriteria.FromDate;
+
         $scope.toYearOptions = {
             CurrentDate: selectedDate,
             InitDate: currentDate,
             MaxDate: new Date(maxToYear, 11, 1),
-            MinDate: new Date(fromDate.getFullYear(), 1, 1),
+            MinDate: new Date(fromDate.getFullYear(), 0, 1),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateToYear,
             SelectedYear: toYear
@@ -466,7 +518,7 @@ function (
             CurrentDate: fromDate,
             InitDate: currentDate,
             MaxDate: new Date(selectedDate.getFullYear(), 11, 1),
-            MinDate: new Date(fromDate.getFullYear() - 10, 1, 1),
+            MinDate: new Date(fromDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection, 0, 1),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateFromYear,
             SelectedYear: $scope.searchCriteria.FromDate.getFullYear()
@@ -474,8 +526,10 @@ function (
 
         $scope.searchCriteria.ToDate = selectedDate;
         $scope.fromYearOptions.IsRerenderPicker = true;
-        $scope.searchCriteria.ToDate = new Date(toYear, 1, 1);
-        $scope.$apply();
+        $scope.searchCriteria.ToDate = new Date(toYear, 11, 1);
+        if (!isAlreadyApply) {
+            $scope.$apply();
+        }
     };
     $scope.completeSetFocus = function () {
         $scope.defaultFocusOptions.IsSetFocus = false;

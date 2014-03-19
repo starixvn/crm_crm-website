@@ -125,7 +125,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 itemsPerPage: selfScope.lastSelectedParams.PageSize,
                 currentPage: selfScope.lastSelectedParams.PageIndex,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: dynamicReport ? dynamicReport.TotalChildReports : 0,
+                totalItem: dynamicReport ? childReportLength : 0,
                 pagerSelectCallBack: ReRenderAfterPaged
             }
         };

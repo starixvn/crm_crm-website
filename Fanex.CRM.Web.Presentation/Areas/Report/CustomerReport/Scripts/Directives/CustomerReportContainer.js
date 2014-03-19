@@ -86,12 +86,15 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
 
                         { Name: "ColBirthday", Value: customer.BirthDayString },
                         { Name: "ColSite", Value: customer.SiteSetting.Name },
-                        { Name: "ColCountry", Value: customer.Country.Name },
                         { Name: "ColLanguage", Value: customerLanguages },
 
                         { Name: "ColLine1", Value: customer.AddressInfo.LineList[0] },
                         { Name: "ColLine2", Value: customer.AddressInfo.LineList[1] },
-                        { Name: "ColLine3", Value: customer.AddressInfo.LineList[2]}]
+                        { Name: "ColLine3", Value: customer.AddressInfo.LineList[2] },
+                        { Name: "ColCity", Value: customer.AddressInfo.City },
+                        { Name: "ColCountry", Value: customer.Country.Name },
+                        { Name: "ColState", Value: customer.AddressInfo.State },
+                        { Name: "ColPostCode", Value: customer.AddressInfo.PostCode}]
                 });
             }
         }
@@ -110,17 +113,20 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
 
             { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true },
             { HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true },
-            { HeaderText: viewResources.Country, Width: 140, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
 
             { HeaderText: viewResources.Line_1, Width: 140, Name: "ColLine1", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: viewResources.Line_2, Width: 140, Name: "ColLine2", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: viewResources.Line_3, Width: 140, Name: "ColLine3", HeaderAlign: "center", CellAlign: "left"}];
+            { HeaderText: viewResources.Line_3, Width: 140, Name: "ColLine3", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: viewResources.City, Width: 100, Name: "ColCity", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: viewResources.Country, Width: 140, Name: "ColCountry", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.State, Width: 100, Name: "ColState", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: viewResources.Post_Code, Width: 100, Name: "ColPostCode", HeaderAlign: "center", CellAlign: "left"}];
         if (sortColumnIndex !== -1) {
             headerColumns[sortColumnIndex].SortDirection = cachedData.scope.lastSelectedParams.SortDirection;
         }
 
-         var gridOptions = {
+        var gridOptions = {
             columns: headerColumns,
             showTitle: true,
             titleInfo: {
@@ -198,7 +204,7 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             case "IsVIP":
                 return 3;
             case "CountryName":
-                return 11;
+                return 16;
             case "Languages":
                 return 12;
             case "SiteSettingName":

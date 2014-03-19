@@ -157,7 +157,10 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             }
         };
         $scope.updateToDatePicker = function (isOnApply) {
-            $scope.toDateOptions.IsRerenderPicker = true;
+            if ($scope.toDateOptions) {
+                $scope.toDateOptions.IsRerenderPicker = true;
+            }
+
             if (!isOnApply) {
                 $scope.$apply();
             }
@@ -203,7 +206,10 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         };
         $scope.updateFromDate = function (selectedDate) {
             $scope.searchCriteria.FromDate = selectedDate;
-            $scope.toDateOptions.MinDate = selectedDate && selectedDate !== "" ? selectedDate : null;
+            if ($scope.toDateOptions) {
+                $scope.toDateOptions.MinDate = selectedDate && selectedDate !== "" ? selectedDate : null;
+            }
+
             $scope.updateToDatePicker(true);
         };
         $scope.updateToDate = function (selectedDate) {

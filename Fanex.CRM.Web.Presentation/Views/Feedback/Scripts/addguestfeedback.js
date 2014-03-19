@@ -11,7 +11,8 @@ invokeHotKey_CtrlS,
 isShowCustinfoBox,
 isShowDescriptionBox,
 isShowFeedbackDetailBox,
-isShowSolutionBox */
+isShowSolutionBox,
+orgLengt */
 /* jshint camelcase: false */
 var feedbackData;
 var settingData;
@@ -20,6 +21,7 @@ var isShowCustinfoBox = false;
 var isShowFeedbackDetailBox = false;
 var isShowDescriptionBox = false;
 var isShowSolutionBox = false;
+var orgLengt = 0;
 
 function AddGuestFeedback() {
     feedbackData.addGuestFeedback(function () {

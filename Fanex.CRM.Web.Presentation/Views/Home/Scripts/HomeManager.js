@@ -2,7 +2,9 @@
 /* global hotKeyManager,
 keyboardManager,
 leftPanelManager,
-menuManager */
+menuManager,
+moment,
+clientTime */
 /* exported shouldReloadLogs */
 /* jshint unused: vars */
 var shouldReloadLogs = false;
@@ -12,8 +14,11 @@ var HomeManager = function () {
         TextboxUsername: null,
         ButtonSearch: null,
         ResultMessage: null,
-        CheckboxIsGuest: null
+        CheckboxIsGuest: null,
+        TimezoneContainer: null
     };
+    self.timeZoneId = null;
+    self.timeZoneFormat = 'hh:mm:ss A MMM DD, YYYY';
 
     self.CachedData = {
         /* jshint camelcase: false */
@@ -56,6 +61,9 @@ var HomeManager = function () {
             Value: self,
             Id: "Home"
         });
+
+        self.currentTime = new Date(clientTime);
+        self.timeZoneId = setInterval(self.setTimeZone, 1000);
     };
 
     self.cacheDOMElements = function () {
@@ -64,6 +72,7 @@ var HomeManager = function () {
         self.DOMElements.ResultMessage = $("#div-resultpopup");
         self.DOMElements.CheckboxIsGuest = $("#isGuest");
         self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+        self.DOMElements.TimezoneContainer = $("#span-timezoneContainer");
     };
 
     self.bindEvents = function () {
@@ -329,6 +338,16 @@ var HomeManager = function () {
     };
     self.invokeHotKey_CtrlF = function () {
         self.DOMElements.TextboxUsername.focus();
+    };
+
+    self.setTimeZone = function () {
+        self.DOMElements.TimezoneContainer.html(moment(self.currentTime).format(self.timeZoneFormat));
+        self.currentTime.setSeconds(self.currentTime.getSeconds() + 1);
+    };
+    self.stopTimeZone = function () {
+        if (self.timeZoneId !== null) {
+            clearInterval(self.timeZoneId);
+        }
     };
 };
 
