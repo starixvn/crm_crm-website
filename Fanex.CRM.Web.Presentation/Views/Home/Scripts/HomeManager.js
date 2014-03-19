@@ -2,7 +2,9 @@
 /* global hotKeyManager,
 keyboardManager,
 leftPanelManager,
-menuManager */
+menuManager,
+moment,
+clientTime */
 /* exported shouldReloadLogs */
 /* jshint unused: vars */
 var shouldReloadLogs = false;
@@ -16,7 +18,7 @@ var HomeManager = function () {
         TimezoneContainer: null
     };
     self.timeZoneId = null;
-    self.timeZoneFormat = 'HH:mm:ss MMM D, YYYY';
+    self.timeZoneFormat = 'HH:mm:ss MMM DD, YYYY';
 
     self.CachedData = {
         /* jshint camelcase: false */
