@@ -386,7 +386,7 @@ function getCRMInfoById(custId) {
             $("#faxInfoFax").val(customerInfo.Fax.FaxNumber);
             $("#mobileInfoCountry").val(customerInfo.Mobile.CountryCode);
             $("#mobileInfoArea").val(customerInfo.Mobile.AreaCode);
-            $("#mobileInfoPhone").val(customerInfo.Mobile.FaxNumber);
+            $("#mobileInfoPhone").val(customerInfo.Mobile.PhoneNumber);
             $("#skypeInfo").val(customerInfo.Skype);
             $("#emailInfo").val(customerInfo.Email);
             $("#msnInfo").val(customerInfo.MSN);
