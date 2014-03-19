@@ -65,7 +65,7 @@ var CRMConstants = function () {
             MM_DD_YYYY_HH_MM_TT_StringFormat: "{0}/{1}/{2} {3}:{4} {5}",
             StartTime_RemarkPrefix: 'YYYYMMDD/hh:mmA',
             MMM_DD_YYYY_WeekPicker: 'MMM DD, YYYY',
-            HH_MM_SS_MMM_DD_YYYY_String_Moment: 'HH:mm:ss MMM DD, YYYY',
+            HH_MM_SS_MMM_DD_YYYY_String_Moment: 'hh:mm:ss A MMM DD, YYYY',
 
             IntNumber: '0,0',
             TwoDecimalNumber: '0,0.00'
