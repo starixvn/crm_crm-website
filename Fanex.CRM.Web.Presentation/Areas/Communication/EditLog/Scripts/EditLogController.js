@@ -41,6 +41,7 @@ function (
     $scope.resultMessage = '';
     $scope.isEditingRelatedCustomer = false;
     $scope.isVerifyRelatedCustomer = false;
+    $scope.isVerifyRelatedCustomer = false;
     $scope.oldRelatedCustomer = '';
     $scope.isSetFocus = false;
     $scope.hasReviewPermission = hasReviewPermission;
@@ -453,7 +454,8 @@ function (
     $scope.updateLog = function () {
         $scope.isShowResultMessage = false;
         $scope.isSuccess = true;
-        var relatedCustomer = isOldRelatedCustomer($scope.oldRelatedCustomer) ?
+        var relatedCustomer = !$scope.isVerifyRelatedCustomer &&
+            isOldRelatedCustomer($scope.oldRelatedCustomer) ?
             $scope.communicationLog.RelatedCustomerIds :
             getRelatedCustomer();
 
@@ -602,6 +604,7 @@ function (
     $scope.verifyRelatedCustomer = function () {
         verifyRelatedCustomer($scope);
         $scope.isEditingRelatedCustomer = false;
+        $scope.isVerifyRelatedCustomer = true;
     };
     $scope.verifyRelatedCustomerForUpdate = function () {
         verifyRelatedCustomerForUpdate($scope);
