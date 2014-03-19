@@ -209,14 +209,14 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 url,
                 viewResources.Edit_Communication_Log,
                 $(parent.document).width() - 300,
-                $(parent.document).height() - 40,
+                $(parent.document).height(),
                 true,
                 false,
                 parent.window,
                 3000,
                 null,
                 $scope.closeEditCommunicationLogView,
-                ['center', 20],
+                null,
                 $scope.beforeCloseEditCommunicationLogView);
         };
         $scope.beforeCloseEditCommunicationLogView = function () {
