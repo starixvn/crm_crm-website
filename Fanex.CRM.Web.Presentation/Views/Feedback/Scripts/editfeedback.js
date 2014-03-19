@@ -250,15 +250,8 @@ function loadFeedbackAfterCallAjax(rs, Id) {
 
     if (allowUpdateReview) {
         $('#chkisreview').prop("disabled", false);
-        if (feedbackIsReview) {
-            $(".updateFeedback").addClass("hidden");
-        } else {
-            $(".updateFeedback").removeClass("hidden");
-        }
-    }
-    else {
-        if (feedbackIsReview) {
-            $("#btnsubmitbottom").addClass("hidden");
+        if (!feedbackIsReview) {
+            $("#btnsubmitbottom").removeClass("hidden");
         }
     }
 
