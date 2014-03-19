@@ -35,7 +35,7 @@ namespace Fanex.CRM.Report.Controllers
             _dynamicReportService = dynamicReportService ?? new DynamicReportService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.DynamicReport, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View("~/Areas/Report/DynamicReport/Index.cshtml");
@@ -46,7 +46,7 @@ namespace Fanex.CRM.Report.Controllers
         /// </summary>
         /// <returns>All setting.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.DynamicReport, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSetting()
         {
             var allSetting = new
@@ -66,7 +66,7 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.DynamicReport, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult GetDynamicReport(GetDynamicReportCriteria criteria)
         {
             var logs = _dynamicReportService.GetDynamicReport(criteria);
