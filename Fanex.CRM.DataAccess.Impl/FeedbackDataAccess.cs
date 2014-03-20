@@ -650,9 +650,9 @@ namespace Fanex.CRM.DataAccess.Impl
                     param.Add("responseid", responseId);
                 }
 
-                /// 0 : All
-                /// 1 : Reviewed
-                /// -1: Not reviewed
+                //// 0 : All
+                //// 1 : Reviewed
+                //// -1: Not reviewed
                 if (isReviewed == 1)
                 {
                     param.Add("isreviewed", true);

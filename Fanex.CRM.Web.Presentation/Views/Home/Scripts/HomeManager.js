@@ -18,7 +18,7 @@ var HomeManager = function () {
         TimezoneContainer: null
     };
     self.timeZoneId = null;
-    self.timeZoneFormat = 'HH:mm:ss MMM DD, YYYY';
+    self.timeZoneFormat = 'hh:mm:ss A MMM DD, YYYY';
 
     self.CachedData = {
         /* jshint camelcase: false */
