@@ -641,6 +641,12 @@ casinoDailyDetail = {
 };
 
 head.ready(function () {
+    try {
+        parent.BlockUI();
+        parent.$.unblockUI();
+    } catch (e) {
+    }
+
     var arrDateValues = [(new Date(fromDate)).format("M d, Y"), (new Date(toDate)).format("M d, Y")];
     var arrIds = ['txtfromdate', 'txttodate'];
     setupCalendar(arrDateValues, arrIds);
