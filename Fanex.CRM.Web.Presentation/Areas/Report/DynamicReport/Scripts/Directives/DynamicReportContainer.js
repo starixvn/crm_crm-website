@@ -37,11 +37,15 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 };
 
                 var childsLength = periodReport.ChildReports.length;
+                var startSplittingIndex = (i !== 0 || childsLength === periodReport.TotalChildReports) ?
+                    0 :
+                    periodReport.TotalChildReports - childsLength;
+
                 for (var j = 0; j < childsLength; j++) {
                     var info = periodReport.ChildReports[j];
                     var currentSubRow =
                     {
-                        Columns: [{ Name: "ColNo", Value: j + 1 },
+                        Columns: [{ Name: "ColNo", Value: startSplittingIndex + j + 1 },
                             {
                                 Name: "ColRunningNumber",
                                 Value: '<span class="link viewcommunicationlog-link" data-subreportindex="' +
@@ -116,7 +120,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
-            bodyRowHeight: 51,
+            bodyRowHeight: 29,
             showPager: true,
             showTree: true,
             treeParentPaddingLeft: 5,
@@ -125,7 +129,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 itemsPerPage: selfScope.lastSelectedParams.PageSize,
                 currentPage: selfScope.lastSelectedParams.PageIndex,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: dynamicReport ? childReportLength : 0,
+                totalItem: dynamicReport ? dynamicReport.TotalChildReports : 0,
                 pagerSelectCallBack: ReRenderAfterPaged
             }
         };

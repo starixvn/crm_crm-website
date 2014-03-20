@@ -420,8 +420,10 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     }
 
                     dynamicReport.ReportTypeId = criteria.ReportType;
+                    dynamicReport.TotalChildReports = rawData.Count;
                     SessionExtension.AddSession(HttpContext.Current.Session, DynamicReportSessionKey, dynamicReport);
                 }
+
 
                 return new DynamicReportInfo
                 {
@@ -430,9 +432,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     ShortName = dynamicReport.ShortName,
                     ChildReports = criteria.IsGetFullReport ?
                         dynamicReport.ChildReports :
-                        dynamicReport.ChildReports.Skip(criteria.PageSize * criteria.PageIndex)
-                             .Take(criteria.PageSize)
-                             .ToList(),
+                        GetPagingLogList(criteria, dynamicReport.ChildReports),
                     TotalChildReports = dynamicReport.TotalChildReports
                 };
             }
@@ -940,6 +940,63 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 ref exportExcelInfo,
                 pendingBackgroundColor,
                 PendingBackgroundColorIndex);
+        }
+
+        private List<DynamicReportInfo> GetPagingLogList(
+            GetDynamicReportCriteria criteria,
+            List<DynamicReportInfo> dynamicReportList)
+        {
+            List<DynamicReportInfo> pagingLogList = new List<DynamicReportInfo>();
+            var childReportLength = dynamicReportList.Count;
+            var startIndex = criteria.PageSize * criteria.PageIndex;
+            var endIndex = startIndex + criteria.PageSize - 1;
+            var currentIndex = 0;
+
+            var startSplittingIndex = 0;
+            var endSplittingIndex = 0;
+            for (var i = 0; i < childReportLength && currentIndex <= endIndex; i++)
+            {
+                var periodGroup = dynamicReportList[i];
+                if (currentIndex + periodGroup.ChildReports.Count - 1 < startIndex)
+                {
+                    currentIndex += periodGroup.ChildReports.Count;
+                    continue;
+                }
+
+                if (currentIndex < startIndex)
+                {
+                    startSplittingIndex = startIndex - currentIndex;
+                    currentIndex += startSplittingIndex;
+                }
+                else
+                {
+                    startSplittingIndex = 0;
+                }
+
+                if (currentIndex + periodGroup.ChildReports.Count - 1 <= endIndex)
+                {
+                    endSplittingIndex = periodGroup.ChildReports.Count - 1;
+                }
+                else
+                {
+                    endSplittingIndex = endIndex - currentIndex;
+                }
+
+                pagingLogList.Add(new DynamicReportInfo
+                {
+                    Name = periodGroup.Name,
+                    ShortName = periodGroup.ShortName,
+                    ChildReports = periodGroup.ChildReports.Skip(startSplittingIndex)
+                        .Take(endSplittingIndex - startSplittingIndex + 1)
+                        .ToList(),
+                    TotalChildReports = periodGroup.ChildReports.Count
+                });
+
+                currentIndex += endSplittingIndex - startSplittingIndex + 1;
+            }
+
+
+            return pagingLogList;
         }
     }
 }
