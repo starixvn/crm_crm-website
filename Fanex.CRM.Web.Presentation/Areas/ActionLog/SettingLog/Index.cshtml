@@ -16,7 +16,7 @@
     <div class="row filter-frm one-row redemption-filter">
         <form data-ng-submit="searchSettingLogs()">
             <div class="item">
-                <label for="username">@Labels.CSDUsername</label>
+                <label for="username">@Labels.Username</label>
                 <input type="text" class="textbox" id="username" data-ng-model="searchCriteria.Username" />
             </div>
             <div class="item">
@@ -57,8 +57,8 @@
         var initFromDate = '@currentDate.FirstDayOfMonth().ToShortFormatedDate()';
         var settingLogResources = {
             All: '@Labels.All',
-            LogDate: '@Labels.LogDate',
-            CSDUsername: '@Labels.CSDUsername',
+            LogTime: '@Labels.LogTime',
+            EditedBy: '@Labels.EditedBy',
             Action: '@Labels.Action',
             Entity: '@Labels.Entity',
             EntityId: '@Labels.EntityId',
