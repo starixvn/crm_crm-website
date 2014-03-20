@@ -66,8 +66,8 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
                         bodyData.push({
                             Columns: row.concat([
                                 { Name: 'ColFieldName', Value: fieldNames[j] },
-                                { Name: 'ColOldValues', Value: (oldValues && oldValues.length) > 0 ? oldValues[j] : '' },
-                                { Name: 'ColNewValues', Value: newValues[j]}]),
+                                { Name: 'ColOldValues', Value: (oldValues && oldValues.length) > 0 ? oldValues[j] : '', CssClass: 'word-wrap' },
+                                { Name: 'ColNewValues', Value: newValues[j], CssClass: 'word-wrap' }]),
                             CssClass: evenClass
                         });
                     }
@@ -77,8 +77,8 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
 
         /* jshint camelcase: false */
         gridOptions = {
-            columns: [{ HeaderText: settingLogResources.LogDate, Width: 80, Name: 'ColLogDate', HeaderAlign: 'center', CellAlign: 'center' },
-                { HeaderText: settingLogResources.CSDUsername, Width: 100, Name: 'ColUsername', HeaderAlign: 'center', CellAlign: 'left' },
+            columns: [{ HeaderText: settingLogResources.LogTime, Width: 80, Name: 'ColLogDate', HeaderAlign: 'center', CellAlign: 'center' },
+                { HeaderText: settingLogResources.EditedBy, Width: 100, Name: 'ColUsername', HeaderAlign: 'center', CellAlign: 'left' },
                 { HeaderText: settingLogResources.Action, Width: 150, Name: 'ColAction', HeaderAlign: 'center', CellAlign: 'left' },
                 { HeaderText: settingLogResources.Entity, Width: 100, Name: 'ColEntity', HeaderAlign: 'center', CellAlign: 'center' },
                 { HeaderText: settingLogResources.EntityId, Width: 50, Name: 'ColEntityId', HeaderAlign: 'center', CellAlign: 'center' },
@@ -99,7 +99,6 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
             showHighlightRow: false,
             headerColumnHeight: 29,
             bodyRowHeight: 29,
-            allowTruncate: true,
             showPager: true,
             customPager: true,
             pagerOption: {

@@ -417,7 +417,7 @@
         </div>
         <div class="FeedbackDescription row content">
             <div class="editerwrapper" id="descriptionwrapper">
-                <div id="previewboxdes">
+                <div id="previewboxdes" class="preview">
                 </div>
                 <div id="editboxdes" class="hidden">
                 </div>
@@ -440,7 +440,7 @@
         </div>
         <div class="FeedbackSolution row content">
             <div class="editerwrapper" id="solutionwrapper">
-                <div id="previewboxsol">
+                <div id="previewboxsol" class="preview">
                 </div>
                 <div id="editboxsol" class="hidden">
                 </div>
@@ -453,7 +453,7 @@
             <div class="pull-left hand" onclick="showHideDetailBox(isShowReviewBox, 'FeedbackReview'); isShowReviewBox = !isShowReviewBox;">
                 <label for="chkisreview">@Language.Review</label>
                     <input type="checkbox" class="review" id="chkisreview" onclick="updateFeedback.reviewCheckBox();" disabled />
-                    <span id="lblUpdateReview" class="hidden"></span><span id="lblEditedBy"><!--Reviewed--></span>
+                    <span id="lblUpdateReview" class="hidden"></span><span id="lblEditedBy">&nbsp;</span>
                     <span class="hidden error errormsg" id="revieweditererror"></span>
             </div>
             <div class="pull-right" id="editreview">
@@ -462,7 +462,7 @@
         </div>
         <div class="row content FeedbackReview" id="reviewbox">
             <div class="editerwrapper" id="reviewwrapper">
-                <div id="previewboxrev">
+                <div id="previewboxrev" class="preview">
                 </div>
                 <div id="editboxrev" class="hidden">
                 </div>

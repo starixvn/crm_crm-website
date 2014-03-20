@@ -184,23 +184,23 @@
     </div>
 </div>
 <script language="javascript" type="text/javascript">
-        window.rootUrl = '@Url.Content("~")';
-        var accname = "@AppSession.CurrentUser.Username";
-        var accId = @AppSession.CurrentUser.Id;
-        var clientTime = "@Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeTimeZoneToClient(DateTime.Now)";
+    window.rootUrl = '@Url.Content("~")';
+    var accname = "@AppSession.CurrentUser.Username";
+    var accId = @AppSession.CurrentUser.Id;
+    var clientTime = "@Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeTimeZoneToClient(DateTime.Now)";
 
-        head.js("@Url.Content("~/Scripts/jquery.js")", function () {
-                head.js("@Url.Content("~/Scripts/json2.js")")
-                    .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.js")",
-                        "@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js")",
-                        "@Url.Content("~/Scripts/jquery.tmpl.js")",
-                        "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")",
-                        "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")",
-                        "@Url.Content("~/Scripts/stdlib.js")")                    
-                    .js("@Url.Content("~/Scripts/common.js?ver=1")")
-                    .js("@Url.Content("~/Scripts/Paging/jpager.js")")
-                    .js("@Url.Content("~/Scripts/FanexGrid/FanexGrid.js")")
-                    .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=1")",
-                        "@Url.Content("~/Views/Feedback/Scripts/ManageFeedback.js?ver=5")");
-            });   
+    head.js("@Url.Content("~/Scripts/jquery.js")", function () {
+            head.js("@Url.Content("~/Scripts/json2.js")")
+                .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.js")",
+                    "@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js")",
+                    "@Url.Content("~/Scripts/jquery.tmpl.js")",
+                    "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")",
+                    "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")",
+                    "@Url.Content("~/Scripts/stdlib.js")")                    
+                .js("@Url.Content("~/Scripts/common.js?ver=1")")
+                .js("@Url.Content("~/Scripts/Paging/jpager.js")")
+                .js("@Url.Content("~/Scripts/FanexGrid/FanexGrid.js")")
+                .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=1")",
+                    "@Url.Content("~/Views/Feedback/Scripts/ManageFeedback.js?ver=5")");
+        });   
 </script>

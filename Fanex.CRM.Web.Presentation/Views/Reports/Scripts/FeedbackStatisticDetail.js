@@ -162,9 +162,7 @@ feedbackDetail = {
                        <td>\
                             <div style="width:380px">\
                                 <div class="lnksubject">\
-                                    <a class="desTooltip" href="JavaScript:void(0);">\
-                                        <b>' + row.Subject + '</b>\
-                                    </a>\
+                                    <span class="subject">' + row.Subject + '</span>\
                                 </div>\
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>' + row.FeedbackDate + '</b>\
                                 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b> on ' +
@@ -189,9 +187,7 @@ feedbackDetail = {
                        <td>\
                             <div style="width:380px">\
                                 <div class="lnksubject">\
-                                    <a class="desTooltip" href="JavaScript:void(0);">\
-                                        <b>' + row.Subject + '</b>\
-                                    </a>\
+                                    <span class="subject">' + row.Subject + '</span>\
                                 </div>\
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback&nbsp;date&nbsp;<b>' + row.FeedbackDate + '</b>\
                                 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b> on ' +
