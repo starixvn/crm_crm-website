@@ -178,14 +178,15 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
     }
 
     function viewChart(scope, element, attrs) {
-        parent.crmChart.title = cachedDynamicReport.Name;
+        var chartInfo = cachedDynamicReport ? cachedDynamicReport.ChartInfo : null;
+        parent.crmChart.title = chartInfo.Name;
         var xAxisCategories = [];
         var chartSeries = [];
         var chartSerie = null;
-        var childReportLength = cachedDynamicReport ? cachedDynamicReport.ChildReports.length : 0;
-        xAxisCategories.push(cachedDynamicReport.ShortName);
+        var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
+        xAxisCategories.push(chartInfo.ShortName);
         for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
-            var periodReport = cachedDynamicReport.ChildReports[xIndex];
+            var periodReport = chartInfo.ChildReports[xIndex];
             chartSerie = {
                 name: periodReport.ShortName,
                 data: [periodReport.TotalChildReports],

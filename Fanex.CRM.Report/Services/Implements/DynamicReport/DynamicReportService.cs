@@ -424,16 +424,39 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     SessionExtension.AddSession(HttpContext.Current.Session, DynamicReportSessionKey, dynamicReport);
                 }
 
+                var chartInfo = new DynamicReportInfo
+                {
+                    Id = dynamicReport.Id,
+                    Name = dynamicReport.Name,
+                    ShortName = dynamicReport.ShortName,
+                    TotalChildReports = dynamicReport.TotalChildReports,
+                    ChildReports = new List<DynamicReportInfo>()
+                };
+
+                var childReportLength = dynamicReport.ChildReports.Count;
+                for (var xIndex = 0; xIndex < childReportLength; xIndex++)
+                {
+                    var periodReport = dynamicReport.ChildReports[xIndex];
+                    chartInfo.ChildReports.Add(new DynamicReportInfo
+                    {
+                        Id = periodReport.Id,
+                        Name = periodReport.Name,
+                        ShortName = periodReport.ShortName,
+                        TotalChildReports = periodReport.TotalChildReports
+                    });
+                }
+
                 return new DynamicReportInfo
-{
-    Id = dynamicReport.Id,
-    Name = dynamicReport.Name,
-    ShortName = dynamicReport.ShortName,
-    ChildReports = criteria.IsGetFullReport ?
-        dynamicReport.ChildReports :
-        GetPagingLogList(criteria, dynamicReport.ChildReports),
-    TotalChildReports = dynamicReport.TotalChildReports
-};
+                {
+                    Id = dynamicReport.Id,
+                    Name = dynamicReport.Name,
+                    ShortName = dynamicReport.ShortName,
+                    ChildReports = criteria.IsGetFullReport ?
+                        dynamicReport.ChildReports :
+                        GetPagingLogList(criteria, dynamicReport.ChildReports),
+                    TotalChildReports = dynamicReport.TotalChildReports,
+                    ChartInfo = chartInfo
+                };
             }
             catch (Exception ex)
             {
