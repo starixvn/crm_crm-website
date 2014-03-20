@@ -316,7 +316,8 @@
                                 <label for="bankline{{ $index + 1 }}">
                                     @Labels.Line {{ $index + 1 }}</label></div>
                             <div class="col-md-7">
-                                <input type="text" class="textbox text-large" id="bankline{{ $index + 1 }}" data-ng-model="customerDetail.BankInfo.AddressInfo.LineList[$index]" /></div>
+                                <input type="text" maxlength="100" class="textbox text-large" id="bankline{{ $index + 1 }}"
+                                    data-ng-model="customerDetail.BankInfo.AddressInfo.LineList[$index]" /></div>
                         </div>
                     </div>
                 </div>

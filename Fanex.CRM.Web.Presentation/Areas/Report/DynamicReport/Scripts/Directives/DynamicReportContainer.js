@@ -39,7 +39,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 var childsLength = periodReport.ChildReports.length;
                 var startSplittingIndex = (i !== 0 || childsLength === periodReport.TotalChildReports) ?
                     0 :
-                    periodReport.TotalChildReports - childsLength;
+                    periodReport.StartChildIndex;
 
                 for (var j = 0; j < childsLength; j++) {
                     var info = periodReport.ChildReports[j];

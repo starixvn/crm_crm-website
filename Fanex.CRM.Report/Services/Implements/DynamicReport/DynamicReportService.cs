@@ -965,6 +965,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             for (var i = 0; i < childReportLength && currentIndex <= endIndex; i++)
             {
                 var periodGroup = dynamicReportList[i];
+                startSplittingIndex = 0;
+                endSplittingIndex = 0;
+
                 if (currentIndex + periodGroup.ChildReports.Count - 1 < startIndex)
                 {
                     currentIndex += periodGroup.ChildReports.Count;
@@ -987,7 +990,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 }
                 else
                 {
-                    endSplittingIndex = endIndex - currentIndex;
+                    endSplittingIndex = startSplittingIndex + (endIndex - currentIndex) <= periodGroup.ChildReports.Count ?
+                        (endIndex - currentIndex) + startSplittingIndex :
+                        periodGroup.ChildReports.Count - 1;
                 }
 
                 pagingLogList.Add(new DynamicReportInfo
@@ -997,7 +1002,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     ChildReports = periodGroup.ChildReports.Skip(startSplittingIndex)
                         .Take(endSplittingIndex - startSplittingIndex + 1)
                         .ToList(),
-                    TotalChildReports = periodGroup.ChildReports.Count
+                    TotalChildReports = periodGroup.ChildReports.Count,
+                    StartChildIndex = startSplittingIndex
                 });
 
                 currentIndex += endSplittingIndex - startSplittingIndex + 1;
