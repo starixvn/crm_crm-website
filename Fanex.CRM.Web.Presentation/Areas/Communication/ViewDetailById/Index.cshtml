@@ -155,7 +155,7 @@
                             @Labels.Related_To</label></div>
                     <input id="chkisrelated" type="checkbox" ng-class="display-none" class="display-none"
                         checked="checked" />
-                    <div class="col-xs-8 col-sm-8 col-md-8 related-customer-container" data-ng-class="related-customer-container">
+                    <div class="col-xs-9 col-sm-9 col-md-9 related-customer-container" data-ng-class="related-customer-container">
                         <select type="text" class="textbox" id="txtrelatedcustomer" name="relatedTo" disabled="disabled">
                         </select>
                     </div>
@@ -166,7 +166,7 @@
                             @Labels.Subject
                         </label>
                     </div>
-                    <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
+                    <div class="col-xs-9 col-sm-9 col-md-9 subject-container">
                         <input id="subject" type="text" class="textbox subject-auto-complete" data-ng-model="subjectOptions.Subject"
                             disabled="disabled" />
                     </div>
@@ -194,7 +194,7 @@
             </div>
         </div>
         <div class="row panel-group last">
-            <div class="row title">
+            <div class="row title" data-ng-class="!communicationLog.IsReviewed ? 'border-bottom-none' : ''">
                 <label for="review">
                     @Labels.Reviewed</label>
                 <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
