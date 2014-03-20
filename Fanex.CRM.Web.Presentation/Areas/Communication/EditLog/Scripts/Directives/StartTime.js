@@ -13,6 +13,7 @@ editLogApplication.directive('timePickerStartTimeContainer', function () {
         /* jshint camelcase: false */
         datePicker.datetimepicker(
         {
+            dateFormat: crmConstants.Enums.FormatConstant.MM_DD_YY_TimePicker,
             timeFormat: crmConstants.Enums.FormatConstant.HH_MM_TT_TimePicker,
             stepHour: 1,
             stepMinute: 1,

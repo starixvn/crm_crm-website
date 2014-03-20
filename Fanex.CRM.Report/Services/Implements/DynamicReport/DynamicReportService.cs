@@ -424,17 +424,16 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     SessionExtension.AddSession(HttpContext.Current.Session, DynamicReportSessionKey, dynamicReport);
                 }
 
-
                 return new DynamicReportInfo
-                {
-                    Id = dynamicReport.Id,
-                    Name = dynamicReport.Name,
-                    ShortName = dynamicReport.ShortName,
-                    ChildReports = criteria.IsGetFullReport ?
-                        dynamicReport.ChildReports :
-                        GetPagingLogList(criteria, dynamicReport.ChildReports),
-                    TotalChildReports = dynamicReport.TotalChildReports
-                };
+{
+    Id = dynamicReport.Id,
+    Name = dynamicReport.Name,
+    ShortName = dynamicReport.ShortName,
+    ChildReports = criteria.IsGetFullReport ?
+        dynamicReport.ChildReports :
+        GetPagingLogList(criteria, dynamicReport.ChildReports),
+    TotalChildReports = dynamicReport.TotalChildReports
+};
             }
             catch (Exception ex)
             {
@@ -942,6 +941,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 PendingBackgroundColorIndex);
         }
 
+        /// <summary>
+        /// Gets the paging log list.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="dynamicReportList">The dynamic report list.</param>
+        /// <returns>The paging log list.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private List<DynamicReportInfo> GetPagingLogList(
             GetDynamicReportCriteria criteria,
             List<DynamicReportInfo> dynamicReportList)
@@ -994,7 +1002,6 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
 
                 currentIndex += endSplittingIndex - startSplittingIndex + 1;
             }
-
 
             return pagingLogList;
         }
