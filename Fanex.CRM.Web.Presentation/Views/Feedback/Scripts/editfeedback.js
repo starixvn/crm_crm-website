@@ -445,14 +445,19 @@ function EditFeedback() {
     $("#errmsg").empty();
     $("#lblverify").html('');
 
-    if ($("#chkisreview").prop("checked") &&
-        (trimSpace(trimSpacesOnEditor($("#revediter").htmlarea("toHtmlString"))) === '')) {
-        $('#revieweditererror').removeClass('hidden').html('This information is required');
+    if (feedbackIsReview && !allowUpdateReview) {
+        showAlertMessage("errmsg", errMsgNotPermissionUpdReviewedFB, 1);
         return false;
     }
 
-    if (feedbackIsReview && !allowUpdateReview) {
-        showAlertMessage("errmsg", errMsgNotPermissionUpdReviewedFB, 1);
+    var isReviewChecked = $('#chkisreview').prop('checked');
+    if (feedbackIsReview && isReviewChecked) {
+        return false;
+    }
+
+    if (isReviewChecked &&
+        (trimSpace(trimSpacesOnEditor($("#revediter").htmlarea("toHtmlString"))) === '')) {
+        $('#revieweditererror').removeClass('hidden').html('This information is required');
         return false;
     }
 
