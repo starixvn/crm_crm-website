@@ -375,7 +375,7 @@ function initHTMLArea(wrapperid, editerid, strvalue) {
     document.getElementById(wrapperid).innerHTML =
         '<textarea id="' + editerid +
             '" name="' + editerid +
-            '" style="width:auto; height:100px; min-width:710px;width:710px;">' +
+            '" style="width:auto; height:60px; min-width:710px;width:710px;">' +
             strvalue +
         '</textarea>';
     $("#" + editerid).htmlarea({

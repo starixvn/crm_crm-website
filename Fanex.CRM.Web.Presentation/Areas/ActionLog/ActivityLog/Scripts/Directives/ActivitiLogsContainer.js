@@ -90,7 +90,7 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
-            gridHeight: 300,
+            gridExpandHeight: 90,
             showDistinctRow: false,
             showHighlightRow: false,
             headerColumnHeight: 29,

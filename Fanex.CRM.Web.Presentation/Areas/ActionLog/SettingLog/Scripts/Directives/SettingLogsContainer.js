@@ -94,7 +94,7 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
-            gridHeight: 150,
+            gridExpandHeight: 90,
             showDistinctRow: false,
             showHighlightRow: false,
             headerColumnHeight: 29,
