@@ -13,6 +13,7 @@ insertLogApplication.directive('timePickerStartTimeContainer', function () {
         /* jshint camelcase: false */
         datePicker.datetimepicker(
         {
+            dateFormat: crmConstants.Enums.FormatConstant.MM_DD_YY_TimePicker,
             timeFormat: crmConstants.Enums.FormatConstant.HH_MM_TT_TimePicker,
             stepHour: 1,
             stepMinute: 1,
@@ -82,7 +83,6 @@ insertLogApplication.directive('timePickerStartTimeContainer', function () {
         var datePicker = element.find(".timepicker");
         var selectedTime = datePicker.val();
         var arrayTime = selectedTime.split(' ');
-        selectedTime = new Date(currentTime);
         switch (arrayTime.length) {
             case 1:
                 selectedTime = setTimeWithDate(arrayTime[0], datePicker);
@@ -99,7 +99,13 @@ insertLogApplication.directive('timePickerStartTimeContainer', function () {
 
                 break;
             default:
-                selectedTime = new Date(currentTime);
+                var date = new Date(selectedTime);
+                if (!isNaN(date.valueOf())) {
+                    selectedTime = date;
+                } else {
+                    selectedTime = oldValue;
+                }
+
                 break;
         }
 

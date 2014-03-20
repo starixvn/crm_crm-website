@@ -1218,6 +1218,12 @@ licenseeDailyDetailReport = {
 };
 
 head.ready(function () {
+    try {
+        parent.BlockUI();
+        parent.$.unblockUI();
+    } catch (e) {
+    }
+
     $('#txtfromdate').val(new Date(fromDate).format("M d, Y"));
     $('#txttodate').val(new Date(toDate).format("M d, Y"));
     //    try { topwnd = findMainWindow(window); topwnd.UnBlockUI(); } catch (e) { }

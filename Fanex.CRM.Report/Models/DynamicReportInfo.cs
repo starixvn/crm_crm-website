@@ -87,5 +87,9 @@ namespace Fanex.CRM.Report.Models
         public List<DynamicReportInfo> ChildReports { get; set; }
 
         public int TotalChildReports { get; set; }
+
+        public int StartChildIndex { get; set; }
+
+        public DynamicReportInfo ChartInfo { get; set; }
     }
 }

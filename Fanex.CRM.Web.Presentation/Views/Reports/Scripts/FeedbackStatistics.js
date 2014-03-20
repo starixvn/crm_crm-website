@@ -523,6 +523,12 @@ var feedbackStatistic = {
 };
 
 head.ready(function () {
+    try {
+        parent.BlockUI();
+        parent.$.unblockUI();
+    } catch (e) {
+    }
+
     var tdate = new Date(currentDate);
     var fdate = addDays(tdate, -7);
 

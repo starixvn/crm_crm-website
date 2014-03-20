@@ -1,5 +1,8 @@
 ﻿"use strict";
-/* global directiveManager */
+/* global directiveManager: true,
+crmConstants,
+sharedScriptManager,
+moment */
 /* jshint unused: vars */
 /* jshint camelcase: false */
 directiveManager = directiveManager || {};
@@ -83,7 +86,6 @@ directiveManager.registerDateTimePicker = function (angularApplication, register
             var datePicker = element.find("#" + registerParams.PickerId);
             var selectedTime = datePicker.val();
             var arrayTime = selectedTime.split(' ');
-            selectedTime = new Date(selfOptions.CurrentTime);
             switch (arrayTime.length) {
                 case 1:
                     selectedTime = setTimeWithDate(arrayTime[0], datePicker);
@@ -100,7 +102,13 @@ directiveManager.registerDateTimePicker = function (angularApplication, register
 
                     break;
                 default:
-                    selectedTime = new Date(selfOptions.CurrentTime);
+                    var date = new Date(selectedTime);
+                    if (!isNaN(date.valueOf())) {
+                        selectedTime = date;
+                    } else {
+                        selectedTime = oldValue;
+                    }
+
                     break;
             }
 

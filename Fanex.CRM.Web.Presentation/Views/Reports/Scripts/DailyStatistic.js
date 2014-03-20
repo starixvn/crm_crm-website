@@ -1231,6 +1231,12 @@ licenseeDailyDetailReport = {
 };
 
 head.ready(function () {
+    try {
+        parent.BlockUI();
+        parent.$.unblockUI();
+    } catch (e) {
+    }
+
     var arrDateValues = [(new Date(fromDate)), (new Date(toDate))];
     var arrIds = ['txtfromdate', 'txttodate'];
     /* jshint newcap: false */

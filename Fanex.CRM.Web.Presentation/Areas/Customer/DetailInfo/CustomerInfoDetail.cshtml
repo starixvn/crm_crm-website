@@ -96,7 +96,7 @@
                     <div class="row row-item">
                         <div class="col-xs-4 col-sm-3 col-md-3">
                             <label for="isVIP" class="labelforcheckbox checkbox">
-                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" />
+                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="32" />
                                 @Labels.VIP</label></div>
                     </div>
                 </div>
@@ -231,7 +231,8 @@
                                 <label for="line{{ $index + 1 }}">
                                     @Labels.Line {{ $index + 1 }}</label></div>
                             <div class="col-md-7">
-                                <input type="text" class="textbox text-large" id="line{{ $index + 1 }}" data-ng-model="customerDetail.AddressInfo.LineList[$index]" /></div>
+                                <input type="text" class="textbox text-large" id="line{{ $index + 1 }}" data-ng-model="customerDetail.AddressInfo.LineList[$index]"
+                                    tabindex="{{ 33 + $index }}" /></div>
                         </div>
                     </div>
                 </div>
@@ -241,14 +242,16 @@
                             <label for="city">
                                 @Labels.City</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="city" data-ng-model="customerDetail.AddressInfo.City" /></div>
+                            <input type="text" class="textbox" id="city" data-ng-model="customerDetail.AddressInfo.City"
+                                tabindex="36" /></div>
                     </div>
                     <div class="item col-md-4">
                         <div class="col-md-5">
                             <label for="state">
                                 @Labels.State</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="state" data-ng-model="customerDetail.AddressInfo.State" /></div>
+                            <input type="text" class="textbox" id="state" data-ng-model="customerDetail.AddressInfo.State"
+                                tabindex="37" /></div>
                     </div>
                 </div>
                 <div class="row">
@@ -257,7 +260,7 @@
                             <label for="customerinfodetail-countryoptions">
                                 @Labels.Country</label></div>
                         <div class="col-md-7" data-ng-model="countryList" dropdown-country-container>
-                            <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo">
+                            <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo" tabindex="38">
                             </select>
                         </div>
                     </div>
@@ -266,7 +269,8 @@
                             <label for="postcode">
                                 @Labels.Postcode</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="postcode" data-ng-model="customerDetail.AddressInfo.PostCode" /></div>
+                            <input type="text" class="textbox" id="postcode" data-ng-model="customerDetail.AddressInfo.PostCode"
+                                tabindex="39" /></div>
                     </div>
                 </div>
             </div>
@@ -282,14 +286,16 @@
                             <label for="b-firstName">
                                 @Labels.Account_Holder_Name</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="b-firstName" data-ng-model="customerDetail.BankInfo.HolderName" /></div>
+                            <input type="text" class="textbox" id="b-firstName" data-ng-model="customerDetail.BankInfo.HolderName"
+                                tabindex="40" /></div>
                     </div>
                     <div class="item col-md-4">
                         <div class="col-md-5">
                             <label for="bankName">
                                 @Labels.Bank_s_Name</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="bankName" data-ng-model="customerDetail.BankInfo.Name" /></div>
+                            <input type="text" class="textbox" id="bankName" data-ng-model="customerDetail.BankInfo.Name"
+                                tabindex="41" /></div>
                     </div>
                 </div>
                 <div class="row">
@@ -298,7 +304,8 @@
                             <label for="accountNo">
                                 @Labels.Account_No</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="accountNo" data-ng-model="customerDetail.BankInfo.AccountNumber" />
+                            <input type="text" class="textbox" id="accountNo" data-ng-model="customerDetail.BankInfo.AccountNumber"
+                                tabindex="42" />
                         </div>
                     </div>
                     <div class="item col-md-4">
@@ -306,7 +313,8 @@
                             <label for="IBANcode">
                                 @Labels.IBAN_SWIFT_code</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="IBANcode" data-ng-model="customerDetail.BankInfo.SwiftCode" /></div>
+                            <input type="text" class="textbox" id="IBANcode" data-ng-model="customerDetail.BankInfo.SwiftCode"
+                                tabindex="43" /></div>
                     </div>
                 </div>
                 <div data-ng-repeat="addressLine in customerDetail.BankInfo.AddressInfo.LineList track by $index">
@@ -316,7 +324,8 @@
                                 <label for="bankline{{ $index + 1 }}">
                                     @Labels.Line {{ $index + 1 }}</label></div>
                             <div class="col-md-7">
-                                <input type="text" class="textbox text-large" id="bankline{{ $index + 1 }}" data-ng-model="customerDetail.BankInfo.AddressInfo.LineList[$index]" /></div>
+                                <input type="text" maxlength="100" class="textbox text-large" id="bankline{{ $index + 1 }}"
+                                    data-ng-model="customerDetail.BankInfo.AddressInfo.LineList[$index]" tabindex="{{ 44 + $index }}" /></div>
                         </div>
                     </div>
                 </div>
@@ -326,14 +335,16 @@
                             <label for="b-city">
                                 @Labels.City</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="b-city" data-ng-model="customerDetail.BankInfo.AddressInfo.City" /></div>
+                            <input type="text" class="textbox" id="b-city" data-ng-model="customerDetail.BankInfo.AddressInfo.City"
+                                tabindex="47" /></div>
                     </div>
                     <div class="item col-md-4">
                         <div class="col-md-5">
                             <label for="b-state">
                                 @Labels.State</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="b-state" data-ng-model="customerDetail.BankInfo.AddressInfo.State" /></div>
+                            <input type="text" class="textbox" id="b-state" data-ng-model="customerDetail.BankInfo.AddressInfo.State"
+                                tabindex="48" /></div>
                     </div>
                 </div>
                 <div class="row">
@@ -342,7 +353,8 @@
                             <label for="customerinfodetail-countryoptions-bank">
                                 @Labels.Country</label></div>
                         <div class="col-md-7" data-ng-model="countryList" dropdown-country-bank-container>
-                            <select id="customerinfodetail-countryoptions-bank" class="dropdown-countryinfo">
+                            <select id="customerinfodetail-countryoptions-bank" class="dropdown-countryinfo"
+                                tabindex="49">
                             </select>
                         </div>
                     </div>
@@ -351,7 +363,8 @@
                             <label for="b-postcode">
                                 @Labels.Postcode</label></div>
                         <div class="col-md-7">
-                            <input type="text" class="textbox" id="b-postcode" data-ng-model="customerDetail.BankInfo.AddressInfo.PostCode" /></div>
+                            <input type="text" class="textbox" id="b-postcode" data-ng-model="customerDetail.BankInfo.AddressInfo.PostCode"
+                                tabindex="50" /></div>
                     </div>
                 </div>
             </div>

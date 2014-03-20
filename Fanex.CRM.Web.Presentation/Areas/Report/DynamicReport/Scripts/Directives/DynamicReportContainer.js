@@ -37,11 +37,15 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 };
 
                 var childsLength = periodReport.ChildReports.length;
+                var startSplittingIndex = (i !== 0 || childsLength === periodReport.TotalChildReports) ?
+                    0 :
+                    periodReport.StartChildIndex;
+
                 for (var j = 0; j < childsLength; j++) {
                     var info = periodReport.ChildReports[j];
                     var currentSubRow =
                     {
-                        Columns: [{ Name: "ColNo", Value: j + 1 },
+                        Columns: [{ Name: "ColNo", Value: startSplittingIndex + j + 1 },
                             {
                                 Name: "ColRunningNumber",
                                 Value: '<span class="link viewcommunicationlog-link" data-subreportindex="' +
@@ -116,7 +120,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29,
-            bodyRowHeight: 51,
+            bodyRowHeight: 29,
             showPager: true,
             showTree: true,
             treeParentPaddingLeft: 5,
@@ -125,7 +129,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 itemsPerPage: selfScope.lastSelectedParams.PageSize,
                 currentPage: selfScope.lastSelectedParams.PageIndex,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: dynamicReport ? childReportLength : 0,
+                totalItem: dynamicReport ? dynamicReport.TotalChildReports : 0,
                 pagerSelectCallBack: ReRenderAfterPaged
             }
         };
@@ -174,14 +178,15 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
     }
 
     function viewChart(scope, element, attrs) {
-        parent.crmChart.title = cachedDynamicReport.Name;
+        var chartInfo = cachedDynamicReport ? cachedDynamicReport.ChartInfo : null;
+        parent.crmChart.title = chartInfo.Name;
         var xAxisCategories = [];
         var chartSeries = [];
         var chartSerie = null;
-        var childReportLength = cachedDynamicReport ? cachedDynamicReport.ChildReports.length : 0;
-        xAxisCategories.push(cachedDynamicReport.ShortName);
+        var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
+        xAxisCategories.push(chartInfo.ShortName);
         for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
-            var periodReport = cachedDynamicReport.ChildReports[xIndex];
+            var periodReport = chartInfo.ChildReports[xIndex];
             chartSerie = {
                 name: periodReport.ShortName,
                 data: [periodReport.TotalChildReports],
