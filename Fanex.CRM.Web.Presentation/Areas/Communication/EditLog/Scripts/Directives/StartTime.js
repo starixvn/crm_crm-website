@@ -83,7 +83,6 @@ editLogApplication.directive('timePickerStartTimeContainer', function () {
         var datePicker = element.find(".timepicker");
         var selectedTime = datePicker.val();
         var arrayTime = selectedTime.split(' ');
-        selectedTime = new Date(currentTime);
         switch (arrayTime.length) {
             case 1:
                 selectedTime = setTimeWithDate(arrayTime[0], datePicker);
@@ -100,7 +99,13 @@ editLogApplication.directive('timePickerStartTimeContainer', function () {
 
                 break;
             default:
-                selectedTime = new Date(currentTime);
+                var date = new Date(selectedTime);
+                if (!isNaN(date.valueOf())) {
+                    selectedTime = date;
+                } else {
+                    selectedTime = oldValue;
+                }
+
                 break;
         }
 
