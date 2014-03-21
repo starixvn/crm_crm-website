@@ -1,7 +1,9 @@
 ﻿"use strict";
 /* global insertLogApplication, 
 viewResources,
-hotKeyManager */
+hotKeyManager,
+sharedScriptManager,
+currentUsername */
 insertLogApplication.directive('remarkEditorContainer', function () {
     var editorId = "remarkeditorbox";
     function renderRemarkEditor(scope, element, attrs) {
@@ -40,15 +42,16 @@ insertLogApplication.directive('remarkEditorContainer', function () {
                 ["indent", "outdent"],
                 ["justifyleft", "justifycenter", "justifyright"],
                 ["link", "unlink"], ["image", "horizontalrule"],
-                ["p", "h1", "h2", "h3", "h4", "yh5", "h6"],
+                ["p", "h1", "h2", "h3", "h4", "h5", "h6"],
                 ["cut", "copy", "paste"],
                 [{
                     css: "edit",
                     text: viewResources.Insert_Edit_Block,
                     action: function (btn) {
                         /* jshint unused: vars */
-                        var s = this.getSelectedHTML();
-                        this.pasteHTML(s);
+                        var editText = this.getSelectedHTML();
+                        editText = sharedScriptManager.insertEditDescriptionBlock(currentUsername, editText, parent.homeManager.currentTime);
+                        this.pasteHTML(editText);
                     }
                 }]
            ]

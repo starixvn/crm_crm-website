@@ -1,5 +1,5 @@
 ﻿"use strict";
-/* global directiveManager */
+/* global directiveManager: true */
 /* jshint unused: vars */
 /* jshint camelcase: false */
 directiveManager = directiveManager || {};
@@ -46,7 +46,7 @@ directiveManager.registerHtmlArea = function (angularApplication, registerParams
                     ["indent", "outdent"],
                     ["justifyleft", "justifycenter", "justifyright"],
                     ["link", "unlink"], ["image", "horizontalrule"],
-                    ["p", "h1", "h2", "h3", "h4", "yh5", "h6"],
+                    ["p", "h1", "h2", "h3", "h4", "h5", "h6"],
                     ["cut", "copy", "paste"],
                     [{
                         css: "edit",

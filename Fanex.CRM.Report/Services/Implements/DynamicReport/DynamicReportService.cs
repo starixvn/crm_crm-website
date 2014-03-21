@@ -313,22 +313,25 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             {
                 var allMainCategory = new List<SettingInfo>();
                 var rawData = _serviceSetting.GetAllMainCategory();
+                var allSubSettingOption = new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Name = Labels.All,
+                };
+
                 allMainCategory.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.All,
                     ChildSettings = new List<SettingInfo>
                     {
-                        new SettingInfo
-                        {
-                            Id = SettingConstants.NotApply,
-                            Name = Labels.All,
-                        }
+                       allSubSettingOption
                     }
                 });
 
                 foreach (var rawMainCategory in rawData)
                 {
+                    rawMainCategory.ChildSettings.Insert(0, allSubSettingOption);
                     allMainCategory.Add(rawMainCategory);
                 }
 

@@ -2,11 +2,14 @@
 /* global editLogApplication,
 communicationLog,
 viewResources,
-hotKeyManager */
+hotKeyManager,
+sharedScriptManager,
+currentUsername */
+/* jshint camelcase: false */
+/* jshint unused: vars */
 editLogApplication.directive('solutionEditorContainer', function () {
     var editorId = "solutioneditorbox";
     function renderEditor(scope, element, attrs) {
-        /* jshint unused: vars */
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
             communicationLog.Solution +
@@ -14,7 +17,6 @@ editLogApplication.directive('solutionEditorContainer', function () {
 
         element.html(editorHTML);
         var editor = element.find("#" + editorId);
-        /* jshint camelcase: false */
         editor.htmlarea({
             changeEvent: function () {
                 scope.updateSolution(editor.htmlarea("toHtmlString"));
@@ -35,15 +37,15 @@ editLogApplication.directive('solutionEditorContainer', function () {
                 ["indent", "outdent"],
                 ["justifyleft", "justifycenter", "justifyright"],
                 ["link", "unlink"], ["image", "horizontalrule"],
-                ["p", "h1", "h2", "h3", "h4", "yh5", "h6"],
+                ["p", "h1", "h2", "h3", "h4", "h5", "h6"],
                 ["cut", "copy", "paste"],
                 [{
                     css: "edit",
                     text: viewResources.Insert_Edit_Block,
                     action: function (btn) {
-                        /* jshint unused: vars */
-                        var s = this.getSelectedHTML();
-                        this.pasteHTML(s);
+                        var editText = this.getSelectedHTML();
+                        editText = sharedScriptManager.insertEditDescriptionBlock(currentUsername, editText, parent.homeManager.currentTime);
+                        this.pasteHTML(editText);
                     }
                 }]
            ]
@@ -55,7 +57,6 @@ editLogApplication.directive('solutionEditorContainer', function () {
         scope: true,
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (newval, oldval) {
-                /* jshint unused: vars */
                 renderEditor(scope, element, attrs);
             });
         }

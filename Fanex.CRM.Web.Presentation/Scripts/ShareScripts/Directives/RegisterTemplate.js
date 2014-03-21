@@ -1,9 +1,9 @@
 ﻿"use strict";
 /* global directiveManager */
 /* exported RegisterTemplate */
-function RegisterTemplate(aplication) {
+function RegisterTemplate(application) {
     var self = this;
-    self.aplication = aplication;
+    self.application = application;
     self.registerReportTypePicker = function () {
         var reportTypeRegisterParams = {
             PlugInName: 'reportTypeContainer',
@@ -17,7 +17,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, reportTypeRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, reportTypeRegisterParams);
     };
 
     self.registerDatePicker = function () {
@@ -33,8 +33,8 @@ function RegisterTemplate(aplication) {
             PickerId: 'toDate',
             RestrictType: 'C'
         };
-        directiveManager.registerDatePickerContainer(self.aplication, fromDateRegisterParams);
-        directiveManager.registerDatePickerContainer(self.aplication, toDateRegisterParams);
+        directiveManager.registerDatePickerContainer(self.application, fromDateRegisterParams);
+        directiveManager.registerDatePickerContainer(self.application, toDateRegisterParams);
     };
     self.registerWeekPicker = function () {
         var fromWeekRegisterParams = {
@@ -50,8 +50,8 @@ function RegisterTemplate(aplication) {
             RestrictType: 'C'
         };
 
-        directiveManager.registerWeekPickerContainer(self.aplication, fromWeekRegisterParams);
-        directiveManager.registerWeekPickerContainer(self.aplication, toWeekRegisterParams);
+        directiveManager.registerWeekPickerContainer(self.application, fromWeekRegisterParams);
+        directiveManager.registerWeekPickerContainer(self.application, toWeekRegisterParams);
     };
     self.registerMonthPicker = function () {
         var fromMonthRegisterParams = {
@@ -74,8 +74,8 @@ function RegisterTemplate(aplication) {
             RestrictType: 'C'
         };
 
-        directiveManager.registerMonthPickerContainer(self.aplication, fromMonthRegisterParams);
-        directiveManager.registerMonthPickerContainer(self.aplication, toMonthRegisterParams);
+        directiveManager.registerMonthPickerContainer(self.application, fromMonthRegisterParams);
+        directiveManager.registerMonthPickerContainer(self.application, toMonthRegisterParams);
     };
     self.registerYearPicker = function () {
         var fromYearRegisterParams = {
@@ -92,8 +92,8 @@ function RegisterTemplate(aplication) {
             RestrictType: 'C'
         };
 
-        directiveManager.registerYearPickerContainer(self.aplication, fromYearRegisterParams);
-        directiveManager.registerYearPickerContainer(self.aplication, toYearRegisterParams);
+        directiveManager.registerYearPickerContainer(self.application, fromYearRegisterParams);
+        directiveManager.registerYearPickerContainer(self.application, toYearRegisterParams);
     };
     self.registerProductPicker = function () {
         var productRegisterParams = {
@@ -108,7 +108,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, productRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, productRegisterParams);
     };
     self.registerSitePicker = function () {
         var siteRegisterParams = {
@@ -118,7 +118,7 @@ function RegisterTemplate(aplication) {
             RestrictType: 'C'
         };
 
-        directiveManager.registerDropdownSiteContainer(self.aplication, siteRegisterParams);
+        directiveManager.registerDropdownSiteContainer(self.application, siteRegisterParams);
     };
     self.registerStatusPicker = function () {
         var statusRegisterParams = {
@@ -133,7 +133,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, statusRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, statusRegisterParams);
     };
     self.registerResponsePicker = function () {
         var responseRegisterParams = {
@@ -148,7 +148,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, responseRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, responseRegisterParams);
     };
     self.registerRolePicker = function () {
         var roleRegisterParams = {
@@ -163,7 +163,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, roleRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, roleRegisterParams);
     };
     self.registerCommunicationToolPicker = function () {
         var communicationToolRegisterParams = {
@@ -178,7 +178,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, communicationToolRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, communicationToolRegisterParams);
     };
     self.registerMainCategoryPicker = function () {
         var mainCategoryRegisterParams = {
@@ -193,7 +193,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, mainCategoryRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, mainCategoryRegisterParams);
     };
     self.registerSubCategoryPicker = function () {
         var subCategoryRegisterParams = {
@@ -208,7 +208,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, subCategoryRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, subCategoryRegisterParams);
     };
     self.registerExtensionPicker = function () {
         var extensionRegisterParams = {
@@ -223,7 +223,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, extensionRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, extensionRegisterParams);
     };
     self.registerDefaultFocus = function () {
         var defaultFocusRegisterParams = {
@@ -238,7 +238,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDefaultFocus(self.aplication, defaultFocusRegisterParams);
+        directiveManager.registerDefaultFocus(self.application, defaultFocusRegisterParams);
     };
     self.registerDownloadFile = function () {
         var downloadFileRegisterParams = {
@@ -247,7 +247,7 @@ function RegisterTemplate(aplication) {
             RestrictType: 'C'
         };
 
-        directiveManager.registerDownloadFile(self.aplication, downloadFileRegisterParams);
+        directiveManager.registerDownloadFile(self.application, downloadFileRegisterParams);
     };
 
     self.registerTitlePicker = function () {
@@ -263,7 +263,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, titleRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, titleRegisterParams);
     };
     self.registerCustomerTypePicker = function () {
         var customerTypeRegisterParams = {
@@ -278,7 +278,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, customerTypeRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, customerTypeRegisterParams);
     };
     self.registerVIPTypePicker = function () {
         var vipTypeRegisterParams = {
@@ -293,7 +293,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.aplication, vipTypeRegisterParams);
+        directiveManager.registerDropdownContainer(self.application, vipTypeRegisterParams);
     };
 
     self.registerLanguageMultiSelectPicker = function () {
@@ -309,7 +309,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerMultiSelectContainer(self.aplication, languageRegisterParams);
+        directiveManager.registerMultiSelectContainer(self.application, languageRegisterParams);
     };
     self.registerSiteMultiSelectPicker = function () {
         var siteRegisterParams = {
@@ -324,7 +324,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerMultiSelectContainer(self.aplication, siteRegisterParams);
+        directiveManager.registerMultiSelectContainer(self.application, siteRegisterParams);
     };
     self.registerCountryMultiSelectPicker = function () {
         var countryRegisterParams = {
@@ -339,7 +339,7 @@ function RegisterTemplate(aplication) {
             }
         };
 
-        directiveManager.registerMultiSelectContainer(self.aplication, countryRegisterParams);
+        directiveManager.registerMultiSelectContainer(self.application, countryRegisterParams);
     };
 
     self.registerToggleElement = function () {
@@ -350,7 +350,7 @@ function RegisterTemplate(aplication) {
             RestrictType: 'C'
         };
 
-        directiveManager.registerToggleElement(self.aplication, countryRegisterParams);
+        directiveManager.registerToggleElement(self.application, countryRegisterParams);
     };
 
     self.registerSubjectAutoComplete = function () {
@@ -361,7 +361,7 @@ function RegisterTemplate(aplication) {
             RestrictType: 'C'
         };
 
-        directiveManager.registerSubjectAutoComplete(self.aplication, subjectAutoCompleteRegisterParams);
+        directiveManager.registerSubjectAutoComplete(self.application, subjectAutoCompleteRegisterParams);
     };
 }
 
