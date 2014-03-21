@@ -3,6 +3,7 @@
 @using Fanex.CRM.Redemption.Models;
 @using Fanex.CRM.Infrastructure.Extension;
 @using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Common;
 @{
     var jsonLogInfo = JsonConvert.SerializeObject(Model);
 }
@@ -84,6 +85,7 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().Date';
+        var currentUsername = "@AppSession.CurrentUser.Username";
         var viewResources = {
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
             Redemption_Log_EmptySubject: '@Labels.Redemption_Log_EmptySubject',

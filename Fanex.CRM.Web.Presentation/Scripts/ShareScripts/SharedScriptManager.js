@@ -1,5 +1,6 @@
 ﻿"use strict";
-
+/* jshint unused: vars */
+var sharedScriptManager;
 var SharedScriptManager = function () {
     var self = this;
     self.cachedData = {
@@ -45,7 +46,7 @@ var SharedScriptManager = function () {
 
     self.urlDecode = function (s) {
         var o = s;
-        var binVal, t;
+        var t;
         var r = /(%[^%]{2})/;
         var m;
         while ((m = r.exec(o)) != null &&
@@ -74,7 +75,7 @@ var SharedScriptManager = function () {
         for (var i = 0; i < len; i++) {
             var paramInfo = paramArr[i];
             var formatIndex = '{' + i + '}';
-            while (strValue.indexOf(formatIndex) != -1) {
+            while (strValue.indexOf(formatIndex) !== -1) {
                 strValue = strValue.replace(formatIndex, paramInfo);
             }
         }
@@ -103,6 +104,24 @@ var SharedScriptManager = function () {
             $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
         } ]);
     };
+
+    self.insertEditDescriptionBlock = function (username, editText, currentDate) {
+        currentDate = new Date();
+        if (editText === "") {
+            editText = "&nbsp;";
+        }
+
+        var textTemplate =
+            '<div>\
+                <div style="background-color: #FFFFD0; padding-left: 10px; border-left: 1px solid #CCCCCC;">\
+                    <div style="font-size: 9px;">by <span style="color: #105289; font-weight: bold; font-size: 11px;">{0}</span> on {1}</div>\
+                    <div style="border-top: 1px solid #CCCCCC; padding: 5px 0pt 0pt;">{2}</div>\
+                 </div>\
+              </div>';
+
+        return sharedScriptManager.stringFormat(textTemplate,
+            [username, currentDate.toLocaleString(), editText]);
+    };
 };
 
-var sharedScriptManager = new SharedScriptManager();
+sharedScriptManager = new SharedScriptManager();
