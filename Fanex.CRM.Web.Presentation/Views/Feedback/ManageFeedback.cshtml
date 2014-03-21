@@ -9,7 +9,7 @@
         <option value="${Id}">${Value}</option>
 </script>
 <div class="main container">
-    <div class="row filter-frm one-row redemption-filter">
+    <div class="row filter-frm one-row manage-feedback-filter">
         <div class="row row-item">
             <div class="item">
                 <label for="txtusername" class="width-80">
@@ -28,7 +28,7 @@
                 <input type="text" id="txtfromdate" readonly="readonly" class="textbox txtcalendar" />
             </div>
             <div class="item">
-                <label for="txttodate">
+                <label for="txttodate" class="lblToDate">
                     To date</label>
                 <input type="text" id="txttodate" readonly="readonly" class="textbox txtcalendar" />
             </div>
@@ -62,7 +62,7 @@
                 </select>
             </div>
             <div class="item">
-                <label for="ddlstatus">
+                <label for="ddlstatus" class="txtStatus">
                     Status</label>
                 <select id="ddlstatus" class="selStatus">
                     <option value="0">All</option>
@@ -78,7 +78,7 @@
                 </select>
             </div>
             <div class="item">
-                <label for="ddlCustomerReponse">
+                <label for="ddlCustomerReponse" class="lblReponse">
                     Customer Response</label>
                 <select id="ddlCustomerReponse" class="selResponse">
                     <option value="0">All</option>
@@ -184,23 +184,23 @@
     </div>
 </div>
 <script language="javascript" type="text/javascript">
-        window.rootUrl = '@Url.Content("~")';
-        var accname = "@AppSession.CurrentUser.Username";
-        var accId = @AppSession.CurrentUser.Id;
-        var clientTime = "@Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeTimeZoneToClient(DateTime.Now)";
+    window.rootUrl = '@Url.Content("~")';
+    var accname = "@AppSession.CurrentUser.Username";
+    var accId = @AppSession.CurrentUser.Id;
+    var clientTime = "@Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeTimeZoneToClient(DateTime.Now)";
 
-        head.js("@Url.Content("~/Scripts/jquery.js")", function () {
-                head.js("@Url.Content("~/Scripts/json2.js")")
-                    .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.js")",
-                        "@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js")",
-                        "@Url.Content("~/Scripts/jquery.tmpl.js")",
-                        "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")",
-                        "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")",
-                        "@Url.Content("~/Scripts/stdlib.js")")                    
-                    .js("@Url.Content("~/Scripts/common.js?ver=1")")
-                    .js("@Url.Content("~/Scripts/Paging/jpager.js")")
-                    .js("@Url.Content("~/Scripts/FanexGrid/FanexGrid.js")")
-                    .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=1")",
-                        "@Url.Content("~/Views/Feedback/Scripts/ManageFeedback.js?ver=5")");
-            });   
+    head.js("@Url.Content("~/Scripts/jquery.js")", function () {
+            head.js("@Url.Content("~/Scripts/json2.js")")
+                .js("@Url.Content("~/Scripts/jquery-ui-1.8.14.custom.js")",
+                    "@Url.Content("~/Scripts/jquery-ui-timepicker-addon.js")",
+                    "@Url.Content("~/Scripts/jquery.tmpl.js")",
+                    "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")",
+                    "@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")",
+                    "@Url.Content("~/Scripts/stdlib.js")")                    
+                .js("@Url.Content("~/Scripts/common.js?ver=1")")
+                .js("@Url.Content("~/Scripts/Paging/jpager.js")")
+                .js("@Url.Content("~/Scripts/FanexGrid/FanexGrid.js")")
+                .js("@Url.Content("~/Views/Feedback/Scripts/FeedbackCommon.js?ver=1")",
+                    "@Url.Content("~/Views/Feedback/Scripts/ManageFeedback.js?ver=5")");
+        });   
 </script>

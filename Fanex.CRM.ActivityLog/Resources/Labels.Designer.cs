@@ -88,20 +88,20 @@ namespace Fanex.CRM.ActionLog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CSD Username.
-        /// </summary>
-        public static string CSDUsername {
-            get {
-                return ResourceManager.GetString("CSDUsername", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Customer Activity Logs.
         /// </summary>
         public static string Customer_Activity_Logs {
             get {
                 return ResourceManager.GetString("Customer_Activity_Logs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edited By.
+        /// </summary>
+        public static string EditedBy {
+            get {
+                return ResourceManager.GetString("EditedBy", resourceCulture);
             }
         }
         
@@ -142,11 +142,11 @@ namespace Fanex.CRM.ActionLog.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log Date.
+        ///   Looks up a localized string similar to Log Time.
         /// </summary>
-        public static string LogDate {
+        public static string LogTime {
             get {
-                return ResourceManager.GetString("LogDate", resourceCulture);
+                return ResourceManager.GetString("LogTime", resourceCulture);
             }
         }
         
@@ -183,6 +183,15 @@ namespace Fanex.CRM.ActionLog.Resources {
         public static string ToDate {
             get {
                 return ResourceManager.GetString("ToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string Username {
+            get {
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
     }

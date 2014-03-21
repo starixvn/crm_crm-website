@@ -64,8 +64,8 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
                         bodyData.push({
                             Columns: row.concat([
                                 { Name: 'ColFieldName', Value: fieldNames[j] },
-                                { Name: 'ColOldValues', Value: (oldValues && oldValues.length) > 0 ? oldValues[j] : '' },
-                                { Name: 'ColNewValues', Value: newValues[j]}]),
+                                { Name: 'ColOldValues', Value: (oldValues && oldValues.length) > 0 ? oldValues[j] : '', CssClass: 'word-wrap' },
+                                { Name: 'ColNewValues', Value: newValues[j], CssClass: 'word-wrap' }]),
                             CssClass: evenClass
                         });
                     }
@@ -75,12 +75,12 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
 
         /* jshint camelcase: false */
         gridOptions = {
-            columns: [{ HeaderText: activityLogResources.LogDate, Width: 80, Name: 'ColLogDate', HeaderAlign: 'center', CellAlign: 'center' },
-                { HeaderText: activityLogResources.CSDUsername, Width: 100, Name: 'ColUsername', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.Action, Width: 270, Name: 'ColAction', HeaderAlign: 'center', CellAlign: 'left' },
+            columns: [{ HeaderText: activityLogResources.LogTime, Width: 80, Name: 'ColLogDate', HeaderAlign: 'center', CellAlign: 'center' },
+                { HeaderText: activityLogResources.EditedBy, Width: 100, Name: 'ColUsername', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: activityLogResources.Action, Width: 240, Name: 'ColAction', HeaderAlign: 'center', CellAlign: 'left' },
                 { HeaderText: activityLogResources.FieldName, Width: 120, Name: 'ColFieldName', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.OldValue, Width: 175, Name: 'ColOldValues', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.NewValue, Width: 175, Name: 'ColNewValues', HeaderAlign: 'center', CellAlign: 'left'}],
+                { HeaderText: activityLogResources.OldValue, Width: 190, Name: 'ColOldValues', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: activityLogResources.NewValue, Width: 190, Name: 'ColNewValues', HeaderAlign: 'center', CellAlign: 'left'}],
             showTitle: true,
             titleInfo: {
                 text: activityLogResources.Customer_Activity_Logs
@@ -90,12 +90,11 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
-            gridHeight: 150,
+            gridExpandHeight: 90,
             showDistinctRow: false,
             showHighlightRow: false,
             headerColumnHeight: 29,
             bodyRowHeight: 29,
-            allowTruncate: true,
             showPager: true,
             customPager: true,
             pagerOption: {

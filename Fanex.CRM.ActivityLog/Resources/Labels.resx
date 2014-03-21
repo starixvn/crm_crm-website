@@ -126,11 +126,11 @@
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
-  <data name="CSDUsername" xml:space="preserve">
-    <value>CSD Username</value>
-  </data>
   <data name="Customer_Activity_Logs" xml:space="preserve">
     <value>Customer Activity Logs</value>
+  </data>
+  <data name="EditedBy" xml:space="preserve">
+    <value>Edited By</value>
   </data>
   <data name="Entity" xml:space="preserve">
     <value>Entity</value>
@@ -144,8 +144,8 @@
   <data name="FromDate" xml:space="preserve">
     <value>From date</value>
   </data>
-  <data name="LogDate" xml:space="preserve">
-    <value>Log Date</value>
+  <data name="LogTime" xml:space="preserve">
+    <value>Log Time</value>
   </data>
   <data name="NewValue" xml:space="preserve">
     <value>New Value</value>
@@ -158,5 +158,8 @@
   </data>
   <data name="ToDate" xml:space="preserve">
     <value>To date</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>
