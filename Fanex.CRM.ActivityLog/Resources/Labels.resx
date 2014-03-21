@@ -147,6 +147,9 @@
   <data name="LogTime" xml:space="preserve">
     <value>Log Time</value>
   </data>
+  <data name="NA" xml:space="preserve">
+    <value>N/A</value>
+  </data>
   <data name="NewValue" xml:space="preserve">
     <value>New Value</value>
   </data>
