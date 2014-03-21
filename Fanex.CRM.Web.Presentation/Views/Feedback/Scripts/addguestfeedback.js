@@ -12,7 +12,8 @@ isShowCustinfoBox,
 isShowDescriptionBox,
 isShowFeedbackDetailBox,
 isShowSolutionBox,
-orgLengt */
+orgLengt,
+accname */
 /* jshint camelcase: false */
 var feedbackData;
 var settingData;
@@ -39,7 +40,7 @@ var invokeHotKey_CtrlS = function () {
 head.ready(function () {
     try { parent.BlockUI(); } catch (e) { }
 
-    feedbackData = new FeedbackData(accId, 0, clientTime);
+    feedbackData = new FeedbackData(accId, accname, 0, clientTime);
     feedbackData.initialize();
 
     settingData = new Setting(allowDeleteFeedback);

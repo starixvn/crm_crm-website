@@ -99,7 +99,7 @@ bindingChildByParentId = function (id, data, currValue, selectedId) {
 };
 
 function formatEditBlock(user, str) {
-    var currdate = new Date();
+    var currdate = parent.homeManager.currentTime;
     var strreturn;
     if (str === "") {
         str = "&nbsp;";
@@ -386,7 +386,7 @@ function initHTMLArea(wrapperid, editerid, strvalue) {
                 ["indent", "outdent"],
                 ["justifyleft", "justifycenter", "justifyright"],
                 ["link", "unlink"], ["image", "horizontalrule"],
-                ["p", "h1", "h2", "h3", "h4", "yh5", "h6"],
+                ["p", "h1", "h2", "h3", "h4", "h5", "h6"],
                 ["cut", "copy", "paste"],
                  [{
                      css: "edit",
