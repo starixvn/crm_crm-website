@@ -729,6 +729,7 @@
     <Content Include="Views\Home\Styles\Images\br-arrow-ico.png" />
     <Content Include="Views\Home\Styles\Images\clock.png" />
     <Content Include="Views\Home\Styles\Images\home-ico.png" />
+    <Content Include="Views\Home\Styles\Images\icon-logout.png" />
     <Content Include="Views\Home\_Menu.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Scripts\MenuManager.js" />

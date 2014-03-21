@@ -47,6 +47,7 @@
                         @Html.Action("GettingUserMenu", new RouteValueDictionary(new { controller = "Home", area = "" }))
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
+                        <a href="#" class="pull-right logout">Sign out</a>
                         <div class="login-info pull-right">
                             @Labels.Welcome <span class="txt-username">@ViewBag.AccUsername</span></div>
                     </div>
@@ -70,7 +71,8 @@
                 </div>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb">
-                <div class="col-xs-9 col-sm-9 col-md-9" id="divSubMenu"></div>
+                <div class="col-xs-9 col-sm-9 col-md-9" id="divSubMenu">
+                </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div class="pull-right timezone">
                         <span id="span-timezoneContainer">@getClientTime</span>
