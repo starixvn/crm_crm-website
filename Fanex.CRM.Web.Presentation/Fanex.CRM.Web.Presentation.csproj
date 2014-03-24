@@ -452,6 +452,7 @@
     <Content Include="Areas\Report\CustomerReport\Index.cshtml" />
     <None Include="Areas\Report\CustomerReport\Styles\CustomerReport.less" />
     <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
+    <Content Include="Areas\User\Web.config" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\customizeMultiSelect.less" />
     <None Include="Content\site\resultMessage.less" />
@@ -467,8 +468,7 @@
     <Content Include="Views\Feedback\Scripts\setting.js" />
     <Content Include="Views\Feedback\Styles\Images\bg-topSelected.png" />
     <Content Include="Views\Feedback\Styles\Images\del-icon.png" />
-    <Content Include="Views\Home\LogIn\Scripts\classList.js" />
-    <Content Include="Views\Home\LogIn\Scripts\LogInManager.js" />
+    <Content Include="Areas\User\LogIn\Scripts\LogInManager.js" />
     <Content Include="Views\Home\Scripts\DashboardManager.js" />
     <Content Include="Views\Home\Scripts\HomeManager.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
@@ -734,17 +734,17 @@
     <Content Include="Views\Home\Styles\Images\clock.png" />
     <Content Include="Views\Home\Styles\Images\home-ico.png" />
     <Content Include="Views\Home\Styles\Images\icon-logout.png" />
-    <Content Include="Views\Home\LogIn\Styles\Images\firefox_original.png" />
-    <Content Include="Views\Home\LogIn\Styles\Images\ie.png" />
-    <Content Include="Views\Home\LogIn\Styles\Images\lock.png" />
-    <Content Include="Views\Home\LogIn\Styles\Images\logo.png" />
-    <Content Include="Views\Home\LogIn\Styles\Images\password.png" />
-    <Content Include="Views\Home\LogIn\Styles\Images\pattern6.png" />
-    <Content Include="Views\Home\LogIn\Styles\Images\username.png" />
+    <Content Include="Areas\User\LogIn\Styles\Images\firefox_original.png" />
+    <Content Include="Areas\User\LogIn\Styles\Images\ie.png" />
+    <Content Include="Areas\User\LogIn\Styles\Images\lock.png" />
+    <Content Include="Areas\User\LogIn\Styles\Images\logo.png" />
+    <Content Include="Areas\User\LogIn\Styles\Images\password.png" />
+    <Content Include="Areas\User\LogIn\Styles\Images\pattern6.png" />
+    <Content Include="Areas\User\LogIn\Styles\Images\username.png" />
     <Content Include="Views\Home\Styles\Images\small-arrow-down.png" />
     <Content Include="Views\Home\Styles\Images\user.png" />
     <Content Include="Views\Home\_Menu.cshtml" />
-    <Content Include="Views\Home\LogIn\Index.cshtml" />
+    <Content Include="Areas\User\LogIn\Index.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Scripts\MenuManager.js" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
@@ -801,7 +801,7 @@
     <Content Include="Views\Home\_DashboardMenu.cshtml" />
     <Content Include="Views\Home\_SearchCustomerRemind.cshtml" />
     <Content Include="Views\Reports\AllFeedbackStattisticsDetail.cshtml" />
-    <None Include="Views\Home\LogIn\Styles\login.less" />
+    <None Include="Areas\User\LogIn\Styles\login.less" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

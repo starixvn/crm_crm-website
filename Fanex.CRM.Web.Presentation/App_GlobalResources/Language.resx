@@ -423,4 +423,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Sign_out" xml:space="preserve">
     <value>Sign out</value>
   </data>
+  <data name="Sign_In" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
 </root>
