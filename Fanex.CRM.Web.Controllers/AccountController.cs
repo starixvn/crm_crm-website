@@ -164,6 +164,30 @@ namespace Fanex.CRM.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Log out action.
+        /// </summary>
+        /// <returns>Log out result.</returns>
+        public ActionResult CRMLogOut()
+        {
+            var result = new Result();
+            try
+            {
+                _userService.UserLogOut(new LogOutUserCriteria
+                {
+                    OnUserId = _currentSession.OnUserId
+                });
+
+                ClearingLoginCookie();
+            }
+            catch (Exception exception)
+            {
+                LogExtensions.ExceptionHandler(exception);
+            }
+
+            return new RedirectResult(AppSetting.LoginUrl);
+        }
+
         #region PrivateFunctions
 
         /// <summary>

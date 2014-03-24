@@ -337,6 +337,7 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
+    <Content Include="Scripts\AjaxForm\ajax-form.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
     <Content Include="Scripts\Chart\HighCharts\CRMChart.js" />
@@ -455,6 +456,7 @@
     <None Include="Content\site\customizeMultiSelect.less" />
     <None Include="Content\site\resultMessage.less" />
     <None Include="Content\site\reportgrid.less" />
+    <None Include="Scripts\AjaxForm\ajax-form.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
@@ -465,6 +467,8 @@
     <Content Include="Views\Feedback\Scripts\setting.js" />
     <Content Include="Views\Feedback\Styles\Images\bg-topSelected.png" />
     <Content Include="Views\Feedback\Styles\Images\del-icon.png" />
+    <Content Include="Views\Home\LogIn\Scripts\classList.js" />
+    <Content Include="Views\Home\LogIn\Scripts\LogInManager.js" />
     <Content Include="Views\Home\Scripts\DashboardManager.js" />
     <Content Include="Views\Home\Scripts\HomeManager.js" />
     <Content Include="Views\Home\Scripts\LeftPanelManager.js" />
@@ -729,7 +733,17 @@
     <Content Include="Views\Home\Styles\Images\br-arrow-ico.png" />
     <Content Include="Views\Home\Styles\Images\clock.png" />
     <Content Include="Views\Home\Styles\Images\home-ico.png" />
+    <Content Include="Views\Home\LogIn\Styles\Images\firefox_original.png" />
+    <Content Include="Views\Home\LogIn\Styles\Images\ie.png" />
+    <Content Include="Views\Home\LogIn\Styles\Images\lock.png" />
+    <Content Include="Views\Home\LogIn\Styles\Images\logo.png" />
+    <Content Include="Views\Home\LogIn\Styles\Images\password.png" />
+    <Content Include="Views\Home\LogIn\Styles\Images\pattern6.png" />
+    <Content Include="Views\Home\LogIn\Styles\Images\username.png" />
+    <Content Include="Views\Home\Styles\Images\small-arrow-down.png" />
+    <Content Include="Views\Home\Styles\Images\user.png" />
     <Content Include="Views\Home\_Menu.cshtml" />
+    <Content Include="Views\Home\LogIn\Index.cshtml" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Scripts\MenuManager.js" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
@@ -786,6 +800,7 @@
     <Content Include="Views\Home\_DashboardMenu.cshtml" />
     <Content Include="Views\Home\_SearchCustomerRemind.cshtml" />
     <Content Include="Views\Reports\AllFeedbackStattisticsDetail.cshtml" />
+    <None Include="Views\Home\LogIn\Styles\login.less" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -63,6 +63,11 @@ namespace Fanex.CRM.Web.Controllers
             return View();
         }
 
+        public ActionResult LogIn()
+        {
+            return View("~/Views/Home/LogIn/Index.cshtml");
+        }
+
         [ChildActionOnly]
         public PartialViewResult GettingUserMenu()
         {

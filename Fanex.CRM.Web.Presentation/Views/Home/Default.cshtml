@@ -48,7 +48,12 @@
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
                         <div class="login-info pull-right">
-                            @Labels.Welcome <span class="txt-username">@ViewBag.AccUsername</span></div>
+                            @Labels.Welcome
+                            <span class="txt-username">@ViewBag.AccUsername</span> <span class="info-more"></span>
+                            <ul>
+                                @Html.ActionLink("Log Out", "CRMLogOut", "Account", null, null)
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -70,7 +75,8 @@
                 </div>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb">
-                <div class="col-xs-9 col-sm-9 col-md-9" id="divSubMenu"></div>
+                <div class="col-xs-9 col-sm-9 col-md-9" id="divSubMenu">
+                </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
                     <div class="pull-right timezone">
                         <span id="span-timezoneContainer">@getClientTime</span>
