@@ -1,5 +1,4 @@
 ﻿/* jshint camelcase: false */
-
 var hotKeyManager;
 var HotKeyManager = function () {
     var self = this;
@@ -51,7 +50,7 @@ var HotKeyManager = function () {
             self.CachedData.KeyPress[keyCode.toString()] = true;
             self.updateKeyPressValue(true);
             var isCustomHotKey = self.keyDown(eventObject);
-                                    
+
             if (!self.CachedData.isInvokeHotKey && self.CachedData.isBubbleToParent) {
                 isCustomHotKey = parent.hotKeyManager.invokeHotKey();
                 if (parent.hotKeyManager.CachedData.isInvokeHotKey) {
@@ -66,13 +65,11 @@ var HotKeyManager = function () {
             if (isCustomHotKey || self.CachedData.isInvokeHotKey) {
                 self.CachedData.isInvokeHotKey = false;
                 self.preventBubbleEvent(eventObject);
-                self.CachedData.isIgnoreKey = false;
-                parent.hotKeyManager.CachedData.isIgnoreKey = false;
+                self.unblockKeyDownEvent(true);
                 return false;
             }
 
-            self.CachedData.isIgnoreKey = false;
-            parent.hotKeyManager.CachedData.isIgnoreKey = false;
+            self.unblockKeyDownEvent(true);
         });
 
         $(document).keyup(function (eventObject) {
@@ -83,8 +80,15 @@ var HotKeyManager = function () {
             self.documentBlur();
         });
     };
+    self.unblockKeyDownEvent = function (isBubbleParent) {
+        self.CachedData.isIgnoreKey = false;
+        if (isBubbleParent) {
+            parent.hotKeyManager.CachedData.isIgnoreKey = false;
+        }
+    };
     self.documentKeyDown = function (eventObject) {
-        if (self.CachedData.isIgnoreKey || parent.hotKeyManager.CachedData.isIgnoreKey) {
+        if (self.CachedData.isIgnoreKey ||
+            parent.hotKeyManager.CachedData.isIgnoreKey) {
             self.preventBubbleEvent(eventObject);
             return false;
         }
@@ -101,11 +105,11 @@ var HotKeyManager = function () {
         if (isCustomHotKey || self.CachedData.isInvokeHotKey) {
             self.CachedData.isInvokeHotKey = false;
             self.preventBubbleEvent(eventObject);
-            self.CachedData.isIgnoreKey = false;
+            self.unblockKeyDownEvent(false);
             return false;
         }
 
-        self.CachedData.isIgnoreKey = false;
+        self.unblockKeyDownEvent(false);
         return true;
     };
     self.documentBlur = function () {
@@ -466,7 +470,8 @@ var HotKeyManager = function () {
 };
 
 hotKeyManager = new HotKeyManager();
+
 $(document).ready(function () {
     hotKeyManager.initPage();
-    hotKeyManager.CachedData.isIgnoreKey = false;
+    hotKeyManager.unblockKeyDownEvent(false);
 });
