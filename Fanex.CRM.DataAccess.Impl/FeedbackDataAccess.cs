@@ -609,7 +609,7 @@ namespace Fanex.CRM.DataAccess.Impl
         public IEnumerable<Feedback> GetFeedback(
             DateTime fromDate,
             DateTime toDate,
-            string runningNumber,
+            int runningNumber,
             string userName,
             int isGuest,
             int communicationID,
@@ -625,7 +625,10 @@ namespace Fanex.CRM.DataAccess.Impl
                 var param = new Hashtable();
                 param.Add("fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(fromDate));
                 param.Add("todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(toDate));
-                param.Add("runningnumber", runningNumber);
+                if (runningNumber > 0)
+                {
+                    param.Add("feedbackid", runningNumber);
+                }
                 param.Add("username", userName);
                 if (isGuest >= 0)
                 {
