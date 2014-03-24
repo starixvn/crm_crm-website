@@ -829,6 +829,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Running Number.
+        /// </summary>
+        internal static string RunningNumber {
+            get {
+                return ResourceManager.GetString("RunningNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Site.
         /// </summary>
         internal static string Site {

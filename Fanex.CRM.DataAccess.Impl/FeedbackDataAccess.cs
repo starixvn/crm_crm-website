@@ -410,7 +410,9 @@ namespace Fanex.CRM.DataAccess.Impl
         /// <param name="custId">The customer identifier.</param>
         /// <param name="fromDate">From date.</param>
         /// <param name="toDate">To date value.</param>
-        /// <returns>The feedback by customer identifier.</returns>
+        /// <returns>
+        /// The feedback by customer identifier.
+        /// </returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -589,6 +591,7 @@ namespace Fanex.CRM.DataAccess.Impl
         /// </summary>
         /// <param name="fromDate">From date.</param>
         /// <param name="toDate">To date value.</param>
+        /// <param name="runningNumber">The running number.</param>
         /// <param name="userName">Name of the user.</param>
         /// <param name="isGuest">The is guest.</param>
         /// <param name="communicationID">The communication identifier.</param>
@@ -597,13 +600,16 @@ namespace Fanex.CRM.DataAccess.Impl
         /// <param name="statusID">The status identifier.</param>
         /// <param name="isReviewed">The is reviewed.</param>
         /// <param name="responseId">The response identifier.</param>
-        /// <returns>The feedback.</returns>
+        /// <returns>
+        /// The feedback.
+        /// </returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<Feedback> GetFeedback(
             DateTime fromDate,
             DateTime toDate,
+            string runningNumber,
             string userName,
             int isGuest,
             int communicationID,
@@ -619,6 +625,7 @@ namespace Fanex.CRM.DataAccess.Impl
                 var param = new Hashtable();
                 param.Add("fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(fromDate));
                 param.Add("todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(toDate));
+                param.Add("runningnumber", runningNumber);
                 param.Add("username", userName);
                 if (isGuest >= 0)
                 {

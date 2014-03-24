@@ -78,9 +78,9 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
             columns: [{ HeaderText: activityLogResources.LogTime, Width: 80, Name: 'ColLogDate', HeaderAlign: 'center', CellAlign: 'center' },
                 { HeaderText: activityLogResources.EditedBy, Width: 100, Name: 'ColUsername', HeaderAlign: 'center', CellAlign: 'left' },
                 { HeaderText: activityLogResources.Action, Width: 120, Name: 'ColAction', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.FieldName, Width: 140, Name: 'ColFieldName', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.OldValue, Width: 240, Name: 'ColOldValues', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.NewValue, Width: 240, Name: 'ColNewValues', HeaderAlign: 'center', CellAlign: 'left'}],
+                { HeaderText: activityLogResources.FieldName, Width: 150, Name: 'ColFieldName', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: activityLogResources.OldValue, Width: 235, Name: 'ColOldValues', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: activityLogResources.NewValue, Width: 235, Name: 'ColNewValues', HeaderAlign: 'center', CellAlign: 'left'}],
             showTitle: true,
             titleInfo: {
                 text: activityLogResources.Customer_Activity_Logs

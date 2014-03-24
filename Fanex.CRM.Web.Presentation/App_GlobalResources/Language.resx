@@ -420,4 +420,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="TimeZoneGMT" xml:space="preserve">
     <value>GMT-4</value>
   </data>
+  <data name="RunningNumber" xml:space="preserve">
+    <value>Running Number</value>
+  </data>
 </root>

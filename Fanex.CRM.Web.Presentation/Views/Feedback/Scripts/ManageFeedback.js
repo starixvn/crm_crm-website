@@ -97,6 +97,7 @@ lastedFeedback = {
     pageSize: 100,
     fDate: "",
     tDate: "",
+    runningNumber: "",
     userName: "",
     isGuest: false,
     communicationId: 0,
@@ -128,6 +129,7 @@ lastedFeedback = {
 
         lastedFeedback.fDate = $('#txtfromdate').val();
         lastedFeedback.tDate = $('#txttodate').val();
+        lastedFeedback.runningNumber = $('#runningnumber').val().trim();
         lastedFeedback.userName = $('#txtusername').val().trim();
         lastedFeedback.isGuest = parseInt($("#ddlguest").val());
         lastedFeedback.communicationId = parseInt($('#ddlcommunication').val());
@@ -141,6 +143,7 @@ lastedFeedback = {
         {
             'fromDate': lastedFeedback.fDate,
             'toDate': lastedFeedback.tDate,
+            'runningNumber': lastedFeedback.runningNumber,
             'UserName': lastedFeedback.userName,
             'IsGuest': lastedFeedback.isGuest,
             'CommunicationID': lastedFeedback.communicationId,
@@ -301,7 +304,7 @@ head.ready(
             parent.BlockUI();
             parent.UnBlockUI();
         } catch (e) { }
-       
+
         var tdate = new Date(clientTime);
         var fdate = addDays(tdate, -1);
         setupCalendar([fdate, tdate], ['txtfromdate', 'txttodate']);
@@ -312,10 +315,20 @@ head.ready(
         };
         $("#lastedfeedbackgrid").initGrid(gridOpts);
 
-//        try { topwnd = findMainWindow(window); } catch (e) { }
+        // try { topwnd = findMainWindow(window); } catch (e) { }
         lastedFeedback.loadManageFeedbackSettings();
-        $('#txtusername').val($.URLDecode(gup("custName")));
-        $('#ddlguest').val($.URLDecode(gup("isGuest")));
+
+        var username = $.URLDecode(gup("custName"));
+        var $txtUsername = $('#txtusername');
+        var $ddlGuest = $('#ddlguest');
+        if (username && username.trim().length !== 0) {
+            $txtUsername.val(username);
+            $ddlGuest.val($.URLDecode(gup("isGuest")));
+        }
+        else {
+            $txtUsername.removeAttr('disabled');
+            $ddlGuest.removeAttr('disabled');
+        }
 
         try { parent.UnBlockUI(); } catch (e) { }
         $('body').mousedown(function (e) {

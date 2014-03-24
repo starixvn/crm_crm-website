@@ -29,6 +29,7 @@ namespace Fanex.CRM.Service.Interface
         DataGridViewDTO GetFeedback(
             string fromDate,
             string toDate,
+            string runningNumber,
             string username,
             int isGuest,
             int communicationId,

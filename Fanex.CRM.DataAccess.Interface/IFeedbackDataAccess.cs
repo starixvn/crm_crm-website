@@ -31,6 +31,7 @@ namespace Fanex.CRM.DataAccess.Interface
         IEnumerable<Feedback> GetFeedback(
             DateTime fromDate,
             DateTime toDate,
+            string runningNumber,
             string userName,
             int isGuest,
             int communicationId,

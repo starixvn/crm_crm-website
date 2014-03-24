@@ -1,4 +1,5 @@
-﻿@using Fanex.CRM.Infrastructure.Common
+﻿@using Resources
+@using Fanex.CRM.Infrastructure.Common
 <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
 <link href="@Url.Content("~/Scripts/Paging/pagination.css")" rel="stylesheet" type="text/css" />
@@ -12,11 +13,18 @@
     <div class="row filter-frm one-row manage-feedback-filter">
         <div class="row row-item">
             <div class="item">
+                <label for="runningnumber">
+                    @Language.RunningNumber</label>
+                <input type="text" id="runningnumber" class="textbox" />
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="item">
                 <label for="txtusername" class="width-80">
                     Username</label>
-                <input type="text" id="txtusername" class="textbox txtUsername" />
+                <input type="text" id="txtusername" class="textbox txtUsername" disabled />
                 &nbsp;
-                <select id="ddlguest">
+                <select id="ddlguest" disabled>
                     <option value="-1">All</option>
                     <option value="0">Customer</option>
                     <option value="1">Guest</option>

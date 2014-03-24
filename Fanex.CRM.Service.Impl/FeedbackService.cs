@@ -205,6 +205,7 @@ namespace Fanex.CRM.Service.Impl
         /// </summary>
         /// <param name="fromDate">From date.</param>
         /// <param name="toDate">To date value.</param>
+        /// <param name="runningNumber">The running number.</param>
         /// <param name="userName">User name.</param>
         /// <param name="isGuest">Is guest customer.</param>
         /// <param name="communicationID">Communication ID.</param>
@@ -216,10 +217,13 @@ namespace Fanex.CRM.Service.Impl
         /// <param name="pageIndex">Page index.</param>
         /// <param name="pageSize">Page size.</param>
         /// <param name="fromCache">From cache.</param>
-        /// <returns>Return result.</returns>
+        /// <returns>
+        /// Return result.
+        /// </returns>
         public DataGridViewDTO GetFeedback(
             string fromDate,
             string toDate,
+            string runningNumber,
             string userName,
             int isGuest,
             int communicationID,
@@ -239,21 +243,21 @@ namespace Fanex.CRM.Service.Impl
                 if (fromCache)
                 {
                     listFeedback = (List<FeedbackView>)SessionExtension.GetSession(HttpContext.Current.Session, _lastedFeedback) ??
-                        SelAllLastedFeedback(fromDate, toDate, userName, isGuest, communicationID, mainCategoryID, subCategoryID, statusID, isReviewed, responseId);
+                        SelAllLastedFeedback(fromDate, toDate, runningNumber, userName, isGuest, communicationID, mainCategoryID, subCategoryID, statusID, isReviewed, responseId);
                 }
                 else
                 {
-                    listFeedback = SelAllLastedFeedback(fromDate, toDate, userName, isGuest, communicationID, mainCategoryID, subCategoryID, statusID, isReviewed, responseId);
+                    listFeedback = SelAllLastedFeedback(fromDate, toDate, runningNumber, userName, isGuest, communicationID, mainCategoryID, subCategoryID, statusID, isReviewed, responseId);
                 }
 
                 var lstFeedbackPaging = new List<FeedbackView>();
-                if (listFeedback != null && listFeedback.Count() > 0)
+                if (listFeedback != null && listFeedback.Count > 0)
                 {
                     lstFeedbackPaging = listFeedback.Select(c => c).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
                 }
 
                 feedbackdto.Rows = lstFeedbackPaging;
-                feedbackdto.TotalItems = listFeedback != null ? listFeedback.Count() : 0;
+                feedbackdto.TotalItems = listFeedback != null ? listFeedback.Count : 0;
                 feedbackdto.PageIndex = pageIndex;
             }
             catch (Exception ex)
@@ -1452,6 +1456,7 @@ namespace Fanex.CRM.Service.Impl
         /// </summary>
         /// <param name="fromDate">From date.</param>
         /// <param name="toDate">To date value.</param>
+        /// <param name="runningNumber">The running number.</param>
         /// <param name="userName">User name.</param>
         /// <param name="isGuest">Is guest customer.</param>
         /// <param name="communicationID">Communication ID.</param>
@@ -1460,10 +1465,13 @@ namespace Fanex.CRM.Service.Impl
         /// <param name="statusID">Status ID.</param>
         /// <param name="isReviewed">Is Reviewed.</param>
         /// <param name="responseId">Response Id.</param>
-        /// <returns>Return result.</returns>
+        /// <returns>
+        /// Return result.
+        /// </returns>
         private List<FeedbackView> SelAllLastedFeedback(
             string fromDate,
             string toDate,
+            string runningNumber,
             string userName,
             int isGuest,
             int communicationID,
@@ -1476,6 +1484,7 @@ namespace Fanex.CRM.Service.Impl
             var lstFeedback = _repository.GetFeedback(
                 CastAide.AsDateTime(fromDate),
                 CastAide.AsDateTime(toDate),
+                runningNumber,
                 userName,
                 isGuest,
                 communicationID,
