@@ -733,6 +733,7 @@
     <Content Include="Views\Home\Styles\Images\br-arrow-ico.png" />
     <Content Include="Views\Home\Styles\Images\clock.png" />
     <Content Include="Views\Home\Styles\Images\home-ico.png" />
+    <Content Include="Views\Home\Styles\Images\icon-logout.png" />
     <Content Include="Views\Home\LogIn\Styles\Images\firefox_original.png" />
     <Content Include="Views\Home\LogIn\Styles\Images\ie.png" />
     <Content Include="Views\Home\LogIn\Styles\Images\lock.png" />

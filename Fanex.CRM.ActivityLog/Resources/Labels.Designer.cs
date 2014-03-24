@@ -151,6 +151,15 @@ namespace Fanex.CRM.ActionLog.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string NA {
+            get {
+                return ResourceManager.GetString("NA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Value.
         /// </summary>
         public static string NewValue {

@@ -79,12 +79,12 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
         gridOptions = {
             columns: [{ HeaderText: settingLogResources.LogTime, Width: 80, Name: 'ColLogDate', HeaderAlign: 'center', CellAlign: 'center' },
                 { HeaderText: settingLogResources.EditedBy, Width: 100, Name: 'ColUsername', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: settingLogResources.Action, Width: 150, Name: 'ColAction', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: settingLogResources.Action, Width: 120, Name: 'ColAction', HeaderAlign: 'center', CellAlign: 'left' },
                 { HeaderText: settingLogResources.Entity, Width: 100, Name: 'ColEntity', HeaderAlign: 'center', CellAlign: 'center' },
                 { HeaderText: settingLogResources.EntityId, Width: 50, Name: 'ColEntityId', HeaderAlign: 'center', CellAlign: 'center' },
                 { HeaderText: settingLogResources.FieldName, Width: 120, Name: 'ColFieldName', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: settingLogResources.OldValue, Width: 155, Name: 'ColOldValues', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: settingLogResources.NewValue, Width: 155, Name: 'ColNewValues', HeaderAlign: 'center', CellAlign: 'left'}],
+                { HeaderText: settingLogResources.OldValue, Width: 170, Name: 'ColOldValues', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: settingLogResources.NewValue, Width: 170, Name: 'ColNewValues', HeaderAlign: 'center', CellAlign: 'left'}],
             showTitle: true,
             titleInfo: {
                 text: settingLogResources.Setting_Logs

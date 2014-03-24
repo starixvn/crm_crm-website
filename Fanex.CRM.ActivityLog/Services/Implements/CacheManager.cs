@@ -12,11 +12,9 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Fanex.CRM.ActionLog.Resources;
     using Fanex.CRM.Infrastructure.Service.Implements;
-    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
-    using Fanex.CRM.Setting.Repositories.Implements;
-    using Fanex.CRM.Setting.Repositories.Interfaces;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
 
@@ -50,6 +48,9 @@ namespace Fanex.CRM.ActionLog.Services.Implements
 
                     var settings = SettingServiceInstance.GetAllSetting();
                     settings.AddRange(countries);
+
+                    // Add default N/A
+                    settings.Add(new SettingInfo { Id = 0, Value = Labels.NA });
 
                     return ListToHash(settings);
                 });

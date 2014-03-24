@@ -48,7 +48,7 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
                         MergeRowNumber: mergeRowNumber
                     },
                     { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber },
-                    { Name: 'ColAction', Value: info.ActionName, MergeRowNumber: mergeRowNumber}];
+                    { Name: 'ColAction', Value: info.ActionName, MergeRowNumber: mergeRowNumber }];
                 if (mergeRowNumber === 0) {
                     bodyData.push({
                         Columns: row.concat([
@@ -77,10 +77,10 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
         gridOptions = {
             columns: [{ HeaderText: activityLogResources.LogTime, Width: 80, Name: 'ColLogDate', HeaderAlign: 'center', CellAlign: 'center' },
                 { HeaderText: activityLogResources.EditedBy, Width: 100, Name: 'ColUsername', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.Action, Width: 240, Name: 'ColAction', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.FieldName, Width: 120, Name: 'ColFieldName', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.OldValue, Width: 190, Name: 'ColOldValues', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: activityLogResources.NewValue, Width: 190, Name: 'ColNewValues', HeaderAlign: 'center', CellAlign: 'left'}],
+                { HeaderText: activityLogResources.Action, Width: 120, Name: 'ColAction', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: activityLogResources.FieldName, Width: 140, Name: 'ColFieldName', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: activityLogResources.OldValue, Width: 240, Name: 'ColOldValues', HeaderAlign: 'center', CellAlign: 'left' },
+                { HeaderText: activityLogResources.NewValue, Width: 240, Name: 'ColNewValues', HeaderAlign: 'center', CellAlign: 'left'}],
             showTitle: true,
             titleInfo: {
                 text: activityLogResources.Customer_Activity_Logs

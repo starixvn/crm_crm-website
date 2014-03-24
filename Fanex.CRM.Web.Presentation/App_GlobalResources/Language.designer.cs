@@ -910,7 +910,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GMT+8.
+        ///   Looks up a localized string similar to GMT-4.
         /// </summary>
         internal static string TimeZoneGMT {
             get {

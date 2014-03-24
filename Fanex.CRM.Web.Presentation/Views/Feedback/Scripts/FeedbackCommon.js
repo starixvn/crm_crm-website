@@ -99,7 +99,7 @@ bindingChildByParentId = function (id, data, currValue, selectedId) {
 };
 
 function formatEditBlock(user, str) {
-    var currdate = new Date();
+    var currdate = parent.homeManager.currentTime;
     var strreturn;
     if (str === "") {
         str = "&nbsp;";

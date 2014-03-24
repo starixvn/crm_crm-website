@@ -297,6 +297,11 @@ lastedFeedback = {
 
 head.ready(
     function () {
+        try {
+            parent.BlockUI();
+            parent.UnBlockUI();
+        } catch (e) { }
+       
         var tdate = new Date(clientTime);
         var fdate = addDays(tdate, -1);
         setupCalendar([fdate, tdate], ['txtfromdate', 'txttodate']);

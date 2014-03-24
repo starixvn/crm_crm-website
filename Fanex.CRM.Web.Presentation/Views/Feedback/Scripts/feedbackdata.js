@@ -9,7 +9,7 @@ errMsgFeedbackDateGreatter,
 errMsgResolutionDateGreatter
 */
 /* jshint maxstatements: 3000 */
-function FeedbackData(userId, customerId, clientTime) {
+function FeedbackData(userId, username, customerId, clientTime) {
     var self = this;
 
     /* private variables and functions */
@@ -34,6 +34,48 @@ function FeedbackData(userId, customerId, clientTime) {
 
     function unblockUI() {
         try { parent.UnBlockUI(); } catch (e) { }
+    }
+
+    function initHtmlEditor(wrapperid, editerid, strvalue) {
+        document.getElementById(wrapperid).innerHTML =
+        '<textarea id="' + editerid +
+            '" name="' + editerid +
+            '" style="width:auto; height:95px; min-width:710px;width:710px;">' +
+            strvalue +
+        '</textarea>';
+        $('#' + editerid).htmlarea({
+            toolbar: [
+                ['html'], ['bold', 'forecolor', 'italic', 'underline', 'strikethrough', '|', 'subscript', 'superscript'],
+                ['increasefontsize', 'decreasefontsize'],
+                ['orderedlist', 'unorderedlist'],
+                ['indent', 'outdent'],
+                ['justifyleft', 'justifycenter', 'justifyright'],
+                ['link', 'unlink'], ['image', 'horizontalrule'],
+                ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+                ['cut', 'copy', 'paste'],
+                [{
+                    css: 'edit',
+                    text: 'Inset Edit Block',
+                    action: function (btn) {
+                        /* jshint unused: vars */
+                        var editorValue = this.getSelectedHTML();
+                        editorValue = formatInsetEditBlock(parent.homeManager.currentTime, editorValue);
+                        this.pasteHTML(editorValue);
+                    }
+                }]
+             ]
+        });
+    }
+
+    function formatInsetEditBlock(currentTime, editorValue) {
+        var insetEditBlock = '<div>\
+            <div style="background-color: #FFFFD0; padding-left: 10px;border-left: 1px solid #CCCCCC">\
+            <div style="font-size: 9px;">by <span style="color: #105289; font-weight: bold; font-size: 11px;">';
+        insetEditBlock += self.username;
+        insetEditBlock += '</span> on ' + currentTime.toLocaleString() + '</div><div style="border-top: 1px solid #CCCCCC; padding: 5px 0pt 0pt;">';
+        insetEditBlock += (editorValue === '' ? '&nbsp;' : editorValue) + '</div></div><br></div>';
+
+        return insetEditBlock;
     }
 
     function setupDateTimepicker(elements) {
@@ -72,13 +114,24 @@ function FeedbackData(userId, customerId, clientTime) {
     }
 
     function checkSpecialCharacters(identity) {
-        var iChars = "!`#%^&*()=[]\\\';,/{}|\":<>?~";
+        var index;
+        var iChars = " !`#%^&*()=[]\\\';,/{}|\":<>?~";
         for (var i = 0; i < identity.length; i++) {
-            if (iChars.indexOf(identity.charAt(i)) !== -1) {
-                showMessage('Your Indentity Information has special characters. ' + iChars, 1);
+            index = iChars.indexOf(identity.charAt(i));
+            if (index !== -1) {
+                var message = index === 0 ?
+                    'Your Indentity Information has space!' :
+                    'Your Indentity Information has special characters. ' + iChars;
+                showMessage(message, 1);
+                return false;
+            }
+            /* unicode */
+            if (identity.charCodeAt(i) > 127) {
+                showMessage('Your Indentity Information has unicode characters!', 1);
                 return false;
             }
         }
+
         return true;
     }
 
@@ -390,6 +443,7 @@ function FeedbackData(userId, customerId, clientTime) {
 
     /* public properties */
     self.userId = userId;
+    self.username = username;
     self.customerId = customerId;
     self.clientTime = clientTime;
 
@@ -448,9 +502,9 @@ function FeedbackData(userId, customerId, clientTime) {
 
     self.initialize = function () {
         /* editor html controls */
-        initHTMLArea('editboxdes', 'desediter', '');
-        initHTMLArea('editboxsol', 'solediter', '');
-        // initHTMLArea('editboxrev', 'revediter', '');
+        initHtmlEditor('editboxdes', 'desediter', '');
+        initHtmlEditor('editboxsol', 'solediter', '');
+        // initHtmlEditor('editboxrev', 'revediter', '');
 
         if (self.customerId <= 0) {
             $('#txtidentity').blur(function () {

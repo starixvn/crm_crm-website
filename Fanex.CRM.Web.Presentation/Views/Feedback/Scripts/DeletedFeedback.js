@@ -247,6 +247,11 @@ deletedFeedback = {
 };
 
 head.ready(function () {
+    try {
+        parent.BlockUI();
+        parent.UnBlockUI();
+    } catch (e) { }
+
     var tdate = new Date(clientTime);
     var fdate = addDays(new Date(), -1);
     /* jshint newcap: false */
