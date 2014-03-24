@@ -5,15 +5,15 @@ hotKeyManager,
 head,
 clientTime,
 allowDeleteFeedback,
-accId */
+accId,
+accname */
 /* exported AddGuestFeedback,
 invokeHotKey_CtrlS,
 isShowCustinfoBox,
 isShowDescriptionBox,
 isShowFeedbackDetailBox,
 isShowSolutionBox,
-orgLengt,
-accname */
+orgLengt */
 /* jshint camelcase: false */
 var feedbackData;
 var settingData;

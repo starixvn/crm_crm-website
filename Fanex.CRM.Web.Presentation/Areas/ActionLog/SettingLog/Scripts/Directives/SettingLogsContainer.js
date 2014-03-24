@@ -44,7 +44,7 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
                 var row = [
                     {
                         Name: 'ColLogDate',
-                        Value: moment(info.LogDate).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_2Line_String_Moment),
+                        Value: moment(info.LogDate).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_SS_TT_2Line_String_Moment),
                         MergeRowNumber: mergeRowNumber
                     },
                     { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber },
