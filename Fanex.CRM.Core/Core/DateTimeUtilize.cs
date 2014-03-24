@@ -101,14 +101,15 @@ namespace Fanex.CRM.Infrastructure.Core
         public static string ChangeTimeToServerForReportEnd(DateTime time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return time.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy hh:mm");
+            return time.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy 23:59:59");
         }
 
         public static string ChangeTimeToServerForReportEnd(string time)
         {
             var server = CastAide.AsDateTime(time);
-            DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return server.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy hh:mm");
+            /*DateTimeUtilize timeSpan = new DateTimeUtilize();
+            return server.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy hh:mm");*/
+            return ChangeTimeToServerForReportEnd(server);
         }
 
         #endregion
