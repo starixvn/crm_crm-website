@@ -47,6 +47,7 @@ function (
     $scope.feedbackSubjectTemplateList = [];
     $scope.feedbackSubjectTemplateTotalPage = 0;
     $scope.isLoadedFeedbackSubjectTemplate = false;
+    $scope.isLoadedAllSetting = false;
     $scope.subjectOptions = null;
 
     $scope.searchCriteria = {
@@ -266,9 +267,11 @@ function (
                 $scope.mainCategoryOptions.DataList = allSetting.MainCategoryList;
                 $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
                 $scope.extensionOptions.DataList = allSetting.ExtensionList;
+                $scope.isLoadedAllSetting = true;
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
+                $scope.isLoadedAllSetting = true;
                 $scope.completedLoadFilterInfo();
             });
     };
@@ -300,7 +303,10 @@ function (
             };
         }
 
-        $scope.unblockUI();
+        if ($scope.isLoadedFeedbackSubjectTemplate &&
+            $scope.isLoadedAllSetting) {
+            $scope.unblockUI();
+        }
     };
     $scope.updateFromDatePicker = function (isOnApply) {
         $scope.fromDateOptions.IsRerenderPicker = true;
