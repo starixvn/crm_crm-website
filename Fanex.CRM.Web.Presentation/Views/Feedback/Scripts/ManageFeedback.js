@@ -106,7 +106,7 @@ lastedFeedback = {
     statusId: 0,
     isReviewd: false,
     responseId: 0,
-    gridHeight: 158,
+    gridHeight: 195,
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = lastedFeedback.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
