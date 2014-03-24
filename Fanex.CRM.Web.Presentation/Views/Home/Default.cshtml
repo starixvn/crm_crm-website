@@ -47,9 +47,11 @@
                         @Html.Action("GettingUserMenu", new RouteValueDictionary(new { controller = "Home", area = "" }))
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
-                        <a href="#" class="pull-right logout">Sign out</a>
+                        @Html.ActionLink(Resources.Language.Sign_out, "LogOut", "UserLogin", routeValues: null, htmlAttributes: new { @class = "pull-right logout" })
                         <div class="login-info pull-right">
-                            @Labels.Welcome <span class="txt-username">@ViewBag.AccUsername</span></div>
+                            @Labels.Welcome
+                            <span class="txt-username">@ViewBag.AccUsername</span>
+                        </div>
                     </div>
                 </div>
             </div>

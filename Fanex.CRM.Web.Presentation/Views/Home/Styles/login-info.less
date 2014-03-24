@@ -1,0 +1,61 @@
+
+
+.container.crm-container .header .rightHeader .login-info
+{
+    background: url("images/user.png") no-repeat scroll 6px center #486CB8;
+    border-radius: 3px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.75) inset;
+    clear: none;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 10px 10px 0 0;
+    padding: 4px 10px 4px 28px;
+    text-shadow: 0 0 0.03em #000000;
+    
+    &:hover {
+        ul {
+            top: 34px;
+            visibility: visible;
+            opacity: 1;
+            box-shadow: 0 1px 2px 1px rgba(0,0,0,0.25);
+            -moz-box-shadow: 0 1px 2px 1px rgba(0,0,0,0.25);
+            -webkit-box-shadow: 0 1px 2px 1px rgba(0,0,0,0.25);
+        }
+    }
+}
+
+ .info-more {
+    background: url("images/small-arrow-down.png") no-repeat scroll center 6px rgba(0, 0, 0, 0);
+    margin-left: 6px;
+    padding: 0 6px;
+}
+
+
+.container.crm-container .header .rightHeader .login-info ul {
+    background-color: #FFFFFF;
+    border: 1px solid #3C5B9B;
+    list-style-type: none;
+    margin: 0;
+    opacity: 0;
+    padding: 2px 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    visibility: hidden;
+    width: 100%;
+    z-index: 11;
+}
+.container.crm-container .header .rightHeader .login-info ul li {
+    display: block;
+    padding: 4px 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+.container.crm-container .header .rightHeader .login-info ul li a {
+    color: #3B5B98;
+    display: block;
+    font-size: 0.9em;
+}

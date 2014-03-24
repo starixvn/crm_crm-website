@@ -13,7 +13,6 @@ namespace Fanex.CRM.Web.Controllers
     using System.Diagnostics.CodeAnalysis;
     using System.Web;
     using System.Web.Mvc;
-    using System.Web.Routing;
     using System.Web.Security;
     using Fanex.CRM.Entities;
     using Fanex.CRM.Infrastructure.Common;
@@ -50,22 +49,6 @@ namespace Fanex.CRM.Web.Controllers
             _siteService = siteService ?? new SiteService();
             _currentSession = currentSession ?? new CurrentSession();
             _maintenanceService = maintenanceService ?? new MaintainanceService();
-        }
-
-        /// <summary>
-        /// Sign in action.
-        /// </summary>
-        /// <returns>Sign in result.</returns>
-        public RedirectResult SignIn()
-        {
-            if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
-            {
-                return new RedirectResult(AppSetting.LoginUrl, true);
-            }
-            else
-            {
-                return new RedirectResult("~/Home/Index");
-            }
         }
 
         /// <summary>
@@ -163,7 +146,7 @@ namespace Fanex.CRM.Web.Controllers
                 throw;
             }
         }
-
+        
         #region PrivateFunctions
 
         /// <summary>

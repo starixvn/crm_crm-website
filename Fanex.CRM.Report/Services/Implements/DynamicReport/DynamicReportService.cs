@@ -437,9 +437,9 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 };
 
                 var childReportLength = dynamicReport.ChildReports.Count;
-                for (var xIndex = 0; xIndex < childReportLength; xIndex++)
+                for (var periodIndex = 0; periodIndex < childReportLength; periodIndex++)
                 {
-                    var periodReport = dynamicReport.ChildReports[xIndex];
+                    var periodReport = dynamicReport.ChildReports[periodIndex];
                     chartInfo.ChildReports.Add(new DynamicReportInfo
                     {
                         Id = periodReport.Id,

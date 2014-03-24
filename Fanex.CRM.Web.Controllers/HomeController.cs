@@ -35,7 +35,7 @@ namespace Fanex.CRM.Web.Controllers
         {
             if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
             {
-                return new RedirectResult("~/Account/SignIn", true);
+                return new RedirectResult("~/UserLogin/SignIn", true);
             }
             else
             {
@@ -56,7 +56,7 @@ namespace Fanex.CRM.Web.Controllers
         {
             if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
             {
-                return new RedirectResult("~/Account/SignIn");
+                return new RedirectResult("~/UserLogin/SignIn");
             }
 
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
