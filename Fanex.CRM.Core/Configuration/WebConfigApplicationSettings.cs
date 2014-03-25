@@ -20,6 +20,7 @@ namespace Fanex.CRM.Infrastructure.Configuration
     public class WebConfigApplicationSettings : IApplicationSettings
     {
         private static IDictionary<string, bool> actionLogKeyHash = null;
+        private static IDictionary<string, string[]> actionLogBoolValueHash = null;
 
         public static List<string> NotAuthenticateAction
         {
@@ -95,6 +96,31 @@ namespace Fanex.CRM.Infrastructure.Configuration
                 }
 
                 return actionLogKeyHash;
+            }
+        }
+
+        public static IDictionary<string, string[]> ActionLogBoolValue
+        {
+            get
+            {
+                if (actionLogBoolValueHash == null)
+                {
+                    actionLogBoolValueHash = new Dictionary<string, string[]>();
+
+                    string[] boolValue = new string[] { "No", "Yes" };
+                    string[] stringArray = ConfigurationManager.AppSettings["CRMActionLogBoolValue"]
+                        .Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string item in stringArray)
+                    {
+                        string lowerKey = item.ToLowerInvariant();
+                        if (!actionLogBoolValueHash.ContainsKey(lowerKey))
+                        {
+                            actionLogBoolValueHash.Add(lowerKey, boolValue);
+                        }
+                    }
+                }
+
+                return actionLogBoolValueHash;
             }
         }
 
