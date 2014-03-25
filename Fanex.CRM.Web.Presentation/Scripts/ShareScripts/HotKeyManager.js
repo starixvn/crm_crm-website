@@ -1,4 +1,9 @@
 ﻿/* jshint camelcase: false */
+/* Hotkey notes:
+    - Don't invoke hot key so fast 
+        (including: keep holding Ctrl + Key,
+                    or make next combine in short time after previous combine)
+*/
 var hotKeyManager;
 var HotKeyManager = function () {
     var self = this;
@@ -24,16 +29,16 @@ var HotKeyManager = function () {
         self.bindEvent();
 
         if (parent && parent.hotKeyManager) {
-            self.CachedData.KeyPress = parent.hotKeyManager.CachedData.BeforeBlurKeyPress.slice(0);
+            self.CachedData.KeyPress = self.copyArray(parent.hotKeyManager.CachedData.BeforeBlurKeyPress);
             self.CachedData.BeforeBlurKeyPress = self.CachedData.KeyPress;
         }
     };
 
     self.updateKeyPressValue = function (isUpdateToParent) {
-        self.CachedData.BeforeBlurKeyPress = self.CachedData.KeyPress.slice(0);
+        self.CachedData.BeforeBlurKeyPress = self.copyArray(self.CachedData.KeyPress);
         if (isUpdateToParent && parent && parent.hotKeyManager) {
-            parent.hotKeyManager.CachedData.KeyPress = self.CachedData.KeyPress.slice(0);
-            parent.hotKeyManager.CachedData.BeforeBlurKeyPress = self.CachedData.BeforeBlurKeyPress.slice(0);
+            parent.hotKeyManager.CachedData.KeyPress = self.copyArray(self.CachedData.KeyPress);
+            parent.hotKeyManager.CachedData.BeforeBlurKeyPress = self.copyArray(self.CachedData.BeforeBlurKeyPress);
         }
     };
 
@@ -79,6 +84,13 @@ var HotKeyManager = function () {
         $(document).blur(function () {
             self.documentBlur();
         });
+
+        var ieVersion = sharedScriptManager.getIeVersion();
+        if (ieVersion !== -1 && ieVersion >= 10) {
+            $(window).blur(function () {
+                self.documentBlur();
+            });
+        }
     };
     self.unblockKeyDownEvent = function (isBubbleParent) {
         self.CachedData.isIgnoreKey = false;
@@ -113,7 +125,7 @@ var HotKeyManager = function () {
         return true;
     };
     self.documentBlur = function () {
-        self.CachedData.BeforeBlurKeyPress = self.CachedData.KeyPress.slice(0);
+        self.CachedData.BeforeBlurKeyPress = self.copyArray(self.CachedData.KeyPress);
         self.CachedData.KeyPress = [];
     };
 
@@ -466,6 +478,19 @@ var HotKeyManager = function () {
                 activeDocumentManager.invokeHotKey_CtrlT();
             }
         }
+    };
+    self.copyArray = function (array) {
+        try {
+            if (array == null ||
+                array == undefined) {
+                return array;
+            }
+
+            return array.slice(0);
+        } catch (e) {
+        }
+
+        return [];
     };
 };
 

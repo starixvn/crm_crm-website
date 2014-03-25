@@ -81,7 +81,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             }
         }
 
-        var viewChartIcon = '<input id="button-viewchart" class="btnCharting" type="button" value=" ">';
+        var viewChartIcon = '<input id="button-viewchart" class="btnCharting" type="button" value="">';
         var gridOptions = {
             columns: [{ HeaderText: viewResources.Symbol_No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
                 { HeaderText: viewResources.Running_No, Width: 80, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
