@@ -99,6 +99,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Report_DynamicReport(ref bundles);
             RegisterBundles_Report_CustomerReport(ref bundles);
             RegisterBundles_Chart(ref bundles);
+            RegisterBundles_User_LogIn(ref bundles);
         }
 
         /// <summary>
@@ -438,6 +439,20 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/Chart/HighCharts/data.js",
                 "~/Scripts/Chart/HighCharts/drilldown.js",
                 "~/Scripts/Chart/HighCharts/CRMChart.js"));
+        }
+
+        /// <summary>
+        /// Registers the user log in bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_User_LogIn(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/User/LogInScripts").Include(
+                "~/Scripts/ShareScripts/SharedScriptManager.js",
+                "~/Areas/User/LogIn/Scripts/LogInManager.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/User/LogInStyles").Include(
+                "~/Areas/User/LogIn/Styles/login.less"));
         }
     }
 

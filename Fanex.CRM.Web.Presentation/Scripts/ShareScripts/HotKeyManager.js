@@ -1,4 +1,8 @@
-﻿/* jshint camelcase: false */
+﻿"use strict";
+/* global sharedScriptManager,
+keyboardManager */
+/* jshint unused: vars */
+/* jshint camelcase: false */
 /* Hotkey notes:
     - Don't invoke hot key so fast 
         (including: keep holding Ctrl + Key,
@@ -481,8 +485,8 @@ var HotKeyManager = function () {
     };
     self.copyArray = function (array) {
         try {
-            if (array == null ||
-                array == undefined) {
+            if (array === null ||
+                array === undefined) {
                 return array;
             }
 
