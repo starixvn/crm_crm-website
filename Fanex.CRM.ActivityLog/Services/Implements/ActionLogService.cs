@@ -35,6 +35,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         private readonly IActionLogRepository _actionLogRepository;
         private readonly IDictionary<string, string> _settingHash;
         private readonly IDictionary<string, bool> _actionLogKeyHash;
+        private readonly IDictionary<string, string[]> _actionLogBoolValueHash;
         
         public ActionLogService()
             : this(null)
@@ -46,6 +47,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
             _actionLogRepository = actionLogRepository ?? new ActionLogRepository();
             _settingHash = CacheManager.GetAllSetting();
             _actionLogKeyHash = WebConfigApplicationSettings.ActionLogKey;
+            _actionLogBoolValueHash = WebConfigApplicationSettings.ActionLogBoolValue;
         }
 
         #region Activity Log
@@ -153,14 +155,16 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 newResults = ParseXMLString(newValue);
             }
 
+            string fieldName;
             int oldCount = oldResults == null ? 0 : oldResults.Count;
             int newCount = newResults == null ? 0 : newResults.Count;
             if (oldCount == 0)
             {
                 foreach (string key in newResults.Keys)
                 {
-                    log.FieldNames.Add(key);
-                    log.NewValuesList.Add(GetSettingValue(key, newResults[key]));
+                    fieldName = key;
+                    log.NewValuesList.Add(GetSettingValue(key, newResults[key], ref fieldName));
+                    log.FieldNames.Add(fieldName);
                 }
             }
             else if (oldCount == newCount)
@@ -172,9 +176,10 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                     newString = newResults[key];
                     if (!string.Equals(oldString, newString, StringComparison.OrdinalIgnoreCase))
                     {
-                        log.FieldNames.Add(key);
-                        log.OldValuesList.Add(GetSettingValue(key, oldString));
-                        log.NewValuesList.Add(GetSettingValue(key, newString));
+                        fieldName = key;
+                        log.OldValuesList.Add(GetSettingValue(key, oldString, ref fieldName));
+                        log.NewValuesList.Add(GetSettingValue(key, newString, ref fieldName));
+                        log.FieldNames.Add(fieldName);
                     }
                 }
             }
@@ -211,22 +216,39 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         /// </summary>
         /// <param name="key">The key parameter.</param>
         /// <param name="value">The value.</param>
+        /// <param name="fieldName">Name of the field.</param>
         /// <returns>
         /// The value of key.
         /// </returns>
-        private string GetSettingValue(string key, string value)
+        private string GetSettingValue(string key, string value, ref string fieldName)
         {
             string keyLower = key.ToLowerInvariant();
+
+            // Convert bit value (1/0) to Yes/No.
+            string[] boolValues;
+            if (_actionLogBoolValueHash.TryGetValue(keyLower, out boolValues))
+            {
+                int index;
+                if (int.TryParse(value, out index) && index < 2)
+                {
+                    return boolValues[index];
+                }
+            }
+
+            // Value isn't in Setting hash.
             if (!_actionLogKeyHash.ContainsKey(keyLower))
             {
                 return value;
             }
-            
+          
+            // LanguageID can be stored multiple values.
             if (string.Equals(keyLower, "LanguageID", StringComparison.OrdinalIgnoreCase))
             {
+                fieldName = "Language";
                 return GetMultipleSettingValue(value);   
             }
 
+            fieldName = key.Replace("ID", string.Empty);
             return GetSettingValue(value);
         }
 
