@@ -79,6 +79,13 @@ var HotKeyManager = function () {
         $(document).blur(function () {
             self.documentBlur();
         });
+
+        var ieVersion = sharedScriptManager.getIeVersion();
+        if (ieVersion !== -1 && ieVersion >= 10) {
+            $(window).blur(function () {
+                self.documentBlur();
+            });
+        }
     };
     self.unblockKeyDownEvent = function (isBubbleParent) {
         self.CachedData.isIgnoreKey = false;

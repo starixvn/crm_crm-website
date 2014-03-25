@@ -330,6 +330,7 @@ function (
             }]
         });
 
+        $scope.setFocus();
         if (parseInt(updateResult.Id) === crmConstants.Enums.Error.None) {
             setTimeout(function () {
                 $scope.DOMElements.divResultPopUp.dialog("close");
