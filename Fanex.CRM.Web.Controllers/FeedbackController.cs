@@ -236,7 +236,7 @@ namespace Fanex.CRM.Web.Controllers
         public JsonResult GetFeedback(
             string fromDate,
             string toDate,
-            string runningNumber,
+            int? runningNumber,
             string username,
             int isGuest,
             int communicationId,
@@ -253,10 +253,11 @@ namespace Fanex.CRM.Web.Controllers
             JsonResult jsonResult;
             try
             {
+                int feedbackId = runningNumber.HasValue ? runningNumber.Value : 0;
                 result = _feedbackService.GetFeedback(
                     fromDate,
                     toDate,
-                    runningNumber,
+                    feedbackId,
                     username,
                     isGuest,
                     communicationId,

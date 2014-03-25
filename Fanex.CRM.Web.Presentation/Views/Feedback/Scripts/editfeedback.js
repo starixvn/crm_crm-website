@@ -221,6 +221,9 @@ function loadFeedbackAfterCallAjax(rs, Id) {
 
     $("#previewboxsol").html(solvalue);
     initHTMLArea('editboxsol', 'solediter', solvalue);
+    if (!solvalue || solvalue.trim().length === 0) {
+        initEdit('sol');
+    }
 
     $("#txtsubject").val(rs.Subject);
 

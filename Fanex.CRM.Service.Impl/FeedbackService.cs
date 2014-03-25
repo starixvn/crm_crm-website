@@ -223,7 +223,7 @@ namespace Fanex.CRM.Service.Impl
         public DataGridViewDTO GetFeedback(
             string fromDate,
             string toDate,
-            string runningNumber,
+            int runningNumber,
             string userName,
             int isGuest,
             int communicationID,
@@ -1471,7 +1471,7 @@ namespace Fanex.CRM.Service.Impl
         private List<FeedbackView> SelAllLastedFeedback(
             string fromDate,
             string toDate,
-            string runningNumber,
+            int runningNumber,
             string userName,
             int isGuest,
             int communicationID,
