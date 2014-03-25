@@ -13,22 +13,9 @@
     <div class="row filter-frm one-row manage-feedback-filter">
         <div class="row row-item">
             <div class="item">
-                <label for="runningnumber">
+                <label for="runningnumber" class="width-95">
                     @Language.RunningNumber</label>
-                <input type="text" id="runningnumber" class="textbox" />
-            </div>
-        </div>
-        <div class="row row-item">
-            <div class="item">
-                <label for="txtusername" class="width-80">
-                    Username</label>
-                <input type="text" id="txtusername" class="textbox txtUsername" disabled />
-                &nbsp;
-                <select id="ddlguest" disabled>
-                    <option value="-1">All</option>
-                    <option value="0">Customer</option>
-                    <option value="1">Guest</option>
-                </select>
+                <input type="text" id="runningnumber" class="textbox runningNumber" />
             </div>
             <div class="item">
                 <label for="txtfromdate" class="width-80">
@@ -40,40 +27,17 @@
                     To date</label>
                 <input type="text" id="txttodate" readonly="readonly" class="textbox txtcalendar" />
             </div>
-            <div class="item">
-                <button class="btn" onclick="lastedFeedback.loadLastedFeedback(false);">
-                    Submit</button>
-            </div>
         </div>
         <div class="row row-item">
             <div class="item">
-                <label for="ddlcategory" class="width-80">
-                    Main Category</label>
-                <select id="ddlcategory" class="selMainCategory">
-                    <option value="0">All</option>
-                </select>
-            </div>
-            <div class="item">
-                <label for="ddlsubcategory" class="width-80">
-                    Subcategory</label>
-                <select id="ddlsubcategory" class="selSubCategory">
-                    <option value="0">All</option>
-                </select>
-            </div>
-        </div>
-        <div class="row row-item">
-            <div class="item">
-                <label for="ddlcommunication" class="width-80">
-                    Communication</label>
-                <select id="ddlcommunication" class="selCommunication">
-                    <option value="0">All</option>
-                </select>
-            </div>
-            <div class="item">
-                <label for="ddlstatus" class="txtStatus">
-                    Status</label>
-                <select id="ddlstatus" class="selStatus">
-                    <option value="0">All</option>
+                <label for="txtusername" class="width-95">
+                    Username</label>
+                <input type="text" id="txtusername" class="textbox txtUsername" disabled />
+                &nbsp;
+                <select id="ddlguest" disabled>
+                    <option value="-1">All</option>
+                    <option value="0">Customer</option>
+                    <option value="1">Guest</option>
                 </select>
             </div>
             <div class="item">
@@ -91,6 +55,42 @@
                 <select id="ddlCustomerReponse" class="selResponse">
                     <option value="0">All</option>
                 </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="item">
+                <label for="ddlcategory" class="width-95">
+                    Main Category</label>
+                <select id="ddlcategory" class="selMainCategory">
+                    <option value="0">All</option>
+                </select>
+            </div>
+            <div class="item">
+                <label for="ddlsubcategory" class="width-80">
+                    Subcategory</label>
+                <select id="ddlsubcategory" class="selSubCategory">
+                    <option value="0">All</option>
+                </select>
+            </div>
+        </div>
+        <div class="row row-item">
+            <div class="item">
+                <label for="ddlcommunication" class="width-95">
+                    Communication</label>
+                <select id="ddlcommunication" class="selCommunication">
+                    <option value="0">All</option>
+                </select>
+            </div>
+            <div class="item">
+                <label for="ddlstatus" class="txtStatus">
+                    Status</label>
+                <select id="ddlstatus" class="selStatus">
+                    <option value="0">All</option>
+                </select>
+            </div>
+            <div class="item">
+                <button class="btn" onclick="lastedFeedback.loadLastedFeedback(false);">
+                    Submit</button>
             </div>
         </div>
     </div>
