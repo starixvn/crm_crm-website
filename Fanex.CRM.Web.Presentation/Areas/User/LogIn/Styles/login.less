@@ -1,3 +1,4 @@
+@import "../../../../Content/site/mixins.less";
 
 body
 {
@@ -102,9 +103,8 @@ body
     height: 40px;
     margin-bottom: 16px;
     text-indent: 60px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    color: #666;
+    border: none;
+    color: #fff;
     font-size: 14px;
     transition: all .2s ease-in-out;
     -moz-transition: all .2s ease-in-out;
@@ -125,7 +125,7 @@ body
 
 #username:active, #username:focus, #password:active, #password:focus
 {
-    border: 1px solid #ccc;
+    border: none;
     box-shadow: 0 0 1px #ccc;
 }
 
@@ -136,12 +136,12 @@ body
 
 #username
 {
-    background: #fff url(Images/username.png) no-repeat left center;
+    background: #7e97cc url(Images/username.png) no-repeat left center;
 }
 
 #password
 {
-    background: #fff url(Images/password.png) no-repeat left center;
+    background: #7e97cc url(Images/password.png) no-repeat left center;
 }
 
 #submit
@@ -149,18 +149,16 @@ body
     display: block;
     width: 366px;
     height: 40px;
-    background-color: #E7EAEB;
-    border: 1px solid #B5B6B3;
-    border-radius: 3px 3px 3px 3px;
-    box-shadow: 0 1px 0 #FFFFFF inset;
-    color: #5C5C5C;
+    .gradient-vertical(#f4f4f4, #ededed);
+    border: none;
+    box-shadow: 0 1px 0 #FFF inset;
+    color: #464d5d;
     cursor: pointer;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 0.1px;
+    font-size: 14px;
     padding: 6px 11px;
-    text-shadow: 1px 1px 0 #FFFFFF;
+    text-shadow: 1px 1px 0 #FFF;
     text-transform: uppercase;
+    outline: none;
 }
 
 #submit:hover
@@ -215,8 +213,9 @@ body
 {
     margin-top: 16px;
     font-size: 0.8em;
-    text-shadow: 0 0 0.1em #000;
+    //text-shadow: 0 0 0.1em #000;
     padding: 1px;
+    text-align: center;
 }
 
 .bestview .ff4
