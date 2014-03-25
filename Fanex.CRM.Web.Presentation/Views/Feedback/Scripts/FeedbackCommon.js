@@ -4,7 +4,8 @@ AllSetting,
 desvalue: true,
 solvalue: true,
 revvalue: true,
-accname 
+accname,
+hotKeyManager 
 */
 /* exported trim, 
 getRelatedCustomer, 
@@ -379,6 +380,15 @@ function initHTMLArea(wrapperid, editerid, strvalue) {
             strvalue +
         '</textarea>';
     $("#" + editerid).htmlarea({
+        keyUpEvent: function (eventObject) {
+            hotKeyManager.keyUp(eventObject);
+        },
+        keyDownEvent: function (eventObject) {
+            return hotKeyManager.documentKeyDown(eventObject);
+        },
+        blurEvent: function () {
+            return hotKeyManager.documentBlur();
+        },
         toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],

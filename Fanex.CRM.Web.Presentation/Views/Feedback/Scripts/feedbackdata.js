@@ -6,7 +6,8 @@ showAlertMessage,
 inputMultipleRelatedNote,
 initHTMLArea,
 errMsgFeedbackDateGreatter,
-errMsgResolutionDateGreatter
+errMsgResolutionDateGreatter,
+hotKeyManager
 */
 /* jshint maxstatements: 3000 */
 function FeedbackData(userId, username, customerId, clientTime) {
@@ -44,6 +45,15 @@ function FeedbackData(userId, username, customerId, clientTime) {
             strvalue +
         '</textarea>';
         $('#' + editerid).htmlarea({
+            keyUpEvent: function (eventObject) {
+                hotKeyManager.keyUp(eventObject);
+            },
+            keyDownEvent: function (eventObject) {
+                return hotKeyManager.documentKeyDown(eventObject);
+            },
+            blurEvent: function () {
+                return hotKeyManager.documentBlur();
+            },
             toolbar: [
                 ['html'], ['bold', 'forecolor', 'italic', 'underline', 'strikethrough', '|', 'subscript', 'superscript'],
                 ['increasefontsize', 'decreasefontsize'],
