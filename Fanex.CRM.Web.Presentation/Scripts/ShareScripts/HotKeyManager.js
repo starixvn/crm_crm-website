@@ -1,4 +1,9 @@
 ﻿/* jshint camelcase: false */
+/* Hotkey notes:
+    - Don't invoke hot key so fast 
+        (including: keep holding Ctrl + Key,
+                    or make next combine in short time after previous combine)
+*/
 var hotKeyManager;
 var HotKeyManager = function () {
     var self = this;
