@@ -431,9 +431,15 @@ function (
             $scope.oldCustomerDetail.AddressInfo.PostCode !== $scope.customerDetail.AddressInfo.PostCode ||
             $scope.oldCustomerDetail.AddressInfo.State !== $scope.customerDetail.AddressInfo.State ||
 
+            $scope.oldCustomerDetail.BankInfo.HolderName !== $scope.customerDetail.BankInfo.HolderName ||
+            $scope.oldCustomerDetail.BankInfo.AccountNumber !== $scope.customerDetail.BankInfo.AccountNumber ||
+            $scope.oldCustomerDetail.BankInfo.Name !== $scope.customerDetail.BankInfo.Name ||
+            $scope.oldCustomerDetail.BankInfo.SwiftCode !== $scope.customerDetail.BankInfo.SwiftCode ||
+
             $scope.oldCustomerDetail.BankInfo.AddressInfo.LineList[0] !== $scope.customerDetail.BankInfo.AddressInfo.LineList[0] ||
             $scope.oldCustomerDetail.BankInfo.AddressInfo.LineList[1] !== $scope.customerDetail.BankInfo.AddressInfo.LineList[1] ||
             $scope.oldCustomerDetail.BankInfo.AddressInfo.LineList[2] !== $scope.customerDetail.BankInfo.AddressInfo.LineList[2] ||
+
             $scope.oldCustomerDetail.BankInfo.AddressInfo.City !== $scope.customerDetail.BankInfo.AddressInfo.City ||
             $scope.oldCustomerDetail.BankInfo.AddressInfo.Country.Id !== $scope.customerDetail.BankInfo.AddressInfo.Country.Id ||
             $scope.oldCustomerDetail.BankInfo.AddressInfo.PostCode !== $scope.customerDetail.BankInfo.AddressInfo.PostCode ||
