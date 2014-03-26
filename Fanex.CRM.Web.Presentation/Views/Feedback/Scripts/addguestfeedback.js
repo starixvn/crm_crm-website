@@ -14,7 +14,8 @@ isShowCustinfoBox,
 isShowDescriptionBox,
 isShowFeedbackDetailBox,
 isShowSolutionBox,
-orgLengt */
+orgLengt,
+invokeHotKey_CtrlE */
 /* jshint camelcase: false */
 var feedbackData;
 var settingData;

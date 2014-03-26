@@ -40,7 +40,8 @@ isShowFeedbackDetailBox,
 isShowReviewBox,
 isShowSolutionBox,
 hotKeyManager,
-invokeHotKey_CtrlS
+invokeHotKey_CtrlS,
+invokeHotKey_CtrlE
 */
 /* jshint camelcase: false */
 //var settings = ["Title", "Status", "Station", "Response", "Communication"];
