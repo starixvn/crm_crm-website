@@ -32,7 +32,7 @@ namespace Fanex.CRM.Communication.Criteria
 
         [SpParam(SqlParamName = "countryid")]
         public int CountryId { get; set; }
-        
+
         [SpParam(SqlParamName = "feedbackdate")]
         public DateTime StartTime { get; set; }
 
@@ -145,11 +145,12 @@ namespace Fanex.CRM.Communication.Criteria
             param.Add("isreviewed", IsReviewed);
             param.Add("review", StringExtension.GetValueNotNull(Review));
             param.Add("subject", StringExtension.GetValueNotNull(Subject));
-            param.Add("creatorid", CreatorId);
             param.Add("userid", UserId);
             param.Add("ip", IP);
-            param.Add("errcode", ErrorCode);
-            param.Add("errmsg", ErrorMessage);
+
+            // param.Add("creatorid", CreatorId);
+            // param.Add("errcode", ErrorCode);
+            // param.Add("errmsg", ErrorMessage);
             return param;
         }
 
