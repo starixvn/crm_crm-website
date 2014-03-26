@@ -63,10 +63,18 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', '$
         }
         $remarkService.updateRemarks($scope.remarks)
             .then(function (data) {
-                var isSuccess = data.Result.Code === 0;
+                var result = data.Result;
+                if (result.Code === undefined || result.Code === null) {
+                    result = {
+                        Code: crmConstants.Enums.Error.Forbidden,
+                        Message: "You don't have permission on this function!"
+                    };
+                }
+
+                var isSuccess = result.Code === 0;
                 $scope.alertResult = {
                     IsSuccess: isSuccess,
-                    Message: isSuccess ? remarkResources.UpdateRemarkSuccess : data.Result.Message
+                    Message: isSuccess ? remarkResources.UpdateRemarkSuccess : result.Message
                 };
                 if (isSuccess) {
                     $timeout(function () {

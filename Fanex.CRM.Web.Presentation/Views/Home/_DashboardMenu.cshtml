@@ -13,7 +13,8 @@
         <li id="liDetail"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liDetail');">
             <span class="hotkey">D</span>etail</a></li>
     }
-    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read))
+    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read) || 
+        permission.HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Read))
     {
         <li id="liCommnunicationLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liCommnunicationLog');">
             Communication <span class="hotkey">L</span>og</a></li>
