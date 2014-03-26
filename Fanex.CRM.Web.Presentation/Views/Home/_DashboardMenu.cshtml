@@ -23,12 +23,12 @@
         <li id="liSpecialRemark"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liSpecialRemark');">
             Special Remar<span class="hotkey">k</span></a></li>
     }
-    @if (permission.HasPermission(FunctionPermission.RedemptionManagement, Constant.Policy.Read))
+    @if (permission.HasPermission(FunctionPermission.CRMReport, Constant.Policy.Read))
     {
         <li id="liRedemption"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRedemption');">
             <span class="hotkey">R</span>edemption</a></li>
     }
-    @if (permission.HasPermission(FunctionPermission.ViewActivityLog, Constant.Policy.Read))
+    @if (permission.HasPermission(FunctionPermission.ViewSettingLog, Constant.Policy.Read))
     {
         <li id="liActivityLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liActivityLog');">
             Ac<span class="hotkey">t</span>ivity Log</a></li>
