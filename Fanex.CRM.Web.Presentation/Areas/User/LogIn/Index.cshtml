@@ -10,7 +10,7 @@
     <meta charset="utf-8" />
     <title>@Resources.Language.Sign_In</title>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" type="text/css" href="~/Areas/User/LogIn/Styles/login.less" />
+    @Styles.Render("~/Areas/User/LogInStyles")
 </head>
 <body>
     <div id='not-supported-browser-panel' style="display: none">
@@ -43,7 +43,6 @@
             </div>
         </div>
     }
-    <script type="text/javascript" src="~/Scripts/ShareScripts/SharedScriptManager.js"></script>
-    <script type="text/javascript" src="~/Areas/User/LogIn/Scripts/LogInManager.js"></script>
+    @Scripts.Render("~/Areas/User/LogInScripts")
 </body>
 </html>
