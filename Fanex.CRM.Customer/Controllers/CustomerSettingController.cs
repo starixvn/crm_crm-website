@@ -38,6 +38,9 @@ namespace Fanex.CRM.Customer.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetShortCustomerInfo()
         {
+            Fanex.NAP.Core.Service.Impl.UserService user = new NAP.Core.Service.Impl.UserService();
+            var policy = user.GetUserSiteFunctionKeyPolicy(CurrentSession.UserId, SiteId, "Customer_Guest");
+
             return View("~/Areas/Customer/ShortInfo/CustomerInfo.cshtml");
         }
 
