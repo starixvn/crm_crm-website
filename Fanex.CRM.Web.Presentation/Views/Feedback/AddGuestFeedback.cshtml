@@ -473,7 +473,7 @@
 }
 <script language="javascript" type="text/javascript">
     window.rootUrl = '@Url.Content("~")';
-    var accId = "@AppSession.CurrentUser.Id";
+    var accId = @AppSession.CurrentUser.Id;
     var accname = "@AppSession.CurrentUser.Username";
     var errorMsg = "@ErrorMsg.lblErrorInputRequiredDate";
     var errorMsgInvalidUser = "@ErrorMsg.lblInvalidUserName";
@@ -486,7 +486,7 @@
     var errMsgFeedbackDateGreatter = "@ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate";
     var errMsgResolutionDateGreatter = "@ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime";
     var errMsgNotYetVerifyFeedbackRelatedCustomer = "@ErrorMsg.lblNotYetVerifyFeedbackRelatedCustomer";
-    var allowDeleteFeedback = "@permission.HasPermission(FunctionPermission.DeleteFeedback, Fanex.NAP.Core.Business.Constant.Policy.Host).ToString().ToLower()";
+    var allowDeleteFeedback = @permission.HasPermission(FunctionPermission.DeleteFeedback, Fanex.NAP.Core.Business.Constant.Policy.Host).ToString().ToLower();
     var clientTime = "@getClientTime";
 
     head.js("@Url.Content("~/Scripts/JQuery/jquery-1.8.2.js")", function () {

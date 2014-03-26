@@ -494,7 +494,7 @@
     var errMsgFeedbackDateGreatter = "@ErrorMsg.lblFeedbacDateShouldBeSmallerThanCurrentDate";
     var errMsgResolutionDateGreatter = "@ErrorMsg.lblFeedbackDateShouldBeSmallerThanResolutionTime";
     var errMsgNotYetVerifyFeedbackRelatedCustomer = "@ErrorMsg.lblNotYetVerifyFeedbackRelatedCustomer";
-    var allowDeleteFeedback = "@permission.HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host).ToString().ToLower()";
+    var allowDeleteFeedback = @permission.HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host).ToString().ToLower();
     var clientTime = "@getClientTime";
 
     head.js("@Url.Content("~/Scripts/JQuery/jquery-1.8.2.js")", function () {
