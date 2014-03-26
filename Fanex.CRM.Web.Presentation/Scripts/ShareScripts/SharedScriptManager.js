@@ -138,8 +138,10 @@ var SharedScriptManager = function () {
     };
 
     self.formatAjaxResult = function (ajaxResult) {
-        if (ajaxResult.Id === undefined ||
-            ajaxResult.Id === null) {
+        if ((ajaxResult.Id === undefined ||
+            ajaxResult.Id === null) &&
+            (ajaxResult.Code === undefined ||
+            ajaxResult.Code === null)) {
             ajaxResult = {
                 Id: crmConstants.Enums.Error.Forbidden,
                 Code: crmConstants.Enums.Error.Forbidden,

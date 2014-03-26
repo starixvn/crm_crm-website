@@ -500,6 +500,14 @@ function (
     };
     $scope.showUpdateResult = function (updateResult) {
         updateResult = sharedScriptManager.formatAjaxResult(updateResult);
+        if (updateResult.Code !== 0) {
+            $scope.resultMessage = updateResult.Message;
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            $scope.unblockUI();
+            return;
+        }
+
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         parent.homeManager.CachedData.shareInfoBetweenPopup = updateResult;
         parent.homeManager.CachedData.shouldReloadView = true;
