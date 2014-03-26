@@ -108,6 +108,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         }
 
         [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
             var updateResult = _dashboardServiceInstance.UpdateCustomerVerifyFlag(criteria);

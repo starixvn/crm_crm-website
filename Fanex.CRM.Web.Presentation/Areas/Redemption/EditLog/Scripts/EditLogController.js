@@ -176,6 +176,14 @@ function (
     };
     $scope.completedUpdateLog = function (updateResult) {
         updateResult = sharedScriptManager.formatAjaxResult(updateResult);
+        if (updateResult.Code !== 0) {
+            $scope.resultMessage = updateResult.Message;
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            $scope.unblockUI();
+            return;
+        }
+
         $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
         parent.homeManager.CachedData.shareInfoBetweenPopup = updateResult;
         parent.homeManager.CachedData.shouldReloadView = true;

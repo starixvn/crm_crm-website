@@ -16,6 +16,10 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
         $scope.customerInfo = $bootstrappedData.customerInfo;
         $scope.oldCustomerInfo = angular.copy($scope.customerInfo);
         $scope.isSetFocus = false;
+        $scope.isSuccess = false;
+        $scope.isShowResultMessage = false;
+        $scope.resultMessage = '';
+
         $scope.crmConstants = crmConstants;
         $scope.updateCustomerVerifyFlag = function () {
             $scope.BlockUI();
@@ -52,6 +56,14 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
         };
         $scope.completedUpdate = function (updateResult) {
             updateResult = sharedScriptManager.formatAjaxResult(updateResult);
+            if (updateResult.Code !== 0) {
+                $scope.resultMessage = updateResult.Message;
+                $scope.isShowResultMessage = true;
+                $scope.isSuccess = false;
+                $scope.unblockUI();
+                return;
+            }
+
             $scope.oldCustomerInfo = angular.copy($scope.customerInfo);
             parent.homeManager.CachedData.shareInfoBetweenPopup = updateResult;
             parent.homeManager.CachedData.shouldReloadView = true;
