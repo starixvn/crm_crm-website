@@ -181,7 +181,7 @@ namespace Fanex.CRM.User.Controllers
                     return View(LogInViewURL);
                 }
 
-                if (this.IsSiteLogin == 0)
+                if (!this.IsSiteLogin)
                 {
                     // user has access to multiple sites
                     if (siteLevelList.Count() > 1)

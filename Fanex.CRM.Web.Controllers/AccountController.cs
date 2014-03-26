@@ -30,7 +30,7 @@ namespace Fanex.CRM.Web.Controllers
     public class AccountController : BaseController
     {
         private IUserService _userService;
-        private IMaintainanceService _maintenanceService;
+        private IMaintenanceService _maintenanceService;
         private ISiteService _siteService;
         private ICurrentSession _currentSession;
 
@@ -43,12 +43,12 @@ namespace Fanex.CRM.Web.Controllers
             IUserService userService,
             ISiteService siteService,
             ICurrentSession currentSession,
-            IMaintainanceService maintenanceService)
+            IMaintenanceService maintenanceService)
         {
             _userService = userService ?? new UserService();
             _siteService = siteService ?? new SiteService();
             _currentSession = currentSession ?? new CurrentSession();
-            _maintenanceService = maintenanceService ?? new MaintainanceService();
+            _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
         /// <summary>

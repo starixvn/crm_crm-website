@@ -33,7 +33,7 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
 
         protected readonly int SiteId = NapSettings.Settings.SiteId;
 
-        private int _issiteLogin = NapSettings.Settings.IsSiteLogin;
+        private bool _issiteLogin = NapSettings.Settings.EnableDirectLogin;
 
         private ViewFlags _viewFlags;
 
@@ -56,13 +56,12 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
         }
 
         /// <summary>
-        /// Gets Indicates whether the current site allows users login directly.
-        /// If "0", users must login through NAP Hub.
+        /// Gets a value indicating whether [is site login].
         /// </summary>
         /// <value>
-        /// The is site login.
-        /// </value>        
-        public int IsSiteLogin
+        ///   <c>True</c> if [is site login]; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsSiteLogin
         {
             get
             {
