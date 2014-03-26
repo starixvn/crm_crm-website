@@ -159,7 +159,7 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// Gets all status.
         /// </summary>
         /// <returns>All status.</returns>
-        public List<SettingInfo> GetAllStatus()
+        public List<SettingInfo> GetAllStatus_Edit()
         {
             var allStatusResult = new List<SettingInfo>();
             try
@@ -180,6 +180,48 @@ namespace Fanex.CRM.Communication.Services.Implements
                         status.Name == Labels.Solved ||
                         status.Name == Labels.Closed ||
                         status.Name == Labels.Pending)
+                    {
+                        allStatusResult.Add(status);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allStatusResult;
+        }
+
+        /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <param name="hasDeleteFeedbackPermission">If set to <c>true</c> [has delete feedback permission].</param>
+        /// <returns>
+        /// All status.
+        /// </returns>
+        public List<SettingInfo> GetAllStatus_Insert(bool hasDeleteFeedbackPermission)
+        {
+            var allStatusResult = new List<SettingInfo>();
+            try
+            {
+                var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
+                {
+                    ViewType = ViewTypeConstants.CommunicationTool
+                });
+
+                if (allStatusSetting == null)
+                {
+                    return allStatusResult;
+                }
+
+                foreach (var status in allStatusSetting)
+                {
+                    if (status.Name == Labels.Checked ||
+                        status.Name == Labels.Solved ||
+                        status.Name == Labels.Closed ||
+                        status.Name == Labels.Pending ||
+                        (status.Name == Labels.Deleted && hasDeleteFeedbackPermission))
                     {
                         allStatusResult.Add(status);
                     }

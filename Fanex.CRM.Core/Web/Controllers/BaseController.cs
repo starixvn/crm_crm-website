@@ -116,7 +116,8 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
         {
             return AppSession.RoleAccess != null &&
                    AppSession.RoleAccess.ContainsKey(functionName) &&
-                   AppSession.RoleAccess[functionName] == (int)Constant.Policy.Read;
+                   (AppSession.RoleAccess[functionName] == (int)Constant.Policy.Read ||
+                   AppSession.RoleAccess[functionName] == (int)Constant.Policy.Host);
         }
 
         public bool HasHostPermission(string functionName)
@@ -132,7 +133,7 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
                    AppSession.RoleAccess.ContainsKey(functionName) &&
                    AppSession.RoleAccess[functionName] >= (int)policy;
         }
-        
+
         /// <summary>
         /// Execute before each request, if Downtime then go to Downtime page
         /// Or not Authenticate will go to Login Page.
