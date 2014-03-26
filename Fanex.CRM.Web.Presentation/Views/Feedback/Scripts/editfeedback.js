@@ -261,6 +261,7 @@ function loadFeedbackAfterCallAjax(rs, Id) {
 
     setTimeout(function () {
         parent.UnBlockUI();
+        $("#btnsubmitbottom").focus();
     }, 1000);
 }
 
@@ -1030,7 +1031,6 @@ head.ready(function () {
 
     $("#btnsubmit").removeAttr("disabled");
     $("#btnsubmitbottom").removeAttr("disabled");
-    $("#btnsubmitbottom").focus();
     responsePage = gup('rep');
 
     /* register hot key */
@@ -1038,7 +1038,6 @@ head.ready(function () {
         Value: window,
         Id: 'AddGuestFeedback'
     });
-    $("#btnsubmitbottom").focus();
 });
 
 feedbackEdit = {
