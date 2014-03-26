@@ -4,7 +4,9 @@ customerDetail,
 crmConstants,
 viewResources,
 hotKeyManager,
-sharedScriptManager */
+sharedScriptManager,
+moment */
+/* jshint camelcase: false */
 customerDetailApplication.controller('customerDetailController', ['$scope', '$http', '$customerDetailService',
 function (
     $scope,
@@ -198,7 +200,9 @@ function (
             BankSwiftCode: customerDetail.BankInfo.SwiftCode,
 
             TitleId: customerDetail.Title.Id,
-            BirthDay: customerDetail.BirthDayString,
+            BirthDay: customerDetail.BirthDayString ?
+                moment(customerDetail.BirthDayString).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                '',
             BettingCode: customerDetail.BettingCode[0],
             RefCode2: customerDetail.BettingCode[1],
             IsVIP: customerDetail.IsVIP

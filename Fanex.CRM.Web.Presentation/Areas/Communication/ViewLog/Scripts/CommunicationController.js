@@ -5,7 +5,9 @@ viewResources,
 crmConstants,
 currentDate,
 customerId,
-initFromDate */
+initFromDate,
+moment */
+/* jshint camelcase: false */
 communicationApplication.controller('communicationController', ['$scope', '$http', '$communicationService',
 function (
     $scope,
@@ -232,8 +234,12 @@ function (
         $scope.BlockUI();
         var searchLogsCriteria = {
             CustomerId: $scope.searchCriteria.CustomerId,
-            FromDate: $scope.searchCriteria.FromDate,
-            ToDate: $scope.searchCriteria.ToDate,
+            FromDate: $scope.searchCriteria.FromDate ?
+                    moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                    '',
+            ToDate: $scope.searchCriteria.ToDate ?
+                    moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                    '',
             StatusId: $scope.searchCriteria.Status.Id,
             Handler: $scope.searchCriteria.Handler
         };
