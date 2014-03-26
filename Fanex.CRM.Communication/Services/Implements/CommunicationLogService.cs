@@ -26,6 +26,7 @@ namespace Fanex.CRM.Communication.Services.Implements
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Infrastructure.Service.Implements;
 
     /// <summary>
     /// Communication Log Service.
@@ -200,11 +201,12 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// <returns>
         /// All status.
         /// </returns>
-        public List<SettingInfo> GetAllStatus_Insert(bool hasDeleteFeedbackPermission)
+        public List<SettingInfo> GetAllStatus_Insert()
         {
             var allStatusResult = new List<SettingInfo>();
             try
             {
+                var hasDeleteFeedbackPermission = (new PermissionService()).HasReadPermission(FunctionPermission.DeleteFeedback);
                 var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
                 {
                     ViewType = ViewTypeConstants.CommunicationTool
