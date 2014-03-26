@@ -125,13 +125,13 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/EditLog/Index.cshtml", logInfo);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Host)]
         public ActionResult OpenInsertView(int customerId)
         {
             return View("~/Areas/Communication/InsertLog/Index.cshtml", customerId);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult ViewDetailById(int logId)
         {
             var logInfo = _communicationServiceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
