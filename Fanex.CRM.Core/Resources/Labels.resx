@@ -123,6 +123,9 @@
   <data name="Home_Index_CollapseExpandLeftPanel" xml:space="preserve">
     <value>Show/Hide Left Panel</value>
   </data>
+  <data name="NoPermission" xml:space="preserve">
+    <value>You don't have permission on this function!</value>
+  </data>
   <data name="ResultMessage_NoInfo" xml:space="preserve">
     <value>There is no data.</value>
   </data>

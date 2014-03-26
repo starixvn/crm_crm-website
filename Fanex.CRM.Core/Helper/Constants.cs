@@ -22,6 +22,7 @@ namespace Fanex.CRM.Infrastructure.Helper
         public const string CurrentUserRoleAccess = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentUserRoleAccess";
         public const string CurrentWorkingOnMenu = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentWorkingOnMenu";
         public const string CurrentActionName = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentActionName";
+        public const string CurrentHttpMethod = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentHttpMethod";
 
         public static readonly DateTime ProductionDate = new DateTime(2008, 1, 11);
 
