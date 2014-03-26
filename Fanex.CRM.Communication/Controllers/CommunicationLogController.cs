@@ -85,7 +85,6 @@ namespace Fanex.CRM.Communication.Controllers
         /// </summary>
         /// <returns>All setting for edit.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSetting_Insert()
         {
             var allSetting = new
