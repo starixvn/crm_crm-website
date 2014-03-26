@@ -99,9 +99,14 @@ namespace Fanex.CRM.Web.Controllers
             base.OnActionExecuting(filterContext);
         }
 
+        /// <summary>
+        /// Called before the action result that is returned by an action method is executed.
+        /// </summary>
+        /// <param name="filterContext">Information about the current request and action result.</param>
         protected override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             AppSession.CurrentHttpMethod = null;
+
             // Get current working on menu for getting display name,... on webpage
             if (filterContext.Result is ViewResult && string.Equals(AppSession.CurrentActionName, "Index", StringComparison.OrdinalIgnoreCase))
             {
