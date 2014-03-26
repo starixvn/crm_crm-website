@@ -131,7 +131,7 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/InsertLog/Index.cshtml", customerId);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult ViewDetailById(int logId)
         {
             var logInfo = _communicationServiceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
