@@ -41,7 +41,7 @@ namespace Fanex.CRM.Redemption.Controllers
             return View("~/Areas/Redemption/ViewLog/Index.cshtml", customerId);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult OpenEditView(int logId)
         {
             var logInfo = _logServiceInstance.GetLogById(new GetLogByIdCriteria

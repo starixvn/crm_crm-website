@@ -52,7 +52,8 @@ var CRMConstants = function () {
         },
 
         Error: {
-            None: 0
+            None: 0,
+            Forbidden: 403
         },
         /* jshint camelcase: false */
         FormatConstant: {

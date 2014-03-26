@@ -294,6 +294,7 @@ function (
         $scope.$apply();
     };
     $scope.showUpdateResult = function (updateResult) {
+        updateResult = sharedScriptManager.formatAjaxResult(updateResult);
         $scope.DOMElements.divResultPopUp.removeClass("display-none");
         $scope.DOMElements.divResultPopUp.html(updateResult.Name);
         $scope.DOMElements.divResultPopUp.dialog({

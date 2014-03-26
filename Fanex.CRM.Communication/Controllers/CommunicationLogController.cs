@@ -109,7 +109,7 @@ namespace Fanex.CRM.Communication.Controllers
             return jsonResult;
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult OpenEditView(int logRunningNumber)
         {
             var logInfo = _communicationServiceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria

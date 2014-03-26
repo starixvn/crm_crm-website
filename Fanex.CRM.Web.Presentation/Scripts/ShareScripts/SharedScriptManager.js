@@ -1,4 +1,5 @@
 ﻿"use strict";
+/* global crmConstants */
 /* jshint unused: vars */
 var sharedScriptManager;
 var SharedScriptManager = function () {
@@ -134,6 +135,20 @@ var SharedScriptManager = function () {
         }
 
         return version;
+    };
+
+    self.formatAjaxResult = function (ajaxResult) {
+        if (ajaxResult.Id === undefined ||
+            ajaxResult.Id === null) {
+            ajaxResult = {
+                Id: crmConstants.Enums.Error.Forbidden,
+                Name: "Access Denied!",
+                Code: crmConstants.Enums.Error.Forbidden,
+                Message: "Access Denied!"
+            };
+        }
+
+        return ajaxResult;
     };
 };
 

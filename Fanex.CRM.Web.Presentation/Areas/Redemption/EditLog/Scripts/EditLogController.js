@@ -175,6 +175,7 @@ function (
         return result;
     };
     $scope.completedUpdateLog = function (updateResult) {
+        updateResult = sharedScriptManager.formatAjaxResult(updateResult);
         $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
         parent.homeManager.CachedData.shareInfoBetweenPopup = updateResult;
         parent.homeManager.CachedData.shouldReloadView = true;
