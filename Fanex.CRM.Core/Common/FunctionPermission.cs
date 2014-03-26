@@ -36,8 +36,6 @@ namespace Fanex.CRM.Infrastructure.Common
 
         public const string CRMReport = "CRMReport";
 
-        public const string RedemptionManagement = "RedemptionManagement";
-
-        public const string ViewActivityLog = "ViewActivityLog";
+        public const string ViewSettingLog = "ViewSettingLog";
     }
 }
