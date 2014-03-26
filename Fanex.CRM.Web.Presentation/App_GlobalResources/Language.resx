@@ -277,7 +277,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>Main Category</value>
   </data>
   <data name="BettingCode" xml:space="preserve">
-    <value>Betting Code</value>
+    <value>Secret Code</value>
   </data>
   <data name="BetType" xml:space="preserve">
     <value>Bet Type</value>
@@ -349,7 +349,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>Preview</value>
   </data>
   <data name="RefCodes2" xml:space="preserve">
-    <value>Ref Codes 2</value>
+    <value>Ref Codes</value>
   </data>
   <data name="ResolutionTime" xml:space="preserve">
     <value>Resolution Time</value>

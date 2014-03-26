@@ -21,7 +21,8 @@ gup,
 accId,
 errMsgNotYetVerifyFeedbackRelatedCustomer,
 hotKeyManager,
-bindingLanguage
+bindingLanguage,
+verifyUserName
 */
 /* exported settings, 
 ddls,
@@ -452,6 +453,10 @@ function getCRMInfoById(custId) {
 
 var invokeHotKey_CtrlS = function () {
     this.AddFeedback();
+};
+
+var invokeHotKey_CtrlE = function () {
+    verifyUserName();
 };
 
 head.ready(function () {

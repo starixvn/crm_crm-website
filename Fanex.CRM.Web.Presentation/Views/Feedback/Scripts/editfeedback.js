@@ -31,7 +31,8 @@ gup,
 inputMultipleRelatedNote,
 showHideDetailBox,
 hotKeyManager,
-bindingLanguage
+bindingLanguage,
+verifyUserName
 */
 /* exported settings,
 orgArrUser,
@@ -969,6 +970,10 @@ appendListFeedbacksLasted = function (range) {
 /* jshint camelcase: false */
 var invokeHotKey_CtrlS = function () {
     this.EditFeedback();
+};
+
+var invokeHotKey_CtrlE = function () {
+    verifyUserName();
 };
 
 head.ready(function () {

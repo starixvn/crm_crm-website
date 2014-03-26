@@ -25,6 +25,8 @@ namespace Fanex.CRM.Communication.Services.Interfaces
 
         Result InsertLog(InsertLogCriteria criteria);
 
-        List<SettingInfo> GetAllStatus();
+        List<SettingInfo> GetAllStatus_Edit();
+
+        List<SettingInfo> GetAllStatus_Insert();
     }
 }
