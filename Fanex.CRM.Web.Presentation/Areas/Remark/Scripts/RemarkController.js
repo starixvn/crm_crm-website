@@ -2,7 +2,8 @@
 /* global remarkApplication,
 hotKeyManager,
 remarkResources,
-customerId */
+customerId,
+crmConstants */
 remarkApplication.controller('remarkController', ['$scope', '$remarkService', '$timeout', function (
     $scope, $remarkService, $timeout) {
     $scope.customerId = customerId;

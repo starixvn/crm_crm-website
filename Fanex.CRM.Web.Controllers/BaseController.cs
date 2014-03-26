@@ -101,6 +101,7 @@ namespace Fanex.CRM.Web.Controllers
 
         protected override void OnResultExecuting(ResultExecutingContext filterContext)
         {
+            AppSession.CurrentHttpMethod = null;
             // Get current working on menu for getting display name,... on webpage
             if (filterContext.Result is ViewResult && string.Equals(AppSession.CurrentActionName, "Index", StringComparison.OrdinalIgnoreCase))
             {
