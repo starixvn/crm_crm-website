@@ -3,7 +3,7 @@
 hotKeyManager,
 remarkResources,
 customerId,
-crmConstants */
+sharedScriptManager */
 remarkApplication.controller('remarkController', ['$scope', '$remarkService', '$timeout', function (
     $scope, $remarkService, $timeout) {
     $scope.customerId = customerId;
