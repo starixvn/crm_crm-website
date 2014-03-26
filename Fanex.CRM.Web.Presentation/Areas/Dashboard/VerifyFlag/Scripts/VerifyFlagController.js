@@ -3,7 +3,8 @@
 hotKeyManager,
 viewResources,
 crmConstants,
-numeral */
+numeral,
+sharedScriptManager */
 verifyFlagApplication.controller('verifyFlagController', ['$scope',
     '$http',
     '$verifyFlagService',
@@ -50,6 +51,7 @@ verifyFlagApplication.controller('verifyFlagController', ['$scope',
             }
         };
         $scope.completedUpdate = function (updateResult) {
+            updateResult = sharedScriptManager.formatAjaxResult(updateResult);
             $scope.oldCustomerInfo = angular.copy($scope.customerInfo);
             parent.homeManager.CachedData.shareInfoBetweenPopup = updateResult;
             parent.homeManager.CachedData.shouldReloadView = true;

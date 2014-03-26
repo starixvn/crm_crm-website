@@ -64,7 +64,7 @@ namespace Fanex.CRM.Dashboard.Controllers
             return PartialView("~/Areas/Dashboard/ViewInfo/CommunicationLogs.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult OpenEditVerifyFlagView(int customerId)
         {
             var customerInfo = _dashboardServiceInstance.GetCustomerInfo(new GetCustomerInfoCriteria

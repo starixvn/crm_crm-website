@@ -59,7 +59,7 @@ namespace Fanex.CRM.Redemption.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             var log = _logServiceInstance.GetLogsByCustomerId(criteria);

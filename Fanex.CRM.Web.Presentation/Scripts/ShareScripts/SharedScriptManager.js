@@ -142,9 +142,9 @@ var SharedScriptManager = function () {
             ajaxResult.Id === null) {
             ajaxResult = {
                 Id: crmConstants.Enums.Error.Forbidden,
-                Name: "Access Denied!",
                 Code: crmConstants.Enums.Error.Forbidden,
-                Message: "Access Denied!"
+                Name: "You don't have permission on this function!",
+                Message: "You don't have permission on this function!"
             };
         }
 
