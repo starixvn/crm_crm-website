@@ -150,6 +150,8 @@
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
     <Compile Include="Service\Implements\CacheService.cs" />
+    <Compile Include="Service\Implements\PermissionService.cs" />
+    <Compile Include="Service\Interfaces\IPermissionService.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +163,7 @@
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -83,20 +83,19 @@ namespace Fanex.CRM.Communication.Controllers
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSetting_Insert()
         {
-            var hasDeleteFeedbackPermission = HasReadPermission(FunctionPermission.DeleteFeedback);
             var allSetting = new
-            {
-                ExtensionList = _serviceSetting.GetAllExtension(),
-                CountryList = _serviceSetting.GetAllCountry(),
-                CommunicationToolList = _serviceSetting.GetAllCommunicationTool(),
-                LanguageList = _serviceSetting.GetAllLanguage(),
-                MainCategoryList = _serviceSetting.GetAllMainCategory(),
-                ProductList = _serviceSetting.GetAllProduct(),
-                StatusList = _communicationServiceLog.GetAllStatus_Insert(hasDeleteFeedbackPermission),
-                SiteList = _serviceSetting.GetAllSite(),
-                RoleList = _serviceSetting.GetAllRole(),
-                ResponseList = _serviceSetting.GetAllResponse()
-            };
+           {
+               ExtensionList = _serviceSetting.GetAllExtension(),
+               CountryList = _serviceSetting.GetAllCountry(),
+               CommunicationToolList = _serviceSetting.GetAllCommunicationTool(),
+               LanguageList = _serviceSetting.GetAllLanguage(),
+               MainCategoryList = _serviceSetting.GetAllMainCategory(),
+               ProductList = _serviceSetting.GetAllProduct(),
+               StatusList = _communicationServiceLog.GetAllStatus_Insert(),
+               SiteList = _serviceSetting.GetAllSite(),
+               RoleList = _serviceSetting.GetAllRole(),
+               ResponseList = _serviceSetting.GetAllResponse()
+           };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }

@@ -27,6 +27,6 @@ namespace Fanex.CRM.Communication.Services.Interfaces
 
         List<SettingInfo> GetAllStatus_Edit();
 
-        List<SettingInfo> GetAllStatus_Insert(bool hasDeleteFeedbackPermission);
+        List<SettingInfo> GetAllStatus_Insert();
     }
 }
