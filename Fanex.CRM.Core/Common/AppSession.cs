@@ -67,6 +67,19 @@ namespace Fanex.CRM.Infrastructure.Common
                 SessionExtension.AddSession(HttpContext.Current.Session, Constants.CurrentUserMenu, value);
             }
         }
+        
+        public static string CurrentHttpMethod
+        {
+            get
+            {
+                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.CurrentHttpMethod) as string;
+            }
+
+            set
+            {
+                SessionExtension.AddSession(HttpContext.Current.Session, Constants.CurrentHttpMethod, value);
+            }
+        }
 
         /// <summary>
         /// Gets or sets IsTrackedMenu: determine current working on menu is

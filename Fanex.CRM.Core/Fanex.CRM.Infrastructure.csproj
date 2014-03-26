@@ -111,6 +111,7 @@
     <Compile Include="Common\Enumerations.cs" />
     <Compile Include="Common\ErrorCodeConstants.cs" />
     <Compile Include="Common\FunctionPermission.cs" />
+    <Compile Include="Common\HttpMethodConstants.cs" />
     <Compile Include="Common\SortDirectionConstants.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoCollection.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoElement.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Service\Implements\PermissionService.cs" />
     <Compile Include="Service\Interfaces\IPermissionService.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
+    <Compile Include="Web\Controllers\CRMAuthAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

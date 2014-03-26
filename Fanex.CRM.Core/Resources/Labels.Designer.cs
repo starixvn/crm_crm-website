@@ -79,6 +79,15 @@ namespace Fanex.CRM.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission on this function!.
+        /// </summary>
+        public static string NoPermission {
+            get {
+                return ResourceManager.GetString("NoPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no data..
         /// </summary>
         public static string ResultMessage_NoInfo {
