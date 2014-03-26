@@ -6,7 +6,8 @@ head,
 clientTime,
 allowDeleteFeedback,
 accId,
-accname */
+accname,
+verifyUserName */
 /* exported AddGuestFeedback,
 invokeHotKey_CtrlS,
 isShowCustinfoBox,
@@ -35,6 +36,10 @@ function AddGuestFeedback() {
 
 var invokeHotKey_CtrlS = function () {
     this.AddGuestFeedback();
+};
+
+var invokeHotKey_CtrlE = function () {
+    verifyUserName();
 };
 
 head.ready(function () {
