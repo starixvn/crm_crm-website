@@ -333,7 +333,7 @@ function getFeedbackData() {
         Email: $("#emailInfo").val().trim(),
         MSN: $('#msnInfo').val().trim(),
         PassportNumber: $('#passportInfo').val().trim(),
-        Birthday: $('#birthdayInfo').datepicker("getDate"),
+        Birthday: $('#birthdayInfo').val(),
         BirthdayString: $('#birthdayInfo').val(),
         Site: $('#ddlsite').val(),
         BettingCode: $("#bettingCodeInfo").val().trim(),
