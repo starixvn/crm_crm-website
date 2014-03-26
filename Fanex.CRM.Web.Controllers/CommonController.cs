@@ -25,7 +25,9 @@ namespace Fanex.CRM.Web.Controllers
         /// <returns>The denied access result.</returns>
         public ActionResult AccessDenied()
         {
-            var previousHttpMethod = AppSession.CurrentHttpMethod;
+            var previousHttpMethod = string.IsNullOrEmpty(AppSession.CurrentHttpMethod) ?
+                HttpMethodConstants.Get :
+                AppSession.CurrentHttpMethod;
             switch (previousHttpMethod)
             {
                 case HttpMethodConstants.Get:

@@ -544,6 +544,14 @@ function (
     };
     $scope.showInsertResult = function (insertResult) {
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
+        if (insertResult.Code !== 0) {
+            $scope.resultMessage = insertResult.Message;
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            $scope.unblockUI();
+            return;
+        }
+
         parent.homeManager.CachedData.shareInfoBetweenPopup = insertResult;
         parent.homeManager.CachedData.shouldReloadView = true;
         $scope.unblockUI();
