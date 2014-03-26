@@ -21,12 +21,12 @@ namespace Fanex.CRM.Communication.Services.Implements
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Service.Implements;
 
     /// <summary>
     /// Communication Log Service.
@@ -197,7 +197,6 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// <summary>
         /// Gets all status.
         /// </summary>
-        /// <param name="hasDeleteFeedbackPermission">If set to <c>true</c> [has delete feedback permission].</param>
         /// <returns>
         /// All status.
         /// </returns>
