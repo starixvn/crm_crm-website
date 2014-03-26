@@ -112,8 +112,10 @@ namespace Fanex.CRM.Communication.Criteria
             }
         }
 
+        [SpParam(Ignored = true)]
         public int ErrorCode { get; set; }
 
+        [SpParam(Ignored = true)]
         public string ErrorMessage { get; set; }
 
         public override string GetSettingKey()

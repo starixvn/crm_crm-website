@@ -106,9 +106,14 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
+            if (!HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read) &&
+                !HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Read))
+            {
+                return null;
+            }
+
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
             var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
             return jsonResult;
@@ -174,7 +179,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>Insert result.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
             Result insertResult;

@@ -82,7 +82,7 @@ namespace Fanex.CRM.Customer.Services.Implements
         /// <returns>Update result.</returns>
         public BaseModel UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
-            var updateResult = new BaseModel();
+            BaseModel updateResult = null;
             try
             {
                 updateResult = _customerRepositoryInstance.UpdateCustomerInfoDetail(criteria);
