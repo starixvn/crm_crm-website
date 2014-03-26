@@ -4,7 +4,6 @@ successMsg,
 jlinq,
 showAlertMessage,
 inputMultipleRelatedNote,
-initHTMLArea,
 errMsgFeedbackDateGreatter,
 errMsgResolutionDateGreatter,
 hotKeyManager

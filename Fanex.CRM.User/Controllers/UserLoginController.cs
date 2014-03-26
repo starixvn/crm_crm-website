@@ -41,10 +41,9 @@ namespace Fanex.CRM.User.Controllers
         private IGroupService _napGroupService;
         private ISiteService _napSiteService;
         private IFunctionService _napFunctionService;
-        private IMaintainanceService _napMaintenanceService;
 
         public UserLoginController()
-            : this(null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
@@ -54,8 +53,7 @@ namespace Fanex.CRM.User.Controllers
             ISiteService siteService,
             IMenuItemService menuItemService,
             ICurrentSession currentSession,
-            IFunctionService functionService,
-            IMaintainanceService maintenanceService)
+            IFunctionService functionService)
         {
             _userNapService = userService ?? new UserService();
             _menuItemNapService = menuItemService ?? new MenuItemService();
@@ -64,7 +62,6 @@ namespace Fanex.CRM.User.Controllers
             _napGroupService = groupService ?? new GroupService();
             _napSiteService = siteService ?? new SiteService();
             _napFunctionService = functionService ?? new FunctionService();
-            _napMaintenanceService = maintenanceService ?? new MaintainanceService();
         }
 
         public ActionResult Index()

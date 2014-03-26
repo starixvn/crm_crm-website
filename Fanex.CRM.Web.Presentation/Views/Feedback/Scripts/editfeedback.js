@@ -43,7 +43,8 @@ isShowDescriptionBox,
 isShowFeedbackDetailBox,
 isShowReviewBox,
 isShowSolutionBox,
-invokeHotKey_CtrlS
+invokeHotKey_CtrlS,
+invokeHotKey_CtrlE
 */
 var getNumOfFeedbackItems,
     appendListFeedbacksLasted,

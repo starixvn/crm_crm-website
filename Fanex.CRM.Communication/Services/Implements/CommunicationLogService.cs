@@ -205,7 +205,6 @@ namespace Fanex.CRM.Communication.Services.Implements
             var allStatusResult = new List<SettingInfo>();
             try
             {
-                var hasDeleteFeedbackPermission = (new PermissionService()).HasReadPermission(FunctionPermission.DeleteFeedback);
                 var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
                 {
                     ViewType = ViewTypeConstants.CommunicationTool
@@ -221,8 +220,7 @@ namespace Fanex.CRM.Communication.Services.Implements
                     if (status.Name == Labels.Checked ||
                         status.Name == Labels.Solved ||
                         status.Name == Labels.Closed ||
-                        status.Name == Labels.Pending ||
-                        (status.Name == Labels.Deleted && hasDeleteFeedbackPermission))
+                        status.Name == Labels.Pending)
                     {
                         allStatusResult.Add(status);
                     }
