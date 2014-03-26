@@ -191,7 +191,7 @@
                     { 
                         <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">@Labels.CRM_Info</a></li>
                     }
-                    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read))
+                    @if (permission.HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Read))
                     { 
                         <li><a data-ng-href="#" data-ng-click="addFeedback();">@Labels.Add_Feedback</a></li>
                     }

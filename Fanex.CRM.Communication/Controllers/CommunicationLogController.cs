@@ -44,10 +44,15 @@ namespace Fanex.CRM.Communication.Controllers
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult Index(int customerId)
         {
-            return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", customerId);
+            if (HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read) ||
+                HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Read))
+            {
+                return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", customerId);
+            }
+
+            return Redirect("~/Common/AccessDenied");
         }
 
         /// <summary>
