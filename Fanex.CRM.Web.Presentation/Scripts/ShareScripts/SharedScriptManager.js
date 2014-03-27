@@ -152,6 +152,28 @@ var SharedScriptManager = function () {
 
         return ajaxResult;
     };
+
+    self.safeApply = function ($scope, fn) {
+        $scope.safeApply = function (fn) {
+            var phase = this.$root.$$phase;
+            if (phase == '$apply' || phase == '$digest') {
+                if (fn && (typeof (fn) === 'function')) {
+                    fn();
+                }
+            } else {
+                this.$apply(fn);
+            }
+        };
+    };
+    self.handleErrorMessage = function (ajaxResult, $resultMessageService) {
+        var isSuccess = ajaxResult.Code === 0;
+        $resultMessageService.showMessage({
+            messageType: isSuccess ?
+                crmConstants.Enums.MessageType.Success :
+                crmConstants.Enums.MessageType.Error,
+            message: ajaxResult.Message
+        });
+    };
 };
 
 sharedScriptManager = new SharedScriptManager();
