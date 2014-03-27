@@ -61,6 +61,24 @@ namespace Fanex.CRM.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You&apos;re not authorized on this function!.
+        /// </summary>
+        public static string Error_500 {
+            get {
+                return ResourceManager.GetString("Error_500", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry, an error occurred while processing your request, please notify the administrators..
+        /// </summary>
+        public static string Error_Server {
+            get {
+                return ResourceManager.GetString("Error_Server", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Guest.
         /// </summary>
         public static string Guest {

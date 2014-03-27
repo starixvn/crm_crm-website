@@ -2,7 +2,10 @@
 /* global editLogApplication,
 sharedScriptManager,
 hotKeyManager,
-viewResources */
+viewResources,
+moment,
+crmConstants */
+/* jshint camelcase: false */
 editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService', '$redemptionBootstrappedData',
 function (
     $scope,
@@ -127,7 +130,9 @@ function (
         hotKeyManager.documentBlur();
         var updateLogCriteria = {
             Id: $scope.redemptionLog.Id,
-            ClaimedTime: $scope.redemptionLog.ClaimedTime,
+            ClaimedTime: $scope.redemptionLog.ClaimedTime ?
+                    moment($scope.redemptionLog.ClaimedTime).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                    '',
             Subject: $scope.redemptionLog.Subject,
             StatusId: $scope.redemptionLog.Status.Id,
             Remark: $scope.redemptionLog.Remark

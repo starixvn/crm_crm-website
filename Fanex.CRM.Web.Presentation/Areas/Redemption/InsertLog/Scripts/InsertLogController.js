@@ -4,7 +4,10 @@ sharedScriptManager,
 hotKeyManager,
 currentDate,
 customerId,
-viewResources */
+viewResources,
+moment,
+crmConstants */
+/* jshint camelcase: false */
 insertLogApplication.controller('insertLogController', ['$scope', '$http', '$insertLogService',
 function (
     $scope,
@@ -138,7 +141,9 @@ function (
         $scope.BlockUI();
         hotKeyManager.documentBlur();
         var insertLogCriteria = {
-            ClaimedTime: $scope.redemptionLog.ClaimedTime,
+            ClaimedTime: $scope.redemptionLog.ClaimedTime ?
+                    moment($scope.redemptionLog.ClaimedTime).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                    '',
             Subject: $scope.redemptionLog.Subject,
             StatusId: $scope.redemptionLog.Status.Id,
             Remark: $scope.redemptionLog.Remark,

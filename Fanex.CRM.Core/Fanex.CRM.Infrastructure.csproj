@@ -112,6 +112,7 @@
     <Compile Include="Common\ErrorCodeConstants.cs" />
     <Compile Include="Common\FunctionPermission.cs" />
     <Compile Include="Common\HttpMethodConstants.cs" />
+    <Compile Include="Common\RequestHeaderTypeConstants.cs" />
     <Compile Include="Common\SortDirectionConstants.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoCollection.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoElement.cs" />
@@ -155,8 +156,10 @@
     <Compile Include="Service\Implements\CacheService.cs" />
     <Compile Include="Service\Implements\PermissionService.cs" />
     <Compile Include="Service\Interfaces\IPermissionService.cs" />
+    <Compile Include="Web\Controllers\AuthenticateAction.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
     <Compile Include="Web\Controllers\CRMAuthAttribute.cs" />
+    <Compile Include="Web\Controllers\HandleAjaxErrorAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

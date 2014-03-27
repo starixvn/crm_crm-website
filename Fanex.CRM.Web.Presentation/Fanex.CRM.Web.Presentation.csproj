@@ -405,6 +405,7 @@
     <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.css" />
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.js" />
+    <Content Include="Scripts\ShareScripts\Application\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Controllers\FromToDatePicker.js" />
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
