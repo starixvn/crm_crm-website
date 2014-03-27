@@ -37,5 +37,9 @@ namespace Fanex.CRM.Infrastructure.Common
         public const string CRMReport = "CRMReport";
 
         public const string ViewSettingLog = "ViewSettingLog";
+
+        public const string DynamicReport = "DynamicReport";
+
+        public const string CustomerReport = "CustomerReport";
     }
 }

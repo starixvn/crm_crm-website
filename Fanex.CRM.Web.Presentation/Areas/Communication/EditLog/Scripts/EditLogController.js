@@ -10,7 +10,8 @@ hotKeyManager,
 hasReviewPermission,
 verifyRelatedCustomerForUpdate,
 isOldRelatedCustomer,
-getRelatedCustomerLength */
+getRelatedCustomerLength,
+moment */
 /* jshint camelcase: false */
 editLogApplication.controller('editLogController', ['$scope', '$http', '$editLogService',
 function (
@@ -169,7 +170,7 @@ function (
     };
     $scope.updateStartTime = function (selectedTime) {
         $scope.communicationLog.StartTime = selectedTime;
-        if (new Date($scope.communicationLog.EndTime) < selectedTime) {
+        if (new Date($scope.communicationLog.EndTime) <= selectedTime) {
             $scope.communicationLog.EndTime = new Date(selectedTime);
             $scope.communicationLog.EndTime.setMinutes(selectedTime.getMinutes() + 1);
         }
@@ -178,7 +179,7 @@ function (
     };
     $scope.updateEndTime = function (selectedTime) {
         $scope.communicationLog.EndTime = selectedTime;
-        if (selectedTime < new Date($scope.communicationLog.StartTime)) {
+        if (selectedTime <= new Date($scope.communicationLog.StartTime)) {
             $scope.communicationLog.StartTime = new Date(selectedTime);
             $scope.communicationLog.StartTime.setMinutes(selectedTime.getMinutes() - 1);
         }
@@ -465,8 +466,9 @@ function (
             RelatedCustomerId: relatedCustomer,
             LanguageId: $scope.communicationLog.LanguageId,
             CountryId: $scope.communicationLog.Country.Id,
-            StartTime: $scope.communicationLog.StartTime,
-            EndTime: $scope.communicationLog.EndTime,
+            StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
+            EndTime: moment(new Date($scope.communicationLog.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
+        
             CommunicationToolId: $scope.communicationLog.CommunicationTool.Id,
             ExtensionId: $scope.communicationLog.Extension.Id,
             MainCategoryId: $scope.communicationLog.MainCategory.Id,
