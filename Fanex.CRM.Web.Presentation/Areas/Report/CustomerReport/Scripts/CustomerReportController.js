@@ -309,13 +309,17 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         };
         $scope.unblockUI = function () {
             try {
-                parent.$.unblockUI();
+                if (parent && parent.$.unblockUI) {
+                    parent.$.unblockUI();
+                }
             } catch (e) {
             }
         };
         $scope.BlockUI = function () {
             try {
-                parent.BlockUI();
+                if (parent && parent.BlockUI) {
+                    parent.BlockUI();
+                }
             } catch (e) {
             }
         };

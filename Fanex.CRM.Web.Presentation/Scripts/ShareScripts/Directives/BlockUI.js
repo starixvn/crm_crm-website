@@ -4,14 +4,18 @@ angular.module('$uiBlockerApplication', [])
     .service('$uiBlockerService', ['$rootScope', function ($rootScope) {
         this.blockUI = function () {
             try {
-                parent.BlockUI();
+                if (parent && parent.BlockUI) {
+                    parent.BlockUI();
+                }
             } catch (e) {
             }
         };
 
         this.unblockUI = function () {
             try {
-                parent.$.unblockUI();
+                if (parent && parent.$.unblockUI) {
+                    parent.$.unblockUI();
+                }
             } catch (e) {
             }
         };

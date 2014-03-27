@@ -169,6 +169,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Report.
+        /// </summary>
+        public static string Customer_Report {
+            get {
+                return ResourceManager.GetString("Customer_Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Type.
         /// </summary>
         public static string Customer_Type {

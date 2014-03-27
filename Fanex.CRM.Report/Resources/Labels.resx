@@ -360,4 +360,7 @@
   <data name="State" xml:space="preserve">
     <value>State</value>
   </data>
+  <data name="Customer_Report" xml:space="preserve">
+    <value>Customer Report</value>
+  </data>
 </root>

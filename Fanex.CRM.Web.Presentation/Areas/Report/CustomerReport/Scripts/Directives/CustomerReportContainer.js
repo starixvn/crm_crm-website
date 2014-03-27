@@ -149,7 +149,7 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             showPager: true,
             showTree: false,
             customPager: true,
-            allowTruncate: true,
+            //            allowTruncate: true,
             pagerOption: {
                 itemsPerPage: cachedData.scope.lastSelectedParams.PageSize,
                 currentPage: cachedData.scope.lastSelectedParams.PageIndex,
