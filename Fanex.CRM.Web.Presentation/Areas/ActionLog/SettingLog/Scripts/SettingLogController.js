@@ -5,7 +5,8 @@ sharedScriptManager,
 settingLogResources,
 currentDate,
 crmConstants,
-initFromDate */
+initFromDate,
+moment */
 settingLogApplication.controller('settingLogController', ['$scope', '$settingLogService', function (
     $scope,
     $settingLogService) {
@@ -68,8 +69,8 @@ settingLogApplication.controller('settingLogController', ['$scope', '$settingLog
         $scope.searchCriteria.ItemsPerPage = itemsPerPage ? itemsPerPage : sharedScriptManager.cachedData.defaultItemsPerPage;
         var searchLogsCriteria = {
             Username: $scope.searchCriteria.Username,
-            FromDate: $scope.searchCriteria.FromDate,
-            ToDate: $scope.searchCriteria.ToDate,
+            FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+            ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
             ActionId: $scope.searchCriteria.Action.Id,
             PageIndex: $scope.searchCriteria.PageIndex,
             ItemsPerPage: $scope.searchCriteria.ItemsPerPage

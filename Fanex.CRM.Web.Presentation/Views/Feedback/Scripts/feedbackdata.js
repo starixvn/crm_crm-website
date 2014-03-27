@@ -387,7 +387,7 @@ function FeedbackData(userId, username, customerId, clientTime) {
                 Email: personal.email.val().trim(),
                 MSN: personal.msn.val().trim(),
                 PassportNumber: personal.passportNumber.val().trim(),
-                Birthday: personal.birthday.datepicker('getDate'),
+                Birthday: personal.birthday.val(),
                 //Site: personal.site.val(),
                 //BettingCode: personal.bettingCode.val().trim(),
                 //RefCodes2: personal.refCodes2.val().trim(),
