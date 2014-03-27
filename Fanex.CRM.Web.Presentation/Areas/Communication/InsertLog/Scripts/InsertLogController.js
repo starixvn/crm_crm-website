@@ -324,7 +324,11 @@ function (
         if (mainCategoryInfo) {
             $scope.communicationLog.MainCategory = mainCategoryInfo;
             $scope.subCategoryList = mainCategoryInfo.ChildSettings;
-            $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
+            $scope.communicationLog.SubCategory = $scope.subCategoryList.length > 0 ?
+                $scope.subCategoryList[0] :
+                {
+                    Id: 0
+                };
             $scope.$apply();
             $scope.updateChangeFlag();
         }
@@ -362,7 +366,11 @@ function (
         if (productInfo) {
             $scope.communicationLog.Product = productInfo;
             $scope.betTypeList = productInfo.ChildSettings;
-            $scope.communicationLog.BetType = $scope.betTypeList[0];
+            $scope.communicationLog.BetType = $scope.betTypeList.length > 0 ?
+                $scope.betTypeList[0] :
+                {
+                    Id: crmConstants.Enums.BetType.NotApply
+                };
             $scope.$apply();
             $scope.updateChangeFlag();
         }

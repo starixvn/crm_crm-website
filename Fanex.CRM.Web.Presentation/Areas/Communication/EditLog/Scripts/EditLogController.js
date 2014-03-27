@@ -266,7 +266,11 @@ function (
         if (mainCategoryInfo) {
             $scope.communicationLog.MainCategory = mainCategoryInfo;
             $scope.subCategoryList = mainCategoryInfo.ChildSettings;
-            $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
+            $scope.communicationLog.SubCategory = $scope.subCategoryList.length > 0 ?
+                $scope.subCategoryList[0] :
+                {
+                    Id: 0
+                };
             $scope.$apply();
             $scope.updateChangeFlag();
         }
@@ -304,7 +308,11 @@ function (
         if (productInfo) {
             $scope.communicationLog.Product = productInfo;
             $scope.betTypeList = productInfo.ChildSettings;
-            $scope.communicationLog.BetType = $scope.betTypeList[0];
+            $scope.communicationLog.BetType = $scope.betTypeList.length > 0 ?
+                $scope.betTypeList[0] :
+                {
+                    Id: crmConstants.Enums.BetType.NotApply
+                };
             $scope.$apply();
             $scope.updateChangeFlag();
         }
@@ -468,7 +476,7 @@ function (
             CountryId: $scope.communicationLog.Country.Id,
             StartTime: moment(new Date($scope.communicationLog.StartTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
             EndTime: moment(new Date($scope.communicationLog.EndTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment),
-        
+
             CommunicationToolId: $scope.communicationLog.CommunicationTool.Id,
             ExtensionId: $scope.communicationLog.Extension.Id,
             MainCategoryId: $scope.communicationLog.MainCategory.Id,

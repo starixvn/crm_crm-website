@@ -83,8 +83,10 @@ namespace Fanex.CRM.Customer.Criteria
             }
         }
 
+        [SpParam(SqlParamName = "errcode")]
         public int ErrorCode { get; set; }
 
+        [SpParam(SqlParamName = "errmsg")]
         public string ErrorMessage { get; set; }
 
         /// <summary>

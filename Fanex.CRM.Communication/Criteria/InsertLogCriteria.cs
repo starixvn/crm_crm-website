@@ -111,10 +111,10 @@ namespace Fanex.CRM.Communication.Criteria
             }
         }
 
-        [SpParam(Ignored = true)]
+        [SpParam(SqlParamName = "errcode")]
         public int ErrorCode { get; set; }
 
-        [SpParam(Ignored = true)]
+        [SpParam(SqlParamName = "errmsg")]
         public string ErrorMessage { get; set; }
 
         /// <summary>
@@ -149,8 +149,8 @@ namespace Fanex.CRM.Communication.Criteria
             param.Add("ip", IP);
 
             // param.Add("creatorid", CreatorId);
-            // param.Add("errcode", ErrorCode);
-            // param.Add("errmsg", ErrorMessage);
+            param.Add("errcode", ErrorCode);
+            param.Add("errmsg", ErrorMessage);
             return param;
         }
 
