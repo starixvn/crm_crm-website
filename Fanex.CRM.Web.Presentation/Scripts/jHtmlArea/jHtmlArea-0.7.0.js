@@ -432,7 +432,6 @@
                     options.clickEvent();
                 }
             };
-
             $(this.editor).click(fnClick);
             $(this.editor.body).click(fnTA)
                 .keyup(fnKeyUp)
