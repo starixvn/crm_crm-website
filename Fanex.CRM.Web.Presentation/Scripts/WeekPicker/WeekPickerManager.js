@@ -1,4 +1,4 @@
-﻿WeekPickerManager = function () {
+﻿var WeekPickerManager = function () {
     this.DATE_FORMAT_STRING = "dd M yy";
     this.MonthNames = ["Jan", "Feb", "Mar", "Apr",
                        "May", "Jun", "Jul", "Aug",
@@ -156,16 +156,16 @@
                 $calendar.hide();
                 $this.width(144).mousedown(show);
 
-                function enter() {
+                var enterEvent = function enter() {
                     ishover = true;
                 }
 
-                function leave() {
+                var leaveEvent = function leave() {
                     ishover = false;
                 }
 
-                $calendar.mouseenter(enter).mouseleave(leave);
-                $this.mouseenter(enter).mouseleave(leave);
+                $calendar.mouseenter(enterEvent).mouseleave(leaveEvent);
+                $this.mouseenter(enterEvent).mouseleave(leaveEvent);
 
                 $("html").bind("click", function (e) {
                     if (!ishover) {

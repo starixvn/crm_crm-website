@@ -683,7 +683,7 @@ function (
             url,
             "Communication Log Detail",
             $(parent.document).width() - 300,
-            600,
+            $(parent.document).height() - 50,
             true,
             false,
             parent.window,
