@@ -366,6 +366,11 @@
   <data name="DocumentTitle_DynamicReport" xml:space="preserve">
     <value>CRM System - Dynamic Report</value>
   </data>
+   <data name="Statistic_Report" xml:space="preserve">
+    <value>Statistic Report</value>
+  </data>
+
+
   <data name="Statistic_Report" xml:space="preserve">
     <value>Statistic Report</value>
   </data>
