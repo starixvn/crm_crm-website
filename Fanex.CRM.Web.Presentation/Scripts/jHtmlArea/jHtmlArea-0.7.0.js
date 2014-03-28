@@ -358,6 +358,31 @@
                 addButtons(options.toolbar);
             }
         },
+        fixBindingEvents: function (
+            editor,
+            fnTA,
+            fnKeyUp,
+            fnKeyDown,
+            fnBlur) {
+            // Louis.Nguyen: 28/03/2014
+            var firefoxVersion = $.browser.mozilla ? parseFloat($.browser.version) : -1;
+            if (firefoxVersion !== -1 && firefoxVersion < 10) {
+                // We must binding events to iframe 
+                // because they won't be fired with old fire fox version
+                $(editor).click(fnTA)
+                    .keyup(fnKeyUp)
+                    .keydown(fnKeyDown)
+                    .mousedown(fnTA)
+                    .blur(fnBlur);
+
+                // Go to Insert communication log page 
+                // and uncomment following code to see that event isn't fire 
+                // when attached to boy tag in iframe
+                //                $("#solutionkeditorboxcontainer .jHtmlArea iframe").contents().find('body').keydown(function () {
+                //                    console.log("Event is fired.");
+                //                });
+            }
+        },
         attachEditorEvents: function (options) {
             var t = this;
             var fnHA = function () {
@@ -401,12 +426,12 @@
                 }
             };
 
-            $(this.editor.body).click(fnTA).
-                keyup(fnKeyUp).
-                keydown(fnKeyDown).
-                mousedown(fnTA).
-                blur(fnBlur);
-
+            $(this.editor.body).click(fnTA)
+                .keyup(fnKeyUp)
+                .keydown(fnKeyDown)
+                .mousedown(fnTA)
+                .blur(fnBlur);
+            priv.fixBindingEvents(this.editor, fnTA, fnKeyUp, fnKeyDown, fnBlur);
             $('form').submit(function () { t.toggleHTMLView(); t.toggleHTMLView(); });
             //$(this.textarea[0].form).submit(function() { //this.textarea.closest("form").submit(function() {
 
