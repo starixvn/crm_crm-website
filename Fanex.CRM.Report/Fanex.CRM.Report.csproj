@@ -62,7 +62,8 @@
     <Compile Include="Controllers\CustomerReportController.cs" />
     <Compile Include="Controllers\DynamicReportController.cs" />
     <Compile Include="Controllers\SettlementReportController.cs" />
-    <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
+    <Compile Include="Controllers\StatisticReportController.cs" />
+   <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
@@ -88,13 +89,15 @@
     <Compile Include="Services\Implements\CustomerReportService.cs" />
     <Compile Include="Services\Implements\DynamicReport\CommunicationLogRowExcelWriter.cs" />
     <Compile Include="Services\Implements\DynamicReport\DynamicReportService.cs" />
-    <Compile Include="Services\Implements\SettlementReport\GrandTotalRowExcelWriter.cs" />
+      <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
+ <Compile Include="Services\Implements\SettlementReport\GrandTotalRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\OddEvenRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\SettlementReportService.cs" />
     <Compile Include="Services\Interfaces\ICustomerReportService.cs" />
     <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
     <Compile Include="Services\Interfaces\ISettlementReportService.cs" />
-  </ItemGroup>
+    <Compile Include="Services\Interfaces\IStatisticReportService.cs" />
+ </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.resx">
