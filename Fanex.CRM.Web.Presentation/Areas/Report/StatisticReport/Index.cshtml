@@ -1,0 +1,113 @@
+﻿@using Fanex.CRM.Report.Resources;
+@using Fanex.CRM.Report.Models;
+@using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Common;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-statisticreport-application">
+<head>
+    <title>@Labels.Statistic_Report </title>
+    @Styles.Render("~/site/common")
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Areas/Report/StatisticReportStyles")
+</head>
+<body class="statisticReportController" data-ng-controller="statisticReportController">
+    <div class="main container">
+        <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
+            <div class="row row-item">
+                <div class="item">
+                    <label for="reporttype" class="width-70 pull-left">
+                        @Labels.Group_By</label>
+                    <div class="report-type-container pull-left" data-ng-model="reportTypeOptions.DataList">
+                        <select id="reporttype" class="selReportType">
+                        </select>
+                    </div>
+                </div>
+                <div class="pull-left" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Daily}">
+                    <div class="item">
+                        <label for="fromDate" class="width-80">
+                            @Labels.From_Date</label>
+                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                            <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="toDate" class="width-50">
+                            @Labels.To_Date</label>
+                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                            <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Monthly}">
+                    <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions">
+                        <label for="frommonth" class="width-80">
+                            @Labels.From_Month</label>
+                        <select id="frommonth_month">
+                        </select>
+                        <select id="frommonth_year">
+                        </select>
+                    </div>
+                    <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions">
+                        <label for="tomonth">
+                            @Labels.To_Month</label>
+                        <select id="tomonth_month">
+                        </select>
+                        <select id="tomonth_year">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
+                    <label for="main-category">
+                        @Labels.Main_Category</label>
+                    <select id="main-category" class="selCategory">
+                    </select>
+                </div>
+                <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
+                    <label for="sub-category" class="width-110">
+                        @Labels.Sub_Category</label>
+                    <select id="sub-category" class="selSubCategory">
+                    </select>
+                </div>
+                <div class="item">
+                    <button id="button-submit" class="btn default-focus" data-ng-click="getDynamicReport()"
+                        data-ng-model="defaultFocusOptions.IsSetFocus">
+                        <span class="hotkey">S</span>ubmit</button>
+                </div>
+            </div>
+            <div class="icon-collapse" data-ng-click="showHideFilterBox();">
+            </div>
+        </div>
+        <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
+            <div class="icon-expand" data-ng-click="showHideFilterBox();">
+            </div>
+        </div>
+        <div>
+            <div data-ng-model="statisticcReportOptions.IsUpdateGrid" class="table-statistic-report-container">
+                <div id="table-statistic-report" class="freegrid display-none table-statistic-report">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="download-file-container" data-ng-model="downloadFileOptions">
+        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/FanexGridScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render("~/Areas/Report/StatisticReportScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var minReportDate = '@AppSetting.MinReportDate.ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var viewResources = {
+            All: '@Labels.All'
+        };
+    </script>
+</body>
+</html>

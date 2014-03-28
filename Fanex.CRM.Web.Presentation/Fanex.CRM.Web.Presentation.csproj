@@ -322,6 +322,11 @@
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportController.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportService.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportApplication.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportController.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportService.js" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -407,7 +412,8 @@
     <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.css" />
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.js" />
-    <Content Include="Scripts\ShareScripts\Application\ResultMessage.js" />
+    <Content Include="Scripts\ShareScripts\Applications\BlockUI.js" />
+    <Content Include="Scripts\ShareScripts\Applications\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Controllers\FromToDatePicker.js" />
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
@@ -456,6 +462,8 @@
     <None Include="Areas\Report\CustomerReport\Styles\CustomerReport.less" />
     <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <Content Include="Areas\User\Web.config" />
+    <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
+    <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\customizeMultiSelect.less" />
     <None Include="Content\site\resultMessage.less" />

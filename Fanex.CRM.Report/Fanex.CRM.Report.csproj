@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Controllers\CustomerReportController.cs" />
     <Compile Include="Controllers\DynamicReportController.cs" />
+    <Compile Include="Controllers\StatisticReportController.cs" />
     <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
     <Compile Include="Models\CustomerReport\AddressInfo.cs" />
@@ -84,8 +85,10 @@
     <Compile Include="Services\Implements\CustomerReportService.cs" />
     <Compile Include="Services\Implements\DynamicReport\CommunicationLogRowExcelWriter.cs" />
     <Compile Include="Services\Implements\DynamicReport\DynamicReportService.cs" />
+    <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
     <Compile Include="Services\Interfaces\ICustomerReportService.cs" />
     <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
+    <Compile Include="Services\Interfaces\IStatisticReportService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

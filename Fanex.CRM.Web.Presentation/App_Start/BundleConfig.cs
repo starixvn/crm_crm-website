@@ -77,6 +77,11 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/Scripts/FanexMultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
 
+            bundles.Add(new ScriptBundle("~/Scripts/FanexGridScripts").Include(
+                "~/Scripts/FanexGridV2/Fanex.Pagination.js",
+                "~/Scripts/FanexGridV2/Fanex.Grid.js",
+                "~/Scripts/FanexGridV2/moment.js"));
+
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
 
@@ -100,6 +105,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Report_CustomerReport(ref bundles);
             RegisterBundles_Chart(ref bundles);
             RegisterBundles_User_LogIn(ref bundles);
+            RegisterBundles_Reprot_StatisticReport(ref bundles);
         }
 
         /// <summary>
@@ -451,6 +457,31 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/User/LogInStyles").Include(
                 "~/Areas/User/LogIn/Styles/login.less"));
+        }
+
+        /// <summary>
+        /// Registers the statistic report bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_Reprot_StatisticReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/StatisticReportScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/MonthPicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/StatisticReport/Scripts/StatisticReportApplication.js",
+                "~/Areas/Report/StatisticReport/Scripts/StatisticReportController.js",
+                "~/Areas/Report/StatisticReport/Scripts/StatisticReportService.js",
+                "~/Areas/Report/StatisticReport/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Report/StatisticReportStyles").Include(
+                "~/Areas/Report/StatisticReport/Styles/StatisticReport.less"));
         }
     }
 
