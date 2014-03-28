@@ -487,6 +487,7 @@ var CustomerManager = function () {
             }]
         });
 
+        $(".btn-update").focus();
         if (parseInt(updateResult.Id) === crmConstants.Enums.Error.None) {
             setTimeout(function () {
                 self.DOMElements.divResultPopUp.dialog("close");
