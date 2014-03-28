@@ -363,4 +363,7 @@
   <data name="Customer_Report" xml:space="preserve">
     <value>Customer Report</value>
   </data>
+  <data name="Statistic_Report" xml:space="preserve">
+    <value>Statistic Report</value>
+  </data>
 </root>

@@ -646,6 +646,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Statistic Report.
+        /// </summary>
+        public static string Statistic_Report {
+            get {
+                return ResourceManager.GetString("Statistic_Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
