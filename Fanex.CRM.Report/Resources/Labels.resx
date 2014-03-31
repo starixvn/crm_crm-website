@@ -493,4 +493,28 @@
   <data name="SettlementReport_SheetName" xml:space="preserve">
     <value>Settlement Report</value>
   </data>
+  <data name="StatisticReport_Title" xml:space="preserve">
+    <value>{0} Statistic Report From {1} To {2}</value>
+  </data>
+  <data name="StatisticReport_ShortTitle" xml:space="preserve">
+    <value>{0} To {1}</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="StatisticReport_TotalTitle" xml:space="preserve">
+    <value>Total for {0}</value>
+  </data>
+  <data name="Grand_Total" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="StatisticReport_ChartSuffix" xml:space="preserve">
+    <value> Issue(s)</value>
+  </data>
 </root>

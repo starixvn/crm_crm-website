@@ -11,6 +11,7 @@ namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Services.Implements.StatisticReport;
     using Fanex.CRM.Report.Services.Interfaces;
 
@@ -52,6 +53,16 @@ namespace Fanex.CRM.Report.Controllers
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [HandleAjaxError]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public ActionResult GetStatisticReport(GetStatisticReportCriteria criteria)
+        {
+            var logs = _statisticReportService.GetStatisticReport(criteria);
+            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
+            return jsonResult;
         }
 
         [HttpPost]
