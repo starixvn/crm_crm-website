@@ -219,6 +219,16 @@ statisticReportApplication.controller('statisticReportController', [
 
             $scope.updateToDatePicker(isAlreadyApply);
         };
+        $scope.updateFromDate = function (selectedDate) {
+            $scope.searchCriteria.FromDate = selectedDate;
+            $scope.toDateOptions.MinDate = selectedDate;
+            $scope.updateToDatePicker(true);
+        };
+        $scope.updateToDate = function (selectedDate) {
+            $scope.searchCriteria.ToDate = selectedDate;
+            $scope.fromDateOptions.MaxDate = selectedDate;
+            $scope.updateFromDatePicker(true);
+        };
         $scope.updateReportType = function (reportType) {
             $scope.searchCriteria.ReportType = reportType;
             var reportTypeId = parseInt(reportType.Id);
