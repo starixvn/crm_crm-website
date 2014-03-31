@@ -177,18 +177,43 @@
             font-weight: normal;
 
             &.prev {
-                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -16px -207px;
+                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -16px -205px;
                 padding: 0;
+                &:hover {
+                    background: url(../../Content/site/Images/icon-sprite.png) no-repeat -16px -205px;
+                }
             }
 
             &.next {
-                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -32px -207px;
+                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -32px -205px;
+                padding: 0;
+                &:hover {
+                    background: url(../../Content/site/Images/icon-sprite.png) no-repeat -32px -205px;
+                }
+            }
+        }
+
+        .prev {
+            background: url(../../Content/site/Images/icon-sprite.png) no-repeat -16px -205px;
+            padding: 0;
+            &:hover {
+                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -16px -222px;
+                padding: 0;
+            }
+        }
+
+        .next {
+            background: url(../../Content/site/Images/icon-sprite.png) no-repeat -32px -205px;
+            padding: 0;
+            &:hover {
+                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -32px -222px;
                 padding: 0;
             }
         }
 
         a {
             color: @table-color;
+            padding: 3px 5px;
         }
 
         select {
