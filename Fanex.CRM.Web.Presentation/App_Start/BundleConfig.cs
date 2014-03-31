@@ -519,7 +519,7 @@ namespace Fanex.CRM.Web.View.App_Start
         /// Registers the statistic report bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterBundles_Reprot_StatisticReport(ref BundleCollection bundles)
+        private static void RegisterBundles_Report_StatisticReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/StatisticReportScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
