@@ -1,20 +1,26 @@
 ﻿"use strict";
 /* global statisticReportApplication,
-initFromDate,
-currentDate,
+initFromDate: true,
+currentDate: true,
 sharedScriptManager,
-hotKeyManager */
+hotKeyManager,
+crmConstants,
+minReportDate,
+moment */
 /* jshint unused: vars */
+/* jshint camelcase: false */
 statisticReportApplication.controller('statisticReportController', [
     '$scope',
     '$http',
     'statisticReportService',
     '$uiBlockerService',
+    '$resultMessageService',
     function (
         $scope,
         $http,
         statisticReportService,
-        $uiBlockerService) {
+        $uiBlockerService,
+        $resultMessageService) {
         $scope.isShowFilter = true;
         $scope.crmConstants = crmConstants;
         $scope.statisticReportOptions = {
@@ -44,9 +50,10 @@ statisticReportApplication.controller('statisticReportController', [
             SubCategory: null,
             PageIndex: 0,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
-            IsGetFromCached: false
+            IsGetFromCached: false,
+            IsGetFullReport: false
         };
-        //        $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
+        $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
         $scope.initController = function () {
             $scope.getAllSetting();
@@ -174,6 +181,16 @@ statisticReportApplication.controller('statisticReportController', [
                 $scope.$apply();
             }
         };
+        $scope.updateFromDate = function (selectedDate) {
+            $scope.searchCriteria.FromDate = selectedDate;
+            $scope.toDateOptions.MinDate = selectedDate;
+            $scope.updateToDatePicker(true);
+        };
+        $scope.updateToDate = function (selectedDate) {
+            $scope.searchCriteria.ToDate = selectedDate;
+            $scope.fromDateOptions.MaxDate = selectedDate;
+            $scope.updateFromDatePicker(true);
+        };
         $scope.updateReportType = function (reportType) {
             $scope.searchCriteria.ReportType = reportType;
             var reportTypeId = parseInt(reportType.Id);
@@ -290,12 +307,57 @@ statisticReportApplication.controller('statisticReportController', [
                 $scope.$apply();
             }
         };
+
         $scope.completeSetFocus = function () {
             $scope.defaultFocusOptions.IsSetFocus = false;
         };
         $scope.setFocus = function () {
             $scope.defaultFocusOptions.IsSetFocus = true;
             $scope.$apply();
+        };
+        $scope.getStatisticReport = function () {
+            $uiBlockerService.blockUI();
+            var getReportCriteria = {
+                ReportType: $scope.searchCriteria.ReportType.Id,
+                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+
+                MainCategoryId: $scope.searchCriteria.MainCategory.Id,
+                SubCategoryId: $scope.searchCriteria.SubCategory.Id,
+                PageIndex: $scope.searchCriteria.PageIndex,
+                PageSize: $scope.searchCriteria.PageSize,
+                IsGetFromCached: false,
+                IsGetFullReport: false
+            };
+
+            $scope.lastSelectedParams = getReportCriteria;
+            statisticReportService.getStatisticReport(getReportCriteria)
+                .then(function (data) {
+                    $scope.statisticReportOptions.DataList = data.Result;
+                    $scope.statisticReportOptions.IsUpdateGrid = true;
+                    $uiBlockerService.unblockUI();
+                },
+                function (data) {
+                    sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
+                    $uiBlockerService.unblockUI();
+                });
+        };
+
+        $scope.pagingStatisticReport = function (pageIndex, pageSize) {
+            $uiBlockerService.blockUI();
+            $scope.lastSelectedParams.PageIndex = pageIndex;
+            $scope.lastSelectedParams.PageSize = pageSize;
+            $scope.lastSelectedParams.IsGetFromCached = true;
+            statisticReportService.getStatisticReport($scope.lastSelectedParams)
+                .then(function (data) {
+                    $scope.statisticReportOptions.DataList = data.Result;
+                    $scope.statisticReportOptions.IsUpdateGrid = true;
+                    $uiBlockerService.unblockUI();
+                },
+                function (data) {
+                    sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
+                    $uiBlockerService.unblockUI();
+                });
         };
 
         angular.element(document).ready(function () {

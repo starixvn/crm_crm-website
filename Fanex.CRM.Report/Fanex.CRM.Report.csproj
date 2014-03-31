@@ -67,6 +67,9 @@
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
+       <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
+    <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
+  
     <Compile Include="Models\CustomerReport\AddressInfo.cs" />
     <Compile Include="Models\CustomerReport\BankInfo.cs" />
     <Compile Include="Models\CustomerReport\CustomerInfo.cs" />
@@ -76,6 +79,8 @@
     <Compile Include="Models\CustomerReport\UserInfo.cs" />
     <Compile Include="Models\DynamicReportInfo.cs" />
     <Compile Include="Models\SettlementReport\SettlementReportInfo.cs" />
+       <Compile Include="Models\StatisticReport\StatisticReportInfo.cs" />
+ 
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\CustomerReportRepository.cs" />
     <Compile Include="Repositories\Implements\DynamicReportRepository.cs" />

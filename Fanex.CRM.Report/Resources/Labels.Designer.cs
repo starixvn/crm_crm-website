@@ -223,6 +223,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date Of Birth.
         /// </summary>
         public static string Date_Of_Birth {
@@ -727,6 +736,42 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  Issue(s).
+        /// </summary>
+        public static string StatisticReport_ChartSuffix {
+            get {
+                return ResourceManager.GetString("StatisticReport_ChartSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} To {1}.
+        /// </summary>
+        public static string StatisticReport_ShortTitle {
+            get {
+                return ResourceManager.GetString("StatisticReport_ShortTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Statistic Report From {1} To {2}.
+        /// </summary>
+        public static string StatisticReport_Title {
+            get {
+                return ResourceManager.GetString("StatisticReport_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total for {0}.
+        /// </summary>
+        public static string StatisticReport_TotalTitle {
+            get {
+                return ResourceManager.GetString("StatisticReport_TotalTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
@@ -795,6 +840,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Symbol_NotApply {
             get {
                 return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        public static string Time {
+            get {
+                return ResourceManager.GetString("Time", resourceCulture);
             }
         }
         

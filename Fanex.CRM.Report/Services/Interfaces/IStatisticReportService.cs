@@ -10,6 +10,8 @@
 namespace Fanex.CRM.Report.Services.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Report.Criteria.DynamicReport;
+    using Fanex.CRM.Report.Models.StatisticReport;
     using Fanex.CRM.Setting.Models;
 
     public interface IStatisticReportService
@@ -17,5 +19,7 @@ namespace Fanex.CRM.Report.Services.Interfaces
         List<SettingInfo> GetAllPeriodType();
 
         List<SettingInfo> GetAllMainCategory();
+
+        StatisticReportInfo GetStatisticReport(GetStatisticReportCriteria criteria);
     }
 }
