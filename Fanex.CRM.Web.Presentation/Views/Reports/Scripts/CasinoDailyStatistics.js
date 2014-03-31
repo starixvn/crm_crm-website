@@ -51,7 +51,7 @@ casinoDailyStatistics = {
     toDate: '',
     columnWidthDefault: 70,
     title: '',
-    gridHeight: 90,
+    gridHeight: 100,
     chartSetting: { mainCategories: [], subcategories: [] },
     getDailyReport: function () {
         var mainreport = $("#dailysummarygrid");

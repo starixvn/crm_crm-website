@@ -17,7 +17,7 @@ var casinoWeeklySummary = {
     defaultTotalCols: 6,
     columnWidthDefault: 90,
     totalWidth: 0,
-    gridHeight: 90,
+    gridHeight: 100,
     chartSetting: { categories: [], series: [] },
     getWeeklySummary: function () {
         var mainreport = $("#weeklysummarygrid");
