@@ -43,7 +43,6 @@ var DashboardManager = function () {
         var subMenuId = self.CachedData.subMenuId;
         var customer = homeManager.CachedData.currentCustomer;
         var subMenuIdEnum = self.Enums.SubMenuId;
-        self.CachedData.currentSubMenu = subMenuId;
         switch (subMenuId) {
             case subMenuIdEnum.Main:
                 menuManager.goToURL('centerFr', window.rootUrl + 'Dashboard/Index?' + $.param({
@@ -85,6 +84,7 @@ var DashboardManager = function () {
                 break;
         }
 
+        self.CachedData.currentSubMenu = subMenuId;
         menuManager.setActiveClassForDasboarSubMenu(subMenuId);
     };
 
