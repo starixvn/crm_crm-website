@@ -285,7 +285,7 @@ function getFeedbackData() {
     /* jshint maxstatements: 86 */
     var RelatedCustID = '';
     if ($("#chkisrelated").prop("checked")) {
-        var RelatedCustID = $('#txtrelatedcustomer option').length === 0 ? getRelatedCustomer() : "_";
+        RelatedCustID = $('#txtrelatedcustomer option').length === 0 ? getRelatedCustomer() : "_";
     }
 
     var IsUpdateReviewed = $("#chkisreview").prop("checked");
