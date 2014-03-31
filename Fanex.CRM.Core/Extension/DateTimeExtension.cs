@@ -25,6 +25,8 @@ namespace Fanex.CRM.Infrastructure.Extension
 
         public const string MonthYearFormat = "MMM yyyy";
 
+        public const string HourMinuteFormat = "HH:mm";
+
         private const int NumberDayInWeek = 7;
 
         private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
@@ -46,6 +48,11 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static string ToShortFormatedDate(this DateTime date)
         {
             return date.ToString(ShortDateFormat);
+        }
+
+        public static string ToHourMinuteFormated(this DateTime date)
+        {
+            return date.ToString(HourMinuteFormat);
         }
 
         public static string ToShortFormatedDateWithSlash(this DateTime date)

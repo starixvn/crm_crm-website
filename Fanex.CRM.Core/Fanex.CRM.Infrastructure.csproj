@@ -155,7 +155,9 @@
     </Compile>
     <Compile Include="Service\Implements\CacheService.cs" />
     <Compile Include="Service\Implements\PermissionService.cs" />
+    <Compile Include="Service\Implements\ServiceBase.cs" />
     <Compile Include="Service\Interfaces\IPermissionService.cs" />
+    <Compile Include="Service\Interfaces\IServiceBase.cs" />
     <Compile Include="Web\Controllers\AuthenticateAction.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
     <Compile Include="Web\Controllers\CRMAuthAttribute.cs" />

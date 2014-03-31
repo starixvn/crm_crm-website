@@ -11,9 +11,12 @@
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/site/ResultMessageStyles")
     @Styles.Render("~/Areas/Report/StatisticReportStyles")
 </head>
 <body class="statisticReportController" data-ng-controller="statisticReportController">
+    <div class="result-message-container display-none">
+    </div>
     <div class="main container">
         <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
             <div class="row row-item">
@@ -74,7 +77,7 @@
                     </select>
                 </div>
                 <div class="item">
-                    <button id="button-submit" class="btn default-focus" data-ng-click="getDynamicReport()"
+                    <button id="button-submit" class="btn default-focus" data-ng-click="getStatisticReport()"
                         data-ng-model="defaultFocusOptions.IsSetFocus">
                         <span class="hotkey">S</span>ubmit</button>
                 </div>
@@ -87,7 +90,7 @@
             </div>
         </div>
         <div>
-            <div data-ng-model="statisticcReportOptions.IsUpdateGrid" class="table-statistic-report-container">
+            <div data-ng-model="statisticReportOptions.IsUpdateGrid" class="table-statistic-report-container">
                 <div id="table-statistic-report" class="freegrid display-none table-statistic-report">
                 </div>
             </div>
@@ -97,8 +100,10 @@
         <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/FanexGridV2/NumeralScripts")
     @Scripts.Render("~/Scripts/FanexGridScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     @Scripts.Render("~/Areas/Report/StatisticReportScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
@@ -106,7 +111,10 @@
         var minReportDate = '@AppSetting.MinReportDate.ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = {
-            All: '@Labels.All'
+            Date: '@Labels.Date',
+            Time: '@Labels.Time',
+            Total: '@Labels.Total',
+            StatisticReport_ChartSuffix: '@Labels.StatisticReport_ChartSuffix'
         };
     </script>
 </body>
