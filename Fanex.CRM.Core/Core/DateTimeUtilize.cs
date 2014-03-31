@@ -40,6 +40,12 @@ namespace Fanex.CRM.Infrastructure.Core
             return time.Add(timeSpan._timeSpan).ToString("hh:mm:ss tt MMM dd, yyyy");
         }
 
+        public static string ChangeFullTimeZoneToClientForActionLog(DateTime time)
+        {
+            DateTimeUtilize timeSpan = new DateTimeUtilize();
+            return time.Add(timeSpan._timeSpan).ToString("MMM dd, yyyy hh:mm:ss tt");
+        }
+
         public static string ChangeTimeZoneToClient(DateTime time)
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();

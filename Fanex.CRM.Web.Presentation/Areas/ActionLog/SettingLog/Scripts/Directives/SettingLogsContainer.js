@@ -42,11 +42,7 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
                 evenClass = (i % 2 === 0) ? 'freegrid-even' : '';
 
                 var row = [
-                    {
-                        Name: 'ColLogDate',
-                        Value: moment(info.LogDate).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_SS_TT_2Line_String_Moment),
-                        MergeRowNumber: mergeRowNumber
-                    },
+                    { Name: 'ColLogDate', Value: info.LogDateString, MergeRowNumber: mergeRowNumber },
                     { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber },
                     { Name: 'ColAction', Value: info.ActionName, MergeRowNumber: mergeRowNumber },
                     { Name: 'ColEntity', Value: info.Entity, MergeRowNumber: mergeRowNumber },

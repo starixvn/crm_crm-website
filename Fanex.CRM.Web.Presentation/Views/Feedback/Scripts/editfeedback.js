@@ -250,7 +250,6 @@ function loadFeedbackAfterCallAjax(rs, Id) {
     feedbackIsReview = rs.IsReviewed;
     if (feedbackIsReview) {
         $("#chkisreview").prop('checked', true);
-        initEdit('rev');
     }
 
     if (allowUpdateReview) {
@@ -284,8 +283,11 @@ function LoadFeedback(Id) {
 // Get data from form to update 
 function getFeedbackData() {
     /* jshint maxstatements: 86 */
-    var RelatedCustID = ($("#chkisrelated").prop("checked") && $('#txtrelatedcustomer option').length === 0) ? getRelatedCustomer()
-        : "_";
+    var RelatedCustID = '';
+    if ($("#chkisrelated").prop("checked")) {
+        var RelatedCustID = $('#txtrelatedcustomer option').length === 0 ? getRelatedCustomer() : "_";
+    }
+
     var IsUpdateReviewed = $("#chkisreview").prop("checked");
     var reviewContent = $("#revediter").htmlarea("toHtmlString");
     var Reviewer = 0;
@@ -601,6 +603,7 @@ var updateFeedback = {
             $('#revieweditererror').addClass('hidden');
             if (feedbackIsReview) {
                 $("#btnsubmitbottom").removeClass("hidden");
+                $('#previewboxrev').html('');
             }
         }
 
