@@ -31,6 +31,7 @@ function AddGuestFeedback() {
         parent.$('#isGuest').attr('checked', true);
 
         var identity = $('#txtidentity').val().trim();
+        parent.$('#txtuserName').val(identity);
         parent.leftPanelManager.loadLeftPanel(identity, true);
     });
 }

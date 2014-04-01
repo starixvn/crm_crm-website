@@ -364,14 +364,19 @@ namespace Fanex.CRM.DataAccess.Impl
                 param.Add("responseid", entity.Response.Id);
                 param.Add("statusid", entity.Status.Id);
 
-                if (entity.RelatedCustomer != null && !string.IsNullOrWhiteSpace(entity.RelatedCustomer.UserName))
+                if (entity.RelatedCustomer != null)
                 {
-                    var relatedUsername = !string.IsNullOrEmpty(entity.RelatedCustomer.UserName) ?
-                        (entity.RelatedCustomer.UserName.Equals("_") ?
-                        string.Empty :
-                        entity.RelatedCustomer.UserName) :
-                        null;
-                    param.Add("relatedcustid", relatedUsername);
+                    // RelatedCustomer parameter:
+                    // null: don't update anything.
+                    // string.Empty: update RelatedCustomer to empty.
+                    string relatedCustomerIds = entity.RelatedCustomer.UserName;
+                    string relatedCustomerParam = string.Empty;
+                    if (!string.IsNullOrWhiteSpace(relatedCustomerIds))
+                    {
+                        relatedCustomerParam = relatedCustomerIds.Equals("_") ? null : relatedCustomerIds;
+                    }
+
+                    param.Add("relatedcustid", relatedCustomerParam);
                 }
 
                 param.Add("subject", entity.Subject);
@@ -629,6 +634,7 @@ namespace Fanex.CRM.DataAccess.Impl
                 {
                     param.Add("feedbackid", runningNumber);
                 }
+
                 param.Add("username", userName);
                 if (isGuest >= 0)
                 {

@@ -11,6 +11,7 @@ namespace Fanex.CRM.ActionLog.Models
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Core;
 
     /// <summary>
     /// Action Log class.
@@ -26,6 +27,14 @@ namespace Fanex.CRM.ActionLog.Models
         }
 
         public DateTime LogDate { get; set; }
+
+        public string LogDateString 
+        {
+            get 
+            {
+                return DateTimeUtilize.ChangeFullTimeZoneToClientForActionLog(LogDate);
+            }
+        }
 
         public string Username { get; set; }
 

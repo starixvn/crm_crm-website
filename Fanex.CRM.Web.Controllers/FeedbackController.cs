@@ -220,6 +220,7 @@ namespace Fanex.CRM.Web.Controllers
         /// </summary>
         /// <param name="fromDate">From date.</param>
         /// <param name="toDate">To date value.</param>
+        /// <param name="runningNumber">The running number.</param>
         /// <param name="username">The username.</param>
         /// <param name="isGuest">The is guest.</param>
         /// <param name="communicationId">The communication identifier.</param>
@@ -231,7 +232,9 @@ namespace Fanex.CRM.Web.Controllers
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="pageSize">Size of the page.</param>
         /// <param name="fromCache">If set to <c>true</c> [from cache].</param>
-        /// <returns>The feedback.</returns>
+        /// <returns>
+        /// The feedback.
+        /// </returns>
         [HttpPost]
         public JsonResult GetFeedback(
             string fromDate,

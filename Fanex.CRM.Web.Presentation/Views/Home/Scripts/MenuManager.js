@@ -84,6 +84,11 @@ var MenuManager = function () {
     };
 
     self.goToURL = function (frameId, url) {
+        if (parent.dashboardManager) {
+            parent.dashboardManager.CachedData.currentSubMenu = '';
+            self.CachedData.currentMenuTabIndex = 1;
+        }
+
         $("#" + frameId).attr({
             src: url
         });
