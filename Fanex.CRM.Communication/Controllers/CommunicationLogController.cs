@@ -104,6 +104,11 @@ namespace Fanex.CRM.Communication.Controllers
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Gets the logs by customer identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The logs by customer identifier.</returns>
         [HttpPost]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {

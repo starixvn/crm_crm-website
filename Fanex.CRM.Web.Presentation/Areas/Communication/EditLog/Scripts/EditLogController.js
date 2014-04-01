@@ -468,6 +468,13 @@ function (
             $scope.communicationLog.RelatedCustomerIds :
             getRelatedCustomer();
 
+        var updateReviewedMode =
+                (!$scope.oldCommunicationLog.IsReviewed && !$scope.communicationLog.IsReviewed) ||
+                ($scope.oldCommunicationLog.IsReviewed && $scope.communicationLog.IsReviewed) ?
+                crmConstants.Enums.UpdateReviewedMode.NotChange :
+                ($scope.oldCommunicationLog.IsReviewed && !$scope.communicationLog.IsReviewed) ?
+                    crmConstants.Enums.UpdateReviewedMode.Reset :
+                    crmConstants.Enums.UpdateReviewedMode.Change;
         var updateCriteria = {
             FeedbackId: $scope.communicationLog.RunningNumber,
             CustomerId: $scope.communicationLog.CustomerId,
@@ -491,7 +498,8 @@ function (
             Solution: $scope.communicationLog.Solution,
             IsReviewed: $scope.hasReviewPermission && $scope.communicationLog.IsReviewed,
             Review: $scope.hasReviewPermission ? $scope.communicationLog.Review : "",
-            Subject: $scope.communicationLog.Subject
+            Subject: $scope.communicationLog.Subject,
+            UpdateReviewedMode: updateReviewedMode
         };
 
         if ($scope.validateUpdateLogCriteria(updateCriteria)) {

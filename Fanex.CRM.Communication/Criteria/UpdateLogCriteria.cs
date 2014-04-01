@@ -82,6 +82,9 @@ namespace Fanex.CRM.Communication.Criteria
         [SpParam(SqlParamName = "review")]
         public string Review { get; set; }
 
+        [SpParam(SqlParamName = "updatereviewedmode")]
+        public int UpdateReviewedMode { get; set; }
+
         [SpParam(SqlParamName = "reviewerid")]
         public int ReviewerId
         {

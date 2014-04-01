@@ -117,6 +117,11 @@ var CRMConstants = function () {
             Success: 1,
             Warning: 2,
             Error: 3
+        },
+        UpdateReviewedMode: {
+            NotChange: 0,
+            Change: 1,
+            Reset: 2
         }
     };
 
