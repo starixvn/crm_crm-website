@@ -84,7 +84,7 @@ var CustomerManager = function () {
     };
     self.getCustomerInfoByUsernameParamsFromURL = function () {
         var getCustomerInfoParams = {
-            Username: sharedScriptManager.urlDecode(sharedScriptManager.getURLParam("username")),
+            Username: $.trim(sharedScriptManager.urlDecode(sharedScriptManager.getURLParam("username"))),
             IsGuest: sharedScriptManager.getURLParam("isguest"),
             IsSearch: sharedScriptManager.getURLParam("issearch"),
             IsFromURL: sharedScriptManager.getURLParam("isfromurl"),
@@ -96,7 +96,7 @@ var CustomerManager = function () {
     };
     self.getCustomerInfoByUsernameParams = function () {
         var getCustomerInfoParams = {
-            Username: self.DOMElements.textboxUsername.val(),
+            Username: $.trim(self.DOMElements.textboxUsername.val()),
             IsGuest: self.DOMElements.checkboxIsGuest.attr("checked") ? true : false,
             IsSearch: sharedScriptManager.getURLParam("issearch"),
             IsFromURL: 0,
