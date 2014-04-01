@@ -32,6 +32,10 @@ editLogApplication.directive('remarkEditorContainer', function () {
             blurEvent: function () {
                 return hotKeyManager.documentBlur();
             },
+            clickEvent: function () {
+                $("#startTime").datepicker("hide");
+                $("#endTime").datepicker("hide");
+            },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],

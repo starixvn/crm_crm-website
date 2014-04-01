@@ -363,14 +363,14 @@
             fnTA,
             fnKeyUp,
             fnKeyDown,
-            fnBlur) {
+            fnBlur,
+            fnClick) {
             // Louis.Nguyen: 28/03/2014
             var firefoxVersion = $.browser.mozilla ? parseFloat($.browser.version) : -1;
             if (firefoxVersion !== -1 && firefoxVersion < 10) {
                 // We must binding events to iframe 
                 // because they won't be fired with old fire fox version
-                $(editor).click(fnTA)
-                    .keyup(fnKeyUp)
+                $(editor).keyup(fnKeyUp)
                     .keydown(fnKeyDown)
                     .mousedown(fnTA)
                     .blur(fnBlur);
@@ -426,12 +426,20 @@
                 }
             };
 
+            var fnClick = function () {
+                t.updateTextArea();
+                if (options && typeof (options.clickEvent) === "function") {
+                    options.clickEvent();
+                }
+            };
+
+            $(this.editor).click(fnClick);
             $(this.editor.body).click(fnTA)
                 .keyup(fnKeyUp)
                 .keydown(fnKeyDown)
                 .mousedown(fnTA)
                 .blur(fnBlur);
-            priv.fixBindingEvents(this.editor, fnTA, fnKeyUp, fnKeyDown, fnBlur);
+            priv.fixBindingEvents(this.editor, fnTA, fnKeyUp, fnKeyDown, fnBlur, fnClick);
             $('form').submit(function () { t.toggleHTMLView(); t.toggleHTMLView(); });
             //$(this.textarea[0].form).submit(function() { //this.textarea.closest("form").submit(function() {
 

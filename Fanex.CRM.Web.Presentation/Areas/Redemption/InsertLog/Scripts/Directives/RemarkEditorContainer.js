@@ -35,6 +35,9 @@ insertLogApplication.directive('remarkEditorContainer', function () {
             blurEvent: function () {
                 return hotKeyManager.documentBlur();
             },
+            clickEvent: function () {
+                $("#claimTime").datepicker("hide");
+            },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],
