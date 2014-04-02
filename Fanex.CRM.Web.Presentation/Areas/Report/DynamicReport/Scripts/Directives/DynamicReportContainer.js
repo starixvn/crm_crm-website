@@ -224,6 +224,9 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         parent.$(".ui-dialog-titlebar-close").click(function () {
             scope.setFocus();
         });
+        parent.$(".ui-dialog-titlebar-close").click(function () {
+            scope.setFocus();
+        });
     }
 
     return {
