@@ -18,17 +18,21 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Service.Implements;
-    using Fanex.CRM.Report.Criteria.DynamicReport;
+    using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Entities.StatisticReport;
     using Fanex.CRM.Report.Models.StatisticReport;
     using Fanex.CRM.Report.Resources;
+    using Fanex.CRM.Report.Services.Implements.DynamicReport;
     using Fanex.CRM.Report.Services.Interfaces;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Models;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
 
     /// <summary>
     /// Statistic Report Service.
@@ -150,56 +154,64 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                     var dummyDateTime = new DateTime(2014, 3, 21, 0, 20, 3);
                     var rawData = new List<StatisticReportEntity>
                     {
-                        new StatisticReportEntity {
+                        new StatisticReportEntity 
+                        {
                             DateTime = dummyDateTime,
                             CountryId = 2,
                             CountryName = "Africa",
                             NumberOfIssues = 1000
                         },
 
-                        new StatisticReportEntity {
+                        new StatisticReportEntity
+                        {
                             DateTime = dummyDateTime,
                             CountryId = 3,
                             CountryName = "Africa2",
                             NumberOfIssues = 1000
                         },
 
-                        new StatisticReportEntity {
+                        new StatisticReportEntity
+                        {
                             DateTime = dummyDateTime.AddHours(3),
                             CountryId = 2,
                             CountryName = "Africa",
                             NumberOfIssues = 9000
                         },
 
-                        new StatisticReportEntity {
+                        new StatisticReportEntity 
+                        {
                             DateTime = dummyDateTime.AddHours(5),
                             CountryId = 3,
                             CountryName = "Africa2",
                             NumberOfIssues = 8000
                         },
                         
-                        new StatisticReportEntity {
+                        new StatisticReportEntity 
+                        {
                             DateTime = dummyDateTime.AddDays(1),
                             CountryId = 2,
                             CountryName = "Africa",
                             NumberOfIssues = 10
                         },
 
-                        new StatisticReportEntity {
+                        new StatisticReportEntity 
+                        {
                             DateTime = dummyDateTime.AddDays(1),
                             CountryId = 3,
                             CountryName = "Africa2",
                             NumberOfIssues = 10
                         },
 
-                        new StatisticReportEntity {
+                        new StatisticReportEntity
+                        {
                             DateTime = dummyDateTime.AddHours(3).AddDays(1),
                             CountryId = 2,
                             CountryName = "Africa",
                             NumberOfIssues = 9
                         },
 
-                        new StatisticReportEntity {
+                        new StatisticReportEntity 
+                        {
                             DateTime = dummyDateTime.AddHours(5).AddDays(1),
                             CountryId = 3,
                             CountryName = "Africa2",
@@ -260,12 +272,57 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             }
         }
 
+        public void ExportStatisticReport(GetStatisticReportCriteria criteria)
+        {
+            try
+            {
+                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+                StatisticReportInfo statisticReport = CacheService.Get<StatisticReportInfo>(StatisticReportSessionKey);
+                criteria.IsGetFullReport = true;
+                if (statisticReport == null)
+                {
+                    statisticReport = GetStatisticReport(criteria);
+                }
+
+                ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+                {
+                    ExcelFile = new HSSFWorkbook(),
+                    StartRow = 0,
+                    StartColumn = 0,
+                    CurrentRow = 0,
+                    MaxColumnIndex = statisticReport != null &&
+                        statisticReport.ChildReports.Count > 0 &&
+                        statisticReport.ChildReports[0].ChildReports.Count > 0 ?
+                        2 + statisticReport.ChildReports[0].ChildReports[0].ChildReports.Count :
+                        2
+                };
+
+                ExportStatisticReportBody(ref exportExcelInfo, criteria, statisticReport);
+                string reportName = string.Format(
+                     Labels.StatisticReport_ExcelTitle,
+                     SettingService.GetPeriodTypeName(criteria.ReportType),
+                     criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
+                     criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
+
+                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+        }
+
         /// <summary>
         /// Gets the statistic report by monthly.
         /// </summary>
         /// <param name="rawData">The raw data.</param>
+        /// <param name="countryList">The country list.</param>
+        /// <param name="countryDictionary">The country dictionary.</param>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The statistic report by monthly.</returns>
+        /// <returns>
+        /// The statistic report by monthly.
+        /// </returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -383,8 +440,12 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
         /// Gets the statistic report by daily.
         /// </summary>
         /// <param name="rawData">The raw data.</param>
+        /// <param name="countryList">The country list.</param>
+        /// <param name="countryDictionary">The country dictionary.</param>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The statistic report by daily.</returns>
+        /// <returns>
+        /// The statistic report by daily.
+        /// </returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -481,8 +542,10 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
         /// Gets the paging log list.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <param name="dynamicReportList">The statistic report list.</param>
-        /// <returns>The paging log list.</returns>
+        /// <param name="statisticReportList">The statistic report list.</param>
+        /// <returns>
+        /// The paging log list.
+        /// </returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -518,6 +581,12 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             return countryDictionary;
         }
 
+        /// <summary>
+        /// Gets the dummy country list.
+        /// </summary>
+        /// <param name="countryLength">Length of the country.</param>
+        /// <param name="countryList">The country list.</param>
+        /// <returns>The dummy country list.</returns>
         private List<StatisticReportInfo> GetDummyCountryList(
             int countryLength,
             List<CountryInfo> countryList)
@@ -534,6 +603,16 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             return dummyCountries;
         }
 
+        /// <summary>
+        /// Gets the chart information.
+        /// </summary>
+        /// <param name="statisticReport">The statistic report.</param>
+        /// <param name="countryList">The country list.</param>
+        /// <param name="countryDictionary">The country dictionary.</param>
+        /// <returns>The chart information.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetChartInfo(
             StatisticReportInfo statisticReport,
             List<CountryInfo> countryList,
@@ -588,6 +667,137 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             }
 
             return chartInfo;
+        }
+
+        /// <summary>
+        /// Exports the dynamic report body.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="statisticReport">The statistic report.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "SP2101:MethodMustNotContainMoreLinesThan",
+          Justification = "Reviewed. Suppression is OK here.")]
+        private void ExportStatisticReportBody(
+            ref ExportExcelInfoNPOI exportExcelInfo,
+            GetStatisticReportCriteria criteria,
+            StatisticReportInfo statisticReport)
+        {
+            if (statisticReport == null || statisticReport.ChildReports.Count == 0)
+            {
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.StatisticReport_SheetName);
+                ExportStatisticReportHeader(ref exportExcelInfo, criteria, statisticReport, null);
+                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                return;
+            }
+
+            var firstDateReport = statisticReport.ChildReports[0];
+            var firstTimeReport = firstDateReport.ChildReports[0];
+            var countryLength = firstTimeReport.ChildReports.Count;
+            List<CountryInfo> countryList = new List<CountryInfo>();
+            for (var k = 0; k < countryLength; k++)
+            {
+                var reportByCountryInfo = firstTimeReport.ChildReports[k];
+                var country = reportByCountryInfo.CountryInfo;
+                countryList.Add(country);
+            }
+
+            IRow row;
+            CellRangeAddress cellRangeAddress;
+            var childReportLength = statisticReport.ChildReports.Count;
+
+            var normalRowWriter = new StatisticReportRowExcelWriter(
+                exportExcelInfo,
+                NpoiExcelExtensions.BackgroundColorIndex);
+
+            var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
+            var numberOfSheet = (childReportLength / maxRowPerSheet) +
+                (childReportLength % maxRowPerSheet != 0 ? 1 : 0);
+            for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+            {
+                var sheetName = numberOfSheet > 1 ?
+                    string.Format("{0} - {1}", Labels.StatisticReport_SheetName, sheetIndex + 1) :
+                    Labels.StatisticReport_SheetName;
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
+                exportExcelInfo.CurrentRow = 0;
+                ExportStatisticReportHeader(ref exportExcelInfo, criteria, statisticReport, countryList);
+
+                var startIndex = sheetIndex * maxRowPerSheet;
+                var endIndex = startIndex + maxRowPerSheet;
+                for (var i = startIndex; i < endIndex && i < childReportLength; i++)
+                {
+                    var dateReport = statisticReport.ChildReports[i];
+                    var timeReportLength = dateReport.ChildReports.Count;
+                    for (var j = 0; j < timeReportLength; j++)
+                    {
+                        exportExcelInfo.CurrentColumn = exportExcelInfo.StartColumn;
+                        var timeReport = dateReport.ChildReports[j];
+                        normalRowWriter.WriteRow(ref exportExcelInfo, timeReport, dateReport, j);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Exports the statistic report header.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="statisticReport">The statistic report.</param>
+        private void ExportStatisticReportHeader(
+            ref ExportExcelInfoNPOI exportExcelInfo,
+            GetStatisticReportCriteria criteria,
+            StatisticReportInfo statisticReport,
+            List<CountryInfo> countryList)
+        {
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo.ExcelFile);
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
+                exportExcelInfo.ExcelFile,
+                new ExcelStyleParamNPOI());
+            ICellStyle leftHeaderStyle = NpoiExcelExtensions.HeaderStyle(
+                exportExcelInfo.ExcelFile,
+                new ExcelStyleParamNPOI { Alignment = HorizontalAlignment.LEFT });
+
+            var currentColumn = exportExcelInfo.StartColumn;
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 120 : 160) * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 100 : 160) * NpoiExcelExtensions.FontWidth);
+            for (var i = 0; i < exportExcelInfo.MaxColumnIndex - 1; i++)
+            {
+                exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 120 * NpoiExcelExtensions.FontWidth);
+            }
+
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 140 : 160) * NpoiExcelExtensions.FontWidth);
+            string reportTitle = statisticReport != null ?
+                statisticReport.Name :
+                string.Format(
+                Labels.StatisticReport_Title,
+                SettingService.GetPeriodTypeName(criteria.ReportType),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
+            CellRangeAddress cellRangeAddress;
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                exportExcelInfo.StartColumn,
+                exportExcelInfo.MaxColumnIndex);
+            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, reportTitle, leftHeaderStyle);
+            exportExcelInfo.CurrentRow += 2;
+
+            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+            exportExcelInfo.CurrentRow++;
+
+            IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            currentColumn = exportExcelInfo.StartColumn;
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Date, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Time, headerStyle);
+            for (var i = 0; i < countryList.Count; i++)
+            {
+                var country = countryList[i];
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, country.Name, headerStyle);
+            }
+
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Total, headerStyle);
+            exportExcelInfo.CurrentRow++;
         }
     }
 }

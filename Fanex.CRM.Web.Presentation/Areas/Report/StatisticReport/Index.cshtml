@@ -21,7 +21,7 @@
         <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
             <div class="row row-item">
                 <div class="item">
-                    <label for="reporttype" class="width-70 pull-left">
+                    <label for="reporttype" class="label-1st pull-left">
                         @Labels.Group_By</label>
                     <div class="report-type-container pull-left" data-ng-model="reportTypeOptions.DataList">
                         <select id="reporttype" class="selReportType">
@@ -30,14 +30,14 @@
                 </div>
                 <div class="pull-left" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Daily}">
                     <div class="item">
-                        <label for="fromDate" class="width-80">
+                        <label for="fromDate" class="label-2nd">
                             @Labels.From_Date</label>
                         <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
                             <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
                         </div>
                     </div>
                     <div class="item">
-                        <label for="toDate" class="width-50">
+                        <label for="toDate" class="label-3rd">
                             @Labels.To_Date</label>
                         <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
                             <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
@@ -46,7 +46,7 @@
                 </div>
                 <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Monthly}">
                     <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions">
-                        <label for="frommonth" class="width-80">
+                        <label for="frommonth" class="label-2nd">
                             @Labels.From_Month</label>
                         <select id="frommonth_month">
                         </select>
@@ -108,7 +108,7 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
-        var minReportDate = '@AppSetting.MinReportDate.ToShortFormatedDate()';
+        var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
         var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = {
             Date: '@Labels.Date',

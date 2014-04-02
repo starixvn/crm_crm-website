@@ -73,21 +73,27 @@ namespace Fanex.CRM.Infrastructure.Extension
             Right,
         }
 
+        public static void SetHeaderColorIndex(HSSFWorkbook excelFile)
+        {
+            HSSFPalette palette = excelFile.GetCustomPalette();
+            palette.SetColorAtIndex(
+              (short)HeaderTitleColorIndex,
+              (byte)HeaderTitleColor.R,
+              (byte)HeaderTitleColor.G,
+              (byte)HeaderTitleColor.B);
+        }
+
         /// <summary>
         /// Style for header.
         /// </summary>
         /// <param name="excelFile">The excel file.</param>
         /// <returns>The cell style.</returns>
-        public static ICellStyle HeaderStyle(HSSFWorkbook excelFile)
+        public static ICellStyle HeaderStyle(
+            HSSFWorkbook excelFile,
+            ExcelStyleParamNPOI excelStyleParam)
         {
             ICellStyle cellStyle = excelFile.CreateCellStyle();
-            HSSFPalette palette = excelFile.GetCustomPalette();
             IFont font = excelFile.CreateFont();
-            palette.SetColorAtIndex(
-                (short)HeaderTitleColorIndex,
-                (byte)HeaderTitleColor.R,
-                (byte)HeaderTitleColor.G,
-                (byte)HeaderTitleColor.B);
             font.Boldweight = (short)FontBoldWeight.BOLD;
             font.Color = HSSFColor.WHITE.index;
             font.FontHeightInPoints = FontSize;
@@ -95,7 +101,7 @@ namespace Fanex.CRM.Infrastructure.Extension
 
             cellStyle.FillForegroundColor = (short)HeaderTitleColorIndex;
             cellStyle.FillPattern = FillPatternType.SOLID_FOREGROUND;
-            cellStyle.Alignment = HorizontalAlignment.CENTER;
+            cellStyle.Alignment = excelStyleParam.Alignment ?? HorizontalAlignment.CENTER;
             cellStyle.VerticalAlignment = VerticalAlignment.CENTER;
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
@@ -257,21 +263,17 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// <param name="cellValue">The label of cell.</param>
         /// <param name="cellStyle">The style of cell.</param>
         public static void RenderMergedCells(
-            ref ExportExcelInfo exportExcelInfo,
+            ref ExportExcelInfoNPOI exportExcelInfo,
             CellRangeAddress cellRangeAddress,
             object cellValue,
             ICellStyle cellStyle)
         {
             IRow row;
             ICell cell;
+
+            exportExcelInfo.Worksheet.AddMergedRegion(cellRangeAddress);
             for (var i = cellRangeAddress.FirstRow; i <= cellRangeAddress.LastRow; i++)
             {
-                if (i != cellRangeAddress.FirstRow &&
-                    i != cellRangeAddress.LastRow)
-                {
-                    continue;
-                }
-
                 row = exportExcelInfo.Worksheet.GetRow(i) ?? exportExcelInfo.Worksheet.CreateRow(i);
                 for (var j = cellRangeAddress.FirstColumn; j <= cellRangeAddress.LastColumn; j++)
                 {
@@ -308,8 +310,6 @@ namespace Fanex.CRM.Infrastructure.Extension
                     cell.CellStyle = cellStyle;
                 }
             }
-
-            exportExcelInfo.Worksheet.AddMergedRegion(cellRangeAddress);
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="rowIndex">Index of the row.</param>
-        public static void RenderEmptyRow(ref ExportExcelInfo exportExcelInfo, int rowIndex)
+        public static void RenderEmptyRow(ref ExportExcelInfoNPOI exportExcelInfo, int rowIndex)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 rowIndex,
@@ -337,7 +337,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="currentRow">The current row.</param>
-        public static void RenderNoInfoMessage(ref ExportExcelInfo exportExcelInfo, int currentRow)
+        public static void RenderNoInfoMessage(ref ExportExcelInfoNPOI exportExcelInfo, int currentRow)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 currentRow,
@@ -418,7 +418,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         }
 
         public static void SetColorAtIndex(
-            ref ExportExcelInfo exportExcelInfo,
+            ref ExportExcelInfoNPOI exportExcelInfo,
             Color color,
             short colorIndex)
         {
