@@ -219,6 +219,9 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         };
 
         parent.crmChart.viewChart(chartOptions);
+        parent.$(".ui-dialog-titlebar-close").click(function () {
+            scope.setFocus();
+        });
     }
 
     return {

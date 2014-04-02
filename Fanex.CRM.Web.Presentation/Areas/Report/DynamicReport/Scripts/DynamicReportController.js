@@ -693,10 +693,13 @@ function (
             ['center', 50],
             null);
     };
+    $scope.setFocus = function () {
+        $scope.$apply(function () {
+            $scope.defaultFocusOptions.IsSetFocus = true;
+        });
+    };
     $scope.closeEditView = function () {
-        //        $scope.$apply(function () {
-        //            $scope.isSetFocus = true;
-        //        });
+        $scope.setFocus();
     };
     $scope.exportReport = function () {
         $scope.downloadFileOptions = {
@@ -727,6 +730,5 @@ function (
     };
     angular.element(document).ready(function () {
         $scope.initController();
-        //        $scope.setFocus();
     });
 } ]);
