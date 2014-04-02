@@ -106,8 +106,10 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Chart(ref bundles);
             RegisterBundles_User_LogIn(ref bundles);
             RegisterBundles_Report_StatisticReport(ref bundles);
-            RegisterBundles_ResultMessage(ref bundles);
-            RegisterBundles_Numeral(ref bundles);
+               RegisterBundles_Report_SettlementReport(ref bundles);
+         
+            RegisterBundles_ResultMessage(ref bundles);         
+                 RegisterBundles_Numeral(ref bundles);
            RegisterBundles_Report_SettlementReport(ref bundles);
         }
 
@@ -460,6 +462,29 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/User/LogInStyles").Include(
                 "~/Areas/User/LogIn/Styles/login.less"));
+        }
+        
+        /// <summary>
+        /// Registers the settlement report bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_Report_SettlementReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/SettlementReportScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/YearPicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/SettlementReport/Scripts/SettlementReportApplication.js",
+                "~/Areas/Report/SettlementReport/Scripts/SettlementReportController.js",
+                "~/Areas/Report/SettlementReport/Scripts/SettlementReportService.js",
+                "~/Areas/Report/SettlementReport/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Report/SettlementReportStyles").Include(
+                "~/Areas/Report/SettlementReport/Styles/SettlementReport.less"));
         }
 
         /// <summary>

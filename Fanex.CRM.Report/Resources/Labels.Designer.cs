@@ -682,6 +682,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  Issue(s).
+        /// </summary>
+        public static string SettlementReport_ChartSuffix {
+            get {
+                return ResourceManager.GetString("SettlementReport_ChartSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settlement Report For Year {0}.
+        /// </summary>
+        public static string SettlementReport_Title {
+            get {
+                return ResourceManager.GetString("SettlementReport_Title", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Settlement Report.
         /// </summary>
         public static string SettlementReport_SheetName {
