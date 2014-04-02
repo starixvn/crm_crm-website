@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Infrastructure.Common
 {
+    using System;
     using System.Configuration;
     using DNAide.Core;
 
@@ -45,6 +46,11 @@ namespace Fanex.CRM.Infrastructure.Common
         public static int TimeSpan
         {
             get { return CastAide.AsInt32(ConfigurationManager.AppSettings["timeSpan"]); }
+        }
+
+        public static DateTime MinReportDate
+        {
+            get { return CastAide.AsDateTime(ConfigurationManager.AppSettings["minReportDate"]); }
         }
     }
 }

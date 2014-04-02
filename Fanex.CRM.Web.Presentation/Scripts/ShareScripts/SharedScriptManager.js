@@ -105,6 +105,12 @@ var SharedScriptManager = function () {
             $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
         } ]);
     };
+    self.setCommonHeaderHttpRequest = function (application) {
+        application.config(['$httpProvider', function ($httpProvider) {
+            $httpProvider.defaults.headers.common["FROM-ANGULAR"] = "true";
+            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+        } ]);
+    };
 
     self.insertEditDescriptionBlock = function (username, editText, currentDate) {
         currentDate = new Date();
@@ -166,13 +172,26 @@ var SharedScriptManager = function () {
         };
     };
     self.handleErrorMessage = function (ajaxResult, $resultMessageService) {
-        var isSuccess = ajaxResult.Code === 0;
+        var isSuccess = ajaxResult.error === 0;
         $resultMessageService.showMessage({
             messageType: isSuccess ?
                 crmConstants.Enums.MessageType.Success :
                 crmConstants.Enums.MessageType.Error,
-            message: ajaxResult.Message
+            message: ajaxResult.message
         });
+    };
+    self.getEndDateOfMonth = function (dateInMonth) {
+        return new Date(dateInMonth.getFullYear(), dateInMonth.getMonth() + 1, 0);
+    };
+    self.getStartDateOfMonth = function (dateInMonth) {
+        return new Date(dateInMonth.getFullYear(), dateInMonth.getMonth(), 1);
+    };
+
+    self.getEndDateOfYear = function (year) {
+        return new Date(year, 12, 0);
+    };
+    self.getStartDateOfYear = function (year) {
+        return new Date(year, 0, 1);
     };
 };
 

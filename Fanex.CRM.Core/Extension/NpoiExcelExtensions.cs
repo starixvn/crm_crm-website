@@ -48,8 +48,12 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static readonly short BorderColorIndex = (short)HSSFColor.GREY_80_PERCENT.index;
         public static readonly short BackgroundColorIndex = (short)HSSFColor.WHITE.index;
         public static readonly short EvenRowColorIndex = (short)HSSFColor.CORAL.index;
+        public static readonly short SubTotalRowColorIndex = (short)HSSFColor.DARK_TEAL.index;
+        public static readonly short TotalRowColorIndex = (short)HSSFColor.DARK_RED.index;
+        public static readonly short GrandTotalRowColorIndex = (short)HSSFColor.DARK_YELLOW.index;
+        public static readonly short GrandTotalSeparatorColorIndex = (short)HSSFColor.CORNFLOWER_BLUE.index;
 
-        private const string IntNumberFormat = "#,#";
+        private const string IntNumberFormat = "#,##0";
         private const string TwoDecimalDigitNumber = "##,##0.00";
         private const string NegativeNumberFormat = "[>=0]#,##0{0}_);[RED][<0]-#,##0{1}";
         private const string NormalNumberFormat = "#,##0{0}_);-#,##0{1}";
@@ -73,21 +77,60 @@ namespace Fanex.CRM.Infrastructure.Extension
             Right,
         }
 
+        public static void SetHeaderColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                HeaderTitleColor,
+                HeaderTitleColorIndex);
+        }
+
+        public static void SetSubTotalColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                SubTotalRowColor,
+                SubTotalRowColorIndex);
+        }
+
+        public static void SetTotalColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                TotalRowColor,
+                TotalRowColorIndex);
+        }
+
+        public static void SetGrandTotalColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                GrandTotalRowColor,
+                GrandTotalRowColorIndex);
+        }
+
+        public static void SetGrandTotalSeparatorColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                GrandTotalSeparatorColor,
+                GrandTotalSeparatorColorIndex);
+        }
+
         /// <summary>
         /// Style for header.
         /// </summary>
         /// <param name="excelFile">The excel file.</param>
-        /// <returns>The cell style.</returns>
-        public static ICellStyle HeaderStyle(HSSFWorkbook excelFile)
+        /// <param name="excelStyleParam">The excel style parameter.</param>
+        /// <returns>
+        /// The cell style.
+        /// </returns>
+        public static ICellStyle HeaderStyle(
+            HSSFWorkbook excelFile,
+            ExcelStyleParamNPOI excelStyleParam)
         {
             ICellStyle cellStyle = excelFile.CreateCellStyle();
-            HSSFPalette palette = excelFile.GetCustomPalette();
             IFont font = excelFile.CreateFont();
-            palette.SetColorAtIndex(
-                (short)HeaderTitleColorIndex,
-                (byte)HeaderTitleColor.R,
-                (byte)HeaderTitleColor.G,
-                (byte)HeaderTitleColor.B);
             font.Boldweight = (short)FontBoldWeight.BOLD;
             font.Color = HSSFColor.WHITE.index;
             font.FontHeightInPoints = FontSize;
@@ -95,7 +138,7 @@ namespace Fanex.CRM.Infrastructure.Extension
 
             cellStyle.FillForegroundColor = (short)HeaderTitleColorIndex;
             cellStyle.FillPattern = FillPatternType.SOLID_FOREGROUND;
-            cellStyle.Alignment = HorizontalAlignment.CENTER;
+            cellStyle.Alignment = excelStyleParam.Alignment ?? HorizontalAlignment.CENTER;
             cellStyle.VerticalAlignment = VerticalAlignment.CENTER;
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
@@ -257,21 +300,17 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// <param name="cellValue">The label of cell.</param>
         /// <param name="cellStyle">The style of cell.</param>
         public static void RenderMergedCells(
-            ref ExportExcelInfo exportExcelInfo,
+            ref ExportExcelInfoNPOI exportExcelInfo,
             CellRangeAddress cellRangeAddress,
             object cellValue,
             ICellStyle cellStyle)
         {
             IRow row;
             ICell cell;
+
+            exportExcelInfo.Worksheet.AddMergedRegion(cellRangeAddress);
             for (var i = cellRangeAddress.FirstRow; i <= cellRangeAddress.LastRow; i++)
             {
-                if (i != cellRangeAddress.FirstRow &&
-                    i != cellRangeAddress.LastRow)
-                {
-                    continue;
-                }
-
                 row = exportExcelInfo.Worksheet.GetRow(i) ?? exportExcelInfo.Worksheet.CreateRow(i);
                 for (var j = cellRangeAddress.FirstColumn; j <= cellRangeAddress.LastColumn; j++)
                 {
@@ -308,8 +347,6 @@ namespace Fanex.CRM.Infrastructure.Extension
                     cell.CellStyle = cellStyle;
                 }
             }
-
-            exportExcelInfo.Worksheet.AddMergedRegion(cellRangeAddress);
         }
 
         /// <summary>
@@ -317,7 +354,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="rowIndex">Index of the row.</param>
-        public static void RenderEmptyRow(ref ExportExcelInfo exportExcelInfo, int rowIndex)
+        public static void RenderEmptyRow(ref ExportExcelInfoNPOI exportExcelInfo, int rowIndex)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 rowIndex,
@@ -337,7 +374,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="currentRow">The current row.</param>
-        public static void RenderNoInfoMessage(ref ExportExcelInfo exportExcelInfo, int currentRow)
+        public static void RenderNoInfoMessage(ref ExportExcelInfoNPOI exportExcelInfo, int currentRow)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 currentRow,
@@ -370,7 +407,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             object cellValue,
             ICellStyle cellStyle)
         {
-            ICell cell = row.CreateCell(currentColumn);
+            ICell cell = row.GetCell(currentColumn) ?? row.CreateCell(currentColumn);
             if (cellValue is string)
             {
                 cell.SetCellValue((string)cellValue);
@@ -417,8 +454,30 @@ namespace Fanex.CRM.Infrastructure.Extension
             return cellStyle;
         }
 
+        /// <summary>
+        /// Set border to first grand total cell.
+        /// </summary>
+        /// <param name="cellStyle">The cell style.</param>
+        /// <returns>
+        /// The style of cell.
+        /// </returns>
+        public static ICellStyle SetBorderToFirstGrandTotalCell(ICellStyle cellStyle)
+        {
+            cellStyle.BorderBottom = BorderStyle.THIN;
+            cellStyle.BorderLeft = BorderStyle.THIN;
+            cellStyle.BorderRight = BorderStyle.THIN;
+            cellStyle.BorderTop = BorderStyle.THIN;
+
+            cellStyle.BottomBorderColor = (short)BorderColorIndex;
+            cellStyle.LeftBorderColor = (short)BorderColorIndex;
+            cellStyle.RightBorderColor = (short)BorderColorIndex;
+            cellStyle.TopBorderColor = (short)GrandTotalSeparatorColorIndex;
+
+            return cellStyle;
+        }
+
         public static void SetColorAtIndex(
-            ref ExportExcelInfo exportExcelInfo,
+            ref ExportExcelInfoNPOI exportExcelInfo,
             Color color,
             short colorIndex)
         {

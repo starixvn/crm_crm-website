@@ -142,7 +142,8 @@
     <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\QueryString.cs" />
     <Compile Include="Helper\SystemTime.cs" />
-    <Compile Include="Models\ExportExcelInfo.cs" />
+    <Compile Include="Models\ExcelStyleParamNPOI.cs" />
+    <Compile Include="Models\ExportExcelInfoNPOI.cs" />
     <Compile Include="Models\PagedList.cs" />
     <Compile Include="Models\PeriodRange.cs" />
     <Compile Include="Models\Result.cs" />
@@ -155,7 +156,9 @@
     </Compile>
     <Compile Include="Service\Implements\CacheService.cs" />
     <Compile Include="Service\Implements\PermissionService.cs" />
+    <Compile Include="Service\Implements\ServiceBase.cs" />
     <Compile Include="Service\Interfaces\IPermissionService.cs" />
+    <Compile Include="Service\Interfaces\IServiceBase.cs" />
     <Compile Include="Web\Controllers\AuthenticateAction.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
     <Compile Include="Web\Controllers\CRMAuthAttribute.cs" />

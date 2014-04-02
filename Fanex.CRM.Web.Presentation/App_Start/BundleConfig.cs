@@ -77,6 +77,11 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/Scripts/FanexMultipleSelect").Include(
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js"));
 
+            bundles.Add(new ScriptBundle("~/Scripts/FanexGridScripts").Include(
+                "~/Scripts/FanexGridV2/Fanex.Pagination.js",
+                "~/Scripts/FanexGridV2/Fanex.Grid.js",
+                "~/Scripts/FanexGridV2/moment.js"));
+
             bundles.Add(new ScriptBundle("~/Views/Home/Dashboard/Scripts").Include(
                 "~/Views/Home/Scripts/DashboardManager.js"));
 
@@ -100,6 +105,10 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Report_CustomerReport(ref bundles);
             RegisterBundles_Chart(ref bundles);
             RegisterBundles_User_LogIn(ref bundles);
+
+            RegisterBundles_Report_SettlementReport(ref bundles);
+            RegisterBundles_ResultMessage(ref bundles);
+            RegisterBundles_Numeral(ref bundles);
         }
 
         /// <summary>
@@ -453,6 +462,48 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/User/LogInStyles").Include(
                 "~/Areas/User/LogIn/Styles/login.less"));
+        }
+
+        /// <summary>
+        /// Registers the settlement report bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_Report_SettlementReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/SettlementReportScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/YearPicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/SettlementReport/Scripts/SettlementReportApplication.js",
+                "~/Areas/Report/SettlementReport/Scripts/SettlementReportController.js",
+                "~/Areas/Report/SettlementReport/Scripts/SettlementReportService.js",
+                "~/Areas/Report/SettlementReport/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Report/SettlementReportStyles").Include(
+                "~/Areas/Report/SettlementReport/Styles/SettlementReport.less"));
+        }
+
+        /// <summary>
+        /// Registers the result message bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_ResultMessage(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Scripts/ShareScripts/Applications/ResultMessageScripts").Include(
+                "~/Scripts/ShareScripts/Applications/ResultMessage.js"));
+
+            bundles.Add(new StyleBundle("~/Content/site/ResultMessageStyles").Include(
+                "~/Content/site/resultMessage.less"));
+        }
+
+        private static void RegisterBundles_Numeral(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Scripts/FanexGridV2/NumeralScripts").Include(
+                "~/Scripts/FanexGridV2/numeral.js"));
         }
     }
 
