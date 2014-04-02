@@ -102,6 +102,7 @@
     <Compile Include="Services\Implements\StatisticReport\FirstGrandTotalRowExcelWriter.cs" />
     <Compile Include="Services\Implements\StatisticReport\NormalRowExcelWriter.cs" />
    <Compile Include="Services\Implements\SettlementReport\DummyData.cs" />
+ <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
  <Compile Include="Services\Implements\SettlementReport\GrandTotalRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\OddEvenRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\SettlementReportService.cs" />
