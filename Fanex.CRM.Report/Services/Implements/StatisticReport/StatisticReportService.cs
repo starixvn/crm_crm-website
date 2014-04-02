@@ -272,6 +272,10 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             }
         }
 
+        /// <summary>
+        /// Exports the statistic report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
         public void ExportStatisticReport(GetStatisticReportCriteria criteria)
         {
             try
@@ -702,13 +706,14 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 countryList.Add(country);
             }
 
-            IRow row;
-            CellRangeAddress cellRangeAddress;
             var childReportLength = statisticReport.ChildReports.Count;
 
-            var normalRowWriter = new StatisticReportRowExcelWriter(
-                exportExcelInfo,
-                NpoiExcelExtensions.BackgroundColorIndex);
+            var normalRowWriter = new NormalRowExcelWriter(exportExcelInfo);
+            var totalRowWriter = new TotalRowExcelWriter(exportExcelInfo);
+            var firstGrandTotalRowWriter = new FirstGrandTotalRowExcelWriter(exportExcelInfo);
+            NpoiExcelExtensions.SetTotalColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetGrandTotalSeparatorColorIndex(ref exportExcelInfo);
 
             var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
             var numberOfSheet = (childReportLength / maxRowPerSheet) +
@@ -734,7 +739,11 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                         var timeReport = dateReport.ChildReports[j];
                         normalRowWriter.WriteRow(ref exportExcelInfo, timeReport, dateReport, j);
                     }
+
+                    totalRowWriter.WriteRow(ref exportExcelInfo, dateReport.Total);
                 }
+
+                firstGrandTotalRowWriter.WriteRow(ref exportExcelInfo, statisticReport.Total);
             }
         }
 
@@ -744,13 +753,14 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="criteria">The criteria.</param>
         /// <param name="statisticReport">The statistic report.</param>
+        /// <param name="countryList">The country list.</param>
         private void ExportStatisticReportHeader(
             ref ExportExcelInfoNPOI exportExcelInfo,
             GetStatisticReportCriteria criteria,
             StatisticReportInfo statisticReport,
             List<CountryInfo> countryList)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo.ExcelFile);
+            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParamNPOI());
@@ -759,7 +769,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 new ExcelStyleParamNPOI { Alignment = HorizontalAlignment.LEFT });
 
             var currentColumn = exportExcelInfo.StartColumn;
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 120 : 160) * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 160 : 160) * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 100 : 160) * NpoiExcelExtensions.FontWidth);
             for (var i = 0; i < exportExcelInfo.MaxColumnIndex - 1; i++)
             {
