@@ -420,5 +420,13 @@
   <data name="SettlementReport_Title" xml:space="preserve">
     <value>Settlement Report For Year {0}</value>
   </data>
-
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="SettlementReport_ExcelTitle" xml:space="preserve">
+    <value>Settlement_Report_For_Year_{0}</value>
+  </data>
+  <data name="SettlementReport_SheetName" xml:space="preserve">
+    <value>Settlement Report</value>
+  </data>
 </root>

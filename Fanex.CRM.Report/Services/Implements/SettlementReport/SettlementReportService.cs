@@ -19,11 +19,15 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria.SettlementReport;
+    using Fanex.CRM.Report.Entities.SettlementReport;
     using Fanex.CRM.Report.Models.SettlementReport;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.Interfaces;
     using Fanex.CRM.Setting.Models;
-    using Fanex.CRM.Report.Entities.SettlementReport;
+    using Fanex.CRM.Infrastructure.Models;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
 
     /// <summary>
     /// Settlement Report Service.
@@ -53,7 +57,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
 
                 if (settlementReport == null)
                 {
-                    //var rawData = GetDynamicData<SettlementReportEntity>(criteria);
+                    // var rawData = GetDynamicData<SettlementReportEntity>(criteria);
                     var rawData = new DummyData().Get();
                     var countryList = rawData
                         .Select(settlementReportEntity => new CountryInfo
@@ -66,7 +70,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                     settlementReport = MappingDataSettlementReport(rawData, countryList, countryDictionary, criteria);
 
                     settlementReport.TotalChildReports = settlementReport.ChildReports.Count;
-                    //settlementReport.ChartInfo = GetChartInfo(settlementReport, countryList, countryDictionary);
+                    settlementReport.ChartInfo = GetChartInfo(settlementReport);
                     SessionExtension.AddSession(HttpContext.Current.Session, SettlementReportSessionKey, settlementReport);
                 }
 
@@ -94,6 +98,32 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// <param name="criteria">The criteria.</param>
         public void ExportSettlementReport(GeSettlementReportCriteria criteria)
         {
+            try
+            {
+                SettlementReportInfo settlementReport = (SettlementReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, SettlementReportSessionKey);
+                criteria.IsGetFullReport = true;
+                if (settlementReport == null)
+                {
+                    settlementReport = GetSettlementReport(criteria);
+                }
+
+                ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+                {
+                    ExcelFile = new HSSFWorkbook(),
+                    StartRow = 0,
+                    StartColumn = 0,
+                    CurrentRow = 0,
+                    MaxColumnIndex = 3
+                };
+
+                ExportSettlementReportBody(ref exportExcelInfo, criteria, settlementReport);
+                string reportName = string.Format(Labels.SettlementReport_ExcelTitle, criteria.Year);
+                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
         }
 
         /// <summary>
@@ -230,6 +260,155 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             }
 
             return settlementReport;
+        }
+
+        /// <summary>
+        /// Gets the chart information.
+        /// </summary>
+        /// <param name="statisticReport">The statistic report.</param>
+        /// <param name="countryList">The country list.</param>
+        /// <param name="countryDictionary">The country dictionary.</param>
+        /// <returns>The chart information.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private SettlementReportInfo GetChartInfo(SettlementReportInfo settlementReport)
+        {
+            var chartInfo = new SettlementReportInfo
+            {
+                Name = settlementReport.Name,
+                NumberOfIssues = settlementReport.Total.NumberOfIssues,
+                ChildReports = new List<SettlementReportInfo>()
+            };
+
+            var monthReportLength = settlementReport.ChildReports.Count;
+            for (var monthIndex = 0; monthIndex < monthReportLength; monthIndex++)
+            {
+                var monthReport = settlementReport.ChildReports[monthIndex];
+                var monthChart = new SettlementReportInfo
+                {
+                    Name = monthReport.Name,
+                    NumberOfIssues = monthReport.NumberOfIssues,
+                    ChildReports = new List<SettlementReportInfo>()
+                };
+
+                var countryReportLength = monthReport.ChildReports.Count;
+                for (var countryIndex = 0; countryIndex < countryReportLength; countryIndex++)
+                {
+                    var countryReport = monthReport.ChildReports[countryIndex];
+                    var timeChart = new SettlementReportInfo
+                    {
+                        Name = countryReport.Name,
+                        NumberOfIssues = countryReport.NumberOfIssues,
+                        ChildReports = new List<SettlementReportInfo>()
+                    };
+
+                    monthChart.ChildReports.Add(timeChart);
+                }
+
+                chartInfo.ChildReports.Add(monthChart);
+            }
+
+            return chartInfo;
+        }
+
+        /// <summary>
+        /// Exports the settlement report body.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="statisticReport">The settlement report.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+          "SP2101:MethodMustNotContainMoreLinesThan",
+          Justification = "Reviewed. Suppression is OK here.")]
+        private void ExportSettlementReportBody(
+            ref ExportExcelInfoNPOI exportExcelInfo,
+            GeSettlementReportCriteria criteria,
+            SettlementReportInfo settlementReport)
+        {
+            if (settlementReport == null || settlementReport.ChildReports.Count == 0)
+            {
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.SettlementReport_SheetName);
+                ExportSettlementReportHeader(ref exportExcelInfo, criteria, settlementReport);
+                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                return;
+            }
+
+            var monthReportLength = settlementReport.ChildReports.Count;
+            var normalRowWriter = new NormalRowExcelWriter(exportExcelInfo);
+            //var firstGrandTotalRowWriter = new FirstGrandTotalRowExcelWriter(exportExcelInfo);
+            //var grandTotalRowWriter = new FirstGrandTotalRowExcelWriter(exportExcelInfo);
+            var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
+            var numberOfSheet = (monthReportLength / maxRowPerSheet) +
+                (monthReportLength % maxRowPerSheet != 0 ? 1 : 0);
+            for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
+            {
+                var sheetName = numberOfSheet > 1 ?
+                       string.Format("{0} - {1}", Labels.SettlementReport_SheetName, sheetIndex + 1) :
+                       Labels.SettlementReport_SheetName;
+                exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
+                exportExcelInfo.CurrentRow = 0;
+                ExportSettlementReportHeader(ref exportExcelInfo, criteria, settlementReport);
+                var startIndex = sheetIndex * maxRowPerSheet;
+                var endIndex = startIndex + maxRowPerSheet;
+                for (var i = startIndex; i < endIndex && i < monthReportLength; i++)
+                {
+                    var monthReport = settlementReport.ChildReports[i];
+                    var countryReportLength = monthReport.ChildReports.Count;
+                    for (var j = 0; j < countryReportLength; j++)
+                    {
+                        exportExcelInfo.CurrentColumn = exportExcelInfo.StartColumn;
+                        var countryReport = monthReport.ChildReports[j];
+                        normalRowWriter.WriteRow(ref exportExcelInfo, countryReport, monthReport, j);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Exports the settlement report header.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="statisticReport">The settlement report.</param>
+        private void ExportSettlementReportHeader(
+            ref ExportExcelInfoNPOI exportExcelInfo,
+            GeSettlementReportCriteria criteria,
+            SettlementReportInfo settlementReport)
+        {
+            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
+                exportExcelInfo.ExcelFile,
+                new ExcelStyleParamNPOI());
+
+            var currentColumn = exportExcelInfo.StartColumn;
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
+
+            string reportTitle = settlementReport != null ?
+                settlementReport.Name :
+                string.Format(Labels.SettlementReport_Title, criteria.Year);
+            CellRangeAddress cellRangeAddress;
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                exportExcelInfo.StartColumn,
+                exportExcelInfo.MaxColumnIndex);
+            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
+            exportExcelInfo.CurrentRow += 2;
+
+            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+            exportExcelInfo.CurrentRow++;
+
+            IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            currentColumn = exportExcelInfo.StartColumn;
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Month, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Amount, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Total, headerStyle);
+            exportExcelInfo.CurrentRow++;
         }
     }
 }

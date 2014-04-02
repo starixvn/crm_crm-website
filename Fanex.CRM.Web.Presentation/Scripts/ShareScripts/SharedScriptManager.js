@@ -9,7 +9,8 @@ var SharedScriptManager = function () {
         defaultItemsPerPage: 50,
         maxFeedbackSubjectTemplateNumberOnLoad: 100000,
         yearRangeDatePicker: "-100:+0",
-        numberOfYearPerSelection: 10
+        numberOfYearPerSelection: 10,
+        viewChartIcon: '<input id="button-viewchart" class="btnCharting" type="button" value="">'
     },
 
     self.CallAjax = function (currentHandler,
