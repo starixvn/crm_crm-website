@@ -77,7 +77,6 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     _intStyle);
             }
 
-            info.NumberOfIssues = 0;
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, (int)info.NumberOfIssues, _intStyle);
             exportExcelInfo.CurrentRow += 1;
         }

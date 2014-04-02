@@ -53,7 +53,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static readonly short GrandTotalRowColorIndex = (short)HSSFColor.DARK_YELLOW.index;
         public static readonly short GrandTotalSeparatorColorIndex = (short)HSSFColor.CORNFLOWER_BLUE.index;
 
-        private const string IntNumberFormat = "[=0]0;[!=0]#,#";
+        private const string IntNumberFormat = "#,##0";
         private const string TwoDecimalDigitNumber = "##,##0.00";
         private const string NegativeNumberFormat = "[>=0]#,##0{0}_);[RED][<0]-#,##0{1}";
         private const string NormalNumberFormat = "#,##0{0}_);-#,##0{1}";
