@@ -87,6 +87,9 @@ statisticReportApplication.controller('statisticReportController', [
                 Id: "Report_StatisticReport"
             });
         };
+        $scope.invokeHotKey_CtrlS = function () {
+            $scope.getStatisticReport();
+        };
         $scope.completedLoadFilterInfo = function (allSetting) {
             if (allSetting) {
                 $scope.reportTypeOptions.DataList = allSetting.PeriodTypeList;
@@ -409,6 +412,11 @@ statisticReportApplication.controller('statisticReportController', [
             };
 
             $scope.$apply();
+        };
+        $scope.setFocus = function () {
+            $scope.$apply(function () {
+                $scope.defaultFocusOptions.IsSetFocus = true;
+            });
         };
 
         angular.element(document).ready(function () {
