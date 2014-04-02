@@ -221,6 +221,9 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         }
 
         return chartSeries;
+        parent.$(".ui-dialog-titlebar-close").click(function () {
+            scope.setFocus();
+        });
     }
 
     return {
