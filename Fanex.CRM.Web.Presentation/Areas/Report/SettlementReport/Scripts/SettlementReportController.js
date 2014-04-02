@@ -24,7 +24,6 @@ settlementReportApplication.controller('settlementReportController', [
         $scope.defaultFocusOptions = null;
         $scope.settlementReportOptions = {
             DataList: null,
-            IsResize: false,
             IsUpdateGrid: false
         };
         $scope.searchCriteria = {
