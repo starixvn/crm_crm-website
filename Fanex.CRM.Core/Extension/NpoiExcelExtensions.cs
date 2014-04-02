@@ -48,8 +48,12 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static readonly short BorderColorIndex = (short)HSSFColor.GREY_80_PERCENT.index;
         public static readonly short BackgroundColorIndex = (short)HSSFColor.WHITE.index;
         public static readonly short EvenRowColorIndex = (short)HSSFColor.CORAL.index;
+        public static readonly short SubTotalRowColorIndex = (short)HSSFColor.DARK_TEAL.index;
+        public static readonly short TotalRowColorIndex = (short)HSSFColor.DARK_RED.index;
+        public static readonly short GrandTotalRowColorIndex = (short)HSSFColor.DARK_YELLOW.index;
+        public static readonly short GrandTotalSeparatorColorIndex = (short)HSSFColor.CORNFLOWER_BLUE.index;
 
-        private const string IntNumberFormat = "#,#";
+        private const string IntNumberFormat = "[=0]0;[!=0]#,#";
         private const string TwoDecimalDigitNumber = "##,##0.00";
         private const string NegativeNumberFormat = "[>=0]#,##0{0}_);[RED][<0]-#,##0{1}";
         private const string NormalNumberFormat = "#,##0{0}_);-#,##0{1}";
@@ -73,21 +77,54 @@ namespace Fanex.CRM.Infrastructure.Extension
             Right,
         }
 
-        public static void SetHeaderColorIndex(HSSFWorkbook excelFile)
+        public static void SetHeaderColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
         {
-            HSSFPalette palette = excelFile.GetCustomPalette();
-            palette.SetColorAtIndex(
-              (short)HeaderTitleColorIndex,
-              (byte)HeaderTitleColor.R,
-              (byte)HeaderTitleColor.G,
-              (byte)HeaderTitleColor.B);
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                HeaderTitleColor,
+                HeaderTitleColorIndex);
+        }
+
+        public static void SetSubTotalColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                SubTotalRowColor,
+                SubTotalRowColorIndex);
+        }
+
+        public static void SetTotalColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                TotalRowColor,
+                TotalRowColorIndex);
+        }
+
+        public static void SetGrandTotalColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                GrandTotalRowColor,
+                GrandTotalRowColorIndex);
+        }
+
+        public static void SetGrandTotalSeparatorColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                GrandTotalSeparatorColor,
+                GrandTotalSeparatorColorIndex);
         }
 
         /// <summary>
         /// Style for header.
         /// </summary>
         /// <param name="excelFile">The excel file.</param>
-        /// <returns>The cell style.</returns>
+        /// <param name="excelStyleParam">The excel style parameter.</param>
+        /// <returns>
+        /// The cell style.
+        /// </returns>
         public static ICellStyle HeaderStyle(
             HSSFWorkbook excelFile,
             ExcelStyleParamNPOI excelStyleParam)
@@ -370,7 +407,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             object cellValue,
             ICellStyle cellStyle)
         {
-            ICell cell = row.CreateCell(currentColumn);
+            ICell cell = row.GetCell(currentColumn) ?? row.CreateCell(currentColumn);
             if (cellValue is string)
             {
                 cell.SetCellValue((string)cellValue);
@@ -413,6 +450,28 @@ namespace Fanex.CRM.Infrastructure.Extension
             cellStyle.LeftBorderColor = (short)BorderColorIndex;
             cellStyle.RightBorderColor = (short)BorderColorIndex;
             cellStyle.TopBorderColor = (short)BorderColorIndex;
+
+            return cellStyle;
+        }
+
+        /// <summary>
+        /// Set border to first grand total cell.
+        /// </summary>
+        /// <param name="cellStyle">The cell style.</param>
+        /// <returns>
+        /// The style of cell.
+        /// </returns>
+        public static ICellStyle SetBorderToFirstGrandTotalCell(ICellStyle cellStyle)
+        {
+            cellStyle.BorderBottom = BorderStyle.THIN;
+            cellStyle.BorderLeft = BorderStyle.THIN;
+            cellStyle.BorderRight = BorderStyle.THIN;
+            cellStyle.BorderTop = BorderStyle.THIN;
+
+            cellStyle.BottomBorderColor = (short)BorderColorIndex;
+            cellStyle.LeftBorderColor = (short)BorderColorIndex;
+            cellStyle.RightBorderColor = (short)BorderColorIndex;
+            cellStyle.TopBorderColor = (short)GrandTotalSeparatorColorIndex;
 
             return cellStyle;
         }

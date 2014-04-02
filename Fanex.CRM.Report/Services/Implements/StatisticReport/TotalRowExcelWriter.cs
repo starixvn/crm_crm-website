@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="StatisticReportRowExcelWriter.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="TotalRowExcelWriter.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -12,15 +12,13 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Report.Resources;
-    using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
     using Fanex.CRM.Report.Models.StatisticReport;
+    using NPOI.SS.UserModel;
 
     /// <summary>
-    /// Statistic Report Row Excel Writer.
+    /// Total Row Excel Writer.
     /// </summary>
-    public class StatisticReportRowExcelWriter
+    public class TotalRowExcelWriter
     {
         private ICellStyle _intStyle;
         private ICellStyle _textStyle;
@@ -28,27 +26,26 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         private ExportExcelInfoNPOI _exportExcelInfo;
         private short _rowBackgroundColorIndex;
 
-        public StatisticReportRowExcelWriter(
-            ExportExcelInfoNPOI exportExcelInfo,
-            short rowBackgroundColorIndex)
+        public TotalRowExcelWriter(ExportExcelInfoNPOI exportExcelInfo)
         {
             _exportExcelInfo = exportExcelInfo;
-            _rowBackgroundColorIndex = rowBackgroundColorIndex;
+            _rowBackgroundColorIndex = NpoiExcelExtensions.TotalRowColorIndex;
 
             _intStyle = NpoiExcelExtensions.IntNumberStyle(
                _exportExcelInfo.ExcelFile,
-               rowBackgroundColorIndex,
-               false,
+               _rowBackgroundColorIndex,
+               true,
                HorizontalAlignment.RIGHT);
+
             _textStyle = NpoiExcelExtensions.TextStyle(
                  _exportExcelInfo.ExcelFile,
-                 rowBackgroundColorIndex,
-                 false,
+                 _rowBackgroundColorIndex,
+                 true,
                  NpoiExcelExtensions.Alignment.Left);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
-                rowBackgroundColorIndex,
-                false,
+                _rowBackgroundColorIndex,
+                true,
                 NpoiExcelExtensions.Alignment.Center);
         }
 
@@ -57,38 +54,31 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="info">The information.</param>
-        /// <param name="infoIndex">Index of the information.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(
             ref ExportExcelInfoNPOI exportExcelInfo,
-            StatisticReportInfo info,
-            StatisticReportInfo groupInfo,
-            int infoIndex)
+            StatisticReportInfo info)
         {
-            CellRangeAddress cellRangeAddress;
             var row = exportExcelInfo.Worksheet.GetRow(exportExcelInfo.CurrentRow) ?? exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             var currentColumn = exportExcelInfo.CurrentColumn;
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.ShortName, _textStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, string.Empty, _centerTextStyle);
 
-            if (infoIndex == 0)
+            var countryLength = info.ChildReports.Count;
+            for (var i = 0; i < countryLength; i++)
             {
-                cellRangeAddress = new CellRangeAddress(
-                    exportExcelInfo.CurrentRow,
-                    exportExcelInfo.CurrentRow + groupInfo.ChildReports.Count - 1,
-                    currentColumn,
-                    currentColumn);
-                NpoiExcelExtensions.RenderMergedCells(
-                    ref exportExcelInfo,
-                    cellRangeAddress,
-                    groupInfo.ShortName,
-                    _centerTextStyle);
+                var countryReport = info.ChildReports[i];
+                NpoiExcelExtensions.RenderCell(
+                    ref row,
+                    ref currentColumn,
+                    countryReport.NumberOfIssues,
+                    _intStyle);
             }
 
-            currentColumn++;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.ShortName, _centerTextStyle);
-
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.NumberOfIssues, _intStyle);
+            info.NumberOfIssues = 0;
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, (int)info.NumberOfIssues, _intStyle);
             exportExcelInfo.CurrentRow += 1;
         }
     }

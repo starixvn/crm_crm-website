@@ -274,7 +274,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
             Justification = "Reviewed. Suppression is OK here.")]
         private void ExportCustomerReportHeader(ref ExportExcelInfoNPOI exportExcelInfo)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo.ExcelFile);
+            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParamNPOI());

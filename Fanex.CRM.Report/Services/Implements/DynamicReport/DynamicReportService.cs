@@ -770,12 +770,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="criteria">The criteria.</param>
         /// <param name="dynamicReport">The dynamic report.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private void ExportDynamicReportHeader(
             ref ExportExcelInfoNPOI exportExcelInfo,
             GetDynamicReportCriteria criteria,
             DynamicReportInfo dynamicReport)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo.ExcelFile);
+            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParamNPOI());
