@@ -11,7 +11,7 @@ namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Web.Controllers;
-    using Fanex.CRM.Report.Criteria.DynamicReport;
+    using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Services.Implements.StatisticReport;
     using Fanex.CRM.Report.Services.Interfaces;
 
@@ -63,6 +63,12 @@ namespace Fanex.CRM.Report.Controllers
             var logs = _statisticReportService.GetStatisticReport(criteria);
             var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
             return jsonResult;
+        }
+
+        public ActionResult ExportStatisticReport(GetStatisticReportCriteria criteria)
+        {
+            _statisticReportService.ExportStatisticReport(criteria);
+            return new EmptyResult();
         }
 
         [HttpPost]
