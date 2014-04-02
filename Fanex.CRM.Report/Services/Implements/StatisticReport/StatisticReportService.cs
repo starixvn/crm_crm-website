@@ -252,6 +252,10 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             }
         }
 
+        /// <summary>
+        /// Exports the statistic report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
         public void ExportStatisticReport(GetStatisticReportCriteria criteria)
         {
             try
