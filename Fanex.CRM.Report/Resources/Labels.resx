@@ -458,4 +458,10 @@
   <data name="StatisticReport_ChartSuffix" xml:space="preserve">
     <value> Issue(s)</value>
   </data>
+  <data name="StatisticReport_ExcelTitle" xml:space="preserve">
+    <value>{0}_Statistic_Report_From_{1}_To_{2}</value>
+  </data>
+  <data name="StatisticReport_SheetName" xml:space="preserve">
+    <value>Statistic Report</value>
+  </data>
 </root>
