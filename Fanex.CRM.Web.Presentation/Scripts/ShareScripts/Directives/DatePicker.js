@@ -105,6 +105,13 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
             } else if (options.MaxDate) {
                 txtCalendar.datepicker("option", "maxDate", new Date(options.MaxDate));
             }
+
+            if (options.IsSetDate &&
+                options.InitDate !== undefined &&
+                options.InitDate !== null) {
+                txtCalendar.datepicker("setDate", new Date(options.InitDate));
+                options.IsSetDate = false;
+            }
         }
 
         function selectedDateChange(scope, element, attrs, options) {
@@ -154,8 +161,8 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
             if (!scope.isUpdatingDate) {
                 scope.IsUpdatingDate = true;
                 if (options.OnChangeDateEvent &&
-                        typeof (options.OnChangeDateEvent) === "function") {
-                    options.OnChangeDateEvent(selectedDate);
+                    typeof (options.OnChangeDateEvent) === "function") {
+                    options.OnChangeDateEvent(selectedDate, true);
                 }
 
                 scope.IsUpdatingDate = false;

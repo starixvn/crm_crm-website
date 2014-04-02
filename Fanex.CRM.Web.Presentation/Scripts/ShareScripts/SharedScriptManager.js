@@ -180,6 +180,19 @@ var SharedScriptManager = function () {
             message: ajaxResult.message
         });
     };
+    self.getEndDateOfMonth = function (dateInMonth) {
+        return new Date(dateInMonth.getFullYear(), dateInMonth.getMonth() + 1, 0);
+    };
+    self.getStartDateOfMonth = function (dateInMonth) {
+        return new Date(dateInMonth.getFullYear(), dateInMonth.getMonth(), 1);
+    };
+
+    self.getEndDateOfYear = function (year) {
+        return new Date(year, 12, 0);
+    };
+    self.getStartDateOfYear = function (year) {
+        return new Date(year, 0, 1);
+    };
 };
 
 sharedScriptManager = new SharedScriptManager();

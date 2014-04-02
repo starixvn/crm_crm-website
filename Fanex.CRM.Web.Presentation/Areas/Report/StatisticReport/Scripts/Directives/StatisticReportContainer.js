@@ -36,7 +36,6 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
             for (i = 0; i < dateReportLength; i++) {
                 var dateReport = statisticReport.ChildReports[i];
                 var timeReportLength = dateReport.ChildReports.length;
-
                 for (var j = 0; j < timeReportLength; j++) {
                     var timeReport = dateReport.ChildReports[j];
                     countryLength = timeReport.ChildReports.length;

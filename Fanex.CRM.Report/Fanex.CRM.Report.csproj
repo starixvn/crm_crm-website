@@ -88,6 +88,7 @@
     <Compile Include="Services\Implements\CustomerReportService.cs" />
     <Compile Include="Services\Implements\DynamicReport\CommunicationLogRowExcelWriter.cs" />
     <Compile Include="Services\Implements\DynamicReport\DynamicReportService.cs" />
+    <Compile Include="Services\Implements\StatisticReport\StatisticReportRowExcelWriter.cs" />
     <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
     <Compile Include="Services\Interfaces\ICustomerReportService.cs" />
     <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
