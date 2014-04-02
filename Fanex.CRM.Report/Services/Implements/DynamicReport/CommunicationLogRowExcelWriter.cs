@@ -12,6 +12,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Report.Models;
     using Fanex.CRM.Report.Resources;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -62,7 +63,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(
             ref ExportExcelInfoNPOI exportExcelInfo,
-            Fanex.CRM.Report.Models.DynamicReportInfo info,
+            DynamicReportInfo info,
             int infoIndex)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(

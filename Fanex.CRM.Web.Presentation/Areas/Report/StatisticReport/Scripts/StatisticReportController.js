@@ -56,9 +56,9 @@ statisticReportApplication.controller('statisticReportController', [
         $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
         $scope.initController = function () {
+            $scope.initPicker();
             $scope.getAllSetting();
             $scope.registerHotKey();
-            $scope.initPicker();
             $scope.defaultFocusOptions = {
                 IsSetFocus: false,
                 OnChangeEvent: $scope.completeSetFocus
@@ -115,8 +115,8 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.fromMonthOptions = {
                 CurrentDate: currentDate,
                 InitDate: initFromDate,
-                MaxDate: initFromDate,
                 MinDate: beginYearDropdown < new Date(minReportDate) ? new Date(minReportDate) : beginYearDropdown,
+                MaxDate: currentDate,
                 IsRerenderPicker: false,
                 OnChangeEvent: $scope.updateFromMonth,
                 SelectedYear: initFromDate.getFullYear(),
@@ -128,8 +128,8 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.toMonthOptions = {
                 CurrentDate: currentDate,
                 InitDate: currentDate,
+                MinDate: beginYearDropdown < new Date(minReportDate) ? new Date(minReportDate) : beginYearDropdown,
                 MaxDate: currentDate,
-                MinDate: currentDate,
                 IsRerenderPicker: false,
                 OnChangeEvent: $scope.updateToMonth,
                 SelectedYear: currentDate.getFullYear(),
@@ -151,45 +151,70 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.fromDateOptions = {
                 CurrentDate: currentDate,
                 InitDate: initFromDate,
+                MinDate: minReportDate,
                 MaxDate: currentDate,
-                MinxDate: minReportDate,
                 IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateFromDate
+                OnChangeDateEvent: $scope.updateFromDate,
+                IsSetDate: false
             };
 
             $scope.toDateOptions = {
                 CurrentDate: currentDate,
                 InitDate: currentDate,
+                MinDate: minReportDate,
                 MaxDate: currentDate,
-                MinDate: initFromDate,
                 IsRerenderPicker: false,
-                OnChangeDateEvent: $scope.updateToDate
+                OnChangeDateEvent: $scope.updateToDate,
+                IsSetDate: false
             };
 
             $scope.updateFromDatePicker();
             $scope.updateToDatePicker();
         };
         $scope.updateFromDatePicker = function (isOnApply) {
-            $scope.fromDateOptions.IsRerenderPicker = true;
+            //            $scope.fromDateOptions.IsRerenderPicker = true;
             if (!isOnApply) {
-                $scope.$apply();
+                $scope.$apply(function () {
+                    $scope.fromDateOptions.IsRerenderPicker = true;
+                });
             }
         };
         $scope.updateToDatePicker = function (isOnApply) {
-            $scope.toDateOptions.IsRerenderPicker = true;
             if (!isOnApply) {
-                $scope.$apply();
+                $scope.$apply(function () {
+                    $scope.toDateOptions.IsRerenderPicker = true;
+                });
             }
         };
-        $scope.updateFromDate = function (selectedDate) {
+        $scope.updateFromDate = function (selectedDate, isAlreadyApply) {
+            selectedDate = minReportDate < selectedDate ? selectedDate : minReportDate;
             $scope.searchCriteria.FromDate = selectedDate;
-            $scope.toDateOptions.MinDate = selectedDate;
-            $scope.updateToDatePicker(true);
+            if ($scope.searchCriteria.ToDate < selectedDate) {
+                $scope.toDateOptions.IsSetDate = true;
+                $scope.toDateOptions.InitDate = selectedDate;
+                $scope.updateToDatePicker(isAlreadyApply);
+            } else if (sharedScriptManager.getEndDateOfMonth(selectedDate) < $scope.searchCriteria.ToDate) {
+                $scope.toDateOptions.IsSetDate = true;
+                $scope.toDateOptions.InitDate = sharedScriptManager.getEndDateOfMonth(selectedDate);
+                $scope.updateToDatePicker(isAlreadyApply);
+            }
+
+            $scope.updateFromDatePicker(isAlreadyApply);
         };
-        $scope.updateToDate = function (selectedDate) {
+        $scope.updateToDate = function (selectedDate, isAlreadyApply) {
+            selectedDate = minReportDate < selectedDate ? selectedDate : minReportDate;
             $scope.searchCriteria.ToDate = selectedDate;
-            $scope.fromDateOptions.MaxDate = selectedDate;
-            $scope.updateFromDatePicker(true);
+            if (selectedDate < $scope.searchCriteria.FromDate) {
+                $scope.fromDateOptions.IsSetDate = true;
+                $scope.fromDateOptions.InitDate = selectedDate;
+                $scope.updateFromDatePicker(isAlreadyApply);
+            } else if ($scope.searchCriteria.FromDate < sharedScriptManager.getStartDateOfMonth(selectedDate)) {
+                $scope.fromDateOptions.IsSetDate = true;
+                $scope.fromDateOptions.InitDate = sharedScriptManager.getStartDateOfMonth(selectedDate);
+                $scope.updateFromDatePicker(isAlreadyApply);
+            }
+
+            $scope.updateToDatePicker(isAlreadyApply);
         };
         $scope.updateReportType = function (reportType) {
             $scope.searchCriteria.ReportType = reportType;
@@ -221,8 +246,13 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.$apply();
         };
         $scope.updateFromMonth = function (month, year, isAlreadyApply) {
+            if (isNaN(year)) {
+                return;
+            }
+
             var selectedDate = new Date(year, month - 1, 1);
             var selectedYear = selectedDate.getFullYear();
+
             var toDate = $scope.searchCriteria.ToDate;
             var maxFromYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
             var maxFromMonth = 11;
@@ -250,15 +280,20 @@ statisticReportApplication.controller('statisticReportController', [
                 maxToMonth = currentDate.getMonth();
             }
 
+            var selectToDate = toDate;
+            if (selectedYear !== toDate.getFullYear()) {
+                selectToDate = sharedScriptManager.getEndDateOfYear(selectedYear);
+            }
+
             $scope.toMonthOptions = {
-                CurrentDate: toDate,
+                CurrentDate: selectToDate,
                 InitDate: currentDate,
-                MaxDate: new Date(maxToYear, maxToMonth, 1),
                 MinDate: new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()),
+                MaxDate: new Date(maxToYear, maxToMonth, 1),
                 IsRerenderPicker: false,
                 OnChangeEvent: $scope.updateToMonth,
-                SelectedYear: $scope.searchCriteria.ToDate.getFullYear(),
-                SelectedMonth: $scope.searchCriteria.ToDate.getMonth() + 1
+                SelectedYear: selectToDate.getFullYear(),
+                SelectedMonth: selectToDate.getMonth() + 1
             };
 
             $scope.searchCriteria.FromDate = selectedDate;
@@ -268,6 +303,10 @@ statisticReportApplication.controller('statisticReportController', [
             }
         };
         $scope.updateToMonth = function (month, year, isAlreadyApply) {
+            if (isNaN(year)) {
+                return;
+            }
+
             var selectedDate = new Date(year, month - 1, 1);
             var selectedYear = selectedDate.getFullYear();
             var maxToYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
@@ -290,15 +329,20 @@ statisticReportApplication.controller('statisticReportController', [
             };
 
             var beginYearDropdown = new Date(fromDate.getFullYear() - sharedScriptManager.cachedData.numberOfYearPerSelection, fromDate.getMonth(), 1);
+            var selectFromDate = fromDate;
+            if (selectedYear !== fromDate.getFullYear()) {
+                selectFromDate = sharedScriptManager.getStartDateOfYear(selectedYear);
+            }
+
             $scope.fromMonthOptions = {
-                CurrentDate: fromDate,
+                CurrentDate: selectFromDate,
                 InitDate: currentDate,
                 MaxDate: new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()),
                 MinDate: beginYearDropdown < new Date(minReportDate) ? new Date(minReportDate) : beginYearDropdown,
                 IsRerenderPicker: false,
                 OnChangeEvent: $scope.updateFromMonth,
-                SelectedYear: $scope.searchCriteria.FromDate.getFullYear(),
-                SelectedMonth: $scope.searchCriteria.FromDate.getMonth() + 1
+                SelectedYear: selectFromDate.getFullYear(),
+                SelectedMonth: selectFromDate.getMonth() + 1
             };
 
             $scope.searchCriteria.ToDate = selectedDate;
@@ -342,7 +386,6 @@ statisticReportApplication.controller('statisticReportController', [
                     $uiBlockerService.unblockUI();
                 });
         };
-
         $scope.pagingStatisticReport = function (pageIndex, pageSize) {
             $uiBlockerService.blockUI();
             $scope.lastSelectedParams.PageIndex = pageIndex;
@@ -358,6 +401,14 @@ statisticReportApplication.controller('statisticReportController', [
                     sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
                     $uiBlockerService.unblockUI();
                 });
+        };
+        $scope.exportReport = function () {
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + "StatisticReport/ExportStatisticReport",
+                Params: $scope.lastSelectedParams
+            };
+
+            $scope.$apply();
         };
 
         angular.element(document).ready(function () {

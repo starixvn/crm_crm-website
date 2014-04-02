@@ -745,6 +745,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}_Statistic_Report_From_{1}_To_{2}.
+        /// </summary>
+        public static string StatisticReport_ExcelTitle {
+            get {
+                return ResourceManager.GetString("StatisticReport_ExcelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statistic Report.
+        /// </summary>
+        public static string StatisticReport_SheetName {
+            get {
+                return ResourceManager.GetString("StatisticReport_SheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} To {1}.
         /// </summary>
         public static string StatisticReport_ShortTitle {

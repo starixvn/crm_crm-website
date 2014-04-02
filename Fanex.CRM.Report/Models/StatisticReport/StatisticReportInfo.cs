@@ -30,9 +30,9 @@ namespace Fanex.CRM.Report.Models.StatisticReport
 
         public PeriodRange PeriodRange { get; set; }
 
-        public bool HasData;
+        public bool HasData { get; set; }
 
-        public CountryInfo CountryInfo;
+        public CountryInfo CountryInfo { get; set; }
 
         public int NumberOfIssues { get; set; }
 

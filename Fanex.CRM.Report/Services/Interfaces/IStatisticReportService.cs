@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Report.Services.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Report.Criteria.DynamicReport;
+    using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Models.StatisticReport;
     using Fanex.CRM.Setting.Models;
 
@@ -21,5 +21,7 @@ namespace Fanex.CRM.Report.Services.Interfaces
         List<SettingInfo> GetAllMainCategory();
 
         StatisticReportInfo GetStatisticReport(GetStatisticReportCriteria criteria);
+
+        void ExportStatisticReport(GetStatisticReportCriteria criteria);
     }
 }
