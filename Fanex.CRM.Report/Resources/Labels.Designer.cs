@@ -106,6 +106,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birthday.
         /// </summary>
         public static string Birthday {
@@ -511,6 +520,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Month.
+        /// </summary>
+        public static string Month {
+            get {
+                return ResourceManager.GetString("Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly.
         /// </summary>
         public static string Monthly {
@@ -633,6 +651,33 @@ namespace Fanex.CRM.Report.Resources {
         public static string Select {
             get {
                 return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settlement Report.
+        /// </summary>
+        public static string Settlement_Report {
+            get {
+                return ResourceManager.GetString("Settlement_Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Issue(s).
+        /// </summary>
+        public static string SettlementReport_ChartSuffix {
+            get {
+                return ResourceManager.GetString("SettlementReport_ChartSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settlement Report For Year {0}.
+        /// </summary>
+        public static string SettlementReport_Title {
+            get {
+                return ResourceManager.GetString("SettlementReport_Title", resourceCulture);
             }
         }
         
@@ -894,6 +939,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Weekly {
             get {
                 return ResourceManager.GetString("Weekly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Year.
+        /// </summary>
+        public static string Year {
+            get {
+                return ResourceManager.GetString("Year", resourceCulture);
             }
         }
         
