@@ -655,6 +655,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settlement_Report_For_Year_{0}.
+        /// </summary>
+        public static string SettlementReport_ExcelTitle {
+            get {
+                return ResourceManager.GetString("SettlementReport_ExcelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settlement Report.
+        /// </summary>
+        public static string SettlementReport_SheetName {
+            get {
+                return ResourceManager.GetString("SettlementReport_SheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settlement Report For Year {0}.
         /// </summary>
         public static string SettlementReport_Title {
@@ -822,6 +840,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string To_Year {
             get {
                 return ResourceManager.GetString("To_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        public static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
             }
         }
         

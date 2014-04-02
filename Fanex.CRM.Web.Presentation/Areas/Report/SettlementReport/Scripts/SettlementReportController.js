@@ -24,13 +24,12 @@ settlementReportApplication.controller('settlementReportController', [
         $scope.defaultFocusOptions = null;
         $scope.settlementReportOptions = {
             DataList: null,
-            IsResize: false,
             IsUpdateGrid: false
         };
         $scope.searchCriteria = {
             Year: currentDate.getFullYear(),
             PageIndex: 0,
-            PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
+            PageSize: 10,
             IsGetFromCached: false,
             IsGetFullReport: false
         };
@@ -157,6 +156,8 @@ settlementReportApplication.controller('settlementReportController', [
             $scope.$apply();
         };
         angular.element(document).ready(function () {
+            $uiBlockerService.blockUI();
+            $uiBlockerService.unblockUI();
             $scope.initController();
         });
     } ]);
