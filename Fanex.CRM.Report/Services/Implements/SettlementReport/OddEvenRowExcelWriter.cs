@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="OddEvenRowExcelWriter.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="NormalRowExcelWriter.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -17,7 +17,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using NPOI.SS.Util;
 
     /// <summary>
-    /// Odd Even Row Excel Writer.
+    /// Normal Row Excel Writer.
     /// </summary>
     public class OddEvenRowExcelWriter
     {
@@ -88,7 +88,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                 NpoiExcelExtensions.RenderMergedCells(
                     ref exportExcelInfo,
                     cellRangeAddress,
-                    groupInfo.Name.ToUpper(),
+                    groupInfo.Name,
                     _centerTextStyle);
             }
 
