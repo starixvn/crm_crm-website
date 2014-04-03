@@ -49,7 +49,7 @@ statisticReportApplication.controller('statisticReportController', [
             MainCategory: null,
             SubCategory: null,
             PageIndex: 0,
-            PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
+            PageSize: 10,
             IsGetFromCached: false,
             IsGetFullReport: false
         };
