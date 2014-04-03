@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     /// <summary>
     /// Normal Row Excel Writer.
     /// </summary>
-    public class NormalRowExcelWriter
+    public class OddEvenRowExcelWriter
     {
         private ICellStyle _intStyle;
         private ICellStyle _textStyle;
@@ -28,10 +28,12 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         private ExportExcelInfoNPOI _exportExcelInfo;
         private short _rowBackgroundColorIndex;
 
-        public NormalRowExcelWriter(ExportExcelInfoNPOI exportExcelInfo)
+        public OddEvenRowExcelWriter(ExportExcelInfoNPOI exportExcelInfo, bool isEvenRow)
         {
             _exportExcelInfo = exportExcelInfo;
-            _rowBackgroundColorIndex = NpoiExcelExtensions.BackgroundColorIndex;
+            _rowBackgroundColorIndex = isEvenRow ?
+                NpoiExcelExtensions.EvenRowColorIndex :
+                NpoiExcelExtensions.BackgroundColorIndex;
 
             _intStyle = NpoiExcelExtensions.IntNumberStyle(
                _exportExcelInfo.ExcelFile,
