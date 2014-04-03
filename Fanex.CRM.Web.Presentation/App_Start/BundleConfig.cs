@@ -105,11 +105,13 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Report_CustomerReport(ref bundles);
             RegisterBundles_Chart(ref bundles);
             RegisterBundles_User_LogIn(ref bundles);
+
             RegisterBundles_Report_StatisticReport(ref bundles);
                RegisterBundles_Report_SettlementReport(ref bundles);
          
             RegisterBundles_ResultMessage(ref bundles);         
                  RegisterBundles_Numeral(ref bundles);
+            RegisterBundles_Report_WagerReport(ref bundles);
         }
 
         /// <summary>
@@ -530,6 +532,22 @@ namespace Fanex.CRM.Web.View.App_Start
         {
             bundles.Add(new ScriptBundle("~/Scripts/FanexGridV2/NumeralScripts").Include(
                 "~/Scripts/FanexGridV2/numeral.js"));
+        }
+
+        private static void RegisterBundles_Report_WagerReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/WagerReportScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Areas/Report/WagerReport/Scripts/WagerReportApplication.js",
+                "~/Areas/Report/WagerReport/Scripts/WagerReportController.js",
+                "~/Areas/Report/WagerReport/Scripts/WagerReportService.js",
+                "~/Areas/Report/WagerReport/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Report/WagerReportStyles").Include(
+                "~/Areas/Report/WagerReport/Styles/WagerReport.less"));
         }
     }
 

@@ -1,0 +1,23 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="Wager.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Kan.Nguyen" date="2014.03.28">Created</change>
+// </history>
+
+namespace Fanex.CRM.Report.Models.WagerReport
+{
+    /// <summary>
+    /// Wager model.
+    /// </summary>
+    public class Wager
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public int Amount { get; set; }
+    }
+}

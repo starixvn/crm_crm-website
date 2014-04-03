@@ -522,4 +522,19 @@
   <data name="StatisticReport_SheetName" xml:space="preserve">
     <value>Statistic Report</value>
   </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="WagerReport" xml:space="preserve">
+    <value>Wager Report</value>
+  </data>
+  <data name="WagerReportExcelName" xml:space="preserve">
+    <value>Wager_Report_{0}</value>
+  </data>
+  <data name="WagerReportTitle" xml:space="preserve">
+    <value>WAGER ACCEPT, REJECT, VOID/REDUND</value>
+  </data>
+  <data name="Wagers" xml:space="preserve">
+    <value>Wagers</value>
+  </data>
 </root>
