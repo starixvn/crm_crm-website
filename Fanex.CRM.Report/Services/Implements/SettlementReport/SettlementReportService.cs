@@ -335,12 +335,22 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             }
 
             var monthReportLength = settlementReport.ChildReports.Count;
-            var normalRowWriter = new NormalRowExcelWriter(exportExcelInfo);
-            //var firstGrandTotalRowWriter = new FirstGrandTotalRowExcelWriter(exportExcelInfo);
-            //var grandTotalRowWriter = new FirstGrandTotalRowExcelWriter(exportExcelInfo);
+            NpoiExcelExtensions.SetColorAtIndex(
+                ref exportExcelInfo,
+                NpoiExcelExtensions.EvenRowColor,
+                NpoiExcelExtensions.EvenRowColorIndex);
+            NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetGrandTotalSeparatorColorIndex(ref exportExcelInfo);
+
+            var oddRowWriter = new OddEvenRowExcelWriter(exportExcelInfo, false);
+            var evenRowWriter = new OddEvenRowExcelWriter(exportExcelInfo, true);
+            var firstGrandTotalRowWriter = new GrandTotalRowExcelWriter(exportExcelInfo, true);
+            var grandTotalRowWriter = new GrandTotalRowExcelWriter(exportExcelInfo, false);
             var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
             var numberOfSheet = (monthReportLength / maxRowPerSheet) +
                 (monthReportLength % maxRowPerSheet != 0 ? 1 : 0);
+            int countryReportLength;
+            SettlementReportInfo countryReport;
             for (var sheetIndex = 0; sheetIndex < numberOfSheet; sheetIndex++)
             {
                 var sheetName = numberOfSheet > 1 ?
@@ -354,12 +364,35 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                 for (var i = startIndex; i < endIndex && i < monthReportLength; i++)
                 {
                     var monthReport = settlementReport.ChildReports[i];
-                    var countryReportLength = monthReport.ChildReports.Count;
+                    countryReportLength = monthReport.ChildReports.Count;
                     for (var j = 0; j < countryReportLength; j++)
                     {
                         exportExcelInfo.CurrentColumn = exportExcelInfo.StartColumn;
-                        var countryReport = monthReport.ChildReports[j];
-                        normalRowWriter.WriteRow(ref exportExcelInfo, countryReport, monthReport, j);
+                        countryReport = monthReport.ChildReports[j];
+                        if ((i + 1) % 2 == 0)
+                        {
+                            evenRowWriter.WriteRow(ref exportExcelInfo, countryReport, monthReport, j);
+                        }
+                        else
+                        {
+                            oddRowWriter.WriteRow(ref exportExcelInfo, countryReport, monthReport, j);
+                        }
+                    }
+                }
+
+
+                var total = settlementReport.Total;
+                countryReportLength = total.ChildReports.Count;
+                for (var j = 0; j < countryReportLength; j++)
+                {
+                    countryReport = total.ChildReports[j];
+                    if (j == 0)
+                    {
+                        firstGrandTotalRowWriter.WriteRow(ref exportExcelInfo, countryReport, total);
+                    }
+                    else
+                    {
+                        grandTotalRowWriter.WriteRow(ref exportExcelInfo, countryReport, total);
                     }
                 }
             }
