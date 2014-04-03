@@ -38,3 +38,21 @@ bin
 /Fanex.CRM.Report/obj
 /*StyleCop.Cache
 
+/Fanex.CRM.ActivityLog/*.Cache
+/Fanex.CRM.Communication/*.Cache
+/Fanex.CRM.Core/*.Cache
+/Fanex.CRM.Customer/*.Cache
+/Fanex.CRM.Dashboard/*.Cache
+/Fanex.CRM.DataAccess.Impl/*.Cache
+/Fanex.CRM.DataAccess.Interface/*.Cache
+/Fanex.CRM.Entities/*.Cache
+/Fanex.CRM.Redemption/*.Cache
+/Fanex.CRM.Remark/*.Cache
+/Fanex.CRM.Report/*.Cache
+/Fanex.CRM.Service.Impl/*.Cache
+/Fanex.CRM.Service.Interface/*.Cache
+/Fanex.CRM.Setting/*.Cache
+/Fanex.CRM.User/*.Cache
+/Fanex.CRM.Web.Controllers/*.Cache
+/Fanex.CRM.Web.Models/*.Cache
+/Fanex.CRM.Web.Presentation/*.Cache
