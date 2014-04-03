@@ -315,36 +315,18 @@ namespace Fanex.CRM.Infrastructure.Extension
                 for (var j = cellRangeAddress.FirstColumn; j <= cellRangeAddress.LastColumn; j++)
                 {
                     cell = row.GetCell(j) ?? row.CreateCell(j);
-                    if (cellValue is string)
+                    if (i == cellRangeAddress.FirstRow && j == cellRangeAddress.FirstColumn)
                     {
-                        cell.SetCellValue((string)cellValue);
-                    }
-                    else if (cellValue is int)
-                    {
-                        cell.SetCellValue((int)cellValue);
-                    }
-                    else if (cellValue is long)
-                    {
-                        cell.SetCellValue((long)cellValue);
-                    }
-                    else if (cellValue is double)
-                    {
-                        cell.SetCellValue((double)cellValue);
-                    }
-                    else if (cellValue is decimal)
-                    {
-                        cell.SetCellValue(Convert.ToDouble(cellValue));
-                    }
-                    else if (cellValue is bool)
-                    {
-                        cell.SetCellValue((bool)cellValue);
-                    }
-                    else if (cellValue is System.DateTime)
-                    {
-                        cell.SetCellValue((System.DateTime)cellValue);
+                        SetCellValue(ref cell, cellValue);
                     }
 
-                    cell.CellStyle = cellStyle;
+                    if (i == cellRangeAddress.FirstRow ||
+                        i == cellRangeAddress.LastRow ||
+                        j == cellRangeAddress.FirstColumn ||
+                        j == cellRangeAddress.LastColumn)
+                    {
+                        cell.CellStyle = cellStyle;
+                    }
                 }
             }
         }
@@ -408,21 +390,43 @@ namespace Fanex.CRM.Infrastructure.Extension
             ICellStyle cellStyle)
         {
             ICell cell = row.GetCell(currentColumn) ?? row.CreateCell(currentColumn);
+            SetCellValue(ref cell, cellValue);
+            cell.CellStyle = cellStyle;
+            currentColumn += 1;
+        }
+
+        public static void SetCellValue(
+            ref ICell cell,
+            object cellValue)
+        {
             if (cellValue is string)
             {
                 cell.SetCellValue((string)cellValue);
+            }
+            else if (cellValue is int)
+            {
+                cell.SetCellValue((int)cellValue);
+            }
+            else if (cellValue is long)
+            {
+                cell.SetCellValue((long)cellValue);
+            }
+            else if (cellValue is double)
+            {
+                cell.SetCellValue((double)cellValue);
             }
             else if (cellValue is decimal)
             {
                 cell.SetCellValue(Convert.ToDouble(cellValue));
             }
-            else if (cellValue is int)
+            else if (cellValue is bool)
             {
-                cell.SetCellValue(Convert.ToInt32(cellValue));
+                cell.SetCellValue((bool)cellValue);
             }
-
-            cell.CellStyle = cellStyle;
-            currentColumn += 1;
+            else if (cellValue is System.DateTime)
+            {
+                cell.SetCellValue((System.DateTime)cellValue);
+            }
         }
 
         public static void ResponseStreamExcel(this IWorkbook workbook, string fileName)
