@@ -41,9 +41,7 @@ namespace Fanex.CRM.Report.Models.StatisticReport
         public StatisticReportInfo Total { get; set; }
 
         public int TotalChildReports { get; set; }
-
-        public int StartChildIndex { get; set; }
-
+        
         public StatisticReportInfo ChartInfo { get; set; }
     }
 }

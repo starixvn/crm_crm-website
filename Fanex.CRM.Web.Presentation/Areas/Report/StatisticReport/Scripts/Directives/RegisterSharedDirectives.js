@@ -2,15 +2,15 @@
 /* global statisticReportApplication,
 RegisterTemplate */
 function statisticReportRegisterPicker() {
-    var dynamicReportRegister = new RegisterTemplate(statisticReportApplication);
-    dynamicReportRegister.registerReportTypePicker();
-    dynamicReportRegister.registerDatePicker();
-    dynamicReportRegister.registerMonthPicker();
-    dynamicReportRegister.registerMainCategoryPicker();
-    dynamicReportRegister.registerSubCategoryPicker();
+    var statisticReportRegister = new RegisterTemplate(statisticReportApplication);
+    statisticReportRegister.registerReportTypePicker();
+    statisticReportRegister.registerDatePicker();
+    statisticReportRegister.registerMonthPicker();
+    statisticReportRegister.registerMainCategoryPicker();
+    statisticReportRegister.registerSubCategoryPicker();
 
-    dynamicReportRegister.registerDefaultFocus();
-    dynamicReportRegister.registerDownloadFile();
+    statisticReportRegister.registerDefaultFocus();
+    statisticReportRegister.registerDownloadFile();
 }
 
 statisticReportRegisterPicker();

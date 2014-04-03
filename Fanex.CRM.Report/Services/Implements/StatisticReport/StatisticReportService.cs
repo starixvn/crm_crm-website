@@ -268,7 +268,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                throw new Exception();
+                throw;
             }
         }
 
