@@ -186,19 +186,7 @@ namespace Fanex.CRM.Communication.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
-            Result insertResult;
-            if (criteria.IsReviewed && !HasHostPermission(FunctionPermission.ReviewFeedback))
-            {
-                insertResult = new Result
-                {
-                    Code = ErrorCodeConstants.NoPermission,
-                    Message = Labels.Communication_Logs_NoReviewPermission
-                };
-
-                return Json(insertResult, JsonRequestBehavior.AllowGet);
-            }
-
-            insertResult = _communicationServiceLog.InsertLog(criteria);
+            Result insertResult = _communicationServiceLog.InsertLog(criteria);
             var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

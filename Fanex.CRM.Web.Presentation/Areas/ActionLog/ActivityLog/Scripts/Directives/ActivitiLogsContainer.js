@@ -2,8 +2,7 @@
 /* global activityLogApplication,
 activityLogResources,
 crmConstants,
-sharedScriptManager,
-moment */
+sharedScriptManager */
 /* jshint unused: vars */
 activityLogApplication.directive('tableActivityLogsContainer', function () {
     /* jshint camelcase: false */

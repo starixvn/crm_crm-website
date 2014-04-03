@@ -75,12 +75,6 @@ namespace Fanex.CRM.Communication.Criteria
         [SpParam(SqlParamName = "solution")]
         public string Solution { get; set; }
 
-        [SpParam(SqlParamName = "isreviewed")]
-        public bool IsReviewed { get; set; }
-
-        [SpParam(SqlParamName = "review")]
-        public string Review { get; set; }
-
         [SpParam(SqlParamName = "subject")]
         public string Subject { get; set; }
 
@@ -142,13 +136,10 @@ namespace Fanex.CRM.Communication.Criteria
             param.Add("statusid", StatusId);
             param.Add("description", StringExtension.GetValueNotNull(Remark));
             param.Add("solution", StringExtension.GetValueNotNull(Solution));
-            param.Add("isreviewed", IsReviewed);
-            param.Add("review", StringExtension.GetValueNotNull(Review));
             param.Add("subject", StringExtension.GetValueNotNull(Subject));
             param.Add("userid", UserId);
             param.Add("ip", IP);
 
-            // param.Add("creatorid", CreatorId);
             param.Add("errcode", ErrorCode);
             param.Add("errmsg", ErrorMessage);
             return param;

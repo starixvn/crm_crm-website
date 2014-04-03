@@ -231,7 +231,6 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Response.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\ReviewEditor.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Role.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Site.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\SolutionEditor.js" />

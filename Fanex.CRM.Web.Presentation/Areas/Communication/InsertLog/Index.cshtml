@@ -215,7 +215,7 @@
                 </div>
             </div>
         </div>
-        <div class="row panel-group">
+        <div class="row panel-group last">
             <div class="row title solutiontitle" data-ng-class="isShowSolutionBox ? '' : 'border-bottom-none'"
                 data-ng-click="isShowSolutionBox = !isShowSolutionBox">
                 @Labels.Solution
@@ -226,27 +226,11 @@
                 </div>
             </div>
         </div>
-        <div class="row panel-group last">
-            <div class="row title" data-ng-class="communicationLog.IsReviewed ? '' : 'border-bottom-none'">
-                <label for="review">
-                    @Labels.Reviewed</label>
-                <input id="review" type="checkbox" class="review" data-ng-click="communicationLog.IsReviewed=!communicationLog.IsReviewed;"
-                    data-ng-model="communicationLog.IsReviewed" data-ng-disabled="!hasReviewPermission" />
-            </div>
-            <div class="row content multi-text" data-ng-show="communicationLog.IsReviewed">
-                <div id="revieweditorboxcontainer" data-ng-model="communicationLog.Review" review-editor-container>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <button class="btn btn-save" data-ng-click="insertLog();" default-focus data-ng-model="isSetFocus">
                 <span class="hotkey">S</span>ave</button>
         </div>
     </div>
-    @{
-        IPermissionService permission = new PermissionService();
-        var hasReviewPermission = permission.HasPermission(FunctionPermission.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
-    }
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/TimePicker")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
@@ -264,7 +248,6 @@
         window.rootUrl = '@Url.Content("~")';
         var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';
         var customerId = '@customerId';
-        var hasReviewPermission = @hasReviewPermission;
         var currentUsername = "@AppSession.CurrentUser.Username";
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply',
@@ -274,14 +257,14 @@
             OK: '@Labels.OK',
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             Communication_Logs_VerifyRelatedCustomer: '@Labels.Communication_Logs_VerifyRelatedCustomer',
-            Communication_Log_NACommmunicationTool:'@Labels.Communication_Log_NACommmunicationTool',
+            Communication_Log_NACommmunicationTool: '@Labels.Communication_Log_NACommmunicationTool',
 
-            Communication_Log_NACountry:'@Labels.Communication_Log_NACountry',
-            Communication_Log_NALanguage:'@Labels.Communication_Log_NALanguage',
-            Communication_Log_NAProduct:'@Labels.Communication_Log_NAProduct',
-            Communication_Log_NABetType:'@Labels.Communication_Log_NABetType',
-            Communication_Log_NASite:'@Labels.Communication_Log_NASite',       
-            
+            Communication_Log_NACountry: '@Labels.Communication_Log_NACountry',
+            Communication_Log_NALanguage: '@Labels.Communication_Log_NALanguage',
+            Communication_Log_NAProduct: '@Labels.Communication_Log_NAProduct',
+            Communication_Log_NABetType: '@Labels.Communication_Log_NABetType',
+            Communication_Log_NASite: '@Labels.Communication_Log_NASite',
+
             Communication_Log_EmptySubject: '@Labels.Communication_Log_EmptySubject',
             Communication_Log_EmptyRemark: '@Labels.Communication_Log_EmptyRemark',
             Communication_Log_EmptyReview: '@Labels.Communication_Log_EmptyReview',

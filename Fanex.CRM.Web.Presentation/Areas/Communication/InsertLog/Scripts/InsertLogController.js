@@ -9,7 +9,6 @@ customerId,
 verifyRelatedCustomer,
 hotKeyManager,
 currentTime,
-hasReviewPermission,
 getRelatedCustomerLength */
 /* jshint camelcase: false */
 insertLogApplication.controller('insertLogController', ['$scope', '$http', '$insertLogService',
@@ -31,7 +30,6 @@ function (
         StatusName: '',
         Duration: '',
         Handler: '',
-        Reviewer: '',
         StartTime: new Date(currentTime),
         EndTime: new Date(currentTime),
         Extension: {
@@ -73,8 +71,7 @@ function (
         Review: '',
         Country: {
             Id: 0
-        },
-        IsReviewed: false
+        }
     };
     $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
     $scope.extensionList = null;
@@ -99,7 +96,6 @@ function (
     $scope.isEditingRelatedCustomer = false;
     $scope.isVerifyRelatedCustomer = false;
     $scope.isSetFocus = false;
-    $scope.hasReviewPermission = hasReviewPermission;
     $scope.isShowRemarkBox = true;
     $scope.isShowSolutionBox = true;
 
@@ -486,10 +482,6 @@ function (
     $scope.updateRemark = function (remark) {
         $scope.communicationLog.Remark = remark;
     };
-    $scope.updateReview = function (review) {
-        $scope.communicationLog.Review = review;
-        $scope.updateChangeFlag();
-    };
     $scope.updateSolution = function (solution) {
         $scope.communicationLog.Solution = solution;
         $scope.updateChangeFlag();
@@ -531,8 +523,6 @@ function (
             StatusId: $scope.communicationLog.Status.Id,
             Remark: $scope.communicationLog.Remark,
             Solution: $scope.communicationLog.Solution,
-            IsReviewed: $scope.communicationLog.IsReviewed,
-            Review: $scope.communicationLog.Review,
             Subject: $scope.communicationLog.Subject
         };
 
@@ -590,8 +580,6 @@ function (
             $scope.communicationLog.Status.Id !== $scope.oldCommunicationLog.Status.Id ||
             $scope.communicationLog.Remark !== $scope.oldCommunicationLog.Remark ||
             $scope.communicationLog.Solution !== $scope.oldCommunicationLog.Solution ||
-            $scope.communicationLog.IsReviewed !== $scope.oldCommunicationLog.IsReviewed ||
-            $scope.communicationLog.Review !== $scope.oldCommunicationLog.Review ||
             $scope.communicationLog.Subject !== $scope.oldCommunicationLog.Subject) {
             parent.homeManager.CachedData.isChangingDataPopUp = true;
             parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertCommunication_Changes;
@@ -625,13 +613,6 @@ function (
         if (result &&
             ($.trim(criteria.Solution) === '' || criteria.Solution === '<br>')) {
             $scope.resultMessage = viewResources.Communication_Log_EmptySolution;
-            result = false;
-        }
-
-        if (result &&
-            criteria.IsReviewed &&
-            ($.trim(criteria.Review) === '' || criteria.Review === '<br>')) {
-            $scope.resultMessage = viewResources.Communication_Log_EmptyReview;
             result = false;
         }
 

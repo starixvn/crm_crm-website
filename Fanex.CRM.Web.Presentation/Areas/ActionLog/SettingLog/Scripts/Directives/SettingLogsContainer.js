@@ -2,8 +2,7 @@
 /* global settingLogApplication,
 settingLogResources,
 crmConstants,
-sharedScriptManager,
-moment */
+sharedScriptManager */
 /* jshint unused: vars */
 settingLogApplication.directive('tableSettingLogsContainer', function () {
     /* jshint camelcase: false */
