@@ -62,18 +62,19 @@
     <Compile Include="Controllers\CustomerReportController.cs" />
     <Compile Include="Controllers\DynamicReportController.cs" />
     <Compile Include="Controllers\StatisticReportController.cs" />
-     <Compile Include="Controllers\SettlementReportController.cs" />
-   <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
+    <Compile Include="Controllers\SettlementReportController.cs" />
+    <Compile Include="Controllers\WagerReportController.cs" />
+    <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
-     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
- <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
+    <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
     <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
+    <Compile Include="Criteria\SettlementReport\GeSettlementReportCriteria.cs" />
+    <Compile Include="Criteria\WagerReport\GetWagerReportCriteria.cs" />
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
      <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
    
-  
-   <Compile Include="Models\CustomerReport\AddressInfo.cs" />
+    <Compile Include="Models\CustomerReport\AddressInfo.cs" />
     <Compile Include="Models\CustomerReport\BankInfo.cs" />
     <Compile Include="Models\CustomerReport\CustomerInfo.cs" />
     <Compile Include="Models\CustomerReport\CustomerReportInfo.cs" />
@@ -82,16 +83,20 @@
     <Compile Include="Models\CustomerReport\UserInfo.cs" />
     <Compile Include="Models\DynamicReportInfo.cs" />
     <Compile Include="Models\StatisticReport\StatisticReportInfo.cs" />
-     <Compile Include="Models\SettlementReport\SettlementReportInfo.cs" />
+    <Compile Include="Models\SettlementReport\SettlementReportInfo.cs" />
     <Compile Include="Models\StatisticReport\StatisticReportInfo.cs" />
- 
+  <Compile Include="Models\WagerReport\Wager.cs" />
+    <Compile Include="Models\WagerReport\WagerByMonth.cs" />
+    <Compile Include="Models\WagerReport\WagerReportModel.cs" />
 
- 
-   <Compile Include="Properties\AssemblyInfo.cs" />
+
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\CustomerReportRepository.cs" />
     <Compile Include="Repositories\Implements\DynamicReportRepository.cs" />
+    <Compile Include="Repositories\Implements\WagerReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICustomerReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDynamicReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IWagerReportRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -105,6 +110,7 @@
   
     <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
     <Compile Include="Services\Implements\StatisticReport\NormalRowExcelWriter.cs" />
+    <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
      <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
  <Compile Include="Services\Implements\SettlementReport\SettlementReportService.cs" />
   <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
@@ -115,15 +121,16 @@
 
 
 
- <Compile Include="Services\Implements\SettlementReport\GrandTotalRowExcelWriter.cs" />
+    <Compile Include="Services\Implements\SettlementReport\GrandTotalRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\OddEvenRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\SettlementReportService.cs" />
-   <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
+    <Compile Include="Services\Implements\WagerReport\WagerReportService.cs" />
     <Compile Include="Services\Interfaces\ICustomerReportService.cs" />
     <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
     <Compile Include="Services\Interfaces\IStatisticReportService.cs" />
     <Compile Include="Services\Interfaces\ISettlementReportService.cs" />
- </ItemGroup>
+    <Compile Include="Services\Interfaces\IWagerReportService.cs" />
+  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.resx">

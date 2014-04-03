@@ -1,0 +1,57 @@
+﻿@using Fanex.CRM.Report.Resources;
+@using Fanex.CRM.Report.Models;
+@using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Common;
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-wagerreport-application">
+<head>
+    <title>@Labels.WagerReport</title>
+    @Styles.Render("~/site/common")
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Areas/Report/WagerReportStyles")
+</head>
+<body>
+    <div class="container main" data-ng-controller="wagerReportController">
+        <div class="row filter-frm one-row wager-filter">
+            <form data-ng-submit="getWagerReport()">
+                <div class="item">
+                    <label for="year">@Labels.Year</label>
+                    <select id="year" class="sel-year" data-ng-model="year" data-ng-options="y.value for y in years"></select>
+                </div>
+                <div class="item">
+                    <button class="btn default-focus"
+                        data-ng-model="defaultFocusOptions.IsSetFocus"><span class="hotkey">S</span>ubmit</button>
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div data-ng-model="wagerReport" table-wager-report-container>
+                <div id="table-wager-report" class="freegrid display-none">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    @Scripts.Render("~/Areas/Report/WagerReportScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = new Date('@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()');
+        var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
+        var wagerReportResources = {
+            Year: '@Labels.Year',
+            Month: '@Labels.Month',
+            Wagers: '@Labels.Wagers',
+            Amount: '@Labels.Amount',
+            Total: '@Labels.Total',
+            GrandTotal: '@Labels.GrandTotal'
+        }; 
+    </script>
+</body>
+</html>
