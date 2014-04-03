@@ -461,6 +461,7 @@
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
+    <Content Include="Views\Common\Styles\Images\UnderMaintenance.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
     <Content Include="Views\Customer\Styles\StyleSheet.css" />
@@ -745,6 +746,8 @@
     <Content Include="Views\Home\Styles\Images\user.png" />
     <Content Include="Views\Home\_Menu.cshtml" />
     <Content Include="Areas\User\LogIn\Index.cshtml" />
+    <Content Include="Views\Common\Offline.cshtml" />
+    <None Include="Views\Common\Styles\UnderMaintenance.less" />
     <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Scripts\MenuManager.js" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
