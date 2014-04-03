@@ -165,7 +165,7 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
             pagerOption: {
                 itemsPerPage: cachedData.scope.lastSelectedParams.PageSize,
                 currentPage: cachedData.scope.lastSelectedParams.PageIndex,
-                itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
+                itemsPerPageArray: [1, 5, 7, 10],
                 totalItem: statisticReport ? statisticReport.TotalChildReports : 0,
                 pagerSelectCallBack: ReRenderAfterPaged
             }
