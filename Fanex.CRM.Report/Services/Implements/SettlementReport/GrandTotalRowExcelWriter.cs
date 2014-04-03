@@ -53,7 +53,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             _centerIntStyle = NpoiExcelExtensions.IntNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
-                false,
+                true,
                 HorizontalAlignment.CENTER);
 
             if (isFirstRow)
