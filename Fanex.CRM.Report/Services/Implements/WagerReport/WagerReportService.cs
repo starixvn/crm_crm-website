@@ -18,6 +18,11 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
     using Fanex.CRM.Report.Services.Interfaces;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
+    using System.IO;
+    using System.Web;
+    using Fanex.CRM.Infrastructure.Extension;
+    using NPOI.SS.Util;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// WagerReportService service.
@@ -48,7 +53,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
 #if DEBUG
             report = new WagerReportModel
             {
-                ReportTitle = Labels.WagerReportTitle,
+                ReportTitle = string.Format(Labels.WagerReportTitle, criteria.Year),
                 WagerByMonths = new List<WagerByMonth>
                 {
                     new WagerByMonth 
@@ -116,7 +121,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 if (report == null)
                 {
                     report = _wagerRepository.GetWagerReport(criteria);
-                    report.ReportTitle = Labels.WagerReportTitle;
+                    report.ReportTitle = string.Format(Labels.WagerReportTitle, criteria.Year);
 
                     // Add to session.
                     if (report != null)
@@ -138,67 +143,124 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
         /// Exports the wager report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        public void ExportWagerReport(GetWagerReportCriteria criteria)
+        public void ExportWagerReportExcel(GetWagerReportCriteria criteria)
         {
             WagerReportModel report = GetWagerReport(criteria);
+            string excelFileName = string.Format(Labels.WagerReportExcelName, criteria.Year);
+
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+            {
+                ExcelFile = workbook,
+                Worksheet = workbook.CreateSheet(excelFileName),
+                StartRow = 0,
+                StartColumn = 0,
+                CurrentRow = 0,
+                MaxColumnIndex = 3
+            };
+
+            ExportTitle(ref exportExcelInfo, report.ReportTitle);
+            ExportHeader(ref exportExcelInfo);
+            if (report.WagerByMonths == null || report.WagerByMonths.Count == 0)
+            {
+                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+            }
+            else
+            {
+                ExportBody(ref exportExcelInfo, report.WagerByMonths);
+            }
             
-            HSSFWorkbook excelFile = new HSSFWorkbook();
-            ISheet worksheet = excelFile.CreateSheet(string.Format(Labels.WagerReportExcelName, criteria.Year));
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
         #region Export excel helper
 
-        private void ExportHeader(HSSFWorkbook excelFile, ISheet worksheet, string reportTitle)
+        private void ExportTitle(ref ExportExcelInfoNPOI exportExcelInfo, string title)
         {
-            /*int startColumn = currentColumn = 0;
-            int currentRow = 0;
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(excelFile);
+            int currentColumn = exportExcelInfo.StartColumn;
+            int currentRow = exportExcelInfo.CurrentRow;
+            int columnWidth = 200 * NpoiExcelExtensions.FontWidth;
 
-            int fontWidth = NpoiExcelExtensions.FontWidth;
-            worksheet.SetColumnWidth(currentColumn++, 200 * fontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 200 * fontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 200 * fontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 200 * fontWidth);
-
+            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            ISheet worksheet = exportExcelInfo.Worksheet;
+            worksheet.SetColumnWidth(currentColumn++, columnWidth);
+            worksheet.SetColumnWidth(currentColumn++, columnWidth);
+            worksheet.SetColumnWidth(currentColumn++, columnWidth);
+            worksheet.SetColumnWidth(currentColumn++, columnWidth);
+            
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 currentRow,
                 currentRow + 1,
-                startColumn,
-                3);
+                exportExcelInfo.StartColumn,
+                exportExcelInfo.MaxColumnIndex);
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParamNPOI());
             NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
-            exportExcelInfo.CurrentRow += 2;
+            currentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, exportExcelInfo.CurrentRow);
-            exportExcelInfo.CurrentRow++;
+            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
+            currentRow++;
 
-            IRow row = worksheet.CreateRow(exportExcelInfo.CurrentRow);
-            currentColumn = exportExcelInfo.StartColumn;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Title, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.First_Name, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Last_Name, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.VIP, headerStyle);
-
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Contact_Number, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Mobile, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Fax, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Skype, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Email, headerStyle);
-
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Birthday, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Site, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Language, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_1, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_2, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_3, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.City, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.State, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Post_Code, headerStyle);
-            exportExcelInfo.CurrentRow++;*/
+            exportExcelInfo.CurrentRow = currentRow;
         }
 
-        private void ExportBody()
-        { }
+        private void ExportHeader(ref ExportExcelInfoNPOI exportExcelInfo)
+        {
+            int currentColumn = exportExcelInfo.StartColumn;
+            IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParamNPOI());
+
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Month, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Wagers, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Amount, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Total, headerStyle);
+            exportExcelInfo.CurrentRow++;
+        }
+
+        private void ExportBody(ref ExportExcelInfoNPOI exportExcelInfo, IList<WagerByMonth> wagerByMonths)
+        {
+            int currentColumn, currentRow, mergeRowNumber;
+            int reportLength = wagerByMonths.Count;
+            
+            WagerByMonth wagerByMonth;
+            for (int i = 0; i < reportLength; i++)
+            {
+                wagerByMonth = wagerByMonths[i];
+                currentRow = exportExcelInfo.CurrentRow;
+                currentColumn = exportExcelInfo.StartColumn;
+                mergeRowNumber = wagerByMonth.Wagers.Count;
+
+                CellRangeAddress monthCellRange = new CellRangeAddress(
+                    currentRow,
+                    currentRow + mergeRowNumber,
+                    currentColumn,
+                    currentColumn);
+                ICellStyle cellStyle = NpoiExcelExtensions.TextStyle(
+                    exportExcelInfo.ExcelFile,
+                    NpoiExcelExtensions.BackgroundColorIndex,
+                    true,
+                    NpoiExcelExtensions.Alignment.Center);
+                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, monthCellRange, wagerByMonth.Month, cellStyle);
+                currentRow++;
+                currentColumn++;
+
+                for (int j = 0; j < mergeRowNumber; j++)
+                {
+                    IRow row = exportExcelInfo.Worksheet.CreateRow(currentRow);
+                    NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Name, cellStyle);
+                    NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Amount, cellStyle);
+                    currentRow++;
+                }
+
+                CellRangeAddress totalCellRange = new CellRangeAddress(
+                    exportExcelInfo.CurrentRow,
+                    exportExcelInfo.CurrentRow + mergeRowNumber,
+                    currentColumn,
+                    currentColumn);
+                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, totalCellRange, wagerByMonth.Total, cellStyle);
+                
+                exportExcelInfo.CurrentRow = currentRow;
+            }
+        }
 
         private void ExportGrandTotal()
         { }

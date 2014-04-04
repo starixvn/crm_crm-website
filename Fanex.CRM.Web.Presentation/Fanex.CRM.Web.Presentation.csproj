@@ -328,6 +328,7 @@
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportApplication.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportController.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportService.js" />
+    <Content Include="Areas\Report\WagerReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\Directives\WagerReportContainer.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />

@@ -5,7 +5,7 @@ crmConstants */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 wagerReportApplication.directive('tableWagerReportContainer', function () {
-    function getGridOptions(reportTitle, bodyData, footerData) {
+    function getGridOptions(scope, reportTitle, bodyData, footerData) {
         return {
             columns: [{ HeaderText: wagerReportResources.Month, Width: 200, Name: 'ColMonth', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: wagerReportResources.Wagers, Width: 200, Name: 'ColWagers', HeaderAlign: 'center', CellAlign: 'left' },
@@ -16,7 +16,7 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
                 text: reportTitle,
                 showExcelButton: true,
                 exportExcelFunction: function () {
-                    // cachedData.scope.exportReport();
+                    scope.exportWagerReportExcel();
                 }
             },
             bodyRows: bodyData,
@@ -47,7 +47,7 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
                     continue;
                 }
 
-                evenClass = (i % 2 === 0) ? 'freegrid-even' : '';
+                evenClass = (i % 2 === 0) ? '' : 'freegrid-even';
                 for (var j = 0; j < mergeRowNumber; j++) {
                     cell = [];
                     if (j === 0) {
@@ -106,7 +106,7 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
         var bodyData = getGridBody(wagerByMonths);
         var footerData = getGridFooter(grandTotal);
 
-        var gridOptions = getGridOptions(reportTitle, bodyData, footerData);
+        var gridOptions = getGridOptions(scope, reportTitle, bodyData, footerData);
         tableWagerReport
             .removeClass(crmConstants.Enums.CssClass.DisplayNone)
             .fanexGrid(gridOptions);

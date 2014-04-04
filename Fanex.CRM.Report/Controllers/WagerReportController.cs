@@ -44,5 +44,12 @@ namespace Fanex.CRM.Report.Controllers
             var report = _wagerService.GetWagerReport(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult ExportWagerReportExcel(GetWagerReportCriteria criteria)
+        {
+            _wagerService.ExportWagerReportExcel(criteria);
+            return new EmptyResult();
+        }
     }
 }

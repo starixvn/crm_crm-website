@@ -19,6 +19,6 @@ namespace Fanex.CRM.Report.Services.Interfaces
     {
         WagerReportModel GetWagerReport(GetWagerReportCriteria criteria);
 
-        void ExportWagerReport(GetWagerReportCriteria criteria);
+        void ExportWagerReportExcel(GetWagerReportCriteria criteria);
     }
 }

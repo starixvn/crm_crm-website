@@ -532,7 +532,7 @@
     <value>Wager_Report_{0}</value>
   </data>
   <data name="WagerReportTitle" xml:space="preserve">
-    <value>WAGER ACCEPT, REJECT, VOID/REDUND</value>
+    <value>WAGER ACCEPT, REJECT, VOID/REDUND FOR YEAR {0}</value>
   </data>
   <data name="Wagers" xml:space="preserve">
     <value>Wagers</value>

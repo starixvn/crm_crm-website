@@ -70,6 +70,15 @@ function ($scope, wagerReportService) {
             });
     };
 
+    $scope.exportWagerReportExcel = function () {
+        $scope.downloadFileOptions = {
+            URL: window.rootUrl + 'WagerReport/ExportWagerReportExcel',
+            Params: { year: $scope.year.id }
+        };
+
+        $scope.$apply();
+    };
+
     /* block and unblock UI functions */
     $scope.unblockUI = function () {
         try {
