@@ -461,7 +461,6 @@
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
-    <Content Include="Views\Common\Styles\Images\UnderMaintenance.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
     <Content Include="Views\Customer\Styles\StyleSheet.css" />
