@@ -47,7 +47,7 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
                     continue;
                 }
 
-                evenClass = (i % 2 === 0) ? '' : 'freegrid-even';
+                evenClass = (i % 2 === 0) ? 'freegrid-even' : '';
                 for (var j = 0; j < mergeRowNumber; j++) {
                     cell = [];
                     if (j === 0) {

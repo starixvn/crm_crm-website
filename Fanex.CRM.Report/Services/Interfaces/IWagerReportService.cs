@@ -9,8 +9,8 @@
 
 namespace Fanex.CRM.Report.Services.Interfaces
 {
-    using Fanex.CRM.Report.Models.WagerReport;
     using Fanex.CRM.Report.Criteria.WagerReport;
+    using Fanex.CRM.Report.Models.WagerReport;
 
     /// <summary>
     /// IWagerReportService interface.
