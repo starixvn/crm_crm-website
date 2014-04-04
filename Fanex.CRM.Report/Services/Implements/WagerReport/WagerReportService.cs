@@ -10,6 +10,8 @@
 namespace Fanex.CRM.Report.Services.Implements.WagerReport
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.WagerReport;
     using Fanex.CRM.Report.Models.WagerReport;
     using Fanex.CRM.Report.Repositories.Implements;
@@ -18,11 +20,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
     using Fanex.CRM.Report.Services.Interfaces;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using System.IO;
-    using System.Web;
-    using Fanex.CRM.Infrastructure.Extension;
     using NPOI.SS.Util;
-    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// WagerReportService service.
@@ -168,6 +166,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             else
             {
                 ExportBody(ref exportExcelInfo, report.WagerByMonths);
+                ExportFooter(ref exportExcelInfo, report.GrandTotal);
             }
             
             NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
@@ -175,6 +174,11 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
 
         #region Export excel helper
 
+        /// <summary>
+        /// Exports the title.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel info.</param>
+        /// <param name="title">The title.</param>
         private void ExportTitle(ref ExportExcelInfoNPOI exportExcelInfo, string title)
         {
             int currentColumn = exportExcelInfo.StartColumn;
@@ -203,6 +207,10 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             exportExcelInfo.CurrentRow = currentRow;
         }
 
+        /// <summary>
+        /// Exports the header.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel info.</param>
         private void ExportHeader(ref ExportExcelInfoNPOI exportExcelInfo)
         {
             int currentColumn = exportExcelInfo.StartColumn;
@@ -216,54 +224,184 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             exportExcelInfo.CurrentRow++;
         }
 
+        /// <summary>
+        /// Exports the body.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel info.</param>
+        /// <param name="wagerByMonths">The wager by months.</param>
         private void ExportBody(ref ExportExcelInfoNPOI exportExcelInfo, IList<WagerByMonth> wagerByMonths)
         {
-            int currentColumn, currentRow, mergeRowNumber;
+            bool isEven;
+            ICellStyle monthCellStyle, wagersCellStyle, amountCellStyle, totalCellStyle;
+            HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
+            int startColumn, currentColumn, currentRow, mergeRowNumber;
             int reportLength = wagerByMonths.Count;
             
             WagerByMonth wagerByMonth;
             for (int i = 0; i < reportLength; i++)
             {
                 wagerByMonth = wagerByMonths[i];
+                isEven = i % 2 == 0;
                 currentRow = exportExcelInfo.CurrentRow;
-                currentColumn = exportExcelInfo.StartColumn;
+                startColumn = exportExcelInfo.StartColumn;
+                currentColumn = exportExcelInfo.CurrentColumn;
                 mergeRowNumber = wagerByMonth.Wagers.Count;
 
                 CellRangeAddress monthCellRange = new CellRangeAddress(
                     currentRow,
-                    currentRow + mergeRowNumber,
-                    currentColumn,
-                    currentColumn);
-                ICellStyle cellStyle = NpoiExcelExtensions.TextStyle(
-                    exportExcelInfo.ExcelFile,
-                    NpoiExcelExtensions.BackgroundColorIndex,
-                    true,
-                    NpoiExcelExtensions.Alignment.Center);
-                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, monthCellRange, wagerByMonth.Month, cellStyle);
-                currentRow++;
-                currentColumn++;
+                    currentRow + mergeRowNumber - 1,
+                    startColumn,
+                    startColumn);
+                monthCellStyle = GetMonthCellStyle(workbook, isEven);
+                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, monthCellRange, wagerByMonth.Month, monthCellStyle);
+                startColumn++;
 
+                wagersCellStyle = GetWagersCellStyle(workbook, isEven);
+                amountCellStyle = GetAmountCellStyle(workbook, isEven);
                 for (int j = 0; j < mergeRowNumber; j++)
                 {
+                    currentColumn = startColumn;
                     IRow row = exportExcelInfo.Worksheet.CreateRow(currentRow);
-                    NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Name, cellStyle);
-                    NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Amount, cellStyle);
+                    NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Name, wagersCellStyle);
+                    NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Amount, amountCellStyle);
                     currentRow++;
                 }
 
                 CellRangeAddress totalCellRange = new CellRangeAddress(
                     exportExcelInfo.CurrentRow,
-                    exportExcelInfo.CurrentRow + mergeRowNumber,
+                    exportExcelInfo.CurrentRow + mergeRowNumber - 1,
                     currentColumn,
                     currentColumn);
-                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, totalCellRange, wagerByMonth.Total, cellStyle);
+                totalCellStyle = GetTotalCellStyle(workbook, isEven);
+                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, totalCellRange, wagerByMonth.Total, totalCellStyle);
                 
                 exportExcelInfo.CurrentRow = currentRow;
             }
         }
 
-        private void ExportGrandTotal()
-        { }
+        /// <summary>
+        /// Exports the footer.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel info.</param>
+        /// <param name="total">The total.</param>
+        private void ExportFooter(ref ExportExcelInfoNPOI exportExcelInfo, WagerByMonth total)
+        {
+            int mergeRowNumber = total.Wagers.Count;
+            int currentRow = exportExcelInfo.CurrentRow;
+            int startColumn = exportExcelInfo.StartColumn;
+            int currentColumn = exportExcelInfo.CurrentColumn;
+            
+            HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
+            ICellStyle monthCellStyle = GetGrandTotalMonthCellStyle(workbook);
+            ICellStyle wagersCellStyle = GetGrandTotalWagersCellStyle(workbook);
+            ICellStyle amountCellStyle = GetGrandTotalAmountCellStyle(workbook);
+            ICellStyle totalCellStyle = GetGrandTotalCellStyle(workbook);
+
+            CellRangeAddress grandTotalCellRange = new CellRangeAddress(
+                    currentRow,
+                    currentRow + mergeRowNumber - 1,
+                    startColumn,
+                    startColumn);
+            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, grandTotalCellRange, total.Month, monthCellStyle);
+            startColumn++;
+
+            for (int i = 0; i < mergeRowNumber; i++)
+            {
+                currentColumn = startColumn;
+                IRow row = exportExcelInfo.Worksheet.CreateRow(currentRow);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, total.Wagers[i].Name, wagersCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, total.Wagers[i].Amount, amountCellStyle);
+                currentRow++;
+            }
+
+            CellRangeAddress totalCellRange = new CellRangeAddress(
+                    exportExcelInfo.CurrentRow,
+                    exportExcelInfo.CurrentRow + mergeRowNumber - 1,
+                    currentColumn,
+                    currentColumn);
+            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, totalCellRange, total.Total, totalCellStyle);
+        }
+
+        private short GetRowColorIndex(bool isEven)
+        {
+            return isEven ? NpoiExcelExtensions.EvenRowColorIndex : NpoiExcelExtensions.BackgroundColorIndex;
+        }
+
+        private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook, bool isEvent = true)
+        {
+            return NpoiExcelExtensions.TextStyle(
+                workbook,
+                GetRowColorIndex(isEvent),
+                true,
+                NpoiExcelExtensions.Alignment.Center,
+                20);
+        }
+
+        private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
+        {
+            return NpoiExcelExtensions.TextStyle(
+                workbook,
+                NpoiExcelExtensions.GrandTotalRowColorIndex,
+                true,
+                NpoiExcelExtensions.Alignment.Center,
+                20);
+        }
+
+        private ICellStyle GetWagersCellStyle(HSSFWorkbook workbook, bool isEven = true)
+        {
+            return NpoiExcelExtensions.TextStyle(
+                workbook,
+                GetRowColorIndex(isEven),
+                false,
+                NpoiExcelExtensions.Alignment.Left);
+        }
+
+        private ICellStyle GetGrandTotalWagersCellStyle(HSSFWorkbook workbook)
+        {
+            return NpoiExcelExtensions.TextStyle(
+                workbook,
+                NpoiExcelExtensions.GrandTotalRowColorIndex,
+                true,
+                NpoiExcelExtensions.Alignment.Left);
+        }
+
+        private ICellStyle GetAmountCellStyle(HSSFWorkbook workbook, bool isEven = true)
+        {
+            return NpoiExcelExtensions.IntNumberStyle(
+                workbook,
+                GetRowColorIndex(isEven),
+                false,
+                HorizontalAlignment.RIGHT);
+        }
+
+        private ICellStyle GetGrandTotalAmountCellStyle(HSSFWorkbook workbook)
+        {
+            return NpoiExcelExtensions.IntNumberStyle(
+                workbook,
+                NpoiExcelExtensions.GrandTotalRowColorIndex,
+                true,
+                HorizontalAlignment.RIGHT);
+        }
+
+        private ICellStyle GetTotalCellStyle(HSSFWorkbook workbook, bool isEven = true)
+        {
+            return NpoiExcelExtensions.IntNumberStyle(
+                workbook,
+                GetRowColorIndex(isEven),
+                true,
+                HorizontalAlignment.RIGHT,
+                20);
+        }
+
+        private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
+        {
+            return NpoiExcelExtensions.IntNumberStyle(
+                workbook,
+                NpoiExcelExtensions.GrandTotalRowColorIndex,
+                true,
+                HorizontalAlignment.RIGHT,
+                20);
+        }
 
         #endregion
     }
