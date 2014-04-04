@@ -1015,7 +1015,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WAGER ACCEPT, REJECT, VOID/REDUND.
+        ///   Looks up a localized string similar to WAGER ACCEPT, REJECT, VOID/REDUND FOR YEAR {0}.
         /// </summary>
         public static string WagerReportTitle {
             get {

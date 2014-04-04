@@ -542,6 +542,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/WagerReport/Scripts/WagerReportApplication.js",
                 "~/Areas/Report/WagerReport/Scripts/WagerReportController.js",
                 "~/Areas/Report/WagerReport/Scripts/WagerReportService.js",
