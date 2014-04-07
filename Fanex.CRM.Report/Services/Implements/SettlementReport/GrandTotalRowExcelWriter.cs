@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="FirstGrandTotalRowExcelWriter.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GrandTotalRowExcelWriter.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -17,7 +17,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using NPOI.SS.Util;
 
     /// <summary>
-    /// First Grand Total Row Excel Writer.
+    /// Grand Total Row Excel Writer.
     /// </summary>
     public class GrandTotalRowExcelWriter
     {
@@ -70,6 +70,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="info">The information.</param>
+        /// <param name="groupInfo">The group information.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
