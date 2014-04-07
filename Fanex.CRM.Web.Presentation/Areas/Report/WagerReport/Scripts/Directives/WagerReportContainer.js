@@ -9,8 +9,21 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
         return {
             columns: [{ HeaderText: wagerReportResources.Month, Width: 200, Name: 'ColMonth', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: wagerReportResources.Wagers, Width: 200, Name: 'ColWagers', HeaderAlign: 'center', CellAlign: 'left' },
-                    { HeaderText: wagerReportResources.Amount, Width: 200, Name: 'ColAmount', HeaderAlign: 'center', CellAlign: 'right' },
-                    { HeaderText: wagerReportResources.Total, Width: 200, Name: 'ColTotal', HeaderAlign: 'center', CellAlign: 'right'}],
+                    {
+                        HeaderText: wagerReportResources.Amount,
+                        Width: 200, Name: 'ColAmount',
+                        HeaderAlign: 'center',
+                        CellAlign: 'right',
+                        FormatNumber: crmConstants.Enums.FormatConstant.IntNumber 
+                    },
+                    {
+                        HeaderText: wagerReportResources.Total,
+                        Width: 200,
+                        Name: 'ColTotal',
+                        HeaderAlign: 'center',
+                        CellAlign: 'right',
+                        FormatNumber: crmConstants.Enums.FormatConstant.IntNumber 
+                    }],
             showTitle: true,
             titleInfo: {
                 text: reportTitle,
@@ -47,7 +60,7 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
                     continue;
                 }
 
-                evenClass = (i % 2 === 0) ? 'freegrid-even' : '';
+                evenClass = (i % 2 === 0) ? '' : 'freegrid-even';
                 for (var j = 0; j < mergeRowNumber; j++) {
                     cell = [];
                     if (j === 0) {
@@ -93,7 +106,7 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
     }
 
     function renderWagerReport(scope, element, attrs) {
-        if (!scope.isSearched || !scope.wagerReport) {
+        if (!scope.wagerReport) {
             return;
         }
 
