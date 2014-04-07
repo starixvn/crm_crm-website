@@ -4,11 +4,10 @@ hotKeyManager,
 minReportDate,
 currentDate */
 /* jshint camelcase: false */
-wagerReportApplication.controller('wagerReportController', ['$scope', 'WagerReportService',
-function ($scope, wagerReportService) {
+wagerReportApplication.controller('wagerReportController', ['$scope', 'WagerReportService', '$uiBlockerService', '$resultMessageService',
+function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) {
     $scope.years = [];
     $scope.year = 0;
-    $scope.isSearched = false;
     $scope.defaultFocusOptions = null;
     $scope.wagerReport;
 
@@ -56,17 +55,16 @@ function ($scope, wagerReportService) {
     };
 
     $scope.getWagerReport = function () {
-        $scope.blockUI();
+        $uiBlockerService.blockUI();
         wagerReportService.getWagerReport($scope.year.id)
             .then(function (data) {
                 $scope.wagerReport = data.Result;
-                $scope.isSearched = true;
-                $scope.unblockUI();
+                $uiBlockerService.unblockUI();
             },
             function (data) {
                 /* jshint unused: vars */
-                $scope.isSearched = true;
-                $scope.unblockUI();
+                sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
+                $uiBlockerService.unblockUI();
             });
     };
 
@@ -75,26 +73,13 @@ function ($scope, wagerReportService) {
             URL: window.rootUrl + 'WagerReport/ExportWagerReportExcel',
             Params: { year: $scope.year.id }
         };
-
+        
         $scope.$apply();
     };
 
-    /* block and unblock UI functions */
-    $scope.unblockUI = function () {
-        try {
-            parent.$.unblockUI();
-        } catch (e) {
-        }
-    };
-
-    $scope.blockUI = function () {
-        try {
-            parent.BlockUI();
-        } catch (e) {
-        }
-    };
-
     angular.element(document).ready(function () {
+        $uiBlockerService.blockUI();
+        $uiBlockerService.unblockUI();
         $scope.initController();
     });
 } ]);    

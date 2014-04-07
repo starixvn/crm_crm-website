@@ -9,8 +9,11 @@
 
 namespace Fanex.CRM.Report.Services.Implements.WagerReport
 {
+    using System;
     using System.Collections.Generic;
+    using System.Web;
     using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.WagerReport;
     using Fanex.CRM.Report.Models.WagerReport;
@@ -115,7 +118,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             string sessionKey = WagerReportSessionKey;
             try
             {
-                report = (WagerReport)SessionExtension.GetSession(HttpContext.Current.Session, sessionKey);
+                report = (WagerReportModel)SessionExtension.GetSession(HttpContext.Current.Session, sessionKey);
                 if (report == null)
                 {
                     report = _wagerRepository.GetWagerReport(criteria);
@@ -132,6 +135,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             {
                 report = null;
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 #endif
             return report;
@@ -165,6 +169,13 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             }
             else
             {
+                NpoiExcelExtensions.SetColorAtIndex(
+                    ref exportExcelInfo,
+                    NpoiExcelExtensions.EvenRowColor,
+                    NpoiExcelExtensions.EvenRowColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+                NpoiExcelExtensions.SetGrandTotalSeparatorColorIndex(ref exportExcelInfo);
+
                 ExportBody(ref exportExcelInfo, report.WagerByMonths);
                 ExportFooter(ref exportExcelInfo, report.GrandTotal);
             }
@@ -236,12 +247,12 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
             int startColumn, currentColumn, currentRow, mergeRowNumber;
             int reportLength = wagerByMonths.Count;
-            
+
             WagerByMonth wagerByMonth;
             for (int i = 0; i < reportLength; i++)
             {
                 wagerByMonth = wagerByMonths[i];
-                isEven = i % 2 == 0;
+                isEven = i % 2 != 0;
                 currentRow = exportExcelInfo.CurrentRow;
                 startColumn = exportExcelInfo.StartColumn;
                 currentColumn = exportExcelInfo.CurrentColumn;
@@ -261,7 +272,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 for (int j = 0; j < mergeRowNumber; j++)
                 {
                     currentColumn = startColumn;
-                    IRow row = exportExcelInfo.Worksheet.CreateRow(currentRow);
+                    IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
                     NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Name, wagersCellStyle);
                     NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Amount, amountCellStyle);
                     currentRow++;
@@ -293,9 +304,12 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
             ICellStyle monthCellStyle = GetGrandTotalMonthCellStyle(workbook);
-            ICellStyle wagersCellStyle = GetGrandTotalWagersCellStyle(workbook);
-            ICellStyle amountCellStyle = GetGrandTotalAmountCellStyle(workbook);
+            NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(monthCellStyle);
+
             ICellStyle totalCellStyle = GetGrandTotalCellStyle(workbook);
+            NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(totalCellStyle);
+
+            ICellStyle wagersCellStyle = null, amountCellStyle = null;
 
             CellRangeAddress grandTotalCellRange = new CellRangeAddress(
                     currentRow,
@@ -308,7 +322,18 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             for (int i = 0; i < mergeRowNumber; i++)
             {
                 currentColumn = startColumn;
-                IRow row = exportExcelInfo.Worksheet.CreateRow(currentRow);
+                IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
+                if (i == 0)
+                {
+                    NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(wagersCellStyle);
+                    NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(amountCellStyle);
+                }
+                else if (i == 1)
+                {
+                    wagersCellStyle = GetGrandTotalWagersCellStyle(workbook);
+                    amountCellStyle = GetGrandTotalAmountCellStyle(workbook);
+                }
+
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, total.Wagers[i].Name, wagersCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, total.Wagers[i].Amount, amountCellStyle);
                 currentRow++;
@@ -333,8 +358,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 GetRowColorIndex(isEvent),
                 true,
-                NpoiExcelExtensions.Alignment.Center,
-                20);
+                NpoiExcelExtensions.Alignment.Center);
         }
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
@@ -343,8 +367,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Center,
-                20);
+                NpoiExcelExtensions.Alignment.Center);
         }
 
         private ICellStyle GetWagersCellStyle(HSSFWorkbook workbook, bool isEven = true)
@@ -389,8 +412,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 GetRowColorIndex(isEven),
                 true,
-                HorizontalAlignment.RIGHT,
-                20);
+                HorizontalAlignment.RIGHT);
         }
 
         private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
@@ -399,8 +421,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                HorizontalAlignment.RIGHT,
-                20);
+                HorizontalAlignment.RIGHT);
         }
 
         #endregion
