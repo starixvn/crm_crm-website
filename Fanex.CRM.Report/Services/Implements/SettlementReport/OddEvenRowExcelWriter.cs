@@ -88,7 +88,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                 NpoiExcelExtensions.RenderMergedCells(
                     ref exportExcelInfo,
                     cellRangeAddress,
-                    groupInfo.Name,
+                    groupInfo.Name.ToUpper(),
                     _centerTextStyle);
             }
 
