@@ -17,6 +17,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria.SettlementReport;
     using Fanex.CRM.Report.Entities.SettlementReport;
@@ -24,7 +25,6 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.Interfaces;
     using Fanex.CRM.Setting.Models;
-    using Fanex.CRM.Infrastructure.Models;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -173,9 +173,10 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// <summary>
         /// Gets the dummy country list.
         /// </summary>
-        /// <param name="countryLength">Length of the country.</param>
-        /// <param name="countryList">The country list.</param>
-        /// <returns>The dummy country list.</returns>
+        /// <param name="countryDictionary">The country dictionary.</param>
+        /// <returns>
+        /// The dummy country list.
+        /// </returns>
         private List<SettlementReportInfo> GetDummyCountryList(Dictionary<string, int> countryDictionary)
         {
             var countryLength = countryDictionary.Count;
@@ -265,10 +266,10 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// <summary>
         /// Gets the chart information.
         /// </summary>
-        /// <param name="statisticReport">The statistic report.</param>
-        /// <param name="countryList">The country list.</param>
-        /// <param name="countryDictionary">The country dictionary.</param>
-        /// <returns>The chart information.</returns>
+        /// <param name="settlementReport">The settlement report.</param>
+        /// <returns>
+        /// The chart information.
+        /// </returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
@@ -317,7 +318,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="criteria">The criteria.</param>
-        /// <param name="statisticReport">The settlement report.</param>
+        /// <param name="settlementReport">The settlement report.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
@@ -379,8 +380,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                         }
                     }
                 }
-
-
+                
                 var total = settlementReport.Total;
                 countryReportLength = total.ChildReports.Count;
                 for (var j = 0; j < countryReportLength; j++)
@@ -403,7 +403,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="criteria">The criteria.</param>
-        /// <param name="statisticReport">The settlement report.</param>
+        /// <param name="settlementReport">The settlement report.</param>
         private void ExportSettlementReportHeader(
             ref ExportExcelInfoNPOI exportExcelInfo,
             GeSettlementReportCriteria criteria,
