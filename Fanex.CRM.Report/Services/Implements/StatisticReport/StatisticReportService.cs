@@ -149,76 +149,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 {
                     criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
                     criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-
-                    // var rawData = GetDynamicData<StatisticReportEntity>(criteria);
-                    var dummyDateTime = new DateTime(2014, 3, 21, 0, 20, 3);
-                    var rawData = new List<StatisticReportEntity>
-                    {
-                        new StatisticReportEntity 
-                        {
-                            DateTime = dummyDateTime,
-                            CountryId = 2,
-                            CountryName = "Africa",
-                            NumberOfIssues = 1000
-                        },
-
-                        new StatisticReportEntity
-                        {
-                            DateTime = dummyDateTime,
-                            CountryId = 3,
-                            CountryName = "Africa2",
-                            NumberOfIssues = 1000
-                        },
-
-                        new StatisticReportEntity
-                        {
-                            DateTime = dummyDateTime.AddHours(3),
-                            CountryId = 2,
-                            CountryName = "Africa",
-                            NumberOfIssues = 9000
-                        },
-
-                        new StatisticReportEntity 
-                        {
-                            DateTime = dummyDateTime.AddHours(5),
-                            CountryId = 3,
-                            CountryName = "Africa2",
-                            NumberOfIssues = 8000
-                        },
-                        
-                        new StatisticReportEntity 
-                        {
-                            DateTime = dummyDateTime.AddDays(1),
-                            CountryId = 2,
-                            CountryName = "Africa",
-                            NumberOfIssues = 10
-                        },
-
-                        new StatisticReportEntity 
-                        {
-                            DateTime = dummyDateTime.AddDays(1),
-                            CountryId = 3,
-                            CountryName = "Africa2",
-                            NumberOfIssues = 10
-                        },
-
-                        new StatisticReportEntity
-                        {
-                            DateTime = dummyDateTime.AddHours(3).AddDays(1),
-                            CountryId = 2,
-                            CountryName = "Africa",
-                            NumberOfIssues = 9
-                        },
-
-                        new StatisticReportEntity 
-                        {
-                            DateTime = dummyDateTime.AddHours(5).AddDays(1),
-                            CountryId = 3,
-                            CountryName = "Africa2",
-                            NumberOfIssues = 8
-                        }
-                    };
-
+                    var rawData = GetDynamicData<StatisticReportEntity>(criteria).ToList();
                     var countryList = rawData
                         .Select(statisticReportEntity => new CountryInfo
                         {
@@ -391,13 +322,13 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                         dateGroup.Key.Month,
                         dateGroup.Key.Day,
                         data.DateTime.Hour,
-                        data.DateTime.Minute,
+                        0,
                         0));
                 foreach (var timeGroup in timeGroups)
                 {
                     var timeReport = new StatisticReportInfo
                     {
-                        ShortName = timeGroup.Key.ToHourMinuteFormated(),
+                        ShortName = string.Format("{0:00}:00 - {0:00}:59", timeGroup.Key.Hour),
                         ChildReports = GetDummyCountryList(countryLength, countryList)
                     };
 
@@ -409,7 +340,9 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                             CountryInfo = new CountryInfo
                             {
                                 Id = timeData.CountryId,
-                                Name = timeData.CountryName
+                                Name = timeData.CountryId == SettingConstants.NotApply ?
+                                    Labels.Symbol_NotApply :
+                                    timeData.CountryName
                             },
                             HasData = true,
                             NumberOfIssues = timeData.NumberOfIssues
@@ -502,12 +435,12 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 };
 
                 var timeGroups = dateGroup.ToList()
-                    .GroupBy(data => data.DateTime.ToHourMinuteFormated());
+                    .GroupBy(data => data.DateTime.Hour);
                 foreach (var timeGroup in timeGroups)
                 {
                     var timeReport = new StatisticReportInfo
                     {
-                        ShortName = timeGroup.Key.ToString(),
+                        ShortName = string.Format("{0:00}:00 - {0:00}:59", timeGroup.Key),
                         ChildReports = GetDummyCountryList(countryLength, countryList)
                     };
 
@@ -519,13 +452,23 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                             CountryInfo = new CountryInfo
                             {
                                 Id = timeData.CountryId,
-                                Name = timeData.CountryName
+                                Name = timeData.CountryId == SettingConstants.NotApply ?
+                                    Labels.Symbol_NotApply :
+                                    timeData.CountryName
                             },
                             HasData = true,
                             NumberOfIssues = timeData.NumberOfIssues
                         };
 
-                        timeReport.ChildReports[countryIndex] = reportInfo;
+                        if (!timeReport.ChildReports[countryIndex].HasData)
+                        {
+                            timeReport.ChildReports[countryIndex] = reportInfo;
+                        }
+                        else
+                        {
+                            timeReport.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
+                        }
+
                         timeReport.NumberOfIssues += reportInfo.NumberOfIssues;
                         dateReport.Total.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
                         statisticReport.Total.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;

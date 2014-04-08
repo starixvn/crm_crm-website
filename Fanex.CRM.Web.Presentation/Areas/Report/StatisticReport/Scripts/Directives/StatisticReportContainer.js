@@ -128,7 +128,7 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
         var gridOptions = {
             columns: [].concat(
                  [{ HeaderText: viewResources.Date, Width: 140, Name: "ColDate", HeaderAlign: "center", CellAlign: "left" },
-                  { HeaderText: viewResources.Time, Width: dateReportLength ? 80 : 120, Name: "ColTime", HeaderAlign: "center", CellAlign: "center"}],
+                  { HeaderText: viewResources.Time, Width: dateReportLength ? 120 : 120, Name: "ColTime", HeaderAlign: "center", CellAlign: "center"}],
                   countryColumns,
                   [{
                       HeaderText: viewResources.Total,
