@@ -97,7 +97,12 @@
   <Function Name="Report">
     <Setting Key="Report_DynamicReport_GetReport" SpName="Acc_CRM_Rpt_DynamicFeedback" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_CustomerReport_GetReport" SpName="Acc_Crm_Rpt_CustomerReport" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-     <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_DynamicFeedback" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+     <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="Month" ObjectProperty="Month" />
+      <Mapping DataField="CountryID" ObjectProperty="CountryId" />
+      <Mapping DataField="CountryName" ObjectProperty="CountryName" />
+      <Mapping DataField="NoOfIssues" ObjectProperty="NumberOfIssues" />
+    </Setting>
     <Setting Key="Report_StatisticReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
       <Mapping DataField="FeedbackDate" ObjectProperty="DateTime" />
       <Mapping DataField="CountryID" ObjectProperty="CountryId" />

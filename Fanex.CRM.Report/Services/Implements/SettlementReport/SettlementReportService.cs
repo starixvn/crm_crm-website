@@ -24,6 +24,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using Fanex.CRM.Report.Models.SettlementReport;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Models;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
@@ -45,7 +46,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public SettlementReportInfo GetSettlementReport(GeSettlementReportCriteria criteria)
+        public SettlementReportInfo GetSettlementReport(GetSettlementReportCriteria criteria)
         {
             try
             {
@@ -57,15 +58,14 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
 
                 if (settlementReport == null)
                 {
-                    // var rawData = GetDynamicData<SettlementReportEntity>(criteria);
-                    var rawData = new DummyData().Get();
+                    var rawData = GetDynamicData<SettlementReportEntity>(criteria).ToList();
                     var countryList = rawData
-                        .Select(settlementReportEntity => new CountryInfo
-                        {
-                            Id = settlementReportEntity.CountryId,
-                            Name = settlementReportEntity.CountryName
-                        })
-                        .ToList();
+                       .Select(settlementReportEntity => new CountryInfo
+                       {
+                           Id = settlementReportEntity.CountryId,
+                           Name = settlementReportEntity.CountryName
+                       })
+                       .ToList();
                     var countryDictionary = GetCountryDictionary(countryList);
                     settlementReport = MappingDataSettlementReport(rawData, countryList, countryDictionary, criteria);
 
@@ -96,7 +96,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// Exports the settlement report.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        public void ExportSettlementReport(GeSettlementReportCriteria criteria)
+        public void ExportSettlementReport(GetSettlementReportCriteria criteria)
         {
             try
             {
@@ -138,7 +138,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private List<SettlementReportInfo> GetPagingLogList(
-            GeSettlementReportCriteria criteria,
+            GetSettlementReportCriteria criteria,
             List<SettlementReportInfo> settlementReportList)
         {
             return settlementReportList.Skip(criteria.PageSize * criteria.PageIndex)
@@ -151,20 +151,20 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// </summary>
         /// <param name="countryList">The country list.</param>
         /// <returns>The country dictionary.</returns>
-        private Dictionary<string, int> GetCountryDictionary(List<CountryInfo> countryList)
+        private Dictionary<int, int> GetCountryDictionary(List<CountryInfo> countryList)
         {
-            Dictionary<string, int> countryDictionary = new Dictionary<string, int>();
+            Dictionary<int, int> countryDictionary = new Dictionary<int, int>();
             var countryLength = countryList.Count;
             var currentIndex = 0;
             for (var i = 0; i < countryLength; i++)
             {
                 var country = countryList[i];
-                if (countryDictionary.ContainsKey(country.Name))
+                if (countryDictionary.ContainsKey(country.Id))
                 {
                     continue;
                 }
 
-                countryDictionary.Add(country.Name, currentIndex++);
+                countryDictionary.Add(country.Id, currentIndex++);
             }
 
             return countryDictionary;
@@ -177,7 +177,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// <returns>
         /// The dummy country list.
         /// </returns>
-        private List<SettlementReportInfo> GetDummyCountryList(Dictionary<string, int> countryDictionary)
+        private List<SettlementReportInfo> GetDummyCountryList(Dictionary<int, int> countryDictionary)
         {
             var countryLength = countryDictionary.Count;
             List<SettlementReportInfo> dummyCountries = new List<SettlementReportInfo>();
@@ -185,7 +185,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             {
                 dummyCountries.Add(new SettlementReportInfo
                 {
-                    Name = keyPair.Key
+                    Id = keyPair.Key
                 });
             }
 
@@ -208,8 +208,8 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         private SettlementReportInfo MappingDataSettlementReport(
             List<SettlementReportEntity> rawData,
             List<CountryInfo> countryList,
-            Dictionary<string, int> countryDictionary,
-            GeSettlementReportCriteria criteria)
+            Dictionary<int, int> countryDictionary,
+            GetSettlementReportCriteria criteria)
         {
             var settlementReport = new SettlementReportInfo
             {
@@ -244,15 +244,22 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                     var countryReport = new SettlementReportInfo
                     {
                         Id = monthDetail.CountryId,
-                        Name = monthDetail.CountryName,
+                        Name = monthDetail.CountryId == SettingConstants.NotApply ?
+                            Labels.Symbol_NotApply :
+                            monthDetail.CountryName,
                         NumberOfIssues = monthDetail.NumberOfIssues
                     };
 
                     monthReport.ChildReports.Add(countryReport);
                     monthReport.NumberOfIssues += countryReport.NumberOfIssues;
 
-                    var countryIndex = countryDictionary[monthDetail.CountryName];
+                    var countryIndex = countryDictionary[monthDetail.CountryId];
                     settlementReport.Total.ChildReports[countryIndex].Id = countryReport.Id;
+                    if (string.IsNullOrEmpty(settlementReport.Total.ChildReports[countryIndex].Name))
+                    {
+                        settlementReport.Total.ChildReports[countryIndex].Name = countryReport.Name;
+                    }
+
                     settlementReport.Total.ChildReports[countryIndex].NumberOfIssues += countryReport.NumberOfIssues;
                     settlementReport.Total.NumberOfIssues += countryReport.NumberOfIssues;
                 }
@@ -324,7 +331,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
           Justification = "Reviewed. Suppression is OK here.")]
         private void ExportSettlementReportBody(
             ref ExportExcelInfoNPOI exportExcelInfo,
-            GeSettlementReportCriteria criteria,
+            GetSettlementReportCriteria criteria,
             SettlementReportInfo settlementReport)
         {
             if (settlementReport == null || settlementReport.ChildReports.Count == 0)
@@ -379,8 +386,11 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                             oddRowWriter.WriteRow(ref exportExcelInfo, countryReport, monthReport, j);
                         }
                     }
+
+                    exportExcelInfo.Worksheet.GroupRow(exportExcelInfo.CurrentRow - countryReportLength, exportExcelInfo.CurrentRow - 2);
+                    exportExcelInfo.Worksheet.SetRowGroupCollapsed(exportExcelInfo.CurrentRow - countryReportLength, true);
                 }
-                
+
                 var total = settlementReport.Total;
                 countryReportLength = total.ChildReports.Count;
                 for (var j = 0; j < countryReportLength; j++)
@@ -406,7 +416,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// <param name="settlementReport">The settlement report.</param>
         private void ExportSettlementReportHeader(
             ref ExportExcelInfoNPOI exportExcelInfo,
-            GeSettlementReportCriteria criteria,
+            GetSettlementReportCriteria criteria,
             SettlementReportInfo settlementReport)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
