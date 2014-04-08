@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GeSettlementReportCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetSettlementReportCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace Fanex.CRM.Report.Criteria.SettlementReport
     /// <summary>
     /// Get Settlement Report Criteria.
     /// </summary>
-    public class GeSettlementReportCriteria : CriteriaBase
+    public class GetSettlementReportCriteria : CriteriaBase
     {
         [SpParam(SqlParamName = "year")]
         public int Year { get; set; }
