@@ -151,10 +151,13 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                     criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
                     var rawData = GetDynamicData<StatisticReportEntity>(criteria).ToList();
                     var countryList = rawData
-                        .Select(statisticReportEntity => new CountryInfo
+                        .GroupBy(statisticReportEntity => statisticReportEntity.CountryId)
+                        .Select(group => new CountryInfo
                         {
-                            Id = statisticReportEntity.CountryId,
-                            Name = statisticReportEntity.CountryName
+                            Id = group.First().CountryId,
+                            Name = group.First().CountryId == SettingConstants.NotApply ?
+                                Labels.Symbol_NotApply :
+                                group.First().CountryName
                         })
                         .ToList();
                     var countryDictionary = GetCountryDictionary(countryList);
@@ -514,6 +517,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
         {
             Dictionary<int, int> countryDictionary = new Dictionary<int, int>();
             var countryLength = countryList.Count;
+            var currentCountryIndex = 0;
             for (var i = 0; i < countryLength; i++)
             {
                 var country = countryList[i];
@@ -522,7 +526,8 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                     continue;
                 }
 
-                countryDictionary.Add(country.Id, i);
+                countryDictionary.Add(country.Id, currentCountryIndex);
+                currentCountryIndex++;
             }
 
             return countryDictionary;
