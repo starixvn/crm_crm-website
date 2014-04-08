@@ -65,7 +65,8 @@
      <Compile Include="Controllers\SettlementReportController.cs" />
    <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
-    <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
+     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
+ <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
     <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
    <Compile Include="Criteria\SettlementReport\GeSettlementReportCriteria.cs" />

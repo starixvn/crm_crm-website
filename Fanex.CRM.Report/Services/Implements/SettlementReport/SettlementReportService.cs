@@ -388,7 +388,10 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                             oddRowWriter.WriteRow(ref exportExcelInfo, countryReport, monthReport, j);
                         }
                     }
-                
+
+                    exportExcelInfo.Worksheet.GroupRow(exportExcelInfo.CurrentRow - countryReportLength, exportExcelInfo.CurrentRow - 2);
+                    exportExcelInfo.Worksheet.SetRowGroupCollapsed(exportExcelInfo.CurrentRow - countryReportLength, true);
+
                     exportExcelInfo.Worksheet.GroupRow(exportExcelInfo.CurrentRow - countryReportLength, exportExcelInfo.CurrentRow - 2);
                     exportExcelInfo.Worksheet.SetRowGroupCollapsed(exportExcelInfo.CurrentRow - countryReportLength, true);
                 }
