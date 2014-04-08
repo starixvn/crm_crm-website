@@ -65,6 +65,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                            Id = settlementReportEntity.CountryId,
                            Name = settlementReportEntity.CountryName
                        })
+                       .OrderBy(country => country.Id)
                        .ToList();
                     var countryDictionary = GetCountryDictionary(countryList);
                     settlementReport = MappingDataSettlementReport(rawData, countryList, countryDictionary, criteria);
