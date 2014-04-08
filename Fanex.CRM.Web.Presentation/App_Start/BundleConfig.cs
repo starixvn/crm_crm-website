@@ -114,6 +114,7 @@ namespace Fanex.CRM.Web.View.App_Start
            RegisterBundles_Report_SettlementReport(ref bundles);
     RegisterBundles_Report_StatisticReport(ref bundles);
       RegisterBundles_Report_WagerReport(ref bundles);
+            RegisterBundles_Report_SummaryReport(ref bundles);
         }
 
         /// <summary>
@@ -551,6 +552,24 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Report/WagerReportStyles").Include(
                 "~/Areas/Report/WagerReport/Styles/WagerReport.less"));
+        }
+
+        private static void RegisterBundles_Report_SummaryReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/SummaryReportScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/SummaryReport/Scripts/SummaryReportApplication.js",
+                "~/Areas/Report/SummaryReport/Scripts/SummaryReportController.js",
+                "~/Areas/Report/SummaryReport/Scripts/SummaryReportService.js",
+                "~/Areas/Report/SummaryReport/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Report/SummaryReportStyles").Include(
+                "~/Areas/Report/SummaryReport/Styles/SummaryReport.less"));
         }
         
         /// <summary>

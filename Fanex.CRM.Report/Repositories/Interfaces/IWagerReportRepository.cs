@@ -9,7 +9,8 @@
 
 namespace Fanex.CRM.Report.Repositories.Interfaces
 {
-    using Fanex.CRM.Report.Models.WagerReport;
+    using System.Collections.Generic;
+    using Fanex.CRM.Report.Entities.WagerReport;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -17,6 +18,6 @@ namespace Fanex.CRM.Report.Repositories.Interfaces
     /// </summary>
     public interface IWagerReportRepository
     {
-        WagerReportModel GetWagerReport(ICriteria criteria);
+        IEnumerable<WagerRawData> GetWagerReport(ICriteria criteria);
     }
 }

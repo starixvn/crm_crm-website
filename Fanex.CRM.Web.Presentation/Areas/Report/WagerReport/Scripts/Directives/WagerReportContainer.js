@@ -83,7 +83,7 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
     }
 
     function getGridFooter(grandTotal) {
-        var mergeRowNumber = grandTotal.Wagers.length;
+        var mergeRowNumber = grandTotal.Wagers ? grandTotal.Wagers.length : 0;
         var i, cell;
         var footerData = [];
         for (i = 0; i < mergeRowNumber; i++) {

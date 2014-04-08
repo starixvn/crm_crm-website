@@ -18,6 +18,9 @@ namespace Fanex.CRM.Report.Criteria.WagerReport
     {
         public int Year { get; set; }
 
+        [SpParam(Ignored = true)]
+        public bool IsCached { get; set; }
+
         public override string GetSettingKey()
         {
             return "Report_WagerReport_GetReport";

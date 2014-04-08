@@ -109,5 +109,7 @@
       <Mapping DataField="CountryName" ObjectProperty="CountryName" />
       <Mapping DataField="NoOfIssues" ObjectProperty="NumberOfIssues" />
     </Setting> 
+    <Setting Key="Report_WagerReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_SummaryReport_GetReport" SpName="Acc_CRM_Rpt_Summary" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>

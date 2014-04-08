@@ -61,6 +61,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        public static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {
@@ -115,11 +124,38 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to APR.
+        /// </summary>
+        public static string APR {
+            get {
+                return ResourceManager.GetString("APR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AUG.
+        /// </summary>
+        public static string AUG {
+            get {
+                return ResourceManager.GetString("AUG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birthday.
         /// </summary>
         public static string Birthday {
             get {
                 return ResourceManager.GetString("Birthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        public static string Categories {
+            get {
+                return ResourceManager.GetString("Categories", resourceCulture);
             }
         }
         
@@ -249,6 +285,16 @@ namespace Fanex.CRM.Report.Resources {
             }
         }
         
+         /// <summary>
+        ///   Looks up a localized string similar to DEC.
+        /// </summary>
+        public static string DEC {
+            get {
+                return ResourceManager.GetString("DEC", resourceCulture);
+            }
+        }
+
+        
         /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
@@ -354,6 +400,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Fax {
             get {
                 return ResourceManager.GetString("Fax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FEB.
+        /// </summary>
+        public static string FEB {
+            get {
+                return ResourceManager.GetString("FEB", resourceCulture);
             }
         }
         
@@ -466,6 +521,33 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to JAN.
+        /// </summary>
+        public static string JAN {
+            get {
+                return ResourceManager.GetString("JAN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JUL.
+        /// </summary>
+        public static string JUL {
+            get {
+                return ResourceManager.GetString("JUL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JUN.
+        /// </summary>
+        public static string JUN {
+            get {
+                return ResourceManager.GetString("JUN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {
@@ -516,6 +598,24 @@ namespace Fanex.CRM.Report.Resources {
         public static string Main_Category {
             get {
                 return ResourceManager.GetString("Main_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MAR.
+        /// </summary>
+        public static string MAR {
+            get {
+                return ResourceManager.GetString("MAR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MAY.
+        /// </summary>
+        public static string MAY {
+            get {
+                return ResourceManager.GetString("MAY", resourceCulture);
             }
         }
         
@@ -574,6 +674,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NOV.
+        /// </summary>
+        public static string NOV {
+            get {
+                return ResourceManager.GetString("NOV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OCT.
+        /// </summary>
+        public static string OCT {
+            get {
+                return ResourceManager.GetString("OCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pending.
         /// </summary>
         public static string Pending {
@@ -606,6 +724,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Product {
             get {
                 return ResourceManager.GetString("Product", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reject.
+        /// </summary>
+        public static string Reject {
+            get {
+                return ResourceManager.GetString("Reject", resourceCulture);
             }
         }
         
@@ -660,6 +787,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Select {
             get {
                 return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SEP.
+        /// </summary>
+        public static string SEP {
+            get {
+                return ResourceManager.GetString("SEP", resourceCulture);
             }
         }
         
@@ -871,6 +1007,33 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Summary Report.
+        /// </summary>
+        public static string SummaryReport {
+            get {
+                return ResourceManager.GetString("SummaryReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary_Report_{0}.
+        /// </summary>
+        public static string SummaryReportExcelName {
+            get {
+                return ResourceManager.GetString("SummaryReportExcelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary Report for Year {0}.
+        /// </summary>
+        public static string SummaryReportTitle {
+            get {
+                return ResourceManager.GetString("SummaryReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Suspended.
         /// </summary>
         public static string Suspended {
@@ -993,6 +1156,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string VIP {
             get {
                 return ResourceManager.GetString("VIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Void/Refund.
+        /// </summary>
+        public static string VoidRefund {
+            get {
+                return ResourceManager.GetString("VoidRefund", resourceCulture);
             }
         }
         

@@ -328,6 +328,12 @@
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportController.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportService.js" />
       <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
+    <Content Include="Areas\Report\SummaryReport\Scripts\Directives\SummaryReportContainer.js" />
+    <Content Include="Areas\Report\SummaryReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\SummaryReport\Scripts\SummaryReportService.js" />
+    <Content Include="Areas\Report\SummaryReport\Scripts\SummaryReportController.js" />
+    <Content Include="Areas\Report\SummaryReport\Scripts\SummaryReportApplication.js" />
         <Content Include="Areas\Report\WagerReport\Scripts\Directives\RegisterSharedDirectives.js" />
   
     <Content Include="Areas\Report\WagerReport\Scripts\Directives\WagerReportContainer.js" />
@@ -472,6 +478,7 @@
      <Content Include="Areas\Report\SettlementReport\Index.cshtml" />
     <None Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" />
      <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
+    <Content Include="Areas\Report\SummaryReport\Index.cshtml" />
     <None Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\customizeMultiSelect.less" />

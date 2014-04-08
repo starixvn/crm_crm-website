@@ -1,5 +1,6 @@
 ﻿'use strict';
 /* global wagerReportApplication,
+sharedScriptManager,
 hotKeyManager,
 minReportDate,
 currentDate */

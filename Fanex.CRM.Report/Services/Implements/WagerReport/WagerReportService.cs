@@ -11,6 +11,8 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using System.Web;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
@@ -30,7 +32,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
     /// </summary>
     public class WagerReportService : IWagerReportService
     {
-        private const string WagerReportSessionKey = "Fanex.CRM.Report.WagerReport.WagerReportSessionKey";
+        private const string WagerReportSessionKey = "Fanex.CRM.Report.WagerReport.WagerReportSessionKey_{0}";
         private readonly IWagerReportRepository _wagerRepository;
 
         public WagerReportService()
@@ -50,78 +52,16 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
         /// <returns>WagerReport model.</returns>
         public WagerReportModel GetWagerReport(GetWagerReportCriteria criteria)
         {
-            WagerReportModel report = null;
-#if DEBUG
-            report = new WagerReportModel
-            {
-                ReportTitle = string.Format(Labels.WagerReportTitle, criteria.Year),
-                WagerByMonths = new List<WagerByMonth>
-                {
-                    new WagerByMonth 
-                    { 
-                        Month = "JAN",
-                        Wagers = new List<Wager> 
-                        {
-                            new Wager { Name = "ACCEPT", Amount = 16 },
-                            new Wager { Name = "REJECT", Amount = 10 },
-                            new Wager { Name = "VOID/REFUND", Amount = 25 }
-                        },
-                        Total = 51
-                    },
-                    new WagerByMonth 
-                    { 
-                        Month = "FEB",
-                        Wagers = new List<Wager> 
-                        {
-                            new Wager { Name = "ACCEPT", Amount = 9 },
-                            new Wager { Name = "REJECT", Amount = 6 },
-                            new Wager { Name = "VOID/REFUND", Amount = 16 }
-                        },
-                        Total = 31
-                    },
-                    new WagerByMonth 
-                    { 
-                        Month = "MAR",
-                        Wagers = new List<Wager> 
-                        {
-                            new Wager { Name = "ACCEPT", Amount = 11 },
-                            new Wager { Name = "REJECT", Amount = 12 },
-                            new Wager { Name = "VOID/REFUND", Amount = 34 }
-                        },
-                        Total = 57
-                    },
-                    new WagerByMonth 
-                    { 
-                        Month = "DEC",
-                        Wagers = new List<Wager> 
-                        {
-                            new Wager { Name = "ACCEPT", Amount = 38 },
-                            new Wager { Name = "REJECT", Amount = 8 },
-                            new Wager { Name = "VOID/REFUND", Amount = 37 }
-                        },
-                        Total = 83
-                    }
-                },
-                GrandTotal = new WagerByMonth 
-                {
-                    Month = "Grand Total",
-                    Wagers = new List<Wager> 
-                        {
-                            new Wager { Name = "ACCEPT", Amount = 123 },
-                            new Wager { Name = "REJECT", Amount = 456 },
-                            new Wager { Name = "VOID/REFUND", Amount = 789 }
-                        },
-                    Total = 999999
-                }
-            };
-#else
-            string sessionKey = WagerReportSessionKey;
+            WagerReportModel report;
+            string sessionKey = string.Format(WagerReportSessionKey, criteria.Year);
             try
             {
-                report = (WagerReportModel)SessionExtension.GetSession(HttpContext.Current.Session, sessionKey);
+                report = criteria.IsCached
+                    ? (WagerReportModel)SessionExtension.GetSession(HttpContext.Current.Session, sessionKey)
+                    : null;
                 if (report == null)
                 {
-                    report = _wagerRepository.GetWagerReport(criteria);
+                    report = ParseWagerReport(criteria);
                     report.ReportTitle = string.Format(Labels.WagerReportTitle, criteria.Year);
 
                     // Add to session.
@@ -130,15 +70,14 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                         SessionExtension.AddSession(HttpContext.Current.Session, sessionKey, report);
                     }
                 }
+
+                return report;
             }
             catch (Exception ex)
             {
-                report = null;
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
-#endif
-            return report;
         }
 
         /// <summary>
@@ -147,6 +86,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
         /// <param name="criteria">The criteria.</param>
         public void ExportWagerReportExcel(GetWagerReportCriteria criteria)
         {
+            criteria.IsCached = true;
             WagerReportModel report = GetWagerReport(criteria);
             string excelFileName = string.Format(Labels.WagerReportExcelName, criteria.Year);
 
@@ -181,6 +121,69 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             }
             
             NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
+        }
+
+        /// <summary>
+        /// Parses the wager report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The WagerReportModel.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        private WagerReportModel ParseWagerReport(GetWagerReportCriteria criteria)
+        {
+            Wager wager = null;
+            WagerByMonth wagerByMonth = null;
+            IList<WagerByMonth> wagerByMonths = new List<WagerByMonth>();
+            IDictionary<string, Wager> grandTotalHash = new Dictionary<string, Wager> 
+            {
+                { Labels.Accept, new Wager { Name = Labels.Accept, Amount = 0 } },
+                { Labels.Reject, new Wager { Name = Labels.Reject, Amount = 0 } },
+                { Labels.VoidRefund, new Wager { Name = Labels.VoidRefund, Amount = 0 } },
+            };
+            int grandTotal = 0;
+            
+            var rawData = _wagerRepository.GetWagerReport(criteria)
+                .GroupBy(w => w.Month);
+            foreach (var month in rawData)
+            {
+                wagerByMonth = new WagerByMonth 
+                {
+                    Month = month.Key.ToUpper(),
+                    Wagers = new List<Wager>(),
+                    Total = 0
+                };
+
+                foreach (var item in month)
+                {
+                    wager = new Wager
+                    {
+                        Name = item.SubCategory,
+                        Amount = item.NoOfIssues
+                    };
+
+                    wagerByMonth.Total += wager.Amount;
+                    wagerByMonth.Wagers.Add(wager);
+
+                    if (grandTotalHash.ContainsKey(wager.Name))
+                    {
+                        grandTotalHash[wager.Name].Amount += wager.Amount;
+                    }
+                }
+
+                wagerByMonths.Add(wagerByMonth);
+                grandTotal += wagerByMonth.Total;
+            }
+
+            return new WagerReportModel
+            {
+                WagerByMonths = wagerByMonths,
+                GrandTotal = new WagerByMonth 
+                {
+                    Month = Labels.GrandTotal,
+                    Wagers = grandTotalHash.Values.ToList(),
+                    Total = grandTotal
+                }
+            };
         }
 
         #region Export excel helper
@@ -323,15 +326,12 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             {
                 currentColumn = startColumn;
                 IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
+                wagersCellStyle = GetGrandTotalWagersCellStyle(workbook);
+                amountCellStyle = GetGrandTotalAmountCellStyle(workbook);
                 if (i == 0)
                 {
                     NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(wagersCellStyle);
                     NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(amountCellStyle);
-                }
-                else if (i == 1)
-                {
-                    wagersCellStyle = GetGrandTotalWagersCellStyle(workbook);
-                    amountCellStyle = GetGrandTotalAmountCellStyle(workbook);
                 }
 
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, total.Wagers[i].Name, wagersCellStyle);

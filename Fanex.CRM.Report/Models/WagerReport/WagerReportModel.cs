@@ -9,11 +9,13 @@
 
 namespace Fanex.CRM.Report.Models.WagerReport
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
     /// WagerReport model.
     /// </summary>
+    [Serializable]
     public class WagerReportModel
     {
         public string ReportTitle { get; set; }
