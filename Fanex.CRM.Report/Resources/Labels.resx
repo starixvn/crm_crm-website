@@ -366,71 +366,55 @@
     <data name="Statistic_Report" xml:space="preserve">
     <value>Statistic Report</value>
   </data>
-
-   <data name="Amount" xml:space="preserve">
+  <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
-  
   <data name="StatisticReport_Title" xml:space="preserve">
     <value>{0} Statistic Report From {1} To {2}</value>
   </data>
-    <data name="Month" xml:space="preserve">
+  <data name="Month" xml:space="preserve">
     <value>Month</value>
   </data>
-
   <data name="StatisticReport_ShortTitle" xml:space="preserve">
     <value>{0} To {1}</value>
   </data>
-   <data name="SettlementReport_ChartSuffix" xml:space="preserve">
+  <data name="SettlementReport_ChartSuffix" xml:space="preserve">
     <value> Issue(s)</value>
   </data>
-
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
-   <data name="Settlement_Report" xml:space="preserve">
+  <data name="Settlement_Report" xml:space="preserve">
     <value>Settlement Report</value>
   </data>
-
   <data name="Time" xml:space="preserve">
     <value>Time</value>
   </data>
-    <data name="Year" xml:space="preserve">
+  <data name="Year" xml:space="preserve">
     <value>Year</value>
   </data>
-
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
-   <data name="Grand_Total" xml:space="preserve">
+  <data name="Grand_Total" xml:space="preserve">
     <value>Grand Total</value>
   </data>
-
   <data name="StatisticReport_TotalTitle" xml:space="preserve">
     <value>Total for {0}</value>
   </data>
   <data name="SettlementReport_Title" xml:space="preserve">
     <value>Settlement Report For Year {0}</value>
   </data>
-
-  <data name="Grand_Total" xml:space="preserve">
-    <value>Grand Total</value>
-  </data>
-  <data name="Total" xml:space="preserve">
-    <value>Total</value>
-  </data>
-
   <data name="StatisticReport_ChartSuffix" xml:space="preserve">
     <value> Issue(s)</value>
   </data>
-   <data name="SettlementReport_ExcelTitle" xml:space="preserve">
+  <data name="SettlementReport_ExcelTitle" xml:space="preserve">
     <value>Settlement_Report_For_Year_{0}</value>
   </data>
-
   <data name="StatisticReport_ExcelTitle" xml:space="preserve">
     <value>{0}_Statistic_Report_From_{1}_To_{2}</value>
   </data>
-    <data name="SettlementReport_SheetName" xml:space="preserve">
+  <data name="SettlementReport_SheetName" xml:space="preserve">
     <value>Settlement Report</value>
   </data>
   <data name="StatisticReport_Title" xml:space="preserve">
@@ -536,5 +520,62 @@
   </data>
   <data name="Wagers" xml:space="preserve">
     <value>Wagers</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="SummaryReport" xml:space="preserve">
+    <value>Summary Report</value>
+  </data>
+  <data name="APR" xml:space="preserve">
+    <value>APR</value>
+  </data>
+  <data name="AUG" xml:space="preserve">
+    <value>AUG</value>
+  </data>
+  <data name="DEC" xml:space="preserve">
+    <value>DEC</value>
+  </data>
+  <data name="FEB" xml:space="preserve">
+    <value>FEB</value>
+  </data>
+  <data name="JAN" xml:space="preserve">
+    <value>JAN</value>
+  </data>
+  <data name="JUL" xml:space="preserve">
+    <value>JUL</value>
+  </data>
+  <data name="JUN" xml:space="preserve">
+    <value>JUN</value>
+  </data>
+  <data name="MAR" xml:space="preserve">
+    <value>MAR</value>
+  </data>
+  <data name="MAY" xml:space="preserve">
+    <value>MAY</value>
+  </data>
+  <data name="NOV" xml:space="preserve">
+    <value>NOV</value>
+  </data>
+  <data name="OCT" xml:space="preserve">
+    <value>OCT</value>
+  </data>
+  <data name="SEP" xml:space="preserve">
+    <value>SEP</value>
+  </data>
+  <data name="SummaryReportExcelName" xml:space="preserve">
+    <value>Summary_Report_{0}</value>
+  </data>
+  <data name="SummaryReportTitle" xml:space="preserve">
+    <value>Summary Report for Year {0}</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="VoidRefund" xml:space="preserve">
+    <value>Void/Refund</value>
   </data>
 </root>

@@ -9,7 +9,8 @@
 
 namespace Fanex.CRM.Report.Repositories.Implements
 {
-    using Fanex.CRM.Report.Models.WagerReport;
+    using System.Collections.Generic;
+    using Fanex.CRM.Report.Entities.WagerReport;
     using Fanex.CRM.Report.Repositories.Interfaces;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
@@ -24,22 +25,12 @@ namespace Fanex.CRM.Report.Repositories.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>WagerReport model.</returns>
-        public WagerReportModel GetWagerReport(ICriteria criteria)
+        public IEnumerable<WagerRawData> GetWagerReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader == null)
-                    {
-                        return null;
-                    }
-
-                    // Parse reader.
-                }
+                return db.Query<WagerRawData>(criteria.GetSpParams());
             }
-
-            return null;
         }
     }
 }

@@ -9,9 +9,12 @@
 
 namespace Fanex.CRM.Report.Models.WagerReport
 {
+    using System;
+
     /// <summary>
     /// Wager model.
     /// </summary>
+    [Serializable]
     public class Wager
     {
         public int Id { get; set; }
