@@ -14,8 +14,8 @@ namespace Fanex.CRM.Report.Services.Interfaces
 
     public interface ISettlementReportService
     {
-        SettlementReportInfo GetSettlementReport(GeSettlementReportCriteria criteria);
+        SettlementReportInfo GetSettlementReport(GetSettlementReportCriteria criteria);
 
-        void ExportSettlementReport(GeSettlementReportCriteria criteria);
+        void ExportSettlementReport(GetSettlementReportCriteria criteria);
     }
 }

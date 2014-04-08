@@ -41,14 +41,14 @@ namespace Fanex.CRM.Report.Controllers
         [HttpPost]
         [HandleAjaxError]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
-        public ActionResult GetSettlementReport(GeSettlementReportCriteria criteria)
+        public ActionResult GetSettlementReport(GetSettlementReportCriteria criteria)
         {
             var logs = _settlementReportService.GetSettlementReport(criteria);
             var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
-        public ActionResult ExportSettlementReport(GeSettlementReportCriteria criteria)
+        public ActionResult ExportSettlementReport(GetSettlementReportCriteria criteria)
         {
             _settlementReportService.ExportSettlementReport(criteria);
             return new EmptyResult();
