@@ -395,6 +395,11 @@ namespace Fanex.CRM.Infrastructure.Extension
             currentColumn += 1;
         }
 
+        /// <summary>
+        /// Sets the cell value.
+        /// </summary>
+        /// <param name="cell">The target cell.</param>
+        /// <param name="cellValue">The cell value.</param>
         public static void SetCellValue(
             ref ICell cell,
             object cellValue)

@@ -310,7 +310,11 @@ statisticReportApplication.controller('statisticReportController', [
                 return;
             }
 
-            var selectedDate = new Date(year, month - 1, 1);
+            var selectedDate = sharedScriptManager.getEndDateOfMonth(new Date(year, month - 1, 1));
+            if (selectedDate > currentDate) {
+                selectedDate = currentDate;
+            }
+
             var selectedYear = selectedDate.getFullYear();
             var maxToYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
             var maxToMonth = 11;
