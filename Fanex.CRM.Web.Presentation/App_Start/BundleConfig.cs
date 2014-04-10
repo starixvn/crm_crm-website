@@ -109,8 +109,6 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Report_SettlementReport(ref bundles);
             RegisterBundles_ResultMessage(ref bundles);
             RegisterBundles_Numeral(ref bundles);
-
-            RegisterBundles_Report_StatisticReport(ref bundles);
         }
 
         /// <summary>
@@ -512,31 +510,6 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Report/SettlementReportStyles").Include(
                 "~/Areas/Report/SettlementReport/Styles/SettlementReport.less"));
-        }
-
-        /// <summary>
-        /// Registers the statistic report bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterBundles_Report_StatisticReport(ref BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Report/StatisticReportScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                "~/Scripts/ShareScripts/Directives/MonthPicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Report/StatisticReport/Scripts/StatisticReportApplication.js",
-                "~/Areas/Report/StatisticReport/Scripts/StatisticReportController.js",
-                "~/Areas/Report/StatisticReport/Scripts/StatisticReportService.js",
-                "~/Areas/Report/StatisticReport/Scripts/Directives/*.js"));
-
-            bundles.Add(new StyleBundle("~/Areas/Report/StatisticReportStyles").Include(
-                "~/Areas/Report/StatisticReport/Styles/StatisticReport.less"));
         }
         
         /// <summary>
