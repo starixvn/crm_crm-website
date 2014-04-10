@@ -421,7 +421,7 @@ function (
         }
     };
     $scope.updateToMonth = function (month, year, isAlreadyApply) {
-        var selectedDate = new Date(year, month - 1, 1);
+        var selectedDate = new Date(year, month, 0);
         var selectedYear = selectedDate.getFullYear();
         var maxToYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
         var maxToMonth = 11;
