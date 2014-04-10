@@ -963,6 +963,24 @@ namespace Resources {
             }
         }
         
+         /// <summary>
+        ///   Looks up a localized string similar to CRM System - Settlement Report.
+        /// </summary>
+        internal static string Title_Report_SettlementReport {
+            get {
+                return ResourceManager.GetString("Title_Report_SettlementReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM System - Statistic Report.
+        /// </summary>
+        internal static string Title_Report_StatisticReport {
+            get {
+                return ResourceManager.GetString("Title_Report_StatisticReport", resourceCulture);
+		}
+        }
+                
         /// <summary>
         ///   Looks up a localized string similar to CRM System - Activity Log.
         /// </summary>

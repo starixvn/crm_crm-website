@@ -106,6 +106,7 @@
     @Scripts.Render("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     @Scripts.Render("~/Areas/Report/StatisticReportScripts")
     <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_Report_StatisticReport';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');

@@ -50,6 +50,7 @@
     @Scripts.Render("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     @Scripts.Render("~/Areas/Report/SettlementReportScripts")
     <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_Report_SettlementReport';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = new Date('@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()');
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
