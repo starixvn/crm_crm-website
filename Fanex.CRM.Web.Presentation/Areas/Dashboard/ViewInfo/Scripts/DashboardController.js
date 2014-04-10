@@ -27,6 +27,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
         $scope.isLoadedRedemptionLogs = false;
         $scope.isLoadedCommunicationLogs = false;
         $scope.initController = function () {
+            $scope.BlockUI();
             $scope.getCustomerRemarks();
             $scope.getCustomerInfo();
             $scope.getRedemptionLogs();
@@ -69,7 +70,6 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 });
         };
         $scope.getCustomerRemarks = function () {
-            $scope.BlockUI();
             $scope.isLoadedCustomerRemarks = false;
             var selectedCriteria = {
                 CustomerId: $scope.customerId
@@ -87,7 +87,6 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 });
         };
         $scope.getRedemptionLogs = function () {
-            $scope.BlockUI();
             $scope.isLoadedRedemptionLogs = false;
             var selectedCriteria = {
                 CustomerId: $scope.customerId
@@ -105,7 +104,6 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 });
         };
         $scope.getCommunicationLogs = function () {
-            $scope.BlockUI();
             $scope.isLoadedCommunicationLogs = false;
             var selectedCriteria = {
                 CustomerId: $scope.customerId
