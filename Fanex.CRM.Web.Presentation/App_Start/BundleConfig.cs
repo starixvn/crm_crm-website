@@ -515,9 +515,6 @@ namespace Fanex.CRM.Web.View.App_Start
         
         /// <summary>
 
-        }
-
-        /// <summary>
         /// Registers the result message bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
