@@ -323,6 +323,11 @@
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportController.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportService.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportApplication.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportController.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportService.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\Directives\SettlementReportContainer.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportApplication.js" />
@@ -465,8 +470,10 @@
     <None Include="Areas\Report\CustomerReport\Styles\CustomerReport.less" />
     <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <Content Include="Areas\User\Web.config" />
+    <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
+    <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <Content Include="Areas\Report\SettlementReport\Index.cshtml" />
-    <None Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" />
+    <None Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" /> 
      <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
     <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
   
