@@ -1007,7 +1007,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary Report.
+        ///   Looks up a localized string similar to Summary Of Categories.
         /// </summary>
         public static string SummaryReport {
             get {
@@ -1016,7 +1016,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary_Report_{0}.
+        ///   Looks up a localized string similar to Summary_Of_Categories_{0}.
         /// </summary>
         public static string SummaryReportExcelName {
             get {
@@ -1025,7 +1025,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary Report for Year {0}.
+        ///   Looks up a localized string similar to Summary Of Categories Report For Year {0}.
         /// </summary>
         public static string SummaryReportTitle {
             get {

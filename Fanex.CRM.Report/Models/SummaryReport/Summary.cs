@@ -9,9 +9,12 @@
 
 namespace Fanex.CRM.Report.Models.SummaryReport
 {
+    using System;
+
     /// <summary>
     /// SummaryModel model.
     /// </summary>
+    [Serializable]
     public class Summary
     {
         public int Id { get; set; }

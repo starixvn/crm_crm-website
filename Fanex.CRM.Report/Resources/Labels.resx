@@ -561,4 +561,77 @@
   <data name="Wagers" xml:space="preserve">
     <value>Wagers</value>
   </data>
+    <data name="GrandTotal" xml:space="preserve">
+    <value>Grand Total</value>
+  </data>
+  <data name="WagerReport" xml:space="preserve">
+    <value>Wager Report</value>
+  </data>
+  <data name="WagerReportExcelName" xml:space="preserve">
+    <value>Wager_Report_{0}</value>
+  </data>
+  <data name="WagerReportTitle" xml:space="preserve">
+    <value>WAGER ACCEPT, REJECT, VOID/REDUND FOR YEAR {0}</value>
+  </data>
+  <data name="Wagers" xml:space="preserve">
+    <value>Wagers</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="SummaryReport" xml:space="preserve">
+    <value>Summary Of Categories</value>
+  </data>
+  <data name="APR" xml:space="preserve">
+    <value>APR</value>
+  </data>
+  <data name="AUG" xml:space="preserve">
+    <value>AUG</value>
+  </data>
+  <data name="DEC" xml:space="preserve">
+    <value>DEC</value>
+  </data>
+  <data name="FEB" xml:space="preserve">
+    <value>FEB</value>
+  </data>
+  <data name="JAN" xml:space="preserve">
+    <value>JAN</value>
+  </data>
+  <data name="JUL" xml:space="preserve">
+    <value>JUL</value>
+  </data>
+  <data name="JUN" xml:space="preserve">
+    <value>JUN</value>
+  </data>
+  <data name="MAR" xml:space="preserve">
+    <value>MAR</value>
+  </data>
+  <data name="MAY" xml:space="preserve">
+    <value>MAY</value>
+  </data>
+  <data name="NOV" xml:space="preserve">
+    <value>NOV</value>
+  </data>
+  <data name="OCT" xml:space="preserve">
+    <value>OCT</value>
+  </data>
+  <data name="SEP" xml:space="preserve">
+    <value>SEP</value>
+  </data>
+  <data name="SummaryReportExcelName" xml:space="preserve">
+    <value>Summary_Of_Categories_{0}</value>
+  </data>
+  <data name="SummaryReportTitle" xml:space="preserve">
+    <value>Summary Of Categories Report For Year {0}</value>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="VoidRefund" xml:space="preserve">
+    <value>Void/Refund</value>
+  </data>
+
 </root>
