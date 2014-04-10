@@ -223,6 +223,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CRM System - Dynamic Report.
+        /// </summary>
+        public static string DocumentTitle_DynamicReport {
+            get {
+                return ResourceManager.GetString("DocumentTitle_DynamicReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
         public static string Duration {

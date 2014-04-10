@@ -8,7 +8,7 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="remark-application">
 <head>
-    <title>@Labels.SpecialRemark</title>
+    <title>@Resources.Language.Title_SpecialRemarkTab</title>
     @Styles.Render("~/site/common")
     @Styles.Render("~/Areas/Remark/Styles")
 </head>
@@ -75,6 +75,7 @@
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     @Scripts.Render("~/Areas/Remark/RemarkScripts")
     <script type="text/javascript">
+        parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId = '@serverModel';
         var remarkResources = {

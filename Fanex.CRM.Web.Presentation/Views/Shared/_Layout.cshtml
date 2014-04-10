@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
+@{
+    ViewBag.Title = Resources.Language.CRM_System;
+}
 <head>
     <title>@ViewBag.Title</title>
-    
     @Styles.Render("~/site/common")
     @Scripts.Render("~/scripts/headload")
     @Scripts.Render("~/scripts/respond")
-
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
     </script>
 </head>
-    @RenderBody()
+@RenderBody()
 </html>

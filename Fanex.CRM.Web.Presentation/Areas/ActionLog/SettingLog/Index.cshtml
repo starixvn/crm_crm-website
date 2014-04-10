@@ -52,6 +52,7 @@
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     @Scripts.Render("~/Areas/ActionLog/SettingLogScripts")
     <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_AdminTool_SettingLog';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@currentDate.ToShortFormatedDate()';
         var initFromDate = '@currentDate.FirstDayOfMonth().ToShortFormatedDate()';

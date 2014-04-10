@@ -127,6 +127,7 @@
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
     @Scripts.Render("~/Areas/Report/CustomerReportScripts")
     <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';

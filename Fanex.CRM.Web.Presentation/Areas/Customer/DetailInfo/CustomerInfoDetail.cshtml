@@ -10,7 +10,7 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customerdetail-application">
 <head>
-    <title>@Labels.Customer_Info </title>
+    <title>@Resources.Language.Title_DetailTab </title>
     @Styles.Render("~/site/common")
     @Scripts.Render("~/scripts/respond")
     @Styles.Render("~/Styles/FanexMultipleSelect")
@@ -383,6 +383,7 @@
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
     @Scripts.Render("~/Areas/DetailCustomerInfo/Scripts")
     <script type="text/javascript"> 
+        parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")'; 
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var viewResources = { 

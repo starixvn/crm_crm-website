@@ -429,4 +429,73 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Sign_In" xml:space="preserve">
     <value>Sign In</value>
   </data>
+  <data name="CRM_System" xml:space="preserve">
+    <value>CRM System</value>
+  </data>
+  <data name="Title_ActivityLogTab" xml:space="preserve">
+    <value>CRM System - Activity Log</value>
+  </data>
+  <data name="Title_AddFeedback" xml:space="preserve">
+    <value>CRM System - Add Feedback</value>
+  </data>
+  <data name="Title_AddGuestFeedback" xml:space="preserve">
+    <value>CRM System - Add Guest Feedback</value>
+  </data>
+  <data name="Title_CommunicationTab" xml:space="preserve">
+    <value>CRM System - Communication</value>
+  </data>
+  <data name="Title_DeleteFeedback" xml:space="preserve">
+    <value>CRM System - Delete Feedback</value>
+  </data>
+  <data name="Title_DetailTab" xml:space="preserve">
+    <value>CRM System - Detail</value>
+  </data>
+  <data name="Title_LatestFeedback" xml:space="preserve">
+    <value>CRM System - Latest Feedback</value>
+  </data>
+  <data name="Title_MainTab" xml:space="preserve">
+    <value>CRM System - Main</value>
+  </data>
+  <data name="Title_ManageFeedback" xml:space="preserve">
+    <value>CRM System - Manage Feedback</value>
+  </data>
+  <data name="Title_RedemptionTab" xml:space="preserve">
+    <value>CRM System - Redemption</value>
+  </data>
+  <data name="Title_Report_CasinoDailyStatistics" xml:space="preserve">
+    <value>CRM System - Casino Daily Statistics</value>
+  </data>
+  <data name="Title_Report_CasinoWeeklyStatistics" xml:space="preserve">
+    <value>CRM System - Casino Weekly Statistics</value>
+  </data>
+  <data name="Title_Report_CustomerReport" xml:space="preserve">
+    <value>CRM System - Customer Report</value>
+  </data>
+  <data name="Title_Report_DailyStatistics" xml:space="preserve">
+    <value>CRM System - Daily Statistics</value>
+  </data>
+  <data name="Title_Report_DynamicReport" xml:space="preserve">
+    <value>CRM System - Dynamic Report</value>
+  </data>
+  <data name="Title_Report_FeedbackStatistics" xml:space="preserve">
+    <value>CRM System - Feedback Statistics</value>
+  </data>
+  <data name="Title_Report_WeeklyStatistics" xml:space="preserve">
+    <value>CRM System - Weekly Statistics</value>
+  </data>
+  <data name="Title_SpecialRemarkTab" xml:space="preserve">
+    <value>CRM System - Special Remark</value>
+  </data>
+  <data name="Title_AdminTool_FeedbackSubjectManagement" xml:space="preserve">
+    <value>CRM System - Feedback Subject Management</value>
+  </data>
+  <data name="Title_AdminTool_SettingLog" xml:space="preserve">
+    <value>CRM System - Setting Log</value>
+  </data>
+  <data name="Title_AdminTool_SettingManagement" xml:space="preserve">
+    <value>CRM System - Setting Management</value>
+  </data>
+  <data name="Title_AdminTool_SettingRelation" xml:space="preserve">
+    <value>CRM System - Setting Relation</value>
+  </data>
 </root>

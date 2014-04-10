@@ -7,7 +7,7 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="dashboard-application">
 <head>
-    <title>@Labels.Main </title>
+    <title>@Resources.Language.Title_MainTab </title>
     @Styles.Render("~/site/common")
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
@@ -19,7 +19,8 @@
         <div class="row" data-ng-show="isShowResultMessage">
             <div class="col-xs-11 col-sm-11 col-md-11">
                 <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
-                    <div data-ng-bind="resultMessage"></div>
+                    <div data-ng-bind="resultMessage">
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,6 +47,7 @@
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
     @Scripts.Render("~/Areas/Dashboard/ViewInfoScripts")
     <script type="text/javascript"> 
+        parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId    = @customerId; 
         var viewResources = { 

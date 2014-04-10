@@ -10,7 +10,7 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communication-application">
 <head>
-    <title>@Labels.Communication_Logs </title>
+    <title>@Resources.Language.Title_CommunicationTab  </title>
     @Styles.Render("~/site/common")
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
@@ -77,6 +77,7 @@
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
     @Scripts.Render("~/Areas/Communication/ViewLogScripts")
     <script type="text/javascript">
+        parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';

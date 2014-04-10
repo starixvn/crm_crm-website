@@ -11,7 +11,7 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="activitylog-application">
 <head>
-    <title>@Labels.ActivityLog </title>
+    <title>@Resources.Language.Title_ActivityLogTab</title>
     @Styles.Render("~/site/common")
     @Styles.Render("~/Areas/ActionLog/ActivityLogStyles")
 </head>
@@ -56,6 +56,7 @@
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     @Scripts.Render("~/Areas/ActionLog/ActivityLogScripts")
     <script type="text/javascript">
+        parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId = '@customerId';
         var currentDate = '@currentDate.ToShortFormatedDate()';

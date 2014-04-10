@@ -5,7 +5,7 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-dynamicreport-application">
 <head>
-    <title>@Labels.Dynamic_Report </title>
+    <title>@Labels.DocumentTitle_DynamicReport </title>
     @Styles.Render("~/site/common")
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
@@ -212,6 +212,8 @@
     <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
     @Scripts.Render("~/Areas/Report/DynamicReportScripts")
     <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_Report_DynamicReport';
+        parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';

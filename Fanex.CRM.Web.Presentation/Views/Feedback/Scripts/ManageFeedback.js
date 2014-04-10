@@ -2,7 +2,7 @@
 /* global OpenPopup, reRenderGrid, replaceSpaceForIE9, bindingSetting,
 gup, head, addDays,
 bindingManageChildByParentId, clientTime */
-/* exported loadSubItem, openEditFeedback */
+/* exported loadSubItem, openEditFeedback, isNumberKey */
 
 //Contain the template
 var AllSetting;
@@ -82,7 +82,7 @@ function openEditFeedback(url) {
 }
 
 function isNumberKey(evt) {
-    var charCode = (evt.which) ? evt.which : evt.keyCode
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
     if ((charCode >= 48 && charCode <= 57) || 
         (charCode === 8 || charCode === 35 || charCode === 36 || charCode === 37 || charCode === 39 || charCode === 46)) {
         return true;

@@ -107,6 +107,7 @@
 </div>
 <input type="hidden" id="userId" name="userId" value="@Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id" />
 <script language="javascript" type="text/javascript">
+    parent.document.title = '@Resources.Language.Title_AdminTool_SettingRelation';
         window.rootUrl = '@Url.Content("~")';
         head.js("@Url.Content("~/Scripts/jquery.js")", function () {
                 head.js("@Url.Content("~/Scripts/json2.js")")

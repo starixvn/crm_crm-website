@@ -363,4 +363,7 @@
   <data name="Customer_Report" xml:space="preserve">
     <value>Customer Report</value>
   </data>
+  <data name="DocumentTitle_DynamicReport" xml:space="preserve">
+    <value>CRM System - Dynamic Report</value>
+  </data>
 </root>
