@@ -69,7 +69,6 @@
  <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
     <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
-   <Compile Include="Criteria\SettlementReport\GeSettlementReportCriteria.cs" />
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
      <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
    
@@ -120,7 +119,6 @@
     <Compile Include="Services\Implements\SettlementReport\OddEvenRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\SettlementReportService.cs" />
    <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
-    <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
     <Compile Include="Services\Interfaces\ICustomerReportService.cs" />
     <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
     <Compile Include="Services\Interfaces\IStatisticReportService.cs" />

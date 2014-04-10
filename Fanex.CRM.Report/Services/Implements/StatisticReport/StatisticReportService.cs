@@ -253,51 +253,6 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
         }
 
         /// <summary>
-        /// Exports the statistic report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        public void ExportStatisticReport(GetStatisticReportCriteria criteria)
-        {
-            try
-            {
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                StatisticReportInfo statisticReport = CacheService.Get<StatisticReportInfo>(StatisticReportSessionKey);
-                criteria.IsGetFullReport = true;
-                if (statisticReport == null)
-                {
-                    statisticReport = GetStatisticReport(criteria);
-                }
-
-                ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
-                {
-                    ExcelFile = new HSSFWorkbook(),
-                    StartRow = 0,
-                    StartColumn = 0,
-                    CurrentRow = 0,
-                    MaxColumnIndex = statisticReport != null &&
-                        statisticReport.ChildReports.Count > 0 &&
-                        statisticReport.ChildReports[0].ChildReports.Count > 0 ?
-                        2 + statisticReport.ChildReports[0].ChildReports[0].ChildReports.Count :
-                        2
-                };
-
-                ExportStatisticReportBody(ref exportExcelInfo, criteria, statisticReport);
-                string reportName = string.Format(
-                     Labels.StatisticReport_ExcelTitle,
-                     SettingService.GetPeriodTypeName(criteria.ReportType),
-                     criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
-                     criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
-
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-        }
-
-        /// <summary>
         /// Gets the statistic report by monthly.
         /// </summary>
         /// <param name="rawData">The raw data.</param>
