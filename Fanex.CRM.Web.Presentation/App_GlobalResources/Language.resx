@@ -442,7 +442,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>CRM System - Add Guest Feedback</value>
   </data>
   <data name="Title_CommunicationTab" xml:space="preserve">
-    <value>CRM System - Communication</value>
+    <value>CRM System - Communication Log</value>
   </data>
   <data name="Title_DeleteFeedback" xml:space="preserve">
     <value>CRM System - Delete Feedback</value>
@@ -463,25 +463,25 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>CRM System - Redemption</value>
   </data>
   <data name="Title_Report_CasinoDailyStatistics" xml:space="preserve">
-    <value>CRM System - Casino Daily Statistics</value>
+    <value>CRM System - Casino Daily Statistics Report</value>
   </data>
   <data name="Title_Report_CasinoWeeklyStatistics" xml:space="preserve">
-    <value>CRM System - Casino Weekly Statistics</value>
+    <value>CRM System - Casino Weekly Statistics Report</value>
   </data>
   <data name="Title_Report_CustomerReport" xml:space="preserve">
     <value>CRM System - Customer Report</value>
   </data>
   <data name="Title_Report_DailyStatistics" xml:space="preserve">
-    <value>CRM System - Daily Statistics</value>
+    <value>CRM System - Daily Statistics Report</value>
   </data>
   <data name="Title_Report_DynamicReport" xml:space="preserve">
     <value>CRM System - Dynamic Report</value>
   </data>
   <data name="Title_Report_FeedbackStatistics" xml:space="preserve">
-    <value>CRM System - Feedback Statistics</value>
+    <value>CRM System - Feedback Statistics Report</value>
   </data>
   <data name="Title_Report_WeeklyStatistics" xml:space="preserve">
-    <value>CRM System - Weekly Statistics</value>
+    <value>CRM System - Weekly Statistics Report</value>
   </data>
   <data name="Title_SpecialRemarkTab" xml:space="preserve">
     <value>CRM System - Special Remark</value>

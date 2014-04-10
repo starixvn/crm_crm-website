@@ -1027,7 +1027,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CRM System - Communication.
+        ///   Looks up a localized string similar to CRM System - Communication Log.
         /// </summary>
         internal static string Title_CommunicationTab {
             get {
@@ -1099,7 +1099,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CRM System - Casino Daily Statistics.
+        ///   Looks up a localized string similar to CRM System - Casino Daily Statistics Report.
         /// </summary>
         internal static string Title_Report_CasinoDailyStatistics {
             get {
@@ -1108,7 +1108,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CRM System - Casino Weekly Statistics.
+        ///   Looks up a localized string similar to CRM System - Casino Weekly Statistics Report.
         /// </summary>
         internal static string Title_Report_CasinoWeeklyStatistics {
             get {
@@ -1126,7 +1126,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CRM System - Daily Statistics.
+        ///   Looks up a localized string similar to CRM System - Daily Statistics Report.
         /// </summary>
         internal static string Title_Report_DailyStatistics {
             get {
@@ -1144,7 +1144,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CRM System - Feedback Statistics.
+        ///   Looks up a localized string similar to CRM System - Feedback Statistics Report.
         /// </summary>
         internal static string Title_Report_FeedbackStatistics {
             get {
@@ -1153,7 +1153,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CRM System - Weekly Statistics.
+        ///   Looks up a localized string similar to CRM System - Weekly Statistics Report.
         /// </summary>
         internal static string Title_Report_WeeklyStatistics {
             get {
