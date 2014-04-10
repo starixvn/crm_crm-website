@@ -28,7 +28,6 @@ namespace Fanex.CRM.Infrastructure.Logging
                              "<br>\r\nSOURCE: " + ex.Source +
                              "<br>\r\nDOMAIN: " + HttpContext.Current.Request.Headers["Host"] +
                              "<br>\r\nREFERRER: " + HttpContext.Current.Request.UrlReferrer +
-                             "<br>\r\nFORM: " + HttpContext.Current.Request.Form.ToString() +
                              "<br>\r\nQUERYSTRING: " + HttpContext.Current.Request.QueryString.ToString() +
                              "<br>\r\nTARGETSITE: " + ex.TargetSite +
                              "<br>\r\nSTACKTRACE: " + ex.StackTrace;

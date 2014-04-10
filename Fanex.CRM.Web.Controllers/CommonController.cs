@@ -13,12 +13,26 @@ namespace Fanex.CRM.Web.Controllers
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
+    using Fanex.NAP.Core.Service.Impl;
+    using Fanex.NAP.Core.Service.Interface;
 
     /// <summary>
     /// Common Controller.
     /// </summary>
     public class CommonController : BaseController
     {
+        private readonly IMaintenanceService _maintenanceService;
+
+        public CommonController()
+            : this(null)
+        {
+        }
+
+        public CommonController(MaintenanceService maintenanceService)
+        {
+            _maintenanceService = maintenanceService ?? new MaintenanceService();
+        }
+
         /// <summary>
         /// The denied access.
         /// </summary>
@@ -45,6 +59,25 @@ namespace Fanex.CRM.Web.Controllers
         public ActionResult ErrorPage()
         {
             return View("~/Views/Common/ErrorPage.cshtml");
+        }
+
+        /// <summary>
+        /// Checking down time.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public ActionResult Offline()
+        {
+            var downTime = _maintenanceService.GetDowntimeInfo();
+
+            if (!downTime.IsDowntime)
+            {
+                System.Web.Security.FormsAuthentication.RedirectToLoginPage();
+            }
+
+            ViewBag.UmtFrom = downTime.From;
+            ViewBag.UmtTo = downTime.To;
+
+            return View();
         }
     }
 }
