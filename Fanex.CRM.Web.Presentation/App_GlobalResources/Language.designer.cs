@@ -1054,6 +1054,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CRM System - Home.
+        /// </summary>
+        internal static string Title_Home {
+            get {
+                return ResourceManager.GetString("Title_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CRM System - Latest Feedback.
         /// </summary>
         internal static string Title_LatestFeedback {

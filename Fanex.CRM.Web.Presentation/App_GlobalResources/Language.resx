@@ -498,4 +498,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Title_AdminTool_SettingRelation" xml:space="preserve">
     <value>CRM System - Setting Relation</value>
   </data>
+  <data name="Title_Home" xml:space="preserve">
+    <value>CRM System - Home</value>
+  </data>
 </root>
