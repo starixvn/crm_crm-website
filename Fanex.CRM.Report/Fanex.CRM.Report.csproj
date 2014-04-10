@@ -63,7 +63,6 @@
     <Compile Include="Controllers\DynamicReportController.cs" />
     <Compile Include="Controllers\StatisticReportController.cs" />
      <Compile Include="Controllers\SettlementReportController.cs" />
-    <Compile Include="Controllers\StatisticReportController.cs" />
    <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
      <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
@@ -74,7 +73,6 @@
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
      <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
    
-    <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
   
    <Compile Include="Models\CustomerReport\AddressInfo.cs" />
     <Compile Include="Models\CustomerReport\BankInfo.cs" />
@@ -127,7 +125,6 @@
     <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
     <Compile Include="Services\Interfaces\IStatisticReportService.cs" />
     <Compile Include="Services\Interfaces\ISettlementReportService.cs" />
-    <Compile Include="Services\Interfaces\IStatisticReportService.cs" />
  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
