@@ -9,7 +9,8 @@
 
 namespace Fanex.CRM.Report.Repositories.Implements
 {
-    using Fanex.CRM.Report.Models.SummaryReport;
+    using System.Collections.Generic;
+    using Fanex.CRM.Report.Entities.SummaryReport;
     using Fanex.CRM.Report.Repositories.Interfaces;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
@@ -19,22 +20,12 @@ namespace Fanex.CRM.Report.Repositories.Implements
     /// </summary>
     public class SummaryReportRepository : ISummaryReportRepository
     {
-        public SummaryReportModel GetSummaryReport(ICriteria criteria)
+        public IEnumerable<SummaryRawData> GetSummaryReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
-                {
-                    if (reader == null)
-                    {
-                        return null;
-                    }
-
-                    // Parse reader.
-                }
+                return db.Query<SummaryRawData>(criteria.GetSpParams());
             }
-
-            return null;
         }
     }
 }

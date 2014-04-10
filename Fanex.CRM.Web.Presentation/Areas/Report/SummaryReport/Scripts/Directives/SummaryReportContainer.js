@@ -8,7 +8,7 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
     function getMonthColumnTitle(headerText, name) {
         return {
             HeaderText: headerText,
-            Width: 50,
+            Width: 72,
             Name: name,
             HeaderAlign: 'center',
             CellAlign: 'right',
@@ -18,19 +18,27 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
 
     function getGridOptions(scope, reportTitle, bodyData, footerData) {
         return {
-            columns: [{ HeaderText: summaryReportResources.Categories, Width: 400, Name: 'ColCategory', HeaderAlign: 'left', CellAlign: 'left' },
-                    getMonthColumnTitle(summaryReportResources.Jan, 'ColJan'),
-                    getMonthColumnTitle(summaryReportResources.Feb, 'ColFeb'),
-                    getMonthColumnTitle(summaryReportResources.Mar, 'ColMar'),
-                    getMonthColumnTitle(summaryReportResources.Apr, 'ColApr'),
-                    getMonthColumnTitle(summaryReportResources.May, 'ColMay'),
-                    getMonthColumnTitle(summaryReportResources.Jun, 'ColJun'),
-                    getMonthColumnTitle(summaryReportResources.Jul, 'ColJul'),
-                    getMonthColumnTitle(summaryReportResources.Aug, 'ColAug'),
-                    getMonthColumnTitle(summaryReportResources.Sep, 'ColSep'),
-                    getMonthColumnTitle(summaryReportResources.Oct, 'ColOct'),
-                    getMonthColumnTitle(summaryReportResources.Nov, 'ColNov'),
-                    getMonthColumnTitle(summaryReportResources.Dec, 'ColDec')],
+            columns: [
+                    {
+                        HeaderText: summaryReportResources.Categories,
+                        Width: 300,
+                        Name: 'ColCategory',
+                        HeaderAlign: 'center',
+                        CellAlign: 'left',
+                        ShowCollapseExpand: true 
+                    },
+                    getMonthColumnTitle(summaryReportResources.Jan, 'ColJAN'),
+                    getMonthColumnTitle(summaryReportResources.Feb, 'ColFEB'),
+                    getMonthColumnTitle(summaryReportResources.Mar, 'ColMAR'),
+                    getMonthColumnTitle(summaryReportResources.Apr, 'ColAPR'),
+                    getMonthColumnTitle(summaryReportResources.May, 'ColMAY'),
+                    getMonthColumnTitle(summaryReportResources.Jun, 'ColJUN'),
+                    getMonthColumnTitle(summaryReportResources.Jul, 'ColJUL'),
+                    getMonthColumnTitle(summaryReportResources.Aug, 'ColAUG'),
+                    getMonthColumnTitle(summaryReportResources.Sep, 'ColSEP'),
+                    getMonthColumnTitle(summaryReportResources.Oct, 'ColOCT'),
+                    getMonthColumnTitle(summaryReportResources.Nov, 'ColNOV'),
+                    getMonthColumnTitle(summaryReportResources.Dec, 'ColDEC')],
             showTitle: true,
             titleInfo: {
                 text: reportTitle,
@@ -42,8 +50,9 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
             },
             bodyRows: bodyData,
             showFooter: true,
+            showTree: true,
             footerRows: footerData,
-            numberOfFrozenColumn: 0,
+            numberOfFrozenColumn: 1,
             fullWidth: true,
             fullHeight: true,
             gridExpandHeight: 100,
@@ -57,22 +66,43 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
     function getGridBody(categorySummaries) {
         var bodyData = [];
         if (categorySummaries) {
-            var category, subCategory, subLen, cell;
+            var category, categoryTotal, subCategory, summary;
+            var categoryLen, categoryTotalLen, subLen, currentRow, currentSubRow;
             var evenClass = '';
-            for (var i = 0, max = categorySummaries.length; i < max; i++) {
+
+            categoryLen = categorySummaries.length;
+            for (var i = 0; i < categoryLen; i++) {
                 evenClass = (i % 2 === 0) ? '' : 'freegrid-even';
                 category = categorySummaries[i];
-                cell = {
-                    Columns: [{ Name: 'ColCategory', Value: info.CategoryName, MergeColNumber: 12 }],
+                currentRow = {
+                    Columns: [{ Name: 'ColCategory', Value: category.CategoryName}],
                     SubRows: []
+                };
+
+                categoryTotalLen = category.Total ? category.Total.length : 0;
+                for (var l = 0; l < categoryTotalLen; l++) {
+                    categoryTotal = category.Total[l];
+                    currentRow.Columns.push({ Name: 'Col' + categoryTotal.Month, Value: categoryTotal.Amount === 0 ? '' : categoryTotal.Amount });
                 }
 
-                subLen = info.SubCategorySummaries ? info.SubCategorySummaries.length : 0;
+                subLen = category.SubCategorySummaries ? category.SubCategorySummaries.length : 0;
                 for (var j = 0; j < subLen; j++) {
-                    cell.SubRows.push();
+                    subCategory = category.SubCategorySummaries[j];
+                    currentSubRow = {
+                        Columns: [
+                            { Name: 'ColCategory', Value: subCategory.SubCategoryName}]
+                    };
+
+                    var summaryLen = subCategory.Summaries ? subCategory.Summaries.length : 0;
+                    for (var k = 0; k < summaryLen; k++) {
+                        summary = subCategory.Summaries[k];
+                        currentSubRow.Columns.push({ Name: 'Col' + summary.Month, Value: summary.Amount === 0 ? '' : summary.Amount });
+                    }
+
+                    currentRow.SubRows.push(currentSubRow);
                 }
 
-                bodyData.push({ Columns: cell, CssClass: evenClass });
+                bodyData.push(currentRow);
             }
         }
 
@@ -82,10 +112,12 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
     function getGridFooter(grandTotal) {
         var footerData = [];
 
-        var monthLen = grandTotal.Months.length;
-        var cell = [{ Name: 'ColCategory', Value: grandTotal.CategoryName }];
+        var monthLen = grandTotal.Summaries ? grandTotal.Summaries.length : 0;
+        var cell = [{ Name: 'ColCategory', Value: grandTotal.SubCategoryName}];
+        var summary;
         for (var i = 0; i < monthLen; i++) {
-            cell.push({ Name: 'Col' + grandTotal.Months[i].Value, Value: grandTotal.Months[i].Amount });
+            summary = grandTotal.Summaries[i];
+            cell.push({ Name: 'Col' + summary.Month, Value: summary.Amount === 0 ? '' : summary.Amount });
         }
 
         footerData.push({ Columns: cell });
@@ -98,7 +130,7 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         }
 
         var reportTitle = scope.summaryReport.ReportTitle;
-        var categorySummaries = scope.summaryReport.categorySummaries;
+        var categorySummaries = scope.summaryReport.CategorySummaries;
         var grandTotal = scope.summaryReport.GrandTotal;
 
         var tableSummaryReport = element.find('#table-summary-report').empty();

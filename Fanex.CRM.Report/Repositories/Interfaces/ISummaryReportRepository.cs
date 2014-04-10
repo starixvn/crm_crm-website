@@ -9,7 +9,8 @@
 
 namespace Fanex.CRM.Report.Repositories.Interfaces
 {
-    using Fanex.CRM.Report.Models.SummaryReport;
+    using System.Collections.Generic;
+    using Fanex.CRM.Report.Entities.SummaryReport;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -17,6 +18,6 @@ namespace Fanex.CRM.Report.Repositories.Interfaces
     /// </summary>
     public interface ISummaryReportRepository
     {
-        SummaryReportModel GetSummaryReport(ICriteria criteria); 
+        IEnumerable<SummaryRawData> GetSummaryReport(ICriteria criteria); 
     }
 }

@@ -9,11 +9,13 @@
 
 namespace Fanex.CRM.Report.Models.SummaryReport
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
     /// SummaryReportModel model.
     /// </summary>
+    [Serializable]
     public class SummaryReportModel
     {
         public string ReportTitle { get; set; }

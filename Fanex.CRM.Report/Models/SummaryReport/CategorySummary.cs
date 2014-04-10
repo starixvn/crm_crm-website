@@ -9,18 +9,20 @@
 
 namespace Fanex.CRM.Report.Models.SummaryReport
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
     /// CategorySummary model.
     /// </summary>
+    [Serializable]
     public class CategorySummary
     {
         public int CategoryId { get; set; }
 
         public string CategoryName { get; set; }
 
-        public IList<Summary> CategorySummaries { get; set; }
+        public IList<Summary> Total { get; set; }
 
         public IList<SubCategorySummary> SubCategorySummaries { get; set; }
     }

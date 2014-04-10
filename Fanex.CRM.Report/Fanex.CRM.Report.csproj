@@ -73,6 +73,7 @@
     <Compile Include="Criteria\SettlementReport\GeSettlementReportCriteria.cs" />
     <Compile Include="Criteria\WagerReport\GetWagerReportCriteria.cs" />
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
+    <Compile Include="Entities\SummaryReport\SummaryRawData.cs" />
     <Compile Include="Entities\WagerReport\WagerRawData.cs" />
     <Compile Include="Models\CustomerReport\AddressInfo.cs" />
     <Compile Include="Models\CustomerReport\BankInfo.cs" />

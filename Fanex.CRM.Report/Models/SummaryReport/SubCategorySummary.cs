@@ -9,11 +9,13 @@
 
 namespace Fanex.CRM.Report.Models.SummaryReport
 {
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
     /// SubCategorySummary model.
     /// </summary>
+    [Serializable]
     public class SubCategorySummary
     {
         public int SubCategoryId { get; set; }
