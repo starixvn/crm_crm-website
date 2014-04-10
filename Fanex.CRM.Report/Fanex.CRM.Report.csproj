@@ -67,6 +67,7 @@
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
      <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
  <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
+  
     <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
   
