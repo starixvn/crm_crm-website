@@ -109,7 +109,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_ResultMessage(ref bundles);
             RegisterBundles_Numeral(ref bundles);
            RegisterBundles_Report_SettlementReport(ref bundles);
-               RegisterBundles_Reprot_StatisticReport(ref bundles);
+            RegisterBundles_Report_StatisticReport(ref bundles);
         }
 
         /// <summary>
@@ -488,7 +488,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Report/StatisticReport/Styles/StatisticReport.less"));
         }
 
-         /// <summary>
+        /// <summary>
         /// Registers the statistic report bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
@@ -512,7 +512,7 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new StyleBundle("~/Areas/Report/StatisticReportStyles").Include(
                 "~/Areas/Report/StatisticReport/Styles/StatisticReport.less"));
         }
-    
+
         /// <summary>
         /// Registers the result message bundles.
         /// </summary>
