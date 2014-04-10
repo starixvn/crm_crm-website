@@ -219,34 +219,6 @@ statisticReportApplication.controller('statisticReportController', [
 
             $scope.updateToDatePicker(isAlreadyApply);
         };
-            $scope.searchCriteria.FromDate = selectedDate;
-            if ($scope.searchCriteria.ToDate < selectedDate) {
-                $scope.toDateOptions.IsSetDate = true;
-                $scope.toDateOptions.InitDate = selectedDate;
-                $scope.updateToDatePicker(isAlreadyApply);
-            } else if (sharedScriptManager.getEndDateOfMonth(selectedDate) < $scope.searchCriteria.ToDate) {
-                $scope.toDateOptions.IsSetDate = true;
-                $scope.toDateOptions.InitDate = sharedScriptManager.getEndDateOfMonth(selectedDate);
-                $scope.updateToDatePicker(isAlreadyApply);
-            }
-
-            $scope.updateFromDatePicker(isAlreadyApply);
-        };
-        $scope.updateToDate = function (selectedDate, isAlreadyApply) {
-            selectedDate = minReportDate < selectedDate ? selectedDate : minReportDate;
-            $scope.searchCriteria.ToDate = selectedDate;
-            if (selectedDate < $scope.searchCriteria.FromDate) {
-                $scope.fromDateOptions.IsSetDate = true;
-                $scope.fromDateOptions.InitDate = selectedDate;
-                $scope.updateFromDatePicker(isAlreadyApply);
-            } else if ($scope.searchCriteria.FromDate < sharedScriptManager.getStartDateOfMonth(selectedDate)) {
-                $scope.fromDateOptions.IsSetDate = true;
-                $scope.fromDateOptions.InitDate = sharedScriptManager.getStartDateOfMonth(selectedDate);
-                $scope.updateFromDatePicker(isAlreadyApply);
-            }
-
-            $scope.updateToDatePicker(isAlreadyApply);
-        };
         $scope.updateReportType = function (reportType) {
             $scope.searchCriteria.ReportType = reportType;
             var reportTypeId = parseInt(reportType.Id);

@@ -70,21 +70,5 @@ namespace Fanex.CRM.Report.Controllers
             _statisticReportService.ExportStatisticReport(criteria);
             return new EmptyResult();
         }
-
-        [HttpPost]
-        [HandleAjaxError]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
-        public ActionResult GetStatisticReport(GetStatisticReportCriteria criteria)
-        {
-            var logs = _statisticReportService.GetStatisticReport(criteria);
-            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
-            return jsonResult;
-        }
-
-        public ActionResult ExportStatisticReport(GetStatisticReportCriteria criteria)
-        {
-            _statisticReportService.ExportStatisticReport(criteria);
-            return new EmptyResult();
-        }
     }
 }
