@@ -513,7 +513,7 @@ function (
         $scope.toYearOptions = {
             CurrentDate: selectedDate,
             InitDate: currentDate,
-            MaxDate: new Date(maxToYear, 11, 1),
+            MaxDate: new Date(maxToYear, 12, 0),
             MinDate: new Date(fromDate.getFullYear(), 0, 1),
             IsRerenderPicker: false,
             OnChangeEvent: $scope.updateToYear,
@@ -532,7 +532,7 @@ function (
 
         $scope.searchCriteria.ToDate = selectedDate;
         $scope.fromYearOptions.IsRerenderPicker = true;
-        $scope.searchCriteria.ToDate = new Date(toYear, 11, 1);
+        $scope.searchCriteria.ToDate = new Date(toYear, 12, 0);
         if (!isAlreadyApply) {
             $scope.$apply();
         }
