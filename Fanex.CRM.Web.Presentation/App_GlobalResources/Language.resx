@@ -435,4 +435,10 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Title_Report_StatisticReport" xml:space="preserve">
     <value>CRM System - Statistic Report</value>
   </data>
+  <data name="Title_Report_SummaryReport" xml:space="preserve">
+    <value>CRM System - Summary Of Categories Report</value>
+  </data>
+  <data name="Title_Report_WagerReport" xml:space="preserve">
+    <value>CRM System - Wager Report</value>
+  </data>
 </root>

@@ -41,8 +41,7 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
             gridExpandHeight: 100,
             showDistinctRow: false,
             showHighlightRow: false,
-            headerColumnHeight: 29,
-            bodyRowHeight: 29
+            headerColumnHeight: 29
         };
     }
 

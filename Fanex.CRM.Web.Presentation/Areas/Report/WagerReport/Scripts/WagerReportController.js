@@ -16,7 +16,10 @@ function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) 
         $scope.years = $scope.getYears();
         $scope.$apply();
 
-        $scope.year = $scope.years[0];
+        if ($scope.years.length > 0) {
+            $scope.year = $scope.years[$scope.years.length - 1];
+        }
+
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: 'WagerReport'

@@ -47,6 +47,7 @@
     @Scripts.Render("~/Areas/Report/WagerReportScripts", "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
+        parent.document.title = '@Resources.Language.Title_Report_WagerReport';
         var currentDate = new Date('@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()');
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
         var wagerReportResources = {
