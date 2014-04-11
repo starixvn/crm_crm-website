@@ -53,13 +53,15 @@ namespace Fanex.CRM.Service.Impl
         private string _ibcDailySummary = "crm.ibcdailysummary";
         private string _ibcDailyDetail = "crm.ibcdailydetail";
         private string _licenseeDailyDetail = "crm.licenseedailydetail";
-        private string _ibcDailyDetailNotMapped = "crm.ibcdailydetailnotmapped";
-        private string _licenseeDailyDetailNotMapped = "crm.ibcdailydetailnotmapped";
         private string _licenseeDailySummary = "crm.licenseedailysummary";
         private string _casinoDailySummary = "crm.casinodailysummarystatistics";
         private string _casinoDailyDetail = "crm.casinoweeklydetail";
         private string _casinoDailyDetailNotMapped = "crm.casinoweeklydetailnotmapped";
         private string _casinoWeeklySummary = "crm.casinoweeklysummary";
+
+        private string _ibcDailyDetailNotMapped = "crm.ibcdailydetailnotmapped";
+        private string _licenseeDailyDetailNotMapped = "crm.ibcdailydetailnotmapped";
+
         #endregion
 
         public FeedbackService()
@@ -777,54 +779,35 @@ namespace Fanex.CRM.Service.Impl
             {
                 if (fromCache)
                 {
-                    var getMappedResult = CacheService.Get<DailyComplaintsDTO>(_ibcDailyDetail);
+                    var getMappedResult = (DailyComplaintsDTO)SessionExtension.GetSession(HttpContext.Current.Session, _ibcDailyDetail);
                     if (getMappedResult != null && getMappedResult.DailyComplaints != null && getMappedResult.DailyComplaints.Count > 0)
                     {
                         var pagingMappedResult = new DailyComplaintsDTO()
                         {
                             DailyComplaints = getMappedResult.DailyComplaints.Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage).ToList(),
+                            Pageindex = currentPage,
+                            TotalItems = getMappedResult.DailyComplaints.Count
                         };
-                        pagingMappedResult.Pageindex = currentPage;
-                        pagingMappedResult.TotalItems = getMappedResult.DailyComplaints.Count;
+
                         return pagingMappedResult;
-                    }
-                    else
-                    {
-                        var sessionData = (DataTable)SessionExtension.GetSession(HttpContext.Current.Session, _ibcDailyDetailNotMapped);
-                        if (sessionData != null)
-                        {
-                            var paging = sessionData.AsEnumerable().Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage);
-                            dailyComplaintsData = MapperIBCDailyDetailReport(paging);
-                            dailyComplaintsData.Pageindex = currentPage;
-                            dailyComplaintsData.TotalItems = sessionData.Rows.Count;
-                            return dailyComplaintsData;
-                        }
                     }
                 }
 
-                CacheService.Delete(_ibcDailyDetail);
+                SessionExtension.AddSession(HttpContext.Current.Session, _ibcDailyDetail, null);
                 CacheService.Delete(_ibcDailyDetailNotMapped);
                 var datasetReport = _repository.GetIBCDailyDetailReport(CastAide.AsDateTime(fromDate), CastAide.AsDateTime(toDate), Enumerations.ReportTypes.CreditSite);
                 if (datasetReport != null && datasetReport.Tables != null && datasetReport.Tables.Count > 0)
                 {
-                    var paginOnNewData = datasetReport.Tables[0].AsEnumerable().Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage);
-                    dailyComplaintsData = MapperIBCDailyDetailReport(paginOnNewData);
-                    if (datasetReport.Tables[0].Rows.Count <= itemPerPage)
-                    {
-                        CacheService.Set(_ibcDailyDetail, dailyComplaintsData);
-                    }
-                    else
-                    {
-                        SessionExtension.AddSession(HttpContext.Current.Session, _ibcDailyDetailNotMapped, datasetReport.Tables[0]);
-                        Task taskMappingIbcDetailData = Task.Factory.StartNew(() =>
-                        {
-                            var mappingData = MapperIBCDailyDetailReport(datasetReport.Tables[0].AsEnumerable().Select(c => c));
-                            CacheService.Set(_ibcDailyDetail, mappingData);
-                        });
-                    }
+                    SessionExtension.AddSession(HttpContext.Current.Session, _ibcDailyDetailNotMapped, datasetReport.Tables[0]);
+                    var mappingData = MapperIBCDailyDetailReport(datasetReport.Tables[0].AsEnumerable().Select(c => c));
+                    SessionExtension.AddSession(HttpContext.Current.Session, _ibcDailyDetail, mappingData);
 
-                    dailyComplaintsData.Pageindex = currentPage;
-                    dailyComplaintsData.TotalItems = datasetReport.Tables[0].Rows.Count;
+                    dailyComplaintsData = new DailyComplaintsDTO()
+                   {
+                       DailyComplaints = mappingData.DailyComplaints.Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage).ToList(),
+                       Pageindex = currentPage,
+                       TotalItems = mappingData.DailyComplaints.Count
+                   };
                 }
             }
             catch (Exception ex)
@@ -996,54 +979,35 @@ namespace Fanex.CRM.Service.Impl
             {
                 if (fromCache)
                 {
-                    var getMappedResult = CacheService.Get<DailyComplaintsDTO>(_licenseeDailyDetail);
+                    var getMappedResult = (DailyComplaintsDTO)SessionExtension.GetSession(HttpContext.Current.Session, _licenseeDailyDetail);
                     if (getMappedResult != null && getMappedResult.DailyComplaints != null && getMappedResult.DailyComplaints.Count > 0)
                     {
                         var pagingMappedResult = new DailyComplaintsDTO()
                         {
                             DailyComplaints = getMappedResult.DailyComplaints.Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage).ToList(),
+                            Pageindex = currentPage,
+                            TotalItems = getMappedResult.DailyComplaints.Count
                         };
-                        pagingMappedResult.Pageindex = currentPage;
-                        pagingMappedResult.TotalItems = getMappedResult.DailyComplaints.Count;
+
                         return pagingMappedResult;
-                    }
-                    else
-                    {
-                        var sessionData = (DataTable)SessionExtension.GetSession(HttpContext.Current.Session, _licenseeDailyDetailNotMapped);
-                        if (sessionData != null)
-                        {
-                            var paging = sessionData.AsEnumerable().Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage);
-                            dailyComplaintsData = MapperLicenseeDailyDetailReport(paging);
-                            dailyComplaintsData.Pageindex = currentPage;
-                            dailyComplaintsData.TotalItems = sessionData.Rows.Count;
-                            return dailyComplaintsData;
-                        }
                     }
                 }
 
-                CacheService.Delete(_licenseeDailyDetail);
+                SessionExtension.AddSession(HttpContext.Current.Session, _licenseeDailyDetail, null);
+                CacheService.Delete(_licenseeDailyDetailNotMapped);
                 var datasetReport = _repository.GetIBCDailyDetailReport(CastAide.AsDateTime(fromDate), CastAide.AsDateTime(toDate), Enumerations.ReportTypes.Licensee);
                 if (datasetReport != null && datasetReport.Tables != null && datasetReport.Tables.Count > 0)
                 {
-                    var paginOnNewData = datasetReport.Tables[0].AsEnumerable().Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage);
-                    dailyComplaintsData = MapperLicenseeDailyDetailReport(paginOnNewData);
-                    if (datasetReport.Tables[0].Rows.Count <= itemPerPage)
-                    {
-                        CacheService.Set(_licenseeDailyDetail, dailyComplaintsData);
-                    }
-                    else
-                    {
-                        SessionExtension.AddSession(HttpContext.Current.Session, _licenseeDailyDetailNotMapped, datasetReport.Tables[0]);
-                        Task taskMappingLicenseeDetailData = Task.Factory.StartNew(() =>
-                        {
-                            CacheService.Delete(_licenseeDailyDetail);
-                            var mappingData = MapperLicenseeDailyDetailReport(datasetReport.Tables[0].AsEnumerable().Select(c => c));
-                            CacheService.Set(_licenseeDailyDetail, mappingData);
-                        });
-                    }
+                    SessionExtension.AddSession(HttpContext.Current.Session, _licenseeDailyDetailNotMapped, datasetReport.Tables[0]);
+                    var mappingData = MapperLicenseeDailyDetailReport(datasetReport.Tables[0].AsEnumerable().Select(c => c));
+                    SessionExtension.AddSession(HttpContext.Current.Session, _licenseeDailyDetail, mappingData);
 
-                    dailyComplaintsData.Pageindex = currentPage;
-                    dailyComplaintsData.TotalItems = datasetReport.Tables[0].Rows.Count;
+                    dailyComplaintsData = new DailyComplaintsDTO()
+                    {
+                        DailyComplaints = mappingData.DailyComplaints.Select(c => c).Skip(itemPerPage * (currentPage - 1)).Take(itemPerPage).ToList(),
+                        Pageindex = currentPage,
+                        TotalItems = mappingData.DailyComplaints.Count
+                    };
                 }
             }
             catch (Exception ex)

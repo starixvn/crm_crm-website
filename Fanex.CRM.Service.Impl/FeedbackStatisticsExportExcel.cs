@@ -222,7 +222,8 @@ namespace Fanex.CRM.Service.Impl
             {
                 var excelFile = new ExcelFile();
                 var reportName = "IBCDetailReport";
-                var getData = CacheService.Get<DailyComplaintsDTO>(_ibcDailyDetail);
+                var getData = (DailyComplaintsDTO)SessionExtension.GetSession(HttpContext.Current.Session, _ibcDailyDetail);
+
                 var fromDate = CastAide.AsDateTime(strFromDate);
                 var toDate = CastAide.AsDateTime(strToDate);
                 if (isSendMail)
@@ -237,24 +238,19 @@ namespace Fanex.CRM.Service.Impl
                     var dailyComplaintsData = new DailyComplaintsDTO();
                     dailyComplaintsData.DailyComplaints = new List<DailyComplaintsDetail>();
 
-                    Task.Factory.StartNew(() =>
+                    var fileName = string.Format("{0}-{1:MMddyyyy}-{2:MMddyyyy}", reportName, fromDate, toDate);
+                    getData = getData ?? MapperIBCDailyDetailReport(sessionData.AsEnumerable().Select(c => c));
+                    if (getData != null)
                     {
-                        Thread.Sleep(200);
-                        var fileName = string.Format("{0}-{1:MMddyyyy}-{2:MMddyyyy}", reportName, fromDate, toDate);
-
-                        getData = getData ?? MapperIBCDailyDetailReport(sessionData.AsEnumerable().Select(c => c));
-                        if (getData != null)
+                        ExportDailyComplaintsDetail(getData, fromDate, toDate, excelFile, reportTitle);
+                        if (!Directory.Exists(WebConfigApplicationSettings.ReportFolderPath))
                         {
-                            ExportDailyComplaintsDetail(getData, fromDate, toDate, excelFile, reportTitle);
-                            if (!Directory.Exists(WebConfigApplicationSettings.ReportFolderPath))
-                            {
-                                Directory.CreateDirectory(WebConfigApplicationSettings.ReportFolderPath);
-                            }
-
-                            excelFile.SaveXls(string.Format(@"{0}\{1}.xls", WebConfigApplicationSettings.ReportFolderPath, fileName));
-                            SendMailAndDeleteFile(email, fileName, strFromDate, strToDate, "Daily");
+                            Directory.CreateDirectory(WebConfigApplicationSettings.ReportFolderPath);
                         }
-                    });
+
+                        excelFile.SaveXls(string.Format(@"{0}\{1}.xls", WebConfigApplicationSettings.ReportFolderPath, fileName));
+                        SendMailAndDeleteFile(email, fileName, strFromDate, strToDate, "Daily");
+                    }
                 }
                 else if (getData != null)
                 {
@@ -324,7 +320,8 @@ namespace Fanex.CRM.Service.Impl
             {
                 var excelFile = new ExcelFile();
                 var reportName = "LicenseeDetailReport";
-                var getData = CacheService.Get<DailyComplaintsDTO>(_licenseeDailyDetail);
+                var getData = (DailyComplaintsDTO)SessionExtension.GetSession(HttpContext.Current.Session, _licenseeDailyDetail);
+
                 var fromDate = CastAide.AsDateTime(strFromDate);
                 var toDate = CastAide.AsDateTime(strToDate);
                 if (isSendMail)
@@ -338,23 +335,20 @@ namespace Fanex.CRM.Service.Impl
                     //// export excel file to Hardware and send mail confirm to CSD
                     var dailyComplaintsData = new DailyComplaintsDTO();
                     dailyComplaintsData.DailyComplaints = new List<DailyComplaintsDetail>();
-                    Task.Factory.StartNew(() =>
-                    {
-                        Thread.Sleep(200);
-                        var fileName = string.Format("{0}-{1:MMddyyyy}-{2:MMddyyyy}", reportName, fromDate, toDate);
-                        getData = getData ?? MapperLicenseeDailyDetailReport(sessionData.AsEnumerable().Select(c => c));
-                        if (getData != null)
-                        {
-                            ExportLicenseeComplaintsDetail(getData, fromDate, toDate, excelFile, reportTitle);
-                            if (!Directory.Exists(WebConfigApplicationSettings.ReportFolderPath))
-                            {
-                                Directory.CreateDirectory(WebConfigApplicationSettings.ReportFolderPath);
-                            }
 
-                            excelFile.SaveXls(string.Format(@"{0}\{1}.xls", WebConfigApplicationSettings.ReportFolderPath, fileName));
-                            SendMailAndDeleteFile(email, fileName, strFromDate, strToDate, "Daily");
+                    var fileName = string.Format("{0}-{1:MMddyyyy}-{2:MMddyyyy}", reportName, fromDate, toDate);
+                    getData = getData ?? MapperLicenseeDailyDetailReport(sessionData.AsEnumerable().Select(c => c));
+                    if (getData != null)
+                    {
+                        ExportLicenseeComplaintsDetail(getData, fromDate, toDate, excelFile, reportTitle);
+                        if (!Directory.Exists(WebConfigApplicationSettings.ReportFolderPath))
+                        {
+                            Directory.CreateDirectory(WebConfigApplicationSettings.ReportFolderPath);
                         }
-                    });
+
+                        excelFile.SaveXls(string.Format(@"{0}\{1}.xls", WebConfigApplicationSettings.ReportFolderPath, fileName));
+                        SendMailAndDeleteFile(email, fileName, strFromDate, strToDate, "Daily");
+                    }
                 }
                 else if (getData != null)
                 {
@@ -506,7 +500,8 @@ namespace Fanex.CRM.Service.Impl
             var result = new Result();
             try
             {
-                var getSessionData = CacheService.Get<DailyComplaintsDTO>(_ibcDailyDetail);
+                var getSessionData = (DailyComplaintsDTO)SessionExtension.GetSession(HttpContext.Current.Session, _ibcDailyDetail);
+
                 result = getSessionData != null && getSessionData.DailyComplaints.Count > 0 ?
                     new Result(0, "Succesfully") :
                     new Result(1, "Data has not mapped yet");
@@ -550,7 +545,8 @@ namespace Fanex.CRM.Service.Impl
             var result = new Result();
             try
             {
-                var getSessionData = CacheService.Get<DailyComplaintsDTO>(_licenseeDailyDetail);
+                var getSessionData = (DailyComplaintsDTO)SessionExtension.GetSession(HttpContext.Current.Session, _licenseeDailyDetail);
+
                 result = getSessionData != null && getSessionData.DailyComplaints.Count > 0 ?
                     new Result(0, "Succesfully") :
                     new Result(1, "Data has not mapped yet");
@@ -610,7 +606,7 @@ namespace Fanex.CRM.Service.Impl
             }
         }
         #endregion
-        
+
         #region private function
 
         /// <summary>
