@@ -45,28 +45,6 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             _summaryRepository = summaryRepository ?? new SummaryReportRepository();
         }
 
-        private IList<Summary> InitializeSummaries
-        {
-            get
-            {
-                return new List<Summary>
-                {
-                    new Summary { Month = Labels.JAN, Amount = 0 },
-                    new Summary { Month = Labels.FEB, Amount = 0 },
-                    new Summary { Month = Labels.MAR, Amount = 0 },
-                    new Summary { Month = Labels.APR, Amount = 0 },
-                    new Summary { Month = Labels.MAY, Amount = 0 },
-                    new Summary { Month = Labels.JUN, Amount = 0 },
-                    new Summary { Month = Labels.JUL, Amount = 0 },
-                    new Summary { Month = Labels.AUG, Amount = 0 },
-                    new Summary { Month = Labels.SEP, Amount = 0 },
-                    new Summary { Month = Labels.OCT, Amount = 0 },
-                    new Summary { Month = Labels.NOV, Amount = 0 },
-                    new Summary { Month = Labels.DEC, Amount = 0 }
-                };
-            }
-        }
-
         /// <summary>
         /// Gets the summary report.
         /// </summary>
@@ -112,37 +90,45 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             SummaryReportModel report = GetSummaryReport(criteria);
             string excelFileName = string.Format(Labels.SummaryReportExcelName, criteria.Year);
 
-            HSSFWorkbook workbook = new HSSFWorkbook();
-            ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+            try
             {
-                ExcelFile = workbook,
-                Worksheet = workbook.CreateSheet(excelFileName),
-                StartRow = 0,
-                StartColumn = 0,
-                CurrentRow = 0,
-                MaxColumnIndex = 12
-            };
+                HSSFWorkbook workbook = new HSSFWorkbook();
+                ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+                {
+                    ExcelFile = workbook,
+                    Worksheet = workbook.CreateSheet(excelFileName),
+                    StartRow = 0,
+                    StartColumn = 0,
+                    CurrentRow = 0,
+                    MaxColumnIndex = report.Months.Count
+                };
 
-            ExportTitle(ref exportExcelInfo, report.ReportTitle);
-            ExportHeader(ref exportExcelInfo);
-            if (report.CategorySummaries == null || report.CategorySummaries.Count == 0)
-            {
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                ExportTitle(ref exportExcelInfo, report.ReportTitle);
+                ExportHeader(ref exportExcelInfo, report.Months);
+                if (report.CategorySummaries == null || report.CategorySummaries.Count == 0)
+                {
+                    NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                }
+                else
+                {
+                    NpoiExcelExtensions.SetColorAtIndex(
+                        ref exportExcelInfo,
+                        NpoiExcelExtensions.GroupBackgroundColor,
+                        NpoiExcelExtensions.GroupBackgroundColorIndex);
+                    NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+                    NpoiExcelExtensions.SetGrandTotalSeparatorColorIndex(ref exportExcelInfo);
+
+                    ExportBody(ref exportExcelInfo, report.CategorySummaries);
+                    ExportFooter(ref exportExcelInfo, report.GrandTotal);
+                }
+
+                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
             }
-            else
+            catch (Exception ex)
             {
-                NpoiExcelExtensions.SetColorAtIndex(
-                    ref exportExcelInfo,
-                    NpoiExcelExtensions.GroupBackgroundColor,
-                    NpoiExcelExtensions.GroupBackgroundColorIndex);
-                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
-                NpoiExcelExtensions.SetGrandTotalSeparatorColorIndex(ref exportExcelInfo);
-
-                ExportBody(ref exportExcelInfo, report.CategorySummaries);
-                ExportFooter(ref exportExcelInfo, report.GrandTotal);
+                LogExtensions.ExceptionHandler(ex);
+                throw;
             }
-
-            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
         /// <summary>
@@ -153,69 +139,85 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private SummaryReportModel ParseSummaryReport(GetSummaryReportCriteria criteria)
         {
+            var rawData = _summaryRepository.GetSummaryReport(criteria).ToList();
+
+            // Get Month.
+            var monthData = rawData.GroupBy(s => s.Month).Select(group => group.Key.ToUpper()).ToList();
+
             IList<CategorySummary> categorySummaries = new List<CategorySummary>();
-            SubCategorySummary grandTotal = new SubCategorySummary 
-            {
-                SubCategoryName = Labels.GrandTotal,
-                Summaries = InitializeSummaries
-            };
+            IDictionary<string, Summary> grandTotalSum = InitializeSummaries(monthData);
 
             // Group by MainCategory.
-            var rawData = _summaryRepository.GetSummaryReport(criteria)
-                .GroupBy(s => new { MainCategoryId = s.MainCategoryId, MainCategory = s.MainCategory });
-            foreach (var groupKey in rawData)
+            var reportData = rawData.GroupBy(s => new { MainCategoryId = s.MainCategoryId, MainCategory = s.MainCategory });
+            foreach (var groupKey in reportData)
             {
+                IDictionary<string, Summary> categoryTotal = InitializeSummaries(monthData);
                 CategorySummary categorySummary = new CategorySummary
                 {
                     CategoryId = groupKey.Key.MainCategoryId,
-                    CategoryName = groupKey.Key.MainCategory,
-                    Total = InitializeSummaries
+                    CategoryName = groupKey.Key.MainCategory
                 };
 
-                categorySummaries.Add(categorySummary);
-
-                IDictionary<int, IList<Summary>> subCategoryHash = new Dictionary<int, IList<Summary>>();
+                IDictionary<int, IDictionary<string, Summary>> subCategoryHash = new Dictionary<int, IDictionary<string, Summary>>();
                 IList<SubCategorySummary> subCategorySummaries = new List<SubCategorySummary>();
                 foreach (var item in groupKey)
                 {
-                    IList<Summary> summaries;
-                    Summary summary = new Summary { Month = item.Month.ToUpper(), Amount = item.NoOfIssues }; 
+                    string monthName = item.Month.ToUpper();
+                    IDictionary<string, Summary> summaries;
+                    Summary summary = new Summary { Month = monthName, Amount = item.NoOfIssues }; 
                     SubCategorySummary subCategorySummary = new SubCategorySummary
                     {
                         SubCategoryId = item.SubCategoryId,
                         SubCategoryName = item.SubCategory
                     };
 
-                    int monthNo = item.M - 1;
                     if (subCategoryHash.TryGetValue(subCategorySummary.SubCategoryId, out summaries))
                     {
-                        summaries[monthNo] = summary;
+                        summaries[monthName] = summary;
                     }
                     else
                     {
-                        summaries = InitializeSummaries;
-                        summaries[monthNo] = summary;
+                        summaries = InitializeSummaries(monthData);
+                        summaries[monthName] = summary;
                         subCategoryHash.Add(subCategorySummary.SubCategoryId, summaries);
 
-                        subCategorySummary.Summaries = summaries;
+                        subCategorySummary.Summaries = summaries.Values.ToList();
                         subCategorySummaries.Add(subCategorySummary);
                     }
 
                     // Total of Category.
-                    categorySummary.Total[monthNo].Amount += summary.Amount;
+                    categoryTotal[monthName].Amount += summary.Amount;
 
                     // Grand Total
-                    grandTotal.Summaries[monthNo].Amount += summary.Amount;
+                    grandTotalSum[monthName].Amount += summary.Amount;
                 }
 
                 categorySummary.SubCategorySummaries = subCategorySummaries;
+                categorySummary.Total = categoryTotal.Values.ToList();
+                categorySummaries.Add(categorySummary);
             }
 
-            return new SummaryReportModel 
+            return new SummaryReportModel
             {
                 CategorySummaries = categorySummaries,
-                GrandTotal = grandTotal
+                GrandTotal = new SubCategorySummary 
+                {
+                    SubCategoryName = Labels.GrandTotal,
+                    Summaries = grandTotalSum.Values.ToList()
+                },
+                Months = monthData
             };
+        }
+
+        private IDictionary<string, Summary> InitializeSummaries(IList<string> months)
+        {
+            IDictionary<string, Summary> summaries = new Dictionary<string, Summary>();
+            foreach (var item in months)
+            {
+                summaries.Add(item, new Summary { Month = item, Amount = 0 });
+            }
+
+            return summaries;
         }
 
         #region Export excel helper
@@ -266,25 +268,18 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         /// Exports the header.
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
-        private void ExportHeader(ref ExportExcelInfoNPOI exportExcelInfo)
+        private void ExportHeader(ref ExportExcelInfoNPOI exportExcelInfo, IList<string> months)
         {
             int currentColumn = exportExcelInfo.StartColumn;
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParamNPOI());
 
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Categories, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.JAN, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.FEB, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.MAR, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.APR, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.MAY, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.JUN, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.JUL, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.AUG, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.SEP, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.OCT, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.NOV, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.DEC, headerStyle);
+            foreach (string item in months)
+            {
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item, headerStyle);
+            }
+            
             exportExcelInfo.CurrentRow++;
         }
 
@@ -302,43 +297,37 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             ICellStyle subCategoryCellStyle = GetSubCategoryCellStyle(workbook);
             ICellStyle monthCellStyle = GetMonthCellStyle(workbook);
 
-            int startColumn, currentColumn, currentRow = exportExcelInfo.CurrentRow;
+            int currentColumn, currentRow = exportExcelInfo.CurrentRow;
             CategorySummary categorySummary;
             SubCategorySummary subCategorySummary;
             Summary summay;
-            CellRangeAddress categoryRow;
-            IRow subCategortRow;
+            IRow categoryRow, subCategortRow;
             int reportLength = categorySummaries.Count;
             int categoryTotalLen, subCategoriesLen, monthLen;
             for (int i = 0; i < reportLength; i++)
             {
                 categorySummary = categorySummaries[i];
                 currentColumn = exportExcelInfo.CurrentColumn;
-                startColumn = exportExcelInfo.StartColumn;
 
-                categoryRow = new CellRangeAddress(currentRow, currentRow + 1, startColumn, startColumn);
-                startColumn++;
-
-                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, categoryRow, categorySummary.CategoryName, categoryCellStyle);
+                categoryRow = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
+                categoryRow.Height *= 2;
+                NpoiExcelExtensions.RenderCell(ref categoryRow, ref currentColumn, categorySummary.CategoryName, categoryCellStyle);
 
                 categoryTotalLen = categorySummary.Total.Count;
                 for (int l = 0; l < categoryTotalLen; l++)
                 {
-                    categoryRow = new CellRangeAddress(currentRow, currentRow + 1, startColumn, startColumn);
-                    startColumn++;
-                    
                     summay = categorySummary.Total[l];
                     if (summay.Amount == 0)
                     {
-                        NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, categoryRow, string.Empty, categoryTotalCellStyle);
+                        NpoiExcelExtensions.RenderCell(ref categoryRow, ref currentColumn, string.Empty, categoryTotalCellStyle);
                     }
                     else
                     {
-                        NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, categoryRow, summay.Amount, categoryTotalCellStyle);
+                        NpoiExcelExtensions.RenderCell(ref categoryRow, ref currentColumn, summay.Amount, categoryTotalCellStyle);
                     }
                 }
 
-                currentRow += 2;
+                currentRow++;
                 subCategoriesLen = categorySummary.SubCategorySummaries.Count;
                 for (int j = 0; j < subCategoriesLen; j++)
                 {
@@ -364,6 +353,9 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
 
                     currentRow++;
                 }
+
+                exportExcelInfo.Worksheet.GroupRow(currentRow - subCategoriesLen, currentRow);
+                exportExcelInfo.Worksheet.SetRowGroupCollapsed(currentRow - subCategoriesLen, false);
             }
 
             exportExcelInfo.CurrentRow = currentRow;

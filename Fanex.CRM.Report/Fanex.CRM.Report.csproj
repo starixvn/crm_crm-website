@@ -67,12 +67,12 @@
     <Compile Include="Controllers\WagerReportController.cs" />
     <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
+    <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
     <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
         <Compile Include="Criteria\SummaryReport\GetSummaryReportCriteria.cs" />
 
     <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
-    <Compile Include="Criteria\SettlementReport\GeSettlementReportCriteria.cs" />
     <Compile Include="Criteria\WagerReport\GetWagerReportCriteria.cs" />
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
      <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
@@ -92,6 +92,7 @@
     <Compile Include="Models\SettlementReport\SettlementReportInfo.cs" />
     <Compile Include="Models\StatisticReport\StatisticReportInfo.cs" />
     <Compile Include="Models\SummaryReport\CategorySummary.cs" />
+    <Compile Include="Models\SummaryReport\ChartType.cs" />
     <Compile Include="Models\SummaryReport\SubCategorySummary.cs" />
     <Compile Include="Models\SummaryReport\Summary.cs" />
     <Compile Include="Models\SummaryReport\SummaryReportModel.cs" />

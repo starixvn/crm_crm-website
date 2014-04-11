@@ -296,6 +296,15 @@ namespace Fanex.CRM.Report.Resources {
 
         
         /// <summary>
+        ///   Looks up a localized string similar to Detailed Chart.
+        /// </summary>
+        public static string DetailedChart {
+            get {
+                return ResourceManager.GetString("DetailedChart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
         public static string Duration {
@@ -1003,6 +1012,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Subject {
             get {
                 return ResourceManager.GetString("Subject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary Chart.
+        /// </summary>
+        public static string SummaryChart {
+            get {
+                return ResourceManager.GetString("SummaryChart", resourceCulture);
             }
         }
         

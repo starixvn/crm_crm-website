@@ -5,6 +5,8 @@ crmConstants */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 summaryReportApplication.directive('tableSummaryReportContainer', function () {
+    var cachedTable;
+
     function getMonthColumnTitle(headerText, name) {
         return {
             HeaderText: headerText,
@@ -16,29 +18,27 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         };
     }
 
-    function getGridOptions(scope, reportTitle, bodyData, footerData) {
+    function getGridHeight(scope) {
+        var marginBottom = crmConstants.MarginBottomPage;
+        return scope.isShowFilter ? (400 + marginBottom) : (50 + marginBottom);
+    }
+
+    function getGridOptions(scope, reportTitle, bodyData, footerData, months) {
+        var columns = [{
+            HeaderText: summaryReportResources.Categories,
+            Width: 300,
+            Name: 'ColCategory',
+            HeaderAlign: 'center',
+            CellAlign: 'left',
+            ShowCollapseExpand: true
+        }];
+
+        for (var i = 0, leng = months.length; i < leng; i++) {
+            columns.push(getMonthColumnTitle(months[i], 'Col' + months[i]));
+        }
+
         return {
-            columns: [
-                    {
-                        HeaderText: summaryReportResources.Categories,
-                        Width: 300,
-                        Name: 'ColCategory',
-                        HeaderAlign: 'center',
-                        CellAlign: 'left',
-                        ShowCollapseExpand: true 
-                    },
-                    getMonthColumnTitle(summaryReportResources.Jan, 'ColJAN'),
-                    getMonthColumnTitle(summaryReportResources.Feb, 'ColFEB'),
-                    getMonthColumnTitle(summaryReportResources.Mar, 'ColMAR'),
-                    getMonthColumnTitle(summaryReportResources.Apr, 'ColAPR'),
-                    getMonthColumnTitle(summaryReportResources.May, 'ColMAY'),
-                    getMonthColumnTitle(summaryReportResources.Jun, 'ColJUN'),
-                    getMonthColumnTitle(summaryReportResources.Jul, 'ColJUL'),
-                    getMonthColumnTitle(summaryReportResources.Aug, 'ColAUG'),
-                    getMonthColumnTitle(summaryReportResources.Sep, 'ColSEP'),
-                    getMonthColumnTitle(summaryReportResources.Oct, 'ColOCT'),
-                    getMonthColumnTitle(summaryReportResources.Nov, 'ColNOV'),
-                    getMonthColumnTitle(summaryReportResources.Dec, 'ColDEC')],
+            columns: columns,
             showTitle: true,
             titleInfo: {
                 text: reportTitle,
@@ -55,11 +55,10 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
             numberOfFrozenColumn: 1,
             fullWidth: true,
             fullHeight: true,
-            gridExpandHeight: 100,
+            gridExpandHeight: getGridHeight(scope),
             showDistinctRow: false,
-            showHighlightRow: false,
-            headerColumnHeight: 29,
-            bodyRowHeight: 29
+            showHighlightRow: true,
+            headerColumnHeight: 29
         };
     }
 
@@ -68,11 +67,9 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         if (categorySummaries) {
             var category, categoryTotal, subCategory, summary;
             var categoryLen, categoryTotalLen, subLen, currentRow, currentSubRow;
-            var evenClass = '';
 
             categoryLen = categorySummaries.length;
             for (var i = 0; i < categoryLen; i++) {
-                evenClass = (i % 2 === 0) ? '' : 'freegrid-even';
                 category = categorySummaries[i];
                 currentRow = {
                     Columns: [{ Name: 'ColCategory', Value: category.CategoryName}],
@@ -132,23 +129,41 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         var reportTitle = scope.summaryReport.ReportTitle;
         var categorySummaries = scope.summaryReport.CategorySummaries;
         var grandTotal = scope.summaryReport.GrandTotal;
-
-        var tableSummaryReport = element.find('#table-summary-report').empty();
+        var months = scope.summaryReport.Months;
 
         var bodyData = getGridBody(categorySummaries);
         var footerData = getGridFooter(grandTotal);
 
-        var gridOptions = getGridOptions(scope, reportTitle, bodyData, footerData);
-        tableSummaryReport
+        var gridOptions = getGridOptions(scope, reportTitle, bodyData, footerData, months);
+        cachedTable = element
+            .find('#table-summary-report')
+            .empty()
             .removeClass(crmConstants.Enums.CssClass.DisplayNone)
             .fanexGrid(gridOptions);
     }
 
     return {
         restrict: 'A',
-        scope: true,
+        scope: {
+            summaryReport: '=',
+            isShowFilter: '=',
+            isRenderGrid: '=',
+            isFilterBoxClicked: '=',
+            exportSummaryReportExcel: '&'
+        },
         link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (newValues, oldValues) {
+            scope.$watch('isRenderGrid', function (newValue, oldValue) {
+                if (!newValue) {
+                    return;
+                }
+
+                scope.isRenderGrid = false;
+                if (scope.isFilterBoxClicked && cachedTable) {
+                    cachedTable.fanexGrid('resizeHeight', getGridHeight(scope));
+                    scope.isFilterBoxClicked = false;
+                    return;
+                }
+
                 renderSummaryReport(scope, element, attrs);
             });
         }

@@ -1,5 +1,6 @@
 ﻿@using Fanex.CRM.Report.Resources;
 @using Fanex.CRM.Report.Models;
+@using Fanex.CRM.Report.Models.SummaryReport;
 @using Fanex.CRM.Infrastructure.Extension;
 @using Fanex.CRM.Infrastructure.Core;
 @using Fanex.CRM.Infrastructure.Common;
@@ -17,20 +18,39 @@
     <div class="container main" data-ng-controller="summaryReportController">
     <div class="result-message-container display-none">
     </div>
-        <div class="row filter-frm one-row summary-filter">
-            <form data-ng-submit="getSummaryReport()">
-                <div class="item">
-                    <label for="year">@Labels.Year</label>
-                    <select id="year" class="sel-year" data-ng-model="year" data-ng-options="y.value for y in years"></select>
-                </div>
-                <div class="item">
-                    <button class="btn default-focus"
-                        data-ng-model="defaultFocusOptions.IsSetFocus"><span class="hotkey">S</span>ubmit</button>
-                </div>
-            </form>
+        <div class="row filter-frm one-row summary-filter expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
+            <div class="row">
+                <form data-ng-submit="getSummaryReport()">
+                    <div class="item">
+                        <label for="year">@Labels.Year</label>
+                        <select id="year" class="sel-year" data-ng-model="year" data-ng-options="y.value for y in years"></select>
+                    </div>
+                    <div class="item">
+                        <input type="radio" id="summaryChart" data-ng-model="chartType" value="@((int)ChartType.Summary)" checked />
+                        <label for="summaryChart" class="radioLabel">@Labels.SummaryChart</label>
+                        
+                        <input type="radio" id="detailedChart" data-ng-model="chartType" value="@((int)ChartType.Detailed)" />
+                        <label for="detailedChart" class="radioLabel">@Labels.DetailedChart</label>
+                    </div>
+                    <div class="item">
+                        <button class="btn default-focus"
+                            data-ng-model="defaultFocusOptions.IsSetFocus"><span class="hotkey">S</span>ubmit</button>
+                    </div>
+                </form>
+            </div>
+            <div id="chart-container" class="row display-none"></div>
+            <div class="icon-collapse" data-ng-click="showHideFilterBox();"></div>
+        </div>
+        <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
+            <div class="icon-expand" data-ng-click="showHideFilterBox();"></div>
         </div>
         <div class="row">
-            <div data-ng-model="summaryReport" table-summary-report-container>
+            <div table-summary-report-container
+                summary-report="summaryReport"
+                is-show-filter="isShowFilter"
+                is-render-grid="isRenderGrid"
+                is-filter-box-clicked="isFilterBoxClicked"
+                export-summary-report-excel="exportSummaryReportExcel()">
                 <div id="table-summary-report" class="freegrid display-none">
                 </div>
             </div>
@@ -44,9 +64,13 @@
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-    @Scripts.Render("~/Areas/Report/SummaryReportScripts", "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
+    @Scripts.Render(
+        "~/CRM/Chart/Scripts",
+        "~/Areas/Report/SummaryReportScripts",
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
+        parent.document.title = '@Resources.Language.Title_Report_SummaryReport';
         var currentDate = new Date('@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()');
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
         var summaryReportResources = {
