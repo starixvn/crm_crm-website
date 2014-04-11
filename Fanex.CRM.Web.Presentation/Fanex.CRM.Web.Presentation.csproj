@@ -339,6 +339,8 @@
     <Content Include="Scripts\AjaxForm\ajax-form.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
+    <Content Include="Scripts\Chart\ChartJs\ChartJS.js" />
+    <Content Include="Scripts\Chart\ChartJs\CRMChart.js" />
     <Content Include="Scripts\Chart\HighCharts\CRMChart.js" />
     <Content Include="Scripts\Chart\HighCharts\data.js" />
     <Content Include="Scripts\Chart\HighCharts\drilldown.js" />
