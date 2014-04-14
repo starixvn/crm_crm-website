@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CFD9409D-BC95-4C34-B080-4783619DD68E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.CRM.Report</RootNamespace>
+    <AssemblyName>Fanex.CRM.Report</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fanex.Common">
+      <HintPath>..\Dependency\Fanex\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data">
+      <HintPath>..\Dependency\Fanex\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Core, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependency\Fanex\Fanex.NAP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Framework">
+      <HintPath>..\Dependency\Fanex\Fanex.NAP.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\Dependency\Fanex\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\CustomerReportController.cs" />
+    <Compile Include="Controllers\DynamicReportController.cs" />
+    <Compile Include="Controllers\StatisticReportController.cs" />
+    <Compile Include="Controllers\SettlementReportController.cs" />
+    <Compile Include="Controllers\SummaryReportController.cs" />
+    <Compile Include="Controllers\WagerReportController.cs" />
+    <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
+    <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
+    <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
+    <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
+    <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
+        <Compile Include="Criteria\SummaryReport\GetSummaryReportCriteria.cs" />
+
+    <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
+    <Compile Include="Criteria\WagerReport\GetWagerReportCriteria.cs" />
+    <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
+     <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
+       <Compile Include="Entities\SummaryReport\SummaryRawData.cs" />
+  <Compile Include="Entities\WagerReport\WagerRawData.cs" />
+
+   
+    <Compile Include="Models\CustomerReport\AddressInfo.cs" />
+    <Compile Include="Models\CustomerReport\BankInfo.cs" />
+    <Compile Include="Models\CustomerReport\CustomerInfo.cs" />
+    <Compile Include="Models\CustomerReport\CustomerReportInfo.cs" />
+    <Compile Include="Models\CustomerReport\FaxInfo.cs" />
+    <Compile Include="Models\CustomerReport\PhoneInfo.cs" />
+    <Compile Include="Models\CustomerReport\UserInfo.cs" />
+    <Compile Include="Models\DynamicReportInfo.cs" />
+    <Compile Include="Models\StatisticReport\StatisticReportInfo.cs" />
+    <Compile Include="Models\SettlementReport\SettlementReportInfo.cs" />
+    <Compile Include="Models\StatisticReport\StatisticReportInfo.cs" />
+    <Compile Include="Models\SummaryReport\CategorySummary.cs" />
+    <Compile Include="Models\SummaryReport\ChartType.cs" />
+    <Compile Include="Models\SummaryReport\SubCategorySummary.cs" />
+    <Compile Include="Models\SummaryReport\Summary.cs" />
+    <Compile Include="Models\SummaryReport\SummaryReportModel.cs" />
+  <Compile Include="Models\WagerReport\Wager.cs" />
+    <Compile Include="Models\WagerReport\WagerByMonth.cs" />
+    <Compile Include="Models\WagerReport\WagerReportModel.cs" />
+
+
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Implements\CustomerReportRepository.cs" />
+    <Compile Include="Repositories\Implements\DynamicReportRepository.cs" />
+    <Compile Include="Repositories\Implements\SummaryReportRepository.cs" />
+    <Compile Include="Repositories\Implements\WagerReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICustomerReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IDynamicReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ISummaryReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IWagerReportRepository.cs" />
+    <Compile Include="Resources\Labels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\Implements\CustomerReportService.cs" />
+    <Compile Include="Services\Implements\DynamicReport\CommunicationLogRowExcelWriter.cs" />
+    <Compile Include="Services\Implements\DynamicReport\DynamicReportService.cs" />
+    <Compile Include="Services\Implements\StatisticReport\FirstGrandTotalRowExcelWriter.cs" />
+     <Compile Include="Services\Implements\StatisticReport\StatisticReportRowExcelWriter.cs" />
+  
+    <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
+    <Compile Include="Services\Implements\StatisticReport\NormalRowExcelWriter.cs" />
+    <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
+<<<<<<< HEAD
+     <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
+ <Compile Include="Services\Implements\SettlementReport\SettlementReportService.cs" />
+  <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
+
+  <Compile Include="Services\Implements\SettlementReport\NormalRowExcelWriter.cs" />
+   <Compile Include="Services\Implements\SettlementReport\GrandTotalRowExcelWriter.cs" />
+    <Compile Include="Services\Implements\SettlementReport\OddEvenRowExcelWriter.cs" />
+
+
+
+=======
+    <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
+>>>>>>> #14099 - Finish summary report without chart
+    <Compile Include="Services\Implements\SettlementReport\GrandTotalRowExcelWriter.cs" />
+    <Compile Include="Services\Implements\SettlementReport\OddEvenRowExcelWriter.cs" />
+    <Compile Include="Services\Implements\SettlementReport\SettlementReportService.cs" />
+    <Compile Include="Services\Implements\SummaryReport\SummaryReportService.cs" />
+    <Compile Include="Services\Implements\WagerReport\WagerReportService.cs" />
+    <Compile Include="Services\Interfaces\ICustomerReportService.cs" />
+    <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
+    <Compile Include="Services\Interfaces\IStatisticReportService.cs" />
+    <Compile Include="Services\Interfaces\ISettlementReportService.cs" />
+    <Compile Include="Services\Interfaces\ISummaryReportService.cs" />
+    <Compile Include="Services\Interfaces\IWagerReportService.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Labels.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Labels.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
+      <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
+      <Name>Fanex.CRM.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Setting\Fanex.CRM.Setting.csproj">
+      <Project>{6BDF1D65-D49F-4371-B6EE-ABD10B5A8207}</Project>
+      <Name>Fanex.CRM.Setting</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

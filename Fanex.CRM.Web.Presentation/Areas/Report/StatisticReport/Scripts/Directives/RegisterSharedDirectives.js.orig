@@ -1,0 +1,28 @@
+﻿"use strict";
+/* global statisticReportApplication,
+RegisterTemplate */
+function statisticReportRegisterPicker() {
+<<<<<<< HEAD
+    var statisticReportRegister = new RegisterTemplate(statisticReportApplication);
+    statisticReportRegister.registerReportTypePicker();
+    statisticReportRegister.registerDatePicker();
+    statisticReportRegister.registerMonthPicker();
+    statisticReportRegister.registerMainCategoryPicker();
+    statisticReportRegister.registerSubCategoryPicker();
+
+    statisticReportRegister.registerDefaultFocus();
+    statisticReportRegister.registerDownloadFile();
+=======
+    var dynamicReportRegister = new RegisterTemplate(statisticReportApplication);
+    dynamicReportRegister.registerReportTypePicker();
+    dynamicReportRegister.registerDatePicker();
+    dynamicReportRegister.registerMonthPicker();
+    dynamicReportRegister.registerMainCategoryPicker();
+    dynamicReportRegister.registerSubCategoryPicker();
+
+    dynamicReportRegister.registerDefaultFocus();
+    dynamicReportRegister.registerDownloadFile();
+>>>>>>> #14051 - Statistic Report - Load Filter
+}
+
+statisticReportRegisterPicker();

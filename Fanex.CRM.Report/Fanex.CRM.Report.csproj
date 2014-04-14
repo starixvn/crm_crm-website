@@ -68,18 +68,13 @@
     <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
-    <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
-    <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
-        <Compile Include="Criteria\SummaryReport\GetSummaryReportCriteria.cs" />
-
+    <Compile Include="Criteria\SummaryReport\GetSummaryReportCriteria.cs" />
     <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
     <Compile Include="Criteria\WagerReport\GetWagerReportCriteria.cs" />
     <Compile Include="Entities\SettlementReport\SettlementReportEntity.cs" />
-     <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
-       <Compile Include="Entities\SummaryReport\SummaryRawData.cs" />
-  <Compile Include="Entities\WagerReport\WagerRawData.cs" />
-
-   
+    <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
+    <Compile Include="Entities\SummaryReport\SummaryRawData.cs" />
+    <Compile Include="Entities\WagerReport\WagerRawData.cs" />
     <Compile Include="Models\CustomerReport\AddressInfo.cs" />
     <Compile Include="Models\CustomerReport\BankInfo.cs" />
     <Compile Include="Models\CustomerReport\CustomerInfo.cs" />
@@ -88,7 +83,6 @@
     <Compile Include="Models\CustomerReport\PhoneInfo.cs" />
     <Compile Include="Models\CustomerReport\UserInfo.cs" />
     <Compile Include="Models\DynamicReportInfo.cs" />
-    <Compile Include="Models\StatisticReport\StatisticReportInfo.cs" />
     <Compile Include="Models\SettlementReport\SettlementReportInfo.cs" />
     <Compile Include="Models\StatisticReport\StatisticReportInfo.cs" />
     <Compile Include="Models\SummaryReport\CategorySummary.cs" />
@@ -96,11 +90,9 @@
     <Compile Include="Models\SummaryReport\SubCategorySummary.cs" />
     <Compile Include="Models\SummaryReport\Summary.cs" />
     <Compile Include="Models\SummaryReport\SummaryReportModel.cs" />
-  <Compile Include="Models\WagerReport\Wager.cs" />
+    <Compile Include="Models\WagerReport\Wager.cs" />
     <Compile Include="Models\WagerReport\WagerByMonth.cs" />
     <Compile Include="Models\WagerReport\WagerReportModel.cs" />
-
-
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\CustomerReportRepository.cs" />
     <Compile Include="Repositories\Implements\DynamicReportRepository.cs" />
@@ -119,21 +111,9 @@
     <Compile Include="Services\Implements\DynamicReport\CommunicationLogRowExcelWriter.cs" />
     <Compile Include="Services\Implements\DynamicReport\DynamicReportService.cs" />
     <Compile Include="Services\Implements\StatisticReport\FirstGrandTotalRowExcelWriter.cs" />
-     <Compile Include="Services\Implements\StatisticReport\StatisticReportRowExcelWriter.cs" />
-  
-    <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
     <Compile Include="Services\Implements\StatisticReport\NormalRowExcelWriter.cs" />
     <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
-     <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
- <Compile Include="Services\Implements\SettlementReport\SettlementReportService.cs" />
-  <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
-
-  <Compile Include="Services\Implements\SettlementReport\NormalRowExcelWriter.cs" />
-   <Compile Include="Services\Implements\SettlementReport\GrandTotalRowExcelWriter.cs" />
-    <Compile Include="Services\Implements\SettlementReport\OddEvenRowExcelWriter.cs" />
-
-
-
+    <Compile Include="Services\Implements\StatisticReport\TotalRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\GrandTotalRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\OddEvenRowExcelWriter.cs" />
     <Compile Include="Services\Implements\SettlementReport\SettlementReportService.cs" />

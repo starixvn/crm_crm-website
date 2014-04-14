@@ -1,0 +1,68 @@
+﻿@using Fanex.CRM.Report.Resources;
+@using Fanex.CRM.Report.Models;
+@using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Common;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-settlementreport-application">
+<head>
+    <title>@Labels.Settlement_Report </title>
+    @Styles.Render("~/site/common")
+    <link rel="stylesheet" type="text/css"  href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" />
+    <link rel="stylesheet" type="text/css"  href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" />
+    @Styles.Render("~/Content/site/ResultMessageStyles")
+    @Styles.Render("~/Areas/Report/SettlementReportStyles")
+</head>
+<body class="settlementReportController" data-ng-controller="settlementReportController">
+    <div class="result-message-container display-none">
+    </div>
+    <div class="main container">
+        <div>
+            <div class="row filter-frm one-row">
+                <div class="pull-left">
+                    <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions">
+                        <label for="fromdate_year" class="width-80">
+                            @Labels.Year</label>
+                        <select id="fromdate_year" class="selYear">
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <button id="button-submit" class="btn default-focus" data-ng-click="getSettlementReport()"
+                        data-ng-model="defaultFocusOptions.IsSetFocus">
+                        <span class="hotkey">S</span>ubmit</button>
+                </div>
+            </div>
+            <div data-ng-model="settlementReportOptions.IsUpdateGrid" class="table-settlement-report-container">
+                <div id="table-settlement-report" class="freegrid display-none table-settlement-report">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="download-file-container" data-ng-model="downloadFileOptions">
+        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/FanexGridV2/NumeralScripts")
+    @Scripts.Render("~/Scripts/FanexGridScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
+    @Scripts.Render("~/Areas/Report/SettlementReportScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = new Date('@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()');
+        var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
+        var viewResources = {
+            Month: '@Labels.Month',
+            Country: '@Labels.Country',
+            Amount: '@Labels.Amount',
+<<<<<<< HEAD
+            Total: '@Labels.Total',
+=======
+>>>>>>> #14052 - Settlement Report - Filter/Get Report
+            SettlementReport_ChartSuffix: '@Labels.SettlementReport_ChartSuffix'
+        };
+    </script>
+</body>
+</html>

@@ -834,16 +834,7 @@ namespace Fanex.CRM.Report.Resources {
                 return ResourceManager.GetString("SettlementReport_ExcelTitle", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  Issue(s).
-        /// </summary>
-        public static string SettlementReport_ChartSuffix {
-            get {
-                return ResourceManager.GetString("SettlementReport_ChartSuffix", resourceCulture);
-            }
-        }
-        
+                       
         /// <summary>
         ///   Looks up a localized string similar to Settlement Report For Year {0}.
         /// </summary>
@@ -860,35 +851,8 @@ namespace Fanex.CRM.Report.Resources {
             get {
                 return ResourceManager.GetString("SettlementReport_SheetName", resourceCulture);
             }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settlement_Report_For_Year_{0}.
-        /// </summary>
-        public static string SettlementReport_ExcelTitle {
-            get {
-                return ResourceManager.GetString("SettlementReport_ExcelTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settlement Report.
-        /// </summary>
-        public static string SettlementReport_SheetName {
-            get {
-                return ResourceManager.GetString("SettlementReport_SheetName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settlement Report For Year {0}.
-        /// </summary>
-        public static string SettlementReport_Title {
-            get {
-                return ResourceManager.GetString("SettlementReport_Title", resourceCulture);
-            }
-        }
-        
+        }       
+              
         /// <summary>
         ///   Looks up a localized string similar to Site.
         /// </summary>

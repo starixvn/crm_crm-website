@@ -1,0 +1,11 @@
+﻿/* global sharedScriptManager */
+/* exported statisticReportApplication */
+<<<<<<< HEAD
+var statisticReportApplication = angular.module('report-statisticreport-application',
+    ['$uiBlockerApplication', '$resultMessageApplication']);
+sharedScriptManager.setNoCachingHttpRequest(statisticReportApplication);
+sharedScriptManager.setCommonHeaderHttpRequest(statisticReportApplication);
+=======
+var statisticReportApplication = angular.module('report-statisticreport-application', ['$uiBlockerApplication']);
+sharedScriptManager.setNoCachingHttpRequest(statisticReportApplication);
+>>>>>>> #14051 - Statistic Report - Load Filter
