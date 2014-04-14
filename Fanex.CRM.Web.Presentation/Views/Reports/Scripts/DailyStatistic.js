@@ -281,6 +281,7 @@ ibcDailySummaryReport = {
     assignChartData: function (rs) {
         var labels = [];
         var datasets = [];
+        this.chartData = { labels: [], datasets: [] };
 
         if (rs && rs.DailySummaries) {
             var totalMainCategories = rs.DailySummaries.length;
@@ -570,6 +571,7 @@ licenseeDailySummaryReport = {
     assignChartData: function (rs) {
         var labels = [];
         var datasets = [];
+        this.chartData = { labels: [], datasets: [] };
 
         if (rs && rs.DailySummaries) {
             var totalMainCategories = rs.DailySummaries.length;
@@ -614,7 +616,7 @@ licenseeDailySummaryReport = {
             chartType: crmChart.chartType.bar
         };
 
-        crmChart.title = $('#gridtitle').html();
+        crmChart.title = $('#licenseeSummaryTitle').html();
         crmChart.viewChart(this.chartData, chartOption);
     }
 };
