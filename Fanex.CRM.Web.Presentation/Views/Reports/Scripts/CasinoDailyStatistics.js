@@ -259,17 +259,13 @@ casinoDailyStatistics = {
                 }
 
                 var getBackgroundColor = crmChart.randomColor();
-                var totalFeedbacks = rs.SumAllFeedbacks[i]
-                var categoryLabel = (categoryName + ' (' + totalFeedbacks + ' Feedbacks)');
+                var totalFeedbacks = rs.SumAllFeedbacks[i];
                 mainCategories.push({
-                    label: categoryLabel,
-                    labelColor : 'white',
-                    labelFontSize: '12',
+                    title: categoryName,
                     value: totalFeedbacks,
                     color: getBackgroundColor
                 });
 
-               
                 groupIndex++;
             }
 
@@ -284,11 +280,11 @@ casinoDailyStatistics = {
             return false;
         }
 
-        var chartOption = {
-            chartType: crmChart.chartType.pie,
-            animationSteps: 100,
-            animationEasing: 'easeOutBounce'
-        };
+        var chartOption = crmChart.newopts;
+        chartOption.xAxisLabel = "Communication";
+        chartOption.yAxisLabel = "";
+        chartOption.yAxisUnit = "Feedback(s)";
+        chartOption.chartType = crmChart.chartType.pie;
 
         crmChart.title = $('#gridtitle').html();
         crmChart.viewChart(this.chartData, chartOption);
