@@ -142,7 +142,8 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             var rawData = _summaryRepository.GetSummaryReport(criteria).ToList();
 
             // Get Month.
-            var monthData = rawData.GroupBy(s => s.Month).Select(group => group.Key.ToUpper()).ToList();
+            // var monthData = rawData.GroupBy(s => s.Month).Select(group => group.Key.ToUpper()).ToList();
+            var monthData = rawData.Select(s => s.Month.ToUpper()).Distinct().ToList();
 
             IList<CategorySummary> categorySummaries = new List<CategorySummary>();
             IDictionary<string, Summary> grandTotalSum = InitializeSummaries(monthData);
