@@ -217,12 +217,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
 
     function getChartLabels(chartInfo, crmChart) {
         var xAxisCategories = [];
-        var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
-        for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
-            var periodReport = chartInfo.ChildReports[xIndex];
-            xAxisCategories.push(periodReport.ShortName);
-        }
-
+        xAxisCategories.push(chartInfo ? chartInfo.ShortName : "");
         return xAxisCategories;
     }
 
@@ -230,21 +225,17 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         var chartSeries = [];
         var chartSerie = null;
         var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
-        var getBackgroundColor = crmChart.randomColor;
-
-        var chartData = [];
         for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
             var periodReport = chartInfo.ChildReports[xIndex];
-            chartData.push(periodReport.TotalChildReports);
+            var backgroundColor = crmChart.getBackGroundColor(xIndex);
+            chartSerie = {
+                fillColor: backgroundColor,
+                strokeColor: backgroundColor,
+                data: [periodReport.TotalChildReports]
+            };
+            chartSeries.push(chartSerie);
         }
 
-        chartSerie = {
-            fillColor: getBackgroundColor,
-            strokeColor: getBackgroundColor,
-            data: chartData
-        };
-
-        chartSeries.push(chartSerie);
         return chartSeries;
     }
 
