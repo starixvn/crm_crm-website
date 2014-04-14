@@ -36,7 +36,7 @@
         $('#chartContainer').append('<canvas id="myChart" width="' + (this.width - 100) + '" height="' + (this.height - 100) + '"></canvas>');
         //Get context with jQuery - using jQuery's .get() method.
         var ctx = $("#chartContainer #myChart").get(0).getContext("2d");
-        
+
         switch (options.chartType) {
             case this.chartType.line:
                 new parent.Chart(ctx).Line(data, options);
@@ -60,9 +60,22 @@
                 new parent.Chart(ctx).Bar(data, options);
                 break;
         }
-        
+
     },
     viewChart: function (data, options) {
         this.initChart(data, options);
+    },
+    getIntScaleInfo: function (maxYAxis, scaleLabelSuffix) {
+        var scaleStepWidth = maxYAxis < 50 ?
+            1 :
+            Math.ceil(maxYAxis / 50);
+        var scaleSteps = maxYAxis < 50 ? maxYAxis : 50;
+
+        return {
+            scaleStepWidth: scaleStepWidth,
+            scaleSteps: scaleSteps,
+            scaleStartValue: 0,
+            scaleLabel: "<%=value%>" + (scaleLabelSuffix && scaleLabelSuffix != "" ? scaleLabelSuffix : "")
+        };
     }
 };

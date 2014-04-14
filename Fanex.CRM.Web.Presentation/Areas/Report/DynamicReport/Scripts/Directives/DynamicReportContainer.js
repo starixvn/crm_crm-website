@@ -178,47 +178,74 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
     }
 
     function viewChart(scope, element, attrs) {
+        var crmChart = parent.crmChart;
         var chartInfo = cachedDynamicReport ? cachedDynamicReport.ChartInfo : null;
-        parent.crmChart.title = chartInfo.Name;
+        crmChart.title = chartInfo.Name;
+
+        var chartData = {
+            labels: getChartLabels(chartInfo, crmChart),
+            datasets: getChartDatasets(chartInfo, crmChart)
+        };
+
+        var maxYAxis = getMaxYAxis(chartInfo);
+        var scaleInfo = crmChart.getIntScaleInfo(maxYAxis);
+        var chartOption = {
+            chartType: crmChart.chartType.bar,
+
+            scaleOverride: true,
+            scaleStepWidth: scaleInfo.scaleStepWidth,
+            scaleSteps: scaleInfo.scaleSteps,
+            scaleStartValue: scaleInfo.scaleStartValue,
+            scaleLabel: scaleInfo.scaleLabel
+        };
+
+        crmChart.viewChart(chartData, chartOption);
+    }
+
+    function getMaxYAxis(chartInfo) {
+        var maxYAxis = 0;
+        var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
+        for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
+            var periodReport = chartInfo.ChildReports[xIndex];
+            if (maxYAxis < periodReport.TotalChildReports) {
+                maxYAxis = periodReport.TotalChildReports;
+            }
+        }
+
+        return maxYAxis;
+    }
+
+    function getChartLabels(chartInfo, crmChart) {
         var xAxisCategories = [];
+        var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
+        for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
+            var periodReport = chartInfo.ChildReports[xIndex];
+            xAxisCategories.push(periodReport.ShortName);
+        }
+
+        return xAxisCategories;
+    }
+
+    function getChartDatasets(chartInfo, crmChart) {
         var chartSeries = [];
         var chartSerie = null;
         var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
-        xAxisCategories.push(chartInfo.ShortName);
+        var getBackgroundColor = crmChart.randomColor;
+
+        var chartData = [];
         for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
             var periodReport = chartInfo.ChildReports[xIndex];
-            chartSerie = {
-                name: periodReport.ShortName,
-                data: [periodReport.TotalChildReports],
-                dataLabels: {
-                    enabled: true,
-                    rotation: -90,
-                    color: '#FFFFFF',
-                    align: 'right',
-                    x: 4,
-                    y: 10,
-                    style: {
-                        fontSize: '13px',
-                        fontFamily: 'Verdana, sans-serif',
-                        textShadow: '0 0 3px black'
-                    }
-                }
-            };
-
-            chartSeries.push(chartSerie);
+            chartData.push(periodReport.TotalChildReports);
         }
 
-        var chartOptions = {
-            xAxis: {
-                categories: xAxisCategories
-            },
-            series: chartSeries,
-            tooltip: {
-                valueSuffix: viewResources.DynamicReport_ChartSuffix
-            }
+        chartSerie = {
+            fillColor: getBackgroundColor,
+            strokeColor: getBackgroundColor,
+            data: chartData
         };
 
-        parent.crmChart.viewChart(chartOptions);
+        chartSeries.push(chartSerie);
+        return chartSeries;
     }
 
     return {
