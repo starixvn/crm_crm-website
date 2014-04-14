@@ -299,7 +299,7 @@ ibcDailySummaryReport = {
                     }
                 }
 
-                var getBackgroundColor = crmChart.randomColor();
+                var getBackgroundColor = crmChart.getBackGroundColor(i);
                 datasets.push(
                     {
                         fillColor: getBackgroundColor,
@@ -592,7 +592,7 @@ licenseeDailySummaryReport = {
                     }
                 }
 
-                var getBackgroundColor = crmChart.randomColor();
+                var getBackgroundColor = crmChart.getBackGroundColor(i);
                 datasets.push(
                     {
                         fillColor: getBackgroundColor,

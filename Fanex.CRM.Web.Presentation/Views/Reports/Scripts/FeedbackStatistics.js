@@ -110,7 +110,7 @@ var feedbackStatistic = {
         Minute: 0,
         Second: 0
     },
-    chartSetting: { categories: [], series: [] },
+    chartData: { labels: [], datasets: [] },
     initPager: function (total_items, items_per_page, current_page) {
         pagerOpts.callback = feedbackStatistic.pageSelectCallback;
         pagerOpts.items_per_page = items_per_page;
@@ -458,31 +458,39 @@ var feedbackStatistic = {
         return params;
     },
     assignChartData: function (rs) {
-        var categories = [];
-        var series = [];
+        var labels = [];
+        var datasets = [];
+        this.chartData = { labels: [], datasets: [] };
 
         if (rs && rs.rows) {
             var totalMaincategories = rs.rows.length;
             var totalColumnsName = rs.ColumnNames.length;
 
+
             for (var i = 0; i < totalColumnsName; i++) {
-                series.push({ name: rs.ColumnNames[i], data: [] });
+                var getBackgroundColor = crmChart.getBackGroundColor(i);
+                datasets.push({
+                    title: rs.ColumnNames[i],
+                    data: [],
+                    fillColor: getBackgroundColor,
+                    strokeColor: getBackgroundColor
+                });
             }
 
             for (var k = 0; k < totalMaincategories; k++) {
                 var category = rs.rows[k];
                 if (category && category.FeedbackStatistics) {
                     var totalSubCategoris = category.FeedbackStatistics.length - 1;
-                    categories.push(category.FeedbackStatistics[0].MainCategory);
+                    labels.push(category.FeedbackStatistics[0].MainCategory);
 
                     for (var j = 0; j < totalColumnsName; j++) {
-                        series[j].data.push(category.FeedbackStatistics[totalSubCategoris].Cells[j]);
+                        datasets[j].data.push(category.FeedbackStatistics[totalSubCategoris].Cells[j]);
                     }
                 }
             }
 
-            this.chartSetting.categories = categories;
-            this.chartSetting.series = series;
+            this.chartData.labels = labels;
+            this.chartData.datasets = datasets;
         }
     },
     viewAllStatisticsDetail: function () {
@@ -508,17 +516,13 @@ var feedbackStatistic = {
     },
     viewChart: function () {
         crmChart.title = $('#feedbackstatistictitle').html();
-        var chartOptions = {
-            xAxis: {
-                categories: this.chartSetting.categories
-            },
-            series: this.chartSetting.series,
-            tooltip: {
-                valueSuffix: ' Feedback(s)'
-            }
-        };
+        var chartOption = crmChart.newopts;
+        chartOption.xAxisLabel = $('#ddlType :selected').text();
+        chartOption.yAxisLabel = "";
+        chartOption.yAxisUnit = "Feedback(s)";
+        chartOption.chartType = crmChart.chartType.bar
 
-        crmChart.viewChart(chartOptions);
+        crmChart.viewChart(this.chartData, chartOption);
     }
 };
 

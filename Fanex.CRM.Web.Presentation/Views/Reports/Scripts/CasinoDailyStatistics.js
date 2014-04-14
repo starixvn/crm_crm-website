@@ -258,7 +258,7 @@ casinoDailyStatistics = {
                     sumAllFeedbacksAmount += parseFloat(rs.SumAllFeedbacks[l]);
                 }
 
-                var getBackgroundColor = crmChart.randomColor();
+                var getBackgroundColor = crmChart.getBackGroundColor(i);
                 var totalFeedbacks = rs.SumAllFeedbacks[i];
                 mainCategories.push({
                     title: categoryName,
