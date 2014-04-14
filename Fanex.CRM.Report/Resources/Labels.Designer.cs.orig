@@ -283,13 +283,30 @@ namespace Fanex.CRM.Report.Resources {
         public static string DocumentTitle_DynamicReport {
             get {
                 return ResourceManager.GetString("DocumentTitle_DynamicReport", resourceCulture);
+            }
+        }
+        
+         /// <summary>
 =======
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
         ///   Looks up a localized string similar to DEC.
         /// </summary>
         public static string DEC {
             get {
                 return ResourceManager.GetString("DEC", resourceCulture);
->>>>>>> #13977 - Wager report: apply real data from SP
+            }
+        }
+<<<<<<< HEAD
+
+=======
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detailed Chart.
+        /// </summary>
+        public static string DetailedChart {
+            get {
+                return ResourceManager.GetString("DetailedChart", resourceCulture);
             }
         }
         
@@ -823,16 +840,8 @@ namespace Fanex.CRM.Report.Resources {
                 return ResourceManager.GetString("SettlementReport_ExcelTitle", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to  Issue(s).
-        /// </summary>
-        public static string SettlementReport_ChartSuffix {
-            get {
-                return ResourceManager.GetString("SettlementReport_ChartSuffix", resourceCulture);
-            }
-        }
-        
+<<<<<<< HEAD
+                       
         /// <summary>
         ///   Looks up a localized string similar to Settlement Report For Year {0}.
         /// </summary>
@@ -849,16 +858,9 @@ namespace Fanex.CRM.Report.Resources {
             get {
                 return ResourceManager.GetString("SettlementReport_SheetName", resourceCulture);
             }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Settlement_Report_For_Year_{0}.
-        /// </summary>
-        public static string SettlementReport_ExcelTitle {
-            get {
-                return ResourceManager.GetString("SettlementReport_ExcelTitle", resourceCulture);
-            }
-        }
+        }       
+              
+=======
         
         /// <summary>
         ///   Looks up a localized string similar to Settlement Report.
@@ -878,6 +880,7 @@ namespace Fanex.CRM.Report.Resources {
             }
         }
         
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
         /// <summary>
         ///   Looks up a localized string similar to Site.
         /// </summary>
@@ -1005,7 +1008,16 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary Report.
+        ///   Looks up a localized string similar to Summary Chart.
+        /// </summary>
+        public static string SummaryChart {
+            get {
+                return ResourceManager.GetString("SummaryChart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Summary Of Categories.
         /// </summary>
         public static string SummaryReport {
             get {
@@ -1014,7 +1026,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary_Report_{0}.
+        ///   Looks up a localized string similar to Summary_Of_Categories_{0}.
         /// </summary>
         public static string SummaryReportExcelName {
             get {
@@ -1023,7 +1035,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary Report for Year {0}.
+        ///   Looks up a localized string similar to Summary Of Categories Report For Year {0}.
         /// </summary>
         public static string SummaryReportTitle {
             get {

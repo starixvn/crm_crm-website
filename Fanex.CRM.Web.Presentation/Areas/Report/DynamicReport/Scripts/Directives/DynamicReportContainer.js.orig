@@ -222,6 +222,9 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
 
 <<<<<<< HEAD
         return chartSeries;
+        parent.$(".ui-dialog-titlebar-close").click(function () {
+            scope.setFocus();
+        });
 =======
         var chartOptions = {
             xAxis: {
@@ -234,7 +237,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         };
 
         parent.crmChart.viewChart(chartOptions);
->>>>>>> #14051 - Statistic Report - Export Excel
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
         parent.$(".ui-dialog-titlebar-close").click(function () {
             scope.setFocus();
         });

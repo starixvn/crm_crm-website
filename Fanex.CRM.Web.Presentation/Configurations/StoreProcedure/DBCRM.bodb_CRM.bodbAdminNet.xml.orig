@@ -99,17 +99,10 @@
     <Setting Key="Report_CustomerReport_GetReport" SpName="Acc_Crm_Rpt_CustomerReport" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 <<<<<<< HEAD
      <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
-      <Mapping DataField="Month" ObjectProperty="Month" />
-      <Mapping DataField="CountryID" ObjectProperty="CountryId" />
-      <Mapping DataField="CountryName" ObjectProperty="CountryName" />
-      <Mapping DataField="NoOfIssues" ObjectProperty="NumberOfIssues" />
-    </Setting>
-  <Setting Key="Report_StatisticReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
-      <Mapping DataField="FeedbackDate" ObjectProperty="DateTime" />
 =======
     <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
       <Mapping DataField="Month" ObjectProperty="Month" />
->>>>>>> Merge branch '20140328-CRM-13670-NewReports' of gitlab.nexcel.vn:crm/crm-website into 20140328-CRM-13670-NewReports
       <Mapping DataField="CountryID" ObjectProperty="CountryId" />
       <Mapping DataField="CountryName" ObjectProperty="CountryName" />
       <Mapping DataField="NoOfIssues" ObjectProperty="NumberOfIssues" />
@@ -120,5 +113,7 @@
       <Mapping DataField="CountryName" ObjectProperty="CountryName" />
       <Mapping DataField="NoOfIssues" ObjectProperty="NumberOfIssues" />
     </Setting> 
+    <Setting Key="Report_WagerReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_SummaryReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSummary" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>

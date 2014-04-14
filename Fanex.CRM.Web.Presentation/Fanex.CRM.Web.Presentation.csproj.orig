@@ -329,19 +329,24 @@
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportService.js" />
 <<<<<<< HEAD
       <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
-        <Content Include="Areas\Report\WagerReport\Scripts\Directives\RegisterSharedDirectives.js" />
-  
 =======
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
     <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
     <Content Include="Areas\Report\SummaryReport\Scripts\Directives\SummaryReportContainer.js" />
     <Content Include="Areas\Report\SummaryReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\SummaryReport\Scripts\SummaryReportService.js" />
     <Content Include="Areas\Report\SummaryReport\Scripts\SummaryReportController.js" />
     <Content Include="Areas\Report\SummaryReport\Scripts\SummaryReportApplication.js" />
-    <Content Include="Areas\Report\WagerReport\Scripts\Directives\RegisterSharedDirectives.js" />
->>>>>>> #13977 - Wager report: apply real data from SP
+<<<<<<< HEAD
+        <Content Include="Areas\Report\WagerReport\Scripts\Directives\RegisterSharedDirectives.js" />
+  
     <Content Include="Areas\Report\WagerReport\Scripts\Directives\WagerReportContainer.js" />
    <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
+=======
+    <Content Include="Areas\Report\WagerReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\WagerReport\Scripts\Directives\WagerReportContainer.js" />
+    <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
     <Content Include="Content\site\Images\calendar.png" />
@@ -479,14 +484,16 @@
     <None Include="Areas\Report\CustomerReport\Styles\CustomerReport.less" />
     <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <Content Include="Areas\User\Web.config" />
+<<<<<<< HEAD
      <Content Include="Areas\Report\SettlementReport\Index.cshtml" />
     <None Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" />
-<<<<<<< HEAD
      <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
 =======
+    <Content Include="Areas\Report\SettlementReport\Index.cshtml" />
+    <None Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" />
     <Content Include="Areas\Report\WagerReport\Index.cshtml" />
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
     <Content Include="Areas\Report\SummaryReport\Index.cshtml" />
->>>>>>> #13977 - Wager report: apply real data from SP
     <None Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\customizeMultiSelect.less" />
@@ -1020,7 +1027,11 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
+<<<<<<< HEAD
           <DevelopmentServerPort>59022</DevelopmentServerPort>
+=======
+          <DevelopmentServerPort>63405</DevelopmentServerPort>
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

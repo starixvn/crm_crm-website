@@ -117,8 +117,8 @@ namespace Fanex.CRM.Web.View.App_Start
       RegisterBundles_Report_WagerReport(ref bundles);
 =======
             RegisterBundles_Report_WagerReport(ref bundles);
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
             RegisterBundles_Report_SummaryReport(ref bundles);
->>>>>>> #13977 - Wager report: apply real data from SP
         }
 
         /// <summary>
@@ -494,6 +494,90 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new StyleBundle("~/Areas/Report/SettlementReportStyles").Include(
                 "~/Areas/Report/SettlementReport/Styles/SettlementReport.less"));
         }
+<<<<<<< HEAD
+=======
+
+        /// <summary>
+        /// Registers the statistic report bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_Report_StatisticReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/StatisticReportScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/MonthPicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/StatisticReport/Scripts/StatisticReportApplication.js",
+                "~/Areas/Report/StatisticReport/Scripts/StatisticReportController.js",
+                "~/Areas/Report/StatisticReport/Scripts/StatisticReportService.js",
+                "~/Areas/Report/StatisticReport/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Report/StatisticReportStyles").Include(
+                "~/Areas/Report/StatisticReport/Styles/StatisticReport.less"));
+        }
+        
+        /// <summary>
+        /// Registers the result message bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_ResultMessage(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Scripts/ShareScripts/Applications/ResultMessageScripts").Include(
+                "~/Scripts/ShareScripts/Applications/ResultMessage.js"));
+
+            bundles.Add(new StyleBundle("~/Content/site/ResultMessageStyles").Include(
+                "~/Content/site/resultMessage.less"));
+        }
+
+        private static void RegisterBundles_Numeral(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Scripts/FanexGridV2/NumeralScripts").Include(
+                "~/Scripts/FanexGridV2/numeral.js"));
+        }
+
+        private static void RegisterBundles_Report_WagerReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/WagerReportScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/WagerReport/Scripts/WagerReportApplication.js",
+                "~/Areas/Report/WagerReport/Scripts/WagerReportController.js",
+                "~/Areas/Report/WagerReport/Scripts/WagerReportService.js",
+                "~/Areas/Report/WagerReport/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Report/WagerReportStyles").Include(
+                "~/Areas/Report/WagerReport/Styles/WagerReport.less"));
+        }
+
+        private static void RegisterBundles_Report_SummaryReport(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/SummaryReportScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/SummaryReport/Scripts/SummaryReportApplication.js",
+                "~/Areas/Report/SummaryReport/Scripts/SummaryReportController.js",
+                "~/Areas/Report/SummaryReport/Scripts/SummaryReportService.js",
+                "~/Areas/Report/SummaryReport/Scripts/Directives/*.js"));
+
+            bundles.Add(new StyleBundle("~/Areas/Report/SummaryReportStyles").Include(
+                "~/Areas/Report/SummaryReport/Styles/SummaryReport.less"));
+        }
+    }
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
 
         /// <summary>
         /// Registers the statistic report bundles.
@@ -557,27 +641,6 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new StyleBundle("~/Areas/Report/WagerReportStyles").Include(
                 "~/Areas/Report/WagerReport/Styles/WagerReport.less"));
         }
-<<<<<<< HEAD
-        
-        /// <summary>
-        /// Registers the settlement report bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterBundles_Report_SettlementReport(ref BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Report/SettlementReportScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/YearPicker.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Report/SettlementReport/Scripts/SettlementReportApplication.js",
-                "~/Areas/Report/SettlementReport/Scripts/SettlementReportController.js",
-                "~/Areas/Report/SettlementReport/Scripts/SettlementReportService.js",
-                "~/Areas/Report/SettlementReport/Scripts/Directives/*.js"));
-=======
 
         private static void RegisterBundles_Report_SummaryReport(ref BundleCollection bundles)
         {
@@ -595,13 +658,7 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Report/SummaryReportStyles").Include(
                 "~/Areas/Report/SummaryReport/Styles/SummaryReport.less"));
-        }
-    }
->>>>>>> #13977 - Wager report: apply real data from SP
-
-            bundles.Add(new StyleBundle("~/Areas/Report/SettlementReportStyles").Include(
-                "~/Areas/Report/SettlementReport/Styles/SettlementReport.less"));
-        }
+        }     
     }
   
     /// <summary>

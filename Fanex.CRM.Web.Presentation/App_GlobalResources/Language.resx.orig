@@ -429,10 +429,14 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Sign_In" xml:space="preserve">
     <value>Sign In</value>
   </data>
+<<<<<<< HEAD
   <data name="CRM_System" xml:space="preserve">
     <value>CRM System</value>
   </data>
     <data name="Title_Report_SettlementReport" xml:space="preserve">
+=======
+  <data name="Title_Report_SettlementReport" xml:space="preserve">
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
     <value>CRM System - Settlement Report</value>
   </data>
   <data name="Title_Report_StatisticReport" xml:space="preserve">
@@ -508,12 +512,13 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   </data>
   <data name="Title_Home" xml:space="preserve">
     <value>CRM System - Home</value>
+  </data>
 =======
+>>>>>>> 66eb19a31d2544d5f6a42dddd1a6c5228afe6405
   <data name="Title_Report_SummaryReport" xml:space="preserve">
     <value>CRM System - Summary Of Categories Report</value>
   </data>
   <data name="Title_Report_WagerReport" xml:space="preserve">
     <value>CRM System - Wager Report</value>
->>>>>>> #14099 - Finish summary report without chart
   </data>
 </root>
