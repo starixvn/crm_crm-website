@@ -72,22 +72,22 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
             for (var i = 0; i < categoryLen; i++) {
                 category = categorySummaries[i];
                 currentRow = {
-                    Columns: [{ Name: 'ColCategory', Value: category.CategoryName}],
+                    Columns: [{ Name: 'ColCategory', Value: category.Name}],
                     SubRows: []
                 };
 
-                categoryTotalLen = category.Total ? category.Total.length : 0;
+                categoryTotalLen = category.Summaries ? category.Summaries.length : 0;
                 for (var l = 0; l < categoryTotalLen; l++) {
-                    categoryTotal = category.Total[l];
+                    categoryTotal = category.Summaries[l];
                     currentRow.Columns.push({ Name: 'Col' + categoryTotal.Month, Value: categoryTotal.Amount === 0 ? '' : categoryTotal.Amount });
                 }
 
-                subLen = category.SubCategorySummaries ? category.SubCategorySummaries.length : 0;
+                subLen = category.SubCategories ? category.SubCategories.length : 0;
                 for (var j = 0; j < subLen; j++) {
-                    subCategory = category.SubCategorySummaries[j];
+                    subCategory = category.SubCategories[j];
                     currentSubRow = {
                         Columns: [
-                            { Name: 'ColCategory', Value: subCategory.SubCategoryName}]
+                            { Name: 'ColCategory', Value: subCategory.Name}]
                     };
 
                     var summaryLen = subCategory.Summaries ? subCategory.Summaries.length : 0;
@@ -106,14 +106,14 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         return bodyData;
     }
 
-    function getGridFooter(grandTotal) {
+    function getGridFooter(grandTotals) {
         var footerData = [];
 
-        var monthLen = grandTotal.Summaries ? grandTotal.Summaries.length : 0;
-        var cell = [{ Name: 'ColCategory', Value: grandTotal.SubCategoryName}];
+        var grandTotalLen = grandTotals ? grandTotals.length : 0;
+        var cell = [{ Name: 'ColCategory', Value: summaryReportResources.GrandTotal}];
         var summary;
-        for (var i = 0; i < monthLen; i++) {
-            summary = grandTotal.Summaries[i];
+        for (var i = 0; i < grandTotalLen; i++) {
+            summary = grandTotals[i];
             cell.push({ Name: 'Col' + summary.Month, Value: summary.Amount === 0 ? '' : summary.Amount });
         }
 
@@ -122,17 +122,18 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
     }
 
     function renderSummaryReport(scope, element, attrs) {
-        if (!scope.summaryReport) {
+        var report = scope.summaryReport;
+        if (!report) {
             return;
         }
 
-        var reportTitle = scope.summaryReport.ReportTitle;
-        var categorySummaries = scope.summaryReport.CategorySummaries;
-        var grandTotal = scope.summaryReport.GrandTotal;
-        var months = scope.summaryReport.Months;
+        var reportTitle = report.ReportTitle;
+        var categorySummaries = report.CategorySummaries;
+        var grandTotals = report.GrandTotals;
+        var months = report.Months;
 
         var bodyData = getGridBody(categorySummaries);
-        var footerData = getGridFooter(grandTotal);
+        var footerData = getGridFooter(grandTotals);
 
         var gridOptions = getGridOptions(scope, reportTitle, bodyData, footerData, months);
         cachedTable = element

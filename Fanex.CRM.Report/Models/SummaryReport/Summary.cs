@@ -17,8 +17,6 @@ namespace Fanex.CRM.Report.Models.SummaryReport
     [Serializable]
     public class Summary
     {
-        public int Id { get; set; }
-
         public string Month { get; set; }
 
         public int Amount { get; set; }
