@@ -388,7 +388,7 @@ var crmChart = {
     backGroundColors: ["#3F5D7D", "#279B61", "#008AB8",
                        "#993333", "#A3E496", "#95CAE4",
                        "#CC3333", "#FFCC33", "#FFFF7A",
-                       "#CC6699"],
+                       "#CC6699", "#9370db" ],
     shadeColor: function (color, percent) {
         // color: #FFFFFF
 
@@ -419,8 +419,8 @@ var crmChart = {
         var backGroundColorLength = crmChart.backGroundColors.length;
         var backGroundColorIndex = index % backGroundColorLength;
 
-        // Darken 10% for 1 times
-        var darkenPercent = Math.floor(index / backGroundColorLength) / 10;
+        // Darken 20% for 1 times
+        var darkenPercent = Math.floor(index / backGroundColorLength) / 5;
         if (darkenPercent >= 1) {
             darkenPercent = 0;
         }

@@ -187,32 +187,15 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             datasets: getChartDatasets(chartInfo, crmChart)
         };
 
-        var maxYAxis = getMaxYAxis(chartInfo);
-        var scaleInfo = crmChart.getIntScaleInfo(maxYAxis);
-        var chartOption = {
+        var chartOption = crmChart.newopts;
+        var chartOption = $.extend(chartOption, {
             chartType: crmChart.chartType.bar,
-
-            scaleOverride: true,
-            scaleStepWidth: scaleInfo.scaleStepWidth,
-            scaleSteps: scaleInfo.scaleSteps,
-            scaleStartValue: scaleInfo.scaleStartValue,
-            scaleLabel: scaleInfo.scaleLabel
-        };
+            xAxisLabel: "",
+            yAxisLabel: "",
+            yAxisUnit: viewResources.DynamicReport_ChartSuffix
+        });
 
         crmChart.viewChart(chartData, chartOption);
-    }
-
-    function getMaxYAxis(chartInfo) {
-        var maxYAxis = 0;
-        var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
-        for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
-            var periodReport = chartInfo.ChildReports[xIndex];
-            if (maxYAxis < periodReport.TotalChildReports) {
-                maxYAxis = periodReport.TotalChildReports;
-            }
-        }
-
-        return maxYAxis;
     }
 
     function getChartLabels(chartInfo, crmChart) {
@@ -231,7 +214,8 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             chartSerie = {
                 fillColor: backgroundColor,
                 strokeColor: backgroundColor,
-                data: [periodReport.TotalChildReports]
+                data: [periodReport.TotalChildReports],
+                title: periodReport.ShortName
             };
             chartSeries.push(chartSerie);
         }
