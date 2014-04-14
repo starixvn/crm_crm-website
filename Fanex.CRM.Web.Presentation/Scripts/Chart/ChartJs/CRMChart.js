@@ -77,5 +77,51 @@
             scaleStartValue: 0,
             scaleLabel: "<%=value%>" + (scaleLabelSuffix && scaleLabelSuffix != "" ? scaleLabelSuffix : "")
         };
+    },
+
+    backGroundColors: ["#3F5D7D", "#279B61", "#008AB8",
+                       "#993333", "#A3E496", "#95CAE4",
+                       "#CC3333", "#FFCC33", "#FFFF7A",
+                       "#CC6699"],
+    shadeColor: function (color, percent) {
+        // color: #FFFFFF
+
+        var colorHexaValue = parseInt(color.slice(1), 16);
+        var t = percent < 0 ? 0 : 255;
+        var p = percent < 0 ? percent * -1 : percent;
+        var redColor = colorHexaValue >> 16;
+        var greenColor = colorHexaValue >> 8 & 0x00FF;
+        var blueColor = colorHexaValue & 0x0000FF;
+        var backGroundColor = {
+            Red: 0x1000000 + (Math.round((t - redColor) * p) + redColor) * 0x10000,
+            Green: (Math.round((t - greenColor) * p) + greenColor) * 0x100,
+            Blue: (Math.round((t - blueColor) * p) + blueColor)
+        };
+
+        return "#" + (backGroundColor.Red +
+               backGroundColor.Green +
+               backGroundColor.Blue).toString(16).slice(1);
+    },
+    getColorFromCode: function (colorCode) {
+        var colorHexaValue = parseInt(colorCode.slice(1), 16);
+        return 'rgb(' +
+            (colorHexaValue >> 16) + ',' +
+            (colorHexaValue >> 8 & 255) + ',' +
+            (colorHexaValue & 255) + ')';
+    },
+    getBackGroundColor: function (index) {
+        var backGroundColorLength = crmChart.backGroundColors.length;
+        var backGroundColorIndex = index % backGroundColorLength;
+
+        // Darken 10% for 1 times
+        var darkenPercent = Math.floor(index / backGroundColorLength) / 10;
+        if (darkenPercent >= 1) {
+            darkenPercent = 0;
+        }
+
+        var backGroundColor = darkenPercent === 0 ?
+            crmChart.backGroundColors[backGroundColorIndex] :
+            crmChart.shadeColor(crmChart.backGroundColors[backGroundColorIndex], -darkenPercent);
+        return backGroundColor;
     }
 };
