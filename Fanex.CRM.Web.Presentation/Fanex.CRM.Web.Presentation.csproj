@@ -341,6 +341,7 @@
     <Content Include="Scripts\AngularJS\angular.min.js" />
     <Content Include="Scripts\Chart\ChartJs\ChartJS.js" />
     <Content Include="Scripts\Chart\ChartJs\CRMChart.js" />
+    <Content Include="Scripts\Chart\ChartJs\excanvas.js" />
     <Content Include="Scripts\Chart\HighCharts\CRMChart.js" />
     <Content Include="Scripts\Chart\HighCharts\data.js" />
     <Content Include="Scripts\Chart\HighCharts\drilldown.js" />
@@ -912,6 +913,7 @@
     <Content Include="App_GlobalResources\ErrorMsg.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ErrorMsg.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\Language.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>

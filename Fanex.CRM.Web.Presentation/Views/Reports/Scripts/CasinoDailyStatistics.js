@@ -52,7 +52,7 @@ casinoDailyStatistics = {
     columnWidthDefault: 70,
     title: '',
     gridHeight: 100,
-    chartSetting: { mainCategories: [], subcategories: [] },
+    chartData: [],
     getDailyReport: function () {
         var mainreport = $("#dailysummarygrid");
         mainreport.addClass('hidden');
@@ -237,7 +237,7 @@ casinoDailyStatistics = {
     },
     assignChartData: function (rs) {
         var mainCategories = [];
-        var subcategories = [];
+        this.chartData = [];
 
         if (rs && rs.GrandTotal) {
             var feedbackSummary = rs.GrandTotal;
@@ -258,94 +258,36 @@ casinoDailyStatistics = {
                     sumAllFeedbacksAmount += parseFloat(rs.SumAllFeedbacks[l]);
                 }
 
-                var percent = ((rs.SumAllFeedbacks[i]) / (sumAllFeedbacksAmount)) * 100;
+                var getBackgroundColor = crmChart.randomColor();
+                var totalFeedbacks = rs.SumAllFeedbacks[i];
                 mainCategories.push({
-                    name: categoryName,
-                    y: percent,
-                    drilldown: categoryName
+                    title: categoryName,
+                    value: totalFeedbacks,
+                    color: getBackgroundColor
                 });
-
-                var totalCols = categoryDetail.Cells.length;
-                subcategories.push({
-                    name: categoryName,
-                    id: categoryName,
-                    data: []
-                });
-
-                for (var j = 0; j < totalCols; j++) {
-                    var item = categoryDetail.Cells[j];
-                    var totalSubFeedBacks = 0;
-                    if (item.Value !== 0) {
-                        continue;
-                    }
-
-                    var subPercent;
-                    if (totalSubFeedBacks !== 0) {
-                        subPercent = (item.Value / totalSubFeedBacks) * 100;
-                        subcategories[groupIndex].data.push([
-                            item.Title,
-                            subPercent
-                        ]);
-                        continue;
-                    }
-
-                    for (var k = 0; k < totalCols; k++) {
-                        totalSubFeedBacks += categoryDetail.Cells[k].Value;
-                    }
-
-                    subPercent = (item.Value / totalSubFeedBacks) * 100;
-                    subcategories[groupIndex].data.push([
-                            item.Title,
-                            subPercent
-                        ]);
-                }
 
                 groupIndex++;
             }
 
-            this.chartSetting.mainCategories = mainCategories;
-            this.chartSetting.subcategories = subcategories;
+            this.chartData = mainCategories;
         }
     },
     viewChart: function () {
 
-        var chartOptions = {
-            chart: {
-                type: 'pie'
-            },
-            title: {
-                text: ''
-            },
-            subtitle: {
-                text: ''
-            },
-            plotOptions: {
-                series: {
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}: {point.y:.1f}%'
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
-                footerFormat: ''
-            },
-            series: [{
-                name: 'Summary',
-                colorByPoint: true,
-                data: this.chartSetting.mainCategories
-            }],
-            drilldown: {
-                series: this.chartSetting.subcategories
-            }
-        };
+        if (this.chartData == null ||
+            this.chartData.length == 0) {
 
+            return false;
+        }
+
+        var chartOption = crmChart.newopts;
+        chartOption.xAxisLabel = "Communication";
+        chartOption.yAxisLabel = "";
+        chartOption.yAxisUnit = "Feedback(s)";
+        chartOption.chartType = crmChart.chartType.pie;
 
         crmChart.title = $('#gridtitle').html();
-
-        crmChart.viewChart(chartOptions);
+        crmChart.viewChart(this.chartData, chartOption);
     }
 };
 

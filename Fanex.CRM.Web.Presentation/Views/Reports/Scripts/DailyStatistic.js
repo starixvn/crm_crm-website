@@ -4,7 +4,6 @@ head, fromDate, toDate */
 /* exported arrWidth, addDays,
 maxHeightOfPopUp */
 /* jshint unused: vars */
-
 var arrWidth = [];
 var maxHeightOfSummaryReport = ($(window).height() - 115) / 2;
 var maxHeightOfPopUp = ($(window).height() + 115);
@@ -281,6 +280,7 @@ ibcDailySummaryReport = {
     assignChartData: function (rs) {
         var labels = [];
         var datasets = [];
+        this.chartData = { labels: [], datasets: [] };
 
         if (rs && rs.DailySummaries) {
             var totalMainCategories = rs.DailySummaries.length;
@@ -304,7 +304,8 @@ ibcDailySummaryReport = {
                     {
                         fillColor: getBackgroundColor,
                         strokeColor: getBackgroundColor,
-                        data: detailData
+                        data: detailData,
+                        title: categoryName
                     }
                 );
             }
@@ -321,9 +322,11 @@ ibcDailySummaryReport = {
             return false;
         }
 
-        var chartOption = {
-            chartType: crmChart.chartType.bar
-        };
+        var chartOption = crmChart.newopts;
+        chartOption.xAxisLabel = "Communication";
+        chartOption.yAxisLabel = "";
+        chartOption.yAxisUnit = "Feedback(s)";
+        chartOption.chartType = crmChart.chartType.bar
 
         crmChart.title = $('#gridtitle').html();
         crmChart.viewChart(this.chartData, chartOption);
@@ -570,6 +573,7 @@ licenseeDailySummaryReport = {
     assignChartData: function (rs) {
         var labels = [];
         var datasets = [];
+        this.chartData = { labels: [], datasets: [] };
 
         if (rs && rs.DailySummaries) {
             var totalMainCategories = rs.DailySummaries.length;
@@ -593,7 +597,8 @@ licenseeDailySummaryReport = {
                     {
                         fillColor: getBackgroundColor,
                         strokeColor: getBackgroundColor,
-                        data: detailData
+                        data: detailData,
+                        title: categoryName
                     }
                 );
             }
@@ -610,11 +615,13 @@ licenseeDailySummaryReport = {
             return false;
         }
 
-        var chartOption = {
-            chartType: crmChart.chartType.bar
-        };
+        var chartOption = crmChart.newopts;
+        chartOption.xAxisLabel = "Communication";
+        chartOption.yAxisLabel = "";
+        chartOption.yAxisUnit = "Feedback(s)";
+        chartOption.chartType = crmChart.chartType.bar
 
-        crmChart.title = $('#gridtitle').html();
+        crmChart.title = $('#licenseeSummaryTitle').html();
         crmChart.viewChart(this.chartData, chartOption);
     }
 };
@@ -1283,3 +1290,4 @@ head.ready(function () {
 
     crmChart = parent.crmChart;
 });
+

@@ -18,7 +18,7 @@ var casinoWeeklySummary = {
     columnWidthDefault: 90,
     totalWidth: 0,
     gridHeight: 100,
-    chartSetting: { categories: [], series: [] },
+    chartData: { labels: [], datasets: [] },
     getWeeklySummary: function () {
         var mainreport = $("#weeklysummarygrid");
         mainreport.addClass('hidden');
@@ -171,11 +171,11 @@ var casinoWeeklySummary = {
         casinoWeeklyDetail.getDailyDetailReport(false);
     },
     assignChartData: function (rs) {
-        var categories = [];
-        var series = [];
+        var labels = [];
+        var datasets = [];
+        this.chartData = { labels: [], datasets: [] };
 
         if (rs && rs.DailySummaries) {
-            //            var items = [];
             var totalMainCategories = rs.DailySummaries.length;
             var totalCols = rs.GrandTotal.Cells.length;
 
@@ -188,31 +188,38 @@ var casinoWeeklySummary = {
                     detailData.push(mainCategoryDetail.Cells[k].Value);
 
                     if (i === totalMainCategories - 1) {
-                        categories.push(mainCategoryDetail.Cells[k].Title);
+                        labels.push(mainCategoryDetail.Cells[k].Title);
                     }
                 }
 
-                series.push({ name: categoryName, data: detailData });
+                var getBackgroundColor = crmChart.randomColor();
+                datasets.push(
+                    {
+                        fillColor: getBackgroundColor,
+                        strokeColor: getBackgroundColor,
+                        data: detailData
+                    }
+                );
             }
 
-            this.chartSetting.categories = categories;
-            this.chartSetting.series = series;
+            this.chartData.labels = labels;
+            this.chartData.datasets = datasets;
         }
     },
     viewChart: function () {
-        var chartOptions = {
-            xAxis: {
-                categories: this.chartSetting.categories
-            },
-            series: this.chartSetting.series,
-            tooltip: {
-                valueSuffix: ' Feedback(s)'
-            }
+        if (this.chartData == null ||
+            this.chartData.labels == null ||
+            this.chartData.labels.length == 0) {
+
+            return false;
+        }
+
+        var chartOption = {
+            chartType: crmChart.chartType.bar
         };
 
         crmChart.title = $('#gridtitle').html();
-
-        crmChart.viewChart(chartOptions);
+        crmChart.viewChart(this.chartData, chartOption);
     }
 };
 
