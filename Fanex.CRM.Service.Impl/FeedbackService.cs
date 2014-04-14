@@ -1824,11 +1824,11 @@ namespace Fanex.CRM.Service.Impl
                         FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDate(dr["FeedbackDate"].ToString()),
                         FeedbackTime = DateTimeUtilize.ChangeTimeZoneToClientTime(dr["FeedbackDate"].ToString()),
                         CustomerName = CastAide.AsString(dr["UserName"]),
-                        Licensee = _settingService.GetById(CastAide.AsInt32(dr["SiteID"])).Value,
+                        Licensee = CastAide.AsString(dr["SiteName"]),
                         CommunicationTool =
                             new CommunicationTool()
                             {
-                                ContactBy = _settingService.GetById(CastAide.AsInt32(dr["CommunicationID"])).Value,
+                                ContactBy = CastAide.AsString(dr["Communication"]),
                                 Address =
                                     string.Format(
                                         "MSN: {0}\n<br> Skype: {1}\n<br> Email: {2}\n<br> Phone: {3}\n<br> Mobile: {4}",
@@ -1838,14 +1838,14 @@ namespace Fanex.CRM.Service.Impl
                                         CastAide.AsString(dr["Phone"]),
                                         CastAide.AsString(dr["MobilePhone"]))
                             },
-                        ExtNo = _settingService.GetById(CastAide.AsInt32(dr["StationID"])).Value,
-                        ProductName = _settingService.GetById(CastAide.AsInt32(dr["ProductID"])).Value,
-                        Country = _countryService.GetById(CastAide.AsInt32(dr["CountryID"])).CountryName,
-                        Category = _settingService.GetById(CastAide.AsInt32(dr["MainCategoryID"])).Value,
+                        ExtNo = CastAide.AsString(dr["Station"]),
+                        ProductName = CastAide.AsString(dr["Product"]),
+                        Country = CastAide.AsString(dr["CountryName"]),
+                        Category = CastAide.AsString(dr["MainCategory"]),
                         Complaints = complaint,
                         Solution = solution,
-                        Status = _settingService.GetById(CastAide.AsInt32(dr["StatusID"])).Value,
-                        Response = _settingService.GetById(CastAide.AsInt32(dr["ResponseID"])).Value,
+                        Status = CastAide.AsString(dr["Status"]),
+                        Response = CastAide.AsString(dr["Response"]),
                         HandlyBy = CastAide.AsString(dr["CreatorName"]),
                         CreationTime = DateTimeUtilize.ChangeTimeZoneToClient(dr["CreateDate"].ToString()),
                         ResolutionDate = DateTimeUtilize.ChangeTimeZoneToClient(dr["ResolutionDate"].ToString())
