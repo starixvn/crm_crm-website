@@ -224,8 +224,6 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
         var chartOption = angular.copy(crmChart.newopts);
         chartOption = $.extend(chartOption, {
             chartType: crmChart.chartType.bar,
-            xAxisLabel: "",
-            yAxisLabel: "",
             scaleFontSize: 9,
             yAxisUnit: viewResources.StatisticReport_ChartSuffix
         });

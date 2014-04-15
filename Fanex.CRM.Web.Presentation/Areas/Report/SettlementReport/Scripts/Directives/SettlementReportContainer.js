@@ -195,8 +195,6 @@ settlementReportApplication.directive('tableSettlementReportContainer', function
         var chartOption = angular.copy(crmChart.newopts);
         chartOption = $.extend(chartOption, {
             chartType: crmChart.chartType.bar,
-            xAxisLabel: "",
-            yAxisLabel: "",
             yAxisUnit: viewResources.SettlementReport_ChartSuffix
         });
 
