@@ -14,6 +14,10 @@ function ($scope, summaryReportService, $uiBlockerService, $resultMessageService
     $scope.summaryReport;
     $scope.isShowFilter = true;
     $scope.isRenderGrid = false;
+    $scope.chartData = {
+        labels: [],
+        datasets: []
+    };
 
     $scope.initController = function () {
         $scope.years = $scope.getYears();

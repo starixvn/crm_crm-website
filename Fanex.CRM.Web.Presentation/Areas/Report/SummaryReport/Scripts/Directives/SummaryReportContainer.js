@@ -62,11 +62,14 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         };
     }
 
-    function getGridBody(categorySummaries) {
+    function getGridBody(scope, categorySummaries) {
         var bodyData = [];
         if (categorySummaries) {
             var category, categoryTotal, subCategory, summary;
             var categoryLen, categoryTotalLen, subLen, currentRow, currentSubRow;
+            // chart
+            var datasets = [];
+            scope.chartData.datasets = datasets;
 
             categoryLen = categorySummaries.length;
             for (var i = 0; i < categoryLen; i++) {
@@ -76,11 +79,17 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
                     SubRows: []
                 };
 
+                // chart
+                var categoryCharts = [];
                 categoryTotalLen = category.Summaries ? category.Summaries.length : 0;
                 for (var l = 0; l < categoryTotalLen; l++) {
                     categoryTotal = category.Summaries[l];
                     currentRow.Columns.push({ Name: 'Col' + categoryTotal.Month, Value: categoryTotal.Amount === 0 ? '' : categoryTotal.Amount });
+                    // chart
+                    categoryCharts.push(categoryTotal.Amount);
                 }
+                // chart
+                datasets.push({ fillColor: '', strokeColor: '', data: categoryCharts });
 
                 subLen = category.SubCategories ? category.SubCategories.length : 0;
                 for (var j = 0; j < subLen; j++) {
@@ -90,11 +99,16 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
                             { Name: 'ColCategory', Value: subCategory.Name}]
                     };
 
+                    var subCategoryCharts = [];
                     var summaryLen = subCategory.Summaries ? subCategory.Summaries.length : 0;
                     for (var k = 0; k < summaryLen; k++) {
                         summary = subCategory.Summaries[k];
                         currentSubRow.Columns.push({ Name: 'Col' + summary.Month, Value: summary.Amount === 0 ? '' : summary.Amount });
+                        // chart
+                        subCategoryCharts.push(summary.Amount);
                     }
+                    // chart
+                    datasets.push({ fillColor: '', strokeColor: '', data: subCategoryCharts });
 
                     currentRow.SubRows.push(currentSubRow);
                 }
@@ -131,8 +145,10 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         var categorySummaries = report.CategorySummaries;
         var grandTotals = report.GrandTotals;
         var months = report.Months;
+        // chart
+        scope.chartData.labels = months;
 
-        var bodyData = getGridBody(categorySummaries);
+        var bodyData = getGridBody(scope, categorySummaries);
         var footerData = getGridFooter(grandTotals);
 
         var gridOptions = getGridOptions(scope, reportTitle, bodyData, footerData, months);
@@ -150,7 +166,8 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
             isShowFilter: '=',
             isRenderGrid: '=',
             isFilterBoxClicked: '=',
-            exportSummaryReportExcel: '&'
+            exportSummaryReportExcel: '&',
+            chartData: '='
         },
         link: function (scope, element, attrs) {
             scope.$watch('isRenderGrid', function (newValue, oldValue) {
