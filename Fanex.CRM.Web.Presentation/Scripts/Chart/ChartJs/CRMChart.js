@@ -237,7 +237,7 @@ var crmChart = {
         scaleTickSizeRight: 0,
         scaleTickSizeBottom: 0,
         scaleTickSizeTop: 1
-    }, 
+    },
     onlyborderopts: {
         canvasBorders: true,
         canvasBordersWidth: 3,
@@ -340,31 +340,53 @@ var crmChart = {
     },
     assignReportContent: function (data, options) {
         $('#chartContainer').html('');
-        $('#chartContainer').append('<canvas id="myChart" width="' + (this.width - 100) + '" height="' + (this.height - 100) + '"></canvas>');
-        //Get context with jQuery - using jQuery's .get() method.
-        var ctx = $("#chartContainer #myChart").get(0).getContext("2d");
+
+        var canvas = document.createElement('canvas');
+        document.getElementById("chartContainer").appendChild(canvas);
+        canvas.setAttribute("width", this.width - 100);
+        canvas.setAttribute("height", this.height - 100);
+
+        if ($.browser.msie && parseInt($.browser.version, 10) === 8) {
+            canvas = G_vmlCanvasManager.initElement(canvas);
+        }
+
+        var ctx = new Chart(canvas.getContext("2d"));
 
         switch (options.chartType) {
             case this.chartType.line:
-                new parent.Chart(ctx).Line(data, options);
+                setTimeout(function () {
+                    var myNewChart = new parent.Chart(canvas.getContext("2d")).Line(data, options);
+                }, 200);
                 break;
             case this.chartType.pie:
-                new parent.Chart(ctx).Pie(data, options);
+                setTimeout(function () {
+                    var myNewChart = new parent.Chart(canvas.getContext("2d")).Pie(data, options);
+                }, 200);
                 break;
             case this.chartType.bar:
-                new parent.Chart(ctx).Bar(data, options);
+                setTimeout(function () {
+                    var myNewChart = new parent.Chart(canvas.getContext("2d")).Bar(data, options);
+                }, 200);
                 break;
             case this.chartType.radar:
-                new parent.Chart(ctx).Radar(data, options);
+                setTimeout(function () {
+                    var myNewChart = new parent.Chart(canvas.getContext("2d")).Radar(data, options);
+                }, 200);
                 break;
             case this.chartType.polarArea:
-                new parent.Chart(ctx).PolarArea(data, options);
+                setTimeout(function () {
+                    var myNewChart = new parent.Chart(canvas.getContext("2d")).PolarArea(data, options);
+                }, 200);
                 break;
             case this.chartType.doughnut:
-                new parent.Chart(ctx).Doughnut(data, options);
+                setTimeout(function () {
+                    var myNewChart = new parent.Chart(canvas.getContext("2d")).Doughnut(data, options);
+                }, 200);
                 break;
             default:
-                new parent.Chart(ctx).Bar(data, options);
+                setTimeout(function () {
+                    var myNewChart = new parent.Chart(canvas.getContext("2d")).Bar(data, options);
+                }, 200);
                 break;
         }
     },
@@ -388,7 +410,7 @@ var crmChart = {
     backGroundColors: ["#3F5D7D", "#279B61", "#008AB8",
                        "#993333", "#A3E496", "#95CAE4",
                        "#CC3333", "#FFCC33", "#FFFF7A",
-                       "#CC6699", "#9370db" ],
+                       "#CC6699", "#9370db"],
     shadeColor: function (color, percent) {
         // color: #FFFFFF
 

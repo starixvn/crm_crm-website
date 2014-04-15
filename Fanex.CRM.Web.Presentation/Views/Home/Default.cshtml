@@ -22,13 +22,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
     <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Scripts/autocomplete/styles.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Views/Home/Styles/default.less?ver=5")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/site/customizeJqueryUI.less?ver=1")" rel="stylesheet" type="text/css" />
     @Styles.Render("~/Views/HomeStyles")
+   
     <!--[if lte IE 8]>
-		<script src="Scripts/Chart/ChartJs/excanvas.js"></script>
+		 <script src="~/Scripts/Chart/ChartJs/excanvas.js?ver=2"></script>
 	<![endif]-->
 </head>
 <body>
