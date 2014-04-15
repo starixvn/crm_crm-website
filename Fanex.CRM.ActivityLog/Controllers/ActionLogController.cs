@@ -19,7 +19,7 @@ namespace Fanex.CRM.ActionLog.Controllers
     using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
-    /// ActionLogController controller.
+    /// ActionLog Controller controller.
     /// </summary>
     public class ActionLogController : BaseController
     {
