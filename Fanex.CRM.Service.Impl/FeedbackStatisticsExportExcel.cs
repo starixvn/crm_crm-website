@@ -165,107 +165,6 @@ namespace Fanex.CRM.Service.Impl
             return result;
         }
 
-        #region export daily summary
-        /// <summary>
-        /// Export 2 excel - daily summary report.
-        /// </summary>
-        /// <param name="strFromDate">From date.</param>
-        /// <param name="strToDate">To date value.</param>
-        /// <param name="reportTitle">Report title.</param>
-        public void ExportExcelIBCDailySummaryReport(string strFromDate, string strToDate, string reportTitle)
-        {
-            try
-            {
-                var excelFile = new ExcelFile();
-                var reportName = "IBCSummaryReport";
-
-                var getData = (DailySummaryBO)SessionExtension.GetSession(HttpContext.Current.Session, _ibcDailySummary);
-                var fromDate = CastAide.AsDateTime(strFromDate);
-                var toDate = CastAide.AsDateTime(strToDate);
-
-                if (getData != null)
-                {
-                    ExportIBCDailySummaryReport(getData, fromDate, toDate, excelFile, reportTitle);
-                }
-                else
-                {
-                    var newData = GetIBCDailySummaryReport(strFromDate, strToDate);
-                    ExportIBCDailySummaryReport(newData, fromDate, toDate, excelFile, reportTitle);
-                }
-
-                ReponseExcelFile(excelFile, string.Format("{0}-{1:MMddyyyy}-{2:MMddyyyy}", reportName, fromDate, toDate));
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                Helper.SendMailErrorNotice(string.Format("(ExportExcelIBCDailySummaryReport) - {0}", ex.Message));
-            }
-        }
-
-        #endregion
-
-        #region Export daily detail
-        /// <summary>
-        /// Export 2 excel - daily detail report.
-        /// </summary>
-        /// <param name="strFromDate">From date.</param>
-        /// <param name="strToDate">To date value.</param>
-        /// <param name="reportTitle">Report title.</param>
-        /// <param name="email">Email address.</param>
-        /// <param name="isSendMail">Is sending mail.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public void ExportExcelIBCDailyDetailReport(string strFromDate, string strToDate, string reportTitle, string email, bool isSendMail = false)
-        {
-            try
-            {
-                var excelFile = new ExcelFile();
-                var reportName = "IBCDetailReport";
-                var getData = (DailyComplaintsDTO)SessionExtension.GetSession(HttpContext.Current.Session, _ibcDailyDetail);
-
-                var fromDate = CastAide.AsDateTime(strFromDate);
-                var toDate = CastAide.AsDateTime(strToDate);
-                if (isSendMail)
-                {
-                    DataTable sessionData = null;
-                    if (getData == null)
-                    {
-                        sessionData = (DataTable)SessionExtension.GetSession(HttpContext.Current.Session, _ibcDailyDetailNotMapped);
-                    }
-
-                    ////export excel file to Hardware and send mail confirm to CSD
-                    var dailyComplaintsData = new DailyComplaintsDTO();
-                    dailyComplaintsData.DailyComplaints = new List<DailyComplaintsDetail>();
-
-                    var fileName = string.Format("{0}-{1:MMddyyyy}-{2:MMddyyyy}", reportName, fromDate, toDate);
-                    getData = getData ?? MapperIBCDailyDetailReport(sessionData.AsEnumerable().Select(c => c));
-                    if (getData != null)
-                    {
-                        ExportDailyComplaintsDetail(getData, fromDate, toDate, excelFile, reportTitle);
-                        if (!Directory.Exists(WebConfigApplicationSettings.ReportFolderPath))
-                        {
-                            Directory.CreateDirectory(WebConfigApplicationSettings.ReportFolderPath);
-                        }
-
-                        excelFile.SaveXls(string.Format(@"{0}\{1}.xls", WebConfigApplicationSettings.ReportFolderPath, fileName));
-                        SendMailAndDeleteFile(email, fileName, strFromDate, strToDate, "Daily");
-                    }
-                }
-                else if (getData != null)
-                {
-                    ExportDailyComplaintsDetail(getData, fromDate, toDate, excelFile, reportTitle);
-                    ReponseExcelFile(excelFile, string.Format("{0}-{1:MMddyyyy}-{2:MMddyyyy}", reportName, fromDate, toDate));
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-        }
-
-        #endregion
-
         #region export licensee summary
         /// <summary>
         /// Excel 2 excel - Licensee daily summary report.
@@ -282,16 +181,12 @@ namespace Fanex.CRM.Service.Impl
                 var getData = (DailySummaryBO)SessionExtension.GetSession(HttpContext.Current.Session, _licenseeDailySummary);
                 var fromDate = CastAide.AsDateTime(strFromDate);
                 var toDate = CastAide.AsDateTime(strToDate);
-                if (getData != null)
+                if (getData == null)
                 {
-                    ExportLicenseeDailySummaryReport(getData, fromDate, toDate, excelFile, reportTitle);
-                }
-                else
-                {
-                    var newData = GetIBCDailySummaryReport(strFromDate, strToDate);
-                    ExportLicenseeDailySummaryReport(newData, fromDate, toDate, excelFile, reportTitle);
+                    getData = GetIBCDailySummaryReport(strFromDate, strToDate);
                 }
 
+                ExportLicenseeDailySummaryReport(getData, fromDate, toDate, excelFile, reportTitle);
                 ReponseExcelFile(excelFile, string.Format("{0}-{1:MMddyyyy}-{2:MMddyyyy}", reportName, fromDate, toDate));
             }
             catch (Exception ex)
@@ -501,7 +396,6 @@ namespace Fanex.CRM.Service.Impl
             try
             {
                 var getSessionData = (DailyComplaintsDTO)SessionExtension.GetSession(HttpContext.Current.Session, _ibcDailyDetail);
-
                 result = getSessionData != null && getSessionData.DailyComplaints.Count > 0 ?
                     new Result(0, "Succesfully") :
                     new Result(1, "Data has not mapped yet");
@@ -653,20 +547,7 @@ namespace Fanex.CRM.Service.Impl
             FeedbackView feedbackView)
         {
             var nextCol = 0;
-            Color color;
-            switch (feedbackView.Status.ToLower())
-            {
-                case "closed":
-                    color = Color.FromArgb(204, 199, 186);
-                    break;
-                case "pending":
-                    color = Color.FromArgb(251, 236, 136);
-                    break;
-                default:
-                    color = Color.FromArgb(255, 255, 255);
-                    break;
-            }
-
+            Color color = GetFeedbackRowColor(feedbackView.Status);
             var currentRowFormat = new ExcelUtils().GetStyleTitle(color, HorizontalAlignmentStyle.Left, ExcelFont.NormalWeight);
 
             sheetData.Rows[startRow + nextRow].Height = 4 * 256;
@@ -722,6 +603,24 @@ namespace Fanex.CRM.Service.Impl
         }
 
         /// <summary>
+        /// Gets the color of the feedback row.
+        /// </summary>
+        /// <param name="statusName">Name of the status.</param>
+        /// <returns>The color of the feedback row.</returns>
+        private static Color GetFeedbackRowColor(string statusName)
+        {
+            switch (statusName.ToLower())
+            {
+                case "closed":
+                    return Color.FromArgb(204, 199, 186);
+                case "pending":
+                    return Color.FromArgb(251, 236, 136);
+                default:
+                    return Color.FromArgb(255, 255, 255);
+            }
+        }
+
+        /// <summary>
         /// Assign data to content report.
         /// </summary>
         /// <param name="sheetData">Report work sheet.</param>
@@ -737,27 +636,14 @@ namespace Fanex.CRM.Service.Impl
             FeedbackView feedbackView)
         {
             var nextCol = 0;
-            Color color;
-            switch (feedbackView.Status.ToLower())
-            {
-                case "closed":
-                    color = Color.FromArgb(204, 199, 186);
-                    break;
-                case "pending":
-                    color = Color.FromArgb(251, 236, 136);
-                    break;
-                default:
-                    color = Color.FromArgb(255, 255, 255);
-                    break;
-            }
-
+            Color color = GetFeedbackRowColor(feedbackView.Status);
             var currentRowFormat = new ExcelUtils().GetStyleTitle(color, HorizontalAlignmentStyle.Left, ExcelFont.NormalWeight);
-
-            sheetData.Rows[startRow + nextRow].Height = 4 * 256;
             var reviewBy =
                 string.IsNullOrEmpty(feedbackView.Reviewer) ? string.Empty : string.Format("\n Reviewed by {0} on {1}", feedbackView.Reviewer, feedbackView.ReviewDate);
             var createBy = string.Format("\n By {0} on {1} (GMT -4)", feedbackView.Creator, feedbackView.CreateDate);
             var solvingDuration = string.IsNullOrEmpty(feedbackView.DurationTime) ? string.Empty : string.Format("\n Solving Duration: {0}", feedbackView.DurationTime);
+
+            sheetData.Rows[startRow + nextRow].Height = 4 * 256;
             sheetData.Cells[startRow + nextRow, startCol].Style = currentRowFormat;
             sheetData.Cells[startRow + nextRow, startCol].Value =
                 string.Format("{0} \n Feedback date {1} {2} {3} {4}", feedbackView.Subject, feedbackView.FeedbackDate, createBy, solvingDuration, reviewBy);
@@ -819,13 +705,11 @@ namespace Fanex.CRM.Service.Impl
             {
                 var groupTitleFormat = new ExcelUtils().GetStyleTitle(Color.FromArgb(255, 238, 221));
                 var totalChild = columnNames != null ? columnNames.Count : 0;
-                sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + totalChild).Merged = true;
-                sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + totalChild).Style =
-                    groupTitleFormat;
-                sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + totalChild).Value =
-                    feedbacks.Title;
-                sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + totalChild).Style.HorizontalAlignment =
-                    HorizontalAlignmentStyle.Left;
+                var cellRange = sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + totalChild);
+                cellRange.Merged = true;
+                cellRange.Style = groupTitleFormat;
+                cellRange.Value = feedbacks.Title;
+                cellRange.Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
                 nextRow++;
                 var index = 0;
                 foreach (FeedbackStatistics feedback in feedbacks.FeedbackStatistics)
@@ -946,12 +830,10 @@ namespace Fanex.CRM.Service.Impl
                 mergeCols = dalySummaryBO.DailySummaries[0].Total.Cells.Count + 1;
             }
 
-            sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + mergeCols).Merged = true;
-            sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + mergeCols).Style = backgroundHeaderMainFormat;
-            sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + mergeCols).Value =
-                fromDate == toDate ?
-                fromDate.ToString("MMMM dd, yyyy") :
-                string.Format("From {0} To {1}", fromDate.ToString("MMMM dd, yyyy"), toDate.ToString("MMMM dd, yyyy"));
+            var cellRange = sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + mergeCols);
+            cellRange.Merged = true;
+            cellRange.Style = backgroundHeaderMainFormat;
+            cellRange.Value = string.Format(fromDate == toDate ? "{0}" : "From {0} To {1}", fromDate.ToString("MMMM dd, yyyy"), toDate.ToString("MMMM dd, yyyy"));
 
             if (mergeCols > 1)
             {
@@ -1010,25 +892,16 @@ namespace Fanex.CRM.Service.Impl
 
             sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundNormalFormat;
             sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = summaryDatail.Total;
-
             nextRow++;
         }
 
-        /// <summary>
-        /// Export 2 excel - Daily complaints detail.
-        /// </summary>
-        /// <param name="complaints">Customer complaints.</param>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date value.</param>
-        /// <param name="excelFile">Excel file.</param>
-        /// <param name="title">Report title.</param>
         private void ExportDailyComplaintsDetail(DailyComplaintsDTO complaints, DateTime fromDate, DateTime toDate, ExcelFile excelFile, string title)
         {
             var startCol = 0;
             var startRow = 2;
             var nextRow = 0;
-            var sheetData = excelFile.Worksheets.Add(
-                string.Format(ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "exportDailyComplaintsDetail"), "Detail"));
+            var complaintsDetail = string.Format(ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "exportDailyComplaintsDetail"), "Detail");
+            var sheetData = excelFile.Worksheets.Add(complaintsDetail);
             ExportDailyComplaintsDetailAssignHeader(ref sheetData, startRow, startCol, fromDate, title);
             ExportDailyComplaintsDetailAssignContent(ref sheetData, startRow, startCol, nextRow, fromDate, complaints);
         }
@@ -1266,12 +1139,10 @@ namespace Fanex.CRM.Service.Impl
                 mergeCols = dalySummaryBO.DailySummaries[0].Total.Cells.Count + 1;
             }
 
-            sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + mergeCols).Merged = true;
-            sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + mergeCols).Style = backgroundHeaderMainFormat;
-            sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + mergeCols).Value =
-                fromDate == toDate ?
-                fromDate.ToString("MMMM dd, yyyy") :
-                string.Format("From {0} To {1}", fromDate.ToString("MMMM dd, yyyy"), toDate.ToString("MMMM dd, yyyy"));
+            var cellRange = sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol, startRow + nextRow, startCol + mergeCols);
+            cellRange.Merged = true;
+            cellRange.Style = backgroundHeaderMainFormat;
+            cellRange.Value = string.Format(fromDate == toDate ? "{0}" : "From {0} To {1}", fromDate.ToString("MMMM dd, yyyy"), toDate.ToString("MMMM dd, yyyy"));
 
             if (mergeCols > 1)
             {
@@ -1633,10 +1504,11 @@ namespace Fanex.CRM.Service.Impl
                 var nextCol = 0;
 
                 //// left col - main cateogry
-                sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol + nextCol, startRow + nextRow + 1, startCol + nextCol).Merged = true;
-                sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol + nextCol, startRow + nextRow + 1, startCol + nextCol).Style = backgroundHeaderNormalFormat;
-                sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol + nextCol, startRow + nextRow + 1, startCol + nextCol).Value =
-                    ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblCategory");
+                CellRange cellRange;
+                cellRange = sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol + nextCol, startRow + nextRow + 1, startCol + nextCol);
+                cellRange.Merged = true;
+                cellRange.Style = backgroundHeaderNormalFormat;
+                cellRange.Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblCategory");
 
                 //// right cols - system data
                 for (int i = 0; i < casinoDailySummary.DailySummary[0].SystemSummary.Count; i++)
@@ -1645,10 +1517,9 @@ namespace Fanex.CRM.Service.Impl
                     var totalMergeCols = systemSummary.Cells.Count - 1;
 
                     sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol + (nextCol += 1), startRow + nextRow, startCol + nextCol + totalMergeCols).Merged = true;
-                    sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol + nextCol, startRow + nextRow, startCol + nextCol + totalMergeCols).Style =
-                        backgroundHeaderNormalFormat;
-                    sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol + nextCol, startRow + nextRow, startCol + nextCol + totalMergeCols).Value =
-                        systemSummary.Sytem;
+                    cellRange = sheetData.Cells.GetSubrangeAbsolute(startRow + nextRow, startCol + nextCol, startRow + nextRow, startCol + nextCol + totalMergeCols);
+                    cellRange.Style = backgroundHeaderNormalFormat;
+                    cellRange.Value = systemSummary.Sytem;
 
                     var nextCol2 = 0;
                     for (int j = 0; j < systemSummary.Cells.Count; j++)
@@ -1748,14 +1619,6 @@ namespace Fanex.CRM.Service.Impl
             }
         }
 
-        /// <summary>
-        /// Export 2 excel - Casino daily report.
-        /// </summary>
-        /// <param name="complaints">Customer complaints.</param>
-        /// <param name="fromDate">From date.</param>
-        /// <param name="toDate">To date value.</param>
-        /// <param name="excelFile">Excel file.</param>
-        /// <param name="title">Report title.</param>
         private void ExportCasinoDailyComplaintsDetail(DailyComplaintsDTO complaints, DateTime fromDate, DateTime toDate, ExcelFile excelFile, string title)
         {
             var startCol = 0;
@@ -2019,9 +1882,8 @@ namespace Fanex.CRM.Service.Impl
                 var nextCol = 0;
                 sheetData.Columns[startCol].Width = 255 * 30;
                 sheetData.Cells[startRow + nextRow, startCol].Style = backgroundHeaderNormalFormat;
-                sheetData.Cells[startRow + nextRow, startCol].Value = ResourceExtension.GetResourceValue(
-                                                                                   ResourceExtension.Resources.Language,
-                                                                                   "exportComplaintsEnquiriesTitle");
+                var complaintsEnquiriesTitle = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "exportComplaintsEnquiriesTitle");
+                sheetData.Cells[startRow + nextRow, startCol].Value = complaintsEnquiriesTitle;
                 var cells = dalySummaryBO.DailySummaries[0].Total.Cells;
 
                 for (int i = 0; i < cells.Count; i++)
@@ -2086,15 +1948,11 @@ namespace Fanex.CRM.Service.Impl
         /// <param name="reportType">Report type.</param>
         private void SendMailAndDeleteFile(string email, string reportName, string fromDate, string toDate, string reportType)
         {
-            var subject = string.Format(
-                ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "reportMailSubject"),
-                reportType,
-                string.Format("{0}-{1}", fromDate, toDate));
-            var body = string.Format(
-                ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "reportMailBody"),
-                WebConfigApplicationSettings.ReportDownloadUrl,
-                reportName);
+            var mailSubject = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "reportMailSubject");
+            var mailBody = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "reportMailBody");
 
+            var subject = string.Format(mailSubject, reportType, string.Format("{0}-{1}", fromDate, toDate));
+            var body = string.Format(mailBody, WebConfigApplicationSettings.ReportDownloadUrl, reportName);
             var mailContent = new MailSend()
             {
                 HostName = MailSection.HostName.Gmail,

@@ -188,7 +188,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         };
 
         var chartOption = crmChart.newopts;
-        var chartOption = $.extend(chartOption, {
+        chartOption = $.extend(chartOption, {
             chartType: crmChart.chartType.bar,
             xAxisLabel: "",
             yAxisLabel: "",
