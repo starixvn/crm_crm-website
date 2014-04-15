@@ -212,9 +212,50 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
     }
 
     function viewChart(scope, element, attrs) {
+        var crmChart = parent.crmChart;
         var chartInfo = cachedData.statisticReport ? cachedData.statisticReport.ChartInfo : null;
-        parent.crmChart.title = chartInfo.Name;
+        crmChart.title = chartInfo.Name;
+
+        var chartData = {
+            labels: getChartLabels(chartInfo, crmChart),
+            datasets: getChartDatasets(chartInfo, crmChart)
+        };
+
+        var chartOption = angular.copy(crmChart.newopts);
+        chartOption = $.extend(chartOption, {
+            chartType: crmChart.chartType.bar,
+            xAxisLabel: "",
+            yAxisLabel: "",
+            scaleFontSize: 9,
+            yAxisUnit: viewResources.StatisticReport_ChartSuffix
+        });
+
+        crmChart.viewChart(chartData, chartOption);
+        parent.$(".ui-dialog-titlebar-close").click(function () {
+            scope.setFocus();
+        });
+    }
+
+    function getChartLabels(chartInfo, crmChart) {
         var xAxisCategories = [];
+        var dateReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
+
+        var rowIndex = 0;
+        for (var xIndex = 0; xIndex < dateReportLength; xIndex++) {
+            var dateReport = chartInfo.ChildReports[xIndex];
+            var timeLength = dateReport.ChildReports.length;
+
+            for (var timeIndex = 0; timeIndex < timeLength; timeIndex++, rowIndex++) {
+                var timeReport = dateReport.ChildReports[timeIndex];
+                xAxisCategories.push(sharedScriptManager.stringFormat("{0} - {1}",
+                    [dateReport.ShortName, timeReport.ShortName]));
+
+            }
+        }
+
+        return xAxisCategories;
+    }
+    function getChartDatasets(chartInfo, crmChart) {
         var chartSeries = [];
         var dateReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
 
@@ -225,17 +266,17 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
             var timeLength = dateReport.ChildReports.length;
             for (var timeIndex = 0; timeIndex < timeLength; timeIndex++, rowIndex++) {
                 var timeReport = dateReport.ChildReports[timeIndex];
-                xAxisCategories.push(sharedScriptManager.stringFormat("{0} - {1}",
-                    [dateReport.ShortName, timeReport.ShortName]));
-
                 var countryLength = timeReport.ChildReports.length;
                 for (var countryIndex = 0; countryIndex < countryLength; countryIndex++) {
                     var countryReport = timeReport.ChildReports[countryIndex];
                     if (chartSeries[countryIndex] === undefined ||
                         chartSeries[countryIndex] === null) {
+                        var backgroundColor = crmChart.getBackGroundColor(countryIndex);
                         chartSeries[countryIndex] = {
-                            name: countryReport.CountryInfo.Name,
-                            data: []
+                            fillColor: backgroundColor,
+                            strokeColor: backgroundColor,
+                            data: [],
+                            title: countryReport.CountryInfo.Name
                         };
                     }
 
@@ -244,20 +285,7 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
             }
         }
 
-        var chartOptions = {
-            xAxis: {
-                categories: xAxisCategories
-            },
-            series: chartSeries,
-            tooltip: {
-                valueSuffix: viewResources.StatisticReport_ChartSuffix
-            }
-        };
-
-        parent.crmChart.viewChart(chartOptions);
-        parent.$(".ui-dialog-titlebar-close").click(function () {
-            scope.setFocus();
-        });
+        return chartSeries;
     }
 
     return {

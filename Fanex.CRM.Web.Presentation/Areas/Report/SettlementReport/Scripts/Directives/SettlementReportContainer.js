@@ -183,9 +183,42 @@ settlementReportApplication.directive('tableSettlementReportContainer', function
     }
 
     function viewChart(scope, element, attrs) {
+        var crmChart = parent.crmChart;
         var chartInfo = cachedData.settlementReport ? cachedData.settlementReport.ChartInfo : null;
-        parent.crmChart.title = chartInfo.Name;
+        crmChart.title = chartInfo.Name;
+
+        var chartData = {
+            labels: getChartLabels(chartInfo, crmChart),
+            datasets: getChartDatasets(chartInfo, crmChart)
+        };
+
+        var chartOption = angular.copy(crmChart.newopts);
+        chartOption = $.extend(chartOption, {
+            chartType: crmChart.chartType.bar,
+            xAxisLabel: "",
+            yAxisLabel: "",
+            yAxisUnit: viewResources.SettlementReport_ChartSuffix
+        });
+
+        crmChart.viewChart(chartData, chartOption);
+        parent.$(".ui-dialog-titlebar-close").click(function () {
+            scope.setFocus();
+        });
+    }
+
+    function getChartLabels(chartInfo, crmChart) {
         var xAxisCategories = [];
+        var monthReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
+        var xIndex;
+        for (xIndex = 0; xIndex < monthReportLength; xIndex++) {
+            var monthReport = chartInfo.ChildReports[xIndex];
+            xAxisCategories.push(monthReport.Name);
+        }
+
+        return xAxisCategories;
+    }
+
+    function getChartDatasets(chartInfo, crmChart) {
         var chartSeries = [];
         var monthReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
         var countryDictionary = [];
@@ -194,8 +227,6 @@ settlementReportApplication.directive('tableSettlementReportContainer', function
         var xIndex;
         for (xIndex = 0; xIndex < monthReportLength; xIndex++) {
             var monthReport = chartInfo.ChildReports[xIndex];
-            xAxisCategories.push(monthReport.Name);
-
             var countryLength = monthReport.ChildReports.length;
             for (countryIndex = 0; countryIndex < countryLength; countryIndex++) {
                 var countryReport = monthReport.ChildReports[countryIndex];
@@ -208,9 +239,12 @@ settlementReportApplication.directive('tableSettlementReportContainer', function
                 var chartSerieIndex = countryDictionary[countryReport.Name];
                 if (chartSeries[chartSerieIndex] === undefined ||
                     chartSeries[chartSerieIndex] === null) {
+                    var backgroundColor = crmChart.getBackGroundColor(chartSerieIndex);
                     chartSeries[chartSerieIndex] = {
-                        name: countryReport.Name,
-                        data: []
+                        fillColor: backgroundColor,
+                        strokeColor: backgroundColor,
+                        data: [],
+                        title: countryReport.Name
                     };
                 }
 
@@ -228,20 +262,7 @@ settlementReportApplication.directive('tableSettlementReportContainer', function
             }
         }
 
-        var chartOptions = {
-            xAxis: {
-                categories: xAxisCategories
-            },
-            series: chartSeries,
-            tooltip: {
-                valueSuffix: viewResources.SettlementReport_ChartSuffix
-            }
-        };
-
-        parent.crmChart.viewChart(chartOptions);
-        parent.$(".ui-dialog-titlebar-close").click(function () {
-            scope.setFocus();
-        });
+        return chartSeries;
     }
 
     return {

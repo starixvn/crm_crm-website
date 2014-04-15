@@ -517,7 +517,6 @@ namespace Fanex.CRM.Web.View.App_Start
         }
         
         /// <summary>
-
         /// Registers the result message bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
@@ -536,6 +535,10 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/FanexGridV2/numeral.js"));
         }
 
+        /// <summary>
+        /// Registers the bundles_ report_ wager report.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_WagerReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/WagerReportScripts").Include(
@@ -554,6 +557,10 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Report/WagerReport/Styles/WagerReport.less"));
         }
 
+        /// <summary>
+        /// Registers the bundles_ report_ summary report.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_SummaryReport(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/SummaryReportScripts").Include(

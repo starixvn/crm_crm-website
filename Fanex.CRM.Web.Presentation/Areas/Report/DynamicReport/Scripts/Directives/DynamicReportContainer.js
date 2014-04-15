@@ -187,7 +187,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
             datasets: getChartDatasets(chartInfo, crmChart)
         };
 
-        var chartOption = crmChart.newopts;
+        var chartOption = angular.copy(crmChart.newopts);
         chartOption = $.extend(chartOption, {
             chartType: crmChart.chartType.bar,
             xAxisLabel: "",
@@ -196,6 +196,9 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         });
 
         crmChart.viewChart(chartData, chartOption);
+        parent.$(".ui-dialog-titlebar-close").click(function () {
+            scope.setFocus();
+        });
     }
 
     function getChartLabels(chartInfo, crmChart) {
@@ -221,12 +224,6 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
         }
 
         return chartSeries;
-        parent.$(".ui-dialog-titlebar-close").click(function () {
-            scope.setFocus();
-        });
-        parent.$(".ui-dialog-titlebar-close").click(function () {
-            scope.setFocus();
-        });
     }
 
     return {
