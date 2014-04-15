@@ -350,8 +350,6 @@ var crmChart = {
             canvas = G_vmlCanvasManager.initElement(canvas);
         }
 
-        var ctx = new Chart(canvas.getContext("2d"));
-
         switch (options.chartType) {
             case this.chartType.line:
                 setTimeout(function () {
