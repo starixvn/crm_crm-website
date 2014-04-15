@@ -4140,6 +4140,8 @@ window.Chart = function (context) {
 
         var widestLegend = 0;
         var nbeltLegend = 0;
+        var minNumberOfLegend = 0;
+
         var nbLegendLines = 0;
         var nbLegendCols = 0;
         var spaceLegendHeight = 0;
@@ -4287,7 +4289,7 @@ window.Chart = function (context) {
                     }
                 }
 
-                if (nbeltLegend > 1) {
+                if (nbeltLegend > minNumberOfLegend) {
                     widestLegend += config.legendBlockSize + config.legendSpaceBetweenBoxAndText;
 
                     availableLegendWidth = width - config.spaceLeft - config.spaceRight - 2 * (borderWidth) - config.legendSpaceLeftText - config.legendSpaceRightText;
@@ -4493,7 +4495,7 @@ window.Chart = function (context) {
 
         // Draw Legend
 
-        if (nbeltLegend > 1) {
+        if (nbeltLegend > minNumberOfLegend) {
             if (config.legendBorders == true) {
                 ctx.save();
                 ctx.beginPath();
