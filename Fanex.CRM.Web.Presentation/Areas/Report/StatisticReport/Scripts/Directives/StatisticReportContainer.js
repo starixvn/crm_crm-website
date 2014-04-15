@@ -127,7 +127,7 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
         var viewChartIcon = '<input id="button-viewchart" class="btnCharting" type="button" value="">';
         var gridOptions = {
             columns: [].concat(
-                 [{ HeaderText: viewResources.Date, Width: 140, Name: "ColDate", HeaderAlign: "center", CellAlign: "left" },
+                 [{ HeaderText: viewResources.Date, Width: 160, Name: "ColDate", HeaderAlign: "center", CellAlign: "left" },
                   { HeaderText: viewResources.Time, Width: dateReportLength ? 120 : 120, Name: "ColTime", HeaderAlign: "center", CellAlign: "center"}],
                   countryColumns,
                   [{

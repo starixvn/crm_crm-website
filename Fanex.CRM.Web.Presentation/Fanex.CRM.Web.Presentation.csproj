@@ -328,6 +328,7 @@
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportController.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportService.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportApplication.js" />
@@ -351,6 +352,7 @@
     <Content Include="Content\site\Images\ico-collapse-expanse-filter.png" />
     <Content Include="Content\site\Images\ico-collapse.png" />
     <Content Include="Content\site\Images\ico-expand.png" />
+    <Content Include="Content\site\Images\loading-icon2.gif" />
     <Content Include="Content\site\Images\loading100x100.gif" />
     <Content Include="Content\site\Images\next-pre-icon-cal.png" />
     <Content Include="Content\site\Images\ResultMessage\sprites-image.png" />

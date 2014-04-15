@@ -125,7 +125,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-            }               
+            }
         }
 
         /// <summary>
@@ -390,10 +390,6 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                     }
 
                     exportExcelInfo.Worksheet.GroupRow(exportExcelInfo.CurrentRow - countryReportLength, exportExcelInfo.CurrentRow - 2);
-                    exportExcelInfo.Worksheet.SetRowGroupCollapsed(exportExcelInfo.CurrentRow - countryReportLength, true);
-
-                    exportExcelInfo.Worksheet.GroupRow(exportExcelInfo.CurrentRow - countryReportLength, exportExcelInfo.CurrentRow - 2);
-                    exportExcelInfo.Worksheet.SetRowGroupCollapsed(exportExcelInfo.CurrentRow - countryReportLength, true);
                 }
 
                 var total = settlementReport.Total;

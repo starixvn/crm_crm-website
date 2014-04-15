@@ -47,9 +47,16 @@ var dailyReport = {
         dailyReport.fromDate = $('#txtfromdate').val();
         dailyReport.toDate = $('#txttodate').val();
         ibcDailySummaryReport.getDailyReport();
-        setTimeout(function () {
-            licenseeDailySummaryReport.getDailyReport();
-        }, 2000);
+        licenseeDailySummaryReport.getDailyReport();
+    },
+    completeGetReportData: function () {
+        if (ibcDailySummaryReport.loadCompleted &&
+            licenseeDailySummaryReport.loadCompleted) {
+            try {
+                parent.jQuery.unblockUI();
+            } catch (e) {
+            }
+        }
     }
 };
 
@@ -64,9 +71,9 @@ ibcDailySummaryReport = {
         $('#dailydetailgrid').addClass('hidden');
         $('#err').html('');
 
-        ibcDailySummaryReport.loadCompleted = false;
 
         try { parent.BlockUI(); } catch (e) { }
+        ibcDailySummaryReport.loadCompleted = false;
         var data = { 'fromDate': dailyReport.fromDate, 'toDate': dailyReport.toDate };
         $.ajax({
             type: "POST",
@@ -141,12 +148,7 @@ ibcDailySummaryReport = {
             },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
-                if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
-                    try {
-                        parent.jQuery.unblockUI();
-                    } catch (e) {
-                    }
-                }
+                dailyReport.completeGetReportData();
             }
         });
     },
@@ -426,12 +428,7 @@ licenseeDailySummaryReport = {
             },
             complete: function () {
                 licenseeDailySummaryReport.loadCompleted = true;
-                if (licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted) {
-                    try {
-                        parent.jQuery.unblockUI();
-                    } catch (e) {
-                    }
-                }
+                dailyReport.completeGetReportData();
             }
         });
     },
