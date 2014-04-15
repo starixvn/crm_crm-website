@@ -516,11 +516,12 @@ var feedbackStatistic = {
     },
     viewChart: function () {
         crmChart.title = $('#feedbackstatistictitle').html();
-        var chartOption = crmChart.newopts;
-        chartOption.xAxisLabel = $('#ddlType :selected').text();
-        chartOption.yAxisLabel = "";
-        chartOption.yAxisUnit = "Feedback(s)";
-        chartOption.chartType = crmChart.chartType.bar;
+       
+        var chartOption = $.extend({}, crmChart.newopts, {
+            xAxisLabel: $('#ddlType :selected').text(),
+            yAxisUnit: "Feedback(s)",
+            chartType: crmChart.chartType.bar
+        });
 
         crmChart.viewChart(this.chartData, chartOption);
     }

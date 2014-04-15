@@ -3474,6 +3474,7 @@ window.Chart = function (context) {
         function getValueBounds() {
             var upperValue = Number.MIN_VALUE;
             var lowerValue = Number.MAX_VALUE;
+            
             for (var i = 0; i < data.datasets.length; i++) {
                 for (var j = 0; j < data.datasets[i].data.length; j++) {
                     if (data.datasets[i].data[j] > upperValue) { upperValue = data.datasets[i].data[j] };
@@ -3485,7 +3486,7 @@ window.Chart = function (context) {
                 upperValue = upperValue * 2;
                 lowerValue = 0;
             }
-
+                        
             // AJOUT CHANGEMENT
             if (!isNaN(config.graphMin)) lowerValue = config.graphMin;
             if (!isNaN(config.graphMax)) upperValue = config.graphMax;
@@ -3866,7 +3867,9 @@ window.Chart = function (context) {
         if (!config.logarithmic) { // no logarithmic scale
             valueRange = maxValue - minValue;
             rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange);
-            graphMin = Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
+
+            //graphMin = Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
+            graphMin = 0;
             graphMax = Math.ceil(maxValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude);
         }
         else { // logarithmic scale
@@ -3898,7 +3901,7 @@ window.Chart = function (context) {
         var labels = [];
 
         populateLabels(config, labelTemplateString, labels, numberOfSteps, graphMin, graphMax, stepValue);
-
+        
         return {
             steps: numberOfSteps,
             stepValue: stepValue,

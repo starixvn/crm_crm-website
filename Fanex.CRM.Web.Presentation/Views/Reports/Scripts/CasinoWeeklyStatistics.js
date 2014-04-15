@@ -212,11 +212,10 @@ var casinoWeeklySummary = {
             return false;
         }
 
-        var chartOption = crmChart.newopts;
-        chartOption.xAxisLabel = "Communication";
-        chartOption.yAxisLabel = "";
-        chartOption.yAxisUnit = "Feedback(s)";
-        chartOption.chartType = crmChart.chartType.pie;
+        var chartOption = $.extend({}, crmChart.newopts, {
+            yAxisUnit: "Feedback(s)",
+            chartType: crmChart.chartType.bar
+        });
 
         crmChart.title = $('#gridtitle').html();
         crmChart.viewChart(this.chartData, chartOption);
