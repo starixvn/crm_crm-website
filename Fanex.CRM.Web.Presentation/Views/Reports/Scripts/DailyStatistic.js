@@ -47,9 +47,16 @@ var dailyReport = {
         dailyReport.fromDate = $('#txtfromdate').val();
         dailyReport.toDate = $('#txttodate').val();
         ibcDailySummaryReport.getDailyReport();
-        setTimeout(function () {
-            licenseeDailySummaryReport.getDailyReport();
-        }, 2000);
+        licenseeDailySummaryReport.getDailyReport();
+    },
+    completeGetReportData: function () {
+        if (ibcDailySummaryReport.loadCompleted &&
+            licenseeDailySummaryReport.loadCompleted) {
+            try {
+                parent.jQuery.unblockUI();
+            } catch (e) {
+            }
+        }
     }
 };
 
@@ -141,12 +148,7 @@ ibcDailySummaryReport = {
             },
             complete: function () {
                 ibcDailySummaryReport.loadCompleted = true;
-                if (ibcDailySummaryReport.loadCompleted && licenseeDailySummaryReport.loadCompleted) {
-                    try {
-                        parent.jQuery.unblockUI();
-                    } catch (e) {
-                    }
-                }
+                dailyReport.completeGetReportData();
             }
         });
     },
@@ -427,12 +429,7 @@ licenseeDailySummaryReport = {
             },
             complete: function () {
                 licenseeDailySummaryReport.loadCompleted = true;
-                if (licenseeDailySummaryReport.loadCompleted && ibcDailySummaryReport.loadCompleted) {
-                    try {
-                        parent.jQuery.unblockUI();
-                    } catch (e) {
-                    }
-                }
+                dailyReport.completeGetReportData();
             }
         });
     },
