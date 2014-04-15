@@ -5,8 +5,6 @@ crmConstants */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 summaryReportApplication.directive('tableSummaryReportContainer', function () {
-    var cachedTable;
-
     function getMonthColumnTitle(headerText, name) {
         return {
             HeaderText: headerText,
@@ -16,11 +14,6 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
             CellAlign: 'right',
             FormatNumber: crmConstants.Enums.FormatConstant.IntNumber
         };
-    }
-
-    function getGridHeight(scope) {
-        var marginBottom = crmConstants.MarginBottomPage;
-        return scope.isShowFilter ? (400 + marginBottom) : (50 + marginBottom);
     }
 
     function getGridOptions(scope, reportTitle, bodyData, footerData, months) {
@@ -46,7 +39,8 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
                 showExcelButton: true,
                 exportExcelFunction: function () {
                     scope.exportSummaryReportExcel();
-                }
+                },
+                customButtons: '<input id="button-viewchart" class="btnCharting" type="button" />'
             },
             bodyRows: bodyData,
             showFooter: true,
@@ -55,7 +49,7 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
             numberOfFrozenColumn: 1,
             fullWidth: true,
             fullHeight: true,
-            gridExpandHeight: getGridHeight(scope),
+            gridExpandHeight: 100,
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29
@@ -67,9 +61,6 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         if (categorySummaries) {
             var category, categoryTotal, subCategory, summary;
             var categoryLen, categoryTotalLen, subLen, currentRow, currentSubRow;
-            // chart
-            var datasets = [];
-            scope.chartData.datasets = datasets;
 
             categoryLen = categorySummaries.length;
             for (var i = 0; i < categoryLen; i++) {
@@ -80,16 +71,11 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
                 };
 
                 // chart
-                var categoryCharts = [];
                 categoryTotalLen = category.Summaries ? category.Summaries.length : 0;
                 for (var l = 0; l < categoryTotalLen; l++) {
                     categoryTotal = category.Summaries[l];
                     currentRow.Columns.push({ Name: 'Col' + categoryTotal.Month, Value: categoryTotal.Amount === 0 ? '' : categoryTotal.Amount });
-                    // chart
-                    categoryCharts.push(categoryTotal.Amount);
                 }
-                // chart
-                datasets.push({ fillColor: '', strokeColor: '', data: categoryCharts });
 
                 subLen = category.SubCategories ? category.SubCategories.length : 0;
                 for (var j = 0; j < subLen; j++) {
@@ -99,16 +85,11 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
                             { Name: 'ColCategory', Value: subCategory.Name}]
                     };
 
-                    var subCategoryCharts = [];
                     var summaryLen = subCategory.Summaries ? subCategory.Summaries.length : 0;
                     for (var k = 0; k < summaryLen; k++) {
                         summary = subCategory.Summaries[k];
                         currentSubRow.Columns.push({ Name: 'Col' + summary.Month, Value: summary.Amount === 0 ? '' : summary.Amount });
-                        // chart
-                        subCategoryCharts.push(summary.Amount);
                     }
-                    // chart
-                    datasets.push({ fillColor: '', strokeColor: '', data: subCategoryCharts });
 
                     currentRow.SubRows.push(currentSubRow);
                 }
@@ -145,40 +126,104 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         var categorySummaries = report.CategorySummaries;
         var grandTotals = report.GrandTotals;
         var months = report.Months;
-        // chart
-        scope.chartData.labels = months;
 
         var bodyData = getGridBody(scope, categorySummaries);
         var footerData = getGridFooter(grandTotals);
 
         var gridOptions = getGridOptions(scope, reportTitle, bodyData, footerData, months);
-        cachedTable = element
-            .find('#table-summary-report')
+        element.find('#table-summary-report')
             .empty()
             .removeClass(crmConstants.Enums.CssClass.DisplayNone)
             .fanexGrid(gridOptions);
+        if (parseInt(scope.chartType) === 0) {
+            element.find('#btnCollapseExpandtable-summary-report').trigger('click');
+        }
+        // view chart event.
+        element.find('#button-viewchart').click(function () {
+            viewChart(scope);
+        });
+    }
+
+    function getChartDatasets(categorySummaries, typeOfChart) {
+        var chartType = parseInt(typeOfChart);
+        var datasets = [];
+
+        var bgColor, bgColorIndex = 0;
+        var bgColorFunction = parent.crmChart.getBackGroundColor;
+        var category, categoryTotal, subCategory, summary, categoryCharts, subCategoryCharts;
+        var categoryTotalLen, subLen, summaryLen;
+        var categoryLen = categorySummaries.length;
+        for (var i = 0; i < categoryLen; i++) {
+            category = categorySummaries[i];
+            categoryCharts = [];
+            categoryTotalLen = category.Summaries ? category.Summaries.length : 0;
+            for (var l = 0; l < categoryTotalLen; l++) {
+                categoryTotal = category.Summaries[l];
+                categoryCharts.push(categoryTotal.Amount);
+            }
+
+            if (chartType === 0) { // Summary Chart
+                bgColor = bgColorFunction(bgColorIndex++);
+                datasets.push({ fillColor: bgColor, strokeColor: bgColor, title: category.Name, data: categoryCharts });
+            }
+
+            subLen = category.SubCategories ? category.SubCategories.length : 0;
+            for (var j = 0; j < subLen; j++) {
+                subCategory = category.SubCategories[j];
+                subCategoryCharts = [];
+                summaryLen = subCategory.Summaries ? subCategory.Summaries.length : 0;
+                for (var k = 0; k < summaryLen; k++) {
+                    summary = subCategory.Summaries[k];
+                    subCategoryCharts.push(summary.Amount);
+                }
+
+                if (chartType === 1) { // Detailed Chart
+                    bgColor = bgColorFunction(bgColorIndex++);
+                    datasets.push({ fillColor: bgColor, strokeColor: bgColor, title: subCategory.Name, data: subCategoryCharts });
+                }
+            }
+        }
+
+        return datasets;
+    }
+
+    function viewChart(scope) {
+        var report = scope.summaryReport;
+        if (!report) {
+            return;
+        }
+
+        var chartData = {
+            labels: report.Months,
+            datasets: getChartDatasets(report.CategorySummaries, scope.chartType)
+        };
+        var crmChart = parent.crmChart;
+        crmChart.title = report.ReportTitle;
+        var chartOption = crmChart.newopts;
+        chartOption = $.extend(chartOption, {
+            chartType: crmChart.chartType.bar,
+            xAxisLabel: '',
+            yAxisLabel: '',
+            yAxisUnit: summaryReportResources.Feedbacks,
+            yAxisFontSize: 8,
+            scaleFontSize: 12,
+            inGraphDataFontSize: 9,
+            inGraphDataRotate: 90
+        });
+
+        crmChart.viewChart(chartData, chartOption);
     }
 
     return {
         restrict: 'A',
         scope: {
             summaryReport: '=',
-            isShowFilter: '=',
-            isRenderGrid: '=',
-            isFilterBoxClicked: '=',
             exportSummaryReportExcel: '&',
-            chartData: '='
+            chartType: '='
         },
         link: function (scope, element, attrs) {
-            scope.$watch('isRenderGrid', function (newValue, oldValue) {
+            scope.$watch('summaryReport', function (newValue, oldValue) {
                 if (!newValue) {
-                    return;
-                }
-
-                scope.isRenderGrid = false;
-                if (scope.isFilterBoxClicked && cachedTable) {
-                    cachedTable.fanexGrid('resizeHeight', getGridHeight(scope));
-                    scope.isFilterBoxClicked = false;
                     return;
                 }
 

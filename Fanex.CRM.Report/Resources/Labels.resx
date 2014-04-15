@@ -427,10 +427,10 @@
     <value>Grand Total</value>
   </data>
   <data name="WagerReport" xml:space="preserve">
-    <value>Wager Report</value>
+    <value>Wagers-Related Report</value>
   </data>
   <data name="WagerReportExcelName" xml:space="preserve">
-    <value>Wager_Report_{0}</value>
+    <value>Wagers_Related_Report_{0}</value>
   </data>
   <data name="WagerReportTitle" xml:space="preserve">
     <value>WAGER ACCEPT, REJECT, VOID/REDUND FOR YEAR {0}</value>
@@ -442,7 +442,7 @@
     <value>Categories</value>
   </data>
   <data name="SummaryReport" xml:space="preserve">
-    <value>Summary Of Categories</value>
+    <value>Categories Summary</value>
   </data>
   <data name="APR" xml:space="preserve">
     <value>APR</value>
@@ -481,10 +481,10 @@
     <value>SEP</value>
   </data>
   <data name="SummaryReportExcelName" xml:space="preserve">
-    <value>Summary_Of_Categories_{0}</value>
+    <value>Categories_Summary_{0}</value>
   </data>
   <data name="SummaryReportTitle" xml:space="preserve">
-    <value>Summary Of Categories Report For Year {0}</value>
+    <value>Categories Summary Report For Year {0}</value>
   </data>
   <data name="Accept" xml:space="preserve">
     <value>Accept</value>
@@ -500,5 +500,8 @@
   </data>
   <data name="SummaryChart" xml:space="preserve">
     <value>Summary Chart</value>
+  </data>
+  <data name="Feedbacks" xml:space="preserve">
+    <value>Feedback(s)</value>
   </data>
 </root>

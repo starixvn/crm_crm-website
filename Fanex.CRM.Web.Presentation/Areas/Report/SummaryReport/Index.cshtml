@@ -16,9 +16,8 @@
 </head>
 <body>
     <div class="container main" data-ng-controller="summaryReportController">
-    <div class="result-message-container display-none">
-    </div>
-        <div class="row filter-frm one-row summary-filter expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
+        <div class="result-message-container display-none"></div>
+        <div class="row filter-frm one-row summary-filter">
             <div class="row">
                 <form data-ng-submit="getSummaryReport()">
                     <div class="item">
@@ -38,22 +37,14 @@
                     </div>
                 </form>
             </div>
-            <div id="chart-container" class="row display-none"></div>
-            <div class="icon-collapse" data-ng-click="showHideFilterBox();"></div>
-        </div>
-        <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
-            <div class="icon-expand" data-ng-click="showHideFilterBox();"></div>
         </div>
         <div class="row">
             <div table-summary-report-container
                 summary-report="summaryReport"
-                is-show-filter="isShowFilter"
-                is-render-grid="isRenderGrid"
                 is-filter-box-clicked="isFilterBoxClicked"
                 export-summary-report-excel="exportSummaryReportExcel()"
-                chart-data="chartData">
-                <div id="table-summary-report" class="freegrid display-none">
-                </div>
+                chart-type="chartType">
+                <div id="table-summary-report" class="freegrid display-none"></div>
             </div>
         </div>
         <div class="row download-file-container" data-ng-model="downloadFileOptions">
@@ -61,13 +52,12 @@
         </div>
     </div>
 
-    @Scripts.Render("~/Scripts/CommomScripts", "~/Scripts/FanexGridV2/NumeralScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render("~/Scripts/CommomScripts",
+        "~/Scripts/FanexGridV2/NumeralScripts",
+        "~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-    @Scripts.Render(
-        "~/CRM/Chart/Scripts",
-        "~/Areas/Report/SummaryReportScripts",
+    @Scripts.Render("~/Areas/Report/SummaryReportScripts",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
@@ -76,7 +66,8 @@
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
         var summaryReportResources = {
             Categories: '@Labels.Categories',
-            GrandTotal: '@Labels.GrandTotal'
+            GrandTotal: '@Labels.GrandTotal',
+            Feedbacks: '@Labels.Feedbacks'
         }; 
     </script>
 </body>

@@ -432,13 +432,12 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="CRM_System" xml:space="preserve">
     <value>CRM System</value>
   </data>
-    <data name="Title_Report_SettlementReport" xml:space="preserve">
+  <data name="Title_Report_SettlementReport" xml:space="preserve">
     <value>CRM System - Settlement Report</value>
   </data>
   <data name="Title_Report_StatisticReport" xml:space="preserve">
     <value>CRM System - Statistic Report</value>
   </data>
-
   <data name="Title_ActivityLogTab" xml:space="preserve">
     <value>CRM System - Activity Log</value>
   </data>
@@ -509,9 +508,9 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>CRM System - Home</value>
   </data>
   <data name="Title_Report_SummaryReport" xml:space="preserve">
-    <value>CRM System - Summary Of Categories Report</value>
+    <value>CRM System - Categories Summary Report</value>
   </data>
   <data name="Title_Report_WagerReport" xml:space="preserve">
-    <value>CRM System - Wager Report</value>
+    <value>CRM System - Wager-Related Report</value>
   </data>
 </root>
