@@ -311,7 +311,7 @@ ibcDailySummaryReport = {
     viewChart: function () {
         if (this.chartData == null ||
             this.chartData.labels == null ||
-            this.chartData.labels.length == 0) {
+            this.chartData.labels.length === 0) {
 
             return false;
         }
@@ -320,7 +320,7 @@ ibcDailySummaryReport = {
         chartOption.xAxisLabel = "Communication";
         chartOption.yAxisLabel = "";
         chartOption.yAxisUnit = "Feedback(s)";
-        chartOption.chartType = crmChart.chartType.bar
+        chartOption.chartType = crmChart.chartType.bar;
 
         crmChart.title = $('#gridtitle').html();
         crmChart.viewChart(this.chartData, chartOption);
@@ -597,12 +597,12 @@ licenseeDailySummaryReport = {
 
             this.chartData.labels = labels;
             this.chartData.datasets = datasets;
-        }        
+        }
     },
     viewChart: function () {
         if (this.chartData == null ||
             this.chartData.labels == null ||
-            this.chartData.labels.length == 0) {
+            this.chartData.labels.length === 0) {
 
             return false;
         }
@@ -611,7 +611,7 @@ licenseeDailySummaryReport = {
         chartOption.xAxisLabel = "Communication";
         chartOption.yAxisLabel = "";
         chartOption.yAxisUnit = "Feedback(s)";
-        chartOption.chartType = crmChart.chartType.bar
+        chartOption.chartType = crmChart.chartType.bar;
 
         crmChart.title = $('#licenseeSummaryTitle').html();
         crmChart.viewChart(this.chartData, chartOption);

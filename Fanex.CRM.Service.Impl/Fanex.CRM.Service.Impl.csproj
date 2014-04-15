@@ -81,6 +81,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="CountryService.cs" />
     <Compile Include="CustomerService.cs" />
+    <Compile Include="DailyStatisticsExportExcel.cs" />
     <Compile Include="DeleteFeedbackService.cs" />
     <Compile Include="FeedbackService.cs" />
     <Compile Include="FeedbackStatisticsExportExcel.cs" />

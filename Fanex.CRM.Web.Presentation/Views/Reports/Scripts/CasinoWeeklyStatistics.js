@@ -181,7 +181,6 @@ var casinoWeeklySummary = {
 
             for (var i = 0; i < totalMainCategories; i++) {
                 var mainCategoryDetail = rs.DailySummaries[i].Total;
-                var categoryName = mainCategoryDetail.MainCategory;
                 var detailData = [];
 
                 for (var k = 0; k < totalCols; k++) {
@@ -209,8 +208,7 @@ var casinoWeeklySummary = {
     viewChart: function () {
         if (this.chartData == null ||
             this.chartData.labels == null ||
-            this.chartData.labels.length == 0) {
-
+            this.chartData.labels.length === 0) {
             return false;
         }
 

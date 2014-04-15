@@ -243,11 +243,12 @@ casinoDailyStatistics = {
             var feedbackSummary = rs.GrandTotal;
             var totalSubcategories = feedbackSummary.SystemSummary.length;
             var groupIndex = 0;
+            var totalFeedbacks;
 
             for (var i = 0; i < totalSubcategories; i++) {
                 var categoryDetail = feedbackSummary.SystemSummary[i];
                 var categoryName = categoryDetail.Sytem;
-                var totalFeedbacks = rs.SumAllFeedbacks[i];
+                totalFeedbacks = rs.SumAllFeedbacks[i];
                 if (totalFeedbacks === 0) {
                     continue;
                 }
@@ -259,7 +260,7 @@ casinoDailyStatistics = {
                 }
 
                 var getBackgroundColor = crmChart.getBackGroundColor(i);
-                var totalFeedbacks = rs.SumAllFeedbacks[i];
+                totalFeedbacks = rs.SumAllFeedbacks[i];
                 mainCategories.push({
                     title: categoryName,
                     value: totalFeedbacks,
@@ -273,10 +274,8 @@ casinoDailyStatistics = {
         }
     },
     viewChart: function () {
-
         if (this.chartData == null ||
-            this.chartData.length == 0) {
-
+            this.chartData.length === 0) {
             return false;
         }
 

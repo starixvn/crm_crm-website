@@ -520,7 +520,7 @@ var feedbackStatistic = {
         chartOption.xAxisLabel = $('#ddlType :selected').text();
         chartOption.yAxisLabel = "";
         chartOption.yAxisUnit = "Feedback(s)";
-        chartOption.chartType = crmChart.chartType.bar
+        chartOption.chartType = crmChart.chartType.bar;
 
         crmChart.viewChart(this.chartData, chartOption);
     }
