@@ -327,17 +327,20 @@
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportApplication.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportController.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportService.js" />
-      <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportApplication.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportController.js" />
+    <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportService.js" />
     <Content Include="Areas\Report\SummaryReport\Scripts\Directives\SummaryReportContainer.js" />
     <Content Include="Areas\Report\SummaryReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\SummaryReport\Scripts\SummaryReportService.js" />
     <Content Include="Areas\Report\SummaryReport\Scripts\SummaryReportController.js" />
     <Content Include="Areas\Report\SummaryReport\Scripts\SummaryReportApplication.js" />
-        <Content Include="Areas\Report\WagerReport\Scripts\Directives\RegisterSharedDirectives.js" />
-  
+    <Content Include="Areas\Report\WagerReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\Directives\WagerReportContainer.js" />
-   <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
+    <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
     <Content Include="Content\site\Images\calendar.png" />
@@ -475,9 +478,9 @@
     <None Include="Areas\Report\CustomerReport\Styles\CustomerReport.less" />
     <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <Content Include="Areas\User\Web.config" />
-     <Content Include="Areas\Report\SettlementReport\Index.cshtml" />
+    <Content Include="Areas\Report\SettlementReport\Index.cshtml" />
     <None Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" />
-     <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
+    <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
     <Content Include="Areas\Report\SummaryReport\Index.cshtml" />
     <None Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
