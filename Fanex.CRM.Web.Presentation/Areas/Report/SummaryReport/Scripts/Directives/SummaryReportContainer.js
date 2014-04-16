@@ -208,7 +208,7 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
             yAxisFontSize: 8,
             scaleFontSize: 12,
             inGraphDataFontSize: 9,
-            inGraphDataRotate: 90
+            inGraphDataRotate: -90
         });
 
         crmChart.viewChart(chartData, chartOption);
