@@ -158,11 +158,8 @@ function (
 
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
-        if (!$scope.oldCommunicationLog.IsReviewed ||
-            !$scope.communicationLog.IsReviewed) {
-            $scope.preupdateLog();
-            $scope.$apply();
-        }
+        $scope.preupdateLog();
+        $scope.$apply();
     };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlE = function () {
@@ -469,9 +466,6 @@ function (
             getRelatedCustomer();
 
         var updateReviewedMode =
-                (!$scope.oldCommunicationLog.IsReviewed && !$scope.communicationLog.IsReviewed) ||
-                ($scope.oldCommunicationLog.IsReviewed && $scope.communicationLog.IsReviewed) ?
-                crmConstants.Enums.UpdateReviewedMode.NotChange :
                 ($scope.oldCommunicationLog.IsReviewed && !$scope.communicationLog.IsReviewed) ?
                     crmConstants.Enums.UpdateReviewedMode.Reset :
                     crmConstants.Enums.UpdateReviewedMode.Change;
