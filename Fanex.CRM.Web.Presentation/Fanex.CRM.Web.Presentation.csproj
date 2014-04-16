@@ -92,9 +92,9 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
       <HintPath>..\Dependency\Fanex\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependency\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+      <HintPath>..\Dependency\Fanex\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -846,10 +846,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fanex.CRM.ActivityLog\Fanex.CRM.ActionLog.csproj">
-      <Project>{D37120A9-532E-4C40-A6E6-EAFACCA8AED8}</Project>
-      <Name>Fanex.CRM.ActionLog</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Customer\Fanex.CRM.Customer.csproj">
       <Project>{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}</Project>
       <Name>Fanex.CRM.Customer</Name>
