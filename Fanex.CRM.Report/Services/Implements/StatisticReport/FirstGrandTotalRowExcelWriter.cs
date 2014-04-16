@@ -35,21 +35,20 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                true,
-               HorizontalAlignment.RIGHT);
+               HorizontalAlignment.RIGHT,
+               NpoiExcelExtensions.GrandTotalTextColorIndex);
             _textStyle = NpoiExcelExtensions.TextStyle(
                  _exportExcelInfo.ExcelFile,
                  _rowBackgroundColorIndex,
                  true,
-                 NpoiExcelExtensions.Alignment.Left);
+                 NpoiExcelExtensions.Alignment.Left,
+                 NpoiExcelExtensions.GrandTotalTextColorIndex);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Center);
-
-            NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(_intStyle);
-            NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(_textStyle);
-            NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(_centerTextStyle);
+                NpoiExcelExtensions.Alignment.Center,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
         /// <summary>

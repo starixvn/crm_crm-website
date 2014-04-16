@@ -178,8 +178,7 @@
                         data-ng-model="subjectOptions.Subject" />
                 </div>
                 <div class="item">
-                    <button id="button-submit" class="btn default-focus" data-ng-click="getDynamicReport()"
-                        data-ng-model="defaultFocusOptions.IsSetFocus">
+                    <button id="button-submit" class="btn" data-ng-click="getDynamicReport()">
                         <span class="hotkey">S</span>ubmit</button>
                 </div>
             </div>
@@ -200,6 +199,7 @@
     <div class="download-file-container" data-ng-model="downloadFileOptions">
         <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
     </div>
+    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
