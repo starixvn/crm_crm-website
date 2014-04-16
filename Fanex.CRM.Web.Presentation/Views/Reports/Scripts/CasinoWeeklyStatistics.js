@@ -61,7 +61,7 @@ var casinoWeeklySummary = {
                             arrScroll.push(casinoWeeklySummary.renderScrollGroup(arrNewData.Total,
                                 mainId,
                                 css,
-                                'style="font-weight: bold;"',
+                                'style=""',
                                 arrNewData.Total.MainCategory));
                         }
                     }
@@ -123,7 +123,7 @@ var casinoWeeklySummary = {
     },
     renderFrozenGroup: function (id, title, css) {
         var html = '<tr class="' + css + '">\
-                        <td><div class="l b" style="width:300px;">' + title + '</div></td>\
+                        <td><div class="l" style="width:300px;">' + title + '</div></td>\
                     </tr>';
         return html;
     },

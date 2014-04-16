@@ -95,7 +95,7 @@ casinoDailyStatistics = {
                             arrFrozen.push(casinoDailyStatistics.renderFrozenGroup(arrNewData.MainCategory, css));
                             arrScroll.push(casinoDailyStatistics.renderScrollGroup(arrNewData.SystemSummary,
                                 css,
-                                'style="font-weight: bold;"',
+                                'style=""',
                                 arrNewData.MainCategory));
                         }
                     }
@@ -172,7 +172,7 @@ casinoDailyStatistics = {
     },
     renderFrozenGroup: function (title, css) {
         var html = '<tr class="' + css + '">\
-                        <td><div class="l b" style="width:300px;">' + title + '</div></td>\
+                        <td><div class="l" style="width:300px;">' + title + '</div></td>\
                     </tr>';
         return html;
     },
