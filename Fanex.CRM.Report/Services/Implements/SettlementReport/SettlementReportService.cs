@@ -29,7 +29,6 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-    using NPOI.SS.Util;
 
     /// <summary>
     /// Settlement Report Service.
