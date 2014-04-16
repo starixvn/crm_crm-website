@@ -114,7 +114,6 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                     NpoiExcelExtensions.EvenRowColor,
                     NpoiExcelExtensions.EvenRowColorIndex);
                 NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
-                NpoiExcelExtensions.SetGrandTotalSeparatorColorIndex(ref exportExcelInfo);
 
                 ExportBody(ref exportExcelInfo, report.WagerByMonths);
                 ExportFooter(ref exportExcelInfo, report.GrandTotal);
@@ -307,11 +306,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
             ICellStyle monthCellStyle = GetGrandTotalMonthCellStyle(workbook);
-            NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(monthCellStyle);
-
             ICellStyle totalCellStyle = GetGrandTotalCellStyle(workbook);
-            NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(totalCellStyle);
-
             ICellStyle wagersCellStyle = null, amountCellStyle = null;
 
             CellRangeAddress grandTotalCellRange = new CellRangeAddress(

@@ -662,7 +662,6 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             var firstGrandTotalRowWriter = new FirstGrandTotalRowExcelWriter(exportExcelInfo);
             NpoiExcelExtensions.SetTotalColorIndex(ref exportExcelInfo);
             NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
-            NpoiExcelExtensions.SetGrandTotalSeparatorColorIndex(ref exportExcelInfo);
 
             var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
             var numberOfSheet = (childReportLength / maxRowPerSheet) +

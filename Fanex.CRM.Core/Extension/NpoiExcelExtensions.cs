@@ -36,7 +36,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static readonly Color OddRowColor = Color.White;
         public static readonly Color SubTotalRowColor = Color.FromArgb(194, 217, 236);
         public static readonly Color TotalRowColor = Color.FromArgb(244, 244, 190);
-        public static readonly Color GrandTotalRowColor = Color.FromArgb(219, 225, 187);
+        public static readonly Color GrandTotalRowColor = Color.FromArgb(60, 94, 165);
         public static readonly Color GrandTotalSeparatorColor = Color.FromArgb(255, 102, 0);
         public static readonly Color RevenueLicenseeColor = Color.FromArgb(213, 132, 52);
         public static readonly Color NoteInformationCellColor = Color.FromArgb(181, 196, 208);
@@ -53,6 +53,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static readonly short GrandTotalSeparatorColorIndex = (short)HSSFColor.CORNFLOWER_BLUE.index;
         public static readonly short GroupColorIndex = (short)HSSFColor.BLUE.index;
         public static readonly short GroupBackgroundColorIndex = (short)HSSFColor.DARK_GREEN.index;
+        public static readonly short GrandTotalTextColorIndex = (short)HSSFColor.WHITE.index;
 
         private const string IntNumberFormat = "#,##0";
         private const string TwoDecimalDigitNumber = "##,##0.00";

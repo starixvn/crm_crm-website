@@ -116,7 +116,6 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                         NpoiExcelExtensions.GroupBackgroundColor,
                         NpoiExcelExtensions.GroupBackgroundColorIndex);
                     NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
-                    NpoiExcelExtensions.SetGrandTotalSeparatorColorIndex(ref exportExcelInfo);
 
                     ExportBody(ref exportExcelInfo, report.CategorySummaries);
                     ExportFooter(ref exportExcelInfo, report.GrandTotals);
@@ -370,10 +369,8 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
 
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
             ICellStyle monthCellStyle = GetGrandTotalMonthCellStyle(workbook);
-            NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(monthCellStyle);
 
             ICellStyle totalCellStyle = GetGrandTotalCellStyle(workbook);
-            NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(totalCellStyle);
 
             IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.GrandTotal, totalCellStyle);

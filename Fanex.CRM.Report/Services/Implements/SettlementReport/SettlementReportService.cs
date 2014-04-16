@@ -349,7 +349,6 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                 NpoiExcelExtensions.EvenRowColor,
                 NpoiExcelExtensions.EvenRowColorIndex);
             NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
-            NpoiExcelExtensions.SetGrandTotalSeparatorColorIndex(ref exportExcelInfo);
 
             var oddRowWriter = new OddEvenRowExcelWriter(exportExcelInfo, false);
             var evenRowWriter = new OddEvenRowExcelWriter(exportExcelInfo, true);
