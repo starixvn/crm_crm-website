@@ -18,12 +18,12 @@ namespace Fanex.CRM.Report.Models.SummaryReport
     [Serializable]
     public class CategorySummary
     {
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
 
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
 
-        public IList<Summary> Total { get; set; }
+        public IList<Summary> Summaries { get; set; }
 
-        public IList<SubCategorySummary> SubCategorySummaries { get; set; }
+        public IList<CategorySummary> SubCategories { get; set; }
     }
 }

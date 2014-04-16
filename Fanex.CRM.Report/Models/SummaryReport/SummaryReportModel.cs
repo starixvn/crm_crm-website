@@ -22,7 +22,7 @@ namespace Fanex.CRM.Report.Models.SummaryReport
 
         public IList<CategorySummary> CategorySummaries { get; set; }
 
-        public SubCategorySummary GrandTotal { get; set; }
+        public IList<Summary> GrandTotals { get; set; }
 
         public IList<string> Months { get; set; }
     }

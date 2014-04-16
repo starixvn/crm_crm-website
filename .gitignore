@@ -30,8 +30,8 @@ bin
 /Fanex.CRM.Setting/obj
 /Fanex.CRM.User/bin
 /Fanex.CRM.User/obj
-/Fanex.CRM.ActivityLog/bin
-/Fanex.CRM.ActivityLog/obj
+/Fanex.CRM.ActionLog/bin
+/Fanex.CRM.ActionLog/obj
 /Fanex.CRM.Communication/bin
 /Fanex.CRM.Communication/obj
 /Fanex.CRM.Report/bin

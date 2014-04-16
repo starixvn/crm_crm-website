@@ -963,24 +963,6 @@ namespace Resources {
             }
         }
         
-         /// <summary>
-        ///   Looks up a localized string similar to CRM System - Settlement Report.
-        /// </summary>
-        internal static string Title_Report_SettlementReport {
-            get {
-                return ResourceManager.GetString("Title_Report_SettlementReport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CRM System - Statistic Report.
-        /// </summary>
-        internal static string Title_Report_StatisticReport {
-            get {
-                return ResourceManager.GetString("Title_Report_StatisticReport", resourceCulture);
-		}
-        }
-                
         /// <summary>
         ///   Looks up a localized string similar to CRM System - Activity Log.
         /// </summary>
@@ -1171,6 +1153,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CRM System - Settlement Report.
+        /// </summary>
+        internal static string Title_Report_SettlementReport {
+            get {
+                return ResourceManager.GetString("Title_Report_SettlementReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM System - Statistic Report.
+        /// </summary>
+        internal static string Title_Report_StatisticReport {
+            get {
+                return ResourceManager.GetString("Title_Report_StatisticReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM System - Categories Summary Report.
+        /// </summary>
+        internal static string Title_Report_SummaryReport {
+            get {
+                return ResourceManager.GetString("Title_Report_SummaryReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM System - Wager-Related Report.
+        /// </summary>
+        internal static string Title_Report_WagerReport {
+            get {
+                return ResourceManager.GetString("Title_Report_WagerReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CRM System - Weekly Statistics Report.
         /// </summary>
         internal static string Title_Report_WeeklyStatistics {
@@ -1188,24 +1206,6 @@ namespace Resources {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to CRM System - Summary Of Categories Report.
-        /// </summary>
-        internal static string Title_Report_SummaryReport {
-            get {
-                return ResourceManager.GetString("Title_Report_SummaryReport", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CRM System - Wager Report.
-        /// </summary>
-        internal static string Title_Report_WagerReport {
-            get {
-                return ResourceManager.GetString("Title_Report_WagerReport", resourceCulture);
-            }
-        }
-               
         /// <summary>
         ///   Looks up a localized string similar to Type of Contact.
         /// </summary>

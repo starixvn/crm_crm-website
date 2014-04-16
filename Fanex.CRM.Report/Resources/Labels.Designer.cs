@@ -430,6 +430,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feedback(s).
+        /// </summary>
+        public static string Feedbacks {
+            get {
+                return ResourceManager.GetString("Feedbacks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string First_Name {
@@ -988,7 +997,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary Of Categories.
+        ///   Looks up a localized string similar to Categories Summary.
         /// </summary>
         public static string SummaryReport {
             get {
@@ -997,7 +1006,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary_Of_Categories_{0}.
+        ///   Looks up a localized string similar to Categories_Summary_{0}.
         /// </summary>
         public static string SummaryReportExcelName {
             get {
@@ -1006,7 +1015,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Summary Of Categories Report For Year {0}.
+        ///   Looks up a localized string similar to Categories Summary Report For Year {0}.
         /// </summary>
         public static string SummaryReportTitle {
             get {
@@ -1150,7 +1159,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wager Report.
+        ///   Looks up a localized string similar to Wagers-Related Report.
         /// </summary>
         public static string WagerReport {
             get {
@@ -1159,7 +1168,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wager_Report_{0}.
+        ///   Looks up a localized string similar to Wagers_Related_Report_{0}.
         /// </summary>
         public static string WagerReportExcelName {
             get {
