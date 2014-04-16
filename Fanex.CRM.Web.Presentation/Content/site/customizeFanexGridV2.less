@@ -60,6 +60,12 @@
         .box-sizing(content-box);
     }
 
+    .free-top-right {
+        *, *:before, *:after {
+            .box-sizing(border-box);
+        }
+    }
+
     .grid-container.container {
         margin: 0;
         padding: 0;
@@ -126,6 +132,14 @@
    }
 }
 
+.freegrid .row-footer-background {
+    border-color: @table-border;
+}
+
+.freegrid .row_footer table thead th, .freegrid .col_footer table thead th {
+    background: #c0cae3 !important;
+    border-color: @table-border !important;
+}
 /* Pager */
 .freegrid .grid-pager {
 
