@@ -32,20 +32,20 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             _rowBackgroundColorIndex = NpoiExcelExtensions.TotalRowColorIndex;
 
             _intStyle = NpoiExcelExtensions.IntNumberStyle(
-               _exportExcelInfo.ExcelFile,
-               _rowBackgroundColorIndex,
-               true,
-               HorizontalAlignment.RIGHT);
+                _exportExcelInfo.ExcelFile,
+                _rowBackgroundColorIndex,
+                false,
+                HorizontalAlignment.RIGHT);
 
             _textStyle = NpoiExcelExtensions.TextStyle(
-                 _exportExcelInfo.ExcelFile,
-                 _rowBackgroundColorIndex,
-                 true,
-                 NpoiExcelExtensions.Alignment.Left);
+                _exportExcelInfo.ExcelFile,
+                _rowBackgroundColorIndex,
+                false,
+                NpoiExcelExtensions.Alignment.Left);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
-                true,
+                false,
                 NpoiExcelExtensions.Alignment.Center);
         }
 
