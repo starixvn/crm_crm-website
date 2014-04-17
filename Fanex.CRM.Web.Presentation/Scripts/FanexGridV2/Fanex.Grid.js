@@ -8,6 +8,10 @@
 //          + 02/06/2014: Customize Render footer when auto paging + Update initialize footer.
 //          + 02/06/2014: Customize Render footer when auto paging + Update initialize footer.
 //          + 02/27/2014: Update show "..." when auto truncate.
+//          + 03/19/2014: Support Time Zone Config
+//          + 04/08/2014: Support auto resize to full-screen width
+//          + 04/11/2014: Remove class "Container" 
+//          + 04/16/2014: Auto fix header height, fix bug collapse/expand
 // </copyright>
 // --------------------------------------------------------------------------
 /*jshint maxdepth:false, maxstatements:false*/
@@ -208,7 +212,9 @@
         autoFixFrozenRowHeight: false,
         autoResizeColumn: false,
         pixelsPerCharacter: 0,
-        calTextWidthWithFontSize: true
+        calTextWidthWithFontSize: true,
+        timeZone: '',
+        scrollWidth: 24
     };
 
     var Fanex = Fanex || {};
@@ -585,7 +591,7 @@
                     tableClass = 'grid-fixed-table col_header_content';
                     break;
                 case 'mainbody':
-                    divHeaderClass = 'grid-container container';
+                    divHeaderClass = 'grid-container';
                     divContainerClass = 'content-container';
                     tableClass = 'grid-fixed-table col_body_content';
                     hasId = true;
@@ -960,6 +966,10 @@
                 currentValue != null) {
                 var momentObject = moment(currentValue);
                 if (momentObject.isValid()) {
+                    if (options.timeZone !== '') {
+                        momentObject = momentObject.zone(options.timeZone);
+                    }
+
                     currentValue = momentObject.format(me.columnsHastable[currentCol.Name].FormatDateTime);
                 }
             }
@@ -1157,7 +1167,7 @@
             var currentPageStartIndex = 0,
                 currentRow;
 
-            if (options.sortOption.serverSortFunction == null && 
+            if (options.sortOption.serverSortFunction == null &&
                 options.sortOption.customGridSort == null) {
                 var defaultSort = false,
                 customSortFunction = null,
@@ -1221,7 +1231,7 @@
             }
             else {
                 //// Render There is no data, showNoDataOnFrozen
-                var emptyData = options.noDataText;
+                var emptyData = fanexGridCurrentLanguage.noData;
                 if (options.numberOfFrozenColumn > 0) {
                     if (options.showNoDataOnFrozen) {
                         //// Show No Info on the frozen table
@@ -1449,6 +1459,10 @@
                             me.$grid.find('.child-row').show();
                         }
                         me.gridOptions.isResetScroller = false;
+                        var gridOptions = Fanex.Grid.List[me.tableContentId].gridOptions;
+                        if (gridOptions) {
+                            me.gridOptions.gridHeight = gridOptions.gridHeight;
+                        }
                         $(me.$grid).gridScroller(me.gridOptions);
                     });
                 }
@@ -1622,6 +1636,28 @@
                         me.$grid.find('.row_header tr[highlightatt="' + hlattr.replace('main', 'frozen') + '"]').css('height', currentHeight + 'px');
                     }
                 });
+                // Header
+                var currentFrozenHeader = me.$grid.find('.grid-fixed-table.free-cell-top-left thead tr'),
+                    currentFrozenBody = me.$grid.find('.grid-fixed-table.row_header_content thead tr');
+                if (currentFrozenHeader.length > 0 && currentFrozenBody.length) {
+                    me.$grid.find('.grid-fixed-table.col_header_content thead tr').each(function (index) {
+                        var $trTable = $(this),
+                            currentHeight = $trTable.height();
+
+                        $(currentFrozenHeader[index]).css('height', currentHeight + 'px');
+                        $(currentFrozenBody[index]).css('height', currentHeight + 'px');
+                    });
+                }
+                // Footer
+                var currentFrozenFooter = me.$grid.find('.grid-fixed-table.row_footer_content thead tr');
+                if (currentFrozenFooter.length > 0) {
+                    me.$grid.find('.col_footer_content.grid-fixed-table thead tr').each(function (index) {
+                        var $trTable = $(this),
+                            currentHeight = $trTable.height();
+
+                        $(currentFrozenFooter[index]).css('height', currentHeight + 'px');
+                    });
+                }
             }
         }
     };
@@ -2017,6 +2053,45 @@
                 }
             }
 
+            options = Fanex.Grid.Helper.AutoAddWidthForFullScreen(options, mainContainer);
+
+            return options;
+        },
+        AutoAddWidthForFullScreen: function (options, mainContainer) {
+            var currentContainerWidth = mainContainer.parent().width(),
+                totalCalulatedWidth = 0,
+                colLength = options.columns.length,
+                resizeCols = [];
+
+            for (var i = 0; i < colLength; i++) {
+                var currentCol = options.columns[i];
+                if (currentCol.CanResize === true) {
+                    if (typeof (currentCol.MaxResizeWidth) !== 'undefined' && currentCol.Width > currentCol.MaxResizeWidth) {
+                        currentCol.Width = currentCol.MaxResizeWidth;
+                    }
+
+                    resizeCols.push({
+                        colIndex: i,
+                        colName: currentCol.Name,
+                        colWidth: currentCol.Width
+                    });
+                }
+                totalCalulatedWidth += currentCol.Width;
+
+            }
+
+            //// Add width for others columns
+            totalCalulatedWidth += (options.columns.length - 1) * 5 + options.marginRight + (options.hideYBackGroundScroller ? 0 : options.scrollWidth);
+            if (resizeCols.length > 0 && currentContainerWidth > totalCalulatedWidth) {
+                var totalAddWidth = currentContainerWidth - totalCalulatedWidth,
+                    addRowForEachColumn = totalAddWidth / resizeCols.length;
+
+                for (i = 0; i < resizeCols.length; i++) {
+                    var currentResizeCol = resizeCols[i];
+                    options.columns[currentResizeCol.colIndex].Width = currentResizeCol.colWidth + addRowForEachColumn;
+                }
+            }
+
             return options;
         },
         ComputeMaxWidthInRows: function (rows, resizeObject, columnHashtable, pixelsPerCharacter) {
@@ -2044,11 +2119,15 @@
                         }
                         else {
                             if (columnHashtable[currentCol.Name].PixelsPerCharacter != null) {
-                                textLength = currentCol.Value.toString().length * columnHashtable[currentCol.Name].PixelsPerCharacter;
+                                if (currentCol.Value != null) {
+                                    textLength = currentCol.Value.toString().length * columnHashtable[currentCol.Name].PixelsPerCharacter;
+                                }
                             }
                             else {
                                 //currentpixelsPerChar = Fanex.Grid.;
-                                textLength = currentCol.Value.toString().length * pixelsPerCharacter;
+                                if (currentCol.Value != null) {
+                                    textLength = currentCol.Value.toString().length * pixelsPerCharacter;
+                                }
                                 calculated = false;
                             }
 
@@ -2059,7 +2138,9 @@
                             resizeObject[currentCol.Name].length = textLength;
                             if (calculated === false) {
                                 resizeObject[currentCol.Name].calculated = calculated;
-                                resizeObject[currentCol.Name].rawData = currentCol.Value.toString();
+                                if (currentCol.Value != null) {
+                                    resizeObject[currentCol.Name].rawData = currentCol.Value.toString();
+                                }
                             }
                         }
                     }
@@ -2098,7 +2179,7 @@
             var o = $(this);
             var xscrollbar = o.find(".x-scrollbar");
             var yscrollbar = o.find(".y-scrollbar");
-            var container = o.find(".container");
+            var container = o.find(".grid-container");
             var rowheader = o.find(".row_header");
             o.parent().removeClass('display-none');
             o.parent().show();
@@ -2211,7 +2292,7 @@
         return this.each(function () {
             var o = $(this);
             var xscrollbar = o.find(".x-scrollbar");
-            var container = o.find(".container");
+            var container = o.find(".grid-container");
             var colHeaderContainer = o.find(".col_header");
             var colFooterContainer = o.find(".col_footer");
 
@@ -2255,7 +2336,7 @@
             var pagerHeight = pager.length > 0 ? pager.height() : 0;
             var xscrollbar = o.find(".x-scrollbar");
             var yscrollbar = o.find(".y-scrollbar");
-            var container = o.find(".container");
+            var container = o.find(".grid-container");
             var tblContent = o.find("#" + options.tblContentId);
 
             var freeCellTop = o.find(".free-top-right");
