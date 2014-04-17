@@ -210,8 +210,8 @@ function loadFeedbackAfterCallAjax(rs, Id) {
         }
 
         $("#btnverify").removeAttr("disabled");
-        $("#btnsubmit").removeAttr("disabled");
-        $("#btnsubmitbottom").removeAttr("disabled");
+        //$("#btnsubmit").removeAttr("disabled");
+        //$("#btnsubmitbottom").removeAttr("disabled");
         orgLengt = MyJson.length;
     }
 
@@ -255,13 +255,12 @@ function loadFeedbackAfterCallAjax(rs, Id) {
     if (allowUpdateReview) {
         $('#chkisreview').prop("disabled", false);
         if (!feedbackIsReview) {
-            $("#btnsubmitbottom").removeClass("hidden");
+            //$("#btnsubmitbottom").removeClass("hidden");
         }
     }
 
     setTimeout(function () {
         parent.UnBlockUI();
-        $("#btnsubmitbottom").focus();
     }, 1000);
 }
 
@@ -594,15 +593,15 @@ var updateFeedback = {
         var isReviewChecked = $("#chkisreview").prop("checked");
         if (isReviewChecked) {
             initEdit('rev');
-            if (feedbackIsReview) {
+            /*if (feedbackIsReview) {
                 $("#btnsubmitbottom").addClass("hidden");
-            }
+            }*/
         }
         else {
             initReview('rev');
             $('#revieweditererror').addClass('hidden');
             if (feedbackIsReview) {
-                $("#btnsubmitbottom").removeClass("hidden");
+                //$("#btnsubmitbottom").removeClass("hidden");
                 $('#previewboxrev').html('');
             }
         }
