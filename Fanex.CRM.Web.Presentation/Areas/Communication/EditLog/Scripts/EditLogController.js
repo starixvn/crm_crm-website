@@ -436,9 +436,7 @@ function (
         $scope.oldRelatedCustomer = oldRelatedCustomer;
     };
     $scope.preupdateLog = function () {
-        if ($scope.oldCommunicationLog.IsReviewed &&
-            !$scope.communicationLog.IsReviewed &&
-            !$scope.hasReviewPermission) {
+        if (!$scope.hasReviewPermission) {
             return;
         }
 

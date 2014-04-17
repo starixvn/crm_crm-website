@@ -246,9 +246,10 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-save" data-ng-click="preupdateLog();" default-focus data-ng-model="isSetFocus">
+            <button class="btn btn-save" data-ng-click="preupdateLog();" data-ng-show="hasReviewPermission">
                 <span class="hotkey">S</span>ave</button>
         </div>
+        <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
     @{
         IPermissionService permission = new PermissionService();

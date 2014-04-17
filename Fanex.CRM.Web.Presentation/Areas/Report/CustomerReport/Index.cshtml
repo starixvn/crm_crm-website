@@ -17,7 +17,7 @@
     <div class="main container">
         <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
             <div class="row row-item">
-                <div class="item">
+                <div class="item default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
                     <label for="firstname" class="width-70">
                         @Labels.First_Name</label>
                     <input type="text" class="textbox search-by-enter" id="firstname" data-ng-model="searchCriteria.FirstName" />
@@ -97,8 +97,7 @@
                     </div>
                 </fieldset>
                 <div class="item">
-                    <button id="button-submit" class="btn default-focus" data-ng-click="getCustomerReport();"
-                        data-ng-model="defaultFocusOptions.IsSetFocus">
+                    <button id="button-submit" class="btn" data-ng-click="getCustomerReport();">
                         <span class="hotkey">S</span>ubmit</button>
                 </div>
             </div>

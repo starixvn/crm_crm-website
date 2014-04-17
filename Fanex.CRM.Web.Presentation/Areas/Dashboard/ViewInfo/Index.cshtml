@@ -38,6 +38,7 @@
         <div class="row row-item">
             @Html.Action("GetCommunicationLogsView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
         </div>
+        <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
