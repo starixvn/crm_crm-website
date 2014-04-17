@@ -141,9 +141,9 @@ topFeedback = {
                                 ' + topFeedback.durationTimeFormat(row.DurationTime) + '<br>\
                                 ' + topFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) + '\
                             </div></td>\
-                        <td><div style="width:200px">' + row.MainCategory + '<br/>&nbsp;&nbsp;&nbsp;' + row.SubCategory + '</div></td>\
-                        <td><div class="c" style="width:50px">&nbsp;' + row.Status + '</div></td>\
-                        <td><div class="c" style="width:230px">&nbsp;' + row.RelatedUsername + '</div></td>\
+                        <td><div style="width:270px"><div class="main-category">' + row.MainCategory + '</div><span class="sub-category">' + row.SubCategory + '</span></div></td>\
+                        <td><div class="c" style="width:50px">' + row.Status + '</div></td>\
+                        <td><div style="width:160px">' + row.RelatedUsername + '</div></td>\
                 </tr>';
         return html;
     },

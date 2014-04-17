@@ -250,16 +250,15 @@ function loadFeedbackAfterCallAjax(rs, Id) {
     feedbackIsReview = rs.IsReviewed;
     if (feedbackIsReview) {
         $("#chkisreview").prop('checked', true);
+        initEdit('rev');
     }
 
     if (allowUpdateReview) {
         $('#chkisreview').prop("disabled", false);
-        if (!feedbackIsReview) {
-            //$("#btnsubmitbottom").removeClass("hidden");
-        }
     }
 
     setTimeout(function () {
+        $('#default-focus').focus();
         parent.UnBlockUI();
     }, 1000);
 }
@@ -452,18 +451,13 @@ function EditFeedback() {
     $("#errmsg").empty();
     $("#lblverify").html('');
 
-    if (feedbackIsReview && !allowUpdateReview) {
+    if (!allowUpdateReview) {
         showAlertMessage("errmsg", errMsgNotPermissionUpdReviewedFB, 1);
         return false;
     }
 
     var isReviewChecked = $('#chkisreview').prop('checked');
-    if (feedbackIsReview && isReviewChecked) {
-        return false;
-    }
-
-    if (isReviewChecked &&
-        (trimSpace(trimSpacesOnEditor($("#revediter").htmlarea("toHtmlString"))) === '')) {
+    if (isReviewChecked && (trimSpace(trimSpacesOnEditor($("#revediter").htmlarea("toHtmlString"))) === '')) {
         $('#revieweditererror').removeClass('hidden').html('This information is required');
         return false;
     }
@@ -593,15 +587,11 @@ var updateFeedback = {
         var isReviewChecked = $("#chkisreview").prop("checked");
         if (isReviewChecked) {
             initEdit('rev');
-            /*if (feedbackIsReview) {
-                $("#btnsubmitbottom").addClass("hidden");
-            }*/
         }
         else {
             initReview('rev');
             $('#revieweditererror').addClass('hidden');
             if (feedbackIsReview) {
-                //$("#btnsubmitbottom").removeClass("hidden");
                 $('#previewboxrev').html('');
             }
         }
