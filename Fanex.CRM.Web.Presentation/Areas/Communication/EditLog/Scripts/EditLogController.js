@@ -436,10 +436,6 @@ function (
         $scope.oldRelatedCustomer = oldRelatedCustomer;
     };
     $scope.preupdateLog = function () {
-        if (!$scope.hasReviewPermission) {
-            return;
-        }
-
         $scope.isShowResultMessage = false;
         var inputCustomerLength = getRelatedCustomerLength();
         if (!isOldRelatedCustomer($scope.oldRelatedCustomer) &&
@@ -463,10 +459,17 @@ function (
             $scope.communicationLog.RelatedCustomerIds :
             getRelatedCustomer();
 
+        var isUnchangeReview =
+           ((!$scope.oldCommunicationLog.IsReviewed && !$scope.communicationLog.IsReviewed) ||
+            ($scope.oldCommunicationLog.IsReviewed && $scope.communicationLog.IsReviewed)) &&
+            ($scope.oldCommunicationLog.Review === $scope.communicationLog.Review);
+        var isResetReview = $scope.oldCommunicationLog.IsReviewed && !$scope.communicationLog.IsReviewed;
         var updateReviewedMode =
-                ($scope.oldCommunicationLog.IsReviewed && !$scope.communicationLog.IsReviewed) ?
-                    crmConstants.Enums.UpdateReviewedMode.Reset :
-                    crmConstants.Enums.UpdateReviewedMode.Change;
+                isUnchangeReview ?
+                    crmConstants.Enums.UpdateReviewedMode.NotChange :
+                    isResetReview ?
+                        crmConstants.Enums.UpdateReviewedMode.Reset :
+                        crmConstants.Enums.UpdateReviewedMode.Change;
         var updateCriteria = {
             FeedbackId: $scope.communicationLog.RunningNumber,
             CustomerId: $scope.communicationLog.CustomerId,

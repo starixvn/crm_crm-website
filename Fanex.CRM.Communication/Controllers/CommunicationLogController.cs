@@ -161,7 +161,8 @@ namespace Fanex.CRM.Communication.Controllers
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
             Result updateResult;
-            if (criteria.IsReviewed && !HasHostPermission(FunctionPermission.ReviewFeedback))
+            if (criteria.UpdateReviewedMode != UpdateReviewedModeConstants.NotChange &&
+                !HasHostPermission(FunctionPermission.ReviewFeedback))
             {
                 updateResult = new Result
                 {
