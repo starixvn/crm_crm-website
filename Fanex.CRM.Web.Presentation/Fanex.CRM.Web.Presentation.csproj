@@ -818,10 +818,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fanex.CRM.ActivityLog\Fanex.CRM.ActionLog.csproj">
-      <Project>{D37120A9-532E-4C40-A6E6-EAFACCA8AED8}</Project>
-      <Name>Fanex.CRM.ActionLog</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Customer\Fanex.CRM.Customer.csproj">
       <Project>{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}</Project>
       <Name>Fanex.CRM.Customer</Name>
