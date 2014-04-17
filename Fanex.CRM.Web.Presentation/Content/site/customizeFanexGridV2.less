@@ -37,6 +37,7 @@
 
     .btnExcel {
         background: url(images/excel.png) no-repeat;
+        height: 18px;
 
         &:hover {
             background: url(images/excel.png) -20px 0 no-repeat;
@@ -44,11 +45,15 @@
     }
 
     .expanded, .expanded:hover {
-        background: url(images/ico-expand.png) no-repeat;
+        background: url(images/ico-expand.png) 0 1px no-repeat;
+        height: 18px;
+        margin: 0 5px;
     }
 
     .collapsed, .collapsed:hover {
-        background: url(images/ico-collapse.png) no-repeat;
+        background: url(images/ico-collapse.png) 0 1px no-repeat;
+        height: 18px;
+        margin: 0 5px;
     }
 }
 
@@ -127,8 +132,12 @@
    }
 
    .parent-level-0 td {
-        background-color: #D7D7D7;
+        background-color: #e3e3e3;
         color: #0054A6;
+   }
+
+   .subtotalrow td, .grid-fixed-table .subtotalrow td {
+        background: #e3e3e3;
    }
 }
 
@@ -139,7 +148,13 @@
 .freegrid .row_footer table thead th, .freegrid .col_footer table thead th {
     background: #c0cae3 !important;
     border-color: @table-border !important;
+    color: #0054a6;
 }
+
+.freegrid .col_footer table thead th {
+    color: #363636;
+}
+
 /* Pager */
 .freegrid .grid-pager {
 
