@@ -100,6 +100,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Report_CustomerReport(ref bundles);
             RegisterBundles_Chart(ref bundles);
             RegisterBundles_User_LogIn(ref bundles);
+            RegisterBundles_DownLoadFile(ref bundles);
         }
 
         /// <summary>
@@ -416,7 +417,6 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/Directives/DropdownSite.js",
                 "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
                 "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/CustomerReport/Scripts/CustomerReportApplication.js",
@@ -451,6 +451,17 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/User/LogInStyles").Include(
                 "~/Areas/User/LogIn/Styles/login.less"));
+        }
+
+        /// <summary>
+        /// Registers the bundles download file.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_DownLoadFile(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/CRM/DownLoadFile/Scripts").Include(
+                "~/Scripts/JQuery/jquery.fileDownload.js",
+                "~/Scripts/ShareScripts/Directives/DownloadFile.js"));
         }
     }
 
