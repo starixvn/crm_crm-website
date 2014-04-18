@@ -205,15 +205,39 @@
         .next {
             background: url(../../Content/site/Images/icon-sprite.png) no-repeat -32px -205px;
             padding: 0;
-            &:hover {
-                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -32px -222px;
-                padding: 0;
-            }
         }
 
         a {
             color: @table-color;
             padding: 3px 5px;
+            outline: none;
+
+            &:hover {
+                background-color: @primary-color;
+                color: #fff;
+                padding: 2px 5px 3px;
+                margin-top: 1px;
+            }
+
+            &.next {
+                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -32px -205px;
+                padding: 0;
+                margin-top: 0;
+
+                &:hover {
+                    background-position: -32px -190px;
+                }
+            }
+
+            &.prev {
+                background: url(../../Content/site/Images/icon-sprite.png) no-repeat -16px -205px;
+                padding: 0;
+                margin-top: 0;
+
+                &:hover {
+                    background-position: -16px -190px;
+                }
+            }
         }
 
         select {
