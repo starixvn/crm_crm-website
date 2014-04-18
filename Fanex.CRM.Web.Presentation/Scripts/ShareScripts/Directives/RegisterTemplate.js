@@ -269,7 +269,7 @@ function RegisterTemplate(application) {
         var customerTypeRegisterParams = {
             PlugInName: 'customerTypePickerContainer',
             OptionName: 'customerTypeOptions',
-            PickerId: 'customerType',
+            PickerId: 'customertype',
             RestrictType: 'C',
 
             DataPropertyName: {
@@ -284,7 +284,7 @@ function RegisterTemplate(application) {
         var vipTypeRegisterParams = {
             PlugInName: 'vipTypePickerContainer',
             OptionName: 'vipTypeOptions',
-            PickerId: 'vipType',
+            PickerId: 'viptype',
             RestrictType: 'C',
 
             DataPropertyName: {
