@@ -25,7 +25,7 @@ settlementReportApplication.directive('tableSettlementReportContainer', function
             var countryReportLength;
             var countryReport;
             for (i = 0; i < monthReportLength; i++) {
-                var isSetEvenRowColor = (i + 1) % 2 === 0;
+                var isSetEvenRowColor = false;
                 var monthReport = settlementReport.ChildReports[i];
                 countryReportLength = monthReport.ChildReports.length;
                 for (j = 0; j < countryReportLength; j++) {

@@ -351,7 +351,6 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
 
             var oddRowWriter = new OddEvenRowExcelWriter(exportExcelInfo, false);
-            var evenRowWriter = new OddEvenRowExcelWriter(exportExcelInfo, true);
             var firstGrandTotalRowWriter = new GrandTotalRowExcelWriter(exportExcelInfo, true);
             var grandTotalRowWriter = new GrandTotalRowExcelWriter(exportExcelInfo, false);
             var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
@@ -377,14 +376,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                     {
                         exportExcelInfo.CurrentColumn = exportExcelInfo.StartColumn;
                         countryReport = monthReport.ChildReports[j];
-                        if ((i + 1) % 2 == 0)
-                        {
-                            evenRowWriter.WriteRow(ref exportExcelInfo, countryReport, monthReport, j);
-                        }
-                        else
-                        {
-                            oddRowWriter.WriteRow(ref exportExcelInfo, countryReport, monthReport, j);
-                        }
+                        oddRowWriter.WriteRow(ref exportExcelInfo, countryReport, monthReport, j);
                     }
 
                     exportExcelInfo.Worksheet.GroupRow(exportExcelInfo.CurrentRow - countryReportLength, exportExcelInfo.CurrentRow - 2);
@@ -395,14 +387,8 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                 for (var j = 0; j < countryReportLength; j++)
                 {
                     countryReport = total.ChildReports[j];
-                    if (j == 0)
-                    {
-                        firstGrandTotalRowWriter.WriteRow(ref exportExcelInfo, countryReport, total);
-                    }
-                    else
-                    {
-                        grandTotalRowWriter.WriteRow(ref exportExcelInfo, countryReport, total);
-                    }
+                    var rowWriter = j == 0 ? firstGrandTotalRowWriter : grandTotalRowWriter;
+                    rowWriter.WriteRow(ref exportExcelInfo, countryReport, total);
                 }
             }
         }
