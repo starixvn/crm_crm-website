@@ -15,7 +15,7 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
 
     function getGridHeight() {
         return cachedData.scope.isShowFilter ?
-            200 + crmConstants.MarginBottomPage :
+            220 + crmConstants.MarginBottomPage :
             50 + crmConstants.MarginBottomPage;
     }
 
