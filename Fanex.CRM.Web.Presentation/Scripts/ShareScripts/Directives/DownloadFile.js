@@ -18,14 +18,19 @@ directiveManager.registerDownloadFile = function (angularApplication, registerPa
                     options.Params :
                     $.param(options.Params);
                 var downloadUrl = options.URL + "?" + data;
-                var iframe = $('body iframe#downloadFileContainer');
-                if (iframe.length === 0) {
-                    iframe = $('<iframe id="downloadFileContainer" width="0" height="0" class="display-none" data-ng-model="' +
-                        registerParams.OptionName + '"></iframe>');
-                    iframe.appendTo('body');
-                }
+                //                var iframe = $('body iframe#downloadFileContainer');
+                //                if (iframe.length === 0) {
+                //                    iframe = $('<iframe id="downloadFileContainer" width="0" height="0" class="display-none" data-ng-model="' +
+                //                        registerParams.OptionName + '"></iframe>');
+                //                    iframe.appendTo('body');
+                //                }
 
-                iframe.attr('src', downloadUrl);
+                //                iframe.attr('src', downloadUrl);
+
+
+                $.fileDownload(downloadUrl)
+                        .done(function () { });
+
             }
         }
 
