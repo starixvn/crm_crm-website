@@ -240,10 +240,11 @@ lastedFeedback = {
                             '<br>' + lastedFeedback.reviewerFormat(row.Reviewer, row.ReviewDate) +
                             '</div>\
                         </td>\
-                        <td><div class="c" style="width:130px">&nbsp;' + row.Username + '</div></td>\
-                        <td><div style="width:200px">' + row.MainCategory + '<br/>&nbsp;&nbsp;&nbsp;' + row.SubCategory + '</div></td>\
+                        <td><div style="width:130px">' + row.Username + '</div></td>\
+                        <td><div style="width:270px"><div class="main-category">' + row.MainCategory +
+                            '</div><span class="sub-category">' + row.SubCategory + '</span></div></td>\
                         <td><div class="c" style="width:50px">' + row.Status + '</div></td>\
-                        <td><div class="c" style="width:200px">&nbsp;' + row.RelatedUsername + '</div></td>\
+                        <td><div style="width:130px">' + row.RelatedUsername + '</div></td>\
                 </tr>';
         return replaceSpaceForIE9(html);
     },

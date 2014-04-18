@@ -257,6 +257,9 @@ function loadFeedbackAfterCallAjax(rs, Id) {
         $('#chkisreview').prop("disabled", false);
     }
 
+    // store Review to check UpdateReviewMode
+    feedbackEdit.Review = rs.Review;
+
     setTimeout(function () {
         $('#default-focus').focus();
         parent.UnBlockUI();
@@ -292,7 +295,7 @@ function getFeedbackData() {
     var Review = "";
     if (IsUpdateReviewed && reviewContent !== '<br>' && reviewContent !== '') {
         Reviewer = accId;
-        Review = reviewContent;
+        Review = reviewContent.trim();
     } 
 
     feedbackEdit.Id = id;
@@ -364,7 +367,13 @@ function getFeedbackData() {
     feedbackEdit.Solution = $("#solediter").htmlarea("toHtmlString").trim();
 
     feedbackEdit.IsReviewed = IsUpdateReviewed;
-    feedbackEdit.UpdateReviewMode = IsUpdateReviewed ? 1 : 2;
+    if (IsUpdateReviewed) {
+        feedbackEdit.UpdateReviewMode = feedbackEdit.Review === Review ? 0 : 1;
+    }
+    else {
+        feedbackEdit.UpdateReviewMode = 2;
+    }
+    
     feedbackEdit.Reviewer.Id = Reviewer;
     feedbackEdit.Review = Review.trim();
     userName = $("#lblUserName").html();
