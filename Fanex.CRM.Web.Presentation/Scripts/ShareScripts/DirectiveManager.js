@@ -1,3 +1,4 @@
 ﻿"use strict";
+/* global directiveManager */
 /* exported directiveManager */
-var directiveManager = {};
+var directiveManager = directiveManager || {};
