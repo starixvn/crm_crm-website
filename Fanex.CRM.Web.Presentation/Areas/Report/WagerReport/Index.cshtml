@@ -15,18 +15,19 @@
 </head>
 <body>
     <div class="container main" data-ng-controller="wagerReportController">
-    <div class="result-message-container display-none">
-    </div>
+        <div class="result-message-container display-none">
+        </div>
         <div class="row filter-frm one-row wager-filter">
             <form data-ng-submit="getWagerReport()">
-                <div class="item">
-                    <label for="year">@Labels.Year</label>
-                    <select id="year" class="sel-year" data-ng-model="year" data-ng-options="y.value for y in years"></select>
-                </div>
-                <div class="item">
-                    <button class="btn default-focus"
-                        data-ng-model="defaultFocusOptions.IsSetFocus"><span class="hotkey">S</span>ubmit</button>
-                </div>
+            <div class="item">
+                <label for="year">@Labels.Year</label>
+                <select id="year" class="sel-year" data-ng-model="year" data-ng-options="y.value for y in years">
+                </select>
+            </div>
+            <div class="item">
+                <button class="btn default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
+                    <span class="hotkey">S</span>ubmit</button>
+            </div>
             </form>
         </div>
         <div class="row">
@@ -39,12 +40,13 @@
             <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
     </div>
-
     @Scripts.Render("~/Scripts/CommomScripts", "~/Scripts/FanexGridV2/NumeralScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-    @Scripts.Render("~/Areas/Report/WagerReportScripts", "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
+    @Scripts.Render("~/CRM/DownLoadFile/Scripts",
+        "~/Areas/Report/WagerReportScripts",
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         parent.document.title = '@Resources.Language.Title_Report_WagerReport';

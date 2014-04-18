@@ -108,13 +108,13 @@ namespace Fanex.CRM.Web.View.App_Start
 
             RegisterBundles_DownLoadFile(ref bundles);
             RegisterBundles_Report_StatisticReport(ref bundles);
-               RegisterBundles_Report_SettlementReport(ref bundles);
-         
-            RegisterBundles_ResultMessage(ref bundles);         
-                 RegisterBundles_Numeral(ref bundles);
-           RegisterBundles_Report_SettlementReport(ref bundles);
-    RegisterBundles_Report_StatisticReport(ref bundles);
-      RegisterBundles_Report_WagerReport(ref bundles);
+            RegisterBundles_Report_SettlementReport(ref bundles);
+
+            RegisterBundles_ResultMessage(ref bundles);
+            RegisterBundles_Numeral(ref bundles);
+            RegisterBundles_Report_SettlementReport(ref bundles);
+            RegisterBundles_Report_StatisticReport(ref bundles);
+            RegisterBundles_Report_WagerReport(ref bundles);
             RegisterBundles_Report_SummaryReport(ref bundles);
         }
 
@@ -477,7 +477,7 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/JQuery/jquery.fileDownload.js",
                 "~/Scripts/ShareScripts/Directives/DownloadFile.js"));
         }
-        
+
         /// <summary>
         /// Registers the settlement report bundles.
         /// </summary>
@@ -490,7 +490,6 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/YearPicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/SettlementReport/Scripts/SettlementReportApplication.js",
                 "~/Areas/Report/SettlementReport/Scripts/SettlementReportController.js",
@@ -515,7 +514,6 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/MonthPicker.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/StatisticReport/Scripts/StatisticReportApplication.js",
                 "~/Areas/Report/StatisticReport/Scripts/StatisticReportController.js",
@@ -525,7 +523,7 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new StyleBundle("~/Areas/Report/StatisticReportStyles").Include(
                 "~/Areas/Report/StatisticReport/Styles/StatisticReport.less"));
         }
-        
+
         /// <summary>
         /// Registers the result message bundles.
         /// </summary>
@@ -556,7 +554,6 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/WagerReport/Scripts/WagerReportApplication.js",
                 "~/Areas/Report/WagerReport/Scripts/WagerReportController.js",
@@ -578,7 +575,6 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DownloadFile.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/SummaryReport/Scripts/SummaryReportApplication.js",
                 "~/Areas/Report/SummaryReport/Scripts/SummaryReportController.js",
@@ -587,9 +583,9 @@ namespace Fanex.CRM.Web.View.App_Start
 
             bundles.Add(new StyleBundle("~/Areas/Report/SummaryReportStyles").Include(
                 "~/Areas/Report/SummaryReport/Styles/SummaryReport.less"));
-        }     
+        }
     }
-  
+
     /// <summary>
     /// Bundle Collection extension.
     /// </summary>

@@ -16,48 +16,47 @@
 </head>
 <body>
     <div class="container main" data-ng-controller="summaryReportController">
-        <div class="result-message-container display-none"></div>
+        <div class="result-message-container display-none">
+        </div>
         <div class="row filter-frm one-row summary-filter">
             <div class="row">
                 <form data-ng-submit="getSummaryReport()">
-                    <div class="item">
-                        <label for="year">@Labels.Year</label>
-                        <select id="year" class="sel-year" data-ng-model="year" data-ng-options="y.value for y in years"></select>
-                    </div>
-                    <div class="item">
-                        <input type="radio" id="summaryChart" data-ng-model="chartType" value="@((int)ChartType.Summary)" checked />
-                        <label for="summaryChart" class="radioLabel">@Labels.SummaryChart</label>
-                        
-                        <input type="radio" id="detailedChart" data-ng-model="chartType" value="@((int)ChartType.Detailed)" />
-                        <label for="detailedChart" class="radioLabel">@Labels.DetailedChart</label>
-                    </div>
-                    <div class="item">
-                        <button class="btn default-focus"
-                            data-ng-model="defaultFocusOptions.IsSetFocus"><span class="hotkey">S</span>ubmit</button>
-                    </div>
+                <div class="item">
+                    <label for="year">@Labels.Year</label>
+                    <select id="year" class="sel-year" data-ng-model="year" data-ng-options="y.value for y in years">
+                    </select>
+                </div>
+                <div class="item">
+                    <input type="radio" id="summaryChart" data-ng-model="chartType" value="@((int)ChartType.Summary)" checked />
+                    <label for="summaryChart" class="radioLabel">@Labels.SummaryChart</label>
+                    <input type="radio" id="detailedChart" data-ng-model="chartType" value="@((int)ChartType.Detailed)" />
+                    <label for="detailedChart" class="radioLabel">@Labels.DetailedChart</label>
+                </div>
+                <div class="item">
+                    <button class="btn default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
+                        <span class="hotkey">S</span>ubmit</button>
+                </div>
                 </form>
             </div>
         </div>
         <div class="row">
-            <div table-summary-report-container
-                summary-report="summaryReport"
-                is-filter-box-clicked="isFilterBoxClicked"
-                export-summary-report-excel="exportSummaryReportExcel()"
-                chart-type="chartType">
-                <div id="table-summary-report" class="freegrid display-none"></div>
+            <div table-summary-report-container summary-report="summaryReport" is-filter-box-clicked="isFilterBoxClicked"
+                export-summary-report-excel="exportSummaryReportExcel()" chart-type="chartType">
+                <div id="table-summary-report" class="freegrid display-none">
+                </div>
             </div>
         </div>
         <div class="row download-file-container" data-ng-model="downloadFileOptions">
             <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
     </div>
-
     @Scripts.Render("~/Scripts/CommomScripts",
         "~/Scripts/FanexGridV2/NumeralScripts",
         "~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-    @Scripts.Render("~/Areas/Report/SummaryReportScripts",
+    @Scripts.Render("~/CRM/DownLoadFile/Scripts",
+        "~/Areas/Report/SummaryReportScripts",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';

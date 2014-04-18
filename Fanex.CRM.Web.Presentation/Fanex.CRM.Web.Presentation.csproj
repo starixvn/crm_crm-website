@@ -450,6 +450,9 @@
     <None Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" />
     <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
     <Content Include="Areas\Report\SummaryReport\Index.cshtml" />
+    <Content Include="Areas\Report\WagerReport\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\customizeMultiSelect.less" />
