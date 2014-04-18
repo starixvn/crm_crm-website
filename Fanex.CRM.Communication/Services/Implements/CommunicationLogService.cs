@@ -110,6 +110,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             {
                 criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
                 criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
+
                 if (!criteria.IsReviewed)
                 {
                     criteria.Review = string.Empty;

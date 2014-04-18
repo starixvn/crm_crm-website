@@ -38,7 +38,7 @@ bin
 /Fanex.CRM.Report/obj
 /*StyleCop.Cache
 
-/Fanex.CRM.ActivityLog/*.Cache
+/Fanex.CRM.ActionLog/*.Cache
 /Fanex.CRM.Communication/*.Cache
 /Fanex.CRM.Core/*.Cache
 /Fanex.CRM.Customer/*.Cache
@@ -56,6 +56,3 @@ bin
 /Fanex.CRM.Web.Controllers/*.Cache
 /Fanex.CRM.Web.Models/*.Cache
 /Fanex.CRM.Web.Presentation/*.Cache
-
-/Fanex.CRM.ActionLog/obj
-/Fanex.CRM.ActionLog/obj

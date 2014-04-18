@@ -210,8 +210,8 @@ function loadFeedbackAfterCallAjax(rs, Id) {
         }
 
         $("#btnverify").removeAttr("disabled");
-        $("#btnsubmit").removeAttr("disabled");
-        $("#btnsubmitbottom").removeAttr("disabled");
+        //$("#btnsubmit").removeAttr("disabled");
+        //$("#btnsubmitbottom").removeAttr("disabled");
         orgLengt = MyJson.length;
     }
 
@@ -250,18 +250,19 @@ function loadFeedbackAfterCallAjax(rs, Id) {
     feedbackIsReview = rs.IsReviewed;
     if (feedbackIsReview) {
         $("#chkisreview").prop('checked', true);
+        initEdit('rev');
     }
 
     if (allowUpdateReview) {
         $('#chkisreview').prop("disabled", false);
-        if (!feedbackIsReview) {
-            $("#btnsubmitbottom").removeClass("hidden");
-        }
     }
 
+    // store Review to check UpdateReviewMode
+    feedbackEdit.Review = rs.Review;
+
     setTimeout(function () {
+        $('#default-focus').focus();
         parent.UnBlockUI();
-        $("#btnsubmitbottom").focus();
     }, 1000);
 }
 
@@ -294,7 +295,7 @@ function getFeedbackData() {
     var Review = "";
     if (IsUpdateReviewed && reviewContent !== '<br>' && reviewContent !== '') {
         Reviewer = accId;
-        Review = reviewContent;
+        Review = reviewContent.trim();
     } 
 
     feedbackEdit.Id = id;
@@ -366,7 +367,13 @@ function getFeedbackData() {
     feedbackEdit.Solution = $("#solediter").htmlarea("toHtmlString").trim();
 
     feedbackEdit.IsReviewed = IsUpdateReviewed;
-    feedbackEdit.UpdateReviewMode = IsUpdateReviewed ? 1 : 2;
+    if (IsUpdateReviewed) {
+        feedbackEdit.UpdateReviewMode = feedbackEdit.Review === Review ? 0 : 1;
+    }
+    else {
+        feedbackEdit.UpdateReviewMode = 2;
+    }
+    
     feedbackEdit.Reviewer.Id = Reviewer;
     feedbackEdit.Review = Review.trim();
     userName = $("#lblUserName").html();
@@ -453,18 +460,13 @@ function EditFeedback() {
     $("#errmsg").empty();
     $("#lblverify").html('');
 
-    if (feedbackIsReview && !allowUpdateReview) {
+    if (!allowUpdateReview) {
         showAlertMessage("errmsg", errMsgNotPermissionUpdReviewedFB, 1);
         return false;
     }
 
     var isReviewChecked = $('#chkisreview').prop('checked');
-    if (feedbackIsReview && isReviewChecked) {
-        return false;
-    }
-
-    if (isReviewChecked &&
-        (trimSpace(trimSpacesOnEditor($("#revediter").htmlarea("toHtmlString"))) === '')) {
+    if (isReviewChecked && (trimSpace(trimSpacesOnEditor($("#revediter").htmlarea("toHtmlString"))) === '')) {
         $('#revieweditererror').removeClass('hidden').html('This information is required');
         return false;
     }
@@ -594,15 +596,11 @@ var updateFeedback = {
         var isReviewChecked = $("#chkisreview").prop("checked");
         if (isReviewChecked) {
             initEdit('rev');
-            if (feedbackIsReview) {
-                $("#btnsubmitbottom").addClass("hidden");
-            }
         }
         else {
             initReview('rev');
             $('#revieweditererror').addClass('hidden');
             if (feedbackIsReview) {
-                $("#btnsubmitbottom").removeClass("hidden");
                 $('#previewboxrev').html('');
             }
         }

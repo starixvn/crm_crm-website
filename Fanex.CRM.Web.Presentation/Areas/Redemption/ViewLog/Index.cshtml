@@ -59,9 +59,10 @@
             </div>
         </div>
         <div class="row btn-group">
-            <button class="btn" data-ng-click="insertLog();" default-focus data-ng-model="isSetFocus">
+            <button class="btn" data-ng-click="insertLog();">
                 <span class="hotkey">I</span>nsert Case</button>
         </div>
+        <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")

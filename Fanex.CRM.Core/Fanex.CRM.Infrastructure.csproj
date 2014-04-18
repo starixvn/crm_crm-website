@@ -86,6 +86,7 @@
     <Compile Include="Common\HttpMethodConstants.cs" />
     <Compile Include="Common\RequestHeaderTypeConstants.cs" />
     <Compile Include="Common\SortDirectionConstants.cs" />
+    <Compile Include="Common\UpdateReviewedModeConstants.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoCollection.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoElement.cs" />
     <Compile Include="Configuration\CasinoSection\CasinoSection.cs" />

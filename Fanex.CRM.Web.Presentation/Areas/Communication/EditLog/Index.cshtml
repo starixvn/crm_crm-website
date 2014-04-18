@@ -237,7 +237,7 @@
                     data-ng-bind="getReviewedInfo();">
                 </label>
             </div>
-            <div data-ng-class="{'display-none': hasReviewPermission }">
+            <div data-ng-class="{'display-none': hasReviewPermission }" class="disable-review-text">
                 @Html.Raw(Model.Review)
             </div>
             <div class="row content multi-text" data-ng-class="{'display-none': !hasReviewPermission || !communicationLog.IsReviewed}">
@@ -246,10 +246,10 @@
             </div>
         </div>
         <div class="row">
-            <button class="btn btn-save" data-ng-click="preupdateLog();" default-focus data-ng-model="isSetFocus"
-                data-ng-show="!oldCommunicationLog.IsReviewed || !communicationLog.IsReviewed">
+            <button class="btn btn-save" data-ng-click="preupdateLog();">
                 <span class="hotkey">S</span>ave</button>
         </div>
+        <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
     @{
         IPermissionService permission = new PermissionService();
