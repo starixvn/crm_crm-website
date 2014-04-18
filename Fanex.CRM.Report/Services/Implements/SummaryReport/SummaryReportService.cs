@@ -425,7 +425,8 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.GroupBackgroundColorIndex,
                 true,
-                HorizontalAlignment.RIGHT);
+                HorizontalAlignment.RIGHT,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
             var font = workbook.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;
@@ -443,7 +444,8 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Left);
+                NpoiExcelExtensions.Alignment.Left,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
         private ICellStyle GetSubCategoryCellStyle(HSSFWorkbook workbook)
@@ -470,7 +472,8 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                HorizontalAlignment.RIGHT);
+                HorizontalAlignment.RIGHT,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
         #endregion

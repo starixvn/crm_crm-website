@@ -344,7 +344,8 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
 
         private short GetRowColorIndex(bool isEven)
         {
-            return isEven ? NpoiExcelExtensions.EvenRowColorIndex : NpoiExcelExtensions.BackgroundColorIndex;
+            ////return isEven ? NpoiExcelExtensions.EvenRowColorIndex : NpoiExcelExtensions.BackgroundColorIndex;
+            return NpoiExcelExtensions.BackgroundColorIndex;
         }
 
         private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook, bool isEvent = true)
@@ -362,7 +363,8 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Center);
+                NpoiExcelExtensions.Alignment.Center,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
         private ICellStyle GetWagersCellStyle(HSSFWorkbook workbook, bool isEven = true)
@@ -380,7 +382,8 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Left);
+                NpoiExcelExtensions.Alignment.Left,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
         private ICellStyle GetAmountCellStyle(HSSFWorkbook workbook, bool isEven = true)
@@ -398,7 +401,8 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                HorizontalAlignment.RIGHT);
+                HorizontalAlignment.RIGHT,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
         private ICellStyle GetTotalCellStyle(HSSFWorkbook workbook, bool isEven = true)
@@ -416,7 +420,8 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                HorizontalAlignment.RIGHT);
+                HorizontalAlignment.RIGHT,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
         #endregion

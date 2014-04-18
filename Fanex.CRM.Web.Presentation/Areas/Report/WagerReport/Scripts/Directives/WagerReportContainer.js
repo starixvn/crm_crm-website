@@ -51,7 +51,6 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
             var reportLength = wagerByMonths.length;
             var info, cell;
             var mergeRowNumber = 0;
-            var evenClass = '';
             for (var i = 0; i < reportLength; i++) {
                 info = wagerByMonths[i];
                 mergeRowNumber = info.Wagers ? info.Wagers.length : 0;
@@ -59,7 +58,6 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
                     continue;
                 }
 
-                evenClass = (i % 2 === 0) ? '' : 'freegrid-even';
                 for (var j = 0; j < mergeRowNumber; j++) {
                     cell = [];
                     if (j === 0) {
@@ -73,7 +71,7 @@ wagerReportApplication.directive('tableWagerReportContainer', function () {
                         cell.push({ Name: 'ColTotal', Value: info.Total, MergeRowNumber: mergeRowNumber, CssClass: 'month' });
                     }
 
-                    bodyData.push({ Columns: cell, CssClass: evenClass });
+                    bodyData.push({ Columns: cell });
                 }
             }
         }
