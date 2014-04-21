@@ -19,6 +19,14 @@
     </div>
     <div class="main container">
         <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
+            <div class="row" data-ng-show="isShowResultMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="resultMessage">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row row-item">
                 <div class="item">
                     <label for="reporttype" class="label-1st pull-left">
@@ -50,15 +58,15 @@
                             @Labels.From_Month</label>
                         <select id="frommonth_month">
                         </select>
-                        <select id="frommonth_year">
-                        </select>
                     </div>
                     <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions">
                         <label for="tomonth">
                             @Labels.To_Month</label>
                         <select id="tomonth_month">
                         </select>
-                        <select id="tomonth_year">
+                        <select id="frommonth_year">
+                        </select>
+                        <select id="tomonth_year" class="display-none">
                         </select>
                     </div>
                 </div>
@@ -116,7 +124,9 @@
             Date: '@Labels.Date',
             Time: '@Labels.Time',
             Total: '@Labels.Total',
-            StatisticReport_ChartSuffix: '@Labels.StatisticReport_ChartSuffix'
+            StatisticReport_ChartSuffix: '@Labels.StatisticReport_ChartSuffix',
+            StatisticReport_Error_EmptyMainCategory: '@Labels.StatisticReport_Error_EmptyMainCategory',
+            StatisticReport_Error_EmptySubCategory: '@Labels.StatisticReport_Error_EmptySubCategory'
         };
     </script>
 </body>

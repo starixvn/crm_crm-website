@@ -504,4 +504,13 @@
   <data name="Feedbacks" xml:space="preserve">
     <value>Feedback(s)</value>
   </data>
+  <data name="Please_choose_one" xml:space="preserve">
+    <value>Please choose one</value>
+  </data>
+  <data name="StatisticReport_Error_EmptyMainCategory" xml:space="preserve">
+    <value>Please choose one main category!</value>
+  </data>
+  <data name="StatisticReport_Error_EmptySubCategory" xml:space="preserve">
+    <value>Please choose one sub category!</value>
+  </data>
 </root>

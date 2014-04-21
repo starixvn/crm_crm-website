@@ -22,6 +22,12 @@ var CRMConstants = function () {
         CommunicationTool: {
             NotApply: 1005
         },
+        MainCategory: {
+            NotApply: 0
+        },
+        SubCategory: {
+            NotApply: 0
+        },
 
         Country: {
             NotApply: 0

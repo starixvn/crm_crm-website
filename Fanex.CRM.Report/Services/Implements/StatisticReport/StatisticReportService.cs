@@ -98,13 +98,13 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 var allSubSettingOption = new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
-                    Name = Labels.All,
+                    Name = Labels.Please_choose_one,
                 };
 
                 allMainCategory.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
-                    Name = Labels.All,
+                    Name = Labels.Please_choose_one,
                     ChildSettings = new List<SettingInfo>
                     {
                        allSubSettingOption

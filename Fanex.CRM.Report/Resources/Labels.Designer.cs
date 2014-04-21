@@ -727,6 +727,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose one.
+        /// </summary>
+        public static string Please_choose_one {
+            get {
+                return ResourceManager.GetString("Please_choose_one", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Post Code.
         /// </summary>
         public static string Post_Code {
@@ -912,6 +921,24 @@ namespace Fanex.CRM.Report.Resources {
         public static string StatisticReport_ChartSuffix {
             get {
                 return ResourceManager.GetString("StatisticReport_ChartSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose one main category!.
+        /// </summary>
+        public static string StatisticReport_Error_EmptyMainCategory {
+            get {
+                return ResourceManager.GetString("StatisticReport_Error_EmptyMainCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose one sub category!.
+        /// </summary>
+        public static string StatisticReport_Error_EmptySubCategory {
+            get {
+                return ResourceManager.GetString("StatisticReport_Error_EmptySubCategory", resourceCulture);
             }
         }
         

@@ -6,7 +6,8 @@ sharedScriptManager,
 hotKeyManager,
 crmConstants,
 minReportDate,
-moment */
+moment,
+viewResources */
 /* jshint unused: vars */
 /* jshint camelcase: false */
 statisticReportApplication.controller('statisticReportController', [
@@ -22,6 +23,10 @@ statisticReportApplication.controller('statisticReportController', [
         $uiBlockerService,
         $resultMessageService) {
         $scope.isShowFilter = true;
+        $scope.isSuccess = false;
+        $scope.isShowResultMessage = false;
+        $scope.resultMessage = '';
+
         $scope.crmConstants = crmConstants;
         $scope.statisticReportOptions = {
             DataList: null,
@@ -123,7 +128,8 @@ statisticReportApplication.controller('statisticReportController', [
                 IsRerenderPicker: false,
                 OnChangeEvent: $scope.updateFromMonth,
                 SelectedYear: initFromDate.getFullYear(),
-                SelectedMonth: initFromDate.getMonth() + 1
+                SelectedMonth: initFromDate.getMonth() + 1,
+                IsOutScopePicker: true
             };
             $scope.fromMonthOptions.IsRerenderPicker = true;
             $scope.$apply();
@@ -260,7 +266,7 @@ statisticReportApplication.controller('statisticReportController', [
             var maxFromYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;
             var maxFromMonth = 11;
             if (toDate.getFullYear() < maxFromYear) {
-                maxFromYear = toDate.getFullYear();
+                maxFromYear = $scope.fromMonthOptions.MaxDate.getFullYear();
                 maxFromMonth = toDate.getMonth();
             }
 
@@ -269,11 +275,13 @@ statisticReportApplication.controller('statisticReportController', [
                 CurrentDate: selectedDate,
                 InitDate: initFromDate,
                 MaxDate: new Date(maxFromYear, maxFromMonth, 1),
+                MaxMonth: maxFromMonth + 1,
                 MinDate: beginYearDropdown < new Date(minReportDate) ? new Date(minReportDate) : beginYearDropdown,
                 IsRerenderPicker: false,
                 OnChangeEvent: $scope.updateFromMonth,
                 SelectedYear: year,
-                SelectedMonth: month
+                SelectedMonth: month,
+                IsOutScopePicker: true
             };
 
             var maxToYear = toDate.getFullYear() + sharedScriptManager.cachedData.numberOfYearPerSelection;
@@ -344,12 +352,14 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.fromMonthOptions = {
                 CurrentDate: selectFromDate,
                 InitDate: currentDate,
-                MaxDate: new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()),
+                MaxDate: $scope.fromMonthOptions.MaxDate,
+                MaxMonth: $scope.fromMonthOptions.MaxMonth,
                 MinDate: beginYearDropdown < new Date(minReportDate) ? new Date(minReportDate) : beginYearDropdown,
                 IsRerenderPicker: false,
                 OnChangeEvent: $scope.updateFromMonth,
                 SelectedYear: selectFromDate.getFullYear(),
-                SelectedMonth: selectFromDate.getMonth() + 1
+                SelectedMonth: selectFromDate.getMonth() + 1,
+                IsOutScopePicker: true
             };
 
             $scope.searchCriteria.ToDate = selectedDate;
@@ -366,6 +376,27 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.defaultFocusOptions.IsSetFocus = true;
             $scope.$apply();
         };
+        $scope.validateParams = function (searchCriteria) {
+            if ($scope.searchCriteria.MainCategory.Id === crmConstants.Enums.MainCategory.NotApply) {
+                $scope.isSuccess = false;
+                $scope.isShowResultMessage = true;
+                $scope.resultMessage = viewResources.StatisticReport_Error_EmptyMainCategory;
+                return false;
+            }
+
+            if ($scope.searchCriteria.SubCategory.Id === crmConstants.Enums.SubCategory.NotApply) {
+                $scope.isSuccess = false;
+                $scope.isShowResultMessage = true;
+                $scope.resultMessage = viewResources.StatisticReport_Error_EmptySubCategory;
+                return false;
+            }
+
+            $scope.isSuccess = true;
+            $scope.isShowResultMessage = false;
+            $scope.resultMessage = '';
+            return true;
+        };
+
         $scope.getStatisticReport = function () {
             $uiBlockerService.blockUI();
             var getReportCriteria = {
@@ -380,6 +411,13 @@ statisticReportApplication.controller('statisticReportController', [
                 IsGetFromCached: false,
                 IsGetFullReport: false
             };
+
+            if (!$scope.validateParams(getReportCriteria)) {
+                $scope.statisticReportOptions.IsUpdateGrid = true;
+                $scope.statisticReportOptions.IsResize = true;
+                $uiBlockerService.unblockUI();
+                return;
+            }
 
             $scope.lastSelectedParams = getReportCriteria;
             statisticReportService.getStatisticReport(getReportCriteria)

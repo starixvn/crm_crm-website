@@ -19,6 +19,10 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
         //        };
 
         var isRenderedPicker = false;
+        var cachedData = {
+            yearDropdown: null,
+            monthDropdown: null
+        };
 
         function getYearOptions(options) {
             var date = new Date(options.MaxDate);
@@ -104,15 +108,22 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
                 SelectedYear: options.SelectedYear
             });
 
-            var yearDropdown = element.find("#" + registerParams.PickerId.Year);
+            var yearDropdown = options.IsOutScopePicker ?
+                $("#" + registerParams.PickerId.Year) :
+                element.find("#" + registerParams.PickerId.Year);
+            cachedData.yearDropdown = yearDropdown;
             yearDropdown.empty().append(yearOptions);
 
-            var monthDropdown = element.find("#" + registerParams.PickerId.Month);
+            var monthDropdown = options.IsOutScopePicker ?
+                $("#" + registerParams.PickerId.Month) :
+                element.find("#" + registerParams.PickerId.Month);
+            cachedData.monthDropdown = monthDropdown;
             var monthOptions = getMonthOptions({
                 MaxDate: options.MaxDate,
                 MinDate: options.MinDate,
                 SelectedYear: parseInt(yearDropdown.val()),
-                SelectedMonth: options.SelectedMonth
+                SelectedMonth: options.SelectedMonth,
+                MaxMonth: options.MaxMonth
             });
             monthDropdown.empty().append(monthOptions);
 
@@ -148,8 +159,8 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
         }
 
         function updateInitValue(scope, element, attrs) {
-            var month = parseInt(element.find("#" + registerParams.PickerId.Month).val());
-            var year = parseInt(element.find("#" + registerParams.PickerId.Year).val());
+            var month = parseInt(cachedData.monthDropdown.val());
+            var year = parseInt(cachedData.yearDropdown.val());
             onChangeEvent(scope, month, year, true);
         }
 
