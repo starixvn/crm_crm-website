@@ -727,7 +727,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose one.
+        ///   Looks up a localized string similar to Please choose one!.
         /// </summary>
         public static string Please_choose_one {
             get {

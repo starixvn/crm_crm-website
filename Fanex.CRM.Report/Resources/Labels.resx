@@ -505,7 +505,7 @@
     <value>Feedback(s)</value>
   </data>
   <data name="Please_choose_one" xml:space="preserve">
-    <value>Please choose one</value>
+    <value>Please choose one!</value>
   </data>
   <data name="StatisticReport_Error_EmptyMainCategory" xml:space="preserve">
     <value>Please choose one main category!</value>
