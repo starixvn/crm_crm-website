@@ -1,48 +1,89 @@
 ﻿@using Fanex.NAP.Core.Model
+@using System.Linq
 @{
-    var menuItemList = ViewBag.MenuItemList != null ? ViewBag.MenuItemList as List<MenuItem> : new List<MenuItem>();
-    var lvl0MenuItemList = menuItemList.Where(m => m.Parent == null).OrderBy(m => m.DisplayOrder).ToList();
+    var allMenuItemList = ViewBag.MenuItemList != null ? ViewBag.MenuItemList as List<MenuItem> : new List<MenuItem>();
+    var lvl0MenuItemList = allMenuItemList.Where(m => m.Parent == null).OrderBy(m => m.DisplayOrder).ToList();
 }
-<ul class="menu list-unstyle list-inline">
-    @for (int i = 0; i < lvl0MenuItemList.Count; i++)
+@helper RenderMenuLink(string onclickEvent, string menuName)
     {
-        var menuItem = lvl0MenuItemList[i];
-        var lvl1MenuItemList = menuItemList.Where(x => x.Parent != null && x.Parent.Id == menuItem.Id)
-            .OrderBy(x => x.DisplayOrder).ToList();
-        var className = string.Empty;
+    <li><a href="javascript:;" onclick="javascript:@onclickEvent">@menuName</a></li>
+}
+@helper RenderMenu(
+    MenuItem menuItem,
+    List<MenuItem> allMenuItemList,
+    string menuClassName,
+    List<MenuItem> parentMenuList,
+    int menuLevel)
+    {  
+        var subMenuItemList = allMenuItemList.Where(x => x.Parent != null && x.Parent.Id == menuItem.Id)
+             .OrderBy(x => x.DisplayOrder)
+             .ToList();
+        var className = menuClassName;
 
-        if (lvl1MenuItemList.Count == 0 && (menuItem.Url.Contains("n/a") || string.IsNullOrWhiteSpace(menuItem.Url)))
+        if (subMenuItemList.Count == 0 &&
+            (menuItem.Url.Contains("n/a") || string.IsNullOrWhiteSpace(menuItem.Url)))
         {
-            continue;
+            return;
         }
 
-        if (i == lvl0MenuItemList.Count - 1)
-        {
-            className = "last-menu";
-        }
-
+        string onclickEvent;
         if (menuItem.Name.ToLower().Equals("home"))
         {
-        <li><a href="javascript:;" onclick="javascript:menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);">@menuItem.Name</a>
-        </li>
+            onclickEvent = "menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);";
+    
+    @RenderMenuLink(onclickEvent, @menuItem.Name);
+                                                 return;
         }
-        else if (lvl1MenuItemList.Count == 0)
+
+        if (subMenuItemList.Count == 0)
         {
-        <li><a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + menuItem.Url)');">@menuItem.Name</a>
-        </li>
+            onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url) + "');";
+
+            if (menuLevel != 0)
+            {
+                var breadscrumbMenuName = string.Join(",", parentMenuList.Select(menu => "'" + menu.Name + "'"));
+                breadscrumbMenuName += ",'" + menuItem.Name + "'";
+                onclickEvent += "menuManager.setActiveClassForSubMenu(" + breadscrumbMenuName + ")";
+            }
+            
+    @RenderMenuLink(onclickEvent, @menuItem.Name);
+                                                 return;
         }
-        else
+
+        className += " list-unstyled sub-menu-container sub-menu-" + (menuLevel + 1);
+        var showSubMenuIconClass = "";
+        switch (menuLevel)
         {
-            className += " list-unstyled sub-menu";
-        
-        <li><a href="#">@menuItem.Name <span class="icon-arrow-down"></span></a>
-            <ul class="@className">
-                @foreach (var subMenuItem in lvl1MenuItemList)
-                {
-                    <li><a href="javascript:;" onclick="javascript:menuManager.goToURL('centerFr','@Url.Content("~" + subMenuItem.Url)');menuManager.setActiveClassForSubMenu('@menuItem.Name', '@subMenuItem.Name')">@subMenuItem.Name</a></li>
-                }
-            </ul>
-        </li>
+            case 0:
+                showSubMenuIconClass = "icon-arrow-down";
+                break;
+            case 1:
+                showSubMenuIconClass = "icon-arrow-right";
+                break;
+            default:
+                showSubMenuIconClass = "";
+                break;
         }
-    }
+
+        var nestedParentMenuList = parentMenuList.Select(menu => menu).ToList();
+        nestedParentMenuList.Add(menuItem);
+    <li><a href="#">@menuItem.Name</a> <span class="show-submenu-icon @showSubMenuIconClass">
+    </span>
+        <ul class="@className">
+            @RenderMenuList(subMenuItemList, allMenuItemList, menuLevel + 1, nestedParentMenuList)
+        </ul>
+    </li>        
+}
+@helper RenderMenuList(List<MenuItem> menuItemList, List<MenuItem> allMenuItemList, int menuLevel, List<MenuItem> parentMenuList)
+    {    
+        for (int i = 0; i < menuItemList.Count; i++)
+        {
+            var menuItem = menuItemList[i];
+            var menuClassName = (menuLevel == 0 && i == menuItemList.Count - 1) ? "last-menu" : "";
+   
+    @RenderMenu(menuItem, allMenuItemList, menuClassName, parentMenuList, menuLevel);
+        }
+}
+<ul class="menu list-unstyle list-inline">
+    @RenderMenuList(lvl0MenuItemList, allMenuItemList, 0, new List<MenuItem>())
 </ul>

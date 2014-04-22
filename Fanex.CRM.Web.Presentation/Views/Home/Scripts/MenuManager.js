@@ -127,13 +127,24 @@ var MenuManager = function () {
         self.DOMElements.SubMenu.html('');
     };
 
-    self.setActiveClassForSubMenu = function (mainMenu, subMenu) {
+    self.setActiveClassForSubMenu = function () {
+        var breadscrumbMenuName = arguments;
+        var breadscrumbMenuNameLength = arguments ? breadscrumbMenuName.length : 0;
+        var parentMenuName = "";
+        var lastMenu = "";
+        if (breadscrumbMenuNameLength) {
+            lastMenu = breadscrumbMenuName[breadscrumbMenuNameLength - 1];
+            for (var i = 0; i < breadscrumbMenuNameLength - 1; i++) {
+                parentMenuName += '<li>' + breadscrumbMenuName[i] + '</li>';
+            }
+        }
+
         var activeMenu =
-        '<ul class="breadcrumbsMenu list-inline list-unstyled">\
-            <li><span class="icon-home touchable-element"></span></li>\
-            <li>' + mainMenu + '</li>\
-            <li class="active">' + subMenu + '</li>\
-        </ul>';
+            '<ul class="breadcrumbsMenu list-inline list-unstyled">\
+                <li><span class="icon-home touchable-element"></span></li>' +
+                parentMenuName +
+                '<li class="active">' + lastMenu + '</li>\
+            </ul>';
 
         self.DOMElements.SubMenu.html(activeMenu);
         self.DOMElements.SubMenu.find(".breadcrumbsMenu .icon-home").click(function () {

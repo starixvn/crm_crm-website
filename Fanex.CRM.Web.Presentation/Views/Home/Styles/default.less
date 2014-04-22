@@ -78,13 +78,23 @@ body {
                     position: relative;
                     height: 30px;
 
-                    .icon-arrow-down {
-                        background:url(../../../Content/site/Images/icon-arrow-down.png) no-repeat;
+                    .show-submenu-icon
+                    {
                         display: inline-block;
                         font-size: 0;
-                        height: 5px;
-                        width: 6px;
                         margin: 0 6px;
+                    }
+            
+                    .icon-arrow-down {
+                        background:url(../../../Content/site/Images/icon-arrow-down.png) no-repeat; 
+                        height: 5px;
+                        width: 6px;                      
+                    }
+                    
+                    .icon-arrow-right {
+                        background:url(../../../Content/site/Images/icon-arrow-right.png) no-repeat;
+                        height: 10px;
+                        width: 10px;
                     }
 
                     a {
@@ -104,19 +114,17 @@ body {
 
                     &:hover {
                         background-color: #39496d;
-
-                        .sub-menu {
+                        
+                        > .sub-menu-container {
                             display: block;
                         }
                     }
 
-                    .sub-menu {
+                    .sub-menu-container {
                         position: absolute;
                         background-color: #39496d;
                         display: none;
-                        z-index: 305;
-                        top: 29px;
-                        left: 0;
+                        z-index: 305;                      
                         padding: 5px 0;
 
                         li {
@@ -138,8 +146,28 @@ body {
                         &.last-menu {
                             right: 0;
                             left: -101px;
+                             .sub-menu-2 
+                             {        
+                                top: -5px;
+                                left: -163px;
+                                border-right: 2px solid white;   
+                                border-left: none;                                 
+                             }
                         }
                     }
+                    
+                     .sub-menu-1
+                     {
+                        top: 29px;
+                        left: 0;
+                     }
+                     
+                     .sub-menu-2
+                     {                        
+                        top: -5px;
+                        left: 185px;
+                        border-left: 2px solid white;                                    
+                     }
                 }
             }
 
