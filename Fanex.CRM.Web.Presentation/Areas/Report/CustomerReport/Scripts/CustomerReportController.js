@@ -76,7 +76,8 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 MaxDate: currentDate,
                 IsRerenderPicker: false,
                 OnChangeDateEvent: $scope.updateFromDate,
-                IsAllowNullDate: true
+                IsAllowNullDate: true,
+                YearRange: sharedScriptManager.cachedData.yearRangeDatePicker
             };
             $scope.updateFromDatePicker();
 
@@ -86,7 +87,8 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 MaxDate: currentDate,
                 IsRerenderPicker: false,
                 OnChangeDateEvent: $scope.updateToDate,
-                IsAllowNullDate: true
+                IsAllowNullDate: true,
+                YearRange: sharedScriptManager.cachedData.yearRangeDatePicker
             };
             $scope.updateToDatePicker();
 
