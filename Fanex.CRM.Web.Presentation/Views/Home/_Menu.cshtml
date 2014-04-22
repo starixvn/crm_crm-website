@@ -58,7 +58,7 @@
                 showSubMenuIconClass = "icon-arrow-down";
                 break;
             case 1:
-                showSubMenuIconClass = "icon-arrow-right";
+                showSubMenuIconClass = "icon-arrow-right pull-right";
                 break;
             default:
                 showSubMenuIconClass = "";
@@ -67,8 +67,8 @@
 
         var nestedParentMenuList = parentMenuList.Select(menu => menu).ToList();
         nestedParentMenuList.Add(menuItem);
-    <li><a href="#">@menuItem.Name</a> <span class="show-submenu-icon @showSubMenuIconClass">
-    </span>
+    <li><a href="#">@menuItem.Name <span class="show-submenu-icon @showSubMenuIconClass">
+    </span></a> 
         <ul class="@className">
             @RenderMenuList(subMenuItemList, allMenuItemList, menuLevel + 1, nestedParentMenuList)
         </ul>
