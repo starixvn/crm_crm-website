@@ -11,6 +11,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Logging;
@@ -206,6 +207,9 @@ namespace Fanex.CRM.Redemption.Services.Implements
         /// Gets all status for editing.
         /// </summary>
         /// <returns>All status.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public List<SettingInfo> GetAllStatus_Edit()
         {
             var allStatusResult = new List<SettingInfo>();
