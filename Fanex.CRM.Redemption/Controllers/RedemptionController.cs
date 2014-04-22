@@ -86,9 +86,17 @@ namespace Fanex.CRM.Redemption.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetAllStatus()
+        public JsonResult GetAllStatus_Insert()
         {
-            var allStatus = _logServiceInstance.GetAllStatus();
+            var allStatus = _logServiceInstance.GetAllStatus_Insert();
+            var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        public JsonResult GetAllStatus_Edit()
+        {
+            var allStatus = _logServiceInstance.GetAllStatus_Edit();
             var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

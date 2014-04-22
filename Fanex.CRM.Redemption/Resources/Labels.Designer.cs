@@ -115,6 +115,15 @@ namespace Fanex.CRM.Redemption.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleted.
+        /// </summary>
+        public static string Deleted {
+            get {
+                return ResourceManager.GetString("Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Redemption Log.
         /// </summary>
         public static string Edit_Redemption_Log {

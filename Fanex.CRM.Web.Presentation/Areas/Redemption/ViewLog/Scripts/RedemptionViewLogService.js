@@ -6,7 +6,7 @@ function ($http, $q) {
 
     serviceInstance.getAllStatus = function () {
         var deferred = $q.defer();
-        $http.post(window.rootUrl + "Redemption/GetAllStatus", null)
+        $http.post(window.rootUrl + "Redemption/GetAllStatus_Edit", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

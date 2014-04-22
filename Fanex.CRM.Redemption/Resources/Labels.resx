@@ -183,4 +183,7 @@
   <data name="Open" xml:space="preserve">
     <value>Open</value>
   </data>
+  <data name="Deleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
 </root>
