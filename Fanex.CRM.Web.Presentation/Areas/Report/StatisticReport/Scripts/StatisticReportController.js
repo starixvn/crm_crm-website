@@ -54,7 +54,7 @@ statisticReportApplication.controller('statisticReportController', [
             MainCategory: null,
             SubCategory: null,
             PageIndex: 0,
-            PageSize: 10,
+            PageSize: sharedScriptManager.cachedData.smallPagingDefaultItemsPerPage,
             IsGetFromCached: false,
             IsGetFullReport: false
         };
@@ -231,15 +231,26 @@ statisticReportApplication.controller('statisticReportController', [
 
             $scope.searchCriteria.FromDate = new Date(initFromDate);
             $scope.searchCriteria.ToDate = new Date(currentDate);
+
+            var defaultPagingSize =  sharedScriptManager.cachedData.smallPagingDefaultItemsPerPage;
             switch (reportTypeId) {
                 case crmConstants.Enums.PeriodType.Daily:
                     $scope.fromDateOptions.IsRerenderPicker = true;
                     $scope.toDateOptions.IsRerenderPicker = true;
+                    defaultPagingSize =  sharedScriptManager.cachedData.smallPagingDefaultItemsPerPage;
                     break;
                 case crmConstants.Enums.PeriodType.Monthly:
                     $scope.fromMonthOptions.IsRerenderPicker = true;
                     $scope.toMonthOptions.IsRerenderPicker = true;
+                    defaultPagingSize = sharedScriptManager.cachedData.monthPagingDefaultItemsPerPage;
                     break;
+            }
+
+            if ($scope.searchCriteria &&
+                $scope.lastSelectedParams) {
+                if ($scope.searchCriteria.ReportType.Id !== $scope.lastSelectedParams.Id) {
+                    $scope.searchCriteria.PageSize = defaultPagingSize;
+                }
             }
 
             $scope.$apply();

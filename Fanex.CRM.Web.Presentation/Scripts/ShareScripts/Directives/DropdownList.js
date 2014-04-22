@@ -1,5 +1,5 @@
 ﻿"use strict";
-/* global directiveManager */
+/* global directiveManager: true */
 /* jshint unused: vars */
 directiveManager = directiveManager || {};
 directiveManager.registerDropdownContainer = function (angularApplication, registerParams) {

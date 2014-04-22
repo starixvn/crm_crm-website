@@ -29,7 +29,7 @@ settlementReportApplication.controller('settlementReportController', [
         $scope.searchCriteria = {
             Year: currentDate.getFullYear(),
             PageIndex: 0,
-            PageSize: 10,
+            PageSize: sharedScriptManager.cachedData.monthPagingDefaultItemsPerPage,
             IsGetFromCached: false,
             IsGetFullReport: false
         };

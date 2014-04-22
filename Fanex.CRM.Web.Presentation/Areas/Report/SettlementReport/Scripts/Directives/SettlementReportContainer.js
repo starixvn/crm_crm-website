@@ -150,7 +150,7 @@ settlementReportApplication.directive('tableSettlementReportContainer', function
             pagerOption: {
                 itemsPerPage: cachedData.scope.lastSelectedParams.PageSize,
                 currentPage: cachedData.scope.lastSelectedParams.PageIndex,
-                itemsPerPageArray: [1, 5, 7, 10],
+                itemsPerPageArray: sharedScriptManager.cachedData.monthPagingOptions,
                 totalItem: settlementReport ? settlementReport.TotalChildReports : 0,
                 pagerSelectCallBack: ReRenderAfterPaged
             }

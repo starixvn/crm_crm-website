@@ -126,10 +126,11 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
             }
         }
 
+        var itemsPerPageArray = getItemsPerPageArray();
         var viewChartIcon = '<input id="button-viewchart" class="btnCharting" type="button" value="">';
         var gridOptions = {
             columns: [].concat(
-                 [{ HeaderText: viewResources.Date, Width: 160, Name: "ColDate", HeaderAlign: "center", CellAlign: "left" },
+                 [{ HeaderText: viewResources.Date, Width: 180, Name: "ColDate", HeaderAlign: "center", CellAlign: "left" },
                   { HeaderText: viewResources.Time, Width: dateReportLength ? 120 : 120, Name: "ColTime", HeaderAlign: "center", CellAlign: "center"}],
                   countryColumns,
                   [{
@@ -161,20 +162,32 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
             headerColumnHeight: 29,
             autoFixFrozenRowHeight: true,
             bodyRowHeight: 29,
-            showPager: true,
+            showPager: parseInt(cachedData.scope.searchCriteria.ReportType.Id) === crmConstants.Enums.PeriodType.Daily,
             showTree: true,
             treeParentPaddingLeft: 5,
             customPager: true,
             pagerOption: {
                 itemsPerPage: cachedData.scope.lastSelectedParams.PageSize,
                 currentPage: cachedData.scope.lastSelectedParams.PageIndex,
-                itemsPerPageArray: [1, 5, 7, 10],
+                itemsPerPageArray: itemsPerPageArray,
                 totalItem: statisticReport ? statisticReport.TotalChildReports : 0,
                 pagerSelectCallBack: ReRenderAfterPaged
             }
         };
 
         return gridOptions;
+    }
+
+    function getItemsPerPageArray() {
+        var reportTypeId = parseInt(cachedData.scope.searchCriteria.ReportType.Id);
+        switch (reportTypeId) {
+            case crmConstants.Enums.PeriodType.Daily:
+                return sharedScriptManager.cachedData.smallPagingOptions;
+            case crmConstants.Enums.PeriodType.Monthly:
+                return sharedScriptManager.cachedData.monthPagingOptions;
+            default:
+                return sharedScriptManager.cachedData.smallPagingOptions;
+        }
     }
 
     function getCountryList(statisticReport) {
