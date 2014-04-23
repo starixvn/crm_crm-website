@@ -19,6 +19,10 @@
         color: #666;
     }
 
+    .fanex-multiselect-treeview .fanex-multiselect-check-all input {
+        left: 0;
+    }
+
     .fanex-multiselect-state-default {
         position: relative;
         width: 100% !important;
@@ -57,17 +61,63 @@
     }
 
     .fanex-multiselect-div {
-        margin-left: 20px !important;
+        margin-left: 0 !important;
+        padding-left: 20px;
+
+        label:hover {
+            font-weight: normal !important;
+        }
     }
 
     .rtFirst .fanex-multiselect-div {
-        margin-left: 21px !important;
+        margin-left: 0;
 
         label {
             margin-bottom: 1px;
         }
     }
 
+   label.fanex-multiselect-group-mark {
+        margin-left: 20px;
+        padding-left: 0;
+
+        input {
+            left: 17px;
+        }
+
+        &:hover {
+            font-weight: bold !important;
+        }
+    }
+
+    .custom-multi-select-rtUL {
+        .fanex-multiselect-div, .fanex-multiselect-helper-reset {
+            label {
+                padding-left: 18px;
+                float: none;
+                margin-bottom: 3px;
+            }
+
+            input {
+                position: absolute;
+                left: 37px;
+                margin: 2px 3px 3px;
+            }
+        }
+    }
+
+    .fanex-multiselect-icon-collapse {
+        background: url(images/list-muti-select.png) no-repeat -19px 0;
+        height: 15px;
+        width: 15px;
+        margin-right: 2px;
+    }
+
+    .fanex-multiselect-icon-expand {
+        .fanex-multiselect-icon-collapse;
+        background-position: 0 0;
+    }
+    
 
     .fanex-multiselect-helper-reset label {
         padding-left: 20px;
