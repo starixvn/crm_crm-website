@@ -4,9 +4,75 @@
     var allMenuItemList = ViewBag.MenuItemList != null ? ViewBag.MenuItemList as List<MenuItem> : new List<MenuItem>();
     var lvl0MenuItemList = allMenuItemList.Where(m => m.Parent == null).OrderBy(m => m.DisplayOrder).ToList();
 }
+@functions {
+    public string GetShowSubMenuIconClass(int menuLevel)
+    {
+        switch (menuLevel)
+        {
+            case 0:
+                return "icon-arrow-down";
+            case 1:
+                return "icon-arrow-right pull-right";
+            default:
+                return string.Empty;
+        }
+    }
+
+    public List<MenuItem> GetSubMenuList(MenuItem menuItem, List<MenuItem> allMenuItemList)
+    {
+        return allMenuItemList.Where(x => x.Parent != null && x.Parent.Id == menuItem.Id)
+                 .OrderBy(x => x.DisplayOrder)
+                 .ToList();
+    }
+
+    public bool IsIgnoreMenu(MenuItem menuItem, List<MenuItem> subMenuItemList)
+    {
+        return subMenuItemList.Count == 0 &&
+            (menuItem.Url.Contains("n/a") || string.IsNullOrWhiteSpace(menuItem.Url));
+    }
+}
 @helper RenderMenuLink(string onclickEvent, string menuName)
     {
     <li><a href="javascript:;" onclick="javascript:@onclickEvent">@menuName</a></li>
+}
+@helper RenderHomeMenu(MenuItem menuItem)
+    {
+        var onclickEvent = "menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);";    
+    @RenderMenuLink(onclickEvent, @menuItem.Name);
+}
+@helper RenderLeafMenu(MenuItem menuItem, int menuLevel, List<MenuItem> parentMenuList)
+    {
+        var onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url) + "');";
+
+        if (menuLevel != 0)
+        {
+            var breadscrumbMenuName = string.Join(",", parentMenuList.Select(menu => "'" + menu.Name + "'"));
+            breadscrumbMenuName += ",'" + menuItem.Name + "'";
+            onclickEvent += "menuManager.setActiveClassForSubMenu(" + breadscrumbMenuName + ")";
+        }
+        
+    @RenderMenuLink(onclickEvent, @menuItem.Name);
+}
+@helper RenderMenuWithSubMenu(
+    MenuItem menuItem,
+    List<MenuItem> allMenuItemList,
+    List<MenuItem> subMenuItemList,
+    string menuClassName,
+    List<MenuItem> parentMenuList,
+    int menuLevel)
+    {
+        var className = menuClassName + " list-unstyled sub-menu-container sub-menu-" + (menuLevel + 1);
+        var showSubMenuIconClass = GetShowSubMenuIconClass(menuLevel);
+
+        var nestedParentMenuList = parentMenuList.Select(menu => menu).ToList();
+        nestedParentMenuList.Add(menuItem);
+        
+    <li><a href="#">@menuItem.Name <span class="show-submenu-icon @showSubMenuIconClass">
+    </span></a>
+        <ul class="@className">
+            @RenderMenuList(subMenuItemList, allMenuItemList, menuLevel + 1, nestedParentMenuList)
+        </ul>
+    </li>        
 }
 @helper RenderMenu(
     MenuItem menuItem,
@@ -15,66 +81,35 @@
     List<MenuItem> parentMenuList,
     int menuLevel)
     {  
-        var subMenuItemList = allMenuItemList.Where(x => x.Parent != null && x.Parent.Id == menuItem.Id)
-             .OrderBy(x => x.DisplayOrder)
-             .ToList();
-        var className = menuClassName;
-
-        if (subMenuItemList.Count == 0 &&
-            (menuItem.Url.Contains("n/a") || string.IsNullOrWhiteSpace(menuItem.Url)))
+        var subMenuItemList = GetSubMenuList(menuItem, allMenuItemList);
+        if (IsIgnoreMenu(menuItem, subMenuItemList))
         {
             return;
         }
 
-        string onclickEvent;
         if (menuItem.Name.ToLower().Equals("home"))
         {
-            onclickEvent = "menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);";
-    
-    @RenderMenuLink(onclickEvent, @menuItem.Name);
-                                                 return;
+    @RenderHomeMenu(menuItem); return;
         }
 
         if (subMenuItemList.Count == 0)
         {
-            onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url) + "');";
-
-            if (menuLevel != 0)
-            {
-                var breadscrumbMenuName = string.Join(",", parentMenuList.Select(menu => "'" + menu.Name + "'"));
-                breadscrumbMenuName += ",'" + menuItem.Name + "'";
-                onclickEvent += "menuManager.setActiveClassForSubMenu(" + breadscrumbMenuName + ")";
-            }
-            
-    @RenderMenuLink(onclickEvent, @menuItem.Name);
-                                                 return;
+    @RenderLeafMenu(menuItem, menuLevel, parentMenuList); return;
         }
 
-        className += " list-unstyled sub-menu-container sub-menu-" + (menuLevel + 1);
-        var showSubMenuIconClass = "";
-        switch (menuLevel)
-        {
-            case 0:
-                showSubMenuIconClass = "icon-arrow-down";
-                break;
-            case 1:
-                showSubMenuIconClass = "icon-arrow-right pull-right";
-                break;
-            default:
-                showSubMenuIconClass = "";
-                break;
-        }
-
-        var nestedParentMenuList = parentMenuList.Select(menu => menu).ToList();
-        nestedParentMenuList.Add(menuItem);
-    <li><a href="#">@menuItem.Name <span class="show-submenu-icon @showSubMenuIconClass">
-    </span></a> 
-        <ul class="@className">
-            @RenderMenuList(subMenuItemList, allMenuItemList, menuLevel + 1, nestedParentMenuList)
-        </ul>
-    </li>        
+    @RenderMenuWithSubMenu(
+        menuItem,
+        allMenuItemList,
+        subMenuItemList,
+        menuClassName,
+        parentMenuList,
+        menuLevel);
 }
-@helper RenderMenuList(List<MenuItem> menuItemList, List<MenuItem> allMenuItemList, int menuLevel, List<MenuItem> parentMenuList)
+@helper RenderMenuList(
+    List<MenuItem> menuItemList,
+    List<MenuItem> allMenuItemList,
+    int menuLevel,
+    List<MenuItem> parentMenuList)
     {    
         for (int i = 0; i < menuItemList.Count; i++)
         {
