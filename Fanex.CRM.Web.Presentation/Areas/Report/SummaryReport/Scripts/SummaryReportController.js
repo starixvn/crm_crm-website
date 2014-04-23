@@ -2,6 +2,7 @@
 /* global summaryReportApplication,
 sharedScriptManager,
 hotKeyManager,
+summaryReportResources,
 minReportDate,
 currentDate */
 /* jshint camelcase: false */
@@ -9,18 +10,21 @@ summaryReportApplication.controller('summaryReportController', ['$scope', 'Summa
 function ($scope, summaryReportService, $uiBlockerService, $resultMessageService) {
     $scope.years = [];
     $scope.year = 0;
-    $scope.chartType = 0;
+    $scope.categoryOptions = {};
+    $scope.selectedCategoryIds = '';
     $scope.defaultFocusOptions = null;
     $scope.summaryReport;
-    
+
     $scope.initController = function () {
+        $uiBlockerService.blockUI();
+
         $scope.years = $scope.getYears();
         $scope.$apply();
-
         if ($scope.years.length > 0) {
             $scope.year = $scope.years[$scope.years.length - 1];
         }
 
+        $scope.getCategories();
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: 'SummaryReport'
@@ -44,6 +48,34 @@ function ($scope, summaryReportService, $uiBlockerService, $resultMessageService
         return years;
     };
 
+    $scope.getCategories = function () {
+        $scope.categoryOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedCategory,
+            AllText: summaryReportResources.AllCategories,
+            MaxHeight: 450,
+            NoItemText: summaryReportResources.Symbol_NotApply,
+            NoneSelectedText: summaryReportResources.No_category_found,
+            NumberOfItemShowShortText: 0/*,
+            SubOptionsName: 'ChildSettings',
+            NumberOfSelectedLevel: 2*/
+        };
+
+        summaryReportService.getCategories()
+            .then(function (data) {
+                $scope.categoryOptions.DataList = data.Result;
+                $uiBlockerService.unblockUI();
+            },
+            function (data) {
+                /* jshint unused: vars */
+                $uiBlockerService.unblockUI();
+            });
+    };
+
+    $scope.updateSelectedCategory = function (categoryIdList) {
+        $scope.selectedCategoryIds = categoryIdList;
+    };
+
     $scope.invokeHotKey_CtrlS = function () {
         $scope.getSummaryReport();
     };
@@ -60,7 +92,7 @@ function ($scope, summaryReportService, $uiBlockerService, $resultMessageService
 
     $scope.getSummaryReport = function () {
         $uiBlockerService.blockUI();
-        summaryReportService.getSummaryReport($scope.year.id, $scope.chartType)
+        summaryReportService.getSummaryReport($scope.year.id, $scope.selectedCategoryIds)
             .then(function (data) {
                 $scope.summaryReport = data.Result;
                 $uiBlockerService.unblockUI();
@@ -82,8 +114,6 @@ function ($scope, summaryReportService, $uiBlockerService, $resultMessageService
     };
 
     angular.element(document).ready(function () {
-        $uiBlockerService.blockUI();
-        $uiBlockerService.unblockUI();
         $scope.initController();
     });
 } ]);    

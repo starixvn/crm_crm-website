@@ -504,6 +504,15 @@
   <data name="Feedbacks" xml:space="preserve">
     <value>Feedback(s)</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="No_category_found" xml:space="preserve">
+    <value>No category found.</value>
+  </data>
+  <data name="AllCategories" xml:space="preserve">
+    <value>All Categories</value>
+  </data>
   <data name="Please_choose_one" xml:space="preserve">
     <value>Please choose one!</value>
   </data>

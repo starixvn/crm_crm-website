@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Criteria.SummaryReport
         public int Year { get; set; }
 
         [SpParam(Ignored = true)]
-        public int ChartType { get; set; }
+        public string Categories { get; set; }
 
         [SpParam(Ignored = true)]
         public bool IsCached { get; set; }

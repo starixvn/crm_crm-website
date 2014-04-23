@@ -63,12 +63,9 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 {
                     report = ParseSummaryReport(criteria);
                     report.ReportTitle = string.Format(Labels.SummaryReportTitle, criteria.Year);
-
+                    
                     // Add to session.
-                    if (report != null)
-                    {
-                        SessionExtension.AddSession(HttpContext.Current.Session, sessionKey, report);
-                    }
+                    SessionExtension.AddSession(HttpContext.Current.Session, sessionKey, report);
                 }
 
                 return report;
@@ -138,13 +135,24 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         private SummaryReportModel ParseSummaryReport(GetSummaryReportCriteria criteria)
         {
+            if (string.IsNullOrWhiteSpace(criteria.Categories))
+            {
+                return new SummaryReportModel();
+            }
+
             string month;
             int numberOfIssues;
             IList<CategorySummary> subCategorySummaries;
             CategorySummary category, subCategory;
             IList<CategorySummary> categorySummaries = new List<CategorySummary>();
 
-            var rawData = _summaryRepository.GetSummaryReport(criteria).ToList();
+            // Filter.
+            int[] categoryIds = criteria.Categories.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(c => int.Parse(c))
+                .ToArray();
+            var rawData = _summaryRepository.GetSummaryReport(criteria)
+                .Where(c => categoryIds.Contains(c.MainCategoryId))
+                .ToList();
 
             // Get Month.
             var monthData = rawData.Select(s => s.Month.ToUpper()).Distinct().ToList();

@@ -363,7 +363,18 @@ function RegisterTemplate(application) {
 
         directiveManager.registerSubjectAutoComplete(self.application, subjectAutoCompleteRegisterParams);
     };
+    self.registerCategoryMultiSelectPicker = function () {
+        var categoryRegisterParams = {
+            PlugInName: 'categoryPickerContainer',
+            OptionName: 'categoryOptions',
+            PickerId: 'category',
+            RestrictType: 'A',
+            DataPropertyName: {
+                Id: 'Id',
+                Name: 'Name'
+            }
+        };
+
+        directiveManager.registerMultiSelectContainer(self.application, categoryRegisterParams);
+    };
 }
-
-
-

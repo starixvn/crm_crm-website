@@ -117,8 +117,10 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
     }
 
     function renderSummaryReport(scope, element, attrs) {
+        var grid = element.find('#table-summary-report').empty();
         var report = scope.summaryReport;
-        if (!report) {
+        if (!report || !report.Months || report.Months.length === 0) {
+            element.addClass(crmConstants.Enums.CssClass.DisplayNone);
             return;
         }
 
@@ -131,13 +133,8 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         var footerData = getGridFooter(grandTotals);
 
         var gridOptions = getGridOptions(scope, reportTitle, bodyData, footerData, months);
-        element.find('#table-summary-report')
-            .empty()
-            .removeClass(crmConstants.Enums.CssClass.DisplayNone)
+        grid.removeClass(crmConstants.Enums.CssClass.DisplayNone)
             .fanexGrid(gridOptions);
-        if (parseInt(scope.chartType) === 0) {
-            element.find('#btnCollapseExpandtable-summary-report').trigger('click');
-        }
         // view chart event.
         element.find('#button-viewchart').click(function () {
             viewChart(scope);
@@ -145,13 +142,12 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
     }
 
     function getChartDatasets(categorySummaries, typeOfChart) {
-        var chartType = parseInt(typeOfChart);
         var datasets = [];
 
         var bgColor, bgColorIndex = 0;
         var bgColorFunction = parent.crmChart.getBackGroundColor;
-        var category, categoryTotal, subCategory, summary, categoryCharts, subCategoryCharts;
-        var categoryTotalLen, subLen, summaryLen;
+        var category, categoryTotal, categoryCharts;
+        var categoryTotalLen;
         var categoryLen = categorySummaries.length;
         for (var i = 0; i < categoryLen; i++) {
             category = categorySummaries[i];
@@ -162,26 +158,25 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
                 categoryCharts.push(categoryTotal.Amount);
             }
 
-            if (chartType === 0) { // Summary Chart
-                bgColor = bgColorFunction(bgColorIndex++);
-                datasets.push({ fillColor: bgColor, strokeColor: bgColor, title: category.Name, data: categoryCharts });
-            }
+            bgColor = bgColorFunction(bgColorIndex++);
+            datasets.push({ fillColor: bgColor, strokeColor: bgColor, title: category.Name, data: categoryCharts });
 
-            subLen = category.SubCategories ? category.SubCategories.length : 0;
+            /*subLen = category.SubCategories ? category.SubCategories.length : 0;
             for (var j = 0; j < subLen; j++) {
-                subCategory = category.SubCategories[j];
-                subCategoryCharts = [];
-                summaryLen = subCategory.Summaries ? subCategory.Summaries.length : 0;
-                for (var k = 0; k < summaryLen; k++) {
-                    summary = subCategory.Summaries[k];
-                    subCategoryCharts.push(summary.Amount);
-                }
-
-                if (chartType === 1) { // Detailed Chart
-                    bgColor = bgColorFunction(bgColorIndex++);
-                    datasets.push({ fillColor: bgColor, strokeColor: bgColor, title: subCategory.Name, data: subCategoryCharts });
-                }
+            subCategory = category.SubCategories[j];
+            subCategoryCharts = [];
+            summaryLen = subCategory.Summaries ? subCategory.Summaries.length : 0;
+            for (var k = 0; k < summaryLen; k++) {
+            summary = subCategory.Summaries[k];
+            subCategoryCharts.push(summary.Amount);
             }
+
+            if (chartType === 1) { // Detailed Chart
+            bgColor = bgColorFunction(bgColorIndex++);
+            var subCategoryName = subCategory.Name === 'N/A' ? category.Name + ' > N/A' : subCategory.Name;
+            datasets.push({ fillColor: bgColor, strokeColor: bgColor, title: subCategoryName, data: subCategoryCharts });
+            }
+            }*/
         }
 
         return datasets;
@@ -195,7 +190,7 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
 
         var chartData = {
             labels: report.Months,
-            datasets: getChartDatasets(report.CategorySummaries, scope.chartType)
+            datasets: getChartDatasets(report.CategorySummaries)
         };
         var crmChart = parent.crmChart;
         crmChart.title = report.ReportTitle;
@@ -218,8 +213,7 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
         restrict: 'A',
         scope: {
             summaryReport: '=',
-            exportSummaryReportExcel: '&',
-            chartType: '='
+            exportSummaryReportExcel: '&'
         },
         link: function (scope, element, attrs) {
             scope.$watch('summaryReport', function (newValue, oldValue) {
