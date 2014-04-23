@@ -123,8 +123,10 @@ namespace Fanex.CRM.Infrastructure.Extension
 
             cellStyle.FillForegroundColor = (short)HeaderTitleColorIndex;
             cellStyle.FillPattern = FillPattern.SolidForeground;
-            cellStyle.Alignment = excelStyleParam.Alignment ?? HorizontalAlignment.Center;
-            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
+            cellStyle.Alignment = excelStyleParam.Alignment != null ?
+                MappingHorizontalAlignmentType(excelStyleParam.Alignment) :
+                MappingHorizontalAlignmentType(CRMHorizontalAlignment.Center);
+            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
             return cellStyle;
@@ -160,7 +162,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             cellStyle.FillForegroundColor = cellColor;
             cellStyle.FillPattern = FillPattern.SolidForeground;
             cellStyle.Alignment = MappingHorizontalAlignmentType(align);
-            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
+            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
             return cellStyle;
@@ -179,7 +181,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static ICellStyle CreateDecimalNumberStyle(
             HSSFWorkbook excelFile,
             short backgroundColorIndex,
-            HorizontalAlignment textAlign,
+            CRMHorizontalAlignment textAlign,
             bool isBold,
             bool isNegative,
             bool isPositive)
@@ -197,8 +199,8 @@ namespace Fanex.CRM.Infrastructure.Extension
             decimalNumberStyle.DataFormat = GetNumerFormat(excelFile, isNegative, isPositive);
             decimalNumberStyle.FillForegroundColor = backgroundColorIndex;
             decimalNumberStyle.FillPattern = FillPattern.SolidForeground;
-            decimalNumberStyle.Alignment = textAlign;
-            decimalNumberStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
+            decimalNumberStyle.Alignment = MappingHorizontalAlignmentType(textAlign);
+            decimalNumberStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
             decimalNumberStyle.SetFont(font);
             SetBorderToCell(decimalNumberStyle);
             return decimalNumberStyle;
@@ -219,7 +221,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             HSSFWorkbook excelFile,
             short cellColor,
             bool isBold,
-            HorizontalAlignment alignment,
+            CRMHorizontalAlignment alignment,
             short fontColor = 8)
         {
             ICellStyle cellStyle = excelFile.CreateCellStyle();
@@ -236,8 +238,8 @@ namespace Fanex.CRM.Infrastructure.Extension
 
             cellStyle.FillForegroundColor = cellColor;
             cellStyle.FillPattern = FillPattern.SolidForeground;
-            cellStyle.Alignment = alignment;
-            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
+            cellStyle.Alignment = MappingHorizontalAlignmentType(alignment);
+            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
             cellStyle.DataFormat = dataFormat.GetFormat(IntNumberFormat);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
@@ -343,7 +345,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         {
             ICell cell = row.GetCell(currentColumn) ?? row.CreateCell(currentColumn);
             SetCellValue(ref cell, cellValue);
-            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
+            cellStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
             cell.CellStyle = cellStyle;
             currentColumn += 1;
         }
@@ -461,8 +463,13 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </summary>
         /// <param name="alignment">The alignment.</param>
         /// <returns>The NPOI horizontal alignment.</returns>
-        private static HorizontalAlignment MappingHorizontalAlignmentType(CRMHorizontalAlignment alignment)
+        public static HorizontalAlignment MappingHorizontalAlignmentType(CRMHorizontalAlignment? alignment)
         {
+            if (alignment == null)
+            {
+                return HorizontalAlignment.Left;
+            }
+
             switch (alignment)
             {
                 case CRMHorizontalAlignment.Right:
@@ -481,7 +488,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </summary>
         /// <param name="alignment">The alignment.</param>
         /// <returns>The NPOI vertical alignment.</returns>
-        private static VerticalAlignment MappingVirticalAlignmentType(CRMVerticalAlignment alignment)
+        public static VerticalAlignment MappingVerticalAlignmentType(CRMVerticalAlignment alignment)
         {
             // Vertical Alignment NPOI 2.0.1+ issue.
             switch (alignment)
@@ -508,7 +515,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// <param name="isNegative">If set to <c>true</c> [is negative].</param>
         /// <param name="isPositive">If set to <c>true</c> [is positive].</param>
         /// <returns>The number format.</returns>
-        private static short GetNumerFormat(HSSFWorkbook excelFile, bool isNegative, bool isPositive)
+        public static short GetNumerFormat(HSSFWorkbook excelFile, bool isNegative, bool isPositive)
         {
             IDataFormat dataFormat = excelFile.CreateDataFormat();
             if (isNegative)

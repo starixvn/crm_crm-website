@@ -39,7 +39,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
-                HorizontalAlignment.Left);
+                CRMHorizontalAlignment.Left);
             _textStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
