@@ -16,6 +16,6 @@ namespace Fanex.CRM.Infrastructure.Models.Npoi
     /// </summary>
     public class ExcelStyleParam
     {
-        public HorizontalAlignment? Alignment { get; set; }
+        public CRMHorizontalAlignment? Alignment { get; set; }
     }
 }
