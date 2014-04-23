@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="Alignment.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="CRMHorizontalAlignment.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Infrastructure.Models
 {
-    public enum Alignment
+    public enum CRMHorizontalAlignment
     {
         /// <summary>
         /// Align left.

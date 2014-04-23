@@ -41,15 +41,15 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 false,
                 HorizontalAlignment.Left);
             _textStyle = NpoiExcelExtensions.TextStyle(
-                 _exportExcelInfo.ExcelFile,
-                 rowBackgroundColorIndex,
-                 false,
-                 Alignment.Left);
+                _exportExcelInfo.ExcelFile,
+                rowBackgroundColorIndex,
+                false,
+                CRMHorizontalAlignment.Left);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
-                Alignment.Center);
+                CRMHorizontalAlignment.Center);
         }
 
         /// <summary>

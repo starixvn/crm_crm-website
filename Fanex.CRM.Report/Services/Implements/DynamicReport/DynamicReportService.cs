@@ -858,7 +858,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.ExcelFile,
                 periodGroupBackgroundColorIndex,
                 true,
-                Alignment.Left);
+                CRMHorizontalAlignment.Left);
             var font = exportExcelInfo.ExcelFile.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;

@@ -124,7 +124,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             cellStyle.FillForegroundColor = (short)HeaderTitleColorIndex;
             cellStyle.FillPattern = FillPattern.SolidForeground;
             cellStyle.Alignment = excelStyleParam.Alignment ?? HorizontalAlignment.Center;
-            cellStyle.VerticalAlignment = VerticalAlignment.Center;
+            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
             return cellStyle;
@@ -143,7 +143,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             HSSFWorkbook excelFile,
             short cellColor,
             bool isBold,
-            Alignment align,
+            CRMHorizontalAlignment align,
             short fontColor = 8)
         {
             ICellStyle cellStyle = excelFile.CreateCellStyle();
@@ -160,7 +160,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             cellStyle.FillForegroundColor = cellColor;
             cellStyle.FillPattern = FillPattern.SolidForeground;
             cellStyle.Alignment = MappingHorizontalAlignmentType(align);
-            cellStyle.VerticalAlignment = VerticalAlignment.Center;
+            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
             return cellStyle;
@@ -198,7 +198,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             decimalNumberStyle.FillForegroundColor = backgroundColorIndex;
             decimalNumberStyle.FillPattern = FillPattern.SolidForeground;
             decimalNumberStyle.Alignment = textAlign;
-            decimalNumberStyle.VerticalAlignment = VerticalAlignment.Center;
+            decimalNumberStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             decimalNumberStyle.SetFont(font);
             SetBorderToCell(decimalNumberStyle);
             return decimalNumberStyle;
@@ -237,7 +237,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             cellStyle.FillForegroundColor = cellColor;
             cellStyle.FillPattern = FillPattern.SolidForeground;
             cellStyle.Alignment = alignment;
-            cellStyle.VerticalAlignment = VerticalAlignment.Center;
+            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             cellStyle.DataFormat = dataFormat.GetFormat(IntNumberFormat);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
@@ -267,17 +267,17 @@ namespace Fanex.CRM.Infrastructure.Extension
                 for (var j = cellRangeAddress.FirstColumn; j <= cellRangeAddress.LastColumn; j++)
                 {
                     cell = row.GetCell(j) ?? row.CreateCell(j);
-                    if (i == cellRangeAddress.FirstRow && j == cellRangeAddress.FirstColumn)
-                    {
-                        SetCellValue(ref cell, cellValue);
-                    }
-
                     if (i == cellRangeAddress.FirstRow ||
                         i == cellRangeAddress.LastRow ||
                         j == cellRangeAddress.FirstColumn ||
                         j == cellRangeAddress.LastColumn)
                     {
                         cell.CellStyle = cellStyle;
+                    }
+
+                    if (i == cellRangeAddress.FirstRow && j == cellRangeAddress.FirstColumn)
+                    {
+                        SetCellValue(ref cell, cellValue);
                     }
                 }
             }
@@ -299,7 +299,7 @@ namespace Fanex.CRM.Infrastructure.Extension
                 exportExcelInfo.ExcelFile,
                 BackgroundColorIndex,
                 false,
-                Alignment.Center);
+                CRMHorizontalAlignment.Center);
             RenderMergedCells(ref exportExcelInfo, cellRangeAddress, string.Empty, textStyle);
         }
 
@@ -319,7 +319,7 @@ namespace Fanex.CRM.Infrastructure.Extension
                 exportExcelInfo.ExcelFile,
                 BackgroundColorIndex,
                 true,
-                Alignment.Center);
+                CRMHorizontalAlignment.Center);
 
             RenderMergedCells(
                 ref exportExcelInfo,
@@ -343,6 +343,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         {
             ICell cell = row.GetCell(currentColumn) ?? row.CreateCell(currentColumn);
             SetCellValue(ref cell, cellValue);
+            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             cell.CellStyle = cellStyle;
             currentColumn += 1;
         }
@@ -460,18 +461,43 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </summary>
         /// <param name="alignment">The alignment.</param>
         /// <returns>The NPOI horizontal alignment.</returns>
-        private static HorizontalAlignment MappingHorizontalAlignmentType(Alignment alignment)
+        private static HorizontalAlignment MappingHorizontalAlignmentType(CRMHorizontalAlignment alignment)
         {
             switch (alignment)
             {
-                case Alignment.Right:
+                case CRMHorizontalAlignment.Right:
                     return HorizontalAlignment.Right;
-                case Alignment.Center:
+                case CRMHorizontalAlignment.Center:
                     return HorizontalAlignment.Center;
-                case Alignment.Left:
+                case CRMHorizontalAlignment.Left:
                     return HorizontalAlignment.Left;
                 default:
                     return HorizontalAlignment.Left;
+            }
+        }
+
+        /// <summary>
+        /// Mappings the type of the vertical alignment.
+        /// </summary>
+        /// <param name="alignment">The alignment.</param>
+        /// <returns>The NPOI vertical alignment.</returns>
+        private static VerticalAlignment MappingVirticalAlignmentType(CRMVerticalAlignment alignment)
+        {
+            // Vertical Alignment NPOI 2.0.1+ issue.
+            switch (alignment)
+            {
+                case CRMVerticalAlignment.Top:
+                    return VerticalAlignment.Bottom;
+                case CRMVerticalAlignment.Center:
+                    return VerticalAlignment.Top;
+                case CRMVerticalAlignment.Bottom:
+                    return VerticalAlignment.Bottom;
+                case CRMVerticalAlignment.Justify:
+                    return VerticalAlignment.Justify;
+                case CRMVerticalAlignment.Distributed:
+                    return VerticalAlignment.Distributed;
+                default:
+                    return VerticalAlignment.Top;
             }
         }
 

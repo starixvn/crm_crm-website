@@ -355,6 +355,7 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
         {
             if (customerReport == null || customerReport.CustomerList.Count == 0)
             {
+                exportExcelInfo.Worksheet.VerticallyCenter = true;
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.CustomerReport_SheetName);
                 ExportCustomerReportHeader(ref exportExcelInfo);
                 NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
@@ -373,23 +374,23 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
-                Alignment.Left);
+                CRMHorizontalAlignment.Left);
             var centerTextStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
-                Alignment.Center);
+                CRMHorizontalAlignment.Center);
 
             var evenRowTextStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.EvenRowColorIndex,
                 false,
-                Alignment.Left);
+                CRMHorizontalAlignment.Left);
             var evenRowCenterTextStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.EvenRowColorIndex,
                 false,
-                Alignment.Center);
+                CRMHorizontalAlignment.Center);
 
             var numberOfSheet = (reportLength / NpoiExcelExtensions.MaxRowPerSheet) +
                 (reportLength % NpoiExcelExtensions.MaxRowPerSheet != 0 ? 1 : 0);
@@ -399,6 +400,7 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                     string.Format("{0} - {1}", Labels.CustomerReport_SheetName, sheetIndex + 1) :
                     Labels.CustomerReport_SheetName;
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
+                exportExcelInfo.Worksheet.VerticallyCenter = true;
                 exportExcelInfo.CurrentRow = 0;
                 ExportCustomerReportHeader(ref exportExcelInfo);
                 var startIndex = sheetIndex * NpoiExcelExtensions.MaxRowPerSheet;
