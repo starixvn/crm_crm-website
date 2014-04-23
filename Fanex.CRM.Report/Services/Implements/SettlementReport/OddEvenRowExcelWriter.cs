@@ -12,6 +12,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Report.Models.SettlementReport;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -25,10 +26,10 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         private ICellStyle _textStyle;
         private ICellStyle _centerTextStyle;
         private ICellStyle _centerIntStyle;
-        private ExportExcelInfoNPOI _exportExcelInfo;
+        private ExportExcelInfo _exportExcelInfo;
         private short _rowBackgroundColorIndex;
 
-        public OddEvenRowExcelWriter(ExportExcelInfoNPOI exportExcelInfo, bool isEvenRow)
+        public OddEvenRowExcelWriter(ExportExcelInfo exportExcelInfo, bool isEvenRow)
         {
             _exportExcelInfo = exportExcelInfo;
             _rowBackgroundColorIndex = isEvenRow ?
@@ -39,23 +40,23 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                false,
-               HorizontalAlignment.RIGHT);
+               HorizontalAlignment.Right);
             _centerIntStyle = NpoiExcelExtensions.IntNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 false,
-                HorizontalAlignment.CENTER);
+                HorizontalAlignment.Center);
 
             _textStyle = NpoiExcelExtensions.TextStyle(
                  _exportExcelInfo.ExcelFile,
                  _rowBackgroundColorIndex,
                  false,
-                 NpoiExcelExtensions.Alignment.Left);
+                 CRMHorizontalAlignment.Left);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 false,
-                NpoiExcelExtensions.Alignment.Center);
+                CRMHorizontalAlignment.Center);
         }
 
         /// <summary>
@@ -69,7 +70,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             SettlementReportInfo info,
             SettlementReportInfo groupInfo,
             int infoIndex)

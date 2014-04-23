@@ -487,7 +487,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     dynamicReport = GetDynamicReport(criteria);
                 }
 
-                ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
                 {
                     ExcelFile = new HSSFWorkbook(),
                     StartRow = 0,
@@ -775,14 +775,14 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private void ExportDynamicReportHeader(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             GetDynamicReportCriteria criteria,
             DynamicReportInfo dynamicReport)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
-                new ExcelStyleParamNPOI());
+                new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExcelExtensions.FontWidth);
@@ -841,7 +841,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private void ExportDynamicReportBody(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             GetDynamicReportCriteria criteria,
             DynamicReportInfo dynamicReport)
         {
@@ -953,7 +953,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         /// Sets the index of the status color.
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
-        private void SetStatusColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        private void SetStatusColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             var closedBackgroundColor = Color.FromArgb(221, 221, 221);
             NpoiExcelExtensions.SetColorAtIndex(

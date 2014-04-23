@@ -17,7 +17,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
-    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria.SettlementReport;
     using Fanex.CRM.Report.Entities.SettlementReport;
@@ -108,7 +108,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                     settlementReport = GetSettlementReport(criteria);
                 }
 
-                ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
                 {
                     ExcelFile = new HSSFWorkbook(),
                     StartRow = 0,
@@ -331,7 +331,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         private void ExportSettlementReportBody(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             GetSettlementReportCriteria criteria,
             SettlementReportInfo settlementReport)
         {
@@ -400,14 +400,14 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         /// <param name="criteria">The criteria.</param>
         /// <param name="settlementReport">The settlement report.</param>
         private void ExportSettlementReportHeader(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             GetSettlementReportCriteria criteria,
             SettlementReportInfo settlementReport)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
-                new ExcelStyleParamNPOI());
+                new ExcelStyleParam());
 
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);

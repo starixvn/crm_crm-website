@@ -13,6 +13,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Models.Npoi;
+    using Fanex.CRM.Report.Models;
     using Fanex.CRM.Report.Resources;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -25,11 +26,11 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         private ICellStyle _intStyle;
         private ICellStyle _textStyle;
         private ICellStyle _centerTextStyle;
-        private ExportExcelInfoNPOI _exportExcelInfo;
+        private ExportExcelInfo _exportExcelInfo;
         private short _rowBackgroundColorIndex;
 
         public CommunicationLogRowExcelWriter(
-            ExportExcelInfoNPOI exportExcelInfo,
+            ExportExcelInfo exportExcelInfo,
             short rowBackgroundColorIndex)
         {
             _exportExcelInfo = exportExcelInfo;
@@ -62,7 +63,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             DynamicReportInfo info,
             int infoIndex)
         {

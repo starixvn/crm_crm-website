@@ -19,6 +19,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Entities.StatisticReport;
@@ -224,7 +225,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                     statisticReport = GetStatisticReport(criteria);
                 }
 
-                ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
                 {
                     ExcelFile = new HSSFWorkbook(),
                     StartRow = 0,
@@ -632,7 +633,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
           "SP2101:MethodMustNotContainMoreLinesThan",
           Justification = "Reviewed. Suppression is OK here.")]
         private void ExportStatisticReportBody(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             GetStatisticReportCriteria criteria,
             StatisticReportInfo statisticReport)
         {
@@ -703,7 +704,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
         /// <param name="statisticReport">The statistic report.</param>
         /// <param name="countryList">The country list.</param>
         private void ExportStatisticReportHeader(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             GetStatisticReportCriteria criteria,
             StatisticReportInfo statisticReport,
             List<CountryInfo> countryList)
@@ -711,10 +712,10 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
-                new ExcelStyleParamNPOI());
+                new ExcelStyleParam());
             ICellStyle leftHeaderStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
-                new ExcelStyleParamNPOI { Alignment = HorizontalAlignment.LEFT });
+                new ExcelStyleParam { Alignment = HorizontalAlignment.Left });
 
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 160 : 160) * NpoiExcelExtensions.FontWidth);

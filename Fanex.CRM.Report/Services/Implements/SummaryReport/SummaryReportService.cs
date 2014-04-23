@@ -17,6 +17,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Report.Criteria.SummaryReport;
     using Fanex.CRM.Report.Models.SummaryReport;
     using Fanex.CRM.Report.Repositories.Implements;
@@ -90,7 +91,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             try
             {
                 HSSFWorkbook workbook = new HSSFWorkbook();
-                ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
                 {
                     ExcelFile = workbook,
                     Worksheet = workbook.CreateSheet(excelFileName),
@@ -231,7 +232,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="title">The title.</param>
-        private void ExportTitle(ref ExportExcelInfoNPOI exportExcelInfo, string title)
+        private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
             int currentColumn = exportExcelInfo.StartColumn;
             int currentRow = exportExcelInfo.CurrentRow;
@@ -258,7 +259,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 currentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParamNPOI());
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
 
@@ -273,11 +274,11 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="months">The months.</param>
-        private void ExportHeader(ref ExportExcelInfoNPOI exportExcelInfo, IList<string> months)
+        private void ExportHeader(ref ExportExcelInfo exportExcelInfo, IList<string> months)
         {
             int currentColumn = exportExcelInfo.StartColumn;
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParamNPOI());
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Categories, headerStyle);
             foreach (string item in months)
@@ -294,7 +295,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="categorySummaries">The category summaries.</param>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        private void ExportBody(ref ExportExcelInfoNPOI exportExcelInfo, IList<CategorySummary> categorySummaries)
+        private void ExportBody(ref ExportExcelInfo exportExcelInfo, IList<CategorySummary> categorySummaries)
         {
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
             ICellStyle categoryCellStyle = GetCategoryCellStyle(workbook);
@@ -370,7 +371,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="grandTotals">The total.</param>
-        private void ExportFooter(ref ExportExcelInfoNPOI exportExcelInfo, IList<Summary> grandTotals)
+        private void ExportFooter(ref ExportExcelInfo exportExcelInfo, IList<Summary> grandTotals)
         {
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.CurrentColumn;
@@ -410,12 +411,12 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.GroupBackgroundColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Left);
+                CRMHorizontalAlignment.Left);
             var font = workbook.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;
             font.Color = NpoiExcelExtensions.GroupColorIndex;
-            font.Boldweight = (short)FontBoldWeight.BOLD;
+            font.Boldweight = (short)FontBoldWeight.Bold;
             cellStyle.SetFont(font);
             NpoiExcelExtensions.SetBorderToCell(cellStyle);
 
@@ -433,13 +434,13 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.GroupBackgroundColorIndex,
                 true,
-                HorizontalAlignment.RIGHT,
+                HorizontalAlignment.Right,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
             var font = workbook.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;
             font.Color = NpoiExcelExtensions.GroupColorIndex;
-            font.Boldweight = (short)FontBoldWeight.BOLD;
+            font.Boldweight = (short)FontBoldWeight.Bold;
             cellStyle.SetFont(font);
             NpoiExcelExtensions.SetBorderToCell(cellStyle);
 
@@ -452,7 +453,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Left,
+                CRMHorizontalAlignment.Left,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
@@ -462,7 +463,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
-                NpoiExcelExtensions.Alignment.Left);
+                CRMHorizontalAlignment.Left);
         }
 
         private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
@@ -471,7 +472,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
-                HorizontalAlignment.RIGHT);
+                HorizontalAlignment.Right);
         }
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
@@ -480,7 +481,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                HorizontalAlignment.RIGHT,
+                HorizontalAlignment.Right,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 

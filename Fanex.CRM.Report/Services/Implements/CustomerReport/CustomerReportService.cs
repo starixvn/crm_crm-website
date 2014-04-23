@@ -124,7 +124,7 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                     customerReport = GetCustomerReport(criteria);
                 }
 
-                ExportExcelInfoNPOI exportExcelInfo = new ExportExcelInfoNPOI
+                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
                 {
                     ExcelFile = new HSSFWorkbook(),
                     StartRow = 0,
@@ -273,12 +273,12 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private void ExportCustomerReportHeader(ref ExportExcelInfoNPOI exportExcelInfo)
+        private void ExportCustomerReportHeader(ref ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
-                new ExcelStyleParamNPOI());
+                new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 50 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
@@ -351,7 +351,7 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private void ExportCustomerReportBody(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             GetCustomerReportCriteria criteria,
             CustomerReportInfo customerReport)
         {
@@ -444,7 +444,7 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private void ExportCustomerReportRow(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             ref IRow row,
             ref int currentColumn,
             CustomerInfo customer,

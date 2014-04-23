@@ -12,6 +12,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Report.Models.SettlementReport;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -24,12 +25,12 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
         private ICellStyle _intStyle;
         private ICellStyle _textStyle;
         private ICellStyle _centerTextStyle;
-        private ExportExcelInfoNPOI _exportExcelInfo;
+        private ExportExcelInfo _exportExcelInfo;
         private short _rowBackgroundColorIndex;
         private ICellStyle _centerIntStyle;
         private bool _isFirstRow;
 
-        public GrandTotalRowExcelWriter(ExportExcelInfoNPOI exportExcelInfo, bool isFirstRow)
+        public GrandTotalRowExcelWriter(ExportExcelInfo exportExcelInfo, bool isFirstRow)
         {
             _exportExcelInfo = exportExcelInfo;
             _isFirstRow = isFirstRow;
@@ -39,25 +40,25 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                HorizontalAlignment.RIGHT,
+                HorizontalAlignment.Right,
                NpoiExcelExtensions.GrandTotalTextColorIndex);
             _textStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Left,
-               NpoiExcelExtensions.GrandTotalTextColorIndex);
+                CRMHorizontalAlignment.Left,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Center,
+                CRMHorizontalAlignment.Center,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
             _centerIntStyle = NpoiExcelExtensions.IntNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                HorizontalAlignment.CENTER,
+                HorizontalAlignment.Center,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
@@ -71,7 +72,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             SettlementReportInfo info,
             SettlementReportInfo groupInfo)
         {

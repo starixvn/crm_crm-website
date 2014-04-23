@@ -12,6 +12,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Report.Models.StatisticReport;
     using NPOI.SS.UserModel;
 
@@ -23,10 +24,10 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         private ICellStyle _intStyle;
         private ICellStyle _textStyle;
         private ICellStyle _centerTextStyle;
-        private ExportExcelInfoNPOI _exportExcelInfo;
+        private ExportExcelInfo _exportExcelInfo;
         private short _rowBackgroundColorIndex;
 
-        public TotalRowExcelWriter(ExportExcelInfoNPOI exportExcelInfo)
+        public TotalRowExcelWriter(ExportExcelInfo exportExcelInfo)
         {
             _exportExcelInfo = exportExcelInfo;
             _rowBackgroundColorIndex = NpoiExcelExtensions.TotalRowColorIndex;
@@ -35,18 +36,18 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 false,
-                HorizontalAlignment.RIGHT);
+                HorizontalAlignment.Right);
 
             _textStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 false,
-                NpoiExcelExtensions.Alignment.Left);
+                CRMHorizontalAlignment.Left);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 false,
-                NpoiExcelExtensions.Alignment.Center);
+                CRMHorizontalAlignment.Center);
         }
 
         /// <summary>
@@ -58,7 +59,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         public void WriteRow(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             StatisticReportInfo info)
         {
             var row = exportExcelInfo.Worksheet.GetRow(exportExcelInfo.CurrentRow) ?? exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
