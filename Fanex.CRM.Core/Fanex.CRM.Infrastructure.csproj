@@ -143,7 +143,9 @@
     <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\QueryString.cs" />
     <Compile Include="Helper\SystemTime.cs" />
-    <Compile Include="Models\ExportExcelInfo.cs" />
+    <Compile Include="Models\Alignment.cs" />
+    <Compile Include="Models\Npoi\ExcelStyleParam.cs" />
+    <Compile Include="Models\Npoi\ExportExcelInfo.cs" />
     <Compile Include="Models\PagedList.cs" />
     <Compile Include="Models\PeriodRange.cs" />
     <Compile Include="Models\Result.cs" />
