@@ -115,8 +115,10 @@
     <Compile Include="Helper\Constants.cs" />
     <Compile Include="Helper\QueryString.cs" />
     <Compile Include="Helper\SystemTime.cs" />
-    <Compile Include="Models\ExcelStyleParamNPOI.cs" />
-    <Compile Include="Models\ExportExcelInfoNPOI.cs" />
+    <Compile Include="Models\CRMHorizontalAlignment.cs" />
+    <Compile Include="Models\CRMVerticalAlignment.cs" />
+    <Compile Include="Models\Npoi\ExcelStyleParam.cs" />
+    <Compile Include="Models\Npoi\ExportExcelInfo.cs" />
     <Compile Include="Models\PagedList.cs" />
     <Compile Include="Models\PeriodRange.cs" />
     <Compile Include="Models\Result.cs" />

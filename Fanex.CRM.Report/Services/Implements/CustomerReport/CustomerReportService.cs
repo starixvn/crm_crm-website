@@ -7,7 +7,7 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Report.Repositories.Implements
+namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +18,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Models.CustomerReport;
@@ -356,6 +357,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
         {
             if (customerReport == null || customerReport.CustomerList.Count == 0)
             {
+                exportExcelInfo.Worksheet.VerticallyCenter = true;
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.CustomerReport_SheetName);
                 ExportCustomerReportHeader(ref exportExcelInfo);
                 NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
@@ -374,23 +376,23 @@ namespace Fanex.CRM.Report.Repositories.Implements
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
-                NpoiExcelExtensions.Alignment.Left);
+                CRMHorizontalAlignment.Left);
             var centerTextStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
-                NpoiExcelExtensions.Alignment.Center);
+                CRMHorizontalAlignment.Center);
 
             var evenRowTextStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.EvenRowColorIndex,
                 false,
-                NpoiExcelExtensions.Alignment.Left);
+                CRMHorizontalAlignment.Left);
             var evenRowCenterTextStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.EvenRowColorIndex,
                 false,
-                NpoiExcelExtensions.Alignment.Center);
+                CRMHorizontalAlignment.Center);
 
             var numberOfSheet = (reportLength / NpoiExcelExtensions.MaxRowPerSheet) +
                 (reportLength % NpoiExcelExtensions.MaxRowPerSheet != 0 ? 1 : 0);
@@ -400,6 +402,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
                     string.Format("{0} - {1}", Labels.CustomerReport_SheetName, sheetIndex + 1) :
                     Labels.CustomerReport_SheetName;
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(sheetName);
+                exportExcelInfo.Worksheet.VerticallyCenter = true;
                 exportExcelInfo.CurrentRow = 0;
                 ExportCustomerReportHeader(ref exportExcelInfo);
                 var startIndex = sheetIndex * NpoiExcelExtensions.MaxRowPerSheet;

@@ -144,6 +144,9 @@
   <data name="FromDate" xml:space="preserve">
     <value>From date</value>
   </data>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
+  </data>
   <data name="LogTime" xml:space="preserve">
     <value>Log Time</value>
   </data>

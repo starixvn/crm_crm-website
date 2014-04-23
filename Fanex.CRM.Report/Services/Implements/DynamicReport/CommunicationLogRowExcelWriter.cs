@@ -12,7 +12,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Report.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Report.Resources;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -36,20 +36,20 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             _rowBackgroundColorIndex = rowBackgroundColorIndex;
 
             _intStyle = NpoiExcelExtensions.IntNumberStyle(
-               _exportExcelInfo.ExcelFile,
-               rowBackgroundColorIndex,
-               false,
-               HorizontalAlignment.LEFT);
+                _exportExcelInfo.ExcelFile,
+                rowBackgroundColorIndex,
+                false,
+                HorizontalAlignment.Left);
             _textStyle = NpoiExcelExtensions.TextStyle(
-                 _exportExcelInfo.ExcelFile,
-                 rowBackgroundColorIndex,
-                 false,
-                 NpoiExcelExtensions.Alignment.Left);
+                _exportExcelInfo.ExcelFile,
+                rowBackgroundColorIndex,
+                false,
+                CRMHorizontalAlignment.Left);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
-                NpoiExcelExtensions.Alignment.Center);
+                CRMHorizontalAlignment.Center);
         }
 
         /// <summary>

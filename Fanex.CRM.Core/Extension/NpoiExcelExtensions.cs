@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // <copyright file="NpoiExcelExtensions.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
@@ -13,6 +13,7 @@ namespace Fanex.CRM.Infrastructure.Extension
     using System.Drawing;
     using System.Web;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Infrastructure.Resources;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
@@ -43,17 +44,17 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static readonly Color BorderColor = Color.Gray;
         public static readonly Color GroupBackgroundColor = Color.FromArgb(215, 215, 215);
 
-        public static readonly short HeaderTitleColorIndex = (short)HSSFColor.PINK.index;
-        public static readonly short BorderColorIndex = (short)HSSFColor.GREY_80_PERCENT.index;
-        public static readonly short BackgroundColorIndex = (short)HSSFColor.WHITE.index;
-        public static readonly short EvenRowColorIndex = (short)HSSFColor.CORAL.index;
-        public static readonly short SubTotalRowColorIndex = (short)HSSFColor.DARK_TEAL.index;
-        public static readonly short TotalRowColorIndex = (short)HSSFColor.DARK_RED.index;
-        public static readonly short GrandTotalRowColorIndex = (short)HSSFColor.DARK_YELLOW.index;
-        public static readonly short GrandTotalSeparatorColorIndex = (short)HSSFColor.CORNFLOWER_BLUE.index;
-        public static readonly short GroupColorIndex = (short)HSSFColor.BLUE.index;
-        public static readonly short GroupBackgroundColorIndex = (short)HSSFColor.DARK_GREEN.index;
-        public static readonly short GrandTotalTextColorIndex = (short)HSSFColor.WHITE.index;
+        public static readonly short HeaderTitleColorIndex = (short)HSSFColor.Pink.Index;
+        public static readonly short BorderColorIndex = (short)HSSFColor.Grey80Percent.Index;
+        public static readonly short BackgroundColorIndex = (short)HSSFColor.White.Index;
+        public static readonly short EvenRowColorIndex = (short)HSSFColor.Coral.Index;
+        public static readonly short SubTotalRowColorIndex = (short)HSSFColor.DarkTeal.Index;
+        public static readonly short TotalRowColorIndex = (short)HSSFColor.DarkRed.Index;
+        public static readonly short GrandTotalRowColorIndex = (short)HSSFColor.DarkYellow.Index;
+        public static readonly short GrandTotalSeparatorColorIndex = (short)HSSFColor.CornflowerBlue.Index;
+        public static readonly short GroupColorIndex = (short)HSSFColor.Blue.Index;
+        public static readonly short GroupBackgroundColorIndex = (short)HSSFColor.DarkGreen.Index;
+        public static readonly short GrandTotalTextColorIndex = (short)HSSFColor.White.Index;
 
         private const string IntNumberFormat = "#,##0";
         private const string TwoDecimalDigitNumber = "##,##0.00";
@@ -61,25 +62,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         private const string NormalNumberFormat = "#,##0{0}_);-#,##0{1}";
         private const string PositiveNumberFormat = "[RED][>0]#,##0{0}_);[<0]-#,##0{1};#,##0{2}";
 
-        public enum Alignment
-        {
-            /// <summary>
-            /// Align left.
-            /// </summary>
-            Left,
-
-            /// <summary>
-            /// Align center.
-            /// </summary>
-            Center,
-
-            /// <summary>
-            /// Align Right.
-            /// </summary>
-            Right,
-        }
-
-        public static void SetHeaderColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        public static void SetHeaderColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetColorAtIndex(
                 ref exportExcelInfo,
@@ -87,7 +70,7 @@ namespace Fanex.CRM.Infrastructure.Extension
                 HeaderTitleColorIndex);
         }
 
-        public static void SetSubTotalColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        public static void SetSubTotalColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetColorAtIndex(
                 ref exportExcelInfo,
@@ -95,7 +78,7 @@ namespace Fanex.CRM.Infrastructure.Extension
                 SubTotalRowColorIndex);
         }
 
-        public static void SetTotalColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        public static void SetTotalColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetColorAtIndex(
                 ref exportExcelInfo,
@@ -103,7 +86,7 @@ namespace Fanex.CRM.Infrastructure.Extension
                 TotalRowColorIndex);
         }
 
-        public static void SetGrandTotalColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        public static void SetGrandTotalColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetColorAtIndex(
                 ref exportExcelInfo,
@@ -111,7 +94,7 @@ namespace Fanex.CRM.Infrastructure.Extension
                 GrandTotalRowColorIndex);
         }
 
-        public static void SetGrandTotalSeparatorColorIndex(ref ExportExcelInfoNPOI exportExcelInfo)
+        public static void SetGrandTotalSeparatorColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetColorAtIndex(
                 ref exportExcelInfo,
@@ -129,19 +112,19 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </returns>
         public static ICellStyle HeaderStyle(
             HSSFWorkbook excelFile,
-            ExcelStyleParamNPOI excelStyleParam)
+            ExcelStyleParam excelStyleParam)
         {
             ICellStyle cellStyle = excelFile.CreateCellStyle();
             IFont font = excelFile.CreateFont();
-            font.Boldweight = (short)FontBoldWeight.BOLD;
-            font.Color = HSSFColor.WHITE.index;
+            font.Boldweight = (short)FontBoldWeight.Bold;
+            font.Color = HSSFColor.White.Index;
             font.FontHeightInPoints = FontSize;
             font.FontName = FontName;
 
             cellStyle.FillForegroundColor = (short)HeaderTitleColorIndex;
-            cellStyle.FillPattern = FillPatternType.SOLID_FOREGROUND;
-            cellStyle.Alignment = excelStyleParam.Alignment ?? HorizontalAlignment.CENTER;
-            cellStyle.VerticalAlignment = VerticalAlignment.CENTER;
+            cellStyle.FillPattern = FillPattern.SolidForeground;
+            cellStyle.Alignment = excelStyleParam.Alignment ?? HorizontalAlignment.Center;
+            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
             return cellStyle;
@@ -160,7 +143,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             HSSFWorkbook excelFile,
             short cellColor,
             bool isBold,
-            Alignment align,
+            CRMHorizontalAlignment align,
             short fontColor = 8)
         {
             ICellStyle cellStyle = excelFile.CreateCellStyle();
@@ -171,25 +154,13 @@ namespace Fanex.CRM.Infrastructure.Extension
 
             if (isBold)
             {
-                font.Boldweight = (short)FontBoldWeight.BOLD;
+                font.Boldweight = (short)FontBoldWeight.Bold;
             }
 
             cellStyle.FillForegroundColor = cellColor;
-            cellStyle.FillPattern = FillPatternType.SOLID_FOREGROUND;
-            switch (align)
-            {
-                case Alignment.Right:
-                    cellStyle.Alignment = HorizontalAlignment.RIGHT;
-                    break;
-                case Alignment.Left:
-                    cellStyle.Alignment = HorizontalAlignment.LEFT;
-                    break;
-                case Alignment.Center:
-                    cellStyle.Alignment = HorizontalAlignment.CENTER;
-                    break;
-            }
-
-            cellStyle.VerticalAlignment = VerticalAlignment.CENTER;
+            cellStyle.FillPattern = FillPattern.SolidForeground;
+            cellStyle.Alignment = MappingHorizontalAlignmentType(align);
+            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
             return cellStyle;
@@ -214,41 +185,20 @@ namespace Fanex.CRM.Infrastructure.Extension
             bool isPositive)
         {
             var decimalNumberStyle = excelFile.CreateCellStyle();
-            IDataFormat dataFormat = excelFile.CreateDataFormat();
             IFont font = excelFile.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;
 
             if (isBold)
             {
-                font.Boldweight = (short)FontBoldWeight.BOLD;
+                font.Boldweight = (short)FontBoldWeight.Bold;
             }
 
-            if (isNegative)
-            {
-                decimalNumberStyle.DataFormat = dataFormat.GetFormat(NegativeNumberFormat);
-            }
-            else if (isPositive)
-            {
-                decimalNumberStyle.DataFormat = dataFormat.GetFormat(PositiveNumberFormat);
-            }
-            else
-            {
-                decimalNumberStyle.DataFormat = dataFormat.GetFormat(NormalNumberFormat);
-            }
-
-            if (backgroundColorIndex != HSSFColor.WHITE.index)
-            {
-                decimalNumberStyle.FillForegroundColor = backgroundColorIndex;
-            }
-            else
-            {
-                decimalNumberStyle.FillForegroundColor = HSSFColor.WHITE.index;
-            }
-
-            decimalNumberStyle.FillPattern = FillPatternType.SOLID_FOREGROUND;
+            decimalNumberStyle.DataFormat = GetNumerFormat(excelFile, isNegative, isPositive);
+            decimalNumberStyle.FillForegroundColor = backgroundColorIndex;
+            decimalNumberStyle.FillPattern = FillPattern.SolidForeground;
             decimalNumberStyle.Alignment = textAlign;
-            decimalNumberStyle.VerticalAlignment = VerticalAlignment.CENTER;
+            decimalNumberStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             decimalNumberStyle.SetFont(font);
             SetBorderToCell(decimalNumberStyle);
             return decimalNumberStyle;
@@ -281,13 +231,13 @@ namespace Fanex.CRM.Infrastructure.Extension
 
             if (isBold)
             {
-                font.Boldweight = (short)FontBoldWeight.BOLD;
+                font.Boldweight = (short)FontBoldWeight.Bold;
             }
 
             cellStyle.FillForegroundColor = cellColor;
-            cellStyle.FillPattern = FillPatternType.SOLID_FOREGROUND;
+            cellStyle.FillPattern = FillPattern.SolidForeground;
             cellStyle.Alignment = alignment;
-            cellStyle.VerticalAlignment = VerticalAlignment.CENTER;
+            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             cellStyle.DataFormat = dataFormat.GetFormat(IntNumberFormat);
             cellStyle.SetFont(font);
             cellStyle = SetBorderToCell(cellStyle);
@@ -302,7 +252,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// <param name="cellValue">The label of cell.</param>
         /// <param name="cellStyle">The style of cell.</param>
         public static void RenderMergedCells(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             CellRangeAddress cellRangeAddress,
             object cellValue,
             ICellStyle cellStyle)
@@ -317,17 +267,17 @@ namespace Fanex.CRM.Infrastructure.Extension
                 for (var j = cellRangeAddress.FirstColumn; j <= cellRangeAddress.LastColumn; j++)
                 {
                     cell = row.GetCell(j) ?? row.CreateCell(j);
-                    if (i == cellRangeAddress.FirstRow && j == cellRangeAddress.FirstColumn)
-                    {
-                        SetCellValue(ref cell, cellValue);
-                    }
-
                     if (i == cellRangeAddress.FirstRow ||
                         i == cellRangeAddress.LastRow ||
                         j == cellRangeAddress.FirstColumn ||
                         j == cellRangeAddress.LastColumn)
                     {
                         cell.CellStyle = cellStyle;
+                    }
+
+                    if (i == cellRangeAddress.FirstRow && j == cellRangeAddress.FirstColumn)
+                    {
+                        SetCellValue(ref cell, cellValue);
                     }
                 }
             }
@@ -338,7 +288,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="rowIndex">Index of the row.</param>
-        public static void RenderEmptyRow(ref ExportExcelInfoNPOI exportExcelInfo, int rowIndex)
+        public static void RenderEmptyRow(ref ExportExcelInfo exportExcelInfo, int rowIndex)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 rowIndex,
@@ -349,7 +299,7 @@ namespace Fanex.CRM.Infrastructure.Extension
                 exportExcelInfo.ExcelFile,
                 BackgroundColorIndex,
                 false,
-                Alignment.Center);
+                CRMHorizontalAlignment.Center);
             RenderMergedCells(ref exportExcelInfo, cellRangeAddress, string.Empty, textStyle);
         }
 
@@ -358,7 +308,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="currentRow">The current row.</param>
-        public static void RenderNoInfoMessage(ref ExportExcelInfoNPOI exportExcelInfo, int currentRow)
+        public static void RenderNoInfoMessage(ref ExportExcelInfo exportExcelInfo, int currentRow)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 currentRow,
@@ -369,7 +319,7 @@ namespace Fanex.CRM.Infrastructure.Extension
                 exportExcelInfo.ExcelFile,
                 BackgroundColorIndex,
                 true,
-                Alignment.Center);
+                CRMHorizontalAlignment.Center);
 
             RenderMergedCells(
                 ref exportExcelInfo,
@@ -393,6 +343,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         {
             ICell cell = row.GetCell(currentColumn) ?? row.CreateCell(currentColumn);
             SetCellValue(ref cell, cellValue);
+            cellStyle.VerticalAlignment = MappingVirticalAlignmentType(CRMVerticalAlignment.Center);
             cell.CellStyle = cellStyle;
             currentColumn += 1;
         }
@@ -452,10 +403,10 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// <returns>The style of cell.</returns>
         public static ICellStyle SetBorderToCell(ICellStyle cellStyle)
         {
-            cellStyle.BorderBottom = BorderStyle.THIN;
-            cellStyle.BorderLeft = BorderStyle.THIN;
-            cellStyle.BorderRight = BorderStyle.THIN;
-            cellStyle.BorderTop = BorderStyle.THIN;
+            cellStyle.BorderBottom = BorderStyle.Thin;
+            cellStyle.BorderLeft = BorderStyle.Thin;
+            cellStyle.BorderRight = BorderStyle.Thin;
+            cellStyle.BorderTop = BorderStyle.Thin;
 
             cellStyle.BottomBorderColor = (short)BorderColorIndex;
             cellStyle.LeftBorderColor = (short)BorderColorIndex;
@@ -474,10 +425,10 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// </returns>
         public static ICellStyle SetBorderToFirstGrandTotalCell(ICellStyle cellStyle)
         {
-            cellStyle.BorderBottom = BorderStyle.THIN;
-            cellStyle.BorderLeft = BorderStyle.THIN;
-            cellStyle.BorderRight = BorderStyle.THIN;
-            cellStyle.BorderTop = BorderStyle.THIN;
+            cellStyle.BorderBottom = BorderStyle.Thin;
+            cellStyle.BorderLeft = BorderStyle.Thin;
+            cellStyle.BorderRight = BorderStyle.Thin;
+            cellStyle.BorderTop = BorderStyle.Thin;
 
             cellStyle.BottomBorderColor = (short)BorderColorIndex;
             cellStyle.LeftBorderColor = (short)BorderColorIndex;
@@ -488,7 +439,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         }
 
         public static void SetColorAtIndex(
-            ref ExportExcelInfoNPOI exportExcelInfo,
+            ref ExportExcelInfo exportExcelInfo,
             Color color,
             short colorIndex)
         {
@@ -503,6 +454,74 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static string StandardizeExcelReportName(string excelReportName)
         {
             return excelReportName.Replace(" ", "_").Replace("/", "_");
+        }
+
+        /// <summary>
+        /// Mappings the type of the horizontal alignment.
+        /// </summary>
+        /// <param name="alignment">The alignment.</param>
+        /// <returns>The NPOI horizontal alignment.</returns>
+        private static HorizontalAlignment MappingHorizontalAlignmentType(CRMHorizontalAlignment alignment)
+        {
+            switch (alignment)
+            {
+                case CRMHorizontalAlignment.Right:
+                    return HorizontalAlignment.Right;
+                case CRMHorizontalAlignment.Center:
+                    return HorizontalAlignment.Center;
+                case CRMHorizontalAlignment.Left:
+                    return HorizontalAlignment.Left;
+                default:
+                    return HorizontalAlignment.Left;
+            }
+        }
+
+        /// <summary>
+        /// Mappings the type of the vertical alignment.
+        /// </summary>
+        /// <param name="alignment">The alignment.</param>
+        /// <returns>The NPOI vertical alignment.</returns>
+        private static VerticalAlignment MappingVirticalAlignmentType(CRMVerticalAlignment alignment)
+        {
+            // Vertical Alignment NPOI 2.0.1+ issue.
+            switch (alignment)
+            {
+                case CRMVerticalAlignment.Top:
+                    return VerticalAlignment.Bottom;
+                case CRMVerticalAlignment.Center:
+                    return VerticalAlignment.Top;
+                case CRMVerticalAlignment.Bottom:
+                    return VerticalAlignment.Bottom;
+                case CRMVerticalAlignment.Justify:
+                    return VerticalAlignment.Justify;
+                case CRMVerticalAlignment.Distributed:
+                    return VerticalAlignment.Distributed;
+                default:
+                    return VerticalAlignment.Top;
+            }
+        }
+
+        /// <summary>
+        /// Gets the number format.
+        /// </summary>
+        /// <param name="excelFile">The excel file.</param>
+        /// <param name="isNegative">If set to <c>true</c> [is negative].</param>
+        /// <param name="isPositive">If set to <c>true</c> [is positive].</param>
+        /// <returns>The number format.</returns>
+        private static short GetNumerFormat(HSSFWorkbook excelFile, bool isNegative, bool isPositive)
+        {
+            IDataFormat dataFormat = excelFile.CreateDataFormat();
+            if (isNegative)
+            {
+                return dataFormat.GetFormat(NegativeNumberFormat);
+            }
+
+            if (isPositive)
+            {
+                return dataFormat.GetFormat(PositiveNumberFormat);
+            }
+
+            return dataFormat.GetFormat(NormalNumberFormat);
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
@@ -45,11 +46,11 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         public readonly string DynamicReportSessionKey = "Fanex.CRM.Report.DynamicReport.DynamicReportSessionKey_" +
             (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
 
-        public readonly short ClosedBackgroundColorIndex = (short)HSSFColor.DARK_TEAL.index;
+        public readonly short ClosedBackgroundColorIndex = (short)HSSFColor.DarkTeal.Index;
 
-        public readonly short CheckedBackgroundColorIndex = (short)HSSFColor.LIGHT_ORANGE.index;
+        public readonly short CheckedBackgroundColorIndex = (short)HSSFColor.LightOrange.Index;
 
-        public readonly short PendingBackgroundColorIndex = (short)HSSFColor.ORANGE.index;
+        public readonly short PendingBackgroundColorIndex = (short)HSSFColor.Orange.Index;
 
         private IDynamicReportRepository _dynamicReportRepository;
 
@@ -853,7 +854,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             }
 
             var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
-            var periodGroupBackgroundColorIndex = (short)HSSFColor.DARK_YELLOW.index;
+            var periodGroupBackgroundColorIndex = (short)HSSFColor.DarkYellow.Index;
             NpoiExcelExtensions.SetColorAtIndex(
                 ref exportExcelInfo,
                 periodGroupBackgroundColor,
@@ -862,12 +863,12 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.ExcelFile,
                 periodGroupBackgroundColorIndex,
                 true,
-                NpoiExcelExtensions.Alignment.Left);
+                CRMHorizontalAlignment.Left);
             var font = exportExcelInfo.ExcelFile.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;
-            font.Color = (short)HSSFColor.BLUE.index;
-            font.Boldweight = (short)FontBoldWeight.BOLD;
+            font.Color = (short)HSSFColor.Blue.Index;
+            font.Boldweight = (short)FontBoldWeight.Bold;
             periodGroupTitleStyle.SetFont(font);
             NpoiExcelExtensions.SetBorderToCell(periodGroupTitleStyle);
 

@@ -13,7 +13,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Report.Criteria.CustomerReport;
-    using Fanex.CRM.Report.Repositories.Implements;
+    using Fanex.CRM.Report.Repositories.Implements.CustomerReport;
     using Fanex.CRM.Report.Repositories.Interfaces;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;

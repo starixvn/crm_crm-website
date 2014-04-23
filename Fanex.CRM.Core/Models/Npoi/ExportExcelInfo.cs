@@ -1,5 +1,5 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="ExportExcelInfoNPOI.cs" company="Nexcel Solutions Vietnam">
+// --------------------------------------------------------------------------
+// <copyright file="ExportExcelInfo.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -7,7 +7,7 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Infrastructure.Models
+namespace Fanex.CRM.Infrastructure.Models.Npoi
 {
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
@@ -15,7 +15,7 @@ namespace Fanex.CRM.Infrastructure.Models
     /// <summary>
     /// Base Model.
     /// </summary>
-    public class ExportExcelInfoNPOI
+    public class ExportExcelInfo
     {
         public HSSFWorkbook ExcelFile { get; set; }
 

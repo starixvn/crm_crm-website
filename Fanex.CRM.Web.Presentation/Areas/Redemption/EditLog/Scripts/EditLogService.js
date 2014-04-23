@@ -2,10 +2,10 @@
 /* global editLogApplication */
 editLogApplication.factory('$editLogService', ['$http', '$q', 
 function ($http, $q) {
-    var serviceInstance = {};
+    var serviceInstance = {};   
     serviceInstance.getAllStatus = function () {
         var deferred = $q.defer();
-        $http.post(window.rootUrl + "Redemption/GetAllStatus", null)
+        $http.post(window.rootUrl + "Redemption/GetAllStatus_Edit", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

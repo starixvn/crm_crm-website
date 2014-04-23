@@ -11,6 +11,7 @@ namespace Fanex.CRM.Redemption.Services.Implements
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Logging;
@@ -148,10 +149,10 @@ namespace Fanex.CRM.Redemption.Services.Implements
         }
 
         /// <summary>
-        /// Gets all status.
+        /// Gets all status for inserting.
         /// </summary>
         /// <returns>All status.</returns>
-        public List<SettingInfo> GetAllStatus()
+        public List<SettingInfo> GetAllStatus_Insert()
         {
             var allStatusResult = new List<SettingInfo>();
             try
@@ -190,6 +191,71 @@ namespace Fanex.CRM.Redemption.Services.Implements
                     if (status.Name == Labels.KIV)
                     {
                         allStatusResult[2] = status;
+                        continue;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return allStatusResult;
+        }
+
+        /// <summary>
+        /// Gets all status for editing.
+        /// </summary>
+        /// <returns>All status.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        public List<SettingInfo> GetAllStatus_Edit()
+        {
+            var allStatusResult = new List<SettingInfo>();
+            try
+            {
+                var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
+                {
+                    ViewType = ViewTypeConstants.Redemption
+                });
+
+                if (allStatusSetting == null)
+                {
+                    return allStatusResult;
+                }
+
+                allStatusResult = new List<SettingInfo> 
+                { 
+                    new SettingInfo(),
+                    new SettingInfo(),
+                    new SettingInfo(),
+                    new SettingInfo()
+                };
+
+                foreach (var status in allStatusSetting)
+                {
+                    if (status.Name == Labels.Open)
+                    {
+                        allStatusResult[0] = status;
+                        continue;
+                    }
+
+                    if (status.Name == Labels.Closed)
+                    {
+                        allStatusResult[1] = status;
+                        continue;
+                    }
+
+                    if (status.Name == Labels.KIV)
+                    {
+                        allStatusResult[2] = status;
+                        continue;
+                    }
+
+                    if (status.Name == Labels.Deleted)
+                    {
+                        allStatusResult[3] = status;
                         continue;
                     }
                 }

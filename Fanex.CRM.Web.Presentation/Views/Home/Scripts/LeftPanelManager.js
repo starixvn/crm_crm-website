@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global BlockUI,
-menuManager */
+menuManager,
+fixBugManager */
 /* exported leftPanelManager */
 var LeftPanelManager = function () {
     var self = this;
@@ -28,6 +29,7 @@ var LeftPanelManager = function () {
     };
 
     self.initPage = function () {
+        fixBugManager.fixJqueryParamMethod();
         self.cacheDOMElements();
     };
 

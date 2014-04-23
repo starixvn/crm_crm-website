@@ -39,6 +39,7 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
                 maxDate: options.MaxDate ? new Date(options.MaxDate) : null,
                 showOtherMonths: true,
                 selectOtherMonths: true,
+                yearRange: options.YearRange,
                 onSelect: function () {
                     isOnSelect = true;
                     $(this).change();
