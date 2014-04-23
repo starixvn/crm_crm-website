@@ -434,7 +434,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.GroupBackgroundColorIndex,
                 true,
-                HorizontalAlignment.Right,
+                CRMHorizontalAlignment.Right,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
             var font = workbook.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
@@ -472,7 +472,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
-                HorizontalAlignment.Right);
+                CRMHorizontalAlignment.Right);
         }
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
@@ -481,7 +481,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                HorizontalAlignment.Right,
+                CRMHorizontalAlignment.Right,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 

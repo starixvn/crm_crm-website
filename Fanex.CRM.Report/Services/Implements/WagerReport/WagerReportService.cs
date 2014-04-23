@@ -393,7 +393,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 GetRowColorIndex(isEven),
                 false,
-                HorizontalAlignment.Right);
+                CRMHorizontalAlignment.Right);
         }
 
         private ICellStyle GetGrandTotalAmountCellStyle(HSSFWorkbook workbook)
@@ -402,7 +402,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                HorizontalAlignment.Right,
+                CRMHorizontalAlignment.Right,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
@@ -412,7 +412,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 GetRowColorIndex(isEven),
                 true,
-                HorizontalAlignment.Right);
+                CRMHorizontalAlignment.Right);
         }
 
         private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
@@ -421,7 +421,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
-                HorizontalAlignment.Right,
+                CRMHorizontalAlignment.Right,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 

@@ -715,7 +715,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 new ExcelStyleParam());
             ICellStyle leftHeaderStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
-                new ExcelStyleParam { Alignment = HorizontalAlignment.Left });
+                new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
 
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 160 : 160) * NpoiExcelExtensions.FontWidth);

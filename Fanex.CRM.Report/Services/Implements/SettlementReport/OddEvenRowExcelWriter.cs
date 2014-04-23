@@ -40,12 +40,12 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                false,
-               HorizontalAlignment.Right);
+               CRMHorizontalAlignment.Right);
             _centerIntStyle = NpoiExcelExtensions.IntNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 false,
-                HorizontalAlignment.Center);
+                CRMHorizontalAlignment.Center);
 
             _textStyle = NpoiExcelExtensions.TextStyle(
                  _exportExcelInfo.ExcelFile,

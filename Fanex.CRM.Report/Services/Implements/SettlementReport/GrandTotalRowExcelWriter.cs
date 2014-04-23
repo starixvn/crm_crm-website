@@ -40,8 +40,8 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                HorizontalAlignment.Right,
-               NpoiExcelExtensions.GrandTotalTextColorIndex);
+                CRMHorizontalAlignment.Right,
+                NpoiExcelExtensions.GrandTotalTextColorIndex);
             _textStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
@@ -58,7 +58,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
-                HorizontalAlignment.Center,
+                CRMHorizontalAlignment.Center,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
