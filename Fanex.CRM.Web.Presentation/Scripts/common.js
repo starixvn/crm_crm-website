@@ -118,11 +118,20 @@ $.extend({
         } return o;
     },
     URLDecode: function (s) {
-        var o = s; var binVal, t; var r = /(%[^%]{2})/;
+        // fixed -- + char decodes to space char
+        var o = s;
+        var binVal, t, b;
+        var r = /(%[^%]{2}|\+)/;
         while ((m = r.exec(o)) != null && m.length > 1 && m[1] != '') {
-            b = parseInt(m[1].substr(1), 16);
-            t = String.fromCharCode(b); o = o.replace(m[1], t);
-        } return o;
+            if (m[1] == '+') {
+                t = ' ';
+            } else {
+                b = parseInt(m[1].substr(1), 16);
+                t = String.fromCharCode(b);
+            }
+            o = o.replace(m[1], t);
+        }
+        return o;
     }
 });
 
