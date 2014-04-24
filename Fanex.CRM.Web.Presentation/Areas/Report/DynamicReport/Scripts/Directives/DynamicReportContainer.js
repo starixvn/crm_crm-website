@@ -45,7 +45,12 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                     var info = periodReport.ChildReports[j];
                     var currentSubRow =
                     {
-                        Columns: [{ Name: "ColNo", Value: startSplittingIndex + j + 1 },
+                        Columns: [
+                            {
+                                Name: "ColNo",
+                                Value: startSplittingIndex + j + 1,
+                                CellAlign: "center"
+                            },
                             {
                                 Name: "ColRunningNumber",
                                 Value: '<span class="link viewcommunicationlog-link" data-subreportindex="' +
@@ -96,8 +101,8 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 { HeaderText: viewResources.Subject, Width: 130, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Duration, Width: 60, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Handled_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Reviewed_By, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
+                { HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,
             titleInfo: {
                 text: dynamicReport ?

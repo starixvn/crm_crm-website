@@ -169,6 +169,15 @@ namespace Fanex.CRM.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Handler.
+        /// </summary>
+        public static string Handler {
+            get {
+                return ResourceManager.GetString("Handler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information Verified.
         /// </summary>
         public static string Information_Verified {
@@ -246,6 +255,15 @@ namespace Fanex.CRM.Dashboard.Resources {
         public static string Reviewed_By {
             get {
                 return ResourceManager.GetString("Reviewed_By", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviewer.
+        /// </summary>
+        public static string Reviewer {
+            get {
+                return ResourceManager.GetString("Reviewer", resourceCulture);
             }
         }
         

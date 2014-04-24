@@ -207,4 +207,10 @@
   <data name="There_is_no_data" xml:space="preserve">
     <value>There is no data</value>
   </data>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
+  </data>
+  <data name="Reviewer" xml:space="preserve">
+    <value>Reviewer</value>
+  </data>
 </root>

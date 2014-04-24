@@ -23,8 +23,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     /// </summary>
     public class CommunicationLogRowExcelWriter
     {
-        private ICellStyle _intStyle;
         private ICellStyle _textStyle;
+        private ICellStyle _centerIntStyle;
         private ICellStyle _centerTextStyle;
         private ExportExcelInfo _exportExcelInfo;
         private short _rowBackgroundColorIndex;
@@ -36,16 +36,16 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             _exportExcelInfo = exportExcelInfo;
             _rowBackgroundColorIndex = rowBackgroundColorIndex;
 
-            _intStyle = NpoiExcelExtensions.IntNumberStyle(
-                _exportExcelInfo.ExcelFile,
-                rowBackgroundColorIndex,
-                false,
-                CRMHorizontalAlignment.Left);
             _textStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
+            _centerIntStyle = NpoiExcelExtensions.IntNumberStyle(
+                _exportExcelInfo.ExcelFile,
+                rowBackgroundColorIndex,
+                false,
+                CRMHorizontalAlignment.Center);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
@@ -76,7 +76,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 ref exportExcelInfo,
                 cellRangeAddress,
                 infoIndex + 1,
-                _intStyle);
+                _centerIntStyle);
             exportExcelInfo.CurrentColumn++;
 
             cellRangeAddress = new CellRangeAddress(

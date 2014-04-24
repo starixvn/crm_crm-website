@@ -826,8 +826,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Subject, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Status, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Duration, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Handled_By, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Reviewed_By, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Handler, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Reviewer, headerStyle);
             exportExcelInfo.CurrentRow++;
         }
 

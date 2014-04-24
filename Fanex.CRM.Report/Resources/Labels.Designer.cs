@@ -583,6 +583,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Handler.
+        /// </summary>
+        public static string Handler {
+            get {
+                return ResourceManager.GetString("Handler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string Language {
@@ -813,6 +822,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Reviewed_By {
             get {
                 return ResourceManager.GetString("Reviewed_By", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reviewer.
+        /// </summary>
+        public static string Reviewer {
+            get {
+                return ResourceManager.GetString("Reviewer", resourceCulture);
             }
         }
         

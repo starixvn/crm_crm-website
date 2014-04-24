@@ -65,8 +65,8 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
                 { HeaderText: viewResources.Subject, Width: 140, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Duration, Width: 60, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Handled_By, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
-                { HeaderText: viewResources.Reviewed_By, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
+                { HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,
             titleInfo: {
                 text: viewResources.Last_10_Communication_Log

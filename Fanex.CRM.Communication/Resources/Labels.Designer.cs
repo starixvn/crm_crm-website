@@ -511,6 +511,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reviewer.
+        /// </summary>
+        public static string Reviewer {
+            get {
+                return ResourceManager.GetString("Reviewer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role.
         /// </summary>
         public static string Role {
