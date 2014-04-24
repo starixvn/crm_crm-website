@@ -1834,7 +1834,7 @@ namespace Fanex.CRM.Service.Impl
             {
                 foreach (var dailySummaryDetail in weeklySummaryBO.DailySummaries)
                 {
-                    ExportCasinoDailySummaryReportAssignContent(ref sheetData, startRow, startCol, ref nextRow, dailySummaryDetail.Total, false, true);
+                    ExportCasinoDailySummaryReportAssignContent(ref sheetData, startRow, startCol, ref nextRow, dailySummaryDetail.Total, false, false);
                 }
 
                 ExportCasinoDailySummaryReportAssignContent(ref sheetData, startRow, startCol, ref nextRow, weeklySummaryBO.GrandTotal, true, false);
