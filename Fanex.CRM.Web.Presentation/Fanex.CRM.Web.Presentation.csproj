@@ -457,6 +457,7 @@
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.css" />
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.js" />
     <Content Include="Scripts\ShareScripts\Applications\BlockUI.js" />
+    <Content Include="Scripts\ShareScripts\Applications\MonthDayPicker.js" />
     <Content Include="Scripts\ShareScripts\Applications\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Controllers\FromToDatePicker.js" />
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
