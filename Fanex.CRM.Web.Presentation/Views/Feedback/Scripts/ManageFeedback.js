@@ -87,6 +87,9 @@ function isNumberKey(evt) {
         (charCode === 8 || charCode === 35 || charCode === 36 || charCode === 37 || charCode === 39 || charCode === 46)) {
         return true;
     }
+    else if (charCode === 13) { // enter
+        lastedFeedback.loadLastedFeedback(false);
+    }
     
     return false;
 }
