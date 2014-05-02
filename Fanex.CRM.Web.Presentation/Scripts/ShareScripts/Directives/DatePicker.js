@@ -161,6 +161,7 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
             var selectedDate = selectedDateChange(scope, element, attrs, options);
             if (!scope.isUpdatingDate) {
                 scope.IsUpdatingDate = true;
+                oldValue = selectedDate;
                 if (options.OnChangeDateEvent &&
                     typeof (options.OnChangeDateEvent) === "function") {
                     options.OnChangeDateEvent(selectedDate, true);
