@@ -59,6 +59,7 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
                             TdClass: 'icon-' + (customer.IsVIP ? 'vip' : ''),
                             Value: customer.IsVIP ? "<span class='glyphicon glyphicon-ok'></span>" : ''
                         },
+                        { Name: "ColBirthday", Value: customer.BirthDayString },
                         {
                             Name: "ColContactNumber",
                             Value: contactInfo.join("<div class='contactpadding'>&nbsp;</div>")
@@ -84,9 +85,8 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
                         { Name: "ColSkype", Value: customer.Skype },
                         { Name: "ColEmail", Value: customer.Email },
 
-                        { Name: "ColBirthday", Value: customer.BirthDayString },
-                        { Name: "ColSite", Value: customer.SiteSetting.Name },
                         { Name: "ColLanguage", Value: customerLanguages },
+                        { Name: "ColSite", Value: customer.SiteSetting.Name },
 
                         { Name: "ColLine1", Value: customer.AddressInfo.LineList[0] },
                         { Name: "ColLine2", Value: customer.AddressInfo.LineList[1] },
@@ -104,17 +104,17 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             { HeaderText: viewResources.First_Name, Width: 120, Name: "ColFirstName", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Last_Name, Width: 120, Name: "ColLastName", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
-
+            { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true },
+        
             { HeaderText: viewResources.Contact_Number, Width: 180, Name: "ColContactNumber", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: viewResources.Mobile, Width: 180, Name: "ColMobile", HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: viewResources.Fax, Width: 180, Name: "ColFax", HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: viewResources.Fax, Width: 140, Name: "ColFax", HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: viewResources.Skype, Width: 140, Name: "ColSkype", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: viewResources.Email, Width: 140, Name: "ColEmail", HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: viewResources.Email, Width: 180, Name: "ColEmail", HeaderAlign: "center", CellAlign: "left" },
 
-            { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true },
-            { HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
-
+            { HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true },
+          
             { HeaderText: viewResources.Line_1, Width: 140, Name: "ColLine1", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: viewResources.Line_2, Width: 140, Name: "ColLine2", HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: viewResources.Line_3, Width: 140, Name: "ColLine3", HeaderAlign: "center", CellAlign: "left" },
@@ -206,11 +206,11 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             case "CountryName":
                 return 16;
             case "Languages":
-                return 12;
+                return 11;
             case "SiteSettingName":
-                return 10;
+                return 12;
             case "BirthDay":
-                return 9;
+                return 4;
             default:
                 return -1;
         }
