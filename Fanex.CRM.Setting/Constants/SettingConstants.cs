@@ -19,6 +19,7 @@ namespace Fanex.CRM.Setting.Constants
         public const int ActivityLog = 1;
         public const int SettingLog = 2;
         public static readonly int NotApply = 0;
+        public static readonly int AllSetting = -1;
         public static readonly int MaxFeedbackSubjectTemplateNumberOnLoad = 100000;
     }
 }

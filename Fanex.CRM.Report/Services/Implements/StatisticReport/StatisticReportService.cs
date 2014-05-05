@@ -90,6 +90,9 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
         /// Gets all main category.
         /// </summary>
         /// <returns>All main category.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public List<SettingInfo> GetAllMainCategory()
         {
             try
@@ -97,6 +100,12 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 var allMainCategory = new List<SettingInfo>();
                 var rawData = _serviceSetting.GetAllMainCategory();
                 var allSubSettingOption = new SettingInfo
+                {
+                    Id = SettingConstants.AllSetting,
+                    Name = Labels.All,
+                };
+
+                var remindSubSettingOption = new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.Please_choose_one,
@@ -108,6 +117,16 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                     Name = Labels.Please_choose_one,
                     ChildSettings = new List<SettingInfo>
                     {
+                       remindSubSettingOption
+                    }
+                });
+
+                allMainCategory.Add(new SettingInfo
+                {
+                    Id = SettingConstants.AllSetting,
+                    Name = Labels.All,
+                    ChildSettings = new List<SettingInfo>
+                    {
                        allSubSettingOption
                     }
                 });
@@ -115,6 +134,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 foreach (var rawMainCategory in rawData)
                 {
                     rawMainCategory.ChildSettings.Insert(0, allSubSettingOption);
+                    rawMainCategory.ChildSettings.Insert(0, remindSubSettingOption);
                     allMainCategory.Add(rawMainCategory);
                 }
 

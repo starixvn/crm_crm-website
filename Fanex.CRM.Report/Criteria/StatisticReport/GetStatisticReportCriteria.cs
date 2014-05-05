@@ -10,6 +10,8 @@
 namespace Fanex.CRM.Report.Criteria.StatisticReport
 {
     using System;
+    using System.Collections;
+    using Fanex.CRM.Setting.Constants;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -52,6 +54,16 @@ namespace Fanex.CRM.Report.Criteria.StatisticReport
         public override bool IsValid()
         {
             return true;
+        }
+
+        public override Hashtable GetSpParams()
+        {
+            var hastableParam = new Hashtable();
+            hastableParam.Add("fromdate", FromDate);
+            hastableParam.Add("todate", ToDate);
+            hastableParam.Add("maincategoryid", MainCategoryId == SettingConstants.AllSetting ? 0 : MainCategoryId);
+            hastableParam.Add("subcategoryid", SubCategoryId == SettingConstants.AllSetting ? 0 : SubCategoryId);
+            return hastableParam;
         }
     }
 }
