@@ -342,7 +342,8 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 dateReport.PeriodRange.FromDateString = dateReport.PeriodRange.FromDate.ToShortFormatedDate();
                 dateReport.PeriodRange.ToDateString = dateReport.PeriodRange.ToDate.ToShortFormatedDate();
                 var timeGroups = dateGroup.ToList()
-                    .GroupBy(data => new DateTime(
+                     .OrderBy(data => data.DateTime.Hour)
+                     .GroupBy(data => new DateTime(
                         dateGroup.Key.Year,
                         dateGroup.Key.Month,
                         dateGroup.Key.Day,
@@ -460,6 +461,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 };
 
                 var timeGroups = dateGroup.ToList()
+                    .OrderBy(data => data.DateTime.Hour)
                     .GroupBy(data => data.DateTime.Hour);
                 foreach (var timeGroup in timeGroups)
                 {
