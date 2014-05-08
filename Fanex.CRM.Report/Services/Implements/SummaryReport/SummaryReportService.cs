@@ -156,7 +156,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 .ToList();
 
             // Get Month.
-            var monthData = rawData.Select(s => s.Month.ToUpper()).Distinct().ToList();
+            var monthData = rawData.OrderBy(s => s.M).Select(s => s.Month.ToUpper()).Distinct().ToList();
 
             IDictionary<string, Summary> categoryTotal, summaryHash;
             IDictionary<string, Summary> grandTotal = InitializeSummaries(monthData);
