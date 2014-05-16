@@ -26,6 +26,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         private ICellStyle _centerTextStyle;
         private ExportExcelInfo _exportExcelInfo;
         private short _rowBackgroundColorIndex;
+        private bool _isBoldRow = true;
 
         public TotalRowExcelWriter(ExportExcelInfo exportExcelInfo)
         {
@@ -35,18 +36,18 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             _intStyle = NpoiExcelExtensions.IntNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
-                false,
+                _isBoldRow,
                 CRMHorizontalAlignment.Right);
 
             _textStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
-                false,
+                _isBoldRow,
                 CRMHorizontalAlignment.Left);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
-                false,
+                _isBoldRow,
                 CRMHorizontalAlignment.Center);
         }
 

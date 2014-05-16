@@ -25,6 +25,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         private ICellStyle _intStyle;
         private ICellStyle _textStyle;
         private ICellStyle _centerTextStyle;
+        private ICellStyle _boldIntStyle;
         private ExportExcelInfo _exportExcelInfo;
         private short _rowBackgroundColorIndex;
 
@@ -37,6 +38,11 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                false,
+               CRMHorizontalAlignment.Right);
+            _boldIntStyle = NpoiExcelExtensions.IntNumberStyle(
+               _exportExcelInfo.ExcelFile,
+               _rowBackgroundColorIndex,
+               true,
                CRMHorizontalAlignment.Right);
             _textStyle = NpoiExcelExtensions.TextStyle(
                  _exportExcelInfo.ExcelFile,
@@ -108,7 +114,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 }
             }
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.NumberOfIssues, _intStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.NumberOfIssues, _boldIntStyle);
             exportExcelInfo.CurrentRow += 1;
         }
     }
