@@ -185,11 +185,11 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
         var reportTypeId = parseInt(cachedData.scope.searchCriteria.ReportType.Id);
         switch (reportTypeId) {
             case crmConstants.Enums.PeriodType.Daily:
-                return [1, 2, 3, 4, 5];
+                return [1, 5, 7, 10];
             case crmConstants.Enums.PeriodType.Monthly:
-                return [1, 2, 3, 4, 5];
+                return [3, 4, 6, 12];
             default:
-                return [1, 2, 3, 4, 5];
+                return [1, 5, 7, 10];
         }
     }
 

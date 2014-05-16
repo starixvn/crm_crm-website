@@ -54,7 +54,7 @@ statisticReportApplication.controller('statisticReportController', [
             MainCategory: null,
             SubCategory: null,
             PageIndex: 0,
-            PageSize: 3,
+            PageSize: 7,
             IsGetFromCached: false,
             IsGetFullReport: false
         };
@@ -237,7 +237,7 @@ statisticReportApplication.controller('statisticReportController', [
                 case crmConstants.Enums.PeriodType.Daily:
                     $scope.fromDateOptions.IsRerenderPicker = true;
                     $scope.toDateOptions.IsRerenderPicker = true;
-                    defaultPagingSize =  3;
+                    defaultPagingSize =  7;
                     break;
                 case crmConstants.Enums.PeriodType.Monthly:
                     $scope.fromMonthOptions.IsRerenderPicker = true;
@@ -420,7 +420,7 @@ statisticReportApplication.controller('statisticReportController', [
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize,
                 IsGetFromCached: false,
-                IsGetFullReport: false
+                IsGetFullReport: parseInt($scope.searchCriteria.ReportType.Id) !== $scope.crmConstants.Enums.PeriodType.Daily
             };
 
             if (!$scope.validateParams(getReportCriteria)) {
