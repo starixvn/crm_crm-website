@@ -60,6 +60,10 @@
       <HintPath>..\Dependency\Fanex\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI">
       <HintPath>..\Dependency\Fanex\NPOI.dll</HintPath>
     </Reference>
@@ -138,6 +142,7 @@
     <Compile Include="Web\Controllers\BaseController.cs" />
     <Compile Include="Web\Controllers\CRMAuthAttribute.cs" />
     <Compile Include="Web\Controllers\HandleAjaxErrorAttribute.cs" />
+    <Compile Include="Web\JsonWithoutNullField.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

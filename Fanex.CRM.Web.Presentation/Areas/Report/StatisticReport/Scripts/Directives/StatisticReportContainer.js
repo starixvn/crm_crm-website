@@ -35,6 +35,7 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
             var columns;
             var reportByCountryInfo;
             var total;
+            var countryInfo;
             for (i = 0; i < dateReportLength; i++) {
                 var dateReport = statisticReport.ChildReports[i];
                 var timeReportLength = dateReport.ChildReports.length;
@@ -57,9 +58,10 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
                     });
 
                     for (k = 0; k < countryLength; k++) {
+                        countryInfo = countryList[k];
                         reportByCountryInfo = timeReport.ChildReports[k];
                         columns.push({
-                            Name: "ColCountry_" + reportByCountryInfo.CountryInfo.Id,
+                            Name: "ColCountry_" + countryInfo.Id,
                             Value: reportByCountryInfo.HasData ? reportByCountryInfo.NumberOfIssues : ""
                         });
                     }
@@ -80,9 +82,10 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
                 columns.push({ Name: "ColDate", Value: total.ShortName });
                 columns.push({ Name: "ColTime", Value: '' });
                 for (k = 0; k < countryLength; k++) {
+                    countryInfo = countryList[k];
                     reportByCountryInfo = total.ChildReports[k];
                     columns.push({
-                        Name: "ColCountry_" + reportByCountryInfo.CountryInfo.Id,
+                        Name: "ColCountry_" + countryInfo.Id,
                         Value: reportByCountryInfo.NumberOfIssues
                     });
                 }
@@ -114,7 +117,7 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
 
             countryLength = countryList.length;
             for (i = 0; i < countryLength; i++) {
-                var countryInfo = countryList[i];
+                countryInfo = countryList[i];
                 countryColumns.push({
                     HeaderText: countryInfo.Name,
                     Width: 80,
@@ -192,11 +195,9 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
 
     function getCountryList(statisticReport) {
         var countryList = [];
-        var firstDateReport = statisticReport.ChildReports[0];
-        var firstTimeReport = firstDateReport.ChildReports[0];
-        var countryLength = firstTimeReport.ChildReports.length;
+        var countryLength = statisticReport.Total.ChildReports.length;
         for (var k = 0; k < countryLength; k++) {
-            var reportByCountryInfo = firstTimeReport.ChildReports[k];
+            var reportByCountryInfo = statisticReport.Total.ChildReports[k];
             var country = reportByCountryInfo.CountryInfo;
             countryList.push(country);
         }
@@ -234,7 +235,7 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
 
         var chartData = {
             labels: getChartLabels(chartInfo, crmChart),
-            datasets: getChartDatasets(chartInfo, crmChart)
+            datasets: getChartDatasets(chartInfo, crmChart, cachedData.statisticReport)
         };
 
         var chartOption = angular.copy(crmChart.newopts);
@@ -269,7 +270,8 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
 
         return xAxisCategories;
     }
-    function getChartDatasets(chartInfo, crmChart) {
+    function getChartDatasets(chartInfo, crmChart, statisticReport) {
+        var countryList = getCountryList(statisticReport);
         var chartSeries = [];
         var dateReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
 
@@ -290,7 +292,7 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
                             fillColor: backgroundColor,
                             strokeColor: backgroundColor,
                             data: [],
-                            title: countryReport.CountryInfo.Name
+                            title: countryList[countryIndex].Name
                         };
                     }
 

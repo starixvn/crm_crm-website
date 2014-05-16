@@ -308,7 +308,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 Total = new StatisticReportInfo
                 {
                     ShortName = Labels.Grand_Total,
-                    ChildReports = GetDummyCountryList(countryLength, countryList)
+                    ChildReports = GetDummyCountryList(countryLength, countryList, true)
                 }
             };
 
@@ -335,7 +335,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                         ShortName = string.Format(
                             Labels.StatisticReport_TotalTitle,
                             dateGroup.Key.ToMonthYear()),
-                        ChildReports = GetDummyCountryList(countryLength, countryList)
+                        ChildReports = GetDummyCountryList(countryLength, countryList, false)
                     }
                 };
 
@@ -355,7 +355,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                     var timeReport = new StatisticReportInfo
                     {
                         ShortName = string.Format("{0:00}:00 - {0:00}:59", timeGroup.Key.Hour),
-                        ChildReports = GetDummyCountryList(countryLength, countryList)
+                        ChildReports = GetDummyCountryList(countryLength, countryList, false)
                     };
 
                     foreach (var timeData in timeGroup)
@@ -363,13 +363,6 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                         var countryIndex = countryDictionary[timeData.CountryId];
                         var reportInfo = new StatisticReportInfo
                         {
-                            CountryInfo = new CountryInfo
-                            {
-                                Id = timeData.CountryId,
-                                Name = timeData.CountryId == SettingConstants.NotApply ?
-                                    Labels.Symbol_NotApply :
-                                    timeData.CountryName
-                            },
                             HasData = true,
                             NumberOfIssues = timeData.NumberOfIssues
                         };
@@ -434,7 +427,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 Total = new StatisticReportInfo
                 {
                     ShortName = Labels.Grand_Total,
-                    ChildReports = GetDummyCountryList(countryLength, countryList)
+                    ChildReports = GetDummyCountryList(countryLength, countryList, true)
                 }
             };
 
@@ -456,7 +449,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                         ShortName = string.Format(
                             Labels.StatisticReport_TotalTitle,
                             dateGroup.Key.ToString()),
-                        ChildReports = GetDummyCountryList(countryLength, countryList)
+                        ChildReports = GetDummyCountryList(countryLength, countryList, false)
                     }
                 };
 
@@ -468,7 +461,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                     var timeReport = new StatisticReportInfo
                     {
                         ShortName = string.Format("{0:00}:00 - {0:00}:59", timeGroup.Key),
-                        ChildReports = GetDummyCountryList(countryLength, countryList)
+                        ChildReports = GetDummyCountryList(countryLength, countryList, false)
                     };
 
                     foreach (var timeData in timeGroup)
@@ -476,13 +469,6 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                         var countryIndex = countryDictionary[timeData.CountryId];
                         var reportInfo = new StatisticReportInfo
                         {
-                            CountryInfo = new CountryInfo
-                            {
-                                Id = timeData.CountryId,
-                                Name = timeData.CountryId == SettingConstants.NotApply ?
-                                    Labels.Symbol_NotApply :
-                                    timeData.CountryName
-                            },
                             HasData = true,
                             NumberOfIssues = timeData.NumberOfIssues
                         };
@@ -562,17 +548,21 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
         /// </summary>
         /// <param name="countryLength">Length of the country.</param>
         /// <param name="countryList">The country list.</param>
-        /// <returns>The dummy country list.</returns>
+        /// <param name="isGrandTotal">If set to <c>true</c> [is grand total].</param>
+        /// <returns>
+        /// The dummy country list.
+        /// </returns>
         private List<StatisticReportInfo> GetDummyCountryList(
             int countryLength,
-            List<CountryInfo> countryList)
+            List<CountryInfo> countryList,
+            bool isGrandTotal)
         {
             List<StatisticReportInfo> dummyCountries = new List<StatisticReportInfo>();
             for (var i = 0; i < countryLength; i++)
             {
                 dummyCountries.Add(new StatisticReportInfo
                 {
-                    CountryInfo = countryList[i]
+                    CountryInfo = isGrandTotal ? countryList[i] : null
                 });
             }
 
@@ -667,13 +657,11 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 return;
             }
 
-            var firstDateReport = statisticReport.ChildReports[0];
-            var firstTimeReport = firstDateReport.ChildReports[0];
-            var countryLength = firstTimeReport.ChildReports.Count;
+            var countryLength = statisticReport.Total.ChildReports.Count;
             List<CountryInfo> countryList = new List<CountryInfo>();
             for (var k = 0; k < countryLength; k++)
             {
-                var reportByCountryInfo = firstTimeReport.ChildReports[k];
+                var reportByCountryInfo = statisticReport.Total.ChildReports[k];
                 var country = reportByCountryInfo.CountryInfo;
                 countryList.Add(country);
             }

@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Infrastructure.Web;
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Services.Implements.StatisticReport;
@@ -58,10 +59,10 @@ namespace Fanex.CRM.Report.Controllers
         [HttpPost]
         [HandleAjaxError]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
-        public ActionResult GetStatisticReport(GetStatisticReportCriteria criteria)
+        public JsonWithoutNullField GetStatisticReport(GetStatisticReportCriteria criteria)
         {
             var logs = _statisticReportService.GetStatisticReport(criteria);
-            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
+            var jsonResult = new JsonWithoutNullField(logs);
             return jsonResult;
         }
 
