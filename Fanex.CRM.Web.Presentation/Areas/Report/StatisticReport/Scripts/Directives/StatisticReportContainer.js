@@ -68,7 +68,8 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
 
                     columns.push({
                         Name: "ColTotal",
-                        Value: timeReport.NumberOfIssues
+                        Value: timeReport.NumberOfIssues,
+                        CssClass: "font-weight-bold"
                     });
 
                     bodyData.push({
@@ -93,7 +94,7 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
                 columns.push({ Name: "ColTotal", Value: total.NumberOfIssues });
                 bodyData.push({
                     Columns: columns,
-                    CssClass: 'subtotalrow'
+                    CssClass: 'subtotalrow font-weight-bold'
                 });
             }
 
