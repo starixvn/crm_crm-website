@@ -143,6 +143,7 @@
       <DependentUpon>Language.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\InformHeadlinesBundleRegister.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,6 +230,22 @@
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DropdownTitleContainer.js" />
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleController.js" />
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleService.js" />
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleApplication.js" />
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\AlertBox.js" />
+    <None Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\UpdateInform.less" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\Directives\AlertBox.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\AlertBox.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\InformHeadlineContainer.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformService.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformController.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformApplication.js" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\Directives\InformStatisticContainer.js" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticApplication.js" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticController.js" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticService.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
@@ -294,6 +311,11 @@
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportController.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportService.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic.cshtml" />
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle.cshtml" />
+    <None Include="Areas\Customer\InformHeadlines\CreateTitle\Styles\CreateTitle.less" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform.cshtml" />
+    <None Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />

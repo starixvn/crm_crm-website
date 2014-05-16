@@ -69,6 +69,7 @@
     <Compile Include="Criteria\GetAllSettingCriteria.cs" />
     <Compile Include="Criteria\GetAllSettingRelationCriteria.cs" />
     <Compile Include="Criteria\GetAllStatusCriteria.cs" />
+    <Compile Include="Criteria\GetAllStatusInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\GetAllSubCategoryCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackSubjectTemplateByIdCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackSubjectTemplateByPagingIndexCriteria.cs" />

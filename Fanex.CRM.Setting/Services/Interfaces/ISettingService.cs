@@ -51,6 +51,8 @@ namespace Fanex.CRM.Setting.Services.Interfaces
 
         List<SettingInfo> GetAllLogAction(GetActionCriteria criteria);
 
+        List<SettingInfo> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria);
+
         void ResetAllCache();
     }
 }

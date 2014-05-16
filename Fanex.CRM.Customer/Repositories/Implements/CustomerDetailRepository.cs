@@ -170,6 +170,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 Question = reader.GetStringNotNull("Question"),
                 Answer = reader.GetStringNotNull("Answer"),
                 IsVIP = reader.GetBooleanNotNull("IsVIP"),
+                HeadLine = true,//reader.GetBooleanNotNull("HeadLine"),
                 CreatedDate = reader.GetDateTimeNotNull("CreateDate"),
                 Passport = new BaseModel
                 {

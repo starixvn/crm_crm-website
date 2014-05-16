@@ -15,7 +15,9 @@ var SharedScriptManager = function () {
         monthPagingOptions: [3, 6, 9, 12],
         monthPagingDefaultItemsPerPage: 12,
         smallPagingOptions: [1, 5, 7, 10],
-        smallPagingDefaultItemsPerPage: 10
+        smallPagingDefaultItemsPerPage: 10,
+
+        informHeadlinePagingOptions: [5, 10, 15, 20]
     },
 
     self.CallAjax = function (currentHandler,

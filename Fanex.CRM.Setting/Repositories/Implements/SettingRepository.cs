@@ -411,5 +411,36 @@ namespace Fanex.CRM.Setting.Repositories.Implements
 
             return allBetType;
         }
+
+        /// <summary>
+        /// Gets all status inform headline.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The SettingInfo list.</returns>
+        public List<SettingInfo> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
+        {
+            var status = new List<SettingInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var setting = new SettingInfo
+                            {
+                                Id = reader.GetInt32NotNull("InformStatusId"),
+                                Name = reader.GetStringNotNull("Name")
+                            };
+
+                            status.Add(setting);
+                        }
+                    }
+                }
+            }
+
+            return status;
+        }
     }
 }

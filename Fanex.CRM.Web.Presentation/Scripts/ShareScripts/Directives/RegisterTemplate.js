@@ -363,6 +363,7 @@ function RegisterTemplate(application) {
 
         directiveManager.registerSubjectAutoComplete(self.application, subjectAutoCompleteRegisterParams);
     };
+    
     self.registerCategoryMultiSelectPicker = function () {
         var categoryRegisterParams = {
             PlugInName: 'categoryPickerContainer',
@@ -376,5 +377,20 @@ function RegisterTemplate(application) {
         };
 
         directiveManager.registerMultiSelectContainer(self.application, categoryRegisterParams);
+    };
+
+    self.registerStatusMultiSelectPicker = function () {
+        var statusRegisterParams = {
+            PlugInName: 'statusMultiContainer',
+            OptionName: 'statusOptions',
+            PickerId: 'status',
+            RestrictType: 'A',
+            DataPropertyName: {
+                Id: 'Id',
+                Name: 'Name'
+            }
+        };
+
+        directiveManager.registerMultiSelectContainer(self.application, statusRegisterParams);
     };
 }
