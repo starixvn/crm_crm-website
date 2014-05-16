@@ -182,11 +182,11 @@ statisticReportApplication.directive('tableStatisticReportContainer', function (
         var reportTypeId = parseInt(cachedData.scope.searchCriteria.ReportType.Id);
         switch (reportTypeId) {
             case crmConstants.Enums.PeriodType.Daily:
-                return sharedScriptManager.cachedData.smallPagingOptions;
+                return [1, 2, 3, 4, 5];
             case crmConstants.Enums.PeriodType.Monthly:
-                return sharedScriptManager.cachedData.monthPagingOptions;
+                return [1, 2, 3, 4, 5];
             default:
-                return sharedScriptManager.cachedData.smallPagingOptions;
+                return [1, 2, 3, 4, 5];
         }
     }
 
