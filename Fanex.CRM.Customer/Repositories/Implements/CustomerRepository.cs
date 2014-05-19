@@ -268,7 +268,9 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             customer.NickName = customer.Id > 0 ?
                 reader.GetStringNotNull("UserName2") :
                 string.Empty;
+            customer.HeadLine = true;
 
+            // reader.GetBooleanNotNull("headline");
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC1"));
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC2"));
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC3"));

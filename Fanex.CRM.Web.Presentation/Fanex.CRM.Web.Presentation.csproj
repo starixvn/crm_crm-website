@@ -300,9 +300,16 @@
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportController.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportService.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
+   
     <Content Include="Areas\Feedbacks\ManageFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\Web.config" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\StyleSheet.less" />
+
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Index.cshtml" />
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Index.cshtml" /> 
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Index.cshtml" />
+    <None Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
+
     <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
