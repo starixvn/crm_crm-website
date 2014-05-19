@@ -227,6 +227,7 @@
   </data>
   <data name="Account_Holder_Name" xml:space="preserve">
     <value>Acc. Name</value>
+    <value>Account Holder Name</value>
   </data>
   <data name="Account_No" xml:space="preserve">
     <value>Account No</value>
@@ -326,5 +327,11 @@
   </data>
   <data name="Secret_Code" xml:space="preserve">
     <value>Secret Code</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="UpdateInformHeadlines" xml:space="preserve">
+    <value>Update Inform Headlines</value>
   </data>
 </root>

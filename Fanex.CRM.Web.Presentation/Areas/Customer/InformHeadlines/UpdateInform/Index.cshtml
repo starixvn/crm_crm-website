@@ -1,0 +1,72 @@
+﻿@using Fanex.CRM.Customer.Resources;
+@{
+    bool canUpdateTitle = (bool)ViewBag.CanUpdateTitle;
+    bool canUpdateStatus = (bool)ViewBag.CanUpdateStatus;
+}
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-informheadline-update">
+<head>
+    <title></title>
+    @Styles.Render("~/site/common",
+        "~/Styles/FanexMultipleSelect",
+        "~/Areas/Customer/InformHeadlines/UpdateInformStyle")
+</head>
+<body>
+    <div class="main popup container" data-ng-controller="updateInformHeadlineController">
+        <div class="row" alert-box alert-result="alertResult"></div>
+        <div class="row filter-frm one-row inform-filter">
+            <div class="item">
+                <label for="title">@Labels.Title</label>
+                <input id="title" type="text" class="textbox title" tabindex="1" @(canUpdateTitle ? "" : "disabled") data-ng-model="title"/>
+            </div>
+            <div class="item">
+                <label for="status">@Labels.Status</label>
+                <div class="selStatus pull-right" status-multi-container data-ng-model="statusOptions.DataList">
+                    <select id="status"></select>
+                </div>
+            </div>
+            <div class="item">
+                <button type="button" class="btn" data-ng-click="searchInform()">S<span class="hotkey">e</span>arch</button>
+            </div>
+        </div>
+        <div class="row">
+            <div data-ng-model="informs" table-inform-headline-container>
+                <div id="table-inform-headline" class="freegrid display-none">
+                </div>
+            </div>
+        </div>
+        @if (canUpdateStatus)
+        {
+            <div class="row">
+                <button type="button" class="btn btn-save" data-ng-click="updateInforms()">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        }
+    </div>
+
+    @Scripts.Render("~/Scripts/CommomScripts",
+        "~/Scripts/FanexGridScripts",
+        "~/Scripts/AngularJSLibrary",
+        "~/Areas/Customer/InformHeadlines/UpdateInformScript")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var titleId = @Request["titleId"];
+        var title = '@Request["title"]';
+        var updateInformResources = {
+            Headline: '@Labels.Headline',
+            Status: '@Labels.Status',
+            UpdatedTime: '@Labels.UpdatedTime',
+            Remark: '@Labels.Remark',
+            Handler: '@Labels.Handler',
+            AllStatus: '@Labels.AllStatus',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            No_status_found: '@Labels.No_status_found',
+            UpdateInformsSuccess: '@Labels.UpdateInformsSuccess',
+            Confirm_Ignore_UpdateInforms_Changes: '@Html.Raw(Labels.Confirm_Ignore_UpdateInforms_Changes)',
+            UpdateInforms_TitleEmpty: '@Labels.UpdateInforms_TitleEmpty',
+            InformHeadline_NoStatusFound: '@Labels.InformHeadline_NoStatusFound',
+            InformHeadline_NoDataChanged: '@Labels.InformHeadline_NoDataChanged'
+        };
+    </script>
+</body>
+</html>
