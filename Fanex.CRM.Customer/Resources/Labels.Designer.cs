@@ -241,6 +241,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created Date.
+        /// </summary>
+        public static string CreatedDate {
+            get {
+                return ResourceManager.GetString("CreatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CRM Info.
         /// </summary>
         public static string CRM_Info {
@@ -682,6 +691,15 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Inform Headlines.
+        /// </summary>
+        public static string UpdateInformHeadlines {
+            get {
+                return ResourceManager.GetString("UpdateInformHeadlines", resourceCulture);
         ///   Looks up a localized string similar to VIP.
         /// </summary>
         public static string VIP {
