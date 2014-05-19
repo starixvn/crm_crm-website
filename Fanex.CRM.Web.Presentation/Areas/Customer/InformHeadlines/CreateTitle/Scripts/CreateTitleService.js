@@ -1,5 +1,5 @@
 ﻿'use strict';
-/* exported createInformHeadlinelApplication */
+/* global createInformHeadlinelApplication */
 createInformHeadlinelApplication.factory('createInformHeadlineTitleService', ['$http', '$q',
  function ($http, $q) {
      var serviceInstance = {};

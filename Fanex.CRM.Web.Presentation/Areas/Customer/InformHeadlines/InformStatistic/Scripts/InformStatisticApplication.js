@@ -1,4 +1,5 @@
-﻿/* global sharedScriptManager */
+﻿/* global sharedScriptManager,
+RegisterTemplate */
 /* exported informHeadlineStatisticApplication */
 var informHeadlineStatisticApplication = angular.module('customer-informheadline-statistic', ['$uiBlockerApplication']);
 sharedScriptManager.setNoCachingHttpRequest(informHeadlineStatisticApplication);
