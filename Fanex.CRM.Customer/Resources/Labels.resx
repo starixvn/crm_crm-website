@@ -411,4 +411,10 @@
   <data name="InformHeadline_NoStatusFound" xml:space="preserve">
     <value>Please select at least one Status!</value>
   </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="UpdateInformHeadlines" xml:space="preserve">
+    <value>Update Inform Headlines</value>
+  </data>
 </root>

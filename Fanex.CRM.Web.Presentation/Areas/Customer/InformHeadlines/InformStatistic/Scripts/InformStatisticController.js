@@ -54,7 +54,7 @@ function ($scope, informStatisticService, $uiBlockerService, $timeout) {
         parent.homeManager.CachedData.shouldReloadView = false;
         parent.OpenPopup(
             window.rootUrl + 'InformHeadlines/OpenUpdateInform?' + $.param({ titleId: titleId, title: title }),
-            informStatisticResourceView.NewInformHeadlines,
+            informStatisticResourceView.UpdateInformHeadlines,
             $(parent.document).width() - 400,
             $(parent.document).height(),
             true,

@@ -29,7 +29,7 @@ namespace Fanex.CRM.Dashboard.Controllers
 
         public InformHeadlinesController()
             : this(null)
-        { 
+        {
         }
 
         public InformHeadlinesController(IInformHeadlineService informHeadlineService)
@@ -41,9 +41,9 @@ namespace Fanex.CRM.Dashboard.Controllers
         [HttpGet]
         public ActionResult ViewInforms()
         {
-            ViewBag.CanCreateTitle = HasHostPermission(FunctionPermission.InformHeadline_CreateTitle);
-            ViewBag.CanUpdateStatus = HasReadPermission(FunctionPermission.InformHeadline_UpdateStatus);
-            return View("~/Areas/Customer/InformHeadlines/InformStatistic.cshtml");
+            ViewBag.CanCreateTitle = HasHostPermission(FunctionPermission.InformHeadlineCreateTitle);
+            ViewBag.CanUpdateStatus = HasReadPermission(FunctionPermission.InformHeadlineUpdateStatus);
+            return View("~/Areas/Customer/InformHeadlines/InformStatistic/Index.cshtml");
         }
 
         [NapAuth(FunctionKey = FunctionPermission.InformHeadline, Policy = Constant.Policy.Read)]
@@ -62,14 +62,14 @@ namespace Fanex.CRM.Dashboard.Controllers
             return new EmptyResult();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.InformHeadline_CreateTitle, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.InformHeadlineCreateTitle, Policy = Constant.Policy.Host)]
         [HttpGet]
         public ActionResult OpenCreateTitle()
         {
-            return View("~/Areas/Customer/InformHeadlines/CreateTitle.cshtml");
+            return View("~/Areas/Customer/InformHeadlines/CreateTitle/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.InformHeadline_CreateTitle, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.InformHeadlineCreateTitle, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult CreateTitle(CreateInformCriteria criteria)
         {
@@ -79,31 +79,31 @@ namespace Fanex.CRM.Dashboard.Controllers
             return Json(result, JsonRequestBehavior.DenyGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.InformHeadline_UpdateStatus, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.InformHeadlineUpdateStatus, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult OpenUpdateInform(int titleId, string title)
         {
-            ViewBag.CanUpdateTitle = HasHostPermission(FunctionPermission.InformHeadline_CreateTitle);
-            ViewBag.CanUpdateStatus = HasHostPermission(FunctionPermission.InformHeadline_UpdateStatus);
-            return View("~/Areas/Customer/InformHeadlines/UpdateInform.cshtml");
+            ViewBag.CanUpdateTitle = HasHostPermission(FunctionPermission.InformHeadlineCreateTitle);
+            ViewBag.CanUpdateStatus = HasHostPermission(FunctionPermission.InformHeadlineUpdateStatus);
+            return View("~/Areas/Customer/InformHeadlines/UpdateInform/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.InformHeadline_UpdateStatus, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermission.InformHeadlineUpdateStatus, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult GetInforms(GetInformHeadlineCriteria criteria)
         {
             var informs = _informHeadlineService.GetInforms(criteria);
             var result = new { TotalItem = criteria.TotalItem, ChildItems = informs };
-            
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.InformHeadline_UpdateStatus, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermission.InformHeadlineUpdateStatus, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult UpdateInforms(UpdateInformHeadlinesCriteria criteria)
         {
             var result = _informHeadlineService.UpdateInforms(criteria);
-            return Json(result, JsonRequestBehavior.DenyGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

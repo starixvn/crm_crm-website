@@ -19,7 +19,7 @@ informHeadlineStatisticApplication.directive('tableInformStatisticContainer', fu
 
     function getGridColumnOption() {
         return [{ HeaderText: informStatisticResourceView.Title, Width: 300, Name: 'ColTitle', HeaderAlign: 'center', CellAlign: 'left' },
-            { HeaderText: informStatisticResourceView.CreatedTime, Width: 80, Name: 'ColCreatedTime', HeaderAlign: 'center', CellAlign: 'center' },
+            { HeaderText: informStatisticResourceView.CreatedDate, Width: 80, Name: 'ColCreatedDate', HeaderAlign: 'center', CellAlign: 'center' },
             getGridColumnStatus(informStatisticResourceView.NoOfHeadlines, 'ColNoOfHeadline', 80),
             getGridColumnStatus(informStatisticResourceView.Done, 'ColDone', 80),
             getGridColumnStatus(informStatisticResourceView.RequestCallback, 'ColRequestCallback', 80),
@@ -46,7 +46,8 @@ informHeadlineStatisticApplication.directive('tableInformStatisticContainer', fu
             gridExpandHeight: 100,
             showDistinctRow: false,
             showHighlightRow: true,
-            headerColumnHeight: 29
+            headerColumnHeight: 29,
+            bodyRowHeight: 29
         };
     }
 
@@ -59,7 +60,7 @@ informHeadlineStatisticApplication.directive('tableInformStatisticContainer', fu
                 inform = informs[i];
                 titleRow = '<span class="edittitle-link" data-titleid="' + inform.TitleId + '">' + inform.Title + '</span>';
                 cell = [{ Name: 'ColTitle', Value: titleRow },
-                    { Name: 'ColCreatedTime', Value: inform.CreatedTimeString },
+                    { Name: 'ColCreatedDate', Value: inform.CreatedDateString },
                     { Name: 'ColNoOfHeadline', Value: inform.Total },
                     { Name: 'ColDone', Value: inform.Done },
                     { Name: 'ColRequestCallback', Value: inform.RequestToCallback },

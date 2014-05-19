@@ -44,8 +44,8 @@ namespace Fanex.CRM.Infrastructure.Common
 
         public const string InformHeadline = "InformHeadline";
 
-        public const string InformHeadline_CreateTitle = "InformHeadlineTitle";
+        public const string InformHeadlineCreateTitle = "InformHeadlineTitle";
 
-        public const string InformHeadline_UpdateStatus = "InformHeadlineDetail";
+        public const string InformHeadlineUpdateStatus = "InformHeadlineDetail";
     }
 }

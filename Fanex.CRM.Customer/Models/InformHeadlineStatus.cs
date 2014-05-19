@@ -11,6 +11,7 @@ namespace Fanex.CRM.Customer.Models
 {
     using System;
     using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Infrastructure.Extension;
 
     /// <summary>
     /// InformHeadline model.
@@ -35,6 +36,20 @@ namespace Fanex.CRM.Customer.Models
 
                 DateTime clientTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(this.CreatedTime);
                 return DateTimeUtilize.ChangeFullTimeZoneToClientForActionLog(clientTime);
+            }
+        }
+
+        public string CreatedDateString
+        {
+            get
+            {
+                if (this.CreatedTime == DateTime.MinValue)
+                {
+                    return string.Empty;
+                }
+
+                DateTime clientTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(this.CreatedTime);
+                return DateTimeUtilize.ChangeTimeZoneToClientDateTime(clientTime).ToShortFormatedDate();
             }
         }
 
