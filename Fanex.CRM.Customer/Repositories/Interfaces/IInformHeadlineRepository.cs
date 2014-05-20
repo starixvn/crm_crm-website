@@ -10,8 +10,8 @@
 namespace Fanex.CRM.Customer.Repositories.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Customer.Criteria;
-    using Fanex.CRM.Customer.Models;
+    using Fanex.CRM.Customer.Criteria.InformHeadlines;
+    using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Framework.Data;
 

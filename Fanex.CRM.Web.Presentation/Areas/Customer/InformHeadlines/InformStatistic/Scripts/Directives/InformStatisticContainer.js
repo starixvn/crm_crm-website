@@ -95,8 +95,7 @@ informHeadlineStatisticApplication.directive('tableInformStatisticContainer', fu
 
     function openUpdateInform(scope, titleElement) {
         var titleId = titleElement.data('titleid');
-        var title = titleElement.html();
-        scope.openUpdateInform(titleId, title);
+        scope.openUpdateInform(titleId);
     }
 
     return {

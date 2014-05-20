@@ -31,6 +31,7 @@ namespace Fanex.CRM.Web.View.App_Start
         {
             bundles.Add(new ScriptBundle("~/Areas/Customer/InformHeadlines/InformStatisticScript").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/Applications/AlertBox.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
@@ -56,6 +57,7 @@ namespace Fanex.CRM.Web.View.App_Start
         {
             bundles.Add(new ScriptBundle("~/Areas/Customer/InformHeadlines/CreateTitleScript").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/Applications/AlertBox.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Customer/InformHeadlines/CreateTitle/Scripts/CreateTitleApplication.js",
                 "~/Areas/Customer/InformHeadlines/CreateTitle/Scripts/CreateTitleService.js",
@@ -74,9 +76,9 @@ namespace Fanex.CRM.Web.View.App_Start
         private static void RegisterUpdateInforms(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Customer/InformHeadlines/UpdateInformScript").Include(
-                "~/Scripts/ShareScripts/CRMConstants.js",
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/Applications/AlertBox.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/MultipleSelect/fanex.multiSelect.js",

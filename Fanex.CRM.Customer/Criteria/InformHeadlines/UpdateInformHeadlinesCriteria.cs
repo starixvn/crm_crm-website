@@ -7,10 +7,10 @@
 //   <change who="Kan.Nguyen" date="2014.05.14">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Criteria
+namespace Fanex.CRM.Customer.Criteria.InformHeadlines
 {
     using System.Collections.Generic;
-    using Fanex.CRM.Customer.Models;
+    using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.NAP.Framework.Data;
 

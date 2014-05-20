@@ -13,8 +13,8 @@ namespace Fanex.CRM.Customer.Services.Implements
     using System.Collections.Generic;
     using System.Text;
     using System.Web;
-    using Fanex.CRM.Customer.Criteria;
-    using Fanex.CRM.Customer.Models;
+    using Fanex.CRM.Customer.Criteria.InformHeadlines;
+    using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Customer.Repositories.Implements;
     using Fanex.CRM.Customer.Repositories.Interfaces;
     using Fanex.CRM.Customer.Resources;

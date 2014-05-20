@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Dashboard.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Customer.Criteria;
+    using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Customer.Services.Implements;
     using Fanex.CRM.Customer.Services.Interfaces;
@@ -81,7 +81,7 @@ namespace Fanex.CRM.Dashboard.Controllers
 
         [NapAuth(FunctionKey = FunctionPermission.InformHeadlineUpdateStatus, Policy = Constant.Policy.Read)]
         [HttpGet]
-        public ActionResult OpenUpdateInform(int titleId, string title)
+        public ActionResult OpenUpdateInform(int titleId)
         {
             ViewBag.CanUpdateTitle = HasHostPermission(FunctionPermission.InformHeadlineCreateTitle);
             ViewBag.CanUpdateStatus = HasHostPermission(FunctionPermission.InformHeadlineUpdateStatus);
@@ -93,8 +93,10 @@ namespace Fanex.CRM.Dashboard.Controllers
         public ActionResult GetInforms(GetInformHeadlineCriteria criteria)
         {
             var informs = _informHeadlineService.GetInforms(criteria);
-            var result = new { TotalItem = criteria.TotalItem, ChildItems = informs };
-
+            int totalItem = criteria.TotalItem;
+            string title = informs.Count > 0 ? informs[0].Title : string.Empty;
+            
+            var result = new { TotalItem = totalItem, ChildItems = informs, Title = title };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

@@ -299,6 +299,8 @@ namespace Fanex.CRM.Web.View.App_Start
         private static void RegisterBundles_Remark(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Remark/RemarkScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/Applications/AlertBox.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Remark/Scripts/RemarkApplication.js",
                 "~/Areas/Remark/Scripts/RemarkService.js",

@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.05.09">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Criteria
+namespace Fanex.CRM.Customer.Criteria.InformHeadlines
 {
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.NAP.Framework.Data;

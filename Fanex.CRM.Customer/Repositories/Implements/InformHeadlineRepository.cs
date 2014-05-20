@@ -9,16 +9,14 @@
 
 namespace Fanex.CRM.Customer.Repositories.Implements
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Fanex.Common;
-    using Fanex.CRM.Customer.Criteria;
-    using Fanex.CRM.Customer.Models;
+    using Fanex.CRM.Customer.Criteria.InformHeadlines;
+    using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Customer.Repositories.Interfaces;
-    using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
