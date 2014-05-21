@@ -7,11 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-wagerreport-application">
 <head>
     <title>@Labels.WagerReport</title>
-    @Styles.Render("~/site/common")
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Areas/Report/WagerReportStyles", "~/Content/site/ResultMessageStyles")
+    @Styles.Render("~/site/common", "~/Areas/Report/WagerReportStyles", "~/Content/site/ResultMessageStyles")
 </head>
 <body>
     <div class="container main" data-ng-controller="wagerReportController">
