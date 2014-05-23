@@ -146,7 +146,6 @@ namespace Fanex.CRM.Setting.Services.Implements
             try
             {
                 allSite = CacheService.Get<List<SiteInfo>>(GetAllSiteSessionKey);
-                allSite = null;
                 if (allSite != null)
                 {
                     return allSite;
