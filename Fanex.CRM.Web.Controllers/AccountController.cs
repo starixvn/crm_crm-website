@@ -89,16 +89,17 @@ namespace Fanex.CRM.Web.Controllers
         {
             try
             {
-                if (AppSetting.IsLocalTest)
+                var isCheckUM = NAP.Core.Configuration.NapSettings.Settings.EnableCheckUM;
+                if (AppSetting.IsLocalTest || !isCheckUM)
                 {
                     return Json(new
                     {
                         ErrCode = 0
                     });
                 }
-
+                
                 var maintenanceInfo = _maintenanceService.GetDowntimeInfo();
-
+                
                 if (maintenanceInfo.IsDowntime)
                 {
                     ClearingLoginCookie();

@@ -67,10 +67,19 @@ namespace Fanex.CRM.User.Controllers
             _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
+        /// <summary>
+        /// Login Page.
+        /// </summary>
+        /// <returns>Return view.</returns>
         public ActionResult Index()
         {
-            var maintenanceInfo = _maintenanceService.GetDowntimeInfo();
+            var isCheckUM = NAP.Core.Configuration.NapSettings.Settings.EnableCheckUM;
+            if (!isCheckUM)
+            {
+                return View(LogInViewURL);
+            }
 
+            var maintenanceInfo = _maintenanceService.GetDowntimeInfo();
             if (maintenanceInfo.IsDowntime)
             {
                 return RedirectToAction("Offline", "Common");
