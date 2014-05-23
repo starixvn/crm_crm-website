@@ -70,7 +70,8 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
                 "~/Scripts/AngularJS/angular.js"));
 
-            bundles.AddAndInclude("~/Styles/FanexMultipleSelect",
+            bundles.AddAndInclude(
+                "~/Styles/FanexMultipleSelect",
                 "~/Scripts/MultipleSelect/fanex.multiSelect.css",
                 "~/Content/site/customizeMultiSelect.less",
                 "~/Areas/Customer/DetailInfo/Styles/StyleSheet.less");
@@ -371,7 +372,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Dashboard/ViewInfo/Scripts/DashboardController.js",
                 "~/Areas/Dashboard/ViewInfo/Scripts/Directives/*.js"));
 
-            bundles.AddAndInclude("~/Areas/Dashboard/ViewInfoStyles",
+            bundles.AddAndInclude(
+                "~/Areas/Dashboard/ViewInfoStyles",
                 "~/Areas/Dashboard/ViewInfo/Styles/StyleSheet.less");
         }
 
@@ -389,7 +391,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Dashboard/VerifyFlag/Scripts/VerifyFlagController.js",
                 "~/Areas/Dashboard/VerifyFlag/Scripts/Directives/*.js"));
 
-            bundles.AddAndInclude("~/Areas/Dashboard/VerifyFlagStyles",
+            bundles.AddAndInclude(
+                "~/Areas/Dashboard/VerifyFlagStyles",
                 "~/Areas/Dashboard/VerifyFlag/Styles/VerifyFlag.less");
         }
 
@@ -417,7 +420,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Report/DynamicReport/Scripts/DynamicReportController.js",
                 "~/Areas/Report/DynamicReport/Scripts/Directives/*.js"));
 
-            bundles.AddAndInclude("~/Areas/Report/DynamicReportStyles",
+            bundles.AddAndInclude(
+                "~/Areas/Report/DynamicReportStyles",
                 "~/Areas/Report/DynamicReport/Styles/DynamicReport.less");
         }
 
@@ -441,7 +445,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Report/CustomerReport/Scripts/CustomerReportController.js",
                 "~/Areas/Report/CustomerReport/Scripts/Directives/*.js"));
 
-            bundles.AddAndInclude("~/Areas/Report/CustomerReportStyles",
+            bundles.AddAndInclude(
+                "~/Areas/Report/CustomerReportStyles",
                 "~/Areas/Report/CustomerReport/Styles/CustomerReport.less");
         }
 
@@ -466,7 +471,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Areas/User/LogIn/Scripts/LogInManager.js"));
 
-            bundles.AddAndInclude("~/Areas/User/LogInStyles",
+            bundles.AddAndInclude(
+                "~/Areas/User/LogInStyles",
                 "~/Areas/User/LogIn/Styles/login.less");
         }
 
@@ -499,7 +505,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Report/SettlementReport/Scripts/SettlementReportService.js",
                 "~/Areas/Report/SettlementReport/Scripts/Directives/*.js"));
 
-            bundles.AddAndInclude("~/Areas/Report/SettlementReportStyles",
+            bundles.AddAndInclude(
+                "~/Areas/Report/SettlementReportStyles",
                 "~/Areas/Report/SettlementReport/Styles/SettlementReport.less");
         }
 
@@ -523,7 +530,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Report/StatisticReport/Scripts/StatisticReportService.js",
                 "~/Areas/Report/StatisticReport/Scripts/Directives/*.js"));
 
-            bundles.AddAndInclude("~/Areas/Report/StatisticReportStyles",
+            bundles.AddAndInclude(
+                "~/Areas/Report/StatisticReportStyles",
                 "~/Areas/Report/StatisticReport/Styles/StatisticReport.less");
         }
 
@@ -536,7 +544,8 @@ namespace Fanex.CRM.Web.View.App_Start
             bundles.Add(new ScriptBundle("~/Scripts/ShareScripts/Applications/ResultMessageScripts").Include(
                 "~/Scripts/ShareScripts/Applications/ResultMessage.js"));
 
-            bundles.AddAndInclude("~/Content/site/ResultMessageStyles",
+            bundles.AddAndInclude(
+                "~/Content/site/ResultMessageStyles",
                 "~/Content/site/resultMessage.less");
         }
 
@@ -563,7 +572,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Report/WagerReport/Scripts/WagerReportService.js",
                 "~/Areas/Report/WagerReport/Scripts/Directives/*.js"));
 
-            bundles.AddAndInclude("~/Areas/Report/WagerReportStyles",
+            bundles.AddAndInclude(
+                "~/Areas/Report/WagerReportStyles",
                 "~/Scripts/FanexGridV2/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.css",
@@ -588,7 +598,8 @@ namespace Fanex.CRM.Web.View.App_Start
                 "~/Areas/Report/SummaryReport/Scripts/SummaryReportService.js",
                 "~/Areas/Report/SummaryReport/Scripts/Directives/*.js"));
 
-            bundles.AddAndInclude("~/Areas/Report/SummaryReportStyles",
+            bundles.AddAndInclude(
+                "~/Areas/Report/SummaryReportStyles",
                 "~/Scripts/FanexGridV2/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.css",
