@@ -64,6 +64,10 @@
     <Setting Key="Setting_SettingInfo_GetAllSubCategory" SpName="Acc_CRM_SubCategoryList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllStatus" SpName="Acc_CRM_StatusList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Setting_SettingInfo_GetAllBetType" SpName="Acc_CRM_BetTypeList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="SiteID" ObjectProperty="Id" />
+      <Mapping DataField="SiteName" ObjectProperty="Name" />
+    </Setting>
   </Function>
   <Function Name="CustomerFeedback">
     <Setting Key="AutoSuggestionCustomer" SpName="Acc_CRM_AutoSuggestionCustomer" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -97,7 +101,7 @@
   <Function Name="Report">
     <Setting Key="Report_DynamicReport_GetReport" SpName="Acc_CRM_Rpt_DynamicFeedback" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_CustomerReport_GetReport" SpName="Acc_Crm_Rpt_CustomerReport" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-     <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
       <Mapping DataField="Month" ObjectProperty="Month" />
       <Mapping DataField="CountryID" ObjectProperty="CountryId" />
       <Mapping DataField="CountryName" ObjectProperty="CountryName" />
@@ -108,7 +112,7 @@
       <Mapping DataField="CountryID" ObjectProperty="CountryId" />
       <Mapping DataField="CountryName" ObjectProperty="CountryName" />
       <Mapping DataField="NoOfIssues" ObjectProperty="NumberOfIssues" />
-    </Setting> 
+    </Setting>
     <Setting Key="Report_WagerReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_SummaryReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSummary" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>

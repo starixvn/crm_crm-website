@@ -22,6 +22,8 @@ namespace Fanex.CRM.DataAccess.Interface
 
         IList<Setting> GetStatusSetting(int type);
 
+        IList<SiteSetting> GetSiteSetting();
+
         Result Add(Setting entity, string ip, int userId, int parentId);
 
         Result Add(string settingId, string settingName, string ip, int userId, int parentId);

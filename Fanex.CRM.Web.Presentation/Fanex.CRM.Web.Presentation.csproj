@@ -624,7 +624,7 @@
     <Content Include="Scripts\autocomplete\jquery.autocomplete.min.js" />
     <Content Include="Scripts\autocomplete\jquery.highlight-3.js" />
     <Content Include="Scripts\autocomplete\shadow.png" />
-    <Content Include="Scripts\autocomplete\styles.css" />
+    <Content Include="Scripts\autocomplete\autocomplete.css" />
     <Content Include="Scripts\BlockUI.js" />
     <Content Include="Scripts\Chart\accchart.js" />
     <Content Include="Scripts\Chart\highcharts.dev.js" />

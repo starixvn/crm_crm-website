@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Web.Controllers
 {
     using System.Web.Mvc;
+    using System.Web.Security;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
@@ -67,11 +68,16 @@ namespace Fanex.CRM.Web.Controllers
         /// <returns>Return result.</returns>
         public ActionResult Offline()
         {
-            var downTime = _maintenanceService.GetDowntimeInfo();
+            var isCheckUM = NAP.Core.Configuration.NapSettings.Settings.EnableCheckUM;
+            if (!isCheckUM)
+            {
+                FormsAuthentication.RedirectToLoginPage();
+            }
 
+            var downTime = _maintenanceService.GetDowntimeInfo();
             if (!downTime.IsDowntime)
             {
-                System.Web.Security.FormsAuthentication.RedirectToLoginPage();
+                FormsAuthentication.RedirectToLoginPage();
             }
 
             ViewBag.UmtFrom = downTime.From;

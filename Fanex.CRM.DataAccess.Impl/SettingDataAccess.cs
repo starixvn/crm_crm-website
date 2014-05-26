@@ -231,7 +231,7 @@ namespace Fanex.CRM.DataAccess.Impl
                 {
                     if (reader != null)
                     {
-                        IList<Setting> settings = new List<Setting>(); 
+                        IList<Setting> settings = new List<Setting>();
                         while (reader.Read())
                         {
                             settings.Add(
@@ -239,6 +239,40 @@ namespace Fanex.CRM.DataAccess.Impl
                                 {
                                     Id = Converter.ToInt(reader["statusid"]),
                                     Value = Converter.ToString2(reader["name"])
+                                });
+                        }
+
+                        return settings;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the site setting.
+        /// </summary>
+        /// <returns>
+        /// The setting list.
+        /// </returns>
+        public IList<SiteSetting> GetSiteSetting()
+        {
+            using (var obj = new ObjectDb("Setting_SettingInfo_GetAllSite"))
+            {
+                using (var reader = obj.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        IList<SiteSetting> settings = new List<SiteSetting>();
+                        while (reader.Read())
+                        {
+                            settings.Add(
+                                new SiteSetting()
+                                {
+                                    Id = Converter.ToInt(reader["SiteID"]),
+                                    Value = Converter.ToString2(reader["SiteName"]),
+                                    IsLicensee = Converter.ToInt(reader["IsLicensee"]) == 1
                                 });
                         }
 

@@ -738,16 +738,15 @@ namespace Fanex.CRM.Service.Impl
             var result = new List<Site>();
             try
             {
-                ////6200 - 6999: Licensee | 6000-6199 : Credit
-                var crmSite = GetSettingRelationByName("site", 0);
-                foreach (Setting site in crmSite)
+                var crmSite = _repository.GetSiteSetting();
+                foreach (SiteSetting site in crmSite)
                 {
                     var newSite = new Site()
                     {
                         SiteName = site.Value,
                         SiteId = site.Id.ToString(),
                         Order = site.DisplayOrder,
-                        SiteType = site.Id >= 6200 ? 1 : 0
+                        SiteType = site.IsLicensee ? 1 : 0
                     };
 
                     result.Add(newSite);
