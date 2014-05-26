@@ -23,7 +23,8 @@
                     <li data-ng-repeat="remark in remarks.SpecialRemarks track by $index">
                         <div class="col-xs-11 col-sm-11 col-md-11">
                             <span data-ng-bind="$index + 1 + '. '"></span>
-                            <input type="text" class="textbox-remark" data-ng-model="remarks.SpecialRemarks[$index]" />
+                            <textarea class="textarea-remark" rows="4" data-ng-model="remarks.SpecialRemarks[$index]">
+                            </textarea>
                         </div>
                         <span class="icon-del" data-ng-click="deleteRemark(true, $index)"></span>
                     </li>
@@ -47,7 +48,8 @@
                     <li data-ng-repeat="remark in remarks.NormalRemarks track by $index">
                         <div class="col-xs-11 col-sm-11 col-md-11">
                             <span data-ng-bind="$index + 1 + '. '"></span>
-                            <input type="text" class="textbox-remark" data-ng-model="remarks.NormalRemarks[$index]" />
+                            <textarea class="textarea-remark" rows="4" data-ng-model="remarks.NormalRemarks[$index]" />
+                            </textarea>
                         </div>
                         <span class="icon-del" data-ng-click="deleteRemark(false, $index)"></span>
                     </li>
