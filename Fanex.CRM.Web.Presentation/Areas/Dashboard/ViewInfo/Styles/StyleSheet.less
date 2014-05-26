@@ -10,12 +10,17 @@
 
     .content {
         min-height: 150px;
+        max-height: 150px;
+        height: 150px;
+        
         padding: 0;
         margin: 0;
         padding: 0;
+        overflow-y: scroll;
 
         li {
-            height: 30px;
+            min-height: 30px;
+            
             border-bottom: 1px solid @table-border;
             line-height: 25px;
             float: block;

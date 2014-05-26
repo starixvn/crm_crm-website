@@ -73,6 +73,7 @@
     <Compile Include="SettingRelation.cs" />
     <Compile Include="SettingType.cs" />
     <Compile Include="Site.cs" />
+    <Compile Include="SiteSetting.cs" />
     <Compile Include="User.cs" />
     <Compile Include="ViewModel\CasinoDailySummary.cs" />
     <Compile Include="ViewModel\CasinoDailySummaryDetail.cs" />
