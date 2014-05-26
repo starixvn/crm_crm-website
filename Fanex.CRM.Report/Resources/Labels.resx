@@ -522,4 +522,10 @@
   <data name="StatisticReport_Error_EmptySubCategory" xml:space="preserve">
     <value>Please choose one sub category!</value>
   </data>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
+  </data>
+  <data name="Reviewer" xml:space="preserve">
+    <value>Reviewer</value>
+  </data>
 </root>
