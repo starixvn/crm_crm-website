@@ -17,6 +17,8 @@ namespace Fanex.CRM.Setting.Models
     /// </summary>
     public class SiteInfo : BaseModel
     {
+        public bool IsLicensee { get; set; }
+
         public List<SiteInfo> ChildSites { get; set; }
     }
 }

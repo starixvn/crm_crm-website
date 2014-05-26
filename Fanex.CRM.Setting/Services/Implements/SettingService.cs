@@ -26,7 +26,7 @@ namespace Fanex.CRM.Setting.Services.Implements
     /// <summary>
     /// Setting Service.
     /// </summary>
-    public class SettingService : ISettingService
+    public class SettingService : ServiceBase, ISettingService
     {
         public const string GetAllSettingSessionKey = "Fanex.CRM.Setting.GetAllSettingSessionKey";
         public const string GetAllCountrySessionKey = "Fanex.CRM.Setting.GetAllCountrySessionKey";
@@ -152,27 +152,22 @@ namespace Fanex.CRM.Setting.Services.Implements
                 }
 
                 allSite = new List<SiteInfo>();
-                var crmSite = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.Site,
-                    ParentId = 0
-                });
-
-                var rawDataGroups = crmSite.GroupBy(setting => GetSiteGroupId(setting.Id));
+                var crmSite = GetDynamicData<SiteInfo>(new GetAllSiteCriteria());
+                var rawDataGroups = crmSite.GroupBy(setting => setting.IsLicensee);
                 foreach (var rawDataGroup in rawDataGroups)
                 {
                     var siteGroup = new SiteInfo
                     {
-                        Id = rawDataGroup.Key,
+                        Id = rawDataGroup.Key ? SiteConstants.LicenseeGroup : SiteConstants.IBCGroup,
+                        Name = rawDataGroup.Key ? Labels.Licensee : Labels.Credit,
                         ChildSites = new List<SiteInfo>()
                     };
 
-                    siteGroup.Name = GetSiteGroupName(siteGroup.Id);
                     foreach (var rawDataSetting in rawDataGroup)
                     {
                         var newSite = new SiteInfo()
                         {
-                            Name = rawDataSetting.Value,
+                            Name = rawDataSetting.Name,
                             Id = rawDataSetting.Id
                         };
 
