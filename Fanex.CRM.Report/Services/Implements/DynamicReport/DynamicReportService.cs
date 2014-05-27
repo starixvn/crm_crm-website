@@ -493,7 +493,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     StartRow = 0,
                     StartColumn = 0,
                     CurrentRow = 0,
-                    MaxColumnIndex = 8
+                    MaxColumnIndex = 9
                 };
 
                 SetStatusColorIndex(ref exportExcelInfo);
@@ -793,6 +793,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 140 * NpoiExcelExtensions.FontWidth);
 
             string reportTitle = string.Format(
                 Labels.DynamicReport_TitleWithNumberOfLog,
@@ -826,6 +827,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Subject, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Status, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Duration, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Username, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Handler, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Reviewer, headerStyle);
             exportExcelInfo.CurrentRow++;

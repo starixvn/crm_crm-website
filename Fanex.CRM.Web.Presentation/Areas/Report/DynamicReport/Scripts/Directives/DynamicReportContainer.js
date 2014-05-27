@@ -31,7 +31,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                         Name: "ColNo",
                         Value: sharedScriptManager.stringFormat("{0} [{1}]",
                             [periodReport.Name, periodReport.TotalChildReports]),
-                        MergeColNumber: 9
+                        MergeColNumber: 10
                     }],
                     SubRows: []
                 };
@@ -74,6 +74,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                                 Value: sharedScriptManager.stringFormat("{0}:{1}:{2}",
                                 [info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds])
                             },
+                            { Name: "ColUsername", Value: info.Username },
                             { Name: "ColHandler", Value: info.Handler },
                             { Name: "ColReviewer", Value: info.Reviewer}],
                         CssClass: 'viewcommunicationlog-link-row row-' + info.StatusName.toLowerCase()
@@ -101,6 +102,7 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 { HeaderText: viewResources.Subject, Width: 130, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Status, Width: 60, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Duration, Width: 60, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Username, Width: 100, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,

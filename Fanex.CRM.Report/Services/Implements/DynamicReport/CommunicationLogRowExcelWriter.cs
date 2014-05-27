@@ -159,6 +159,18 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             NpoiExcelExtensions.RenderMergedCells(
                 ref exportExcelInfo,
                 cellRangeAddress,
+                info.Username,
+                _textStyle);
+            exportExcelInfo.CurrentColumn++;
+
+            cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                exportExcelInfo.CurrentColumn,
+                exportExcelInfo.CurrentColumn);
+            NpoiExcelExtensions.RenderMergedCells(
+                ref exportExcelInfo,
+                cellRangeAddress,
                 info.Handler,
                 _textStyle);
             exportExcelInfo.CurrentColumn++;

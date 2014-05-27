@@ -143,6 +143,8 @@ var HomeManager = function () {
         e = (e) ? e : window.event;
         var key = (e.keyCode) ? e.keyCode : e.which;
         if (key === keyboardManager.Enums.KeyCode.Enter) {
+            console.log(1);
+            self.DOMElements.TextboxUsername.attr('autocomplete', 'killSuggestions');
             self.TextboxUsernameBlur();
             if (self.CachedData.isChangingData || self.CachedData.isChangingDataLeftPanel) {
                 self.showConfirmIgnoreChange(self.loadLeftPanel);

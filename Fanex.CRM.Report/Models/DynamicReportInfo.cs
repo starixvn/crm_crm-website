@@ -48,6 +48,8 @@ namespace Fanex.CRM.Report.Models
 
         public string Reviewer { get; set; }
 
+        public string Username { get; set; }
+
         public string StartTime { get; set; }
 
         public string EndTime { get; set; }
