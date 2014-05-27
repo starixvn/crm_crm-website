@@ -170,20 +170,19 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
                     arrUser = $(this).val();
                 });
 
-
-
                 // for edit feedback
                 if (orgLengt != null) {
                     if (orgLengt == arrUser.length) {
-                        $("#btnsubmit").attr("disabled", "disabled");
+                        //$("#btnsubmit").attr("disabled", "disabled");
                         $("#btnsubmitbottom").attr("disabled", "disabled");
                         $("#btnverify").removeAttr("disabled");
                     }
                 }
                 if (arrUser.length == 1) {
                     $("#btnverify").attr("disabled", "disabled");
-                    $("#btnsubmit").removeAttr("disabled");
+                    //$("#btnsubmit").removeAttr("disabled");
                     $("#btnsubmitbottom").removeAttr("disabled");
+                    $("#chkisrelated").attr("checked", false);
                 }
                 if (!item.hasClass('locked')) {
                     item.fadeOut("fast");

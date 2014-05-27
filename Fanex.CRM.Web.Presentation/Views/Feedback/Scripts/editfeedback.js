@@ -210,8 +210,7 @@ function loadFeedbackAfterCallAjax(rs, Id) {
         }
 
         $("#btnverify").removeAttr("disabled");
-        //$("#btnsubmit").removeAttr("disabled");
-        //$("#btnsubmitbottom").removeAttr("disabled");
+        $("#btnsubmitbottom").removeAttr("disabled");
         orgLengt = MyJson.length;
     }
 
@@ -1031,8 +1030,7 @@ head.ready(function () {
         $("#typeCust").removeAttr("disabled");
     }
 
-    $("#btnsubmit").removeAttr("disabled");
-    $("#btnsubmitbottom").removeAttr("disabled");
+    //$("#btnsubmitbottom").removeAttr("disabled");
     responsePage = gup('rep');
 
     /* register hot key */
