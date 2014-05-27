@@ -68,6 +68,7 @@ var CustomerManager = function () {
         self.DOMElements.dropdownCountry = $("#customerinfo-countryoptions");
         self.DOMElements.dropdownLanguage = $("#customerinfo-languageoptions");
         self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
+        self.DOMElements.autocompleteBox = parent.$("#Autocomplete_1");
     };
     self.getCustomerInfoByUsername = function () {
         var scope = angular.element("#divContent").scope();
@@ -178,6 +179,9 @@ var CustomerManager = function () {
         });
     };
     self.showConfirmSearchByGuestDialog = function () {
+        console.log("123");
+        self.DOMElements.autocompleteBox.css("display", "none");
+
         self.DOMElements.divResultPopUp.html(self.CacheData.ViewResources.CustomerInfo_ConfirmSearchByGuest);
         self.DOMElements.divResultPopUp.removeClass("display-none");
         self.DOMElements.divResultPopUp.dialog({
