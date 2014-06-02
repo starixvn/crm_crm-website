@@ -150,7 +150,13 @@ var HotKeyManager = function () {
         return false;
     };
     self.preventBubbleEvent = function (eventObject) {
-        if (eventObject.preventDefault) {
+        if ($.browser.msie) {
+            eventObject.returnValue = false;
+            window.event.returnValue = false;
+            window.event.keyCode = 0;
+        }
+
+        if (eventObject.preventDefault && eventObject.stopPropagation) {
             eventObject.stopPropagation();
             eventObject.preventDefault();
         } else {
@@ -296,6 +302,11 @@ var HotKeyManager = function () {
 
         if (self.CachedData.KeyPress[keyCodeEnums.Character_t]) {
             self.invokeHotKey_CtrlT();
+            return true;
+        }
+
+        if (self.CachedData.KeyPress[keyCodeEnums.Character_p]) {
+            self.invokeHotKey_CtrlP();
             return true;
         }
 
@@ -464,6 +475,18 @@ var HotKeyManager = function () {
 
         return self.CachedData.isInvokeHotKey;
     };
+    self.invokeHotKey_CtrlP = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            if (typeof (activeDocumentManager.invokeHotKey_CtrlP) === "function") {
+                self.CachedData.isInvokeHotKey = true;
+                activeDocumentManager.invokeHotKey_CtrlP();
+            }
+        }
+
+        return self.CachedData.isInvokeHotKey;
+    };
     self.invokeHotKey_CtrlComma = function () {
         var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
         for (var i = 0; i < activeDocumentLength; i++) {
@@ -503,7 +526,7 @@ var HotKeyManager = function () {
                 activeDocumentManager.invokeHotKey_AltEnter();
             }
         }
-        
+
         return self.CachedData.isInvokeHotKey;
     };
     self.copyArray = function (array) {

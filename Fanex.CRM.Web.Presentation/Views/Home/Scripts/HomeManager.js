@@ -313,7 +313,7 @@ var HomeManager = function () {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.CommunicationLog);
         }
     };
-    self.invokeHotKey_CtrlR = function () {
+    self.invokeHotKey_CtrlP = function () {
         if (parent.dashboardManager) {
             parent.dashboardManager.dashboardMenuClick(parent.dashboardManager.Enums.SubMenuId.Redemption);
         }
