@@ -121,6 +121,6 @@
     <value>Invalid input!</value>
   </data>
   <data name="You_have_no_menu_permission" xml:space="preserve">
-    <value>You have no permission on any Menu</value>
+    <value>You don't have permission on this system.</value>
   </data>
 </root>
