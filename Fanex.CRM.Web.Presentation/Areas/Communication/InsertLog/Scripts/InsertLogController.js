@@ -17,6 +17,8 @@ function (
     $http,
     $insertLogService) {
     /* jshint maxstatements: 80 */
+    $scope.customerInfo = parent.homeManager.CachedData.currentCustomer;
+
     $scope.communicationLog = {
         RunningNumber: 0,
         FeedbackDate: new Date(currentTime),

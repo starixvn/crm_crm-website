@@ -8,8 +8,13 @@ insertLogApplication.directive('dropdownSite', function () {
         if (scope.siteList) {
             var dropdown = element.find("#site");
             dropdown.empty();
+            var siteId = scope.customerInfo.SiteSetting.Id;
             var optionHtml =
-                '<option value="' + crmConstants.Enums.Site.NotApply + '">' + viewResources.Select + '</option>';
+                '<option value="' + crmConstants.Enums.Site.NotApply + '"' +
+                    (siteId === crmConstants.Enums.Site.NotApply ? 'selected="selected"' : "") + 
+                 '>' +
+                    viewResources.Select + 
+                  '</option>';
 
             var siteGroupLength = scope.siteList.length;
             for (var i = 0; i < siteGroupLength; i++) {
@@ -19,7 +24,12 @@ insertLogApplication.directive('dropdownSite', function () {
                 var siteLength = siteGroup.ChildSites.length;
                 for (var j = 0; j < siteLength; j++) {
                     var site = siteGroup.ChildSites[j];
-                    optionHtml += '<option value="' + site.Id + '">' + site.Name + '</option>';
+                    optionHtml += 
+                    '<option value="' + site.Id + '"' +
+                        (siteId === site.Id ? 'selected="selected"' : "") +
+                     '>' +
+                        site.Name + 
+                    '</option>';
                 }
 
                 optionHtml += '</optgroup>';

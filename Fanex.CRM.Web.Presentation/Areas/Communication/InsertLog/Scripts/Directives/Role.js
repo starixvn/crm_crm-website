@@ -8,10 +8,15 @@ insertLogApplication.directive('dropdownRole', function () {
             dropdown.empty();
             /* jshint camelcase: false */
             var roleListLength = scope.roleList.length;
+            var roleId = scope.customerInfo.Role.Id;
             for (var i = 0; i < roleListLength; i++) {
                 var role = scope.roleList[i];
                 dropdown.append(
-                    '<option value="' + role.Id + '">' + role.Value + '</option>');
+                    '<option value="' + role.Id + '"' +
+                         (roleId === role.Id ? 'selected="selected"' : "") +
+                     '>' +
+                        role.Value +
+                     '</option>');
             }
 
             element.change(function () {
