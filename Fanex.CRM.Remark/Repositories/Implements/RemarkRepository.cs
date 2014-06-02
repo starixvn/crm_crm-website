@@ -12,10 +12,12 @@ namespace Fanex.CRM.Remark.Repositories.Implements
     using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
     using Fanex.CRM.Remark.Repositories.Interfaces;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
+    using Fanex.CRM.Infrastructure.Extension;
 
     /// <summary>
     /// Remark repository class.
@@ -65,12 +67,12 @@ namespace Fanex.CRM.Remark.Repositories.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The result object.</returns>
-        public Result UpdateRemarks(ICriteria criteria)
+        public Result UpdateRemarks(UpdateRemarkCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                var effectedRows = objectDB.ExecuteNonQuery();
+                criteria.Remarks = criteria.Remarks.Replace(new string[] { "\n", "\r", "\n\r", "\r\n" }, "&#13;");
+                var effectedRows = objectDB.ExecuteNonQuery(criteria.GetSpParams());
                 
                 var outputParams = objectDB.GetOuputParams();
                 return new Result

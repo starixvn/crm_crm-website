@@ -327,6 +327,7 @@
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
     <Content Include="Scripts\AjaxForm\ajax-form.js" />
+    <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
     <Content Include="Scripts\Chart\ChartJs\ChartJS.js" />

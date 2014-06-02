@@ -59,8 +59,10 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
                         bodyData.push({
                             Columns: row.concat([
                                 { Name: 'ColFieldName', Value: fieldNames[j] },
-                                { Name: 'ColOldValues', Value: (oldValues && oldValues.length) > 0 ? oldValues[j] : '', CssClass: 'word-wrap' },
-                                { Name: 'ColNewValues', Value: newValues[j], CssClass: 'word-wrap' }]),
+                                { Name: 'ColOldValues',
+                                  Value: (oldValues && oldValues.length) > 0 ? sharedScriptManager.replaceLineBreak(oldValues[j]) : '',
+                                  CssClass: 'word-wrap' },
+                                { Name: 'ColNewValues', Value: sharedScriptManager.replaceLineBreak(newValues[j]), CssClass: 'word-wrap'}]),
                             CssClass: evenClass
                         });
                     }

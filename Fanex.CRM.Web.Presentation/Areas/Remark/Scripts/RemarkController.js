@@ -113,7 +113,7 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', '$
     };
 
     $scope.setPlaceHolder = function () {
-        $('input[defaulttext]').each(function () {
+        $('textarea[defaulttext]').each(function () {
             var input = $(this);
             $(input).val(input.attr('defaulttext'));
         });

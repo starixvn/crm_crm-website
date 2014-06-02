@@ -199,6 +199,9 @@ var SharedScriptManager = function () {
     self.getStartDateOfYear = function (year) {
         return new Date(year, 0, 1);
     };
+    self.replaceLineBreak = function (text) {
+        return text ? text.replace(/\r/g, '<br />') : '';
+    };
 };
 
 sharedScriptManager = new SharedScriptManager();

@@ -107,6 +107,10 @@ activityLogApplication.controller('activityLogController', ['$scope', '$activity
         }
     };
 
+    $scope.replaceLineBreak = function (text) {
+        return text ? text.replace(/\r/g, '<br />') : '';
+    };
+
     angular.element(document).ready(function () {
         $scope.initController();
     });

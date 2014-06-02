@@ -366,6 +366,7 @@ namespace Fanex.CRM.Web.View.App_Start
         private static void RegisterBundles_Dashboard_ViewInfo(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Dashboard/ViewInfoScripts").Include(
+                "~/Scripts/AngularJS/sanitize.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Dashboard/ViewInfo/Scripts/DashboardApplication.js",
                 "~/Areas/Dashboard/ViewInfo/Scripts/DashboardService.js",

@@ -31,11 +31,14 @@
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11">
                             <span data-ng-bind="remarks.SpecialRemarks.length + 1 + '. '"></span>
-                            <input type="text" class="textbox-remark" defaulttext="@Labels.SpecialRemarkPlaceHolder"
+                            <textarea class="textarea-remark" rows="4"
+                                defaulttext="@Labels.SpecialRemarkPlaceHolder"
                                 data-ng-model="lastSpecialRemark"
                                 on-enter-keyup="insertSpecialRemark()" 
-                                custom-place-holder/>
+                                custom-place-holder>
+                            </textarea>
                         </div>
+                        <span class="icon-add" data-ng-click="insertSpecialRemark();"></span>
                     </li>
                 </ul>
             </div>
@@ -56,11 +59,14 @@
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11">
                             <span data-ng-bind="remarks.NormalRemarks.length + 1 + '. '"></span>
-                            <input type="text" class="textbox-remark" defaulttext="@Labels.RemarkPlaceHolder"
+                            <textarea class="textarea-remark" rows="4"
+                                defaulttext="@Labels.RemarkPlaceHolder"
                                 data-ng-model="lastRemark"
                                 on-enter-keyup="insertRemark()"
-                                custom-place-holder/>
+                                custom-place-holder>
+                            </textarea>
                         </div>
+                        <span class="icon-add" data-ng-click="insertRemark();"></span>
                     </li>
                 </ul>
             </div>

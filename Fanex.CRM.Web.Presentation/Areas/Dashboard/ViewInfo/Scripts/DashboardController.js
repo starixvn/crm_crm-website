@@ -341,6 +341,11 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 $scope.isSetFocus = true;
             });
         };
+
+        $scope.replaceLineBreak = function (text) {
+            return text ? text.replace(/\r/g, '<br />') : "";
+        };
+
         angular.element(document).ready(function () {
             $scope.initController();
             $scope.setFocus();

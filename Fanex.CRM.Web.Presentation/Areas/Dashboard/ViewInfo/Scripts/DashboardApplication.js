@@ -1,2 +1,2 @@
 ﻿/* exported dashboardApplication */
-var dashboardApplication = angular.module('dashboard-application', []);
+var dashboardApplication = angular.module('dashboard-application', ['ngSanitize']);

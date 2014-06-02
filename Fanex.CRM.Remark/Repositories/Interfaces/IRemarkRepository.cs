@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Remark.Repositories.Interfaces
 {
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
     using Fanex.NAP.Framework.Data;
 
@@ -20,6 +21,6 @@ namespace Fanex.CRM.Remark.Repositories.Interfaces
     {
         Remarks GetRemarks(ICriteria criteria);
 
-        Result UpdateRemarks(ICriteria criteria);
+        Result UpdateRemarks(UpdateRemarkCriteria criteria);
     }
 }

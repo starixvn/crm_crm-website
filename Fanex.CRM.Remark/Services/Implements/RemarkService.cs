@@ -106,7 +106,7 @@ namespace Fanex.CRM.Remark.Services.Implements
 
                 remarkBuilder.Append("</Remarks>");
 
-                ICriteria criteria = new UpdateRemarkCriteria
+                UpdateRemarkCriteria criteria = new UpdateRemarkCriteria
                 {
                     CustId = model.CustId,
                     Remarks = remarkBuilder.ToString()
