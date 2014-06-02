@@ -301,7 +301,8 @@ var HomeManager = function () {
         self.DOMElements.TextboxUsername.focus();
     };
     self.invokeHotKey_CtrlG = function () {
-        self.DOMElements.CheckboxIsGuest.attr("checked", "checked");
+        self.DOMElements.CheckboxIsGuest.attr("checked",
+            self.DOMElements.CheckboxIsGuest.attr("checked") ? "" : "checked");
     };
     self.invokeHotKey_CtrlD = function () {
         if (parent.dashboardManager) {
