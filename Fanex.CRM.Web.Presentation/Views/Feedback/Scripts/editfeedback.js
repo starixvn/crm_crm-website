@@ -366,11 +366,12 @@ function getFeedbackData() {
     feedbackEdit.Solution = $("#solediter").htmlarea("toHtmlString").trim();
 
     feedbackEdit.IsReviewed = IsUpdateReviewed;
+
     if (IsUpdateReviewed) {
         feedbackEdit.UpdateReviewMode = feedbackEdit.Review === Review ? 0 : 1;
     }
     else {
-        feedbackEdit.UpdateReviewMode = 2;
+        feedbackEdit.UpdateReviewMode = feedbackIsReview === IsUpdateReviewed ? 0 : 2;
     }
     
     feedbackEdit.Reviewer.Id = Reviewer;
@@ -458,11 +459,6 @@ function EditFeedback() {
     /* jshint maxstatements: 88 */
     $("#errmsg").empty();
     $("#lblverify").html('');
-
-    if (!allowUpdateReview) {
-        showAlertMessage("errmsg", errMsgNotPermissionUpdReviewedFB, 1);
-        return false;
-    }
 
     var isReviewChecked = $('#chkisreview').prop('checked');
     if (isReviewChecked && (trimSpace(trimSpacesOnEditor($("#revediter").htmlarea("toHtmlString"))) === '')) {
@@ -584,7 +580,7 @@ var updateFeedback = {
     subject: '',
     description: '',
     solution: '',
-    isUpdateReviewMode: 2,
+    isUpdateReviewMode: 0,
     reviewer: 0,
     review: '',
     skype: '',
@@ -687,6 +683,7 @@ var updateFeedback = {
 
         feedbackEdit.Reviewer.Id = updateFeedback.reviewer;
         feedbackEdit.Review = updateFeedback.review.trim();
+
         feedbackEdit.UpdateReviewMode = updateFeedback.isUpdateReviewMode;
 
         feedbackEdit.ResolutionTime = updateFeedback.resolutionTime;
