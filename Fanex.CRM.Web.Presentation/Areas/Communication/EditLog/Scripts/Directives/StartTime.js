@@ -4,13 +4,15 @@ crmConstants,
 currentTime: true,
 sharedScriptManager,
 moment */
+/* jshint camelcase: false */
 editLogApplication.directive('timePickerStartTimeContainer', function () {
     var isSettingDate = false;
     var oldValue = null;
     function renderDatePicker(scope, element, attrs) {
         /* jshint unused: vars */
         var datePicker = element.find(".timepicker");
-        /* jshint camelcase: false */
+
+        var currentDateTime = new Date(currentTime);
         datePicker.datetimepicker(
         {
             dateFormat: crmConstants.Enums.FormatConstant.MM_DD_YY_TimePicker,
@@ -19,7 +21,13 @@ editLogApplication.directive('timePickerStartTimeContainer', function () {
             stepMinute: 1,
             stepSecond: 1,
             showSecond: false,
-            ampm: true
+            ampm: true,
+            maxDateTime: new Date(currentDateTime.getFullYear(),
+                currentDateTime.getMonth(),
+                currentDateTime.getDate(),
+                23,
+                59,
+                59)
         });
 
         var initTime = scope.communicationLog.StartTime ?

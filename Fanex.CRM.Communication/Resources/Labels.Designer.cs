@@ -133,6 +133,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start time should be smaller than or equal current time..
+        /// </summary>
+        public static string Communication_Log_ExcessCurrentTime {
+            get {
+                return ResourceManager.GetString("Communication_Log_ExcessCurrentTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Type is mandatory!.
         /// </summary>
         public static string Communication_Log_NABetType {

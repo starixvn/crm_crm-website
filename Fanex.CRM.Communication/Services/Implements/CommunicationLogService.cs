@@ -116,6 +116,15 @@ namespace Fanex.CRM.Communication.Services.Implements
                     criteria.Review = string.Empty;
                 }
 
+                if (DateTime.Now < criteria.StartTime)
+                {
+                    return new Result
+                    {
+                        Code = ErrorCodeConstants.ServerError,
+                        Message = Labels.Communication_Log_ExcessCurrentTime
+                    };
+                }
+
                 updateResult = _communicationRepositoryLog.UpdateLog(criteria);
 
                 if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
@@ -143,6 +152,15 @@ namespace Fanex.CRM.Communication.Services.Implements
             {
                 criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
                 criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
+                if (DateTime.Now < criteria.StartTime)
+                {
+                    return new Result
+                    {
+                        Code = ErrorCodeConstants.ServerError,
+                        Message = Labels.Communication_Log_ExcessCurrentTime
+                    };
+                }
+
                 insertResult = _communicationRepositoryLog.InsertLog(criteria);
                 if (insertResult != null && insertResult.Code == ErrorCodeConstants.NoneError)
                 {
