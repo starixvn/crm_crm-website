@@ -214,6 +214,10 @@ var HotKeyManager = function () {
         if (self.CachedData.KeyPress[keyCodeEnums.Ctrl]) {
             return self.handle2KeyHotKey_CtrlBinding();
         }
+
+        if (self.CachedData.KeyPress[keyCodeEnums.Alt]) {
+            return self.handle2KeyHotKey_AltBinding();
+        }
     };
     self.handle2KeyHotKey_CtrlBinding = function () {
         var keyCodeEnums = keyboardManager.Enums.KeyCode;
@@ -296,6 +300,13 @@ var HotKeyManager = function () {
         }
 
         return false;
+    };
+    self.handle2KeyHotKey_AltBinding = function () {
+        var keyCodeEnums = keyboardManager.Enums.KeyCode;
+        if (self.CachedData.KeyPress[keyCodeEnums.Enter]) {
+            self.invokeHotKey_AltEnter();
+            return true;
+        }
     };
 
     self.invokeHotKey_CtrlU = function () {
@@ -482,6 +493,18 @@ var HotKeyManager = function () {
                 activeDocumentManager.invokeHotKey_CtrlT();
             }
         }
+    };
+    self.invokeHotKey_AltEnter = function () {
+        var activeDocumentLength = self.CachedData.ActiveDocumentManager.length;
+        for (var i = 0; i < activeDocumentLength; i++) {
+            var activeDocumentManager = self.CachedData.ActiveDocumentManager[i].Value;
+            if (typeof (activeDocumentManager.invokeHotKey_AltEnter) === "function") {
+                self.CachedData.isInvokeHotKey = true;
+                activeDocumentManager.invokeHotKey_AltEnter();
+            }
+        }
+        
+        return self.CachedData.isInvokeHotKey;
     };
     self.copyArray = function (array) {
         try {
