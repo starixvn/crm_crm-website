@@ -418,7 +418,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>Home</value>
   </data>
   <data name="TimeZoneGMT" xml:space="preserve">
-    <value>GMT-4</value>
+    <value>GMT+8</value>
   </data>
   <data name="RunningNumber" xml:space="preserve">
     <value>Running Number</value>
