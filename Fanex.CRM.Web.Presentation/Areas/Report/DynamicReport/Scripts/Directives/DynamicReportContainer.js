@@ -14,8 +14,8 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
 
     function getGridHeight() {
         return selfScope.isShowFilter ?
-            230 + crmConstants.MarginBottomPage :
-            50 + crmConstants.MarginBottomPage;
+            245 + crmConstants.MarginBottomPage :
+            65 + crmConstants.MarginBottomPage;
     }
 
     function getGripOtions(dynamicReport) {
