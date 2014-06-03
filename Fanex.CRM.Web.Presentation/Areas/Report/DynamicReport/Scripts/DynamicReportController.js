@@ -310,12 +310,23 @@ function (
     };
     $scope.updateFromDatePicker = function (isOnApply) {
         $scope.fromDateOptions.IsRerenderPicker = true;
+        $scope.$apply();
+        if (!isOnApply) {
+            $scope.$apply();
+        }
+
+        $scope.fromDateOptions.IsRerenderPicker = false;
         if (!isOnApply) {
             $scope.$apply();
         }
     };
     $scope.updateToDatePicker = function (isOnApply) {
         $scope.toDateOptions.IsRerenderPicker = true;
+        if (!isOnApply) {
+            $scope.$apply();
+        }
+
+        $scope.toDateOptions.IsRerenderPicker = false;
         if (!isOnApply) {
             $scope.$apply();
         }
