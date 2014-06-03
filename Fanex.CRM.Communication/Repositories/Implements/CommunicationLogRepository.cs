@@ -253,7 +253,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
                 CustomerName = reader.GetStringNotNull("UserName"),
 
                 Reviewer = reader.GetStringNotNull("reviewer"),
-                ReviewedTimeString = reader.GetDateTimeNotNull("SolveDate").ToLongFormatedDateTime()
+                ReviewedTimeString = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("SolveDate")).ToLongFormatedDateTime()
             };
 
             return logInfo;
