@@ -45,6 +45,7 @@ var HomeManager = function () {
         isChangingDataPopUp: false,
         ignoreConfirmMessagePopUp: '',
 
+        isInvokeHotKey_CtrlG: false,
         shareInfoBetweenPopup: {
             ActionResult: null,
             ShouldReloadView: false,
@@ -301,8 +302,15 @@ var HomeManager = function () {
         self.DOMElements.TextboxUsername.focus();
     };
     self.invokeHotKey_CtrlG = function () {
-        self.DOMElements.CheckboxIsGuest.attr("checked",
-            self.DOMElements.CheckboxIsGuest.attr("checked") ? "" : "checked");
+        self.CachedData.isInvokeHotKey_CtrlG = true;
+        setTimeout(function () {
+            if (self.CachedData.isInvokeHotKey_CtrlG) {
+                var isCheck = self.DOMElements.CheckboxIsGuest.attr("checked") ? "" : "checked";
+                self.DOMElements.CheckboxIsGuest.attr("checked", isCheck);
+            }
+
+            self.CachedData.isInvokeHotKey_CtrlG = false;
+        }, 200);
     };
     self.invokeHotKey_CtrlD = function () {
         if (parent.dashboardManager) {
