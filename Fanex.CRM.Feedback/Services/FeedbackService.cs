@@ -1,0 +1,195 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="FeedbackService.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Kan.Nguyen" date="2014.06.03">Created</change>
+// </history>
+// --------------------------------------------------------------------------
+
+namespace Fanex.CRM.Feedback.Services
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Fanex.CRM.Feedback.Criteria;
+    using Fanex.CRM.Feedback.Models;
+    using Fanex.CRM.Feedback.Repositories;
+    using Fanex.CRM.Feedback.Resources;
+    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Setting.Criteria;
+    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
+
+    /// <summary>
+    /// Feedback Service.
+    /// </summary>
+    public class FeedbackService : IFeedbackService
+    {
+        private readonly IFeedbackRepository _feedbackRepository;
+        private readonly ISettingService _serviceSetting;
+
+        public FeedbackService()
+            : this(null, null)
+        {
+        }
+
+        public FeedbackService(IFeedbackRepository feedbackRepository, ISettingService serviceSetting)
+        {
+            _feedbackRepository = feedbackRepository ?? new FeedbackRepository();
+            _serviceSetting = serviceSetting ?? new SettingService();
+        }
+
+        /// <summary>
+        /// Gets all setting.
+        /// </summary>
+        /// <returns>The all setting object.</returns>
+        public dynamic GetAllSetting()
+        {
+            return new
+            {
+                CustomerType = GetCustomerType(),
+                Review = GetReview(),
+                CustomerResponse = GetCustomerResponse(),
+                MainCategory = GetMainCategory(),
+                Communication = GetCommunication(),
+                Status = GetStatus()
+            };
+        }
+
+        /// <summary>
+        /// Gets the manager feedback.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list of ManagerFeedback object.</returns>
+        public IList<ManageFeedback> GetManageFeedback(ManageFeedbackCriteria criteria)
+        {
+            IList<ManageFeedback> feebacks = null;
+            try
+            {
+                feebacks = _feedbackRepository.GetManagerFeedback(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return feebacks;
+        }
+
+        #region Setting helper methods
+
+        private IList<SettingInfo> GetCustomerType()
+        {
+            return new List<SettingInfo>
+            {
+                new SettingInfo { Id = -1, Name = Labels.All },
+                new SettingInfo { Id = 0, Name = Labels.Customer },
+                new SettingInfo { Id = 1, Name = Labels.Guest }
+            };
+        }
+
+        private IList<SettingInfo> GetReview()
+        {
+            return new List<SettingInfo>
+            {
+                new SettingInfo { Id = 0, Name = Labels.All },
+                new SettingInfo { Id = -1, Name = Labels.NotReviewed },
+                new SettingInfo { Id = 1, Name = Labels.Reviewed }
+            };
+        }
+
+        /// <summary>
+        /// Gets the customer response.
+        /// </summary>
+        /// <returns>The list of SettingInfo object.</returns>
+        private IList<SettingInfo> GetCustomerResponse()
+        {
+            var response = _serviceSetting.GetAllResponse();
+            response.Insert(
+                0,
+                new SettingInfo 
+                {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.All
+                });
+
+            return response;
+        }
+
+        /// <summary>
+        /// Gets the main category.
+        /// </summary>
+        /// <returns>The list of SettingInfo object.</returns>
+        private IList<SettingInfo> GetMainCategory()
+        {
+            var allSubSettingOption = new SettingInfo
+            {
+                Id = SettingConstants.NotApply,
+                Name = Labels.All,
+            };
+
+            var mainCategory = new List<SettingInfo>() 
+            {
+                new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Name = Labels.All,
+                    ChildSettings = new List<SettingInfo>
+                    {
+                        allSubSettingOption
+                    }
+                }
+            };
+
+            var rawData = _serviceSetting.GetAllMainCategory();
+            foreach (var rawMainCategory in rawData)
+            {
+                rawMainCategory.ChildSettings.Insert(0, allSubSettingOption);
+                mainCategory.Add(rawMainCategory);
+            }
+
+            return mainCategory;
+        }
+
+        /// <summary>
+        /// Gets the communication.
+        /// </summary>
+        /// <returns>The list of SettingInfo object.</returns>
+        private IList<SettingInfo> GetCommunication()
+        {
+            var communication = _serviceSetting.GetAllCommunicationTool()
+                .Where(r => r.Id != CommunicationToolConstants.NotApply)
+                .ToList();
+            communication.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
+
+            return communication;
+        }
+
+        /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <returns>The list of SettingInfo object.</returns>
+        private IList<SettingInfo> GetStatus()
+        {
+            var status = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
+            {
+                ViewType = ViewTypeConstants.CommunicationTool
+            })
+                .Where(r =>
+                    string.Equals(r.Name, "Checked", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(r.Name, "Solved", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(r.Name, "Closed", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(r.Name, "Pending", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            status.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
+            return status;
+        }
+
+        #endregion
+    }
+}

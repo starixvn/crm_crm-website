@@ -1,0 +1,142 @@
+﻿@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Extension;
+@model Fanex.CRM.Feedback.ViewModels.ManageFeedbackViewModel
+@{ 
+    bool disableUsernameTextbox = !string.IsNullOrWhiteSpace(Model.CustName);
+    int isGuest = Model.IsGuest.HasValue ? Model.IsGuest.Value : -1;
+}
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedback-manage-application">
+<head>
+    <title>@Resources.Language.Title_ManageFeedback</title>
+    @Styles.Render("~/site/common",
+        "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackStyles")
+</head>
+<body>
+    <div class="main container" data-ng-controller="manageFeedbackController">
+        <div class="row filter-frm one-row manage-feedback-filter">
+            <form novalidate data-ng-submit="searchManageFeedback();">
+            <div class="row row-item">
+                <div class="item">
+                    <label for="runningnumber" class="width-95">
+                        @Labels.RunningNumer</label>
+                    <div style="float:left;" number-only-input 
+                        input-Id="runningnumber"
+                        input-class="textbox runningNumber"
+                        input-value="searchCriteria.FeedbackId">
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="txtfromdate" class="width-80">
+                        @Labels.FromDate</label>
+                    <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                        <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="txttodate" class="lblToDate">
+                        @Labels.ToDate</label>
+                    <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                        <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item">
+                    <label for="txtusername" class="width-95">
+                        @Labels.Username</label>
+                    <input type="text" id="txtusername" class="textbox txtUsername"
+                        value="@Model.CustName" @(disableUsernameTextbox ? "disabled" : "") />
+                    &nbsp;
+                    <select id="ddlguest" @(disableUsernameTextbox ? "disabled" : "")
+                        data-ng-model="searchCriteria.IsGuest" data-ng-options="c.Name for c in customerTypes">
+                    </select>
+                </div>
+                <div class="item">
+                    <label for="ddlIsReviewed" class="width-80">
+                        @Labels.IsReviewed</label>
+                    <select id="ddlIsReviewed" class="selReviewed"
+                        data-ng-model="searchCriteria.IsReviewed" data-ng-options="r.Name for r in reviews">
+                    </select>
+                </div>
+                <div class="item">
+                    <label for="ddlCustomerReponse" class="lblReponse">
+                        @Labels.CustomerResponse</label>
+                    <select id="ddlCustomerReponse" class="selResponse"
+                        data-ng-model="searchCriteria.Response" data-ng-options="r.Value for r in responses">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
+                    <label for="main-category" class="width-95">
+                        @Labels.MainCategory</label>
+                    <select id="main-category" class="selMainCategory">
+                    </select>
+                </div>
+                <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
+                    <label for="sub-category" class="width-80">
+                        @Labels.SubCategory</label>
+                    <select id="sub-category" class="selSubCategory">
+                    </select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item">
+                    <label for="ddlcommunication" class="width-95">
+                        @Labels.Communication</label>
+                    <select id="ddlcommunication" class="selCommunication"
+                        data-ng-model="searchCriteria.Communication" data-ng-options="c.Name for c in communications">
+                    </select>
+                </div>
+                <div class="item">
+                    <label for="ddlstatus" class="txtStatus">
+                        @Labels.Status</label>
+                    <select id="ddlstatus" class="selStatus"
+                        data-ng-model="searchCriteria.Status" data-ng-options="s.Name for s in statusList">
+                    </select>
+                </div>
+                <div class="item">
+                    <button class="btn">@Labels.Submit</button>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="row">
+            <div table-manage-feedback-container data-ng-model="report">
+                <div id="table-manage-feedback" class="freegrid display-none"></div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts",
+        "~/Scripts/AngularJSLibrary",
+        "~/Scripts/FanexGridScripts",
+        "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackScripts")
+    <script language="javascript" type="text/javascript">
+        parent.document.title = document.title;
+        window.rootUrl = '@Url.Content("~")';
+        
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var currentTime = new Date(currentDate);
+        var yesterday = new Date(currentDate);
+        yesterday.setDate(yesterday.getDate() - 1);
+
+        var username = '@Model.CustName';
+        var isGuest = @isGuest;
+        
+        var manageFeedbackResources = {
+            All: '@Labels.All',
+            Guest: '@Labels.Guest',
+            Reviewed: '@Labels.Reviewed',
+            NotReviewed: '@Labels.NotReviewed',
+            Feedback: '@Labels.Feedback',
+            Customer: '@Labels.Customer',
+            Category: '@Labels.Category',
+            Status: '@Labels.Status',
+            RelatedCustomer: '@Labels.RelatedCustomer',
+            UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle'
+        };
+    </script>
+</body>
+</html>
+

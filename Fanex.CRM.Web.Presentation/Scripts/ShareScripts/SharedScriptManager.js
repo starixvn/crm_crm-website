@@ -15,8 +15,11 @@ var SharedScriptManager = function () {
         monthPagingOptions: [3, 6, 9, 12],
         monthPagingDefaultItemsPerPage: 12,
         smallPagingOptions: [1, 5, 7, 10],
-        smallPagingDefaultItemsPerPage: 10
-    },
+        smallPagingDefaultItemsPerPage: 10,
+
+        largePagingOptions: [100, 200, 300, 400, 500],
+        largeDefaultItemsPerPage: 100
+    };
 
     self.CallAjax = function (currentHandler,
         url,

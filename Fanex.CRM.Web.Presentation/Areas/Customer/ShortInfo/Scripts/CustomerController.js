@@ -132,7 +132,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
 
         };
         $scope.manageFeedback = function () {
-            var url = '../Feedback/ManageFeedback?' + $.param({
+            var url = '../Feedbacks/ManageFeedback?' + $.param({
                 custid: $scope.customer.Id,
                 custName: $scope.customer.Name,
                 isGuest: $(customerManager.DOMElements.checkboxIsGuest).prop('checked') ? 1 : 0

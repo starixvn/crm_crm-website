@@ -245,6 +245,12 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagController.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackController.js" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackService.js" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DefaultFocus.js" />
@@ -294,6 +300,9 @@
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportController.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportService.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Index.cshtml" />
+    <Content Include="Areas\Feedbacks\Web.config" />
+    <Content Include="Areas\Feedbacks\ManageFeedback\Styles\StyleSheet.less" />
     <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
@@ -898,6 +907,10 @@
     <ProjectReference Include="..\Fanex.CRM.Dashboard\Fanex.CRM.Dashboard.csproj">
       <Project>{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}</Project>
       <Name>Fanex.CRM.Dashboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Feedback\Fanex.CRM.Feedback.csproj">
+      <Project>{E059D093-3D6B-46C9-9FFD-FD48457AC639}</Project>
+      <Name>Fanex.CRM.Feedback</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Redemption\Fanex.CRM.Redemption.csproj">
       <Project>{361FC5FA-9D45-460C-A3BF-076C5E9DBB93}</Project>

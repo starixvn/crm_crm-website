@@ -144,7 +144,7 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', '$
         }
 
         for (var i = 0; i < specialLength; i++) {
-            if ($scope.remarks.SpecialRemarks[i] !== $scope.oldRemarks.SpecialRemarks[i]) {
+            if ($scope.replaceLineBreak($scope.remarks.SpecialRemarks[i]) !== $scope.replaceLineBreak($scope.oldRemarks.SpecialRemarks[i])) {
                 return true;
             }
         }
@@ -155,7 +155,7 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', '$
         }
 
         for (var j = 0; j < normalLength; j++) {
-            if ($scope.remarks.NormalRemarks[j] !== $scope.oldRemarks.NormalRemarks[j]) {
+            if ($scope.replaceLineBreak($scope.remarks.NormalRemarks[j]) !== $scope.replaceLineBreak($scope.oldRemarks.NormalRemarks[j])) {
                 return true;
             }
         }
@@ -183,6 +183,10 @@ remarkApplication.controller('remarkController', ['$scope', '$remarkService', '$
         $scope.$apply(function () {
             $scope.isSetFocus = true;
         });
+    };
+
+    $scope.replaceLineBreak = function (text) {
+        return text ? text.replace(/\r/g, ' ').replace(/\n/g, ' ') : '';
     };
 
     angular.element(document).ready(function () {

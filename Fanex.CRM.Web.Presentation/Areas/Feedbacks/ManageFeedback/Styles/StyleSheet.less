@@ -1,0 +1,195 @@
+﻿@import "../../../../Content/site/variables.less";
+@import "../../../../Content/site/mixins.less";
+
+.lnksubject {
+    background:url(images/icn_edit.png) no-repeat 5px 2px;
+    padding-bottom: 2px;
+    .desTooltip {
+        cursor: pointer;
+        float: inherit;
+        padding-left: 25px;
+    }
+}
+
+.description {
+    margin-left: 28px;
+}
+
+.pending td {
+    background-color: #FBEC88;
+}
+
+.closed td {
+    background-color: #ccc7ba;
+}
+
+/* Filter */
+.filter-frm {
+    select {
+        width: 90px;
+    }
+
+    .lblUsername {
+        margin-right: 39px;
+    }
+
+    .lblStatus {
+        margin-right: 57px;
+    }
+
+    .width-80 {
+        width: 85px;
+        float: left;
+    }
+
+    .width-95 {
+        width: 95px;
+        float: left;
+    }
+
+    .width-110 {
+        width: 110px;
+    }
+
+    .runningNumber {
+        width: 278px;
+    }
+
+    .txtUsername {
+        width: 176px;
+    }
+
+    .selStatus {
+        width: 109px;
+    }
+
+    .selMainCategory {
+        width: 278px;
+    }
+
+    .selSubCategory {
+        width: 373px;
+    }
+
+    .selCommunication {
+        width: 100px;
+    }
+
+    .selReviewed, .selResponse {
+        width: 115px;
+    }
+
+    &.manage-feedback-filter {
+        .txtStatus {
+            width: 39px;
+            float: left;
+        }
+
+        .lblReponse {
+            width: 113px;
+            float: left;
+        }
+
+        .lblToDate {
+            width: 113px;
+            float: left;
+        }
+
+        .txtcalendar {
+            width: 115px;
+            background-position: 94px 3px;
+        }
+    }
+
+    &.deleteFeedback {
+        .txtUsername {
+            width: 224px;
+        }
+
+        .lblToDate {
+            width: 48px;
+            float: left;
+        }
+
+        .width-70 {
+            width: 70px;
+            float: left;
+        }
+
+        .selGuest {
+            width: 106px;
+        }
+
+        .selMainCategory {
+            width: 342px;
+        }
+
+        .selSubCategory {
+            min-width: 288px;
+            width: auto;
+        }
+
+        .lblReponse {
+            width: 113px;
+            float: left;
+        }
+
+        .selCommunication {
+            width: 93px;
+        }
+
+        .selReviewed, .selResponse {
+            width: 107px;
+            float: left;
+        }
+    }
+}
+
+.hand {
+    cursor: pointer;
+}
+
+/* Formatting for palette in html */
+div.jHtmlAreaColorPickerMenu {
+    width: 114px;
+    z-index: 500 !important;
+
+    *, *:before, *:after {
+        .box-sizing(content-box);
+    }
+}
+
+.labelforcheckbox {
+    cursor: pointer;
+}
+
+.related-customer {
+    width: 96%;
+}
+
+.container .fanex-multiselect-state-default {
+    border-color: #B1B1B1;
+    border-radius: 0;
+    position: relative;
+    width: 100% !important;
+}
+
+.container .fanex-multiselect-widget input[type="text"], .container .fanex-multiselect-treeview .fanex-multiselect-check-all {
+    color: #666666;
+}
+
+.preview {
+    padding: 3px 9px;
+}
+
+.main-category {
+    font-weight: bold;
+}
+
+.sub-category {
+    font-style: italic;
+}
+
+.freegrid .grid-pager #pagination div.itemperpage {
+    margin-top: 3px;
+}
