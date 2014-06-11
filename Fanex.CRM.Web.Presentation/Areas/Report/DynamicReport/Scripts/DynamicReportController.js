@@ -81,6 +81,7 @@ function (
     $scope.initController = function () {
         $scope.getNumberOfFeedbackSubjectTemplate();
         $scope.getAllSetting();
+
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: "Report_DynamicReport"
@@ -237,7 +238,8 @@ function (
             InitDate: initFromDate,
             MaxDate: currentDate,
             IsRerenderPicker: false,
-            OnChangeDateEvent: $scope.updateFromDate
+            OnChangeDateEvent: $scope.updateFromDate,
+            CompleteRender: $scope.CompleteRenderFromDate
         };
 
         $scope.toDateOptions = {
@@ -245,7 +247,8 @@ function (
             InitDate: currentDate,
             MaxDate: currentDate,
             IsRerenderPicker: false,
-            OnChangeDateEvent: $scope.updateToDate
+            OnChangeDateEvent: $scope.updateToDate,
+            CompleteRender: $scope.CompleteRenderToDate
         };
 
         $scope.updateFromDatePicker();
@@ -308,38 +311,34 @@ function (
             $scope.unblockUI();
         }
     };
-    $scope.updateFromDatePicker = function (isOnApply) {
+    $scope.updateFromDatePicker = function () {
         $scope.fromDateOptions.IsRerenderPicker = true;
-        $scope.$apply();
-        if (!isOnApply) {
-            $scope.$apply();
-        }
-
-        $scope.fromDateOptions.IsRerenderPicker = false;
-        if (!isOnApply) {
+        if (!$scope.$$phase) {
             $scope.$apply();
         }
     };
-    $scope.updateToDatePicker = function (isOnApply) {
+    $scope.updateToDatePicker = function () {
         $scope.toDateOptions.IsRerenderPicker = true;
-        if (!isOnApply) {
-            $scope.$apply();
-        }
-
-        $scope.toDateOptions.IsRerenderPicker = false;
-        if (!isOnApply) {
+        if (!$scope.$$phase) {
             $scope.$apply();
         }
     };
+    $scope.CompleteRenderFromDate = function () {
+        $scope.fromDateOptions.IsRerenderPicker = false;
+    };
+    $scope.CompleteRenderToDate = function () {
+        $scope.toDateOptions.IsRerenderPicker = false;
+    };
+
     $scope.updateFromDate = function (selectedDate) {
         $scope.searchCriteria.FromDate = selectedDate;
         $scope.toDateOptions.MinDate = selectedDate;
-        $scope.updateToDatePicker(true);
+        $scope.updateToDatePicker();
     };
     $scope.updateToDate = function (selectedDate) {
         $scope.searchCriteria.ToDate = selectedDate;
         $scope.fromDateOptions.MaxDate = selectedDate;
-        $scope.updateFromDatePicker(true);
+        $scope.updateFromDatePicker();
     };
     $scope.updateReportType = function (reportType) {
         $scope.searchCriteria.ReportType = reportType;

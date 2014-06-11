@@ -147,8 +147,13 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
                     setLimitDate(scope, oldValue, options, txtCalendar);
                 }
 
-                options.IsRerenderPicker = false;
                 updateInitValue(scope, element, attrs);
+                if (options.CompleteRender &&
+                    typeof (options.CompleteRender) === "function") {
+                    options.CompleteRender();
+                } else {
+                    options.IsRerenderPicker = false;
+                }
             }
         }
 
