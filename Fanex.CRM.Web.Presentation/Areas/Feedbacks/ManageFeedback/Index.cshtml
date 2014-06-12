@@ -46,7 +46,7 @@
                     <label for="txtusername" class="width-95">
                         @Labels.Username</label>
                     <input type="text" id="txtusername" class="textbox txtUsername"
-                        value="@Model.CustName" @(disableUsernameTextbox ? "disabled" : "") />
+                        data-ng-model="searchCriteria.Username" @(disableUsernameTextbox ? "disabled" : "") />
                     &nbsp;
                     <select id="ddlguest" @(disableUsernameTextbox ? "disabled" : "")
                         data-ng-model="searchCriteria.IsGuest" data-ng-options="c.Name for c in customerTypes">

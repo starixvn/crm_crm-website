@@ -61,11 +61,11 @@ manageFBApplication.directive('tableManageFeedbackContainer', function () {
                 { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
                 { Name: 'ColCustomer', Value: fb.Username },
                 { Name: 'ColCategory', Value: renderCategoryColumn(fb.MainCategory, fb.SubCategory) },
-                { Name: 'ColStatus', Value: fb.Status },
+                { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
                 { Name: 'ColRelatedCustomer', Value: fb.IsRelated ? fb.Username : fb.RelatedCustomer }
             ];
 
-            status = fb.Status.toLowerCase();
+            status = fb.Status ? fb.Status.toLowerCase() : '';
             cssClass = (status !== 'pending' && status !== 'closed') ? '' : status;
             bodyData.push({ Columns: currentRow, CssClass: cssClass });
         }
