@@ -59,7 +59,7 @@ manageFBApplication.directive('tableManageFeedbackContainer', function () {
 
             currentRow = [
                 { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
-                { Name: 'ColCustomer', Value: fb.Username },
+                { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' },
                 { Name: 'ColCategory', Value: renderCategoryColumn(fb.MainCategory, fb.SubCategory) },
                 { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
                 { Name: 'ColRelatedCustomer', Value: fb.IsRelated ? fb.Username : fb.RelatedCustomer }
