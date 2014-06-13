@@ -35,8 +35,8 @@ namespace Fanex.CRM.Feedback.Repositories
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
                 var inputParams = new Hashtable();
-                inputParams.Add("fromdate", DateTimeUtilize.ChangeTimeToServerForReportBegin(criteria.FromDate));
-                inputParams.Add("todate", DateTimeUtilize.ChangeTimeToServerForReportEnd(criteria.ToDate));
+                inputParams.Add("fromdate", DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate));
+                inputParams.Add("todate", DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate));
                 if (criteria.FeedbackId.HasValue && criteria.FeedbackId.Value > 0)
                 {
                      inputParams.Add("feedbackid", criteria.FeedbackId.Value);
