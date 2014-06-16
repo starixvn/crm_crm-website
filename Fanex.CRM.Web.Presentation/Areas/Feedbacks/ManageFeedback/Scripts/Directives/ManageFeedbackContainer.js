@@ -29,7 +29,8 @@ manageFBApplication.directive('tableManageFeedbackContainer', function () {
             showTitle: false,
             bodyRows: bodyData,
             showFooter: false,
-            numberOfFrozenColumn: 1,
+            numberOfFrozenColumn: 0,
+            autoFixFrozenRowHeight: true,
             fullWidth: true,
             fullHeight: true,
             gridExpandHeight: 190,
@@ -101,7 +102,7 @@ manageFBApplication.directive('tableManageFeedbackContainer', function () {
     }
 
     function renderFeedbackColumn(feedback) {
-        var html = '<div> \
+        var html = '<div style="margin:2px 0 0 2px;"> \
             <div class="lnksubject">\
                 <a class="desTooltip" href="javascript:;" data-id="' + feedback.FeedbackId + '">\
                     <span class="b">' + feedback.Subject + '</span>\
