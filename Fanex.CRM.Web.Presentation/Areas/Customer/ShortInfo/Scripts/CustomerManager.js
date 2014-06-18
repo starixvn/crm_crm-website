@@ -179,7 +179,6 @@ var CustomerManager = function () {
         });
     };
     self.showConfirmSearchByGuestDialog = function () {
-        console.log("123");
         self.DOMElements.autocompleteBox.css("display", "none");
 
         self.DOMElements.divResultPopUp.html(self.CacheData.ViewResources.CustomerInfo_ConfirmSearchByGuest);

@@ -180,7 +180,7 @@ function (
         };
 
         $scope.communicationLog.SiteInfo = {
-            Id: crmConstants.Enums.Site.NotApply
+            Id: $scope.customerInfo.SiteSetting.Id
         };
 
         $scope.communicationLog.LanguageId = crmConstants.Enums.Language.NotApply;
@@ -188,7 +188,10 @@ function (
         $scope.communicationLog.MainCategory = $scope.mainCategoryList[0];
         $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
         $scope.communicationLog.Status = $scope.statusList[0];
-        $scope.communicationLog.RoleInfo = $scope.roleList[0];
+        $scope.communicationLog.RoleInfo = {
+            Id: $scope.customerInfo.Role.Id
+        };
+
         $scope.communicationLog.Response = $scope.responseList[0];
 
         $scope.updateRemarkPrefix();
