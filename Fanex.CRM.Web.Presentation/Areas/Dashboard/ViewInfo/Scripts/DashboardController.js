@@ -343,7 +343,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
         };
 
         $scope.replaceLineBreak = function (text) {
-            return text ? text.replace(/\r/g, '<br />') : "";
+            return text ? text.replace(/\r/g, '<br />').replace(/\n/g, '<br />') : "";
         };
 
         angular.element(document).ready(function () {

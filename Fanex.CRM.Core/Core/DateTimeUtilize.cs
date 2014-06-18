@@ -88,33 +88,31 @@ namespace Fanex.CRM.Infrastructure.Core
         }
         #endregion
 
-        #region Convert Time for report client <->server
+        #region Convert Time for report client <-> server
 
         public static string ChangeTimeToServerForReportBegin(DateTime time)
         {
-            DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return time.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy 00:00:00");
+            // Get begin time.
+            DateTime beginTime = new DateTime(time.Year, time.Month, time.Day, 0, 0, 0);
+            return FormatTimeForReport(beginTime);
         }
 
         public static string ChangeTimeToServerForReportBegin(string time)
         {
             var server = CastAide.AsDateTime(time);
-            /*DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return server.Subtract(timeSpan._timeSpan).ToString("MM/dd/yyyy hh:mm");*/
             return ChangeTimeToServerForReportBegin(server);
         }
 
         public static string ChangeTimeToServerForReportEnd(DateTime time)
         {
-            DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return time.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy 23:59:59");
+            // Get end time.
+            DateTime endTime = new DateTime(time.Year, time.Month, time.Day, 23, 59, 59);
+            return FormatTimeForReport(endTime);
         }
 
         public static string ChangeTimeToServerForReportEnd(string time)
         {
             var server = CastAide.AsDateTime(time);
-            /*DateTimeUtilize timeSpan = new DateTimeUtilize();
-            return server.Subtract(timeSpan._timeSpan).AddDays(1).AddSeconds(-1).ToString("MM/dd/yyyy hh:mm");*/
             return ChangeTimeToServerForReportEnd(server);
         }
 
@@ -159,5 +157,15 @@ namespace Fanex.CRM.Infrastructure.Core
         {
             return DateTimeUtilize.ChangeTimeZoneToServerDateTime(clientToTime.GetEndOfDate());
         }
+
+        #region Convert Time for report client <-> server (cont...)
+
+        private static string FormatTimeForReport(DateTime time)
+        {
+            TimeSpan timeSpan = new DateTimeUtilize()._timeSpan;
+            return time.Subtract(timeSpan).ToString("MM/dd/yyyy HH:mm:ss");
+        }
+
+        #endregion
     }
 }
