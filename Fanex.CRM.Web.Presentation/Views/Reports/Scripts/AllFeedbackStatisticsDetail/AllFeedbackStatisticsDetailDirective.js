@@ -68,7 +68,8 @@ allFeedbackStatisticsDetailApplication.directive('tableFeedbacksContainer', func
                         {
                             Name: "ColCustomer",
                             /* jshint camelcase: false */
-                            Value: info.Username
+                            Value: info.Username,
+                            CssClass: 'word-wrap'
                         },
                         {
                             Name: "ColMainCategory",
