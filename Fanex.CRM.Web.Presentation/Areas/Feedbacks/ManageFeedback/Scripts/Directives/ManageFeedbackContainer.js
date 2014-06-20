@@ -29,7 +29,7 @@ manageFBApplication.directive('tableManageFeedbackContainer', function () {
             showTitle: false,
             bodyRows: bodyData,
             showFooter: false,
-            numberOfFrozenColumn: 0,
+            numberOfFrozenColumn: 1,
             autoFixFrozenRowHeight: true,
             fullWidth: true,
             fullHeight: true,

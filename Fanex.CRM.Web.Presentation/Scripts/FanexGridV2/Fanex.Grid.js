@@ -10,17 +10,18 @@
 //          + 02/27/2014: Update show "..." when auto truncate.
 //          + 03/19/2014: Support Time Zone Config
 //          + 04/08/2014: Support auto resize to full-screen width
-//          + 04/11/2014: Remove class "Container" 
+//          + 04/11/2014: Remove class "Container"
 //          + 04/16/2014: Auto fix header height, fix bug collapse/expand
+//          + 06/20/2014: Fix bug auto fix row height.
 // </copyright>
 // --------------------------------------------------------------------------
 /*jshint maxdepth:false, maxstatements:false*/
-/*global fanexGridCurrentLanguage:true,fanexGridLanguage, moment,numeral*/
+/*global fanexGridLanguage, moment,numeral*/
 
+var fanexGridCurrentLanguage = fanexGridCurrentLanguage || {};
 
 (function ($) {
     'use strict';
-
 
     //// Method expose for user use
     var methods =
@@ -753,7 +754,9 @@
             var parentRowClass = '';
             var currentMergeColsIndex = 0;
             var trHighlightAtt = (options.showHighlightRow ? (' highlightatt="highlight-att-frozen-' + parentHighlight + '-' + rowIndex + '"') : '');
+            var trAutoFixRowAtt = (options.autoFixFrozenRowHeight ? (' autofixatt="autofix-att-frozen-' + parentHighlight + '-' + rowIndex + '"') : '');
             var trClass = (options.showHighlightRow ? 'highlight-row ' : '') +
+                            (options.autoFixFrozenRowHeight ? 'auto-fix-row ' : '') +
                             (treeCollapseExpandClass || '') +
                             (currentRow.CssClass || '') +
                             (options.showDistinctRow ? ((rowIndex + 1) % 2 === 0 ? ' freegrid-even' : '') : '');
@@ -761,7 +764,7 @@
                 parentRowClass = 'parent-row parent-level-' + level;
             }
 
-            frozenRowHtml.push('<tr class="' + trClass + ' ' + parentRowClass + '" ' + (currentRow.CustomAttr || '') + trHighlightAtt + '>');
+            frozenRowHtml.push('<tr class="' + trClass + ' ' + parentRowClass + '" ' + (currentRow.CustomAttr || '') + trHighlightAtt + trAutoFixRowAtt + '>');
             for (var columnIndex = 0; columnIndex < colsLength; columnIndex++) {
                 var currentCol = currentRow.Columns[columnIndex];
                 var customSpan = '';
@@ -841,7 +844,9 @@
             var parentRowClass = '';
             var currentMergeColsIndex = 0;
             var trHighlightAtt = (options.showHighlightRow && isBody ? (' highlightatt="highlight-att-main-' + parentHighlight + '-' + rowIndex + '"') : '');
+            var trAutoFixRow = (options.autoFixFrozenRowHeight && isBody ? (' autofixatt="autofix-att-main-' + parentHighlight + '-' + rowIndex + '"') : '');
             var trClass = (options.showHighlightRow ? 'highlight-row ' : '') +
+                            (options.autoFixFrozenRowHeight ? 'auto-fix-row ' : '') +
                             (currentRow.CssClass || '') + ' ' +
                             (treeCollapseExpandClass || '') + ' ' +
                             (options.showDistinctRow ? ((rowIndex + 1) % 2 === 0 ? ' freegrid-even' : '') : '');
@@ -851,7 +856,7 @@
                 if (options.showTree === true && currentRow.SubRows) {
                     parentRowClass = 'parent-row parent-level-' + level;
                 }
-                rowHtml.push('<tr class="' + trClass + ' ' + parentRowClass + '" ' + (currentRow.CustomAttr || '') + ' ' + trHighlightAtt + '>');
+                rowHtml.push('<tr class="' + trClass + ' ' + parentRowClass + '" ' + (currentRow.CustomAttr || '') + ' ' + trHighlightAtt + trAutoFixRow + '>');
 
                 for (var colIndex = 0; colIndex < colsLength; colIndex++) {
                     var currentCol = currentRow.Columns[colIndex];
@@ -1627,13 +1632,13 @@
             var me = this,
                 options = me.Options;
             if (options.autoFixFrozenRowHeight) {
-                me.$grid.find('.content-container .highlight-row').each(function () {
+                me.$grid.find('.content-container .auto-fix-row').each(function () {
                     var $this = $(this),
                         currentHeight = $this.height(),
-                        hlattr = $this.attr('highlightatt');
+                        atfattr = $this.attr('autofixatt');
 
-                    if (isValid(hlattr)) {
-                        me.$grid.find('.row_header tr[highlightatt="' + hlattr.replace('main', 'frozen') + '"]').css('height', currentHeight + 'px');
+                    if (isValid(atfattr)) {
+                        me.$grid.find('.row_header tr[autofixatt="' + atfattr.replace('main', 'frozen') + '"]').css('height', currentHeight + 'px');
                     }
                 });
                 // Header
@@ -2424,7 +2429,8 @@
             rowHeaderWarpper.css("height", containerHeight + "px");
             yscrollbar.css("height", (containerHeight - freezeHeight - (ub.chrome || ub.msie ? 1 : 0) - options.heightScrollYAdd) + "px");
             o.find(".free-cell-top-right")
-             .css("height", (freezeHeight - ((ub.msie || ub.chrome || ff16) ? (options.padding * 2 + 1) : 0) + (ub.chrome ? 1 : 0)) + "px");
+            .css("height", (freezeHeight - ((ub.msie || ub.chrome || ff16) ? (options.padding * 2 + 1) : 0) + (ub.chrome ? 1 : 0)) + "px");
+             
             if (isShowFooter) {
                 o.find(".free-cell-bottom-right").css("height", (freezeFooterHeight + (isScrollX ? bar : 0) + 1) + "px");
             }
@@ -2698,15 +2704,6 @@
         return target;
     }
 
-    //    Array.prototype.contains = function (obj) {
-    //        var i = this.length;
-    //        while (i--) {
-    //            if (this[i] === obj) {
-    //                return true;
-    //            }
-    //        }
-    //        return false;
-    //    };
 })(jQuery);
 
 //// Language
