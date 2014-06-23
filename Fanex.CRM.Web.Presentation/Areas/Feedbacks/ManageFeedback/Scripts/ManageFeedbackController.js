@@ -136,6 +136,11 @@ manageFBApplication.controller('manageFeedbackController', ['$scope', 'manageFee
             });
     };
 
+    $scope.filterManageFeedback = function () {
+        $scope.searchCriteria.PageIndex = 0; // always reset PageIndex when submit form.
+        $scope.searchManageFeedback();
+    };
+
     $scope.searchManageFeedback = function () {
         $uiBlockerService.blockUI();
         var criteria = {
