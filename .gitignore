@@ -56,3 +56,4 @@ bin
 /Fanex.CRM.Web.Controllers/*.Cache
 /Fanex.CRM.Web.Models/*.Cache
 /Fanex.CRM.Web.Presentation/*.Cache
+/Fanex.CRM.Feedback/obj
