@@ -35,7 +35,6 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: false,
-            //gridExpandHeight: 800,
             gridHeight: 800,
             showDistinctRow: false,
             showHighlightRow: false,
@@ -117,8 +116,8 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
                         });
 
                     element.find('.remark')
-                        .unbind('blur')
-                        .bind('blur', function () {
+                        .unbind('keyup')
+                        .bind('keyup', function () {
                             var $this = $(this);
                             var index = $this.data('index');
                             if (newValues[index].Remark !== $this.val()) {
