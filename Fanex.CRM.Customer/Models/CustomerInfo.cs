@@ -69,6 +69,8 @@ namespace Fanex.CRM.Customer.Models
 
         public bool IsVIP { get; set; }
 
+        public bool HeadLine { get; set; }
+
         public string Question { get; set; }
 
         public string Answer { get; set; }
@@ -110,8 +112,6 @@ namespace Fanex.CRM.Customer.Models
         public BaseModel Passport { get; set; }
 
         public AddressInfo AddressInfo { get; set; }
-
-        public bool HeadLine { get; set; }
 
         /// <summary>
         /// Gets the name of the status.

@@ -363,6 +363,7 @@ function RegisterTemplate(application) {
 
         directiveManager.registerSubjectAutoComplete(self.application, subjectAutoCompleteRegisterParams);
     };
+    
     self.registerCategoryMultiSelectPicker = function () {
         var categoryRegisterParams = {
             PlugInName: 'categoryPickerContainer',

@@ -42,14 +42,12 @@
 }
 @helper RenderLeafMenu(MenuItem menuItem, int menuLevel, List<MenuItem> parentMenuList)
     {
-        var onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url) + "');";
-
-        if (menuLevel != 0)
-        {
-            var breadscrumbMenuName = string.Join(",", parentMenuList.Select(menu => "'" + menu.Name + "'"));
-            breadscrumbMenuName += ",'" + menuItem.Name + "'";
-            onclickEvent += "menuManager.setActiveClassForSubMenu(" + breadscrumbMenuName + ")";
-        }
+        var onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url) + "');"; 
+       
+        var breadscrumbMenuName = string.Join(",", parentMenuList.Select(menu => "'" + menu.Name + "'"));
+        breadscrumbMenuName += (parentMenuList.Count > 0 ?  "," : string.Empty) + 
+            "'" + menuItem.Name + "'";
+        onclickEvent += "menuManager.setActiveClassForSubMenu(" + breadscrumbMenuName + ")";
         
     @RenderMenuLink(onclickEvent, @menuItem.Name);
 }

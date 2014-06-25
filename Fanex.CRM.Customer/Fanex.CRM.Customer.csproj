@@ -72,7 +72,8 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\Dependency\NoSql\MongoDB\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI">
+    <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\NPoi\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -94,9 +95,12 @@
     <Compile Include="Controllers\CustomerSettingController.cs" />
     <Compile Include="Controllers\CustomerSettingDetailController.cs" />
     <Compile Include="Controllers\InformHeadlinesController.cs" />
+    <Compile Include="Criteria\InformHeadlines\CreateInformCriteria.cs" />
     <Compile Include="Criteria\DetailInfo\GetCustomerInfoDetailByIdCriteria.cs" />
     <Compile Include="Criteria\DetailInfo\UpdateCustomerInfoDetailCriteria.cs" />
     <Compile Include="Criteria\GetCustomerInfoByUsernameCriteria.cs" />
+    <Compile Include="Criteria\InformHeadlines\GetInformHeadlineCriteria.cs" />
+    <Compile Include="Criteria\InformHeadlines\GetInformHeadlineStatisticCriteria.cs" />
     <Compile Include="Criteria\GetUplineInfoOfUserCriteria.cs" />
     <Compile Include="Criteria\InformHeadlines\CreateInformCriteria.cs" />
     <Compile Include="Criteria\InformHeadlines\GetInformHeadlineCriteria.cs" />
@@ -104,6 +108,7 @@
     <Compile Include="Criteria\InformHeadlines\UpdateInformHeadlinesCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerInfoCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerSuggestionCriteria.cs" />
+    <Compile Include="Criteria\InformHeadlines\UpdateInformHeadlinesCriteria.cs" />
     <Compile Include="Models\AddressInfo.cs" />
     <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
