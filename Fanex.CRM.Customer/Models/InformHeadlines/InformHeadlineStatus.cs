@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.05.09">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Models
+namespace Fanex.CRM.Customer.Models.InformHeadlines
 {
     using System;
     using Fanex.CRM.Infrastructure.Core;

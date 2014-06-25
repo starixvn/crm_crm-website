@@ -141,5 +141,12 @@ namespace Fanex.CRM.Setting.Controllers
             var actions = _settingServiceInstance.GetAllLogAction(criteria);
             return Json(actions, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
+        {
+            var actions = _settingServiceInstance.GetAllStatusInformHeadline(criteria);
+            return Json(actions, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -44,6 +44,7 @@ namespace Fanex.CRM.Setting.Services.Implements
         public const string GetAllResponseSessionKey = "Fanex.CRM.Setting.GetAllResponseSessionKey";
         public const string GetAllActivityLogActionKey = "Fanex.CRM.Setting.GetAllActivityLogActionKey";
         public const string GetAllSettingLogActionKey = "Fanex.CRM.Setting.GetAllSettingLogActionKey";
+        public const string GetAllStatusInformHeadlineKey = "Fanex.CRM.Setting.GetAllStatusInformHeadlineKey";
 
         private readonly ISettingRepository _settingRepositoryInstance;
 
@@ -725,6 +726,34 @@ namespace Fanex.CRM.Setting.Services.Implements
             }
 
             return actions;
+        }
+
+        /// <summary>
+        /// Gets all status inform headline.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The SettingInfo list.</returns>
+        public List<SettingInfo> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
+        {
+            List<SettingInfo> status = null;
+            string cachedKey = GetAllStatusInformHeadlineKey;
+            try
+            {
+                status = CacheService.Get<List<SettingInfo>>(cachedKey);
+                if (status != null)
+                {
+                    return status;
+                }
+
+                status = _settingRepositoryInstance.GetAllStatusInformHeadline(criteria);
+                CacheService.Set(cachedKey, status);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return status;
         }
 
         /// <summary>

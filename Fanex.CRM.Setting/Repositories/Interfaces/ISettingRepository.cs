@@ -39,5 +39,7 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
         List<SettingInfo> GetAllLogAction(ICriteria criteria);
 
         List<SettingInfo> GetAllBetType(GetAllBetTypeCriteria criteria);
+
+        List<SettingInfo> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria);
     }
 }
