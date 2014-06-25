@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="InformHeadlinesBundleRegister.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="InformHeadlinesBundles.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.05.12">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Bundles
+namespace Fanex.CRM.Customer.BundleConfigs
 {
     using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;

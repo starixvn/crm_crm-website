@@ -91,7 +91,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bundles\InformHeadlinesBundles.cs" />
+    <Compile Include="BundleConfigs\InformHeadlinesBundles.cs" />
     <Compile Include="Controllers\CustomerSettingController.cs" />
     <Compile Include="Controllers\CustomerSettingDetailController.cs" />
     <Compile Include="Controllers\InformHeadlinesController.cs" />
@@ -102,13 +102,9 @@
     <Compile Include="Criteria\InformHeadlines\GetInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\InformHeadlines\GetInformHeadlineStatisticCriteria.cs" />
     <Compile Include="Criteria\GetUplineInfoOfUserCriteria.cs" />
-    <Compile Include="Criteria\InformHeadlines\CreateInformCriteria.cs" />
-    <Compile Include="Criteria\InformHeadlines\GetInformHeadlineCriteria.cs" />
-    <Compile Include="Criteria\InformHeadlines\GetInformHeadlineStatisticCriteria.cs" />
     <Compile Include="Criteria\InformHeadlines\UpdateInformHeadlinesCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerInfoCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerSuggestionCriteria.cs" />
-    <Compile Include="Criteria\InformHeadlines\UpdateInformHeadlinesCriteria.cs" />
     <Compile Include="Models\AddressInfo.cs" />
     <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
