@@ -19,8 +19,9 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
         $scope.title = '';
         $scope.oldTitle = '';
         $scope.informs = [];
+        $scope.defaultItemPerPage = 20;
         $scope.pagerOption = {
-            itemsPerPage: 10,
+            itemsPerPage: $scope.defaultItemPerPage,
             currentPage: 0,
             itemsPerPageArray: sharedScriptManager.cachedData.informHeadlinePagingOptions,
             totalItem: 0
@@ -51,7 +52,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             updateInformService.getStatusList()
                 .then(function (status) {
                     $scope.statusOptions.DataList = status.Result;
-                    $scope.getInforms(0, 10);
+                    $scope.getInforms(0, $scope.defaultItemPerPage);
                 },
                 function (status) {
                     $uiBlockerService.unblockUI();
@@ -120,7 +121,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             var updatedInforms = $.grep($scope.informs, function (item, i) {
                 return item.IsChanged;
             });
-            var updateCriteria = { TitleId: $scope.titleId, Title: $scope.title, Informs: updatedInforms };
+            var updateCriteria = { TitleId: $scope.titleId, Title: $scope.title, Informs: updatedInforms, IsTitleChanged: $scope.title !== $scope.oldTitle };
             updateInformService.updateInforms(updateCriteria)
                 .then(function (data) {
                     var result = sharedScriptManager.formatAjaxResult(data.Result);
@@ -160,7 +161,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 return;
             }
 
-            $scope.getInforms(0, 10);
+            $scope.getInforms(0, $scope.defaultItemPerPage);
         };
 
         $scope.invokeHotKey_CtrlE = function () {

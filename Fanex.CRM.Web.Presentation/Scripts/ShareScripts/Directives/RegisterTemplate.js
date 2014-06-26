@@ -296,6 +296,22 @@ function RegisterTemplate(application) {
         directiveManager.registerDropdownContainer(self.application, vipTypeRegisterParams);
     };
 
+    self.registerHeadlineTypePicker = function () {
+        var headlineTypeRegisterParams = {
+            PlugInName: 'headlineTypePickerContainer',
+            OptionName: 'headlineTypeOptions',
+            PickerId: 'headlineType',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(self.application, headlineTypeRegisterParams); 
+    };
+
     self.registerLanguageMultiSelectPicker = function () {
         var languageRegisterParams = {
             PlugInName: 'languagePickerContainer',

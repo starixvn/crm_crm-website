@@ -100,12 +100,29 @@ namespace Fanex.CRM.Dashboard.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.InformHeadlineUpdateStatus, Policy = Constant.Policy.Host)]
+        /// <summary>
+        /// Updates the informs.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>
+        /// The JSON result.
+        /// </returns>
         [HttpPost]
         public ActionResult UpdateInforms(UpdateInformHeadlinesCriteria criteria)
         {
+            JsonRequestBehavior requestBehavior = JsonRequestBehavior.DenyGet;
+            if (criteria.IsTitleChanged && !HasHostPermission(FunctionPermission.InformHeadlineCreateTitle))
+            {
+                return Json(new Result { Code = ErrorCodeConstants.NoPermission, Message = "You don't have permission on this function!" }, requestBehavior);
+            }
+
+            if (!HasHostPermission(FunctionPermission.InformHeadlineUpdateStatus))
+            {
+                return Json(new Result { Code = ErrorCodeConstants.NoPermission, Message = "You don't have permission on this function!" }, requestBehavior);
+            }
+
             var result = _informHeadlineService.UpdateInforms(criteria);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result, requestBehavior);
         }
     }
 }

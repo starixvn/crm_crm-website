@@ -183,6 +183,10 @@ namespace Fanex.CRM.Customer.Services.Implements
                     contentXml.Append("</content>");
                     criteria.Content = contentXml.ToString();
                 }
+                else
+                {
+                    criteria.Content = "<content></content>";
+                }
                 
                 return _informHeadlineRepository.UpdateInforms(criteria);
             }

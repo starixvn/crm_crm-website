@@ -34,8 +34,7 @@ namespace Fanex.CRM.Customer.Models.InformHeadlines
                     return string.Empty;
                 }
 
-                DateTime clientTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(this.CreatedTime);
-                return DateTimeUtilize.ChangeFullTimeZoneToClientForActionLog(clientTime);
+                return DateTimeUtilize.ChangeFullTimeZoneToClientForActionLog(this.CreatedTime);
             }
         }
 
@@ -48,8 +47,7 @@ namespace Fanex.CRM.Customer.Models.InformHeadlines
                     return string.Empty;
                 }
 
-                DateTime clientTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(this.CreatedTime);
-                return DateTimeUtilize.ChangeTimeZoneToClientDateTime(clientTime).ToShortFormatedDate();
+                return DateTimeUtilize.ChangeTimeZoneToClientDateTime(this.CreatedTime).ToShortFormatedDate();
             }
         }
 

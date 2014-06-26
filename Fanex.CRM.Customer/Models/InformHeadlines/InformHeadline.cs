@@ -42,8 +42,7 @@ namespace Fanex.CRM.Customer.Models.InformHeadlines
                     return string.Empty;
                 }
 
-                DateTime clientTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(this.UpdatedTime);
-                return DateTimeUtilize.ChangeFullTimeZoneToClientForActionLog(clientTime);
+                return DateTimeUtilize.ChangeFullTimeZoneToClientForActionLog(this.UpdatedTime);
             }
         }
 

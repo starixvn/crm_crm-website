@@ -59,6 +59,11 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
                             TdClass: 'icon-' + (customer.IsVIP ? 'vip' : ''),
                             Value: customer.IsVIP ? "<span class='glyphicon glyphicon-ok'></span>" : ''
                         },
+                        {
+                            Name: "ColHeadline",
+                            TdClass: 'icon-' + (customer.IsHeadline ? 'vip' : ''),
+                            Value: customer.IsHeadline ? "<span class='glyphicon glyphicon-ok'></span>" : ''
+                        },
                         { Name: "ColBirthday", Value: customer.BirthDayString },
                         {
                             Name: "ColContactNumber",
@@ -104,6 +109,7 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
             { HeaderText: viewResources.First_Name, Width: 120, Name: "ColFirstName", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Last_Name, Width: 120, Name: "ColLastName", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            { HeaderText: viewResources.Headline, Width: 70, Name: "ColHeadline", HeaderAlign: "center", CellAlign: "left", Sort: true },
             { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true },
         
             { HeaderText: viewResources.Contact_Number, Width: 180, Name: "ColContactNumber", HeaderAlign: "center", CellAlign: "center" },
@@ -173,6 +179,8 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
         switch (sortColumnName) {
             case "ColVIP":
                 return "IsVIP";
+            case "ColHeadline":
+                return "IsHeadline";
             case "ColTitle":
                 return "TitleName";
             case "ColFirstName":
@@ -203,6 +211,8 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
                 return 2;
             case "IsVIP":
                 return 3;
+            case "IsHeadline":
+                return 4;
             case "CountryName":
                 return 16;
             case "Languages":

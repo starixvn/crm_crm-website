@@ -26,6 +26,9 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
         [SpParam(Ignored = true)]
         public IList<InformHeadline> Informs { get; set; }
 
+        [SpParam(Ignored = true)]
+        public bool IsTitleChanged { get; set; }
+
         public int UserId
         {
             get
