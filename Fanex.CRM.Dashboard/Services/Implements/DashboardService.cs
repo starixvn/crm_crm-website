@@ -48,8 +48,7 @@ namespace Fanex.CRM.Dashboard.Services.Implements
             List<string> remarks = null;
             try
             {
-                var rawData = _dashboardRepositoryInstance.GetCustomerRemarks(criteria);
-                remarks = rawData;
+                remarks = _dashboardRepositoryInstance.GetCustomerRemarks(criteria);
             }
             catch (Exception ex)
             {
