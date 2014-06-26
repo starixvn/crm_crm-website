@@ -113,12 +113,12 @@ namespace Fanex.CRM.Dashboard.Controllers
             JsonRequestBehavior requestBehavior = JsonRequestBehavior.DenyGet;
             if (criteria.IsTitleChanged && !HasHostPermission(FunctionPermission.InformHeadlineCreateTitle))
             {
-                return Json(new Result { Code = ErrorCodeConstants.NoPermission, Message = "You don't have permission on this function!" }, requestBehavior);
+                return Json(new Result { Code = ErrorCodeConstants.NoPermission, Message = Labels.NoPermission }, requestBehavior);
             }
 
             if (!HasHostPermission(FunctionPermission.InformHeadlineUpdateStatus))
             {
-                return Json(new Result { Code = ErrorCodeConstants.NoPermission, Message = "You don't have permission on this function!" }, requestBehavior);
+                return Json(new Result { Code = ErrorCodeConstants.NoPermission, Message = Labels.NoPermission }, requestBehavior);
             }
 
             var result = _informHeadlineService.UpdateInforms(criteria);

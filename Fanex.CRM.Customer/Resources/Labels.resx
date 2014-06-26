@@ -423,4 +423,7 @@
   <data name="UpdateInformHeadlines" xml:space="preserve">
     <value>Update Inform Headlines</value>
   </data>
+  <data name="NoPermission" xml:space="preserve">
+    <value>You don't have permission on this function!</value>
+  </data>
 </root>
