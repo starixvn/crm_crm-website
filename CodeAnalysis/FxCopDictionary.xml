@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Dictionary>
+  <Words>
+    <Recognized>
+      <Word>fanex</Word>
+      <Word />
+    </Recognized>
+    <Unrecognized />
+    <Deprecated />
+    <Compound />
+    <DiscreteExceptions />
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>Fanex</Acronym>
+      <Acronym>CRM</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

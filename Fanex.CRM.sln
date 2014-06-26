@@ -51,6 +51,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.ActionLog", "Fane
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Feedback", "Fanex.CRM.Feedback\Fanex.CRM.Feedback.csproj", "{E059D093-3D6B-46C9-9FFD-FD48457AC639}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{E5444E9A-BF2F-4854-81B9-C7181FBDF26B}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysis\FxCopDictionary.xml = CodeAnalysis\FxCopDictionary.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

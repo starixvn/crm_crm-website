@@ -160,5 +160,10 @@ namespace Fanex.CRM.Infrastructure.Helper
                 error,
                 new MailAttachment());
         }
+
+        public static string EncodeXml(string xml)
+        {
+            return System.Security.SecurityElement.Escape(xml);
+        }
     }
 }

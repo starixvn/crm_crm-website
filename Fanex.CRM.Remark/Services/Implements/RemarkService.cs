@@ -13,6 +13,7 @@ namespace Fanex.CRM.Remark.Services.Implements
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Criteria;
@@ -85,7 +86,7 @@ namespace Fanex.CRM.Remark.Services.Implements
                             continue;
                         }
 
-                        remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
+                        remarkBuilder.Append("<Remark Content=\"").Append(Helper.EncodeXml(remark)).Append("\"")
                             .Append(" IsSpecial=\"1\" />");
                     }
                 }
@@ -99,7 +100,7 @@ namespace Fanex.CRM.Remark.Services.Implements
                             continue;
                         }
 
-                        remarkBuilder.Append("<Remark Content=\"").Append(remark).Append("\"")
+                        remarkBuilder.Append("<Remark Content=\"").Append(Helper.EncodeXml(remark)).Append("\"")
                             .Append(" IsSpecial=\"0\" />");
                     }
                 }
