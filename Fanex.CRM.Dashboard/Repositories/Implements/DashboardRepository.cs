@@ -22,6 +22,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;
+    using Fanex.CRM.Infrastructure.Helper;
 
     /// <summary>
     /// Dashboard Repository.
@@ -203,7 +204,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             Justification = "Reviewed. Suppression is OK here.")]
         private string MappingDataFromSqlToRemarkObject(IDataReader reader)
         {
-            return reader.GetStringNotNull("Remark").HtmlEncode();
+            return Helper.DecodeXml(reader.GetStringNotNull("Remark"));
         }
 
         /// <summary>

@@ -18,6 +18,7 @@ namespace Fanex.CRM.Remark.Repositories.Implements
     using Fanex.CRM.Remark.Repositories.Interfaces;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
+    using Fanex.CRM.Infrastructure.Helper;
 
     /// <summary>
     /// Remark repository class.
@@ -45,7 +46,7 @@ namespace Fanex.CRM.Remark.Repositories.Implements
                         string remark = null;
                         while (reader.Read())
                         {
-                            remark = Converter.ToString2(reader["Remark"]);
+                            remark = Helper.DecodeXml(Converter.ToString2(reader["Remark"]));
                             if (Converter.ToBool(reader["IsSpecial"]))
                             {
                                 specialRemarks.Add(remark);

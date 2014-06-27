@@ -163,7 +163,21 @@ namespace Fanex.CRM.Infrastructure.Helper
 
         public static string EncodeXml(string xml)
         {
-            return System.Security.SecurityElement.Escape(xml);
+            if(string.IsNullOrWhiteSpace(xml)){
+                return xml;
+            }
+
+            return xml.Replace("\"", "&quot;").Replace("'", "&apos;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("&", "&amp;");
+        }
+
+        public static string DecodeXml(string xml)
+        {
+            if (string.IsNullOrWhiteSpace(xml))
+            {
+                return xml;
+            }
+
+            return xml.Replace("&quot;", "\"").Replace("&apos;", "'").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&");
         }
     }
 }
