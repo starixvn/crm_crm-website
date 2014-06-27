@@ -163,7 +163,8 @@ namespace Fanex.CRM.Infrastructure.Helper
 
         public static string EncodeXml(string xml)
         {
-            if(string.IsNullOrWhiteSpace(xml)){
+            if (string.IsNullOrWhiteSpace(xml))
+            {
                 return xml;
             }
 

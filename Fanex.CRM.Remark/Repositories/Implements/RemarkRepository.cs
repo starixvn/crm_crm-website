@@ -12,13 +12,13 @@ namespace Fanex.CRM.Remark.Repositories.Implements
     using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
     using Fanex.CRM.Remark.Repositories.Interfaces;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
-    using Fanex.CRM.Infrastructure.Helper;
 
     /// <summary>
     /// Remark repository class.
