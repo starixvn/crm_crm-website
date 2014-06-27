@@ -691,15 +691,14 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Update Inform Headlines.
         /// </summary>
         public static string UpdateInformHeadlines {
             get {
-                return ResourceManager.GetString("UpdateInformHeadlines", resourceCulture);
+                return ResourceManager.GetString("UpdateInformHeadlines", resourceCulture);}
+        }
+        
+        /// <summary>        
         ///   Looks up a localized string similar to VIP.
         /// </summary>
         public static string VIP {
