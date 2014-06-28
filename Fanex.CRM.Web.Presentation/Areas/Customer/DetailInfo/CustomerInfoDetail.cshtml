@@ -172,6 +172,15 @@
                                 tabindex="30" />
                         </div>
                     </div>
+                    <div class="row row-item">
+                        @if (Model.HeadLine)
+                        {
+                        <div class="col-xs-5 col-sm-4 col-md-4">
+                            <label for="headline" class="labelforcheckbox checkbox">
+                                <input id="headline" type="checkbox" data-ng-model="customerDetail.HeadLine" disabled />
+                                @Labels.Headline</label></div>
+                        }
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="row item">

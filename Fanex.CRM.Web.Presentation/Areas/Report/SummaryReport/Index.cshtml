@@ -8,11 +8,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-summaryreport-application">
 <head>
     <title>@Labels.SummaryReport</title>
-    @Styles.Render("~/site/common")
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Areas/Report/SummaryReportStyles",
+    @Styles.Render("~/site/common",
+        "~/Areas/Report/SummaryReportStyles",
         "~/Content/site/ResultMessageStyles",
         "~/Styles/FanexMultipleSelect")
 </head>

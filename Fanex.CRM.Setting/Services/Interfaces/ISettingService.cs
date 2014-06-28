@@ -45,11 +45,15 @@ namespace Fanex.CRM.Setting.Services.Interfaces
 
         List<SettingInfo> GetAllVIPType();
 
+        List<SettingInfo> GetAllHeadlineType();
+
         int GetNumberOfFeedbackSubjectTemplate();
 
         List<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria);
 
         List<SettingInfo> GetAllLogAction(GetActionCriteria criteria);
+
+        List<SettingInfo> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria);
 
         void ResetAllCache();
     }

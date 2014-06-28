@@ -9,12 +9,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="remark-application">
 <head>
     <title>@Resources.Language.Title_SpecialRemarkTab</title>
-    @Styles.Render("~/site/common")
-    @Styles.Render("~/Areas/Remark/RemarkStyles")
+    @Styles.Render("~/site/common", "~/Areas/Remark/RemarkStyles")
 </head>
 <body>
     <div class="container main" data-ng-controller="remarkController">
-        <div alert-box alert-result="alertResult"></div>
+        <div alert-box-container></div>
         <div class="row panel-group last">
             <div class="row title group-header" data-ng-click="isShowSpecialRemark = !isShowSpecialRemark"
                 data-ng-class="isShowSpecialRemark ? '' : 'border-bottom-none'">@Labels.SpecialRemark</div>

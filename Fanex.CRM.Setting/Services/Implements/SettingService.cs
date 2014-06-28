@@ -44,6 +44,7 @@ namespace Fanex.CRM.Setting.Services.Implements
         public const string GetAllResponseSessionKey = "Fanex.CRM.Setting.GetAllResponseSessionKey";
         public const string GetAllActivityLogActionKey = "Fanex.CRM.Setting.GetAllActivityLogActionKey";
         public const string GetAllSettingLogActionKey = "Fanex.CRM.Setting.GetAllSettingLogActionKey";
+        public const string GetAllStatusInformHeadlineKey = "Fanex.CRM.Setting.GetAllStatusInformHeadlineKey";
 
         private readonly ISettingRepository _settingRepositoryInstance;
 
@@ -594,6 +595,32 @@ namespace Fanex.CRM.Setting.Services.Implements
         }
 
         /// <summary>
+        /// Gets the type of all headline.
+        /// </summary>
+        /// <returns>The list of headline type.</returns>
+        public List<SettingInfo> GetAllHeadlineType()
+        {
+            return new List<SettingInfo>() 
+            { 
+                new SettingInfo
+                {
+                    Id = HeadlineTypeConstants.All,
+                    Value = Labels.All
+                },
+                new SettingInfo
+                {
+                    Id = HeadlineTypeConstants.Headline,
+                    Value = Labels.Headline
+                },
+                new SettingInfo
+                {
+                    Id = HeadlineTypeConstants.None,
+                    Value = Labels.None
+                }
+            };
+        }
+
+        /// <summary>
         /// Gets the sub setting by parent identifier.
         /// </summary>
         /// <param name="parentSetting">The parent setting.</param>
@@ -725,6 +752,34 @@ namespace Fanex.CRM.Setting.Services.Implements
             }
 
             return actions;
+        }
+
+        /// <summary>
+        /// Gets all status inform headline.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The SettingInfo list.</returns>
+        public List<SettingInfo> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
+        {
+            List<SettingInfo> status = null;
+            string cachedKey = GetAllStatusInformHeadlineKey;
+            try
+            {
+                status = CacheService.Get<List<SettingInfo>>(cachedKey);
+                if (status != null)
+                {
+                    return status;
+                }
+
+                status = _settingRepositoryInstance.GetAllStatusInformHeadline(criteria);
+                CacheService.Set(cachedKey, status);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return status;
         }
 
         /// <summary>

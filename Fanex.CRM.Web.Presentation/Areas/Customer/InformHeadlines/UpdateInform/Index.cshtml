@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="main popup container" data-ng-controller="updateInformHeadlineController">
-        <div class="row" alert-box alert-result="alertResult"></div>
+        <div class="row" alert-box-container></div>
         <div class="row filter-frm one-row inform-filter">
             <div class="item">
                 <label for="title">@Labels.Title</label>
@@ -51,7 +51,6 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var titleId = @Request["titleId"];
-        var title = '@Request["title"]';
         var updateInformResources = {
             Headline: '@Labels.Headline',
             Status: '@Labels.Status',

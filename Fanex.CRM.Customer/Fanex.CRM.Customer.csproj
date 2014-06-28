@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BundleTransformer.Core">
+      <HintPath>..\packages\BundleTransformer.Core.1.8.17\lib\net40\BundleTransformer.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Fanex\Fanex.Common.dll</HintPath>
@@ -45,6 +48,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Fanex\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
@@ -68,36 +72,55 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\Dependency\NoSql\MongoDB\MongoDB.Driver.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI, Version=2.0.6.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependency\NPoi\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Net4\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\Dependency\Net4\System.Web.Optimization.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BundleConfigs\InformHeadlinesBundles.cs" />
     <Compile Include="Controllers\CustomerSettingController.cs" />
     <Compile Include="Controllers\CustomerSettingDetailController.cs" />
+    <Compile Include="Controllers\InformHeadlinesController.cs" />
+    <Compile Include="Criteria\InformHeadlines\CreateInformCriteria.cs" />
     <Compile Include="Criteria\DetailInfo\GetCustomerInfoDetailByIdCriteria.cs" />
     <Compile Include="Criteria\DetailInfo\UpdateCustomerInfoDetailCriteria.cs" />
     <Compile Include="Criteria\GetCustomerInfoByUsernameCriteria.cs" />
+    <Compile Include="Criteria\InformHeadlines\GetInformHeadlineCriteria.cs" />
+    <Compile Include="Criteria\InformHeadlines\GetInformHeadlineStatisticCriteria.cs" />
     <Compile Include="Criteria\GetUplineInfoOfUserCriteria.cs" />
+    <Compile Include="Criteria\InformHeadlines\UpdateInformHeadlinesCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerInfoCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerSuggestionCriteria.cs" />
     <Compile Include="Models\AddressInfo.cs" />
     <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
     <Compile Include="Models\FaxInfo.cs" />
+    <Compile Include="Models\InformHeadlines\InformHeadline.cs" />
+    <Compile Include="Models\InformHeadlines\InformHeadlineStatistic.cs" />
+    <Compile Include="Models\InformHeadlines\InformHeadlineStatus.cs" />
     <Compile Include="Models\PhoneInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\CustomerDetailRepository.cs" />
     <Compile Include="Repositories\Implements\CustomerRepository.cs" />
+    <Compile Include="Repositories\Implements\InformHeadlineRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICustomerDetailRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICustomerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IInformHeadlineRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -105,8 +128,10 @@
     </Compile>
     <Compile Include="Services\Implements\CustomerDetailService.cs" />
     <Compile Include="Services\Implements\CustomerService.cs" />
+    <Compile Include="Services\Implements\InformHeadlineService.cs" />
     <Compile Include="Services\Interfaces\ICustomerDetailService.cs" />
     <Compile Include="Services\Interfaces\ICustomerService.cs" />
+    <Compile Include="Services\Interfaces\IInformHeadlineService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />

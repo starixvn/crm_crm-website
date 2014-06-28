@@ -68,6 +68,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
             var customerInfo = new CustomerInfo
              {
                  IsVIP = Converter.ToBool(reader["VIP"]),
+                 IsHeadline = true, ////Converter.ToBool(reader["IsGroupHeadline"]),
                  Title = new SettingInfo
                  {
                      Name = Converter.ToString2(reader["Title"])

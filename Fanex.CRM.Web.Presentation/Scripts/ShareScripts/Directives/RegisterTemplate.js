@@ -296,6 +296,22 @@ function RegisterTemplate(application) {
         directiveManager.registerDropdownContainer(self.application, vipTypeRegisterParams);
     };
 
+    self.registerHeadlineTypePicker = function () {
+        var headlineTypeRegisterParams = {
+            PlugInName: 'headlineTypePickerContainer',
+            OptionName: 'headlineTypeOptions',
+            PickerId: 'headlineType',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(self.application, headlineTypeRegisterParams); 
+    };
+
     self.registerLanguageMultiSelectPicker = function () {
         var languageRegisterParams = {
             PlugInName: 'languagePickerContainer',
@@ -363,6 +379,7 @@ function RegisterTemplate(application) {
 
         directiveManager.registerSubjectAutoComplete(self.application, subjectAutoCompleteRegisterParams);
     };
+    
     self.registerCategoryMultiSelectPicker = function () {
         var categoryRegisterParams = {
             PlugInName: 'categoryPickerContainer',
@@ -376,5 +393,20 @@ function RegisterTemplate(application) {
         };
 
         directiveManager.registerMultiSelectContainer(self.application, categoryRegisterParams);
+    };
+
+    self.registerStatusMultiSelectPicker = function () {
+        var statusRegisterParams = {
+            PlugInName: 'statusMultiContainer',
+            OptionName: 'statusOptions',
+            PickerId: 'status',
+            RestrictType: 'A',
+            DataPropertyName: {
+                Id: 'Id',
+                Name: 'Name'
+            }
+        };
+
+        directiveManager.registerMultiSelectContainer(self.application, statusRegisterParams);
     };
 }
