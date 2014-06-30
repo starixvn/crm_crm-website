@@ -9,10 +9,10 @@
 
 namespace Fanex.CRM.Communication.Repositories.Implements
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
@@ -141,6 +141,25 @@ namespace Fanex.CRM.Communication.Repositories.Implements
             }
 
             return updateResult;
+        }
+
+        /// <summary>
+        /// Gets the customer default setting.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The default setting object.</returns>
+        public CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var setting = objectDB.Query<CustomerDefaultSetting>(criteria.GetSpParams()).ToList();
+                if (setting.Count > 0)
+                {
+                    return setting[0];
+                }
+            }
+
+            return null;
         }
 
         /// <summary>

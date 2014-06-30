@@ -250,7 +250,7 @@
     <value>Line</value>
   </data>
   <data name="Passport_Number" xml:space="preserve">
-    <value>Passport Number</value>
+    <value>Passport No.</value>
   </data>
   <data name="Personal_Info" xml:space="preserve">
     <value>Personal Info</value>
@@ -262,13 +262,13 @@
     <value>State</value>
   </data>
   <data name="Contact_Number_1" xml:space="preserve">
-    <value>Contact Number 1</value>
+    <value>Phone 1</value>
   </data>
   <data name="Contact_Number_2" xml:space="preserve">
-    <value>Contact Number 2</value>
+    <value>Phone 2</value>
   </data>
   <data name="Contact_Number_3" xml:space="preserve">
-    <value>Contact Number 3</value>
+    <value>Phone 3</value>
   </data>
   <data name="PIC_1" xml:space="preserve">
     <value>PIC 1</value>

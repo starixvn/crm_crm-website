@@ -292,13 +292,13 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>Communication</value>
   </data>
   <data name="ContactNumber1" xml:space="preserve">
-    <value>Contact Number 1</value>
+    <value>Phone 1</value>
   </data>
   <data name="ContactNumber2" xml:space="preserve">
-    <value>Contact Number 2</value>
+    <value>Phone 2</value>
   </data>
   <data name="ContactNumber3" xml:space="preserve">
-    <value>Contact Number 3</value>
+    <value>Phone 3</value>
   </data>
   <data name="CSExtension" xml:space="preserve">
     <value>CS Extension/Station</value>
@@ -331,7 +331,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
     <value>MSN</value>
   </data>
   <data name="PassportNumber" xml:space="preserve">
-    <value>Passport Number</value>
+    <value>Passport No.</value>
   </data>
   <data name="PIC1" xml:space="preserve">
     <value>PIC 1</value>

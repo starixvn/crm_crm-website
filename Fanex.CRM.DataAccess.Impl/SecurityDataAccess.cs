@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.DataAccess.Impl
 {
-    using System;
     using System.Collections.Generic;
     using System.Data;
+    using Fanex.Common;
     using Fanex.CRM.DataAccess.Interface;
     using Fanex.CRM.Entities;
     using Fanex.Data;
@@ -39,20 +39,11 @@ namespace Fanex.CRM.DataAccess.Impl
                         while (reader.Read())
                         {
                             var security = new Security
-                                {
-                                    FileNames =
-                                        reader["filenames"] != DBNull.Value
-                                            ? reader.GetString(reader.GetOrdinal("filenames"))
-                                            : string.Empty,
-                                    FuncName =
-                                        reader["funcname"] != DBNull.Value
-                                            ? reader.GetString(reader.GetOrdinal("funcname"))
-                                            : string.Empty,
-                                    ActualPolicy =
-                                        reader["actual_policy"] != DBNull.Value
-                                            ? reader.GetByte(reader.GetOrdinal("actual_policy"))
-                                            : 0
-                                };
+                            {
+                                FileNames = Converter.ToString2(reader["filenames"]),
+                                FuncName = Converter.ToString2(reader["funcname"]),
+                                ActualPolicy = Converter.ToInt(reader["actual_policy"], 0)
+                            };
 
                             listCustRole.Add(security);
                         }

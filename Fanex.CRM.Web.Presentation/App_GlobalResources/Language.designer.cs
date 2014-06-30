@@ -160,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact Number 1.
+        ///   Looks up a localized string similar to Phone 1.
         /// </summary>
         internal static string ContactNumber1 {
             get {
@@ -169,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact Number 2.
+        ///   Looks up a localized string similar to Phone 2.
         /// </summary>
         internal static string ContactNumber2 {
             get {
@@ -178,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact Number 3.
+        ///   Looks up a localized string similar to Phone 3.
         /// </summary>
         internal static string ContactNumber3 {
             get {
@@ -682,7 +682,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Passport Number.
+        ///   Looks up a localized string similar to Passport No..
         /// </summary>
         internal static string PassportNumber {
             get {

@@ -11,10 +11,15 @@ insertLogApplication.directive('dropdownCountry', function () {
                 '<option value="' + crmConstants.Enums.Country.NotApply + '">' + viewResources.Symbol_NotApply +
                 '</option>');
             var countryListLength = scope.countryList.length;
+            var countryId = scope.defaultSettings.CountryId;
             for (var i = 0; i < countryListLength; i++) {
                 var country = scope.countryList[i];
                 dropdown.append(
-                    '<option value="' + country.Id + '">' + country.Name + '</option>');
+                    '<option value="' + country.Id + '"' +
+                         (countryId === country.Id ? 'selected="selected"' : "") +
+                     '>' +
+                        country.Name +
+                     '</option>');
             }
 
             element.change(function () {

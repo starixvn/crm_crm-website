@@ -8,7 +8,7 @@ insertLogApplication.directive('dropdownRole', function () {
             dropdown.empty();
             /* jshint camelcase: false */
             var roleListLength = scope.roleList.length;
-            var roleId = scope.customerInfo.Role.Id;
+            var roleId = scope.defaultSettings.RoleId;
             for (var i = 0; i < roleListLength; i++) {
                 var role = scope.roleList[i];
                 dropdown.append(

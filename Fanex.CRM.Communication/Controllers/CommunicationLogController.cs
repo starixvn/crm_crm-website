@@ -83,9 +83,12 @@ namespace Fanex.CRM.Communication.Controllers
         /// <summary>
         /// Gets all setting for edit.
         /// </summary>
-        /// <returns>All setting for edit.</returns>
+        /// <param name="custId">The customer ID.</param>
+        /// <returns>
+        /// All setting for edit.
+        /// </returns>
         [HttpPost]
-        public ActionResult GetAllSetting_Insert()
+        public ActionResult GetAllSetting_Insert(int custId)
         {
             var allSetting = new
             {
@@ -98,7 +101,8 @@ namespace Fanex.CRM.Communication.Controllers
                 StatusList = _communicationServiceLog.GetAllStatus_Insert(),
                 SiteList = _serviceSetting.GetAllSite(),
                 RoleList = _serviceSetting.GetAllRole(),
-                ResponseList = _serviceSetting.GetAllResponse()
+                ResponseList = _serviceSetting.GetAllResponse(),
+                DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId }),
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

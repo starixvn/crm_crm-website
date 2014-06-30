@@ -8,7 +8,7 @@ insertLogApplication.directive('dropdownSite', function () {
         if (scope.siteList) {
             var dropdown = element.find("#site");
             dropdown.empty();
-            var siteId = scope.customerInfo.SiteSetting.Id;
+            var siteId = scope.defaultSettings.SiteId;
             var optionHtml =
                 '<option value="' + crmConstants.Enums.Site.NotApply + '"' +
                     (siteId === crmConstants.Enums.Site.NotApply ? 'selected="selected"' : "") + 

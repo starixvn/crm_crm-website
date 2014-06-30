@@ -88,6 +88,7 @@ function (
     $scope.siteList = null;
     $scope.roleList = null;
     $scope.responseList = null;
+    $scope.defaultSettings = null;
     $scope.feedbackSubjectTemplateList = [];
     $scope.feedbackSubjectTemplateTotalPage = 0;
     $scope.isLoadedFeedbackSubjectTemplate = false;
@@ -103,7 +104,7 @@ function (
 
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
-        $scope.getAllSettingForEdit();
+        $scope.getAllSettingForEdit($scope.customerInfo.Id);
         $scope.getNumberOfFeedbackSubjectTemplate();
     };
     $scope.getNumberOfFeedbackSubjectTemplate = function () {
@@ -159,7 +160,6 @@ function (
         $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
         $scope.betTypeList = $scope.productList[0].ChildSettings;
 
-
         $scope.communicationLog.StartTime = new Date(currentTime);
         var initEndTime = new Date(currentTime);
         initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);
@@ -168,7 +168,7 @@ function (
         $scope.communicationLog.Extension = $scope.extensionList[0];
 
         $scope.communicationLog.Country = {
-            Id: crmConstants.Enums.Country.NotApply
+            Id: $scope.defaultSettings.CountryId
         };
 
         $scope.communicationLog.Product = {
@@ -180,16 +180,16 @@ function (
         };
 
         $scope.communicationLog.SiteInfo = {
-            Id: $scope.customerInfo.SiteSetting.Id
+            Id: $scope.defaultSettings.SiteId
         };
 
-        $scope.communicationLog.LanguageId = crmConstants.Enums.Language.NotApply;
+        $scope.communicationLog.LanguageId = $scope.defaultSettings.DefaultLanguage;
         $scope.communicationLog.CommunicationTool = $scope.communicationToolList[0];
         $scope.communicationLog.MainCategory = $scope.mainCategoryList[0];
         $scope.communicationLog.SubCategory = $scope.subCategoryList[0];
         $scope.communicationLog.Status = $scope.statusList[0];
         $scope.communicationLog.RoleInfo = {
-            Id: $scope.customerInfo.Role.Id
+            Id: $scope.defaultSettings.RoleId
         };
 
         $scope.communicationLog.Response = $scope.responseList[0];
@@ -655,10 +655,10 @@ function (
             $scope.isSetFocus = true;
         });
     };
-    $scope.getAllSettingForEdit = function () {
+    $scope.getAllSettingForEdit = function (custId) {
         $scope.BlockUI();
         $scope.isLoadedAllSite = false;
-        $insertLogService.getAllSettingForEdit()
+        $insertLogService.getAllSettingForEdit(custId)
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.extensionList = allSetting.ExtensionList;
@@ -671,6 +671,7 @@ function (
                 $scope.siteList = allSetting.SiteList;
                 $scope.roleList = allSetting.RoleList;
                 $scope.responseList = allSetting.ResponseList;
+                $scope.defaultSettings = allSetting.DefaultSettings;
                 $scope.completedLoadFilterInfo();
             },
             function (data) {

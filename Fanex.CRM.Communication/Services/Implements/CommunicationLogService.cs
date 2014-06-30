@@ -252,5 +252,10 @@ namespace Fanex.CRM.Communication.Services.Implements
 
             return allStatusResult;
         }
+
+        public CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria)
+        {
+            return _communicationRepositoryLog.GetCustomerDefaultSetting(criteria);
+        }
     }
 }

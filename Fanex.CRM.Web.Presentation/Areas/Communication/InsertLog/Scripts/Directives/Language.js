@@ -12,9 +12,12 @@ insertLogApplication.directive('dropdownLanguage', function () {
             var optionHtml = '<option value="' + crmConstants.Enums.Language.NotApply + '">' + viewResources.Symbol_NotApply +
                 '</option>';
             var languageListLength = scope.languageList.length;
+            var languageId = scope.defaultSettings.DefaultLanguage;
             for (var i = 0; i < languageListLength; i++) {
                 var language = scope.languageList[i];
-                optionHtml += '<option value="' + language.Id + '">' + language.Name + '</option>';
+                optionHtml += '<option value="' + language.Id + '"' +
+                     (languageId === language.Id ? 'selected="selected"' : "") +
+                     '>' + language.Name + '</option>';
             }
 
             dropdown.append(optionHtml);

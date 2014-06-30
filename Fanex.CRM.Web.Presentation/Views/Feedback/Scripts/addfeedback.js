@@ -419,8 +419,8 @@ function getCRMInfoById(custId) {
                     bindingSetting("ddlcategory", setting.Category, 0);
                     bindingSetting("ddlproduct", setting.Product, 0);
                     bindingSetting("ddlrole", setting.Role, rs.RoleId);
-                    bindingCountry("ddlcountry", setting.Country, 0);
-                    bindingLanguage("ddllanguage", setting.Language, 0);
+                    bindingCountry("ddlcountry", setting.Country, rs.Country);
+                    bindingLanguage("ddllanguage", setting.Language, rs.Language);
                     bindingSetting("ddlstatus", setting.Status, 0);
                     bindingSetting("ddlresponse", setting.Response, 0);
                     bindingSetting("ddlcommunication", setting.Communication, 0);

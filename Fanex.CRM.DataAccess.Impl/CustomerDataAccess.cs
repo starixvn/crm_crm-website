@@ -14,11 +14,11 @@ namespace Fanex.CRM.DataAccess.Impl
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.DataAccess.Interface;
     using Fanex.CRM.Entities;
     using Fanex.CRM.Infrastructure.Configuration;
+    using Fanex.CRM.Infrastructure.Core;
     using Fanex.Data;
     using MongoDB.Bson;
     using MongoDB.Driver;
@@ -48,10 +48,10 @@ namespace Fanex.CRM.DataAccess.Impl
                         while (reader.Read())
                         {
                             var releatedCustomer = new RelatedCustomer()
-                                               {
-                                                   CustId = Fanex.Common.Converter.ToInt(reader["custid"]),
-                                                   UserName = Fanex.Common.Converter.ToString2(reader["val"])
-                                               };
+                            {
+                                CustId = Converter.ToInt(reader["custid"]),
+                                UserName = Converter.ToString2(reader["val"])
+                            };
                             result.Add(releatedCustomer);
                         }
                     }
@@ -85,10 +85,10 @@ namespace Fanex.CRM.DataAccess.Impl
                             var customerInfo = GetCustomerInformation(reader);
                             customer.CustomerInfo = customerInfo;
 
-                            customer.Id = Fanex.Common.Converter.ToInt(reader.GetOrdinal("CustId"), 0);
-                            customer.UserName = Fanex.Common.Converter.ToString2("UserName");
+                            customer.Id = Converter.ToInt(reader["CustId"], 0);
+                            customer.UserName = Converter.ToString2("UserName");
                             customer.RoleId = Converter.ToInt(reader["roleid"]);
-                            customer.NickName = custId > 0 ? Fanex.Common.Converter.ToString2(reader.GetOrdinal("UserName2")) : string.Empty;
+                            customer.NickName = custId > 0 ? Converter.ToString2(reader["UserName2"]) : string.Empty;
 
                             customer.Pic1 = customerInfo.PIC1;
                             customer.Pic2 = customerInfo.PIC2;
@@ -103,23 +103,27 @@ namespace Fanex.CRM.DataAccess.Impl
 
                             customer.Creator = new User
                             {
-                                Id =
-                                    Fanex.Common.Converter.ToInt(reader.GetOrdinal("CreatorID"), 0),
-                                Username =
-                                    Fanex.Common.Converter.ToString2(reader.GetOrdinal("CreatorName"))
+                                Id = Converter.ToInt(reader["CreatorID"], 0),
+                                Username = Converter.ToString2(reader["CreatorName"])
                             };
 
-                            customer.Country = Fanex.Common.Converter.ToInt(reader.GetOrdinal("CountryID"), 0);
+                            customer.Country = Converter.ToInt(reader["CountryID"], 0);
 
-                            customer.Question = Fanex.Common.Converter.ToString2(reader.GetOrdinal("Question"));
-                            customer.Answer = Fanex.Common.Converter.ToString2(reader.GetOrdinal("Answer"));
+                            customer.Question = Converter.ToString2(reader["Question"]);
+                            customer.Answer = Converter.ToString2(reader["Answer"]);
 
-                            customer.IsVip = Fanex.Common.Converter.ToBool(reader.GetOrdinal("IsVIP"), false);
-                            customer.CreatedDate = Fanex.Common.Converter.ToDateTime(reader.GetOrdinal("CreateDate"), DateTime.Now);
+                            customer.IsVip = Converter.ToBool(reader["IsVIP"], false);
+                            customer.CreatedDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["CreateDate"], DateTime.Now));
 
-                            customer.BettingCode = Fanex.Common.Converter.ToString2(reader.GetOrdinal("RefCode1"));
+                            customer.BettingCode = Converter.ToString2(reader["RefCode1"]);
 
-                            customer.RefCode2 = Fanex.Common.Converter.ToString2(reader.GetOrdinal("RefCode2"));
+                            customer.RefCode2 = Converter.ToString2(reader["RefCode2"]);
+                        }
+
+                        // get default language
+                        if (reader.NextResult() && reader.Read())
+                        {
+                            customer.Language = Converter.ToInt(reader["LanguageId"]);
                         }
                     }
                 }
@@ -156,124 +160,57 @@ namespace Fanex.CRM.DataAccess.Impl
                             customer = new Customer();
                             customer.CustomerInfo = new CustomerInfo
                             {
-                                Title =
-                                    new Setting
-                                    {
-                                        Id = reader["TitleID"] != DBNull.Value ?
-                                            reader.GetInt32(reader.GetOrdinal("TitleID")) :
-                                            0,
-                                        Value = string.Empty
-                                    },
-
-                                FirstName =
-                                    reader["FirstName"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("FirstName"))
-                                        : string.Empty,
-                                LastName =
-                                    reader["LastName"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("LastName"))
-                                        : string.Empty,
-                                Email =
-                                    reader["Email"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("Email"))
-                                        : string.Empty,
-                                /*Fax =
-                                    reader["Fax"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("Fax"))
-                                        : string.Empty,
-                                MobilePhone =
-                                    reader["MobilePhone"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("MobilePhone"))
-                                        : string.Empty,
-                                Phone =
-                                    reader["Phone"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("Phone"))
-                                        : string.Empty,*/
-                                Skype = reader["Skype"] != DBNull.Value
-                                    ? reader.GetString(reader.GetOrdinal("Skype"))
-                                    : string.Empty,
-                                MSN = reader["msn"] != DBNull.Value
-                                    ? reader.GetString(reader.GetOrdinal("msn"))
-                                    : string.Empty
+                                Title = new Setting
+                                {
+                                    Id = Converter.ToInt(reader["TitleID"], 0),
+                                    Value = string.Empty
+                                },
+                                FirstName = Converter.ToString2(reader["FirstName"]),
+                                LastName = Converter.ToString2(reader["LastName"]),
+                                Email = Converter.ToString2(reader["Email"]),
+                                Skype = Converter.ToString2(reader["Skype"]),
+                                MSN = Converter.ToString2(reader["msn"])
                             };
 
-                            customer.UserName = reader["UserName"] != DBNull.Value
-                                                    ? reader.GetString(reader.GetOrdinal("UserName"))
-                                                    : string.Empty;
+                            customer.UserName = Converter.ToString2(reader["UserName"]);
                             customer.NickName = isGuest
-                                                    ? string.Empty
-                                                    : (reader["UserName2"] != DBNull.Value
-                                                           ? reader.GetString(reader.GetOrdinal("UserName2"))
-                                                           : string.Empty);
-
-                            customer.Pic1 = reader["PIC1"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("PIC1")) : string.Empty;
-                            customer.Pic2 = reader["PIC2"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("PIC2")) : string.Empty;
-                            customer.Pic3 = reader["PIC3"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("PIC3")) : string.Empty;
-                            customer.Id = reader["CustId"] != DBNull.Value ? reader.GetInt32(reader.GetOrdinal("CustId")) : 0;
-                            customer.RoleId = reader["RoleID"] != DBNull.Value
-                                                  ? reader.GetInt32(reader.GetOrdinal("RoleID"))
-                                                  : 0;
+                                ? string.Empty
+                                : Converter.ToString2(reader["UserName2"]);
+                            customer.Pic1 = Converter.ToString2(reader["PIC1"]);
+                            customer.Pic2 = Converter.ToString2(reader["PIC2"]);
+                            customer.Pic3 = Converter.ToString2(reader["PIC3"]);
+                            customer.Id = Converter.ToInt(reader["CustId"], 0);
+                            customer.RoleId = Converter.ToInt(reader["RoleID"], 0);
                             customer.RoleName = customer.RoleName;
-                            customer.CountryName = reader["CountryName"] != DBNull.Value ? reader.GetString(reader.GetOrdinal("CountryName")) : string.Empty;
+                            customer.CountryName = Converter.ToString2(reader["CountryName"]);
 
                             customer.Site = new Setting
                             {
-                                Id =
-                                    reader["SiteID"] != DBNull.Value
-                                        ? reader.GetInt32(reader.GetOrdinal("SiteID"))
-                                        : 0,
+                                Id = Converter.ToInt(reader["SiteID"], 0),
                                 Value = string.Empty
                             };
 
                             customer.BankInfo = new BankInfo
                             {
-                                BankName =
-                                    reader["Wire_BankName"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("Wire_BankName"))
-                                        : string.Empty,
-                                BankAddress =
-                                    reader["Wire_BankAddress"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("Wire_BankAddress"))
-                                        : string.Empty,
-                                SwiftCode =
-                                    reader["Wire_SwiftCode"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("Wire_SwiftCode"))
-                                        : string.Empty,
-                                AccountName =
-                                    reader["Wire_AccountName"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("Wire_AccountName"))
-                                        : string.Empty,
-                                AccountNo =
-                                    reader["Wire_AccountNo"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("Wire_AccountNo"))
-                                        : string.Empty
+                                BankName = Converter.ToString2(reader["Wire_BankName"]),
+                                BankAddress = Converter.ToString2(reader["Wire_BankAddress"]),
+                                SwiftCode = Converter.ToString2(reader["Wire_SwiftCode"]),
+                                AccountName = Converter.ToString2(reader["Wire_AccountName"]),
+                                AccountNo = Converter.ToString2(reader["Wire_AccountNo"]),
                             };
 
                             customer.Creator = new User
                             {
-                                Username =
-                                    reader["CreatorName"] != DBNull.Value
-                                        ? reader.GetString(reader.GetOrdinal("CreatorName"))
-                                        : string.Empty
+                                Username = Converter.ToString2(reader["CreatorName"])
                             };
 
-                            customer.Question = reader["Question"] != DBNull.Value
-                                                    ? reader.GetString(reader.GetOrdinal("Question"))
-                                                    : string.Empty;
-                            customer.Answer = reader["Answer"] != DBNull.Value
-                                                  ? reader.GetString(reader.GetOrdinal("Answer"))
-                                                  : string.Empty;
-                            customer.IsVip = reader["IsVIP"] != DBNull.Value ? reader.GetBoolean(reader.GetOrdinal("IsVIP")) : false;
-                            customer.CreatedDate = reader["CreateDate"] != DBNull.Value
-                                                       ? reader.GetDateTime(reader.GetOrdinal("CreateDate"))
-                                                       : DateTime.Now;
-                            customer.BettingCode = reader["RefCode1"] != DBNull.Value
-                                                    ? reader.GetString(reader.GetOrdinal("RefCode1"))
-                                                    : string.Empty;
+                            customer.Question = Converter.ToString2(reader["Question"]);
+                            customer.Answer = Converter.ToString2(reader["Answer"]);
 
-                            customer.RefCode2 = reader["RefCode2"] != DBNull.Value
-                                                    ? reader.GetString(reader.GetOrdinal("RefCode2"))
-                                                    : string.Empty;
+                            customer.IsVip = Converter.ToBool(reader["IsVIP"], false);
+                            customer.CreatedDate = Converter.ToDateTime(reader["CreateDate"], DateTime.Now);
+                            customer.BettingCode = Converter.ToString2(reader["RefCode1"]);
+                            customer.RefCode2 = Converter.ToString2(reader["RefCode2"]);
                         }
                     }
                 }
@@ -302,14 +239,11 @@ namespace Fanex.CRM.DataAccess.Impl
                         {
                             var customer = new Customer
                             {
-                                UserName = reader["UserName"] != DBNull.Value
-                                               ? reader.GetString(reader.GetOrdinal("UserName"))
-                                               : string.Empty,
-                                Id = reader["CustId"] != DBNull.Value
-                                         ? reader.GetInt32(reader.GetOrdinal("CustId"))
-                                         : 0,
-                                RoleId = reader["roleid"] != DBNull.Value ? reader.GetByte(reader.GetOrdinal("roleid")) : 0,
+                                UserName = Converter.ToString2(reader["UserName"]),
+                                Id = Converter.ToInt(reader["CustId"], 0),
+                                RoleId = Converter.ToInt(reader["roleid"], 0)
                             };
+
                             customer.RoleName = customer.RoleName;
                             listCustomerUpline.Add(customer);
                         }

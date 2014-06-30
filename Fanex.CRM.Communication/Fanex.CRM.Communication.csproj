@@ -74,10 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CommunicationLogController.cs" />
+    <Compile Include="Criteria\GetDefaultSettingsCriteria.cs" />
     <Compile Include="Criteria\GetLogsByCustomerIdCriteria.cs" />
     <Compile Include="Criteria\GetLogByRunningNumberCriteria.cs" />
     <Compile Include="Criteria\InsertLogCriteria.cs" />
     <Compile Include="Criteria\UpdateLogCriteria.cs" />
+    <Compile Include="Models\CustomerDefaultSetting.cs" />
     <Compile Include="Models\CustomerLogInfo.cs" />
     <Compile Include="Models\LogInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -22,6 +22,7 @@
     <Setting Key="Communication_Log_Update" SpName="Acc_CRM_CommunicationLogUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Communication_Log_Insert" SpName="Acc_CRM_CommunicationLogIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Communication_Log_GetInfoById" SpName="Acc_CRM_CommunicationLogSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Communication_Log_GetDefaultSettings" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Redemption">
     <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
