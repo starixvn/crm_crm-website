@@ -172,7 +172,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                 string oldString, newString;
                 foreach (string key in newResults.Keys)
                 {
-                    oldString = oldResults[key];
+                    oldString = oldResults.ContainsKey(key) ? oldResults[key] : string.Empty;
                     newString = newResults[key];
                     if (!string.Equals(oldString, newString, StringComparison.OrdinalIgnoreCase))
                     {
