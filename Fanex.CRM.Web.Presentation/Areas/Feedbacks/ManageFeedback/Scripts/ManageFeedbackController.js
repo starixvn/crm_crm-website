@@ -29,6 +29,7 @@ manageFBApplication.controller('manageFeedbackController', ['$scope', 'manageFee
         SubCategory: null,
         Communication: null,
         Status: null,
+        Handler: null,
         PageIndex: 0,
         ItemsPerPage: sharedScriptManager.cachedData.largeDefaultItemsPerPage
     };
@@ -155,6 +156,7 @@ manageFBApplication.controller('manageFeedbackController', ['$scope', 'manageFee
             StatusId: $scope.searchCriteria.Status.Id,
             IsReviewed: $scope.searchCriteria.IsReviewed.Id,
             ResponseId: $scope.searchCriteria.Response.Id,
+            HandledBy: $scope.searchCriteria.Handler,
             PageIndex: $scope.searchCriteria.PageIndex + 1,
             ItemsPerPage: $scope.searchCriteria.ItemsPerPage
         };
