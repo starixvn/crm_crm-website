@@ -180,4 +180,7 @@
   <data name="UpdateFeedbackTitle" xml:space="preserve">
     <value>Update Feedback</value>
   </data>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
+  </data>
 </root>
