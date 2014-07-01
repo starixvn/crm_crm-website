@@ -53,6 +53,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Feedback", "Fanex
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{E5444E9A-BF2F-4854-81B9-C7181FBDF26B}"
 	ProjectSection(SolutionItems) = preProject
+		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
 		CodeAnalysis\FxCopDictionary.xml = CodeAnalysis\FxCopDictionary.xml
 	EndProjectSection
 EndProject
