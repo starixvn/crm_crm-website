@@ -39,6 +39,8 @@ namespace Fanex.CRM.Entities.ViewModel
         [DataMember]
         public string Category { get; set; }
         [DataMember]
+        public string SubCategory { get; set; }
+        [DataMember]
         public string Complaints { get; set; }
         [DataMember]
         public string Solution { get; set; }

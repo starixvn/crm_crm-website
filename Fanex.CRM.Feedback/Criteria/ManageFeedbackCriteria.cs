@@ -40,6 +40,8 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public int ResponseId { get; set; }
 
+        public string HandledBy { get; set; }
+
         public int PageIndex { get; set; }
 
         public int ItemsPerPage { get; set; }

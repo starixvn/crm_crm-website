@@ -85,6 +85,7 @@ namespace Fanex.CRM.Feedback.Repositories
                     inputParams.Add("isreviewed", false);
                 }
 
+                inputParams.Add("handledby", string.IsNullOrWhiteSpace(criteria.HandledBy) ? string.Empty : criteria.HandledBy);
                 inputParams.Add("pageindex", criteria.PageIndex);
                 inputParams.Add("itemsperpage", criteria.ItemsPerPage);
                 inputParams.Add("totalrows", 0);
