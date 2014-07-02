@@ -27,6 +27,7 @@ function customerReportRegisterPicker() {
     customerReportRegister.registerTitlePicker();
     customerReportRegister.registerCustomerTypePicker();
     customerReportRegister.registerVIPTypePicker();
+    customerReportRegister.registerHeadlineTypePicker();
     customerReportRegister.registerDefaultFocus();
     customerReportRegister.registerDownloadFile();
 }

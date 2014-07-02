@@ -227,7 +227,6 @@
   </data>
   <data name="Account_Holder_Name" xml:space="preserve">
     <value>Acc. Name</value>
-    <value>Account Holder Name</value>
   </data>
   <data name="Account_No" xml:space="preserve">
     <value>Account No</value>
@@ -327,6 +326,96 @@
   </data>
   <data name="Secret_Code" xml:space="preserve">
     <value>Secret Code</value>
+  </data>
+  <data name="CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
+  </data>
+  <data name="UpdateInformHeadlines" xml:space="preserve">
+    <value>Update Inform Headlines</value>
+  </data>
+  <data name="Headline" xml:space="preserve">
+    <value>Headline</value>
+  </data>
+  <data name="InformHeadlines" xml:space="preserve">
+    <value>InformHeadlines</value>
+  </data>
+  <data name="InformHeadline_TitleEmpty" xml:space="preserve">
+    <value>New case is mandatory!</value>
+  </data>
+  <data name="Confirm_Ignore_UpdateInforms_Changes" xml:space="preserve">
+    <value>There are some changes on New Inform Headline form! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Handler" xml:space="preserve">
+    <value>Handler</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="UpdatedTime" xml:space="preserve">
+    <value>Updated Time</value>
+  </data>
+  <data name="AllStatus" xml:space="preserve">
+    <value>All Status</value>
+  </data>
+  <data name="No_status_found" xml:space="preserve">
+    <value>No status found.</value>
+  </data>
+  <data name="UpdateInformsSuccess" xml:space="preserve">
+    <value>Update inform successfully!</value>
+  </data>
+  <data name="CreatedTime" xml:space="preserve">
+    <value>Created Time</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="InternalAccount" xml:space="preserve">
+    <value>Internal Account</value>
+  </data>
+  <data name="NeverTouch" xml:space="preserve">
+    <value>Never Touch</value>
+  </data>
+  <data name="NoNeedToCall" xml:space="preserve">
+    <value>No Need To Call</value>
+  </data>
+  <data name="NoOfHeadlines" xml:space="preserve">
+    <value>No. Of Headlines</value>
+  </data>
+  <data name="NoReply" xml:space="preserve">
+    <value>No Reply</value>
+  </data>
+  <data name="RequestCallback" xml:space="preserve">
+    <value>Request Call Back</value>
+  </data>
+  <data name="Uncontactable" xml:space="preserve">
+    <value>Uncontactable</value>
+  </data>
+  <data name="NewCase" xml:space="preserve">
+    <value>New Case</value>
+  </data>
+  <data name="InformHeadlinesStatisticExcelName" xml:space="preserve">
+    <value>Inform_Headlines_Statistic</value>
+  </data>
+  <data name="InformHeadlinesStatisticName" xml:space="preserve">
+    <value>Inform Headlines Statistic</value>
+  </data>
+  <data name="CreateTitleSuccess" xml:space="preserve">
+    <value>Insert new case successfully!</value>
+  </data>
+  <data name="UpdateInforms_TitleEmpty" xml:space="preserve">
+    <value>Title is mandatory!</value>
+  </data>
+  <data name="NewInformHeadlines" xml:space="preserve">
+    <value>New Inform Headlines</value>
+  </data>
+  <data name="InformHeadline_NoDataChanged" xml:space="preserve">
+    <value>There is no change!</value>
+  </data>
+  <data name="InformHeadline_NoStatusFound" xml:space="preserve">
+    <value>Please select at least one Status!</value>
   </data>
   <data name="CreatedDate" xml:space="preserve">
     <value>Created Date</value>

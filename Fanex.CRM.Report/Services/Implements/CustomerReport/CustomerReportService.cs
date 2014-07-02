@@ -267,6 +267,15 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
         }
 
         /// <summary>
+        /// Gets the type of all headline.
+        /// </summary>
+        /// <returns>The list of headline type.</returns>
+        public List<SettingInfo> GetAllHeadlineType()
+        {
+            return _serviceSetting.GetAllHeadlineType();
+        }
+
+        /// <summary>
         /// Exports the customer report header.
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>

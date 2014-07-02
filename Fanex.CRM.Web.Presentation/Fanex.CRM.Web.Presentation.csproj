@@ -229,6 +229,19 @@
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Customer\DetailInfo\Scripts\Directives\DropdownTitleContainer.js" />
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleController.js" />
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleService.js" />
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleApplication.js" />
+    <None Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\UpdateInform.less" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\InformHeadlineContainer.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformService.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformController.js" />
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformApplication.js" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\Directives\InformStatisticContainer.js" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticApplication.js" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticController.js" />
+    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Scripts\InformStatisticService.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerApplication.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerController.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerService.js" />
@@ -247,7 +260,6 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
-    <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackController.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackService.js" />
@@ -278,7 +290,6 @@
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogApplication.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogController.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogService.js" />
-    <Content Include="Areas\Remark\Scripts\Directives\AlertBox.js" />
     <Content Include="Areas\Remark\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Remark\Scripts\Directives\PlaceHolder.js" />
     <Content Include="Areas\Remark\Scripts\Directives\LastRemarkEnterKeyUp.js" />
@@ -301,19 +312,13 @@
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportController.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportService.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\RegisterSharedDirectives.js" />
-   
     <Content Include="Areas\Feedbacks\ManageFeedback\Index.cshtml" />
-    <None Include="Areas\Feedbacks\ManageFeedback\Styles\StyleSheet.less" />
-     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Index.cshtml" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Index.cshtml" />
     <Content Include="Areas\Feedbacks\Web.config" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Index.cshtml" />
-
+    <Content Include="Areas\Feedbacks\ManageFeedback\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Index.cshtml" />
-    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Index.cshtml" /> 
+    <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Index.cshtml" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Index.cshtml" />
     <None Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
-
     <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
@@ -477,6 +482,7 @@
     <Content Include="Scripts\MultipleSelect\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.css" />
     <Content Include="Scripts\MultipleSelect\jquery.nextreeview.js" />
+    <Content Include="Scripts\ShareScripts\Applications\AlertBox.js" />
     <Content Include="Scripts\ShareScripts\Applications\BlockUI.js" />
     <Content Include="Scripts\ShareScripts\Applications\MonthDayPicker.js" />
     <Content Include="Scripts\ShareScripts\Applications\ResultMessage.js" />
@@ -892,6 +898,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
@@ -1004,7 +1011,6 @@
     <Content Include="App_GlobalResources\Language.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Language.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
