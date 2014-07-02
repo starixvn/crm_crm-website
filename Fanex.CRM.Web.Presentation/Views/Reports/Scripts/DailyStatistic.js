@@ -753,8 +753,8 @@ ibcDailyDetailReport = {
             <td><div class="l" style="width:220px;">' + row.CommunicationTool.Address + '</div></td>\
             <td><div class="c" style="width:100px;">' + (row.ProductName) + '</div></td>\
             <td><div class="c" style="width:100px;">' + (row.Country ? row.Country : '&nbsp;') + '</div></td>\
-            <td><div class="l" style="width:270px;"><div class="main-category">' + row.Category + 
-                '</div><span class="sub-category">' + row.SubCategory + '</span></td>\
+            <td><div class="c" style="width:140px;">' + row.Category + '</div></td>\
+            <td><div class="c" style="width:140px;">' + row.SubCategory + '</div></td>\
             <td><div class="l" style="width:480px;">' + compaints + '</div></td>\
             <td><div class="l" style="width:480px;">' + solutions + '</div></td>\
             <td><div class="c" style="width:60px;">' + row.Status + '</div></td>\
@@ -1068,8 +1068,8 @@ licenseeDailyDetailReport = {
             <td><div class="l" style="width:220px;">&nbsp;' + row.CommunicationTool.Address + '</div></td>\
             <td><div class="c" style="width:100px;">&nbsp;' + (row.ProductName) + '</div></td>\
             <td><div class="c" style="width:100px;">&nbsp;' + (row.Country ? row.Country : '&nbsp;') + '</div></td>\
-            <td><div class="l" style="width:270px;">&nbsp;<div class="main-category">' + row.Category + 
-                '</div><span class="sub-category">' + row.SubCategory + '</span></td>\
+            <td><div class="c" style="width:140px;">&nbsp;<div>' + row.Category + '</div></td>\
+            <td><div class="c" style="width:140px;">&nbsp;<div>' + row.SubCategory + '</div></td>\
             <td><div class="l" style="width:480px;">&nbsp;' + compaints + '</div></td>\
             <td><div class="l" style="width:480px;">&nbsp;' + solutions + '</div></td>\
             <td><div class="c" style="width:60px;">&nbsp;' + row.Status + '</div></td>\

@@ -963,6 +963,9 @@ namespace Fanex.CRM.Service.Impl
             sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblCategory");
             sheetData.Columns[startCol + nextCol].Width = 255 * 30;
             sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = backgroundHeaderNormalFormat;
+            sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblSubCategory");
+            sheetData.Columns[startCol + nextCol].Width = 255 * 30;
+            sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = backgroundHeaderNormalFormat;
             sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "complaintsEnquiries");
             sheetData.Columns[startCol + nextCol].Width = 255 * 60;
             sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = backgroundHeaderNormalFormat;
@@ -1013,7 +1016,6 @@ namespace Fanex.CRM.Service.Impl
                 var complains = Helper.ReplaceHtmlTag(detail.Complaints);
                 var solution = Helper.ReplaceHtmlTag(detail.Solution);
 
-                sheetData.Rows[startRow].Height = 255 * 2;
                 sheetData.Cells[startRow + nextRow, startCol].Style = backgroundFormat;
                 sheetData.Cells[startRow + nextRow, startCol].Value = detail.FeedbackDate;
 
@@ -1048,8 +1050,10 @@ namespace Fanex.CRM.Service.Impl
                 sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.Country;
 
                 sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundFormat;
-                sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.Category + "\n" + detail.SubCategory;
-                sheetData.Cells[startRow + nextRow, startCol + nextCol].Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
+                sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.Category;
+
+                sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundFormat;
+                sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.SubCategory;
 
                 sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundFormat;
                 sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = complains;
@@ -1307,6 +1311,10 @@ namespace Fanex.CRM.Service.Impl
             sheetData.Columns[startCol + nextCol].Width = 255 * 30;
 
             sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = backgroundHeaderNormalFormat;
+            sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblSubcategory");
+            sheetData.Columns[startCol + nextCol].Width = 255 * 30;
+
+            sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = backgroundHeaderNormalFormat;
             sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "complaintsEnquiries");
             sheetData.Columns[startCol + nextCol].Width = 255 * 60;
 
@@ -1362,7 +1370,6 @@ namespace Fanex.CRM.Service.Impl
                 var complains = Helper.ReplaceHtmlTag(detail.Complaints);
                 var solution = Helper.ReplaceHtmlTag(detail.Solution);
 
-                sheetData.Rows[startRow].Height = 255 * 2;
                 sheetData.Cells[startRow + nextRow, startCol].Style = backgroundFormat;
                 sheetData.Cells[startRow + nextRow, startCol].Value = detail.FeedbackDate;
 
@@ -1397,8 +1404,10 @@ namespace Fanex.CRM.Service.Impl
                 sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.Country;
 
                 sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundFormat;
-                sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.Category + "\n" + detail.SubCategory;
-                sheetData.Cells[startRow + nextRow, startCol + nextCol].Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
+                sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.Category;
+
+                sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundFormat;
+                sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.SubCategory;
 
                 sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundFormat;
                 sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = complains;
