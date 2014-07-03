@@ -16,8 +16,8 @@ namespace Fanex.CRM.Setting.Constants
     {
         public const int All = -1;
 
-        public const int Headline = 1;
+        public const int Yes = 1;
 
-        public const int None = 0;
+        public const int No = 0;
     }
 }

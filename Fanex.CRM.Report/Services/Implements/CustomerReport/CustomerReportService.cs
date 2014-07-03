@@ -574,6 +574,11 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                         .OrderBy(customerInfo => customerInfo.IsVIP ? 1 : 0)
                         .ToList();
                     break;
+                case "IsHeadline":
+                    sortedCustomerList = sortedCustomerList
+                        .OrderBy(customerInfo => customerInfo.IsHeadline ? 1 : 0)
+                        .ToList();
+                    break;
                 case "TitleName":
                     sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Title.Name, customerB.Title.Name, true));
                     break;
@@ -621,6 +626,11 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                 case "IsVIP":
                     sortedCustomerList = sortedCustomerList
                         .OrderByDescending(customerInfo => customerInfo.IsVIP ? 1 : 0)
+                        .ToList();
+                    break;
+                case "IsHeadline":
+                    sortedCustomerList = sortedCustomerList
+                        .OrderByDescending(customerInfo => customerInfo.IsHeadline ? 1 : 0)
                         .ToList();
                     break;
                 case "TitleName":

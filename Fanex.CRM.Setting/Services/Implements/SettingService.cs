@@ -576,14 +576,14 @@ namespace Fanex.CRM.Setting.Services.Implements
 
                 allVIPType.Add(new SettingInfo
                 {
-                    Id = VIPTypeConstants.VIP,
-                    Value = Labels.VIP
+                    Id = VIPTypeConstants.Yes,
+                    Value = Labels.Yes
                 });
 
                 allVIPType.Add(new SettingInfo
                 {
-                    Id = VIPTypeConstants.None,
-                    Value = Labels.None
+                    Id = VIPTypeConstants.No,
+                    Value = Labels.No
                 });
             }
             catch (Exception ex)
@@ -609,13 +609,13 @@ namespace Fanex.CRM.Setting.Services.Implements
                 },
                 new SettingInfo
                 {
-                    Id = HeadlineTypeConstants.Headline,
-                    Value = Labels.Headline
+                    Id = HeadlineTypeConstants.Yes,
+                    Value = Labels.Yes
                 },
                 new SettingInfo
                 {
-                    Id = HeadlineTypeConstants.None,
-                    Value = Labels.None
+                    Id = HeadlineTypeConstants.No,
+                    Value = Labels.No
                 }
             };
         }

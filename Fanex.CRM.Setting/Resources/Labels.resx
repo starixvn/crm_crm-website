@@ -165,6 +165,9 @@
   <data name="Monthly" xml:space="preserve">
     <value>Monthly</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="None" xml:space="preserve">
     <value>None</value>
   </data>
@@ -182,5 +185,8 @@
   </data>
   <data name="Yearly" xml:space="preserve">
     <value>Yearly</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>
