@@ -287,21 +287,21 @@ function AddFeedback() {
             return false;
         }
         //----------check length of data
-        if ($("#desediter").htmlarea("toHtmlString").length > 8000) {
-            $('#desediter').focus();
-            showAlertMessage("errmsg", 'Max length of Description is 8000!', 1);
-            return false;
-        }
-        if ($("#solediter").htmlarea("toHtmlString").length > 8000) {
-            $('#solediter').focus();
-            showAlertMessage("errmsg", 'Max length of Solution is 8000!', 1);
-            return false;
-        }
-        if ($("#revediter").htmlarea("toHtmlString").length > 8000) {
-            $('#revediter').focus();
-            showAlertMessage("errmsg", 'Max length of Review is 8000!', 1);
-            return false;
-        }
+//        if ($("#desediter").htmlarea("toHtmlString").length > 8000) {
+//            $('#desediter').focus();
+//            showAlertMessage("errmsg", 'Max length of Description is 8000!', 1);
+//            return false;
+//        }
+//        if ($("#solediter").htmlarea("toHtmlString").length > 8000) {
+//            $('#solediter').focus();
+//            showAlertMessage("errmsg", 'Max length of Solution is 8000!', 1);
+//            return false;
+//        }
+//        if ($("#revediter").htmlarea("toHtmlString").length > 8000) {
+//            $('#revediter').focus();
+//            showAlertMessage("errmsg", 'Max length of Review is 8000!', 1);
+//            return false;
+//        }
         //----------check related customer
         if ($("#chkisrelated").prop("checked")) {
             var customerIds = getRelatedCustomer();

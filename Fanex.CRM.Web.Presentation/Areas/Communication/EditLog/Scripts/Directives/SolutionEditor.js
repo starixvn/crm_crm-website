@@ -50,6 +50,7 @@ editLogApplication.directive('solutionEditorContainer', function () {
                         var editText = this.getSelectedHTML();
                         editText = sharedScriptManager.insertEditDescriptionBlock(currentUsername, editText, parent.homeManager.currentTime);
                         this.pasteHTML(editText);
+                        scope.updateSolution(editor.htmlarea("toHtmlString"));
                     }
                 }]
            ]

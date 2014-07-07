@@ -52,6 +52,7 @@ editLogApplication.directive('remarkEditorContainer', function () {
                         var editText = this.getSelectedHTML();
                         editText = sharedScriptManager.insertEditDescriptionBlock(currentUsername, editText, parent.homeManager.currentTime);
                         this.pasteHTML(editText);
+                        scope.updateRemark(editor.htmlarea("toHtmlString"));
                     }
                 }]
            ]
