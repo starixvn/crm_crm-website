@@ -122,7 +122,7 @@ var SharedScriptManager = function () {
     };
 
     self.insertEditDescriptionBlock = function (username, editText, currentDate) {
-        currentDate = new Date();
+        //currentDate = new Date();
         if (editText === "") {
             editText = "&nbsp;";
         }
@@ -136,7 +136,7 @@ var SharedScriptManager = function () {
               </div>';
 
         return sharedScriptManager.stringFormat(textTemplate,
-            [username, currentDate.toLocaleString(), editText]);
+            [username, moment(currentDate).format("MM/DD/YYYY, hh:mm:ss A"), editText]);
     };
 
     self.getIeVersion = function () {
