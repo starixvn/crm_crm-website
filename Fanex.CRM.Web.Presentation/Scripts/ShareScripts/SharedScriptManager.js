@@ -160,8 +160,8 @@ var SharedScriptManager = function () {
             ajaxResult = {
                 Id: crmConstants.Enums.Error.Forbidden,
                 Code: crmConstants.Enums.Error.Forbidden,
-                Name: "You don't have permission on this function!",
-                Message: "You don't have permission on this function!"
+                Name: "Oppss... An error occurred while processing your request.",
+                Message: "Oppss... An error occurred while processing your request."
             };
         }
 
