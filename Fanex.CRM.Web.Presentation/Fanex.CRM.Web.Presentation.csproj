@@ -665,7 +665,6 @@
     <Content Include="Scripts\FanexGrid\images\white-top-bottom.gif" />
     <Content Include="Scripts\InputBox\close.gif" />
     <Content Include="Scripts\InputBox\jquery.fcbkcomplete.js" />
-    <Content Include="Scripts\InputBox\jquery.fcbkcomplete.min.js" />
     <Content Include="Scripts\InputBox\style.css" />
     <Content Include="Scripts\jHtmlArea\jHtmlArea-0.7.0.js" />
     <Content Include="Scripts\jHtmlArea\jHtmlArea.ColorPickerMenu-0.7.0.js" />

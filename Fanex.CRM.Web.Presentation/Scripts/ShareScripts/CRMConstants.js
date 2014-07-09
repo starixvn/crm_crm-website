@@ -128,6 +128,9 @@ var CRMConstants = function () {
             NotChange: 0,
             Change: 1,
             Reset: 2
+        },
+        RelatedCustomerSetting: {
+            MaxItems: 500
         }
     };
 

@@ -494,7 +494,7 @@ head.ready(function () {
         /* jshint camelcase: false */
         json_url: window.rootUrl + 'Customer/RelatedCustomerAutoSuggestion',
         addontab: true,
-        maxitems: 30,
+        maxitems: parent.crmConstants.Enums.RelatedCustomerSetting.MaxItems,
         input_min_size: 1,
         height: 10,
         cache: false,
