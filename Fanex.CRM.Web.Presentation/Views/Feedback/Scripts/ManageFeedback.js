@@ -6,7 +6,7 @@ bindingManageChildByParentId, clientTime */
 
 //Contain the template
 var AllSetting;
-var maxHeightOfPopUp = ($(window).height() + 50);
+var maxHeightOfPopUp = $(parent.document).height();
 var maxWidthOfPopUp = 987;
 var lastedFeedback;
 

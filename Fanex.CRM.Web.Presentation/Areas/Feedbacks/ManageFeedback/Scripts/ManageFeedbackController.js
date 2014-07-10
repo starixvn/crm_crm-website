@@ -173,7 +173,7 @@ manageFBApplication.controller('manageFeedbackController', ['$scope', 'manageFee
     $scope.openEditFeedbackPopup = function (id) {
         var url = window.rootUrl + 'Feedback/EditFeedback?id=' + id + '&rep=2';
         var maxWidthOfPopUp = 987;
-        var maxHeightOfPopUp = ($(window).height() + 50);
+        var maxHeightOfPopUp = $(parent.document).height();
         parent.OpenPopup(url, manageFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, function () {
             $scope.searchManageFeedback();
         });
