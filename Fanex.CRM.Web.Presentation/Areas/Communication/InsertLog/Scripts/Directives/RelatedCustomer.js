@@ -1,13 +1,15 @@
 ﻿"use strict";
 /* global insertLogApplication,
-sharedScriptManager */
+sharedScriptManager
+ */
 /* exported orgArrUser, 
 trim,
 verifyRelatedCustomer,
 checkDuplicateRelated,
 getRelatedCustomer,
 deleteRelatedCust,
-getRelatedCustomerLength */
+getRelatedCustomerLength,
+deleteAllInValidCustomers */
 var orgLengt = 0;
 var orgArrUser = "";
 var arrCust = [];

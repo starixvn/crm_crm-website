@@ -9,7 +9,8 @@ getRelatedCustomer,
 deleteRelatedCust,
 getRelatedCustomerLength,
 isOldRelatedCustomer,
-verifyRelatedCustomerForUpdate */
+verifyRelatedCustomerForUpdate,
+deleteAllInValidCustomers */
 var orgLengt = 0;
 var orgArrUser = "";
 var arrCust = [];
