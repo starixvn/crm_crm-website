@@ -56,7 +56,7 @@ var completedVerifyRelatedCustomer = function (rs) {
         var userId = '';
         for (i = 0; i < rs.length; i++) {
             if (userIdList.indexOf(rs[i].CustId) === -1 || rs[i].CustId === 0) {
-                userIdList.push(rs[i]);
+                userIdList.push(rs[i].CustId);
                 userList.push(rs[i]);
             }
         }

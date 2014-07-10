@@ -634,8 +634,8 @@ function deleteAllInValidCustomers() {
 
 function DeleteRelatedCust(custId) {
     $("#" + custId).parent().remove();
-    arr.splice(arrCust.indexOf(custId), 1);
-    arrCust.splice(arrCust.indexOf(custId), 1);
+    arr.splice(arrCust.indexOf(custId.toString()), 1);
+    arrCust.splice(arrCust.indexOf(custId.toString()), 1);
 }
 function feedbackObjectValidate(editorObj, otherObj) {
     var result = true;
