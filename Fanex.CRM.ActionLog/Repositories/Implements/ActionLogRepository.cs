@@ -48,7 +48,8 @@ namespace Fanex.CRM.ActionLog.Repositories.Implements
                     {
                         activityLogs.Add(new ActivityLog
                         {
-                            LogDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["LogDate"])),
+                            // No need to convert ClientDatetime, we'll do it in Model.
+                            LogDate = Converter.ToDateTime(reader["LogDate"]),
                             Username = Converter.ToString2(reader["Username"]),
                             OldValues = Converter.ToString2(reader["OldValues"]),
                             NewValues = Converter.ToString2(reader["NewValues"]),
@@ -88,7 +89,8 @@ namespace Fanex.CRM.ActionLog.Repositories.Implements
                     {
                         settingLogs.Add(new SettingLog
                         {
-                            LogDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["LogDate"])),
+                            // No need to convert ClientDatetime, we'll do it in Model.
+                            LogDate = Converter.ToDateTime(reader["LogDate"]),
                             Username = Converter.ToString2(reader["Username"]),
                             OldValues = Converter.ToString2(reader["OldValues"]),
                             NewValues = Converter.ToString2(reader["NewValues"]),
