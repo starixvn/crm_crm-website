@@ -284,9 +284,7 @@ function (
                     Name: viewResources.Symbol_NotApply
                 });
 
-                $scope.countryOptions.DataList.concat(allSetting.CountryList);
-
-
+                $scope.countryOptions.DataList = $scope.countryOptions.DataList.concat(allSetting.CountryList);
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
