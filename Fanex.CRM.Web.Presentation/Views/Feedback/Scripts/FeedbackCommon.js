@@ -620,7 +620,7 @@ function deleteAllInValidCustomers() {
 
     $('.invalidcustomers').remove();
     for (var i = 0; i < length; i++) {
-        if (arrCust[i] !== 0) {
+        if (parseInt(arrCust[i]) !== 0) {
             arrCustPos.push(arrCust[i]);
             arrHtmlPos.push(arr[i]);
         }
