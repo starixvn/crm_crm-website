@@ -19,12 +19,7 @@ var renderRelated = function (row) {
     if (!row) {
         return;
     }
-
-    $('#related td').each(function (i, td) {
-        /* jshint unused: vars */
-        arrCust[i] = this.id;
-    });
-
+    
     var html;
     if (row && row.CustId !== 0) {
         if (row.CustId > 0) {
@@ -61,7 +56,7 @@ var completedVerifyRelatedCustomer = function (rs) {
         var userId = '';
         for (i = 0; i < rs.length; i++) {
             if (userIdList.indexOf(rs[i].CustId) === -1) {
-                userIdList.push(rs[i].CustId);
+                userIdList.push(rs[i].CustId.toString());
                 userList.push(rs[i]);
             }
         }
@@ -78,7 +73,9 @@ var completedVerifyRelatedCustomer = function (rs) {
             $(option).remove();
         }
     });
+
     var arr = [];
+    arrCust = [];
     for (i = 0; i < userList.length; i++) {
         arr.push(renderRelated(userList[i]));
         arrCust.push(userList[i].CustId);
@@ -238,14 +235,19 @@ var deleteAllInValidCustomers = function () {
 
     $('.invalidcustomers').remove();
     for (var i = 0; i < length; i++) {
-        if (arrCust[i] !== 0) {
+        if (parseInt(arrCust[i]) !== 0) {
             arrCustPos.push(arrCust[i]);
             arrHtmlPos.push(userList[i]);
             userIdListPos.push(userIdList[i]);
         }
     }
 
+    userList = [];
     userList = arrHtmlPos;
+
+    arrCust = [];
     arrCust = arrCustPos;
+
+    userIdList = [];
     userIdList = userIdListPos;
 };

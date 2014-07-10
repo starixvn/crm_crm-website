@@ -20,12 +20,7 @@ var renderRelated = function (row) {
     if (!row) {
         return;
     }
-
-    $('#related td').each(function (i, td) {
-        /* jshint unused: vars */
-        arrCust[i] = this.id;
-    });
-
+    
     var html;
     if (row.CustId !== 0) {
         if (row.CustId > 0) {
@@ -57,15 +52,13 @@ var renderRelated = function (row) {
     return html;
 };
 var completedVerifyRelatedCustomer = function (rs) {
-    var i;
+    var i;    
     if (rs != null && rs.length > 0) {
         var userId = '';
         for (i = 0; i < rs.length; i++) {
-            if (parseInt(rs[i].CustId) !== 0) {
-                if (userIdList.indexOf(rs[i].CustId) === -1) {
-                    userIdList.push(rs[i].CustId);
-                    userList.push(rs[i]);
-                }
+            if (userIdList.indexOf(rs[i].CustId) === -1) {
+                userIdList.push(rs[i].CustId.toString());
+                userList.push(rs[i]);
             }
         }
 
@@ -81,7 +74,9 @@ var completedVerifyRelatedCustomer = function (rs) {
             $(option).remove();
         }
     });
+
     var arr = [];
+    arrCust = [];
     for (i = 0; i < userList.length; i++) {
         arr.push(renderRelated(userList[i]));
         arrCust.push(userList[i].CustId);
@@ -91,12 +86,12 @@ var completedVerifyRelatedCustomer = function (rs) {
     if ($("#related td").length === 0) {
         $("#ColorGuide").addClass("display-none");
         $("#trRelatedInfo").addClass("display-none");
-        $("#related-container").addClass("display-none");  
+        $("#related-container").addClass("display-none");
     }
     else {
         $("#ColorGuide").removeClass("display-none");
         $("#trRelatedInfo").removeClass("display-none");
-        $("#related-container").removeClass("display-none");        
+        $("#related-container").removeClass("display-none");
     }
 };
 
@@ -105,7 +100,7 @@ editLogApplication.directive('relatedCustomerContainer', function () {
     function bindingRelatedCustomerEvent(scope, element, attrs) {
         /* jshint unused: vars */
         var relatedTo = element.find("#txtrelatedcustomer");
-        
+
         relatedTo.fcbkcomplete({
             /* jshint camelcase: false */
             json_url: window.rootUrl + 'Customer/RelatedCustomerAutoSuggestion',
@@ -296,14 +291,20 @@ var deleteAllInValidCustomers = function () {
 
     $('.invalidcustomers').remove();
     for (var i = 0; i < length; i++) {
-        if (arrCust[i] !== 0) {
+        if (parseInt(arrCust[i]) !== 0) {
             arrCustPos.push(arrCust[i]);
             arrHtmlPos.push(userList[i]);
             userIdListPos.push(userIdList[i]);
         }
     }
 
+    userList=[];
     userList = arrHtmlPos;
+
+    arrCust = [];
     arrCust = arrCustPos;
+
+    userIdList = [];
     userIdList = userIdListPos;
+
 };
