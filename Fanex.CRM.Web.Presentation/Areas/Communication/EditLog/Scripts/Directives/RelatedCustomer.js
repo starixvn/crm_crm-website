@@ -16,6 +16,10 @@ var arrCust = [];
 var userIdList = [];
 var userList = [];
 var renderRelated = function (row) {
+    if (!row) {
+        return;
+    }
+
     $('#related td').each(function (i, td) {
         /* jshint unused: vars */
         arrCust[i] = this.id;
@@ -86,10 +90,12 @@ var completedVerifyRelatedCustomer = function (rs) {
     if ($("#related td").length === 0) {
         $("#ColorGuide").addClass("display-none");
         $("#trRelatedInfo").addClass("display-none");
+        $("#related-container").addClass("display-none");  
     }
     else {
         $("#ColorGuide").removeClass("display-none");
         $("#trRelatedInfo").removeClass("display-none");
+        $("#related-container").removeClass("display-none");        
     }
 };
 
@@ -279,4 +285,24 @@ var isOldRelatedCustomer = function (oldRelatedCustomer) {
 
     oldRelatedCustomer.replace(/class="bit-box deleted"/g, 'class="bit-box"');
     return oldRelatedCustomer === newRelatedCustomer;
+};
+
+var deleteAllInValidCustomers = function () {
+    var length = arrCust.length;
+    var arrCustPos = [];
+    var arrHtmlPos = [];
+    var userIdListPos = [];
+
+    $('.invalidcustomers').remove();
+    for (var i = 0; i < length; i++) {
+        if (arrCust[i] !== 0) {
+            arrCustPos.push(arrCust[i]);
+            arrHtmlPos.push(userList[i]);
+            userIdListPos.push(userIdList[i]);
+        }
+    }
+
+    userList = arrHtmlPos;
+    arrCust = arrCustPos;
+    userIdList = userIdListPos;
 };

@@ -14,13 +14,17 @@ var arrCust = [];
 var userIdList = [];
 var userList = [];
 var renderRelated = function (row) {
+    if (!row) {
+        return;
+    }
+
     $('#related td').each(function (i, td) {
         /* jshint unused: vars */
         arrCust[i] = this.id;
     });
 
     var html;
-    if (row.CustId !== 0) {
+    if (row && row.CustId !== 0) {
         if (row.CustId > 0) {
             html = '<tr>\
                         <td id =' + row.CustId + ' value= ' + row.UserName + ' >\
@@ -82,10 +86,12 @@ var completedVerifyRelatedCustomer = function (rs) {
     if ($("#related td").length === 0) {
         $("#ColorGuide").addClass("display-none");
         $("#trRelatedInfo").addClass("display-none");
+        $("#related-container").addClass("display-none");
     }
     else {
         $("#ColorGuide").removeClass("display-none");
         $("#trRelatedInfo").removeClass("display-none");
+        $("#related-container").removeClass("display-none");
     }
 };
 insertLogApplication.directive('relatedCustomerContainer', function () {
@@ -220,4 +226,24 @@ var deleteRelatedCust = function (custId) {
 var getRelatedCustomerLength = function () {
     return ($(".related-customer-container #holder > li").length - 1) +
            ($(".related-customer-container #typeCust").val() !== "" ? 1 : 0);
+};
+
+var deleteAllInValidCustomers = function () {
+    var length = arrCust.length;
+    var arrCustPos = [];
+    var arrHtmlPos = [];
+    var userIdListPos = [];
+
+    $('.invalidcustomers').remove();
+    for (var i = 0; i < length; i++) {
+        if (arrCust[i] !== 0) {
+            arrCustPos.push(arrCust[i]);
+            arrHtmlPos.push(userList[i]);
+            userIdListPos.push(userIdList[i]);
+        }
+    }
+
+    userList = arrHtmlPos;
+    arrCust = arrCustPos;
+    userIdList = userIdListPos;
 };
