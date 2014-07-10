@@ -17,7 +17,7 @@ namespace Fanex.CRM.Feedback.Bundles
     /// <summary>
     /// Feedback Bundles.
     /// </summary>
-    public class FeedbackBundles
+    public static class FeedbackBundles
     {
         public static void RegisterBundles(BundleCollection bundles)
         {

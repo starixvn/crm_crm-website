@@ -80,27 +80,6 @@ namespace Fanex.CRM.Customer.Repositories.Implements
         }
 
         /// <summary>
-        /// Parses the inform headline.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>The InformHeadline object.</returns>
-        private InformHeadline ParseInformHeadline(IDataReader reader)
-        {
-            return new InformHeadline 
-            {
-                TitleId = Converter.ToInt(reader["titleid"]),
-                Title = Converter.ToString2(reader["title"]),
-                InformId = Converter.ToInt(reader["informid"]),
-                HeadlineId = Converter.ToInt(reader["headlineid"]),
-                HeadlineName = Converter.ToString2(reader["headlinename"]),
-                StatusId = Converter.ToInt(reader["statusid"]),
-                UpdatedTime = Converter.ToDateTime(reader["updatedtime"]),
-                Remark = Converter.ToString2(reader["remark"]),
-                Creator = Converter.ToString2(reader["creator"])
-            };
-        }
-
-        /// <summary>
         /// Parses the inform headline status.
         /// </summary>
         /// <param name="reader">The reader.</param>

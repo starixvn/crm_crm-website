@@ -66,7 +66,5 @@ namespace Fanex.CRM.Customer.Models.InformHeadlines
         public int InternalAccount { get; set; }
 
         public int NeverTouch { get; set; }
-
-        public int Request_to_call_back { get; set; }
     }
 }
