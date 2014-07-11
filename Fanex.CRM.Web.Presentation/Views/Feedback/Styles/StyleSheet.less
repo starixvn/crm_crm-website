@@ -112,7 +112,8 @@
 ul.holder {
     border-color: @border-color;
     width: 96%!important;
-    height: 65px !important;
+    height: auto !important;
+    max-height: 65px;
     overflow: auto;
     padding: 5px;
 
@@ -159,10 +160,12 @@ ul.holder {
 .relatedFeedback {
     width: 88% !important;
     border: 1px solid @border-color;
-    height: 227px;
+    height: auto;
+    max-height: 227px;
     margin: 10px 0 0 22px;
     overflow: auto;
     padding: 5px;
+
     #related {
         margin: 5px;
     }
