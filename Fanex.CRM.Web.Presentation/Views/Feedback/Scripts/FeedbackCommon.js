@@ -465,6 +465,10 @@ function checkIsRelated(obj) {
             $("#btnsubmitbottom").attr("disabled", "disabled");
         }
         $("#lblverify").removeClass("hidden");
+        if ($("#related").text().trim().length > 0) {
+            $("#ColorGuide").removeClass("hidden");
+            $("#trRelatedInfo").removeClass("hidden");
+        }
     }
     else {
         $("#btnsubmit").removeAttr("disabled");
