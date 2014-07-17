@@ -49,5 +49,7 @@ namespace Fanex.CRM.Customer.Models.InformHeadlines
         public string Remark { get; set; }
 
         public string Creator { get; set; }
+
+        public string Handler { get; set; }
     }
 }

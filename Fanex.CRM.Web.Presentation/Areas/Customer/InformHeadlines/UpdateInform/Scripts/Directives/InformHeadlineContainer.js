@@ -60,7 +60,7 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
                     { Name: 'ColStatus', Value: renderSelectStatus(info.StatusId, scope, i) },
                     { Name: 'ColUpdatedTime', Value: info.UpdatedTimeString },
                     { Name: 'ColRemark', Value: renderTextboxRemark(info.Remark, i) },
-                    { Name: 'ColHandler', Value: info.Creator}];
+                    { Name: 'ColHandler', Value: info.Handler}];
 
 
             bodyData.push({ Columns: cell });

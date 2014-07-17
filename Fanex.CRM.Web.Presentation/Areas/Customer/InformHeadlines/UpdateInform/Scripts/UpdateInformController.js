@@ -127,14 +127,16 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                     var result = sharedScriptManager.formatAjaxResult(data.Result);
                     var alertResult;
                     if (result.Code === 0) {
-                        alertResult = { 
+                        alertResult = {
                             type: crmConstants.Enums.MessageType.Success,
-                            message: updateInformResources.UpdateInformsSuccess };
+                            message: updateInformResources.UpdateInformsSuccess
+                        };
                     }
                     else {
                         alertResult = {
                             type: crmConstants.Enums.MessageType.Error,
-                            message: result.Message };
+                            message: result.Message
+                        };
                     }
 
                     alertBoxService.show(alertResult);
@@ -145,6 +147,8 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                     $scope.isTitleChanged = false;
                     $scope.isStatusChanged = false;
                     parent.homeManager.CachedData.isChangingDataPopUp = false;
+                    // reload parent form (Inform Statistic)
+                    parent.homeManager.CachedData.shouldReloadView = true;
                 },
                 function (data) {
                     $uiBlockerService.unblockUI();
