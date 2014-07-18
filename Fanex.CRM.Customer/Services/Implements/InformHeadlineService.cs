@@ -230,7 +230,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ISheet worksheet = exportExcelInfo.Worksheet;
             worksheet.SetColumnWidth(currentColumn++, 280 * NpoiExcelExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, columnWidth100);
             worksheet.SetColumnWidth(currentColumn++, columnWidth150);
             worksheet.SetColumnWidth(currentColumn++, columnWidth100);
             worksheet.SetColumnWidth(currentColumn++, columnWidth150);
@@ -302,7 +302,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                 
                 IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Title, titleCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.CreatedTimeString, createdTimeCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.CreatedDateString, createdTimeCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Total, numberCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Done, numberCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.RequestToCallback, numberCellStyle);
