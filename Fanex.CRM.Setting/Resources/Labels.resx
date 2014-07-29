@@ -147,6 +147,9 @@
   <data name="Guest" xml:space="preserve">
     <value>Guest</value>
   </data>
+  <data name="Headline" xml:space="preserve">
+    <value>Headline</value>
+  </data>
   <data name="IBC" xml:space="preserve">
     <value>IBC</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="Monthly" xml:space="preserve">
     <value>Monthly</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>None</value>
@@ -179,5 +185,8 @@
   </data>
   <data name="Yearly" xml:space="preserve">
     <value>Yearly</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

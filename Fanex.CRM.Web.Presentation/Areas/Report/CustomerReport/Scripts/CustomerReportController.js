@@ -25,6 +25,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope.defaultFocusOptions = null;
         $scope.downloadFileOptions = null;
         $scope.vipTypeOptions = null;
+        $scope.headlineTypeOptions = null;
         $scope.customerReportOptions = {
             DataList: null,
             IsResize: false,
@@ -44,6 +45,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             Title: null,
             CustomerType: null,
             VIPType: null,
+            HeadlineType: null,
             PageIndex: 0,
             PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
             SortField: '',
@@ -116,6 +118,12 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 AllText: viewResources.All
             };
 
+            $scope.headlineTypeOptions = {
+                DataList: [],
+                OnChangeEvent: $scope.updateSelectedHeadlineType,
+                AllText: viewResources.All
+            };
+
             $scope.languageOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedLanguage,
@@ -177,6 +185,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                     $scope.titleOptions.DataList = allSetting.TitleList;
                     $scope.customerTypeOptions.DataList = allSetting.CustomerTypeList;
                     $scope.vipTypeOptions.DataList = allSetting.VIPTypeList;
+                    $scope.headlineTypeOptions.DataList = allSetting.HeadlineTypeList;
                     $scope.languageOptions.DataList = allSetting.LanguageList;
                     $scope.countryOptions.DataList = allSetting.CountryList;
                     $scope.completedLoadFilterInfo();
@@ -189,6 +198,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
             $scope.searchCriteria.Title = $scope.titleOptions.DataList[0];
             $scope.searchCriteria.CustomerType = $scope.customerTypeOptions.DataList[0];
             $scope.searchCriteria.VIPType = $scope.vipTypeOptions.DataList[0];
+            $scope.searchCriteria.HeadlineType = $scope.headlineTypeOptions.DataList[0];
             $scope.unblockUI();
         };
         $scope.updateSelectedCountry = function (countryIdList) {
@@ -223,6 +233,11 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
         $scope.updateSelectedVIPType = function (vipType) {
             $scope.searchCriteria.VIPType = vipType;
         };
+
+        $scope.updateSelectedHeadlineType = function (headlineType) {
+            $scope.searchCriteria.HeadlineType = headlineType;
+        };
+
         $scope.invokeHotKey_CtrlS = function () {
             $scope.getCustomerReport();
         };
@@ -245,6 +260,7 @@ customerReportApplication.controller('customerReportController', ['$scope', '$ht
                 TitleId: $scope.searchCriteria.Title.Id,
                 CustomerTypeId: $scope.searchCriteria.CustomerType.Id,
                 VIPTypeId: $scope.searchCriteria.VIPType.Id,
+                HeadlineTypeId: $scope.searchCriteria.HeadlineType.Id,
                 PageIndex: $scope.searchCriteria.PageIndex,
                 PageSize: $scope.searchCriteria.PageSize,
                 SortField: $scope.searchCriteria.SortField,

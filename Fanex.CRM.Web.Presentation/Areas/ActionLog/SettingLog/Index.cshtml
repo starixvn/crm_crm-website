@@ -8,8 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="settinglog-application">
 <head>
     <title>@Labels.Setting_Logs </title>
-    @Styles.Render("~/site/common")
-    @Styles.Render("~/Areas/ActionLog/SettingLogStyles")
+    @Styles.Render("~/site/common", "~/Areas/ActionLog/SettingLogStyles")
 </head>
 <body>
 <div class="container main" data-ng-controller="settingLogController">
@@ -48,9 +47,7 @@
         </div>
     </div>
 </div>
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    @Scripts.Render("~/Areas/ActionLog/SettingLogScripts")
+    @Scripts.Render("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/ActionLog/SettingLogScripts")
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_AdminTool_SettingLog';
         window.rootUrl = '@Url.Content("~")';

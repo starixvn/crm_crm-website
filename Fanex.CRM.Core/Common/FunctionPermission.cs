@@ -41,5 +41,11 @@ namespace Fanex.CRM.Infrastructure.Common
         public const string DynamicReport = "DynamicReport";
 
         public const string CustomerReport = "CustomerReport";
+
+        public const string InformHeadline = "InformHeadline";
+
+        public const string InformHeadlineCreateTitle = "InformHeadlineTitle";
+
+        public const string InformHeadlineUpdateStatus = "InformHeadlineDetail";
     }
 }

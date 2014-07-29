@@ -44,6 +44,9 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         [SpParam(SqlParamName = "vip")]
         public int VIPTypeId { get; set; }
 
+        [SpParam(SqlParamName = "isgroupheadline")]
+        public int HeadlineTypeId { get; set; }
+
         [SpParam(SqlParamName = "customertype")]
         public int CustomerTypeId { get; set; }
 

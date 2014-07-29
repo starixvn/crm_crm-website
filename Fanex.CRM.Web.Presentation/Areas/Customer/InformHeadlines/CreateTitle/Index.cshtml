@@ -1,0 +1,38 @@
+﻿@using Fanex.CRM.Customer.Resources;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-informheadline-create">
+<head>
+    <title></title>
+    @Styles.Render("~/site/common",
+        "~/Areas/Customer/InformHeadlines/CreateTitleStyle")
+</head>
+<body>
+    <div class="main popup container" data-ng-controller="createInformHeadlineTitleController">
+        <div class="row" alert-box-container></div>
+        <form name="frmNewInform" data-ng-submit="createTitle()" novalidate>
+            <div class="row form-group">
+                <div class="row row-item">
+                    <input id="title" name="title" type="text" class="textbox" maxlength="200"
+                        data-ng-model="title" 
+                        required />
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-save">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        </form>
+    </div>
+
+    @Scripts.Render("~/Scripts/CommomScripts",
+        "~/Scripts/AngularJSLibrary",
+        "~/Areas/Customer/InformHeadlines/CreateTitleScript")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var createInformResource = {
+            InformHeadline_TitleEmpty: '@Labels.InformHeadline_TitleEmpty'
+        };
+        $('#title').focus();
+    </script>
+</body>
+</html>

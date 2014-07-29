@@ -69,6 +69,8 @@ namespace Fanex.CRM.Customer.Models
 
         public bool IsVIP { get; set; }
 
+        public bool HeadLine { get; set; }
+
         public string Question { get; set; }
 
         public string Answer { get; set; }
