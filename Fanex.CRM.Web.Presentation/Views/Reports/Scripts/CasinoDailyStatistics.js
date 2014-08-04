@@ -402,6 +402,7 @@ casinoDailyDetail = {
             <td><div class="l" style="width: 220px;">&nbsp;' + row.CommunicationTool.Address + '</div></td>\
             <td><div class="c" style="width: 100px;">&nbsp;' + (row.Country ? row.Country : '&nbsp;') + '</div></td>\
             <td><div class="c" style="width: 180px;">&nbsp;' + row.Category + '</div></td>\
+            <td><div class="c" style="width: 180px;">&nbsp;' + row.SubCategory + '</div></td>\
             <td><div class="l" style="width: 480px;">&nbsp;' + replaceSpecialHtmlTag(row.Complaints) + '</div></td>\
             <td><div class="l" style="width: 480px;">&nbsp;' + replaceSpecialHtmlTag(row.Solution) + '</div></td>\
             <td><div class="c" style="width: 60px;">&nbsp;' + row.Status + '</div></td>\

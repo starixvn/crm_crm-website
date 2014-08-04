@@ -342,6 +342,7 @@ casinoWeeklyDetail = {
             <td><div class="l" style="width: 220px;">&nbsp;' + row.CommunicationTool.Address + '</div></td>\
             <td><div class="c" style="width: 100px;">&nbsp;' + (row.Country ? row.Country : '&nbsp;') + '</div></td>\
             <td><div class="c" style="width: 180px;">&nbsp;' + row.Category + '</div></td>\
+            <td><div class="c" style="width: 180px;">&nbsp;' + row.SubCategory + '</div></td>\
             <td><div class="l" style="width: 480px;">&nbsp;' + replaceSpecialHtmlTag(row.Complaints) + '</div></td>\
             <td><div class="l" style="width: 480px;">&nbsp;' + replaceSpecialHtmlTag(row.Solution) + '</div></td>\
             <td><div class="c" style="width: 60px;">&nbsp;' + row.Status + '</div></td>\
@@ -491,7 +492,7 @@ casinoWeeklyDetail = {
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:60px; height:20px;">&nbsp;</div></td>\
             <td style="border-right:0px none;"><div class="c" style="width:140px; height:20px;">&nbsp;</div></td>\
-            <td colspan="13"><div class="c" style="width:2080px; height:20px;"><div class="noInfomation">There is no information.</div></div></td>\
+            <td colspan="14"><div class="c" style="width:2260px; height:20px;"><div class="noInfomation">There is no information.</div></div></td>\
         </tr>';
 
         var mainreport = $('#weeklydetailgrid');

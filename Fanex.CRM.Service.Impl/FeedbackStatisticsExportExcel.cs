@@ -1711,6 +1711,10 @@ namespace Fanex.CRM.Service.Impl
             sheetData.Columns[startCol + nextCol].Width = 255 * 30;
 
             sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = backgroundHeaderNormalFormat;
+            sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "lblSubCategory");
+            sheetData.Columns[startCol + nextCol].Width = 255 * 30;
+
+            sheetData.Cells[startRow - 1, startCol + (nextCol += 1)].Style = backgroundHeaderNormalFormat;
             sheetData.Cells[startRow - 1, startCol + nextCol].Value = ResourceExtension.GetResourceValue(ResourceExtension.Resources.Language, "complaintsEnquiries");
             sheetData.Columns[startCol + nextCol].Width = 255 * 60;
 
@@ -1802,6 +1806,9 @@ namespace Fanex.CRM.Service.Impl
 
                 sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundFormat;
                 sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.Category;
+
+                sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundFormat;
+                sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = detail.SubCategory;
 
                 sheetData.Cells[startRow + nextRow, startCol + (nextCol += 1)].Style = backgroundFormat;
                 sheetData.Cells[startRow + nextRow, startCol + nextCol].Value = complains;

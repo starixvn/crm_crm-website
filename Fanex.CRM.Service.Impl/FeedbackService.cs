@@ -1844,6 +1844,7 @@ namespace Fanex.CRM.Service.Impl
                         ProductName = CastAide.AsString(dr["Product"]),
                         Country = CastAide.AsString(dr["CountryName"]),
                         Category = CastAide.AsString(dr["MainCategory"]),
+                        SubCategory = CastAide.AsString(dr["SubCategory"]),
                         Complaints = complaint,
                         Solution = solution,
                         Status = CastAide.AsString(dr["Status"]),
