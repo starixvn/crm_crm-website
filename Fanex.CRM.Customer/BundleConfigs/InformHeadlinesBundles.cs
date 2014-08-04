@@ -64,8 +64,7 @@ namespace Fanex.CRM.Customer.BundleConfigs
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/Customer/InformHeadlines/CreateTitle/Scripts/CreateTitleApplication.js",
                 "~/Areas/Customer/InformHeadlines/CreateTitle/Scripts/CreateTitleService.js",
-                "~/Areas/Customer/InformHeadlines/CreateTitle/Scripts/CreateTitleController.js",
-                "~/Areas/Customer/InformHeadlines/CreateTitle/Scripts/Directives/*.js"));
+                "~/Areas/Customer/InformHeadlines/CreateTitle/Scripts/CreateTitleController.js"));
 
             AddAndInclude(
                 bundles,
