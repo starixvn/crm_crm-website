@@ -3,7 +3,8 @@
 userId, gup, userSearch, isGuestSearch,
 leftPanelManager,
 menuManager,
-homeManager */
+homeManager,
+redirectUrl */
 
 /* exported accid, timerId, autosearch,
 isGuest, gotoURL, KeyPress, downup, onBlur,

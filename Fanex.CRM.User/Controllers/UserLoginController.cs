@@ -313,7 +313,7 @@ namespace Fanex.CRM.User.Controllers
                     }
 
                     CreateAuthInfo(user);
-                    if (redirectUrl != null && ! string.IsNullOrEmpty(redirectUrl.ToString()))
+                    if (redirectUrl != null && !string.IsNullOrEmpty(redirectUrl.ToString()))
                     {
                         AppSession.RedirectUrl = redirectUrl.ToString();
                     }

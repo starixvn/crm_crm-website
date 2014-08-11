@@ -51,7 +51,6 @@ namespace Fanex.CRM.Web.Controllers
         /// <summary>
         /// Access default page.
         /// </summary>
-        /// <param name="redirectUrl">The redirect url.</param>
         /// <returns>Default page.</returns>
         public ActionResult Default()
         {
