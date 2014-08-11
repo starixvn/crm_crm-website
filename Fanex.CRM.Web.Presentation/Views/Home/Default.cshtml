@@ -15,8 +15,9 @@
         userSearched = getCustomerInfoByUsernameCriteria.Username;
         isGuest = getCustomerInfoByUsernameCriteria.IsGuest;
     }
-
     var getClientTime = Fanex.CRM.Infrastructure.Core.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
+    string redirectUrl = ViewBag.RedirectUrl;
+    
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -132,6 +133,8 @@
         var accUrlDefault = '@Fanex.CRM.Infrastructure.Common.AppSetting.LoginUrl';
         var userId = @(Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser != null ? Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";
+        var redirectUrl = '@redirectUrl';         
+        
         setInterval('udpateOnlineStatus()', 20000);
     </script>
 </body>

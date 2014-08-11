@@ -256,9 +256,6 @@ namespace Fanex.CRM.User.Controllers
             Session.Clear();
 
             string currentTime = this._userNapService.UserSSOGetTime();
-            string forwardLink = (redirectUrl == null || string.IsNullOrEmpty(redirectUrl.ToString())) ?
-                FormsAuthentication.DefaultUrl :
-                redirectUrl.ToString();
             TimeSpan expiration = new TimeSpan();
 
             userId = Cryptography.CfsDeCrypt(userId.Replace(" ", "+"));
@@ -316,9 +313,12 @@ namespace Fanex.CRM.User.Controllers
                     }
 
                     CreateAuthInfo(user);
-
+                    if (redirectUrl != null && ! string.IsNullOrEmpty(redirectUrl.ToString()))
+                    {
+                        AppSession.RedirectUrl = redirectUrl.ToString();
+                    }
                     //// saves user session & auth info
-                    return this.Redirect(forwardLink);
+                    return this.Redirect(FormsAuthentication.DefaultUrl);
                 }
             }
 

@@ -51,6 +51,7 @@ namespace Fanex.CRM.Web.Controllers
         /// <summary>
         /// Access default page.
         /// </summary>
+        /// <param name="redirectUrl">The redirect url.</param>
         /// <returns>Default page.</returns>
         public ActionResult Default()
         {
@@ -59,8 +60,16 @@ namespace Fanex.CRM.Web.Controllers
                 return new RedirectResult("~/UserLogin/SignIn");
             }
 
+            ViewBag.RedirectUrl = string.Empty;
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
-            return View();
+            if (AppSession.RedirectUrl != null && 
+                !string.IsNullOrEmpty(Fanex.CRM.Infrastructure.Common.AppSession.RedirectUrl))
+            {
+                ViewBag.RedirectUrl = Fanex.CRM.Infrastructure.Common.AppSession.RedirectUrl;
+                AppSession.RedirectUrl = null;
+            }
+
+            return View("~/Views/Home/Default.cshtml");
         }
 
         [ChildActionOnly]

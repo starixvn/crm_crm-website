@@ -119,5 +119,18 @@ namespace Fanex.CRM.Infrastructure.Common
                 SessionExtension.AddSession(HttpContext.Current.Session, Constants.CurrentWorkingOnMenu, value);
             }
         }
+
+        public static string RedirectUrl 
+        {
+            get
+            {
+                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.RedirectUrl) as string;
+            }
+
+            set
+            {
+                SessionExtension.AddSession(HttpContext.Current.Session, Constants.RedirectUrl, value);
+            }
+        }
     }
 }

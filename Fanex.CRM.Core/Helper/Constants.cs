@@ -23,6 +23,7 @@ namespace Fanex.CRM.Infrastructure.Helper
         public const string CurrentWorkingOnMenu = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentWorkingOnMenu";
         public const string CurrentActionName = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentActionName";
         public const string CurrentHttpMethod = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentHttpMethod";
+        public const string RedirectUrl = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.RedirectUrl";
 
         public static readonly DateTime ProductionDate = new DateTime(2008, 1, 11);
 

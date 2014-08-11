@@ -239,4 +239,10 @@ $(document).ready(function () {
         leftPanelManager.loadLeftPanel(userSearch, true);
         menuManager.showLeftPanel();
     }
+
+    if (redirectUrl.length > 0) {
+        setTimeout(function () {
+            menuManager.goToURL('centerFr', window.rootUrl + redirectUrl.replace('~/', ''));
+        }, 200);
+    }
 });
