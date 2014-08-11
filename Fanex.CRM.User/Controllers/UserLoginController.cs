@@ -244,27 +244,29 @@ namespace Fanex.CRM.User.Controllers
         /// <param name="userId">The user identifier.</param>
         /// <param name="onuserid">The on user identifier.</param>
         /// <param name="time">The time value.</param>
+        /// <param name="redirectUrl">The redirect url.</param>
         /// <returns>The index page.</returns>
         [AllowAnonymous]
         [HttpGet]
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public ActionResult SSO(string userId, string onuserid, string time)
+        public ActionResult SSO(string userId, string onuserid, string time, Uri redirectUrl = null)
         {
             Session.Clear();
+
+            string currentTime = this._userNapService.UserSSOGetTime();
+            string forwardLink = string.IsNullOrEmpty(redirectUrl.ToString()) ? FormsAuthentication.DefaultUrl : redirectUrl.ToString();
+            TimeSpan expiration = new TimeSpan();
 
             userId = Cryptography.CfsDeCrypt(userId.Replace(" ", "+"));
             onuserid = Cryptography.CfsDeCrypt(onuserid.Replace(" ", "+"));
             time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
-            string currentTime = _userNapService.UserSSOGetTime();
+            expiration = Convert.ToDateTime(currentTime) - Convert.ToDateTime(time);
 
-            var expiration = Convert.ToDateTime(currentTime) - Convert.ToDateTime(time);
-
-            if (expiration.TotalSeconds <= _timeExipration)
+            if (expiration.TotalSeconds <= this._timeExipration)
             {
                 //// do SSO check-in
-
                 var criteria = new UserSSOCheckInUserCriteria
                 {
                     UserId = Convert.ToInt32(userId),
@@ -280,21 +282,19 @@ namespace Fanex.CRM.User.Controllers
                     Platform = CurrentContext.Platform
                 };
 
-                _userNapService.UserSSOCheckIn(ref criteria);
+                this._userNapService.UserSSOCheckIn(ref criteria);
 
                 //// do SSO check-in
-
                 if (criteria.OnUserId != 0)
                 {
                     var user = _userNapService.GetById(criteria.UserId) as User;
 
                     //// saves user session & auth info
-
-                    _napCurrentSession.UserId = user.Id;
-                    _napCurrentSession.Username = user.Username;
-                    _napCurrentSession.OnUserId = criteria.OnUserId;
-                    _napCurrentSession.SessionId = Session.SessionID.ToString();
-                    _napCurrentSession.Level = _userNapService.GetUserSiteLevel(user.Id, this.SiteId);
+                    this._napCurrentSession.UserId = user.Id;
+                    this._napCurrentSession.Username = user.Username;
+                    this._napCurrentSession.OnUserId = criteria.OnUserId;
+                    this._napCurrentSession.SessionId = Session.SessionID.ToString();
+                    this._napCurrentSession.Level = this._userNapService.GetUserSiteLevel(user.Id, this.SiteId);
 
                     AppSession.CurrentUser = user;
 
@@ -305,7 +305,7 @@ namespace Fanex.CRM.User.Controllers
 
                     if (this.SiteId != 0)
                     {
-                        _napCurrentSession.MenuItemList = _menuItemNapService.GetByUserAndSiteIncludeGroup(
+                        _napCurrentSession.MenuItemList = this._menuItemNapService.GetByUserAndSiteIncludeGroup(
                                                                                 user.Id,
                                                                                 SiteId,
                                                                                 NapSettings.Settings.Environment,
@@ -316,7 +316,7 @@ namespace Fanex.CRM.User.Controllers
                     CreateAuthInfo(user);
 
                     //// saves user session & auth info
-                    return Redirect(FormsAuthentication.DefaultUrl);
+                    return this.Redirect(forwardLink);
                 }
             }
 
