@@ -256,7 +256,9 @@ namespace Fanex.CRM.User.Controllers
             Session.Clear();
 
             string currentTime = this._userNapService.UserSSOGetTime();
-            string forwardLink = string.IsNullOrEmpty(redirectUrl.ToString()) ? FormsAuthentication.DefaultUrl : redirectUrl.ToString();
+            string forwardLink = (redirectUrl == null || string.IsNullOrEmpty(redirectUrl.ToString())) ?
+                FormsAuthentication.DefaultUrl :
+                redirectUrl.ToString();
             TimeSpan expiration = new TimeSpan();
 
             userId = Cryptography.CfsDeCrypt(userId.Replace(" ", "+"));
