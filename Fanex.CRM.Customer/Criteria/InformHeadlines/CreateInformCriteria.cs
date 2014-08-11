@@ -11,6 +11,7 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
 {
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.NAP.Framework.Data;
+    using Fanex.CRM.Infrastructure.Helper;
 
     /// <summary>
     /// CreateInform criteria.
@@ -24,6 +25,14 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
             get
             {
                 return AppSession.CurrentUser.Id;
+            }
+        }
+
+        public string IP 
+        {
+            get 
+            {
+                return Helper.GetClientIP();
             }
         }
 

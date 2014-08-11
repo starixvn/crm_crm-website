@@ -12,6 +12,7 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
     using System.Collections.Generic;
     using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -38,6 +39,14 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
         }
 
         public string Content { get; set; }
+
+        public string IP 
+        {
+            get
+            {
+                return Helper.GetClientIP();
+            }
+        }
 
         public override string GetSettingKey()
         {
