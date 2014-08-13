@@ -89,25 +89,25 @@ namespace Fanex.CRM.Web.Controllers
         {
             try
             {
-                var isCheckUM = NAP.Core.Configuration.NapSettings.Settings.EnableCheckUM;
-                if (AppSetting.IsLocalTest || !isCheckUM)
+                if (!NAP.Core.Configuration.NapSettings.Settings.EnableReCheckIn)
                 {
                     return Json(new
                     {
                         ErrCode = 0
                     });
                 }
-                
-                var maintenanceInfo = _maintenanceService.GetDowntimeInfo();
-                
-                if (maintenanceInfo.IsDowntime)
+
+                if (NAP.Core.Configuration.NapSettings.Settings.EnableCheckUM)
                 {
-                    ClearingLoginCookie();
-                    return Json(new
+                    if (_maintenanceService.GetDowntimeInfo().IsDowntime)
                     {
-                        ErrCode = 3,
-                        ErrMsg = "UM"
-                    });
+                        ClearingLoginCookie();
+                        return Json(new
+                        {
+                            ErrCode = 3,
+                            ErrMsg = "UM"
+                        });
+                    }
                 }
 
                 var siteStatus = _siteService.GetStatusById(this.SiteId);
