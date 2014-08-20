@@ -268,7 +268,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             customer.NickName = customer.Id > 0 ?
                 reader.GetStringNotNull("UserName2") :
                 string.Empty;
-            customer.HeadLine = reader.GetBooleanNotNull("IsGroupHeadLine");
+            customer.HeadLine = Converter.ToBool(reader["IsGroupHeadLine"]);
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC1"));
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC2"));
             customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC3"));
