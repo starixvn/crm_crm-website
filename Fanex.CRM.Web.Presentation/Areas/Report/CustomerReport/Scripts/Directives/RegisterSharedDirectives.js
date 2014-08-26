@@ -21,13 +21,12 @@ function customerReportRegisterPicker() {
     };
 
     customerReportRegister.registerDatePicker();
-    customerReportRegister.registerCountryMultiSelectPicker();
+    //customerReportRegister.registerCountryMultiSelectPicker();
     customerReportRegister.registerLanguageMultiSelectPicker();
     customerReportRegister.registerSiteMultiSelectPicker();
     customerReportRegister.registerTitlePicker();
-    customerReportRegister.registerCustomerTypePicker();
+    //customerReportRegister.registerCustomerTypePicker();
     customerReportRegister.registerVIPTypePicker();
-    customerReportRegister.registerHeadlineTypePicker();
     customerReportRegister.registerDefaultFocus();
     customerReportRegister.registerDownloadFile();
 }

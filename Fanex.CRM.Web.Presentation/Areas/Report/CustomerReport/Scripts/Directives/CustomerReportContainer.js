@@ -15,8 +15,8 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
 
     function getGridHeight() {
         return cachedData.scope.isShowFilter ?
-            220 + crmConstants.MarginBottomPage :
-            50 + crmConstants.MarginBottomPage;
+220 + crmConstants.MarginBottomPage :
+50 + crmConstants.MarginBottomPage;
     }
 
     function getCustomerLanguages(customer) {
@@ -43,47 +43,47 @@ customerReportApplication.directive('tableCustomerReportContainer', function () 
                 for (var j = 0; j < contactLength; j++) {
                     var contact = customer.PhoneInfo[j];
                     if (contact.CountryCode !== '' &&
-                        contact.AreaCode !== '' &&
-                        contact.PhoneNumber !== '') {
+contact.AreaCode !== '' &&
+contact.PhoneNumber !== '') {
                         contactInfo.push(sharedScriptManager.stringFormat("{0}-{1}-{2}",
-                        [contact.CountryCode, contact.AreaCode, contact.PhoneNumber]));
+[contact.CountryCode, contact.AreaCode, contact.PhoneNumber]));
                     }
                 }
 
                 bodyData.push({
                     Columns: [{ Name: "ColTitle", Value: customer.Title.Name },
-                        { Name: "ColUsername", Value: customer.Username },
-                        {
-                            Name: "ColVIP",
-                            TdClass: 'icon-' + (customer.IsVIP ? 'vip' : ''),
-                            Value: customer.IsVIP ? "<span class='glyphicon glyphicon-ok'></span>" : ''
-                        },
-                        { Name: "ColBirthday", Value: customer.BirthDayString },
-                        { Name: "ColPIC1", Value: customer.PIC1 },
-                        { Name: "ColPIC2", Value: customer.PIC2 },
-                        { Name: "ColPIC3", Value: customer.PIC3 },
-                        { Name: "ColPIC4", Value: customer.PIC4 },
-                        { Name: "ColSkype", Value: customer.Skype },
-                        { Name: "ColEmail", Value: customer.Email },
-                        { Name: "ColLanguage", Value: customerLanguages },
-                        { Name: "ColSite", Value: customer.SiteSetting.Name }]
+{ Name: "ColUsername", Value: customer.Username },
+{
+    Name: "ColVIP",
+    TdClass: 'icon-' + (customer.IsVIP ? 'vip' : ''),
+    Value: customer.IsVIP ? "<span class='glyphicon glyphicon-ok'></span>" : ''
+},
+{ Name: "ColBirthday", Value: customer.BirthDayString },
+{ Name: "ColPIC1", Value: customer.PIC1 },
+{ Name: "ColPIC2", Value: customer.PIC2 },
+{ Name: "ColPIC3", Value: customer.PIC3 },
+{ Name: "ColPIC4", Value: customer.PIC4 },
+{ Name: "ColSkype", Value: customer.Skype },
+{ Name: "ColEmail", Value: customer.Email },
+{ Name: "ColLanguage", Value: customerLanguages },
+{ Name: "ColSite", Value: customer.SiteSetting.Name}]
                 });
             }
         }
 
         var sortColumnIndex = getSortColumnIndex();
         var headerColumns = [{ HeaderText: viewResources.Title, Width: 50, Name: "ColTitle", HeaderAlign: "center", CellAlign: "center", Sort: true },
-            { HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", Sort: true },
-            { HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
-            { HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true },
-            { HeaderText: viewResources.PIC1, Width: 180, Name: "ColPIC1", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: viewResources.PIC2, Width: 180, Name: "ColPIC2", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: viewResources.PIC3, Width: 180, Name: "ColPIC3", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: viewResources.PIC4, Width: 180, Name: "ColPIC4", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: viewResources.Skype, Width: 140, Name: "ColSkype", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: viewResources.Email, Width: 180, Name: "ColEmail", HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
-            { HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true }];
+{ HeaderText: viewResources.Username, Width: 120, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.VIP, Width: 40, Name: "ColVIP", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.Birthday, Width: 80, Name: "ColBirthday", HeaderAlign: "center", CellAlign: "center", Sort: true },
+{ HeaderText: viewResources.PIC1, Width: 180, Name: "ColPIC1", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.PIC2, Width: 180, Name: "ColPIC2", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.PIC3, Width: 180, Name: "ColPIC3", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.PIC4, Width: 180, Name: "ColPIC4", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.Skype, Width: 140, Name: "ColSkype", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.Email, Width: 180, Name: "ColEmail", HeaderAlign: "center", CellAlign: "left" },
+{ HeaderText: viewResources.Language, Width: 275, Name: "ColLanguage", HeaderAlign: "center", CellAlign: "left", Sort: true },
+{ HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "left", Sort: true}];
         if (sortColumnIndex !== -1) {
             headerColumns[sortColumnIndex].SortDirection = cachedData.scope.lastSelectedParams.SortDirection;
         }
