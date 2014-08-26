@@ -56,8 +56,7 @@ namespace Fanex.CRM.Report.Controllers
                 CountryList = _customerReportService.GetAllCountry(),
                 LanguageList = _customerReportService.GetAllLanguage(),
                 CustomerTypeList = _customerReportService.GetAllCustomerType(),
-                VIPTypeList = _customerReportService.GetAllVIPType(),
-                HeadlineTypeList = _customerReportService.GetAllHeadlineType()
+                VIPTypeList = _customerReportService.GetAllVIPType()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

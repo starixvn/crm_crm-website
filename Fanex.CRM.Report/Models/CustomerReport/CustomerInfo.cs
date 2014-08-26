@@ -113,6 +113,16 @@ namespace Fanex.CRM.Report.Models.CustomerReport
 
         public AddressInfo AddressInfo { get; set; }
 
+        public string Username { get; set; }
+
+        public string PIC1 { get; set; }
+
+        public string PIC2 { get; set; }
+
+        public string PIC3 { get; set; }
+
+        public string PIC4 { get; set; }
+
         /// <summary>
         /// Gets the name of the status.
         /// </summary>

@@ -30,8 +30,6 @@ namespace Fanex.CRM.Report.Repositories.Interfaces
 
         List<SettingInfo> GetAllVIPType();
 
-        List<SettingInfo> GetAllHeadlineType();
-
         void ExportCustomerReport(GetCustomerReportCriteria criteria);
     }
 }

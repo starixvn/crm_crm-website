@@ -534,4 +534,16 @@
   <data name="Headline" xml:space="preserve">
     <value>Headline</value>
   </data>
+  <data name="PIC1" xml:space="preserve">
+    <value>PIC 1</value>
+  </data>
+  <data name="PIC2" xml:space="preserve">
+    <value>PIC 2</value>
+  </data>
+  <data name="PIC3" xml:space="preserve">
+    <value>PIC 3</value>
+  </data>
+  <data name="PIC4" xml:space="preserve">
+    <value>PIC 4</value>
+  </data>
 </root>
