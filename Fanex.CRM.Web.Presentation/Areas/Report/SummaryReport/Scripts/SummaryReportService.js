@@ -6,21 +6,21 @@ summaryReportApplication.factory('SummaryReportService', ['$http', '$q', functio
     serviceInstance.getSummaryReport = function (year, site, categories) {
         var deferred = $q.defer();
         $http.get(window.rootUrl + 'SummaryReport/GetSummaryReport?year=' + year + '&siteType=' + site + '&categories=' + categories)
-             .success(function (data, status, headers, config) {
-                 deferred.resolve({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             }).error(function (data, status, headers, config) {
-                 deferred.reject({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             });
+.success(function (data, status, headers, config) {
+    deferred.resolve({
+        Result: data,
+        Status: status,
+        Headers: headers,
+        Config: config
+    });
+}).error(function (data, status, headers, config) {
+    deferred.reject({
+        Result: data,
+        Status: status,
+        Headers: headers,
+        Config: config
+    });
+});
 
         return deferred.promise;
     };
@@ -28,21 +28,21 @@ summaryReportApplication.factory('SummaryReportService', ['$http', '$q', functio
     serviceInstance.getAllSettings = function () {
         var deferred = $q.defer();
         $http.get(window.rootUrl + 'SummaryReport/GetAllSettings')
-             .success(function (data, status, headers, config) {
-                 deferred.resolve({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             }).error(function (data, status, headers, config) {
-                 deferred.reject({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             });
+.success(function (data, status, headers, config) {
+    deferred.resolve({
+        Result: data,
+        Status: status,
+        Headers: headers,
+        Config: config
+    });
+}).error(function (data, status, headers, config) {
+    deferred.reject({
+        Result: data,
+        Status: status,
+        Headers: headers,
+        Config: config
+    });
+});
 
         return deferred.promise;
     };

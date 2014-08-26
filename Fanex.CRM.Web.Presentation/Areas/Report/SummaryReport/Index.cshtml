@@ -1,4 +1,4 @@
-﻿@using Fanex.CRM.Report.Resources;
+﻿﻿@using Fanex.CRM.Report.Resources;
 @using Fanex.CRM.Report.Models;
 @using Fanex.CRM.Report.Models.SummaryReport;
 @using Fanex.CRM.Infrastructure.Extension;
@@ -7,69 +7,71 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-summaryreport-application">
 <head>
-    <title>@Labels.SummaryReport</title>
-    @Styles.Render("~/site/common",
-        "~/Areas/Report/SummaryReportStyles",
-        "~/Content/site/ResultMessageStyles",
-        "~/Styles/FanexMultipleSelect")
+<title>@Labels.SummaryReport</title>
+@Styles.Render("~/site/common",
+"~/Areas/Report/SummaryReportStyles",
+"~/Content/site/ResultMessageStyles",
+"~/Styles/FanexMultipleSelect")
 </head>
 <body>
-    <div class="container main" data-ng-controller="summaryReportController">
-        <div class="result-message-container display-none"></div>
-        <div class="row filter-frm one-row summary-filter">
-            <div class="row">
-                <form data-ng-submit="getSummaryReport()">
-                    <div class="item">
-                        <label for="year">@Labels.Year</label>
-                        <select id="year" data-ng-model="year" data-ng-options="y.value for y in years"></select>
-                    </div>
-                    <div class="item">
-                        <label for="category">@Labels.Category</label>
-                        <div class="sel-category pull-right" category-picker-container data-ng-model="categoryOptions.DataList">
-                            <select id="category"></select>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <button class="btn default-focus"
-                            data-ng-model="defaultFocusOptions.IsSetFocus"><span class="hotkey">S</span>ubmit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <div table-summary-report-container
-                summary-report="summaryReport"
-                is-filter-box-clicked="isFilterBoxClicked"
-                export-summary-report-excel="exportSummaryReportExcel()">
-                <div id="table-summary-report" class="freegrid display-none"></div>
-            </div>
-        </div>
-        <div class="row download-file-container" data-ng-model="downloadFileOptions">
-            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
-        </div>
-    </div>
+<div class="container main" data-ng-controller="summaryReportController">
+<div class="result-message-container display-none"></div>
+<div class="row filter-frm one-row summary-filter">
+<div class="row">
+<form data-ng-submit="getSummaryReport()">
+<div class="item">
+<label for="year">@Labels.Year</label>
+<select id="year" data-ng-model="year" data-ng-options="y.Value for y in years"></select>
+</div>
+<div class="item">
+<label for="site">@Labels.Site</label>
+<select id="site" data-ng-model="site" data-ng-options="s.Value for s in siteTypes"></select>
+</div>
+<div class="item">
+<label for="category">@Labels.Category</label>
+<div class="sel-category pull-right" category-picker-container data-ng-model="categoryOptions.DataList">
+<select id="category"></select>
+</div>
+</div>
+<div class="item">
+<button class="btn default-focus"
+data-ng-model="defaultFocusOptions.IsSetFocus"><span class="hotkey">S</span>ubmit</button>
+</div>
+</form>
+</div>
+</div>
+<div class="row">
+<div table-summary-report-container
+summary-report="summaryReport"
+is-filter-box-clicked="isFilterBoxClicked"
+export-summary-report-excel="exportSummaryReportExcel()">
+<div id="table-summary-report" class="freegrid display-none"></div>
+</div>
+</div>
+<div class="row download-file-container" data-ng-model="downloadFileOptions">
+<iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+</div>
+</div>
 
-    @Scripts.Render("~/Scripts/CommomScripts",
-        "~/Scripts/FanexGridV2/NumeralScripts",
-        "~/Scripts/FanexGridScripts",
-        "~/Scripts/FanexMultipleSelect",
-        "~/Scripts/AngularJSLibrary",
-        "~/CRM/DownLoadFile/Scripts",
-        "~/Areas/Report/SummaryReportScripts",
-        "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
-    <script type="text/javascript">
-        window.rootUrl = '@Url.Content("~")';
-        parent.document.title = '@Resources.Language.Title_Report_SummaryReport';
-        var currentDate = new Date('@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()');
-        var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
-        var summaryReportResources = {
-            Categories: '@Labels.Categories',
-            GrandTotal: '@Labels.GrandTotal',
-            Feedbacks: '@Labels.Feedbacks',
-            AllCategories: '@Labels.AllCategories',
-            Symbol_NotApply: '@Labels.Symbol_NotApply',
-            No_category_found: '@Labels.No_category_found'
-        }; 
-    </script>
+@Scripts.Render("~/Scripts/CommomScripts",
+"~/Scripts/FanexGridV2/NumeralScripts",
+"~/Scripts/FanexGridScripts",
+"~/Scripts/FanexMultipleSelect",
+"~/Scripts/AngularJSLibrary",
+"~/CRM/DownLoadFile/Scripts",
+"~/Areas/Report/SummaryReportScripts",
+"~/Scripts/ShareScripts/Applications/ResultMessageScripts")
+<script type="text/javascript">
+    window.rootUrl = '@Url.Content("~")';
+    parent.document.title = '@Resources.Language.Title_Report_SummaryReport';
+    var summaryReportResources = {
+        Categories: '@Labels.Categories',
+        GrandTotal: '@Labels.GrandTotal',
+        Feedbacks: '@Labels.Feedbacks',
+        AllCategories: '@Labels.AllCategories',
+        Symbol_NotApply: '@Labels.Symbol_NotApply',
+        No_category_found: '@Labels.No_category_found'
+    };
+</script>
 </body>
 </html>

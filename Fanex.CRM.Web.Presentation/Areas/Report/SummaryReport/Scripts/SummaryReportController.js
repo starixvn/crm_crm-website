@@ -2,14 +2,14 @@
 /* global summaryReportApplication,
 sharedScriptManager,
 hotKeyManager,
-summaryReportResources,
-minReportDate,
-currentDate */
+summaryReportResources */
 /* jshint camelcase: false */
 summaryReportApplication.controller('summaryReportController', ['$scope', 'SummaryReportService', '$uiBlockerService', '$resultMessageService',
 function ($scope, summaryReportService, $uiBlockerService, $resultMessageService) {
     $scope.years = [];
     $scope.year = 0;
+    $scope.siteTypes = [];
+    $scope.site = undefined;
     $scope.categoryOptions = {};
     $scope.selectedCategoryIds = '';
     $scope.defaultFocusOptions = null;
@@ -18,13 +18,7 @@ function ($scope, summaryReportService, $uiBlockerService, $resultMessageService
     $scope.initController = function () {
         $uiBlockerService.blockUI();
 
-        $scope.years = $scope.getYears();
-        $scope.$apply();
-        if ($scope.years.length > 0) {
-            $scope.year = $scope.years[$scope.years.length - 1];
-        }
-
-        $scope.getCategories();
+        $scope.getAllSettings();
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: 'SummaryReport'
@@ -37,18 +31,7 @@ function ($scope, summaryReportService, $uiBlockerService, $resultMessageService
         $scope.setFocus();
     };
 
-    $scope.getYears = function () {
-        var years = [];
-        var minYear = minReportDate.getFullYear();
-        var currentYear = currentDate.getFullYear();
-        for (var i = minYear; i <= currentYear; i++) {
-            years.push({ id: i, value: i });
-        }
-
-        return years;
-    };
-
-    $scope.getCategories = function () {
+    $scope.getAllSettings = function () {
         $scope.categoryOptions = {
             DataList: [],
             OnChangeEvent: $scope.updateSelectedCategory,
@@ -56,20 +39,26 @@ function ($scope, summaryReportService, $uiBlockerService, $resultMessageService
             MaxHeight: 450,
             NoItemText: summaryReportResources.Symbol_NotApply,
             NoneSelectedText: summaryReportResources.No_category_found,
-            NumberOfItemShowShortText: 0/*,
-            SubOptionsName: 'ChildSettings',
-            NumberOfSelectedLevel: 2*/
+            NumberOfItemShowShortText: 0
         };
 
-        summaryReportService.getCategories()
-            .then(function (data) {
-                $scope.categoryOptions.DataList = data.Result;
-                $uiBlockerService.unblockUI();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $uiBlockerService.unblockUI();
-            });
+        summaryReportService.getAllSettings()
+.then(function (data) {
+    $scope.years = data.Result.YearRange;
+    if ($scope.years.length > 0) {
+        $scope.year = $scope.years[$scope.years.length - 1];
+    }
+
+    $scope.siteTypes = data.Result.SiteTypes;
+    $scope.site = $scope.siteTypes[0];
+
+    $scope.categoryOptions.DataList = data.Result.Categories;
+    $uiBlockerService.unblockUI();
+},
+function (data) {
+    /* jshint unused: vars */
+    $uiBlockerService.unblockUI();
+});
     };
 
     $scope.updateSelectedCategory = function (categoryIdList) {
@@ -92,22 +81,22 @@ function ($scope, summaryReportService, $uiBlockerService, $resultMessageService
 
     $scope.getSummaryReport = function () {
         $uiBlockerService.blockUI();
-        summaryReportService.getSummaryReport($scope.year.id, $scope.selectedCategoryIds)
-            .then(function (data) {
-                $scope.summaryReport = data.Result;
-                $uiBlockerService.unblockUI();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
-                $uiBlockerService.unblockUI();
-            });
+        summaryReportService.getSummaryReport($scope.year.Id, $scope.site.Id, $scope.selectedCategoryIds)
+.then(function (data) {
+    $scope.summaryReport = data.Result;
+    $uiBlockerService.unblockUI();
+},
+function (data) {
+    /* jshint unused: vars */
+    sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
+    $uiBlockerService.unblockUI();
+});
     };
 
     $scope.exportSummaryReportExcel = function () {
         $scope.downloadFileOptions = {
             URL: window.rootUrl + 'SummaryReport/ExportSummaryReportExcel',
-            Params: { year: $scope.year.id }
+            Params: { year: $scope.year.Id, site: $scope.site.Id, categories: $scope.selectedCategoryIds }
         };
 
         $scope.$apply();
@@ -116,4 +105,4 @@ function ($scope, summaryReportService, $uiBlockerService, $resultMessageService
     angular.element(document).ready(function () {
         $scope.initController();
     });
-} ]);    
+} ]); 

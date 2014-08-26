@@ -45,7 +45,7 @@ namespace Fanex.CRM.Setting.Services.Interfaces
 
         List<SettingInfo> GetAllVIPType();
 
-        List<SettingInfo> GetAllHeadlineType();
+        List<SettingInfo> GetAllSiteType();
 
         int GetNumberOfFeedbackSubjectTemplate();
 

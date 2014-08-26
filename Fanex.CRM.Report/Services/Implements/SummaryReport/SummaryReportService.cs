@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Kan.Nguyen" date="2014.04.08">Created</change>
+// <change who="Kan.Nguyen" date="2014.04.08">Created</change>
 // </history>
 
 namespace Fanex.CRM.Report.Services.Implements.SummaryReport
@@ -14,6 +14,8 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
+    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
@@ -24,6 +26,9 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
     using Fanex.CRM.Report.Repositories.Interfaces;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
@@ -35,15 +40,40 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
     {
         private const string SummaryReportSessionKey = "Fanex.CRM.Report.SummaryReport.SummaryReportSessionKey_{0}";
         private readonly ISummaryReportRepository _summaryRepository;
+        private readonly ISettingService _settingServices;
 
         public SummaryReportService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public SummaryReportService(ISummaryReportRepository summaryRepository)
+        public SummaryReportService(ISummaryReportRepository summaryRepository, ISettingService settingServices)
         {
             _summaryRepository = summaryRepository ?? new SummaryReportRepository();
+            _settingServices = settingServices ?? new SettingService();
+        }
+
+        /// <summary>
+        /// Gets all settings.
+        /// </summary>
+        /// <returns>The object with all settings.</returns>
+        public dynamic GetAllSettings()
+        {
+            var minReportDate = AppSetting.MinReportDate.Year;
+            var currentYear = DateTimeUtilize.GetCurrentClientTime().Year;
+            var yearRange = new List<SettingInfo>();
+            for (int i = minReportDate; i <= currentYear; i++)
+            {
+                yearRange.Add(new SettingInfo { Id = i, Value = i.ToString() });
+            }
+            var siteTypes = _settingServices.GetAllSiteType();
+            var categories = _settingServices.GetAllMainCategory();
+            return new
+            {
+                YearRange = yearRange,
+                SiteTypes = siteTypes,
+                Categories = categories
+            };
         }
 
         /// <summary>
@@ -58,13 +88,12 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             try
             {
                 report = criteria.IsCached
-                    ? (SummaryReportModel)SessionExtension.GetSession(HttpContext.Current.Session, sessionKey)
-                    : null;
+                ? (SummaryReportModel)SessionExtension.GetSession(HttpContext.Current.Session, sessionKey)
+                : null;
                 if (report == null)
                 {
                     report = ParseSummaryReport(criteria);
                     report.ReportTitle = string.Format(Labels.SummaryReportTitle, criteria.Year);
-                    
                     // Add to session.
                     SessionExtension.AddSession(HttpContext.Current.Session, sessionKey, report);
                 }
@@ -110,9 +139,9 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 else
                 {
                     NpoiExcelExtensions.SetColorAtIndex(
-                        ref exportExcelInfo,
-                        NpoiExcelExtensions.GroupBackgroundColor,
-                        NpoiExcelExtensions.GroupBackgroundColorIndex);
+                    ref exportExcelInfo,
+                    NpoiExcelExtensions.GroupBackgroundColor,
+                    NpoiExcelExtensions.GroupBackgroundColorIndex);
                     NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
 
                     ExportBody(ref exportExcelInfo, report.CategorySummaries);
@@ -149,11 +178,11 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
 
             // Filter.
             int[] categoryIds = criteria.Categories.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(c => int.Parse(c))
-                .ToArray();
+            .Select(c => int.Parse(c))
+            .ToArray();
             var rawData = _summaryRepository.GetSummaryReport(criteria)
-                .Where(c => categoryIds.Contains(c.MainCategoryId))
-                .ToList();
+            .Where(c => categoryIds.Contains(c.MainCategoryId))
+            .ToList();
 
             // Get Month.
             var monthData = rawData.OrderBy(s => s.M).Select(s => s.Month.ToUpper()).Distinct().ToList();
@@ -255,10 +284,10 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             worksheet.SetColumnWidth(currentColumn++, monthColWidth);
 
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
-                currentRow,
-                currentRow + 1,
-                exportExcelInfo.StartColumn,
-                exportExcelInfo.MaxColumnIndex);
+            currentRow,
+            currentRow + 1,
+            exportExcelInfo.StartColumn,
+            exportExcelInfo.MaxColumnIndex);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
@@ -285,7 +314,6 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             {
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item, headerStyle);
             }
-            
             exportExcelInfo.CurrentRow++;
         }
 
@@ -348,11 +376,11 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                         summay = subCategory.Summaries[k];
                         if (summay.Amount == 0)
                         {
-                            NpoiExcelExtensions.RenderCell(ref subCategortRow, ref currentColumn, string.Empty, monthCellStyle);   
+                            NpoiExcelExtensions.RenderCell(ref subCategortRow, ref currentColumn, string.Empty, monthCellStyle);
                         }
                         else
                         {
-                            NpoiExcelExtensions.RenderCell(ref subCategortRow, ref currentColumn, summay.Amount, monthCellStyle);   
+                            NpoiExcelExtensions.RenderCell(ref subCategortRow, ref currentColumn, summay.Amount, monthCellStyle);
                         }
                     }
 
@@ -408,10 +436,10 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         private ICellStyle GetCategoryCellStyle(HSSFWorkbook workbook)
         {
             ICellStyle cellStyle = NpoiExcelExtensions.TextStyle(
-                workbook,
-                NpoiExcelExtensions.GroupBackgroundColorIndex,
-                true,
-                CRMHorizontalAlignment.Left);
+            workbook,
+            NpoiExcelExtensions.GroupBackgroundColorIndex,
+            true,
+            CRMHorizontalAlignment.Left);
             var font = workbook.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;
@@ -431,11 +459,11 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         private ICellStyle GetCategoryTotalCellStyle(HSSFWorkbook workbook)
         {
             ICellStyle cellStyle = NpoiExcelExtensions.IntNumberStyle(
-                workbook,
-                NpoiExcelExtensions.GroupBackgroundColorIndex,
-                true,
-                CRMHorizontalAlignment.Right,
-                NpoiExcelExtensions.GrandTotalTextColorIndex);
+            workbook,
+            NpoiExcelExtensions.GroupBackgroundColorIndex,
+            true,
+            CRMHorizontalAlignment.Right,
+            NpoiExcelExtensions.GrandTotalTextColorIndex);
             var font = workbook.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
             font.FontName = NpoiExcelExtensions.FontName;
@@ -450,39 +478,39 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExcelExtensions.TextStyle(
-                workbook,
-                NpoiExcelExtensions.GrandTotalRowColorIndex,
-                true,
-                CRMHorizontalAlignment.Left,
-                NpoiExcelExtensions.GrandTotalTextColorIndex);
+            workbook,
+            NpoiExcelExtensions.GrandTotalRowColorIndex,
+            true,
+            CRMHorizontalAlignment.Left,
+            NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
         private ICellStyle GetSubCategoryCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExcelExtensions.TextStyle(
-                workbook,
-                NpoiExcelExtensions.BackgroundColorIndex,
-                false,
-                CRMHorizontalAlignment.Left);
+            workbook,
+            NpoiExcelExtensions.BackgroundColorIndex,
+            false,
+            CRMHorizontalAlignment.Left);
         }
 
         private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExcelExtensions.IntNumberStyle(
-                workbook,
-                NpoiExcelExtensions.BackgroundColorIndex,
-                false,
-                CRMHorizontalAlignment.Right);
+            workbook,
+            NpoiExcelExtensions.BackgroundColorIndex,
+            false,
+            CRMHorizontalAlignment.Right);
         }
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExcelExtensions.IntNumberStyle(
-                workbook,
-                NpoiExcelExtensions.GrandTotalRowColorIndex,
-                true,
-                CRMHorizontalAlignment.Right,
-                NpoiExcelExtensions.GrandTotalTextColorIndex);
+            workbook,
+            NpoiExcelExtensions.GrandTotalRowColorIndex,
+            true,
+            CRMHorizontalAlignment.Right,
+            NpoiExcelExtensions.GrandTotalTextColorIndex);
         }
 
         #endregion

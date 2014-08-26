@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Kan.Nguyen" date="2014.04.08">Created</change>
+// <change who="Kan.Nguyen" date="2014.04.08">Created</change>
 // </history>
 
 namespace Fanex.CRM.Report.Controllers
@@ -30,6 +30,13 @@ namespace Fanex.CRM.Report.Controllers
         public SummaryReportController(ISummaryReportService summaryService)
         {
             _summaryService = summaryService ?? new SummaryReportService();
+        }
+
+        [HttpGet]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public ActionResult GetAllSettings()
+        {
+            return Json(_summaryService.GetAllSettings(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

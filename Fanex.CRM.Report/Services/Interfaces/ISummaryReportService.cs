@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Kan.Nguyen" date="2014.04.08">Created</change>
+// <change who="Kan.Nguyen" date="2014.04.08">Created</change>
 // </history>
 
 namespace Fanex.CRM.Report.Services.Interfaces
@@ -17,6 +17,8 @@ namespace Fanex.CRM.Report.Services.Interfaces
     /// </summary>
     public interface ISummaryReportService
     {
+        dynamic GetAllSettings();
+
         SummaryReportModel GetSummaryReport(GetSummaryReportCriteria criteria);
 
         void ExportSummaryReportExcel(GetSummaryReportCriteria criteria);

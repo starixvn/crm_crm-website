@@ -754,6 +754,16 @@ namespace Fanex.CRM.Setting.Services.Implements
             return actions;
         }
 
+        public List<SettingInfo> GetAllSiteType()
+        {
+            return new List<SettingInfo>()
+            {
+                new SettingInfo { Id = SiteConstants.All, Value = Labels.All },
+                new SettingInfo { Id = SiteConstants.IBCGroup, Value = Labels.Credit },
+                new SettingInfo { Id = SiteConstants.LicenseeGroup, Value = Labels.Licensee },
+            };
+        }
+
         /// <summary>
         /// Gets all status inform headline.
         /// </summary>

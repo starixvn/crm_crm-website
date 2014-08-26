@@ -16,6 +16,8 @@ namespace Fanex.CRM.Setting.Constants
     {
         public const int BeginLicenseeSiteId = 6200;
 
+        public const int All = 0;
+
         public const int IBCGroup = 1;
 
         public const int LicenseeGroup = 2;
