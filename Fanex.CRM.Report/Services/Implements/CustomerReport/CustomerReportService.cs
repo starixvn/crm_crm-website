@@ -130,7 +130,7 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                     StartRow = 0,
                     StartColumn = 0,
                     CurrentRow = 0,
-                    MaxColumnIndex = 18
+                    MaxColumnIndex = 11
                 };
 
                 ExportCustomerReportBody(ref exportExcelInfo, criteria, customerReport);
@@ -267,15 +267,6 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
         }
 
         /// <summary>
-        /// Gets the type of all headline.
-        /// </summary>
-        /// <returns>The list of headline type.</returns>
-        public List<SettingInfo> GetAllHeadlineType()
-        {
-            return _serviceSetting.GetAllHeadlineType();
-        }
-
-        /// <summary>
         /// Exports the customer report header.
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
@@ -290,26 +281,31 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                 new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 50 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            /*exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);*/
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 40 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExcelExtensions.FontWidth);
 
+            /*exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);*/
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 200 * NpoiExcelExtensions.FontWidth);
 
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 400 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            /*exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
-            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, 160 * NpoiExcelExtensions.FontWidth);*/
 
             string reportTitle = Labels.CustomerReport_Title;
             CellRangeAddress cellRangeAddress;
@@ -327,26 +323,31 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Title, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.First_Name, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Last_Name, headerStyle);
+            /*NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.First_Name, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Last_Name, headerStyle);*/
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Username, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.VIP, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Birthday, headerStyle);
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Contact_Number, headerStyle);
+            /*NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Contact_Number, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Mobile, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Fax, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Fax, headerStyle);*/
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.PIC1, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.PIC2, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.PIC3, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.PIC4, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Skype, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Email, headerStyle);
 
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Language, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Site, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_1, headerStyle);
+            /*NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_1, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_2, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Line_3, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.City, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.State, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Post_Code, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Post_Code, headerStyle);*/
             exportExcelInfo.CurrentRow++;
         }
 
@@ -460,12 +461,13 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
             ICellStyle centerTextStyle)
         {
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Title.Name, centerTextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.FirstName, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.LastName, exportExcelInfo.TextStyle);
+            /*NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.FirstName, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.LastName, exportExcelInfo.TextStyle);*/
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Username, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.BirthDayString, centerTextStyle);
 
-            var fullPhoneContact = customer.PhoneInfo
+            /*var fullPhoneContact = customer.PhoneInfo
                 .Select(phone =>
                      phone.CountryCode != string.Empty &&
                      phone.AreaCode != string.Empty &&
@@ -514,7 +516,11 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                 ref row,
                 ref currentColumn,
                 fullContact,
-                centerTextStyle);
+                centerTextStyle);*/
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.PIC1, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.PIC2, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.PIC3, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.PIC4, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Skype, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Email, exportExcelInfo.TextStyle);
 
@@ -522,13 +528,13 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customerLanguages, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.SiteSetting.Name, exportExcelInfo.TextStyle);
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[0], exportExcelInfo.TextStyle);
+            /*NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[0], exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[1], exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[2], exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.City, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Country.Name, exportExcelInfo.TextStyle);
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.State, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.PostCode, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.PostCode, exportExcelInfo.TextStyle);*/
 
             exportExcelInfo.CurrentRow++;
         }
@@ -582,25 +588,19 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                 case "TitleName":
                     sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Title.Name, customerB.Title.Name, true));
                     break;
-                case "FirstName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.FirstName, customerB.FirstName, true));
+                case "Username":
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Username, customerB.Username, true));
                     break;
-                case "LastName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.LastName, customerB.LastName, true));
-                    break;
-                case "CountryName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.Country.Name, customerB.Country.Name, true));
+                case "BirthDay":
+                    sortedCustomerList = sortedCustomerList
+                       .OrderBy(customerInfo => customerInfo.BirthDay)
+                       .ToList();
                     break;
                 case "Languages":
                     sortedCustomerList.Sort((customerA, customerB) => string.Compare(GetCustomerLanguages(customerA), GetCustomerLanguages(customerB), true));
                     break;
                 case "SiteSettingName":
                     sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerA.SiteSetting.Name, customerB.SiteSetting.Name, true));
-                    break;
-                case "BirthDay":
-                    sortedCustomerList = sortedCustomerList
-                       .OrderBy(customerInfo => customerInfo.BirthDay)
-                       .ToList();
                     break;
                 default:
                     sortedCustomerList = customerList;
@@ -636,25 +636,19 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
                 case "TitleName":
                     sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.Title.Name, customerA.Title.Name, true));
                     break;
-                case "FirstName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.FirstName, customerA.FirstName, true));
+                case "Username":
+                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.Username, customerA.Username, true));
                     break;
-                case "LastName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.LastName, customerA.LastName, true));
-                    break;
-                case "CountryName":
-                    sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.Country.Name, customerA.Country.Name, true));
+                case "BirthDay":
+                    sortedCustomerList = sortedCustomerList
+                       .OrderByDescending(customerInfo => customerInfo.BirthDay)
+                       .ToList();
                     break;
                 case "Languages":
                     sortedCustomerList.Sort((customerA, customerB) => string.Compare(GetCustomerLanguages(customerB), GetCustomerLanguages(customerA), true));
                     break;
                 case "SiteSettingName":
                     sortedCustomerList.Sort((customerA, customerB) => string.Compare(customerB.SiteSetting.Name, customerA.SiteSetting.Name, true));
-                    break;
-                case "BirthDay":
-                    sortedCustomerList = sortedCustomerList
-                       .OrderByDescending(customerInfo => customerInfo.BirthDay)
-                       .ToList();
                     break;
                 default:
                     sortedCustomerList = customerList;

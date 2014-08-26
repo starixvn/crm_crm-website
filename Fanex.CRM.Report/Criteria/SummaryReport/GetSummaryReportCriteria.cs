@@ -18,6 +18,8 @@ namespace Fanex.CRM.Report.Criteria.SummaryReport
     {
         public int Year { get; set; }
 
+        public int SiteType { get; set; }
+
         [SpParam(Ignored = true)]
         public string Categories { get; set; }
 

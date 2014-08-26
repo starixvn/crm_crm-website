@@ -3,9 +3,9 @@
 summaryReportApplication.factory('SummaryReportService', ['$http', '$q', function ($http, $q) {
     var serviceInstance = {};
 
-    serviceInstance.getSummaryReport = function (year, categories) {
+    serviceInstance.getSummaryReport = function (year, site, categories) {
         var deferred = $q.defer();
-        $http.get(window.rootUrl + 'SummaryReport/GetSummaryReport?year=' + year + '&categories=' + categories)
+        $http.get(window.rootUrl + 'SummaryReport/GetSummaryReport?year=' + year + '&siteType=' + site + '&categories=' + categories)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -25,9 +25,9 @@ summaryReportApplication.factory('SummaryReportService', ['$http', '$q', functio
         return deferred.promise;
     };
 
-    serviceInstance.getCategories = function () {
+    serviceInstance.getAllSettings = function () {
         var deferred = $q.defer();
-        $http.post(window.rootUrl + 'Setting/GetAllMainCategory')
+        $http.get(window.rootUrl + 'SummaryReport/GetAllSettings')
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

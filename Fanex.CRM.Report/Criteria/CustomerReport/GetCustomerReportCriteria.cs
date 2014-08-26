@@ -17,14 +17,8 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
     /// </summary>
     public class GetCustomerReportCriteria : CriteriaBase
     {
-        [SpParam(SqlParamName = "firstname")]
-        public string FirstName { get; set; }
-
-        [SpParam(SqlParamName = "lastname")]
-        public string LastName { get; set; }
-
-        [SpParam(SqlParamName = "countryid")]
-        public string CountryIds { get; set; }
+        [SpParam(SqlParamName = "username")]
+        public string Username { get; set; }
 
         [SpParam(SqlParamName = "languageid")]
         public string LanguageIds { get; set; }
@@ -43,12 +37,6 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
 
         [SpParam(SqlParamName = "vip")]
         public int VIPTypeId { get; set; }
-
-        [SpParam(SqlParamName = "isgroupheadline")]
-        public int HeadlineTypeId { get; set; }
-
-        [SpParam(SqlParamName = "customertype")]
-        public int CustomerTypeId { get; set; }
 
         [SpParam(Ignored = true)]
         public int PageIndex { get; set; }
