@@ -66,6 +66,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             {
                 yearRange.Add(new SettingInfo { Id = i, Value = i.ToString() });
             }
+
             var siteTypes = _settingServices.GetAllSiteType();
             var categories = _settingServices.GetAllMainCategory();
             return new
@@ -94,7 +95,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
                 {
                     report = ParseSummaryReport(criteria);
                     report.ReportTitle = string.Format(Labels.SummaryReportTitle, criteria.Year);
-                    // Add to session.
+                    //// Add to session.
                     SessionExtension.AddSession(HttpContext.Current.Session, sessionKey, report);
                 }
 
@@ -314,6 +315,7 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
             {
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item, headerStyle);
             }
+
             exportExcelInfo.CurrentRow++;
         }
 
