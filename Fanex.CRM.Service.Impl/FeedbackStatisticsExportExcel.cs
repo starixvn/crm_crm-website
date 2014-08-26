@@ -3,9 +3,6 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="" date="2012.12.07">Created</change>
-// </history>
 
 namespace Fanex.CRM.Service.Impl
 {
@@ -30,7 +27,7 @@ namespace Fanex.CRM.Service.Impl
     using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Service.Implements;
-
+        
     /// <summary>
     /// Export 2 excel service.
     /// </summary>
@@ -500,9 +497,7 @@ namespace Fanex.CRM.Service.Impl
             }
         }
         #endregion
-
-        #region private function
-
+        
         /// <summary>
         /// Assign data to header excel report.
         /// </summary>
@@ -2001,7 +1996,5 @@ namespace Fanex.CRM.Service.Impl
             result = new Result(1, ex.Message);
             LogExtensions.ExceptionHandler(ex);
         }
-
-        #endregion
     }
 }
