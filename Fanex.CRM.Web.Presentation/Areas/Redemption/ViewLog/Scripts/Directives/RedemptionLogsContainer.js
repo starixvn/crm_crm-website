@@ -121,7 +121,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                     Columns: [
                         {
                             Name: "ColSubject",
-                            Value: '<span class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</span>',
+                            Value: '<span class="link editlog-link" data-logid="' + info.Id + '">' + sharedScriptManager.encodeHtml(info.Subject) + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
@@ -154,7 +154,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                     Columns: [
                         {
                             Name: "ColSubject",
-                            Value: '<span class="link editlog-link" data-logid="' + info.Id + '">' + info.Subject + '</span>',
+                            Value: '<span class="link editlog-link" data-logid="' + info.Id + '">' + sharedScriptManager.encodeHtml(info.Subject) + '</span>',
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },

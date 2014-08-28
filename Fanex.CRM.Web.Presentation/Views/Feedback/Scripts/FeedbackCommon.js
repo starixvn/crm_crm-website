@@ -377,7 +377,7 @@ function initHTMLArea(wrapperid, editerid, strvalue) {
         '<textarea id="' + editerid +
             '" name="' + editerid +
             '" style="width:auto; height:100px; min-width:710px;width:710px;">' +
-            strvalue +
+            sharedScriptManager.encodeHtml(strvalue) +
         '</textarea>';
     $("#" + editerid).htmlarea({
         keyUpEvent: function (eventObject) {

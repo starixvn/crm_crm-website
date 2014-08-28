@@ -9,13 +9,16 @@ currentUsername */
 /* jshint camelcase: false */
 editLogApplication.directive('remarkEditorContainer', function () {
     var editorId = "remarkeditorbox";
+
     function renderRemarkEditor(scope, element, attrs) {
-        var editorHTML =
-        '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-        (communicationLog.Remark.indexOf(" ", communicationLog.Remark.length - 1) !== -1 ?
+        var remark = communicationLog.Remark.indexOf(" ", communicationLog.Remark.length - 1) !== -1 ?
             communicationLog.Remark.substring(0, communicationLog.Remark.length - 1) + "&nbsp;" :
-            communicationLog.Remark) +
-        '</textarea>';
+            communicationLog.Remark;
+
+        var editorHTML =
+            '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
+                sharedScriptManager.encodeHtml(remark) +
+            '</textarea>';
 
         element.html(editorHTML);
         var editor = element.find("#" + editorId);

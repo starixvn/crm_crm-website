@@ -133,7 +133,7 @@ var topFeedback = {
                        <td><div style="width:450px">\
                                 <div class="lnksubject"><a class="desTooltip" id = "tooltip' + i + '"  href="JavaScript:void(0);"\
                                 onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' + row.ID + '&rep=2\', 1);HideTooltip(' + i + ');" >\
-                                <b>' + row.Subject + '</b></a></div>\
+                                <b>' + sharedScriptManager.encodeHtml(row.Subject) + '</b></a></div>\
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>' + row.FeedbackDate + '</b><br>\
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>' + row.Creator + '</b> on ' + row.CreateDate + '<br>\
                                 ' + topFeedback.durationTimeFormat(row.DurationTime) + '<br>\
@@ -158,7 +158,7 @@ var topFeedback = {
                        <td><div style="width:450px">\
                                 <div class="lnksubject"><a class="desTooltip" id = "tooltip' + i + '"  href="JavaScript:void(0);"\
                                 onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' + row.ID + '&rep=2\', 1);HideTooltip(' + i + ');" >\
-                                <b>' + row.Subject + '</b></a></div>\
+                                <b>' + sharedScriptManager.encodeHtml(row.Subject) + '</b></a></div>\
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date <b>' + row.FeedbackDate + '</b><br>\
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By <b>' + row.Creator + '</b> on ' + row.CreateDate + '<br>\
                                 ' + topFeedback.durationTimeFormat(row.DurationTime) + '<br>\

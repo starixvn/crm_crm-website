@@ -105,7 +105,7 @@ manageFBApplication.directive('tableManageFeedbackContainer', function () {
         var html = '<div style="margin:2px 0 0 2px;"> \
             <div class="lnksubject">\
                 <a class="desTooltip" href="javascript:;" data-id="' + feedback.FeedbackId + '">\
-                    <span class="b">' + feedback.Subject + '</span>\
+                    <span class="b">' + sharedScriptManager.encodeHtml(feedback.Subject) + '</span>\
                 </a>\
             </div>\
             <div class="description">\

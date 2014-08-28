@@ -83,14 +83,14 @@ function openEditFeedback(url) {
 
 function isNumberKey(evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if ((charCode >= 48 && charCode <= 57) || 
+    if ((charCode >= 48 && charCode <= 57) ||
         (charCode === 8 || charCode === 35 || charCode === 36 || charCode === 37 || charCode === 39 || charCode === 46)) {
         return true;
     }
     else if (charCode === 13) { // enter
         lastedFeedback.loadLastedFeedback(false);
     }
-    
+
     return false;
 }
 
@@ -233,7 +233,7 @@ lastedFeedback = {
                             <div style="width:380px">\
                                 <div class="lnksubject">\
                                     <a class="desTooltip" href="JavaScript:void(0);">\
-                                        <b>' + row.Subject + '</b>\
+                                        <b>' + sharedScriptManager.encodeHtml(row.Subject) + '</b>\
                                     </a>\
                                 </div>\
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b>\
@@ -262,7 +262,7 @@ lastedFeedback = {
                                 <div class="lnksubject">\
                                     <a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' +
                                         row.ID + '&rep=2\', 1);" >\
-                                        <b>' + row.Subject + '</b>\
+                                        <b>' + sharedScriptManager.encodeHtml(row.Subject) + '</b>\
                                     </a>\
                                 </div>\
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b>\

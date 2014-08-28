@@ -10,9 +10,10 @@ currentUsername */
 editLogApplication.directive('solutionEditorContainer', function () {
     var editorId = "solutioneditorbox";
     function renderEditor(scope, element, attrs) {
+        var solution = communicationLog.Solution;
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-            communicationLog.Solution +
+             sharedScriptManager.encodeHtml(solution) +
         '</textarea>';
 
         element.html(editorHTML);

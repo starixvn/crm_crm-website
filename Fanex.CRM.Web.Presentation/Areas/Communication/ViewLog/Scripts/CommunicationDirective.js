@@ -179,7 +179,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                             Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
                                 (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
                         },
-                        { Name: "ColSubject", Value: info.Subject },
+                        { Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) },
                         { Name: "ColStatus", Value: info.StatusName },
                         {
                             Name: "ColDuration",
@@ -229,7 +229,7 @@ communicationApplication.directive('tableCommunicationLogsContainer', function (
                             Value: ('<div class="maincategory">' + info.MainCategory.Name + '</div>') +
                                 (info.SubCategory.Name !== "" ? '<div class="subcategory">' + info.SubCategory.Name + '</div>' : "")
                         },
-                        { Name: "ColSubject", Value: info.Subject },
+                        { Name: "ColSubject", Value: sharedScriptManager.encodeHtml(info.Subject) },
                         { Name: "ColStatus", Value: info.StatusName },
                         {
                             Name: "ColDuration",

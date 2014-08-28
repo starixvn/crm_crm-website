@@ -41,7 +41,7 @@ function FeedbackData(userId, username, customerId, clientTime) {
         '<textarea id="' + editerid +
             '" name="' + editerid +
             '" style="width:auto; height:95px; min-width:710px;width:710px;">' +
-            strvalue +
+            sharedScriptManager.encodeHtml(strvalue) +
         '</textarea>';
         $('#' + editerid).htmlarea({
             keyUpEvent: function (eventObject) {

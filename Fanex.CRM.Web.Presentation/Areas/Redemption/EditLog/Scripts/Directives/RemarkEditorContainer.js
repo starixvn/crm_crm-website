@@ -9,9 +9,10 @@ currentUsername */
 editLogApplication.directive('remarkEditorContainer', function () {
     var editorId = "remarkeditorbox";
     function renderRemarkEditor(scope, element, attrs) {
+        var remark = scope.redemptionLog.Remark;
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-            scope.redemptionLog.Remark +
+             sharedScriptManager.encodeHtml(remark) +
         '</textarea>';
 
         element.html(editorHTML);

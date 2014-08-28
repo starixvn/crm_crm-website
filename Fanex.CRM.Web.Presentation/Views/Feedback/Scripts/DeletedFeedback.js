@@ -203,7 +203,7 @@ deletedFeedback = {
         var html = '<tr class="' + css + '">\
                         <td>\
                             <div style="width:380px"><div class="lnksubject">\
-                                <a class="desTooltip" href="JavaScript:void(0);"<b>' + row.Subject + '</b></a>\
+                                <a class="desTooltip" href="JavaScript:void(0);"<b>' + sharedScriptManager.encodeHtml(row.Subject) + '</b></a>\
                             </div>\
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b>\
                             <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b>\
@@ -227,7 +227,7 @@ deletedFeedback = {
                                 <div class="lnksubject">\
                                     <a class="desTooltip" href="JavaScript:void(0);" onclick="openEditFeedback(\'../Feedback/EditFeedback?id=' +
                                         row.ID + '&rep=2\', 1);" >\
-                                        <b>' + row.Subject + '</b>\
+                                        <b>' + sharedScriptManager.encodeHtml(row.Subject) + '</b>\
                                     </a>\
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Feedback date&nbsp;<b>' + row.FeedbackDate + '</b>\
                                         <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;By&nbsp;<b>' + row.Creator + '</b>\
@@ -264,7 +264,7 @@ head.ready(function () {
     };
     $("#lastedfeedbackgrid").initGrid(gridOpts);
 
-//    try { topwnd = findMainWindow(window); } catch (e) { }
+    //    try { topwnd = findMainWindow(window); } catch (e) { }
     bindSetting("ddlcommunication", "Communication", 0);
     bindSetting("ddlcategory", "MainCategory", 0);
     bindSetting("ddlCustomerReponse", "Response", 0);

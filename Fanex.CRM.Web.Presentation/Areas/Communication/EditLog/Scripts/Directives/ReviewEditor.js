@@ -10,9 +10,10 @@ currentUsername */
 editLogApplication.directive('reviewEditorContainer', function () {
     var editorId = "revieweditorbox";
     function renderEditor(scope, element, attrs) {
+        var review = communicationLog.Review;
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-            communicationLog.Review +
+            sharedScriptManager.encodeHtml(review) +
         '</textarea>';
 
         element.html(editorHTML);
