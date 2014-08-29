@@ -121,11 +121,11 @@ $customerReportService) {
             DataList: [],
             OnChangeEvent: $scope.updateSelectedLanguage,
             AllText: viewResources.All_Languages,
-            MinWidth: 250,
+            MinWidth: 200,
             MaxHeight: 450,
             NoItemText: viewResources.No_languages_found,
             NoneSelectedText: viewResources.Symbol_NotApply,
-            NumberOfItemShowShortText: 3
+            NumberOfItemShowShortText: 2
         };
 
         $scope.siteOptions = {
@@ -141,17 +141,6 @@ $customerReportService) {
             SubOptionsName: 'ChildSites',
             NumberOfSelectedLevel: 2
         };
-
-        /*$scope.countryOptions = {
-        DataList: [],
-        OnChangeEvent: $scope.updateSelectedCountry,
-        AllText: viewResources.All_Countries,
-        MinWidth: 250,
-        MaxHeight: 450,
-        NoItemText: viewResources.No_country_found,
-        NoneSelectedText: viewResources.Symbol_NotApply,
-        NumberOfItemShowShortText: 3
-        };*/
     };
     $scope.updateFromDatePicker = function (isOnApply) {
         $scope.fromDateOptions.IsRerenderPicker = true;
