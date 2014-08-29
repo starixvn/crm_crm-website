@@ -86,6 +86,10 @@ directiveManager.registerMultiSelectContainer = function (angularApplication, re
             element.on('change', function () {
                 elementChange(element);
             });
+
+            $("#" + prefixId + " input.fanex-multiselect-state-default").change(function () {
+                elementChange(element);
+            });
         }
 
         function elementChange(element) {

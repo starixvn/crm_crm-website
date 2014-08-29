@@ -35,6 +35,15 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
 (function ($, undefined) {
     $.fn.fcbkcomplete = function (opt) {
         return this.queue(function () {
+
+            function calulateTextboxWidth(textSize) {
+                var textboxWidth = textSize * 8.5;
+                textboxWidth = 9 <= textSize && textSize <= 14 ?
+					textboxWidth + 10 :
+					textboxWidth - (textboxWidth * 4 / 56);
+                return Math.ceil(textboxWidth);
+            }
+
             function init() {
                 createFCBK();
                 addInput(0);
@@ -207,8 +216,6 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
                 var isCtrlV = false;
                 var li = $('<li class="bit-input" id="' + elemid + '_annoninput">');
 
-
-
                 var input = $('<input id="typeCust" disabled type="text" class="maininput" size="' + options.input_min_size + '" autocomplete="off">');
 
                 if (options.input_tabindex > 0) input.attr("tabindex", options.input_tabindex);
@@ -217,10 +224,15 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
                 holder.append(li.append(input));
 
 
-                input.focus(function () {
+                input.focus(function (e) {
                     isactive = true;
                     if (maxItems()) {
                         complete.fadeIn("fast");
+                    }
+
+                    $.browser.chrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase());
+                    if ($.browser.chrome) {
+                        e.preventDefault();
                     }
                 });
 
@@ -247,8 +259,6 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
                 });
 
 
-
-
                 input.keypress(function (event) {
 
                     if (event.keyCode == _key.enter) {
@@ -273,12 +283,20 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
 
                     //auto expand input
                     var newsize = (options.input_min_size > input.val().length) ? options.input_min_size : (input.val().length + 1);
-                    input.attr("size", newsize).width("auto");
+                    if ($.browser.msie && parseInt($.browser.version, 10) >= 9) {
+                        input.attr("size", newsize).css("width", calulateTextboxWidth(newsize));
+                    } else {
+                        input.attr("size", newsize).width("auto");
+                    }
                 });
 
                 $('#typeCust').bind('input paste', function () {
                     var newsize = (options.input_min_size > input.val().length) ? options.input_min_size : (input.val().length + 1);
-                    input.attr("size", newsize).width("auto");
+                    if ($.browser.msie && parseInt($.browser.version, 10) >= 9) {
+                        input.attr("size", newsize).css("width", calulateTextboxWidth(newsize));
+                    } else {
+                        input.attr("size", newsize).width("auto");
+                    }
                 });
 
                 input.keyup(function (event) {
@@ -319,6 +337,7 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
                 if (options.oncreate) {
                     funCall(options.oncreate, input);
                 }
+
                 if (focusme) {
                     setTimeout(function () {
                         input.focus();
@@ -420,8 +439,6 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
                     if (event.keyCode != _key.backspace) {
                         holder.children("li.bit-box.deleted").removeClass("deleted");
                     }
-
-
 
                     if ((event.keyCode == _key.enter || event.keyCode == _key.tab || event.keyCode == _key.comma) && checkFocusOn()) {
                         var option = focuson;

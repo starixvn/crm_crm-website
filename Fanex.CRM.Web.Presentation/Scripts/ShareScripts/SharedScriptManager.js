@@ -207,6 +207,14 @@ var SharedScriptManager = function () {
     self.replaceLineBreak = function (text) {
         return text ? text.replace(/\r/g, '<br />') : '';
     };
+    self.encodeHtml = function (text) {
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+    };
 };
 
 sharedScriptManager = new SharedScriptManager();

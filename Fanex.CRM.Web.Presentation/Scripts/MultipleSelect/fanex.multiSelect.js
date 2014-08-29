@@ -387,7 +387,6 @@
                     else {
                         value = options.noneSelectedText;
                     }
-
                 }
             }
 
@@ -401,7 +400,9 @@
                 me.$multiSelect.attr("title", tooltipValue);
             }
 
-            me.$multiSelect.find('input').val(value);
+            var textbox = me.$multiSelect.find('input');
+            textbox.val(value);
+            textbox.change();
             return value;
         },
         updateParentSelected: function (currentGroup) {
