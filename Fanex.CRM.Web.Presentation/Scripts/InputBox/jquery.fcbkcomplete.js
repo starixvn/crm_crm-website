@@ -231,7 +231,7 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
                     }
 
                     $.browser.chrome = /chrom(e|ium)/.test(navigator.userAgent.toLowerCase());
-                    if ($.browser.chrome) {
+                    if (!isHolderClick && $.browser.chrome) {
                         e.preventDefault();
                     }
                 });
@@ -249,7 +249,11 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
                     if (options.input_min_size < 0 && feed.length) {
                         load_feed(xssPrevent(input.val(), 1));
                     }
+
+                    isHolderClick = true;
                     input.focus();
+                    isHolderClick = false;
+
                     if (feed.length && input.val().length > options.input_min_size) {
                         feed.show();
                     } else {
@@ -622,6 +626,7 @@ FCBKcomplete v2.8.9.3 is released under the MIT License <http://www.opensource.o
             var focuson = null;
             var deleting = 0;
             var complete_hover = 1;
+            var isHolderClick = false;
 
             var element = $(this);
             var elemid = element.attr("id");
