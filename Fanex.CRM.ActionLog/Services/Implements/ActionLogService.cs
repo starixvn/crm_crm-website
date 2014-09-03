@@ -201,11 +201,11 @@ namespace Fanex.CRM.ActionLog.Services.Implements
             {
                 if (!results.ContainsKey(node.Name))
                 {
-                    results.Add(node.Name, Helper.DecodeXml(node.InnerText));
+                    results.Add(node.Name, node.InnerText);
                 }
                 else
                 {
-                    results[node.Name] += "<br/>" + Helper.DecodeXml(node.InnerText);
+                    results[node.Name] += "<br/>" + node.InnerText;
                 }
             }
 
