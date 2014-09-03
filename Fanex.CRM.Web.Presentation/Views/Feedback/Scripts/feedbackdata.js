@@ -6,7 +6,8 @@ showAlertMessage,
 inputMultipleRelatedNote,
 errMsgFeedbackDateGreatter,
 errMsgResolutionDateGreatter,
-hotKeyManager
+hotKeyManager,
+sharedScriptManager
 */
 /* jshint maxstatements: 3000 */
 function FeedbackData(userId, username, customerId, clientTime) {

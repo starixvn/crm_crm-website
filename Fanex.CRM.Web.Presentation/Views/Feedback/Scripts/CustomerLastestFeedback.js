@@ -2,7 +2,8 @@
 /* global gup,
 custName,
 reRenderGrid,
-head
+head,
+sharedScriptManager
 */
 /* exported _pageIndex, 
 _pageSize,

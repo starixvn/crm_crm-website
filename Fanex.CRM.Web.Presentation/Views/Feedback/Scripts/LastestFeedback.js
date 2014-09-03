@@ -1,5 +1,6 @@
 ﻿"use strict";
-/* global OpenPopup, reRenderGrid, head */
+/* global OpenPopup, reRenderGrid, head,
+sharedScriptManager */
 /* exported _pageIndex, _pageSize, totalItems,
 HideTooltip, openEditFeedback */
 

@@ -5,7 +5,8 @@ desvalue: true,
 solvalue: true,
 revvalue: true,
 accname,
-hotKeyManager 
+hotKeyManager,
+sharedScriptManager
 */
 /* exported trim, 
 getRelatedCustomer, 

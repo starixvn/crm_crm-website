@@ -21,6 +21,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using Fanex.CRM.ActionLog.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Configuration;
     using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
 
@@ -31,12 +32,12 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     {
         private const string ActivityLogKey = "Fanex.CRM.ActionLog.ActivityLog";
         private const string SettingLogKey = "Fanex.CRM.ActionLog.SettingLog";
-        
+
         private readonly IActionLogRepository _actionLogRepository;
         private readonly IDictionary<string, string> _settingHash;
         private readonly IDictionary<string, bool> _actionLogKeyHash;
         private readonly IDictionary<string, string[]> _actionLogBoolValueHash;
-        
+
         public ActionLogService()
             : this(null)
         {
@@ -61,7 +62,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             try
             {
-                var activityLogs = (IList<ActivityLog>)SessionExtension.GetSession(HttpContext.Current.Session, ActivityLogKey); 
+                var activityLogs = (IList<ActivityLog>)SessionExtension.GetSession(HttpContext.Current.Session, ActivityLogKey);
                 if (criteria.PageIndex == 0 || activityLogs == null)
                 {
                     // Exclude rows whose OldValues = NewValues = NULL/Empty.
@@ -102,7 +103,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             try
             {
-                var settingLogs = (IList<SettingLog>)SessionExtension.GetSession(HttpContext.Current.Session, SettingLogKey); 
+                var settingLogs = (IList<SettingLog>)SessionExtension.GetSession(HttpContext.Current.Session, SettingLogKey);
                 if (criteria.PageIndex == 0 || settingLogs == null)
                 {
                     // Exclude rows whose OldValues = NewValues = NULL/Empty.
@@ -114,7 +115,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
                         SessionExtension.AddSession(HttpContext.Current.Session, SettingLogKey, settingLogs);
                     }
                 }
-                
+
                 PagedList<SettingLog> paginationSettingLogs = new PagedList<SettingLog>(settingLogs, criteria.PageIndex, criteria.ItemsPerPage);
                 foreach (var log in paginationSettingLogs)
                 {
@@ -200,11 +201,11 @@ namespace Fanex.CRM.ActionLog.Services.Implements
             {
                 if (!results.ContainsKey(node.Name))
                 {
-                    results.Add(node.Name, node.InnerText);
+                    results.Add(node.Name, Helper.DecodeXml(node.InnerText));
                 }
                 else
                 {
-                    results[node.Name] += "<br/>" + node.InnerText;
+                    results[node.Name] += "<br/>" + Helper.DecodeXml(node.InnerText);
                 }
             }
 
@@ -240,12 +241,12 @@ namespace Fanex.CRM.ActionLog.Services.Implements
             {
                 return value;
             }
-          
+
             // LanguageID can be stored multiple values.
             if (string.Equals(keyLower, "LanguageID", StringComparison.OrdinalIgnoreCase))
             {
                 fieldName = "Language";
-                return GetMultipleSettingValue(value);   
+                return GetMultipleSettingValue(value);
             }
 
             fieldName = key.Replace("ID", string.Empty);
@@ -273,7 +274,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         private string GetMultipleSettingValue(string value)
         {
             var valueList = value.Split(new char[] { ',' });
-            
+
             int keyCount = valueList.Length;
             for (int i = 0; i < keyCount; i++)
             {

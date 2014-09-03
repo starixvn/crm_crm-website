@@ -56,14 +56,27 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
                 else {
                     for (var j = 0; j < mergeRowNumber; j++) {
                         row = j !== 0 ? [] : row;
+                        var fieldName = fieldNames[j];
+                        var oldText = (oldValues && oldValues.length) > 0 ?
+                            sharedScriptManager.replaceLineBreak(oldValues[j]) :
+                            '';
+                        var newText = sharedScriptManager.replaceLineBreak(newValues[j]);
+
+                        var isEncoded = fieldName !== 'Remark' &&
+                            fieldName !== 'Solution' &&
+                            fieldName !== 'Review';
                         bodyData.push({
                             Columns: row.concat([
-                                { Name: 'ColFieldName', Value: fieldNames[j] },
+                                { Name: 'ColFieldName', Value: fieldName },
                                 { Name: 'ColOldValues',
-                                    Value: (oldValues && oldValues.length) > 0 ? sharedScriptManager.encodeHtml(sharedScriptManager.replaceLineBreak(oldValues[j])) : '',
+                                    Value: isEncoded ? sharedScriptManager.encodeHtml(oldText) : oldText,
                                     CssClass: 'word-wrap'
                                 },
-                                { Name: 'ColNewValues', Value: sharedScriptManager.encodeHtml(sharedScriptManager.replaceLineBreak(newValues[j])), CssClass: 'word-wrap'}]),
+                                {
+                                    Name: 'ColNewValues',
+                                    Value: isEncoded ? sharedScriptManager.encodeHtml(newText) : newText,
+                                    CssClass: 'word-wrap'
+                                }]),
                             CssClass: evenClass
                         });
                     }

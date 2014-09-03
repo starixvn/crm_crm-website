@@ -62,7 +62,7 @@ var SharedScriptManager = function () {
         var r = /(%[^%]{2})/;
         var m;
         while ((m = r.exec(o)) != null &&
-            m.length > 1 && m[1] != '') {
+            m.length > 1 && m[1] !== '') {
             var b = parseInt(m[1].substr(1), 16);
             t = String.fromCharCode(b);
             o = o.replace(m[1], t);
@@ -214,6 +214,12 @@ var SharedScriptManager = function () {
             .replace(/'/g, '&#39;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
+    };
+    self.alreadyEncodedHtml = function (text) {
+        return text.indexOf('&amp;quot;') !== -1 ||
+            text.indexOf('&amp;#39;') !== -1 ||
+            text.indexOf('&amp;lt;') !== -1 ||
+            text.indexOf('&amp;gt;') !== -1;
     };
 };
 

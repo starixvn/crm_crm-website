@@ -4,7 +4,8 @@ replaceSpaceForIE9,
 head,
 addDays,
 bindSetting,
-clientTime
+clientTime,
+sharedScriptManager
 */
 /* exported loadSubItem,
 openEditFeedback */

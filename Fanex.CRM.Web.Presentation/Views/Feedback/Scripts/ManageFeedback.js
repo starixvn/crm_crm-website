@@ -1,7 +1,8 @@
 ﻿"use strict";
 /* global OpenPopup, reRenderGrid, replaceSpaceForIE9, bindingSetting,
 gup, head, addDays,
-bindingManageChildByParentId, clientTime */
+bindingManageChildByParentId, clientTime,
+sharedScriptManager */
 /* exported loadSubItem, openEditFeedback, isNumberKey */
 
 //Contain the template

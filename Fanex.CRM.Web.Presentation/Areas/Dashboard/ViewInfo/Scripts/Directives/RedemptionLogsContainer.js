@@ -1,7 +1,8 @@
 ﻿"use strict";
 /* global dashboardApplication,
 viewResources,
-crmConstants */
+crmConstants,
+sharedScriptManager */
 dashboardApplication.directive('tableRedemptionLogsContainer', function () {
     function renderRedemptionLogs(scope, element, attrs) {
         if (scope.redemptionLogs == null) {
