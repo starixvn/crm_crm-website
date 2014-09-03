@@ -8,9 +8,10 @@ insertLogApplication.directive('solutionEditorContainer', function () {
     var editorId = "solutioneditorbox";
     function renderEditor(scope, element, attrs) {
         /* jshint unused: vars */
+        var solution = scope.communicationLog ? scope.communicationLog.Solution : '';
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-            (scope.communicationLog ? scope.communicationLog.Solution : '') +
+            sharedScriptManager.encodeHtml(solution) +
         '</textarea>';
 
         element.html(editorHTML);

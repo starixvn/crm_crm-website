@@ -8,9 +8,10 @@ insertLogApplication.directive('remarkEditorContainer', function () {
     var editorId = "remarkeditorbox";
     function renderRemarkEditor(scope, element, attrs) {
         /* jshint unused: vars */
+        var remark = scope.redemptionLog.Remark;
         var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-            scope.redemptionLog.Remark +
+            sharedScriptManager.encodeHtml(remark) +
         '</textarea>';
 
         element.html(editorHTML);
