@@ -7,7 +7,7 @@ sharedScriptManager */
 activityLogApplication.directive('tableActivityLogsContainer', function () {
     /* jshint camelcase: false */
     function renderActivityLogs(scope, element, attrs) {
-        var gridOptions;    
+        var gridOptions;
         function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
             gridOptions.pagerOption.currentPage = page_index;
             gridOptions.pagerOption.itemsPerPage = itemsPerPage;
@@ -43,7 +43,7 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
                 var row = [
                     { Name: 'ColLogDate', Value: info.LogDateString, MergeRowNumber: mergeRowNumber },
                     { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber },
-                    { Name: 'ColAction', Value: info.ActionName, MergeRowNumber: mergeRowNumber }];
+                    { Name: 'ColAction', Value: info.ActionName, MergeRowNumber: mergeRowNumber}];
                 if (mergeRowNumber === 0) {
                     bodyData.push({
                         Columns: row.concat([
@@ -60,9 +60,10 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
                             Columns: row.concat([
                                 { Name: 'ColFieldName', Value: fieldNames[j] },
                                 { Name: 'ColOldValues',
-                                  Value: (oldValues && oldValues.length) > 0 ? sharedScriptManager.replaceLineBreak(oldValues[j]) : '',
-                                  CssClass: 'word-wrap' },
-                                { Name: 'ColNewValues', Value: sharedScriptManager.replaceLineBreak(newValues[j]), CssClass: 'word-wrap'}]),
+                                    Value: (oldValues && oldValues.length) > 0 ? sharedScriptManager.encodeHtml(sharedScriptManager.replaceLineBreak(oldValues[j])) : '',
+                                    CssClass: 'word-wrap'
+                                },
+                                { Name: 'ColNewValues', Value: sharedScriptManager.encodeHtml(sharedScriptManager.replaceLineBreak(newValues[j])), CssClass: 'word-wrap'}]),
                             CssClass: evenClass
                         });
                     }
