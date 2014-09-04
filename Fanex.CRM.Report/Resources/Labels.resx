@@ -546,4 +546,82 @@
   <data name="PIC4" xml:space="preserve">
     <value>PIC 4</value>
   </data>
+  <data name="CasinoDailyDetailTitle" xml:space="preserve">
+    <value>Daily Casino - Related Customer Inquiries Record From {0} To {1}</value>
+  </data>
+  <data name="CasinoDailyStatisticsHint" xml:space="preserve">
+    <value>Filtering by Feedback date</value>
+  </data>
+  <data name="CasinoDailyStatistics_Report" xml:space="preserve">
+    <value>Casino Daily Statistics</value>
+  </data>
+  <data name="CasinoDailySummaryTitle" xml:space="preserve">
+    <value>Daily Summary On Customer Inquiries From {0} To {1}</value>
+  </data>
+  <data name="CasinoDetailExcelName" xml:space="preserve">
+    <value>CasinoDetailReport-{0}-{1}</value>
+  </data>
+  <data name="CasinoSummaryExcelName" xml:space="preserve">
+    <value>CasinoSummaryReport-{0}-{1}</value>
+  </data>
+  <data name="CasinoWeeklyDetailTitle" xml:space="preserve">
+    <value>Weekly Casino - Related Customer Inquiries Record From {0} To {1}</value>
+  </data>
+  <data name="CasinoWeeklyStatistics_Report" xml:space="preserve">
+    <value>Casino Weekly Statistics</value>
+  </data>
+  <data name="CasinoWeeklySummaryTitle" xml:space="preserve">
+    <value>Weekly Summary Report From {0} To {1}</value>
+  </data>
+  <data name="Contact" xml:space="preserve">
+    <value>Contact/MSN/Skype/Email/Phone</value>
+  </data>
+  <data name="CreationTime" xml:space="preserve">
+    <value>Creation Time</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Complaints/Enquiries</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="Ext" xml:space="preserve">
+    <value>EXT.#</value>
+  </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="HandleBy" xml:space="preserve">
+    <value>Handle By</value>
+  </data>
+  <data name="MSN" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="ProductName" xml:space="preserve">
+    <value>Product Name</value>
+  </data>
+  <data name="Solution" xml:space="preserve">
+    <value>Solution</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Start Time</value>
+  </data>
+  <data name="SubCategory" xml:space="preserve">
+    <value>Subcategory</value>
+  </data>
+  <data name="TypeOfContact" xml:space="preserve">
+    <value>Type Of Contact</value>
+  </data>
+  <data name="ViewChart" xml:space="preserve">
+    <value>View Chart</value>
+  </data>
+  <data name="ViewDetail" xml:space="preserve">
+    <value>View Detail</value>
+  </data>
 </root>

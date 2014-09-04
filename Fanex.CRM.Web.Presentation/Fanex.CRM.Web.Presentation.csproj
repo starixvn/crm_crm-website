@@ -339,6 +339,16 @@
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
+    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyApplication.js" />
+    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyController.js" />
+    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyService.js" />
+    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\Directives\CasinoDailyDetailContainer.js" />
+    <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\Directives\CasinoDailySummaryContainer.js" />
+    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\CasinoWeeklyApplication.js" />
+    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\CasinoWeeklyController.js" />
+    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\CasinoWeeklyService.js" />
+    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\Directives\CasinoWeeklyDetailContainer.js" />
+    <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\Directives\CasinoWeeklySummaryContainer.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportApplication.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportController.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportService.js" />
@@ -364,6 +374,10 @@
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <Content Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
+    <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
+    <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
+    <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
+    <None Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportApplication.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportController.js" />
