@@ -60,18 +60,30 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
-        {
-            var updateResult = _customerServiceInstance.UpdateCustomerSuggestion(criteria);
-            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
-        }
-
-        [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
             var updateResult = _customerServiceInstance.UpdateCustomerInfo(criteria);
+            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpGet]
+        public JsonResult CustomerAutoSuggestion(CustomerSuggestionCriteria criteria)
+        {
+            var jsonResult = new
+            {
+                query = criteria.Query,
+                suggestions = _customerServiceInstance.QueryCustomerByUsername(criteria)
+            };
+
+            return Json(jsonResult, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
+        {
+            var updateResult = _customerServiceInstance.UpdateCustomerSuggestion(criteria);
             var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

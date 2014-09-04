@@ -23,5 +23,7 @@ namespace Fanex.CRM.Customer.Services.Interfaces
         bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria);
 
         BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria);
+
+        IList<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria);
     }
 }

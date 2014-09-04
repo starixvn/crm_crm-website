@@ -24,6 +24,6 @@ namespace Fanex.CRM.Customer.Repositories.Interfaces
 
         BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria);
 
-        bool UpdateCustomerSearchCountValue(UpdateCustomerSuggestionCriteria criteria);
+        IList<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria);
     }
 }
