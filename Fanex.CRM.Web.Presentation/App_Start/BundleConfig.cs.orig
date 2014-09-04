@@ -126,7 +126,10 @@ namespace Fanex.CRM.Web.View.App_Start
             FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
             ReportBundles.RegisterBundles(bundles);
+<<<<<<< HEAD
             ReportBundles.RegisterBundles(bundles);
+=======
+>>>>>>> #20808 - Casino Daily/Weekly Statistics
 
             InformHeadlinesBundles.RegisterAll(bundles);
             AdminBundles.RegisterBundles(bundles);
