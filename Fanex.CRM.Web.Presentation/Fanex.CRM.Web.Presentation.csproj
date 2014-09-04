@@ -259,11 +259,6 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagController.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -337,8 +332,6 @@
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
