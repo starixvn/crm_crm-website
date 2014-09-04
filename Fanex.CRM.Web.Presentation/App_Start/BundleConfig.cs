@@ -16,6 +16,7 @@ namespace Fanex.CRM.Web.View.App_Start
     using BundleTransformer.Core.Transformers;
     using Fanex.CRM.Customer.BundleConfigs;
     using Fanex.CRM.Feedback.Bundles;
+    using Fanex.CRM.Report;
 
     /// <summary>
     /// Bundle Config.
@@ -122,6 +123,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Report_SummaryReport(ref bundles);
 
             FeedbackBundles.RegisterBundles(bundles);
+            ReportBundles.RegisterBundles(bundles);
 
             InformHeadlinesBundles.RegisterAll(bundles);
         }
