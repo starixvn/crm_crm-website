@@ -125,6 +125,7 @@ namespace Fanex.CRM.Web.View.App_Start
             FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
             ReportBundles.RegisterBundles(bundles);
+            ReportBundles.RegisterBundles(bundles);
 
             InformHeadlinesBundles.RegisterAll(bundles);
         }
