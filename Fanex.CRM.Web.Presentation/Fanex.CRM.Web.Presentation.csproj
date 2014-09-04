@@ -443,11 +443,8 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
-    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Master.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\Master.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
@@ -490,6 +487,7 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
+    <Content Include="Scripts\AjaxForm\ajax-form.js" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -1203,11 +1201,11 @@
     <Content Include="Views\AdminTool\SubjectTemplateIns.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\site\variables.less" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Content\site\variables.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.MailSection.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
