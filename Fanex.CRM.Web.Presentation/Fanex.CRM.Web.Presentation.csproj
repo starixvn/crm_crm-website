@@ -233,8 +233,6 @@
     <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleService.js" />
     <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleApplication.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\Images\excel.png" />
-    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\UpdateInform.less" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\InformHeadlineContainer.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformService.js" />
@@ -260,23 +258,6 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagController.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackApplication.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_HotkeyFunctions.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Options.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Update.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackService.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\AddCustomerFeedbackDirectives.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\error.gif" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -347,18 +328,13 @@
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Index.cshtml" />
     <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Index.cshtml" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Index.cshtml" />
-    <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
+    <None Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
-    <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
-    <Content Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
-    <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
+    <None Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <None Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
+    <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
+    <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportApplication.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportController.js" />
@@ -373,31 +349,6 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
-    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -414,6 +365,7 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
+    <Content Include="Scripts\AjaxForm\ajax-form.js" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -562,12 +514,9 @@
     <Content Include="Scripts\ShareScripts\Directives\HtmlArea.js" />
     <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\MultiSelect.js" />
-    <Content Include="Scripts\ShareScripts\Directives\RawHtml.js" />
     <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
-    <Content Include="Scripts\ShareScripts\Directives\RelatedCustomer.js" />
     <Content Include="Scripts\ShareScripts\Directives\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
-    <Content Include="Scripts\ShareScripts\Directives\TipsyDirective.js" />
     <Content Include="Scripts\ShareScripts\Directives\ToggleElement.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
@@ -577,57 +526,45 @@
     <Content Include="Scripts\ShareScripts\SharedControllerManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
     <Content Include="Areas\ActionLog\SettingLog\Index.cshtml" />
-    <Content Include="Areas\ActionLog\SettingLog\Styles\settingLog.less" />
-    <Content Include="Areas\Communication\EditLog\Styles\EditCommunicationLog.less" />
-    <Content Include="Areas\Communication\InsertLog\Styles\InsertCommunicationLog.less" />
+    <None Include="Areas\ActionLog\SettingLog\Styles\settingLog.less" />
+    <None Include="Areas\Communication\EditLog\Styles\EditCommunicationLog.less" />
+    <None Include="Areas\Communication\InsertLog\Styles\InsertCommunicationLog.less" />
     <Content Include="Areas\Communication\ViewDetailById\Index.cshtml" />
-    <Content Include="Areas\Communication\ViewDetailById\Styles\ViewDetailById.less" />
-    <Content Include="Areas\Communication\ViewLog\Styles\Communication.less" />
-    <Content Include="Areas\Customer\DetailInfo\Styles\StyleSheet.less" />
+    <None Include="Areas\Communication\ViewDetailById\Styles\ViewDetailById.less" />
+    <None Include="Areas\Communication\ViewLog\Styles\Communication.less" />
+    <None Include="Areas\Customer\DetailInfo\Styles\StyleSheet.less" />
     <Content Include="Areas\Dashboard\ViewInfo\CustomerRemarks.cshtml" />
     <Content Include="Areas\Dashboard\ViewInfo\CustomerInfo.cshtml" />
     <Content Include="Areas\Dashboard\ViewInfo\RedemptionLogs.cshtml" />
     <Content Include="Areas\Dashboard\ViewInfo\CommunicationLogs.cshtml" />
-    <Content Include="Areas\Dashboard\ViewInfo\Styles\StyleSheet.less" />
+    <None Include="Areas\Dashboard\ViewInfo\Styles\StyleSheet.less" />
     <Content Include="Areas\Dashboard\VerifyFlag\Index.cshtml" />
-    <Content Include="Areas\Dashboard\VerifyFlag\Styles\VerifyFlag.less" />
-    <Content Include="Areas\Redemption\EditLog\Styles\Redemption.less" />
-    <Content Include="Areas\Redemption\InsertLog\Styles\Redemption.less" />
-    <Content Include="Areas\Redemption\ViewLog\Styles\Redemption.less" />
+    <None Include="Areas\Dashboard\VerifyFlag\Styles\VerifyFlag.less" />
+    <None Include="Areas\Redemption\EditLog\Styles\Redemption.less" />
+    <None Include="Areas\Redemption\InsertLog\Styles\Redemption.less" />
+    <None Include="Areas\Redemption\ViewLog\Styles\Redemption.less" />
     <Content Include="Areas\Report\DynamicReport\Index.cshtml" />
     <Content Include="Areas\Report\Web.config" />
     <Content Include="Areas\Report\CustomerReport\Index.cshtml" />
-    <Content Include="Areas\Report\CustomerReport\Styles\CustomerReport.less" />
-    <Content Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
+    <None Include="Areas\Report\CustomerReport\Styles\CustomerReport.less" />
+    <None Include="Areas\Report\DynamicReport\Styles\DynamicReport.less" />
     <Content Include="Areas\User\Web.config" />
     <Content Include="Areas\Report\SettlementReport\Index.cshtml" />
-    <Content Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" />
+    <None Include="Areas\Report\SettlementReport\Styles\StatisticReport.less" />
     <Content Include="Areas\Report\StatisticReport\Index.cshtml" />
     <Content Include="Areas\Report\SummaryReport\Index.cshtml" />
     <Content Include="Areas\Report\WagerReport\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.ConnectionStrings.config" />
-    <Content Include="Content\site\customizeFanexGridV2.less" />
-    <Content Include="Content\site\customizeMultiSelect.less" />
-    <Content Include="Content\site\resultMessage.less" />
-    <Content Include="Content\site\reportgrid.less" />
-    <Content Include="Scripts\AjaxForm\ajax-form.less" />
-    <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
-    <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
-    <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
+    <None Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
+    <None Include="Content\site\customizeFanexGridV2.less" />
+    <None Include="Content\site\customizeMultiSelect.less" />
+    <None Include="Content\site\resultMessage.less" />
+    <None Include="Content\site\reportgrid.less" />
+    <None Include="Scripts\AjaxForm\ajax-form.less" />
+    <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
+    <None Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
+    <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
@@ -647,8 +584,8 @@
     <Content Include="Areas\Communication\InsertLog\Index.cshtml" />
     <Content Include="Areas\ActionLog\ActivityLog\Index.cshtml" />
     <Content Include="Areas\ActionLog\Web.config" />
-    <Content Include="Areas\ActionLog\ActivityLog\Styles\activityLog.less" />
-    <Content Include="Areas\Customer\ShortInfo\Styles\StyleSheet.less" />
+    <None Include="Areas\ActionLog\ActivityLog\Styles\activityLog.less" />
+    <None Include="Areas\Customer\ShortInfo\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
     <Content Include="Areas\Dashboard\ViewInfo\Index.cshtml" />
     <Content Include="Areas\Dashboard\Web.config" />
@@ -658,13 +595,21 @@
     <Content Include="Areas\Remark\Index.cshtml" />
     <Content Include="Areas\Redemption\InsertLog\Index.cshtml" />
     <Content Include="Areas\Redemption\EditLog\Index.cshtml" />
-    <Content Include="Areas\Remark\Styles\remark.less" />
-    <Content Include="Content\site\common.less" />
-    <Content Include="Content\site\customizeFanexGrid.less" />
-    <Content Include="Content\site\customizeJqueryUI.less" />
-    <Content Include="Content\site\mixins.less" />
+    <None Include="Areas\Remark\Styles\remark.less" />
+    <None Include="Content\site\common.less" />
+    <None Include="Content\site\customizeFanexGrid.less" />
+    <None Include="Content\site\customizeJqueryUI.less" />
+    <None Include="Content\site\mixins.less" />
+    <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\accessDenied.gif" />
-    <Content Include="Content\site\Images\addnew-ico.png" />
     <Content Include="Content\site\Images\ajax-loader.gif" />
     <Content Include="Content\site\Images\back.png" />
     <Content Include="Content\site\Images\bg-btn.jpg" />
@@ -677,7 +622,6 @@
     <Content Include="Content\site\Images\icn_del.png" />
     <Content Include="Content\site\Images\icn_view.png" />
     <Content Include="Content\site\Images\icon-arrow-down.png" />
-    <Content Include="Content\site\Images\icon-arrow-right.png" />
     <Content Include="Content\site\Images\icon-expand.png" />
     <Content Include="Content\site\Images\icon-search.png" />
     <Content Include="Content\site\Images\icon-sprite.png" />
@@ -688,8 +632,8 @@
     <Content Include="Content\site\Images\TreeViewImg.gif" />
     <Content Include="Content\site\Images\view-detail.png" />
     <Content Include="Content\site\Images\WebResource.axd.png" />
-    <Content Include="Content\site\Message.less" />
-    <Content Include="Content\site\table.less" />
+    <None Include="Content\site\Message.less" />
+    <None Include="Content\site\table.less" />
     <Content Include="Content\bootstrap\css\bootstrap-ie7.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Content\bootstrap\css\bootstrap-theme.min.css" />
@@ -908,8 +852,8 @@
     <Content Include="Views\Home\_Menu.cshtml" />
     <Content Include="Areas\User\LogIn\Index.cshtml" />
     <Content Include="Views\Common\Offline.cshtml" />
-    <Content Include="Views\Common\Styles\UnderMaintenance.less" />
-    <Content Include="Views\Home\Styles\default.less" />
+    <None Include="Views\Common\Styles\UnderMaintenance.less" />
+    <None Include="Views\Home\Styles\default.less" />
     <Content Include="Views\Home\Scripts\MenuManager.js" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_banner.jpg" />
     <Content Include="Views\Home\Styles\Images\Banner\bg_head_tb.jpg" />
@@ -965,7 +909,7 @@
     <Content Include="Views\Home\_DashboardMenu.cshtml" />
     <Content Include="Views\Home\_SearchCustomerRemind.cshtml" />
     <Content Include="Views\Reports\AllFeedbackStattisticsDetail.cshtml" />
-    <Content Include="Areas\User\LogIn\Styles\login.less" />
+    <None Include="Areas\User\LogIn\Styles\login.less" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1028,8 +972,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configurations\CasinoSection.config" />
-    <Content Include="ConnectionStrings.config" />
-    <Content Include="MailSection.config" />
+    <Content Include="Configurations\ConnectionStrings.config" />
+    <Content Include="Configurations\MailSection.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\SignIn.cshtml" />
@@ -1121,29 +1065,11 @@
     <Content Include="Views\AdminTool\SubjectTemplateIns.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\site\variables.less" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.MailSection.config" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Content\site\variables.less" />
     <None Include="IbcKeys\ibckeydec.snk" />
     <None Include="IbcKeys\ibcpkey.snk" />
     <Content Include="IbcKeys\Web.config" />
@@ -1170,7 +1096,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>58282</DevelopmentServerPort>
+          <DevelopmentServerPort>54287</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
