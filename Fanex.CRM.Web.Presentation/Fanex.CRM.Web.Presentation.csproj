@@ -558,14 +558,37 @@
       <SubType>Code</SubType>
     </Content>
     <None Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
-    <None Include="Content\site\customizeFanexGridV2.less" />
-    <None Include="Content\site\customizeMultiSelect.less" />
-    <None Include="Content\site\resultMessage.less" />
-    <None Include="Content\site\reportgrid.less" />
-    <None Include="Scripts\AjaxForm\ajax-form.less" />
-    <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.ConnectionStrings.config" />
     <None Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
+    <Content Include="Content\site\resultMessage.less" />
+    <Content Include="Content\site\reportgrid.less" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
+    <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
+    <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
