@@ -369,7 +369,6 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
-    <Content Include="Scripts\AjaxForm\ajax-form.js" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -589,7 +588,6 @@
     <Content Include="UAT.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Scripts\AjaxForm\ajax-form.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
