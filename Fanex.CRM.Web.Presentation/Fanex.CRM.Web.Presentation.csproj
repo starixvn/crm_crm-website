@@ -335,6 +335,24 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
+    <Content Include="Configurations\UAT.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\UAT.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -543,10 +561,34 @@
       <SubType>Code</SubType>
     </Content>
     <None Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
+    <Content Include="Configurations\Local.MailSection.config" />
+    <Content Include="Configurations\PRO.MailSection.config" />
+    <Content Include="Configurations\UAT.MailSection.config" />
+    <Content Include="Configurations\UAT.ConnectionStrings.config" />
+    <Content Include="Configurations\Local.ConnectionStrings.config" />
+    <Content Include="Configurations\PRO.ConnectionStrings.config" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\customizeMultiSelect.less" />
     <None Include="Content\site\resultMessage.less" />
     <None Include="Content\site\reportgrid.less" />
+    <Content Include="Local.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PRO.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UAT.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Local.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PRO.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="UAT.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\AjaxForm\ajax-form.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
@@ -586,15 +628,15 @@
     <None Include="Content\site\customizeFanexGrid.less" />
     <None Include="Content\site\customizeJqueryUI.less" />
     <None Include="Content\site\mixins.less" />
-    <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
+    <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
+    <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\PRO.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\PRO.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\accessDenied.gif" />
     <Content Include="Content\site\Images\ajax-loader.gif" />
     <Content Include="Content\site\Images\back.png" />
