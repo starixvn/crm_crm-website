@@ -690,6 +690,7 @@
     <Content Include="Content\site\Images\icn_del.png" />
     <Content Include="Content\site\Images\icn_view.png" />
     <Content Include="Content\site\Images\icon-arrow-down.png" />
+	<Content Include="Content\site\Images\icon-arrow-right.png" />
     <Content Include="Content\site\Images\icon-expand.png" />
     <Content Include="Content\site\Images\icon-search.png" />
     <Content Include="Content\site\Images\icon-sprite.png" />
