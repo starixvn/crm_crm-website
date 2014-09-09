@@ -395,6 +395,7 @@
     </Content>
     <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Content\site\Images\addnew-ico.png" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -403,6 +404,9 @@
     <Content Include="Content\site\Images\ico-collapse-expanse-filter.png" />
     <Content Include="Content\site\Images\ico-collapse.png" />
     <Content Include="Content\site\Images\ico-expand.png" />
+    <Content Include="Content\site\Images\icon-arrow-right.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\site\Images\list-muti-select.png" />
     <Content Include="Content\site\Images\loading-icon2.gif" />
     <Content Include="Content\site\Images\loading100x100.gif" />
@@ -468,6 +472,7 @@
     <Content Include="Scripts\head.load.js" />
     <Content Include="Scripts\JQuery\jquery-1.8.2.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
+    <Content Include="Scripts\JQuery\jquery.fileDownload.js" />
     <Content Include="Scripts\MonthDayPicker\images\bg-demo-docs-param.gif" />
     <Content Include="Scripts\MonthDayPicker\images\demo-spindown-closed.gif" />
     <Content Include="Scripts\MonthDayPicker\images\demo-spindown-open.gif" />
@@ -652,7 +657,7 @@
     <Content Include="Areas\Communication\InsertLog\Index.cshtml" />
     <Content Include="Areas\ActionLog\ActivityLog\Index.cshtml" />
     <Content Include="Areas\ActionLog\Web.config" />
-    <Content Include="Areas\ActionLog\ActivityLog\Styles\activityLog.less"/>
+    <Content Include="Areas\ActionLog\ActivityLog\Styles\activityLog.less" />
     <Content Include="Areas\Customer\ShortInfo\Styles\StyleSheet.less" />
     <Content Include="Areas\Customer\Web.config" />
     <Content Include="Areas\Dashboard\ViewInfo\Index.cshtml" />
@@ -690,7 +695,6 @@
     <Content Include="Content\site\Images\icn_del.png" />
     <Content Include="Content\site\Images\icn_view.png" />
     <Content Include="Content\site\Images\icon-arrow-down.png" />
-	<Content Include="Content\site\Images\icon-arrow-right.png" />
     <Content Include="Content\site\Images\icon-expand.png" />
     <Content Include="Content\site\Images\icon-search.png" />
     <Content Include="Content\site\Images\icon-sprite.png" />
