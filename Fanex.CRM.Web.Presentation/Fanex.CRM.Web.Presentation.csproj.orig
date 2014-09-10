@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -253,7 +253,11 @@
     <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleService.js" />
     <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleApplication.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\UpdateInform.less" />
+<<<<<<< HEAD
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\Images\excel.png" />
+=======
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Index.cshtml" />
+>>>>>>> #21861 - Customer - Add Feedback
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\InformHeadlineContainer.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformService.js" />
@@ -279,6 +283,7 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagController.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
+<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_HotkeyFunctions.js" />
@@ -292,6 +297,25 @@
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Index.cshtml" />
+=======
+    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackApplication.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_HotkeyFunctions.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Options.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Update.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackService.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\AddCustomerFeedbackDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\error.gif" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
+>>>>>>> #21861 - Customer - Add Feedback
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -364,10 +388,15 @@
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Index.cshtml" />
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
+=======
+    <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
+>>>>>>> #21861 - Customer - Add Feedback
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
@@ -386,18 +415,6 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
-<<<<<<< HEAD
-    <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Master.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-=======
     <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
@@ -415,7 +432,6 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
 
->>>>>>> #20808 - rebase code on master
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -444,7 +460,6 @@
     <Content Include="Scripts\Chart\HighCharts\data.js" />
     <Content Include="Scripts\Chart\HighCharts\drilldown.js" />
     <Content Include="Scripts\Chart\HighCharts\highcharts.js" />
-    <Content Include="Scripts\CryptoJS.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.css" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Pagination.css" />
@@ -583,9 +598,12 @@
     <Content Include="Scripts\ShareScripts\Directives\HtmlArea.js" />
     <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\MultiSelect.js" />
+    <Content Include="Scripts\ShareScripts\Directives\RawHtml.js" />
     <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
+    <Content Include="Scripts\ShareScripts\Directives\RelatedCustomer.js" />
     <Content Include="Scripts\ShareScripts\Directives\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
+    <Content Include="Scripts\ShareScripts\Directives\TipsyDirective.js" />
     <Content Include="Scripts\ShareScripts\Directives\ToggleElement.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
@@ -1133,37 +1151,23 @@
     <Content Include="Views\AdminTool\SubjectTemplateIns.cshtml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Content\site\variables.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.Setting.config">
-=======
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\site\variables.less" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
->>>>>>> #20808 - rebase code on master
     <Content Include="Areas\AdminTool\Web.config" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Index.cshtml" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Index.cshtml" />
-    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Styles\DeleteTemplate.less" />
+    <None Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Styles\DeleteTemplate.less" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Index.cshtml" />
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Styles\EditTemplate.less" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Index.cshtml" />
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Styles\InsertTemplate.less" />
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Styles\ViewList.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config" />
+    <None Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
+    <None Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Configurations\Local.MailSection.config" />
     <Content Include="Configurations\PRO.MailSection.config" />
     <Content Include="Configurations\UAT.ConnectionStrings.config" />
@@ -1196,7 +1200,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54287</DevelopmentServerPort>
+          <DevelopmentServerPort>58282</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
