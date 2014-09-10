@@ -259,6 +259,11 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagController.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -364,46 +369,22 @@
     <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-<<<<<<< HEAD
-    <Content Include="Configurations\UAT.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
+      <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Content\site\Images\addnew-ico.png" />
-=======
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
->>>>>>> #20808 - Casino Daily/Weekly Statistics
+    <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\PRO.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\PRO.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\UAT.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\UAT.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+
+    <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -420,7 +401,7 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
-    <Content Include="Scripts\AjaxForm\ajax-form.js" />
+    <Content Include="PRO.Web.Setting.config" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -668,16 +649,8 @@
     <Content Include="Content\site\customizeFanexGrid.less" />
     <Content Include="Content\site\customizeJqueryUI.less" />
     <Content Include="Content\site\mixins.less" />
-    <Content Include="Configurations\StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\accessDenied.gif" />
+    <Content Include="Content\site\Images\addnew-ico.png" />
     <Content Include="Content\site\Images\ajax-loader.gif" />
     <Content Include="Content\site\Images\back.png" />
     <Content Include="Content\site\Images\bg-btn.jpg" />
@@ -690,6 +663,7 @@
     <Content Include="Content\site\Images\icn_del.png" />
     <Content Include="Content\site\Images\icn_view.png" />
     <Content Include="Content\site\Images\icon-arrow-down.png" />
+    <Content Include="Content\site\Images\icon-arrow-right.png" />
     <Content Include="Content\site\Images\icon-expand.png" />
     <Content Include="Content\site\Images\icon-search.png" />
     <Content Include="Content\site\Images\icon-sprite.png" />
@@ -1133,27 +1107,13 @@
     <Content Include="Views\AdminTool\SubjectTemplateIns.cshtml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\site\variables.less" />
-=======
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Content\site\variables.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.ConnectionStrings.config" />
->>>>>>> #20808 - Casino Daily/Weekly Statistics
+    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config">
       <SubType>Designer</SubType>
     </Content>
