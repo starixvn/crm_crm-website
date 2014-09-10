@@ -139,6 +139,38 @@ namespace Fanex.CRM.Customer.Repositories.Implements
         }
 
         /// <summary>
+        /// Verifies the username.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Verified customer information.</returns>
+        public List<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
+        {
+            var result = new List<CustomerInfo>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    if (reader != null)
+                    {
+                        while (reader.Read())
+                        {
+                            var releatedCustomer = new CustomerInfo()
+                            {
+                                Id = Converter.ToInt(reader["custid"]),
+                                Name = Converter.ToString2(reader["val"])
+                            };
+
+                            result.Add(releatedCustomer);
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Updates the customer search count value.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
@@ -167,6 +199,33 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Suggests related customer.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Related customers.</returns>
+        public List<RelatedCustomerSuggestion> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria)
+        {
+            List<RelatedCustomerSuggestion> result = new List<RelatedCustomerSuggestion>();
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                using (var reader = objectDB.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        result.Add(new RelatedCustomerSuggestion
+                        {
+                            Key = Converter.ToString2(reader["UserName"]),
+                            Value = Converter.ToString2(reader["UserName"])
+                        });
+                    }
+                }
+            }
+
+            return result;
         }
 
         /// <summary>

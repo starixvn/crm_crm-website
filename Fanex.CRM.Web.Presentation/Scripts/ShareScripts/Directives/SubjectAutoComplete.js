@@ -12,6 +12,10 @@ directiveManager.registerSubjectAutoComplete = function (angularApplication, reg
         //            OptionName: null,
         //            PickerId: null
         //        };
+        function isOptionReady(options) {
+            return options !== null &&
+                options !== undefined;
+        }
 
         function isAutoSuggest(keyCode) {
             return keyCode !== keyboardManager.Enums.KeyCode.LeftArrow &&
@@ -23,7 +27,7 @@ directiveManager.registerSubjectAutoComplete = function (angularApplication, reg
 
         function bindingAutoSuggestionSubject(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
-            if (options === null) {
+            if (!isOptionReady(options)) {
                 return;
             }
 

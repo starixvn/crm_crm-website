@@ -10,11 +10,15 @@ directiveManager.registerHtmlArea = function (angularApplication, registerParams
         //            OptionName: null,
         //            PickerId: null
         //        };
-        
+        function isOptionReady(options) {
+            return options !== null &&
+                options !== undefined;
+        }
+
         var editorId = registerParams.PickerId;
         function renderRemarkEditor(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
-            if (options === null) {
+            if (!isOptionReady(options)) {
                 return;
             }
 
@@ -27,7 +31,7 @@ directiveManager.registerHtmlArea = function (angularApplication, registerParams
 
             var editorHTML =
                 '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
-                    selectedText +
+                   sharedScriptManager.encodeHtml(selectedText) +
                 '</textarea>';
 
             element.html(editorHTML);
@@ -38,6 +42,15 @@ directiveManager.registerHtmlArea = function (angularApplication, registerParams
                         typeof (options.OnChangeEvent) === "function") {
                         options.OnChangeEvent(editor.htmlarea("toHtmlString"));
                     }
+                },
+                keyUpEvent: function (eventObject) {
+                    hotKeyManager.keyUp(eventObject);
+                },
+                keyDownEvent: function (eventObject) {
+                    return hotKeyManager.documentKeyDown(eventObject);
+                },
+                blurEvent: function () {
+                    return hotKeyManager.documentBlur();
                 },
                 toolbar: [
                     ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
@@ -52,8 +65,13 @@ directiveManager.registerHtmlArea = function (angularApplication, registerParams
                         css: "edit",
                         text: options.EditIconText,
                         action: function (btn) {
-                            var s = this.getSelectedHTML();
-                            this.pasteHTML(s);
+                            var editText = this.getSelectedHTML();
+                            editText = sharedScriptManager.insertEditDescriptionBlock(currentUsername, editText, parent.homeManager.currentTime);
+                            this.pasteHTML(editText);
+                            if (options.OnChangeEvent &&
+                                typeof (options.OnChangeEvent) === "function") {
+                                options.OnChangeEvent(editor.htmlarea("toHtmlString"));
+                            }
                         }
                     }]
                ]

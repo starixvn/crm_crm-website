@@ -19,6 +19,7 @@ directiveManager.registerDropdownContainer = function (angularApplication, regis
         function renderDropdown(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
             if (options === null ||
+                options === undefined ||
                 options.DataList === null) {
                 return;
             }

@@ -31,13 +31,13 @@ namespace Fanex.CRM.Customer.Services.Implements
     /// </summary>
     public class CustomerService : ICustomerService
     {
-        private const string GetCustomerInfoByUsernameSessionKey = 
+        private const string GetCustomerInfoByUsernameSessionKey =
             "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
 
         private readonly ICustomerRepository _customerRepositoryInstance;
 
         private readonly ISettingService _settingService;
-        
+
         public CustomerService()
             : this(null, null)
         {
@@ -206,6 +206,54 @@ namespace Fanex.CRM.Customer.Services.Implements
             }
 
             return updateResult;
+        }
+
+        /// <summary>
+        /// Suggests related customer.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Related customers.</returns>
+        public List<dynamic> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria)
+        {
+            try
+            {
+                var dtoResult = new List<dynamic>();
+                var customerList = _customerRepositoryInstance.RelatedCustomerAutoSuggestion(criteria);
+                for (var i = 0; i < customerList.Count; i++)
+                {
+                    var customer = customerList[i];
+                    dtoResult.Add(new
+                    {
+                        key = customer.Key,
+                        value = customer.Value
+                    });
+                }
+
+                return dtoResult;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Verifies the username.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Verified customer information.</returns>
+        public List<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
+        {
+            try
+            {
+                return _customerRepositoryInstance.VerifyUsername(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
         }
     }
 }

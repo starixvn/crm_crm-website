@@ -103,8 +103,10 @@
     <Compile Include="Criteria\InformHeadlines\GetInformHeadlineStatisticCriteria.cs" />
     <Compile Include="Criteria\GetUplineInfoOfUserCriteria.cs" />
     <Compile Include="Criteria\InformHeadlines\UpdateInformHeadlinesCriteria.cs" />
+    <Compile Include="Criteria\RelatedCustomerAutoSuggestionCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerInfoCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerSuggestionCriteria.cs" />
+    <Compile Include="Criteria\VerifyRelatedCustomerCriteria.cs" />
     <Compile Include="Models\AddressInfo.cs" />
     <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="Models\InformHeadlines\InformHeadlineStatistic.cs" />
     <Compile Include="Models\InformHeadlines\InformHeadlineStatus.cs" />
     <Compile Include="Models\PhoneInfo.cs" />
+    <Compile Include="Models\RelatedCustomerSuggestion.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\CustomerDetailRepository.cs" />

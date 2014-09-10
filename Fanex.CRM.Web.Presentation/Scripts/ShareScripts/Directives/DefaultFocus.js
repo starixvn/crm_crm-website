@@ -23,7 +23,8 @@ directiveManager.registerDefaultFocus = function (angularApplication, registerPa
                         picker.focus();
 
                         var options = scope[registerParams.OptionName];
-                        if (options === null) {
+                        if (options === null ||
+                            options === undefined) {
                             return;
                         }
 

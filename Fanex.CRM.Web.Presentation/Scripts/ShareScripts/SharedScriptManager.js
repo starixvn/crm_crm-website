@@ -19,8 +19,8 @@ var SharedScriptManager = function () {
 
         largePagingOptions: [100, 200, 300, 400, 500],
         largeDefaultItemsPerPage: 100,
-        informHeadlinePagingOptions: [10, 15, 20]
-
+        informHeadlinePagingOptions: [10, 15, 20],
+        alertSuccessTime: 3000
     };
 
     self.CallAjax = function (currentHandler,
@@ -135,7 +135,8 @@ var SharedScriptManager = function () {
                     <div style="font-size: 9px;">by <span style="color: #105289; font-weight: bold; font-size: 11px;">{0}</span> on {1}</div>\
                     <div style="border-top: 1px solid #CCCCCC; padding: 5px 0pt 0pt;">{2}</div>\
                  </div>\
-              </div>';
+              </div>\
+              <br>';
 
         return sharedScriptManager.stringFormat(textTemplate,
             [username, moment(currentDate).format("MM/DD/YYYY, hh:mm:ss A"), editText]);
@@ -170,8 +171,8 @@ var SharedScriptManager = function () {
         return ajaxResult;
     };
 
-    self.safeApply = function ($scope, fn) {
-        $scope.safeApply = function (fn) {
+    self.safeApplyFunction = function ($scope, fn) {
+        $scope.safeApplyFunction = function (fn) {
             var phase = this.$root.$$phase;
             if (phase == '$apply' || phase == '$digest') {
                 if (fn && (typeof (fn) === 'function')) {
@@ -182,6 +183,14 @@ var SharedScriptManager = function () {
             }
         };
     };
+    self.safeApply = function ($scope) {
+        $scope.safeApply = function () {
+            if (!$scope.$$phase) {
+                $scope.$apply();
+            }
+        };
+    };
+
     self.handleErrorMessage = function (ajaxResult, $resultMessageService) {
         var isSuccess = ajaxResult.error === 0;
         $resultMessageService.showMessage({
@@ -221,6 +230,106 @@ var SharedScriptManager = function () {
             text.indexOf('&amp;lt;') !== -1 ||
             text.indexOf('&amp;gt;') !== -1;
     };
+
+    self.newFeedbackTime = function (selectedTime) {
+        var dateTime = new Date(selectedTime);
+        return new Date(dateTime.getFullYear(), dateTime.getMonth(), dateTime.getDate(), dateTime.getHours(), dateTime.getMinutes(), 0);
+    };
+    self.getDefaultCustomerLangue = function (languageList) {
+        var languageLength = languageList.length;
+        var defaultId = [crmConstants.Enums.Language.English, crmConstants.Enums.Language.Mandarin, crmConstants.Enums.Language.Cantonese];
+
+        var defaultLanguage = null;
+        for (var i = 0; i < languageLength; i++) {
+            var langue = languageList[i];
+            if ($.inArray(langue.Id, defaultId) &&
+                (defaultLanguage == null || defaultLanguage.Id > langue.Id)) {
+                defaultLanguage = langue;
+            }
+        }
+
+        defaultLanguage = defaultLanguage || languageList[0];
+        return defaultLanguage;
+    };
+
+    self.registerAngularService = function ($http, $q, serviceLink, params) {
+        var deferred = $q.defer();
+        $http.post(serviceLink, params)
+            .success(function (data, status, headers, config) {
+                deferred.resolve({
+                    Result: data,
+                    Status: status,
+                    Headers: headers,
+                    Config: config
+                });
+            }).error(function (data, status, headers, config) {
+                deferred.reject({
+                    Result: data,
+                    Status: status,
+                    Headers: headers,
+                    Config: config
+                });
+            });
+
+        return deferred.promise;
+    };
+    self.formatTimeToSendToServer = function (dateTime) {
+        return moment(new Date(dateTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment);
+    };
+
+    self.deepCompare = function (x, y) {
+        // if both x and y are null or undefined and exactly the same
+        if (x === y) {
+            return true;
+        }
+
+        // if they are not strictly equal, they both need to be Objects
+        if (!(x instanceof Object) || !(y instanceof Object)) {
+            return false;
+        }
+
+        // they must have the exact same prototype chain, the closest we can do is
+        // test there constructor.
+        if (x.constructor !== y.constructor) {
+            return false;
+        }
+
+        for (var p in x) {
+            // other properties were tested using x.constructor === y.constructor
+            if (!x.hasOwnProperty(p)) {
+                continue;
+            }
+
+            // allows to compare x[ p ] and y[ p ] when set to undefined
+            if (!y.hasOwnProperty(p)) {
+                return false;
+            }
+
+            // if they have the same strict value or identity then they are equal
+            if (x[p] === y[p]) {
+                continue;
+            }
+
+            // Numbers, Strings, Functions, Booleans must be strictly equal
+            if (typeof (x[p]) !== "object") {
+                return false;
+            }
+
+            // Objects and Arrays must be tested recursively
+            if (!sharedScriptManager.deepCompare(x[p], y[p])) {
+                return false;
+            }
+        }
+
+        for (p in y) {
+            // allows x[ p ] to be set to undefined
+            if (y.hasOwnProperty(p) && !x.hasOwnProperty(p)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 };
 
 sharedScriptManager = new SharedScriptManager();

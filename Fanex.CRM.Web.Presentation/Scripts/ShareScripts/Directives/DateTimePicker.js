@@ -18,11 +18,16 @@ directiveManager.registerDateTimePicker = function (angularApplication, register
         var oldValue = null;
         var selfOptions = null;
         var isRenderedPicker = false;
+        function isOptionReady() {
+            return selfOptions !== null &&
+                selfOptions !== undefined;
+        }
 
         function renderDatePicker(scope, element, attrs) {
             var datePicker = element.find("#" + registerParams.PickerId);
             datePicker.datetimepicker(
             {
+                dateFormat: crmConstants.Enums.FormatConstant.MM_DD_YY_TimePicker,
                 timeFormat: crmConstants.Enums.FormatConstant.HH_MM_TT_TimePicker,
                 stepHour: 1,
                 stepMinute: 1,
@@ -161,7 +166,7 @@ directiveManager.registerDateTimePicker = function (angularApplication, register
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     if (!isRenderedPicker) {
                         selfOptions = scope[registerParams.OptionName];
-                        if (selfOptions === null) {
+                        if (!isOptionReady()) {
                             return;
                         }
 

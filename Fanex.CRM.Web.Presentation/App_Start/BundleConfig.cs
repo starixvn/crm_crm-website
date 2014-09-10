@@ -122,7 +122,7 @@ namespace Fanex.CRM.Web.View.App_Start
             RegisterBundles_Report_WagerReport(ref bundles);
             RegisterBundles_Report_SummaryReport(ref bundles);
 
-            FeedbackBundles.RegisterBundles(bundles);
+            FeedbackBundles.RegisterAll(bundles);
             ReportBundles.RegisterBundles(bundles);
 
             InformHeadlinesBundles.RegisterAll(bundles);
