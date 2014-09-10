@@ -17,15 +17,12 @@ namespace Fanex.CRM.Feedback.Models
     /// <summary>
     /// Manage Feedback.
     /// </summary>
+    [Serializable]
     public class ManageFeedback
     {
         public int FeedbackId { get; set; }
 
-        ////public int CustId { get; set; }
-
         public string Username { get; set; }
-
-        ////public int CreatorId { get; set; }
 
         public string CreatorName { get; set; }
 
@@ -71,15 +68,7 @@ namespace Fanex.CRM.Feedback.Models
 
         public string Status { get; set; }
 
-        ////public string Description { get; set; }
-
-        ////public string Solution { get; set; }
-
         public bool IsReviewed { get; set; }
-
-        ////public string Review { get; set; }
-
-        ////public int ReviewerId { get; set; }
 
         public string ReviewerName { get; set; }
 

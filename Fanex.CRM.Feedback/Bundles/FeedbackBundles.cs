@@ -22,6 +22,7 @@ namespace Fanex.CRM.Feedback.Bundles
         public static void RegisterBundles(BundleCollection bundles)
         {
             RegisterManageFeedbackBundles(bundles);
+            RegisterLatestFeedbackBundles(bundles);
         }
 
         /// <summary>
@@ -49,6 +50,29 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.css",
                 "~/Areas/Feedbacks/ManageFeedback/Styles/StyleSheet.less");
+        }
+
+        /// <summary>
+        /// Registers the latest feedback bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterLatestFeedbackBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts").Include(
+                "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackApplication.js",
+                "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackController.js",
+                "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackService.js",
+                "~/Areas/Feedbacks/LatestFeedback/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackStyles",
+                "~/Scripts/Tipsy-Tooltip/tipsy.css",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)

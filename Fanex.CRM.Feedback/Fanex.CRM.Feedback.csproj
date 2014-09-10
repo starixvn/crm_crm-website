@@ -76,7 +76,9 @@
   <ItemGroup>
     <Compile Include="Bundles\FeedbackBundles.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
+    <Compile Include="Criteria\LatestFeedbackCriteria.cs" />
     <Compile Include="Criteria\ManageFeedbackCriteria.cs" />
+    <Compile Include="Models\LatestFeedback.cs" />
     <Compile Include="Models\ManageFeedback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />

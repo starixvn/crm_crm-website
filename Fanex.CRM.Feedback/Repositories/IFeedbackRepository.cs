@@ -20,5 +20,7 @@ namespace Fanex.CRM.Feedback.Repositories
     public interface IFeedbackRepository
     {
         IList<ManageFeedback> GetManagerFeedback(ManageFeedbackCriteria criteria);
+
+        IList<LatestFeedback> GetLatestFeedback(LatestFeedbackCriteria criteria);
     }
 }

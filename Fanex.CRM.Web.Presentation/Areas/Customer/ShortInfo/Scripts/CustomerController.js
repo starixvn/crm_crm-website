@@ -123,7 +123,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             parent.menuManager.setActiveClassForLeftPanel('Add Feedback');
         };
         $scope.viewLatestFeedback = function () {
-            var url = '../Feedback/CustomerLastestFeedback?' + $.param({
+            var url = '../Feedbacks/LatestFeedback?' + $.param({
                 custid: $scope.customer.Id,
                 custName: $scope.customer.Name
             });

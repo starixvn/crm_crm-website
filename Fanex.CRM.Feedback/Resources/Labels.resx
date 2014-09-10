@@ -183,4 +183,13 @@
   <data name="Handler" xml:space="preserve">
     <value>Handler</value>
   </data>
+  <data name="LatestFeedbackDocumentTitle" xml:space="preserve">
+    <value>CRM System - Latest Feeback</value>
+  </data>
+  <data name="LatestFeedbackReportTitle" xml:space="preserve">
+    <value>Top {0} Feedback {1}</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Top</value>
+  </data>
 </root>
