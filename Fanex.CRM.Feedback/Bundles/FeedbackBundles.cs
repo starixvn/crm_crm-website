@@ -128,17 +128,19 @@ namespace Fanex.CRM.Feedback.Bundles
         }
 
         /// <summary>
+        /// Registers the add customer feedback bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterAddGuestFeedbackBundles(BundleCollection bundles)
+        private static void RegisterAddCustomerFeedbackBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
+            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
                 .Include(
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/FanexGridV2/moment.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
                     "~/Scripts/ShareScripts/DirectiveManager.js",
                     "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                    "~/Scripts/ShareScripts/Directives/DropdownSite.js",
                     "~/Scripts/ShareScripts/Directives/DatePicker.js",
                     "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
                     "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
@@ -149,17 +151,17 @@ namespace Fanex.CRM.Feedback.Bundles
                     "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                     "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                     "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackApplication.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackService.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController_Options.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController_Update.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController_HotkeyFunctions.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/Directives/*.js"));
+                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackApplication.js",
+                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackService.js",
+                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_Options.js",
+                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_Update.js",
+                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_HotkeyFunctions.js",
+                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController.js",
+                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/Directives/*.js"));
             AddAndInclude(
                bundles,
-               "~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackStyles",
-               "~/Areas/Feedbacks/AddGuestFeedback/Styles/AddGuestFeedback.less");
+               "~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackStyles",
+               "~/Areas/Feedbacks/AddCustomerFeedback/Styles/AddCustomerFeedback.less");
         }
 
         /// <summary>
@@ -184,7 +186,7 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
         }
-
+        
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
         {
             bundles.Add(new Bundle(bundleVirtualPath)

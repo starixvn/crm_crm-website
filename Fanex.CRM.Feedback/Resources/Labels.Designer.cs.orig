@@ -169,143 +169,74 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description is mandatory!.
-<<<<<<< HEAD
-        /// </summary>
-        public static string Error_EmptyRemark {
-            get {
-                return ResourceManager.GetString("Error_EmptyRemark", resourceCulture);
-=======
-        /// </summary>
-        public static string Error_EmptyRemark {
-            get {
-                return ResourceManager.GetString("Error_EmptyRemark", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Solution is mandatory!.
-        /// </summary>
-        public static string Error_EmptySolution {
-            get {
-                return ResourceManager.GetString("Error_EmptySolution", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Subject is mandatory!.
         /// </summary>
-        public static string Error_EmptySubject {
+        public static string Error_EmptyRemark {
             get {
-                return ResourceManager.GetString("Error_EmptySubject", resourceCulture);
->>>>>>> #21860 - Feedback - Add Guest Feedback
+                return ResourceManager.GetString("Error_EmptyRemark", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Communication tool is mandatory!.
         /// </summary>
-<<<<<<< HEAD
         public static string Error_EmptySolution {
             get {
                 return ResourceManager.GetString("Error_EmptySolution", resourceCulture);
-=======
-        public static string Error_NACommmunicationTool {
-            get {
-                return ResourceManager.GetString("Error_NACommmunicationTool", resourceCulture);
->>>>>>> #21860 - Feedback - Add Guest Feedback
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Language is mandatory!.
         /// </summary>
-<<<<<<< HEAD
         public static string Error_EmptySubject {
             get {
                 return ResourceManager.GetString("Error_EmptySubject", resourceCulture);
-=======
-        public static string Error_NALanguage {
-            get {
-                return ResourceManager.GetString("Error_NALanguage", resourceCulture);
->>>>>>> #21860 - Feedback - Add Guest Feedback
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Main category is mandatory!.
         /// </summary>
-<<<<<<< HEAD
         public static string Error_NACommmunicationTool {
             get {
                 return ResourceManager.GetString("Error_NACommmunicationTool", resourceCulture);
-=======
-        public static string Error_NAMainCategory {
-            get {
-                return ResourceManager.GetString("Error_NAMainCategory", resourceCulture);
->>>>>>> #21860 - Feedback - Add Guest Feedback
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Subcategory is mandatory!.
         /// </summary>
-<<<<<<< HEAD
         public static string Error_NALanguage {
             get {
                 return ResourceManager.GetString("Error_NALanguage", resourceCulture);
-=======
-        public static string Error_NASubCategory {
-            get {
-                return ResourceManager.GetString("Error_NASubCategory", resourceCulture);
->>>>>>> #21860 - Feedback - Add Guest Feedback
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to You must verify the username before saving this communication log..
         /// </summary>
-<<<<<<< HEAD
         public static string Error_NAMainCategory {
             get {
                 return ResourceManager.GetString("Error_NAMainCategory", resourceCulture);
-=======
-        public static string Error_VerifyRelatedCustomer {
-            get {
-                return ResourceManager.GetString("Error_VerifyRelatedCustomer", resourceCulture);
->>>>>>> #21860 - Feedback - Add Guest Feedback
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Feedback.
         /// </summary>
-<<<<<<< HEAD
         public static string Error_NASubCategory {
             get {
                 return ResourceManager.GetString("Error_NASubCategory", resourceCulture);
-=======
-        public static string Feedback {
-            get {
-                return ResourceManager.GetString("Feedback", resourceCulture);
->>>>>>> #21860 - Feedback - Add Guest Feedback
             }
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to You must verify the username before saving this communication log..
         /// </summary>
         public static string Error_VerifyRelatedCustomer {
             get {
                 return ResourceManager.GetString("Error_VerifyRelatedCustomer", resourceCulture);
-=======
-        ///   Looks up a localized string similar to Add feedback successfully!.
-        /// </summary>
-        public static string Feedback_AddCustomerFeedback_AddSuccess {
-            get {
-                return ResourceManager.GetString("Feedback_AddCustomerFeedback_AddSuccess", resourceCulture);
->>>>>>> #21860 - Feedback - Add Guest Feedback
             }
         }
         
@@ -338,7 +269,6 @@ namespace Fanex.CRM.Feedback.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to You don&apos;t have permission to update customer..
-<<<<<<< HEAD
         /// </summary>
         public static string Feedback_AddCustomerFeedback_NoUpdateCustomerPermission {
             get {
@@ -347,26 +277,81 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Feedback.
         /// </summary>
         public static string Feedback {
             get {
                 return ResourceManager.GetString("Feedback", resourceCulture);
+=======
+        ///   Looks up a localized string similar to Language is mandatory!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NALanguage {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NALanguage", resourceCulture);
+>>>>>>> #21861 - Customer - Add Feedback
             }
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Add feedback successfully!.
         /// </summary>
         public static string Feedback_AddCustomerFeedback_AddSuccess {
             get {
                 return ResourceManager.GetString("Feedback_AddCustomerFeedback_AddSuccess", resourceCulture);
 =======
+        ///   Looks up a localized string similar to Main category is mandatory!.
         /// </summary>
-        public static string Feedback_AddCustomerFeedback_NoUpdateCustomerPermission {
+        public static string Feedback_AddCustomerFeedback_NAMainCategory {
             get {
-                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NoUpdateCustomerPermission", resourceCulture);
->>>>>>> #21860 - Feedback - Add Guest Feedback
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NAMainCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subcategory is mandatory!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NASubCategory {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NASubCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to create feedback..
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NoCreateFeedbackPermission {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NoCreateFeedbackPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to delete feedback..
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to update customer..
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must verify the username before saving this communication log..
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_VerifyRelatedCustomer {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_VerifyRelatedCustomer", resourceCulture);
+>>>>>>> #21861 - Customer - Add Feedback
             }
         }
         

@@ -129,11 +129,7 @@ namespace Fanex.CRM.Web.View.App_Start
             ReportBundles.RegisterBundles(bundles);
 
             InformHeadlinesBundles.RegisterAll(bundles);
-<<<<<<< HEAD
-            AdminToolBundles.RegisterBundles(bundles);
-=======
             AdminBundles.RegisterBundles(bundles);
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
         }
 
         /// <summary>
