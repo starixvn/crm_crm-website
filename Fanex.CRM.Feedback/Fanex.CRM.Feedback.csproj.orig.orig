@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -33,10 +33,6 @@
   <ItemGroup>
     <Reference Include="BundleTransformer.Core">
       <HintPath>..\packages\BundleTransformer.Core.1.8.17\lib\net40\BundleTransformer.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dependency\Fanex\Fanex.Common.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Data">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
@@ -79,32 +75,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bundles\FeedbackBundles.cs" />
-    <Compile Include="Controllers\AddCustomerFeedbackController.cs" />
 <<<<<<< HEAD
+    <Compile Include="Controllers\AddCustomerFeedbackController.cs" />
     <Compile Include="Controllers\AddGuestFeedbackController.cs" />
 =======
->>>>>>> #21861 - Customer - Add Feedback
+>>>>>>> #20808 - Latest Feedback
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Criteria\AddGuestFeedback\AddGuestFeedbackCriteria.cs" />
     <Compile Include="Criteria\LatestFeedbackCriteria.cs" />
-    <Compile Include="Criteria\AddCustomerFeedbackCriteria.cs" />
     <Compile Include="Criteria\ManageFeedbackCriteria.cs" />
     <Compile Include="Models\LatestFeedback.cs" />
-    <Compile Include="Models\AddressInfo.cs" />
-    <Compile Include="Models\BankInfo.cs" />
-    <Compile Include="Models\CustomerInfo.cs" />
-    <Compile Include="Models\FaxInfo.cs" />
     <Compile Include="Models\ManageFeedback.cs" />
-    <Compile Include="Models\PhoneInfo.cs" />
-    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <Compile Include="Repositories\AddCustomerFeedback\AddCustomerFeedbackRepository.cs" />
     <Compile Include="Repositories\AddCustomerFeedback\IAddCustomerFeedbackRepository.cs" />
-<<<<<<< HEAD
     <Compile Include="Repositories\AddGuestFeedback\AddGuestFeedbackRepository.cs" />
     <Compile Include="Repositories\AddGuestFeedback\IAddGuestFeedbackRepository.cs" />
 =======
->>>>>>> #21861 - Customer - Add Feedback
+>>>>>>> #20808 - Latest Feedback
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\IFeedbackRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
@@ -112,18 +101,19 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Services\AddCustomerFeedback\AddCustomerFeedbackService.cs" />
     <Compile Include="Services\AddCustomerFeedback\IAddCustomerFeedbackService.cs" />
-<<<<<<< HEAD
     <Compile Include="Services\AddGuestFeedback\AddGuestFeedbackService.cs" />
     <Compile Include="Services\AddGuestFeedback\IAddGuestFeedbackService.cs" />
 =======
->>>>>>> #21861 - Customer - Add Feedback
+>>>>>>> #20808 - Latest Feedback
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\IFeedbackService.cs" />
     <Compile Include="ViewModels\ManageFeedbackViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
