@@ -79,8 +79,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             var feedbacks = _feedbackService.GetLatestFeedback(criteria);
             return Json(
-                new 
-                {
+                new {
                     Title = string.Format(
                         Labels.LatestFeedbackReportTitle,
                         criteria.Top,
