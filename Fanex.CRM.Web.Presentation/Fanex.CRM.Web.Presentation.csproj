@@ -351,6 +351,8 @@
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />  
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
