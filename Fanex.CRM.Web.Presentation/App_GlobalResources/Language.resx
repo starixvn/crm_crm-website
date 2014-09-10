@@ -513,4 +513,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Title_Report_WagerReport" xml:space="preserve">
     <value>CRM System - Wager-Related Report</value>
   </data>
+  <data name="Confirm_Ignore_Feedback_AddCustomerFeedback" xml:space="preserve">
+    <value>There are some changes on add customer feedback information! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
 </root>

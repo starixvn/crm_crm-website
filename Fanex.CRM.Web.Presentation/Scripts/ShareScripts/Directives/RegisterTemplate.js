@@ -309,7 +309,7 @@ function RegisterTemplate(application) {
             }
         };
 
-        directiveManager.registerDropdownContainer(self.application, headlineTypeRegisterParams); 
+        directiveManager.registerDropdownContainer(self.application, headlineTypeRegisterParams);
     };
 
     self.registerLanguageMultiSelectPicker = function () {
@@ -379,7 +379,7 @@ function RegisterTemplate(application) {
 
         directiveManager.registerSubjectAutoComplete(self.application, subjectAutoCompleteRegisterParams);
     };
-    
+
     self.registerCategoryMultiSelectPicker = function () {
         var categoryRegisterParams = {
             PlugInName: 'categoryPickerContainer',
@@ -408,5 +408,96 @@ function RegisterTemplate(application) {
         };
 
         directiveManager.registerMultiSelectContainer(self.application, statusRegisterParams);
+    };
+
+    self.registerLanguagePicker = function () {
+        var languageRegisterParams = {
+            PlugInName: 'languagePickerContainer',
+            OptionName: 'languageOptions',
+            PickerId: 'language',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(self.application, languageRegisterParams);
+    };
+    self.registerBetTypePicker = function () {
+        var betTypeRegisterParams = {
+            PlugInName: 'betTypePickerContainer',
+            OptionName: 'betTypeOptions',
+            PickerId: 'bettype',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(self.application, betTypeRegisterParams);
+    };
+    self.registerCountryPicker = function () {
+        var betTypeRegisterParams = {
+            PlugInName: 'countryPickerContainer',
+            OptionName: 'countryOptions',
+            PickerId: 'country',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(self.application, betTypeRegisterParams);
+    };
+    self.registerDescriptionHtml = function () {
+        var descriptionRegisterParams = {
+            PlugInName: 'descriptionEditorContainer',
+            OptionName: 'descriptionOptions',
+            PickerId: 'descriptioneditorbox',
+            RestrictType: 'C'
+        };
+
+        directiveManager.registerHtmlArea(self.application, descriptionRegisterParams);
+    };
+    self.registerSolutionHtml = function () {
+        var descriptionRegisterParams = {
+            PlugInName: 'solutionEditorContainer',
+            OptionName: 'solutionOptions',
+            PickerId: 'solutioneditorbox',
+            RestrictType: 'C'
+        };
+
+        directiveManager.registerHtmlArea(self.application, descriptionRegisterParams);
+    };
+    self.registerRawHtmlDirective = function () {
+        var rawHtmlDirectiveRegisterParams = {
+            RestrictType: 'C'
+        };
+
+        directiveManager.registerRawHtmlDirective(self.application, rawHtmlDirectiveRegisterParams);
+    };
+    self.registerTipsyDirective = function () {
+        var tipsyDirectiveRegisterParams = {
+            OptionName: 'tipsyOptions',
+            RestrictType: 'C'
+        };
+
+        directiveManager.registerTipsyDirective(self.application, tipsyDirectiveRegisterParams);
+    };
+    self.registerRelatedCustomerDirective = function () {
+        var relatedCustomerDirectiveRegisterParams = {
+            PlugInName: 'relatedCustomerDirectiveContainer',
+            PickerId: 'txtrelatedcustomer',
+            OptionName: 'relatedCustomerOptions',
+            RestrictType: 'C'
+        };
+
+        directiveManager.registerRelatedCustomerDirective(self.application, relatedCustomerDirectiveRegisterParams);
     };
 }

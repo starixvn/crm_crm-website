@@ -19,10 +19,15 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
         //        };
 
         var dataList = [];
+        function hasNoData(options) {
+            return options === null ||
+                options === undefined ||
+                options.DataList === null;
+        }
+
         function renderDropdown(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
-            if (options === null ||
-                options.DataList === null) {
+            if (hasNoData(options)) {
                 return;
             }
 
@@ -66,8 +71,7 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
 
         function getSelectedItem(scope, selectedId) {
             var options = scope[registerParams.OptionName];
-            if (options === null ||
-                options.DataList === null) {
+            if (hasNoData(options)) {
                 return;
             }
 

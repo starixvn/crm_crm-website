@@ -58,7 +58,6 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             var feedbacks = _feedbackService.GetManageFeedback(criteria);
             var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalRows };
-
             return Json(report, JsonRequestBehavior.DenyGet);
         }
 

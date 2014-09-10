@@ -34,7 +34,10 @@ var CRMConstants = function () {
         },
 
         Language: {
-            NotApply: 0
+            NotApply: 0,
+            English: 1200,
+            Mandarin: 1201,
+            Cantonese: 1202
         },
 
         Product: {

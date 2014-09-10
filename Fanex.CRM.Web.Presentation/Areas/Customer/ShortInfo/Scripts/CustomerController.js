@@ -114,13 +114,26 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
         $scope.viewCRMInfo = function () {
             parent.menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Detail);
         };
-        $scope.addFeedback = function () {
-            var url = '../Feedback/AddFeedback?' + $.param({
+
+        $scope.detailLinkClick = function () {
+            if (parent.homeManager.CachedData.isChangingData ||
+                parent.homeManager.CachedData.isChangingDataLeftPanel) {
+                parent.homeManager.showConfirmIgnoreChange($scope.addFeedbackAfterCheckChanging);
+                return;
+            }
+
+            $scope.addFeedbackAfterCheckChanging();
+        };
+        $scope.addFeedbackAfterCheckChanging = function () {
+            var url = window.rootUrl + 'AddCustomerFeedback/Index?' + $.param({
                 custid: $scope.customer.Id,
                 custName: $scope.customer.Name
             });
             parent.menuManager.goToURL('centerFr', url);
             parent.menuManager.setActiveClassForLeftPanel('Add Feedback');
+        };
+        $scope.addFeedback = function () {
+            $scope.detailLinkClick();
         };
         $scope.viewLatestFeedback = function () {
             var url = '../Feedbacks/LatestFeedback?' + $.param({

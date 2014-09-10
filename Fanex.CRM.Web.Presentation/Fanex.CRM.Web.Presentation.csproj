@@ -234,6 +234,7 @@
     <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleApplication.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\Images\excel.png" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\UpdateInform.less" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\InformHeadlineContainer.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformService.js" />
@@ -264,6 +265,18 @@
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackApplication.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_HotkeyFunctions.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Options.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Update.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackService.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\AddCustomerFeedbackDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\error.gif" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -337,6 +350,7 @@
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
@@ -538,9 +552,12 @@
     <Content Include="Scripts\ShareScripts\Directives\HtmlArea.js" />
     <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\MultiSelect.js" />
+    <Content Include="Scripts\ShareScripts\Directives\RawHtml.js" />
     <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
+    <Content Include="Scripts\ShareScripts\Directives\RelatedCustomer.js" />
     <Content Include="Scripts\ShareScripts\Directives\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
+    <Content Include="Scripts\ShareScripts\Directives\TipsyDirective.js" />
     <Content Include="Scripts\ShareScripts\Directives\ToggleElement.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
@@ -1143,7 +1160,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54287</DevelopmentServerPort>
+          <DevelopmentServerPort>58282</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

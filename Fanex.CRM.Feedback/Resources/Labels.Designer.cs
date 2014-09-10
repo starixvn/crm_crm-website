@@ -61,6 +61,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string All {
@@ -75,6 +84,24 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Category {
             get {
                 return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checked.
+        /// </summary>
+        public static string Checked {
+            get {
+                return ResourceManager.GetString("Checked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closed.
+        /// </summary>
+        public static string Closed {
+            get {
+                return ResourceManager.GetString("Closed", resourceCulture);
             }
         }
         
@@ -115,11 +142,146 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleted.
+        /// </summary>
+        public static string Deleted {
+            get {
+                return ResourceManager.GetString("Deleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feedback.
         /// </summary>
         public static string Feedback {
             get {
                 return ResourceManager.GetString("Feedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add feedback successfully!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_AddSuccess {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_AddSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description is mandatory!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_EmptyRemark {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_EmptyRemark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solution is mandatory!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_EmptySolution {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_EmptySolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subject is mandatory!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_EmptySubject {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_EmptySubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Communication tool is mandatory!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NACommmunicationTool {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NACommmunicationTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language is mandatory!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NALanguage {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NALanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main category is mandatory!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NAMainCategory {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NAMainCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subcategory is mandatory!.
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NASubCategory {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NASubCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to create feedback..
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NoCreateFeedbackPermission {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NoCreateFeedbackPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to delete feedback..
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to update customer..
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must verify the username before saving this communication log..
+        /// </summary>
+        public static string Feedback_AddCustomerFeedback_VerifyRelatedCustomer {
+            get {
+                return ResourceManager.GetString("Feedback_AddCustomerFeedback_VerifyRelatedCustomer", resourceCulture);
             }
         }
         
@@ -147,6 +309,24 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Handler {
             get {
                 return ResourceManager.GetString("Handler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiple customers can be entered, separated by commas. Ex: abc, xyz, etc..
+        /// </summary>
+        public static string Helper_RelatedInputMessage {
+            get {
+                return ResourceManager.GetString("Helper_RelatedInputMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert Edit Block.
+        /// </summary>
+        public static string Insert_Edit_Block {
+            get {
+                return ResourceManager.GetString("Insert_Edit_Block", resourceCulture);
             }
         }
         
@@ -196,6 +376,33 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pending.
+        /// </summary>
+        public static string Pending {
+            get {
+                return ResourceManager.GetString("Pending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIC.
+        /// </summary>
+        public static string PIC {
+            get {
+                return ResourceManager.GetString("PIC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Related Help.
+        /// </summary>
+        public static string Related_Help {
+            get {
+                return ResourceManager.GetString("Related_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Related Customer.
         /// </summary>
         public static string RelatedCustomer {
@@ -223,6 +430,33 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solution.
+        /// </summary>
+        public static string Solution {
+            get {
+                return ResourceManager.GetString("Solution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solved.
+        /// </summary>
+        public static string Solved {
+            get {
+                return ResourceManager.GetString("Solved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string Status {
@@ -246,6 +480,24 @@ namespace Fanex.CRM.Feedback.Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suspended.
+        /// </summary>
+        public static string Suspended {
+            get {
+                return ResourceManager.GetString("Suspended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string Symbol_NA {
+            get {
+                return ResourceManager.GetString("Symbol_NA", resourceCulture);
             }
         }
         
