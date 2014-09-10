@@ -18,6 +18,7 @@ namespace Fanex.CRM.Feedback.Services
     using Fanex.CRM.Feedback.Repositories;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
@@ -41,6 +42,21 @@ namespace Fanex.CRM.Feedback.Services
         {
             _feedbackRepository = feedbackRepository ?? new FeedbackRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
+        }
+
+        public IList<BaseModel> GetTop
+        {
+            get
+            {
+                return new List<BaseModel>()
+                {
+                    new BaseModel { Id = 10, Name = "10" },
+                    new BaseModel { Id = 20, Name = "20" },
+                    new BaseModel { Id = 30, Name = "30" },
+                    new BaseModel { Id = 40, Name = "40" },
+                    new BaseModel { Id = 50, Name = "50" }
+                };
+            }
         }
 
         /// <summary>
@@ -78,6 +94,11 @@ namespace Fanex.CRM.Feedback.Services
             }
 
             return feebacks;
+        }
+
+        public IList<LatestFeedback> GetLatestFeedback(LatestFeedbackCriteria criteria)
+        {
+            return _feedbackRepository.GetLatestFeedback(criteria);
         }
 
         #region Setting helper methods

@@ -13,14 +13,19 @@ namespace Fanex.CRM.Feedback.Services
     using System.Collections.Generic;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// IFeedback Service.
     /// </summary>
     public interface IFeedbackService
     {
+        IList<BaseModel> GetTop { get; }
+
         dynamic GetAllSetting();
 
         IList<ManageFeedback> GetManageFeedback(ManageFeedbackCriteria criteria);
+
+        IList<LatestFeedback> GetLatestFeedback(LatestFeedbackCriteria criteria);
     }
 }

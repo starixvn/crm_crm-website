@@ -102,5 +102,13 @@ namespace Fanex.CRM.Feedback.Repositories
                 return criteria.TotalRows > 0 ? feedbacks.ToList() : null;
             }
         }
+
+        public IList<LatestFeedback> GetLatestFeedback(LatestFeedbackCriteria criteria)
+        {
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<LatestFeedback>(criteria.GetSpParams()).ToList();
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Fanex.CRM.Feedback.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Feedback.Criteria;
+    using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
     using Fanex.CRM.Feedback.ViewModels;
     using Fanex.CRM.Infrastructure.Common;
@@ -59,6 +60,34 @@ namespace Fanex.CRM.Feedback.Controllers
             var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalRows };
 
             return Json(report, JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpGet]
+        public ActionResult LatestFeedback(int? custId, string custName)
+        {
+            ViewBag.CustId = custId ?? 0;
+            ViewBag.Username = custName;
+            return View("~/Areas/Feedbacks/LatestFeedback/Index.cshtml", _feedbackService.GetTop);
+        }
+
+        /// <summary>
+        /// Gets the latest feedback.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The action result.</returns>
+        [HttpGet]
+        public ActionResult GetLatestFeedback(LatestFeedbackCriteria criteria)
+        {
+            var feedbacks = _feedbackService.GetLatestFeedback(criteria);
+            return Json(
+                new {
+                    Title = string.Format(
+                        Labels.LatestFeedbackReportTitle,
+                        criteria.Top,
+                        criteria.CustId > 0 ? ("From " + criteria.Username) : string.Empty),
+                    Feedbacks = feedbacks
+                },
+                JsonRequestBehavior.AllowGet);
         }
     }
 }
