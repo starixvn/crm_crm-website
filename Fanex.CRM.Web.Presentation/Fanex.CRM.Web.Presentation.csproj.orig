@@ -293,7 +293,7 @@
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_view.png" />
 =======
->>>>>>> #20808 - Latest Feedback
+>>>>>>> #20808 - rebase code on master
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
@@ -314,7 +314,7 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
 =======
->>>>>>> #20808 - Latest Feedback
+>>>>>>> #20808 - rebase code on master
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -388,10 +388,7 @@
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
-<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
-=======
->>>>>>> #20808 - Latest Feedback
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
@@ -427,7 +424,13 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+<<<<<<< HEAD
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+=======
+    </Content>
+    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+>>>>>>> #20808 - rebase code on master
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -445,6 +448,10 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
+<<<<<<< HEAD
+=======
+    <Content Include="PRO.Web.Setting.config" />
+>>>>>>> #20808 - rebase code on master
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -704,6 +711,10 @@
     <Content Include="Content\site\common.less" />
     <Content Include="Content\site\customizeFanexGrid.less" />
     <Content Include="Content\site\customizeJqueryUI.less" />
+<<<<<<< HEAD
+=======
+    <Content Include="Content\site\mixins.less" />
+>>>>>>> #20808 - rebase code on master
     <Content Include="Content\site\Images\accessDenied.gif" />
     <Content Include="Content\site\Images\addnew-ico.png" />
     <Content Include="Content\site\Images\ajax-loader.gif" />
@@ -1173,6 +1184,7 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\site\variables.less" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
+<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
     <Content Include="Areas\AdminTool\Web.config" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Index.cshtml" />
@@ -1185,6 +1197,9 @@
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Styles\ViewList.less" />
     <None Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
     <None Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
+=======
+    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
+>>>>>>> #20808 - rebase code on master
     <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">
       <SubType>Designer</SubType>
     </Content>
