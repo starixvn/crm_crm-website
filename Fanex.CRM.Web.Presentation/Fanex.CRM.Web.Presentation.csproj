@@ -648,22 +648,18 @@
     <Content Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Content\site\resultMessage.less" />
     <Content Include="Content\site\reportgrid.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />

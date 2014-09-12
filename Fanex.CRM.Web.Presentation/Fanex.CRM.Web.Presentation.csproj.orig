@@ -279,7 +279,6 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagController.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
-<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_HotkeyFunctions.js" />
@@ -292,14 +291,11 @@
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\help.png" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_view.png" />
-=======
->>>>>>> #20808 - rebase code on master
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
-<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController.js" />
@@ -313,8 +309,6 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
-=======
->>>>>>> #20808 - rebase code on master
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -425,12 +419,10 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
 <<<<<<< HEAD
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
 =======
-    </Content>
     <Content Include="Configurations\LocalSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\LocalSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
->>>>>>> #20808 - rebase code on master
+>>>>>>> #20808 - rebase on master
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -448,10 +440,6 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
-<<<<<<< HEAD
-=======
-    <Content Include="PRO.Web.Setting.config" />
->>>>>>> #20808 - rebase code on master
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -656,6 +644,7 @@
     <Content Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Content\site\resultMessage.less" />
     <Content Include="Content\site\reportgrid.less" />
+<<<<<<< HEAD
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -677,6 +666,18 @@
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
     <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
+=======
+    <Content Include="Scripts\AjaxForm\ajax-form.less" />
+    <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
+    <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
+    <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
+>>>>>>> #20808 - rebase on master
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
@@ -711,10 +712,6 @@
     <Content Include="Content\site\common.less" />
     <Content Include="Content\site\customizeFanexGrid.less" />
     <Content Include="Content\site\customizeJqueryUI.less" />
-<<<<<<< HEAD
-=======
-    <Content Include="Content\site\mixins.less" />
->>>>>>> #20808 - rebase code on master
     <Content Include="Content\site\Images\accessDenied.gif" />
     <Content Include="Content\site\Images\addnew-ico.png" />
     <Content Include="Content\site\Images\ajax-loader.gif" />
@@ -1184,7 +1181,6 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\site\variables.less" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
-<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
     <Content Include="Areas\AdminTool\Web.config" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Index.cshtml" />
@@ -1197,9 +1193,6 @@
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Styles\ViewList.less" />
     <None Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
     <None Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
-=======
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
->>>>>>> #20808 - rebase code on master
     <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">
       <SubType>Designer</SubType>
     </Content>
