@@ -625,32 +625,32 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
-    <Content Include="Configurations\Local.MailSection.config" />
-    <Content Include="Configurations\PRO.MailSection.config" />
-    <Content Include="Configurations\UAT.MailSection.config" />
-    <Content Include="Configurations\UAT.ConnectionStrings.config" />
-    <Content Include="Configurations\Local.ConnectionStrings.config" />
-    <Content Include="Configurations\PRO.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.ConnectionStrings.config" />
     <Content Include="Content\site\customizeFanexGridV2.less" />
     <Content Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Content\site\resultMessage.less" />
     <Content Include="Content\site\reportgrid.less" />
-    <Content Include="Local.Web.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PRO.Web.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="UAT.Web.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Local.Web.Setting.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="PRO.Web.Setting.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="UAT.Web.Setting.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
@@ -1063,8 +1063,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configurations\CasinoSection.config" />
-    <Content Include="Configurations\ConnectionStrings.config" />
-    <Content Include="Configurations\MailSection.config" />
+    <Content Include="ConnectionStrings.config" />
+    <Content Include="MailSection.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Account\SignIn.cshtml" />
@@ -1161,22 +1161,22 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\site\variables.less" />
-    <Content Include="LocalSandBox.Web.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="LocalSandBox.Web.Setting.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\LocalSandBox.MailSection.config" />
-    <Content Include="Configurations\LocalSandBox.ConnectionStrings.config" />
-    <Content Include="UATSandBox.Web.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="UATSandBox.Web.Setting.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\UATSandBox.ConnectionStrings.config" />
-    <Content Include="Configurations\UATSandBox.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.MailSection.config" />
     <None Include="IbcKeys\ibckeydec.snk" />
     <None Include="IbcKeys\ibcpkey.snk" />
     <Content Include="IbcKeys\Web.config" />
