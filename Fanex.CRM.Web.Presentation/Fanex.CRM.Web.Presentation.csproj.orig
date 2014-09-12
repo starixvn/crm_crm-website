@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -234,6 +234,7 @@
     <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleApplication.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\Images\excel.png" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\UpdateInform.less" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\InformHeadlineContainer.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformService.js" />
@@ -264,6 +265,18 @@
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackApplication.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_HotkeyFunctions.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Options.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Update.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackService.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\AddCustomerFeedbackDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\error.gif" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -337,6 +350,7 @@
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
@@ -369,7 +383,7 @@
     <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-      <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
@@ -385,6 +399,11 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
 
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+<<<<<<< HEAD
+=======
+    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+>>>>>>> #20808 - rebase on master
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -551,9 +570,12 @@
     <Content Include="Scripts\ShareScripts\Directives\HtmlArea.js" />
     <Content Include="Scripts\ShareScripts\Directives\MonthPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\MultiSelect.js" />
+    <Content Include="Scripts\ShareScripts\Directives\RawHtml.js" />
     <Content Include="Scripts\ShareScripts\Directives\RegisterTemplate.js" />
+    <Content Include="Scripts\ShareScripts\Directives\RelatedCustomer.js" />
     <Content Include="Scripts\ShareScripts\Directives\ResultMessage.js" />
     <Content Include="Scripts\ShareScripts\Directives\SubjectAutoComplete.js" />
+    <Content Include="Scripts\ShareScripts\Directives\TipsyDirective.js" />
     <Content Include="Scripts\ShareScripts\Directives\ToggleElement.js" />
     <Content Include="Scripts\ShareScripts\Directives\WeekPicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\YearPicker.js" />
@@ -608,12 +630,12 @@
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
     <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
@@ -1160,7 +1182,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54287</DevelopmentServerPort>
+          <DevelopmentServerPort>58282</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
