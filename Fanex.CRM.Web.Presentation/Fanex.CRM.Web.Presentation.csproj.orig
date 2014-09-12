@@ -332,7 +332,6 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagController.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
-<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_HotkeyFunctions.js" />
@@ -350,13 +349,6 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
-=======
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
->>>>>>> #20808 - rebase code on master
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -451,7 +443,6 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
-<<<<<<< HEAD
     <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
@@ -464,13 +455,6 @@
     <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-=======
-    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
->>>>>>> #20808 - rebase code on master
     <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
@@ -482,16 +466,12 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
 <<<<<<< HEAD
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
 =======
-    </Content>
     <Content Include="Configurations\LocalSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\LocalSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
->>>>>>> #20808 - rebase code on master
+>>>>>>> #20808 - rebase on master
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -714,6 +694,7 @@
     <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
+<<<<<<< HEAD
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.MailSection.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
@@ -726,6 +707,24 @@
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
+=======
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.ConnectionStrings.config" />
+    <Content Include="Content\site\customizeFanexGridV2.less" />
+    <Content Include="Content\site\customizeMultiSelect.less" />
+    <Content Include="Content\site\resultMessage.less" />
+    <Content Include="Content\site\reportgrid.less" />
+    <Content Include="Scripts\AjaxForm\ajax-form.less" />
+    <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
+    <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
+    <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
+>>>>>>> #20808 - rebase on master
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
@@ -760,10 +759,6 @@
     <Content Include="Content\site\common.less" />
     <Content Include="Content\site\customizeFanexGrid.less" />
     <Content Include="Content\site\customizeJqueryUI.less" />
-<<<<<<< HEAD
-=======
-    <Content Include="Content\site\mixins.less" />
->>>>>>> #20808 - rebase code on master
     <Content Include="Content\site\Images\accessDenied.gif" />
     <Content Include="Content\site\Images\addnew-ico.png" />
     <Content Include="Content\site\Images\ajax-loader.gif" />
@@ -1227,12 +1222,11 @@
     <Content Include="Views\AdminTool\SubjectTemplateIns.cshtml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Content\site\variables.less" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\site\variables.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.MailSection.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
@@ -1266,29 +1260,6 @@
     <Content Include="Configurations\PRO.MailSection.config" />
     <Content Include="Configurations\UAT.ConnectionStrings.config" />
     <Content Include="Configurations\UAT.MailSection.config" />
-=======
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\site\variables.less" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
->>>>>>> #20808 - rebase code on master
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.MailSection.config" />
     <None Include="IbcKeys\ibckeydec.snk" />
