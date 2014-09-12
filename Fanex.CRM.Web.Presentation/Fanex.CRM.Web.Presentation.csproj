@@ -384,7 +384,6 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    </Content>
     <Content Include="Configurations\LocalSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\LocalSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\calendar.png" />
@@ -612,12 +611,12 @@
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
     <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config">
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
