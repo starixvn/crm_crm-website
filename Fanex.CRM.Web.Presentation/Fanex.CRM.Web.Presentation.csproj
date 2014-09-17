@@ -408,6 +408,9 @@
     <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
@@ -418,6 +421,11 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
