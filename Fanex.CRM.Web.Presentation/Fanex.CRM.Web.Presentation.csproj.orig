@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -403,13 +403,24 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
-    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Master.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Master.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    </Content>
+     <Content Include="Configurations\LocalSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
@@ -418,11 +429,11 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-<<<<<<< HEAD
-=======
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
->>>>>>> #20808 - rebase on master
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\UATSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -450,6 +461,7 @@
     <Content Include="Scripts\Chart\HighCharts\data.js" />
     <Content Include="Scripts\Chart\HighCharts\drilldown.js" />
     <Content Include="Scripts\Chart\HighCharts\highcharts.js" />
+    <Content Include="Scripts\CryptoJS.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.css" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Pagination.css" />
@@ -644,40 +656,23 @@
     <Content Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Content\site\resultMessage.less" />
     <Content Include="Content\site\reportgrid.less" />
-<<<<<<< HEAD
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
-    <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
-    <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
-=======
-    <Content Include="Scripts\AjaxForm\ajax-form.less" />
-    <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
-    <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
-    <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
->>>>>>> #20808 - rebase on master
+      <SubType>Designer</SubType>
+    </Content>
+      <SubType>Designer</SubType>
+    </Content>
+      <SubType>Designer</SubType>
+    </Content>
+      <SubType>Designer</SubType>
+    </Content>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
+    <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
+    <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
@@ -1180,29 +1175,27 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\site\variables.less" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.Setting.config">
     <Content Include="Areas\AdminTool\Web.config" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Index.cshtml" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Index.cshtml" />
-    <None Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Styles\DeleteTemplate.less" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Styles\DeleteTemplate.less" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Index.cshtml" />
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Styles\EditTemplate.less" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Index.cshtml" />
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Styles\InsertTemplate.less" />
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Styles\ViewList.less" />
-    <None Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
-    <None Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.Setting.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config">
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config">
       <SubType>Designer</SubType>
