@@ -169,7 +169,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description is mandatory!.
+        ///   Looks up a localized string similar to Subject is mandatory!.
         /// </summary>
         public static string Error_EmptyRemark {
             get {
@@ -178,7 +178,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Solution is mandatory!.
+        ///   Looks up a localized string similar to Communication tool is mandatory!.
         /// </summary>
         public static string Error_EmptySolution {
             get {
@@ -187,7 +187,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subject is mandatory!.
+        ///   Looks up a localized string similar to Language is mandatory!.
         /// </summary>
         public static string Error_EmptySubject {
             get {
@@ -196,7 +196,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Communication tool is mandatory!.
+        ///   Looks up a localized string similar to Main category is mandatory!.
         /// </summary>
         public static string Error_NACommmunicationTool {
             get {
@@ -205,7 +205,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language is mandatory!.
+        ///   Looks up a localized string similar to Subcategory is mandatory!.
         /// </summary>
         public static string Error_NALanguage {
             get {
@@ -214,7 +214,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Main category is mandatory!.
+        ///   Looks up a localized string similar to You must verify the username before saving this communication log..
         /// </summary>
         public static string Error_NAMainCategory {
             get {
@@ -223,7 +223,7 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subcategory is mandatory!.
+        ///   Looks up a localized string similar to Feedback.
         /// </summary>
         public static string Error_NASubCategory {
             get {
