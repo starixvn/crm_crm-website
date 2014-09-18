@@ -192,7 +192,7 @@
   <data name="LatestFeedbackReportTitle" xml:space="preserve">
     <value>Top {0} Feedback {1}</value>
   </data>
-   <data name="Solution" xml:space="preserve">
+  <data name="Solution" xml:space="preserve">
     <value>Solution</value>
   </data>
   <data name="Top" xml:space="preserve">
@@ -249,31 +249,46 @@
   <data name="Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission" xml:space="preserve">
     <value>You don't have permission to delete feedback.</value>
   </data>
-  <data name="Feedback_AddCustomerFeedback_EmptyRemark" xml:space="preserve">
+  <data name="Error_EmptyRemark" xml:space="preserve">
     <value>Description is mandatory!</value>
   </data>
-  <data name="Feedback_AddCustomerFeedback_EmptySolution" xml:space="preserve">
+  <data name="Error_EmptySolution" xml:space="preserve">
     <value>Solution is mandatory!</value>
   </data>
-  <data name="Feedback_AddCustomerFeedback_EmptySubject" xml:space="preserve">
+  <data name="Error_EmptySubject" xml:space="preserve">
     <value>Subject is mandatory!</value>
   </data>
-  <data name="Feedback_AddCustomerFeedback_NACommmunicationTool" xml:space="preserve">
+  <data name="Error_NACommmunicationTool" xml:space="preserve">
     <value>Communication tool is mandatory!</value>
   </data>
-  <data name="Feedback_AddCustomerFeedback_NALanguage" xml:space="preserve">
+  <data name="Error_NALanguage" xml:space="preserve">
     <value>Language is mandatory!</value>
   </data>
-  <data name="Feedback_AddCustomerFeedback_VerifyRelatedCustomer" xml:space="preserve">
+  <data name="Error_VerifyRelatedCustomer" xml:space="preserve">
     <value>You must verify the username before saving this communication log.</value>
   </data>
   <data name="Feedback_AddCustomerFeedback_AddSuccess" xml:space="preserve">
     <value>Add feedback successfully!</value>
   </data>
-  <data name="Feedback_AddCustomerFeedback_NAMainCategory" xml:space="preserve">
+  <data name="Error_NAMainCategory" xml:space="preserve">
     <value>Main category is mandatory!</value>
   </data>
-  <data name="Feedback_AddCustomerFeedback_NASubCategory" xml:space="preserve">
+  <data name="Error_NASubCategory" xml:space="preserve">
     <value>Subcategory is mandatory!</value>
+  </data>
+  <data name="PIC_1" xml:space="preserve">
+    <value>PIC 1</value>
+  </data>
+  <data name="PIC_2" xml:space="preserve">
+    <value>PIC 2</value>
+  </data>
+  <data name="PIC_3" xml:space="preserve">
+    <value>PIC 3</value>
+  </data>
+  <data name="PIC_4" xml:space="preserve">
+    <value>PIC 4</value>
+  </data>
+  <data name="Feedback_AddCustomerFeedback_NoUpdateCustomerPermission" xml:space="preserve">
+    <value>You don't have permission to update customer.</value>
   </data>
 </root>
