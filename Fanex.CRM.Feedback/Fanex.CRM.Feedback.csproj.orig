@@ -79,10 +79,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bundles\FeedbackBundles.cs" />
-    <Compile Include="Controllers\AddCustomerFeedbackController.cs" />
-    <Compile Include="Controllers\FeedbacksController.cs" />
-    <Compile Include="Criteria\LatestFeedbackCriteria.cs" />
 <<<<<<< HEAD
+=======
+    <Compile Include="Controllers\AddCustomerFeedbackController.cs" />
+>>>>>>> #21860 - Feedback - Add Guest Feedback
+    <Compile Include="Controllers\AddGuestFeedbackController.cs" />
+    <Compile Include="Controllers\FeedbacksController.cs" />
+    <Compile Include="Criteria\AddGuestFeedback\AddGuestFeedbackCriteria.cs" />
+    <Compile Include="Criteria\LatestFeedbackCriteria.cs" />
     <Compile Include="Criteria\AddCustomerFeedbackCriteria.cs" />
     <Compile Include="Criteria\ManageFeedbackCriteria.cs" />
     <Compile Include="Models\LatestFeedback.cs" />
@@ -90,16 +94,17 @@
     <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
     <Compile Include="Models\FaxInfo.cs" />
-=======
-    <Compile Include="Criteria\ManageFeedbackCriteria.cs" />
-    <Compile Include="Models\LatestFeedback.cs" />
->>>>>>> #20808 - Latest Feedback
     <Compile Include="Models\ManageFeedback.cs" />
     <Compile Include="Models\PhoneInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
+=======
     <Compile Include="Repositories\AddCustomerFeedback\AddCustomerFeedbackRepository.cs" />
     <Compile Include="Repositories\AddCustomerFeedback\IAddCustomerFeedbackRepository.cs" />
+>>>>>>> #21860 - Feedback - Add Guest Feedback
+    <Compile Include="Repositories\AddGuestFeedback\AddGuestFeedbackRepository.cs" />
+    <Compile Include="Repositories\AddGuestFeedback\IAddGuestFeedbackRepository.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\IFeedbackRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
@@ -107,8 +112,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+<<<<<<< HEAD
+=======
     <Compile Include="Services\AddCustomerFeedback\AddCustomerFeedbackService.cs" />
     <Compile Include="Services\AddCustomerFeedback\IAddCustomerFeedbackService.cs" />
+>>>>>>> #21860 - Feedback - Add Guest Feedback
+    <Compile Include="Services\AddGuestFeedback\AddGuestFeedbackService.cs" />
+    <Compile Include="Services\AddGuestFeedback\IAddGuestFeedbackService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\IFeedbackService.cs" />
     <Compile Include="ViewModels\ManageFeedbackViewModel.cs" />
@@ -133,6 +143,7 @@
       <Name>Fanex.CRM.Setting</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

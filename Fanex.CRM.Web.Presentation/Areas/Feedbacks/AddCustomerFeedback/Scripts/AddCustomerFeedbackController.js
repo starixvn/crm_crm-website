@@ -244,46 +244,46 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
             var result = true;
             var message = '';
             if (result && params.CommunicationTool.Id === crmConstants.Enums.CommunicationTool.NotApply) {
-                message = viewResources.Feedback_AddCustomerFeedback_NACommmunicationTool;
+                message = viewResources.Error_NACommmunicationTool;
                 result = false;
             }
 
             if (result && params.MainCategory.Id === crmConstants.Enums.MainCategory.NotApply) {
-                message = viewResources.Feedback_AddCustomerFeedback_NAMainCategory;
+                message = viewResources.Error_NAMainCategory;
                 result = false;
             }
 
             if (result && params.SubCategory.Id === crmConstants.Enums.SubCategory.NotApply) {
-                message = viewResources.Feedback_AddCustomerFeedback_NASubCategory;
+                message = viewResources.Error_NASubCategory;
                 result = false;
             }
 
             if (result && params.Language.Id === crmConstants.Enums.Language.NotApply) {
-                message = viewResources.Feedback_AddCustomerFeedback_NALanguage;
+                message = viewResources.Error_NALanguage;
                 result = false;
             }
 
             if (result && params.Subject === null || params.Subject === '') {
-                message = viewResources.Feedback_AddCustomerFeedback_EmptySubject;
+                message = viewResources.Error_EmptySubject;
                 result = false;
             }
 
             if (result &&
                 ($.trim(params.Description) === '' || params.Description === '<br>')) {
-                message = viewResources.Feedback_AddCustomerFeedback_EmptyRemark;
+                message = viewResources.Error_EmptyRemark;
                 result = false;
             }
 
             if (result &&
                 ($.trim(params.Solution) === '' || params.Solution === '<br>')) {
-                message = viewResources.Feedback_AddCustomerFeedback_EmptySolution;
+                message = viewResources.Error_EmptySolution;
                 result = false;
             }
 
             if (result &&
                 $scope.isEditingRelatedCustomer &&
                 $scope.inputRelatedCustomerLength) {
-                message = viewResources.Feedback_AddCustomerFeedback_VerifyRelatedCustomer;
+                message = viewResources.Error_VerifyRelatedCustomer;
                 result = false;
             }
 
