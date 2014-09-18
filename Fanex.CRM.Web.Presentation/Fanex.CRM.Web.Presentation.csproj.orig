@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -233,10 +233,7 @@
     <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleService.js" />
     <Content Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\CreateTitleApplication.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\UpdateInform.less" />
-<<<<<<< HEAD
-    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Index.cshtml" />
-=======
->>>>>>> #20808 - rebase code on master
+    <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Styles\Images\excel.png" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\Directives\InformHeadlineContainer.js" />
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Scripts\UpdateInformService.js" />
@@ -262,12 +259,24 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagController.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackApplication.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_HotkeyFunctions.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_Options.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_Update.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackService.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\AddGuestFeedbackDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\error.gif" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\help.png" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
-<<<<<<< HEAD
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_HotkeyFunctions.js" />
@@ -280,8 +289,6 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
-=======
->>>>>>> #20808 - rebase code on master
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -355,12 +362,9 @@
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
-<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />  
-=======
->>>>>>> #20808 - rebase code on master
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
@@ -379,13 +383,21 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
-    <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Master.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Master.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    </Content>
     <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
@@ -394,11 +406,7 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-<<<<<<< HEAD
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-
-=======
->>>>>>> #20808 - rebase code on master
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -426,6 +434,7 @@
     <Content Include="Scripts\Chart\HighCharts\data.js" />
     <Content Include="Scripts\Chart\HighCharts\drilldown.js" />
     <Content Include="Scripts\Chart\HighCharts\highcharts.js" />
+    <Content Include="Scripts\CryptoJS.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.css" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Pagination.css" />
@@ -611,7 +620,6 @@
     </Content>
     <Content Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
     <Content Include="Configurations\Local.ConnectionStrings.config" />
-<<<<<<< HEAD
     <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.MailSection.config" />
     <Content Include="Configurations\PRO.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
@@ -640,24 +648,6 @@
     </Content>
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
-=======
-    <Content Include="Configurations\Local.MailSection.config" />
-    <Content Include="Configurations\PRO.ConnectionStrings.config" />
-    <Content Include="Configurations\PRO.MailSection.config" />
-    <Content Include="Configurations\UAT.ConnectionStrings.config" />
-    <Content Include="Configurations\UAT.MailSection.config" />
-    <Content Include="Content\site\customizeFanexGridV2.less" />
-    <Content Include="Content\site\customizeMultiSelect.less" />
-    <Content Include="Content\site\resultMessage.less" />
-    <Content Include="Content\site\reportgrid.less" />
-    <Content Include="PRO.Web.config" />
-    <Content Include="Local.Web.config" />
-    <Content Include="Local.Web.Setting.config" />
-    <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
-    <Content Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
-    <Content Include="UAT.Web.config" />
-    <Content Include="UAT.Web.Setting.config" />
->>>>>>> #20808 - rebase code on master
     <Content Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
@@ -1156,27 +1146,32 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\site\variables.less" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
-    <None Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
 <<<<<<< HEAD
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.Setting.config">
+=======
+    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
+    <None Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
+    <None Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">
+>>>>>>> #21860 - Feedback - Add Guest Feedback
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.Setting.config">
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config">
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.MailSection.config" />
-=======
->>>>>>> #20808 - rebase code on master
     <None Include="IbcKeys\ibckeydec.snk" />
     <None Include="IbcKeys\ibcpkey.snk" />
     <Content Include="IbcKeys\Web.config" />

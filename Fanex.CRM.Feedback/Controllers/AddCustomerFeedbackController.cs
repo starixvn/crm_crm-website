@@ -25,7 +25,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
-    /// Feedbacks Controller.
+    /// Add Customer Feedback Controller.
     /// </summary>
     public class AddCustomerFeedbackController : BaseController
     {
@@ -145,6 +145,11 @@ namespace Fanex.CRM.Feedback.Controllers
                 !HasPermission(FunctionPermission.DeleteFeedback.ToString(), Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
+            }
+
+            if (!HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Host))
+            {
+                return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoUpdateCustomerPermission);
             }
 
             return new Result();
