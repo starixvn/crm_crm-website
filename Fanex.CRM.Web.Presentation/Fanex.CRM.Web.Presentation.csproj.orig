@@ -417,21 +417,11 @@
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Index.cshtml" />
     <None Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
-    <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
-    <Content Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
-=======
     <None Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
-    <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
-    <None Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <None Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
     <None Include="Areas\Report\SummaryReport\Styles\SummaryReport.less" />
->>>>>>> #20808 - Casino Daily/Weekly Statistics
     <Content Include="Areas\Report\StatisticReport\Scripts\Directives\StatisticReportContainer.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportApplication.js" />
     <Content Include="Areas\Report\StatisticReport\Scripts\StatisticReportController.js" />
@@ -446,7 +436,6 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
-<<<<<<< HEAD
     <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Master.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\Master.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
@@ -459,16 +448,6 @@
     <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\UATSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-=======
->>>>>>> #20808 - Casino Daily/Weekly Statistics
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -679,22 +658,19 @@
     <Content Include="Areas\Report\WagerReport\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <None Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
 <<<<<<< HEAD
-    <Content Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
     <None Include="Scripts\AjaxForm\ajax-form.less" />
     <None Include="Scripts\AjaxForm\ajax-form.less" />
     <None Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
+    <None Include="Content\site\reportgrid.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.MailSection.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config" />
     <Content Include="Configurations\PRO.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
 =======
-    <None Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
     <Content Include="Configurations\Local.ConnectionStrings.config" />
     <None Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Configurations\PRO.ConnectionStrings.config" />
@@ -705,18 +681,8 @@
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
       <SubType>Designer</SubType>
     </Content>
+>>>>>>> #20808 - Commit project file
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
-      <SubType>Designer</SubType>
-    </Content>
-      <SubType>Designer</SubType>
-    </Content>
-      <SubType>Designer</SubType>
-    </Content>
-      <SubType>Designer</SubType>
-    </Content>
-      <SubType>Designer</SubType>
-    </Content>
->>>>>>> #20808 - Casino Daily/Weekly Statistics
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
@@ -1222,26 +1188,17 @@
     <Content Include="Views\AdminTool\SubjectTemplateIns.cshtml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\site\variables.less" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Content\site\variables.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.MailSection.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Master.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.Setting.config" />
-=======
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
-    <None Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Content\site\variables.less" />
-    <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
->>>>>>> #20808 - Casino Daily/Weekly Statistics
     <Content Include="Areas\AdminTool\Web.config" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Index.cshtml" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Index.cshtml" />
@@ -1251,7 +1208,6 @@
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Index.cshtml" />
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Styles\InsertTemplate.less" />
     <None Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Styles\ViewList.less" />
-<<<<<<< HEAD
     <Content Include="Configurations\WebDeployment.ConfigTransform\Master.MailSection.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Index.cshtml" />
@@ -1266,10 +1222,6 @@
     <None Include="Areas\AdminTool\SettingManagement\ViewList\Styles\ViewList.less" />
     <None Include="Areas\AdminTool\SettingRelation\AddRelation\Styles\AddRelation.less" />
     <None Include="Areas\AdminTool\SettingRelation\ViewList\Styles\ViewList.less" />
-=======
-    <None Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
-    <None Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
->>>>>>> #20808 - Casino Daily/Weekly Statistics
     <Content Include="Configurations\Local.MailSection.config" />
     <Content Include="Configurations\PRO.MailSection.config" />
     <Content Include="Configurations\UAT.ConnectionStrings.config" />
@@ -1300,11 +1252,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-<<<<<<< HEAD
           <DevelopmentServerPort>58526</DevelopmentServerPort>
-=======
-          <DevelopmentServerPort>54287</DevelopmentServerPort>
->>>>>>> #20808 - Casino Daily/Weekly Statistics
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
