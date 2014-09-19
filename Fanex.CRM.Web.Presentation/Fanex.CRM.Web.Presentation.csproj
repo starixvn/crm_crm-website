@@ -601,8 +601,14 @@
     <None Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Configurations\PRO.ConnectionStrings.config" />
     <None Include="Content\site\reportgrid.less" />
+    <Content Include="Local.Web.config" />
+    <Content Include="Local.Web.Setting.config" />
+    <Content Include="PRO.Web.config" />
+    <Content Include="PRO.Web.Setting.config" />
     <None Include="Scripts\AjaxForm\ajax-form.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
+    <Content Include="UAT.Web.config" />
+    <Content Include="UAT.Web.Setting.config" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
       <SubType>Designer</SubType>
