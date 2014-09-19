@@ -279,7 +279,6 @@
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagController.js" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagService.js" />
-<<<<<<< HEAD
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_HotkeyFunctions.js" />
@@ -293,13 +292,6 @@
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Index.cshtml" />
-=======
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
->>>>>>> #20808 - Latest Feedback
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -609,8 +601,18 @@
     <None Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Configurations\PRO.ConnectionStrings.config" />
     <None Include="Content\site\reportgrid.less" />
+    <Content Include="Local.Web.config" />
+    <Content Include="Local.Web.Setting.config" />
+    <Content Include="PRO.Web.config" />
+    <Content Include="PRO.Web.Setting.config" />
     <None Include="Scripts\AjaxForm\ajax-form.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
+<<<<<<< HEAD
+=======
+    <None Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
+    <Content Include="UAT.Web.config" />
+    <Content Include="UAT.Web.Setting.config" />
+>>>>>>> #20808 - Commit project file
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
       <SubType>Designer</SubType>
