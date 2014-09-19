@@ -584,9 +584,15 @@
     <None Include="Content\site\customizeMultiSelect.less" />
     <None Include="Content\site\resultMessage.less" />
     <None Include="Content\site\reportgrid.less" />
+    <Content Include="Local.Web.config" />
+    <Content Include="Local.Web.Setting.config" />
+    <Content Include="PRO.Web.config" />
+    <Content Include="PRO.Web.Setting.config" />
     <None Include="Scripts\AjaxForm\ajax-form.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <None Include="Scripts\MonthDayPicker\monPickr-0.0.3-custom.less" />
+    <Content Include="UAT.Web.config" />
+    <Content Include="UAT.Web.Setting.config" />
     <None Include="Views\AdminTool\Styles\StyleSheet.less" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
