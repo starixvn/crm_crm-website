@@ -475,6 +475,8 @@ namespace Fanex.CRM.Web.View.App_Start
         private static void RegisterBundles_User_LogIn(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/User/LogInScripts").Include(
+                "~/Scripts/JQuery/jquery-1.8.2.js",
+                "~/Scripts/CryptoJS.js",
                 "~/Scripts/ShareScripts/SharedScriptManager.js",
                 "~/Areas/User/LogIn/Scripts/LogInManager.js"));
 

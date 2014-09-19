@@ -7,6 +7,7 @@
 <html lang="en">
 <!--<![endif]-->
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta charset="utf-8" />
     <title>@Resources.Language.Sign_In</title>
     <meta name="viewport" content="width=device-width" />
@@ -19,8 +20,8 @@
         If you are having problems, try <a href='http://browsehappy.com/'>this</a> for full
         browsing experience. Thank you!
     </div>
-    @using (Html.BeginForm())
-    {
+
+    
         <div class="center">
             <div id="login-box">
                 <div id="msg">
@@ -33,15 +34,21 @@
                     </div>
                 </div>
                 <div class="auth">
-                    <input type="text" id="username" name="username" autocomplete="off" />
-                    <input type="password" id="password" name="password" />
-                    <input type="submit" id="submit" value="@Resources.Language.Sign_In" />
-                    <div class="bestview">
-                    </div>
+                    <form action="@Url.Content("~/UserLogin/Index")" method="POST" id="frmLogin" name="frmLogin">
+                        @Html.AntiForgeryToken()
+                        <input id="loginToken" name="loginToken" value="@ViewBag.LoginToken" type ="hidden" />
+                        <input type="text" id="username" name="username" autocomplete="off" />
+                        <input type="password" id="password" name="password" />
+                        <input type="button" id="btnLogin" value="@Resources.Language.Sign_In" />
+
+                        <div class="bestview">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    }
+    
+    
     @Scripts.Render("~/Areas/User/LogInScripts")
 </body>
 </html>

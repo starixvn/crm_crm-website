@@ -77,5 +77,16 @@ namespace Fanex.CRM.User.Resources {
                 return ResourceManager.GetString("You_have_no_menu_permission", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Login session is timeout.
+        /// </summary>
+        public static string Login_SessionTimeout
+        {
+            get
+            {
+                return ResourceManager.GetString("Login_SessionTimeout", resourceCulture);
+            }
+        }
     }
 }
