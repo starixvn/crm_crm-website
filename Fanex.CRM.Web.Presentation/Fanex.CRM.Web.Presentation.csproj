@@ -452,7 +452,6 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -470,7 +469,6 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
-    <Content Include="PRO.Web.Setting.config" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -1198,10 +1196,10 @@
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Index.cshtml" />
-    <None Include="Areas\AdminTool\SettingManagement\DeleteSetting\Styles\DeleteSetting.less" />
+    <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Styles\DeleteSetting.less" />
     <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Index.cshtml" />
-    <None Include="Areas\AdminTool\SettingManagement\EditSetting\Styles\EditSetting.less" />
-    <None Include="Areas\AdminTool\SettingManagement\InsertSetting\Styles\InsertSetting.less" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Styles\EditSetting.less" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Styles\InsertSetting.less" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Index.cshtml" />
     <None Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Styles\InsertSubSetting.less" />
     <None Include="Areas\AdminTool\SettingManagement\ViewList\Styles\ViewList.less" />
