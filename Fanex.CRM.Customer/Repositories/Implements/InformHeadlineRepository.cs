@@ -12,11 +12,11 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Customer.Repositories.Interfaces;
+    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
@@ -58,11 +58,22 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             }
         }
 
+        /// <summary>
+        /// Gets the informs.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list of Inform Headline.</returns>
         public IList<InformHeadline> GetInforms(GetInformHeadlineCriteria criteria)
         {
+            IList<InformHeadline> informs = new List<InformHeadline>();
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var informs = db.Query<InformHeadline>(criteria.GetSpParams()).ToList();
+                var rawdata = db.Query<InformHeadline>(criteria.GetSpParams());
+                foreach (var item in rawdata)
+                {
+                    item.Remark = Helper.DecodeXml(item.Remark);
+                    informs.Add(item);
+                }
                 
                 var outputParam = db.GetOuputParams();
                 criteria.TotalItem = outputParam == null ? 0 : Converter.ToInt(outputParam["totalitem"]);

@@ -39,6 +39,14 @@ namespace Fanex.CRM.Customer.Controllers
 
         [NapAuth(FunctionKey = FunctionPermission.InformHeadline, Policy = Constant.Policy.Read)]
         [HttpGet]
+        public ActionResult GetAllInformHeadlineSettings()
+        {
+            var settings = _informHeadlineService.GetAllInformHeadlineSettings();
+            return Json(settings, JsonRequestBehavior.AllowGet);
+        }
+
+        [NapAuth(FunctionKey = FunctionPermission.InformHeadline, Policy = Constant.Policy.Read)]
+        [HttpGet]
         public ActionResult ViewInforms()
         {
             ViewBag.CanCreateTitle = HasHostPermission(FunctionPermission.InformHeadlineCreateTitle);
@@ -98,6 +106,14 @@ namespace Fanex.CRM.Customer.Controllers
             
             var result = new { TotalItem = totalItem, ChildItems = informs, Title = title };
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [NapAuth(FunctionKey = FunctionPermission.InformHeadline, Policy = Constant.Policy.Read)]
+        [HttpGet]
+        public ActionResult ExportInforms(GetInformHeadlineCriteria criteria)
+        {
+            _informHeadlineService.ExportInforms(criteria);
+            return new EmptyResult();
         }
 
         /// <summary>

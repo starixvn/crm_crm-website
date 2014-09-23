@@ -11,6 +11,7 @@ namespace Fanex.CRM.Customer.Services.Implements
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Web;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
@@ -20,9 +21,13 @@ namespace Fanex.CRM.Customer.Services.Implements
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Customer.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Models.Npoi;
+    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
     using Fanex.NAP.Framework.Data;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
@@ -36,15 +41,22 @@ namespace Fanex.CRM.Customer.Services.Implements
         private const string InformHeadlineStatisticSessionKey = "Fanex.CRM.Customer.InformHeadlineStatisticSessionKey";
 
         private readonly IInformHeadlineRepository _informHeadlineRepository;
+        private readonly ISettingService _settingService;
 
         public InformHeadlineService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public InformHeadlineService(IInformHeadlineRepository informHeadlineRepository)
+        public InformHeadlineService(IInformHeadlineRepository informHeadlineRepository, ISettingService settingService)
         {
-            _informHeadlineRepository = informHeadlineRepository ?? new InformHeadlineRepository(); 
+            _informHeadlineRepository = informHeadlineRepository ?? new InformHeadlineRepository();
+            _settingService = settingService ?? new SettingService();
+        }
+
+        public InformHeadlineSetting GetAllInformHeadlineSettings()
+        {
+            return _settingService.GetAllInformHeadlineSettings();
         }
 
         /// <summary>
@@ -163,6 +175,50 @@ namespace Fanex.CRM.Customer.Services.Implements
         }
 
         /// <summary>
+        /// Exports the informs.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        public void ExportInforms(GetInformHeadlineCriteria criteria)
+        {
+            // Get all inform.
+            criteria.PageIndex = 1;
+            criteria.ItemsPerPage = -1;
+            IList<InformHeadline> informHeadlines = GetInforms(criteria);
+
+            string excelFileName = Labels.InformHeadlinesStatusExcelName;
+            string sheetName = Labels.InformHeadlinesStatusName;
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            ExportExcelInfo exportExcelInfo = new ExportExcelInfo
+            {
+                ExcelFile = workbook,
+                Worksheet = workbook.CreateSheet(sheetName),
+                StartRow = 0,
+                StartColumn = 0,
+                CurrentRow = 0,
+                MaxColumnIndex = 6
+            };
+
+            ExportInformsStatusTitle(ref exportExcelInfo, sheetName);
+            ExportInformsStatusHeader(ref exportExcelInfo);
+            if (informHeadlines == null || informHeadlines.Count == 0)
+            {
+                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+            }
+            else
+            {
+                NpoiExcelExtensions.SetColorAtIndex(
+                    ref exportExcelInfo,
+                    NpoiExcelExtensions.EvenRowColor,
+                    NpoiExcelExtensions.EvenRowColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+
+                ExportInformsStatusBody(ref exportExcelInfo, informHeadlines);
+            }
+
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
+        }
+
+        /// <summary>
         /// Updates the informs.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
@@ -181,7 +237,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                     }
 
                     contentXml.Append("</content>");
-                    criteria.Content = contentXml.ToString();
+                    criteria.Content = Helper.ReplaceBreaklineXml(contentXml.ToString());
                 }
                 else
                 {
@@ -207,13 +263,25 @@ namespace Fanex.CRM.Customer.Services.Implements
             };
         }
 
+        /// <summary>
+        /// Builds the update inform XML.
+        /// </summary>
+        /// <param name="inform">The inform.</param>
+        /// <returns>The string of xml content.</returns>
         private string BuildUpdateInformXml(InformHeadline inform)
         {
-            string template = "<headline id=\"{0}\" statusid=\"{1}\" headlineid=\"{2}\" remark=\"{3}\" />";
-            return string.Format(template, inform.InformId, inform.StatusId, inform.HeadlineId, inform.Remark);
+            string template = "<headline id=\"{0}\" statusid=\"{1}\" headlineid=\"{2}\" remark=\"{3}\" extension=\"{4}\" productstatus=\"{5}\" />";
+            return string.Format(
+                template, 
+                inform.InformId, 
+                inform.StatusId, 
+                inform.HeadlineId,
+                Helper.EncodeXml(inform.Remark), 
+                inform.ExtensionId, 
+                inform.ProductStatus);
         }
 
-        #region Export excel helper
+        #region Inform statistic - Export excel
 
         /// <summary>
         /// Exports the title.
@@ -349,6 +417,106 @@ namespace Fanex.CRM.Customer.Services.Implements
                 GetRowColorIndex(isEven),
                 false,
                 CRMHorizontalAlignment.Right);
+        }
+
+        #endregion
+
+        #region Inform headline - Export excel
+
+        /// <summary>
+        /// Exports the informs status title.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel info.</param>
+        /// <param name="title">The title.</param>
+        private void ExportInformsStatusTitle(ref ExportExcelInfo exportExcelInfo, string title)
+        {
+            int currentColumn = exportExcelInfo.StartColumn;
+            int currentRow = exportExcelInfo.CurrentRow;
+            int columnWidth120 = 120 * NpoiExcelExtensions.FontWidth;
+            int columnWidth150 = 150 * NpoiExcelExtensions.FontWidth;
+
+            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            ISheet worksheet = exportExcelInfo.Worksheet;
+            worksheet.SetColumnWidth(currentColumn++, 280 * NpoiExcelExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, columnWidth150);
+            worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, 400 * NpoiExcelExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, columnWidth150);
+            worksheet.SetColumnWidth(currentColumn++, columnWidth120);
+            worksheet.SetColumnWidth(currentColumn++, columnWidth120);
+
+            CellRangeAddress cellRangeAddress = new CellRangeAddress(
+                currentRow,
+                currentRow + 1,
+                exportExcelInfo.StartColumn,
+                exportExcelInfo.MaxColumnIndex);
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
+            currentRow += 2;
+
+            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
+            currentRow++;
+
+            exportExcelInfo.CurrentRow = currentRow;
+        }
+
+        /// <summary>
+        /// Exports the informs status header.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel info.</param>
+        private void ExportInformsStatusHeader(ref ExportExcelInfo exportExcelInfo)
+        {
+            int currentColumn = exportExcelInfo.StartColumn;
+            IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Headline, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Status, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.UpdatedTime, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Remark, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Handler, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Extension, headerStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.ProductStatus, headerStyle);
+            exportExcelInfo.CurrentRow++;
+        }
+
+        /// <summary>
+        /// Exports the informs status body.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel info.</param>
+        /// <param name="informs">The informs.</param>
+        private void ExportInformsStatusBody(ref ExportExcelInfo exportExcelInfo, IList<InformHeadline> informs)
+        {
+            ICellStyle titleCellStyle, updatedTimeCellStyle;
+            HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
+            int currentColumn, currentRow;
+            int statusLength = informs.Count;
+
+            currentRow = exportExcelInfo.CurrentRow;
+            titleCellStyle = GetTitleCellStyle(workbook);
+            updatedTimeCellStyle = GetCreatedTimeCellStyle(workbook);
+
+            var productStatus = _settingService.GetAllInformHeadlineSettings()
+                .ProductStatus
+                .ToDictionary(k => k.Id, p => p.Name);
+            
+            InformHeadline inform;
+            for (int i = 0; i < statusLength; i++)
+            {
+                inform = informs[i];
+                currentColumn = exportExcelInfo.StartColumn;
+
+                IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.HeadlineName, titleCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.InformStatus, titleCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.UpdatedTimeString, updatedTimeCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Remark.HtmlDecode(), titleCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Handler, titleCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Extension, titleCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, productStatus[inform.ProductStatus], titleCellStyle);
+
+                currentRow++;
+            }
         }
 
         #endregion

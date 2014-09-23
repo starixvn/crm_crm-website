@@ -180,5 +180,15 @@ namespace Fanex.CRM.Infrastructure.Helper
 
             return xml.Replace("&quot;", "\"").Replace("&apos;", "'").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&");
         }
+
+        public static string ReplaceBreaklineXml(string xml)
+        {
+            if (string.IsNullOrWhiteSpace(xml))
+            {
+                return xml;
+            }
+
+            return xml.Replace(new string[] { "\n", "\r", "\n\r", "\r\n" }, "&#13;");
+        }
     }
 }

@@ -56,7 +56,7 @@ informHeadlineStatisticApplication.controller('informHeadlineStatisticController
             parent.OpenPopup(
                 window.rootUrl + 'InformHeadlines/OpenUpdateInform?titleId=' + titleId,
                 informStatisticResourceView.UpdateInformHeadlines,
-                $(parent.document).width() - 400,
+                $(parent.document).width() - 90,
                 $(parent.document).height(),
                 true,
                 false,

@@ -13,6 +13,7 @@ namespace Fanex.CRM.Customer.Services.Interfaces
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Models;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -20,6 +21,8 @@ namespace Fanex.CRM.Customer.Services.Interfaces
     /// </summary>
     public interface IInformHeadlineService
     {
+        InformHeadlineSetting GetAllInformHeadlineSettings();
+
         InformHeadlineStatistic GetInformStatistic(GetInformHeadlineStatisticCriteria criteria);
 
         void ExportInformStatistic(GetInformHeadlineStatisticCriteria criteria);
@@ -27,6 +30,8 @@ namespace Fanex.CRM.Customer.Services.Interfaces
         Result CreateTitle(ICriteria criteria);
 
         IList<InformHeadline> GetInforms(GetInformHeadlineCriteria criteria);
+
+        void ExportInforms(GetInformHeadlineCriteria criteria);
 
         Result UpdateInforms(UpdateInformHeadlinesCriteria criteria);
     }
