@@ -72,7 +72,11 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             $uiBlockerService.blockUI();
             $scope.pagerOption.currentPage = pageIndex;
             $scope.pagerOption.itemsPerPage = itemsPerPage;
-            var informCriteria = { TitleId: $scope.titleId, Status: $scope.selectedStatusIds, Username: $scope.username, PageIndex: ++pageIndex, ItemsPerPage: itemsPerPage };
+            var informCriteria = { TitleId: $scope.titleId,
+                Status: $scope.selectedStatusIds,
+                Username: $scope.username,
+                PageIndex: ++pageIndex, 
+                ItemsPerPage: itemsPerPage };
             updateInformService.getInforms(informCriteria)
                 .then(function (data) {
                     var result = data.Result;
