@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 /* global viewDetailByIdApplication */
 viewDetailByIdApplication.factory('$viewDetailByIdService', ['$http', '$q',
     function ($http, $q) {

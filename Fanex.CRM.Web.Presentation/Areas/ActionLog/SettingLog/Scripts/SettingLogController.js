@@ -96,8 +96,11 @@ settingLogApplication.controller('settingLogController', ['$scope', '$settingLog
             parent.$.unblockUI();
         } catch (e) {
         }
+
+        hotKeyManager.CachedData.isBlockingUI = false;
     };
     $scope.blockUI = function () {
+        hotKeyManager.CachedData.isBlockingUI = true;
         try {
             parent.BlockUI();
         } catch (e) {

@@ -308,8 +308,11 @@ function (data) {
             }
         } catch (e) {
         }
+
+        hotKeyManager.CachedData.isBlockingUI = false;
     };
     $scope.BlockUI = function () {
+        hotKeyManager.CachedData.isBlockingUI = true;
         try {
             if (parent && parent.BlockUI) {
                 parent.BlockUI();

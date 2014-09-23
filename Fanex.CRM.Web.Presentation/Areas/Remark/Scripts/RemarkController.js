@@ -118,7 +118,7 @@ remarkApplication.controller('remarkController',
         };
 
         $scope.setPlaceHolder = function () {
-        $('textarea[defaulttext]').each(function () {
+            $('textarea[defaulttext]').each(function () {
                 var input = $(this);
                 $(input).val(input.attr('defaulttext'));
             });
@@ -149,7 +149,7 @@ remarkApplication.controller('remarkController',
             }
 
             for (var i = 0; i < specialLength; i++) {
-            if ($scope.replaceLineBreak($scope.remarks.SpecialRemarks[i]) !== $scope.replaceLineBreak($scope.oldRemarks.SpecialRemarks[i])) {
+                if ($scope.replaceLineBreak($scope.remarks.SpecialRemarks[i]) !== $scope.replaceLineBreak($scope.oldRemarks.SpecialRemarks[i])) {
                     return true;
                 }
             }
@@ -160,7 +160,7 @@ remarkApplication.controller('remarkController',
             }
 
             for (var j = 0; j < normalLength; j++) {
-            if ($scope.replaceLineBreak($scope.remarks.NormalRemarks[j]) !== $scope.replaceLineBreak($scope.oldRemarks.NormalRemarks[j])) {
+                if ($scope.replaceLineBreak($scope.remarks.NormalRemarks[j]) !== $scope.replaceLineBreak($scope.oldRemarks.NormalRemarks[j])) {
                     return true;
                 }
             }
@@ -184,10 +184,10 @@ remarkApplication.controller('remarkController',
             $scope.$apply(function () {
                 $scope.isSetFocus = true;
             });
-    };
+        };
 
-    $scope.replaceLineBreak = function (text) {
-        return text ? text.replace(/\r/g, ' ').replace(/\n/g, ' ') : '';
+        $scope.replaceLineBreak = function (text) {
+            return text ? text.replace(/\r/g, ' ').replace(/\n/g, ' ') : '';
         };
 
         angular.element(document).ready(function () {

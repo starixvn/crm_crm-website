@@ -195,17 +195,20 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             $(textbox).focus();
         };
 
+        $scope.BlockUI = function () {
+            hotKeyManager.CachedData.isBlockingUI = true;
+            try {
+                parent.BlockUI();
+            } catch (e) {
+            }
+        };
         $scope.unblockUI = function () {
             try {
                 parent.$.unblockUI();
             } catch (e) {
             }
-        };
-        $scope.BlockUI = function () {
-            try {
-                parent.BlockUI();
-            } catch (e) {
-            }
+
+            hotKeyManager.CachedData.isBlockingUI = false;
         };
 
         /* jshint camelcase: false */

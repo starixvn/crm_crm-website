@@ -209,8 +209,11 @@ function (
             parent.$.unblockUI();
         } catch (e) {
         }
+
+        hotKeyManager.CachedData.isBlockingUI = false;
     };
     $scope.BlockUI = function () {
+        hotKeyManager.CachedData.isBlockingUI = true;
         try {
             parent.BlockUI();
         } catch (e) {
