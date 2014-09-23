@@ -150,49 +150,8 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
         }
 
-        /// <summary>
-        /// Registers the add customer feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterAddCustomerFeedbackBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
-                .Include(
-                    "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                    "~/Scripts/FanexGridV2/moment.js",
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Scripts/ShareScripts/DirectiveManager.js",
-                    "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                    "~/Scripts/ShareScripts/Directives/DropdownSite.js",
-                    "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                    "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
-                    "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
-                    "~/Scripts/ShareScripts/Directives/HtmlArea.js",
-                    "~/Scripts/ShareScripts/Directives/RawHtml.js",
-                    "~/Scripts/ShareScripts/Directives/TipsyDirective.js",
-                    "~/Scripts/ShareScripts/Directives/RelatedCustomer.js",
-                    "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                    "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackApplication.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackService.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_Options.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_Update.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_HotkeyFunctions.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/Directives/*.js"));
-            AddAndInclude(
-               bundles,
-               "~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackStyles",
-               "~/Areas/Feedbacks/AddCustomerFeedback/Styles/AddCustomerFeedback.less");
-        }
-
-        /// <summary>
         /// Registers the add guest feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         private static void RegisterAddGuestFeedbackBundles(BundleCollection bundles)
-        {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
                 .Include(
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
@@ -223,66 +182,6 @@ namespace Fanex.CRM.Feedback.Bundles
                "~/Areas/Feedbacks/AddGuestFeedback/Styles/AddGuestFeedback.less");
         }
 
-        /// <summary>
-        /// Registers the add customer feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterAddCustomerFeedbackBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
-                .Include(
-                    "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                    "~/Scripts/FanexGridV2/moment.js",
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Scripts/ShareScripts/DirectiveManager.js",
-                    "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                    "~/Scripts/ShareScripts/Directives/DropdownSite.js",
-                    "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                    "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
-                    "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
-                    "~/Scripts/ShareScripts/Directives/HtmlArea.js",
-                    "~/Scripts/ShareScripts/Directives/RawHtml.js",
-                    "~/Scripts/ShareScripts/Directives/TipsyDirective.js",
-                    "~/Scripts/ShareScripts/Directives/RelatedCustomer.js",
-                    "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                    "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackApplication.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackService.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_Options.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_Update.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController_HotkeyFunctions.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/AddCustomerFeedbackController.js",
-                    "~/Areas/Feedbacks/AddCustomerFeedback/Scripts/Directives/*.js"));
-            AddAndInclude(
-               bundles,
-               "~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackStyles",
-               "~/Areas/Feedbacks/AddCustomerFeedback/Styles/AddCustomerFeedback.less");
-        }
-
-        /// <summary>
-        /// Registers the latest feedback bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterLatestFeedbackBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts").Include(
-                "~/Scripts/Tipsy-Tooltip/jquery.tipsy.js",
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackApplication.js",
-                "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackController.js",
-                "~/Areas/Feedbacks/LatestFeedback/Scripts/LatestFeedbackService.js",
-                "~/Areas/Feedbacks/LatestFeedback/Scripts/Directives/*.js"));
-
-            AddAndInclude(
-                bundles,
-                "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackStyles",
-                "~/Scripts/Tipsy-Tooltip/tipsy.css",
-                "~/Scripts/FanexGridV2/Fanex.Grid.css",
-                "~/Content/site/customizeFanexGridV2.less",
-                "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
-        }
-        
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
         {
             bundles.Add(new Bundle(bundleVirtualPath)
