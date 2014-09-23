@@ -364,7 +364,7 @@
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />  
+    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />
@@ -423,7 +423,6 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
-    <Content Include="PRO.Web.Setting.config" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -1164,6 +1163,10 @@
     </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.MailSection.config" />
+    <Content Include="Configurations\Local.MailSection.config" />
+    <Content Include="Configurations\PRO.MailSection.config" />
+    <Content Include="Configurations\UAT.ConnectionStrings.config" />
+    <Content Include="Configurations\UAT.MailSection.config" />
     <None Include="IbcKeys\ibckeydec.snk" />
     <None Include="IbcKeys\ibcpkey.snk" />
     <Content Include="IbcKeys\Web.config" />
