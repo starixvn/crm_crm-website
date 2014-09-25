@@ -1,0 +1,64 @@
+﻿﻿@using Fanex.CRM.AdminTool.Resources;
+@using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
+@model int
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-feedbacksubjectmanagement-edittemplate">
+<head>
+    <title>@Labels.Title_AdminTool_FeedbackSubjectManagement </title>
+    @Styles.Render("~/site/common")
+    @Styles.Render("~/Areas/Admin/FeedbackSubjectManagement/EditTemplateStyles")
+</head>
+<body class="editTemplateController" data-ng-controller="editTemplateController">
+    <div class="container main">
+        <div class="row form-group">
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">
+                    @Labels.Template_Id</label>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div data-ng-bind="feedbackSubjectTemplate.Id">
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">
+                    @Labels.Template_Content</label>
+                <div class="col-xs-9 col-sm-9 col-md-10">
+                    <input type="text" class="textbox " id="template-content" data-ng-model="feedbackSubjectTemplate.TemplateContent" />
+                </div>
+            </div>
+            <div>
+                <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-xs-9 col-sm-9 col-md-10">
+                    <button id="btn-save" class="btn pull-left btn-save" data-ng-click="editTemplate();">
+                        <span class="hotkey">S</span>ave
+                    </button>
+                </div>
+            </div>
+        </div>
+        <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Areas/Admin/FeedbackSubjectManagement/EditTemplateScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var templateId = @Model;
+        var viewResources = {
+            Confirm_Ignore_EditTemplate_Changes: '@Html.Raw(Labels.Confirm_Ignore_EditTemplate_Changes)',
+            FeedbackSubjectManagement_Error_EmptyTemplate: '@Labels.FeedbackSubjectManagement_Error_EmptyTemplate',
+            FeedbackSubjectManagement_Error_ExceedTemplate: '@Labels.FeedbackSubjectManagement_Error_ExceedTemplate'
+        };
+    </script>
+</body>
+</html>

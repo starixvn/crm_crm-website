@@ -161,6 +161,26 @@
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogService.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogController.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogApplication.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Scripts\DeleteTemplateApplication.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Scripts\DeleteTemplateController.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Scripts\DeleteTemplateService.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\EditTemplateApplication.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\EditTemplateController.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Scripts\EditTemplateService.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Scripts\InsertTemplateApplication.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Scripts\InsertTemplateController.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Scripts\InsertTemplateService.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\Directives\ViewListContainer.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\Directives\ViewListDirectives.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListApplication.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController_HotKeyFunctions.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController_Options.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController_Update.js" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListService.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
@@ -404,6 +424,7 @@
     <Content Include="Content\site\Images\delete-icon.png" />
     <Content Include="Content\site\Images\error.png" />
     <Content Include="Content\site\Images\excel.png" />
+    <Content Include="Content\site\Images\icn_edit.png" />
     <Content Include="Content\site\Images\ico-collapse-expanse-filter.png" />
     <Content Include="Content\site\Images\ico-collapse.png" />
     <Content Include="Content\site\Images\ico-expand.png" />
@@ -575,6 +596,7 @@
     <Content Include="Scripts\ShareScripts\FixBugManager.js" />
     <Content Include="Scripts\ShareScripts\HotKeyManager.js" />
     <Content Include="Scripts\ShareScripts\KeyboardManager.js" />
+    <Content Include="Scripts\ShareScripts\MessageResult.js" />
     <Content Include="Scripts\ShareScripts\SharedControllerManager.js" />
     <Content Include="Scripts\ShareScripts\SharedScriptManager.js" />
     <Content Include="Areas\ActionLog\SettingLog\Index.cshtml" />
@@ -979,6 +1001,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Styles\Images\" />
     <Folder Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
@@ -990,6 +1013,10 @@
     <ProjectReference Include="..\Fanex.CRM.ActionLog\Fanex.CRM.ActionLog.csproj">
       <Project>{D37120A9-532E-4C40-A6E6-EAFACCA8AED8}</Project>
       <Name>Fanex.CRM.ActionLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.AdminTool\Fanex.CRM.AdminTool.csproj">
+      <Project>{6829D5B2-51ED-46F7-A82D-8009CD9FEF69}</Project>
+      <Name>Fanex.CRM.AdminTool</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Customer\Fanex.CRM.Customer.csproj">
       <Project>{86AE59AE-4FEB-4EF7-A973-9FA75F2665E7}</Project>
@@ -1138,6 +1165,15 @@
     <Content Include="Content\site\variables.less" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
+    <Content Include="Areas\AdminTool\Web.config" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Index.cshtml" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Index.cshtml" />
+    <None Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Styles\DeleteTemplate.less" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Index.cshtml" />
+    <None Include="Areas\AdminTool\FeedbackSubjectManagement\EditTemplate\Styles\EditTemplate.less" />
+    <Content Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Index.cshtml" />
+    <None Include="Areas\AdminTool\FeedbackSubjectManagement\InsertTemplate\Styles\InsertTemplate.less" />
+    <None Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Styles\ViewList.less" />
     <None Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
     <None Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">

@@ -1,0 +1,78 @@
+﻿﻿@using Fanex.CRM.AdminTool.Resources;
+@using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-feedbacksubjectmanagement-application">
+<head>
+    <title>@Labels.Title_AdminTool_FeedbackSubjectManagement </title>
+    @Styles.Render("~/site/common")
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/InputBox/style.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
+    @Styles.Render("~/Areas/Admin/FeedbackSubjectManagement/ViewListStyles")
+</head>
+<body class="feedbackSubjectManagementController" data-ng-controller="feedbackSubjectManagementController">
+    <div class="container main">
+        <div class="row filter-frm one-row subjectTemplate">
+            <div class="item afterButton subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
+                <input id="subject" name="txt-template-subject" type="text" class="textbox txt-search subject-auto-complete"
+                    autocomplete="off" data-ng-model="subjectOptions.Subject" />
+            </div>
+            <div class="item afterButton">
+                <button id="btn-search" class="btn pull-left btn-update " data-ng-click="searchTemplate();">
+                    <span class="hotkey">S</span>earch
+                </button>
+            </div>
+            <div class="item">
+                <button id="btn-insert-setting" class="btn pull-left btn-update " data-ng-click="showInsertPopup();">
+                    <span class="hotkey">I</span>nsert New Feedback Subject
+                </button>
+            </div>
+        </div>
+        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="feedback-template-list-container" class="feedback-template-list-container"
+                data-ng-model="feedbackSubjectTemplateView">
+                <div id="feedback-template-list" class="freegrid display-none">
+                </div>
+            </div>
+        </div>
+        <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
+    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
+    <script type="text/javascript" src="~/Scripts/Paging/jpager.js"></script>
+    @Scripts.Render(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Scripts/FanexGridScripts",
+        "~/Areas/Admin/FeedbackSubjectManagement/ViewListScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var viewResources = {
+            Edit: '@Labels.Edit',
+            Delete: '@Labels.Delete',
+            Feedback_Subject_Template_Content: '@Labels.Feedback_Subject_Template_Content',
+            Template_Id: '@Labels.Template_Id',
+            Delete_Feedback_Subject_Template: '@Labels.Delete_Feedback_Subject_Template',
+            Edit_Feedback_Subject_Template: '@Labels.Edit_Feedback_Subject_Template',
+            Insert_Feedback_Subject_Template: '@Labels.Insert_New_Feedback_Subject_Template'
+        };
+    </script>
+</body>
+</html>
