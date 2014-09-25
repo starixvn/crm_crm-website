@@ -36,6 +36,8 @@ bin
 /Fanex.CRM.Communication/obj
 /Fanex.CRM.Report/bin
 /Fanex.CRM.Report/obj
+/Fanex.CRM.AdminTool/bin
+/Fanex.CRM.AdminTool/obj
 /*StyleCop.Cache
 
 /Fanex.CRM.ActionLog/*.Cache

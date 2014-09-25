@@ -124,6 +124,7 @@
     <Compile Include="Models\Npoi\ExcelStyleParam.cs" />
     <Compile Include="Models\Npoi\ExportExcelInfo.cs" />
     <Compile Include="Models\PagedList.cs" />
+    <Compile Include="Models\PagingCriteria.cs" />
     <Compile Include="Models\PeriodRange.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Models\TimeInfo.cs" />
