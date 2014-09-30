@@ -61,11 +61,29 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are some changes on add relation view! &lt;br/&gt; Are you sure you want to ignore these changes?.
+        /// </summary>
+        public static string Confirm_Ignore_AddRelation_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_AddRelation_Changes", resourceCulture);
             }
         }
         
@@ -214,6 +232,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Is Sub.
+        /// </summary>
+        public static string Is_Sub {
+            get {
+                return ResourceManager.GetString("Is_Sub", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string Ok {
@@ -223,11 +250,92 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order.
+        /// </summary>
+        public static string Order {
+            get {
+                return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Relation.
+        /// </summary>
+        public static string Relation {
+            get {
+                return ResourceManager.GetString("Relation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting.
+        /// </summary>
+        public static string Setting {
+            get {
+                return ResourceManager.GetString("Setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Id.
+        /// </summary>
+        public static string Setting_Id {
+            get {
+                return ResourceManager.GetString("Setting_Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Relation Management.
+        /// </summary>
+        public static string Setting_Relation_Management {
+            get {
+                return ResourceManager.GetString("Setting_Relation_Management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set setting relation successfully.
+        /// </summary>
+        public static string SettingRelation_AddRelation_UpdateSuccess {
+            get {
+                return ResourceManager.GetString("SettingRelation_AddRelation_UpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add sub setting for &lt;span class=&quot;b&quot;&gt;{0}&lt;/span&gt;.
+        /// </summary>
+        public static string SettingRelation_AddRelationMessage {
+            get {
+                return ResourceManager.GetString("SettingRelation_AddRelationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Relation by {0}.
+        /// </summary>
+        public static string SettingRelation_ViewListTitle {
+            get {
+                return ResourceManager.GetString("SettingRelation_ViewListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sub setting.
+        /// </summary>
+        public static string Sub_setting {
+            get {
+                return ResourceManager.GetString("Sub_setting", resourceCulture);
             }
         }
         
@@ -255,6 +363,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Title_AdminTool_FeedbackSubjectManagement {
             get {
                 return ResourceManager.GetString("Title_AdminTool_FeedbackSubjectManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM System - Setting Relation.
+        /// </summary>
+        public static string Title_AdminTool_SettingRelation {
+            get {
+                return ResourceManager.GetString("Title_AdminTool_SettingRelation", resourceCulture);
             }
         }
     }

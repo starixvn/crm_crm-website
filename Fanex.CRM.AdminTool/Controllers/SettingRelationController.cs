@@ -1,0 +1,100 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="SettingRelationController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Louis.Nguyen" date="2014.06.03">Created</change>
+// </history>
+// --------------------------------------------------------------------------
+
+namespace Fanex.CRM.AdminTool.Controllers
+{
+    using System.Web.Mvc;
+    using Fanex.CRM.AdminTool.Criteria.SettingRelation;
+    using Fanex.CRM.AdminTool.Services.SettingRelation;
+    using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Setting.Models;
+
+    /// <summary>
+    /// Setting Relation Controller.
+    /// </summary>
+    public class SettingRelationController : BaseController
+    {
+        private ISettingRelationService _settingRelationService;
+
+        public SettingRelationController()
+            : this(null)
+        {
+        }
+
+        public SettingRelationController(ISettingRelationService settingRelationService)
+        {
+            _settingRelationService = settingRelationService ?? new SettingRelationService();
+        }
+
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public ActionResult Index()
+        {
+            return View("~/Areas/AdminTool/SettingRelation/ViewList/Index.cshtml");
+        }
+
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public ActionResult OpenInsertRelationView(int settingId, string settingValue, string settingType)
+        {
+            return View(
+                "~/Areas/AdminTool/SettingRelation/AddRelation/Index.cshtml",
+                new SettingInfo
+                {
+                    Id = settingId,
+                    Value = settingValue,
+                    Type = settingType
+                });
+        }
+
+        [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public JsonResult GetMainSetting()
+        {
+            var result = _settingRelationService.GetMainSetting();
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
+        {
+            var result = _settingRelationService.SettingByType(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public JsonResult GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria)
+        {
+            var result = _settingRelationService.GetMainSettingForAddRelation(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public JsonResult MainSettingRelations(GetMainSettingRelationsCriteria criteria)
+        {
+            var result = _settingRelationService.MainSettingRelations(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        public JsonResult AddSettingRelations(AddSettingRelationsCriteria criteria)
+        {
+            var result = _settingRelationService.AddSettingRelations(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+    }
+}

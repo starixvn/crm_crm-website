@@ -51,12 +51,12 @@ directiveManager.registerDropdownContainer = function (angularApplication, regis
         }
 
         function getSelectedItem(selectedId) {
-            selectedId = parseInt(selectedId);
             var dataListLength = dataList.length;
             var selectedItem = null;
             for (var i = 0; i < dataListLength; i++) {
                 var data = dataList[i];
-                if (data.Id === selectedId) {
+                if (data[registerParams.DataPropertyName.Id] === selectedId || 
+                    data[registerParams.DataPropertyName.Id] === parseInt(selectedId)) {
                     selectedItem = data;
                     break;
                 }
