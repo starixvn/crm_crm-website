@@ -117,7 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-<<<<<<< HEAD
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
@@ -127,23 +126,18 @@
   <data name="Confirm_Ignore_AddRelation_Changes" xml:space="preserve">
     <value>There are some changes on add relation view! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
+<<<<<<< HEAD
   <data name="Confirm_Ignore_EditSetting_Changes" xml:space="preserve">
     <value>There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
   <data name="Confirm_Ignore_EditTemplate_Changes" xml:space="preserve">
     <value>There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
   <data name="Confirm_Ignore_InsertNewSetting_Changes" xml:space="preserve">
     <value>There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
-=======
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Confirm_Ignore_EditTemplate_Changes" xml:space="preserve">
-    <value>There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
-  </data>
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
   <data name="Confirm_Ignore_InsertTemplate_Changes" xml:space="preserve">
     <value>There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
@@ -153,34 +147,27 @@
   <data name="Delete_Feedback_Subject_Template" xml:space="preserve">
     <value>Delete Feedback Subject Template</value>
   </data>
-<<<<<<< HEAD
   <data name="Delete_Setting" xml:space="preserve">
     <value>Delete Setting</value>
   </data>
   <data name="Display_Order" xml:space="preserve">
     <value>Display Order</value>
   </data>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="Edit_Feedback_Subject_Template" xml:space="preserve">
     <value>Edit Feedback Subject Template</value>
   </data>
-<<<<<<< HEAD
   <data name="Edit_Setting_Value" xml:space="preserve">
     <value>Edit Setting Value</value>
   </data>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
   <data name="FeedbackSubjectManagement_DeleteTemplate_Message" xml:space="preserve">
     <value>Are you sure you want to delete Feedback Subject Template {0}?</value>
   </data>
   <data name="FeedbackSubjectManagement_Error_EmptyTemplate" xml:space="preserve">
     <value>Please Input Feedback Subject Template Content!</value>
   </data>
-<<<<<<< HEAD
   <data name="FeedbackSubjectManagement_Error_ExceedName" xml:space="preserve">
     <value>Max length of Setting Name is 100</value>
   </data>
@@ -190,11 +177,6 @@
   <data name="FeedbackSubjectManagement_Error_ExceedValue" xml:space="preserve">
     <value>Max length of Setting Value is 100</value>
   </data>
-=======
-  <data name="FeedbackSubjectManagement_Error_ExceedTemplate" xml:space="preserve">
-    <value>Max length of subject template is 200 characters!</value>
-  </data>
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
   <data name="Feedback_FeedbackSubjectManagement_DeleteSuccess" xml:space="preserve">
     <value>Delete template successful!</value>
   </data>
@@ -223,6 +205,8 @@
   <data name="Insert_Setting_value_for" xml:space="preserve">
     <value>Insert Setting value for</value>
   </data>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
   <data name="Is_Sub" xml:space="preserve">
     <value>Is Sub</value>
   </data>
@@ -232,9 +216,12 @@
   <data name="Order" xml:space="preserve">
     <value>Order</value>
   </data>
+<<<<<<< HEAD
   <data name="Parent" xml:space="preserve">
     <value>Parent</value>
   </data>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
   <data name="Relation" xml:space="preserve">
     <value>Relation</value>
   </data>
@@ -244,6 +231,7 @@
   <data name="Setting" xml:space="preserve">
     <value>Setting</value>
   </data>
+<<<<<<< HEAD
   <data name="SettingManagement_DeleteSettingSuccess" xml:space="preserve">
     <value>Delete setting successful!</value>
   </data>
@@ -271,6 +259,8 @@
   <data name="SettingManagement_ViewListTitle" xml:space="preserve">
     <value>Setting Management by {0}</value>
   </data>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
   <data name="SettingRelation_AddRelationMessage" xml:space="preserve">
     <value>Add sub setting for &lt;span class="b"&gt;{0}&lt;/span&gt;</value>
   </data>
@@ -283,6 +273,7 @@
   <data name="Setting_Id" xml:space="preserve">
     <value>Setting Id</value>
   </data>
+<<<<<<< HEAD
   <data name="Setting_Name" xml:space="preserve">
     <value>Setting Name</value>
   </data>
@@ -299,13 +290,13 @@
     <value>N/A</value>
   </data>
 =======
-  <data name="Ok" xml:space="preserve">
-    <value>Ok</value>
+  <data name="Setting_Relation_Management" xml:space="preserve">
+    <value>Setting Relation Management</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
+  <data name="Sub_setting" xml:space="preserve">
+    <value>Sub setting</value>
   </data>
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
+>>>>>>> #21867 - Admin Tool - Setting Relation
   <data name="Template_Content" xml:space="preserve">
     <value>Template Content</value>
   </data>
@@ -319,9 +310,9 @@
   <data name="Title_AdminTool_SettingManagement" xml:space="preserve">
     <value>CRM System - Setting Management</value>
   </data>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
   <data name="Title_AdminTool_SettingRelation" xml:space="preserve">
     <value>CRM System - Setting Relation</value>
   </data>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
 </root>

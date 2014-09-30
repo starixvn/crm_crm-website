@@ -106,7 +106,9 @@
     <Compile Include="Services\SettingRelation\ISettingRelationService.cs" />
     <Compile Include="Services\SettingRelation\SettingRelationService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Criteria\SettingManagement\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>

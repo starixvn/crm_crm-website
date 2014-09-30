@@ -61,7 +61,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string All {
@@ -71,8 +70,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -82,7 +79,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to There are some changes on add relation view! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_AddRelation_Changes {
@@ -92,6 +88,7 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_EditSetting_Changes {
@@ -102,7 +99,7 @@ namespace Fanex.CRM.AdminTool.Resources {
         
         /// <summary>
 =======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
+>>>>>>> #21867 - Admin Tool - Setting Relation
         ///   Looks up a localized string similar to There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_EditTemplate_Changes {
@@ -112,7 +109,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_InsertNewSetting_Changes {
@@ -122,8 +118,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
         ///   Looks up a localized string similar to There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_InsertTemplate_Changes {
@@ -151,7 +145,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Delete Setting.
         /// </summary>
         public static string Delete_Setting {
@@ -170,8 +163,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -190,7 +181,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Edit Setting Value.
         /// </summary>
         public static string Edit_Setting_Value {
@@ -200,8 +190,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
         ///   Looks up a localized string similar to Delete template successful!.
         /// </summary>
         public static string Feedback_FeedbackSubjectManagement_DeleteSuccess {
@@ -265,7 +253,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Max length of Setting Name is 100.
         /// </summary>
         public static string FeedbackSubjectManagement_Error_ExceedName {
@@ -275,8 +262,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
         ///   Looks up a localized string similar to Max length of subject template is 200 characters!.
         /// </summary>
         public static string FeedbackSubjectManagement_Error_ExceedTemplate {
@@ -286,7 +271,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Max length of Setting Value is 100.
         /// </summary>
         public static string FeedbackSubjectManagement_Error_ExceedValue {
@@ -296,8 +280,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
         ///   Looks up a localized string similar to Insert New Feedback Subject.
         /// </summary>
         public static string Insert_New_Feedback_Subject {
@@ -335,6 +317,8 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
         ///   Looks up a localized string similar to Is Sub.
         /// </summary>
         public static string Is_Sub {
@@ -344,8 +328,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
         ///   Looks up a localized string similar to Ok.
         /// </summary>
         public static string Ok {
@@ -355,7 +337,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Order.
         /// </summary>
         public static string Order {
@@ -365,6 +346,7 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Parent.
         /// </summary>
         public static string Parent {
@@ -374,6 +356,8 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
         ///   Looks up a localized string similar to Relation.
         /// </summary>
         public static string Relation {
@@ -383,8 +367,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
@@ -394,7 +376,6 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
         ///   Looks up a localized string similar to Setting.
         /// </summary>
         public static string Setting {
@@ -413,6 +394,7 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Setting Name.
         /// </summary>
         public static string Setting_Name {
@@ -422,6 +404,8 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
         ///   Looks up a localized string similar to Setting Relation Management.
         /// </summary>
         public static string Setting_Relation_Management {
@@ -431,6 +415,7 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Setting Value.
         /// </summary>
         public static string Setting_Value {
@@ -521,6 +506,8 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
         ///   Looks up a localized string similar to Set setting relation successfully.
         /// </summary>
         public static string SettingRelation_AddRelation_UpdateSuccess {
@@ -557,6 +544,7 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to N/A.
         /// </summary>
         public static string Symbol_NotApply {
@@ -567,7 +555,7 @@ namespace Fanex.CRM.AdminTool.Resources {
         
         /// <summary>
 =======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
+>>>>>>> #21867 - Admin Tool - Setting Relation
         ///   Looks up a localized string similar to Template Content.
         /// </summary>
         public static string Template_Content {
@@ -593,9 +581,9 @@ namespace Fanex.CRM.AdminTool.Resources {
                 return ResourceManager.GetString("Title_AdminTool_FeedbackSubjectManagement", resourceCulture);
             }
         }
-<<<<<<< HEAD
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to CRM System - Setting Management.
         /// </summary>
         public static string Title_AdminTool_SettingManagement {
@@ -605,6 +593,8 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+=======
+>>>>>>> #21867 - Admin Tool - Setting Relation
         ///   Looks up a localized string similar to CRM System - Setting Relation.
         /// </summary>
         public static string Title_AdminTool_SettingRelation {
@@ -612,7 +602,5 @@ namespace Fanex.CRM.AdminTool.Resources {
                 return ResourceManager.GetString("Title_AdminTool_SettingRelation", resourceCulture);
             }
         }
-=======
->>>>>>> #21868 - Admin Tool - Feedback Subject Mangement
     }
 }

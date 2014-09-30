@@ -18,10 +18,6 @@ namespace Fanex.CRM.AdminTool.App_Start
     /// </summary>
     public static class AdminToolBundles
     {
-        /// <summary>
-        /// Registers the bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             RegisterFeedbackSubjectManagementBundles(bundles);
@@ -31,12 +27,6 @@ namespace Fanex.CRM.AdminTool.App_Start
 
             RegisterSettingRelationViewListBundles(bundles);
             RegisterAddSettingRelationBundles(bundles);
-
-            RegisterSettingManagementViewListBundles(bundles);
-            RegisterSettingManagementInsertSettingBundles(bundles);
-            RegisterSettingManagementInsertSubSettingBundles(bundles);
-            RegisterSettingManagementDeleteSettingBundles(bundles);
-            RegisterSettingManagementEditSettingBundles(bundles);
         }
 
         /// <summary>
@@ -190,141 +180,6 @@ namespace Fanex.CRM.AdminTool.App_Start
                 bundles,
                 "~/Areas/Admin/SettingRelation/AddRelationStyles",
                 "~/Areas/AdminTool/SettingRelation/AddRelation/Styles/AddRelation.less");
-        }
-
-        /// <summary>
-        /// Register Setting Management View List Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterSettingManagementViewListBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/ViewListScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListApplication.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListService.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController_Options.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController_Update.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/ViewListController_HotKey.js",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Scripts/Directives/*.js"));
-
-            AddAndInclude(
-                bundles,
-                "~/Areas/Admin/SettingManagement/ViewListStyles",
-                "~/Areas/AdminTool/SettingManagement/ViewList/Styles/ViewList.less");
-        }
-
-        /// <summary>
-        /// Register Setting Management Insert Setting Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterSettingManagementInsertSettingBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/InsertSettingScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/InsertSettingApplication.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/InsertSettingService.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/InsertSettingController.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/InsertSettingController_Options.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/InsertSettingController_Update.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/InsertSettingController_HotKey.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/Directives/ParentSettingDirective.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/Directives/KeyPressDirective.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Scripts/Directives/RegisterSharedDirectives.js"));
-
-            AddAndInclude(
-                bundles,
-                "~/Areas/Admin/SettingManagement/InsertSettingStyles",
-                "~/Areas/AdminTool/SettingManagement/InsertSetting/Styles/InsertSetting.less");
-        }
-
-        /// <summary>
-        /// Register Setting Management Insert Sub Setting Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterSettingManagementInsertSubSettingBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/InsertSubSettingScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingApplication.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingService.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingController.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingController_Options.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingController_Update.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/InsertSubSettingController_HotKey.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/ParentSettingDirective.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/KeyPressDirective.js",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Scripts/Directives/RegisterSharedDirectives.js"));
-
-            AddAndInclude(
-                bundles,
-                "~/Areas/Admin/SettingManagement/InsertSubSettingStyles",
-                "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Styles/InsertSubSetting.less");
-        }
-
-        /// <summary>
-        /// Register Delete Feedback Subject Template Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterSettingManagementDeleteSettingBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/DeleteSettingScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Areas/AdminTool/SettingManagement/DeleteSetting/Scripts/DeleteSettingApplication.js",
-                "~/Areas/AdminTool/SettingManagement/DeleteSetting/Scripts/DeleteSettingService.js",
-                "~/Areas/AdminTool/SettingManagement/DeleteSetting/Scripts/DeleteSettingController.js"));
-
-            AddAndInclude(
-                bundles,
-                "~/Areas/Admin/SettingManagement/DeleteSettingStyles",
-                "~/Areas/AdminTool/SettingManagement/DeleteSetting/Styles/DeleteSetting.less");
-        }
-
-        /// <summary>
-        /// Register Setting Management Edit Setting Bundles.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void RegisterSettingManagementEditSettingBundles(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/EditSettingScripts").Include(
-                "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                "~/Scripts/ShareScripts/DirectiveManager.js",
-                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Scripts/ShareScripts/MessageResult.js",
-                "~/Scripts/ShareScripts/HotKeyManager.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingApplication.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingService.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_Options.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_Update.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_HotKey.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/KeyPressDirective.js",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/RegisterSharedDirectives.js"));
-
-            AddAndInclude(
-                bundles,
-                "~/Areas/Admin/SettingManagement/EditSettingStyles",
-                "~/Areas/AdminTool/SettingManagement/EditSetting/Styles/EditSetting.less");
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
