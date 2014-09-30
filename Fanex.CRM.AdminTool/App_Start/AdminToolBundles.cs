@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="AdminBundles.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="AdminToolBundles.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Kan.Nguyen" date="2014.08.01">Created</change>
+//   <change who="Louis.Nguyen" date="2014.08.01">Created</change>
 // </history>
 
 namespace Fanex.CRM.AdminTool.App_Start
@@ -16,7 +16,7 @@ namespace Fanex.CRM.AdminTool.App_Start
     /// <summary>
     /// Bundle Config of Report.
     /// </summary>
-    public static class AdminBundles
+    public static class AdminToolBundles
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -24,6 +24,9 @@ namespace Fanex.CRM.AdminTool.App_Start
             RegisterDeleteFeedbackSubjectTemplateBundles(bundles);
             RegisterEditFeedbackSubjectTemplateBundles(bundles);
             RegisterInsertFeedbackSubjectTemplateBundles(bundles);
+
+            RegisterSettingRelationViewListBundles(bundles);
+            RegisterAddSettingRelationBundles(bundles);
         }
 
         /// <summary>
@@ -121,6 +124,62 @@ namespace Fanex.CRM.AdminTool.App_Start
                 bundles,
                 "~/Areas/Admin/FeedbackSubjectManagement/InsertTemplateStyles",
                 "~/Areas/AdminTool/FeedbackSubjectManagement/InsertTemplate/Styles/InsertTemplate.less");
+        }
+
+        /// <summary>
+        /// Register Setting Relation View List Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterSettingRelationViewListBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingRelation/ViewListScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/AdminTool/SettingRelation/ViewList/Scripts/ViewListApplication.js",
+                "~/Areas/AdminTool/SettingRelation/ViewList/Scripts/ViewListService.js",
+                "~/Areas/AdminTool/SettingRelation/ViewList/Scripts/ViewListController.js",
+                "~/Areas/AdminTool/SettingRelation/ViewList/Scripts/ViewListController_Options.js",
+                "~/Areas/AdminTool/SettingRelation/ViewList/Scripts/ViewListController_Update.js",
+                "~/Areas/AdminTool/SettingRelation/ViewList/Scripts/ViewListController_HotKey.js",
+                "~/Areas/AdminTool/SettingRelation/ViewList/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingRelation/ViewListStyles",
+                "~/Areas/AdminTool/SettingRelation/ViewList/Styles/ViewList.less");
+        }
+
+        /// <summary>
+        /// Register Add Relation Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterAddSettingRelationBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingRelation/AddRelationScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/AdminTool/SettingRelation/AddRelation/Scripts/AddRelationApplication.js",
+                "~/Areas/AdminTool/SettingRelation/AddRelation/Scripts/AddRelationService.js",
+                "~/Areas/AdminTool/SettingRelation/AddRelation/Scripts/AddRelationController.js",
+                "~/Areas/AdminTool/SettingRelation/AddRelation/Scripts/AddRelationController_Options.js",
+                "~/Areas/AdminTool/SettingRelation/AddRelation/Scripts/AddRelationController_Update.js",
+                "~/Areas/AdminTool/SettingRelation/AddRelation/Scripts/AddRelationController_HotKey.js",
+                "~/Areas/AdminTool/SettingRelation/AddRelation/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingRelation/AddRelationStyles",
+                "~/Areas/AdminTool/SettingRelation/AddRelation/Styles/AddRelation.less");
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)

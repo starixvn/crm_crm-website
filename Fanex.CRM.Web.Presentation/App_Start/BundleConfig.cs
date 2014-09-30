@@ -129,7 +129,7 @@ namespace Fanex.CRM.Web.View.App_Start
             ReportBundles.RegisterBundles(bundles);
 
             InformHeadlinesBundles.RegisterAll(bundles);
-            AdminBundles.RegisterBundles(bundles);
+            AdminToolBundles.RegisterBundles(bundles);
         }
 
         /// <summary>
