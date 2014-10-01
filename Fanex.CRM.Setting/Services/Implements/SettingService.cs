@@ -14,6 +14,7 @@ namespace Fanex.CRM.Setting.Services.Implements
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
@@ -44,7 +45,7 @@ namespace Fanex.CRM.Setting.Services.Implements
         public const string GetAllResponseSessionKey = "Fanex.CRM.Setting.GetAllResponseSessionKey";
         public const string GetAllActivityLogActionKey = "Fanex.CRM.Setting.GetAllActivityLogActionKey";
         public const string GetAllSettingLogActionKey = "Fanex.CRM.Setting.GetAllSettingLogActionKey";
-        public const string GetAllStatusInformHeadlineKey = "Fanex.CRM.Setting.GetAllStatusInformHeadlineKey";
+        public const string GetAllInformHeadlineSettingKey = "Fanex.CRM.Setting.GetAllInformHeadlineSettingKey";
 
         private readonly ISettingRepository _settingRepositoryInstance;
 
@@ -765,31 +766,41 @@ namespace Fanex.CRM.Setting.Services.Implements
         }
 
         /// <summary>
-        /// Gets all status inform headline.
+        /// Gets all inform headline settings.
         /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The SettingInfo list.</returns>
-        public List<SettingInfo> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
+        /// <returns>The Inform Headline Setting object.</returns>
+        public InformHeadlineSetting GetAllInformHeadlineSettings()
         {
-            List<SettingInfo> status = null;
-            string cachedKey = GetAllStatusInformHeadlineKey;
+            string cachedKey = GetAllInformHeadlineSettingKey;
             try
             {
-                status = CacheService.Get<List<SettingInfo>>(cachedKey);
-                if (status != null)
+                var settings = CacheService.Get<InformHeadlineSetting>(cachedKey);
+                if (settings != null)
                 {
-                    return status;
+                    return settings;
                 }
 
-                status = _settingRepositoryInstance.GetAllStatusInformHeadline(criteria);
-                CacheService.Set(cachedKey, status);
+                settings = new InformHeadlineSetting
+                {
+                    Status = _settingRepositoryInstance.GetAllStatusInformHeadline(new GetAllStatusInformHeadlineCriteria()),
+                    ProductStatus = new List<BaseModel>() 
+                    {
+                        new BaseModel { Id = HeadlineProductStatusConstants.NotAvailable, Name = Labels.Symbol_NotApply },
+                        new BaseModel { Id = HeadlineProductStatusConstants.Enable, Name = Labels.Enable },
+                        new BaseModel { Id = HeadlineProductStatusConstants.Disable, Name = Labels.Disable }
+                    },
+                    Extensions = GetAllExtension()
+                };
+                
+                CacheService.Set(cachedKey, settings);
+                return settings;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
             }
 
-            return status;
+            return null;
         }
 
         /// <summary>

@@ -31,6 +31,14 @@ namespace Fanex.CRM.Customer.Models.InformHeadlines
 
         public int StatusId { get; set; }
 
+        public string InformStatus { get; set; }
+
+        public int ExtensionId { get; set; }
+
+        public string Extension { get; set; }
+
+        public int ProductStatus { get; set; }
+
         public DateTime UpdatedTime { get; set; }
 
         public string UpdatedTimeString

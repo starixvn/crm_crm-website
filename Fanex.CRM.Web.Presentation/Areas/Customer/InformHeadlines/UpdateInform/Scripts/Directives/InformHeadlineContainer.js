@@ -29,8 +29,10 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
             columns: [{ HeaderText: updateInformResources.Headline, Width: 150, Name: 'ColHeadline', HeaderAlign: 'center', CellAlign: 'left' },
                     { HeaderText: updateInformResources.Status, Width: 150, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
                     { HeaderText: updateInformResources.UpdatedTime, Width: 105, Name: 'ColUpdatedTime', HeaderAlign: 'center', CellAlign: 'center' },
-                    { HeaderText: updateInformResources.Remark, Width: 250, Name: 'ColRemark', HeaderAlign: 'center', CellAlign: 'left' },
-                    { HeaderText: updateInformResources.Handler, Width: 150, Name: 'ColHandler', HeaderAlign: 'center', CellAlign: 'left'}],
+                    { HeaderText: updateInformResources.Remark, Width: 340, Name: 'ColRemark', HeaderAlign: 'center', CellAlign: 'left' },
+                    { HeaderText: updateInformResources.Handler, Width: 150, Name: 'ColHandler', HeaderAlign: 'center', CellAlign: 'left' },
+                    { HeaderText: updateInformResources.Extension, Width: 80, Name: 'ColExtension', HeaderAlign: 'center', CellAlign: 'center' },
+                    { HeaderText: updateInformResources.ProductStatus, Width: 110, Name: 'ColProductStatus', HeaderAlign: 'center', CellAlign: 'center'}],
             bodyRows: bodyData,
             numberOfFrozenColumn: 0,
             fullWidth: true,
@@ -60,7 +62,9 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
                     { Name: 'ColStatus', Value: renderSelectStatus(info.StatusId, scope, i) },
                     { Name: 'ColUpdatedTime', Value: info.UpdatedTimeString },
                     { Name: 'ColRemark', Value: renderTextboxRemark(info.Remark, i) },
-                    { Name: 'ColHandler', Value: info.Handler}];
+                    { Name: 'ColHandler', Value: info.Handler },
+                    { Name: 'ColExtension', Value: renderExtension(info.ExtensionId, scope, i) },
+                    { Name: 'ColProductStatus', Value: renderProductStatus(info.ProductStatus, scope, i)}];
 
 
             bodyData.push({ Columns: cell });
@@ -94,8 +98,40 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
         return html.join('');
     }
 
+    function renderExtension(selectedValue, scope, index) {
+        var html = [];
+        html.push('<select class="extension" data-index="' + index + '">');
+        $.each(scope.extensions, function (i, item) {
+            html.push('<option value="', item.Id, '"');
+            if (selectedValue === item.Id) {
+                html.push(' selected ');
+            }
+
+            html.push('>', item.Value, '</option>');
+        });
+
+        html.push('</select>');
+        return html.join('');
+    }
+
+    function renderProductStatus(selectedValue, scope, index) {
+        var html = [];
+        html.push('<select class="productStatus" data-index="' + index + '">');
+        $.each(scope.productStatus, function (i, item) {
+            html.push('<option value="', item.Id, '"');
+            if (selectedValue === item.Id) {
+                html.push(' selected ');
+            }
+
+            html.push('>', item.Name, '</option>');
+        });
+
+        html.push('</select>');
+        return html.join('');
+    }
+
     function renderTextboxRemark(remark, index) {
-        return '<input type="text" class="textbox remark" value="' + remark + '" data-index="' + index + '"/>';
+        return '<textarea class="textbox remark" rows="3" data-index="' + index + '">' + remark + '</textarea>';
     }
 
     return {
@@ -125,6 +161,26 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
                                 newValues[index].IsChanged = true;
                                 scope.updateIsStatusChanged(true);
                             }
+                        });
+
+                    element.find('.extension')
+                        .unbind('change')
+                        .bind('change', function () {
+                            var $this = $(this);
+                            var index = $this.data('index');
+                            newValues[index].ExtensionId = $this.val();
+                            newValues[index].IsChanged = true;
+                            scope.updateIsStatusChanged(true);
+                        });
+
+                    element.find('.productStatus')
+                        .unbind('change')
+                        .bind('change', function () {
+                            var $this = $(this);
+                            var index = $this.data('index');
+                            newValues[index].ProductStatus = $this.val();
+                            newValues[index].IsChanged = true;
+                            scope.updateIsStatusChanged(true);
                         });
                 }
             });

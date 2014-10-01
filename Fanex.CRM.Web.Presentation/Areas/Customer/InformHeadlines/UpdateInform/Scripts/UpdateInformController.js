@@ -15,11 +15,14 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
     function ($scope, updateInformService, $uiBlockerService, alertBoxService) {
         $scope.statusOptions = {};
         $scope.selectedStatusIds = '';
+        $scope.productStatus = [];
+        $scope.extensions = [];
         $scope.titleId = titleId;
         $scope.title = '';
         $scope.oldTitle = '';
+        $scope.username = '';
         $scope.informs = [];
-        $scope.defaultItemPerPage = 20;
+        $scope.defaultItemPerPage = 10;
         $scope.pagerOption = {
             itemsPerPage: $scope.defaultItemPerPage,
             currentPage: 0,
@@ -34,10 +37,10 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
         };
 
         $scope.initController = function () {
-            $scope.getStatusList();
+            $scope.getAllInformHeadlineSettings();
         };
 
-        $scope.getStatusList = function () {
+        $scope.getAllInformHeadlineSettings = function () {
             $uiBlockerService.blockUI();
             $scope.statusOptions = {
                 DataList: [],
@@ -49,12 +52,14 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 NumberOfItemShowShortText: 0
             };
 
-            updateInformService.getStatusList()
-                .then(function (status) {
-                    $scope.statusOptions.DataList = status.Result;
+            updateInformService.getAllInformHeadlineSettings()
+                .then(function (settings) {
+                    $scope.statusOptions.DataList = settings.Result.Status;
+                    $scope.productStatus = settings.Result.ProductStatus;
+                    $scope.extensions = settings.Result.Extensions;
                     $scope.getInforms(0, $scope.defaultItemPerPage);
                 },
-                function (status) {
+                function (settings) {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -67,7 +72,11 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             $uiBlockerService.blockUI();
             $scope.pagerOption.currentPage = pageIndex;
             $scope.pagerOption.itemsPerPage = itemsPerPage;
-            var informCriteria = { TitleId: $scope.titleId, Status: $scope.selectedStatusIds, PageIndex: ++pageIndex, ItemsPerPage: itemsPerPage };
+            var informCriteria = { TitleId: $scope.titleId,
+                Status: $scope.selectedStatusIds,
+                Username: $scope.username,
+                PageIndex: ++pageIndex, 
+                ItemsPerPage: itemsPerPage };
             updateInformService.getInforms(informCriteria)
                 .then(function (data) {
                     var result = data.Result;
@@ -166,6 +175,39 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             }
 
             $scope.getInforms(0, $scope.defaultItemPerPage);
+        };
+
+        $scope.exportInformsExcel = function () {
+            var params = { TitleId: $scope.titleId };
+            var homeManager = parent.homeManager;
+            if (!homeManager.CachedData.isChangingDataPopUp) {
+                $scope.downloadFileOptions = {
+                    URL: window.rootUrl + 'InformHeadlines/ExportInforms',
+                    Params: params
+                };
+                return;
+            }
+
+            homeManager.CachedData.ignoreConfirmMessagePopUp = updateInformResources.Confirm_Export_InformStatus;
+            homeManager.showConfirmExportExcelPopUp(function (result) {
+                if (result) {
+                    $scope.updateInforms();
+                    setTimeout(function () {
+                        $scope.downloadFileOptions = {
+                            URL: window.rootUrl + 'InformHeadlines/ExportInforms',
+                            Params: params
+                        };
+                    }, 3000);
+                }
+                else {
+                    $scope.downloadFileOptions = {
+                        URL: window.rootUrl + 'InformHeadlines/ExportInforms',
+                        Params: params
+                    };
+
+                    $scope.$apply();
+                }
+            });
         };
 
         $scope.invokeHotKey_CtrlE = function () {

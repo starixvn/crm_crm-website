@@ -420,4 +420,25 @@
   <data name="NoPermission" xml:space="preserve">
     <value>You don't have permission on this function!</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="ExportToExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>Extension</value>
+  </data>
+  <data name="ProductStatus" xml:space="preserve">
+    <value>Product Status</value>
+  </data>
+  <data name="Confirm_Export_InformStatus" xml:space="preserve">
+    <value>There are changes on New Inform Headline form?&lt;br/&gt;&lt;br/&gt;Click &lt;b&gt;Yes&lt;/b&gt; to save then export data.&lt;br/&gt;Click &lt;b&gt;No&lt;/b&gt; to export data without saving.</value>
+  </data>
+  <data name="InformHeadlinesStatusExcelName" xml:space="preserve">
+    <value>Inform_Headlines_Status</value>
+  </data>
+  <data name="InformHeadlinesStatusName" xml:space="preserve">
+    <value>Inform Headlines Status</value>
+  </data>
 </root>

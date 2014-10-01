@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Setting.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.NAP.Framework.Data;
@@ -40,6 +41,6 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
 
         List<SettingInfo> GetAllBetType(GetAllBetTypeCriteria criteria);
 
-        List<SettingInfo> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria);
+        List<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria);
     }
 }

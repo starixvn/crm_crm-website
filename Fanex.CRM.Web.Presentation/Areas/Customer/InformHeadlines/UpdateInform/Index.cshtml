@@ -20,6 +20,10 @@
                 <input id="title" type="text" class="textbox title" tabindex="1" @(canUpdateTitle ? "" : "disabled") data-ng-model="title"/>
             </div>
             <div class="item">
+                <label for="username">@Labels.Username</label>
+                <input id="username" type="text" class="textbox username" tabindex="2" data-ng-model="username"/>
+            </div>
+            <div class="item">
                 <label for="status">@Labels.Status</label>
                 <div class="selStatus pull-right" status-multi-container data-ng-model="statusOptions.DataList">
                     <select id="status"></select>
@@ -28,12 +32,16 @@
             <div class="item">
                 <button type="button" class="btn" data-ng-click="searchInform()">S<span class="hotkey">e</span>arch</button>
             </div>
+            <input id="btn-excel" class="btnExcel" type="button" title="@Labels.ExportToExcel" data-ng-click="exportInformsExcel()" />
         </div>
         <div class="row">
             <div data-ng-model="informs" table-inform-headline-container>
                 <div id="table-inform-headline" class="freegrid display-none">
                 </div>
             </div>
+        </div>
+        <div class="row download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
         @if (canUpdateStatus)
         {
@@ -47,6 +55,7 @@
     @Scripts.Render("~/Scripts/CommomScripts",
         "~/Scripts/FanexGridScripts",
         "~/Scripts/AngularJSLibrary",
+        "~/CRM/DownLoadFile/Scripts",
         "~/Areas/Customer/InformHeadlines/UpdateInformScript")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
@@ -57,6 +66,8 @@
             UpdatedTime: '@Labels.UpdatedTime',
             Remark: '@Labels.Remark',
             Handler: '@Labels.Handler',
+            Extension: '@Labels.Extension',
+            ProductStatus: '@Labels.ProductStatus',
             AllStatus: '@Labels.AllStatus',
             Symbol_NotApply: '@Labels.Symbol_NotApply',
             No_status_found: '@Labels.No_status_found',
@@ -64,7 +75,8 @@
             Confirm_Ignore_UpdateInforms_Changes: '@Html.Raw(Labels.Confirm_Ignore_UpdateInforms_Changes)',
             UpdateInforms_TitleEmpty: '@Labels.UpdateInforms_TitleEmpty',
             InformHeadline_NoStatusFound: '@Labels.InformHeadline_NoStatusFound',
-            InformHeadline_NoDataChanged: '@Labels.InformHeadline_NoDataChanged'
+            InformHeadline_NoDataChanged: '@Labels.InformHeadline_NoDataChanged',
+            Confirm_Export_InformStatus: '@Html.Raw(Labels.Confirm_Export_InformStatus)'
         };
     </script>
 </body>

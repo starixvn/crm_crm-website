@@ -132,6 +132,12 @@
   <data name="Daily" xml:space="preserve">
     <value>Daily</value>
   </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
   <data name="Error_GetAllSetting" xml:space="preserve">
     <value>(SettingService GetAll) - {0}</value>
   </data>

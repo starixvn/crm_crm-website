@@ -20,6 +20,8 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
 
         public int TitleId { get; set; }
 
+        public string Username { get; set; }
+
         public string Status 
         { 
             get

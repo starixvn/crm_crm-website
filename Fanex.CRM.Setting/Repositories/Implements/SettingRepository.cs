@@ -11,6 +11,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
 {
     using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Repositories.Interfaces;
@@ -382,10 +383,10 @@ namespace Fanex.CRM.Setting.Repositories.Implements
         /// Gets all status inform headline.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The SettingInfo list.</returns>
-        public List<SettingInfo> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
+        /// <returns>The BaseModel list.</returns>
+        public List<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
         {
-            var status = new List<SettingInfo>();
+            var status = new List<BaseModel>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
@@ -394,7 +395,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                     {
                         while (reader.Read())
                         {
-                            var setting = new SettingInfo
+                            var setting = new BaseModel
                             {
                                 Id = reader.GetInt32NotNull("InformStatusId"),
                                 Name = reader.GetStringNotNull("Name")
