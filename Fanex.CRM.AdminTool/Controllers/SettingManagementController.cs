@@ -13,6 +13,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Services.SettingManagement;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Setting.Models;
 
@@ -50,10 +51,37 @@ namespace Fanex.CRM.AdminTool.Controllers
         {
             return View(
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Index.cshtml",
-                new SettingInfo
+                 new SettingInfo
                 {
                     Type = settingType
                 });
+        }
+
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public ActionResult OpenDeleteSettingView(
+            string settingType,
+            int settingId,
+            string settingValue)
+        {
+            return View(
+                "~/Areas/AdminTool/SettingManagement/DeleteSetting/Index.cshtml",
+                new SettingInfo
+                {
+                    Type = settingType,
+                    Id = settingId,
+                    Value = settingValue
+                });
+        }
+
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public ActionResult OpenEditSettingView(int settingId)
+        {
+            return View(
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Index.cshtml",
+                _settingManagementService.GetSettingById(new GetSettingByIdCriteria
+                {
+                    SettingId = settingId
+                }));
         }
 
         [HttpPost]
@@ -88,6 +116,24 @@ namespace Fanex.CRM.AdminTool.Controllers
         public JsonResult InsertSetting(InsertSettingCriteria criteria)
         {
             var result = _settingManagementService.InsertSetting(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        public JsonResult DeleteSetting(DeleteSettingCriteria criteria)
+        {
+            Result result = _settingManagementService.DeleteSetting(criteria);
+            var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        public JsonResult EditSetting(EditSettingCriteria criteria)
+        {
+            var result = _settingManagementService.EditSetting(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

@@ -20,5 +20,9 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
         List<SettingInfo> AllSetting(GetAllSettingCriteria criteria);
 
         Result InsertSetting(InsertSettingCriteria criteria);
+
+        Result DeleteSetting(DeleteSettingCriteria criteria);
+
+        Result EditSetting(EditSettingCriteria criteria);
     }
 }

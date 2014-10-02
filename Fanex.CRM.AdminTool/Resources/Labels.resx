@@ -126,6 +126,9 @@
   <data name="Confirm_Ignore_AddRelation_Changes" xml:space="preserve">
     <value>There are some changes on add relation view! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
+  <data name="Confirm_Ignore_EditSetting_Changes" xml:space="preserve">
+    <value>There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
   <data name="Confirm_Ignore_EditTemplate_Changes" xml:space="preserve">
     <value>There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Delete_Feedback_Subject_Template" xml:space="preserve">
     <value>Delete Feedback Subject Template</value>
   </data>
+  <data name="Delete_Setting" xml:space="preserve">
+    <value>Delete Setting</value>
+  </data>
   <data name="Display_Order" xml:space="preserve">
     <value>Display Order</value>
   </data>
@@ -149,6 +155,9 @@
   </data>
   <data name="Edit_Feedback_Subject_Template" xml:space="preserve">
     <value>Edit Feedback Subject Template</value>
+  </data>
+  <data name="Edit_Setting_Value" xml:space="preserve">
+    <value>Edit Setting Value</value>
   </data>
   <data name="FeedbackSubjectManagement_DeleteTemplate_Message" xml:space="preserve">
     <value>Are you sure you want to delete Feedback Subject Template {0}?</value>
@@ -213,6 +222,15 @@
   <data name="Setting" xml:space="preserve">
     <value>Setting</value>
   </data>
+  <data name="SettingManagement_DeleteSettingSuccess" xml:space="preserve">
+    <value>Delete setting successful!</value>
+  </data>
+  <data name="SettingManagement_DeleteSetting_Message" xml:space="preserve">
+    <value>Are you sure you want to delete Setting {0} {1}?</value>
+  </data>
+  <data name="SettingManagement_EditSetting_EditSuccess" xml:space="preserve">
+    <value>Update Setting successfully!</value>
+  </data>
   <data name="SettingManagement_Error_DisplayOrder" xml:space="preserve">
     <value>Display Order cannot greater than 2.100.000.000</value>
   </data>
@@ -266,6 +284,9 @@
   </data>
   <data name="Title_AdminTool_FeedbackSubjectManagement" xml:space="preserve">
     <value>CRM System - Feedback Subject Management</value>
+  </data>
+  <data name="Title_AdminTool_SettingManagement" xml:space="preserve">
+    <value>CRM System - Setting Management</value>
   </data>
   <data name="Title_AdminTool_SettingRelation" xml:space="preserve">
     <value>CRM System - Setting Relation</value>

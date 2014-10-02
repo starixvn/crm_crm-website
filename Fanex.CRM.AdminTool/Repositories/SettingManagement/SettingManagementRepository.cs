@@ -72,5 +72,51 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
 
             return insertResult;
         }
+
+        /// <summary>
+        /// Deletes the setting.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Delete result.</returns>
+        public Result DeleteSetting(DeleteSettingCriteria criteria)
+        {
+            Result deleteResult = null;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                deleteResult = new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
+            }
+
+            return deleteResult;
+        }
+
+        /// <summary>
+        /// Edits the setting.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Edit result.</returns>
+        public Result EditSetting(EditSettingCriteria criteria)
+        {
+            Result editResult = null;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                editResult = new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
+            }
+
+            return editResult;
+        }
     }
 }

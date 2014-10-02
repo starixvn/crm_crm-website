@@ -71,7 +71,10 @@
     <Compile Include="Criteria\FeedbackSubjectManagement\FeedbackSubjectTemplateByIdCriteria.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\InsertFeedbackSubjectTemplateCriteria.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\SearchFeedbackSubjectTemplateCriteria.cs" />
+    <Compile Include="Criteria\SettingManagement\DeleteSettingCriteria.cs" />
+    <Compile Include="Criteria\SettingManagement\EditSettingCriteria.cs" />
     <Compile Include="Criteria\SettingManagement\GetAllSettingCriteria.cs" />
+    <Compile Include="Criteria\SettingManagement\GetSettingByIdCriteria.cs" />
     <Compile Include="Criteria\SettingManagement\GetSettingByTypeCriteria.cs" />
     <Compile Include="Criteria\SettingManagement\InsertSettingCriteria.cs" />
     <Compile Include="Criteria\SettingRelation\AddSettingRelationsCriteria.cs" />
