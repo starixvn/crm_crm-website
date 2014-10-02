@@ -1,6 +1,9 @@
 ﻿"use strict";
-/* global crmConstants */
-/* jshint unused: vars */
+/* global crmConstants,
+keyboardManager,
+moment */
+/* jshint camelcase: false,
+unused: vars */
 var sharedScriptManager;
 var SharedScriptManager = function () {
     var self = this;
@@ -174,7 +177,7 @@ var SharedScriptManager = function () {
     self.safeApplyFunction = function ($scope, fn) {
         $scope.safeApplyFunction = function (fn) {
             var phase = this.$root.$$phase;
-            if (phase == '$apply' || phase == '$digest') {
+            if (phase === '$apply' || phase === '$digest') {
                 if (fn && (typeof (fn) === 'function')) {
                     fn();
                 }
@@ -276,6 +279,33 @@ var SharedScriptManager = function () {
     self.formatTimeToSendToServer = function (dateTime) {
         return moment(new Date(dateTime)).format(crmConstants.Enums.FormatConstant.MM_DD_YYYY_HH_MM_TT_String_Moment);
     };
+    self.forceNumberInput = function (e) {
+        var code = "";
+        if (e.which) {
+            code = e.which;
+        }
+        else if (e.keyCode) {
+            code = e.keyCode;
+        }
+
+        if (code === keyboardManager.Enums.KeyCode.End ||
+            code === keyboardManager.Enums.KeyCode.Home ||
+            code === keyboardManager.Enums.KeyCode.LeftArrow ||
+            code === keyboardManager.Enums.KeyCode.RightArrow) {
+            return true;
+        }
+
+        if ((code < keyboardManager.Enums.KeyCode.Number_0 || keyboardManager.Enums.KeyCode.Number_9 < code) &&
+            code !== keyboardManager.Enums.KeyCode.Backspace &&
+            code !== keyboardManager.Enums.KeyCode.Enter &&
+            code !== keyboardManager.Enums.KeyCode.None &&
+            (code !== keyboardManager.Enums.KeyCode.Delete || e.which) &&
+            code !== keyboardManager.Enums.KeyCode.Tab) {
+            return false;
+        }
+
+        return true;
+    };
 
     self.deepCompare = function (x, y) {
         // if both x and y are null or undefined and exactly the same
@@ -329,7 +359,7 @@ var SharedScriptManager = function () {
         }
 
         return true;
-    }
+    };
 };
 
 sharedScriptManager = new SharedScriptManager();

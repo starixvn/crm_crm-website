@@ -53,10 +53,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.Feedback", "Fanex
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{E5444E9A-BF2F-4854-81B9-C7181FBDF26B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.CRM.AdminTool", "Fanex.CRM.AdminTool\Fanex.CRM.AdminTool.csproj", "{6829D5B2-51ED-46F7-A82D-8009CD9FEF69}"
+EndProject
 Global
-	GlobalSection(JSLint) = preSolution
-		SolutionConfigurationLocation = JSLintOptions.xml
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -138,6 +137,10 @@ Global
 		{E059D093-3D6B-46C9-9FFD-FD48457AC639}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E059D093-3D6B-46C9-9FFD-FD48457AC639}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E059D093-3D6B-46C9-9FFD-FD48457AC639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6829D5B2-51ED-46F7-A82D-8009CD9FEF69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6829D5B2-51ED-46F7-A82D-8009CD9FEF69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6829D5B2-51ED-46F7-A82D-8009CD9FEF69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6829D5B2-51ED-46F7-A82D-8009CD9FEF69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -162,5 +165,6 @@ Global
 		{CFD9409D-BC95-4C34-B080-4783619DD68E} = {F63BC1ED-F62B-46E2-838E-4ED849B31B8F}
 		{D37120A9-532E-4C40-A6E6-EAFACCA8AED8} = {F63BC1ED-F62B-46E2-838E-4ED849B31B8F}
 		{E059D093-3D6B-46C9-9FFD-FD48457AC639} = {F63BC1ED-F62B-46E2-838E-4ED849B31B8F}
+		{6829D5B2-51ED-46F7-A82D-8009CD9FEF69} = {F63BC1ED-F62B-46E2-838E-4ED849B31B8F}
 	EndGlobalSection
 EndGlobal

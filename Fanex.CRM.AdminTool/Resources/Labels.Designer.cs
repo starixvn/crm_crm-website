@@ -97,6 +97,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?.
+        /// </summary>
+        public static string Confirm_Ignore_InsertNewSetting_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_InsertNewSetting_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_InsertTemplate_Changes {
@@ -120,6 +129,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Delete_Feedback_Subject_Template {
             get {
                 return ResourceManager.GetString("Delete_Feedback_Subject_Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Order.
+        /// </summary>
+        public static string Display_Order {
+            get {
+                return ResourceManager.GetString("Display_Order", resourceCulture);
             }
         }
         
@@ -205,11 +223,29 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max length of Setting Name is 100.
+        /// </summary>
+        public static string FeedbackSubjectManagement_Error_ExceedName {
+            get {
+                return ResourceManager.GetString("FeedbackSubjectManagement_Error_ExceedName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max length of subject template is 200 characters!.
         /// </summary>
         public static string FeedbackSubjectManagement_Error_ExceedTemplate {
             get {
                 return ResourceManager.GetString("FeedbackSubjectManagement_Error_ExceedTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max length of Setting Value is 100.
+        /// </summary>
+        public static string FeedbackSubjectManagement_Error_ExceedValue {
+            get {
+                return ResourceManager.GetString("FeedbackSubjectManagement_Error_ExceedValue", resourceCulture);
             }
         }
         
@@ -228,6 +264,24 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Insert_New_Feedback_Subject_Template {
             get {
                 return ResourceManager.GetString("Insert_New_Feedback_Subject_Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert New Setting.
+        /// </summary>
+        public static string Insert_New_Setting {
+            get {
+                return ResourceManager.GetString("Insert_New_Setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert Setting value for.
+        /// </summary>
+        public static string Insert_Setting_value_for {
+            get {
+                return ResourceManager.GetString("Insert_Setting_value_for", resourceCulture);
             }
         }
         
@@ -255,6 +309,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Order {
             get {
                 return ResourceManager.GetString("Order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parent.
+        /// </summary>
+        public static string Parent {
+            get {
+                return ResourceManager.GetString("Parent", resourceCulture);
             }
         }
         
@@ -295,11 +358,83 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Setting Name.
+        /// </summary>
+        public static string Setting_Name {
+            get {
+                return ResourceManager.GetString("Setting_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Setting Relation Management.
         /// </summary>
         public static string Setting_Relation_Management {
             get {
                 return ResourceManager.GetString("Setting_Relation_Management", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Value.
+        /// </summary>
+        public static string Setting_Value {
+            get {
+                return ResourceManager.GetString("Setting_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Order cannot greater than 2.100.000.000.
+        /// </summary>
+        public static string SettingManagement_Error_DisplayOrder {
+            get {
+                return ResourceManager.GetString("SettingManagement_Error_DisplayOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Setting Name.
+        /// </summary>
+        public static string SettingManagement_Error_EmptySettingName {
+            get {
+                return ResourceManager.GetString("SettingManagement_Error_EmptySettingName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Setting Value.
+        /// </summary>
+        public static string SettingManagement_Error_EmptySettingValue {
+            get {
+                return ResourceManager.GetString("SettingManagement_Error_EmptySettingValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting existed already.
+        /// </summary>
+        public static string SettingManagement_Error_ExistedSetting {
+            get {
+                return ResourceManager.GetString("SettingManagement_Error_ExistedSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert new setting successfully.
+        /// </summary>
+        public static string SettingManagement_InsertSetting_InsertSuccess {
+            get {
+                return ResourceManager.GetString("SettingManagement_InsertSetting_InsertSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting Management by {0}.
+        /// </summary>
+        public static string SettingManagement_ViewListTitle {
+            get {
+                return ResourceManager.GetString("SettingManagement_ViewListTitle", resourceCulture);
             }
         }
         
@@ -336,6 +471,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Sub_setting {
             get {
                 return ResourceManager.GetString("Sub_setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string Symbol_NotApply {
+            get {
+                return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
             }
         }
         

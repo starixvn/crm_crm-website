@@ -71,6 +71,9 @@
     <Compile Include="Criteria\FeedbackSubjectManagement\FeedbackSubjectTemplateByIdCriteria.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\InsertFeedbackSubjectTemplateCriteria.cs" />
     <Compile Include="Criteria\FeedbackSubjectManagement\SearchFeedbackSubjectTemplateCriteria.cs" />
+    <Compile Include="Criteria\SettingManagement\GetAllSettingCriteria.cs" />
+    <Compile Include="Criteria\SettingManagement\GetSettingByTypeCriteria.cs" />
+    <Compile Include="Criteria\SettingManagement\InsertSettingCriteria.cs" />
     <Compile Include="Criteria\SettingRelation\AddSettingRelationsCriteria.cs" />
     <Compile Include="Criteria\SettingRelation\GetAllSettingCriteria.cs" />
     <Compile Include="Criteria\SettingRelation\GetAllSettingRelationCriteria.cs" />
@@ -100,9 +103,7 @@
     <Compile Include="Services\SettingRelation\ISettingRelationService.cs" />
     <Compile Include="Services\SettingRelation\SettingRelationService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Criteria\SettingManagement\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>

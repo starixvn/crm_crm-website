@@ -129,6 +129,9 @@
   <data name="Confirm_Ignore_EditTemplate_Changes" xml:space="preserve">
     <value>There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
+  <data name="Confirm_Ignore_InsertNewSetting_Changes" xml:space="preserve">
+    <value>There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
+  </data>
   <data name="Confirm_Ignore_InsertTemplate_Changes" xml:space="preserve">
     <value>There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Delete_Feedback_Subject_Template" xml:space="preserve">
     <value>Delete Feedback Subject Template</value>
+  </data>
+  <data name="Display_Order" xml:space="preserve">
+    <value>Display Order</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
@@ -150,8 +156,14 @@
   <data name="FeedbackSubjectManagement_Error_EmptyTemplate" xml:space="preserve">
     <value>Please Input Feedback Subject Template Content!</value>
   </data>
+  <data name="FeedbackSubjectManagement_Error_ExceedName" xml:space="preserve">
+    <value>Max length of Setting Name is 100</value>
+  </data>
   <data name="FeedbackSubjectManagement_Error_ExceedTemplate" xml:space="preserve">
     <value>Max length of subject template is 200 characters!</value>
+  </data>
+  <data name="FeedbackSubjectManagement_Error_ExceedValue" xml:space="preserve">
+    <value>Max length of Setting Value is 100</value>
   </data>
   <data name="Feedback_FeedbackSubjectManagement_DeleteSuccess" xml:space="preserve">
     <value>Delete template successful!</value>
@@ -174,6 +186,12 @@
   <data name="Insert_New_Feedback_Subject_Template" xml:space="preserve">
     <value>Insert New Feedback Subject Template</value>
   </data>
+  <data name="Insert_New_Setting" xml:space="preserve">
+    <value>Insert New Setting</value>
+  </data>
+  <data name="Insert_Setting_value_for" xml:space="preserve">
+    <value>Insert Setting value for</value>
+  </data>
   <data name="Is_Sub" xml:space="preserve">
     <value>Is Sub</value>
   </data>
@@ -183,6 +201,9 @@
   <data name="Order" xml:space="preserve">
     <value>Order</value>
   </data>
+  <data name="Parent" xml:space="preserve">
+    <value>Parent</value>
+  </data>
   <data name="Relation" xml:space="preserve">
     <value>Relation</value>
   </data>
@@ -191,6 +212,24 @@
   </data>
   <data name="Setting" xml:space="preserve">
     <value>Setting</value>
+  </data>
+  <data name="SettingManagement_Error_DisplayOrder" xml:space="preserve">
+    <value>Display Order cannot greater than 2.100.000.000</value>
+  </data>
+  <data name="SettingManagement_Error_EmptySettingName" xml:space="preserve">
+    <value>Invalid Setting Name</value>
+  </data>
+  <data name="SettingManagement_Error_EmptySettingValue" xml:space="preserve">
+    <value>Invalid Setting Value</value>
+  </data>
+  <data name="SettingManagement_Error_ExistedSetting" xml:space="preserve">
+    <value>Setting existed already</value>
+  </data>
+  <data name="SettingManagement_InsertSetting_InsertSuccess" xml:space="preserve">
+    <value>Insert new setting successfully</value>
+  </data>
+  <data name="SettingManagement_ViewListTitle" xml:space="preserve">
+    <value>Setting Management by {0}</value>
   </data>
   <data name="SettingRelation_AddRelationMessage" xml:space="preserve">
     <value>Add sub setting for &lt;span class="b"&gt;{0}&lt;/span&gt;</value>
@@ -204,11 +243,20 @@
   <data name="Setting_Id" xml:space="preserve">
     <value>Setting Id</value>
   </data>
+  <data name="Setting_Name" xml:space="preserve">
+    <value>Setting Name</value>
+  </data>
   <data name="Setting_Relation_Management" xml:space="preserve">
     <value>Setting Relation Management</value>
   </data>
+  <data name="Setting_Value" xml:space="preserve">
+    <value>Setting Value</value>
+  </data>
   <data name="Sub_setting" xml:space="preserve">
     <value>Sub setting</value>
+  </data>
+  <data name="Symbol_NotApply" xml:space="preserve">
+    <value>N/A</value>
   </data>
   <data name="Template_Content" xml:space="preserve">
     <value>Template Content</value>
