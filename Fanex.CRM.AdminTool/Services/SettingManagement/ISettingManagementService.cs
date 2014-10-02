@@ -10,7 +10,19 @@
 
 namespace Fanex.CRM.AdminTool.Services.SettingManagement
 {
+    using System.Collections.Generic;
+    using Fanex.CRM.AdminTool.Criteria.SettingManagement;
+    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Models;
+
     public interface ISettingManagementService
     {
+        List<SettingInfo> GetMainSetting();
+
+        List<SettingInfo> GetParentSetting();
+
+        List<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria);
+
+        Result InsertSetting(InsertSettingCriteria criteria);
     }
 }

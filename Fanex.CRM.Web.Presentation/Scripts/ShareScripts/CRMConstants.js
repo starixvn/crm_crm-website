@@ -15,6 +15,9 @@ var CRMConstants = function () {
         Site: {
             NotApply: 0
         },
+        Setting: {
+            NotApply: 0
+        },
 
         Title: {
             NotApply: 0

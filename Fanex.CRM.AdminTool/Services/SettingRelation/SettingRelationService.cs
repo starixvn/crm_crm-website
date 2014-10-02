@@ -22,6 +22,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
     using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services.Interfaces;
 
     /// <summary>
     /// Setting Relation Service.
@@ -34,14 +35,19 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
 
         private ISettingRelationRepository _settingRelationRepository;
 
+        private ISettingService _settingService;
+
         public SettingRelationService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public SettingRelationService(ISettingRelationRepository settingRelationRepository)
+        public SettingRelationService(
+            ISettingRelationRepository settingRelationRepository,
+            ISettingService settingService)
         {
             _settingRelationRepository = settingRelationRepository ?? new SettingRelationRepository();
+            _settingService = settingService ?? new SettingService();
         }
 
         /// <summary>
@@ -152,8 +158,8 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
                 {
                     addResult.Message = Labels.SettingRelation_AddRelation_UpdateSuccess;
                     CacheService.Delete(AllSettingSessionKey);
-                    CacheService.Delete(SettingService.GetAllSettingSessionKey);
                     CacheService.Delete(AllSettingRelationSessionKey);
+                    _settingService.ResetAllCache();
                 }
 
                 return addResult;

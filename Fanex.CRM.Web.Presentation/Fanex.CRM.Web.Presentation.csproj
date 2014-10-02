@@ -181,6 +181,32 @@
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController_Options.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController_Update.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListService.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\Directives\KeyPressDirective.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\Directives\ParentSettingDirective.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\InsertSettingApplication.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\InsertSettingController.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\InsertSettingController_HotKey.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\InsertSettingController_Options.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\InsertSettingController_Update.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\InsertSettingService.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\Directives\KeyPressDirective.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\Directives\ParentSettingDirective.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingApplication.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController_HotKey.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController_Options.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingController_Update.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Scripts\InsertSubSettingService.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListApplication.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\Directives\ViewListContainer.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListController.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListController_HotKey.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListController_Options.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListController_Update.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\ViewList\Scripts\ViewListService.js" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Scripts\AddRelationApplication.js" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Scripts\AddRelationController.js" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Scripts\AddRelationController_HotKey.js" />
@@ -988,8 +1014,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\AdminTool\SettingManagement\DeleteSetting\" />
     <Folder Include="Areas\AdminTool\SettingManagement\EditSetting\" />
-    <Folder Include="Areas\AdminTool\SettingManagement\InsertSetting\" />
-    <Folder Include="Areas\AdminTool\SettingManagement\InsertSubSetting\" />
     <Folder Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
@@ -1170,6 +1194,11 @@
     <Content Include="Configurations\WebDeployment.ConfigTransform\Master.MailSection.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Index.cshtml" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Index.cshtml" />
+    <None Include="Areas\AdminTool\SettingManagement\InsertSetting\Styles\InsertSetting.less" />
+    <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Index.cshtml" />
+    <None Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Styles\InsertSubSetting.less" />
+    <None Include="Areas\AdminTool\SettingManagement\ViewList\Styles\ViewList.less" />
     <None Include="Areas\AdminTool\SettingRelation\AddRelation\Styles\AddRelation.less" />
     <None Include="Areas\AdminTool\SettingRelation\ViewList\Styles\ViewList.less" />
     <Content Include="Configurations\Local.MailSection.config" />
@@ -1204,7 +1233,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>58282</DevelopmentServerPort>
+          <DevelopmentServerPort>58526</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
