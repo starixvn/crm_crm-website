@@ -10,7 +10,6 @@
 
 namespace Fanex.CRM.AdminTool.Services.SettingManagement
 {
-<<<<<<< HEAD
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -24,16 +23,12 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
-=======
-    using Fanex.CRM.AdminTool.Repositories.SettingManagement;
->>>>>>> #21867 - Admin Tool - Setting Relation
 
     /// <summary>
     /// Setting Relation Service.
     /// </summary>
     public class SettingManagementService : ISettingManagementService
     {
-<<<<<<< HEAD
         private const string AllSettingSessionKey = "Fanex.CRM.AdminTool.Services.SettingRelation.GetAllSettingSessionKey";
 
         private ISettingManagementRepository _settingManagementRepository;
@@ -173,6 +168,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             return firstElement.Any();
         }
 
+<<<<<<< HEAD
         /// <summary>
         /// Deletes the setting.
         /// </summary>
@@ -253,6 +249,8 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             }
         }
 
+=======
+>>>>>>> #21866 - Setting management
         private List<SettingInfo> AllSetting()
         {
             var allSetting = CacheService.Get<List<SettingInfo>>(AllSettingSessionKey);
@@ -270,18 +268,6 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             var subList = allSetting.Where(s => s.Type == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
             var setting = new SettingInfo { Type = key, ChildSettings = subList };
             settingList.Add(setting);
-=======
-        private ISettingManagementRepository _settingManagementRepository;
-
-        public SettingManagementService()
-            : this(null)
-        {
-        }
-
-        public SettingManagementService(ISettingManagementRepository settingManagementRepository)
-        {
-            _settingManagementRepository = settingManagementRepository ?? new SettingManagementRepository();
->>>>>>> #21867 - Admin Tool - Setting Relation
         }
     }
 }

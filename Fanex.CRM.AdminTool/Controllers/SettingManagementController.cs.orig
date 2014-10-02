@@ -11,25 +11,22 @@
 namespace Fanex.CRM.AdminTool.Controllers
 {
     using System.Web.Mvc;
-<<<<<<< HEAD
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Services.SettingManagement;
-    using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
-    using Fanex.CRM.Setting.Models;
-=======
+<<<<<<< HEAD
     using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement;
     using Fanex.CRM.Infrastructure.Models;
+=======
+>>>>>>> #21866 - Setting management
     using Fanex.CRM.Infrastructure.Web.Controllers;
->>>>>>> #21867 - Admin Tool - Setting Relation
+    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Setting Management Controller.
     /// </summary>
     public class SettingManagementController : BaseController
     {
-<<<<<<< HEAD
         private ISettingManagementService _settingManagementService;
 
         public SettingManagementController()
@@ -59,6 +56,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         {
             return View(
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Index.cshtml",
+<<<<<<< HEAD
                  new SettingInfo
                 {
                     Type = settingType
@@ -92,6 +90,14 @@ namespace Fanex.CRM.AdminTool.Controllers
                 }));
         }
 
+=======
+                new SettingInfo
+                {
+                    Type = settingType
+                });
+        }
+
+>>>>>>> #21866 - Setting management
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetMainSetting()
@@ -126,6 +132,7 @@ namespace Fanex.CRM.AdminTool.Controllers
             var result = _settingManagementService.InsertSetting(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
+<<<<<<< HEAD
         }
 
         [HttpPost]
@@ -145,11 +152,7 @@ namespace Fanex.CRM.AdminTool.Controllers
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
 =======
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
-        public ActionResult Index()
-        {
-            return View("~/Areas/AdminTool/FeedbackSubjectManagement/ViewList/Index.cshtml");
->>>>>>> #21867 - Admin Tool - Setting Relation
+>>>>>>> #21866 - Setting management
         }
     }
 }

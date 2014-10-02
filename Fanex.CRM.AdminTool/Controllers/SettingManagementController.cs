@@ -13,9 +13,6 @@ namespace Fanex.CRM.AdminTool.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Services.SettingManagement;
-    using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
-    using Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Setting.Models;
 

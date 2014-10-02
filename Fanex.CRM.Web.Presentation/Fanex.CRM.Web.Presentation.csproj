@@ -1028,8 +1028,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\AdminTool\SettingManagement\DeleteSetting\" />
     <Folder Include="Areas\AdminTool\SettingManagement\EditSetting\" />
-    <Folder Include="Areas\AdminTool\SettingManagement\InsertSetting\" />
-    <Folder Include="Areas\AdminTool\SettingManagement\InsertSubSetting\" />
     <Folder Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>

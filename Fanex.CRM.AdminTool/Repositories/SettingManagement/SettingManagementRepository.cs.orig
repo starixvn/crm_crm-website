@@ -10,7 +10,6 @@
 
 namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
 {
-<<<<<<< HEAD
     using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
@@ -18,14 +17,11 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;
 
-=======
->>>>>>> #21867 - Admin Tool - Setting Relation
     /// <summary>
     /// Setting Management Repository.
     /// </summary>
     public class SettingManagementRepository : ISettingManagementRepository
     {
-<<<<<<< HEAD
         /// <summary>
         /// Gets all setting.
         /// </summary>
@@ -76,6 +72,7 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
 
             return insertResult;
         }
+<<<<<<< HEAD
 
         /// <summary>
         /// Deletes the setting.
@@ -123,6 +120,6 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
             return editResult;
         }
 =======
->>>>>>> #21867 - Admin Tool - Setting Relation
+>>>>>>> #21866 - Setting management
     }
 }

@@ -538,6 +538,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string Symbol_NotApply {
+            get {
+                return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Template Content.
         /// </summary>
         public static string Template_Content {

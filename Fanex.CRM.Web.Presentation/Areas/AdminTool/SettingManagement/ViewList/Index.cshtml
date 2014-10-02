@@ -4,7 +4,7 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-settingmanagement-application">
 <head>
-    <title>@Labels.Title_AdminTool_SettingManagement </title>
+    <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/site/common")
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
@@ -42,6 +42,15 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div id="setting-management-list-container" class="setting-management-list-container"
+                data-ng-model="settingManagementView">
+                <div id="settingmanagement-list" class="freegrid display-none">
+                </div>
+            </div>
+        </div>
+        <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
         </div>
         <div class="row">
             <div id="setting-management-list-container" class="setting-management-list-container"

@@ -1,0 +1,110 @@
+﻿﻿@using Fanex.CRM.AdminTool.Resources;
+@using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-settingmanagement-insertnewsetting-application">
+<head>
+<<<<<<< HEAD
+    <title>@Labels.Title_AdminTool_SettingManagement </title>
+    @Styles.Render("~/site/common")
+=======
+    <title>@Labels.Title_AdminTool_SettingRelation </title>
+    @Styles.Render("~/site/common")
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
+>>>>>>> #21866 - Setting management
+    @Styles.Render("~/Areas/Admin/SettingManagement/InsertSettingStyles")
+</head>
+<body class="insertSettingController" data-ng-controller="insertSettingController">
+    <div class="container main popup">
+        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <form class="form-horizontal frm" role="form">
+            <div class="form-group">
+                <label for="txtSettingName" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                    @Labels.Setting_Name</label>
+                <div class="col-xs-9 col-sm-9 col-md-10">
+                    <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
+                        data-ng-model="insertSettingParams.NewSetting.Type" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtSettingValue" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                    @Labels.Setting_Value</label>
+                <div class="col-xs-9 col-sm-9 col-md-10">
+                    <input type="text" id="txtSettingValue" name="txtSettingValue" class="form-control textbox"
+                        data-ng-model="insertSettingParams.NewSetting.Value" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="ddlParent" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                    @Labels.Parent</label>
+                <div class="col-xs-9 col-sm-9 col-md-10 parent-setting-container" data-ng-model="parentSettingOptions.DataList">
+                    <select id="parentsetting">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="txtDisplayOrder" class="col-xs-3 col-sm-3 col-md-2 control-label">
+                    @Labels.Display_Order</label>
+                <div class="col-xs-9 col-sm-9 col-md-10">
+                    <input type="text" id="txtDisplayOrder" name="txtDisplayOrder" class="form-control textbox key-press-directive"
+                        data-ng-model="insertSettingParams.NewSetting.DisplayOrder" maxlength="20" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-sm-offset-3 col-md-offset-2 col-xs-9 col-sm-9 col-md-10">
+                    <button type="button" class="btn" data-ng-click="insertSetting();">
+                        <span class="hotkey">S</span>ave
+                    </button>
+                </div>
+            </div>
+            </form>
+        </div>
+        <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+<<<<<<< HEAD
+=======
+        "~/Scripts/FanexGridScripts",
+>>>>>>> #21866 - Setting management
+        "~/Areas/Admin/SettingManagement/InsertSettingScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var viewResources = {
+            All: '@Labels.All',
+<<<<<<< HEAD
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+=======
+            Edit: '@Labels.Edit',
+            Delete: '@Labels.Delete',
+            Setting: '@Labels.Setting',
+            Relation: '@Labels.Relation',
+            Setting_Id: '@Labels.Setting_Id',
+            Order: '@Labels.Order',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
+            ViewListTitle: '@Labels.SettingManagement_ViewListTitle',
+            Setting_Relation_Management: '@Labels.Setting_Relation_Management',
+            Insert_New_Setting: '@Labels.Insert_New_Setting',
+>>>>>>> #21866 - Setting management
+            Confirm_Ignore_InsertSetting_Changes: '@Html.Raw(Labels.Confirm_Ignore_InsertNewSetting_Changes)',
+            SettingManagement_Error_EmptySettingName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
+            SettingManagement_Error_EmptySettingValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
+            SettingManagement_Error_ExceedName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
+            SettingManagement_Error_ExceedValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',
+            SettingManagement_Error_DisplayOrder: '@Html.Raw(Labels.SettingManagement_Error_DisplayOrder)'
+        };
+    </script>
+</body>
+</html>
