@@ -4,7 +4,11 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-settingmanagement-application">
 <head>
+<<<<<<< HEAD
     <meta name="viewport" content="width=device-width" />
+=======
+    <title>@Labels.Title_AdminTool_SettingManagement </title>
+>>>>>>> #21866 - Setting management
     @Styles.Render("~/site/common")
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
@@ -52,6 +56,27 @@
         </div>
         <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
         </div>
+        <div class="row">
+            <div id="setting-management-list-container" class="setting-management-list-container"
+                data-ng-model="settingManagementView">
+                <div id="settingmanagement-list" class="freegrid display-none">
+                </div>
+            </div>
+        </div>
+        <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Scripts/FanexGridScripts",
+        "~/Areas/Admin/SettingManagement/ViewListScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var viewResources = {
+            All: '@Labels.All',
+            Edit: '@Labels.Edit',
+            Delete: '@Labels.Delete',
             Setting: '@Labels.Setting',
             Relation: '@Labels.Relation',
             Setting_Id: '@Labels.Setting_Id',
