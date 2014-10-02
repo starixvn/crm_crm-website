@@ -136,10 +136,6 @@ insertSubSettingApplication.controller('insertSubSettingController',
             $scope.updateChangeFlag();
             parent.ClosePopup();
         };
-        $scope.forceNumberInput = function (e) {
-            return sharedScriptManager.forceNumberInput(e);
-        };
-
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);

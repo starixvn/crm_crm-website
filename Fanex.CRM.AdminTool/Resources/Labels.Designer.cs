@@ -88,6 +88,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?.
+        /// </summary>
+        public static string Confirm_Ignore_EditSetting_Changes {
+            get {
+                return ResourceManager.GetString("Confirm_Ignore_EditSetting_Changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
         public static string Confirm_Ignore_EditTemplate_Changes {
@@ -133,6 +142,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete Setting.
+        /// </summary>
+        public static string Delete_Setting {
+            get {
+                return ResourceManager.GetString("Delete_Setting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display Order.
         /// </summary>
         public static string Display_Order {
@@ -156,6 +174,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Edit_Feedback_Subject_Template {
             get {
                 return ResourceManager.GetString("Edit_Feedback_Subject_Template", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Setting Value.
+        /// </summary>
+        public static string Edit_Setting_Value {
+            get {
+                return ResourceManager.GetString("Edit_Setting_Value", resourceCulture);
             }
         }
         
@@ -385,6 +412,33 @@ namespace Fanex.CRM.AdminTool.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete Setting {0} {1}?.
+        /// </summary>
+        public static string SettingManagement_DeleteSetting_Message {
+            get {
+                return ResourceManager.GetString("SettingManagement_DeleteSetting_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete setting successful!.
+        /// </summary>
+        public static string SettingManagement_DeleteSettingSuccess {
+            get {
+                return ResourceManager.GetString("SettingManagement_DeleteSettingSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Setting successfully!.
+        /// </summary>
+        public static string SettingManagement_EditSetting_EditSuccess {
+            get {
+                return ResourceManager.GetString("SettingManagement_EditSetting_EditSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display Order cannot greater than 2.100.000.000.
         /// </summary>
         public static string SettingManagement_Error_DisplayOrder {
@@ -507,6 +561,15 @@ namespace Fanex.CRM.AdminTool.Resources {
         public static string Title_AdminTool_FeedbackSubjectManagement {
             get {
                 return ResourceManager.GetString("Title_AdminTool_FeedbackSubjectManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM System - Setting Management.
+        /// </summary>
+        public static string Title_AdminTool_SettingManagement {
+            get {
+                return ResourceManager.GetString("Title_AdminTool_SettingManagement", resourceCulture);
             }
         }
         

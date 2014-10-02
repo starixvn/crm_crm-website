@@ -24,5 +24,11 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         List<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria);
 
         Result InsertSetting(InsertSettingCriteria criteria);
+
+        Result DeleteSetting(DeleteSettingCriteria criteria);
+
+        SettingInfo GetSettingById(GetSettingByIdCriteria criteria);
+
+        Result EditSetting(EditSettingCriteria criteria);
     }
 }

@@ -74,12 +74,19 @@ viewListApplication.directive('settingManagementListContainer', function () {
 
         tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-        //        var addIcons = tableSetting.find(".addSetting");
-        //        addIcons.unbind("click");
-        //        addIcons.click(function () {
-        //            var rowIndex = parseInt($(this).attr("data-row-index"));
-        //            selfScope.addRelation(settingRelationView[rowIndex]);
-        //        });
+        var deleteIcons = tableSetting.find(".deleteSetting");
+        deleteIcons.unbind("click");
+        deleteIcons.click(function () {
+            var rowIndex = parseInt($(this).attr("data-row-index"));
+            selfScope.deleteSetting(settingManagementView[rowIndex]);
+        });
+
+        var editIcons = tableSetting.find(".editSetting");
+        editIcons.unbind("click");
+        editIcons.click(function () {
+            var rowIndex = parseInt($(this).attr("data-row-index"));
+            selfScope.editSetting(settingManagementView[rowIndex]);
+        });
     }
 
     return {

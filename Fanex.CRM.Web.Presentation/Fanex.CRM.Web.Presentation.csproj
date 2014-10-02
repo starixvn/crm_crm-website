@@ -181,6 +181,17 @@
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController_Options.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListController_Update.js" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Scripts\ViewListService.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Scripts\DeleteSettingApplication.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Scripts\DeleteSettingController.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Scripts\DeleteSettingService.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\Directives\KeyPressDirective.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingApplication.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingController.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingController_HotKey.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingController_Options.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingController_Update.js" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Scripts\EditSettingService.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\Directives\KeyPressDirective.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\Directives\ParentSettingDirective.js" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Scripts\Directives\RegisterSharedDirectives.js" />
@@ -1012,8 +1023,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\AdminTool\SettingManagement\DeleteSetting\" />
-    <Folder Include="Areas\AdminTool\SettingManagement\EditSetting\" />
     <Folder Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
@@ -1195,6 +1204,10 @@
     <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Index.cshtml" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSetting\Index.cshtml" />
+    <Content Include="Areas\AdminTool\SettingManagement\DeleteSetting\Index.cshtml" />
+    <None Include="Areas\AdminTool\SettingManagement\DeleteSetting\Styles\DeleteSetting.less" />
+    <Content Include="Areas\AdminTool\SettingManagement\EditSetting\Index.cshtml" />
+    <None Include="Areas\AdminTool\SettingManagement\EditSetting\Styles\EditSetting.less" />
     <None Include="Areas\AdminTool\SettingManagement\InsertSetting\Styles\InsertSetting.less" />
     <Content Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Index.cshtml" />
     <None Include="Areas\AdminTool\SettingManagement\InsertSubSetting\Styles\InsertSubSetting.less" />

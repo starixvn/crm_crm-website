@@ -4,10 +4,8 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-settingmanagement-insertnewsetting-application">
 <head>
-    <title>@Labels.Title_AdminTool_SettingRelation </title>
+    <title>@Labels.Title_AdminTool_SettingManagement </title>
     @Styles.Render("~/site/common")
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
     @Styles.Render("~/Areas/Admin/SettingManagement/InsertSettingStyles")
 </head>
 <body class="insertSettingController" data-ng-controller="insertSettingController">
@@ -70,22 +68,12 @@
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     @Scripts.Render(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
-        "~/Scripts/FanexGridScripts",
         "~/Areas/Admin/SettingManagement/InsertSettingScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var viewResources = {
             All: '@Labels.All',
-            Edit: '@Labels.Edit',
-            Delete: '@Labels.Delete',
-            Setting: '@Labels.Setting',
-            Relation: '@Labels.Relation',
-            Setting_Id: '@Labels.Setting_Id',
-            Order: '@Labels.Order',
             Symbol_NotApply: '@Labels.Symbol_NotApply',
-            ViewListTitle: '@Labels.SettingManagement_ViewListTitle',
-            Setting_Relation_Management: '@Labels.Setting_Relation_Management',
-            Insert_New_Setting: '@Labels.Insert_New_Setting',
             Confirm_Ignore_InsertSetting_Changes: '@Html.Raw(Labels.Confirm_Ignore_InsertNewSetting_Changes)',
             SettingManagement_Error_EmptySettingName: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingName)',
             SettingManagement_Error_EmptySettingValue: '@Html.Raw(Labels.SettingManagement_Error_EmptySettingValue)',

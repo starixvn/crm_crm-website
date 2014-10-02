@@ -168,6 +168,86 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             return firstElement.Any();
         }
 
+        /// <summary>
+        /// Deletes the setting.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Delete result.</returns>
+        public Result DeleteSetting(DeleteSettingCriteria criteria)
+        {
+            try
+            {
+                Result result = new Result();
+                if (IsExistedSetting(criteria.OldSetting))
+                {
+                    result = _settingManagementRepository.DeleteSetting(criteria);
+                }
+
+                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                {
+                    result.Message = Labels.SettingManagement_DeleteSettingSuccess;
+                    _settingService.ResetAllCache();
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Edits the setting.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Edit result.</returns>
+        public Result EditSetting(EditSettingCriteria criteria)
+        {
+            try
+            {
+                Result result = !string.Equals(criteria.OldSetting.Value, criteria.UpdatedSetting.Value, StringComparison.OrdinalIgnoreCase) &&
+                    IsExistedSetting(criteria.UpdatedSetting) ?
+                    new Result(ErrorCodeConstants.ServerError, Labels.SettingManagement_Error_ExistedSetting) :
+                    _settingManagementRepository.EditSetting(criteria);
+
+                if (result != null && result.Code == ErrorCodeConstants.NoneError)
+                {
+                    result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
+                    _settingService.ResetAllCache();
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets the setting by identifier.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The setting by identifier.</returns>
+        public SettingInfo GetSettingById(GetSettingByIdCriteria criteria)
+        {
+            try
+            {
+                return AllSetting()
+                    .Where(s => s.Id == criteria.SettingId)
+                    .ToList()
+                    .FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
         private List<SettingInfo> AllSetting()
         {
             var allSetting = CacheService.Get<List<SettingInfo>>(AllSettingSessionKey);

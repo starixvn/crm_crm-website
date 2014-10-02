@@ -89,6 +89,46 @@ viewListApplication.controller('viewListController',
                 ['center', 200],
                 $scope.beforeCloseInsertView);
         };
+        $scope.deleteSetting = function (settingInfo) {
+            parent.homeManager.CachedData.shouldReloadView = false;
+            parent.OpenPopup(
+                window.rootUrl + "SettingManagement/OpenDeleteSettingView?" +
+                    $.param({
+                        settingId: settingInfo.Id,
+                        settingType: settingInfo.Type,
+                        settingValue: settingInfo.Value
+                    }),
+                viewResources.Delete_Setting,
+                380,
+                150,
+                true,
+                false,
+                parent.window,
+                3000,
+                null,
+                $scope.closeDeleteView,
+                ['center', 200],
+                $scope.beforeCloseDeleteView);
+        };
+        $scope.editSetting = function (settingInfo) {
+            parent.homeManager.CachedData.shouldReloadView = false;
+            parent.OpenPopup(
+                window.rootUrl + "SettingManagement/OpenEditSettingView?" +
+                    $.param({
+                        settingId: settingInfo.Id
+                    }),
+                viewResources.Edit_Setting_Value,
+                480,
+                230,
+                true,
+                false,
+                parent.window,
+                3000,
+                null,
+                $scope.closeEditView,
+                ['center', 200],
+                $scope.beforeCloseEditView);
+        };
 
         $scope.beforeCloseInsertView = function () {
             if (parent.homeManager.CachedData.isChangingDataPopUp &&
@@ -102,6 +142,50 @@ viewListApplication.controller('viewListController',
             return true;
         };
         $scope.closeInsertView = function () {
+            $scope.isSetFocus = true;
+            $scope.safeApply();
+            if (!parent.homeManager.CachedData.shouldReloadView) {
+                return;
+            }
+
+            $scope.$apply();
+            $scope.getSettingRelationsParams.MainSetting = null;
+            $scope.getMainSetting();
+        };
+        $scope.beforeCloseDeleteView = function () {
+            if (parent.homeManager.CachedData.isChangingDataPopUp &&
+                parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+                var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+                parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges, popUpController.setFocus);
+                return false;
+            }
+
+            return true;
+        };
+        $scope.closeDeleteView = function () {
+            $scope.isSetFocus = true;
+            $scope.safeApply();
+            if (!parent.homeManager.CachedData.shouldReloadView) {
+                return;
+            }
+
+            $scope.$apply();
+            $scope.getSettingRelationsParams.MainSetting = null;
+            $scope.getMainSetting();
+        };
+        $scope.beforeCloseEditView = function () {
+            if (parent.homeManager.CachedData.isChangingDataPopUp &&
+                parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
+                var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+                parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+                parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges, popUpController.setFocus);
+                return false;
+            }
+
+            return true;
+        };
+        $scope.closeEditView = function () {
             $scope.isSetFocus = true;
             $scope.safeApply();
             if (!parent.homeManager.CachedData.shouldReloadView) {

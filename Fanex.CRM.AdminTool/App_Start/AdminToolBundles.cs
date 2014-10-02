@@ -35,6 +35,8 @@ namespace Fanex.CRM.AdminTool.App_Start
             RegisterSettingManagementViewListBundles(bundles);
             RegisterSettingManagementInsertSettingBundles(bundles);
             RegisterSettingManagementInsertSubSettingBundles(bundles);
+            RegisterSettingManagementDeleteSettingBundles(bundles);
+            RegisterSettingManagementEditSettingBundles(bundles);
         }
 
         /// <summary>
@@ -276,6 +278,53 @@ namespace Fanex.CRM.AdminTool.App_Start
                 bundles,
                 "~/Areas/Admin/SettingManagement/InsertSubSettingStyles",
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Styles/InsertSubSetting.less");
+        }
+
+        /// <summary>
+        /// Register Delete Feedback Subject Template Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterSettingManagementDeleteSettingBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/DeleteSettingScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Areas/AdminTool/SettingManagement/DeleteSetting/Scripts/DeleteSettingApplication.js",
+                "~/Areas/AdminTool/SettingManagement/DeleteSetting/Scripts/DeleteSettingService.js",
+                "~/Areas/AdminTool/SettingManagement/DeleteSetting/Scripts/DeleteSettingController.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingManagement/DeleteSettingStyles",
+                "~/Areas/AdminTool/SettingManagement/DeleteSetting/Styles/DeleteSetting.less");
+        }
+
+        /// <summary>
+        /// Register Setting Management Edit Setting Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterSettingManagementEditSettingBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Admin/SettingManagement/EditSettingScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingApplication.js",
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingService.js",
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController.js",
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_Options.js",
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_Update.js",
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/EditSettingController_HotKey.js",
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/KeyPressDirective.js",
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Scripts/Directives/RegisterSharedDirectives.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Admin/SettingManagement/EditSettingStyles",
+                "~/Areas/AdminTool/SettingManagement/EditSetting/Styles/EditSetting.less");
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
