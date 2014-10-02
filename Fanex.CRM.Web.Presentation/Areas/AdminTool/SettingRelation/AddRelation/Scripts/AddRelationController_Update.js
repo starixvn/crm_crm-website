@@ -9,6 +9,7 @@ function registerUpdateFunctions($scope) {
             Id: mainSetting.Id
         };
         $scope.safeApply();
+        $scope.getMainSettingRelations();
     };
     $scope.completeSetFocus = function () {
         $scope.isSetFocus = false;

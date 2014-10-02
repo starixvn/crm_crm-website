@@ -89,7 +89,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                 Id: 0
             }
         };
-        $scope.oldParams = null;
+        $scope.oldParams = angular.copy($scope.addGuestFeedbackParams);
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
             $scope.initDefaultOption();

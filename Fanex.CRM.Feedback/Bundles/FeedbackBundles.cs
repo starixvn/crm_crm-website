@@ -150,38 +150,6 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
         }
 
-        /// Registers the add guest feedback bundles.
-        private static void RegisterAddGuestFeedbackBundles(BundleCollection bundles)
-            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
-                .Include(
-                    "~/Scripts/ShareScripts/Applications/BlockUI.js",
-                    "~/Scripts/FanexGridV2/moment.js",
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Scripts/ShareScripts/DirectiveManager.js",
-                    "~/Scripts/ShareScripts/Directives/DropdownList.js",
-                    "~/Scripts/ShareScripts/Directives/DatePicker.js",
-                    "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
-                    "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
-                    "~/Scripts/ShareScripts/Directives/HtmlArea.js",
-                    "~/Scripts/ShareScripts/Directives/RawHtml.js",
-                    "~/Scripts/ShareScripts/Directives/TipsyDirective.js",
-                    "~/Scripts/ShareScripts/Directives/RelatedCustomer.js",
-                    "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
-                    "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                    "~/Scripts/ShareScripts/HotKeyManager.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackApplication.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackService.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController_Options.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController_Update.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController_HotkeyFunctions.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/AddGuestFeedbackController.js",
-                    "~/Areas/Feedbacks/AddGuestFeedback/Scripts/Directives/*.js"));
-            AddAndInclude(
-               bundles,
-               "~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackStyles",
-               "~/Areas/Feedbacks/AddGuestFeedback/Styles/AddGuestFeedback.less");
-        }
-
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
         {
             bundles.Add(new Bundle(bundleVirtualPath)
