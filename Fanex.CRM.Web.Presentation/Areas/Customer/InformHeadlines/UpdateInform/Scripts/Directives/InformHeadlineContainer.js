@@ -37,7 +37,7 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
             numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: false,
-            gridHeight: 800,
+            gridHeight: 770,
             showDistinctRow: false,
             showHighlightRow: false,
             headerColumnHeight: 29,
@@ -56,25 +56,31 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
     function getGridBody(informs, scope) {
         var bodyData = [];
         var info, cell;
-        for (var i = 0, reportLength = informs.length; i < reportLength; i++) {
+        var reportLength = informs.length;
+        if (reportLength < 10) {
+            var rowHeight = 690 / reportLength;
+        }
+
+        for (var i = 0; i < reportLength; i++) {
             info = informs[i];
             cell = [{ Name: 'ColHeadline', Value: info.HeadlineName },
                     { Name: 'ColStatus', Value: renderSelectStatus(info.StatusId, scope, i) },
                     { Name: 'ColUpdatedTime', Value: info.UpdatedTimeString },
-                    { Name: 'ColRemark', Value: renderTextboxRemark(info.Remark, i) },
+                    { Name: 'ColRemark', Value: renderTextboxRemark(info.Remark, i, rowHeight) },
                     { Name: 'ColHandler', Value: info.Handler },
                     { Name: 'ColExtension', Value: renderExtension(info.ExtensionId, scope, i) },
                     { Name: 'ColProductStatus', Value: renderProductStatus(info.ProductStatus, scope, i)}];
 
 
-            bodyData.push({ Columns: cell });
+            bodyData.push({ Columns: cell, RowHeight: rowHeight });
         }
 
         return bodyData;
     }
 
     function renderInform(informs, scope, element, attrs) {
-        var bodyData = (!informs || informs.length === 0) ? [] : getGridBody(informs, scope);
+        var dataLength = !informs ? 0 : informs.length;
+        var bodyData = dataLength === 0 ? [] : getGridBody(informs, scope);
         gridOptions = getGridOptions(bodyData, scope);
         tableInformHeadline = element.find('#table-inform-headline');
         tableInformHeadline.empty()
@@ -130,8 +136,12 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
         return html.join('');
     }
 
-    function renderTextboxRemark(remark, index) {
-        return '<textarea class="textbox remark" rows="3" data-index="' + index + '">' + remark + '</textarea>';
+    function renderTextboxRemark(remark, index, rowHeight) {
+        var style = rowHeight
+            ? 'style="resize: vertical; width: 98%; height: ' + (rowHeight - 10) + '"'
+            : 'style="resize: vertical; width: 98%; height: 62px;"';
+
+        return '<textarea class="textbox remark" ' + style + ' rows="3" data-index="' + index + '">' + remark + '</textarea>';
     }
 
     return {
