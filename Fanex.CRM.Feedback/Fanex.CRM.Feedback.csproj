@@ -83,9 +83,11 @@
     <Compile Include="Controllers\AddGuestFeedbackController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Criteria\AddGuestFeedback\AddGuestFeedbackCriteria.cs" />
+    <Compile Include="Criteria\DeletedFeedbackCriteria.cs" />
     <Compile Include="Criteria\LatestFeedbackCriteria.cs" />
     <Compile Include="Criteria\AddCustomerFeedbackCriteria.cs" />
     <Compile Include="Criteria\ManageFeedbackCriteria.cs" />
+    <Compile Include="Models\DeletedFeedback.cs" />
     <Compile Include="Models\LatestFeedback.cs" />
     <Compile Include="Models\AddressInfo.cs" />
     <Compile Include="Models\BankInfo.cs" />

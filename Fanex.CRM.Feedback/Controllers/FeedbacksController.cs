@@ -89,5 +89,21 @@ namespace Fanex.CRM.Feedback.Controllers
                 },
                 JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        [NapAuth(FunctionKey = FunctionPermission.DeleteFeedback, Policy = Constant.Policy.Host)]
+        public ActionResult DeletedFeedback()
+        {
+            return View("~/Areas/Feedbacks/DeletedFeedback/Index.cshtml");
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.DeleteFeedback, Policy = Constant.Policy.Host)]
+        public ActionResult SearchDeletedFeedback(DeletedFeedbackCriteria criteria)
+        {
+            var feedbacks = _feedbackService.GetDeletedFeedback(criteria);
+            var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalRows };
+            return Json(report, JsonRequestBehavior.DenyGet);
+        }
     }
 }

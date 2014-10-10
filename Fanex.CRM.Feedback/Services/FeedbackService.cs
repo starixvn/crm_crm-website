@@ -101,6 +101,11 @@ namespace Fanex.CRM.Feedback.Services
             return _feedbackRepository.GetLatestFeedback(criteria);
         }
 
+        public IList<DeletedFeedback> GetDeletedFeedback(DeletedFeedbackCriteria criteria)
+        {
+            return _feedbackRepository.GetDeletedFeedback(criteria);
+        }
+
         #region Setting helper methods
 
         private IList<SettingInfo> GetCustomerType()

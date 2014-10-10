@@ -349,6 +349,11 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\help.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\Images\icn_view.png" />
+    <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackApplication.js" />
+    <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackService.js" />
+    <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackController.js" />
+    <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\Directives\DeletedFeedbackContainer.js" />
+    <Content Include="Areas\Feedbacks\DeletedFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -459,7 +464,6 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -674,14 +678,15 @@
     </Content>
     <Content Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
     <Content Include="Configurations\Local.ConnectionStrings.config" />
+    <Content Include="Areas\Feedbacks\DeletedFeedback\Index.cshtml" />
+    <Content Include="Areas\Feedbacks\DeletedFeedback\Styles\StyleSheet.less" />
     <None Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Configurations\PRO.ConnectionStrings.config" />
     <None Include="Content\site\reportgrid.less" />
     <None Include="Scripts\AjaxForm\ajax-form.less" />
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config"/>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
-
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />

@@ -110,5 +110,28 @@ namespace Fanex.CRM.Feedback.Repositories
                 return db.Query<LatestFeedback>(criteria.GetSpParams()).ToList();
             }
         }
+
+        /// <summary>
+        /// Gets the deleted feedback.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list of deleted feedbacks.</returns>
+        public IList<DeletedFeedback> GetDeletedFeedback(DeletedFeedbackCriteria criteria)
+        {
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                criteria.TotalRows = 18;
+                var feedbacks = db.Query<DeletedFeedback>(criteria.GetSpParams());
+                //var outputParams = db.GetOuputParams();
+                //if (outputParams != null && outputParams.ContainsKey("totalrows"))
+                //{
+                //    object totalRows = outputParams["totalrows"];
+                //    criteria.TotalRows = totalRows == null ? 0 : (int)totalRows;
+                //}
+
+                //return criteria.TotalRows > 0 ? feedbacks.ToList() : null;
+                return feedbacks.ToList();
+            }
+        }
     }
 }

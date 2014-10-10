@@ -519,4 +519,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Confirm_Ignore_Feedback_AddGuestFeedback" xml:space="preserve">
     <value>There are some changes on add guest feedback information! &lt;br/&gt; Are you sure you want to ignore these changes?</value>
   </data>
+  <data name="Title_DeletedFeedback" xml:space="preserve">
+    <value>CRM System - Deleted Feedback</value>
+  </data>
 </root>

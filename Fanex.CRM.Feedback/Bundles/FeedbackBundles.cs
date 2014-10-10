@@ -25,6 +25,7 @@ namespace Fanex.CRM.Feedback.Bundles
             RegisterLatestFeedbackBundles(bundles);
             RegisterAddCustomerFeedbackBundles(bundles);
             RegisterAddGuestFeedbackBundles(bundles);
+            RegisterDeletedFeedbackBundles(bundles);
         }
 
         /// <summary>
@@ -148,6 +149,29 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Scripts/FanexGridV2/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
+        }
+
+        private static void RegisterDeletedFeedbackBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Feedbacks/DeletedFeedback/Scripts/DeletedFeedbackApplication.js",
+                "~/Areas/Feedbacks/DeletedFeedback/Scripts/DeletedFeedbackController.js",
+                "~/Areas/Feedbacks/DeletedFeedback/Scripts/DeletedFeedbackService.js",
+                "~/Areas/Feedbacks/DeletedFeedback/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackStyles",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/Feedbacks/DeletedFeedback/Styles/StyleSheet.less");
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
