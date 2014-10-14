@@ -378,6 +378,15 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
+    <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Master.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\Master.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
@@ -1171,6 +1180,14 @@
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.MailSection.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="IbcKeys\ibckeydec.snk" />
     <None Include="IbcKeys\ibcpkey.snk" />
     <Content Include="IbcKeys\Web.config" />
