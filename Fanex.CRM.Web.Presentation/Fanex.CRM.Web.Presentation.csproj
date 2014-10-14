@@ -378,6 +378,11 @@
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportApplication.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportController.js" />
     <Content Include="Areas\Report\WagerReport\Scripts\WagerReportService.js" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
       <SubType>Designer</SubType>
@@ -387,15 +392,6 @@
     </Content>
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
-    <Content Include="Configurations\LocalSandBox.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
       <SubType>Designer</SubType>
@@ -1163,14 +1159,6 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\site\variables.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.Web.Setting.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.MailSection.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\LocalSandBox.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1179,6 +1167,10 @@
     </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
     <None Include="IbcKeys\ibckeydec.snk" />
     <None Include="IbcKeys\ibcpkey.snk" />
     <Content Include="IbcKeys\Web.config" />
