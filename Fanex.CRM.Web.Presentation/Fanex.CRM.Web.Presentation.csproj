@@ -444,6 +444,7 @@
     <Content Include="Scripts\Chart\HighCharts\data.js" />
     <Content Include="Scripts\Chart\HighCharts\drilldown.js" />
     <Content Include="Scripts\Chart\HighCharts\highcharts.js" />
+    <Content Include="Scripts\CryptoJS.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.css" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Pagination.css" />
