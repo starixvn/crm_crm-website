@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Fanex.CRM.AdminTool.Resources {
+namespace Fanex.CRM.AdminTool.Resources
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,571 +23,686 @@ namespace Fanex.CRM.AdminTool.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Labels {
-        
+    public class Labels
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Labels() {
+        internal Labels()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fanex.CRM.AdminTool.Resources.Labels", typeof(Labels).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
-            get {
+        public static global::System.Globalization.CultureInfo Culture
+        {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
-        public static string All {
-            get {
+        public static string All
+        {
+            get
+            {
                 return ResourceManager.GetString("All", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        public static string Cancel {
-            get {
+        public static string Cancel
+        {
+            get
+            {
                 return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to There are some changes on add relation view! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
-        public static string Confirm_Ignore_AddRelation_Changes {
-            get {
+        public static string Confirm_Ignore_AddRelation_Changes
+        {
+            get
+            {
                 return ResourceManager.GetString("Confirm_Ignore_AddRelation_Changes", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
-        public static string Confirm_Ignore_EditSetting_Changes {
-            get {
+        public static string Confirm_Ignore_EditSetting_Changes
+        {
+            get
+            {
                 return ResourceManager.GetString("Confirm_Ignore_EditSetting_Changes", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
-        public static string Confirm_Ignore_EditTemplate_Changes {
-            get {
+        public static string Confirm_Ignore_EditTemplate_Changes
+        {
+            get
+            {
                 return ResourceManager.GetString("Confirm_Ignore_EditTemplate_Changes", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to There are some changes on setting input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
-        public static string Confirm_Ignore_InsertNewSetting_Changes {
-            get {
+        public static string Confirm_Ignore_InsertNewSetting_Changes
+        {
+            get
+            {
                 return ResourceManager.GetString("Confirm_Ignore_InsertNewSetting_Changes", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to There are some changes on template input! &lt;br/&gt; Are you sure you want to ignore these changes?.
         /// </summary>
-        public static string Confirm_Ignore_InsertTemplate_Changes {
-            get {
+        public static string Confirm_Ignore_InsertTemplate_Changes
+        {
+            get
+            {
                 return ResourceManager.GetString("Confirm_Ignore_InsertTemplate_Changes", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        public static string Delete {
-            get {
+        public static string Delete
+        {
+            get
+            {
                 return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delete Feedback Subject Template.
         /// </summary>
-        public static string Delete_Feedback_Subject_Template {
-            get {
+        public static string Delete_Feedback_Subject_Template
+        {
+            get
+            {
                 return ResourceManager.GetString("Delete_Feedback_Subject_Template", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delete Setting.
         /// </summary>
-        public static string Delete_Setting {
-            get {
+        public static string Delete_Setting
+        {
+            get
+            {
                 return ResourceManager.GetString("Delete_Setting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Display Order.
         /// </summary>
-        public static string Display_Order {
-            get {
+        public static string Display_Order
+        {
+            get
+            {
                 return ResourceManager.GetString("Display_Order", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
-        public static string Edit {
-            get {
+        public static string Edit
+        {
+            get
+            {
                 return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Edit Feedback Subject Template.
         /// </summary>
-        public static string Edit_Feedback_Subject_Template {
-            get {
+        public static string Edit_Feedback_Subject_Template
+        {
+            get
+            {
                 return ResourceManager.GetString("Edit_Feedback_Subject_Template", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Edit Setting Value.
         /// </summary>
-        public static string Edit_Setting_Value {
-            get {
+        public static string Edit_Setting_Value
+        {
+            get
+            {
                 return ResourceManager.GetString("Edit_Setting_Value", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delete template successful!.
         /// </summary>
-        public static string Feedback_FeedbackSubjectManagement_DeleteSuccess {
-            get {
+        public static string Feedback_FeedbackSubjectManagement_DeleteSuccess
+        {
+            get
+            {
                 return ResourceManager.GetString("Feedback_FeedbackSubjectManagement_DeleteSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Update Feedback Subject Template Successfully!.
         /// </summary>
-        public static string Feedback_FeedbackSubjectManagement_EditSuccess {
-            get {
+        public static string Feedback_FeedbackSubjectManagement_EditSuccess
+        {
+            get
+            {
                 return ResourceManager.GetString("Feedback_FeedbackSubjectManagement_EditSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Insert FeedBack Subject Template Successfully!.
         /// </summary>
-        public static string Feedback_FeedbackSubjectManagement_InsertSuccess {
-            get {
+        public static string Feedback_FeedbackSubjectManagement_InsertSuccess
+        {
+            get
+            {
                 return ResourceManager.GetString("Feedback_FeedbackSubjectManagement_InsertSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Feedback Subject Template.
         /// </summary>
-        public static string Feedback_Subject_Template {
-            get {
+        public static string Feedback_Subject_Template
+        {
+            get
+            {
                 return ResourceManager.GetString("Feedback_Subject_Template", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Feedback Subject Template Content.
         /// </summary>
-        public static string Feedback_Subject_Template_Content {
-            get {
+        public static string Feedback_Subject_Template_Content
+        {
+            get
+            {
                 return ResourceManager.GetString("Feedback_Subject_Template_Content", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete Feedback Subject Template {0}?.
         /// </summary>
-        public static string FeedbackSubjectManagement_DeleteTemplate_Message {
-            get {
+        public static string FeedbackSubjectManagement_DeleteTemplate_Message
+        {
+            get
+            {
                 return ResourceManager.GetString("FeedbackSubjectManagement_DeleteTemplate_Message", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Please Input Feedback Subject Template Content!.
         /// </summary>
-        public static string FeedbackSubjectManagement_Error_EmptyTemplate {
-            get {
+        public static string FeedbackSubjectManagement_Error_EmptyTemplate
+        {
+            get
+            {
                 return ResourceManager.GetString("FeedbackSubjectManagement_Error_EmptyTemplate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Max length of Setting Name is 100.
         /// </summary>
-        public static string FeedbackSubjectManagement_Error_ExceedName {
-            get {
+        public static string FeedbackSubjectManagement_Error_ExceedName
+        {
+            get
+            {
                 return ResourceManager.GetString("FeedbackSubjectManagement_Error_ExceedName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Max length of subject template is 200 characters!.
         /// </summary>
-        public static string FeedbackSubjectManagement_Error_ExceedTemplate {
-            get {
+        public static string FeedbackSubjectManagement_Error_ExceedTemplate
+        {
+            get
+            {
                 return ResourceManager.GetString("FeedbackSubjectManagement_Error_ExceedTemplate", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Max length of Setting Value is 100.
         /// </summary>
-        public static string FeedbackSubjectManagement_Error_ExceedValue {
-            get {
+        public static string FeedbackSubjectManagement_Error_ExceedValue
+        {
+            get
+            {
                 return ResourceManager.GetString("FeedbackSubjectManagement_Error_ExceedValue", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Insert New Feedback Subject.
         /// </summary>
-        public static string Insert_New_Feedback_Subject {
-            get {
+        public static string Insert_New_Feedback_Subject
+        {
+            get
+            {
                 return ResourceManager.GetString("Insert_New_Feedback_Subject", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Insert New Feedback Subject Template.
         /// </summary>
-        public static string Insert_New_Feedback_Subject_Template {
-            get {
+        public static string Insert_New_Feedback_Subject_Template
+        {
+            get
+            {
                 return ResourceManager.GetString("Insert_New_Feedback_Subject_Template", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Insert New Setting.
         /// </summary>
-        public static string Insert_New_Setting {
-            get {
+        public static string Insert_New_Setting
+        {
+            get
+            {
                 return ResourceManager.GetString("Insert_New_Setting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Insert Setting value for.
         /// </summary>
-        public static string Insert_Setting_value_for {
-            get {
+        public static string Insert_Setting_value_for
+        {
+            get
+            {
                 return ResourceManager.GetString("Insert_Setting_value_for", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Is Sub.
         /// </summary>
-        public static string Is_Sub {
-            get {
+        public static string Is_Sub
+        {
+            get
+            {
                 return ResourceManager.GetString("Is_Sub", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string Ok {
-            get {
+        public static string Ok
+        {
+            get
+            {
                 return ResourceManager.GetString("Ok", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Order.
         /// </summary>
-        public static string Order {
-            get {
+        public static string Order
+        {
+            get
+            {
                 return ResourceManager.GetString("Order", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Parent.
         /// </summary>
-        public static string Parent {
-            get {
+        public static string Parent
+        {
+            get
+            {
                 return ResourceManager.GetString("Parent", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Relation.
         /// </summary>
-        public static string Relation {
-            get {
+        public static string Relation
+        {
+            get
+            {
                 return ResourceManager.GetString("Relation", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
-        public static string Search {
-            get {
+        public static string Search
+        {
+            get
+            {
                 return ResourceManager.GetString("Search", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Setting.
         /// </summary>
-        public static string Setting {
-            get {
+        public static string Setting
+        {
+            get
+            {
                 return ResourceManager.GetString("Setting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Setting Id.
         /// </summary>
-        public static string Setting_Id {
-            get {
+        public static string Setting_Id
+        {
+            get
+            {
                 return ResourceManager.GetString("Setting_Id", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Setting Name.
         /// </summary>
-        public static string Setting_Name {
-            get {
+        public static string Setting_Name
+        {
+            get
+            {
                 return ResourceManager.GetString("Setting_Name", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Setting Relation Management.
         /// </summary>
-        public static string Setting_Relation_Management {
-            get {
+        public static string Setting_Relation_Management
+        {
+            get
+            {
                 return ResourceManager.GetString("Setting_Relation_Management", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Setting Value.
         /// </summary>
-        public static string Setting_Value {
-            get {
+        public static string Setting_Value
+        {
+            get
+            {
                 return ResourceManager.GetString("Setting_Value", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete Setting {0} {1}?.
         /// </summary>
-        public static string SettingManagement_DeleteSetting_Message {
-            get {
+        public static string SettingManagement_DeleteSetting_Message
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingManagement_DeleteSetting_Message", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delete setting successful!.
         /// </summary>
-        public static string SettingManagement_DeleteSettingSuccess {
-            get {
+        public static string SettingManagement_DeleteSettingSuccess
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingManagement_DeleteSettingSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Update Setting successfully!.
         /// </summary>
-        public static string SettingManagement_EditSetting_EditSuccess {
-            get {
+        public static string SettingManagement_EditSetting_EditSuccess
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingManagement_EditSetting_EditSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Display Order cannot greater than 2.100.000.000.
         /// </summary>
-        public static string SettingManagement_Error_DisplayOrder {
-            get {
+        public static string SettingManagement_Error_DisplayOrder
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingManagement_Error_DisplayOrder", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid Setting Name.
         /// </summary>
-        public static string SettingManagement_Error_EmptySettingName {
-            get {
+        public static string SettingManagement_Error_EmptySettingName
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingManagement_Error_EmptySettingName", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Invalid Setting Value.
         /// </summary>
-        public static string SettingManagement_Error_EmptySettingValue {
-            get {
+        public static string SettingManagement_Error_EmptySettingValue
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingManagement_Error_EmptySettingValue", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Setting existed already.
         /// </summary>
-        public static string SettingManagement_Error_ExistedSetting {
-            get {
+        public static string SettingManagement_Error_ExistedSetting
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingManagement_Error_ExistedSetting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Insert new setting successfully.
         /// </summary>
-        public static string SettingManagement_InsertSetting_InsertSuccess {
-            get {
+        public static string SettingManagement_InsertSetting_InsertSuccess
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingManagement_InsertSetting_InsertSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Setting Management by {0}.
         /// </summary>
-        public static string SettingManagement_ViewListTitle {
-            get {
+        public static string SettingManagement_ViewListTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingManagement_ViewListTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Set setting relation successfully.
         /// </summary>
-        public static string SettingRelation_AddRelation_UpdateSuccess {
-            get {
+        public static string SettingRelation_AddRelation_UpdateSuccess
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingRelation_AddRelation_UpdateSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add sub setting for &lt;span class=&quot;b&quot;&gt;{0}&lt;/span&gt;.
         /// </summary>
-        public static string SettingRelation_AddRelationMessage {
-            get {
+        public static string SettingRelation_AddRelationMessage
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingRelation_AddRelationMessage", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Setting Relation by {0}.
         /// </summary>
-        public static string SettingRelation_ViewListTitle {
-            get {
+        public static string SettingRelation_ViewListTitle
+        {
+            get
+            {
                 return ResourceManager.GetString("SettingRelation_ViewListTitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Sub setting.
         /// </summary>
-        public static string Sub_setting {
-            get {
+        public static string Sub_setting
+        {
+            get
+            {
                 return ResourceManager.GetString("Sub_setting", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to N/A.
         /// </summary>
-        public static string Symbol_NotApply {
-            get {
+        public static string Symbol_NotApply
+        {
+            get
+            {
                 return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to N/A.
-        /// </summary>
-        public static string Symbol_NotApply {
-            get {
-                return ResourceManager.GetString("Symbol_NotApply", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Template Content.
         /// </summary>
-        public static string Template_Content {
-            get {
+        public static string Template_Content
+        {
+            get
+            {
                 return ResourceManager.GetString("Template_Content", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Template Id.
         /// </summary>
-        public static string Template_Id {
-            get {
+        public static string Template_Id
+        {
+            get
+            {
                 return ResourceManager.GetString("Template_Id", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to CRM System - Feedback Subject Management.
         /// </summary>
-        public static string Title_AdminTool_FeedbackSubjectManagement {
-            get {
+        public static string Title_AdminTool_FeedbackSubjectManagement
+        {
+            get
+            {
                 return ResourceManager.GetString("Title_AdminTool_FeedbackSubjectManagement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to CRM System - Setting Management.
         /// </summary>
-        public static string Title_AdminTool_SettingManagement {
-            get {
+        public static string Title_AdminTool_SettingManagement
+        {
+            get
+            {
                 return ResourceManager.GetString("Title_AdminTool_SettingManagement", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to CRM System - Setting Relation.
         /// </summary>
-        public static string Title_AdminTool_SettingRelation {
-            get {
+        public static string Title_AdminTool_SettingRelation
+        {
+            get
+            {
                 return ResourceManager.GetString("Title_AdminTool_SettingRelation", resourceCulture);
             }
         }
