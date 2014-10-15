@@ -5,147 +5,149 @@
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-customerreport-application">
 <head>
-<title>@Labels.Customer_Report </title>
-@Styles.Render("~/site/common")
-<link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-@Styles.Render("~/Areas/Report/CustomerReportStyles")
-@Styles.Render("~/Styles/FanexMultipleSelect")
+    <title>@Labels.Customer_Report </title>
+    @Styles.Render("~/site/common")
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Areas/Report/CustomerReportStyles")
+    @Styles.Render("~/Styles/FanexMultipleSelect")
 </head>
 <body class="customerReportController" data-ng-controller="customerReportController">
-<div class="main container">
-<div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
-<div class="row row-item">
-<div class="item default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
-<label for="username" class="width-70">
-@Labels.Username</label>
-<input type="text" class="textbox search-by-enter" id="username" data-ng-model="searchCriteria.Username" />
-</div>
-<div class="item">
-<label for="viptype" class="width-50 pull-left">
-@Labels.VIP</label>
-<div class="vip-type-picker-container pull-left" data-ng-model="vipTypeOptions.DataList">
-<select id="viptype" class="selVipType">
-</select>
-</div>
-</div>
-<div class="item">
-<label for="title" class="width-50 pull-left">
-@Labels.Title</label>
-<div class="title-picker-container pull-left" data-ng-model="titleOptions.DataList">
-<select id="title" class="selTitle">
-</select>
-</div>
-</div>
-</div>
-<div class="row row-item">
-<div class="item">
-<label for="language" class="width-70 pull-left">
-@Labels.Language</label>
-<div class="language-picker-container selCustomerType pull-left" data-ng-model="languageOptions.DataList">
-<select id="language"></select>
-</div>
-</div>
-<div class="item">
-<label for="site" class="width-50 pull-left">
-@Labels.Site</label>
-<div class="site-picker-container pull-left" data-ng-model="siteOptions.DataList">
-<select id="site"></select>
-</div>
-</div>
-</div>
-<div class="row row-item">
-<fieldset class="dateBirth pull-left">
-<legend>@Labels.Date_Of_Birth</legend>
-<div class="item fromDate">
-<label for="fromDate" class="width-80">
-@Labels.From</label>
-<div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-<input id="fromDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
-</div>
-</div>
-<div class="item toDate">
-<label for="toDate">
-@Labels.To</label>
-<div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-<input id="toDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
-</div>
-</div>
-</fieldset>
-<div class="item">
-<button id="button-submit" class="btn" data-ng-click="getCustomerReport();">
-<span class="hotkey">S</span>ubmit</button>
-</div>
-</div>
-<div class="icon-collapse" data-ng-click="showHideFilterBox();">
-</div>
-</div>
-<div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
-<div class="icon-expand" data-ng-click="showHideFilterBox();">
-</div>
-</div>
-<div class="row">
-<div data-ng-model="customerReportOptions.IsUpdateGrid" class="table-customer-report-container">
-<div id="table-customer-report" class="freegrid display-none table-customer-report">
-</div>
-</div>
-</div>
-</div>
-<div class="download-file-container" data-ng-model="downloadFileOptions">
-<iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
-</div>
-<input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-@Scripts.Render("~/Scripts/CommomScripts")
-@Scripts.Render("~/Scripts/AngularJSLibrary")
-@Scripts.Render("~/Scripts/FanexMultipleSelect")
-<script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
-<script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-<script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-@Scripts.Render("~/CRM/DownLoadFile/Scripts")
-@Scripts.Render("~/Areas/Report/CustomerReportScripts")
-<script type="text/javascript">
-    parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
-    window.rootUrl = '@Url.Content("~")';
-    var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
-    var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
-    var viewResources = {
-        All: '@Labels.All',
-        All_Languages: '@Labels.All_Languages',
-        No_language_found: '@Labels.No_language_found',
-        Symbol_NotApply: '@Labels.Symbol_NotApply',
+    <div class="main container">
+        <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
+            <div class="row row-item">
+                <div class="item default-focus" data-ng-model="defaultFocusOptions.IsSetFocus">
+                    <label for="username" class="width-70">
+                        @Labels.Username</label>
+                    <input type="text" class="textbox search-by-enter" id="username" data-ng-model="searchCriteria.Username" />
+                </div>
+                <div class="item">
+                    <label for="viptype" class="width-50 pull-left">
+                        @Labels.VIP</label>
+                    <div class="vip-type-picker-container pull-left" data-ng-model="vipTypeOptions.DataList">
+                        <select id="viptype" class="selVipType">
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="title" class="width-50 pull-left">
+                        @Labels.Title</label>
+                    <div class="title-picker-container pull-left" data-ng-model="titleOptions.DataList">
+                        <select id="title" class="selTitle">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="item">
+                    <label for="language" class="width-70 pull-left">
+                        @Labels.Language</label>
+                    <div class="language-picker-container selCustomerType pull-left" data-ng-model="languageOptions.DataList">
+                        <select id="language">
+                        </select>
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="site" class="width-50 pull-left">
+                        @Labels.Site</label>
+                    <div class="site-picker-container pull-left" data-ng-model="siteOptions.DataList">
+                        <select id="site">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-item">
+                <fieldset class="dateBirth pull-left">
+                    <legend>@Labels.Date_Of_Birth</legend>
+                    <div class="item fromDate">
+                        <label for="fromDate" class="width-80">
+                            @Labels.From</label>
+                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                            <input id="fromDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="item toDate">
+                        <label for="toDate">
+                            @Labels.To</label>
+                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                            <input id="toDate" type="text" class="textbox timepicker txtcalendar" autocomplete="off" />
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="item">
+                    <button id="button-submit" class="btn" data-ng-click="getCustomerReport();">
+                        <span class="hotkey">S</span>ubmit</button>
+                </div>
+            </div>
+            <div class="icon-collapse" data-ng-click="showHideFilterBox();">
+            </div>
+        </div>
+        <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
+            <div class="icon-expand" data-ng-click="showHideFilterBox();">
+            </div>
+        </div>
+        <div class="row">
+            <div data-ng-model="customerReportOptions.IsUpdateGrid" class="table-customer-report-container">
+                <div id="table-customer-report" class="freegrid display-none table-customer-report">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="download-file-container" data-ng-model="downloadFileOptions">
+        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+    </div>
+    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render("~/Scripts/FanexMultipleSelect")
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
+    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
+    @Scripts.Render("~/CRM/DownLoadFile/Scripts")
+    @Scripts.Render("~/Areas/Report/CustomerReportScripts")
+    <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var viewResources = {
+            All: '@Labels.All',
+            All_Languages: '@Labels.All_Languages',
+            No_language_found: '@Labels.No_language_found',
+            Symbol_NotApply: '@Labels.Symbol_NotApply',
 
-        All_Countries: '@Labels.All_Countries',
-        No_country_found: '@Labels.No_country_found',
-        All_Sites: '@Labels.All_Sites',
-        No_site_found: '@Labels.No_site_found',
+            All_Countries: '@Labels.All_Countries',
+            No_country_found: '@Labels.No_country_found',
+            All_Sites: '@Labels.All_Sites',
+            No_site_found: '@Labels.No_site_found',
 
-        VIP: '@Labels.VIP',
-        Title: '@Labels.Title',
-        First_Name: '@Labels.First_Name',
-        Last_Name: '@Labels.Last_Name',
-        Country: '@Labels.Country',
-        Language: '@Labels.Language',
-        Site: '@Labels.Site',
-        Birthday: '@Labels.Birthday',
-        CustomerReport_Title: '@Labels.CustomerReport_Title',
-        Contact_Number: '@Labels.Contact_Number',
-        Mobile: '@Labels.Mobile',
-        Fax: '@Labels.Fax',
-        Skype: '@Labels.Skype',
-        Email: '@Labels.Email',
-        Line_1: '@Labels.Line_1',
-        Line_2: '@Labels.Line_2',
-        Line_3: '@Labels.Line_3',
-        City: '@Labels.City',
-        State: '@Labels.State',
-        Post_Code: '@Labels.Post_Code',
-        Username: '@Labels.Username',
-        PIC1: '@Labels.PIC1',
-        PIC2: '@Labels.PIC2',
-        PIC3: '@Labels.PIC3',
-        PIC4: '@Labels.PIC4'
-    };
-</script>
+            VIP: '@Labels.VIP',
+            Title: '@Labels.Title',
+            First_Name: '@Labels.First_Name',
+            Last_Name: '@Labels.Last_Name',
+            Country: '@Labels.Country',
+            Language: '@Labels.Language',
+            Site: '@Labels.Site',
+            Birthday: '@Labels.Birthday',
+            CustomerReport_Title: '@Labels.CustomerReport_Title',
+            Contact_Number: '@Labels.Contact_Number',
+            Mobile: '@Labels.Mobile',
+            Fax: '@Labels.Fax',
+            Skype: '@Labels.Skype',
+            Email: '@Labels.Email',
+            Line_1: '@Labels.Line_1',
+            Line_2: '@Labels.Line_2',
+            Line_3: '@Labels.Line_3',
+            City: '@Labels.City',
+            State: '@Labels.State',
+            Post_Code: '@Labels.Post_Code',
+            Username: '@Labels.Username',
+            PIC1: '@Labels.PIC1',
+            PIC2: '@Labels.PIC2',
+            PIC3: '@Labels.PIC3',
+            PIC4: '@Labels.PIC4'
+        };
+    </script>
 </body>
 </html>

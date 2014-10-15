@@ -15,8 +15,10 @@ namespace Fanex.CRM.Infrastructure.Helper
     using System.Text.RegularExpressions;
     using System.Web;
     using System.Xml;
+    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Configuration;
     using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Resources;
 
     /// <summary>
     /// Helper class.
@@ -189,6 +191,31 @@ namespace Fanex.CRM.Infrastructure.Helper
             }
 
             return xml.Replace(new string[] { "\n", "\r", "\n\r", "\r\n" }, "&#13;");
+        }
+
+        /// <summary>
+        /// Gets the name of the site type.
+        /// </summary>
+        /// <param name="siteType">Type of the site.</param>
+        /// <returns>The name of the site type.</returns>
+        public static string SiteTypeName(int siteType)
+        {
+            switch (siteType)
+            {
+                case (int)Enumerations.ReportTypes.CreditSite:
+                    return Labels.IBC;
+                case (int)Enumerations.ReportTypes.Licensee:
+                    return Labels.Licensee;
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string ViewChartFromToDateTitle(string fromDate, string toDate)
+        {
+            return string.Equals(fromDate, toDate, StringComparison.OrdinalIgnoreCase) ?
+                fromDate :
+                string.Format(Labels.Message_ViewChart_FromToDate, fromDate, toDate);
         }
     }
 }

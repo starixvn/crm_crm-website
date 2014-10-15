@@ -22,6 +22,8 @@ namespace Fanex.CRM.Report
         {
             RegisterCasinoDailyStatisticsBundles(bundles);
             RegisterCasinoWeeklyBundles(bundles);
+
+            RegisterDailyStatisticsReportBundles(bundles);
         }
 
         /// <summary>
@@ -71,6 +73,33 @@ namespace Fanex.CRM.Report
                 "~/Areas/Report/CasinoWeeklyStatistics/Scripts/CasinoWeeklyService.js",
                 "~/Areas/Report/CasinoWeeklyStatistics/Scripts/CasinoWeeklyController.js",
                 "~/Areas/Report/CasinoWeeklyStatistics/Scripts/Directives/*.js"));
+        }
+
+        /// <summary>
+        /// Registers the bundles customer report.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterDailyStatisticsReportBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/DailyStatisticsReportScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportApplication.js",
+                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportService.js",
+                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportController_Options.js",
+                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportController_Update.js",
+                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportController_HotKey.js",
+                "~/Areas/Report/DailyStatisticsReport/Scripts/DailyStatisticsReportController.js",
+                "~/Areas/Report/DailyStatisticsReport/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/Report/DailyStatisticsReportStyles",
+                "~/Areas/Report/DailyStatisticsReport/Styles/DailyStatisticsReport.less");
         }
 
         private static void AddAndInclude(

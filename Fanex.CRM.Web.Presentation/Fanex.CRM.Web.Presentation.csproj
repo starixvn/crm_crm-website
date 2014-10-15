@@ -402,6 +402,18 @@
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportService.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\Directives\CustomerReportContainer.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportApplication.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportController.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportController_HotKey.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportController_Options.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportController_Update.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\DailyStatisticsReportService.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\DetailReportDirective.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\IBCReportDirective.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\LicenseeReportDirective.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Scripts\Directives\ReportDirectiveHelper.js" />
+    <Content Include="Areas\Report\DailyStatisticsReport\Styles\Images\ico_warning.png" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\DynamicReportContainer.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
@@ -457,7 +469,6 @@
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UATSandBox.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-
     <Content Include="Content\site\Images\calendar.png" />
     <Content Include="Content\site\Images\collapse-btn-hover.png" />
     <Content Include="Content\site\Images\delete-icon.png" />
@@ -475,7 +486,6 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
-    <Content Include="PRO.Web.Setting.config" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -685,7 +695,6 @@
     <None Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
-
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
     <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
     <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
@@ -1027,6 +1036,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\" />
+    <Folder Include="Areas\Report\FeedbackStatisticsReport\" />
+    <Folder Include="Areas\Report\WeeklyStatisticsReport\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">
