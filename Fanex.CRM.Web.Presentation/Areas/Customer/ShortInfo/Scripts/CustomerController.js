@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 /* global customerApplication,
 customerManager, 
 hotKeyManager,

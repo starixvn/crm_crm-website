@@ -530,5 +530,173 @@ namespace Fanex.CRM.Infrastructure.Extension
 
             return dataFormat.GetFormat(NormalNumberFormat);
         }
+
+        public static void SetHeaderColorIndex(ExportExcelInfo exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(ref exportExcelInfo, HeaderTitleColor, HeaderTitleColorIndex);
+        }
+
+        public static void SetSubTotalColorIndex(ExportExcelInfo exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(ref exportExcelInfo, SubTotalRowColor, SubTotalRowColorIndex);
+        }
+
+        public static void SetGroupBackgroundColorIndex(ExportExcelInfo exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(ref exportExcelInfo, GroupBackgroundColor, GroupBackgroundColorIndex);
+        }
+
+        public static void SetGrandTotalSeparatorColorIndex(ExportExcelInfo exportExcelInfo)
+        {
+            NpoiExcelExtensions.SetColorAtIndex(ref exportExcelInfo, GrandTotalSeparatorColor, GrandTotalSeparatorColorIndex);
+        }
+
+        /// <summary>
+        /// Sets the cell value.
+        /// </summary>
+        /// <param name="cell">The target cell.</param>
+        /// <param name="cellValue">The cell value.</param>
+        public static void SetCellValue(ICell cell, object cellValue)
+        {
+            if (cellValue.GetType() == typeof(string))
+            {
+                cell.SetCellValue((string)cellValue);
+            }
+            else if (cellValue.GetType() == typeof(int))
+            {
+                cell.SetCellValue((int)cellValue);
+            }
+            else if (cellValue.GetType() == typeof(long))
+            {
+                cell.SetCellValue((long)cellValue);
+            }
+            else if (cellValue.GetType() == typeof(double))
+            {
+                cell.SetCellValue((double)cellValue);
+            }
+            else if (cellValue.GetType() == typeof(decimal))
+            {
+                cell.SetCellValue(Convert.ToDouble(cellValue));
+            }
+            else if (cellValue.GetType() == typeof(bool))
+            {
+                cell.SetCellValue((bool)cellValue);
+            }
+            else if (cellValue.GetType() == typeof(DateTime))
+            {
+                cell.SetCellValue((System.DateTime)cellValue);
+            }
+        }
+
+        /// <summary>
+        /// Render cell.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="cellRangeAddress">The cell range address.</param>
+        /// <param name="cellValue">The label of cell.</param>
+        /// <param name="cellStyle">The style of cell.</param>
+        public static void RenderMergedCells(
+            ExportExcelInfo exportExcelInfo,
+            CellRangeAddress cellRangeAddress,
+            object cellValue,
+            ICellStyle cellStyle)
+        {
+            IRow row;
+            ICell cell;
+
+            exportExcelInfo.Worksheet.AddMergedRegion(cellRangeAddress);
+            for (var i = cellRangeAddress.FirstRow; i <= cellRangeAddress.LastRow; i++)
+            {
+                row = exportExcelInfo.Worksheet.GetRow(i) ?? exportExcelInfo.Worksheet.CreateRow(i);
+                for (var j = cellRangeAddress.FirstColumn; j <= cellRangeAddress.LastColumn; j++)
+                {
+                    cell = row.GetCell(j) ?? row.CreateCell(j);
+                    if (i == cellRangeAddress.FirstRow ||
+                        i == cellRangeAddress.LastRow ||
+                        j == cellRangeAddress.FirstColumn ||
+                        j == cellRangeAddress.LastColumn)
+                    {
+                        cell.CellStyle = cellStyle;
+                    }
+
+                    if (i == cellRangeAddress.FirstRow && j == cellRangeAddress.FirstColumn)
+                    {
+                        SetCellValue(cell, cellValue);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Renders the empty row.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="rowIndex">Index of the row.</param>
+        public static void RenderEmptyRow(ExportExcelInfo exportExcelInfo, int rowIndex)
+        {
+            CellRangeAddress cellRangeAddress = new CellRangeAddress(
+                rowIndex,
+                rowIndex,
+                exportExcelInfo.StartColumn,
+                exportExcelInfo.MaxColumnIndex);
+            var textStyle = NpoiExcelExtensions.TextStyle(
+                exportExcelInfo.ExcelFile,
+                BackgroundColorIndex,
+                false,
+                CRMHorizontalAlignment.Center);
+            RenderMergedCells(exportExcelInfo, cellRangeAddress, string.Empty, textStyle);
+        }
+
+        /// <summary>
+        /// Renders the no information message.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="currentRow">The current row.</param>
+        public static void RenderNoInfoMessage(ExportExcelInfo exportExcelInfo, int currentRow)
+        {
+            CellRangeAddress cellRangeAddress = new CellRangeAddress(
+                currentRow,
+                currentRow,
+                exportExcelInfo.StartColumn,
+                exportExcelInfo.MaxColumnIndex);
+            var textStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, true, CRMHorizontalAlignment.Center);
+            RenderMergedCells(exportExcelInfo, cellRangeAddress, Labels.ResultMessage_NoInfo, textStyle);
+        }
+
+        /// <summary>
+        /// Style for number value.
+        /// </summary>
+        /// <param name="excelFile">The excel file.</param>
+        /// <returns>
+        /// The cell style.
+        /// </returns>
+        public static ICellStyle IntNumberStyleGrandTotal(
+            HSSFWorkbook excelFile)
+        {
+            return IntNumberStyle(
+                excelFile,
+                GrandTotalRowColorIndex,
+                true,
+                CRMHorizontalAlignment.Right,
+                GrandTotalTextColorIndex);
+        }
+
+        /// <summary>
+        /// Style for text.
+        /// </summary>
+        /// <param name="excelFile">The excel file.</param>
+        /// <returns>
+        /// The cell style.
+        /// </returns>
+        public static ICellStyle TextStyleGrandTotal(
+            HSSFWorkbook excelFile)
+        {
+            return TextStyle(
+                excelFile,
+                GrandTotalRowColorIndex,
+                true,
+                CRMHorizontalAlignment.Left,
+                GrandTotalTextColorIndex);
+        }
     }
 }

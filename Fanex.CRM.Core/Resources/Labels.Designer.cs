@@ -97,6 +97,33 @@ namespace Fanex.CRM.Infrastructure.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IBC.
+        /// </summary>
+        public static string IBC {
+            get {
+                return ResourceManager.GetString("IBC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensee.
+        /// </summary>
+        public static string Licensee {
+            get {
+                return ResourceManager.GetString("Licensee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} To {1}.
+        /// </summary>
+        public static string Message_ViewChart_FromToDate {
+            get {
+                return ResourceManager.GetString("Message_ViewChart_FromToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You don&apos;t have permission on this function!.
         /// </summary>
         public static string NoPermission {

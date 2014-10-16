@@ -13,6 +13,11 @@ var CRMConstants = function () {
         },
 
         Site: {
+            NotApply: 0,
+            IBC: 1,
+            Licensee: 2
+        },
+        Setting: {
             NotApply: 0
         },
         Setting: {

@@ -102,9 +102,9 @@
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\IFeedbackRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
-      <DependentUpon>Labels.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\AddCustomerFeedback\AddCustomerFeedbackService.cs" />
     <Compile Include="Services\AddCustomerFeedback\IAddCustomerFeedbackService.cs" />

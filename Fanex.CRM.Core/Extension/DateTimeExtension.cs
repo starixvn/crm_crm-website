@@ -21,13 +21,15 @@ namespace Fanex.CRM.Infrastructure.Extension
 
         public const string MonthFormat = "MMM";
 
-        public const string ShortDateFormatWithSlash = "MM/dd/_yyyy";
+        public const string ShortDateFormatWithSlash = "MM/dd/yyyy";
 
         public const string LongDateTimeFormat = "MMM dd, yyyy hh:mm tt";
 
         public const string MonthYearFormat = "MMM yyyy";
 
         public const string HourMinuteFormat = "HH:mm";
+
+        public const string HourMinuteAmPmFormat = "hh:mm tt";
 
         private const int NumberDayInWeek = 7;
 
@@ -55,6 +57,11 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static string ToHourMinuteFormated(this DateTime date)
         {
             return date.ToString(HourMinuteFormat);
+        }
+
+        public static string ToHourMinuteAmPmFormated(this DateTime date)
+        {
+            return date.ToString(HourMinuteAmPmFormat);
         }
 
         public static string ToShortFormatedDateWithSlash(this DateTime date)

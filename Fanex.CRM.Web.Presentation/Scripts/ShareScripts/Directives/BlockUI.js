@@ -1,5 +1,6 @@
 ﻿"use strict";
 /* global hotKeyManager */
+/* jshint unused: vars */
 angular.module('$uiBlockerApplication', [])
     .service('$uiBlockerService', ['$rootScope', function ($rootScope) {
         this.blockUI = function () {
@@ -8,6 +9,10 @@ angular.module('$uiBlockerApplication', [])
             }
 
             try {
+                if (window.hotKeyManager) {
+                    hotKeyManager.CachedData.isBlockingUI = true;
+                }
+
                 if (parent && parent.BlockUI) {
                     parent.BlockUI();
                 }
@@ -19,6 +24,10 @@ angular.module('$uiBlockerApplication', [])
             try {
                 if (parent && parent.$.unblockUI) {
                     parent.$.unblockUI();
+                }
+
+                if (window.hotKeyManager) {
+                    hotKeyManager.CachedData.isBlockingUI = false;
                 }
             } catch (e) {
             }

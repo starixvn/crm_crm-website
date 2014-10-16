@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // <copyright file="BundleConfig.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
@@ -130,6 +130,8 @@ namespace Fanex.CRM.Web.View.App_Start
 
             InformHeadlinesBundles.RegisterAll(bundles);
             AdminToolBundles.RegisterBundles(bundles);
+
+            RegisterBundles_FanexGrid(bundles);
         }
 
         /// <summary>
@@ -568,6 +570,24 @@ namespace Fanex.CRM.Web.View.App_Start
         {
             bundles.Add(new ScriptBundle("~/Scripts/FanexGridV2/NumeralScripts").Include(
                 "~/Scripts/FanexGridV2/numeral.js"));
+        }
+
+        /// <summary>
+        /// Registers the bundles FANEX grid.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterBundles_FanexGrid(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Scripts/FanexGridV2/FanexGridScripts").Include(
+                "~/Scripts/FanexGridV2/Fanex.Pagination.js",
+                "~/Scripts/FanexGridV2/Fanex.Grid.js",
+                "~/Scripts/FanexGridV2/moment.js"));
+
+            bundles.AddAndInclude(
+                "~/Scripts/FanexGridV2/FanexGridStyles",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Content/site/customizeFanexGridV2.less");
         }
 
         /// <summary>

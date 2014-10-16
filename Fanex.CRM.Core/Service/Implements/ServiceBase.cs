@@ -12,10 +12,14 @@ namespace Fanex.CRM.Infrastructure.Service.Implements
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Infrastructure.Service.Interfaces;
     using Fanex.NAP.Framework.Data;
+    using NPOI.SS.UserModel;
+    using NPOI.SS.Util;
 
     /// <summary>
     /// Service Base.
@@ -73,6 +77,31 @@ namespace Fanex.CRM.Infrastructure.Service.Implements
                 HandleException(ex);
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Exports the header title.
+        /// Include empty row.
+        /// </summary>
+        /// <param name="exportExcelInfo">The export excel information.</param>
+        /// <param name="reportTitle">The report title.</param>
+        /// <param name="headerStyle">The header style.</param>
+        public void ExportHeaderTitle(
+            ExportExcelInfo exportExcelInfo,
+            string reportTitle,
+            ICellStyle headerStyle)
+        {
+            CellRangeAddress cellRangeAddress = new CellRangeAddress(
+                exportExcelInfo.CurrentRow,
+                exportExcelInfo.CurrentRow + 1,
+                exportExcelInfo.StartColumn,
+                exportExcelInfo.MaxColumnIndex);
+
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
+            exportExcelInfo.CurrentRow += 2;
+
+            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
+            exportExcelInfo.CurrentRow++;
         }
     }
 }

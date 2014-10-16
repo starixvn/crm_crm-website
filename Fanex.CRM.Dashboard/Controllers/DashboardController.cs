@@ -34,9 +34,14 @@ namespace Fanex.CRM.Dashboard.Controllers
         {
             _dashboardServiceInstance = dashboardServiceInstance ?? new DashboardService();
         }
-
-        public ActionResult Index(int customerId)
+                
+        public ActionResult Index(int customerId = 0)
         {
+            if (customerId == 0)
+            {
+                return View("~/Views/Home/BlankPage.cshtml");
+            }
+
             return View("~/Areas/Dashboard/ViewInfo/Index.cshtml", customerId);
         }
 
