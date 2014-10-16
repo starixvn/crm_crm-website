@@ -301,15 +301,13 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
             if (addResult.Code === 0) {
                 $scope.messageResultOptions = new MessageResult(addResult.Message, true, true);
                 setTimeout(function () {
+                    $uiBlockerService.unblockUI();
                     $scope.messageResultOptions = new MessageResult('', false, false);
                     $scope.safeApply();
+                    parent.leftPanelManager.loadLeftPanel(null, true);
                 }, sharedScriptManager.cachedData.alertSuccessTime);
-
-                $uiBlockerService.unblockUI();
                 return;
             }
-
-            $uiBlockerService.unblockUI();
         };
         $scope.setFocus = function () {
             $scope.isSetFocus = true;
