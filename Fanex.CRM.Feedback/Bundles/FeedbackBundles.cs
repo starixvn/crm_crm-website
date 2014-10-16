@@ -151,6 +151,10 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Areas/Feedbacks/LatestFeedback/Styles/StyleSheet.less");
         }
 
+        /// <summary>
+        /// Registers the deleted feedback bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         private static void RegisterDeletedFeedbackBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackScripts").Include(

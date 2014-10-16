@@ -69,6 +69,7 @@
         "~/Scripts/FanexGridV2/NumeralScripts",
         "~/Areas/Report/DailyStatisticsReportScripts")
     <script type="text/javascript">
+        parent.document.title = '@Labels.Daily_Statistics_Report';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var viewResources = {
@@ -100,7 +101,11 @@
             Response: '@Labels.Response',
             Handle_By: '@Labels.Handle_By',
             Creation_Time: '@Labels.Creation_Time',
-            Detail: '@Labels.Detail'
+            Detail: '@Labels.Detail',
+
+            ViewDetail: '@Labels.ViewDetail',
+            ViewChart: '@Labels.ViewChart',
+            GoBack: '@Labels.GoBack'
         };
     </script>
 </body>

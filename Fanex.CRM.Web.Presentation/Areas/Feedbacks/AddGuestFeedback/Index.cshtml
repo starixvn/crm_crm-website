@@ -472,6 +472,7 @@
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
     <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_AddGuestFeedback';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';

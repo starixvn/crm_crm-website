@@ -77,11 +77,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             Description: '',
             Solution: '',
             HasRelated: false,
-            CustomerInfo: {
-                Title: {
-                    Id: 0
-                }
-            },
+            CustomerInfo: $scope.customerInfo,
             Language: {
                 Id: 0
             },
@@ -89,7 +85,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                 Id: 0
             }
         };
-        $scope.oldParams = angular.copy($scope.addGuestFeedbackParams);
+        $scope.oldParams = null;
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
             $scope.initDefaultOption();
@@ -148,13 +144,14 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             $scope.updateSelectedMainCategory($scope.mainCategoryOptions.DataList[0]);
             $scope.updateSelectedBetType($scope.betTypeOptions.DataList[0]);
             $scope.updateSelectedStatus($scope.statusOptions.DataList[0]);
-
             $scope.updateSelectedExtension($scope.extensionOptions.DataList[0]);
             $scope.updateSelectedSubCategory($scope.subCategoryOptions.DataList[0]);
             $scope.addGuestFeedbackParams.CustomerInfo = $scope.customerInfo;
             $scope.updateRemarkPrefix();
 
             $scope.oldParams = angular.copy($scope.addGuestFeedbackParams);
+            $scope.oldParams.CustomerInfo.BirthDayString = 'Jan 01, 1970';
+            $scope.updateChangeFlag();
             $scope.isLoading = false;
             $uiBlockerService.unblockUI();
         };
@@ -295,6 +292,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
         };
         $scope.showAddResult = function (addResult) {
             $scope.oldParams = angular.copy($scope.addGuestFeedbackParams);
+            $scope.updateChangeFlag();
             if (addResult.Code !== 0) {
                 $scope.messageResultOptions = new MessageResult(addResult.Message, true, false);
                 $uiBlockerService.unblockUI();
@@ -390,6 +388,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             $scope.$watch(function ($scope) {
                 $scope.updateChangeFlag();
             });
+
             $scope.initController();
             $scope.setFocus();
             $scope.registerHotKey();

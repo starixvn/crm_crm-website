@@ -51,14 +51,15 @@ function OpenPopup(url,
             return true;
         },
         close: function (event, ui) {
-                        if (currentExecFrame != null && currentExecFrame.onclose) {
-                            currentExecFrame.onclose();
-                            try {
-                                setTimeout('currentExecFrame=null;', 500);
-                            } catch (e) {
-                            }
-                        }
-            
+            $(this).find("#innerFrame").attr("src", "");
+            if (currentExecFrame != null && currentExecFrame.onclose) {
+                currentExecFrame.onclose();
+                try {
+                    setTimeout('currentExecFrame=null;', 500);
+                } catch (e) {
+                }
+            }
+
         }
     });
 

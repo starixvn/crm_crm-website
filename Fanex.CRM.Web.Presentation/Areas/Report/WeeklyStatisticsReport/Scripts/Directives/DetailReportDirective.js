@@ -28,7 +28,7 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
 
         $(".table-ibc-report-container").addClass(crmConstants.Enums.CssClass.DisplayNone);
         $(".table-licensee-report-container").addClass(crmConstants.Enums.CssClass.DisplayNone);
-        element.find(".btnBack").click(function () {
+        element.find(".btnGoBack").click(function () {
             backToMainReport(element);
         });
         element.find(".back-main-report").click(function () {
@@ -79,10 +79,9 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
                 });
             }
         }
-        
-        var breadcrumb = sharedScriptManager.stringFormat('<a class="back-main-report">{0}</a> > {1}',
-            [report ? report.Name : "", viewResources.Detail]);
-        var backIcon = '<input class="btnBack" type="button" />';
+
+        var breadcrumb = report ? report.Name : "";
+        var backIcon = '<input class="btnGoBack" type="button" title="' + viewResources.GoBack + '" />';
         var gridOptions = {
             columns: [{ HeaderText: viewResources.Date, Width: 80, Name: "ColDate", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Start_Time, Width: 60, Name: "ColStartTime", HeaderAlign: "center", CellAlign: "center" },

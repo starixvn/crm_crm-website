@@ -24,7 +24,13 @@ fbStatisticDetailApplication.directive('tableFeedbackStatisticDetailContainer', 
                 { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left' },
                 { HeaderText: feedbackStatisticDetailResources.SubCategory, Width: 270, Name: 'ColSubCategory', HeaderAlign: 'center', CellAlign: 'left' },
                 { HeaderText: feedbackStatisticDetailResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
-                { HeaderText: feedbackStatisticDetailResources.RelatedCustomer, Width: 130, Name: 'ColRelatedCustomer', HeaderAlign: 'center', CellAlign: 'left' }
+                {
+                    HeaderText: feedbackStatisticDetailResources.RelatedCustomer,
+                    Width: 130,
+                    Name: 'ColRelatedCustomer',
+                    HeaderAlign: 'center',
+                    CellAlign: 'left'
+                }
             ],
             showTitle: true,
             titleInfo: {
