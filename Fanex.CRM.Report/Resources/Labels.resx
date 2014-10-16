@@ -631,7 +631,7 @@
     <value>Filtering by Feedback date</value>
   </data>
   <data name="DailyStatisticsReport_Title" xml:space="preserve">
-    <value>{0} Daily Report From {1} To {2}</value>
+    <value>{0} Daily Summary Report From {1} To {2}</value>
   </data>
   <data name="Call" xml:space="preserve">
     <value>Call</value>
@@ -692,5 +692,20 @@
   </data>
   <data name="Detail" xml:space="preserve">
     <value>Detail</value>
+  </data>
+  <data name="Weekly_Statistics_Report" xml:space="preserve">
+    <value>Weekly Statistics Report</value>
+  </data>
+  <data name="WeeklyStatisticsReport_ChartSuffix" xml:space="preserve">
+    <value>Feedback(s)</value>
+  </data>
+  <data name="WeeklyStatisticsReport_DetailTitle" xml:space="preserve">
+    <value>{0} Weekly Customer Complaints/Enquiries From {1} To {2}</value>
+  </data>
+  <data name="WeeklyStatisticsReport_Title" xml:space="preserve">
+    <value>{0} Weekly Summary Report From {1} To {2}</value>
+  </data>
+  <data name="Weekly_Statistics" xml:space="preserve">
+    <value>Weekly Statistics</value>
   </data>
 </root>

@@ -126,6 +126,7 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
             var getReportCriteria = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                SiteType: $scope.getDetailReportCriteria.SiteType,
                 IsPagingCallBack: false,
                 IsGetFullReport: true
             };

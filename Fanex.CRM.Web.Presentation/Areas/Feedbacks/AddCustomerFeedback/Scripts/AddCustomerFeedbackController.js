@@ -334,7 +334,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                 sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.PhoneInfo, $scope.addCustomerFeedbackParams.CustomerInfo.PhoneInfo) &&
                 sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.FaxInfo, $scope.addCustomerFeedbackParams.CustomerInfo.FaxInfo) &&
                 sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.MobilePhone, $scope.addCustomerFeedbackParams.CustomerInfo.MobilePhone) &&
-                sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.PersonalInfoContact, 
+                sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.PersonalInfoContact,
                     $scope.addCustomerFeedbackParams.CustomerInfo.PersonalInfoContact) &&
                 $scope.oldParams.CustomerInfo.Skype === $scope.addCustomerFeedbackParams.CustomerInfo.Skype &&
                 $scope.oldParams.CustomerInfo.Email === $scope.addCustomerFeedbackParams.CustomerInfo.Email &&
@@ -364,7 +364,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
         $scope.updateRemarkPrefix = function () {
             var remarkPrefix = $scope.generateRemarkPrefix();
             if ($scope.addCustomerFeedbackParams.Description.indexOf($scope.lastRemarkPrefix) === 0) {
-                $scope.addCustomerFeedbackParams.Description = 
+                $scope.addCustomerFeedbackParams.Description =
                     $scope.addCustomerFeedbackParams.Description.substring($scope.lastRemarkPrefix.length, $scope.addCustomerFeedbackParams.Description.length);
                 $scope.descriptionOptions.SelectedText = $scope.addCustomerFeedbackParams.Description;
             }

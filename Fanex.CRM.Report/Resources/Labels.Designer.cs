@@ -448,7 +448,7 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Daily Report From {1} To {2}.
+        ///   Looks up a localized string similar to {0} Daily Summary Report From {1} To {2}.
         /// </summary>
         public static string DailyStatisticsReport_Title {
             get {
@@ -1749,6 +1749,51 @@ namespace Fanex.CRM.Report.Resources {
         public static string Weekly {
             get {
                 return ResourceManager.GetString("Weekly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weekly Statistics.
+        /// </summary>
+        public static string Weekly_Statistics {
+            get {
+                return ResourceManager.GetString("Weekly_Statistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weekly Statistics Report.
+        /// </summary>
+        public static string Weekly_Statistics_Report {
+            get {
+                return ResourceManager.GetString("Weekly_Statistics_Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feedback(s).
+        /// </summary>
+        public static string WeeklyStatisticsReport_ChartSuffix {
+            get {
+                return ResourceManager.GetString("WeeklyStatisticsReport_ChartSuffix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Weekly Customer Complaints/Enquiries From {1} To {2}.
+        /// </summary>
+        public static string WeeklyStatisticsReport_DetailTitle {
+            get {
+                return ResourceManager.GetString("WeeklyStatisticsReport_DetailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} Weekly Summary Report From {1} To {2}.
+        /// </summary>
+        public static string WeeklyStatisticsReport_Title {
+            get {
+                return ResourceManager.GetString("WeeklyStatisticsReport_Title", resourceCulture);
             }
         }
         

@@ -99,7 +99,6 @@ namespace Fanex.CRM.Report.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public void ExportDetailReport(GetDetailReportCriteria criteria)
         {
-            criteria.SiteType = (int)Enumerations.ReportTypes.CreditSite;
             _dailyStatisticsReportService.ExportDetailReport(criteria);
         }
     }

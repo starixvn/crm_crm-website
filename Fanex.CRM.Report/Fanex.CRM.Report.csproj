@@ -93,7 +93,7 @@
     <Compile Include="Controllers\SettlementReportController.cs" />
     <Compile Include="Controllers\SummaryReportController.cs" />
     <Compile Include="Controllers\WagerReportController.cs" />
-    <Compile Include="Controllers\WeeklyStatisticReportController.cs" />
+    <Compile Include="Controllers\WeeklyStatisticsReportController.cs" />
     <Compile Include="Criteria\CasinoReport\GetCasinoDetailCriteria.cs" />
     <Compile Include="Criteria\CasinoReport\GetCasinoSummaryCriteria.cs" />
     <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
@@ -102,6 +102,8 @@
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
     <Compile Include="Criteria\SummaryReport\GetSummaryReportCriteria.cs" />
+    <Compile Include="Criteria\WeeklyStatisticsReport\GetDetailReportCriteria.cs" />
+    <Compile Include="Criteria\WeeklyStatisticsReport\GetMainReportCriteria.cs" />
     <Compile Include="Entities\CasinoReport\CasinoDetailEntity.cs" />
     <Compile Include="Entities\DailyStatisticsReport\DailyStatisticsEntity.cs" />
     <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
     <Compile Include="Entities\SummaryReport\SummaryRawData.cs" />
     <Compile Include="Entities\WagerReport\WagerRawData.cs" />
+    <Compile Include="Entities\WeeklyStatisticsReport\WeeklyStatisticsEntity.cs" />
     <Compile Include="Models\CasinoReport\CasinoDailySummary.cs" />
     <Compile Include="Models\CasinoReport\CasinoDetail.cs" />
     <Compile Include="Models\CasinoReport\CasinoGroup.cs" />
@@ -140,6 +143,11 @@
     <Compile Include="Models\WagerReport\Wager.cs" />
     <Compile Include="Models\WagerReport\WagerByMonth.cs" />
     <Compile Include="Models\WagerReport\WagerReportModel.cs" />
+    <Compile Include="Models\WeeklyStatisticsReport\CategoryIssuesInfo.cs" />
+    <Compile Include="Models\WeeklyStatisticsReport\WeeklyStatisticsDetailInfo.cs" />
+    <Compile Include="Models\WeeklyStatisticsReport\WeeklyStatisticsDetailReportInfo.cs" />
+    <Compile Include="Models\WeeklyStatisticsReport\WeeklyStatisticsInfoRepositoryResult.cs" />
+    <Compile Include="Models\WeeklyStatisticsReport\WeeklyStatisticsReportInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\DailyStatisticsReport\DailyStatisticsRepository.cs" />
     <Compile Include="Repositories\DailyStatisticsReport\IDailyStatisticsRepository.cs" />
@@ -153,6 +161,8 @@
     <Compile Include="Repositories\Interfaces\IDynamicReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISummaryReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\IWagerReportRepository.cs" />
+    <Compile Include="Repositories\WeeklyStatisticsReport\WeeklyStatisticsRepository.cs" />
+    <Compile Include="Repositories\WeeklyStatisticsReport\IWeeklyStatisticsRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -180,6 +190,8 @@
     <Compile Include="Services\Interfaces\ISettlementReportService.cs" />
     <Compile Include="Services\Interfaces\ISummaryReportService.cs" />
     <Compile Include="Services\Interfaces\IWagerReportService.cs" />
+    <Compile Include="Services\WeeklyStatisticsReport\WeeklyStatisticsReportService.cs" />
+    <Compile Include="Services\WeeklyStatisticsReport\IWeeklyStatisticsReportService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

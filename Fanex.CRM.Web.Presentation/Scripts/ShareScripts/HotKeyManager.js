@@ -1,12 +1,13 @@
 ﻿"use strict";
 /* global sharedScriptManager,
 keyboardManager */
-/* jshint unused: vars */
-/* jshint camelcase: false */
+/* jshint unused: vars,
+camelcase: false,
+maxstatements: false */
 /* Hotkey notes:
 - Don't invoke hot key so fast 
 (including: keep holding Ctrl + Key,
-or make next combine in short time after previous combine)
+or make next combine in short time after previous combination)
 */
 var hotKeyManager;
 var HotKeyManager = function () {
@@ -49,11 +50,7 @@ var HotKeyManager = function () {
 
     self.bindEvent = function () {
         $(document).keydown(function (eventObject) {
-            if (self.CachedData.isBlockingUI) {
-                return;
-            }
-
-            if (self.CachedData.isIgnoreKey || parent.hotKeyManager.CachedData.isIgnoreKey) {
+            if (self.CachedData.isBlockingUI || self.CachedData.isIgnoreKey || parent.hotKeyManager.CachedData.isIgnoreKey) {
                 self.preventBubbleEvent(eventObject);
                 return false;
             }
@@ -108,11 +105,8 @@ var HotKeyManager = function () {
         }
     };
     self.documentKeyDown = function (eventObject) {
-        if (self.CachedData.isBlockingUI) {
-            return;
-        }
-
-        if (self.CachedData.isIgnoreKey ||
+        if (self.CachedData.isBlockingUI||
+            self.CachedData.isIgnoreKey ||
             parent.hotKeyManager.CachedData.isIgnoreKey) {
             self.preventBubbleEvent(eventObject);
             return false;

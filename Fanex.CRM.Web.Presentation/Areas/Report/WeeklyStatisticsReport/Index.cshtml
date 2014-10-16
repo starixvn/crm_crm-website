@@ -1,0 +1,109 @@
+﻿﻿@using Fanex.CRM.Report.Resources;
+@using Fanex.CRM.Report.Models;
+@using Fanex.CRM.Infrastructure.Extension;
+@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Helper;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-weeklystatistics-application">
+<head>
+    <title>@Labels.Weekly_Statistics_Report </title>
+    @Styles.Render("~/site/common")
+    @Styles.Render("~/Scripts/FanexGridV2/FanexGridStyles")
+    @Styles.Render("~/Areas/Report/WeeklyStatisticsReportStyles")
+</head>
+<body data-ng-controller="weeklyStatisticsReportController">
+    <div class="main container">
+        <div class="row filter-frm one-row">
+            <div class="row row-item">
+                <div class="pull-left">
+                    <div class="item">
+                        <label for="fromDate" class="width-80">
+                            @Labels.From_Date</label>
+                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                            <input id="fromDate" type="text" class="textbox txtcalendar disabled" autocomplete="off" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="toDate" class="width-50">
+                            @Labels.To_Date</label>
+                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                            <input id="toDate" type="text" class="textbox txtcalendar disabled" autocomplete="off" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <button id="button-submit" class="btn" data-ng-click="getWeeklyStatisticsReport();">
+                            <span class="hotkey">S</span>ubmit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="icon-filter">
+                </div>
+                <span class="warning">@Labels.Filtering_by_Feedback_date</span>
+            </div>
+        </div>
+        <div>
+            <div data-ng-model="ibcReportOptions.IsUpdateGrid" class="display-none table-ibc-report-container">
+                <div id="table-ibc-report" class="freegrid  table-ibc-report">
+                </div>
+            </div>
+            <div data-ng-model="licenseeReportOptions.IsUpdateGrid" class="display-none table-licensee-report-container">
+                <div id="table-licensee-report" class="freegrid table-licensee-report">
+                </div>
+            </div>
+            <div data-ng-model="detailReportOptions.IsUpdateGrid" class="display-none table-detail-report-container">
+                <div id="table-detail-report" class="freegrid table-detail-report">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="download-file-container" data-ng-model="downloadFileOptions">
+        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+    </div>
+    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/FanexGridV2/FanexGridScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render("~/CRM/DownLoadFile/Scripts")
+    @Scripts.Render(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Scripts/FanexGridV2/NumeralScripts",
+        "~/Areas/Report/WeeklyStatisticsReportScripts")
+    <script type="text/javascript">
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = ' @Helper.GetFirstDayOfWeek(DateTimeUtilize.GetCurrentClientTime()).ToShortFormatedDate()';
+        var viewResources = {
+            All: '@Labels.All',
+            Complaints_Enquiries: '@Labels.Complaints_Enquiries',
+            Grand_Total: '@Labels.Grand_Total',
+            DailyStatisticsReport_ChartSuffix: '@Labels.WeeklyStatisticsReport_ChartSuffix',
+
+            Date: '@Labels.Date',
+            Start_Time: '@Labels.Start_Time',
+            End_Time: '@Labels.End_Time',
+            Duration: '@Labels.Duration',
+            Customer: '@Labels.Customer',
+            Site: '@Labels.Site',
+            Type_Of_Contact: '@Labels.Type_Of_Contact',
+            Symbol_Extension: '@Labels.Symbol_Extension',
+            Contact: '@Labels.Contact',
+            MSN: '@Labels.MSN',
+            Skype: '@Labels.Skype',
+            Email: '@Labels.Email',
+            Phone: '@Labels.Phone',
+            Mobile: '@Labels.Mobile',
+            Product: '@Labels.Product',
+            Country: '@Labels.Country',
+            Category: '@Labels.Category',
+            Subcategory: '@Labels.SubCategory',
+            Solution: '@Labels.Solution',
+            Status: '@Labels.Status',
+            Response: '@Labels.Response',
+            Handle_By: '@Labels.Handle_By',
+            Creation_Time: '@Labels.Creation_Time',
+            Detail: '@Labels.Detail'
+        };
+    </script>
+</body>
+</html>
