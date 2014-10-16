@@ -4,15 +4,67 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Louis" date="2012.12.07">Created</change>
+//   <change who="Kan.Nguyen" date="2014.10.10">Created</change>
 // </history>
 
 namespace Fanex.CRM.Report.Controllers
 {
+    using System.Web.Mvc;
+    using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
+    using Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport;
+    using Fanex.CRM.Report.Services.Interfaces;
+
     /// <summary>
-    /// Feedback Statistic Report Controller.
+    /// Feedback statistic report controller.
     /// </summary>
-    public class FeedbackStatisticReportController
+    public class FeedbackStatisticReportController : BaseController
     {
+        private readonly IFeedbackStatisticReportService _feedbackStatisticService;
+
+        public FeedbackStatisticReportController()
+            : this(null)
+        {
+        }
+
+        public FeedbackStatisticReportController(IFeedbackStatisticReportService feedbackStatisticService)
+        {
+            _feedbackStatisticService = feedbackStatisticService ?? new FeedbackStatisticReportService();
+        }
+
+        public ActionResult Index()
+        {
+            var settings = _feedbackStatisticService.GetFeedbackStatisticFilterType();
+            return View("~/Areas/Report/FeedbackStatistics/Index.cshtml", settings);
+        }
+
+        public ActionResult SearchFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
+        {
+            var report = _feedbackStatisticService.GetFeedbackStatistic(criteria);
+            return Json(report, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ExportFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
+        {
+            _feedbackStatisticService.ExportFeedbackStatistic(criteria);
+            return new EmptyResult();
+        }
+
+        public ActionResult FeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
+        {
+            return View("~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Index.cshtml", criteria);
+        }
+
+        public ActionResult GetFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
+        {
+            var report = _feedbackStatisticService.FeedbackStatisticDetail(criteria);
+            return Json(report, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
+        {
+            _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria);
+            return new EmptyResult();
+        }
     }
 }

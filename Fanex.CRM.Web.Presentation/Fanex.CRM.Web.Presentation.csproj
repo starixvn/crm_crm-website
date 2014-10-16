@@ -412,6 +412,16 @@
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportApplication.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportController.js" />
     <Content Include="Areas\Report\DynamicReport\Scripts\DynamicReportService.js" />
+    <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Scripts\Directives\FeedbackStatisticDetailContainer.js" />
+    <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Scripts\FeedbackStatisticDetailApplication.js" />
+    <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Scripts\FeedbackStatisticDetailController.js" />
+    <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Scripts\FeedbackStatisticDetailService.js" />
+    <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Styles\images\hp_notepad2_pen.png" />
+    <Content Include="Areas\Report\FeedbackStatistics\Scripts\Directives\FeedbackStatisticContainer.js" />
+    <Content Include="Areas\Report\FeedbackStatistics\Scripts\Directives\NumberOnlyInput.js" />
+    <Content Include="Areas\Report\FeedbackStatistics\Scripts\FeedbackStatisticController.js" />
+    <Content Include="Areas\Report\FeedbackStatistics\Scripts\FeedbackStatisticService.js" />
+    <Content Include="Areas\Report\FeedbackStatistics\Scripts\FeedbackStatisticApplication.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\Directives\SettlementReportContainer.js" />
     <Content Include="Areas\Report\SettlementReport\Scripts\SettlementReportApplication.js" />
@@ -680,6 +690,10 @@
     <Content Include="Configurations\Local.ConnectionStrings.config" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Styles\StyleSheet.less" />
+    <Content Include="Areas\Report\FeedbackStatistics\Index.cshtml" />
+    <Content Include="Areas\Report\FeedbackStatistics\Styles\styles.less" />
+    <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Index.cshtml" />
+    <Content Include="Areas\Report\FeedbackStatistics\FeedbackStatisticDetail\Styles\styles.less" />
     <None Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Configurations\PRO.ConnectionStrings.config" />
     <None Include="Content\site\reportgrid.less" />

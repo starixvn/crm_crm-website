@@ -56,6 +56,8 @@ namespace Fanex.CRM.Setting.Services.Interfaces
 
         InformHeadlineSetting GetAllInformHeadlineSettings();
 
+        BaseModel[] GetFeedbackStatisticFilterType();
+
         void ResetAllCache();
     }
 }

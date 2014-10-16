@@ -475,6 +475,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Day.
+        /// </summary>
+        public static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DEC.
         /// </summary>
         public static string DEC {
@@ -664,6 +673,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feedback.
+        /// </summary>
+        public static string Feedback {
+            get {
+                return ResourceManager.GetString("Feedback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feedback Date.
         /// </summary>
         public static string Feedback_Date {
@@ -682,11 +700,82 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Filtering by Feedback date.
         /// </summary>
         public static string Filtering_by_Feedback_date {
             get {
                 return ResourceManager.GetString("Filtering_by_Feedback_date", resourceCulture);
+=======
+        ///   Looks up a localized string similar to FeedbackStatisticDetail-{0}-{1}.
+        /// </summary>
+        public static string FeedbackStatisticDetailExcelName {
+            get {
+                return ResourceManager.GetString("FeedbackStatisticDetailExcelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feedback Statistic Detail Report.
+        /// </summary>
+        public static string FeedbackStatisticDetailReport {
+            get {
+                return ResourceManager.GetString("FeedbackStatisticDetailReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feedback Statistic Detail.
+        /// </summary>
+        public static string FeedbackStatisticDetailSheetName {
+            get {
+                return ResourceManager.GetString("FeedbackStatisticDetailSheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feedback Statistic Detail Report from {0} to {1}.
+        /// </summary>
+        public static string FeedbackStatisticDetailTitle {
+            get {
+                return ResourceManager.GetString("FeedbackStatisticDetailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FeedbackStatistic-{0}-{1}.
+        /// </summary>
+        public static string FeedbackStatisticExcelName {
+            get {
+                return ResourceManager.GetString("FeedbackStatisticExcelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;To Duration&apos; must be greater than or equal &apos;From Duration&apos; ..
+        /// </summary>
+        public static string FeedbackStatistics_InvalidDuration {
+            get {
+                return ResourceManager.GetString("FeedbackStatistics_InvalidDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feedback Statistic.
+        /// </summary>
+        public static string FeedbackStatisticSheetName {
+            get {
+                return ResourceManager.GetString("FeedbackStatisticSheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feedback Statistics Report from {0} to {1}.
+        /// </summary>
+        public static string FeedbackStatisticTitle {
+            get {
+                return ResourceManager.GetString("FeedbackStatisticTitle", resourceCulture);
+>>>>>>> #20808 - Feedback statistics
             }
         }
         
@@ -750,6 +839,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string From_Year {
             get {
                 return ResourceManager.GetString("From_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Duration.
+        /// </summary>
+        public static string FromDuration {
+            get {
+                return ResourceManager.GetString("FromDuration", resourceCulture);
             }
         }
         
@@ -831,6 +929,24 @@ namespace Fanex.CRM.Report.Resources {
         public static string Headline {
             get {
                 return ResourceManager.GetString("Headline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hour.
+        /// </summary>
+        public static string Hour {
+            get {
+                return ResourceManager.GetString("Hour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to item(s).
+        /// </summary>
+        public static string Items {
+            get {
+                return ResourceManager.GetString("Items", resourceCulture);
             }
         }
         
@@ -952,6 +1068,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Minute.
+        /// </summary>
+        public static string Minute {
+            get {
+                return ResourceManager.GetString("Minute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mobile.
         /// </summary>
         public static string Mobile {
@@ -1029,6 +1154,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string No_site_found {
             get {
                 return ResourceManager.GetString("No_site_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no data..
+        /// </summary>
+        public static string NoDataFound {
+            get {
+                return ResourceManager.GetString("NoDataFound", resourceCulture);
             }
         }
         
@@ -1168,6 +1302,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Related Customer.
+        /// </summary>
+        public static string RelatedCustomer {
+            get {
+                return ResourceManager.GetString("RelatedCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report type.
         /// </summary>
         public static string Report_type {
@@ -1218,6 +1361,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Running_No {
             get {
                 return ResourceManager.GetString("Running_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Second.
+        /// </summary>
+        public static string Second {
+            get {
+                return ResourceManager.GetString("Second", resourceCulture);
             }
         }
         
@@ -1474,6 +1626,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sub Total.
+        /// </summary>
+        public static string SubTotal {
+            get {
+                return ResourceManager.GetString("SubTotal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Summary Chart.
         /// </summary>
         public static string SummaryChart {
@@ -1623,6 +1784,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string To_Year {
             get {
                 return ResourceManager.GetString("To_Year", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Duration.
+        /// </summary>
+        public static string ToDuration {
+            get {
+                return ResourceManager.GetString("ToDuration", resourceCulture);
             }
         }
         

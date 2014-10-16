@@ -25,6 +25,9 @@ namespace Fanex.CRM.Report
 
             RegisterDailyStatisticsReportBundles(bundles);
             RegisterWeeklyStatisticsReportBundles(bundles);
+            
+            RegisterFeedbackStatisticBundles(bundles);
+            RegisterFeedbackStatisticDetailBundles(bundles);
         }
 
         /// <summary>
@@ -128,6 +131,58 @@ namespace Fanex.CRM.Report
                 bundles,
                 "~/Areas/Report/WeeklyStatisticsReportStyles",
                 "~/Areas/Report/WeeklyStatisticsReport/Styles/WeeklyStatisticsReport.less");
+        }
+        
+        /// <summary>
+        /// Registers the feedback statistic bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterFeedbackStatisticBundles(BundleCollection bundles)
+        {
+            AddAndInclude(
+                bundles,
+                "~/bundles/Report/FeedbackStatisticStyles",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/Report/FeedbackStatistics/Styles/styles.less");
+
+            bundles.Add(new ScriptBundle("~/bundles/Report/FeedbackStatisticScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/Applications/AlertBox.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/FeedbackStatistics/Scripts/FeedbackStatisticApplication.js",
+                "~/Areas/Report/FeedbackStatistics/Scripts/FeedbackStatisticService.js",
+                "~/Areas/Report/FeedbackStatistics/Scripts/FeedbackStatisticController.js",
+                "~/Areas/Report/FeedbackStatistics/Scripts/Directives/*.js"));
+        }
+
+        /// <summary>
+        /// Registers the feedback statistic detail bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterFeedbackStatisticDetailBundles(BundleCollection bundles)
+        {
+            AddAndInclude(
+                bundles,
+                "~/bundles/Report/FeedbackStatisticDetailStyles",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Styles/styles.less");
+
+            bundles.Add(new ScriptBundle("~/bundles/Report/FeedbackStatisticDetailScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/Applications/AlertBox.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/FeedbackStatisticDetailApplication.js",
+                "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/FeedbackStatisticDetailService.js",
+                "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/FeedbackStatisticDetailController.js",
+                "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/Directives/*.js"));
         }
 
         private static void AddAndInclude(

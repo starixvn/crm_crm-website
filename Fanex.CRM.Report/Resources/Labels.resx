@@ -708,4 +708,61 @@
   <data name="Weekly_Statistics" xml:space="preserve">
     <value>Weekly Statistics</value>
   </data>
+   <data name="FeedbackStatisticTitle" xml:space="preserve">
+    <value>Feedback Statistics Report from {0} to {1}</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="FromDuration" xml:space="preserve">
+    <value>From Duration</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Hour</value>
+  </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Minute</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>Second</value>
+  </data>
+  <data name="ToDuration" xml:space="preserve">
+    <value>To Duration</value>
+  </data>
+  <data name="FeedbackStatistics_InvalidDuration" xml:space="preserve">
+    <value>'To Duration' must be greater than or equal 'From Duration' .</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Sub Total</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>item(s)</value>
+  </data>
+  <data name="NoDataFound" xml:space="preserve">
+    <value>There is no data.</value>
+  </data>
+  <data name="FeedbackStatisticExcelName" xml:space="preserve">
+    <value>FeedbackStatistic-{0}-{1}</value>
+  </data>
+  <data name="FeedbackStatisticSheetName" xml:space="preserve">
+    <value>Feedback Statistic</value>
+  </data>
+  <data name="FeedbackStatisticDetailTitle" xml:space="preserve">
+    <value>Feedback Statistic Detail Report from {0} to {1}</value>
+  </data>
+  <data name="FeedbackStatisticDetailReport" xml:space="preserve">
+    <value>Feedback Statistic Detail Report</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="RelatedCustomer" xml:space="preserve">
+    <value>Related Customer</value>
+  </data>
+  <data name="FeedbackStatisticDetailExcelName" xml:space="preserve">
+    <value>FeedbackStatisticDetail-{0}-{1}</value>
+  </data>
+  <data name="FeedbackStatisticDetailSheetName" xml:space="preserve">
+    <value>Feedback Statistic Detail</value>
+  </data>
 </root>

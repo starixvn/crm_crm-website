@@ -1,7 +1,6 @@
 ﻿'use strict';
 /* global deletedFBApplication,
 deletedFeedbackResources,
-crmConstants,
 sharedScriptManager */
 /* jshint camelcase: false */
 /* jshint unused: vars */

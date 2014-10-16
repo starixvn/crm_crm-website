@@ -804,6 +804,27 @@ namespace Fanex.CRM.Setting.Services.Implements
         }
 
         /// <summary>
+        /// Gets the type of the feedback statistic filter.
+        /// </summary>
+        /// <returns>The Feedback statistic filter type list.</returns>
+        public BaseModel[] GetFeedbackStatisticFilterType()
+        {
+            return new BaseModel[]
+            {
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCreator, Name = Labels.ByCreator },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCountry, Name = Labels.ByCountry },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByRole, Name = Labels.ByRole },
+                new BaseModel { Id = FeedbackStatisticFilterType.BySite, Name = Labels.BySite },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByStatus, Name = Labels.ByStatus },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByResponse, Name = Labels.ByResponse },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByProduct, Name = Labels.ByProduct },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCategory, Name = Labels.ByCategory },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByLicensees, Name = Labels.ByLicensees },
+                new BaseModel { Id = FeedbackStatisticFilterType.ByCommunicationTool, Name = Labels.ByCommunicationTool },
+            };
+        }
+
+        /// <summary>
         /// Resets all cache.
         /// </summary>
         public void ResetAllCache()

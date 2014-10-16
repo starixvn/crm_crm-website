@@ -79,6 +79,96 @@ namespace Fanex.CRM.Setting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to By Category.
+        /// </summary>
+        public static string ByCategory {
+            get {
+                return ResourceManager.GetString("ByCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Communication Tool.
+        /// </summary>
+        public static string ByCommunicationTool {
+            get {
+                return ResourceManager.GetString("ByCommunicationTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Country.
+        /// </summary>
+        public static string ByCountry {
+            get {
+                return ResourceManager.GetString("ByCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Creator.
+        /// </summary>
+        public static string ByCreator {
+            get {
+                return ResourceManager.GetString("ByCreator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Licensees.
+        /// </summary>
+        public static string ByLicensees {
+            get {
+                return ResourceManager.GetString("ByLicensees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Product.
+        /// </summary>
+        public static string ByProduct {
+            get {
+                return ResourceManager.GetString("ByProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Response.
+        /// </summary>
+        public static string ByResponse {
+            get {
+                return ResourceManager.GetString("ByResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Role.
+        /// </summary>
+        public static string ByRole {
+            get {
+                return ResourceManager.GetString("ByRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Site.
+        /// </summary>
+        public static string BySite {
+            get {
+                return ResourceManager.GetString("BySite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By Status.
+        /// </summary>
+        public static string ByStatus {
+            get {
+                return ResourceManager.GetString("ByStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Credit.
         /// </summary>
         public static string Credit {

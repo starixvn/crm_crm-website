@@ -73,6 +73,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Net4\System.Web.Mvc.dll</HintPath>
@@ -100,6 +101,8 @@
     <Compile Include="Criteria\DailyStatisticsReport\GetDetailReportCriteria.cs" />
     <Compile Include="Criteria\DailyStatisticsReport\GetMainReportCriteria.cs" />
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
+    <Compile Include="Criteria\FeedbackStatisticReport\GetFeedbackStatisticCriteria.cs" />
+    <Compile Include="Criteria\FeedbackStatisticReport\GetFeedbackStatisticDetailCriteria.cs" />
     <Compile Include="Criteria\SettlementReport\GetSettlementReportCriteria.cs" />
     <Compile Include="Criteria\SummaryReport\GetSummaryReportCriteria.cs" />
     <Compile Include="Criteria\WeeklyStatisticsReport\GetDetailReportCriteria.cs" />
@@ -133,6 +136,11 @@
     <Compile Include="Models\DailyStatisticsReport\DailyStatisticsInfoRepositoryResult.cs" />
     <Compile Include="Models\DailyStatisticsReport\DailyStatisticsReportInfo.cs" />
     <Compile Include="Models\DynamicReportInfo.cs" />
+    <Compile Include="Models\FeedbackStatisticReport\FeedbackCategory.cs" />
+    <Compile Include="Models\FeedbackStatisticReport\FeedbackDetail.cs" />
+    <Compile Include="Models\FeedbackStatisticReport\FeedbackStatistic.cs" />
+    <Compile Include="Models\FeedbackStatisticReport\FeedbackStatisticDetail.cs" />
+    <Compile Include="Models\FeedbackStatisticReport\FeedbackSubcategory.cs" />
     <Compile Include="Models\SettlementReport\SettlementReportInfo.cs" />
     <Compile Include="Models\StatisticReport\StatisticReportInfo.cs" />
     <Compile Include="Models\SummaryReport\CategorySummary.cs" />
@@ -154,11 +162,13 @@
     <Compile Include="Repositories\Implements\CasinoReportRepository.cs" />
     <Compile Include="Repositories\Implements\CustomerReportRepository.cs" />
     <Compile Include="Repositories\Implements\DynamicReportRepository.cs" />
+    <Compile Include="Repositories\Implements\FeedbackStatisticReportRepository.cs" />
     <Compile Include="Repositories\Implements\SummaryReportRepository.cs" />
     <Compile Include="Repositories\Implements\WagerReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICasinoReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\ICustomerReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDynamicReportRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IFeedbackStatisticReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISummaryReportRepository.cs" />
     <Compile Include="Repositories\Interfaces\IWagerReportRepository.cs" />
     <Compile Include="Repositories\WeeklyStatisticsReport\WeeklyStatisticsRepository.cs" />
@@ -174,6 +184,7 @@
     <Compile Include="Services\Implements\CustomerReport\CustomerReportService.cs" />
     <Compile Include="Services\Implements\DynamicReport\CommunicationLogRowExcelWriter.cs" />
     <Compile Include="Services\Implements\DynamicReport\DynamicReportService.cs" />
+    <Compile Include="Services\Implements\FeedbackStatisticReport\FeedbackStatisticReportService.cs" />
     <Compile Include="Services\Implements\StatisticReport\FirstGrandTotalRowExcelWriter.cs" />
     <Compile Include="Services\Implements\StatisticReport\NormalRowExcelWriter.cs" />
     <Compile Include="Services\Implements\StatisticReport\StatisticReportService.cs" />
@@ -186,6 +197,7 @@
     <Compile Include="Services\Interfaces\ICasinoReportService.cs" />
     <Compile Include="Services\Interfaces\ICustomerReportService.cs" />
     <Compile Include="Services\Interfaces\IDynamicReportService.cs" />
+    <Compile Include="Services\Interfaces\IFeedbackStatisticReportService.cs" />
     <Compile Include="Services\Interfaces\IStatisticReportService.cs" />
     <Compile Include="Services\Interfaces\ISettlementReportService.cs" />
     <Compile Include="Services\Interfaces\ISummaryReportService.cs" />

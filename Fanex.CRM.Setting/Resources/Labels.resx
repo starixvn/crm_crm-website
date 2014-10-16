@@ -123,6 +123,36 @@
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="ByCategory" xml:space="preserve">
+    <value>By Category</value>
+  </data>
+  <data name="ByCommunicationTool" xml:space="preserve">
+    <value>By Communication Tool</value>
+  </data>
+  <data name="ByCountry" xml:space="preserve">
+    <value>By Country</value>
+  </data>
+  <data name="ByCreator" xml:space="preserve">
+    <value>By Creator</value>
+  </data>
+  <data name="ByLicensees" xml:space="preserve">
+    <value>By Licensees</value>
+  </data>
+  <data name="ByProduct" xml:space="preserve">
+    <value>By Product</value>
+  </data>
+  <data name="ByResponse" xml:space="preserve">
+    <value>By Response</value>
+  </data>
+  <data name="ByRole" xml:space="preserve">
+    <value>By Role</value>
+  </data>
+  <data name="BySite" xml:space="preserve">
+    <value>By Site</value>
+  </data>
+  <data name="ByStatus" xml:space="preserve">
+    <value>By Status</value>
+  </data>
   <data name="Credit" xml:space="preserve">
     <value>Credit</value>
   </data>

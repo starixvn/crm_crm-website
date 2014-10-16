@@ -55,6 +55,8 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static readonly short GroupColorIndex = (short)HSSFColor.Blue.Index;
         public static readonly short GroupBackgroundColorIndex = (short)HSSFColor.DarkGreen.Index;
         public static readonly short GrandTotalTextColorIndex = (short)HSSFColor.White.Index;
+        public static readonly short PendingStatusColorIndex = (short)HSSFColor.LightYellow.Index;
+        public static readonly short CloseStatusColorIndex = (short)HSSFColor.Grey25Percent.Index;
 
         private const string IntNumberFormat = "#,##0";
         private const string TwoDecimalDigitNumber = "##,##0.00";
