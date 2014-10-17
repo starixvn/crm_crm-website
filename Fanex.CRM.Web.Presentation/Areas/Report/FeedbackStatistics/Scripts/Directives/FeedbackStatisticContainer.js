@@ -174,7 +174,7 @@ fbStatisticApplication.directive('tableFeedbackStatisticContainer', function () 
             }
 
             bgColor = bgColorFunction(bgColorIndex++);
-            datasets.push({ fillColor: bgColor, strokeColor: bgColor, title: usernames[i], data: resolves });
+            datasets.push({ fillColor: bgColor, strokeColor: bgColor, title: usernames[i].Name, data: resolves });
         }
 
         return datasets;

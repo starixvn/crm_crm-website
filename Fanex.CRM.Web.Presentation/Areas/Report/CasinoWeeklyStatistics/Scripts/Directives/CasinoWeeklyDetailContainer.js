@@ -78,7 +78,7 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
                 { Name: 'ColCommunication', Value: detail.Communication },
                 { Name: 'ColProduct', Value: detail.Product },
                 { Name: 'ColStation', Value: detail.Station },
-                { Name: 'ColContact', Value: detail.Contact },
+                { Name: 'ColContact', Value: buildContact(detail.MSN, detail.Skype, detail.Email, detail.Phone, detail.MobilePhone) },
                 { Name: 'ColCountry', Value: detail.CountryName },
                 { Name: 'ColMainCategory', Value: detail.MainCategory },
                 { Name: 'ColSubCategory', Value: detail.SubCategory },
@@ -94,6 +94,14 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
         }
 
         return bodyData;
+    }
+
+    function buildContact(msn, skype, email, phone, mobile) {
+        return casinoWeeklyResources.MSN + ': ' + (msn ? sharedScriptManager.encodeHtml(msn) : '-') +
+            '<br/>' + casinoWeeklyResources.Skype + ': ' + (skype ? sharedScriptManager.encodeHtml(skype) : '-') +
+            '<br/>' + casinoWeeklyResources.Email + ': ' + (email ? sharedScriptManager.encodeHtml(email) : '-') +
+            '<br/>' + casinoWeeklyResources.Phone + ': ' + (phone ? sharedScriptManager.encodeHtml(phone) : '-') +
+            '<br/>' + casinoWeeklyResources.Mobile + ': ' + (mobile ? sharedScriptManager.encodeHtml(mobile) : '-');
     }
 
     function renderCasinoWeeklyDetail(scope, element, attrs) {
