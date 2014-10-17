@@ -700,13 +700,6 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-<<<<<<< HEAD
-        ///   Looks up a localized string similar to Filtering by Feedback date.
-        /// </summary>
-        public static string Filtering_by_Feedback_date {
-            get {
-                return ResourceManager.GetString("Filtering_by_Feedback_date", resourceCulture);
-=======
         ///   Looks up a localized string similar to FeedbackStatisticDetail-{0}-{1}.
         /// </summary>
         public static string FeedbackStatisticDetailExcelName {
@@ -775,7 +768,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string FeedbackStatisticTitle {
             get {
                 return ResourceManager.GetString("FeedbackStatisticTitle", resourceCulture);
->>>>>>> #20808 - Feedback statistics
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filtering by Feedback date.
+        /// </summary>
+        public static string Filtering_by_Feedback_date {
+            get {
+                return ResourceManager.GetString("Filtering_by_Feedback_date", resourceCulture);
             }
         }
         
