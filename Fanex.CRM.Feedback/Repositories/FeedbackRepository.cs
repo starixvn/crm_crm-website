@@ -122,14 +122,15 @@ namespace Fanex.CRM.Feedback.Repositories
             {
                 criteria.TotalRows = 18;
                 var feedbacks = db.Query<DeletedFeedback>(criteria.GetSpParams());
-                //var outputParams = db.GetOuputParams();
-                //if (outputParams != null && outputParams.ContainsKey("totalrows"))
-                //{
-                //    object totalRows = outputParams["totalrows"];
-                //    criteria.TotalRows = totalRows == null ? 0 : (int)totalRows;
-                //}
 
-                //return criteria.TotalRows > 0 ? feedbacks.ToList() : null;
+                // var outputParams = db.GetOuputParams();
+                // if (outputParams != null && outputParams.ContainsKey("totalrows"))
+                // {
+                //     object totalRows = outputParams["totalrows"];
+                //     criteria.TotalRows = totalRows == null ? 0 : (int)totalRows;
+                // }
+
+                // return criteria.TotalRows > 0 ? feedbacks.ToList() : null;
                 return feedbacks.ToList();
             }
         }
