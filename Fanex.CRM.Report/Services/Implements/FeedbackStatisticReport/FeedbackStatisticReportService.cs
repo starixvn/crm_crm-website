@@ -25,6 +25,8 @@ namespace Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport
     using Fanex.CRM.Report.Repositories.Interfaces;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
     using NPOI.HSSF.UserModel;
@@ -174,7 +176,7 @@ namespace Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport
                 criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
                 try
                 {
-                    feedbacks = _feedbackStatisticRepository.GetFeedbackDetail(criteria);
+                    feedbacks = GetFeedbackDetail(criteria);
                     SessionExtension.AddSession(HttpContext.Current.Session, key, feedbacks);
                 }
                 catch (Exception ex)
@@ -238,6 +240,49 @@ namespace Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport
         {
             string pattern = "MMddyyyy";
             return date.ToString(pattern);
+        }
+
+        /// <summary>
+        /// Gets the feedback detail.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The feedback detail list.</returns>
+        private IList<FeedbackDetail> GetFeedbackDetail(GetFeedbackStatisticDetailCriteria criteria)
+        {
+            var categoryHash = new Dictionary<int, string>();
+            var subcategoryHash = new Dictionary<int, string>();
+            var categoies = _settingService.GetAllMainCategory();
+            foreach (var category in categoies)
+            {
+                if (!categoryHash.ContainsKey(category.Id))
+                {
+                    categoryHash.Add(category.Id, category.Name);    
+                }
+                
+                foreach (var subcategory in category.ChildSettings)
+                {
+                    if (!subcategoryHash.ContainsKey(subcategory.Id))
+                    {
+                        subcategoryHash.Add(subcategory.Id, subcategory.Name);
+                    }
+                }
+            }
+
+            var statusList = _settingService.GetAllStatus(new GetAllStatusCriteria { ViewType = ViewTypeConstants.All });
+            var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
+            statusHash.Add(1, Labels.Symbol_NotApply);
+
+            IList<FeedbackDetail> feedbacks = new List<FeedbackDetail>();
+            var rawdata = _feedbackStatisticRepository.GetFeedbackDetail(criteria);
+            foreach (var feedback in rawdata)
+            {
+                feedback.MainCategory = categoryHash[feedback.MainCategoryId];
+                feedback.SubCategory = subcategoryHash[feedback.SubCategoryId];
+                feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
+                feedbacks.Add(feedback);    
+            }
+
+            return feedbacks;
         }
 
         #region Excel - Feedback statistic

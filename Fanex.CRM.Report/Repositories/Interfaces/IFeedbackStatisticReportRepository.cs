@@ -17,6 +17,6 @@ namespace Fanex.CRM.Report.Repositories.Interfaces
     {
         FeedbackStatistic GetFeedbackStatistic(ICriteria criteria);
 
-        IList<FeedbackDetail> GetFeedbackDetail(ICriteria criteria);
+        IEnumerable<FeedbackDetail> GetFeedbackDetail(ICriteria criteria);
     }
 }

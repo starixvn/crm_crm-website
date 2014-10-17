@@ -13,6 +13,7 @@ namespace Fanex.CRM.Feedback.Repositories
     using System.Collections.Generic;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// IFeedback Repository.
@@ -23,6 +24,6 @@ namespace Fanex.CRM.Feedback.Repositories
 
         IList<LatestFeedback> GetLatestFeedback(LatestFeedbackCriteria criteria);
 
-        IList<DeletedFeedback> GetDeletedFeedback(DeletedFeedbackCriteria criteria);
+        IEnumerable<DeletedFeedback> GetDeletedFeedback(ICriteria criteria);
     }
 }

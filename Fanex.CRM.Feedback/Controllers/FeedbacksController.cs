@@ -101,8 +101,8 @@ namespace Fanex.CRM.Feedback.Controllers
         [NapAuth(FunctionKey = FunctionPermission.DeleteFeedback, Policy = Constant.Policy.Host)]
         public ActionResult SearchDeletedFeedback(DeletedFeedbackCriteria criteria)
         {
-            var feedbacks = _feedbackService.GetDeletedFeedback(criteria);
-            var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalRows };
+            var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);
+            var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalItems };
             return Json(report, JsonRequestBehavior.DenyGet);
         }
     }

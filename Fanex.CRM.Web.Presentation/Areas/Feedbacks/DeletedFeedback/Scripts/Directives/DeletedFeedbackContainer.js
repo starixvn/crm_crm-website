@@ -53,21 +53,15 @@ deletedFBApplication.directive('tableDeletedFeedbackContainer', function () {
         if (fbLength === 0) { return []; }
 
         var bodyData = [];
-        var fb, currentRow, status, cssClass;
+        var fb;
         for (var i = 0; i < fbLength; i++) {
             fb = feedbacks[i];
-
-            currentRow = [
+            bodyData.push({ Columns: [
                 { Name: 'ColFeedback', Value: renderFeedbackColumn(fb) },
                 { Name: 'ColCustomer', Value: fb.Username, CssClass: 'word-wrap' },
                 { Name: 'ColCategory', Value: renderCategoryColumn(fb.MainCategory, fb.SubCategory) },
                 { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
-                { Name: 'ColRelatedCustomer', Value: fb.IsRelated ? fb.Username : fb.RelatedCustomer, CssClass: 'word-wrap' }
-            ];
-
-            status = fb.Status ? fb.Status.toLowerCase() : '';
-            cssClass = (status !== 'pending' && status !== 'closed') ? '' : status;
-            bodyData.push({ Columns: currentRow, CssClass: cssClass });
+                { Name: 'ColRelatedCustomer', Value: fb.IsRelated ? fb.Username : fb.RelatedCustomer, CssClass: 'word-wrap' }]});
         }
 
         return bodyData;

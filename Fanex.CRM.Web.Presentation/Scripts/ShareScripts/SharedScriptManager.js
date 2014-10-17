@@ -362,7 +362,7 @@ var SharedScriptManager = function () {
     };
 
     self.pad2 = function (number) {
-        return (number < 10 ? '0' : '') + number
+        return (number < 10 ? '0' : '') + number;
     };
 };
 

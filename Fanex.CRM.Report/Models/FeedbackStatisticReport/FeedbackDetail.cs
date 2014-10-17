@@ -61,9 +61,15 @@ namespace Fanex.CRM.Report.Models.FeedbackStatisticReport
             }
         }
 
+        public int MainCategoryId { get; set; }
+
         public string MainCategory { get; set; }
 
+        public int SubCategoryId { get; set; }
+
         public string SubCategory { get; set; }
+
+        public int StatusId { get; set; }
 
         public string Status { get; set; }
 

@@ -5,6 +5,7 @@ sharedScriptManager */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 fbStatisticDetailApplication.directive('tableFeedbackStatisticDetailContainer', function () {
+    var isShowSubCategory;
     var gridOptions, tableFeedbackStatisticDetail;
 
     function getGridOptions(scope, reportTitle, bodyData) {
@@ -17,21 +18,26 @@ fbStatisticDetailApplication.directive('tableFeedbackStatisticDetailContainer', 
             return false;
         }
 
+        var columns = [
+            { HeaderText: feedbackStatisticDetailResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
+            { HeaderText: feedbackStatisticDetailResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
+            { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left'}];
+        if (isShowSubCategory) {
+            columns.push({
+                HeaderText: feedbackStatisticDetailResources.SubCategory,
+                Width: 270, Name: 'ColSubCategory',
+                HeaderAlign: 'center',
+                CellAlign: 'left' });
+        }
+
+        columns.push({ HeaderText: feedbackStatisticDetailResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' });
+        columns.push({
+            HeaderText: feedbackStatisticDetailResources.RelatedCustomer,
+            Width: 130, Name: 'ColRelatedCustomer',
+            HeaderAlign: 'center',
+            CellAlign: 'left' });
         return {
-            columns: [
-                { HeaderText: feedbackStatisticDetailResources.Feedback, Width: 380, Name: 'ColFeedback', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: feedbackStatisticDetailResources.Customer, Width: 130, Name: 'ColCustomer', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: feedbackStatisticDetailResources.Category, Width: 270, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: feedbackStatisticDetailResources.SubCategory, Width: 270, Name: 'ColSubCategory', HeaderAlign: 'center', CellAlign: 'left' },
-                { HeaderText: feedbackStatisticDetailResources.Status, Width: 50, Name: 'ColStatus', HeaderAlign: 'center', CellAlign: 'center' },
-                {
-                    HeaderText: feedbackStatisticDetailResources.RelatedCustomer,
-                    Width: 130,
-                    Name: 'ColRelatedCustomer',
-                    HeaderAlign: 'center',
-                    CellAlign: 'left'
-                }
-            ],
+            columns: columns,
             showTitle: true,
             titleInfo: {
                 text: reportTitle,
@@ -65,21 +71,27 @@ fbStatisticDetailApplication.directive('tableFeedbackStatisticDetailContainer', 
     function getGridBody(scope, feedbacks) {
         var bodyData = [];
         if (feedbacks) {
-            var feedback, status, cssClass;
+            var feedback, status, currentRow, cssClass;
             for (var i = 0, fbLength = feedbacks.length; i < fbLength; i++) {
                 feedback = feedbacks[i];
 
                 status = feedback.Status ? feedback.Status.toLowerCase() : '';
                 cssClass = (status !== 'pending' && status !== 'closed') ? '' : status;
-                bodyData.push({ Columns: [
+                currentRow = [
                         { Name: 'ColFeedback', Value: renderFeedbackColumn(feedback) },
-                        { Name: 'ColCustomer', Value: feedback.Username, CssClass: 'word-wrap' },
-                        { Name: 'ColMainCategory', Value: feedback.MainCategory },
-                        { Name: 'ColSubCategory', Value: feedback.SubCategory },
-                        { Name: 'ColStatus', Value: feedback.Status },
-                        { Name: 'ColRelatedCustomer', Value: feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer, CssClass: 'word-wrap'}],
-                    CssClass: cssClass
-                });
+                        { Name: 'ColCustomer', Value: feedback.Username, CssClass: 'word-wrap' }];
+                if (isShowSubCategory) {
+                    currentRow.push({ Name: 'ColMainCategory', Value: feedback.MainCategory });
+                    currentRow.push({ Name: 'ColSubCategory', Value: feedback.SubCategory });
+                }
+                else {
+                    currentRow.push({ Name: 'ColMainCategory', Value: renderCategoryColumn(feedback.MainCategory, feedback.SubCategory) });
+                }
+
+                currentRow.push({ Name: 'ColStatus', Value: feedback.Status });
+                currentRow.push({ Name: 'ColRelatedCustomer', Value: feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer, CssClass: 'word-wrap'});
+
+                bodyData.push({ Columns: currentRow, CssClass: cssClass });
             }
         }
 
@@ -104,7 +116,14 @@ fbStatisticDetailApplication.directive('tableFeedbackStatisticDetailContainer', 
         return html + reviewer + '</div></div>';
     }
 
+    function renderCategoryColumn(main, sub) {
+        return '<div class="main-category">' + main + '</div><span class="sub-category">' + sub + '</span></div>';
+    }
+
     function renderFeedbackStatisticDetail(scope, element, attrs) {
+        isShowSubCategory = scope.searchCriteria.MainCategoryId === 0 &&
+            scope.searchCriteria.SubCategoryId === 0 && 
+            scope.searchCriteria.ValueId === 0;
         var report = scope.feedbackStatisticDetail;
         var bodyData = getGridBody(scope, report.Feedbacks);
 

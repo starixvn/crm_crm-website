@@ -15,7 +15,11 @@ namespace Fanex.CRM.Feedback.Models
     /// <summary>
     /// Deleted feedback model.
     /// </summary>
+    [Serializable]
     public class DeletedFeedback : ManageFeedback
     {
+        public int MainCategoryId { get; set; }
+
+        public int SubCategoryId { get; set; }
     }
 }

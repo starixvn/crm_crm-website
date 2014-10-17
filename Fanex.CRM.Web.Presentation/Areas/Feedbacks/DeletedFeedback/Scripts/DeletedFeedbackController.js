@@ -96,7 +96,7 @@ deletedFBApplication.controller('deletedFeedbackController', ['$scope', 'deleted
                 $scope.reviews = settings.Review;
                 $scope.responses = settings.CustomerResponse;
                 $scope.communications = settings.Communication;
-                
+
                 $scope.mainCategoryOptions = {
                     DataList: [],
                     OnChangeEvent: $scope.updateSelectedMainCategory
@@ -144,8 +144,10 @@ deletedFBApplication.controller('deletedFeedbackController', ['$scope', 'deleted
             ResponseId: $scope.searchCriteria.Response.Id,
             HandledBy: $scope.searchCriteria.Handler,
             PageIndex: $scope.searchCriteria.PageIndex + 1,
-            ItemsPerPage: $scope.searchCriteria.ItemsPerPage
+            PageSize: $scope.searchCriteria.ItemsPerPage
         };
+        criteria.FromCache = criteria.PageIndex !== 1;
+
         deletedFBService.searchDeletedFeedback(criteria)
             .then(function (data) {
                 $scope.report = data.Result;

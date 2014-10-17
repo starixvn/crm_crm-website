@@ -216,10 +216,14 @@ function ($scope, feedbackStatisticService, $uiBlockerService, alertBoxService) 
         };
         criteria.FromCache = criteria.PageIndex !== 0;
 
+        var popupWidth = $(parent.document).width() - 100;
+        if (mainCategoryId !== 0 || subCategoryId !== 0 || valueId !== 0) {
+            popupWidth -= 145;
+        }
         parent.OpenPopup(
                 window.rootUrl + 'FeedbackStatisticReport/FeedbackStatisticDetail?' + $.param(criteria),
                 feedbackStatisticResources.FeedbackStatisticDetailReport,
-                $(parent.document).width() - 100,
+                popupWidth,
                 $(parent.document).height() - 30,
                 true,
                 false,

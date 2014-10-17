@@ -13,10 +13,13 @@ namespace Fanex.CRM.Feedback.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Repositories;
     using Fanex.CRM.Feedback.Resources;
+    using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
@@ -30,6 +33,9 @@ namespace Fanex.CRM.Feedback.Services
     /// </summary>
     public class FeedbackService : IFeedbackService
     {
+        // Session keys.
+        private const string DeletedFeedbackSessionKey = "Fanex.CRM.Feedback.Services.DeletedFeedback";
+
         private readonly IFeedbackRepository _feedbackRepository;
         private readonly ISettingService _serviceSetting;
 
@@ -101,9 +107,86 @@ namespace Fanex.CRM.Feedback.Services
             return _feedbackRepository.GetLatestFeedback(criteria);
         }
 
-        public IList<DeletedFeedback> GetDeletedFeedback(DeletedFeedbackCriteria criteria)
+        /// <summary>
+        /// Gets the deleted feedback report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list of deleted feedback.</returns>
+        public IList<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria)
         {
-            return _feedbackRepository.GetDeletedFeedback(criteria);
+            string key = DeletedFeedbackSessionKey;
+            
+            IList<DeletedFeedback> feedbacks = null;
+            if (criteria.FromCache)
+            {
+                feedbacks = (IList<DeletedFeedback>)SessionExtension.GetSession(HttpContext.Current.Session, key);
+            }
+
+            if (feedbacks == null)
+            {
+                // Get data from DB.
+                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+                try
+                {
+                    feedbacks = GetDeletedFeedback(criteria);
+                    SessionExtension.AddSession(HttpContext.Current.Session, key, feedbacks);
+                }
+                catch (Exception ex)
+                {
+                    LogExtensions.ExceptionHandler(ex);
+                    throw;
+                }
+            }
+
+            // pagination.
+            int totalItems = feedbacks.Count;
+            if (totalItems > 0)
+            {
+                feedbacks = feedbacks.Skip(criteria.PageSize * (criteria.PageIndex - 1)).Take(criteria.PageSize).ToList();
+            }
+
+            criteria.TotalItems = totalItems;
+            return feedbacks;
+        }
+
+        /// <summary>
+        /// Gets the deleted feedback.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list of deleted feedback.</returns>
+        private IList<DeletedFeedback> GetDeletedFeedback(DeletedFeedbackCriteria criteria)
+        {
+            var categoryHash = new Dictionary<int, string>();
+            var subcategoryHash = new Dictionary<int, string>();
+            var categoies = _serviceSetting.GetAllMainCategory();
+            foreach (var category in categoies)
+            {
+                if (!categoryHash.ContainsKey(category.Id))
+                {
+                    categoryHash.Add(category.Id, category.Name);
+                }
+
+                foreach (var subcategory in category.ChildSettings)
+                {
+                    if (!subcategoryHash.ContainsKey(subcategory.Id))
+                    {
+                        subcategoryHash.Add(subcategory.Id, subcategory.Name);
+                    }
+                }
+            }
+
+            IList<DeletedFeedback> feedbacks = new List<DeletedFeedback>();
+            var rawdata = _feedbackRepository.GetDeletedFeedback(criteria);
+            foreach (var feedback in rawdata)
+            {
+                feedback.MainCategory = categoryHash[feedback.MainCategoryId];
+                feedback.SubCategory = subcategoryHash[feedback.SubCategoryId];
+                feedback.Status = Labels.Deleted;
+                feedbacks.Add(feedback);
+            }
+
+            return feedbacks;
         }
 
         #region Setting helper methods

@@ -32,35 +32,41 @@ namespace Fanex.CRM.Report.Controllers
             _feedbackStatisticService = feedbackStatisticService ?? new FeedbackStatisticReportService();
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             var settings = _feedbackStatisticService.GetFeedbackStatisticFilterType();
             return View("~/Areas/Report/FeedbackStatistics/Index.cshtml", settings);
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult SearchFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             var report = _feedbackStatisticService.GetFeedbackStatistic(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult ExportFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             _feedbackStatisticService.ExportFeedbackStatistic(criteria);
             return new EmptyResult();
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "FeedbackStatisticDetail")]
         public ActionResult FeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             return View("~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Index.cshtml", criteria);
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "FeedbackStatisticDetail")]
         public ActionResult GetFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             var report = _feedbackStatisticService.FeedbackStatisticDetail(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "FeedbackStatisticDetail")]
         public ActionResult ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria);

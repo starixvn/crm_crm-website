@@ -12,7 +12,6 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
@@ -36,11 +35,11 @@ namespace Fanex.CRM.Report.Repositories.Implements
             }
         }
 
-        public IList<FeedbackDetail> GetFeedbackDetail(ICriteria criteria)
+        public IEnumerable<FeedbackDetail> GetFeedbackDetail(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                return db.Query<FeedbackDetail>(criteria.GetSpParams()).ToList();
+                return db.Query<FeedbackDetail>(criteria.GetSpParams());
             }    
         }
 

@@ -40,9 +40,11 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public int PageIndex { get; set; }
 
-        public int ItemsPerPage { get; set; }
+        public int PageSize { get; set; }
 
-        public int TotalRows { get; set; }
+        public int TotalItems { get; set; }
+
+        public bool FromCache { get; set; }
 
         public override string GetSettingKey()
         {
@@ -96,10 +98,6 @@ namespace Fanex.CRM.Feedback.Criteria
             {
                 inputParams.Add("isreviewed", false);
             }
-
-            /*inputParams.Add("pageindex", PageIndex);
-            inputParams.Add("itemsperpage", ItemsPerPage);
-            inputParams.Add("totalrows", 0);*/
 
             return inputParams;
         }
