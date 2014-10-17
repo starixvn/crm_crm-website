@@ -360,12 +360,10 @@ var SharedScriptManager = function () {
 
         return true;
     };
-<<<<<<< HEAD
-=======
+
     self.pad2 = function (number) {
         return (number < 10 ? '0' : '') + number
     };
->>>>>>> aeb2d2582a34bd015ca61002acd9a33a3ecae675
 };
 
 sharedScriptManager = new SharedScriptManager();

@@ -17,9 +17,7 @@ var CRMConstants = function () {
             IBC: 1,
             Licensee: 2
         },
-        Setting: {
-            NotApply: 0
-        },
+
         Setting: {
             NotApply: 0
         },
