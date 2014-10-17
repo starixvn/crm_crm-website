@@ -79,9 +79,8 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
                 });
             }
         }
-        
-        var breadcrumb = sharedScriptManager.stringFormat('<a class="back-main-report">{0}</a> > {1}',
-            [report ? report.Name : "", viewResources.Detail]);
+
+        var breadcrumb = report ? report.Name : "";
         var backIcon = '<input class="btnGoBack" type="button" />';
         var gridOptions = {
             columns: [{ HeaderText: viewResources.Date, Width: 80, Name: "ColDate", HeaderAlign: "center", CellAlign: "center" },
