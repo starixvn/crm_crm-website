@@ -81,7 +81,7 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
         }
 
         var breadcrumb = report ? report.Name : "";
-        var backIcon = '<input class="btnGoBack" type="button" />';
+        var backIcon = '<input class="btnGoBack" type="button" title="' + viewResources.GoBack + '" />';
         var gridOptions = {
             columns: [{ HeaderText: viewResources.Date, Width: 80, Name: "ColDate", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Start_Time, Width: 60, Name: "ColStartTime", HeaderAlign: "center", CellAlign: "center" },

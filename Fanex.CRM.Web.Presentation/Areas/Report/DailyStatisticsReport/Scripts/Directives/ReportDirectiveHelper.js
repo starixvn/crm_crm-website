@@ -72,8 +72,8 @@ var ReportDirectiveHelper = function () {
             HeaderAlign: "center",
             CellAlign: "center"
         });
-        var viewDetailIcon = '<input class="btnViewDetail " type="button" />';
-        var viewChartIcon = '<input class="btnCharting " type="button" />';
+        var viewChartIcon = '<input class="btnCharting " type="button" title="' + viewResources.ViewChart + '" />';
+        var viewDetailIcon = '<input class="btnViewDetail " type="button" title="' + viewResources.ViewDetail + '" />';
         var gridOptions = {
             columns: headerColumns,
             showTitle: true,

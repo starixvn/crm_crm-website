@@ -523,7 +523,6 @@
     <Content Include="Content\site\Images\sort-ico.png" />
     <Content Include="Content\site\Images\sucess.png" />
     <Content Include="Content\site\Images\warning.png" />
-    <Content Include="PRO.Web.Setting.config" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
     <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
@@ -1246,7 +1245,6 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\site\variables.less" />
-    <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
     <Content Include="Areas\AdminTool\Web.config" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\ViewList\Index.cshtml" />
     <Content Include="Areas\AdminTool\FeedbackSubjectManagement\DeleteTemplate\Index.cshtml" />

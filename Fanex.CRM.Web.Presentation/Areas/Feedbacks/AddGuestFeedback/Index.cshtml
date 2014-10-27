@@ -472,6 +472,7 @@
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
     <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_AddGuestFeedback';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';
@@ -489,7 +490,7 @@
             Error_NASubCategory: '@Labels.Error_NASubCategory',
             Error_NALanguage: '@Labels.Error_NALanguage',
             Error_EmptySubject: '@Labels.Error_EmptySubject',
-            ErrorEmptyRemark: '@Labels.Error_EmptyRemark',
+            Error_EmptyRemark: '@Labels.Error_EmptyRemark',
             Error_EmptySolution: '@Labels.Error_EmptySolution',
             Error_VerifyRelatedCustomer: '@Labels.Error_VerifyRelatedCustomer'
         };

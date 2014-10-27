@@ -475,6 +475,7 @@
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
     <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_AddFeedback';
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId;
         var customerName = '@customerName';

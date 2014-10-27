@@ -20,14 +20,16 @@
                         <label for="fromDate" class="width-80">
                             @Labels.From_Date</label>
                         <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                            <input id="fromDate" type="text" class="textbox txtcalendar disabled" autocomplete="off" disabled="disabled" />
+                            <input id="fromDate" type="text" class="textbox txtcalendar disabled" autocomplete="off"
+                                disabled="disabled" />
                         </div>
                     </div>
                     <div class="item">
                         <label for="toDate" class="width-50">
                             @Labels.To_Date</label>
                         <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                            <input id="toDate" type="text" class="textbox txtcalendar disabled" autocomplete="off" disabled="disabled" />
+                            <input id="toDate" type="text" class="textbox txtcalendar disabled" autocomplete="off"
+                                disabled="disabled" />
                         </div>
                     </div>
                     <div class="item">
@@ -70,6 +72,7 @@
         "~/Scripts/FanexGridV2/NumeralScripts",
         "~/Areas/Report/WeeklyStatisticsReportScripts")
     <script type="text/javascript">
+        parent.document.title = '@Labels.Weekly_Statistics_Report';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
         var initFromDate = ' @Helper.GetFirstDayOfWeek(DateTimeUtilize.GetCurrentClientTime()).ToShortFormatedDate()';
@@ -102,7 +105,11 @@
             Response: '@Labels.Response',
             Handle_By: '@Labels.Handle_By',
             Creation_Time: '@Labels.Creation_Time',
-            Detail: '@Labels.Detail'
+            Detail: '@Labels.Detail',
+
+            ViewDetail: '@Labels.ViewDetail',
+            ViewChart: '@Labels.ViewChart',
+            GoBack: '@Labels.GoBack'
         };
     </script>
 </body>

@@ -190,9 +190,10 @@ customerDetailApplication.directive('dropdownSiteContainer', function () {
             });
 
             element.on('change', function () {
-                scope.$apply(function () {
-                    scope.updateSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
-                });
+                scope.updateSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
+                if (!scope.$$phase) {
+                    scope.$apply();
+                }
             });
         }
     };
