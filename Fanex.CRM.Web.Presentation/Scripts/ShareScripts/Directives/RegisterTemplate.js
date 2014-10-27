@@ -475,6 +475,16 @@ function RegisterTemplate(application) {
 
         directiveManager.registerHtmlArea(self.application, descriptionRegisterParams);
     };
+    self.registerReviewHtml = function () {
+        var reviewRegisterParams = {
+            PlugInName: 'reviewEditorContainer',
+            OptionName: 'reviewOptions',
+            PickerId: 'revieweditorbox',
+            RestrictType: 'C'
+        };
+
+        directiveManager.registerHtmlArea(self.application, reviewRegisterParams);
+    };
     self.registerRawHtmlDirective = function () {
         var rawHtmlDirectiveRegisterParams = {
             RestrictType: 'C'

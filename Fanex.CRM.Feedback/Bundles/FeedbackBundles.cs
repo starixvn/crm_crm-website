@@ -26,6 +26,7 @@ namespace Fanex.CRM.Feedback.Bundles
             RegisterAddCustomerFeedbackBundles(bundles);
             RegisterAddGuestFeedbackBundles(bundles);
             RegisterDeletedFeedbackBundles(bundles);
+            RegisterUpdateCustomerFeedbackBundles(bundles);
         }
 
         /// <summary>
@@ -176,6 +177,35 @@ namespace Fanex.CRM.Feedback.Bundles
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.css",
                 "~/Areas/Feedbacks/DeletedFeedback/Styles/StyleSheet.less");
+        }
+
+        /// <summary>
+        /// Registers the update customer feedback bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterUpdateCustomerFeedbackBundles(BundleCollection bundles)
+        {
+            AddAndInclude(
+               bundles,
+               "~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackStyles",
+               "~/Areas/Feedbacks/UpdateCustomerFeedback/Styles/Styles.less");
+
+            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackScripts")
+                .Include(
+                    "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                    "~/Scripts/ShareScripts/Applications/AlertBox.js",
+                    "~/Scripts/FanexGridV2/moment.js",
+                    "~/Scripts/ShareScripts/HotKeyManager.js",
+                    "~/Scripts/ShareScripts/DirectiveManager.js",
+                    "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
+                    "~/Scripts/ShareScripts/Directives/HtmlArea.js",
+                    "~/Scripts/ShareScripts/Directives/RawHtml.js",
+                    "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                    "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                    "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/UpdateCustomerFeedbackApplication.js",
+                    "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/UpdateCustomerFeedbackService.js",
+                    "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/UpdateCustomerFeedbackController.js",
+                    "~/Areas/Feedbacks/UpdateCustomerFeedback/Scripts/Directives/*.js"));
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)

@@ -294,4 +294,133 @@
   <data name="String1" xml:space="preserve">
     <value>Add feedback successfully!</value>
   </data>
+  <data name="BetType" xml:space="preserve">
+    <value>Bet Type</value>
+  </data>
+  <data name="Birthday" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CSExtension" xml:space="preserve">
+    <value>CS Ext./Station</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Fax" xml:space="preserve">
+    <value>Fax</value>
+  </data>
+  <data name="FeedbackDate" xml:space="preserve">
+    <value>Feedback Date</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Invalid</value>
+  </data>
+  <data name="IsRelatedCustomer" xml:space="preserve">
+    <value>Is Related to Customer</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="MSN" xml:space="preserve">
+    <value>MSN</value>
+  </data>
+  <data name="OverwriteCRMInfo" xml:space="preserve">
+    <value>Overwrite current CRM Info</value>
+  </data>
+  <data name="PassportNumber" xml:space="preserve">
+    <value>Passport No.</value>
+  </data>
+  <data name="Phone1" xml:space="preserve">
+    <value>Phone 1</value>
+  </data>
+  <data name="Phone2" xml:space="preserve">
+    <value>Phone 2</value>
+  </data>
+  <data name="Phone3" xml:space="preserve">
+    <value>Phone 3</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="RefCodes" xml:space="preserve">
+    <value>Ref Codes</value>
+  </data>
+  <data name="RequiredFieldTemplate" xml:space="preserve">
+    <value>&lt;span class="mandatoryfield"&gt;*&lt;/span&gt;</value>
+  </data>
+  <data name="ResolutionTime" xml:space="preserve">
+    <value>ResolutionTime</value>
+  </data>
+  <data name="Response" xml:space="preserve">
+    <value>Response</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="SecretCode" xml:space="preserve">
+    <value>Secret Code</value>
+  </data>
+  <data name="Site" xml:space="preserve">
+    <value>Site</value>
+  </data>
+  <data name="Skype" xml:space="preserve">
+    <value>Skype</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="VIP" xml:space="preserve">
+    <value>VIP</value>
+  </data>
+  <data name="NoSubcategoryError" xml:space="preserve">
+    <value>There is no Subcategory for Category {0}. Please add a Subcategory or choose another Category.</value>
+  </data>
+  <data name="NoBettypeError" xml:space="preserve">
+    <value>There is no Bet Type for Product {0}. Please add a Bet Type or choose another Product.</value>
+  </data>
+  <data name="ReviewedBy" xml:space="preserve">
+    <value>(Reviewed by  {0} on {1})</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="Error_EmptyReview" xml:space="preserve">
+    <value>Review is mandatory!</value>
+  </data>
+  <data name="Error_FeedbackResolutionTime" xml:space="preserve">
+    <value>Feedback date should be smaller than Resolution time!</value>
+  </data>
+  <data name="RequiredInformation" xml:space="preserve">
+    <value>This information is required!</value>
+  </data>
+  <data name="ConfirmOverrideCRMInfo" xml:space="preserve">
+    <value>The current CRM Info will be overwritten. Do you want to continue?</value>
+  </data>
+  <data name="UpdateFeedbackSuccessfully" xml:space="preserve">
+    <value>Update Feedback Successfully.</value>
+  </data>
+  <data name="NoPermissionOnReviewFunction" xml:space="preserve">
+    <value>You don't have permission to update this feedback.</value>
+  </data>
 </root>

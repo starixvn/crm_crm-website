@@ -82,11 +82,15 @@
     <Compile Include="Controllers\AddCustomerFeedbackController.cs" />
     <Compile Include="Controllers\AddGuestFeedbackController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
+    <Compile Include="Controllers\UpdateCustomerFeedbackController.cs" />
     <Compile Include="Criteria\AddGuestFeedback\AddGuestFeedbackCriteria.cs" />
     <Compile Include="Criteria\DeletedFeedbackCriteria.cs" />
+    <Compile Include="Criteria\GetFeedbackByIdCriteria.cs" />
     <Compile Include="Criteria\LatestFeedbackCriteria.cs" />
     <Compile Include="Criteria\AddCustomerFeedbackCriteria.cs" />
     <Compile Include="Criteria\ManageFeedbackCriteria.cs" />
+    <Compile Include="Criteria\UpdateCustomerFeedbackCriteria.cs" />
+    <Compile Include="Models\CustomerFeedback.cs" />
     <Compile Include="Models\DeletedFeedback.cs" />
     <Compile Include="Models\LatestFeedback.cs" />
     <Compile Include="Models\AddressInfo.cs" />
@@ -103,6 +107,8 @@
     <Compile Include="Repositories\AddGuestFeedback\IAddGuestFeedbackRepository.cs" />
     <Compile Include="Repositories\FeedbackRepository.cs" />
     <Compile Include="Repositories\IFeedbackRepository.cs" />
+    <Compile Include="Repositories\UpdateCustomerFeedback\IUpdateCustomerFeedbackRepository.cs" />
+    <Compile Include="Repositories\UpdateCustomerFeedback\UpdateCustomerFeedbackRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,6 +120,8 @@
     <Compile Include="Services\AddGuestFeedback\IAddGuestFeedbackService.cs" />
     <Compile Include="Services\FeedbackService.cs" />
     <Compile Include="Services\IFeedbackService.cs" />
+    <Compile Include="Services\UpdateCustomerFeedback\IUpdateCustomerFeedbackService.cs" />
+    <Compile Include="Services\UpdateCustomerFeedback\UpdateCustomerFeedbackService.cs" />
     <Compile Include="ViewModels\ManageFeedbackViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -159,7 +159,8 @@ deletedFBApplication.controller('deletedFeedbackController', ['$scope', 'deleted
     };
 
     $scope.openEditFeedbackPopup = function (id) {
-        var url = window.rootUrl + 'Feedback/EditFeedback?id=' + id + '&rep=2';
+        //var url = window.rootUrl + 'Feedback/EditFeedback?id=' + id + '&rep=2';
+        var url = window.rootUrl + 'UpdateCustomerFeedback/Index?id=' + id;
         var maxWidthOfPopUp = 987;
         var maxHeightOfPopUp = $(parent.document).height();
         parent.OpenPopup(url, deletedFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, function () {

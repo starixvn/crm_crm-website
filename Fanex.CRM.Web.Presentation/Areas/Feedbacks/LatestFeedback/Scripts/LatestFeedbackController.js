@@ -20,7 +20,7 @@ latestFBApplication.controller('latestFeedbackController', ['$scope', 'latestFee
         var criteria = { top: $scope.top.Id };
         if ($scope.custId > 0) {
             criteria.custId = $scope.custId;
-            criteria.username = $scope.username; 
+            criteria.username = $scope.username;
         }
 
         latestFeedbackService.getLatestFeedback(criteria)
@@ -34,7 +34,8 @@ latestFBApplication.controller('latestFeedbackController', ['$scope', 'latestFee
     };
 
     $scope.openEditFeedbackPopup = function (id) {
-        var url = window.rootUrl + 'Feedback/EditFeedback?id=' + id + '&rep=2';
+        //var url = window.rootUrl + 'Feedback/EditFeedback?id=' + id + '&rep=2';
+        var url = window.rootUrl + 'UpdateCustomerFeedback/Index?id=' + id;
         var maxWidthOfPopUp = 987;
         var maxHeightOfPopUp = $(parent.document).height();
         parent.OpenPopup(url, latestFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, function () {

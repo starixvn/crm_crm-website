@@ -1,0 +1,199 @@
+@import "../../../../Content/site/variables.less";
+@import "../../../../Content/site/mixins.less";
+
+#label-customername {
+    color: #FF0000;
+}
+
+.consecutive-container-before .title {
+    border-bottom: none;
+}
+
+.labelforcheckbox {
+    cursor: pointer;
+}
+
+.related-customer {
+    width: 96%;
+}
+
+.verifycustomer { 
+    color: #618E11;
+    height: 18px;
+    text-decoration: none;
+    vertical-align: middle;
+    background: url(images/sucess.gif) no-repeat left;
+    padding-left: 16px;
+    font-weight: bold;
+}
+
+.noneverifycustomer {
+    color: #EE0000;
+    height: 18px;
+    text-decoration: none;
+    vertical-align: middle;
+    background: url(Images/error.gif) no-repeat left;
+    padding-left: 16px;
+    font-weight: bold;
+}
+
+.btnHelp {
+    background: url(Images/help.png) no-repeat scroll center center transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 18px;
+    margin-left: 2px;
+    overflow: visible;
+    padding-left: 6px;
+    padding-right: 6px;
+    width: 18px;
+    margin: 3px 5px 0 0;
+}
+
+.btnreview {
+    border: none;
+    text-align: right;
+    color: @color-text ;
+    background: url(Images/icn_view.png) no-repeat left;
+    padding-left: 20px;
+    cursor: pointer;
+    height: 18px;
+    text-decoration: none;
+    vertical-align: middle;
+    margin: 0 2px 0 0;
+}
+
+.btnedit {
+    .btnreview;
+    background: url(Images/icn_edit.png) no-repeat left;
+}
+
+/* Related */
+ul.holder {
+    border-color: @border-color;
+    width: 96%!important;
+    height: auto !important;
+    max-height: 65px;
+    overflow: auto;
+    padding: 5px;
+
+    li {
+        margin: 1px 5px 0px 0;
+        
+        &.bit-box {
+            background: #DEE7F8;
+            border: 1px solid #CAD8F3;
+            width: auto;
+            margin: 1px 3px 0 0;
+            .border-radius(2px);
+        }
+    }
+}
+
+.colorGuide {
+    margin: 10px 0 5px 22px;
+
+    .relate-customer {
+        border-left: 17px solid #008000;
+        padding-left: 5px;
+    }
+
+    .relate-guest {
+        border-left: 17px solid #0066CC;
+        padding-left: 5px;
+    }
+
+    .relate-invalid {
+        border-left: 17px solid #FF0000;
+        padding-left: 5px;
+    }
+}
+
+#related {
+    margin: 5px 0 0 22px;
+
+    td {
+        padding-bottom: 5px;
+    }
+}
+
+.relatedFeedback {
+    width: 88% !important;
+    border: 1px solid @border-color;
+    height: auto;
+    max-height: 227px;
+    margin: 10px 0 0 22px;
+    overflow: auto;
+    padding: 5px;
+
+    #related {
+        margin: 5px;
+    }
+}
+
+#checkbox {
+    float: left;
+    display: block;
+}
+
+.hand {
+    cursor: pointer;
+}
+
+.subject-auto-complete-container div[popupcontainer=true] {
+    margin-top: 26px;
+}
+
+#descriptioneditorboxcontainer .jHtmlArea iframe,
+#solutioneditorboxcontainer .jHtmlArea iframe,
+revieweditorboxcontainer .jHtmlArea iframe {
+    min-height: 92px;
+}
+
+/* Formatting for palette in html */
+div.jHtmlAreaColorPickerMenu {
+    width: 114px;
+    z-index: 500 !important;
+
+    *, *:before, *:after {
+        .box-sizing(content-box);
+    }
+}
+
+.preview { padding: 3px 9px; }
+
+#descriptioneditorbox,
+#solutioneditorbox,
+#revieweditorbox {
+    width: auto; 
+    height: 120px; 
+    min-width: 710px;
+    width: 100%;
+}
+
+.panel-group {
+    .title {
+        .review {
+            left: 55px;
+            position: absolute;
+        }
+        .reviewedby {
+            font-style: italic;
+            margin-left: 25px;
+        }
+    }
+}
+
+.errormsg {
+    color: #EE0000;
+    height: 18px;
+    vertical-align: middle;
+    background: url(images/warning.png) no-repeat left;
+    padding: 8px; 
+    padding-left: 18px;
+    margin-left: 2px;
+}
+
+.facebook-auto ul {
+    border-top: 1px solid #ccc;
+}
