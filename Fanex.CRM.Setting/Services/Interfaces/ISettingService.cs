@@ -22,6 +22,8 @@ namespace Fanex.CRM.Setting.Services.Interfaces
 
         List<SiteInfo> GetAllSite();
 
+        IList<BaseModel> GetAllSiteWithGroup();
+
         List<SettingInfo> GetAllTitle();
 
         List<CountryInfo> GetAllCountry();

@@ -1,0 +1,149 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="UpdateCustomerFeedbackCriteria.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Kan.Nguyen" date="2014.10.20">Created</change>
+// </history>
+
+namespace Fanex.CRM.Feedback.Criteria
+{
+    using System;
+    using System.Collections;
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.CRM.Feedback.Models;
+    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Infrastructure.Helper;
+    using Fanex.NAP.Framework.Data;
+
+    /// <summary>
+    /// Update customer feedback criteria.
+    /// </summary>
+    public class UpdateCustomerFeedbackCriteria : CustomerFeedback, ICriteria
+    {
+        public bool OverrideCRMInfo { get; set; }
+
+        public int ErrorCode { get; set; }
+
+        public string ErrorMessage { get; set; }
+
+        public byte UpdateReviewMode { get; set; }
+
+        public Hashtable AddSpParams(Hashtable storeProcParamName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsValid()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetSettingKey()
+        {
+            return "FeedbackInfoUpd";
+        }
+
+        /// <summary>
+        /// Gets the SP parameters.
+        /// </summary>
+        /// <returns>The input parameters hash.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
+        public Hashtable GetSpParams()
+        {
+            DateTime feedbackTime, resolutionTime;
+            DateTime.TryParse(FeedbackTimeString, out feedbackTime);
+            DateTime.TryParse(ResolutionTimeString, out resolutionTime);
+
+            int userId = AppSession.CurrentUser.Id;
+            Hashtable inputParams = new Hashtable 
+            {
+                { "feedbackid", Id },
+                { "userid", userId },
+                { "custid", CustomerInfo.Id },
+                { "titleid", CustomerInfo.Title.Id },
+                { "firstname", CustomerInfo.FirstName },
+                { "lastname", CustomerInfo.LastName },
+                { "phone", CustomerInfo.PhoneInfo[0].PhoneNumber },
+                { "phonecountrycode", CustomerInfo.PhoneInfo[0].CountryCode },
+                { "phoneareacode", CustomerInfo.PhoneInfo[0].AreaCode },
+                { "phone2", CustomerInfo.PhoneInfo[1].PhoneNumber },
+                { "phone2countrycode", CustomerInfo.PhoneInfo[1].CountryCode },
+                { "phone2areacode", CustomerInfo.PhoneInfo[1].AreaCode },
+                { "phone3", CustomerInfo.PhoneInfo[2].PhoneNumber },
+                { "phone3countrycode", CustomerInfo.PhoneInfo[2].CountryCode },
+                { "phone3areacode", CustomerInfo.PhoneInfo[2].AreaCode },
+                { "fax", CustomerInfo.FaxInfo.FaxNumber },
+                { "faxcountrycode", CustomerInfo.FaxInfo.CountryCode },
+                { "faxareacode", CustomerInfo.FaxInfo.AreaCode },
+                { "mobilephone", CustomerInfo.MobilePhone.PhoneNumber },
+                { "mobilephonecountrycode", CustomerInfo.MobilePhone.CountryCode },
+                { "mobilephoneareacode", CustomerInfo.MobilePhone.AreaCode },
+                { "skype", CustomerInfo.Skype },
+                { "email", CustomerInfo.Email },
+                { "msn", CustomerInfo.MSN },
+                { "passport", CustomerInfo.Passport.Name },
+                { "siteid", CustomerInfo.SiteSetting.Id },
+                { "bettingcode", CustomerInfo.BettingCode[0] },
+                { "refcode2", CustomerInfo.BettingCode[1] },
+                { "pic1", CustomerInfo.PersonalInfoContact[0] },
+                { "pic2", CustomerInfo.PersonalInfoContact[1] },
+                { "pic3", CustomerInfo.PersonalInfoContact[2] },
+                { "pic4", CustomerInfo.PersonalInfoContact[3] },
+                { "isvip", CustomerInfo.IsVIP },
+                { "isoverwrite", OverrideCRMInfo },
+                { "feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(feedbackTime) },
+                { "resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(resolutionTime) },
+                { "stationid", Extension.Id },
+                { "communicationid", Communication.Id },
+                { "maincategoryid", Category.Id },
+                { "subcategoryid", SubCategory.Id },
+                { "productid", Product.Id },
+                { "bettypeid", BetType.Id },
+                { "countryid", Country.Id },
+                { "languageid", Language.Id },
+                { "statusid", Status.Id },
+                { "roleid", Role.Id },
+                { "responseid", Response.Id },
+                { "subject", Subject },
+                { "description", Description },
+                { "solution", Solution },
+                { "isreviewed", IsReviewed },
+                { "ip", Helper.GetClientIP() },
+                { "errcode", ErrorCode },
+                { "errmsg", ErrorMessage }
+            };
+
+            DateTime birthday;
+            var sqlMinDate = new DateTime(1900, 1, 1);
+            if (DateTime.TryParse(CustomerInfo.BirthDayString, out birthday) && birthday >= sqlMinDate)
+            {
+                inputParams.Add("birthday", birthday);
+            }
+
+            // RelatedCustomer parameter:
+            // null: don't update anything.
+            // string.Empty: update RelatedCustomer to empty.
+            inputParams.Add("relatedcustid", HasRelated ? RelatedCustomer : string.Empty);
+
+            if (IsReviewed)
+            {
+                inputParams.Add("review", Review);
+                inputParams.Add("reviewerid", userId);
+            }
+            else
+            {
+                inputParams.Add("review", DBNull.Value);
+            }
+
+            // UpdateReviewedMode (tinyint) parameter:
+            // 0: Do nothing.
+            // 1: Update review.
+            // 2: Remove review.
+            inputParams.Add("updatereviewedmode", UpdateReviewMode);
+            return inputParams;
+        }
+    }
+}
