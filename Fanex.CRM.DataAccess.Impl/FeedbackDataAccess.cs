@@ -42,9 +42,7 @@ namespace Fanex.CRM.DataAccess.Impl
         /// Gets by identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>
-        /// Get result.
-        /// </returns>
+        /// <returns>Get result.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]

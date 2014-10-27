@@ -280,44 +280,6 @@ var HomeManager = function () {
         });
     };
 
-    self.showConfirmOverrideCRMInfo = function (message, callback) {
-        self.DOMElements.divResultPopUp.html(message);
-        self.DOMElements.divResultPopUp.removeClass("display-none");
-        self.DOMElements.divResultPopUp.dialog({
-            width: 450,
-            height: 150,
-            zIndex: 500,
-            position: ['center', 120],
-            resizable: false,
-            modal: true,
-            title: '',
-            close: function (event, ui) {
-                /*jshint unused: vars */
-                self.DOMElements.divResultPopUp.dialog("destroy");
-                parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
-                self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
-            },
-            buttons: [{
-                text: self.CachedData.ViewResources.Yes,
-                click: function () {
-                    self.DOMElements.divResultPopUp.dialog("close");
-                    if (callback && typeof (callback) === "function") {
-                        callback(true);
-                    }
-                }
-            },
-            {
-                text: self.CachedData.ViewResources.No,
-                click: function () {
-                    self.DOMElements.divResultPopUp.dialog("close");
-                    if (callback && typeof (callback) === "function") {
-                        callback(false);
-                    }
-                }
-            }]
-        });
-    };
-
     self.ButtonSearchClick = function () {
         self.TextboxUsernameBlur();
         if (self.CachedData.isChangingData || self.CachedData.isChangingDataLeftPanel) {

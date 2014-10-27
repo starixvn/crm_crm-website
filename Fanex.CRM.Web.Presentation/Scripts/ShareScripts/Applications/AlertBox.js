@@ -5,8 +5,7 @@ angular.module('alertBoxApplication', [])
     .service('alertBoxService', ['$rootScope', function ($rootScope) {
         this.alertResult = {
             type: crmConstants.Enums.MessageType.Success,
-            message: '',
-            callback: undefined
+            message: ''
         };
 
         this.show = function (alertResult) {
@@ -39,12 +38,7 @@ angular.module('alertBoxApplication', [])
                 element.removeClass('display-none');
 
                 if (type === crmConstants.Enums.MessageType.Success) {
-                    $timeout(function () {
-                        hide(element);
-                        if (alertBoxService.alertResult.callback && typeof alertBoxService.alertResult.callback === 'function') {
-                            alertBoxService.alertResult.callback();
-                        }
-                    }, 3000);
+                    $timeout(function () { hide(element); }, 3000);
                 }
             }
 

@@ -35,7 +35,6 @@ namespace Fanex.CRM.Setting.Services.Implements
         public const string GetAllFeedbackTemplateSubjectSessionKey = "Fanex.CRM.Setting.GetAllFeedbackTemplateSubjectSessionKey";
 
         public const string GetAllSiteSessionKey = "Fanex.CRM.Setting.GetAllSiteSessionKey";
-        public const string GetAllSiteWithGroupSessionKey = "Fanex.CRM.Setting.GetAllSiteWithGroupSessionKey";
         public const string GetAllLanguageSessionKey = "Fanex.CRM.Setting.GetAllLanguageSessionKey";
         public const string GetAllExtensionSessionKey = "Fanex.CRM.Setting.GetAllExtensionSessionKey";
         public const string GetAllCommunicationToolSessionKey = "Fanex.CRM.Setting.GetAllCommunicationToolSessionKey";
@@ -188,40 +187,6 @@ namespace Fanex.CRM.Setting.Services.Implements
             }
 
             return allSite;
-        }
-
-        /// <summary>
-        /// Gets all site with group.
-        /// </summary>
-        /// <returns>All site value.</returns>
-        public IList<BaseModel> GetAllSiteWithGroup()
-        {
-            string key = GetAllSiteWithGroupSessionKey;
-            try
-            {
-                var sites = CacheService.Get<IList<BaseModel>>(key);
-                if (sites == null)
-                {
-                    string group;
-                    sites = new List<BaseModel>();
-                    var rawdata = GetDynamicData<SiteInfo>(new GetAllSiteCriteria());
-                    foreach (var item in rawdata)
-                    {
-                        group = item.IsLicensee ? Labels.Licensee : Labels.Credit;
-                        sites.Add(new BaseModel { Id = item.Id, Name = item.Name, AliasName = group });
-                    }
-
-                    CacheService.Set(key, sites);
-                }
-
-                return sites;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-            return null;
         }
 
         /// <summary>

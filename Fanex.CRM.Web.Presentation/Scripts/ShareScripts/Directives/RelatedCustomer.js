@@ -306,5 +306,5 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
                 });
             }
         };
-    });
+    })
 };
