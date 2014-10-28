@@ -10,10 +10,13 @@
 namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
     using Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport;
     using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Feedback statistic report controller.
@@ -32,41 +35,41 @@ namespace Fanex.CRM.Report.Controllers
             _feedbackStatisticService = feedbackStatisticService ?? new FeedbackStatisticReportService();
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             var settings = _feedbackStatisticService.GetFeedbackStatisticFilterType();
             return View("~/Areas/Report/FeedbackStatistics/Index.cshtml", settings);
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult SearchFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             var report = _feedbackStatisticService.GetFeedbackStatistic(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult ExportFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             _feedbackStatisticService.ExportFeedbackStatistic(criteria);
             return new EmptyResult();
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "FeedbackStatisticDetail")]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult FeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             return View("~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Index.cshtml", criteria);
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "FeedbackStatisticDetail")]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult GetFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             var report = _feedbackStatisticService.FeedbackStatisticDetail(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "FeedbackStatisticDetail")]
+        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria);

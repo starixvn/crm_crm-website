@@ -9,8 +9,8 @@
     <title>@Resources.Language.Title_Report_FeedbackStatistics</title>
     @Styles.Render("~/site/common", "~/bundles/Report/FeedbackStatisticDetailStyles")
 </head>
-<body>
-    <div class="main container" data-ng-controller="feedbackStatisticDetailController">
+<body data-ng-controller="feedbackStatisticDetailController">
+    <div class="main container">
         <div class="row">
             <div table-feedback-statistic-detail-container data-ng-model="feedbackStatisticDetail">
                 <div id="table-feedback-statistic-detail" class="freegrid hide"></div>

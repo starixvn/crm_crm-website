@@ -19,6 +19,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'addGuestFeedbackService',
     function ($scope, $uiBlockerService, $resultMessageService, addGuestFeedbackService) {
         $scope.customerInfo = {
+            Name: '',
             Title: {
                 Id: 0
             },
@@ -57,6 +58,8 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
         };
         $scope.isShowCustomerDetailBox = true;
         $scope.isShowFeedbackDetailBox = true;
+        $scope.isShowDescriptionBox = true;
+        $scope.isShowSolutionBox = true;
         $scope.isShowDescriptionPreview = false;
         $scope.isShowSolutionPreview = false;
         $scope.feedbackSubjectTemplateList = [];
@@ -243,6 +246,12 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
         $scope.validateAddParams = function (params) {
             var result = true;
             var message = '';
+
+            if (result && $.trim(params.CustomerInfo.Name) === '') {
+                message = viewResources.Error_EmptyId;
+                result = false;
+            }
+
             if (result && params.CommunicationTool.Id === crmConstants.Enums.CommunicationTool.NotApply) {
                 message = viewResources.Error_NACommmunicationTool;
                 result = false;

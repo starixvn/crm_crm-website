@@ -763,9 +763,6 @@
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
-    <Content Include="Views\Customer\Styles\Images\icon_down.gif" />
-    <Content Include="Views\Customer\Styles\Images\icon_up.gif" />
-    <Content Include="Views\Customer\Styles\StyleSheet.css" />
     <Content Include="Views\Feedback\Scripts\feedbackdata.js" />
     <Content Include="Views\Feedback\Scripts\setting.js" />
     <Content Include="Views\Feedback\Styles\Images\bg-topSelected.png" />
@@ -947,22 +944,8 @@
     <Content Include="Scripts\Timepicker.js" />
     <Content Include="Scripts\Tipsy-Tooltip\jquery.tipsy.js" />
     <Content Include="Scripts\Tipsy-Tooltip\tipsy.css" />
-    <Content Include="Views\AdminTool\Scripts\AddSettingRelation.js" />
-    <Content Include="Views\AdminTool\Scripts\SettingEdit.js" />
-    <Content Include="Views\AdminTool\Scripts\SettingInsert.js" />
-    <Content Include="Views\AdminTool\Scripts\SettingManage.js" />
-    <Content Include="Views\AdminTool\Scripts\SettingRelationManage.js" />
-    <Content Include="Views\AdminTool\Scripts\SubjectTemplateEdit.js" />
-    <Content Include="Views\AdminTool\Scripts\SubjectTemplateIns.js" />
-    <Content Include="Views\AdminTool\Scripts\SubjectTemplateManagement.js" />
-    <Content Include="Views\AdminTool\Styles\Images\icn_add.png" />
-    <Content Include="Views\AdminTool\Styles\Images\icn_del.png" />
-    <Content Include="Views\AdminTool\Styles\Images\icn_edit.png" />
-    <Content Include="Views\AdminTool\Styles\Images\TreeViewImg.gif" />
     <Content Include="Views\Common\404Error.htm" />
-    <Content Include="Views\Customer\Scripts\CrmInfo.js" />
     <Content Include="Areas\Customer\ShortInfo\Scripts\CustomerManager.js" />
-    <Content Include="Views\Customer\Scripts\EditCustomerInfo.js" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon_button02.gif" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon_down.gif" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\icon_up.gif" />
@@ -1059,29 +1042,8 @@
     <Content Include="Views\Home\Styles\Images\Banner\R_main_btn.png" />
     <Content Include="Views\Home\Styles\Images\Banner\up.gif" />
     <Content Include="Views\Home\Styles\Images\Banner\up_down.png" />
-    <Content Include="Views\Reports\Scripts\AllFeedbackStatisticsDetail\AllFeedbackStatisticsDetailApplication.js" />
-    <Content Include="Views\Reports\Scripts\AllFeedbackStatisticsDetail\AllFeedbackStatisticsDetailController.js" />
-    <Content Include="Views\Reports\Scripts\AllFeedbackStatisticsDetail\AllFeedbackStatisticsDetailDirective.js" />
-    <Content Include="Views\Reports\Scripts\AllFeedbackStatisticsDetail\AllFeedbackStatisticsDetailService.js" />
-    <Content Include="Views\Reports\Scripts\CasinoDailyStatistics.js" />
-    <Content Include="Views\Reports\Scripts\CasinoWeeklyStatistics.js" />
-    <Content Include="Views\Reports\Scripts\DailyStatistic.js" />
-    <Content Include="Views\Reports\Scripts\FeedbackStatisticDetail.js" />
-    <Content Include="Views\Reports\Scripts\FeedbackStatistics.js" />
-    <Content Include="Views\Reports\Scripts\WeeklyStatistic.js" />
-    <Content Include="Views\Reports\Styles\Images\bg-nav-top-left.jpg" />
     <Content Include="Content\site\Images\chart_bar.png" />
-    <Content Include="Views\Reports\Styles\Images\datagrid_header_bg.gif" />
-    <Content Include="Views\Reports\Styles\Images\error.gif" />
-    <Content Include="Views\Reports\Styles\Images\hp_notepad2_pen.png" />
-    <Content Include="Views\Reports\Styles\Images\icn_add.png" />
-    <Content Include="Views\Reports\Styles\Images\icn_del.png" />
-    <Content Include="Views\Reports\Styles\Images\icn_edit.png" />
-    <Content Include="Views\Reports\Styles\Images\icn_view.png" />
     <Content Include="Content\site\Images\minus-plus-icn.png" />
-    <Content Include="Views\Reports\Styles\Images\sucess.gif" />
-    <Content Include="Views\Reports\Styles\Images\warning.png" />
-    <Content Include="Views\Reports\Styles\reports.less" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1097,7 +1059,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\_DashboardMenu.cshtml" />
     <Content Include="Views\Home\_SearchCustomerRemind.cshtml" />
-    <Content Include="Views\Reports\AllFeedbackStattisticsDetail.cshtml" />
     <Content Include="Areas\User\LogIn\Styles\login.less" />
   </ItemGroup>
   <ItemGroup>
@@ -1169,9 +1130,6 @@
     <Content Include="Configurations\MailSection.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Account\SignIn.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Feedback\AddGuestFeedback.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1182,30 +1140,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Feedback\DeletedFeedback.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Reports\FeedbackStatistics.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Reports\DailyStatistic.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Reports\WeeklyStatistic.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Reports\CasinoDailyStatistics.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Reports\CasinoWeeklyStatistics.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminTool\SettingManage.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminTool\SettingRelation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminTool\SubjectTemplateManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Common\AccessDenied.cshtml" />
@@ -1229,9 +1163,6 @@
     <Content Include="Areas\Customer\ShortInfo\CustomerInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Customer\EditCRMInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Feedback\CustomerLastestFeedback.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1239,24 +1170,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Feedback\AddFeedback.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Reports\FeedbackStatisticDetail.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminTool\AddSettingRelation.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminTool\SettingEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminTool\SettingIns.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminTool\SubjectTemplateEdit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\AdminTool\SubjectTemplateIns.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />

@@ -362,6 +362,53 @@ namespace Fanex.CRM.User.Controllers
             return RedirectToAction("Index", "UserLogin");
         }
 
+        /// <summary>
+        /// Checks the user online status.
+        /// </summary>
+        /// <returns>The action result.</returns>
+        [HttpPost]
+        public ActionResult CheckUserOnlineStatus()
+        {
+            try
+            {
+                var settings = NapSettings.Settings;
+                if (!settings.EnableReCheckIn)
+                {
+                    return Json(new { ErrCode = 0 });
+                }
+
+                if (settings.EnableCheckUM)
+                {
+                    if (_maintenanceService.GetDowntimeInfo().IsDowntime)
+                    {
+                        ClearingLoginCookie();
+                        return Json(new { ErrCode = 3, ErrMsg = "UM" });
+                    }
+                }
+
+                var siteStatus = _napSiteService.GetStatusById(this.SiteId);
+                if (!siteStatus)
+                {
+                    ClearingLoginCookie();
+                    return Json(new { ErrCode = 2, ErrMsg = "Site is invalid" });
+                }
+
+                UserReCheckInUserCriteria criteria = new UserReCheckInUserCriteria { OnUserId = _napCurrentSession.OnUserId };
+                _userNapService.ReUserCheckIn(ref criteria);
+                if (criteria.IsKickedOut)
+                {
+                    return Json(new { ErrCode = 1, ErrMsg = "Is kickout" });
+                }
+
+                return Json(new { OnUserId = _napCurrentSession.OnUserId, ErrCode = 0 });
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
         private void CreateUserMenu(User user)
         {
             _napCurrentSession.MenuItemList = (IList<MenuItem>)_menuItemNapService.GetByUserAndSiteIncludeGroup(

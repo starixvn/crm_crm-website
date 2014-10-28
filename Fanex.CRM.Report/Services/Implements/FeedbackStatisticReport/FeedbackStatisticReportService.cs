@@ -277,7 +277,7 @@ namespace Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport
             foreach (var feedback in rawdata)
             {
                 feedback.MainCategory = categoryHash[feedback.MainCategoryId];
-                feedback.SubCategory = subcategoryHash[feedback.SubCategoryId];
+                feedback.SubCategory = subcategoryHash.ContainsKey(feedback.SubCategoryId) ? subcategoryHash[feedback.SubCategoryId] : Labels.NA;
                 feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
                 feedbacks.Add(feedback);    
             }

@@ -255,5 +255,11 @@ namespace Fanex.CRM.Customer.Services.Implements
                 throw;
             }
         }
+
+        public IList<string> CustomerAutoSuggestion(CustomerAutoSuggestionCriteria criteria)
+        {
+            var usernames = _customerRepositoryInstance.CustomerAutoSuggestion(criteria);
+            return null;
+        }
     }
 }

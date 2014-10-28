@@ -95,6 +95,7 @@
     <Compile Include="Controllers\CustomerSettingController.cs" />
     <Compile Include="Controllers\CustomerSettingDetailController.cs" />
     <Compile Include="Controllers\InformHeadlinesController.cs" />
+    <Compile Include="Criteria\CustomerAutoSuggestionCriteria.cs" />
     <Compile Include="Criteria\InformHeadlines\CreateInformCriteria.cs" />
     <Compile Include="Criteria\DetailInfo\GetCustomerInfoDetailByIdCriteria.cs" />
     <Compile Include="Criteria\DetailInfo\UpdateCustomerInfoDetailCriteria.cs" />

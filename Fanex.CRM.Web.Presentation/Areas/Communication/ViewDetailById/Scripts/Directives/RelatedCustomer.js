@@ -22,29 +22,29 @@ var renderRelated = function (row) {
     });
 
     var html;
-    if (row.CustId !== 0) {
-        if (row.CustId > 0) {
+    if (row.Id !== 0) {
+        if (row.Id > 0) {
             html = '<tr>\
-                        <td id =' + row.CustId + ' value= ' + row.UserName + ' >\
+                        <td id =' + row.Id + ' value= ' + row.Name + ' >\
                                 <a rel="friend" class="txt-customer">\
-                                    <span onclick="deleteRelatedCust(' + row.CustId + ');" class="icon-del"></span>' + row.UserName + '</a>\
+                                    <span onclick="deleteRelatedCust(' + row.Id + ');" class="icon-del"></span>' + row.Name + '</a>\
                          </td>\
                      </tr>';
         }
         else {
             html = '<tr>\
-                        <td id =' + row.CustId + ' value= ' + row.UserName + ' >\
+                        <td id =' + row.Id + ' value= ' + row.Name + ' >\
                                 <a rel="friend" class="txt-guest">\
-                                    <span onclick="deleteRelatedCust(' + row.CustId + ');" class="icon-del"></span>' + row.UserName + '</a>\
+                                    <span onclick="deleteRelatedCust(' + row.Id + ');" class="icon-del"></span>' + row.Name + '</a>\
                         </td>\
                     </tr>';
         }
     }
     else {
         html = '<tr class="invalidcustomers">\
-                    <td id =' + row.CustId + ' value= ' + row.UserName + ' >\
+                    <td id =' + row.Id + ' value= ' + row.Name + ' >\
                             <a rel="friend" class="txt-invalid">\
-                                <span onclick="deleteAllInValidCustomers();" class="icon-del"></span>' + row.UserName + '</a>\
+                                <span onclick="deleteAllInValidCustomers();" class="icon-del"></span>' + row.Name + '</a>\
                     </td>\
                 </tr>';
     }
@@ -56,9 +56,9 @@ var completedVerifyRelatedCustomer = function (rs) {
     if (rs != null && rs.length > 0) {
         var userId = '';
         for (i = 0; i < rs.length; i++) {
-            if (parseInt(rs[i].CustId) !== 0) {
-                if (userIdList.indexOf(rs[i].CustId) === -1) {
-                    userIdList.push(rs[i].CustId);
+            if (parseInt(rs[i].Id) !== 0) {
+                if (userIdList.indexOf(rs[i].Id) === -1) {
+                    userIdList.push(rs[i].Id);
                     userList.push(rs[i]);
                 }
             }
@@ -79,7 +79,7 @@ var completedVerifyRelatedCustomer = function (rs) {
     var arr = [];
     for (i = 0; i < userList.length; i++) {
         arr.push(renderRelated(userList[i]));
-        arrCust.push(userList[i].CustId);
+        arrCust.push(userList[i].Id);
     }
 
     $("#related").html(arr.join(''));
@@ -100,7 +100,7 @@ viewDetailByIdApplication.directive('relatedCustomerContainer', function () {
         var relatedTo = element.find("#txtrelatedcustomer");
         relatedTo.fcbkcomplete({
             /* jshint camelcase: false */
-            json_url: window.rootUrl + 'Customer/RelatedCustomerAutoSuggestion',
+            json_url: window.rootUrl + 'CustomerSetting/RelatedCustomerAutoSuggestion',
             addontab: true,
             maxitems: parent.crmConstants.Enums.RelatedCustomerSetting.MaxItems,
             input_min_size: 1,
@@ -161,7 +161,7 @@ var verifyRelatedCustomer = function (scope) {
     if (userName !== "") {
         scope.BlockUI();
         sharedScriptManager.CallAjax(self,
-            window.rootUrl + "Customer/VerifyUserName",
+            window.rootUrl + "CustomerSetting/VerifyUsername",
             { UserName: userName },
             completedVerifyRelatedCustomer,
             null,
@@ -179,7 +179,7 @@ var verifyRelatedCustomerForUpdate = function (scope) {
     if (userName !== "") {
         scope.BlockUI();
         sharedScriptManager.CallAjax(self,
-            window.rootUrl + "Customer/VerifyUserName",
+            window.rootUrl + "CustomerSetting/VerifyUsername",
             { UserName: userName },
             completedVerifyRelatedCustomer,
             null,

@@ -228,6 +228,14 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             return result;
         }
 
+        public IEnumerable<string> CustomerAutoSuggestion(CustomerAutoSuggestionCriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<string>(criteria.GetSpParams());
+            }
+        }
+
         /// <summary>
         /// Adds the new customer into mongo database.
         /// </summary>

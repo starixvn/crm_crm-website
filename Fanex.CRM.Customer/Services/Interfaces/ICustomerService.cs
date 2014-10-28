@@ -27,5 +27,7 @@ namespace Fanex.CRM.Customer.Services.Interfaces
         List<dynamic> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria);
 
         List<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
+
+        IList<string> CustomerAutoSuggestion(CustomerAutoSuggestionCriteria criteria);
     }
 }

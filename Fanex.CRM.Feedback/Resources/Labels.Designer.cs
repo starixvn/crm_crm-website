@@ -232,6 +232,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Identity is mandatory!.
+        /// </summary>
+        public static string Error_EmptyId {
+            get {
+                return ResourceManager.GetString("Error_EmptyId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description is mandatory!.
         /// </summary>
         public static string Error_EmptyRemark {

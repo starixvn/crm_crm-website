@@ -122,7 +122,6 @@ namespace Fanex.CRM.Feedback.Repositories
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<DeletedFeedback>(criteria.GetSpParams());
-
             }
         }
     }

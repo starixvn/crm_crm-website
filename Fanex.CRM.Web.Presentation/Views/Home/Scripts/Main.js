@@ -138,7 +138,7 @@ function udpateOnlineStatus() {
 
     $.ajax({
         type: "POST",
-        url: window.rootUrl + "Account/CheckUserOnlineStatus",
+        url: window.rootUrl + "UserLogin/CheckUserOnlineStatus",
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: '',
