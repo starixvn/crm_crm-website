@@ -263,6 +263,10 @@ var CustomerManager = function () {
             } catch (e) {
             }
         }
+        // set txtuserName to current Username.
+        if (customer.Name !== self.DOMElements.textboxUsername.val()) {
+            self.DOMElements.textboxUsername.val(customer.Name);
+        }
     };
     self.completedLoadLeftPanel = function () {
         if (self.CacheData.isLoadedSite &&

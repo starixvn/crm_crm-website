@@ -179,7 +179,7 @@ $(document).ready(function () {
     });
 
     txtusername.autocomplete({
-        serviceUrl: window.rootUrl + 'Customer/CustomerAutoSuggestion',
+        serviceUrl: window.rootUrl + 'CustomerSetting/CustomerAutoSuggestion',
         minChars: 2,
         isCacheSuggestion: false,
         zIndex: 9999,
@@ -227,7 +227,7 @@ $(document).ready(function () {
     userName = "";
     var username = gup("username");
     if (username != null && username !== "") {
-        $('#txtuserName').val(username);
+        txtusername.val(username);
         leftPanelManager.loadLeftPanel(username, true);
         menuManager.showHideLeftPanel();
     } else if (userSearch != null && userSearch !== "") {
@@ -235,8 +235,7 @@ $(document).ready(function () {
             $("#isGuest").attr("checked", true);
         }
 
-        $('#txtuserName').val(userSearch);
-        $('#txtuserName').removeClass("font-style-italic");
+        txtusername.val(userSearch).removeClass("font-style-italic");
         leftPanelManager.loadLeftPanel(userSearch, true);
         menuManager.showLeftPanel();
     }
