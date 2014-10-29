@@ -9,6 +9,8 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Service.Implements;
+    using Fanex.CRM.Infrastructure.Service.Interfaces;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Configuration;
     using Fanex.NAP.Core.Model.ValueObject;
@@ -36,6 +38,8 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
         private bool _issiteLogin = NapSettings.Settings.EnableDirectLogin;
 
         private ViewFlags _viewFlags;
+
+        private IPermissionService _permissionService = null;
 
         public BaseController()
         {
@@ -82,6 +86,15 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
             }
         }
 
+        protected IPermissionService PermissionService
+        {
+            get
+            {
+                _permissionService = _permissionService ?? new PermissionService();
+                return _permissionService;
+            }
+        }
+
         /// <summary>
         /// GetRollAccess: get permission to access with each menu item of current user login.
         /// </summary>
@@ -91,17 +104,7 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
         /// </returns>
         public Dictionary<string, int> GetRoleAccess(IEnumerable<FunctionPolicy> currentFunctions)
         {
-            Dictionary<string, int> roleAccess = new Dictionary<string, int>();
-
-            foreach (FunctionPolicy functionPolicy in currentFunctions)
-            {
-                if (functionPolicy.Policy >= (int)Constant.Policy.Read)
-                {
-                    roleAccess.Add(functionPolicy.Function.Key, functionPolicy.Policy);
-                }
-            }
-
-            return roleAccess;
+            return PermissionService.GetRoleAccess(currentFunctions);
         }
 
         /// <summary>
@@ -113,24 +116,17 @@ namespace Fanex.CRM.Infrastructure.Web.Controllers
         /// </returns>
         public bool HasReadPermission(string functionName)
         {
-            return AppSession.RoleAccess != null &&
-                   AppSession.RoleAccess.ContainsKey(functionName) &&
-                   (AppSession.RoleAccess[functionName] == (int)Constant.Policy.Read ||
-                   AppSession.RoleAccess[functionName] == (int)Constant.Policy.Host);
+            return PermissionService.HasReadPermission(functionName);
         }
 
         public bool HasHostPermission(string functionName)
         {
-            return AppSession.RoleAccess != null &&
-                   AppSession.RoleAccess.ContainsKey(functionName) &&
-                   AppSession.RoleAccess[functionName] == (int)Constant.Policy.Host;
+            return PermissionService.HasHostPermission(functionName);
         }
 
         public bool HasPermission(string functionName, Constant.Policy policy)
         {
-            return AppSession.RoleAccess != null &&
-                   AppSession.RoleAccess.ContainsKey(functionName) &&
-                   AppSession.RoleAccess[functionName] >= (int)policy;
+            return PermissionService.HasPermission(functionName, policy);
         }
 
         /// <summary>

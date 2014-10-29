@@ -1,9 +1,9 @@
 ﻿@using Fanex.CRM.Customer.Resources;
 @using Fanex.CRM.Setting.Constants;
-@using Fanex.NAP.Core.Business
-@using Fanex.CRM.Service.Interface
-@using Fanex.CRM.Service.Impl
-@using Fanex.CRM.Infrastructure.Common
+@using Fanex.NAP.Core.Business;
+@using Fanex.CRM.Infrastructure.Common;
+@using Fanex.CRM.Infrastructure.Service.Interfaces;
+@using Fanex.CRM.Infrastructure.Service.Implements;
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-application">
 <head>
@@ -208,9 +208,6 @@
                     { 
                         <li><a data-ng-href="#" data-ng-click="viewLatestFeedback();">
                             @Labels.Latest_Feedback</a></li>
-                    }
-                    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read))
-                    { 
                         <li><a data-ng-href="#" data-ng-click="manageFeedback();">
                             @Labels.Manage_Feedback</a></li>
                     }

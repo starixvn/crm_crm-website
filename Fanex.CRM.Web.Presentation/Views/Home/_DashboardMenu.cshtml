@@ -1,25 +1,26 @@
 ﻿@using Fanex.NAP.Core.Business
-@using Fanex.CRM.Service.Interface
-@using Fanex.CRM.Service.Impl
 @using Fanex.CRM.Infrastructure.Common
+@using Fanex.CRM.Infrastructure.Service.Interfaces
+@using Fanex.CRM.Infrastructure.Service.Implements
 @{
     IPermissionService permission = new PermissionService();
+    bool hasCustomerInfoPermission = permission.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Read);
 }
 <ul class="list-unstyled list-inline" id="ulDashboardMenu">
     <li class="active" id="liMain"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liMain');">
         <span class="hotkey">M</span>ain</a></li>
-    @if (permission.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Read))
+    @if (hasCustomerInfoPermission)
     {
         <li id="liDetail"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liDetail');">
             <span class="hotkey">D</span>etail</a></li>
     }
-    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read) || 
+    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read) ||
         permission.HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Read))
     {
         <li id="liCommnunicationLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liCommnunicationLog');">
             Communication <span class="hotkey">L</span>og</a></li>
     }
-    @if (permission.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Read))
+    @if (hasCustomerInfoPermission)
     {
         <li id="liSpecialRemark"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liSpecialRemark');">
             Special Remar<span class="hotkey">k</span></a></li>
@@ -29,7 +30,7 @@
         <li id="liRedemption"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRedemption');">
             Redem<span class="hotkey">p</span>tion</a></li>
     }
-    @if (permission.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Read))
+    @if (hasCustomerInfoPermission)
     {
         <li id="liActivityLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liActivityLog');">
             Ac<span class="hotkey">t</span>ivity Log</a></li>

@@ -12,26 +12,13 @@ namespace Fanex.CRM.Web.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
-    using Fanex.CRM.Service.Impl;
-    using Fanex.CRM.Service.Interface;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// Home Controller.
     /// </summary>
     public class HomeController : BaseController
     {
-        private IPermissionService _permission;
-
-        public HomeController()
-            : this(null)
-        {
-        }
-
-        public HomeController(IPermissionService permission)
-        {
-            _permission = permission ?? new PermissionService();
-        }
-
         public RedirectResult Index()
         {
             if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)

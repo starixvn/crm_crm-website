@@ -71,7 +71,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonController.cs" />
-    <Compile Include="CustomerController.cs" />
     <Compile Include="HomeController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,14 +82,6 @@
     <ProjectReference Include="..\Fanex.CRM.Entities\Fanex.CRM.Entities.csproj">
       <Project>{2A2B1FF1-C26F-4D6F-85FB-F4670F4C87EC}</Project>
       <Name>Fanex.CRM.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.CRM.Service.Impl\Fanex.CRM.Service.Impl.csproj">
-      <Project>{32E37823-8338-4FB7-85DD-23FB3216B63A}</Project>
-      <Name>Fanex.CRM.Service.Impl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.CRM.Service.Interface\Fanex.CRM.Service.Interface.csproj">
-      <Project>{EBFA6AB1-D3A6-4BEF-BDE3-56A971B0EDBC}</Project>
-      <Name>Fanex.CRM.Service.Interface</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Setting\Fanex.CRM.Setting.csproj">
       <Project>{6BDF1D65-D49F-4371-B6EE-ABD10B5A8207}</Project>

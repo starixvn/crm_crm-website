@@ -762,10 +762,6 @@
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
     <Content Include="Scripts\WeekPicker\WeekPickerManager.js" />
-    <Content Include="Views\Feedback\Scripts\feedbackdata.js" />
-    <Content Include="Views\Feedback\Scripts\setting.js" />
-    <Content Include="Views\Feedback\Styles\Images\bg-topSelected.png" />
-    <Content Include="Views\Feedback\Styles\Images\del-icon.png" />
     <Content Include="Areas\User\LogIn\Scripts\LogInManager.js" />
     <Content Include="Views\Home\Scripts\DashboardManager.js" />
     <Content Include="Views\Home\Scripts\HomeManager.js" />
@@ -963,27 +959,6 @@
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_btn_left_hover.png" />
     <Content Include="Areas\Customer\ShortInfo\Styles\Images\L_banner\R_tab_left.png" />
     <Content Include="packages.config" />
-    <Content Include="Views\Feedback\Scripts\addfeedback.js" />
-    <Content Include="Views\Feedback\Scripts\addguestfeedback.js" />
-    <Content Include="Views\Feedback\Scripts\CustomerLastestFeedback.js" />
-    <Content Include="Views\Feedback\Scripts\DeletedFeedback.js" />
-    <Content Include="Views\Feedback\Scripts\editfeedback.js" />
-    <Content Include="Views\Feedback\Scripts\FeedbackCommon.js" />
-    <Content Include="Views\Feedback\Scripts\LastestFeedback.js" />
-    <Content Include="Views\Feedback\Scripts\ManageFeedback.js" />
-    <Content Include="Views\Feedback\Styles\Images\ajax-loader.gif" />
-    <Content Include="Views\Feedback\Styles\Images\bg-nav-top-left.jpg" />
-    <Content Include="Views\Feedback\Styles\Images\error.gif" />
-    <Content Include="Views\Feedback\Styles\Images\help.png" />
-    <Content Include="Views\Feedback\Styles\Images\hp_notepad2_pen.png" />
-    <Content Include="Views\Feedback\Styles\Images\icn_add.png" />
-    <Content Include="Views\Feedback\Styles\Images\icn_del.png" />
-    <Content Include="Views\Feedback\Styles\Images\icn_edit.png" />
-    <Content Include="Views\Feedback\Styles\Images\icn_view.png" />
-    <Content Include="Views\Feedback\Styles\Images\recover.jpg" />
-    <Content Include="Views\Feedback\Styles\Images\sucess.gif" />
-    <Content Include="Views\Feedback\Styles\Images\warning.png" />
-    <Content Include="Views\Feedback\Styles\StyleSheet.less" />
     <Content Include="Content\site\ui-darkness\images\ui-bg_flat_30_cccccc_40x100.png" />
     <Content Include="Content\site\ui-darkness\images\ui-bg_flat_50_5c5c5c_40x100.png" />
     <Content Include="Content\site\ui-darkness\images\ui-bg_glass_20_555555_1x400.png" />
@@ -1125,18 +1100,6 @@
     <Content Include="Configurations\MailSection.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Feedback\AddGuestFeedback.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Feedback\LastestFeedback.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Feedback\ManageFeedback.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Feedback\DeletedFeedback.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Common\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1156,15 +1119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Customer\ShortInfo\CustomerInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Feedback\CustomerLastestFeedback.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Feedback\EditFeedback.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Feedback\AddFeedback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot" />

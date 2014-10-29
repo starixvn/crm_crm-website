@@ -34,7 +34,6 @@ namespace Fanex.CRM.Infrastructure.Service.Implements
         public Dictionary<string, int> GetRoleAccess(IEnumerable<FunctionPolicy> currentFunctions)
         {
             Dictionary<string, int> roleAccess = new Dictionary<string, int>();
-
             foreach (FunctionPolicy functionPolicy in currentFunctions)
             {
                 if (functionPolicy.Policy >= (int)Constant.Policy.Read)
@@ -55,23 +54,27 @@ namespace Fanex.CRM.Infrastructure.Service.Implements
         /// </returns>
         public bool HasReadPermission(string functionName)
         {
-            return AppSession.RoleAccess != null &&
-                   AppSession.RoleAccess.ContainsKey(functionName) &&
-                   AppSession.RoleAccess[functionName] == (int)Constant.Policy.Read;
+            var roles = AppSession.RoleAccess;
+            return roles != null &&
+                   roles.ContainsKey(functionName) &&
+                   (roles[functionName] == (int)Constant.Policy.Read ||
+                   roles[functionName] == (int)Constant.Policy.Host);
         }
 
         public bool HasHostPermission(string functionName)
         {
-            return AppSession.RoleAccess != null &&
-                   AppSession.RoleAccess.ContainsKey(functionName) &&
-                   AppSession.RoleAccess[functionName] == (int)Constant.Policy.Host;
+            var roles = AppSession.RoleAccess;
+            return roles != null &&
+                   roles.ContainsKey(functionName) &&
+                   roles[functionName] == (int)Constant.Policy.Host;
         }
 
         public bool HasPermission(string functionName, Constant.Policy policy)
         {
-            return AppSession.RoleAccess != null &&
-                   AppSession.RoleAccess.ContainsKey(functionName) &&
-                   AppSession.RoleAccess[functionName] >= (int)policy;
+            var roles = AppSession.RoleAccess;
+            return roles != null &&
+                   roles.ContainsKey(functionName) &&
+                   roles[functionName] >= (int)policy;
         }
     }
 }
