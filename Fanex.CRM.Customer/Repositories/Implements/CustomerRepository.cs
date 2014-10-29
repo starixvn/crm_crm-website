@@ -16,14 +16,10 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories.Interfaces;
-    using Fanex.CRM.Infrastructure.Configuration;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;
-    using MongoDB.Bson;
-    using MongoDB.Driver;
-    using MongoDB.Driver.Builders;
 
     /// <summary>
     /// Customer Repository.
@@ -103,18 +99,6 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             return uplineInfo;
         }
 
-        public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
-        {
-            var updateResult = false;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                updateResult = objectDB.ExecuteNonQuery() > 0;
-            }
-
-            return updateResult;
-        }
-
         /// <summary>
         /// Updates the customer information.
         /// </summary>
@@ -171,36 +155,24 @@ namespace Fanex.CRM.Customer.Repositories.Implements
         }
 
         /// <summary>
-        /// Updates the customer search count value.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
-        public bool UpdateCustomerSearchCountValue(UpdateCustomerSuggestionCriteria criteria)
+        /// <returns>The list of Customer.</returns>
+        public IList<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria)
         {
-            var server = MongoServer.Create(WebConfigApplicationSettings.MongoDbServer);
-            var crmDb = server.GetDatabase(WebConfigApplicationSettings.MongoDbName);
-
-            var searchCount = 0;
-
-            IMongoQuery query = new QueryDocument();
-            query = Query.And(Query.EQ("_id", criteria.CustomerId));
-            var customers = crmDb.GetCollection<BsonDocument>(WebConfigApplicationSettings.MongoCustomerTable);
-            var custInfo = customers.FindOne(query);
-            if (customers.FindOne(query) != null)
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                searchCount = custInfo["SearchCount"].AsInt32 + 1;
-                var update = Update.Set("SearchCount", searchCount);
-                customers.Update(query, update);
-                return true;
-            }
-            else
-            {
-                AddNewCustomerIntoMongoDB(criteria.CustomerId, criteria.Username);
-            }
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
+                {
+                    IList<string> suggestions = new List<string>();
+                    while (reader.Read())
+                    {
+                        suggestions.Add(Converter.ToString2(reader["UserName"]));
+                    }
 
-            return false;
-        }
-
+                    return suggestions;
+                }
+            }
         /// <summary>
         /// Suggests related customer.
         /// </summary>
@@ -236,24 +208,16 @@ namespace Fanex.CRM.Customer.Repositories.Implements
             }
         }
 
-        /// <summary>
-        /// Adds the new customer into mongo database.
-        /// </summary>
-        /// <param name="customerId">The customer identifier.</param>
-        /// <param name="customerName">Name of the customer.</param>
-        private void AddNewCustomerIntoMongoDB(int customerId, string customerName)
+        public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
-            var server = MongoServer.Create(WebConfigApplicationSettings.MongoDbServer);
-            var crmDb = server.GetDatabase(WebConfigApplicationSettings.MongoDbName);
-            var customers = crmDb.GetCollection<BsonDocument>(WebConfigApplicationSettings.MongoCustomerTable);
-            var customer = new BsonDocument()
+            var updateResult = false;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                { "_id", customerId },
-                { "UserName", customerName.ToLower() },
-                { "SearchCount", 1 }
-            };
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                updateResult = objectDB.ExecuteNonQuery() > 0;
+            }
 
-            customers.Insert(customer);
+            return updateResult;
         }
 
         /// <summary>

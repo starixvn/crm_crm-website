@@ -91,33 +91,6 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         /// <summary>
-        /// Updates the automatic customer search.
-        /// </summary>
-        /// <param name="userID">The user identifier.</param>
-        /// <param name="custID">The customer identifier.</param>
-        /// <param name="userName">Name of the user.</param>
-        /// <returns>Update result.</returns>
-        [HttpPost]
-        public JsonResult UpdateAutoCustomerSearch(int userID, int custID, string userName)
-        {
-            var result = new Result();
-            JsonResult jsonResult;
-            try
-            {
-                var ip = Fanex.CRM.Infrastructure.Helper.Helper.GetClientIP();
-                result = _customerService.UpdateAutoCustomerSearch(userID, custID, userName);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-            jsonResult = Json(result);
-            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return jsonResult;
-        }
-
-        /// <summary>
         /// Gets the customer information by user name.
         /// </summary>
         /// <param name="username">Name of the user.</param>
@@ -341,43 +314,6 @@ namespace Fanex.CRM.Web.Controllers
         }
 
         /// <summary>
-        /// The customer automatic suggestion.
-        /// </summary>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="query">The query.</param>
-        /// <param name="isGuest">If set to <c>true</c> [is guest].</param>
-        /// <param name="requestTime">The request time.</param>
-        /// <returns>Suggestion result.</returns>
-        [HttpGet]
-        public JsonResult CustomerAutoSuggestion(int userId, string query, bool isGuest, string requestTime)
-        {
-            var result = new CustomersSuggestion();
-            JsonResult jsonResult;
-            try
-            {
-                var customerList = _customerService.GetAutoSearch(userId, query, isGuest);
-                result.QueryParameters = query;
-                result.Suggestions = isGuest ?
-                    SelGuestSuggesstion(query, isGuest) :
-                    ConvertCustomerListToObject(customerList);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-            jsonResult = Json(new
-            {
-                data = result.QueryData,
-                query = result.QueryParameters,
-                suggestions = result.Suggestions
-            });
-
-            jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return jsonResult;
-        }
-
-        /// <summary>
         /// The related customer automatic suggestion.
         /// </summary>
         /// <param name="tag">The tag value.</param>
@@ -414,29 +350,6 @@ namespace Fanex.CRM.Web.Controllers
         #endregion
 
         #region private functions
-
-        private StringCollection ConvertCustomerListToObject(DataTable tbl)
-        {
-            StringCollection suggestion = new StringCollection();
-            foreach (DataRow row in tbl.Rows)
-            {
-                suggestion.Add(CastAide.AsString(row[0]));
-            }
-
-            return suggestion;
-        }
-
-        private StringCollection SelGuestSuggesstion(string userName, bool isGuest)
-        {
-            var suggestion = new StringCollection();
-            var guestList = _customerService.CustomerAutoSuggest(userName, isGuest);
-            foreach (var customer in guestList)
-            {
-                suggestion.Add(customer["UserName"].AsString.Replace("2_2", "."));
-            }
-
-            return suggestion;
-        }
 
         /// <summary>
         /// Converts the related customer list to object.

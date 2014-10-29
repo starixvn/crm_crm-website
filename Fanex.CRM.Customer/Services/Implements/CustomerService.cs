@@ -137,33 +137,6 @@ namespace Fanex.CRM.Customer.Services.Implements
         }
 
         /// <summary>
-        /// Updates the customer suggestion.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
-        public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
-        {
-            var updateResult = false;
-            try
-            {
-                if (criteria.CustomerId > 0)
-                {
-                    updateResult = _customerRepositoryInstance.UpdateCustomerSuggestion(criteria);
-                }
-                else
-                {
-                    updateResult = UpdateCustomerSearchCountValue(criteria);
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-            return updateResult;
-        }
-
-        /// <summary>
         /// Updates the customer information.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
@@ -189,16 +162,35 @@ namespace Fanex.CRM.Customer.Services.Implements
         }
 
         /// <summary>
-        /// Updates the customer search count value.
+        /// Queries the customer by username.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list of Customer.</returns>
+        public IList<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria)
+        {
+            try
+            {
+                return _customerRepositoryInstance.QueryCustomerByUsername(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Updates the customer suggestion.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Update result.</returns>
-        public bool UpdateCustomerSearchCountValue(UpdateCustomerSuggestionCriteria criteria)
+        public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
-            bool updateResult = false;
+            var updateResult = false;
             try
             {
-                updateResult = _customerRepositoryInstance.UpdateCustomerSearchCountValue(criteria);
+                updateResult = _customerRepositoryInstance.UpdateCustomerSuggestion(criteria);
             }
             catch (Exception ex)
             {
