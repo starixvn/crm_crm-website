@@ -7,14 +7,13 @@
 //   <change who="" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Web.Controllers
+namespace Fanex.CRM.Infrastructure.Web.Controllers
 {
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.NAP.Core.Service.Impl;
     using Fanex.NAP.Core.Service.Interface;
 
