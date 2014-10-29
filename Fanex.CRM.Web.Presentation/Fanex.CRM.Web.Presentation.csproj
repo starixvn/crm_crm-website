@@ -505,11 +505,21 @@
     <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportController_Update.js" />
     <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportService.js" />
     <Content Include="Areas\Report\WeeklyStatisticsReport\Styles\Images\ico_warning.png" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\Dev.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\Local.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\Master.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
@@ -733,7 +743,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Areas\Report\WagerReport\Styles\WagerReport.less" />
-    <Content Include="Configurations\Local.ConnectionStrings.config" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Styles\StyleSheet.less" />
     <Content Include="Areas\Report\FeedbackStatistics\Index.cshtml" />
@@ -748,12 +757,31 @@
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Styles.less" />
     <None Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Local.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\Master.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.MailSection.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.Web.Setting.config" />
     <None Include="Content\site\customizeFanexGridV2.less" />
     <None Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
-    <Content Include="Configurations\PRO.ConnectionStrings.config" />
     <None Include="Content\site\mixins.less" />
     <None Include="Content\site\reportgrid.less" />
     <None Include="Content\site\resultMessage.less" />
@@ -1096,8 +1124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configurations\CasinoSection.config" />
-    <Content Include="Configurations\ConnectionStrings.config" />
-    <Content Include="Configurations\MailSection.config" />
+    <Content Include="ConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Common\AccessDenied.cshtml" />
@@ -1150,10 +1177,6 @@
     <None Include="Areas\AdminTool\SettingRelation\AddRelation\Styles\AddRelation.less" />
     <None Include="Areas\AdminTool\SettingRelation\ViewList\Styles\ViewList.less" />
     <None Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
-    <Content Include="Configurations\Local.MailSection.config" />
-    <Content Include="Configurations\PRO.MailSection.config" />
-    <Content Include="Configurations\UAT.ConnectionStrings.config" />
-    <Content Include="Configurations\UAT.MailSection.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.MailSection.config" />
     <None Include="IbcKeys\ibckeydec.snk" />
