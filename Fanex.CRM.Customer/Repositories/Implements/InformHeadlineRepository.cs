@@ -19,7 +19,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// InformHeadline Repository.

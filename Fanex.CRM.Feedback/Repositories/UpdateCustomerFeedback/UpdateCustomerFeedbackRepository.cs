@@ -19,7 +19,7 @@ namespace Fanex.CRM.Feedback.Repositories
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update customer feedback repository.

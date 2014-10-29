@@ -13,7 +13,7 @@ namespace Fanex.CRM.Setting.Repositories.Interfaces
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     public interface ISettingRepository
     {

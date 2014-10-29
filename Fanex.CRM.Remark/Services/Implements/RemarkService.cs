@@ -22,7 +22,7 @@ namespace Fanex.CRM.Remark.Services.Implements
     using Fanex.CRM.Remark.Repositories.Interfaces;
     using Fanex.CRM.Remark.Resources;
     using Fanex.CRM.Remark.Services.Interfaces;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Remark service class.

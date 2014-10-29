@@ -14,6 +14,7 @@ namespace Fanex.CRM.Web.Controllers
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
+    using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.NAP.Core.Service.Impl;
     using Fanex.NAP.Core.Service.Interface;
 

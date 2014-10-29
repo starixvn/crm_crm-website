@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Report.Criteria.SettlementReport
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Settlement Report Criteria.

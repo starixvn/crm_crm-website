@@ -11,7 +11,7 @@ namespace Fanex.CRM.Report.Repositories.Interfaces
 {
     using System.Collections.Generic;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     public interface IFeedbackStatisticReportRepository
     {

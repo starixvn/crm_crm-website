@@ -11,7 +11,7 @@ namespace Fanex.CRM.Feedback.Repositories
 {
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     public interface IUpdateCustomerFeedbackRepository
     {

@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Remark.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get remark criteria.

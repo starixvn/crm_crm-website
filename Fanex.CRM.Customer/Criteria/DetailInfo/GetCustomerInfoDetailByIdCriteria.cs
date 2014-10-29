@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Customer.Criteria.DetailInfo
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Customer Information Detail By Identity Criteria.

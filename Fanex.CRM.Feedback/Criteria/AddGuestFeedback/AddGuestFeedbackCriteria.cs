@@ -18,7 +18,7 @@ namespace Fanex.CRM.Feedback.Criteria
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Setting.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Add Guest Feedback Criteria.

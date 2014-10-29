@@ -11,7 +11,7 @@ namespace Fanex.CRM.Report.Criteria.WeeklyStatisticsReport
 {
     using System;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Detail Report Criteria.

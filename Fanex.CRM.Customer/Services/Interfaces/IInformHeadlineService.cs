@@ -14,7 +14,7 @@ namespace Fanex.CRM.Customer.Services.Interfaces
     using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// IInformHeadlineService interface.

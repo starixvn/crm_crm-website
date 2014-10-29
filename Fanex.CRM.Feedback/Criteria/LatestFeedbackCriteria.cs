@@ -11,7 +11,7 @@
 namespace Fanex.CRM.Feedback.Criteria
 {
     using System.Collections;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Latest Feedback Criteria.

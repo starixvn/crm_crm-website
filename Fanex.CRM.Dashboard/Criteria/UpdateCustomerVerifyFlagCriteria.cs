@@ -11,7 +11,7 @@ namespace Fanex.CRM.Dashboard.Criteria
 {
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Customer Dashboard Information Criteria.

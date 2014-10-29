@@ -13,7 +13,7 @@ namespace Fanex.CRM.Customer.Repositories.Interfaces
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// IInformHeadline repository.

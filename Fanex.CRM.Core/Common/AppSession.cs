@@ -27,7 +27,7 @@ namespace Fanex.CRM.Infrastructure.Common
         {
             get
             {
-                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.CurrentLogInUser) as Fanex.NAP.Core.Model.User;
+                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.CurrentLogInUser) as User;
             }
 
             set

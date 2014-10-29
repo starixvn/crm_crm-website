@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Setting.Criteria
 {
     using Fanex.CRM.Setting.Constants;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// GetActionCriteria class.

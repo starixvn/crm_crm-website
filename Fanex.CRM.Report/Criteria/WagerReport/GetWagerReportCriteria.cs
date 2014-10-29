@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Report.Criteria.WagerReport
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// GetWagerReportCriteria criteria.

@@ -10,7 +10,7 @@
 namespace Fanex.CRM.ActionLog.Criteria
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get ActionLog criteria.

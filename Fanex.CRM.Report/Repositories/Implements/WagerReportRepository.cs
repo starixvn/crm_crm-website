@@ -13,7 +13,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using Fanex.CRM.Report.Entities.WagerReport;
     using Fanex.CRM.Report.Repositories.Interfaces;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// WagerReportRepository repository.

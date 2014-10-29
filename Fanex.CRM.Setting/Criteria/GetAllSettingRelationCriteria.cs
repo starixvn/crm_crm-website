@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get All Setting Relation Criteria.

@@ -11,7 +11,7 @@ namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
 {
     using System;
     using System.Collections;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get feedback statistic detail criteria.

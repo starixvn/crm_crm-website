@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Redemption.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Log By Identify Criteria.

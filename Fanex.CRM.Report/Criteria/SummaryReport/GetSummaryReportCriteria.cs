@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Report.Criteria.SummaryReport
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// GetSummaryReportCriteria criteria.

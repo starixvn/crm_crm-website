@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Report.Criteria.DailyStatisticsReport
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Main Report Criteria.

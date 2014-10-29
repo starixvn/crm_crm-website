@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Redemption.Criteria
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Communication Logs By Customer Identity Criteria.

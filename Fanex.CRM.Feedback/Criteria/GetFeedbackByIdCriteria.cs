@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Feedback.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Feedback by ID criteria.

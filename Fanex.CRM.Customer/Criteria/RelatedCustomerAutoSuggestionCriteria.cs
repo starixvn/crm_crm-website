@@ -9,12 +9,7 @@
 
 namespace Fanex.CRM.Customer.Criteria
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Related Customer Auto Suggestion Criteria.

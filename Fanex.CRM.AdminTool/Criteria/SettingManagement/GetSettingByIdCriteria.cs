@@ -10,11 +10,7 @@
 
 namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
-    using System.Collections;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.CRM.Setting.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Setting By Identify Criteria.

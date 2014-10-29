@@ -11,7 +11,7 @@ namespace Fanex.CRM.Remark.Services.Interfaces
 {
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Remark service interface.

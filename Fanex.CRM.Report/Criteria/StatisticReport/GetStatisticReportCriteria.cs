@@ -12,7 +12,7 @@ namespace Fanex.CRM.Report.Criteria.StatisticReport
     using System;
     using System.Collections;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Statistic Report Criteria.

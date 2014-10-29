@@ -12,7 +12,6 @@ namespace Fanex.CRM.Web.View
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using Fanex.CRM.Web.Controllers.CommonFilters;
     using Fanex.CRM.Web.View.App_Start;
 
     /// <summary>
@@ -24,7 +23,6 @@ namespace Fanex.CRM.Web.View
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new LogExceptionFilter());
             filters.Add(new HandleErrorAttribute());
         }
 

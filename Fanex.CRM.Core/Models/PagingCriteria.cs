@@ -10,7 +10,7 @@
 
 namespace Fanex.CRM.Infrastructure.Models
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Paging Criteria.

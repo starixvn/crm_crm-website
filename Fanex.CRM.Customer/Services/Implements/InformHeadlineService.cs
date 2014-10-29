@@ -28,7 +28,7 @@ namespace Fanex.CRM.Customer.Services.Implements
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;

@@ -14,7 +14,7 @@ namespace Fanex.CRM.Redemption.Criteria
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update Log Criteria.

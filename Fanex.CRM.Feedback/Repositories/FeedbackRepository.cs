@@ -18,7 +18,7 @@ namespace Fanex.CRM.Feedback.Repositories
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Feedback Repository.

@@ -21,6 +21,7 @@ namespace Fanex.CRM.Web.Controllers
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Service.Impl;
     using Fanex.CRM.Service.Interface;
     using Fanex.NAP.Core.Business;

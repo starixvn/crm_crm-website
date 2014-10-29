@@ -11,7 +11,7 @@ namespace Fanex.CRM.Customer.Criteria
 {
     using System;
     using System.Collections;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Customer Information By Username Criteria.

@@ -11,7 +11,7 @@
 namespace Fanex.CRM.Feedback.Criteria
 {
     using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// ManageFeedback Criteria.

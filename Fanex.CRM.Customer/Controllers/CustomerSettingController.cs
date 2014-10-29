@@ -108,34 +108,5 @@ namespace Fanex.CRM.Customer.Controllers
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
         }
-
-        //[HttpGet]
-        //public JsonResult CustomerAutoSuggestion(int userId, string query, bool isGuest, string requestTime)
-        //{
-        //    //var result = new CustomersSuggestion();
-        //    JsonResult jsonResult;
-        //    try
-        //    {
-        //        var customerList = _customerServiceInstance.GetAutoSearch(userId, query, isGuest);
-        //        result.QueryParameters = query;
-        //        result.Suggestions = isGuest ?
-        //            SelGuestSuggesstion(query, isGuest) :
-        //            ConvertCustomerListToObject(customerList);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogExtensions.ExceptionHandler(ex);
-        //    }
-
-        //    jsonResult = Json(new
-        //    {
-        //        data = result.QueryData,
-        //        query = result.QueryParameters,
-        //        suggestions = result.Suggestions
-        //    });
-
-        //    jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-        //    return jsonResult;
-        //}
     }
 }

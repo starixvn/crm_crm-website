@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Dashboard.Criteria
 {
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Customer Dashboard Information Criteria.

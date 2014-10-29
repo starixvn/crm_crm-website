@@ -11,7 +11,7 @@
 namespace Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement
 {
     using System.Collections;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Insert Feedback Subject Template Criteria.

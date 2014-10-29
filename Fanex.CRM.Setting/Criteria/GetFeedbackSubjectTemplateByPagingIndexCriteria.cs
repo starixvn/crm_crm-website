@@ -9,8 +9,6 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
-    using Fanex.NAP.Framework.Data;
-
     /// <summary>
     /// Get Feedback Subject Template By Paging Index Criteria.
     /// </summary>

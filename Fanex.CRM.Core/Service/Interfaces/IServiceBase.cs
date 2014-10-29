@@ -11,7 +11,7 @@
 namespace Fanex.CRM.Infrastructure.Service.Interfaces
 {
     using System.Collections.Generic;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     public interface IServiceBase
     {

@@ -17,7 +17,7 @@ namespace Fanex.CRM.Infrastructure.Service.Implements
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Infrastructure.Service.Interfaces;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
 

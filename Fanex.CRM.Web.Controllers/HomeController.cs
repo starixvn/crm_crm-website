@@ -11,6 +11,7 @@ namespace Fanex.CRM.Web.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Service.Impl;
     using Fanex.CRM.Service.Interface;
 

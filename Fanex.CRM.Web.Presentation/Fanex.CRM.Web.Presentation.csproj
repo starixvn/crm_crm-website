@@ -1119,10 +1119,6 @@
       <Project>{4A20474E-2F9B-4308-AF20-2BA8D97128EB}</Project>
       <Name>Fanex.CRM.Web.Controllers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.CRM.Web.Models\Fanex.CRM.Web.Models.csproj">
-      <Project>{7B14232B-04EC-486E-AABB-EE2AFAA7C700}</Project>
-      <Name>Fanex.CRM.Web.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Configurations\CasinoSection.config" />

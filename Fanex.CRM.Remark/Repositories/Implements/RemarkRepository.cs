@@ -18,7 +18,7 @@ namespace Fanex.CRM.Remark.Repositories.Implements
     using Fanex.CRM.Remark.Models;
     using Fanex.CRM.Remark.Repositories.Interfaces;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Remark repository class.

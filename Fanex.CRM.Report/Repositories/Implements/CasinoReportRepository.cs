@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using Fanex.CRM.Report.Repositories.Interfaces;
     using Fanex.CRM.Report.Resources;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Casino Report Repository.

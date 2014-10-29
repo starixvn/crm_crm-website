@@ -13,7 +13,7 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
     using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// UpdateInformHeadlinesCriteria class.

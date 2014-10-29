@@ -13,7 +13,7 @@ namespace Fanex.CRM.Feedback.Repositories
     using System.Collections.Generic;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// IFeedback Repository.

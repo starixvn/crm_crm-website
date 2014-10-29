@@ -13,7 +13,7 @@ namespace Fanex.CRM.Feedback.Criteria
     using System;
     using System.Collections;
     using Fanex.CRM.Infrastructure.Core;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Deleted feedback criteria.

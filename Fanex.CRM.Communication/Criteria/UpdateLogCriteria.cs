@@ -12,7 +12,7 @@ namespace Fanex.CRM.Communication.Criteria
     using System;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update Log Criteria.

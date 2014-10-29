@@ -1,4 +1,5 @@
 ﻿'use strict';
+/* exported orgLengt, trim */
 /* global updateCustomerFeedbackApplication */
 /* jshint unused: vars */
 /* jshint camelcase: false */

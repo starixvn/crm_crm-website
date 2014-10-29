@@ -16,7 +16,7 @@ namespace Fanex.CRM.Setting.Repositories.Implements
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Repositories.Interfaces;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Setting Repository.
