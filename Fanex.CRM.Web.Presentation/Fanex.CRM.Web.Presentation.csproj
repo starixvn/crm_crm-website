@@ -564,6 +564,7 @@
     <Content Include="Scripts\Chart\HighCharts\data.js" />
     <Content Include="Scripts\Chart\HighCharts\drilldown.js" />
     <Content Include="Scripts\Chart\HighCharts\highcharts.js" />
+    <Content Include="Scripts\CryptoJS.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.css" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.js" />
     <Content Include="Scripts\FanexGridV2\Fanex.Pagination.css" />
@@ -791,7 +792,6 @@
     <Content Include="Content\site\mixins.less" />
     <Content Include="Content\site\reportgrid.less" />
     <Content Include="Content\site\resultMessage.less" />
-    <Content Include="Scripts\AjaxForm\ajax-form.less" />
     <Content Include="Scripts\FanexGridV2\Fanex.Grid.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.Web.Setting.config" />
