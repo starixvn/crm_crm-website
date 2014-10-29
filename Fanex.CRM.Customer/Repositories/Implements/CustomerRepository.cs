@@ -155,9 +155,12 @@ namespace Fanex.CRM.Customer.Repositories.Implements
         }
 
         /// <summary>
+        /// Queries the customer by username.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of Customer.</returns>
+        /// <returns>
+        /// The list of Customer.
+        /// </returns>
         public IList<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
@@ -173,6 +176,8 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                     return suggestions;
                 }
             }
+        }
+
         /// <summary>
         /// Suggests related customer.
         /// </summary>

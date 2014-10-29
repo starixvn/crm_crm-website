@@ -138,8 +138,7 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
     }
 
     function renderTextboxRemark(remark, index, rowHeight) {
-        var style = rowHeight
-            ? 'style="resize: vertical; width: 98%; height: ' + (rowHeight - 10) + '"'
+        var style = rowHeight ? 'style="resize: vertical; width: 98%; height: ' + (rowHeight - 10) + '"'
             : 'style="resize: vertical; width: 98%; height: 62px;"';
 
         return '<textarea class="textbox remark" ' + style + ' rows="3" data-index="' + index + '">' + remark + '</textarea>';
