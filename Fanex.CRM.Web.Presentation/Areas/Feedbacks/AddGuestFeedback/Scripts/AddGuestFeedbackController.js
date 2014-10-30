@@ -262,7 +262,8 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                 result = false;
             }
 
-            if (result && params.SubCategory.Id === crmConstants.Enums.SubCategory.NotApply) {
+            if (result &&
+                (!params.MainCategory || params.MainCategory.ChildSettings.length === 0 || params.SubCategory.Id === crmConstants.Enums.SubCategory.NotApply)) {
                 message = viewResources.Error_NASubCategory;
                 result = false;
             }

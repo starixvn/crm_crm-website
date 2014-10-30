@@ -104,7 +104,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
             $scope.birthdayOptions.IsRerenderPicker = true;
 
             $scope.communicationToolOptions.SelectedId = $scope.customerInfo.Title.Id;
-            var defaultLanguage = sharedScriptManager.getDefaultCustomerLangue($scope.customerInfo.Languages);
+            var defaultLanguage = sharedScriptManager.getDefaultCustomerLangue($scope.customerInfo.Languages) || $scope.allSettings.LanguageList[0];
             $scope.languageOptions.SelectedId = defaultLanguage.Id;
             $scope.countryOptions.SelectedId = $scope.customerInfo.Country.Id;
             $scope.roleOptions.SelectedId = $scope.customerInfo.Role.Id;
@@ -253,7 +253,8 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                 result = false;
             }
 
-            if (result && params.SubCategory.Id === crmConstants.Enums.SubCategory.NotApply) {
+            if (result && 
+                (!params.MainCategory || params.MainCategory.ChildSettings.length === 0 || params.SubCategory.Id === crmConstants.Enums.SubCategory.NotApply)) {
                 message = viewResources.Error_NASubCategory;
                 result = false;
             }
@@ -332,7 +333,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                 sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.PhoneInfo, $scope.addCustomerFeedbackParams.CustomerInfo.PhoneInfo) &&
                 sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.FaxInfo, $scope.addCustomerFeedbackParams.CustomerInfo.FaxInfo) &&
                 sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.MobilePhone, $scope.addCustomerFeedbackParams.CustomerInfo.MobilePhone) &&
-                sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.PersonalInfoContact, 
+                sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.PersonalInfoContact,
                     $scope.addCustomerFeedbackParams.CustomerInfo.PersonalInfoContact) &&
                 $scope.oldParams.CustomerInfo.Skype === $scope.addCustomerFeedbackParams.CustomerInfo.Skype &&
                 $scope.oldParams.CustomerInfo.Email === $scope.addCustomerFeedbackParams.CustomerInfo.Email &&
@@ -362,7 +363,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
         $scope.updateRemarkPrefix = function () {
             var remarkPrefix = $scope.generateRemarkPrefix();
             if ($scope.addCustomerFeedbackParams.Description.indexOf($scope.lastRemarkPrefix) === 0) {
-                $scope.addCustomerFeedbackParams.Description = 
+                $scope.addCustomerFeedbackParams.Description =
                     $scope.addCustomerFeedbackParams.Description.substring($scope.lastRemarkPrefix.length, $scope.addCustomerFeedbackParams.Description.length);
                 $scope.descriptionOptions.SelectedText = $scope.addCustomerFeedbackParams.Description;
             }

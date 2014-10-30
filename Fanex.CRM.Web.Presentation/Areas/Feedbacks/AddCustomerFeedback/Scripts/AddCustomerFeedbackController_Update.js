@@ -3,7 +3,9 @@
 camelcase: false */
 /* global crmConstants,
 sharedScriptManager,
-moment */
+moment,
+viewResources,
+MessageResult */
 /* exported registerUpdateFunctions */
 function registerUpdateFunctions($scope) {
     $scope.updateStartTime = function (selectedTime) {
@@ -90,6 +92,12 @@ function registerUpdateFunctions($scope) {
         $scope.addCustomerFeedbackParams.Response = response;
     };
     $scope.updateSelectedMainCategory = function (mainCategory) {
+        $scope.messageResultOptions = new MessageResult('', false, false);
+        if (!mainCategory.ChildSettings || mainCategory.ChildSettings.length === 0) {
+            var message = viewResources.NoSubcategoryError.replace('{0}', '[' + mainCategory.Name + ']');
+            $scope.messageResultOptions = new MessageResult(message, true, false);
+        }
+
         $scope.addCustomerFeedbackParams.MainCategory = mainCategory;
         $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
         $scope.safeApply();

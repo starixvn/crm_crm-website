@@ -13,6 +13,7 @@ function (
     $editLogService,
     $redemptionBootstrappedData) {
     $scope.redemptionLog = $redemptionBootstrappedData.redemptionLog;
+    $scope.redemptionLog.Subject = sharedScriptManager.decodeHtml($scope.redemptionLog.Subject);
     $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
     $scope.statusList = null;
 

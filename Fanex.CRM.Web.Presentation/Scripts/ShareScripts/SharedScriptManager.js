@@ -233,6 +233,14 @@ var SharedScriptManager = function () {
             text.indexOf('&amp;lt;') !== -1 ||
             text.indexOf('&amp;gt;') !== -1;
     };
+    self.decodeHtml = function (text) {
+        return String(text)
+            .replace(/&amp;/g, '&')
+            .replace(/&quot;/g, '"')
+            .replace(/&#39;/g, "'")
+            .replace(/&lt;/g, "<")
+            .replace(/&gt;/g, '>');
+    };
 
     self.newFeedbackTime = function (selectedTime) {
         var dateTime = new Date(selectedTime);

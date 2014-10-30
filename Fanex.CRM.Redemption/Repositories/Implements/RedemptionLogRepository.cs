@@ -166,7 +166,7 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
                 Id = reader.GetInt32NotNull("Id"),
                 CustomerId = reader.GetInt32NotNull("CustId"),
                 ClaimedTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ClaimTime")).ToShortFormatedDate(),
-                Subject = reader.GetStringNotNull("Subject"),
+                Subject = reader.GetStringNotNull("Subject").HtmlEncode(),
                 Remark = reader.GetStringNotNull("Remark"),
                 Status = new SettingInfo
                 {

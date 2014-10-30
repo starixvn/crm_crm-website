@@ -6,7 +6,7 @@ hotKeyManager,
 updateFeedbackResources,
 feedbackId,
 hasReviewFeedbackPermission,
-orgLengt */
+orgLengt:true */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 updateCustomerFeedbackApplication.controller('updateCustomerFeedbackController',
