@@ -163,7 +163,7 @@ deletedFBApplication.controller('deletedFeedbackController', ['$scope', 'deleted
         var url = window.rootUrl + 'UpdateCustomerFeedback/Index?id=' + id;
         var maxWidthOfPopUp = 987;
         var maxHeightOfPopUp = $(parent.document).height();
-        parent.OpenPopup(url, deletedFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, function () {
+        parent.OpenPopup(url, deletedFeedbackResources.UpdateFeedbackTitle, maxWidthOfPopUp, maxHeightOfPopUp, true, false, window, 2000, null, function () {
             $scope.searchDeletedFeedback();
         });
     };

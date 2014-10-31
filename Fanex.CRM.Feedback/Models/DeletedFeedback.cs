@@ -21,5 +21,9 @@ namespace Fanex.CRM.Feedback.Models
         public int MainCategoryId { get; set; }
 
         public int SubCategoryId { get; set; }
+
+        public int StatusId { get; set; }
+
+        public string Description { get; set; }
     }
 }

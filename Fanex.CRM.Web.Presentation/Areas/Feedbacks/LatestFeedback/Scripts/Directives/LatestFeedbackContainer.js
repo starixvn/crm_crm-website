@@ -38,7 +38,7 @@ latestFBApplication.directive('tableLatestFeedbackContainer', function () {
                 { Name: 'ColFeedback', Value: renderFeedbackColumn(fb, i) },
                 { Name: 'ColCategory', Value: renderCategoryColumn(fb.MainCategory, fb.SubCategory) },
                 { Name: 'ColStatus', Value: fb.Status ? fb.Status : 'N/A' },
-                { Name: 'ColRelatedCustomer', Value: fb.IsRelated ? fb.Username : fb.RelatedCustomer }
+                { Name: 'ColRelatedCustomer', Value: fb.IsRelated ? fb.Username : fb.RelatedCustomer, CssClass: 'word-wrap' }
             ];
 
             status = fb.Status ? fb.Status.toLowerCase() : '';

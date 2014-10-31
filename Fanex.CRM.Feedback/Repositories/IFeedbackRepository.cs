@@ -22,8 +22,6 @@ namespace Fanex.CRM.Feedback.Repositories
     {
         IList<ManageFeedback> GetManagerFeedback(ManageFeedbackCriteria criteria);
 
-        IList<LatestFeedback> GetLatestFeedback(LatestFeedbackCriteria criteria);
-
         IEnumerable<DeletedFeedback> GetDeletedFeedback(ICriteria criteria);
     }
 }
