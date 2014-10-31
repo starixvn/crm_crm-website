@@ -77,7 +77,7 @@ namespace Fanex.CRM.Feedback.Controllers
         [HttpGet]
         public ActionResult GetLatestFeedback(LatestFeedbackCriteria criteria)
         {
-            var feedbacks = _feedbackService.GetLatestFeedback(criteria);
+            var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
             return Json(
                 new
                 {

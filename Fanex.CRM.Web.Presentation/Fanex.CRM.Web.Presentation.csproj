@@ -373,7 +373,6 @@
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\Directives\ManageFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackApplication.js" />
@@ -760,7 +759,6 @@
     <Content Include="Areas\Report\DailyStatisticsReport\Styles\DailyStatisticsReport.less" />
     <Content Include="Areas\Report\WeeklyStatisticsReport\Index.cshtml" />
     <Content Include="Areas\Report\WeeklyStatisticsReport\Styles\WeeklyStatisticsReport.less" />
-    <None Include="Areas\Feedbacks\LatestFeedback\Styles\StyleSheet.less" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Styles.less" />
     <None Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />

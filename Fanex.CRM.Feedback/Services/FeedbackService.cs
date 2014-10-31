@@ -27,6 +27,7 @@ namespace Fanex.CRM.Feedback.Services
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Feedback Service.
@@ -102,9 +103,9 @@ namespace Fanex.CRM.Feedback.Services
             return feebacks;
         }
 
-        public IList<LatestFeedback> GetLatestFeedback(LatestFeedbackCriteria criteria)
+        public IList<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria)
         {
-            return _feedbackRepository.GetLatestFeedback(criteria);
+            return GetDeletedFeedback(criteria);
         }
 
         /// <summary>
@@ -155,7 +156,7 @@ namespace Fanex.CRM.Feedback.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list of deleted feedback.</returns>
-        private IList<DeletedFeedback> GetDeletedFeedback(DeletedFeedbackCriteria criteria)
+        private IList<DeletedFeedback> GetDeletedFeedback(ICriteria criteria)
         {
             var categoryHash = new Dictionary<int, string>();
             var subcategoryHash = new Dictionary<int, string>();
@@ -176,13 +177,17 @@ namespace Fanex.CRM.Feedback.Services
                 }
             }
 
+            var statusList = _serviceSetting.GetAllStatus(new GetAllStatusCriteria { ViewType = ViewTypeConstants.All });
+            var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
+            statusHash.Add(1, Labels.Symbol_NA);
+
             IList<DeletedFeedback> feedbacks = new List<DeletedFeedback>();
             var rawdata = _feedbackRepository.GetDeletedFeedback(criteria);
             foreach (var feedback in rawdata)
             {
                 feedback.MainCategory = categoryHash[feedback.MainCategoryId];
-                feedback.SubCategory = subcategoryHash[feedback.SubCategoryId];
-                feedback.Status = Labels.Deleted;
+                feedback.SubCategory = subcategoryHash.ContainsKey(feedback.SubCategoryId) ? subcategoryHash[feedback.SubCategoryId] : Labels.Symbol_NA;
+                feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
                 feedbacks.Add(feedback);
             }
 

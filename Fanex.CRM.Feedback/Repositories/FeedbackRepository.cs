@@ -104,14 +104,6 @@ namespace Fanex.CRM.Feedback.Repositories
             }
         }
 
-        public IList<LatestFeedback> GetLatestFeedback(LatestFeedbackCriteria criteria)
-        {
-            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
-            {
-                return db.Query<LatestFeedback>(criteria.GetSpParams()).ToList();
-            }
-        }
-
         /// <summary>
         /// Gets the deleted feedback.
         /// </summary>

@@ -93,7 +93,6 @@
     <Compile Include="Criteria\UpdateCustomerFeedbackCriteria.cs" />
     <Compile Include="Models\CustomerFeedback.cs" />
     <Compile Include="Models\DeletedFeedback.cs" />
-    <Compile Include="Models\LatestFeedback.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
     <Compile Include="Models\ManageFeedback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
