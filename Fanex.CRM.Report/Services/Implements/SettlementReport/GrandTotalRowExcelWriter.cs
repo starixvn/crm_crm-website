@@ -20,7 +20,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     /// <summary>
     /// Grand Total Row Excel Writer.
     /// </summary>
-    public class GrandTotalRowExcelWriter
+    public class GrandTotalRowExcelWriter : SettlementReportExportExcelService
     {
         private ICellStyle _intStyle;
         private ICellStyle _textStyle;
@@ -36,18 +36,8 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             _isFirstRow = isFirstRow;
             _rowBackgroundColorIndex = NpoiExcelExtensions.GrandTotalRowColorIndex;
 
-            _intStyle = NpoiExcelExtensions.IntNumberStyle(
-                _exportExcelInfo.ExcelFile,
-                _rowBackgroundColorIndex,
-                true,
-                CRMHorizontalAlignment.Right,
-                NpoiExcelExtensions.GrandTotalTextColorIndex);
-            _textStyle = NpoiExcelExtensions.TextStyle(
-                _exportExcelInfo.ExcelFile,
-                _rowBackgroundColorIndex,
-                true,
-                CRMHorizontalAlignment.Left,
-                NpoiExcelExtensions.GrandTotalTextColorIndex);
+            _intStyle = NpoiExcelExtensions.IntNumberStyleGrandTotal(_exportExcelInfo.ExcelFile);
+            _textStyle = NpoiExcelExtensions.TextStyleGrandTotal(_exportExcelInfo.ExcelFile);
             _centerTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
@@ -76,6 +66,8 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             SettlementReportInfo info,
             SettlementReportInfo groupInfo)
         {
+            exportExcelInfo.ResetCurrentColumn();
+
             CellRangeAddress cellRangeAddress;
             var row = exportExcelInfo.Worksheet.GetRow(exportExcelInfo.CurrentRow) ?? exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             var currentColumn = exportExcelInfo.CurrentColumn;
@@ -101,16 +93,8 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
 
             if (_isFirstRow)
             {
-                cellRangeAddress = new CellRangeAddress(
-                    exportExcelInfo.CurrentRow,
-                    exportExcelInfo.CurrentRow + groupInfo.ChildReports.Count - 1,
-                    currentColumn,
-                    currentColumn);
-                NpoiExcelExtensions.RenderMergedCells(
-                    ref exportExcelInfo,
-                    cellRangeAddress,
-                    groupInfo.NumberOfIssues,
-                    _centerIntStyle);
+                exportExcelInfo.CurrentColumn = currentColumn;
+                ExportColumn(exportExcelInfo, groupInfo.ChildReports.Count, groupInfo.NumberOfIssues, _centerIntStyle);
             }
 
             exportExcelInfo.CurrentRow += 1;

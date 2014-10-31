@@ -41,7 +41,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
         // Casino daily summary.
         private const string CasinoDailySummarySessionKey = "Fanex.CRM.Report.Services.CasinoReport.CasinoDailySummary";
         private const string CasinoDailyDetailsSessionKey = "Fanex.CRM.Report.Services.CasinoReport.CasinoDailyDetails";
-       
+
         // Casino daily summary.
         private const string CasinoWeeklySummarySessionKey = "Fanex.CRM.Report.Services.CasinoReport.CasinoWeeklySummary";
         private const string CasinoWeeklyDetailSessionKey = "Fanex.CRM.Report.Services.CasinoReport.CasinoWeeklyDetail";
@@ -77,7 +77,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
             if (report == null)
             {
                 string title = string.Format(Labels.CasinoDailySummaryTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
-                
+
                 // Get data from DB.
                 criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
                 criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
@@ -112,7 +112,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
                 maxColumnIndex = report.CategoryCasinoGroups[0].CasinoGroups.Count;
                 maxColumnIndex *= report.CategoryCasinoGroups[0].CasinoGroups[0].Communications.Count;
             }
-            
+
             string excelFileName = string.Format(Labels.CasinoSummaryExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
             HSSFWorkbook workbook = new HSSFWorkbook();
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
@@ -142,7 +142,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
                 GenerateCasinoDailySummaryBody(exportExcelInfo, report.CategoryCasinoGroups);
                 GenerateCasinoDailySummaryFooter(exportExcelInfo, report.Total);
             }
-            
+
             NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
@@ -204,7 +204,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
         {
             criteria.FromCache = criteria.FullReport = true;
             CasinoDetail report = GetCasinoDailyDetail(criteria);
-            
+
             int maxColumnIndex = 18;
             string excelFileName = string.Format(Labels.CasinoDetailExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
             HSSFWorkbook workbook = new HSSFWorkbook();
@@ -537,7 +537,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
             return NpoiExcelExtensions.TextStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
-                false, 
+                false,
                 CRMHorizontalAlignment.Left);
         }
 
@@ -556,7 +556,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
             return NpoiExcelExtensions.IntNumberStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
-                false, 
+                false,
                 CRMHorizontalAlignment.Right);
         }
 
@@ -588,7 +588,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
                 false,
                 CRMHorizontalAlignment.Center);
         }
-        
+
         #endregion
 
         #region Excel - Casino Weekly Statistics
@@ -600,30 +600,17 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
         /// <param name="title">The title.</param>
         private void GenerateCasinoWeeklySummaryTitle(ExportExcelInfo exportExcelInfo, string title)
         {
-            int currentRow = exportExcelInfo.CurrentRow;
-            int currentColumn = exportExcelInfo.StartColumn;
-
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ISheet worksheet = exportExcelInfo.Worksheet;
-            worksheet.SetColumnWidth(currentColumn++, 280 * NpoiExcelExtensions.FontWidth);
+            exportExcelInfo.ResetCurrentColumn();
+            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 280);
             for (int i = 0; i < exportExcelInfo.MaxColumnIndex; i++)
             {
-                worksheet.SetColumnWidth(currentColumn++, 120 * NpoiExcelExtensions.FontWidth);    
+                exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
             }
 
-            CellRangeAddress cellRangeAddress = new CellRangeAddress(
-                currentRow,
-                currentRow + 1,
-                exportExcelInfo.StartColumn,
-                exportExcelInfo.MaxColumnIndex);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
-            currentRow += 2;
-
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
-            currentRow++;
-
-            exportExcelInfo.CurrentRow = currentRow;
+            exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
         /// <summary>
@@ -642,9 +629,9 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Category, headerStyle);
             foreach (var item in gameTypes)
             {
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item, headerStyle);    
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item, headerStyle);
             }
-            
+
             // Grand Total.
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Grand_Total, headerStyle);
 
@@ -659,6 +646,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
         /// <param name="weeklyCategories">The weekly categories.</param>
         private void GenerateCasinoWeeklySummaryBody(ExportExcelInfo exportExcelInfo, IList<CasinoWeeklyCategory> weeklyCategories)
         {
+            exportExcelInfo.ResetCurrentColumn();
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.CurrentColumn;
             ISheet worksheet = exportExcelInfo.Worksheet;
@@ -679,7 +667,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, category.GrandTotal, gameValueCellStyle);
 
                 currentRow++;
-                currentColumn = exportExcelInfo.CurrentColumn;
+                currentColumn = exportExcelInfo.StartColumn;
             }
 
             exportExcelInfo.CurrentRow = currentRow;
@@ -807,7 +795,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
 
             ICellStyle textLeftCellStyle = CategoryCellStyle(exportExcelInfo.ExcelFile);
             ICellStyle textCenterCellStyle = TextCenterCellStyle(exportExcelInfo.ExcelFile);
-            
+
             IRow row;
             int currentColumn;
             foreach (var item in casinoDetails)

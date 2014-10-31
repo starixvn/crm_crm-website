@@ -14,6 +14,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Common;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Communication.Repositories.Interfaces;
@@ -33,9 +34,9 @@ namespace Fanex.CRM.Communication.Repositories.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The logs by customer identifier.</returns>
-        public List<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
+        public List<BaseCommunicationLogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            List<LogInfo> logs = new List<LogInfo>();
+            List<BaseCommunicationLogInfo> logs = new List<BaseCommunicationLogInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
@@ -61,9 +62,9 @@ namespace Fanex.CRM.Communication.Repositories.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The logs by running number.</returns>
-        public LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
+        public BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
         {
-            LogInfo log = new LogInfo();
+            BaseCommunicationLogInfo log = new BaseCommunicationLogInfo();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
@@ -170,12 +171,12 @@ namespace Fanex.CRM.Communication.Repositories.Implements
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
-        private LogInfo MappingDataFromSqlToLogInfoObject(IDataReader reader)
+        private BaseCommunicationLogInfo MappingDataFromSqlToLogInfoObject(IDataReader reader)
         {
             var durationTime = reader.GetStringNotNull("Duration");
             var durationTimeArray = durationTime.Split(':');
 
-            var logInfo = new LogInfo
+            var logInfo = new BaseCommunicationLogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDateTime(),
@@ -210,9 +211,9 @@ namespace Fanex.CRM.Communication.Repositories.Implements
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
-        private LogInfo MappingDataFromSqlToLogInfoObject_ById(IDataReader reader)
+        private BaseCommunicationLogInfo MappingDataFromSqlToLogInfoObject_ById(IDataReader reader)
         {
-            var logInfo = new LogInfo
+            var logInfo = new BaseCommunicationLogInfo
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToShortFormatedDate(),

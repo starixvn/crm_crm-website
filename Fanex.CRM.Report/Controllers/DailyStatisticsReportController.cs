@@ -12,8 +12,9 @@ namespace Fanex.CRM.Report.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Web.Controllers;
-    using Fanex.CRM.Report.Criteria.DailyStatisticsReport;
+    using Fanex.CRM.Report.Criteria.StatisticByDateReport;
     using Fanex.CRM.Report.Services.DailyStatisticsReport;
+    using Fanex.CRM.Report.Services.StatisticByDateReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -22,14 +23,14 @@ namespace Fanex.CRM.Report.Controllers
     /// </summary>
     public class DailyStatisticsReportController : BaseController
     {
-        private IDailyStatisticsReportService _dailyStatisticsReportService;
+        private IStatisticByDateReportService _dailyStatisticsReportService;
 
         public DailyStatisticsReportController()
             : this(null)
         {
         }
 
-        public DailyStatisticsReportController(IDailyStatisticsReportService dailyStatisticsReportService)
+        public DailyStatisticsReportController(IStatisticByDateReportService dailyStatisticsReportService)
         {
             _dailyStatisticsReportService = dailyStatisticsReportService ?? new DailyStatisticsReportService();
         }
@@ -49,24 +50,20 @@ namespace Fanex.CRM.Report.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult MainReport(GetMainReportCriteria criteria)
         {
-            var ibcReport = _dailyStatisticsReportService.MainReport(new GetMainReportCriteria
-            {
-                FromDate = criteria.FromDate,
-                ToDate = criteria.ToDate,
-                SiteType = (int)Enumerations.ReportTypes.CreditSite
-            });
-
-            var licenseeReport = _dailyStatisticsReportService.MainReport(new GetMainReportCriteria
-            {
-                FromDate = criteria.FromDate,
-                ToDate = criteria.ToDate,
-                SiteType = (int)Enumerations.ReportTypes.Licensee
-            });
-
             var jsonResult = Json(new
             {
-                IBCReport = ibcReport,
-                LicenseeReport = licenseeReport
+                IBCReport = _dailyStatisticsReportService.MainReport(new GetMainReportCriteria
+                {
+                    FromDate = criteria.FromDate,
+                    ToDate = criteria.ToDate,
+                    SiteType = (int)Enumerations.ReportTypes.CreditSite
+                }),
+                LicenseeReport = _dailyStatisticsReportService.MainReport(new GetMainReportCriteria
+                {
+                    FromDate = criteria.FromDate,
+                    ToDate = criteria.ToDate,
+                    SiteType = (int)Enumerations.ReportTypes.Licensee
+                })
             });
 
             return jsonResult;

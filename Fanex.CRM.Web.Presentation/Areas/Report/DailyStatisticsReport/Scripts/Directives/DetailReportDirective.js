@@ -39,10 +39,10 @@ dailyStatisticsReportApplication.directive('tableDetailReportContainer', functio
     function getGridOptions(report) {
         var bodyData = [];
         var footerData = [];
-        var childReportLength = report ? report.ChildInfo.length : 0;
+        var childReportLength = report ? report.ChildReports.length : 0;
         if (childReportLength > 0) {
             for (var i = 0; i < childReportLength; i++) {
-                var info = report.ChildInfo[i];
+                var info = report.ChildReports[i];
                 var contactInfo =
                    viewResources.MSN + ": " + sharedScriptManager.encodeHtml(info.MSN) +
                    "<br/>" + viewResources.Skype + ": " + sharedScriptManager.encodeHtml(info.Skype) +

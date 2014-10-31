@@ -43,7 +43,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
 
         public WagerReportService(IWagerReportRepository wagerReportRepository)
         {
-            _wagerRepository = wagerReportRepository ?? new WagerReportRepository(); 
+            _wagerRepository = wagerReportRepository ?? new WagerReportRepository();
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 ExportBody(ref exportExcelInfo, report.WagerByMonths);
                 ExportFooter(ref exportExcelInfo, report.GrandTotal);
             }
-            
+
             NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
@@ -141,12 +141,12 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                 { Labels.VoidRefund, new Wager { Name = Labels.VoidRefund, Amount = 0 } },
             };
             int grandTotal = 0;
-            
+
             var rawData = _wagerRepository.GetWagerReport(criteria)
                 .GroupBy(w => w.Month);
             foreach (var month in rawData)
             {
-                wagerByMonth = new WagerByMonth 
+                wagerByMonth = new WagerByMonth
                 {
                     Month = month.Key.ToUpper(),
                     Wagers = new List<Wager>(),
@@ -177,7 +177,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             return new WagerReportModel
             {
                 WagerByMonths = wagerByMonths,
-                GrandTotal = new WagerByMonth 
+                GrandTotal = new WagerByMonth
                 {
                     Month = Labels.GrandTotal,
                     Wagers = grandTotalHash.Values.ToList(),
@@ -195,30 +195,13 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
         /// <param name="title">The title.</param>
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
-            int currentColumn = exportExcelInfo.StartColumn;
-            int currentRow = exportExcelInfo.CurrentRow;
-            int columnWidth = 200 * NpoiExcelExtensions.FontWidth;
-
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ISheet worksheet = exportExcelInfo.Worksheet;
-            worksheet.SetColumnWidth(currentColumn++, columnWidth);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth);
-            
-            CellRangeAddress cellRangeAddress = new CellRangeAddress(
-                currentRow,
-                currentRow + 1,
-                exportExcelInfo.StartColumn,
-                exportExcelInfo.MaxColumnIndex);
+            var columnWidths = new List<int>() { 200, 200, 200, 200 };
+            exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
+
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
-            currentRow += 2;
-
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
-            currentRow++;
-
-            exportExcelInfo.CurrentRow = currentRow;
+            exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
         /// <summary>
@@ -288,7 +271,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                     currentColumn);
                 totalCellStyle = GetTotalCellStyle(workbook, isEven);
                 NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, totalCellRange, wagerByMonth.Total, totalCellStyle);
-                
+
                 exportExcelInfo.CurrentRow = currentRow;
             }
         }
@@ -304,7 +287,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
             int currentRow = exportExcelInfo.CurrentRow;
             int startColumn = exportExcelInfo.StartColumn;
             int currentColumn = exportExcelInfo.CurrentColumn;
-            
+
             HSSFWorkbook workbook = exportExcelInfo.ExcelFile;
             ICellStyle monthCellStyle = GetGrandTotalMonthCellStyle(workbook);
             ICellStyle totalCellStyle = GetGrandTotalCellStyle(workbook);

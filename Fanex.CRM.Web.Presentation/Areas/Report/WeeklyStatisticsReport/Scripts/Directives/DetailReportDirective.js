@@ -39,10 +39,10 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
     function getGridOptions(report) {
         var bodyData = [];
         var footerData = [];
-        var childReportLength = report ? report.ChildInfo.length : 0;
+        var childReportLength = report ? report.ChildReports.length : 0;
         if (childReportLength > 0) {
             for (var i = 0; i < childReportLength; i++) {
-                var info = report.ChildInfo[i];
+                var info = report.ChildReports[i];
                 var contactInfo =
                    viewResources.MSN + ": " + sharedScriptManager.encodeHtml(info.MSN) +
                    "<br/>" + viewResources.Skype + ": " + sharedScriptManager.encodeHtml(info.Skype) +
@@ -129,7 +129,7 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
                 itemsPerPage: selfScope.getDetailReportCriteria.PageSize,
                 currentPage: selfScope.getDetailReportCriteria.PageIndex - 1,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: report ? report.TotalChildInfo : 0,
+                totalItem: report ? report.TotalChildReports : 0,
                 pagerSelectCallBack: rerenderAfterPaged
             }
         };

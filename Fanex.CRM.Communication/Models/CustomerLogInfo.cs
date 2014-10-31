@@ -11,6 +11,7 @@ namespace Fanex.CRM.Communication.Models
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
 
     /// <summary>
     /// Log Information.
@@ -20,6 +21,6 @@ namespace Fanex.CRM.Communication.Models
     {
         public int CustomerId { get; set; }
 
-        public List<LogInfo> Logs { get; set; }
+        public List<BaseCommunicationLogInfo> Logs { get; set; }
     }
 }

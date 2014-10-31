@@ -13,15 +13,15 @@ var ReportDirectiveHelper = function () {
         var bodyData = [];
         var footerData = [];
         var communicationToolLength = report ? report.CommunicationTools.length : 0;
-        var mainCategoryLength = report ? report.ChildInfo.length : 0;
+        var mainCategoryLength = report ? report.ChildReports.length : 0;
 
         var i, j;
         for (i = 0; i < mainCategoryLength; i++) {
-            var mainCategory = report.ChildInfo[i];
-            var subCategoryLength = mainCategory.ChildInfo.length;
+            var mainCategory = report.ChildReports[i];
+            var subCategoryLength = mainCategory.ChildReports.length;
             var subRows = [];
             for (j = 0; j < subCategoryLength; j++) {
-                var subCategory = mainCategory.ChildInfo[j];
+                var subCategory = mainCategory.ChildReports[j];
                 subRows.push({ Columns: self.getRowColumns(subCategory, communicationToolLength) });
             }
 
@@ -154,9 +154,9 @@ var ReportDirectiveHelper = function () {
     self.getChartDatasets = function (chartInfo, crmChart) {
         var chartSeries = [];
         var chartSerie = null;
-        var childReportLength = chartInfo ? chartInfo.ChildInfo.length : 0;
+        var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
         for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
-            var mainCategoryReport = chartInfo.ChildInfo[xIndex];
+            var mainCategoryReport = chartInfo.ChildReports[xIndex];
             var backgroundColor = crmChart.getBackGroundColor(xIndex);
             chartSerie = {
                 fillColor: backgroundColor,
