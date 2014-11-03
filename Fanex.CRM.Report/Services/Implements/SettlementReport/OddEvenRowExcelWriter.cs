@@ -88,7 +88,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                     currentColumn,
                     currentColumn);
                 NpoiExcelExtensions.RenderMergedCells(
-                    ref exportExcelInfo,
+                    exportExcelInfo,
                     cellRangeAddress,
                     groupInfo.NumberOfIssues,
                     _centerIntStyle);

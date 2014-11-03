@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Customer.Services.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -18,7 +19,7 @@ namespace Fanex.CRM.Customer.Services.Interfaces
     {
         CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria);
 
-        List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
+        List<BaseCustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
 
         bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria);
 

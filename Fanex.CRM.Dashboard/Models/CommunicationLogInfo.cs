@@ -10,67 +10,16 @@
 namespace Fanex.CRM.Dashboard.Models
 {
     using System;
-    using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Common.Models;
 
     /// <summary>
     /// Communication Log Information.
     /// </summary>
     [Serializable]
-    public class CommunicationLogInfo
+    public class CommunicationLogInfo : BaseCommunicationLogInfo
     {
-        public int RunningNumber { get; set; }
+        public new DateTime StartTime { get; set; }
 
-        public int CustomerId { get; set; }
-
-        public string FeedbackDate { get; set; }
-
-        public SettingInfo MainCategory { get; set; }
-
-        public SettingInfo SubCategory { get; set; }
-
-        public string StatusName { get; set; }
-
-        public string Subject { get; set; }
-
-        public TimeInfo Duration { get; set; }
-
-        public string Handler { get; set; }
-
-        public string Reviewer { get; set; }
-
-        public DateTime StartTime { get; set; }
-
-        public DateTime EndTime { get; set; }
-
-        public SettingInfo Extension { get; set; }
-
-        public CountryInfo Country { get; set; }
-
-        public SettingInfo CommunicationTool { get; set; }
-
-        public int LanguageId { get; set; }
-
-        public SettingInfo Product { get; set; }
-
-        public SettingInfo BetType { get; set; }
-
-        public SettingInfo Status { get; set; }
-
-        public SettingInfo SiteInfo { get; set; }
-
-        public SettingInfo RoleInfo { get; set; }
-
-        public SettingInfo Response { get; set; }
-
-        public string RelatedCustomers { get; set; }
-
-        public string Remark { get; set; }
-
-        public string Solution { get; set; }
-
-        public string Review { get; set; }
-
-        public bool IsReviewed { get; set; }
+        public new DateTime EndTime { get; set; }
     }
 }

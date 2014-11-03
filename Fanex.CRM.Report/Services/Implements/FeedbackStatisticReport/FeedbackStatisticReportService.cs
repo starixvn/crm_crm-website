@@ -14,6 +14,7 @@ namespace Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Logging;
@@ -359,7 +360,7 @@ namespace Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport
                     exportExcelInfo.StartColumn,
                     exportExcelInfo.MaxColumnIndex);
                 NpoiExcelExtensions.RenderMergedCells(
-                    ref exportExcelInfo,
+                    exportExcelInfo,
                     categoryCellRangeAddress,
                     string.Format(categoryPattern, category.Name, subCategoriesLen),
                     categoryCellStyle);
@@ -528,10 +529,10 @@ namespace Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
+            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, currentRow);
             exportExcelInfo.CurrentRow = ++currentRow;
         }
 

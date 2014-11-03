@@ -10,15 +10,11 @@
 
 namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
 {
-    using System.Collections.Generic;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     public interface ISettingManagementRepository
     {
-        List<SettingInfo> AllSetting(GetAllSettingCriteria criteria);
-
         Result InsertSetting(InsertSettingCriteria criteria);
 
         Result DeleteSetting(DeleteSettingCriteria criteria);

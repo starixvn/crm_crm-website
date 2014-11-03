@@ -27,23 +27,18 @@ namespace Fanex.CRM.Feedback.Controllers
     /// <summary>
     /// Add Customer Feedback Controller.
     /// </summary>
-    public class AddCustomerFeedbackController : BaseController
+    public class AddCustomerFeedbackController : AddFeedbackController
     {
         private IAddCustomerFeedbackService _feedbackService;
 
-        private ISettingService _serviceSetting;
-
         public AddCustomerFeedbackController()
-            : this(null, null)
+            : this(null)
         {
         }
 
-        public AddCustomerFeedbackController(
-            IAddCustomerFeedbackService feedbackService,
-            ISettingService serviceSetting)
+        public AddCustomerFeedbackController(IAddCustomerFeedbackService feedbackService)
         {
             _feedbackService = feedbackService ?? new AddCustomerFeedbackService();
-            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Host)]
@@ -63,41 +58,10 @@ namespace Fanex.CRM.Feedback.Controllers
         /// <returns>All setting for edit.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult GetAllSetting()
+        public ActionResult GetAllSettingToAddCustomerFeedback()
         {
-            var languageList = _serviceSetting.GetAllLanguage();
-            languageList.Insert(
-                0,
-                new SettingInfo
-                {
-                    Id = 0,
-                    Name = Labels.Symbol_NA
-                });
-
-            var countryList = _serviceSetting.GetAllCountry();
-            countryList.Insert(
-                0,
-                new CountryInfo
-                {
-                    Id = 0,
-                    Name = Labels.Symbol_NA
-                });
-
-            var allSetting = new
-            {
-                ExtensionList = _serviceSetting.GetAllExtension(),
-                CountryList = countryList,
-                CommunicationToolList = _serviceSetting.GetAllCommunicationTool(),
-                LanguageList = languageList,
-                MainCategoryList = _serviceSetting.GetAllMainCategory(),
-                ProductList = _serviceSetting.GetAllProduct(),
-                SiteList = _serviceSetting.GetAllSite(),
-                RoleList = _serviceSetting.GetAllRole(),
-                ResponseList = _serviceSetting.GetAllResponse(),
-                StatusList = _feedbackService.GetAllStatus(),
-                TitleList = _serviceSetting.GetAllTitle()
-            };
-
+            var allSetting = GetAllSettingToAddFeedback();
+            allSetting.RoleList = ServiceSetting.GetAllRole();
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 

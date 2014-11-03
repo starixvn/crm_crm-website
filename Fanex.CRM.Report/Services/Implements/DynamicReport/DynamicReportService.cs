@@ -762,10 +762,10 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
             exportExcelInfo.CurrentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
             exportExcelInfo.CurrentRow++;
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
@@ -872,7 +872,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                         exportExcelInfo.StartColumn,
                         exportExcelInfo.MaxColumnIndex);
                     NpoiExcelExtensions.RenderMergedCells(
-                        ref exportExcelInfo,
+                        exportExcelInfo,
                         cellRangeAddress,
                         string.Format("{0} [{1}]", periodReport.Name, childsLength),
                         periodGroupTitleStyle);

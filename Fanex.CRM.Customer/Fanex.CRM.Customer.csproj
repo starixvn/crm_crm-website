@@ -108,17 +108,13 @@
     <Compile Include="Criteria\UpdateCustomerInfoCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerSuggestionCriteria.cs" />
     <Compile Include="Criteria\VerifyRelatedCustomerCriteria.cs" />
-    <Compile Include="Models\AddressInfo.cs" />
-    <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
-    <Compile Include="Models\FaxInfo.cs" />
     <Compile Include="Models\InformHeadlines\InformHeadline.cs" />
     <Compile Include="Models\InformHeadlines\InformHeadlineStatistic.cs" />
     <Compile Include="Models\InformHeadlines\InformHeadlineStatus.cs" />
-    <Compile Include="Models\PhoneInfo.cs" />
     <Compile Include="Models\RelatedCustomerSuggestion.cs" />
-    <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Implements\BaseCustomerRepository.cs" />
     <Compile Include="Repositories\Implements\CustomerDetailRepository.cs" />
     <Compile Include="Repositories\Implements\CustomerRepository.cs" />
     <Compile Include="Repositories\Implements\InformHeadlineRepository.cs" />
@@ -141,6 +137,10 @@
     <Folder Include="Constants\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fanex.CRM.Common\Fanex.CRM.Common.csproj">
+      <Project>{DBB7C2A5-9919-4C5D-B69C-3EDF958E1741}</Project>
+      <Name>Fanex.CRM.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
       <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>

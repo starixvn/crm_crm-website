@@ -243,7 +243,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                 {
                     criteria.Content = "<content></content>";
                 }
-                
+
                 return _informHeadlineRepository.UpdateInforms(criteria);
             }
             catch (Exception ex)
@@ -256,7 +256,7 @@ namespace Fanex.CRM.Customer.Services.Implements
         private InformHeadlineStatistic ParseInformHeadlineStatistic(GetInformHeadlineStatisticCriteria criteria)
         {
             var rawData = _informHeadlineRepository.GetInformStatistic(criteria);
-            return new InformHeadlineStatistic 
+            return new InformHeadlineStatistic
             {
                 ReportTitle = Labels.InformHeadlinesStatisticName,
                 Informs = rawData
@@ -272,12 +272,12 @@ namespace Fanex.CRM.Customer.Services.Implements
         {
             string template = "<headline id=\"{0}\" statusid=\"{1}\" headlineid=\"{2}\" remark=\"{3}\" extension=\"{4}\" productstatus=\"{5}\" />";
             return string.Format(
-                template, 
-                inform.InformId, 
-                inform.StatusId, 
+                template,
+                inform.InformId,
+                inform.StatusId,
                 inform.HeadlineId,
-                Helper.EncodeXml(inform.Remark), 
-                inform.ExtensionId, 
+                Helper.EncodeXml(inform.Remark),
+                inform.ExtensionId,
                 inform.ProductStatus);
         }
 
@@ -290,37 +290,11 @@ namespace Fanex.CRM.Customer.Services.Implements
         /// <param name="title">The title.</param>
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
-            int currentColumn = exportExcelInfo.StartColumn;
-            int currentRow = exportExcelInfo.CurrentRow;
-            int columnWidth100 = 100 * NpoiExcelExtensions.FontWidth;
-            int columnWidth150 = 150 * NpoiExcelExtensions.FontWidth;
-
+            var columnWidths = new List<int>() { 280, 100, 150, 100, 150, 150, 100, 150, 150, 100 };
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
-            ISheet worksheet = exportExcelInfo.Worksheet;
-            worksheet.SetColumnWidth(currentColumn++, 280 * NpoiExcelExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth100);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth150);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth100);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth150);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth150);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth100);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth150);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth150);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth100);
-
-            CellRangeAddress cellRangeAddress = new CellRangeAddress(
-                currentRow,
-                currentRow + 1,
-                exportExcelInfo.StartColumn,
-                exportExcelInfo.MaxColumnIndex);
+            exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
-            currentRow += 2;
-
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
-            currentRow++;
-
-            exportExcelInfo.CurrentRow = currentRow;
+            exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
         /// <summary>
@@ -367,7 +341,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             {
                 inform = informs[i];
                 currentColumn = exportExcelInfo.StartColumn;
-                
+
                 IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Title, titleCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.CreatedDateString, createdTimeCellStyle);
@@ -379,7 +353,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Uncontactable, numberCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.InternalAccount, numberCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.NeverTouch, numberCellStyle);
-                
+
                 currentRow++;
             }
 
@@ -430,34 +404,11 @@ namespace Fanex.CRM.Customer.Services.Implements
         /// <param name="title">The title.</param>
         private void ExportInformsStatusTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
-            int currentColumn = exportExcelInfo.StartColumn;
-            int currentRow = exportExcelInfo.CurrentRow;
-            int columnWidth120 = 120 * NpoiExcelExtensions.FontWidth;
-            int columnWidth150 = 150 * NpoiExcelExtensions.FontWidth;
-
+            var columnWidths = new List<int>() { 280, 150, 180, 400, 150, 120, 120 };
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
-            ISheet worksheet = exportExcelInfo.Worksheet;
-            worksheet.SetColumnWidth(currentColumn++, 280 * NpoiExcelExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth150);
-            worksheet.SetColumnWidth(currentColumn++, 180 * NpoiExcelExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, 400 * NpoiExcelExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth150);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth120);
-            worksheet.SetColumnWidth(currentColumn++, columnWidth120);
-
-            CellRangeAddress cellRangeAddress = new CellRangeAddress(
-                currentRow,
-                currentRow + 1,
-                exportExcelInfo.StartColumn,
-                exportExcelInfo.MaxColumnIndex);
+            exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
-            currentRow += 2;
-
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
-            currentRow++;
-
-            exportExcelInfo.CurrentRow = currentRow;
+            exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
         /// <summary>
@@ -499,7 +450,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             var productStatus = _settingService.GetAllInformHeadlineSettings()
                 .ProductStatus
                 .ToDictionary(k => k.Id, p => p.Name);
-            
+
             InformHeadline inform;
             for (int i = 0; i < statusLength; i++)
             {

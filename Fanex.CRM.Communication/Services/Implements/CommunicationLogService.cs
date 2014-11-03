@@ -181,36 +181,7 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// <returns>All status.</returns>
         public List<SettingInfo> GetAllStatus_Edit()
         {
-            var allStatusResult = new List<SettingInfo>();
-            try
-            {
-                var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
-                {
-                    ViewType = ViewTypeConstants.CommunicationTool
-                });
-
-                if (allStatusSetting == null)
-                {
-                    return allStatusResult;
-                }
-
-                foreach (var status in allStatusSetting)
-                {
-                    if (status.Name == Labels.Checked ||
-                        status.Name == Labels.Solved ||
-                        status.Name == Labels.Closed ||
-                        status.Name == Labels.Pending)
-                    {
-                        allStatusResult.Add(status);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-            return allStatusResult;
+            return GetAllStatus_Insert();
         }
 
         /// <summary>

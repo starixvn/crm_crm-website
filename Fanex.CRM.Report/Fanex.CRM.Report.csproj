@@ -124,7 +124,6 @@
     <Compile Include="Models\CustomerReport\CustomerReportInfo.cs" />
     <Compile Include="Models\DynamicReportInfo.cs" />
     <Compile Include="Models\FeedbackStatisticReport\FeedbackCategory.cs" />
-    <Compile Include="Models\FeedbackStatisticReport\FeedbackDetail.cs" />
     <Compile Include="Models\FeedbackStatisticReport\FeedbackStatistic.cs" />
     <Compile Include="Models\FeedbackStatisticReport\FeedbackStatisticDetail.cs" />
     <Compile Include="Models\FeedbackStatisticReport\FeedbackSubcategory.cs" />

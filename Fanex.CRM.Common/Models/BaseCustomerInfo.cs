@@ -111,6 +111,8 @@ namespace Fanex.CRM.Common.Models
 
         public AddressInfo AddressInfo { get; set; }
 
+        public bool HeadLine { get; set; }
+
         /// <summary>
         /// Gets the name of the status.
         /// </summary>

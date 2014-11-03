@@ -1,24 +1,23 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ManageFeedback.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="FeedbackDetail.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Kan.Nguyen" date="2014.06.03">Created</change>
+//   <change who="Kan.Nguyen" date="2014.10.15">Created</change>
 // </history>
-// --------------------------------------------------------------------------
 
-namespace Fanex.CRM.Feedback.Models
+namespace Fanex.CRM.Common.Models
 {
     using System;
     using System.Web.Script.Serialization;
     using Fanex.CRM.Infrastructure.Core;
 
     /// <summary>
-    /// Manage Feedback.
+    /// Feedback detail.
     /// </summary>
     [Serializable]
-    public class ManageFeedback
+    public class FeedbackDetail
     {
         public int FeedbackId { get; set; }
 
@@ -29,7 +28,7 @@ namespace Fanex.CRM.Feedback.Models
         [ScriptIgnore]
         public DateTime FeedbackDate { get; set; }
 
-        public string FeedbackDateString 
+        public string FeedbackDateString
         {
             get
             {
@@ -47,7 +46,7 @@ namespace Fanex.CRM.Feedback.Models
         {
             get
             {
-                return DateTimeUtilize.ChangeTimeZoneToClient(CreateDate); 
+                return DateTimeUtilize.ChangeTimeZoneToClient(CreateDate);
             }
         }
 
@@ -58,13 +57,19 @@ namespace Fanex.CRM.Feedback.Models
         {
             get
             {
-                return DateTimeUtilize.ChangeTimeZoneToClient(SolveDate); 
+                return DateTimeUtilize.ChangeTimeZoneToClient(SolveDate);
             }
         }
 
+        public int MainCategoryId { get; set; }
+
         public string MainCategory { get; set; }
 
+        public int SubCategoryId { get; set; }
+
         public string SubCategory { get; set; }
+
+        public int StatusId { get; set; }
 
         public string Status { get; set; }
 

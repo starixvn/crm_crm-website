@@ -17,8 +17,6 @@ namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
 
     public interface IAddCustomerFeedbackService
     {
-        List<SettingInfo> GetAllStatus();
-
         Result AddCustomerFeedback(AddCustomerFeedbackCriteria criteria);
     }
 }

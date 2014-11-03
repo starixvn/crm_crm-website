@@ -11,6 +11,7 @@
 namespace Fanex.CRM.Feedback.Repositories
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.Data.Repository;
@@ -20,7 +21,7 @@ namespace Fanex.CRM.Feedback.Repositories
     /// </summary>
     public interface IFeedbackRepository
     {
-        IList<ManageFeedback> GetManagerFeedback(ManageFeedbackCriteria criteria);
+        IList<FeedbackDetail> GetManagerFeedback(ManageFeedbackCriteria criteria);
 
         IEnumerable<DeletedFeedback> GetDeletedFeedback(ICriteria criteria);
     }

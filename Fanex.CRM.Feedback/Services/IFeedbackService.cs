@@ -11,6 +11,7 @@
 namespace Fanex.CRM.Feedback.Services
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -24,7 +25,7 @@ namespace Fanex.CRM.Feedback.Services
 
         dynamic GetAllSetting();
 
-        IList<ManageFeedback> GetManageFeedback(ManageFeedbackCriteria criteria);
+        IList<FeedbackDetail> GetManageFeedback(ManageFeedbackCriteria criteria);
 
         IList<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria);
 

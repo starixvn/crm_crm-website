@@ -50,33 +50,9 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             _settingService = settingService ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets the main setting list.
-        /// </summary>
-        /// <returns>
-        /// The main setting list.
-        /// </returns>
         public List<SettingInfo> GetMainSetting()
         {
-            try
-            {
-                var allSettings = AllSetting();
-                var settingGroups = allSettings
-                    .GroupBy(x => new { x.Type })
-                    .Select(group => new { group.Key, Count = group.Count() });
-                var settingGroupByType = new List<SettingInfo>();
-                foreach (var s in settingGroups)
-                {
-                    GetSubSetting(s.Key.Type, settingGroupByType, allSettings);
-                }
-
-                return settingGroupByType.OrderBy(s => s.DisplayOrder).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _settingService.GetMainSetting();
         }
 
         /// <summary>
@@ -88,7 +64,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         {
             try
             {
-                var allSettings = AllSetting();
+                var allSettings = _settingService.GetAllSetting();
                 var result = allSettings
                     .Where(s => s.Type == criteria.MainSetting.Type)
                     .Select(s => s)
@@ -171,18 +147,6 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             }
         }
 
-        private List<SettingInfo> AllSetting()
-        {
-            var allSetting = CacheService.Get<List<SettingInfo>>(AllSettingSessionKey);
-            if (allSetting == null)
-            {
-                allSetting = _settingRelationRepository.AllSetting(new GetAllSettingCriteria());
-                CacheService.Set(AllSettingSessionKey, allSetting);
-            }
-
-            return allSetting;
-        }
-
         private List<SettingInfo> AllSettingRelation()
         {
             var allSettingRelation = CacheService.Get<List<SettingInfo>>(AllSettingRelationSessionKey);
@@ -195,13 +159,6 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             return allSettingRelation;
         }
 
-        private void GetSubSetting(string key, List<SettingInfo> settingList, IEnumerable<SettingInfo> allSetting)
-        {
-            var subList = allSetting.Where(s => s.Type == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
-            var setting = new SettingInfo { Type = key, ChildSettings = subList };
-            settingList.Add(setting);
-        }
-
         /// <summary>
         /// Gets the setting by parent identifier.
         /// </summary>
@@ -210,7 +167,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         private List<SettingInfo> GetSettingByParentId(int parentId)
         {
             var allSettingRelation = AllSettingRelation();
-            var allSettings = AllSetting();
+            var allSettings = _settingService.GetAllSetting();
 
             var settingIds = allSettingRelation
                 .Where(r => r.ParentId == parentId)

@@ -15,6 +15,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Communication.Repositories.Interfaces;
@@ -27,7 +28,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     /// <summary>
     /// Communication Log Repository.
     /// </summary>
-    public class CommunicationLogRepository : ICommunicationLogRepository
+    public class CommunicationLogRepository : BaseRepository, ICommunicationLogRepository
     {
         /// <summary>
         /// Gets the logs by customer identifier.
@@ -105,20 +106,7 @@ namespace Fanex.CRM.Communication.Repositories.Implements
         /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
-            Result updateResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                updateResult = new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return updateResult;
+            return RunSP(criteria);
         }
 
         /// <summary>

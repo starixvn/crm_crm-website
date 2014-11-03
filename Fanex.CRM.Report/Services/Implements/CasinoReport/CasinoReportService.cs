@@ -398,10 +398,10 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Left });
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
+            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, currentRow);
             currentRow++;
 
             exportExcelInfo.CurrentRow = currentRow;
@@ -421,7 +421,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             CellRangeAddress categoryCellRangeAddress = new CellRangeAddress(currentRow, currentRow + 1, currentCasinoColumn, currentCasinoColumn);
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, categoryCellRangeAddress, Labels.Categories, headerStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, categoryCellRangeAddress, Labels.Categories, headerStyle);
             currentCasinoColumn++;
 
             string casinoGroupName;
@@ -437,7 +437,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
                 commLeng = communications.Count;
 
                 casinoGrpCellRangeAddress = new CellRangeAddress(currentRow, currentRow, currentCasinoColumn, currentCasinoColumn + commLeng - 1);
-                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, casinoGrpCellRangeAddress, casinoGroupName, headerStyle);
+                NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, casinoGrpCellRangeAddress, casinoGroupName, headerStyle);
                 currentCasinoColumn += commLeng;
 
                 foreach (var comm in communications)
@@ -498,7 +498,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
             ICellStyle grandTotalCommunicationCellStyle = GrandTotalCommunicationCellStyle(exportExcelInfo.ExcelFile);
 
             CellRangeAddress categoryCellRangeAddress = new CellRangeAddress(currentRow, currentRow + 1, currentColumn, currentColumn);
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, categoryCellRangeAddress, total.Category, categoryCellStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, categoryCellRangeAddress, total.Category, categoryCellStyle);
             currentColumn++;
 
             // Total.
@@ -521,7 +521,7 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
             {
                 commLeng = casino.Communications.Count;
                 casinoCellRangeAddress = new CellRangeAddress(currentRow, currentRow, currentColumn, currentColumn + commLeng - 1);
-                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, casinoCellRangeAddress, casino.GrandTotal, grandTotalCommunicationCellStyle);
+                NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, casinoCellRangeAddress, casino.GrandTotal, grandTotalCommunicationCellStyle);
                 currentColumn += commLeng;
             }
         }
@@ -740,10 +740,10 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
+            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, currentRow);
             currentRow++;
 
             exportExcelInfo.CurrentRow = currentRow;

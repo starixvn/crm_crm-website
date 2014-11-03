@@ -12,6 +12,7 @@ namespace Fanex.CRM.Customer.Services.Implements
     using System;
     using System.Collections.Generic;
     using System.Web;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories.Implements;
@@ -110,9 +111,9 @@ namespace Fanex.CRM.Customer.Services.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The up line information of user.</returns>
-        public List<CustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
+        public List<BaseCustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
-            List<CustomerInfo> uplineInfoResult = new List<CustomerInfo>();
+            List<BaseCustomerInfo> uplineInfoResult = new List<BaseCustomerInfo>();
             try
             {
                 var rawData = _customerRepositoryInstance.GetUplineInfoOfUser(criteria);

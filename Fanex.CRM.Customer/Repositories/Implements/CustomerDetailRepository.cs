@@ -14,6 +14,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories.Interfaces;
@@ -25,7 +26,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     /// <summary>
     /// Customer Detail Repository.
     /// </summary>
-    public class CustomerDetailRepository : ICustomerDetailRepository
+    public class CustomerDetailRepository : BaseCustomerRepository, ICustomerDetailRepository
     {
         /// <summary>
         /// Gets the customer information detail by identifier.
@@ -89,144 +90,55 @@ namespace Fanex.CRM.Customer.Repositories.Implements
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="customer">The customer.</param>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         private void MappingInfo_GetCustomerInfoDetailById(IDataReader reader, ref CustomerInfo customer)
         {
-            customer = new CustomerInfo
+            customer = MappingDataFromSqlToCustomerInfoObject(reader);
+            customer.BirthDayString = reader["BirthDay"] != DBNull.Value ?
+                 reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate() :
+                 string.Empty;
+            customer.BankInfo.HolderName = reader.GetStringNotNull("AccountHolderName");
+            customer.BankInfo.AddressInfo = new AddressInfo
             {
-                Title = new SettingInfo
+                LineList = new List<string> 
                 {
-                    Id = reader.GetInt32NotNull("TitleID")
+                    reader.GetStringNotNull("BankLine1"),
+                    reader.GetStringNotNull("BankLine2"),
+                    reader.GetStringNotNull("BankLine3"),
                 },
 
-                FirstName = reader.GetStringNotNull("FirstName"),
-                LastName = reader.GetStringNotNull("LastName"),
-                Email = reader.GetStringNotNull("Email"),
-                FaxInfo = new FaxInfo
+                City = reader.GetStringNotNull("BankCity"),
+                State = reader.GetStringNotNull("BankState"),
+                PostCode = reader.GetStringNotNull("BankCode"),
+                Country = new CountryInfo
                 {
-                    CountryCode = reader.GetStringNotNull("FaxCountryCode"),
-                    AreaCode = reader.GetStringNotNull("FaxAreaCode"),
-                    FaxNumber = reader.GetStringNotNull("Fax")
-                },
-                MobilePhone = new PhoneInfo
-                {
-                    CountryCode = reader.GetStringNotNull("MobilePhoneCountryCode"),
-                    AreaCode = reader.GetStringNotNull("MobilePhoneAreaCode"),
-                    PhoneNumber = reader.GetStringNotNull("MobilePhone")
-                },
-
-                BirthDayString = reader["BirthDay"] != DBNull.Value ?
-                    reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate() :
-                    string.Empty,
-                Skype = reader.GetStringNotNull("Skype"),
-                MSN = reader.GetStringNotNull("msn"),
-                Id = reader.GetInt32NotNull("CustId"),
-                Name = reader.GetStringNotNull("UserName"),
-                Role = new BaseModel
-                {
-                    Id = reader.GetInt32NotNull("roleid")
-                },
-                SiteSetting = new BaseModel
-                {
-                    Id = reader.GetInt32NotNull("SiteID")
-                },
-                BankInfo = new BankInfo
-                {
-                    Name = reader.GetStringNotNull("Wire_BankName"),
-                    SwiftCode = reader.GetStringNotNull("Wire_SwiftCode"),
-                    AccountName = reader.GetStringNotNull("Wire_AccountName"),
-                    AccountNumber = reader.GetStringNotNull("Wire_AccountNo"),
-                    HolderName = reader.GetStringNotNull("AccountHolderName"),
-                    AddressInfo = new AddressInfo
-                    {
-                        LineList = new List<string> 
-                        {
-                            reader.GetStringNotNull("BankLine1"),
-                            reader.GetStringNotNull("BankLine2"),
-                            reader.GetStringNotNull("BankLine3"),
-                        },
-
-                        City = reader.GetStringNotNull("BankCity"),
-                        State = reader.GetStringNotNull("BankState"),
-                        PostCode = reader.GetStringNotNull("BankCode"),
-                        Country = new CountryInfo
-                        {
-                            Id = reader.GetInt32NotNull("BankCountryID")
-                        }
-                    }
-                },
-                Creator = new UserInfo
-                {
-                    Id = reader.GetInt32NotNull("CreatorID"),
-                    Name = reader.GetStringNotNull("CreatorName")
-                },
-                Country = new BaseModel
-                {
-                    Id = reader.GetInt32NotNull("CountryID")
-                },
-
-                Question = reader.GetStringNotNull("Question"),
-                Answer = reader.GetStringNotNull("Answer"),
-                IsVIP = reader.GetBooleanNotNull("IsVIP"),
-                HeadLine = Converter.ToBool(reader["IsGroupHeadLine"]),
-                CreatedDate = reader.GetDateTimeNotNull("CreateDate"),
-                Passport = new BaseModel
-                {
-                    Name = reader.GetStringNotNull("Passport")
-                },
-
-                AddressInfo = new AddressInfo
-                {
-                    LineList = new List<string>
-                    {
-                        reader.GetStringNotNull("Line1"),
-                        reader.GetStringNotNull("Line2"),
-                        reader.GetStringNotNull("Line3"),
-                    },
-                    City = reader.GetStringNotNull("City"),
-                    State = reader.GetStringNotNull("State"),
-                    PostCode = reader.GetStringNotNull("PostCode"),
-                    Country = new CountryInfo
-                    {
-                        Id = reader.GetInt32NotNull("CountryID")
-                    }
+                    Id = reader.GetInt32NotNull("BankCountryID")
                 }
             };
 
-            customer.NickName = customer.Id > 0 ?
-                reader.GetStringNotNull("UserName2") :
-                string.Empty;
-
-            customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC1"));
-            customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC2"));
-            customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC3"));
-            customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC4"));
-
-            customer.BettingCode.Add(reader.GetStringNotNull("RefCode1"));
-            customer.BettingCode.Add(reader.GetStringNotNull("RefCode2"));
-
-            customer.PhoneInfo.Add(new PhoneInfo
+            customer.Creator.Id = reader.GetInt32NotNull("CreatorID");
+            customer.HeadLine = Converter.ToBool(reader["IsGroupHeadLine"]);
+            customer.CreatedDate = reader.GetDateTimeNotNull("CreateDate");
+            customer.Passport = new BaseModel
             {
-                CountryCode = reader.GetStringNotNull("PhoneCountryCode"),
-                AreaCode = reader.GetStringNotNull("PhoneAreaCode"),
-                PhoneNumber = reader.GetStringNotNull("Phone")
-            });
+                Name = reader.GetStringNotNull("Passport")
+            };
 
-            customer.PhoneInfo.Add(new PhoneInfo
+            customer.AddressInfo = new AddressInfo
             {
-                CountryCode = reader.GetStringNotNull("Phone2CountryCode"),
-                AreaCode = reader.GetStringNotNull("Phone2AreaCode"),
-                PhoneNumber = reader.GetStringNotNull("Phone2")
-            });
-
-            customer.PhoneInfo.Add(new PhoneInfo
-            {
-                CountryCode = reader.GetStringNotNull("Phone3CountryCode"),
-                AreaCode = reader.GetStringNotNull("Phone3AreaCode"),
-                PhoneNumber = reader.GetStringNotNull("Phone3")
-            });
+                LineList = new List<string>
+                {
+                    reader.GetStringNotNull("Line1"),
+                    reader.GetStringNotNull("Line2"),
+                    reader.GetStringNotNull("Line3"),
+                },
+                City = reader.GetStringNotNull("City"),
+                State = reader.GetStringNotNull("State"),
+                PostCode = reader.GetStringNotNull("PostCode"),
+                Country = new CountryInfo
+                {
+                    Id = reader.GetInt32NotNull("CountryID")
+                }
+            };
         }
 
         /// <summary>

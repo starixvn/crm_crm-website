@@ -250,7 +250,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                     startColumn,
                     startColumn);
                 monthCellStyle = GetMonthCellStyle(workbook, isEven);
-                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, monthCellRange, wagerByMonth.Month, monthCellStyle);
+                NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, monthCellRange, wagerByMonth.Month, monthCellStyle);
                 startColumn++;
 
                 wagersCellStyle = GetWagersCellStyle(workbook, isEven);
@@ -270,7 +270,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                     currentColumn,
                     currentColumn);
                 totalCellStyle = GetTotalCellStyle(workbook, isEven);
-                NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, totalCellRange, wagerByMonth.Total, totalCellStyle);
+                NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, totalCellRange, wagerByMonth.Total, totalCellStyle);
 
                 exportExcelInfo.CurrentRow = currentRow;
             }
@@ -298,7 +298,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                     currentRow + mergeRowNumber - 1,
                     startColumn,
                     startColumn);
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, grandTotalCellRange, total.Month, monthCellStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, grandTotalCellRange, total.Month, monthCellStyle);
             startColumn++;
 
             for (int i = 0; i < mergeRowNumber; i++)
@@ -323,7 +323,7 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
                     exportExcelInfo.CurrentRow + mergeRowNumber - 1,
                     currentColumn,
                     currentColumn);
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, totalCellRange, total.Total, totalCellStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, totalCellRange, total.Total, totalCellStyle);
         }
 
         private short GetRowColorIndex(bool isEven)

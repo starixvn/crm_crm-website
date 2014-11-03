@@ -92,10 +92,10 @@ namespace Fanex.CRM.Infrastructure.Models.Npoi
         {
             var exportExcelInfo = this;
             var cellRangeAddress = new CellRangeAddress(CurrentRow, CurrentRow + 1, StartColumn, MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             CurrentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, CurrentRow);
+            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, CurrentRow);
             CurrentRow++;
         }
     }

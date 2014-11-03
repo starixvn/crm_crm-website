@@ -76,7 +76,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     currentColumn,
                     currentColumn);
                 NpoiExcelExtensions.RenderMergedCells(
-                    ref exportExcelInfo,
+                    exportExcelInfo,
                     cellRangeAddress,
                     groupInfo.ShortName,
                     _centerTextStyle);

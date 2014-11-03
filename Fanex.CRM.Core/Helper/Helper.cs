@@ -217,5 +217,10 @@ namespace Fanex.CRM.Infrastructure.Helper
                 fromDate :
                 string.Format(Labels.Message_ViewChart_FromToDate, fromDate, toDate);
         }
+
+        public static string ClientIP()
+        {
+            return HttpContext.Current.Request.UserHostAddress;
+        }
     }
 }

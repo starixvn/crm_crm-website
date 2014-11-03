@@ -48,33 +48,9 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             _settingService = settingService ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets the main setting list.
-        /// </summary>
-        /// <returns>
-        /// The main setting list.
-        /// </returns>
         public List<SettingInfo> GetMainSetting()
         {
-            try
-            {
-                var allSettings = AllSetting();
-                var settingGroups = allSettings
-                    .GroupBy(x => new { x.Type })
-                    .Select(group => new { group.Key, Count = group.Count() });
-                var settingGroupByType = new List<SettingInfo>();
-                foreach (var s in settingGroups)
-                {
-                    GetSubSetting(s.Key.Type, settingGroupByType, allSettings);
-                }
-
-                return settingGroupByType.OrderBy(s => s.DisplayOrder).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _settingService.GetMainSetting();
         }
 
         /// <summary>
@@ -87,7 +63,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         {
             try
             {
-                var allSettings = AllSetting();
+                var allSettings = _settingService.GetAllSetting();
                 return allSettings.OrderBy(s => s.Type).ToList();
             }
             catch (Exception ex)
@@ -134,7 +110,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         {
             try
             {
-                var allSettings = AllSetting();
+                var allSettings = _settingService.GetAllSetting();
                 var result = allSettings
                     .Where(s => s.Type == criteria.MainSetting.Type)
                     .Select(s => s)
@@ -162,7 +138,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
                 return false;
             }
 
-            var firstElement = AllSetting().Where(
+            var firstElement = _settingService.GetAllSetting().Where(
                 s => string.Equals(s.Value, setting.Value, StringComparison.OrdinalIgnoreCase) &&
                     string.Equals(s.Type, setting.Type, StringComparison.OrdinalIgnoreCase));
             return firstElement.Any();
@@ -236,7 +212,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         {
             try
             {
-                return AllSetting()
+                return _settingService.GetAllSetting()
                     .Where(s => s.Id == criteria.SettingId)
                     .ToList()
                     .FirstOrDefault();
@@ -246,18 +222,6 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
-        }
-
-        private List<SettingInfo> AllSetting()
-        {
-            var allSetting = CacheService.Get<List<SettingInfo>>(AllSettingSessionKey);
-            if (allSetting == null)
-            {
-                allSetting = _settingManagementRepository.AllSetting(new GetAllSettingCriteria());
-                CacheService.Set(AllSettingSessionKey, allSetting);
-            }
-
-            return allSetting;
         }
 
         private void GetSubSetting(string key, List<SettingInfo> settingList, IEnumerable<SettingInfo> allSetting)

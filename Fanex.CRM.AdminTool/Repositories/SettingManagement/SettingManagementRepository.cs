@@ -23,34 +23,6 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingManagement
     public class SettingManagementRepository : ISettingManagementRepository
     {
         /// <summary>
-        /// Gets all setting.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>All setting.</returns>
-        public List<SettingInfo> AllSetting(GetAllSettingCriteria criteria)
-        {
-            List<SettingInfo> result = new List<SettingInfo>();
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var reader = objectDB.ExecuteReader();
-                while (reader.Read())
-                {
-                    result.Add(new SettingInfo
-                    {
-                        Id = Converter.ToInt(reader["settingid"], 0),
-                        Type = Converter.ToString2(reader["settingname"]),
-                        Value = Converter.ToString2(reader["settingvalue"]),
-                        DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
-                    });
-                }
-            }
-
-            return result;
-        }
-
-        /// <summary>
         /// Inserts setting.
         /// </summary>
         /// <param name="criteria">The criteria.</param>

@@ -61,5 +61,9 @@ namespace Fanex.CRM.Setting.Services.Interfaces
         BaseModel[] GetFeedbackStatisticFilterType();
 
         void ResetAllCache();
+
+        List<SettingInfo> GetMainSetting();
+
+        List<SettingInfo> GetAllFeedbackStatus();
     }
 }

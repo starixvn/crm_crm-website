@@ -14,6 +14,7 @@ namespace Fanex.CRM.Feedback.Repositories
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Infrastructure.Core;
@@ -31,7 +32,7 @@ namespace Fanex.CRM.Feedback.Repositories
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list of ManagerFeedback object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
-        public IList<ManageFeedback> GetManagerFeedback(ManageFeedbackCriteria criteria)
+        public IList<FeedbackDetail> GetManagerFeedback(ManageFeedbackCriteria criteria)
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -92,7 +93,7 @@ namespace Fanex.CRM.Feedback.Repositories
                 inputParams.Add("totalrows", 0);
 
                 db.AssignParamValues(inputParams);
-                var feedbacks = db.Query<ManageFeedback>();
+                var feedbacks = db.Query<FeedbackDetail>();
                 var outputParams = db.GetOuputParams();
                 if (outputParams != null && outputParams.ContainsKey("totalrows"))
                 {

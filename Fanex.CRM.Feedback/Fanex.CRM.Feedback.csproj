@@ -81,20 +81,21 @@
   <ItemGroup>
     <Compile Include="Bundles\FeedbackBundles.cs" />
     <Compile Include="Controllers\AddCustomerFeedbackController.cs" />
+    <Compile Include="Controllers\AddFeedbackController.cs" />
     <Compile Include="Controllers\AddGuestFeedbackController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\UpdateCustomerFeedbackController.cs" />
-    <Compile Include="Criteria\AddGuestFeedback\AddGuestFeedbackCriteria.cs" />
+    <Compile Include="Criteria\AddGuestFeedbackCriteria.cs" />
     <Compile Include="Criteria\DeletedFeedbackCriteria.cs" />
     <Compile Include="Criteria\GetFeedbackByIdCriteria.cs" />
     <Compile Include="Criteria\LatestFeedbackCriteria.cs" />
     <Compile Include="Criteria\AddCustomerFeedbackCriteria.cs" />
     <Compile Include="Criteria\ManageFeedbackCriteria.cs" />
     <Compile Include="Criteria\UpdateCustomerFeedbackCriteria.cs" />
+    <Compile Include="Models\AllSettingToAddFeedback.cs" />
     <Compile Include="Models\CustomerFeedback.cs" />
     <Compile Include="Models\DeletedFeedback.cs" />
     <Compile Include="Models\CustomerInfo.cs" />
-    <Compile Include="Models\ManageFeedback.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AddCustomerFeedback\AddCustomerFeedbackRepository.cs" />
     <Compile Include="Repositories\AddCustomerFeedback\IAddCustomerFeedbackRepository.cs" />

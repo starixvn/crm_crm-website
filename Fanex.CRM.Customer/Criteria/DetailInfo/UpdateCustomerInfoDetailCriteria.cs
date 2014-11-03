@@ -9,14 +9,13 @@
 
 namespace Fanex.CRM.Customer.Criteria.DetailInfo
 {
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Helper;
+    using Fanex.CRM.Common.Criteria;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Update Customer Information Detail Criteria.
     /// </summary>
-    public class UpdateCustomerInfoDetailCriteria : CriteriaBase
+    public class UpdateCustomerInfoDetailCriteria : UpdateCriteria
     {
         [SpParam(SqlParamName = "custid")]
         public string CustomerId { get; set; }
@@ -170,30 +169,6 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
 
         [SpParam(SqlParamName = "refcode2")]
         public string RefCode2 { get; set; }
-
-        [SpParam(SqlParamName = "userid")]
-        public int UserId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
-
-        [SpParam(SqlParamName = "ip")]
-        public string IP
-        {
-            get
-            {
-                return Helper.GetClientIP();
-            }
-        }
-
-        [SpParam(SqlParamName = "errcode")]
-        public int ErrorCode { get; set; }
-
-        [SpParam(SqlParamName = "errmsg")]
-        public string ErrorMessage { get; set; }
 
         public override string GetSettingKey()
         {
