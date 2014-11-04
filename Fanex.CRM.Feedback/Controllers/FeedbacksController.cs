@@ -84,7 +84,7 @@ namespace Fanex.CRM.Feedback.Controllers
                     Title = string.Format(
                         Labels.LatestFeedbackReportTitle,
                         criteria.Top,
-                        criteria.CustId > 0 ? ("From " + criteria.Username) : string.Empty),
+                        criteria.CustId != 0 ? ("From " + criteria.Username) : string.Empty),
                     Feedbacks = feedbacks
                 },
                 JsonRequestBehavior.AllowGet);

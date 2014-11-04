@@ -18,7 +18,7 @@ latestFBApplication.controller('latestFeedbackController', ['$scope', 'latestFee
     $scope.getLatestFeedback = function () {
         $uiBlockerService.blockUI();
         var criteria = { top: $scope.top.Id };
-        if ($scope.custId > 0) {
+        if ($scope.custId !== 0) {
             criteria.custId = $scope.custId;
             criteria.username = $scope.username;
         }

@@ -25,6 +25,8 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
 
         $scope.isShowCustomerDetailBox = false;
         $scope.isShowFeedbackDetailBox = true;
+        $scope.isShowDescriptionBox = true;
+        $scope.isShowSolutionBox = true;
         $scope.isShowDescriptionPreview = false;
         $scope.isShowSolutionPreview = false;
         $scope.isLoadedCustomerInfo = false;
@@ -253,7 +255,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                 result = false;
             }
 
-            if (result && 
+            if (result &&
                 (!params.MainCategory || params.MainCategory.ChildSettings.length === 0 || params.SubCategory.Id === crmConstants.Enums.SubCategory.NotApply)) {
                 message = viewResources.Error_NASubCategory;
                 result = false;

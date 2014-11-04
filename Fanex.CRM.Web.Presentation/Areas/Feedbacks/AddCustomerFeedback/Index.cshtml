@@ -406,9 +406,9 @@
                 </div>
             </div>
         </div>
-        <div class="row panel-group">
+        <div class="row panel-group" data-ng-class="isShowDescriptionBox ? '' : 'consecutive-container-before'">
             <div class="row title">
-                <div class="pull-left hand">
+                <div class="pull-left hand" data-ng-click="isShowDescriptionBox = !isShowDescriptionBox;">
                     @Labels.Description @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                 </div>
                 <div class="pull-right">
@@ -418,7 +418,7 @@
                         data-ng-class="isShowDescriptionPreview ? '' : 'hidden' " />
                 </div>
             </div>
-            <div class="FeedbackDescription row content">
+            <div class="FeedbackDescription row content" data-ng-class="isShowDescriptionBox ? '' : 'hide'">
                 <div class="editerwrapper" id="descriptionwrapper">
                     <div id="previewboxdes" class="preview raw-html-directive" data-ng-class="isShowDescriptionPreview ? '' : 'hidden' "
                         data-ng-model="descriptionOptions.SelectedText">
@@ -429,9 +429,9 @@
                 </div>
             </div>
         </div>
-        <div class="row panel-group last">
+        <div class="row panel-group last" data-ng-class="isShowSolutionBox ? '' : 'consecutive-container-before'">
             <div class="row title">
-                <div class="pull-left hand">
+                <div class="pull-left hand" data-ng-click="isShowSolutionBox = !isShowSolutionBox;">
                     @Labels.Solution @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                 </div>
                 <div class="pull-right">
@@ -442,7 +442,7 @@
                         data-ng-class="isShowSolutionPreview ? '' : 'hidden' " />
                 </div>
             </div>
-            <div class="FeedbackSolution row content">
+            <div class="FeedbackSolution row content" data-ng-class="isShowSolutionBox ? '' : 'hide'">
                 <div class="editerwrapper" id="solutionwrapper">
                     <div id="previewboxsol" class="preview raw-html-directive" data-ng-class="isShowSolutionPreview ? '' : 'hidden' "
                         data-ng-model="solutionOptions.SelectedText">

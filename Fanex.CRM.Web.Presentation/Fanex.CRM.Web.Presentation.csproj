@@ -367,6 +367,9 @@
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\DeletedFeedbackController.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Scripts\Directives\DeletedFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\DeletedFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\Directives\LatestFeedbackContainer.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\LatestFeedback\Scripts\LatestFeedbackController.js" />
@@ -478,8 +481,6 @@
     <Content Include="Areas\Customer\InformHeadlines\UpdateInform\Index.cshtml" />
     <Content Include="Areas\Customer\InformHeadlines\InformStatistic\Styles\InformStatistic.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\LatestFeedback\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Index.cshtml" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Styles\casinoweekly.less" />
     <Content Include="Areas\Report\StatisticReport\Styles\StatisticReport.less" />

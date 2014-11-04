@@ -38,7 +38,7 @@ namespace Fanex.CRM.Feedback.Criteria
         {
             var inputParams = new Hashtable();
             inputParams.Add("top", Top);
-            if (CustId > 0)
+            if (CustId != 0)
             {
                 inputParams.Add("custid", CustId);    
             }
