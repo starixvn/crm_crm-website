@@ -73,7 +73,6 @@ namespace Fanex.CRM.Feedback.Controllers
         /// Add result.
         /// </returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Host)]
         public JsonResult AddCustomerFeedback(AddCustomerFeedbackCriteria criteria)
         {
             Result insertResult = CheckAddCustomerFeedbackPermission(criteria);
@@ -95,7 +94,7 @@ namespace Fanex.CRM.Feedback.Controllers
         /// </returns>
         private Result CheckAddCustomerFeedbackPermission(AddCustomerFeedbackCriteria criteria)
         {
-            if (!HasPermission(FunctionPermission.CreateFeedback.ToString(), Constant.Policy.Host))
+            if (!HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }

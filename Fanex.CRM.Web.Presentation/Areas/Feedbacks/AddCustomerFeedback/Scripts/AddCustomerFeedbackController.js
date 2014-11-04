@@ -103,7 +103,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
             $scope.birthdayOptions.InitDate = new Date($scope.customerInfo.BirthDayString);
             $scope.birthdayOptions.IsRerenderPicker = true;
 
-            $scope.communicationToolOptions.SelectedId = $scope.customerInfo.Title.Id;
+            $scope.communicationToolOptions.SelectedId = $scope.allSettings.CommunicationToolList[0].Id;
             var defaultLanguage = sharedScriptManager.getDefaultCustomerLangue($scope.customerInfo.Languages) || $scope.allSettings.LanguageList[0];
             $scope.languageOptions.SelectedId = defaultLanguage.Id;
             $scope.countryOptions.SelectedId = $scope.customerInfo.Country.Id;

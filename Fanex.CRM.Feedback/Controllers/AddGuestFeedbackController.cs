@@ -32,14 +32,59 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         public AddGuestFeedbackController(IAddGuestFeedbackService feedbackService)
+            IAddGuestFeedbackService feedbackService, ISettingService serviceSetting)
         {
             _feedbackService = feedbackService ?? new AddGuestFeedbackService();
+            _serviceSetting = serviceSetting ?? new SettingService();
         }
 
         [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Host)]
         public ActionResult Index()
         {
             return View("~/Areas/Feedbacks/AddGuestFeedback/Index.cshtml");
+        }
+
+        /// <summary>
+        /// Gets all setting for edit.
+        /// </summary>
+        /// <returns>All setting for edit.</returns>
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        public ActionResult GetAllSetting()
+        {
+            var languageList = _serviceSetting.GetAllLanguage();
+            languageList.Insert(
+                0,
+                new SettingInfo
+                {
+                    Id = 0,
+                    Name = Labels.Symbol_NA
+                });
+
+            var countryList = _serviceSetting.GetAllCountry();
+            countryList.Insert(
+                0,
+                new CountryInfo
+                {
+                    Id = 0,
+                    Name = Labels.Symbol_NA
+                });
+
+            var allSetting = new
+            {
+                ExtensionList = _serviceSetting.GetAllExtension(),
+                CountryList = countryList,
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTool(),
+                LanguageList = languageList,
+                MainCategoryList = _serviceSetting.GetAllMainCategory(),
+                ProductList = _serviceSetting.GetAllProduct(),
+                SiteList = _serviceSetting.GetAllSite(),
+                ResponseList = _serviceSetting.GetAllResponse(),
+                StatusList = _feedbackService.GetAllStatus(),
+                TitleList = _serviceSetting.GetAllTitle()
+            };
+
+            return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -50,7 +95,6 @@ namespace Fanex.CRM.Feedback.Controllers
         /// Add result.
         /// </returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Host)]
         public JsonResult AddGuestFeedback(AddGuestFeedbackCriteria criteria)
         {
             Result insertResult = CheckAddCustomerFeedbackPermission(criteria);
@@ -72,7 +116,7 @@ namespace Fanex.CRM.Feedback.Controllers
         /// </returns>
         private Result CheckAddCustomerFeedbackPermission(AddGuestFeedbackCriteria criteria)
         {
-            if (!HasPermission(FunctionPermission.CreateFeedback.ToString(), Constant.Policy.Host))
+            if (!HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }

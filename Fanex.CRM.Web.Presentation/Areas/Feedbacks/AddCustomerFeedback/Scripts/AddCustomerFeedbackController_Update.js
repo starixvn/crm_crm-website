@@ -73,7 +73,7 @@ function registerUpdateFunctions($scope) {
         $scope.safeApply();
     };
     $scope.updateSelectedSite = function (site) {
-        $scope.addCustomerFeedbackParams.CustomerInfo = site;
+        $scope.customerInfo.SiteSetting = site;
     };
     $scope.updateSelectedCommunicationTool = function (communicationTool) {
         $scope.addCustomerFeedbackParams.CommunicationTool = communicationTool;

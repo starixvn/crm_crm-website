@@ -394,6 +394,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You don&apos;t have permission to update feedback..
+        /// </summary>
+        public static string Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission {
+            get {
+                return ResourceManager.GetString("Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feedback Date.
         /// </summary>
         public static string FeedbackDate {

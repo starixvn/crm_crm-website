@@ -63,26 +63,49 @@ namespace Fanex.CRM.Feedback.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>The result object.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Host)]
         public ActionResult UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)
         {
-            JsonRequestBehavior jsonBehavior = JsonRequestBehavior.DenyGet;
-            if (!HasPermission(FunctionPermission.ReviewFeedback, Constant.Policy.Host) &&
-                    criteria.UpdateReviewMode != (int)Enumerations.Functions.RevewMode.NotUpdate)
+            Result result = CheckUpdateCustomerFeedbackPermission(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                return Json(new Result((int)Enumerations.ErrorCode.UpdateCustomerInfo, Labels.NoPermissionOnReviewFunction), jsonBehavior);
+                _updateCustomerFeedbackService.UpdateFeedback(criteria);
+                result = new Result(criteria.ErrorCode, criteria.ErrorMessage);
+            }
+
+            return Json(result, JsonRequestBehavior.DenyGet);
+        }
+
+        /// <summary>
+        /// Checks the update customer feedback permission.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The permission result.</returns>
+        private Result CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria)
+        {
+            int permissionError = ErrorCodeConstants.NoPermission;
+            if (!HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Host))
+            {
+                return new Result(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);
+            }
+
+            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Host))
+            {
+                return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
+            }
+
+            if (criteria.UpdateReviewMode != (int)Enumerations.Functions.RevewMode.NotUpdate &&
+                !HasPermission(FunctionPermission.ReviewFeedback, Constant.Policy.Host))
+            {
+                return new Result(permissionError, Labels.NoPermissionOnReviewFunction);
             }
 
             if (criteria.Status.Id == (int)Enumerations.Functions.CRMStatus.Deleted &&
                     !HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host))
             {
-                return Json(
-                    new Result((int)Enumerations.ErrorCode.DeleteFeedback, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission),
-                    jsonBehavior);
+                return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }
 
-            _updateCustomerFeedbackService.UpdateFeedback(criteria);
-            return Json(new Result(criteria.ErrorCode, criteria.ErrorMessage), jsonBehavior);
+            return new Result();
         }
     }
 }
