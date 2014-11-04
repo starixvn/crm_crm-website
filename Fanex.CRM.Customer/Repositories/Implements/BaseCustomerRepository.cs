@@ -76,7 +76,6 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 BankInfo = new BankInfo
                 {
                     Name = reader.GetStringNotNull("Wire_BankName"),
-                    Address = reader.GetStringNotNull("Wire_BankAddress"),
                     SwiftCode = reader.GetStringNotNull("Wire_SwiftCode"),
                     AccountName = reader.GetStringNotNull("Wire_AccountName"),
                     AccountNumber = reader.GetStringNotNull("Wire_AccountNo")
@@ -94,13 +93,6 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 Answer = reader.GetStringNotNull("Answer"),
                 IsVIP = reader.GetBooleanNotNull("IsVIP"),
                 CreatedDate = reader.GetDateTimeNotNull("CreateDate"),
-                IsActive = reader.GetInt32NotNull("Active") == 1,
-                IsClosed = reader.GetInt32NotNull("Closed") == 1,
-                IsSuspended = reader.GetInt32NotNull("Suspended") == 1,
-                OriginalDangerLevel = reader.GetByteNotNull("danger"),
-                ABTDangerLevel = reader.GetByteNotNull("danger2"),
-                OtherSportsDangerLevel = reader.GetByteNotNull("danger3"),
-
                 BirthDay = reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate()
             };
 

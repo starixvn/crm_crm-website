@@ -19,7 +19,7 @@ namespace Fanex.CRM.Feedback.Criteria
     /// </summary>
     public class AddCustomerFeedbackCriteria : AddGuestFeedbackCriteria
     {
-        public bool IsOverrideCustomerInfo { get; set; }
+        public bool OverrideCRMInfo { get; set; }
 
         /// <summary>
         /// Gets the SP parameters.
@@ -37,7 +37,7 @@ namespace Fanex.CRM.Feedback.Criteria
             param["relatedcustid"] = HasRelated && !string.IsNullOrWhiteSpace(RelatedCustomerId) ?
                 RelatedCustomerId :
                 null;
-            param.Add("isoverwrite", IsOverrideCustomerInfo);
+            param.Add("isoverwrite", OverrideCRMInfo);
             return param;
         }
 

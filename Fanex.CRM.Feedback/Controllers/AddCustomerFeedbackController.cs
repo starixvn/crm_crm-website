@@ -100,7 +100,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }
 
-            if (criteria.IsOverrideCustomerInfo && !HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Host))
+            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
             }

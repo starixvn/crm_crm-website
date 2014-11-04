@@ -46,6 +46,14 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                         {
                             customer = MappingDataFromSqlToCustomerInfoObject(reader);
                             customer.HeadLine = Converter.ToBool(reader["IsGroupHeadLine"]);
+                            customer.BankInfo.Address = Converter.ToString2(reader["Wire_BankAddress"]);
+
+                            customer.IsActive = Converter.ToInt(reader["Active"]) == 1;
+                            customer.IsClosed = Converter.ToInt(reader["Closed"]) == 1;
+                            customer.IsSuspended = Converter.ToInt(reader["Suspended"]) == 1;
+                            customer.OriginalDangerLevel = Converter.ToInt(reader["danger"]);
+                            customer.ABTDangerLevel = Converter.ToInt(reader["danger2"]);
+                            customer.OtherSportsDangerLevel = Converter.ToInt(reader["danger3"]);
                         }
 
                         if (reader.NextResult())
