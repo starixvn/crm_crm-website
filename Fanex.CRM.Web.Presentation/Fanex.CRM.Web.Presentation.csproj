@@ -353,6 +353,7 @@
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\AddGuestFeedbackDirectives.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\error.gif" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\help.png" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\icn_edit.png" />
@@ -786,7 +787,6 @@
     <Content Include="Content\site\customizeFanexGridV2.less" />
     <Content Include="Content\site\customizeMultiSelect.less" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Index.cshtml" />
-    <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Styles\AddCustomerFeedback.less" />
     <Content Include="Content\site\mixins.less" />
     <Content Include="Content\site\reportgrid.less" />
@@ -1124,7 +1124,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Configurations\CasinoSection.config" />
     <Content Include="ConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1177,7 +1176,6 @@
     <Content Include="Areas\AdminTool\SettingManagement\ViewList\Styles\ViewList.less" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Styles\AddRelation.less" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Styles\ViewList.less" />
-    <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.MailSection.config" />
     <Content Include="IbcKeys\ibckeydec.snk" />

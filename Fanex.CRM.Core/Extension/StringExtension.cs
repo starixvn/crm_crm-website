@@ -12,6 +12,7 @@ namespace Fanex.CRM.Infrastructure.Extension
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
@@ -84,6 +85,14 @@ namespace Fanex.CRM.Infrastructure.Extension
             '«'
         };
 
+        private static CultureInfo CurrentCulture
+        { 
+            get
+            {
+                return CultureInfo.CurrentCulture;
+            }
+        }
+
         [DebuggerStepThrough]
         public static bool IsValidIP(this string target)
         {
@@ -112,7 +121,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         public static string FormatWith(this string target, params object[] args)
         {
             Check.Argument.IsNotEmpty(target, "target");
-            return string.Format(Constants.CurrentCulture, target, args);
+            return string.Format(CurrentCulture, target, args);
         }
 
         /// <summary>
@@ -225,7 +234,7 @@ namespace Fanex.CRM.Infrastructure.Extension
             {
                 foreach (char character in IllegalUrlCharacters)
                 {
-                    target = target.Replace(character.ToString(Constants.CurrentCulture), string.Empty);
+                    target = target.Replace(character.ToString(CurrentCulture), string.Empty);
                 }
             }
 

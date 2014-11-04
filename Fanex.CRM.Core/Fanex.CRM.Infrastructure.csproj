@@ -94,14 +94,15 @@
     <Compile Include="Common\RequestHeaderTypeConstants.cs" />
     <Compile Include="Common\SortDirectionConstants.cs" />
     <Compile Include="Common\UpdateReviewedModeConstants.cs" />
-    <Compile Include="Configuration\CasinoSection\CasinoCollection.cs" />
-    <Compile Include="Configuration\CasinoSection\CasinoElement.cs" />
-    <Compile Include="Configuration\CasinoSection\CasinoSection.cs" />
-    <Compile Include="Configuration\IApplicationSettings.cs" />
-    <Compile Include="Configuration\MailSection\MailCollection.cs" />
-    <Compile Include="Configuration\MailSection\MailElement.cs" />
-    <Compile Include="Configuration\MailSection\MailSection.cs" />
-    <Compile Include="Configuration\WebConfigApplicationSettings.cs" />
+    <Compile Include="Configuration\MailSection\MailCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\MailSection\MailElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\MailSection\MailSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Core\DateTimeUtilize.cs" />
     <Compile Include="Extension\IDataReaderExtension.cs" />
     <Compile Include="Extension\NpoiExcelExtensions.cs" />
@@ -119,8 +120,6 @@
     <Compile Include="Logging\LogExtensions.cs" />
     <Compile Include="Extension\GuidExtension.cs" />
     <Compile Include="Extension\SessionExtension.cs" />
-    <Compile Include="Helper\Constants.cs" />
-    <Compile Include="Helper\QueryString.cs" />
     <Compile Include="Helper\SystemTime.cs" />
     <Compile Include="Models\CRMHorizontalAlignment.cs" />
     <Compile Include="Models\CRMVerticalAlignment.cs" />

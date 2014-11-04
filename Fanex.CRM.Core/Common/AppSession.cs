@@ -8,8 +8,8 @@ namespace Fanex.CRM.Infrastructure.Common
 {
     using System.Collections.Generic;
     using System.Web;
+    using System.Web.SessionState;
     using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.NAP.Core.Model;
 
     /// <summary>
@@ -17,6 +17,14 @@ namespace Fanex.CRM.Infrastructure.Common
     /// </summary>
     public class AppSession
     {
+        private const string CurrentLogInUserKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentLogInUser";
+        private const string CurrentUserMenuKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentUserMenu";
+        private const string CurrentUserRoleAccessKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentUserRoleAccess";
+        private const string CurrentWorkingOnMenuKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentWorkingOnMenu";
+        private const string CurrentActionNameKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentActionName";
+        private const string CurrentHttpMethodKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentHttpMethod";
+        private const string RedirectUrlKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.RedirectUrl";
+
         /// <summary>
         /// Gets or sets current login user.
         /// </summary>
@@ -27,12 +35,12 @@ namespace Fanex.CRM.Infrastructure.Common
         {
             get
             {
-                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.CurrentLogInUser) as User;
+                return SessionExtension.GetSession(CurrentSession, CurrentLogInUserKey) as User;
             }
 
             set
             {
-                SessionExtension.AddSession(HttpContext.Current.Session, Constants.CurrentLogInUser, value);
+                SessionExtension.AddSession(CurrentSession, CurrentLogInUserKey, value);
             }
         }
 
@@ -40,12 +48,12 @@ namespace Fanex.CRM.Infrastructure.Common
         {
             get
             {
-                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.CurrentUserRoleAccess) as Dictionary<string, int>;
+                return SessionExtension.GetSession(CurrentSession, CurrentUserRoleAccessKey) as Dictionary<string, int>;
             }
 
             set
             {
-                SessionExtension.AddSession(HttpContext.Current.Session, Constants.CurrentUserRoleAccess, value);
+                SessionExtension.AddSession(CurrentSession, CurrentUserRoleAccessKey, value);
             }
         }
 
@@ -59,12 +67,12 @@ namespace Fanex.CRM.Infrastructure.Common
         {
             get
             {
-                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.CurrentUserMenu) as IList<MenuItem>;
+                return SessionExtension.GetSession(CurrentSession, CurrentUserMenuKey) as IList<MenuItem>;
             }
 
             set
             {
-                SessionExtension.AddSession(HttpContext.Current.Session, Constants.CurrentUserMenu, value);
+                SessionExtension.AddSession(CurrentSession, CurrentUserMenuKey, value);
             }
         }
         
@@ -72,12 +80,12 @@ namespace Fanex.CRM.Infrastructure.Common
         {
             get
             {
-                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.CurrentHttpMethod) as string;
+                return SessionExtension.GetSession(CurrentSession, CurrentHttpMethodKey) as string;
             }
 
             set
             {
-                SessionExtension.AddSession(HttpContext.Current.Session, Constants.CurrentHttpMethod, value);
+                SessionExtension.AddSession(CurrentSession, CurrentHttpMethodKey, value);
             }
         }
 
@@ -92,12 +100,12 @@ namespace Fanex.CRM.Infrastructure.Common
         {
             get
             {
-                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.CurrentActionName) as string;
+                return SessionExtension.GetSession(CurrentSession, CurrentActionNameKey) as string;
             }
 
             set
             {
-                SessionExtension.AddSession(HttpContext.Current.Session, Constants.CurrentActionName, value);
+                SessionExtension.AddSession(CurrentSession, CurrentActionNameKey, value);
             }
         }
 
@@ -111,12 +119,12 @@ namespace Fanex.CRM.Infrastructure.Common
         {
             get
             {
-                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.CurrentWorkingOnMenu) as MenuItem;
+                return SessionExtension.GetSession(CurrentSession, CurrentWorkingOnMenuKey) as MenuItem;
             }
 
             set
             {
-                SessionExtension.AddSession(HttpContext.Current.Session, Constants.CurrentWorkingOnMenu, value);
+                SessionExtension.AddSession(CurrentSession, CurrentWorkingOnMenuKey, value);
             }
         }
 
@@ -124,12 +132,20 @@ namespace Fanex.CRM.Infrastructure.Common
         {
             get
             {
-                return SessionExtension.GetSession(HttpContext.Current.Session, Constants.RedirectUrl) as string;
+                return SessionExtension.GetSession(CurrentSession, RedirectUrlKey) as string;
             }
 
             set
             {
-                SessionExtension.AddSession(HttpContext.Current.Session, Constants.RedirectUrl, value);
+                SessionExtension.AddSession(CurrentSession, RedirectUrlKey, value);
+            }
+        }
+
+        private static HttpSessionState CurrentSession
+        {
+            get
+            {
+                return HttpContext.Current.Session;
             }
         }
     }

@@ -19,9 +19,8 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using Fanex.CRM.ActionLog.Repositories.Implements;
     using Fanex.CRM.ActionLog.Repositories.Interfaces;
     using Fanex.CRM.ActionLog.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Configuration;
+    using Fanex.CRM.Infrastructure.Common;
     using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
 
@@ -47,8 +46,8 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         {
             _actionLogRepository = actionLogRepository ?? new ActionLogRepository();
             _settingHash = CacheManager.GetAllSetting();
-            _actionLogKeyHash = WebConfigApplicationSettings.ActionLogKey;
-            _actionLogBoolValueHash = WebConfigApplicationSettings.ActionLogBoolValue;
+            _actionLogKeyHash = AppSetting.ActionLogKey;
+            _actionLogBoolValueHash = AppSetting.ActionLogBoolValue;
         }
 
         #region Activity Log
