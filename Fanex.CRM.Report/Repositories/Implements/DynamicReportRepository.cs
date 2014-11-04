@@ -78,14 +78,8 @@ namespace Fanex.CRM.Report.Repositories.Implements
                 {
                     FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate"))
                 },
-                MainCategory = new SettingInfo
-                {
-                    Name = reader.GetStringNotNull("MainCategory")
-                },
-                SubCategory = new SettingInfo
-                {
-                    Name = reader.GetStringNotNull("SubCategory")
-                },
+                MainCategory = new SettingInfo { Name = reader.GetStringNotNull("MainCategory") },
+                SubCategory = new SettingInfo { Name = reader.GetStringNotNull("SubCategory") },
                 Subject = reader.GetStringNotNull("Subject"),
                 StatusName = reader.GetStringNotNull("Status"),
                 Duration = new TimeInfo

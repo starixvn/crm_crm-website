@@ -10,19 +10,20 @@
 namespace Fanex.CRM.Communication.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Infrastructure.Models;
 
     public interface ICommunicationLogRepository
     {
-        List<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
+        List<BaseCommunicationLogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 
         Result UpdateLog(UpdateLogCriteria criteria);
 
         Result InsertLog(InsertLogCriteria criteria);
 
-        LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
+        BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
 
         CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria);
     }

@@ -174,24 +174,15 @@ namespace Fanex.CRM.Redemption.Services.Implements
                     new SettingInfo()
                 };
 
+                Dictionary<string, int> statusIndex = new Dictionary<string, int>();
+                statusIndex.Add(Labels.Open, 0);
+                statusIndex.Add(Labels.Closed, 1);
+                statusIndex.Add(Labels.KIV, 2);
                 foreach (var status in allStatusSetting)
                 {
-                    if (status.Name == Labels.Open)
+                    if (statusIndex.ContainsKey(status.Name))
                     {
-                        allStatusResult[0] = status;
-                        continue;
-                    }
-
-                    if (status.Name == Labels.Closed)
-                    {
-                        allStatusResult[1] = status;
-                        continue;
-                    }
-
-                    if (status.Name == Labels.KIV)
-                    {
-                        allStatusResult[2] = status;
-                        continue;
+                        allStatusResult[statusIndex[status.Name]] = status;
                     }
                 }
             }
@@ -233,30 +224,17 @@ namespace Fanex.CRM.Redemption.Services.Implements
                     new SettingInfo()
                 };
 
+                Dictionary<string, int> statusIndex = new Dictionary<string, int>();
+                statusIndex.Add(Labels.Open, 0);
+                statusIndex.Add(Labels.Closed, 1);
+                statusIndex.Add(Labels.KIV, 2);
+                statusIndex.Add(Labels.Deleted, 3);
+
                 foreach (var status in allStatusSetting)
                 {
-                    if (status.Name == Labels.Open)
+                    if (statusIndex.ContainsKey(status.Name))
                     {
-                        allStatusResult[0] = status;
-                        continue;
-                    }
-
-                    if (status.Name == Labels.Closed)
-                    {
-                        allStatusResult[1] = status;
-                        continue;
-                    }
-
-                    if (status.Name == Labels.KIV)
-                    {
-                        allStatusResult[2] = status;
-                        continue;
-                    }
-
-                    if (status.Name == Labels.Deleted)
-                    {
-                        allStatusResult[3] = status;
-                        continue;
+                        allStatusResult[statusIndex[status.Name]] = status;
                     }
                 }
             }

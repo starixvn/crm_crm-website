@@ -11,15 +11,15 @@
 namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
     using System.Collections;
+    using Fanex.CRM.Common.Criteria;
     using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Setting.Models;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Edit Setting Criteria.
     /// </summary>
-    public class EditSettingCriteria : CriteriaBase
+    public class EditSettingCriteria : UpdateCriteria
     {
         public SettingInfo OldSetting { get; set; }
 
@@ -31,24 +31,6 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
             get
             {
                 return AppSession.CurrentUser.Id;
-            }
-        }
-
-        [SpParam(SqlParamName = "userid")]
-        public int UserId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
-
-        [SpParam(SqlParamName = "ip")]
-        public string IP
-        {
-            get
-            {
-                return Helper.GetClientIP();
             }
         }
 

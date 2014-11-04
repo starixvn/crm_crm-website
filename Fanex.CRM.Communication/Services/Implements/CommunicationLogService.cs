@@ -11,6 +11,7 @@ namespace Fanex.CRM.Communication.Services.Implements
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Communication.Repositories.Implements;
@@ -21,7 +22,6 @@ namespace Fanex.CRM.Communication.Services.Implements
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Logging;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
@@ -82,9 +82,9 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The logs by running number.</returns>
-        public LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
+        public BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
         {
-            LogInfo log = null;
+            BaseCommunicationLogInfo log = null;
             try
             {
                 var rawData = _communicationRepositoryLog.GetLogsByRunningNumber(criteria);
@@ -181,36 +181,7 @@ namespace Fanex.CRM.Communication.Services.Implements
         /// <returns>All status.</returns>
         public List<SettingInfo> GetAllStatus_Edit()
         {
-            var allStatusResult = new List<SettingInfo>();
-            try
-            {
-                var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
-                {
-                    ViewType = ViewTypeConstants.CommunicationTool
-                });
-
-                if (allStatusSetting == null)
-                {
-                    return allStatusResult;
-                }
-
-                foreach (var status in allStatusSetting)
-                {
-                    if (status.Name == Labels.Checked ||
-                        status.Name == Labels.Solved ||
-                        status.Name == Labels.Closed ||
-                        status.Name == Labels.Pending)
-                    {
-                        allStatusResult.Add(status);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-            return allStatusResult;
+            return GetAllStatus_Insert();
         }
 
         /// <summary>

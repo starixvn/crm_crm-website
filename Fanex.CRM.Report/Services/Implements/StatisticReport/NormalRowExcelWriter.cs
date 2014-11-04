@@ -44,16 +44,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                _rowBackgroundColorIndex,
                true,
                CRMHorizontalAlignment.Right);
-            _textStyle = NpoiExcelExtensions.TextStyle(
-                 _exportExcelInfo.ExcelFile,
-                 _rowBackgroundColorIndex,
-                 false,
-                 CRMHorizontalAlignment.Left);
-            _centerTextStyle = NpoiExcelExtensions.TextStyle(
-                _exportExcelInfo.ExcelFile,
-                _rowBackgroundColorIndex,
-                false,
-                CRMHorizontalAlignment.Center);
+            _textStyle = NpoiExcelExtensions.TextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            _centerTextStyle = NpoiExcelExtensions.TextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
         }
 
         /// <summary>
@@ -84,7 +76,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     currentColumn,
                     currentColumn);
                 NpoiExcelExtensions.RenderMergedCells(
-                    ref exportExcelInfo,
+                    exportExcelInfo,
                     cellRangeAddress,
                     groupInfo.ShortName,
                     _centerTextStyle);

@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Communication.Services.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -19,7 +20,7 @@ namespace Fanex.CRM.Communication.Services.Interfaces
     {
         CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 
-        LogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
+        BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
 
         Result UpdateLog(UpdateLogCriteria criteria);
 

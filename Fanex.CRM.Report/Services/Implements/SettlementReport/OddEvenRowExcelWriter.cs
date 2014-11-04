@@ -20,7 +20,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
     /// <summary>
     /// Odd Even Row Excel Writer.
     /// </summary>
-    public class OddEvenRowExcelWriter
+    public class OddEvenRowExcelWriter : SettlementReportExportExcelService
     {
         private ICellStyle _intStyle;
         private ICellStyle _textStyle;
@@ -47,16 +47,8 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                 false,
                 CRMHorizontalAlignment.Center);
 
-            _textStyle = NpoiExcelExtensions.TextStyle(
-                 _exportExcelInfo.ExcelFile,
-                 _rowBackgroundColorIndex,
-                 false,
-                 CRMHorizontalAlignment.Left);
-            _centerTextStyle = NpoiExcelExtensions.TextStyle(
-                _exportExcelInfo.ExcelFile,
-                _rowBackgroundColorIndex,
-                false,
-                CRMHorizontalAlignment.Center);
+            _textStyle = NpoiExcelExtensions.TextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+            _centerTextStyle = NpoiExcelExtensions.TextStyle(_exportExcelInfo.ExcelFile, _rowBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
         }
 
         /// <summary>
@@ -81,16 +73,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
 
             if (infoIndex == 0)
             {
-                cellRangeAddress = new CellRangeAddress(
-                    exportExcelInfo.CurrentRow,
-                    exportExcelInfo.CurrentRow + groupInfo.ChildReports.Count - 1,
-                    currentColumn,
-                    currentColumn);
-                NpoiExcelExtensions.RenderMergedCells(
-                    ref exportExcelInfo,
-                    cellRangeAddress,
-                    groupInfo.Name.ToUpper(),
-                    _centerTextStyle);
+                ExportColumn(exportExcelInfo, groupInfo.ChildReports.Count, groupInfo.Name.ToUpper(), _centerTextStyle);
             }
 
             currentColumn++;
@@ -105,7 +88,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
                     currentColumn,
                     currentColumn);
                 NpoiExcelExtensions.RenderMergedCells(
-                    ref exportExcelInfo,
+                    exportExcelInfo,
                     cellRangeAddress,
                     groupInfo.NumberOfIssues,
                     _centerIntStyle);

@@ -418,17 +418,7 @@ namespace Fanex.CRM.Report.Services.Implements.SettlementReport
             string reportTitle = settlementReport != null ?
                 settlementReport.Name :
                 string.Format(Labels.SettlementReport_Title, criteria.Year);
-            CellRangeAddress cellRangeAddress;
-            cellRangeAddress = new CellRangeAddress(
-                exportExcelInfo.CurrentRow,
-                exportExcelInfo.CurrentRow + 1,
-                exportExcelInfo.StartColumn,
-                exportExcelInfo.MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
-            exportExcelInfo.CurrentRow += 2;
-
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, exportExcelInfo.CurrentRow);
-            exportExcelInfo.CurrentRow++;
+            exportExcelInfo.RenderHeaderTitle(reportTitle, headerStyle);
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;

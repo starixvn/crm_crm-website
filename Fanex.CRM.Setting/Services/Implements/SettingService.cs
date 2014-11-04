@@ -120,13 +120,11 @@ namespace Fanex.CRM.Setting.Services.Implements
             try
             {
                 allSetting = CacheService.Get<List<SettingInfo>>(GetAllSettingSessionKey);
-                if (allSetting != null)
+                if (allSetting == null)
                 {
-                    return allSetting;
+                    allSetting = _settingRepositoryInstance.GetAllSetting(new GetAllSettingCriteria());
+                    CacheService.Set(GetAllSettingSessionKey, allSetting);
                 }
-
-                allSetting = _settingRepositoryInstance.GetAllSetting(new GetAllSettingCriteria());
-                CacheService.Set(GetAllSettingSessionKey, allSetting);
             }
             catch (Exception ex)
             {
@@ -826,7 +824,7 @@ namespace Fanex.CRM.Setting.Services.Implements
                     },
                     Extensions = GetAllExtension()
                 };
-                
+
                 CacheService.Set(cachedKey, settings);
                 return settings;
             }
@@ -885,6 +883,81 @@ namespace Fanex.CRM.Setting.Services.Implements
             {
                 LogExtensions.ExceptionHandler(ex);
             }
+        }
+
+        /// <summary>
+        /// Gets the main setting list.
+        /// </summary>
+        /// <returns>
+        /// The main setting list.
+        /// </returns>
+        public List<SettingInfo> GetMainSetting()
+        {
+            try
+            {
+                var allSettings = GetAllSetting();
+                var settingGroups = allSettings
+                    .GroupBy(x => new { x.Type })
+                    .Select(group => new { group.Key, Count = group.Count() });
+                var settingGroupByType = new List<SettingInfo>();
+                foreach (var s in settingGroups)
+                {
+                    GetSubSetting(s.Key.Type, settingGroupByType, allSettings);
+                }
+
+                return settingGroupByType.OrderBy(s => s.DisplayOrder).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+        
+        /// <summary>
+        /// Gets all feedback status.
+        /// </summary>
+        /// <returns>
+        /// All feedback status.
+        /// </returns>
+        public List<SettingInfo> GetAllFeedbackStatus()
+        {
+            try
+            {
+                var allStatusResult = new List<SettingInfo>();
+                var allStatusSetting = GetAllStatus(new GetAllStatusCriteria
+                {
+                    ViewType = ViewTypeConstants.CommunicationTool
+                });
+
+                if (allStatusSetting == null)
+                {
+                    return allStatusResult;
+                }
+
+                return allStatusSetting.Where(status => IsFeedbackStatus(status.Name)).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+        
+        private bool IsFeedbackStatus(string statusName)
+        {
+            return string.Equals(statusName, Labels.Checked, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(statusName, Labels.Solved, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(statusName, Labels.Closed, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(statusName, Labels.Pending, StringComparison.OrdinalIgnoreCase) ||
+                string.Equals(statusName, Labels.Deleted, StringComparison.OrdinalIgnoreCase);
+        }
+
+        private void GetSubSetting(string key, List<SettingInfo> settingList, IEnumerable<SettingInfo> allSetting)
+        {
+            var subList = allSetting.Where(s => s.Type == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
+            var setting = new SettingInfo { Type = key, ChildSettings = subList };
+            settingList.Add(setting);
         }
 
         private int GetSiteGroupId(int siteId)

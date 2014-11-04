@@ -256,7 +256,7 @@ namespace Fanex.CRM.Infrastructure.Extension
         /// <param name="cellValue">The label of cell.</param>
         /// <param name="cellStyle">The style of cell.</param>
         public static void RenderMergedCells(
-            ref ExportExcelInfo exportExcelInfo,
+            ExportExcelInfo exportExcelInfo,
             CellRangeAddress cellRangeAddress,
             object cellValue,
             ICellStyle cellStyle)
@@ -288,26 +288,6 @@ namespace Fanex.CRM.Infrastructure.Extension
         }
 
         /// <summary>
-        /// Renders the empty row.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="rowIndex">Index of the row.</param>
-        public static void RenderEmptyRow(ref ExportExcelInfo exportExcelInfo, int rowIndex)
-        {
-            CellRangeAddress cellRangeAddress = new CellRangeAddress(
-                rowIndex,
-                rowIndex,
-                exportExcelInfo.StartColumn,
-                exportExcelInfo.MaxColumnIndex);
-            var textStyle = NpoiExcelExtensions.TextStyle(
-                exportExcelInfo.ExcelFile,
-                BackgroundColorIndex,
-                false,
-                CRMHorizontalAlignment.Center);
-            RenderMergedCells(ref exportExcelInfo, cellRangeAddress, string.Empty, textStyle);
-        }
-
-        /// <summary>
         /// Renders the no information message.
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
@@ -325,11 +305,7 @@ namespace Fanex.CRM.Infrastructure.Extension
                 true,
                 CRMHorizontalAlignment.Center);
 
-            RenderMergedCells(
-                ref exportExcelInfo,
-                cellRangeAddress,
-                Labels.ResultMessage_NoInfo,
-                textStyle);
+            RenderMergedCells(exportExcelInfo, cellRangeAddress, Labels.ResultMessage_NoInfo, textStyle);
         }
 
         /// <summary>
@@ -587,45 +563,6 @@ namespace Fanex.CRM.Infrastructure.Extension
             else if (cellValue.GetType() == typeof(DateTime))
             {
                 cell.SetCellValue((System.DateTime)cellValue);
-            }
-        }
-
-        /// <summary>
-        /// Render cell.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="cellRangeAddress">The cell range address.</param>
-        /// <param name="cellValue">The label of cell.</param>
-        /// <param name="cellStyle">The style of cell.</param>
-        public static void RenderMergedCells(
-            ExportExcelInfo exportExcelInfo,
-            CellRangeAddress cellRangeAddress,
-            object cellValue,
-            ICellStyle cellStyle)
-        {
-            IRow row;
-            ICell cell;
-
-            exportExcelInfo.Worksheet.AddMergedRegion(cellRangeAddress);
-            for (var i = cellRangeAddress.FirstRow; i <= cellRangeAddress.LastRow; i++)
-            {
-                row = exportExcelInfo.Worksheet.GetRow(i) ?? exportExcelInfo.Worksheet.CreateRow(i);
-                for (var j = cellRangeAddress.FirstColumn; j <= cellRangeAddress.LastColumn; j++)
-                {
-                    cell = row.GetCell(j) ?? row.CreateCell(j);
-                    if (i == cellRangeAddress.FirstRow ||
-                        i == cellRangeAddress.LastRow ||
-                        j == cellRangeAddress.FirstColumn ||
-                        j == cellRangeAddress.LastColumn)
-                    {
-                        cell.CellStyle = cellStyle;
-                    }
-
-                    if (i == cellRangeAddress.FirstRow && j == cellRangeAddress.FirstColumn)
-                    {
-                        SetCellValue(cell, cellValue);
-                    }
-                }
             }
         }
 

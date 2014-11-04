@@ -14,6 +14,7 @@ namespace Fanex.CRM.Feedback.Services
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Repositories;
@@ -88,9 +89,9 @@ namespace Fanex.CRM.Feedback.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list of ManagerFeedback object.</returns>
-        public IList<ManageFeedback> GetManageFeedback(ManageFeedbackCriteria criteria)
+        public IList<FeedbackDetail> GetManageFeedback(ManageFeedbackCriteria criteria)
         {
-            IList<ManageFeedback> feebacks = null;
+            IList<FeedbackDetail> feebacks = null;
             try
             {
                 feebacks = _feedbackRepository.GetManagerFeedback(criteria);

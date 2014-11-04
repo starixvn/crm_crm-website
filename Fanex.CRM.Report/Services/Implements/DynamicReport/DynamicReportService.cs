@@ -456,8 +456,8 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     Name = dynamicReport.Name,
                     ShortName = dynamicReport.ShortName,
                     ChildReports = criteria.IsGetFullReport ?
-                        dynamicReport.ChildReports :
-                        GetPagingLogList(criteria, dynamicReport.ChildReports),
+                       dynamicReport.ChildReports :
+                       GetPagingLogList(criteria, dynamicReport.ChildReports),
                     TotalChildReports = dynamicReport.TotalChildReports,
                     ChartInfo = chartInfo
                 };
@@ -672,8 +672,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData == null ||
-                rawData.Count == 0)
+            if (rawData == null || rawData.Count == 0)
             {
                 return dynamicReport;
             }
@@ -682,29 +681,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 data.PeriodRange.FromDate.FirstDayOfWeek().ToShortFormatedDate() +
                 " - " +
                 data.PeriodRange.FromDate.LastDayOfWeek().ToShortFormatedDate());
-            foreach (var periodGroup in periodGroups)
-            {
-                var periodReport = new DynamicReportInfo
-                {
-                    Name = string.Format(
-                        Labels.DynamicReport_PeriodReport_Title,
-                        Labels.Weekly,
-                        periodGroup.Key),
-                    ShortName = periodGroup.Key.ToString(),
-                    ChildReports = new List<DynamicReportInfo>()
-                };
-
-                foreach (var data in periodGroup)
-                {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
-                    periodReport.ChildReports.Add(data);
-                }
-
-                periodReport.TotalChildReports = periodReport.ChildReports.Count;
-                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
-                dynamicReport.ChildReports.Add(periodReport);
-            }
-
+            GetDynamicReportInfoByGroup(periodGroups, ref dynamicReport, Labels.Weekly);
             return dynamicReport;
         }
 
@@ -732,36 +709,13 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate())
             };
 
-            if (rawData == null ||
-                rawData.Count == 0)
+            if (rawData == null || rawData.Count == 0)
             {
                 return dynamicReport;
             }
 
             var periodGroups = rawData.GroupBy(data => data.PeriodRange.FromDate.ToShortFormatedDate());
-            foreach (var periodGroup in periodGroups)
-            {
-                var periodReport = new DynamicReportInfo
-                {
-                    Name = string.Format(
-                        Labels.DynamicReport_PeriodReport_Title,
-                        Labels.Daily,
-                        periodGroup.Key),
-                    ShortName = periodGroup.Key.ToString(),
-                    ChildReports = new List<DynamicReportInfo>()
-                };
-
-                foreach (var data in periodGroup)
-                {
-                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
-                    periodReport.ChildReports.Add(data);
-                }
-
-                periodReport.TotalChildReports = periodReport.ChildReports.Count;
-                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
-                dynamicReport.ChildReports.Add(periodReport);
-            }
-
+            GetDynamicReportInfoByGroup(periodGroups, ref dynamicReport, Labels.Daily);
             return dynamicReport;
         }
 
@@ -808,10 +762,10 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
             exportExcelInfo.CurrentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
             exportExcelInfo.CurrentRow++;
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
@@ -918,7 +872,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                         exportExcelInfo.StartColumn,
                         exportExcelInfo.MaxColumnIndex);
                     NpoiExcelExtensions.RenderMergedCells(
-                        ref exportExcelInfo,
+                        exportExcelInfo,
                         cellRangeAddress,
                         string.Format("{0} [{1}]", periodReport.Name, childsLength),
                         periodGroupTitleStyle);
@@ -1045,6 +999,41 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
             }
 
             return pagingLogList;
+        }
+
+        /// <summary>
+        /// Gets the dynamic report information by group.
+        /// </summary>
+        /// <param name="periodGroups">The period groups.</param>
+        /// <param name="dynamicReport">The dynamic report.</param>
+        /// <param name="groupTypeName">Name of the group type.</param>
+        private void GetDynamicReportInfoByGroup(
+            IEnumerable<IGrouping<string, DynamicReportInfo>> periodGroups,
+            ref DynamicReportInfo dynamicReport,
+            string groupTypeName)
+        {
+            foreach (var periodGroup in periodGroups)
+            {
+                var periodReport = new DynamicReportInfo
+                {
+                    Name = string.Format(
+                        Labels.DynamicReport_PeriodReport_Title,
+                        groupTypeName,
+                        periodGroup.Key),
+                    ShortName = periodGroup.Key.ToString(),
+                    ChildReports = new List<DynamicReportInfo>()
+                };
+
+                foreach (var data in periodGroup)
+                {
+                    data.PeriodRange.FromDateString = data.PeriodRange.FromDate.ToLongFormatedDateTime();
+                    periodReport.ChildReports.Add(data);
+                }
+
+                periodReport.TotalChildReports = periodReport.ChildReports.Count;
+                dynamicReport.TotalChildReports += periodReport.TotalChildReports;
+                dynamicReport.ChildReports.Add(periodReport);
+            }
         }
     }
 }

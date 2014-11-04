@@ -247,14 +247,8 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             {
                 RunningNumber = reader.GetInt32NotNull("FeedbackID"),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDateTime(),
-                MainCategory = new SettingInfo
-                {
-                    Name = reader.GetStringNotNull("MainCategory")
-                },
-                SubCategory = new SettingInfo
-                {
-                    Name = reader.GetStringNotNull("SubCategory")
-                },
+                MainCategory = new SettingInfo { Name = reader.GetStringNotNull("MainCategory") },
+                SubCategory = new SettingInfo { Name = reader.GetStringNotNull("SubCategory") },
                 Subject = reader.GetStringNotNull("Subject"),
                 StatusName = reader.GetStringNotNull("Status"),
                 Duration = new TimeInfo

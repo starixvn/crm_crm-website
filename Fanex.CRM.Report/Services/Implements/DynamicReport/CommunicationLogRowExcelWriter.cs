@@ -72,11 +72,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
-            NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
-                cellRangeAddress,
-                infoIndex + 1,
-                _centerIntStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, infoIndex + 1, _centerIntStyle);
             exportExcelInfo.CurrentColumn++;
 
             cellRangeAddress = new CellRangeAddress(
@@ -85,7 +81,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
             NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
+                exportExcelInfo,
                 cellRangeAddress,
                 info.RunningNumber,
                 _textStyle);
@@ -97,7 +93,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
             NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
+                exportExcelInfo,
                 cellRangeAddress,
                 info.PeriodRange.FromDate.ToShortFormatedDate() + "\n" + info.PeriodRange.FromDate.ToLongTimeString(),
                 _centerTextStyle);
@@ -109,7 +105,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
             NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
+                exportExcelInfo,
                 cellRangeAddress,
                 info.MainCategory.Name + "\n" + info.SubCategory.Name,
                 _textStyle);
@@ -121,7 +117,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
             NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
+                exportExcelInfo,
                 cellRangeAddress,
                 info.Subject,
                 _textStyle);
@@ -133,7 +129,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
             NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
+                exportExcelInfo,
                 cellRangeAddress,
                 info.StatusName,
                 _centerTextStyle);
@@ -145,7 +141,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
             NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
+                exportExcelInfo,
                 cellRangeAddress,
                 string.Format(Labels.Format_Duration, info.Duration.Hours, info.Duration.Minutes, info.Duration.Seconds),
                 _centerTextStyle);
@@ -157,7 +153,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
             NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
+                exportExcelInfo,
                 cellRangeAddress,
                 info.Username,
                 _textStyle);
@@ -169,7 +165,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
             NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
+                exportExcelInfo,
                 cellRangeAddress,
                 info.Handler,
                 _textStyle);
@@ -181,7 +177,7 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
                 exportExcelInfo.CurrentColumn,
                 exportExcelInfo.CurrentColumn);
             NpoiExcelExtensions.RenderMergedCells(
-                ref exportExcelInfo,
+                exportExcelInfo,
                 cellRangeAddress,
                 info.Reviewer,
                 _textStyle);

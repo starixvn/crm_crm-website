@@ -11,15 +11,14 @@ namespace Fanex.CRM.Redemption.Criteria
 {
     using System;
     using System.Collections;
-    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Common.Criteria;
     using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.Data.Repository;
 
     /// <summary>
     /// Insert Log Criteria.
     /// </summary>
-    public class InsertLogCriteria : CriteriaBase
+    public class InsertLogCriteria : UpdateCriteria
     {
         [SpParam(SqlParamName = "custid")]
         public int CustomerId { get; set; }
@@ -35,30 +34,6 @@ namespace Fanex.CRM.Redemption.Criteria
 
         [SpParam(SqlParamName = "statusid")]
         public int StatusId { get; set; }
-
-        [SpParam(SqlParamName = "userid")]
-        public int UserId
-        {
-            get
-            {
-                return AppSession.CurrentUser.Id;
-            }
-        }
-
-        [SpParam(SqlParamName = "ip")]
-        public string IP
-        {
-            get
-            {
-                return Helper.GetClientIP();
-            }
-        }
-
-        [SpParam(SqlParamName = "errcode")]
-        public int ErrorCode { get; set; }
-
-        [SpParam(SqlParamName = "errmsg")]
-        public string ErrorMessage { get; set; }
 
         /// <summary>
         /// Gets the SP parameters.

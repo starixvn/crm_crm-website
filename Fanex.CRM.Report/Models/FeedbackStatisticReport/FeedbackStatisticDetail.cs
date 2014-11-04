@@ -11,6 +11,7 @@ namespace Fanex.CRM.Report.Models.FeedbackStatisticReport
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
 
     /// <summary>
     /// Feedback statistic detail.

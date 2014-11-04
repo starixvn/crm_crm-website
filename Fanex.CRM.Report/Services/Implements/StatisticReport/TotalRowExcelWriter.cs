@@ -21,35 +21,42 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
     /// </summary>
     public class TotalRowExcelWriter
     {
-        private ICellStyle _intStyle;
-        private ICellStyle _textStyle;
-        private ICellStyle _centerTextStyle;
         private ExportExcelInfo _exportExcelInfo;
         private short _rowBackgroundColorIndex;
         private bool _isBoldRow = true;
+
+        public TotalRowExcelWriter()
+        {
+        }
 
         public TotalRowExcelWriter(ExportExcelInfo exportExcelInfo)
         {
             _exportExcelInfo = exportExcelInfo;
             _rowBackgroundColorIndex = NpoiExcelExtensions.TotalRowColorIndex;
 
-            _intStyle = NpoiExcelExtensions.IntNumberStyle(
+            IntStyle = NpoiExcelExtensions.IntNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 _isBoldRow,
                 CRMHorizontalAlignment.Right);
 
-            _textStyle = NpoiExcelExtensions.TextStyle(
+            TextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 _isBoldRow,
                 CRMHorizontalAlignment.Left);
-            _centerTextStyle = NpoiExcelExtensions.TextStyle(
+            CenterTextStyle = NpoiExcelExtensions.TextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 _isBoldRow,
                 CRMHorizontalAlignment.Center);
         }
+
+        public ICellStyle IntStyle { get; set; }
+
+        public ICellStyle TextStyle { get; set; }
+
+        public ICellStyle CenterTextStyle { get; set; }
 
         /// <summary>
         /// Exports the dynamic report row.
@@ -59,27 +66,21 @@ namespace Fanex.CRM.Report.Services.Implements.DynamicReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public void WriteRow(
-            ref ExportExcelInfo exportExcelInfo,
-            StatisticReportInfo info)
+        public void WriteRow(ref ExportExcelInfo exportExcelInfo, StatisticReportInfo info)
         {
             var row = exportExcelInfo.Worksheet.GetRow(exportExcelInfo.CurrentRow) ?? exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             var currentColumn = exportExcelInfo.CurrentColumn;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.ShortName, _textStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, string.Empty, _centerTextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.ShortName, TextStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, string.Empty, CenterTextStyle);
 
             var countryLength = info.ChildReports.Count;
             for (var i = 0; i < countryLength; i++)
             {
                 var countryReport = info.ChildReports[i];
-                NpoiExcelExtensions.RenderCell(
-                    ref row,
-                    ref currentColumn,
-                    countryReport.NumberOfIssues,
-                    _intStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, countryReport.NumberOfIssues, IntStyle);
             }
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, (int)info.NumberOfIssues, _intStyle);
+            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, (int)info.NumberOfIssues, IntStyle);
             exportExcelInfo.CurrentRow += 1;
         }
     }

@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Report.Services.Implements.SummaryReport
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
@@ -31,7 +32,6 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
     using Fanex.CRM.Setting.Services.Interfaces;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
 
     /// <summary>
     /// SummaryReportService class.
@@ -264,39 +264,14 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         /// <param name="title">The title.</param>
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
-            int currentColumn = exportExcelInfo.StartColumn;
-            int currentRow = exportExcelInfo.CurrentRow;
-            int monthColWidth = 80 * NpoiExcelExtensions.FontWidth;
-
             NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
             ISheet worksheet = exportExcelInfo.Worksheet;
-            worksheet.SetColumnWidth(currentColumn++, 300 * NpoiExcelExtensions.FontWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
-            worksheet.SetColumnWidth(currentColumn++, monthColWidth);
+            var columnWidths = new List<int>() { 300 };
+            columnWidths.AddRange(Enumerable.Repeat(80, 12));
+            exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
-            CellRangeAddress cellRangeAddress = new CellRangeAddress(
-            currentRow,
-            currentRow + 1,
-            exportExcelInfo.StartColumn,
-            exportExcelInfo.MaxColumnIndex);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, title, headerStyle);
-            currentRow += 2;
-
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, currentRow);
-            currentRow++;
-
-            exportExcelInfo.CurrentRow = currentRow;
+            exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
         /// <summary>
@@ -437,20 +412,12 @@ namespace Fanex.CRM.Report.Services.Implements.SummaryReport
         /// <returns>ICellStyle object.</returns>
         private ICellStyle GetCategoryCellStyle(HSSFWorkbook workbook)
         {
-            ICellStyle cellStyle = NpoiExcelExtensions.TextStyle(
-            workbook,
-            NpoiExcelExtensions.GroupBackgroundColorIndex,
-            true,
-            CRMHorizontalAlignment.Left);
-            var font = workbook.CreateFont();
-            font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
-            font.FontName = NpoiExcelExtensions.FontName;
-            font.Color = NpoiExcelExtensions.GroupColorIndex;
-            font.Boldweight = (short)FontBoldWeight.Bold;
-            cellStyle.SetFont(font);
-            NpoiExcelExtensions.SetBorderToCell(cellStyle);
-
-            return cellStyle;
+            return NpoiExcelExtensions.TextStyle(
+                workbook,
+                NpoiExcelExtensions.GroupBackgroundColorIndex,
+                true,
+                CRMHorizontalAlignment.Left,
+                NpoiExcelExtensions.GroupColorIndex);
         }
 
         /// <summary>

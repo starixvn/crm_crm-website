@@ -13,6 +13,7 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Infrastructure.Core;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
@@ -25,7 +26,7 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
     /// <summary>
     /// Redemption Log Repository.
     /// </summary>
-    public class RedemptionLogRepository : IRedemptionLogRepository
+    public class RedemptionLogRepository : BaseRepository, IRedemptionLogRepository
     {
         /// <summary>
         /// Gets the logs by customer identifier.
@@ -88,20 +89,7 @@ namespace Fanex.CRM.Redemption.Repositories.Implements
         /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
-            Result updateResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                updateResult = new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return updateResult;
+            return RunSP(criteria);
         }
 
         /// <summary>

@@ -38,6 +38,8 @@ bin
 /Fanex.CRM.Report/obj
 /Fanex.CRM.AdminTool/bin
 /Fanex.CRM.AdminTool/obj
+/Fanex.CRM.Common/bin
+/Fanex.CRM.Common/obj
 /*StyleCop.Cache
 
 /Fanex.CRM.ActionLog/*.Cache
@@ -58,6 +60,7 @@ bin
 /Fanex.CRM.Web.Controllers/*.Cache
 /Fanex.CRM.Web.Models/*.Cache
 /Fanex.CRM.Web.Presentation/*.Cache
+/Fanex.CRM.Common/*.Cache
 /Fanex.CRM.Feedback/obj
 /Fanex.CRM.5.1.ReSharper.user
 /Fanex.CRM.suo.orig
@@ -70,3 +73,5 @@ bin
 /Fanex.CRM.Service.Interface/Fanex.CRM.Service.Interface.csproj.vspscc
 /Fanex.CRM.Web.Controllers/Fanex.CRM.Web.Controllers.csproj.vspscc
 /Fanex.CRM.Web.Models/Fanex.CRM.Web.Models.csproj.vspscc
+
+

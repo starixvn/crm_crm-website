@@ -236,8 +236,6 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
         {
             try
             {
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
                 StatisticReportInfo statisticReport = CacheService.Get<StatisticReportInfo>(StatisticReportSessionKey);
                 criteria.IsGetFullReport = true;
                 if (statisticReport == null)
@@ -245,6 +243,8 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                     statisticReport = GetStatisticReport(criteria);
                 }
 
+                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
                 ExportExcelInfo exportExcelInfo = new ExportExcelInfo
                 {
                     ExcelFile = new HSSFWorkbook(),
@@ -293,18 +293,14 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             GetStatisticReportCriteria criteria)
         {
             var countryLength = countryDictionary.Count;
+            var fromDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate();
+            var toDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate();
+
             StatisticReportInfo statisticReport = new StatisticReportInfo
             {
                 ChildReports = new List<StatisticReportInfo>(),
-                Name = string.Format(
-                    Labels.StatisticReport_Title,
-                    Labels.Monthly,
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
-                ShortName = string.Format(
-                    Labels.StatisticReport_ShortTitle,
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
+                Name = string.Format(Labels.StatisticReport_Title, Labels.Monthly, fromDateClient, toDateClient),
+                ShortName = string.Format(Labels.StatisticReport_ShortTitle, fromDateClient, toDateClient),
                 Total = new StatisticReportInfo
                 {
                     ShortName = Labels.Grand_Total,
@@ -312,8 +308,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 }
             };
 
-            if (rawData == null ||
-                rawData.Count == 0)
+            if (rawData == null || !rawData.Any())
             {
                 return statisticReport;
             }
@@ -358,31 +353,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                         ChildReports = GetDummyCountryList(countryLength, countryList, false)
                     };
 
-                    foreach (var timeData in timeGroup)
-                    {
-                        var countryIndex = countryDictionary[timeData.CountryId];
-                        var reportInfo = new StatisticReportInfo
-                        {
-                            HasData = true,
-                            NumberOfIssues = timeData.NumberOfIssues
-                        };
-
-                        if (!timeReport.ChildReports[countryIndex].HasData)
-                        {
-                            timeReport.ChildReports[countryIndex] = reportInfo;
-                        }
-                        else
-                        {
-                            timeReport.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
-                        }
-
-                        timeReport.NumberOfIssues += reportInfo.NumberOfIssues;
-                        dateReport.Total.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
-                        statisticReport.Total.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
-                    }
-
-                    dateReport.Total.NumberOfIssues += timeReport.NumberOfIssues;
-                    dateReport.ChildReports.Add(timeReport);
+                    GetTimeReport(timeGroup.ToList(), countryDictionary, ref timeReport, ref statisticReport, ref dateReport);
                 }
 
                 statisticReport.Total.NumberOfIssues += dateReport.Total.NumberOfIssues;
@@ -412,18 +383,14 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
             GetStatisticReportCriteria criteria)
         {
             var countryLength = countryDictionary.Count;
+            var fromDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate();
+            var toDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate();
+
             StatisticReportInfo statisticReport = new StatisticReportInfo
             {
                 ChildReports = new List<StatisticReportInfo>(),
-                Name = string.Format(
-                    Labels.StatisticReport_Title,
-                    Labels.Daily,
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
-                ShortName = string.Format(
-                    Labels.StatisticReport_ShortTitle,
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
+                Name = string.Format(Labels.StatisticReport_Title, Labels.Daily, fromDateClient, toDateClient),
+                ShortName = string.Format(Labels.StatisticReport_ShortTitle, fromDateClient, toDateClient),
                 Total = new StatisticReportInfo
                 {
                     ShortName = Labels.Grand_Total,
@@ -431,13 +398,12 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 }
             };
 
-            if (rawData == null ||
-                rawData.Count == 0)
+            if (rawData == null || !rawData.Any())
             {
                 return statisticReport;
             }
 
-            var dateGroups = rawData.GroupBy(data => data.DateTime.ToShortFormatedDate());
+            var dateGroups = rawData.GroupBy(data => DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.DateTime).ToShortFormatedDate());
             foreach (var dateGroup in dateGroups)
             {
                 var dateReport = new StatisticReportInfo
@@ -464,31 +430,7 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                         ChildReports = GetDummyCountryList(countryLength, countryList, false)
                     };
 
-                    foreach (var timeData in timeGroup)
-                    {
-                        var countryIndex = countryDictionary[timeData.CountryId];
-                        var reportInfo = new StatisticReportInfo
-                        {
-                            HasData = true,
-                            NumberOfIssues = timeData.NumberOfIssues
-                        };
-
-                        if (!timeReport.ChildReports[countryIndex].HasData)
-                        {
-                            timeReport.ChildReports[countryIndex] = reportInfo;
-                        }
-                        else
-                        {
-                            timeReport.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
-                        }
-
-                        timeReport.NumberOfIssues += reportInfo.NumberOfIssues;
-                        dateReport.Total.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
-                        statisticReport.Total.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
-                    }
-
-                    dateReport.Total.NumberOfIssues += timeReport.NumberOfIssues;
-                    dateReport.ChildReports.Add(timeReport);
+                    GetTimeReport(timeGroup.ToList(), countryDictionary, ref timeReport, ref statisticReport, ref dateReport);
                 }
 
                 statisticReport.Total.NumberOfIssues += dateReport.Total.NumberOfIssues;
@@ -749,10 +691,10 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
                 exportExcelInfo.CurrentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(ref exportExcelInfo, cellRangeAddress, reportTitle, leftHeaderStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, leftHeaderStyle);
             exportExcelInfo.CurrentRow += 2;
 
-            NpoiExcelExtensions.RenderEmptyRow(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+            NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, exportExcelInfo.CurrentRow);
             exportExcelInfo.CurrentRow++;
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
@@ -767,6 +709,48 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
 
             NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Total, headerStyle);
             exportExcelInfo.CurrentRow++;
+        }
+
+        /// <summary>
+        /// Gets the time report.
+        /// </summary>
+        /// <param name="timeGroup">The time group.</param>
+        /// <param name="countryDictionary">The country dictionary.</param>
+        /// <param name="timeReport">The time report.</param>
+        /// <param name="statisticReport">The statistic report.</param>
+        /// <param name="dateReport">The date report.</param>
+        private void GetTimeReport(
+            List<StatisticReportEntity> timeGroup,
+            Dictionary<int, int> countryDictionary,
+            ref StatisticReportInfo timeReport,
+            ref StatisticReportInfo statisticReport,
+            ref StatisticReportInfo dateReport)
+        {
+            foreach (var timeData in timeGroup)
+            {
+                var countryIndex = countryDictionary[timeData.CountryId];
+                var reportInfo = new StatisticReportInfo
+                {
+                    HasData = true,
+                    NumberOfIssues = timeData.NumberOfIssues
+                };
+
+                if (!timeReport.ChildReports[countryIndex].HasData)
+                {
+                    timeReport.ChildReports[countryIndex] = reportInfo;
+                }
+                else
+                {
+                    timeReport.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
+                }
+
+                timeReport.NumberOfIssues += reportInfo.NumberOfIssues;
+                dateReport.Total.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
+                statisticReport.Total.ChildReports[countryIndex].NumberOfIssues += reportInfo.NumberOfIssues;
+            }
+
+            dateReport.Total.NumberOfIssues += timeReport.NumberOfIssues;
+            dateReport.ChildReports.Add(timeReport);
         }
     }
 }

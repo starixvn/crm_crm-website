@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Setting.Repositories.Implements
 {
     using System.Collections.Generic;
+    using Fanex.Common;
     using Fanex.CRM.Infrastructure.Extension;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
@@ -39,12 +40,12 @@ namespace Fanex.CRM.Setting.Repositories.Implements
                     {
                         while (reader.Read())
                         {
-                            allsetting.Add(new SettingInfo()
+                            allsetting.Add(new SettingInfo
                             {
-                                Id = reader.GetInt32NotNull("SettingId"),
-                                Type = reader.GetStringNotNull("SettingName"),
-                                Value = reader.GetStringNotNull("SettingValue"),
-                                DisplayOrder = reader.GetInt32NotNull("DisplayOrder")
+                                Id = Converter.ToInt(reader["settingid"], 0),
+                                Type = Converter.ToString2(reader["settingname"]),
+                                Value = Converter.ToString2(reader["settingvalue"]),
+                                DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
                             });
                         }
                     }

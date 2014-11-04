@@ -13,6 +13,7 @@ namespace Fanex.CRM.Feedback.Repositories
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Infrastructure.Core;
