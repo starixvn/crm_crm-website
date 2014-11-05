@@ -7,13 +7,12 @@
 //   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
 // </history>
 
-namespace Fanex.CRM.ActionLog.Repositories.Implements
+namespace Fanex.CRM.ActionLog.Repositories
 {
     using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
-    using Fanex.CRM.ActionLog.Repositories.Interfaces;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.Data;

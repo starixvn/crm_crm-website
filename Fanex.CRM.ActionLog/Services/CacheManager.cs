@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.03.04">Created</change>
 // </history>
 
-namespace Fanex.CRM.ActionLog.Services.Implements
+namespace Fanex.CRM.ActionLog.Services
 {
     using System;
     using System.Collections.Generic;
@@ -25,35 +25,35 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     {
         private const string GetAllSettingSessionKey = "Fanex.CRM.ActionLog.GetAllSettingSessionKey";
 
-        private static readonly ISettingService SettingServiceInstance;
-
-        static CacheManager()
-        {
-            SettingServiceInstance = SettingServiceInstance ?? new SettingService();
-        }
+        private static readonly ISettingService SettingServiceInstance = new SettingService();
 
         /// <summary>
-        /// Gets all setting.
+        /// Gets all settings.
         /// </summary>
-        /// <returns>The hash table.</returns>
-        public static IDictionary<string, string> GetAllSetting()
+        /// <value>
+        /// All settings.
+        /// </value>
+        public static IDictionary<string, string> AllSettings
         {
-            string key = GetAllSettingSessionKey;
-            return Get<IDictionary<string, string>>(
-                key,
-                () =>
-                {
-                    var countries = SettingServiceInstance.GetAllCountry()
-                        .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, Type = "Country" });
+            get
+            {
+                string key = GetAllSettingSessionKey;
+                return Get<IDictionary<string, string>>(
+                    key,
+                    () =>
+                    {
+                        var countries = SettingServiceInstance.GetAllCountry()
+                            .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, Type = "Country" });
 
-                    var settings = SettingServiceInstance.GetAllSetting();
-                    settings.AddRange(countries);
+                        var settings = SettingServiceInstance.GetAllSetting();
+                        settings.AddRange(countries);
 
-                    // Add default N/A
-                    settings.Add(new SettingInfo { Id = 0, Value = Labels.NA });
+                        // Add default N/A
+                        settings.Add(new SettingInfo { Id = 0, Value = Labels.NA });
 
-                    return ListToHash(settings);
-                });
+                        return ListToHash(settings);
+                    });
+            }
         }
 
         /// <summary>

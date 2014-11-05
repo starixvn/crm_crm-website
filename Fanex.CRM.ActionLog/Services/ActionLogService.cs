@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
 // </history>
 
-namespace Fanex.CRM.ActionLog.Services.Implements
+namespace Fanex.CRM.ActionLog.Services
 {
     using System;
     using System.Collections.Generic;
@@ -16,9 +16,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using System.Xml;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
-    using Fanex.CRM.ActionLog.Repositories.Implements;
-    using Fanex.CRM.ActionLog.Repositories.Interfaces;
-    using Fanex.CRM.ActionLog.Services.Interfaces;
+    using Fanex.CRM.ActionLog.Repositories;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Helpers;
@@ -45,7 +43,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         public ActionLogService(IActionLogRepository actionLogRepository)
         {
             _actionLogRepository = actionLogRepository ?? new ActionLogRepository();
-            _settingHash = CacheManager.GetAllSetting();
+            _settingHash = CacheManager.AllSettings;
             _actionLogKeyHash = AppSetting.ActionLogKey;
             _actionLogBoolValueHash = AppSetting.ActionLogBoolValue;
         }
@@ -85,7 +83,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                return null;
+                throw;
             }
         }
 
@@ -126,7 +124,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                return null;
+                throw;
             }
         }
 
@@ -222,7 +220,7 @@ namespace Fanex.CRM.ActionLog.Services.Implements
         /// </returns>
         private string GetSettingValue(string key, string value, ref string fieldName)
         {
-            string keyLower = key.ToLowerInvariant();
+            string keyLower = key.ToUpperInvariant();
 
             // Convert bit value (1/0) to Yes/No.
             string[] boolValues;

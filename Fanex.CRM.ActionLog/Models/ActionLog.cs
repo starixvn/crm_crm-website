@@ -19,7 +19,7 @@ namespace Fanex.CRM.ActionLog.Models
     [Serializable]
     public abstract class ActionLog
     {
-        public ActionLog()
+        protected ActionLog()
         {
             FieldNames = new List<string>(10);
             OldValuesList = new List<string>(10);

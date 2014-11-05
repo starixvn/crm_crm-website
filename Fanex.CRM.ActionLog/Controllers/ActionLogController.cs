@@ -11,8 +11,7 @@ namespace Fanex.CRM.ActionLog.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.ActionLog.Criteria;
-    using Fanex.CRM.ActionLog.Services.Implements;
-    using Fanex.CRM.ActionLog.Services.Interfaces;
+    using Fanex.CRM.ActionLog.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.NAP.Core.Business;

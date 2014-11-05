@@ -85,10 +85,10 @@ namespace Fanex.CRM.Common.Services
                         .Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string item in stringArray)
                     {
-                        string lowerKey = item.ToLowerInvariant();
-                        if (!actionLogKeyHash.ContainsKey(lowerKey))
+                        string upperKey = item.ToUpperInvariant();
+                        if (!actionLogKeyHash.ContainsKey(upperKey))
                         {
-                            actionLogKeyHash.Add(lowerKey, true);
+                            actionLogKeyHash.Add(upperKey, true);
                         }
                     }
                 }
@@ -110,10 +110,10 @@ namespace Fanex.CRM.Common.Services
                         .Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string item in stringArray)
                     {
-                        string lowerKey = item.ToLowerInvariant();
-                        if (!actionLogBoolValueHash.ContainsKey(lowerKey))
+                        string upperKey = item.ToUpperInvariant();
+                        if (!actionLogBoolValueHash.ContainsKey(upperKey))
                         {
-                            actionLogBoolValueHash.Add(lowerKey, boolValue);
+                            actionLogBoolValueHash.Add(upperKey, boolValue);
                         }
                     }
                 }

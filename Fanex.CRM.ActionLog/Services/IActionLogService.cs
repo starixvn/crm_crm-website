@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.02.14">Created</change>
 // </history>
 
-namespace Fanex.CRM.ActionLog.Services.Interfaces
+namespace Fanex.CRM.ActionLog.Services
 {
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
