@@ -12,7 +12,7 @@ namespace Fanex.CRM.Redemption.Criteria
     using System;
     using System.Collections;
     using Fanex.CRM.Common.Criteria;
-    using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.Data.Repository;
 
     /// <summary>

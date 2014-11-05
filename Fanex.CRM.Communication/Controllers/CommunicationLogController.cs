@@ -10,13 +10,14 @@
 namespace Fanex.CRM.Communication.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services.Implements;
     using Fanex.CRM.Communication.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
     using Fanex.NAP.Core.Business;

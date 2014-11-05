@@ -13,8 +13,8 @@ namespace Fanex.CRM.ActionLog.Services.Implements
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.CRM.ActionLog.Resources;
-    using Fanex.CRM.Infrastructure.Service.Implements;
-    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
 

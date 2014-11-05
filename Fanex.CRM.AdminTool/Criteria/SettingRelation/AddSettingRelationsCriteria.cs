@@ -12,9 +12,9 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
 {
     using System.Collections;
     using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
     /// <summary>

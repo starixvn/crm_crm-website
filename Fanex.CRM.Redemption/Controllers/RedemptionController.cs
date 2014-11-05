@@ -10,8 +10,8 @@
 namespace Fanex.CRM.Redemption.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Services.Implements;
     using Fanex.CRM.Redemption.Services.Interfaces;

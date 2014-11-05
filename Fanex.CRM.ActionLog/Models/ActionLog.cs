@@ -11,7 +11,7 @@ namespace Fanex.CRM.ActionLog.Models
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Common.Helpers;
 
     /// <summary>
     /// Action Log class.

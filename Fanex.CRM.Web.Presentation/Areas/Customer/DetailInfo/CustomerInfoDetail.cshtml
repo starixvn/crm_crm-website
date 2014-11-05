@@ -1,8 +1,8 @@
 @using Fanex.CRM.Customer.Resources;
 @using Fanex.CRM.Customer.Models;
 @using Newtonsoft.Json;
-@using Fanex.CRM.Infrastructure.Extension;
-@using Fanex.CRM.Infrastructure.Core;
+@using Fanex.CRM.Infrastructure.Extensions;
+@using Fanex.CRM.Common.Helpers;
 @model CustomerInfo
 @{
     var jsonCustomerDetail = JsonConvert.SerializeObject(Model);

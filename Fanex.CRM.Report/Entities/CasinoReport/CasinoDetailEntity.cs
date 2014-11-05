@@ -10,9 +10,8 @@
 namespace Fanex.CRM.Report.Entities.CasinoReport
 {
     using System;
-    using Fanex.CRM.Infrastructure.Core;
-    using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Helper;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Report.Resources;
 
     /// <summary>

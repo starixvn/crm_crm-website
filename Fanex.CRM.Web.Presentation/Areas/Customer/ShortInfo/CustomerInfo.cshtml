@@ -1,9 +1,8 @@
 ﻿@using Fanex.CRM.Customer.Resources;
 @using Fanex.CRM.Setting.Constants;
 @using Fanex.NAP.Core.Business;
-@using Fanex.CRM.Infrastructure.Common;
-@using Fanex.CRM.Infrastructure.Service.Interfaces;
-@using Fanex.CRM.Infrastructure.Service.Implements;
+@using Fanex.CRM.Common.Constants;
+@using Fanex.CRM.Common.Services;
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-application">
 <head>
@@ -222,7 +221,7 @@
     @Scripts.Render("~/Areas/ShortCustomerInfo/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var accId = @(Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser != null ? Fanex.CRM.Infrastructure.Common.AppSession.CurrentUser.Id : 0);
+        var accId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
         var viewResources = {             
             Confirm_Ignore_EditCustomer_ChangesLeftPanel: '@Html.Raw(Resources.Language.Confirm_Ignore_EditCustomer_ChangesLeftPanel)'
         }; 

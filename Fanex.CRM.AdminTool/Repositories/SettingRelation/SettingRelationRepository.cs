@@ -13,8 +13,8 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
     using System.Collections.Generic;
     using Fanex.Common;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
     using Fanex.Data;
 
     /// <summary>

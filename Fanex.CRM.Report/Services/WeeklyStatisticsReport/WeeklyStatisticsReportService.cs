@@ -9,8 +9,7 @@
 
 namespace Fanex.CRM.Report.Services.WeeklyStatisticsReport
 {
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Service.Implements;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.StatisticByDateReport;
 

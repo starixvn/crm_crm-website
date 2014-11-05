@@ -10,11 +10,12 @@
 namespace Fanex.CRM.Dashboard.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Services.Implements;
     using Fanex.CRM.Dashboard.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 

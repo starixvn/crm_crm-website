@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Report.Repositories.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Models.CustomerReport;
     using Fanex.CRM.Setting.Models;

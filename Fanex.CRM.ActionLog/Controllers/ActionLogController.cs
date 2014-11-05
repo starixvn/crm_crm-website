@@ -13,8 +13,8 @@ namespace Fanex.CRM.ActionLog.Controllers
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Services.Implements;
     using Fanex.CRM.ActionLog.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Controllers;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 

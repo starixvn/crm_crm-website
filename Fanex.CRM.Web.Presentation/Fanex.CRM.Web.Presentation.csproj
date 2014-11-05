@@ -1094,10 +1094,6 @@
       <Project>{84334DCC-E886-4EFE-BE80-ADE24CB9E8D5}</Project>
       <Name>Fanex.CRM.Communication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
-      <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
-      <Name>Fanex.CRM.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Dashboard\Fanex.CRM.Dashboard.csproj">
       <Project>{9F1C3F6A-EE19-4A5C-A7FB-85CB926C65E0}</Project>
       <Name>Fanex.CRM.Dashboard</Name>
@@ -1105,6 +1101,10 @@
     <ProjectReference Include="..\Fanex.CRM.Feedback\Fanex.CRM.Feedback.csproj">
       <Project>{E059D093-3D6B-46C9-9FFD-FD48457AC639}</Project>
       <Name>Fanex.CRM.Feedback</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Infrastructure\Fanex.CRM.Infrastructure.csproj">
+      <Project>{D7C7BD95-04A3-49AA-B486-16DD746B76F8}</Project>
+      <Name>Fanex.CRM.Infrastructure %28Modules\Fanex.CRM.Infrastructure%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Redemption\Fanex.CRM.Redemption.csproj">
       <Project>{361FC5FA-9D45-460C-A3BF-076C5E9DBB93}</Project>

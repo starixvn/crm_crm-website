@@ -10,8 +10,8 @@
 namespace Fanex.CRM.Communication.Criteria
 {
     using System.Collections;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
     /// <summary>

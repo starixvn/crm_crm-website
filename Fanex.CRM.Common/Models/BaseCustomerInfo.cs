@@ -13,7 +13,6 @@ namespace Fanex.CRM.Common.Models
     using System.Collections.Generic;
     using Fanex.CRM.Common.Resources;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Base Customer Information.

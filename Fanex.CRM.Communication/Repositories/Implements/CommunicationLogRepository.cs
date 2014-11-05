@@ -14,15 +14,14 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Common;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Communication.Repositories.Interfaces;
-    using Fanex.CRM.Infrastructure.Core;
-    using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
     using Fanex.Data;
 
     /// <summary>

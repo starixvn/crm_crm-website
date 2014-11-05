@@ -11,13 +11,13 @@ namespace Fanex.CRM.Feedback.Services
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Repositories;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
-    using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
 

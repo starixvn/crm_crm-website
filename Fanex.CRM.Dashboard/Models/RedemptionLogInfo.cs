@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Dashboard.Models
 {
     using System;
-    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Common.Models;
 
     /// <summary>
     /// Redemption Log Information.

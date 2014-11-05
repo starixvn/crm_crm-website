@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Report.Services.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.DynamicReport;
     using Fanex.CRM.Report.Models;
     using Fanex.CRM.Setting.Models;

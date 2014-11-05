@@ -11,6 +11,7 @@ namespace Fanex.CRM.Communication.Services.Implements
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
@@ -18,13 +19,11 @@ namespace Fanex.CRM.Communication.Services.Implements
     using Fanex.CRM.Communication.Repositories.Interfaces;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Core;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Constants;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
-    using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
 

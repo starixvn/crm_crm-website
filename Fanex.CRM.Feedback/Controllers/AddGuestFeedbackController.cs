@@ -11,10 +11,11 @@
 namespace Fanex.CRM.Feedback.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services.AddCustomerFeedback;
-    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;

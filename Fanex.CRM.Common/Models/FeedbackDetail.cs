@@ -11,7 +11,7 @@ namespace Fanex.CRM.Common.Models
 {
     using System;
     using System.Web.Script.Serialization;
-    using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Common.Helpers;
 
     /// <summary>
     /// Feedback detail.

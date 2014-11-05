@@ -13,10 +13,10 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using System.Collections.Generic;
     using System.Data;
     using Fanex.Common;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Customer.Repositories.Interfaces;
-    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;

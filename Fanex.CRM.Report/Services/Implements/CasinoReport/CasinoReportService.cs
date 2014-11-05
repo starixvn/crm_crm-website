@@ -13,12 +13,12 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
-    using Fanex.CRM.Infrastructure.Core;
-    using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models.Npoi;
+    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Report.Criteria.CasinoReport;
     using Fanex.CRM.Report.Entities.CasinoReport;
     using Fanex.CRM.Report.Models.CasinoReport;

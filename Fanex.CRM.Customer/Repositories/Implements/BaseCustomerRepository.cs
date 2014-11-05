@@ -17,7 +17,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories.Interfaces;
-    using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
     using Fanex.Data;

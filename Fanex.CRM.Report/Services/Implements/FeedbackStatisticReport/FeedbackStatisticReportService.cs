@@ -14,12 +14,13 @@ namespace Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Infrastructure.Core;
-    using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Common.Models.Npoi;
+    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
     using Fanex.CRM.Report.Models.FeedbackStatisticReport;
     using Fanex.CRM.Report.Repositories.Implements;

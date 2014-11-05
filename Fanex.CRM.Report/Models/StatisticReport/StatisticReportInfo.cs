@@ -11,8 +11,8 @@ namespace Fanex.CRM.Report.Models.StatisticReport
 {
     using System;
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Statistic Report Information.

@@ -14,24 +14,24 @@ namespace Fanex.CRM.Customer.Services.Implements
     using System.Linq;
     using System.Text;
     using System.Web;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Models.InformHeadlines;
     using Fanex.CRM.Customer.Repositories.Implements;
     using Fanex.CRM.Customer.Repositories.Interfaces;
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Customer.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
     using Fanex.Data.Repository;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
 
     /// <summary>
     /// InformHeadlineService class.

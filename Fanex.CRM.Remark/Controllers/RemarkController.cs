@@ -10,8 +10,8 @@
 namespace Fanex.CRM.Remark.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
     using Fanex.CRM.Remark.Services.Implements;

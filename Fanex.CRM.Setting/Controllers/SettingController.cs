@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Setting.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;

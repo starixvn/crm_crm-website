@@ -9,8 +9,8 @@
 
 namespace Fanex.CRM.Common.Criteria
 {
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Helper;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Services;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>

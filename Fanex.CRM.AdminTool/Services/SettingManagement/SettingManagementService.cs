@@ -16,11 +16,10 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Repositories.SettingManagement;
     using Fanex.CRM.AdminTool.Resources;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Infrastructure.Constants;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Service.Implements;
-    using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
 

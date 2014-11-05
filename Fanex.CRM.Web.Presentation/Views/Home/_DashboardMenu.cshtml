@@ -1,7 +1,6 @@
 ﻿@using Fanex.NAP.Core.Business
-@using Fanex.CRM.Infrastructure.Common
-@using Fanex.CRM.Infrastructure.Service.Interfaces
-@using Fanex.CRM.Infrastructure.Service.Implements
+@using Fanex.CRM.Common.Constants;
+@using Fanex.CRM.Common.Services;
 @{
     IPermissionService permission = new PermissionService();
     bool hasCustomerInfoPermission = permission.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Read);

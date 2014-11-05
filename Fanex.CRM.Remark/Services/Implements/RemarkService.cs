@@ -12,9 +12,9 @@ namespace Fanex.CRM.Remark.Services.Implements
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Text;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Helper;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;

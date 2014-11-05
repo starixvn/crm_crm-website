@@ -10,9 +10,9 @@
 namespace Fanex.CRM.Customer.Criteria.InformHeadlines
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Models.InformHeadlines;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Helper;
     using Fanex.Data.Repository;
 
     /// <summary>

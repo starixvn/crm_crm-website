@@ -14,12 +14,14 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Models.Npoi;
+    using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Infrastructure.Constants;
+    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Models.CustomerReport;
     using Fanex.CRM.Report.Repositories.Interfaces;
@@ -30,7 +32,6 @@ namespace Fanex.CRM.Report.Repositories.Implements.CustomerReport
     using Fanex.CRM.Setting.Services.Interfaces;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
 
     /// <summary>
     /// Customer Report Service.

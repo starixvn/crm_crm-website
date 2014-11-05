@@ -1,17 +1,15 @@
 ﻿﻿@using Fanex.CRM.Report.Resources;
 @using Fanex.CRM.Report.Models;
 @using Fanex.CRM.Report.Models.SummaryReport;
-@using Fanex.CRM.Infrastructure.Extension;
-@using Fanex.CRM.Infrastructure.Core;
-@using Fanex.CRM.Infrastructure.Common;
+@using Fanex.CRM.Infrastructure.Extensions;
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-summaryreport-application">
 <head>
     <title>@Labels.SummaryReport</title>
     @Styles.Render("~/site/common",
-"~/Areas/Report/SummaryReportStyles",
-"~/Content/site/ResultMessageStyles",
-"~/Styles/FanexMultipleSelect")
+        "~/Areas/Report/SummaryReportStyles",
+        "~/Content/site/ResultMessageStyles",
+        "~/Styles/FanexMultipleSelect")
 </head>
 <body>
     <div class="container main" data-ng-controller="summaryReportController">

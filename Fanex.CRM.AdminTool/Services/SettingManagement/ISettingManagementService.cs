@@ -12,8 +12,8 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
 {
     using System.Collections.Generic;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     public interface ISettingManagementService
     {

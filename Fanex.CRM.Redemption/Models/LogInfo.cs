@@ -10,7 +10,7 @@
 namespace Fanex.CRM.Redemption.Models
 {
     using System;
-    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Common.Models;
 
     /// <summary>
     /// Log Information.

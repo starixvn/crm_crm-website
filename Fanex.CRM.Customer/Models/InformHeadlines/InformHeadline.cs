@@ -10,8 +10,7 @@
 namespace Fanex.CRM.Customer.Models.InformHeadlines
 {
     using System;
-    using System.Collections.Generic;
-    using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Common.Helpers;
 
     /// <summary>
     /// InformHeadline model.

@@ -16,10 +16,10 @@ namespace Fanex.CRM.User.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Common;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.CRM.User.Resources;
     using Fanex.NAP.Core.Configuration;
     using Fanex.NAP.Core.Criteria.User;

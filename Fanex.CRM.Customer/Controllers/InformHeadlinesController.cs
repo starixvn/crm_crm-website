@@ -10,13 +10,14 @@
 namespace Fanex.CRM.Customer.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Customer.Services.Implements;
     using Fanex.CRM.Customer.Services.Interfaces;
-    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 

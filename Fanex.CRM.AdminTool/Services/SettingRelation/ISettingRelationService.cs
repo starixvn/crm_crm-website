@@ -12,8 +12,8 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
 {
     using System.Collections.Generic;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     public interface ISettingRelationService
     {

@@ -31,6 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DNAide">
+      <HintPath>..\Dependency\DNAide.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelUtil">
+      <HintPath>..\Dependency\Fanex\ExcelUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Caching">
+      <HintPath>..\Dependency\Fanex\Fanex.Caching.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Fanex\Fanex.Common.dll</HintPath>
@@ -46,9 +55,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Fanex\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\Dependency\NPoi\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,14 +73,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Enumerations.cs" />
+    <Compile Include="Constants\FunctionPermission.cs" />
+    <Compile Include="Constants\UpdateReviewedModeConstants.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Criteria\UpdateCriteria.cs" />
+    <Compile Include="Extensions\GuidExtension.cs" />
+    <Compile Include="Extensions\NpoiExcelExtensions.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Helpers\Check.cs" />
+    <Compile Include="Helpers\DateTimeUtilize.cs" />
+    <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Models\AddressInfo.cs" />
     <Compile Include="Models\BankInfo.cs" />
     <Compile Include="Models\BaseCustomerInfo.cs" />
     <Compile Include="Models\BaseCommunicationLogInfo.cs" />
+    <Compile Include="Models\CountryInfo.cs" />
     <Compile Include="Models\FaxInfo.cs" />
     <Compile Include="Models\FeedbackDetail.cs" />
+    <Compile Include="Models\Npoi\ExcelStyleParam.cs" />
+    <Compile Include="Models\Npoi\ExportExcelInfo.cs" />
     <Compile Include="Models\PhoneInfo.cs" />
+    <Compile Include="Models\SettingInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
@@ -72,15 +104,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\AppSession.cs" />
+    <Compile Include="Services\AppSetting.cs" />
+    <Compile Include="Services\AuthenticateAction.cs" />
+    <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\CRMAuthAttribute.cs" />
+    <Compile Include="Services\IPermissionService.cs" />
+    <Compile Include="Services\IServiceBase.cs" />
+    <Compile Include="Services\PermissionService.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
-      <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
-      <Name>Fanex.CRM.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.CRM.Setting\Fanex.CRM.Setting.csproj">
-      <Project>{6BDF1D65-D49F-4371-B6EE-ABD10B5A8207}</Project>
-      <Name>Fanex.CRM.Setting</Name>
+    <ProjectReference Include="..\Fanex.CRM.Infrastructure\Fanex.CRM.Infrastructure.csproj">
+      <Project>{D7C7BD95-04A3-49AA-B486-16DD746B76F8}</Project>
+      <Name>Fanex.CRM.Infrastructure %28Modules\Fanex.CRM.Infrastructure%29</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

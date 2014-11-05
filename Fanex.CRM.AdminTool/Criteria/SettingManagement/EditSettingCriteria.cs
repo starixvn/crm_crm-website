@@ -12,8 +12,8 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
 {
     using System.Collections;
     using Fanex.CRM.Common.Criteria;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
     /// <summary>

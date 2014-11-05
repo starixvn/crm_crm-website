@@ -14,8 +14,8 @@ namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Repositories.AddCustomerFeedback;
     using Fanex.CRM.Feedback.Resources;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Infrastructure.Constants;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;

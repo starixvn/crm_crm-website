@@ -10,7 +10,9 @@
 namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.WagerReport;
     using Fanex.CRM.Report.Services.Implements.WagerReport;
     using Fanex.CRM.Report.Services.Interfaces;

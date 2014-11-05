@@ -16,8 +16,8 @@ bin
 /Fanex.CRM.Web.Models/obj
 /Fanex.CRM.Web.Presentation/bin
 /Fanex.CRM.Web.Presentation/obj
-/Fanex.CRM.Core/bin
-/Fanex.CRM.Core/obj
+/Fanex.CRM.Infrastructure/bin
+/Fanex.CRM.Infrastructure/obj
 /Fanex.CRM.Customer/bin
 /Fanex.CRM.Customer/obj
 /Fanex.CRM.Dashboard/bin
@@ -44,7 +44,7 @@ bin
 
 /Fanex.CRM.ActionLog/*.Cache
 /Fanex.CRM.Communication/*.Cache
-/Fanex.CRM.Core/*.Cache
+/Fanex.CRM.Infrastructure/*.Cache
 /Fanex.CRM.Customer/*.Cache
 /Fanex.CRM.Dashboard/*.Cache
 /Fanex.CRM.DataAccess.Impl/*.Cache
@@ -65,7 +65,7 @@ bin
 /Fanex.CRM.5.1.ReSharper.user
 /Fanex.CRM.suo.orig
 /Sunplus.Accounting.CRM.6.0.ReSharper.user
-/Fanex.CRM.Core/Fanex.CRM.Infrastructure.csproj.vspscc
+/Fanex.CRM.Infrastructure/Fanex.CRM.Infrastructure.csproj.vspscc
 /Fanex.CRM.DataAccess.Impl/Fanex.CRM.DataAccess.Impl.csproj.vspscc
 /Fanex.CRM.DataAccess.Interface/Fanex.CRM.DataAccess.Interface.csproj.vspscc
 /Fanex.CRM.Entities/Fanex.CRM.Entities.csproj.vspscc
@@ -73,5 +73,5 @@ bin
 /Fanex.CRM.Service.Interface/Fanex.CRM.Service.Interface.csproj.vspscc
 /Fanex.CRM.Web.Controllers/Fanex.CRM.Web.Controllers.csproj.vspscc
 /Fanex.CRM.Web.Models/Fanex.CRM.Web.Models.csproj.vspscc
-
+/Fanex.CRM.suo
 

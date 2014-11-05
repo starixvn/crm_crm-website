@@ -11,12 +11,12 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
 {
     using System.Collections.Generic;
     using Fanex.Common;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.StatisticByDateReport;
     using Fanex.CRM.Report.Entities.StatisticsReportByDate;
     using Fanex.CRM.Report.Models.StatisticsReportByDate;
     using Fanex.CRM.Report.Resources;
-    using Fanex.CRM.Setting.Models;
     using Fanex.Data;
 
     /// <summary>

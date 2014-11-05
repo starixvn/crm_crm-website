@@ -10,8 +10,8 @@
 namespace Fanex.CRM.Dashboard.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Services;
 
     /// <summary>
     /// Home Controller.
@@ -49,9 +49,9 @@ namespace Fanex.CRM.Dashboard.Controllers
             ViewBag.RedirectUrl = string.Empty;
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             if (AppSession.RedirectUrl != null && 
-                !string.IsNullOrEmpty(Fanex.CRM.Infrastructure.Common.AppSession.RedirectUrl))
+                !string.IsNullOrEmpty(AppSession.RedirectUrl))
             {
-                ViewBag.RedirectUrl = Fanex.CRM.Infrastructure.Common.AppSession.RedirectUrl;
+                ViewBag.RedirectUrl = AppSession.RedirectUrl;
                 AppSession.RedirectUrl = null;
             }
 

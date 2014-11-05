@@ -14,13 +14,14 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Core;
-    using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Models.Npoi;
+    using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Service.Implements;
     using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Entities.StatisticReport;
     using Fanex.CRM.Report.Models.StatisticReport;
@@ -28,7 +29,6 @@ namespace Fanex.CRM.Report.Services.Implements.StatisticReport
     using Fanex.CRM.Report.Services.Implements.DynamicReport;
     using Fanex.CRM.Report.Services.Interfaces;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
     using NPOI.HSSF.UserModel;

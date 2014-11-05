@@ -13,8 +13,9 @@ namespace Fanex.CRM.AdminTool.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.AdminTool.Services.SettingRelation;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
-    using Fanex.CRM.Setting.Models;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
 
     /// <summary>
     /// Setting Relation Controller.

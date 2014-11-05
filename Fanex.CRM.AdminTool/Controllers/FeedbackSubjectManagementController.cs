@@ -13,8 +13,9 @@ namespace Fanex.CRM.AdminTool.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
 
     /// <summary>
     /// Feedback Subject Management Controller.

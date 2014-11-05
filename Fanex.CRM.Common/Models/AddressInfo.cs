@@ -11,7 +11,6 @@ namespace Fanex.CRM.Common.Models
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Address Information.

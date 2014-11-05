@@ -97,10 +97,8 @@
     <Compile Include="Criteria\GetFeedbackSubjectTemplateByPagingIndexCriteria.cs" />
     <Compile Include="Criteria\GetSettingByIdCriteria.cs" />
     <Compile Include="Criteria\GetSettingRelationByNameCriteria.cs" />
-    <Compile Include="Models\CountryInfo.cs" />
     <Compile Include="Models\FeedbackTemplate.cs" />
     <Compile Include="Models\InformHeadlineSetting.cs" />
-    <Compile Include="Models\SettingInfo.cs" />
     <Compile Include="Models\SiteInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implements\SettingRepository.cs" />
@@ -118,8 +116,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
-      <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
+    <ProjectReference Include="..\Fanex.CRM.Common\Fanex.CRM.Common.csproj">
+      <Project>{DBB7C2A5-9919-4C5D-B69C-3EDF958E1741}</Project>
+      <Name>Fanex.CRM.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.CRM.Infrastructure\Fanex.CRM.Infrastructure.csproj">
+      <Project>{D7C7BD95-04A3-49AA-B486-16DD746B76F8}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>

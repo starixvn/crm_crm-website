@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Communication.Criteria
 {
-    using Fanex.CRM.Infrastructure.Common;
+    using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
     /// <summary>

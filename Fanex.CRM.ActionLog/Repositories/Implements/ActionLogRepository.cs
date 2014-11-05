@@ -14,8 +14,8 @@ namespace Fanex.CRM.ActionLog.Repositories.Implements
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Models;
     using Fanex.CRM.ActionLog.Repositories.Interfaces;
-    using Fanex.CRM.Infrastructure.Core;
-    using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.Data;
 
     /// <summary>

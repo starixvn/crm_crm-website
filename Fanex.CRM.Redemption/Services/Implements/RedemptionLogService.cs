@@ -12,9 +12,10 @@ namespace Fanex.CRM.Redemption.Services.Implements
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.CRM.Infrastructure.Common;
-    using Fanex.CRM.Infrastructure.Core;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Infrastructure.Constants;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Models;
@@ -24,7 +25,6 @@ namespace Fanex.CRM.Redemption.Services.Implements
     using Fanex.CRM.Redemption.Services.Interfaces;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
-    using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services.Implements;
     using Fanex.CRM.Setting.Services.Interfaces;
 

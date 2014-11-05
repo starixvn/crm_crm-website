@@ -14,12 +14,12 @@ namespace Fanex.CRM.Report.Repositories.Implements
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
-    using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.CustomerReport;
     using Fanex.CRM.Report.Models.CustomerReport;
     using Fanex.CRM.Report.Repositories.Interfaces;
-    using Fanex.CRM.Setting.Models;
     using Fanex.Data;
 
     /// <summary>

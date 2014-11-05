@@ -13,9 +13,10 @@ namespace Fanex.CRM.AdminTool.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingManagement;
     using Fanex.CRM.AdminTool.Services.SettingManagement;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Web.Controllers;
-    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Setting Management Controller.

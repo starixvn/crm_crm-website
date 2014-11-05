@@ -10,9 +10,8 @@
 namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 {
     using System;
-    using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Statistics Detail By Date Information.

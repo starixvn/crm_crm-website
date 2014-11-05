@@ -11,8 +11,8 @@ namespace Fanex.CRM.Remark.Repositories.Implements
 {
     using System.Collections.Generic;
     using Fanex.Common;
-    using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Helper;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;

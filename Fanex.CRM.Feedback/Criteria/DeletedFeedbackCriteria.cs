@@ -12,7 +12,7 @@ namespace Fanex.CRM.Feedback.Criteria
 {
     using System;
     using System.Collections;
-    using Fanex.CRM.Infrastructure.Core;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.Data.Repository;
 
     /// <summary>

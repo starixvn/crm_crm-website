@@ -10,10 +10,10 @@
 namespace Fanex.CRM.Redemption.Services.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Models;
-    using Fanex.CRM.Setting.Models;
 
     public interface IRedemptionLogService
     {

@@ -10,9 +10,9 @@
 namespace Fanex.CRM.Report.Services.Implements.SettlementReport
 {
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Report.Models.SettlementReport;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;

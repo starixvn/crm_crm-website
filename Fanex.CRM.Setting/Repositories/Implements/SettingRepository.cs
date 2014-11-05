@@ -11,7 +11,8 @@ namespace Fanex.CRM.Setting.Repositories.Implements
 {
     using System.Collections.Generic;
     using Fanex.Common;
-    using Fanex.CRM.Infrastructure.Extension;
+    using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;

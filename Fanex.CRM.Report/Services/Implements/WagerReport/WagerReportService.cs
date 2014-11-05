@@ -14,10 +14,11 @@ namespace Fanex.CRM.Report.Services.Implements.WagerReport
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
-    using Fanex.CRM.Infrastructure.Extension;
-    using Fanex.CRM.Infrastructure.Logging;
+    using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Models.Npoi;
+    using Fanex.CRM.Infrastructure.Extensions;
+    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Infrastructure.Models.Npoi;
     using Fanex.CRM.Report.Criteria.WagerReport;
     using Fanex.CRM.Report.Models.WagerReport;
     using Fanex.CRM.Report.Repositories.Implements;

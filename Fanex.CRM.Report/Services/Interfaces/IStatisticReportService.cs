@@ -10,9 +10,9 @@
 namespace Fanex.CRM.Report.Services.Interfaces
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Models.StatisticReport;
-    using Fanex.CRM.Setting.Models;
 
     public interface IStatisticReportService
     {

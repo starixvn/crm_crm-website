@@ -205,8 +205,8 @@
       <Project>{DBB7C2A5-9919-4C5D-B69C-3EDF958E1741}</Project>
       <Name>Fanex.CRM.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.CRM.Core\Fanex.CRM.Infrastructure.csproj">
-      <Project>{43B57EC6-5148-4537-BE08-2692F2309D10}</Project>
+    <ProjectReference Include="..\Fanex.CRM.Infrastructure\Fanex.CRM.Infrastructure.csproj">
+      <Project>{D7C7BD95-04A3-49AA-B486-16DD746B76F8}</Project>
       <Name>Fanex.CRM.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.CRM.Setting\Fanex.CRM.Setting.csproj">

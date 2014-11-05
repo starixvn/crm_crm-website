@@ -11,7 +11,6 @@ namespace Fanex.CRM.Common.Models
 {
     using System;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// Base Communication Log Information.

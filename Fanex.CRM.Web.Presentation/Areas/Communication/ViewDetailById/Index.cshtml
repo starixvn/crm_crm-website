@@ -2,10 +2,9 @@
 @using Newtonsoft.Json;
 @using Fanex.CRM.Communication.Models;
 @using Fanex.NAP.Core.Business;
-@using Fanex.CRM.Infrastructure.Core;
-@using Fanex.CRM.Infrastructure.Common;
-@using Fanex.CRM.Infrastructure.Service.Interfaces;
-@using Fanex.CRM.Infrastructure.Service.Implements;
+@using Fanex.CRM.Common.Constants;
+@using Fanex.CRM.Common.Helpers;
+@using Fanex.CRM.Common.Services;
 @{
     var jsonLogInfo = JsonConvert.SerializeObject(Model);
 }
