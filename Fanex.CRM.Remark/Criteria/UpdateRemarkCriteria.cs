@@ -34,7 +34,7 @@ namespace Fanex.CRM.Remark.Criteria
         {
             get
             {
-                return Helper.GetClientIP();
+                return IPHelper.ClientIP();
             }
         }
 

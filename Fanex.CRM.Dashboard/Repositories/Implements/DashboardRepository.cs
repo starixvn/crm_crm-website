@@ -204,7 +204,7 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
             Justification = "Reviewed. Suppression is OK here.")]
         private string MappingDataFromSqlToRemarkObject(IDataReader reader)
         {
-            return Helper.DecodeXml(reader.GetStringNotNull("Remark")).HtmlEncode();
+            return HtmlHelper.DecodeXml(reader.GetStringNotNull("Remark")).HtmlEncode();
         }
 
         /// <summary>

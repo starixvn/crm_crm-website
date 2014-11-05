@@ -86,7 +86,7 @@ namespace Fanex.CRM.Remark.Services.Implements
                             continue;
                         }
 
-                        remarkBuilder.Append("<Remark Content=\"").Append(Helper.EncodeXml(remark)).Append("\"")
+                        remarkBuilder.Append("<Remark Content=\"").Append(HtmlHelper.EncodeXml(remark)).Append("\"")
                             .Append(" IsSpecial=\"1\" />");
                     }
                 }
@@ -100,7 +100,7 @@ namespace Fanex.CRM.Remark.Services.Implements
                             continue;
                         }
 
-                        remarkBuilder.Append("<Remark Content=\"").Append(Helper.EncodeXml(remark)).Append("\"")
+                        remarkBuilder.Append("<Remark Content=\"").Append(HtmlHelper.EncodeXml(remark)).Append("\"")
                             .Append(" IsSpecial=\"0\" />");
                     }
                 }

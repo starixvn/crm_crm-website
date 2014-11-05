@@ -99,5 +99,10 @@ namespace Fanex.CRM.Common.Models.Npoi
             NpoiExcelExtensions.RenderEmptyRow(exportExcelInfo, CurrentRow);
             CurrentRow++;
         }
+
+        public CellRangeAddress GetCellRangeBySpanning(int rowSpan)
+        {
+            return new CellRangeAddress(CurrentRow, CurrentRow + rowSpan, StartColumn, MaxColumnIndex);
+        }
     }
 }

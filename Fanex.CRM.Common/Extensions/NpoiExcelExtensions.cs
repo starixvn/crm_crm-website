@@ -299,11 +299,7 @@ namespace Fanex.CRM.Common.Extensions
                 currentRow,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            var textStyle = NpoiExcelExtensions.TextStyle(
-                exportExcelInfo.ExcelFile,
-                BackgroundColorIndex,
-                true,
-                CRMHorizontalAlignment.Center);
+            var textStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, true, CRMHorizontalAlignment.Center);
 
             RenderMergedCells(exportExcelInfo, cellRangeAddress, Labels.ResultMessage_NoInfo, textStyle);
         }
@@ -418,17 +414,10 @@ namespace Fanex.CRM.Common.Extensions
             return cellStyle;
         }
 
-        public static void SetColorAtIndex(
-            ref ExportExcelInfo exportExcelInfo,
-            Color color,
-            short colorIndex)
+        public static void SetColorAtIndex(ref ExportExcelInfo exportExcelInfo, Color color, short colorIndex)
         {
             HSSFPalette palette = exportExcelInfo.ExcelFile.GetCustomPalette();
-            palette.SetColorAtIndex(
-                colorIndex,
-                color.R,
-                color.G,
-                color.B);
+            palette.SetColorAtIndex(colorIndex, color.R, color.G, color.B);
         }
 
         public static string StandardizeExcelReportName(string excelReportName)
@@ -578,11 +567,7 @@ namespace Fanex.CRM.Common.Extensions
                 rowIndex,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            var textStyle = NpoiExcelExtensions.TextStyle(
-                exportExcelInfo.ExcelFile,
-                BackgroundColorIndex,
-                false,
-                CRMHorizontalAlignment.Center);
+            var textStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
             RenderMergedCells(exportExcelInfo, cellRangeAddress, string.Empty, textStyle);
         }
 
@@ -593,11 +578,7 @@ namespace Fanex.CRM.Common.Extensions
         /// <param name="currentRow">The current row.</param>
         public static void RenderNoInfoMessage(ExportExcelInfo exportExcelInfo, int currentRow)
         {
-            CellRangeAddress cellRangeAddress = new CellRangeAddress(
-                currentRow,
-                currentRow,
-                exportExcelInfo.StartColumn,
-                exportExcelInfo.MaxColumnIndex);
+            CellRangeAddress cellRangeAddress = new CellRangeAddress(currentRow, currentRow, exportExcelInfo.StartColumn, exportExcelInfo.MaxColumnIndex);
             var textStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, true, CRMHorizontalAlignment.Center);
             RenderMergedCells(exportExcelInfo, cellRangeAddress, Labels.ResultMessage_NoInfo, textStyle);
         }
@@ -609,15 +590,9 @@ namespace Fanex.CRM.Common.Extensions
         /// <returns>
         /// The cell style.
         /// </returns>
-        public static ICellStyle IntNumberStyleGrandTotal(
-            HSSFWorkbook excelFile)
+        public static ICellStyle IntNumberStyleGrandTotal(HSSFWorkbook excelFile)
         {
-            return IntNumberStyle(
-                excelFile,
-                GrandTotalRowColorIndex,
-                true,
-                CRMHorizontalAlignment.Right,
-                GrandTotalTextColorIndex);
+            return IntNumberStyle(excelFile, GrandTotalRowColorIndex, true, CRMHorizontalAlignment.Right, GrandTotalTextColorIndex);
         }
 
         /// <summary>
@@ -627,15 +602,9 @@ namespace Fanex.CRM.Common.Extensions
         /// <returns>
         /// The cell style.
         /// </returns>
-        public static ICellStyle TextStyleGrandTotal(
-            HSSFWorkbook excelFile)
+        public static ICellStyle TextStyleGrandTotal(HSSFWorkbook excelFile)
         {
-            return TextStyle(
-                excelFile,
-                GrandTotalRowColorIndex,
-                true,
-                CRMHorizontalAlignment.Left,
-                GrandTotalTextColorIndex);
+            return TextStyle(excelFile, GrandTotalRowColorIndex, true, CRMHorizontalAlignment.Left, GrandTotalTextColorIndex);
         }
     }
 }

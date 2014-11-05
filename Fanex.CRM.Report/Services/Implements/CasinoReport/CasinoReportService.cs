@@ -812,12 +812,12 @@ namespace Fanex.CRM.Report.Services.Implements.CasinoReport
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Communication, textLeftCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Product, textLeftCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Station, textCenterCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Helper.ReplaceHtmlTag(item.Contact), textLeftCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, HtmlHelper.ReplaceHtmlTag(item.Contact), textLeftCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.CountryName, textLeftCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.MainCategory, textLeftCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.SubCategory, textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Helper.ReplaceHtmlTag(item.Description), textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Helper.ReplaceHtmlTag(item.Solution), textLeftCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, HtmlHelper.ReplaceHtmlTag(item.Description), textLeftCellStyle);
+                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, HtmlHelper.ReplaceHtmlTag(item.Solution), textLeftCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Status, textCenterCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Response, textCenterCellStyle);
                 NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.CreatorName, textLeftCellStyle);

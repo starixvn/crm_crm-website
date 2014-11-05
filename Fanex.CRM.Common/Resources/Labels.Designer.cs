@@ -79,6 +79,87 @@ namespace Fanex.CRM.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; cannot be blank..
+        /// </summary>
+        public static string Error_ArgumentEmpty {
+            get {
+                return ResourceManager.GetString("Error_ArgumentEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; cannot be more than {1} character..
+        /// </summary>
+        public static string Error_ArgumentLength {
+            get {
+                return ResourceManager.GetString("Error_ArgumentLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} must be between &quot;{1}&quot;-&quot;{2}&quot;..
+        /// </summary>
+        public static string Error_ArgumentOutOfRange {
+            get {
+                return ResourceManager.GetString("Error_ArgumentOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collection cannot be empty..
+        /// </summary>
+        public static string Error_CollectionEmpty {
+            get {
+                return ResourceManager.GetString("Error_CollectionEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; cannot be empty guid..
+        /// </summary>
+        public static string Error_GuidEmpty {
+            get {
+                return ResourceManager.GetString("Error_GuidEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid email address..
+        /// </summary>
+        public static string Error_InvalidEmail {
+            get {
+                return ResourceManager.GetString("Error_InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid IP..
+        /// </summary>
+        public static string Error_InvalidIP {
+            get {
+                return ResourceManager.GetString("Error_InvalidIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid pattern: {0}.
+        /// </summary>
+        public static string Error_InvalidPattern {
+            get {
+                return ResourceManager.GetString("Error_InvalidPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; is not a valid web url..
+        /// </summary>
+        public static string Error_InvalidUrl {
+            get {
+                return ResourceManager.GetString("Error_InvalidUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Suspended.
         /// </summary>
         public static string Suspended {

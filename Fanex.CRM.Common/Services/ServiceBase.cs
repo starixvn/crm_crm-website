@@ -90,12 +90,7 @@ namespace Fanex.CRM.Common.Services
             string reportTitle,
             ICellStyle headerStyle)
         {
-            CellRangeAddress cellRangeAddress = new CellRangeAddress(
-                exportExcelInfo.CurrentRow,
-                exportExcelInfo.CurrentRow + 1,
-                exportExcelInfo.StartColumn,
-                exportExcelInfo.MaxColumnIndex);
-
+            CellRangeAddress cellRangeAddress = exportExcelInfo.GetCellRangeBySpanning(1);
             NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
             exportExcelInfo.CurrentRow += 2;
 

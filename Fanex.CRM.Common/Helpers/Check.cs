@@ -13,6 +13,7 @@ namespace Fanex.CRM.Common.Helpers
     using System.Collections.Generic;
     using System.Diagnostics;
     using Fanex.CRM.Common.Extensions;
+    using Fanex.CRM.Common.Resources;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Helpers;
@@ -40,7 +41,7 @@ namespace Fanex.CRM.Common.Helpers
             {
                 if (argument == Guid.Empty)
                 {
-                    throw new ArgumentException("\"{0}\" cannot be empty guid.".FormatWith(argumentName), argumentName);
+                    throw new ArgumentException(string.Format(Labels.Error_GuidEmpty, argumentName), argumentName);
                 }
             }
 
@@ -49,7 +50,7 @@ namespace Fanex.CRM.Common.Helpers
             {
                 if (string.IsNullOrEmpty((argument ?? string.Empty).Trim()))
                 {
-                    throw new ArgumentException("\"{0}\" cannot be blank.".FormatWith(argumentName), argumentName);
+                    throw new ArgumentException(string.Format(Labels.Error_ArgumentEmpty, argumentName), argumentName);
                 }
             }
 
@@ -58,7 +59,7 @@ namespace Fanex.CRM.Common.Helpers
             {
                 if (argument.Trim().Length > length)
                 {
-                    throw new ArgumentException("\"{0}\" cannot be more than {1} character.".FormatWith(argumentName, length), argumentName);
+                    throw new ArgumentException(string.Format(Labels.Error_ArgumentEmpty, argumentName, length), argumentName);
                 }
             }
 
@@ -195,7 +196,7 @@ namespace Fanex.CRM.Common.Helpers
 
                 if (argument.Count == 0)
                 {
-                    throw new ArgumentException("Collection cannot be empty.", argumentName);
+                    throw new ArgumentException(Labels.Error_CollectionEmpty, argumentName);
                 }
             }
 
@@ -204,7 +205,7 @@ namespace Fanex.CRM.Common.Helpers
             {
                 if ((argument < min) || (argument > max))
                 {
-                    throw new ArgumentOutOfRangeException(argumentName, "{0} must be between \"{1}\"-\"{2}\".".FormatWith(argumentName, min, max));
+                    throw new ArgumentOutOfRangeException(argumentName, string.Format(Labels.Error_ArgumentOutOfRange, argumentName, min, max));
                 }
             }
 
@@ -215,7 +216,7 @@ namespace Fanex.CRM.Common.Helpers
 
                 if (!argument.IsEmail())
                 {
-                    throw new ArgumentException("\"{0}\" is not a valid email address.".FormatWith(argumentName), argumentName);
+                    throw new ArgumentException(string.Format(Labels.Error_InvalidEmail, argumentName), argumentName);
                 }
             }
 
@@ -226,17 +227,17 @@ namespace Fanex.CRM.Common.Helpers
 
                 if (!argument.IsWebUrl())
                 {
-                    throw new ArgumentException("\"{0}\" is not a valid web url.".FormatWith(argumentName), argumentName);
+                    throw new ArgumentException(string.Format(Labels.Error_InvalidUrl, argumentName), argumentName);
                 }
             }
 
             [DebuggerStepThrough]
             public static void IsValidIP(string argument, string argumentName)
             {
-               if (!AppSetting.IsLocalTest && !argument.IsValidIP())
-               {
-                   throw new ArgumentException("\"{0}\" is not a valid IP.".FormatWith(argumentName), argumentName);
-               }
+                if (!AppSetting.IsLocalTest && !argument.IsValidIP())
+                {
+                    throw new ArgumentException(string.Format(Labels.Error_InvalidIP, argumentName), argumentName);
+                }
             }
         }
     }

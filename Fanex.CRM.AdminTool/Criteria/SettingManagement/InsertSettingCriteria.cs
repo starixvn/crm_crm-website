@@ -46,7 +46,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
         {
             get
             {
-                return Helper.GetClientIP();
+                return IPHelper.ClientIP();
             }
         }
 

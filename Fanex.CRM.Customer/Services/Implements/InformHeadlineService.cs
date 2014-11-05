@@ -237,7 +237,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                     }
 
                     contentXml.Append("</content>");
-                    criteria.Content = Helper.ReplaceBreaklineXml(contentXml.ToString());
+                    criteria.Content = HtmlHelper.ReplaceBreaklineXml(contentXml.ToString());
                 }
                 else
                 {
@@ -276,7 +276,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                 inform.InformId,
                 inform.StatusId,
                 inform.HeadlineId,
-                Helper.EncodeXml(inform.Remark),
+                HtmlHelper.EncodeXml(inform.Remark),
                 inform.ExtensionId,
                 inform.ProductStatus);
         }

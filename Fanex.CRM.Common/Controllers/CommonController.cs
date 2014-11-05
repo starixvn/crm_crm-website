@@ -15,6 +15,7 @@ namespace Fanex.CRM.Common.Controllers
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
+    using Fanex.NAP.Core.Configuration;
     using Fanex.NAP.Core.Service.Impl;
     using Fanex.NAP.Core.Service.Interface;
 
@@ -69,7 +70,7 @@ namespace Fanex.CRM.Common.Controllers
         /// <returns>Return result.</returns>
         public ActionResult Offline()
         {
-            var isCheckUM = NAP.Core.Configuration.NapSettings.Settings.EnableCheckUM;
+            var isCheckUM = NapSettings.Settings.EnableCheckUM;
             if (!isCheckUM)
             {
                 FormsAuthentication.RedirectToLoginPage();

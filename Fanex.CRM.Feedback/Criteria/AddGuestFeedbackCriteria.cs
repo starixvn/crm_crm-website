@@ -88,7 +88,7 @@ namespace Fanex.CRM.Feedback.Criteria
         {
             get
             {
-                return Helper.GetClientIP();
+                return IPHelper.ClientIP();
             }
         }
 

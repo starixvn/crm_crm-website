@@ -32,7 +32,7 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
         {
             get 
             {
-                return Helper.GetClientIP();
+                return IPHelper.ClientIP();
             }
         }
 

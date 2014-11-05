@@ -123,6 +123,33 @@
   <data name="Closed" xml:space="preserve">
     <value>Closed</value>
   </data>
+  <data name="Error_ArgumentEmpty" xml:space="preserve">
+    <value>"{0}" cannot be blank.</value>
+  </data>
+  <data name="Error_ArgumentLength" xml:space="preserve">
+    <value>"{0}" cannot be more than {1} character.</value>
+  </data>
+  <data name="Error_ArgumentOutOfRange" xml:space="preserve">
+    <value>{0} must be between "{1}"-"{2}".</value>
+  </data>
+  <data name="Error_CollectionEmpty" xml:space="preserve">
+    <value>Collection cannot be empty.</value>
+  </data>
+  <data name="Error_GuidEmpty" xml:space="preserve">
+    <value>"{0}" cannot be empty guid.</value>
+  </data>
+  <data name="Error_InvalidEmail" xml:space="preserve">
+    <value>"{0}" is not a valid email address.</value>
+  </data>
+  <data name="Error_InvalidIP" xml:space="preserve">
+    <value>"{0}" is not a valid IP.</value>
+  </data>
+  <data name="Error_InvalidPattern" xml:space="preserve">
+    <value>Invalid pattern: {0}</value>
+  </data>
+  <data name="Error_InvalidUrl" xml:space="preserve">
+    <value>"{0}" is not a valid web url.</value>
+  </data>
   <data name="Suspended" xml:space="preserve">
     <value>Suspended</value>
   </data>

@@ -71,7 +71,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
                 var rawdata = db.Query<InformHeadline>(criteria.GetSpParams());
                 foreach (var item in rawdata)
                 {
-                    item.Remark = Helper.DecodeXml(item.Remark);
+                    item.Remark = HtmlHelper.DecodeXml(item.Remark);
                     informs.Add(item);
                 }
                 

@@ -120,7 +120,7 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
                     return null;    
                 }
 
-                return Helper.RemoveSpecialHtmlTag(Description);
+                return HtmlHelper.RemoveSpecialHtmlTag(Description);
             }
         }
 
@@ -135,7 +135,7 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
                     return null;
                 }
 
-                return Helper.RemoveSpecialHtmlTag(Solution);
+                return HtmlHelper.RemoveSpecialHtmlTag(Solution);
             }
         }
 

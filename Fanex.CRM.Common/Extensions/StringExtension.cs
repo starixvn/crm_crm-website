@@ -18,6 +18,7 @@ namespace Fanex.CRM.Common.Extensions
     using System.Text.RegularExpressions;
     using System.Web;
     using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Resources;
     using Fanex.CRM.Infrastructure.Extensions;
 
     /// <summary>
@@ -48,8 +49,8 @@ namespace Fanex.CRM.Common.Extensions
         private static readonly char[] IllegalUrlCharacters = new[]
         { 
             ';', 
-            '/', 
-            '\\', 
+            '/',
+            '\\',
             '?', 
             ':',
             '@', 
@@ -87,7 +88,7 @@ namespace Fanex.CRM.Common.Extensions
         };
 
         private static CultureInfo CurrentCulture
-        { 
+        {
             get
             {
                 return CultureInfo.CurrentCulture;
@@ -456,7 +457,7 @@ namespace Fanex.CRM.Common.Extensions
             }
             catch (ArgumentException ex)
             {
-                throw new ArgumentException(string.Format("Invalid pattern: {0}", wildcardPattern), ex);
+                throw new ArgumentException(string.Format(Labels.Error_InvalidPattern, wildcardPattern), ex);
             }
 
             return result;

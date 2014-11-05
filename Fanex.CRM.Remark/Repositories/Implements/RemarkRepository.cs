@@ -46,7 +46,7 @@ namespace Fanex.CRM.Remark.Repositories.Implements
                         string remark = null;
                         while (reader.Read())
                         {
-                            remark = Helper.DecodeXml(Converter.ToString2(reader["Remark"]));
+                            remark = HtmlHelper.DecodeXml(Converter.ToString2(reader["Remark"]));
                             if (Converter.ToBool(reader["IsSpecial"]))
                             {
                                 specialRemarks.Add(remark);
