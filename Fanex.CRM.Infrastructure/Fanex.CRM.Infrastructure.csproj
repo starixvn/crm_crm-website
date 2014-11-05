@@ -72,9 +72,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\MailSection\MailCollection.cs" />
-    <Compile Include="Configurations\MailSection\MailElement.cs" />
-    <Compile Include="Configurations\MailSection\MailSection.cs" />
     <Compile Include="Constants\ErrorCodeConstants.cs" />
     <Compile Include="Constants\HttpMethodConstants.cs" />
     <Compile Include="Constants\RequestHeaderTypeConstants.cs" />
@@ -86,13 +83,10 @@
     <Compile Include="Extensions\SessionExtension.cs" />
     <Compile Include="Helpers\ExcelUtils.cs" />
     <Compile Include="Helpers\LogExtensions.cs" />
-    <Compile Include="Helpers\SendMailExtension.cs" />
     <Compile Include="Helpers\SystemTime.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CRMHorizontalAlignment.cs" />
     <Compile Include="Models\CRMVerticalAlignment.cs" />
-    <Compile Include="Models\MailAttachment.cs" />
-    <Compile Include="Models\MailSend.cs" />
     <Compile Include="Models\PagedList.cs" />
     <Compile Include="Models\PagingCriteria.cs" />
     <Compile Include="Models\PeriodRange.cs" />

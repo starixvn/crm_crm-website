@@ -17,7 +17,6 @@ namespace Fanex.CRM.Common.Helpers
     using System.Xml;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Extensions;
-    using Fanex.CRM.Infrastructure.Configurations;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
@@ -145,24 +144,6 @@ namespace Fanex.CRM.Common.Helpers
             var result = Regex.Replace(value, "<t.+>", string.Empty);
             result = Regex.Replace(result, "</t.+>", string.Empty);
             return result;
-        }
-
-        /// <summary>
-        /// Sends the mail error notice.
-        /// </summary>
-        /// <param name="error">The error.</param>
-        public static void SendMailErrorNotice(string error)
-        {
-            var mailSetting = MailSection.Instance[MailSection.Setting.Send]["Notice"].Mails["error"];
-            SendMailExtension.AccSendMail(
-                MailSection.HostName.Gmail,
-                mailSetting.To,
-                mailSetting.Cc,
-                mailSetting.Bcc,
-                "CRM - Error",
-                "CRM - Error Notice",
-                error,
-                new MailAttachment());
         }
 
         public static string EncodeXml(string xml)
