@@ -85,15 +85,15 @@ namespace Fanex.CRM.Customer.Repositories
                         {
                             var customer = new CustomerInfo
                             {
-                                Id = reader.GetInt32NotNull("CustId"),
-                                Name = reader.GetStringNotNull("UserName"),
+                                Id = Converter.ToInt(reader["CustId"]),
+                                Name = Converter.ToString2(reader["UserName"]),
                                 Role = new BaseModel
                                 {
-                                    Id = reader.GetByteNotNull("roleid")
+                                    Id = Converter.ToInt(reader["roleid"])
                                 },
-                                IsActive = reader.GetInt32NotNull("Active") == 1,
-                                IsClosed = reader.GetInt32NotNull("Closed") == 1,
-                                IsSuspended = reader.GetInt32NotNull("Suspended") == 1
+                                IsActive = Converter.ToInt(reader["Active"]) == 1,
+                                IsClosed = Converter.ToInt(reader["Closed"]) == 1,
+                                IsSuspended = Converter.ToInt(reader["Suspended"]) == 1
                             };
 
                             uplineInfo.Add(customer);
@@ -245,7 +245,7 @@ namespace Fanex.CRM.Customer.Repositories
 
             customer.Languages.Add(new BaseModel
             {
-                Id = reader.GetInt32NotNull("LanguageID")
+                Id = Converter.ToInt(reader["LanguageID"])
             });
         }
     }

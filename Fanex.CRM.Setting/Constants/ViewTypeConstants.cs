@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// View Type Constants.
     /// </summary>
-    public class ViewTypeConstants
+    public static class ViewTypeConstants
     {
         public const int All = 0;
 

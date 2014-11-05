@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Infrastructure.Services
 {
+    using System;
     using System.Web.Mvc;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Resources;
@@ -16,7 +17,8 @@ namespace Fanex.CRM.Infrastructure.Services
     /// <summary>
     /// Handle Ajax Error Attribute.
     /// </summary>
-    public class HandleAjaxErrorAttribute : HandleErrorAttribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    public sealed class HandleAjaxErrorAttribute : HandleErrorAttribute
     {
         /// <summary>
         /// Called when an exception occurs.

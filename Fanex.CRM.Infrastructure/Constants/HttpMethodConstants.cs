@@ -12,7 +12,7 @@ namespace Fanex.CRM.Infrastructure.Constants
     /// <summary>
     /// HTTP Method Constants.
     /// </summary>
-    public class HttpMethodConstants
+    public static class HttpMethodConstants
     {
         public const string Get = "GET";
     }

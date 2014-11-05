@@ -14,8 +14,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.StatisticReport;
-    using Fanex.CRM.Report.Services.Implements.StatisticReport;
-    using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Report.Services.StatisticReport;
 
     /// <summary>
     /// Statistic Report Controller.
@@ -46,12 +45,12 @@ namespace Fanex.CRM.Report.Controllers
         /// <returns>All setting.</returns>
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
-        public ActionResult GetAllSetting()
+        public ActionResult AllSetting()
         {
             var allSetting = new
             {
-                PeriodTypeList = _statisticReportService.GetAllPeriodType(),
-                MainCategoryList = _statisticReportService.GetAllMainCategory()
+                PeriodTypeList = _statisticReportService.AllPeriodType(),
+                MainCategoryList = _statisticReportService.AllMainCategory()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -62,7 +61,7 @@ namespace Fanex.CRM.Report.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonWithoutNullField GetStatisticReport(GetStatisticReportCriteria criteria)
         {
-            var logs = _statisticReportService.GetStatisticReport(criteria);
+            var logs = _statisticReportService.StatisticReport(criteria);
             var jsonResult = new JsonWithoutNullField(logs);
             return jsonResult;
         }

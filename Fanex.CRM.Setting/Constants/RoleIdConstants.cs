@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Setting Constants.
     /// </summary>
-    public class RoleIdConstants
+    public static class RoleIdConstants
     {
         public const int Member = 1;
         public const int CRMMember = 7000;

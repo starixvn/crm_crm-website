@@ -25,8 +25,7 @@ namespace Fanex.CRM.Customer.Services
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Setting.Services;
     using Fanex.Data.Repository;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
@@ -56,7 +55,7 @@ namespace Fanex.CRM.Customer.Services
         {
             get
             {
-                return _settingService.GetAllInformHeadlineSettings();
+            return _settingService.AllInformHeadlineSettings();
             }
         }
 
@@ -449,7 +448,7 @@ namespace Fanex.CRM.Customer.Services
             titleCellStyle = GetTitleCellStyle(workbook);
             updatedTimeCellStyle = GetCreatedTimeCellStyle(workbook);
 
-            var productStatus = _settingService.GetAllInformHeadlineSettings()
+            var productStatus = _settingService.AllInformHeadlineSettings()
                 .ProductStatus
                 .ToDictionary(k => k.Id, p => p.Name);
 

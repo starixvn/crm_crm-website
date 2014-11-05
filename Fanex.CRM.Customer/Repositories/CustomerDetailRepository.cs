@@ -91,49 +91,49 @@ namespace Fanex.CRM.Customer.Repositories
         {
             customer = MappingDataFromSqlToCustomerInfoObject(reader);
             customer.BirthDayString = reader["BirthDay"] != DBNull.Value ?
-                 reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate() :
-                 string.Empty;
-            customer.BankInfo.HolderName = reader.GetStringNotNull("AccountHolderName");
+                Converter.ToDateTime(reader["BirthDay"]).ToShortFormatedDate() :
+                string.Empty;
+            customer.BankInfo.HolderName = Converter.ToString2(reader["AccountHolderName"]);
             customer.BankInfo.AddressInfo = new AddressInfo
             {
                 LineList = new List<string> 
                 {
-                    reader.GetStringNotNull("BankLine1"),
-                    reader.GetStringNotNull("BankLine2"),
-                    reader.GetStringNotNull("BankLine3"),
+                    Converter.ToString2(reader["BankLine1"]),
+                    Converter.ToString2(reader["BankLine2"]),
+                    Converter.ToString2(reader["BankLine3"]),
                 },
 
-                City = reader.GetStringNotNull("BankCity"),
-                State = reader.GetStringNotNull("BankState"),
-                PostCode = reader.GetStringNotNull("BankCode"),
+                City = Converter.ToString2(reader["BankCity"]),
+                State = Converter.ToString2(reader["BankState"]),
+                PostCode = Converter.ToString2(reader["BankCode"]),
                 Country = new CountryInfo
                 {
-                    Id = reader.GetInt32NotNull("BankCountryID")
+                    Id = Converter.ToInt(reader["BankCountryID"])
                 }
             };
 
-            customer.Creator.Id = reader.GetInt32NotNull("CreatorID");
+            customer.Creator.Id = Converter.ToInt(reader["CreatorID"]);
             customer.HeadLine = Converter.ToBool(reader["IsGroupHeadLine"]);
-            customer.CreatedDate = reader.GetDateTimeNotNull("CreateDate");
+            customer.CreatedDate = Converter.ToDateTime(reader["CreateDate"]);
             customer.Passport = new BaseModel
             {
-                Name = reader.GetStringNotNull("Passport")
+                Name = Converter.ToString2(reader["Passport"])
             };
 
             customer.AddressInfo = new AddressInfo
             {
                 LineList = new List<string>
                 {
-                    reader.GetStringNotNull("Line1"),
-                    reader.GetStringNotNull("Line2"),
-                    reader.GetStringNotNull("Line3"),
+                    Converter.ToString2(reader["Line1"]),
+                    Converter.ToString2(reader["Line2"]),
+                    Converter.ToString2(reader["Line3"]),
                 },
-                City = reader.GetStringNotNull("City"),
-                State = reader.GetStringNotNull("State"),
-                PostCode = reader.GetStringNotNull("PostCode"),
+                City = Converter.ToString2(reader["City"]),
+                State = Converter.ToString2(reader["State"]),
+                PostCode = Converter.ToString2(reader["PostCode"]),
                 Country = new CountryInfo
                 {
-                    Id = reader.GetInt32NotNull("CountryID")
+                    Id = Converter.ToInt(reader["CountryID"])
                 }
             };
         }
@@ -152,7 +152,7 @@ namespace Fanex.CRM.Customer.Repositories
 
             customer.Languages.Add(new BaseModel
             {
-                Id = reader.GetInt32NotNull("LanguageID")
+                Id = Converter.ToInt(reader["LanguageID"])
             });
         }
     }

@@ -279,7 +279,7 @@ var CustomerManager = function () {
     self.getAllSite = function () {
         self.CacheData.isLoadedSite = false;
         sharedScriptManager.CallAjax(self,
-            window.rootUrl + "Setting/GetAllSite",
+            window.rootUrl + "Setting/AllSite",
             null,
             self.renderAllSiteResult,
             null,
@@ -319,7 +319,7 @@ var CustomerManager = function () {
     self.getAllCountry = function () {
         self.CacheData.isLoadedCountry = false;
         sharedScriptManager.CallAjax(self,
-            window.rootUrl + "Setting/GetAllCountry",
+            window.rootUrl + "Setting/AllCountry",
             null,
             self.renderAllCountryResult,
             null,
@@ -351,7 +351,7 @@ var CustomerManager = function () {
     self.getAllLanguage = function () {
         self.CacheData.isLoadedLanguage = false;
         sharedScriptManager.CallAjax(self,
-            window.rootUrl + "Setting/GetAllLanguage",
+            window.rootUrl + "Setting/AllLanguage",
             null,
             self.renderAllLanguageResult,
             null,

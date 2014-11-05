@@ -159,31 +159,31 @@ namespace Fanex.CRM.Communication.Repositories
              Justification = "Reviewed. Suppression is OK here.")]
         private BaseCommunicationLogInfo MappingDataFromSqlToLogInfoObject(IDataReader reader)
         {
-            var durationTime = reader.GetStringNotNull("Duration");
+            var durationTime = Converter.ToString2(reader["Duration"]);
             var durationTimeArray = durationTime.Split(':');
 
             var logInfo = new BaseCommunicationLogInfo
             {
-                RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDateTime(),
+                RunningNumber = Converter.ToInt(reader["FeedbackID"]),
+                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
                 MainCategory = new SettingInfo
                 {
-                    Name = reader.GetStringNotNull("MainCategory")
+                    Name = Converter.ToString2(reader["MainCategory"])
                 },
                 SubCategory = new SettingInfo
                 {
-                    Name = reader.GetStringNotNull("SubCategory")
+                    Name = Converter.ToString2(reader["SubCategory"])
                 },
-                Subject = reader.GetStringNotNull("Subject"),
-                StatusName = reader.GetStringNotNull("Status"),
+                Subject = Converter.ToString2(reader["Subject"]),
+                StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo
                 {
                     Hours = Converter.ToInt(durationTimeArray[0]),
                     Minutes = Converter.ToInt(durationTimeArray[1]),
                     Seconds = Converter.ToInt(durationTimeArray[2])
                 },
-                Handler = reader.GetStringNotNull("HandleBy"),
-                Reviewer = reader.GetStringNotNull("ReviewBy")
+                Handler = Converter.ToString2(reader["HandleBy"]),
+                Reviewer = Converter.ToString2(reader["ReviewBy"])
             };
 
             return logInfo;
@@ -201,65 +201,65 @@ namespace Fanex.CRM.Communication.Repositories
         {
             var logInfo = new BaseCommunicationLogInfo
             {
-                RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToShortFormatedDate(),
+                RunningNumber = Converter.ToInt(reader["FeedbackID"]),
+                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToShortFormatedDate(),
                 MainCategory = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("MainCategoryID")
+                    Id = Converter.ToInt(reader["MainCategoryID"])
                 },
                 SubCategory = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("SubCategoryID")
+                    Id = Converter.ToInt(reader["SubCategoryID"])
                 },
-                Subject = reader.GetStringNotNull("Subject"),
-                StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDateTime(),
-                EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ResolutionDate")).ToLongFormatedDateTime(),
+                Subject = Converter.ToString2(reader["Subject"]),
+                StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
+                EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ResolutionDate"])).ToLongFormatedDateTime(),
                 Extension = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("StationID")
+                    Id = Converter.ToInt(reader["StationID"])
                 },
                 CommunicationTool = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("CommunicationID")
+                    Id = Converter.ToInt(reader["CommunicationID"])
                 },
-                LanguageId = reader.GetInt32NotNull("LanguageID"),
+                LanguageId = Converter.ToInt(reader["LanguageID"]),
                 Product = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("ProductID")
+                    Id = Converter.ToInt(reader["ProductID"])
                 },
                 BetType = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("BetTypeID")
+                    Id = Converter.ToInt(reader["BetTypeID"])
                 },
                 Status = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("StatusID")
+                    Id = Converter.ToInt(reader["StatusID"])
                 },
                 SiteInfo = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("SiteID")
+                    Id = Converter.ToInt(reader["SiteID"])
                 },
                 RoleInfo = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("RoleID")
+                    Id = Converter.ToInt(reader["RoleID"])
                 },
                 Response = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("ResponseID")
+                    Id = Converter.ToInt(reader["ResponseID"])
                 },
-                Remark = reader.GetStringNotNull("Description"),
-                Solution = reader.GetStringNotNull("Solution"),
-                Review = reader.GetStringNotNull("Review"),
-                IsReviewed = reader.GetBooleanNotNull("IsReviewed"),
+                Remark = Converter.ToString2(reader["Description"]),
+                Solution = Converter.ToString2(reader["Solution"]),
+                Review = Converter.ToString2(reader["Review"]),
+                IsReviewed = Converter.ToBool(reader["IsReviewed"]),
                 Country = new CountryInfo
                 {
-                    Id = reader.GetInt32NotNull("CountryID")
+                    Id = Converter.ToInt(reader["CountryID"])
                 },
-                CustomerId = reader.GetInt32NotNull("CustId"),
-                CustomerName = reader.GetStringNotNull("UserName"),
+                CustomerId = Converter.ToInt(reader["CustId"]),
+                CustomerName = Converter.ToString2(reader["UserName"]),
 
-                Reviewer = reader.GetStringNotNull("reviewer"),
-                ReviewedTimeString = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("SolveDate")).ToLongFormatedDateTime()
+                Reviewer = Converter.ToString2(reader["reviewer"]),
+                ReviewedTimeString = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["SolveDate"])).ToLongFormatedDateTime()
             };
 
             return logInfo;
@@ -269,8 +269,8 @@ namespace Fanex.CRM.Communication.Repositories
         {
             return new BaseModel
             {
-                Name = reader.GetStringNotNull("UserName"),
-                Id = reader.GetInt32NotNull("CustID")
+                Name = Converter.ToString2(reader["UserName"]),
+                Id = Converter.ToInt(reader["CustID"])
             };
         }
     }

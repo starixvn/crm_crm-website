@@ -13,8 +13,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.FeedbackStatisticReport;
-    using Fanex.CRM.Report.Services.Implements.FeedbackStatisticReport;
-    using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Report.Services.FeedbackStatisticReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 

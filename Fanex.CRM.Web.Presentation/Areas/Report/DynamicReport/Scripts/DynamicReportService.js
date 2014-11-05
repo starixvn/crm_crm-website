@@ -5,7 +5,7 @@ dynamicReportApplication.factory('$dynamicReportService', ['$http', '$q',
         var serviceInstance = {};
         serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "Setting/GetNumberOfFeedbackSubjectTemplate", null)
+            $http.post(window.rootUrl + "Setting/NumberOfFeedbackSubjectTemplate", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -47,7 +47,7 @@ dynamicReportApplication.factory('$dynamicReportService', ['$http', '$q',
         };
         serviceInstance.getAllSetting = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "DynamicReport/GetAllSetting", null)
+            $http.post(window.rootUrl + "DynamicReport/AllSetting", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

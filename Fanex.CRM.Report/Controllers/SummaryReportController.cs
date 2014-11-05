@@ -14,8 +14,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.SummaryReport;
-    using Fanex.CRM.Report.Services.Implements.SummaryReport;
-    using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Report.Services.SummaryReport;
 
     /// <summary>
     /// SummaryReportController controller.
@@ -36,9 +35,9 @@ namespace Fanex.CRM.Report.Controllers
 
         [HttpGet]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
-        public ActionResult GetAllSettings()
+        public ActionResult AllSettings()
         {
-            return Json(_summaryService.GetAllSettings(), JsonRequestBehavior.AllowGet);
+            return Json(_summaryService.AllSettings(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

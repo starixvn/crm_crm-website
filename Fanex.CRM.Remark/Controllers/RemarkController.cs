@@ -14,8 +14,7 @@ namespace Fanex.CRM.Remark.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
-    using Fanex.CRM.Remark.Services.Implements;
-    using Fanex.CRM.Remark.Services.Interfaces;
+    using Fanex.CRM.Remark.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 

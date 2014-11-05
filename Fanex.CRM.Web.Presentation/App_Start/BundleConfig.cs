@@ -7,7 +7,7 @@
 //   <change who="" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Web.View.App_Start
+namespace Fanex.CRM.Web.View.AppStart
 {
     using System.Diagnostics.CodeAnalysis;
     using System.Web;
@@ -22,7 +22,7 @@ namespace Fanex.CRM.Web.View.App_Start
     /// <summary>
     /// Bundle Config.
     /// </summary>
-    public class BundleConfig
+    public static class BundleConfig
     {
         /// <summary>
         /// Registers the bundles.
@@ -665,21 +665,6 @@ namespace Fanex.CRM.Web.View.App_Start
                 Transforms = { new CssTransformer(), new CssMinify() },
                 Orderer = new NullOrderer()
             }.Include(virtualPaths));
-        }
-
-        /// <summary>
-        /// Gets relative path from absolute path.
-        /// </summary>
-        /// <param name="context">The context using to get the path.</param>
-        /// <param name="path">The absolute path.</param>
-        /// <returns>The relative path.</returns>
-        public static string RelativeFromAbsolutePath(this HttpContextBase context, string path)
-        {
-            var request = context.Request;
-            var applicationPath = request.PhysicalApplicationPath;
-            var virtualDir = request.ApplicationPath;
-            virtualDir = virtualDir == "/" ? virtualDir : (virtualDir + "/");
-            return path.Replace(applicationPath, virtualDir).Replace(@"\", "/");
         }
     }
 }

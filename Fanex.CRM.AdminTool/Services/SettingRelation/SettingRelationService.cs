@@ -21,8 +21,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Setting.Services;
 
     /// <summary>
     /// Setting Relation Service.
@@ -54,7 +53,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         {
             get
             {
-                return _settingService.GetMainSetting();
+            return _settingService.MainSetting();
             }
         }
 
@@ -67,7 +66,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         {
             try
             {
-                var allSettings = _settingService.GetAllSetting();
+                var allSettings = _settingService.AllSetting();
                 var result = allSettings
                     .Where(s => s.Type == criteria.MainSetting.Type)
                     .Select(s => s)
@@ -170,7 +169,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         private List<SettingInfo> GetSettingByParentId(int parentId)
         {
             var allSettingRelation = AllSettingRelation();
-            var allSettings = _settingService.GetAllSetting();
+            var allSettings = _settingService.AllSetting();
 
             var settingIds = allSettingRelation
                 .Where(r => r.ParentId == parentId)

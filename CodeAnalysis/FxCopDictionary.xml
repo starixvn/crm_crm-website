@@ -9,7 +9,11 @@
     <Deprecated>
       <Term>username</Term>
     </Deprecated>
-    <Compound />
+    <Compound>
+      <Term CompoundAlternate="PostMeridem">PM</Term>
+      <Term CompoundAlternate="AnteMeridem">AM</Term>
+      <Term />
+    </Compound>
     <DiscreteExceptions />
   </Words>
   <Acronyms>
@@ -20,6 +24,12 @@
       <Acronym>ABT</Acronym>
       <Acronym>MSN</Acronym>
       <Acronym>Username</Acronym>
+      <Acronym>XML</Acronym>
+      <Acronym>AM</Acronym>
+      <Acronym>PM</Acronym>
+      <Acronym>SSO</Acronym>
+      <Acronym>IBC</Acronym>
+      <Acronym>PIC</Acronym>
     </CasingExceptions>
   </Acronyms>
 </Dictionary>

@@ -6,7 +6,7 @@ feedbackSubjectManagementApplication.factory('feedbackSubjectManagementService',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
-            var url = window.rootUrl + "Setting/GetNumberOfFeedbackSubjectTemplate";
+            var url = window.rootUrl + "Setting/NumberOfFeedbackSubjectTemplate";
             return sharedScriptManager.registerAngularService($http, $q, url, null);
         };
         serviceInstance.getFeedbackSubjectTemplateByPagingIndex = function (pagingInfo) {

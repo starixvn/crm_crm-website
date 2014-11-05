@@ -14,7 +14,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Setting Constants.
     /// </summary>
-    public class SettingConstants
+    public static class SettingConstants
     {
         public const int ActivityLog = 1;
         public const int SettingLog = 2;

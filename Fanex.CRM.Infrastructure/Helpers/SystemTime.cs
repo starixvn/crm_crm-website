@@ -16,11 +16,12 @@ namespace Fanex.CRM.Infrastructure.Helpers
     /// </summary>
     public static class SystemTime
     {
-        static SystemTime()
+        public static Func<DateTime> Now
         {
-            Now = () => DateTime.UtcNow;
+            get
+            {
+                return () => DateTime.UtcNow;
+            }
         }
-
-        public static Func<DateTime> Now { get; set; }
     }
 }

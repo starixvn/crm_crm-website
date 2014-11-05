@@ -20,7 +20,7 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Services.Implements;
+    using Fanex.CRM.Setting.Services;
 
     /// <summary>
     /// Feedback Subject Management Service.

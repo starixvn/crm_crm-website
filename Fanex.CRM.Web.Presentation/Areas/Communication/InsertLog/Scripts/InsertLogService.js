@@ -6,7 +6,7 @@ function ($http, $q) {
 
     serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
         var deferred = $q.defer();
-        $http.post(window.rootUrl + "Setting/GetNumberOfFeedbackSubjectTemplate", null)
+        $http.post(window.rootUrl + "Setting/NumberOfFeedbackSubjectTemplate", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

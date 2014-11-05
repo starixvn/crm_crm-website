@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Customer Type Constants.
     /// </summary>
-    public class CustomerTypeConstants
+    public static class CustomerTypeConstants
     {
         public const int All = 0;
 

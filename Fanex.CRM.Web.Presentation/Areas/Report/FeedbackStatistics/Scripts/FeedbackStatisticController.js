@@ -136,7 +136,7 @@ function ($scope, feedbackStatisticService, $uiBlockerService, alertBoxService) 
 
         $uiBlockerService.blockUI();
         var criteria = {
-            Type: $scope.setting.Id,
+            SelectionType: $scope.setting.Id,
             FromDate: $scope.searchCriteria.FromDate,
             ToDate: $scope.searchCriteria.ToDate,
             FromDuration: $scope.getDurationTimeString($scope.fromDuration),
@@ -189,7 +189,7 @@ function ($scope, feedbackStatisticService, $uiBlockerService, alertBoxService) 
         $scope.downloadFileOptions = {
             URL: window.rootUrl + 'FeedbackStatisticReport/ExportFeedbackStatistic',
             Params: {
-                Type: $scope.setting.Id,
+                SelectionType: $scope.setting.Id,
                 FromDate: $scope.searchCriteria.FromDate,
                 ToDate: $scope.searchCriteria.ToDate,
                 FromDuration: $scope.getDurationTimeString($scope.fromDuration),
@@ -203,7 +203,7 @@ function ($scope, feedbackStatisticService, $uiBlockerService, alertBoxService) 
 
     $scope.openFeedbackStatisticDetail = function (mainCategoryId, subCategoryId, valueId, page, size) {
         var criteria = {
-            Type: $scope.setting.Id,
+            SelectionType: $scope.setting.Id,
             MainCategoryId: mainCategoryId,
             SubCategoryId: subCategoryId,
             ValueId: valueId,

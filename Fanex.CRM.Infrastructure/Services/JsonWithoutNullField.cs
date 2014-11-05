@@ -17,12 +17,12 @@ namespace Fanex.CRM.Infrastructure.Services
     /// </summary>
     public class JsonWithoutNullField : ActionResult
     {
-        public JsonWithoutNullField(object obj)
+        public JsonWithoutNullField(object value)
         {
-            this._obj = obj;
+            this._value = value;
         }
 
-        private object _obj { get; set; }
+        private object _value { get; set; }
 
         /// <summary>
         /// Enables processing of the result of an action method by a custom type that inherits from the <see cref="T:System.Web.Mvc.ActionResult" /> class.
@@ -32,7 +32,7 @@ namespace Fanex.CRM.Infrastructure.Services
         public override void ExecuteResult(ControllerContext context)
         {
             var jsonString = JsonConvert.SerializeObject(
-                this._obj,
+                this._value,
                 Formatting.None,
                 new JsonSerializerSettings
                 {

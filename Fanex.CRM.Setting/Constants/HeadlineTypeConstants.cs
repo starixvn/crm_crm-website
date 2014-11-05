@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Headline Type Constants.
     /// </summary>
-    public sealed class HeadlineTypeConstants
+    public static class HeadlineTypeConstants
     {
         public const int All = -1;
 

@@ -14,7 +14,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Communication Tool Constants.
     /// </summary>
-    public class CommunicationToolConstants
+    public static class CommunicationToolConstants
     {
         public static readonly int NotApply = 1005;
     }

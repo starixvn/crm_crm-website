@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Feedback statistic filter type.
     /// </summary>
-    public class FeedbackStatisticFilterType
+    public static class FeedbackStatisticFilterType
     {
         public const int ByCreator = 1;
         public const int ByCountry = 2;

@@ -242,7 +242,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 List<StatisticsDetailbyDateModel> pagingData = criteria.IsGetFullReport ?
                     rawData :
                     rawData.Skip(criteria.StartIndex).Take(criteria.PageSize).ToList();
-                var dataLength = pagingData.Count;
                 foreach (var data in pagingData)
                 {
                     var feedbackDate = (DateTime)DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.StartDate);
@@ -254,7 +253,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                         Remark = data.Remark,
                         Solution = data.Solution,
                         StartDateString = feedbackDate.ToShortFormatedDate(),
-                        StartTime = feedbackDate.ToHourMinuteAmPmFormated(),
+                        StartTime = feedbackDate.ToHourMinuteMiddayTypeFormated(),
                         Duration = new TimeInfo
                         {
                             Days = timeSpan.Days,
@@ -273,7 +272,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                         Handler = data.Handler,
                         CreationTime = data.CreationTime,
                         CreationTimeString = DateTimeUtilize.ChangeTimeZoneToClient(data.CreationTime),
-                        ResolutionTimeString = resolutionDate.ToHourMinuteAmPmFormated(),
+                        ResolutionTimeString = resolutionDate.ToHourMinuteMiddayTypeFormated(),
 
                         CommunicationTool = data.CommunicationTool,
                         MSN = data.MSN,

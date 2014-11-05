@@ -5,7 +5,7 @@ function ($http, $q) {
     var serviceInstance = {};
     serviceInstance.getAllStatus = function () {
         var deferred = $q.defer();
-        $http.post(window.rootUrl + "Redemption/GetAllStatus_Insert", null)
+        $http.post(window.rootUrl + "Redemption/AllStatusInsert", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -26,7 +26,7 @@ function ($http, $q) {
     };
     serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
         var deferred = $q.defer();
-        $http.post(window.rootUrl + "Setting/GetNumberOfFeedbackSubjectTemplate", null)
+        $http.post(window.rootUrl + "Setting/NumberOfFeedbackSubjectTemplate", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

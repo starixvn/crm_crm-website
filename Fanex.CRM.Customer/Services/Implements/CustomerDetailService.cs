@@ -18,8 +18,7 @@ namespace Fanex.CRM.Customer.Services
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Setting.Services;
 
     /// <summary>
     /// Customer Detail Service.
@@ -58,7 +57,7 @@ namespace Fanex.CRM.Customer.Services
                 if (customerInfo != null)
                 {
                     customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
-                    var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
+                    var siteSetting = _settingService.SettingById(new GetSettingByIdCriteria
                     {
                         SettingId = customerInfo.SiteSetting.Id
                     });

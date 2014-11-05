@@ -14,7 +14,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Extension Constants.
     /// </summary>
-    public class ExtensionConstants
+    public static class ExtensionConstants
     {
         public static readonly int NotApply = 2022;
     }

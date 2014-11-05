@@ -83,18 +83,13 @@ namespace Fanex.CRM.Feedback.Repositories
                 Name = Converter.ToString2(reader["Username"]),
                 FirstName = Converter.ToString2(reader["FirstName"]),
                 LastName = Converter.ToString2(reader["LastName"]),
-                FaxInfo = new FaxInfo 
+                FaxInfo = new FaxInfo
                 {
                     CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
                     AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
                     FaxNumber = Converter.ToString2(reader["Fax"])
                 },
-                MobilePhone = new PhoneInfo 
-                {
-                    CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
-                    AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"]),
-                    PhoneNumber = Converter.ToString2(reader["MobilePhone"])
-                },
+                MobilePhone = PhoneInfo(reader, "MobilePhone"),
                 Skype = Converter.ToString2(reader["Skype"]),
                 Email = Converter.ToString2(reader["Email"]),
                 MSN = Converter.ToString2(reader["MSN"]),
@@ -105,24 +100,9 @@ namespace Fanex.CRM.Feedback.Repositories
 
             customer.BirthDayString = customer.BirthDay;
             customer.Title.Id = Converter.ToInt(reader["TitleId"]);
-            customer.PhoneInfo.Add(new PhoneInfo 
-            { 
-                CountryCode = Converter.ToString2(reader["PhoneCountryCode"]),
-                AreaCode = Converter.ToString2(reader["PhoneAreaCode"]),
-                PhoneNumber = Converter.ToString2(reader["Phone"])
-            });
-            customer.PhoneInfo.Add(new PhoneInfo 
-            { 
-                CountryCode = Converter.ToString2(reader["Phone2CountryCode"]),
-                AreaCode = Converter.ToString2(reader["Phone2AreaCode"]),
-                PhoneNumber = Converter.ToString2(reader["Phone2"])
-            });
-            customer.PhoneInfo.Add(new PhoneInfo 
-            { 
-                CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
-                AreaCode = Converter.ToString2(reader["Phone3AreaCode"]),
-                PhoneNumber = Converter.ToString2(reader["Phone3"])
-            });
+            customer.PhoneInfo.Add(PhoneInfo(reader, "Phone"));
+            customer.PhoneInfo.Add(PhoneInfo(reader, "Phone2"));
+            customer.PhoneInfo.Add(PhoneInfo(reader, "Phone3"));
             customer.SiteSetting.Id = Converter.ToInt(reader["SiteId"]);
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode1"]));
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode2"]));
@@ -141,7 +121,7 @@ namespace Fanex.CRM.Feedback.Repositories
         /// <returns>The feedback of customer.</returns>
         private CustomerFeedback GetCustomerFeedback(IDataReader reader)
         {
-            CustomerFeedback feedback = new CustomerFeedback 
+            CustomerFeedback feedback = new CustomerFeedback
             {
                 Id = Converter.ToInt(reader["FeedbackId"]),
                 FeedbackTimeString = DateTimeUtilize.ChangeTimeZoneToClient(Converter.ToDateTime(reader["FeedbackDate"])),
@@ -170,6 +150,16 @@ namespace Fanex.CRM.Feedback.Repositories
 
             feedback.HasRelated = !string.IsNullOrWhiteSpace(feedback.RelatedCustomer);
             return feedback;
+        }
+
+        private PhoneInfo PhoneInfo(IDataReader reader, string fieldName)
+        {
+            return new PhoneInfo
+            {
+                CountryCode = Converter.ToString2(reader[fieldName + "CountryCode"]),
+                AreaCode = Converter.ToString2(reader[fieldName + "AreaCode"]),
+                PhoneNumber = Converter.ToString2(reader[fieldName])
+            };
         }
     }
 }

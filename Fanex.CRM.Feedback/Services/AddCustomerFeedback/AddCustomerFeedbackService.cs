@@ -17,6 +17,7 @@ namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Services;
 
     /// <summary>
     /// Add Customer Feedback Service.

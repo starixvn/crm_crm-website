@@ -14,7 +14,7 @@ addGuestFeedbackApplication.factory('addGuestFeedbackService',
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
         serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
-            var url = window.rootUrl + "Setting/GetNumberOfFeedbackSubjectTemplate";
+            var url = window.rootUrl + "Setting/NumberOfFeedbackSubjectTemplate";
             return sharedScriptManager.registerAngularService($http, $q, url, null);
         };
         serviceInstance.getFeedbackSubjectTemplateByPagingIndex = function (pagingInfo) {

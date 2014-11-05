@@ -25,8 +25,7 @@ namespace Fanex.CRM.Feedback.Services
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Setting.Services;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -161,7 +160,7 @@ namespace Fanex.CRM.Feedback.Services
         {
             var categoryHash = new Dictionary<int, string>();
             var subcategoryHash = new Dictionary<int, string>();
-            var categoies = _serviceSetting.GetAllMainCategory();
+            var categoies = _serviceSetting.AllMainCategory();
             foreach (var category in categoies)
             {
                 if (!categoryHash.ContainsKey(category.Id))
@@ -178,7 +177,7 @@ namespace Fanex.CRM.Feedback.Services
                 }
             }
 
-            var statusList = _serviceSetting.GetAllStatus(new GetAllStatusCriteria { ViewType = ViewTypeConstants.All });
+            var statusList = _serviceSetting.AllStatus(new GetAllStatusCriteria { ViewType = ViewTypeConstants.All });
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NA);
 
@@ -223,7 +222,7 @@ namespace Fanex.CRM.Feedback.Services
         /// <returns>The list of SettingInfo object.</returns>
         private IList<SettingInfo> GetCustomerResponse()
         {
-            var response = _serviceSetting.GetAllResponse();
+            var response = _serviceSetting.AllResponse();
             response.Insert(
                 0,
                 new SettingInfo 
@@ -260,7 +259,7 @@ namespace Fanex.CRM.Feedback.Services
                 }
             };
 
-            var rawData = _serviceSetting.GetAllMainCategory();
+            var rawData = _serviceSetting.AllMainCategory();
             foreach (var rawMainCategory in rawData)
             {
                 rawMainCategory.ChildSettings.Insert(0, allSubSettingOption);
@@ -276,7 +275,7 @@ namespace Fanex.CRM.Feedback.Services
         /// <returns>The list of SettingInfo object.</returns>
         private IList<SettingInfo> GetCommunication()
         {
-            var communication = _serviceSetting.GetAllCommunicationTool()
+            var communication = _serviceSetting.AllCommunicationTool()
                 .Where(r => r.Id != CommunicationToolConstants.NotApply)
                 .ToList();
             communication.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
@@ -290,7 +289,7 @@ namespace Fanex.CRM.Feedback.Services
         /// <returns>The list of SettingInfo object.</returns>
         private IList<SettingInfo> GetStatus()
         {
-            var status = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
+            var status = _serviceSetting.AllStatus(new GetAllStatusCriteria
             {
                 ViewType = ViewTypeConstants.CommunicationTool
             })

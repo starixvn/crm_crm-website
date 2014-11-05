@@ -27,7 +27,7 @@ summaryReportApplication.factory('SummaryReportService', ['$http', '$q', functio
 
     serviceInstance.getAllSettings = function () {
         var deferred = $q.defer();
-        $http.get(window.rootUrl + 'SummaryReport/GetAllSettings')
+        $http.get(window.rootUrl + 'SummaryReport/AllSettings')
 .success(function (data, status, headers, config) {
     deferred.resolve({
         Result: data,

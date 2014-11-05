@@ -13,8 +13,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Report.Criteria.CasinoReport;
-    using Fanex.CRM.Report.Services.Implements.CasinoReport;
-    using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Report.Services.CasinoReport;
 
     /// <summary>
     /// Casino Report Controller.

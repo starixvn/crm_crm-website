@@ -170,24 +170,24 @@ namespace Fanex.CRM.Dashboard.Repositories
         {
             CustomerInfo customerInfo = new CustomerInfo
             {
-                Email = reader.GetStringNotNull("email"),
-                Passport = reader.GetStringNotNull("Passport"),
-                SecretCode = reader.GetStringNotNull("SecretCode"),
+                Email = Converter.ToString2(reader["email"]),
+                Passport = Converter.ToString2(reader["Passport"]),
+                SecretCode = Converter.ToString2(reader["SecretCode"]),
                 BirthDay = reader["BirthDay"] != DBNull.Value ?
-                    reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate() :
+                    Converter.ToDateTime(reader["BirthDay"]).ToShortFormatedDate() :
                     string.Empty,
 
-                IsVerifyEmail = reader.GetBooleanNotNull("IsVerifyEmail"),
-                IsVerifyPassport = reader.GetBooleanNotNull("IsVerifyPassport"),
-                IsVerifyBirthday = reader.GetBooleanNotNull("IsVerifyBirthday"),
-                IsVerifySecretCode = reader.GetBooleanNotNull("IsVerifySecretCode"),
-                IsVerifyBetCredit = reader.GetBooleanNotNull("IsVerifyBetCredit"),
-                IsVerifyGivenCredit = reader.GetBooleanNotNull("IsVerifyGivenCredit"),
+                IsVerifyEmail = Converter.ToBool(reader["IsVerifyEmail"]),
+                IsVerifyPassport = Converter.ToBool(reader["IsVerifyPassport"]),
+                IsVerifyBirthday = Converter.ToBool(reader["IsVerifyBirthday"]),
+                IsVerifySecretCode = Converter.ToBool(reader["IsVerifySecretCode"]),
+                IsVerifyBetCredit = Converter.ToBool(reader["IsVerifyBetCredit"]),
+                IsVerifyGivenCredit = Converter.ToBool(reader["IsVerifyGivenCredit"]),
 
-                RoleId = reader.GetInt32NotNull("RoleId"),
-                IsCredit = reader.GetBooleanNotNull("IsCredit"),
-                BetCredit = reader.GetDecimalNotNull("BetCredit"),
-                GivenCredit = reader.GetDecimalNotNull("GivenCredit")
+                RoleId = Converter.ToInt(reader["RoleId"]),
+                IsCredit = Converter.ToBool(reader["IsCredit"]),
+                BetCredit = Converter.ToDecimal(reader["BetCredit"]),
+                GivenCredit = Converter.ToDecimal(reader["GivenCredit"])
             };
 
             return customerInfo;
@@ -203,7 +203,7 @@ namespace Fanex.CRM.Dashboard.Repositories
             Justification = "Reviewed. Suppression is OK here.")]
         private string MappingDataFromSqlToRemarkObject(IDataReader reader)
         {
-            return HtmlHelper.DecodeXml(reader.GetStringNotNull("Remark")).HtmlEncode();
+            return HtmlHelper.DecodeXml(Converter.ToString2(reader["Remark"])).HtmlEncode();
         }
 
         /// <summary>
@@ -218,12 +218,12 @@ namespace Fanex.CRM.Dashboard.Repositories
         {
             var redemptionLog = new RedemptionLogInfo
             {
-                Id = reader.GetInt32NotNull("RedemptionId"),
-                ClaimedTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("ClaimTime")).ToShortFormatedDate(),
-                Subject = reader.GetStringNotNull("Subject"),
+                Id = Converter.ToInt(reader["RedemptionId"]),
+                ClaimedTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ClaimTime"])).ToShortFormatedDate(),
+                Subject = Converter.ToString2(reader["Subject"]),
                 Status = new SettingInfo
                 {
-                    Value = reader.GetStringNotNull("Status")
+                    Value = Converter.ToString2(reader["Status"])
                 }
             };
 
@@ -240,24 +240,24 @@ namespace Fanex.CRM.Dashboard.Repositories
             Justification = "Reviewed. Suppression is OK here.")]
         private CommunicationLogInfo MappingDataFromSqlToCommunicationLogObject(IDataReader reader)
         {
-            var durationTime = reader.GetStringNotNull("Duration");
+            var durationTime = Converter.ToString2(reader["Duration"]);
             var durationTimeArray = durationTime.Split(':');
             var communicationLog = new CommunicationLogInfo
             {
-                RunningNumber = reader.GetInt32NotNull("FeedbackID"),
-                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(reader.GetDateTimeNotNull("FeedbackDate")).ToLongFormatedDateTime(),
-                MainCategory = new SettingInfo { Name = reader.GetStringNotNull("MainCategory") },
-                SubCategory = new SettingInfo { Name = reader.GetStringNotNull("SubCategory") },
-                Subject = reader.GetStringNotNull("Subject"),
-                StatusName = reader.GetStringNotNull("Status"),
+                RunningNumber = Converter.ToInt(reader["FeedbackID"]),
+                FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
+                MainCategory = new SettingInfo { Name = Converter.ToString2(reader["MainCategory"]) },
+                SubCategory = new SettingInfo { Name = Converter.ToString2(reader["SubCategory"]) },
+                Subject = Converter.ToString2(reader["Subject"]),
+                StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo
                 {
                     Hours = Converter.ToInt(durationTimeArray[0]),
                     Minutes = Converter.ToInt(durationTimeArray[1]),
                     Seconds = Converter.ToInt(durationTimeArray[2])
                 },
-                Handler = reader.GetStringNotNull("HandleBy"),
-                Reviewer = reader.GetStringNotNull("ReviewBy")
+                Handler = Converter.ToString2(reader["HandleBy"]),
+                Reviewer = Converter.ToString2(reader["ReviewBy"])
             };
 
             return communicationLog;

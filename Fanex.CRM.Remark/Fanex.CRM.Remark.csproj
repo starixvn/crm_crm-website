@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -77,15 +77,15 @@
     <Compile Include="Criteria\UpdateRemarkCriteria.cs" />
     <Compile Include="Models\Remarks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Implements\RemarkRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IRemarkRepository.cs" />
+    <Compile Include="Repositories\RemarkRepository.cs" />
+    <Compile Include="Repositories\IRemarkRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\Implements\RemarkService.cs" />
-    <Compile Include="Services\Interfaces\IRemarkService.cs" />
+    <Compile Include="Services\RemarkService.cs" />
+    <Compile Include="Services\IRemarkService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.resx">

@@ -5,7 +5,7 @@ activityLogApplication.factory('$activityLogService', ['$http', '$q', function (
 
     serviceInstance.getActions = function () {
         var deferred = $q.defer();
-        $http.get(window.rootUrl + 'Setting/GetAllLogAction?Type=1')
+        $http.get(window.rootUrl + 'Setting/GetAllLogAction?ActionType=1')
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

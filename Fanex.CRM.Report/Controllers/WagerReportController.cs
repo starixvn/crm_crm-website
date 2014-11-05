@@ -14,8 +14,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.WagerReport;
-    using Fanex.CRM.Report.Services.Implements.WagerReport;
-    using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Report.Services.WagerReport;
 
     /// <summary>
     /// WagerReportController controller.

@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Headline Product Status Constants.
     /// </summary>
-    public class HeadlineProductStatusConstants
+    public static class HeadlineProductStatusConstants
     {
         public const int NotAvailable = 0;
         public const int Enable = 1;

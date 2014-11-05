@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Title Constants.
     /// </summary>
-    public class TitleConstants
+    public static class TitleConstants
     {
         public const int All = 0;
     }

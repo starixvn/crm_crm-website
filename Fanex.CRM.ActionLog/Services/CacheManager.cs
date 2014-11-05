@@ -15,8 +15,7 @@ namespace Fanex.CRM.ActionLog.Services
     using Fanex.CRM.ActionLog.Resources;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Setting.Services;
 
     /// <summary>
     /// CacheManager class.
@@ -42,10 +41,10 @@ namespace Fanex.CRM.ActionLog.Services
                     key,
                     () =>
                     {
-                        var countries = SettingServiceInstance.GetAllCountry()
+                    var countries = SettingServiceInstance.AllCountry()
                             .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, Type = "Country" });
 
-                        var settings = SettingServiceInstance.GetAllSetting();
+                    var settings = SettingServiceInstance.AllSetting();
                         settings.AddRange(countries);
 
                         // Add default N/A

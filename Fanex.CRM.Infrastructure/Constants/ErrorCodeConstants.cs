@@ -12,7 +12,7 @@ namespace Fanex.CRM.Infrastructure.Constants
     /// <summary>
     /// Error Code Constants.
     /// </summary>
-    public class ErrorCodeConstants
+    public static class ErrorCodeConstants
     {
         public const int NoneError = 0;
 

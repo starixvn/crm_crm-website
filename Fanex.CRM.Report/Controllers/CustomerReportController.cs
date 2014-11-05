@@ -13,8 +13,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.CustomerReport;
-    using Fanex.CRM.Report.Repositories.Implements.CustomerReport;
-    using Fanex.CRM.Report.Repositories.Interfaces;
+    using Fanex.CRM.Report.Repositories.CustomerReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -47,16 +46,16 @@ namespace Fanex.CRM.Report.Controllers
         /// <returns>All setting.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
-        public ActionResult GetAllSetting()
+        public ActionResult AllSetting()
         {
             var allSetting = new
             {
-                SiteList = _customerReportService.GetAllSite(),
-                TitleList = _customerReportService.GetAllTitle(),
-                CountryList = _customerReportService.GetAllCountry(),
-                LanguageList = _customerReportService.GetAllLanguage(),
-                CustomerTypeList = _customerReportService.GetAllCustomerType(),
-                VIPTypeList = _customerReportService.GetAllVIPType()
+                SiteList = _customerReportService.AllSite(),
+                TitleList = _customerReportService.AllTitle(),
+                CountryList = _customerReportService.AllCountry(),
+                LanguageList = _customerReportService.AllLanguage(),
+                CustomerTypeList = _customerReportService.AllCustomerType(),
+                VIPTypeList = _customerReportService.AllVIPType()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -66,7 +65,7 @@ namespace Fanex.CRM.Report.Controllers
         [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult GetCustomerReport(GetCustomerReportCriteria criteria)
         {
-            var customerReport = _customerReportService.GetCustomerReport(criteria);
+            var customerReport = _customerReportService.CustomerReport(criteria);
             var jsonResult = Json(customerReport, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

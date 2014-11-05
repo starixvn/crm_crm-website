@@ -33,6 +33,9 @@ namespace Fanex.CRM.User.Controllers
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [SuppressMessage("Microsoft.Maintainability",
+        "CA1502:AvoidExcessiveComplexity",
+        Justification = "Reviewed. Suppression is OK here.")]
     public class UserLoginController : BaseController
     {
         private const string FormTokenName = "__SecureFormToken";
@@ -43,12 +46,11 @@ namespace Fanex.CRM.User.Controllers
         private ICurrentSession _napCurrentSession;
         private IGroupService _napGroupService;
         private ISiteService _napSiteService;
-        private IFunctionService _napFunctionService;
         private IMaintenanceService _maintenanceService;
         private HashAlgorithm _hashAlgorithm = new SHA1Managed();
 
         public UserLoginController()
-            : this(null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
@@ -58,7 +60,6 @@ namespace Fanex.CRM.User.Controllers
             ISiteService siteService,
             IMenuItemService menuItemService,
             ICurrentSession currentSession,
-            IFunctionService functionService,
             IMaintenanceService maintenanceService)
         {
             _userNapService = userService ?? new UserService();
@@ -67,7 +68,6 @@ namespace Fanex.CRM.User.Controllers
 
             _napGroupService = groupService ?? new GroupService();
             _napSiteService = siteService ?? new SiteService();
-            _napFunctionService = functionService ?? new FunctionService();
             _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
@@ -139,6 +139,12 @@ namespace Fanex.CRM.User.Controllers
         [HttpPost]
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here."),
+        SuppressMessage("Microsoft.Maintainability",
+            "CA1506:AvoidExcessiveComplexity",
+            Justification = "Reviewed. Suppression is OK here."), 
+        SuppressMessage("Microsoft.Maintainability",
+            "CA1502:AvoidExcessiveComplexity",
             Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Index(string username, string password, string loginToken)
         {
@@ -342,9 +348,11 @@ namespace Fanex.CRM.User.Controllers
         /// Log out action.
         /// </summary>
         /// <returns>Log out result.</returns>
+        [SuppressMessage("Microsoft.Design",
+            "CA1031:DoNotCatchGeneralExceptionTypes",
+            Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult LogOut()
         {
-            var result = new Result();
             try
             {
                 _userNapService.UserLogOut(new LogOutUserCriteria

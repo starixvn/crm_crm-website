@@ -58,7 +58,7 @@ namespace Fanex.CRM.Feedback.Controllers
         public ActionResult AllSettingToAddCustomerFeedback()
         {
             var allSetting = AllSettingToAddFeedback();
-            allSetting.RoleList = ServiceSetting.GetAllRole();
+            allSetting.RoleList = ServiceSetting.AllRole();
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 

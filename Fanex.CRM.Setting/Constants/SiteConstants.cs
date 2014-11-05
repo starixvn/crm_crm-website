@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Site Constants.
     /// </summary>
-    public class SiteConstants
+    public static class SiteConstants
     {
         public const int BeginLicenseeSiteId = 6200;
 

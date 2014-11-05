@@ -13,8 +13,7 @@ namespace Fanex.CRM.Redemption.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Redemption.Criteria;
-    using Fanex.CRM.Redemption.Services.Implements;
-    using Fanex.CRM.Redemption.Services.Interfaces;
+    using Fanex.CRM.Redemption.Services.RedemptionLog;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -86,17 +85,17 @@ namespace Fanex.CRM.Redemption.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetAllStatus_Insert()
+        public JsonResult AllStatusInsert()
         {
-            var allStatus = _logServiceInstance.GetAllStatus_Insert();
+            var allStatus = _logServiceInstance.AllStatusInsert();
             var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
         [HttpPost]
-        public JsonResult GetAllStatus_Edit()
+        public JsonResult AllStatusEdit()
         {
-            var allStatus = _logServiceInstance.GetAllStatus_Edit();
+            var allStatus = _logServiceInstance.AllStatusEdit();
             var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

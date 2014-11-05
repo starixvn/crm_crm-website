@@ -18,8 +18,7 @@ namespace Fanex.CRM.Feedback.Services
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Setting.Services;
 
     /// <summary>
     /// Update customer feedback service.
@@ -49,14 +48,14 @@ namespace Fanex.CRM.Feedback.Services
         /// </returns>
         public dynamic GetAllSettings(bool hasDeleteFeedbackPermission)
         {
-            var countries = _settingService.GetAllCountry();
+            var countries = _settingService.AllCountry();
             countries.Insert(0, new CountryInfo { Id = 0, Name = Labels.Symbol_NA });
 
-            var languages = _settingService.GetAllLanguage();
+            var languages = _settingService.AllLanguage();
             languages.Insert(0, new SettingInfo { Id = 0, Name = Labels.Symbol_NA });
 
             var statusList = new List<SettingInfo>();
-            var statusRawData = _settingService.GetAllStatus(new GetAllStatusCriteria { ViewType = ViewTypeConstants.CommunicationTool });
+            var statusRawData = _settingService.AllStatus(new GetAllStatusCriteria { ViewType = ViewTypeConstants.CommunicationTool });
             if (statusRawData != null)
             {
                 foreach (var status in statusRawData)
@@ -70,17 +69,17 @@ namespace Fanex.CRM.Feedback.Services
 
             return new
             {
-                Titles = _settingService.GetAllTitle(),
-                Sites = _settingService.GetAllSiteWithGroup(),
-                Extensions = _settingService.GetAllExtension(),
-                Communications = _settingService.GetAllCommunicationTool(),
-                Categories = _settingService.GetAllMainCategory(),
-                Products = _settingService.GetAllProduct(),
+                Titles = _settingService.AllTitle(),
+                Sites = _settingService.AllSiteWithGroup(),
+                Extensions = _settingService.AllExtension(),
+                Communications = _settingService.AllCommunicationTool(),
+                Categories = _settingService.AllMainCategory(),
+                Products = _settingService.AllProduct(),
                 Countries = countries,
                 Languages = languages,
                 StatusList = statusList,
-                Roles = _settingService.GetAllRole(),
-                Responses = _settingService.GetAllResponse(),
+                Roles = _settingService.AllRole(),
+                Responses = _settingService.AllResponse(),
             };
         }
 

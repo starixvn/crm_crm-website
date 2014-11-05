@@ -17,7 +17,8 @@ namespace Fanex.CRM.Setting.Criteria
     /// </summary>
     public class GetActionCriteria : CriteriaBase
     {
-        public int Type { get; set; }
+        [SpParam(SqlParamName = "Type")]
+        public int ActionType { get; set; }
 
         /// <summary>
         /// Gets the setting key.
@@ -26,7 +27,7 @@ namespace Fanex.CRM.Setting.Criteria
         public override string GetSettingKey()
         {
             var settingKey = string.Empty;
-            switch (Type)
+            switch (ActionType)
             {
                 case SettingConstants.ActivityLog:
                     settingKey = "Acc_CRM_ActivityLogList";

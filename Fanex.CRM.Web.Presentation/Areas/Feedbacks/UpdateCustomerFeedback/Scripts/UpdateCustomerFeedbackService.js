@@ -48,7 +48,7 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
     };
 
     serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
-        var url = window.rootUrl + 'Setting/GetNumberOfFeedbackSubjectTemplate';
+        var url = window.rootUrl + 'Setting/NumberOfFeedbackSubjectTemplate';
         return sharedScriptManager.registerAngularService($http, $q, url, null);
     };
 

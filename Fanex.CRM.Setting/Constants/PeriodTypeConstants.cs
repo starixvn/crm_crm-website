@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Period Type Constants.
     /// </summary>
-    public class PeriodTypeConstants
+    public static class PeriodTypeConstants
     {
         public const int Daily = 1;
         public const int Weekly = 2;

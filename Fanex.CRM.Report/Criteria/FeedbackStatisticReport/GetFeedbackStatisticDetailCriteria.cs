@@ -26,7 +26,7 @@ namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
 
         public string ToDuration { get; set; }
 
-        public int Type { get; set; }
+        public int SelectionType { get; set; }
 
         public int MainCategoryId { get; set; }
 
@@ -59,7 +59,7 @@ namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
         {
             return new Hashtable 
             {
-                { "type", Type },
+                { "type", SelectionType },
                 { "maincategoryid", MainCategoryId },
                 { "subcategoryid", SubCategoryId },
                 { "valueid", ValueId },

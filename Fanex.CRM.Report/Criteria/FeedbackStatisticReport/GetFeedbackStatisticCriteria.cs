@@ -26,7 +26,7 @@ namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
 
         public string ToDuration { get; set; }
 
-        public int Type { get; set; }
+        public int SelectionType { get; set; }
 
         [SpParam(Ignored = true)]
         public bool FromCache { get; set; }
@@ -49,7 +49,7 @@ namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
         {
             return new Hashtable 
             {
-                { "type", Type },
+                { "type", SelectionType },
                 { "fromdate", FromDate },
                 { "todate", ToDate },
                 { "fromduration", FromDuration == null ? string.Empty : FromDuration },

@@ -13,8 +13,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Report.Criteria.DynamicReport;
-    using Fanex.CRM.Report.Services.Implements.DynamicReport;
-    using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Report.Services.DynamicReport;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -47,19 +46,19 @@ namespace Fanex.CRM.Report.Controllers
         /// <returns>All setting.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
-        public ActionResult GetAllSetting()
+        public ActionResult AllSetting()
         {
             var allSetting = new
             {
-                PeriodTypeList = _dynamicReportService.GetAllPeriodType(),
-                ProductList = _dynamicReportService.GetAllProduct(),
-                SiteList = _dynamicReportService.GetAllSite(),
-                StatusList = _dynamicReportService.GetAllStatus(),
-                ResponseList = _dynamicReportService.GetAllResponse(),
-                RoleList = _dynamicReportService.GetAllRole(),
-                CommunicationToolList = _dynamicReportService.GetAllCommunicationTool(),
-                MainCategoryList = _dynamicReportService.GetAllMainCategory(),
-                ExtensionList = _dynamicReportService.GetAllExtension()
+                PeriodTypeList = _dynamicReportService.AllPeriodType(),
+                ProductList = _dynamicReportService.AllProduct(),
+                SiteList = _dynamicReportService.AllSite(),
+                StatusList = _dynamicReportService.AllStatus(),
+                ResponseList = _dynamicReportService.AllResponse(),
+                RoleList = _dynamicReportService.AllRole(),
+                CommunicationToolList = _dynamicReportService.AllCommunicationTool(),
+                MainCategoryList = _dynamicReportService.AllMainCategory(),
+                ExtensionList = _dynamicReportService.AllExtension()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

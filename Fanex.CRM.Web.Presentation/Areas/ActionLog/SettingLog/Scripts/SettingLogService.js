@@ -5,7 +5,7 @@ settingLogApplication.factory('$settingLogService', ['$http', '$q', function ($h
 
     serviceInstance.getActions = function () {
         var deferred = $q.defer();
-        $http.get(window.rootUrl + 'Setting/GetAllLogAction?Type=2')
+        $http.get(window.rootUrl + 'Setting/GetAllLogAction?ActionType=2')
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

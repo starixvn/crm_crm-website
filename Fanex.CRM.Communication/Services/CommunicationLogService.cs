@@ -22,8 +22,7 @@ namespace Fanex.CRM.Communication.Services
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Setting.Services;
 
     /// <summary>
     /// Communication Log Service.
@@ -74,7 +73,7 @@ namespace Fanex.CRM.Communication.Services
                 var allStatusResult = new List<SettingInfo>();
                 try
                 {
-                    var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
+                    var allStatusSetting = _serviceSetting.AllStatus(new GetAllStatusCriteria
                     {
                         ViewType = ViewTypeConstants.CommunicationTool
                     });

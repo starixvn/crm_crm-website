@@ -49,7 +49,7 @@ customerDetailApplication.factory('$customerDetailService', ['$http', '$q',
      };
      serviceInstance.getAllSite = function () {
          var deferred = $q.defer();
-         $http.post(window.rootUrl + "Setting/GetAllSite", null)
+         $http.post(window.rootUrl + "Setting/AllSite", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -70,7 +70,7 @@ customerDetailApplication.factory('$customerDetailService', ['$http', '$q',
      };
      serviceInstance.getAllCountry = function () {
          var deferred = $q.defer();
-         $http.post(window.rootUrl + "Setting/GetAllCountry", null)
+         $http.post(window.rootUrl + "Setting/AllCountry", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -91,7 +91,7 @@ customerDetailApplication.factory('$customerDetailService', ['$http', '$q',
      };
      serviceInstance.getAllLanguage = function () {
          var deferred = $q.defer();
-         $http.post(window.rootUrl + "Setting/GetAllLanguage", null)
+         $http.post(window.rootUrl + "Setting/AllLanguage", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -112,7 +112,7 @@ customerDetailApplication.factory('$customerDetailService', ['$http', '$q',
      };
      serviceInstance.getAllTitle = function () {
          var deferred = $q.defer();
-         $http.post(window.rootUrl + "Setting/GetAllTitle", null)
+         $http.post(window.rootUrl + "Setting/AllTitle", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

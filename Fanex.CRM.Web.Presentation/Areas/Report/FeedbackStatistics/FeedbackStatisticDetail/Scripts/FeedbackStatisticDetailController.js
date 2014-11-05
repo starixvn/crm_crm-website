@@ -41,8 +41,7 @@ function ($scope, feedbackStatisticDetailService, $uiBlockerService) {
 
         $scope.$apply();
     };
-
-
+    
     angular.element(document).ready(function () {
         $scope.initController();
     });

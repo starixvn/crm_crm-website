@@ -5,7 +5,7 @@ customerReportApplication.factory('$customerReportService', ['$http', '$q',
         var serviceInstance = {};
         serviceInstance.getAllSetting = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CustomerReport/GetAllSetting", null)
+            $http.post(window.rootUrl + "CustomerReport/AllSetting", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

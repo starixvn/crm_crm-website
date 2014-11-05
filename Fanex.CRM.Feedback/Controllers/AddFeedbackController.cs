@@ -16,8 +16,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
+    using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -51,7 +50,7 @@ namespace Fanex.CRM.Feedback.Controllers
         /// <returns>All setting to add feedback.</returns>
         public AllSettingToAddFeedback AllSettingToAddFeedback()
         {
-            var languageList = ServiceSetting.GetAllLanguage();
+            var languageList = ServiceSetting.AllLanguage();
             languageList.Insert(
                 0,
                 new SettingInfo
@@ -60,7 +59,7 @@ namespace Fanex.CRM.Feedback.Controllers
                     Name = Labels.Symbol_NA
                 });
 
-            var countryList = ServiceSetting.GetAllCountry();
+            var countryList = ServiceSetting.AllCountry();
             countryList.Insert(
                 0,
                 new CountryInfo
@@ -71,16 +70,16 @@ namespace Fanex.CRM.Feedback.Controllers
 
             var allSetting = new AllSettingToAddFeedback
             {
-                ExtensionList = ServiceSetting.GetAllExtension(),
+                ExtensionList = ServiceSetting.AllExtension(),
                 CountryList = countryList,
-                CommunicationToolList = ServiceSetting.GetAllCommunicationTool(),
+                CommunicationToolList = ServiceSetting.AllCommunicationTool(),
                 LanguageList = languageList,
-                MainCategoryList = ServiceSetting.GetAllMainCategory(),
-                ProductList = ServiceSetting.GetAllProduct(),
-                SiteList = ServiceSetting.GetAllSite(),
-                ResponseList = ServiceSetting.GetAllResponse(),
-                StatusList = ServiceSetting.GetAllFeedbackStatus(),
-                TitleList = ServiceSetting.GetAllTitle()
+                MainCategoryList = ServiceSetting.AllMainCategory(),
+                ProductList = ServiceSetting.AllProduct(),
+                SiteList = ServiceSetting.AllSite(),
+                ResponseList = ServiceSetting.AllResponse(),
+                StatusList = ServiceSetting.AllFeedbackStatus(),
+                TitleList = ServiceSetting.AllTitle()
             };
 
             return allSetting;

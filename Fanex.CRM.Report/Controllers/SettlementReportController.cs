@@ -14,8 +14,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.SettlementReport;
-    using Fanex.CRM.Report.Services.Implements.SettlementReport;
-    using Fanex.CRM.Report.Services.Interfaces;
+    using Fanex.CRM.Report.Services.SettlementReport;
 
     /// <summary>
     /// Settlement Report Controller.

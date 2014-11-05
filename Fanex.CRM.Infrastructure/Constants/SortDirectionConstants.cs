@@ -12,11 +12,11 @@ namespace Fanex.CRM.Infrastructure.Constants
     /// <summary>
     /// Sort Direction Constants.
     /// </summary>
-    public class SortDirectionConstants
+    public static class SortDirectionConstants
     {
-        public const string DESC = "DESC";
+        public const string Desc = "DESC";
 
-        public const string ASC = "ASC";
+        public const string Asc = "ASC";
 
         public const string None = "";
     }

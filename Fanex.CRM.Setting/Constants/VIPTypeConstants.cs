@@ -12,7 +12,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// VIP Type Constants.
     /// </summary>
-    public class VIPTypeConstants
+    public static class VIPTypeConstants
     {
         public const int All = -1;
 

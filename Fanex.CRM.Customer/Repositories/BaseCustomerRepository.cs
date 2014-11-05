@@ -11,6 +11,7 @@ namespace Fanex.CRM.Customer.Repositories
 {
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Infrastructure.Extensions;
@@ -35,94 +36,98 @@ namespace Fanex.CRM.Customer.Repositories
             {
                 Title = new SettingInfo
                 {
-                    Id = reader.GetInt32NotNull("TitleID"),
+                    Id = Converter.ToInt(reader["TitleID"]),
                     Name = string.Empty
                 },
 
-                FirstName = reader.GetStringNotNull("FirstName"),
-                LastName = reader.GetStringNotNull("LastName"),
-                Email = reader.GetStringNotNull("Email"),
+                FirstName = Converter.ToString2(reader["FirstName"]),
+                LastName = Converter.ToString2(reader["LastName"]),
+                Email = Converter.ToString2(reader["Email"]),
                 FaxInfo = new FaxInfo
                 {
-                    CountryCode = reader.GetStringNotNull("FaxCountryCode"),
-                    AreaCode = reader.GetStringNotNull("FaxAreaCode"),
-                    FaxNumber = reader.GetStringNotNull("Fax")
+                    CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
+                    AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
+                    FaxNumber = Converter.ToString2(reader["Fax"])
                 },
-                MobilePhone = new PhoneInfo
-                {
-                    CountryCode = reader.GetStringNotNull("MobilePhoneCountryCode"),
-                    AreaCode = reader.GetStringNotNull("MobilePhoneAreaCode"),
-                    PhoneNumber = reader.GetStringNotNull("MobilePhone")
-                },
-
-                Skype = reader.GetStringNotNull("Skype"),
-                MSN = reader.GetStringNotNull("msn"),
-                Id = reader.GetInt32NotNull("CustId"),
-                Name = reader.GetStringNotNull("UserName"),
+                MobilePhone = PhoneInfo(reader, "MobilePhone"),
+                Skype = Converter.ToString2(reader["Skype"]),
+                MSN = Converter.ToString2(reader["msn"]),
+                Id = Converter.ToInt(reader["CustId"]),
+                Name = Converter.ToString2(reader["UserName"]),
                 Role = new BaseModel
                 {
-                    Id = reader.GetInt32NotNull("roleid")
+                    Id = Converter.ToInt(reader["roleid"])
                 },
                 SiteSetting = new BaseModel
                 {
-                    Id = reader.GetInt32NotNull("SiteID")
+                    Id = Converter.ToInt(reader["SiteID"])
                 },
                 BankInfo = new BankInfo
                 {
-                    Name = reader.GetStringNotNull("Wire_BankName"),
-                    SwiftCode = reader.GetStringNotNull("Wire_SwiftCode"),
-                    AccountName = reader.GetStringNotNull("Wire_AccountName"),
-                    AccountNumber = reader.GetStringNotNull("Wire_AccountNo")
+                    Name = Converter.ToString2(reader["Wire_BankName"]),
+                    SwiftCode = Converter.ToString2(reader["Wire_SwiftCode"]),
+                    AccountName = Converter.ToString2(reader["Wire_AccountName"]),
+                    AccountNumber = Converter.ToString2(reader["Wire_AccountNo"])
                 },
                 Creator = new UserInfo
                 {
-                    Name = reader.GetStringNotNull("CreatorName")
+                    Name = Converter.ToString2(reader["CreatorName"])
                 },
                 Country = new BaseModel
                 {
-                    Id = reader.GetInt32NotNull("CountryID")
+                    Id = Converter.ToInt(reader["CountryID"])
                 },
 
-                Question = reader.GetStringNotNull("Question"),
-                Answer = reader.GetStringNotNull("Answer"),
-                IsVIP = reader.GetBooleanNotNull("IsVIP"),
-                CreatedDate = reader.GetDateTimeNotNull("CreateDate"),
-                BirthDay = reader.GetDateTimeNotNull("BirthDay").ToShortFormatedDate()
+                Question = Converter.ToString2(reader["Question"]),
+                Answer = Converter.ToString2(reader["Answer"]),
+                IsVIP = Converter.ToBool(reader["IsVIP"]),
+                CreatedDate = Converter.ToDateTime(reader["CreateDate"]),
+                BirthDay = Converter.ToDateTime(reader["BirthDay"]).ToShortFormatedDate()
             };
 
             customer.NickName = customer.Id > 0 ?
-                reader.GetStringNotNull("UserName2") :
+                Converter.ToString2(reader["UserName2"]) :
                 string.Empty;
-            customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC1"));
-            customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC2"));
-            customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC3"));
-            customer.PersonalInfoContact.Add(reader.GetStringNotNull("PIC4"));
+            customer.PersonalInfoContact.Add(Converter.ToString2(reader["PIC1"]));
+            customer.PersonalInfoContact.Add(Converter.ToString2(reader["PIC2"]));
+            customer.PersonalInfoContact.Add(Converter.ToString2(reader["PIC3"]));
+            customer.PersonalInfoContact.Add(Converter.ToString2(reader["PIC4"]));
 
-            customer.BettingCode.Add(reader.GetStringNotNull("RefCode1"));
-            customer.BettingCode.Add(reader.GetStringNotNull("RefCode2"));
+            customer.BettingCode.Add(Converter.ToString2(reader["RefCode1"]));
+            customer.BettingCode.Add(Converter.ToString2(reader["RefCode2"]));
 
             customer.PhoneInfo.Add(new PhoneInfo
             {
-                CountryCode = reader.GetStringNotNull("PhoneCountryCode"),
-                AreaCode = reader.GetStringNotNull("PhoneAreaCode"),
-                PhoneNumber = reader.GetStringNotNull("Phone")
+                CountryCode = Converter.ToString2(reader["PhoneCountryCode"]),
+                AreaCode = Converter.ToString2(reader["PhoneAreaCode"]),
+                PhoneNumber = Converter.ToString2(reader["Phone"])
             });
 
             customer.PhoneInfo.Add(new PhoneInfo
             {
-                CountryCode = reader.GetStringNotNull("Phone2CountryCode"),
-                AreaCode = reader.GetStringNotNull("Phone2AreaCode"),
-                PhoneNumber = reader.GetStringNotNull("Phone2")
+                CountryCode = Converter.ToString2(reader["Phone2CountryCode"]),
+                AreaCode = Converter.ToString2(reader["Phone2AreaCode"]),
+                PhoneNumber = Converter.ToString2(reader["Phone2"])
             });
 
             customer.PhoneInfo.Add(new PhoneInfo
             {
-                CountryCode = reader.GetStringNotNull("Phone3CountryCode"),
-                AreaCode = reader.GetStringNotNull("Phone3AreaCode"),
-                PhoneNumber = reader.GetStringNotNull("Phone3")
+                CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
+                AreaCode = Converter.ToString2(reader["Phone3AreaCode"]),
+                PhoneNumber = Converter.ToString2(reader["Phone3"])
             });
 
             return customer;
+        }
+
+        private PhoneInfo PhoneInfo(IDataReader reader, string fieldName)
+        {
+            return new PhoneInfo
+            {
+                CountryCode = Converter.ToString2(reader[fieldName + "CountryCode"]),
+                AreaCode = Converter.ToString2(reader[fieldName + "AreaCode"]),
+                PhoneNumber = Converter.ToString2(reader[fieldName])
+            };
         }
     }
 }

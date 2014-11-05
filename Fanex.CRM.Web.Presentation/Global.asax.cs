@@ -12,7 +12,7 @@ namespace Fanex.CRM.Web.View
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
-    using Fanex.CRM.Web.View.App_Start;
+    using Fanex.CRM.Web.View.AppStart;
 
     /// <summary>
     /// MVC Application.

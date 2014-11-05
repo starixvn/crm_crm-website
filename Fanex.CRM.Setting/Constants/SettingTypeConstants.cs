@@ -14,7 +14,7 @@ namespace Fanex.CRM.Setting.Constants
     /// <summary>
     /// Setting Type Constants.
     /// </summary>
-    public class SettingTypeConstants
+    public static class SettingTypeConstants
     {
         public static readonly string Site = "site";
         public static readonly string Language = "language";
