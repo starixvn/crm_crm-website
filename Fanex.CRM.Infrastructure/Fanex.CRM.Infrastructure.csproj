@@ -34,42 +34,21 @@
     <Reference Include="DNAide">
       <HintPath>..\Dependency\DNAide.dll</HintPath>
     </Reference>
-    <Reference Include="ExcelUtil">
-      <HintPath>..\Dependency\ExcelUtil.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.Data">
+    <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Logging">
       <HintPath>..\Dependency\Fanex\Fanex.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.MailDeliver.MailClient">
-      <HintPath>..\Dependency\Fanex\Fanex.MailDeliver.MailClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.NAP.Core">
-      <HintPath>..\Dependency\Fanex\Fanex.NAP.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.NAP.Framework">
-      <HintPath>..\Dependency\Fanex\Fanex.NAP.Framework.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Dependency\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI">
-      <HintPath>..\Dependency\NPoi\NPOI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Routing" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\ErrorCodeConstants.cs" />
@@ -79,9 +58,7 @@
     <Compile Include="Extensions\DateTimeExtension.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Extensions\IDataReaderExtension.cs" />
-    <Compile Include="Extensions\ResourceExtension.cs" />
     <Compile Include="Extensions\SessionExtension.cs" />
-    <Compile Include="Helpers\ExcelUtils.cs" />
     <Compile Include="Helpers\LogExtensions.cs" />
     <Compile Include="Helpers\SystemTime.cs" />
     <Compile Include="Models\BaseModel.cs" />

@@ -25,14 +25,16 @@ namespace Fanex.CRM.Infrastructure.Helpers
         public static void ExceptionHandler(Exception ex)
         {
             var request = HttpContext.Current.Request;
-            string message = ex.Message +
-                             "<br>\r\nSOURCE: " + ex.Source +
-                             "<br>\r\nDOMAIN: " + request.Headers["Host"] +
-                             "<br>\r\nREFERRER: " + request.UrlReferrer +
-                             "<br>\r\nQUERYSTRING: " + request.QueryString.ToString() +
-                             "<br>\r\nTARGETSITE: " + ex.TargetSite +
-                             "<br>\r\nSTACKTRACE: " + ex.StackTrace;
-            Logger.Log.Error(message);
+            string messageTemplate = "{0}<br>\r\nSOURCE: {1}<br>\r\nDOMAIN: {2}<br>\r\nREFERRER: {3}<br>\r\nQUERYSTRING: {4}<br>\r\nTARGETSITE: {5}<br>\r\nSTACKTRACE: {6}";
+            Logger.Log.Error(string.Format(
+                messageTemplate,
+                ex.Message,
+                ex.Source,
+                request.Headers["Host"],
+                request.UrlReferrer,
+                request.QueryString.ToString(),
+                ex.TargetSite,
+                ex.StackTrace));
         }
     }
 }
