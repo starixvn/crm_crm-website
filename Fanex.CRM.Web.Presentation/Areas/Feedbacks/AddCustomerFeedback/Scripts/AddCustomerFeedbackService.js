@@ -6,7 +6,7 @@ addCustomerFeedbackApplication.factory('addCustomerFeedbackService',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getAllSetting = function (params) {
-            var url = window.rootUrl + "AddCustomerFeedback/GetAllSettingToAddCustomerFeedback";
+            var url = window.rootUrl + "AddCustomerFeedback/AllSettingToAddCustomerFeedback";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
         serviceInstance.getCustomerInfoById = function (params) {

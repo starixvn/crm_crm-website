@@ -6,7 +6,7 @@ viewListApplication.factory('viewListService',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getMainSetting = function (params) {
-            var url = window.rootUrl + "SettingManagement/GetMainSetting";
+            var url = window.rootUrl + "SettingManagement/MainSetting";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
         serviceInstance.getSettingRelations = function (params) {

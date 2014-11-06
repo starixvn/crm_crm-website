@@ -52,10 +52,6 @@ namespace Fanex.CRM.Feedback.Criteria
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules", "SP2101:MethodMustNotContainMoreLinesThan", Justification = "Reviewed. Suppression is OK here.")]
         public Hashtable GetSpParams()
         {
-            DateTime feedbackTime, resolutionTime;
-            DateTime.TryParse(FeedbackTimeString, out feedbackTime);
-            DateTime.TryParse(ResolutionTimeString, out resolutionTime);
-
             int userId = AppSession.CurrentUser.Id;
             Hashtable inputParams = new Hashtable 
             {
@@ -93,8 +89,6 @@ namespace Fanex.CRM.Feedback.Criteria
                 { "pic4", CustomerInfo.PersonalInfoContact[3] },
                 { "isvip", CustomerInfo.IsVIP },
                 { "isoverwrite", OverrideCRMInfo },
-                { "feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(feedbackTime) },
-                { "resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(resolutionTime) },
                 { "stationid", Extension.Id },
                 { "communicationid", Communication.Id },
                 { "maincategoryid", Category.Id },
@@ -115,11 +109,21 @@ namespace Fanex.CRM.Feedback.Criteria
                 { "errmsg", ErrorMessage }
             };
 
-            DateTime birthday;
+            DateTime birthday, feedbackTime, resolutionTime;
             var sqlMinDate = new DateTime(1900, 1, 1);
             if (DateTime.TryParse(CustomerInfo.BirthDayString, out birthday) && birthday >= sqlMinDate)
             {
                 inputParams.Add("birthday", birthday);
+            }
+
+            if (DateTime.TryParse(FeedbackTimeString, out feedbackTime))
+            {
+                inputParams.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(feedbackTime));
+            }
+
+            if (DateTime.TryParse(ResolutionTimeString, out resolutionTime))
+            {
+                inputParams.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(resolutionTime));
             }
 
             // RelatedCustomer parameter:

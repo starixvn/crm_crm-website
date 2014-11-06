@@ -17,28 +17,22 @@ namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Services.Implements;
-    using Fanex.CRM.Setting.Services.Interfaces;
 
     /// <summary>
     /// Add Guest Feedback Service.
     /// </summary>
     public class AddGuestFeedbackService : IAddGuestFeedbackService
     {
-        private ISettingService _serviceSetting;
-
         private IAddGuestFeedbackRepository _addGuestFeedbackRepository;
 
         public AddGuestFeedbackService()
-            : this(null, null)
+            : this(null)
         {
         }
 
         public AddGuestFeedbackService(
-            ISettingService serviceSetting,
             IAddGuestFeedbackRepository addGuestFeedbackRepository)
         {
-            _serviceSetting = serviceSetting ?? new SettingService();
             _addGuestFeedbackRepository = addGuestFeedbackRepository ?? new AddGuestFeedbackRepository();
         }
 

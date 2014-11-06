@@ -50,9 +50,12 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             _settingService = settingService ?? new SettingService();
         }
 
-        public List<SettingInfo> GetMainSetting()
+        public List<SettingInfo> MainSetting
         {
-            return _settingService.GetMainSetting();
+            get
+            {
+                return _settingService.GetMainSetting();
+            }
         }
 
         /// <summary>
@@ -89,7 +92,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         {
             try
             {
-                var mainSetting = GetMainSetting();
+                var mainSetting = MainSetting;
                 return mainSetting
                     .Where(s => !string.Equals(s.Type, criteria.MainSetting.Type, StringComparison.Ordinal))
                     .Select(s => s)

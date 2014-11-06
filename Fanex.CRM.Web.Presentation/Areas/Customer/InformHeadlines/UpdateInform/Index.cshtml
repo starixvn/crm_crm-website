@@ -59,7 +59,7 @@
         "~/Areas/Customer/InformHeadlines/UpdateInformScript")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var titleId = @Request["titleId"];
+        var titleId = @ViewBag.TitleId;
         var updateInformResources = {
             Headline: '@Labels.Headline',
             Status: '@Labels.Status',

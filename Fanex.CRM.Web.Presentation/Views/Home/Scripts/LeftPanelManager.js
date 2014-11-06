@@ -54,7 +54,7 @@ var LeftPanelManager = function () {
 
         /* jshint newcap: false */
         BlockUI();
-        var sourceURL = '../CustomerSetting/GetShortCustomerInfo?' + $.param({
+        var sourceURL = '../CustomerSetting/ShortCustomerInfo?' + $.param({
             username: getCustomerInfoParams.Username,
             isguest: getCustomerInfoParams.IsGuest,
             issearch: 1,

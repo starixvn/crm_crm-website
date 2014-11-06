@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.05.09">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Services.Implements
+namespace Fanex.CRM.Customer.Services
 {
     using System;
     using System.Collections.Generic;
@@ -19,10 +19,8 @@ namespace Fanex.CRM.Customer.Services.Implements
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Models.InformHeadlines;
-    using Fanex.CRM.Customer.Repositories.Implements;
-    using Fanex.CRM.Customer.Repositories.Interfaces;
+    using Fanex.CRM.Customer.Repositories;
     using Fanex.CRM.Customer.Resources;
-    using Fanex.CRM.Customer.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
@@ -54,9 +52,12 @@ namespace Fanex.CRM.Customer.Services.Implements
             _settingService = settingService ?? new SettingService();
         }
 
-        public InformHeadlineSetting GetAllInformHeadlineSettings()
+        public InformHeadlineSetting AllInformHeadlineSettings
         {
-            return _settingService.GetAllInformHeadlineSettings();
+            get
+            {
+                return _settingService.GetAllInformHeadlineSettings();
+            }
         }
 
         /// <summary>
@@ -87,6 +88,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return statistic;
@@ -151,6 +153,7 @@ namespace Fanex.CRM.Customer.Services.Implements
                 result.Code = -1;
                 result.Message = ex.Message;
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return result;
@@ -170,7 +173,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                return null;
+                throw;
             }
         }
 
@@ -249,7 +252,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
-                return null;
+                throw;
             }
         }
 
@@ -360,35 +363,34 @@ namespace Fanex.CRM.Customer.Services.Implements
             exportExcelInfo.CurrentRow = currentRow;
         }
 
-        private short GetRowColorIndex(bool isEven)
+        private short GetRowColorIndex()
         {
-            ////return isEven ? NpoiExcelExtensions.EvenRowColorIndex : NpoiExcelExtensions.BackgroundColorIndex;
             return NpoiExcelExtensions.BackgroundColorIndex;
         }
 
-        private ICellStyle GetTitleCellStyle(HSSFWorkbook workbook, bool isEvent = true)
+        private ICellStyle GetTitleCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExcelExtensions.TextStyle(
                 workbook,
-                GetRowColorIndex(isEvent),
+                GetRowColorIndex(),
                 false,
                 CRMHorizontalAlignment.Left);
         }
 
-        private ICellStyle GetCreatedTimeCellStyle(HSSFWorkbook workbook, bool isEvent = true)
+        private ICellStyle GetCreatedTimeCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExcelExtensions.TextStyle(
                 workbook,
-                GetRowColorIndex(isEvent),
+                GetRowColorIndex(),
                 false,
                 CRMHorizontalAlignment.Center);
         }
 
-        private ICellStyle GetNumberCellStyle(HSSFWorkbook workbook, bool isEven = true)
+        private ICellStyle GetNumberCellStyle(HSSFWorkbook workbook)
         {
             return NpoiExcelExtensions.IntNumberStyle(
                 workbook,
-                GetRowColorIndex(isEven),
+                GetRowColorIndex(),
                 false,
                 CRMHorizontalAlignment.Right);
         }

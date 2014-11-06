@@ -25,11 +25,11 @@ namespace Fanex.CRM.Common.Services
     /// </summary>
     public class ServiceBase : IServiceBase
     {
-        protected readonly IDynamicRepository DynamicRepository;
+        private readonly IDynamicRepository _dynamicRepository;
 
         public ServiceBase(IDynamicRepository repository = null)
         {
-            DynamicRepository = repository ?? new DynamicRepository();
+            _dynamicRepository = repository ?? new DynamicRepository();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Fanex.CRM.Common.Services
         /// </value>
         protected IDynamicRepository Repository
         {
-            get { return DynamicRepository; }
+            get { return _dynamicRepository; }
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Fanex.CRM.Common.Services
             {
                 if (criteria.IsValid())
                 {
-                    return DynamicRepository.Fetch<T>(criteria);
+                    return _dynamicRepository.Fetch<T>(criteria);
                 }
 
                 return new List<T>();
@@ -74,7 +74,7 @@ namespace Fanex.CRM.Common.Services
             catch (Exception ex)
             {
                 HandleException(ex);
-                return null;
+                throw;
             }
         }
 

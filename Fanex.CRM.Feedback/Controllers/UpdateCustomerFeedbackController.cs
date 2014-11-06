@@ -46,7 +46,7 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult GetSettings()
+        public ActionResult AllSettings()
         {
             bool hasDeleteFeedbackPermission = HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host);
             return Json(_updateCustomerFeedbackService.GetAllSettings(hasDeleteFeedbackPermission), JsonRequestBehavior.AllowGet);

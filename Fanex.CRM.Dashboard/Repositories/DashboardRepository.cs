@@ -7,7 +7,7 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Dashboard.Repositories.Implements
+namespace Fanex.CRM.Dashboard.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,6 @@ namespace Fanex.CRM.Dashboard.Repositories.Implements
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Models;
-    using Fanex.CRM.Dashboard.Repositories.Interfaces;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;

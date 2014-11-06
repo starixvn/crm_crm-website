@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.05.09">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Repositories.Interfaces
+namespace Fanex.CRM.Customer.Repositories
 {
     using System.Collections.Generic;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;

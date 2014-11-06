@@ -14,8 +14,7 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Resources;
-    using Fanex.CRM.Customer.Services.Implements;
-    using Fanex.CRM.Customer.Services.Interfaces;
+    using Fanex.CRM.Customer.Services;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
@@ -40,9 +39,9 @@ namespace Fanex.CRM.Customer.Controllers
 
         [NapAuth(FunctionKey = FunctionPermission.InformHeadline, Policy = Constant.Policy.Read)]
         [HttpGet]
-        public ActionResult GetAllInformHeadlineSettings()
+        public ActionResult AllInformHeadlineSettings()
         {
-            var settings = _informHeadlineService.GetAllInformHeadlineSettings();
+            var settings = _informHeadlineService.AllInformHeadlineSettings;
             return Json(settings, JsonRequestBehavior.AllowGet);
         }
 
@@ -92,6 +91,7 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpGet]
         public ActionResult OpenUpdateInform(int titleId)
         {
+            ViewBag.TitleId = titleId;
             ViewBag.CanUpdateTitle = HasHostPermission(FunctionPermission.InformHeadlineCreateTitle);
             ViewBag.CanUpdateStatus = HasHostPermission(FunctionPermission.InformHeadlineUpdateStatus);
             return View("~/Areas/Customer/InformHeadlines/UpdateInform/Index.cshtml");

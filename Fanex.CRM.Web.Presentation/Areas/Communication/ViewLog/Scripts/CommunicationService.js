@@ -28,7 +28,7 @@ function ($http, $q) {
 
     serviceInstance.getAllStatus = function () {
         var deferred = $q.defer();
-        $http.post(window.rootUrl + "CommunicationLog/GetAllStatus", null)
+        $http.post(window.rootUrl + "CommunicationLog/AllStatus", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

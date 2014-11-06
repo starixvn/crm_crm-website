@@ -17,9 +17,9 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
 
     public interface ISettingManagementService
     {
-        List<SettingInfo> GetMainSetting();
+        List<SettingInfo> MainSetting { get; }
 
-        List<SettingInfo> GetParentSetting();
+        List<SettingInfo> ParentSetting { get; }
 
         List<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria);
 

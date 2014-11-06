@@ -6,7 +6,7 @@ insertSettingApplication.factory('insertSettingService',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getParentSetting = function (params) {
-            var url = window.rootUrl + "SettingManagement/GetParentSetting";
+            var url = window.rootUrl + "SettingManagement/ParentSetting";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
         serviceInstance.insertSetting = function (params) {

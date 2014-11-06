@@ -113,7 +113,9 @@
     <Compile Include="Services\AppSession.cs" />
     <Compile Include="Services\AppSetting.cs" />
     <Compile Include="Services\AuthenticateAction.cs" />
-    <Compile Include="Services\CacheService.cs" />
+    <Compile Include="Services\CacheService.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Services\CRMAuthAttribute.cs" />
     <Compile Include="Services\IPermissionService.cs" />
     <Compile Include="Services\IServiceBase.cs" />

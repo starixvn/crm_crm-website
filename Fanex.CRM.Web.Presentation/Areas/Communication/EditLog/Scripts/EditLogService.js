@@ -69,7 +69,7 @@ editLogApplication.factory('$editLogService', ['$http', '$q',
         };
         serviceInstance.getAllSettingForEdit = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CommunicationLog/GetAllSetting_Edit", null)
+            $http.post(window.rootUrl + "CommunicationLog/AllSettingForEdit", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

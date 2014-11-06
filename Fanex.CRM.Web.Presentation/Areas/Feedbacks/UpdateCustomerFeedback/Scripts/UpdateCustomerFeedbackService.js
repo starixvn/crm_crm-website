@@ -5,7 +5,7 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
 
     serviceInstance.getSettings = function () {
         var deferred = $q.defer();
-        $http.get(window.rootUrl + 'UpdateCustomerFeedback/GetSettings')
+        $http.get(window.rootUrl + 'UpdateCustomerFeedback/AllSettings')
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

@@ -40,16 +40,16 @@ namespace Fanex.CRM.Feedback.Controllers
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult GetAllSetting()
+        public ActionResult AllSetting()
         {
-            return Json(GetAllSettingToAddFeedback(), JsonRequestBehavior.AllowGet);
+            return Json(AllSettingToAddFeedback(), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
         /// Gets all setting for edit.
         /// </summary>
         /// <returns>All setting to add feedback.</returns>
-        public AllSettingToAddFeedback GetAllSettingToAddFeedback()
+        public AllSettingToAddFeedback AllSettingToAddFeedback()
         {
             var languageList = ServiceSetting.GetAllLanguage();
             languageList.Insert(

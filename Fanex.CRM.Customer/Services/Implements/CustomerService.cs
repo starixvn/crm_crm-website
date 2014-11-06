@@ -7,7 +7,7 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Services.Implements
+namespace Fanex.CRM.Customer.Services
 {
     using System;
     using System.Collections.Generic;
@@ -15,10 +15,8 @@ namespace Fanex.CRM.Customer.Services.Implements
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
-    using Fanex.CRM.Customer.Repositories.Implements;
-    using Fanex.CRM.Customer.Repositories.Interfaces;
+    using Fanex.CRM.Customer.Repositories;
     using Fanex.CRM.Customer.Resources;
-    using Fanex.CRM.Customer.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Helpers;
@@ -101,6 +99,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return customerInfo;
@@ -132,6 +131,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return uplineInfoResult;
@@ -157,6 +157,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return updateResult;
@@ -176,9 +177,8 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
-
-            return null;
         }
 
         /// <summary>
@@ -196,6 +196,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return updateResult;
@@ -247,12 +248,6 @@ namespace Fanex.CRM.Customer.Services.Implements
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
-        }
-
-        public IList<string> CustomerAutoSuggestion(CustomerAutoSuggestionCriteria criteria)
-        {
-            var usernames = _customerRepositoryInstance.CustomerAutoSuggestion(criteria);
-            return null;
         }
     }
 }

@@ -9,12 +9,14 @@
 
 namespace Fanex.CRM.Common.Services
 {
+    using System;
     using System.Web.Mvc;
 
     /// <summary>
     /// CRM Authenticate Attribute.
     /// </summary>
-    public class CRMAuthAttribute : AuthorizeAttribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
+    public sealed class CRMAuthAttribute : AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {

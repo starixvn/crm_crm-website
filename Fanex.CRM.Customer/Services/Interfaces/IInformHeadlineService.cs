@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.05.09">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Services.Interfaces
+namespace Fanex.CRM.Customer.Services
 {
     using System.Collections.Generic;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
@@ -21,7 +21,7 @@ namespace Fanex.CRM.Customer.Services.Interfaces
     /// </summary>
     public interface IInformHeadlineService
     {
-        InformHeadlineSetting GetAllInformHeadlineSettings();
+        InformHeadlineSetting AllInformHeadlineSettings { get; }
 
         InformHeadlineStatistic GetInformStatistic(GetInformHeadlineStatisticCriteria criteria);
 

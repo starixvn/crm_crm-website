@@ -18,12 +18,7 @@ namespace Fanex.CRM.Common.Services
     /// </summary>
     public static class CacheService
     {
-        private static readonly ICache Cache;
-
-        static CacheService()
-        {
-            Cache = Caching.CacheService.CreateInstance(CacheType.MemCache);
-        }
+        private static readonly ICache Cache = Caching.CacheService.CreateInstance(CacheType.MemCache);
 
         /// <summary>
         /// Getting cache value.
@@ -39,7 +34,7 @@ namespace Fanex.CRM.Common.Services
             catch (Exception exception)
             {
                 LogExtensions.ExceptionHandler(exception);
-                return null;
+                throw;
             }
         }
 
@@ -57,6 +52,7 @@ namespace Fanex.CRM.Common.Services
             catch (Exception exception)
             {
                 LogExtensions.ExceptionHandler(exception);
+                throw;
             }
         }
 
@@ -86,6 +82,7 @@ namespace Fanex.CRM.Common.Services
             catch (Exception exception)
             {
                 LogExtensions.ExceptionHandler(exception);
+                throw;
             }
         }
 
@@ -104,6 +101,7 @@ namespace Fanex.CRM.Common.Services
             catch (Exception exception)
             {
                 LogExtensions.ExceptionHandler(exception);
+                throw;
             }
         }
 
@@ -122,10 +120,18 @@ namespace Fanex.CRM.Common.Services
         /// <summary>
         /// Removing the cache.
         /// </summary>
-        /// <param name="key">Cache key.</param>
-        public static void Delete(string key)
+        public static void Delete()
         {
             Cache.Clear();
+        }
+
+        /// <summary>
+        /// Deletes the specified key.
+        /// </summary>
+        /// <param name="key">The key to remove.</param>
+        public static void Delete(string key)
+        {
+            Cache.Remove(key);
         }
     }
 }

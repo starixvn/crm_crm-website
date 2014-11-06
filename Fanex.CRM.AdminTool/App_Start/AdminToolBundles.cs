@@ -7,7 +7,7 @@
 //   <change who="Louis.Nguyen" date="2014.08.01">Created</change>
 // </history>
 
-namespace Fanex.CRM.AdminTool.App_Start
+namespace Fanex.CRM.AdminTool
 {
     using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;

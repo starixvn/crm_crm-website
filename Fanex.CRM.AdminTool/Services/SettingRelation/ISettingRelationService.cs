@@ -17,7 +17,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
 
     public interface ISettingRelationService
     {
-        List<SettingInfo> GetMainSetting();
+        List<SettingInfo> MainSetting { get; }
 
         List<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria);
 

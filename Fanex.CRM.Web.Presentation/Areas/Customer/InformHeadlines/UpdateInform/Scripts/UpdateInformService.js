@@ -6,7 +6,7 @@ updateInformHeadlineApplication.factory('updateInformHeadlineService', ['$http',
 
      serviceInstance.getAllInformHeadlineSettings = function () {
          var deferred = $q.defer();
-         $http.get(window.rootUrl + 'InformHeadlines/GetAllInformHeadlineSettings')
+         $http.get(window.rootUrl + 'InformHeadlines/AllInformHeadlineSettings')
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

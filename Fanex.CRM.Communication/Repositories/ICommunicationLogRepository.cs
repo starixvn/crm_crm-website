@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ICommunicationLogService.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ICommunicationLogRepository.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -7,28 +7,23 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Communication.Services.Interfaces
+namespace Fanex.CRM.Communication.Repositories
 {
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Models;
 
-    public interface ICommunicationLogService
+    public interface ICommunicationLogRepository
     {
-        CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
-
-        BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
+        List<BaseCommunicationLogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 
         Result UpdateLog(UpdateLogCriteria criteria);
 
         Result InsertLog(InsertLogCriteria criteria);
 
-        List<SettingInfo> GetAllStatus_Edit();
-
-        List<SettingInfo> GetAllStatus_Insert();
+        BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
 
         CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria);
     }

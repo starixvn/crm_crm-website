@@ -27,7 +27,7 @@ manageFBApplication.factory('manageFeedbackService', ['$http', '$q', function ($
 
     serviceInstance.getAllSetting = function () {
         var deferred = $q.defer();
-        $http.get(window.rootUrl + "Feedbacks/GetAllSetting", null)
+        $http.get(window.rootUrl + "Feedbacks/AllSetting", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

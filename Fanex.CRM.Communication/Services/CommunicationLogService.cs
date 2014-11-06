@@ -7,7 +7,7 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Communication.Services.Implements
+namespace Fanex.CRM.Communication.Services
 {
     using System;
     using System.Collections.Generic;
@@ -15,10 +15,8 @@ namespace Fanex.CRM.Communication.Services.Implements
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
-    using Fanex.CRM.Communication.Repositories.Implements;
-    using Fanex.CRM.Communication.Repositories.Interfaces;
+    using Fanex.CRM.Communication.Repositories;
     using Fanex.CRM.Communication.Resources;
-    using Fanex.CRM.Communication.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
@@ -50,6 +48,64 @@ namespace Fanex.CRM.Communication.Services.Implements
         }
 
         /// <summary>
+        /// Gets all status for edit.
+        /// </summary>
+        /// <value>
+        /// All status for edit.
+        /// </value>
+        public List<SettingInfo> AllStatusForEdit
+        {
+            get
+            {
+                return AllStatusForInsert;
+            }
+        }
+
+        /// <summary>
+        /// Gets all status for insert.
+        /// </summary>
+        /// <value>
+        /// All status for insert.
+        /// </value>
+        public List<SettingInfo> AllStatusForInsert
+        {
+            get
+            {
+                var allStatusResult = new List<SettingInfo>();
+                try
+                {
+                    var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
+                    {
+                        ViewType = ViewTypeConstants.CommunicationTool
+                    });
+
+                    if (allStatusSetting == null)
+                    {
+                        return allStatusResult;
+                    }
+
+                    foreach (var status in allStatusSetting)
+                    {
+                        if (status.Name == Labels.Checked ||
+                            status.Name == Labels.Solved ||
+                            status.Name == Labels.Closed ||
+                            status.Name == Labels.Pending)
+                        {
+                            allStatusResult.Add(status);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogExtensions.ExceptionHandler(ex);
+                    throw;
+                }
+
+                return allStatusResult;
+            }
+        }
+
+        /// <summary>
         /// Gets the logs by customer identifier.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
@@ -71,6 +127,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return logs;
@@ -92,6 +149,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return log;
@@ -134,6 +192,7 @@ namespace Fanex.CRM.Communication.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return updateResult;
@@ -169,58 +228,10 @@ namespace Fanex.CRM.Communication.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return insertResult;
-        }
-
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <returns>All status.</returns>
-        public List<SettingInfo> GetAllStatus_Edit()
-        {
-            return GetAllStatus_Insert();
-        }
-
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <returns>
-        /// All status.
-        /// </returns>
-        public List<SettingInfo> GetAllStatus_Insert()
-        {
-            var allStatusResult = new List<SettingInfo>();
-            try
-            {
-                var allStatusSetting = _serviceSetting.GetAllStatus(new GetAllStatusCriteria
-                {
-                    ViewType = ViewTypeConstants.CommunicationTool
-                });
-
-                if (allStatusSetting == null)
-                {
-                    return allStatusResult;
-                }
-
-                foreach (var status in allStatusSetting)
-                {
-                    if (status.Name == Labels.Checked ||
-                        status.Name == Labels.Solved ||
-                        status.Name == Labels.Closed ||
-                        status.Name == Labels.Pending)
-                    {
-                        allStatusResult.Add(status);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-            }
-
-            return allStatusResult;
         }
 
         public CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria)

@@ -47,28 +47,34 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             _settingService = settingService ?? new SettingService();
         }
 
-        public List<SettingInfo> GetMainSetting()
+        public List<SettingInfo> MainSetting
         {
-            return _settingService.GetMainSetting();
+            get
+            {
+                return _settingService.GetMainSetting();
+            }
         }
 
         /// <summary>
-        /// Gets the parent setting list.
+        /// Gets the parent setting.
         /// </summary>
-        /// <returns>
-        /// The parent setting list.
-        /// </returns>
-        public List<SettingInfo> GetParentSetting()
+        /// <value>
+        /// The parent setting.
+        /// </value>
+        public List<SettingInfo> ParentSetting
         {
-            try
+            get
             {
-                var allSettings = _settingService.GetAllSetting();
-                return allSettings.OrderBy(s => s.Type).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                try
+                {
+                    var allSettings = _settingService.GetAllSetting();
+                    return allSettings.OrderBy(s => s.Type).ToList();
+                }
+                catch (Exception ex)
+                {
+                    LogExtensions.ExceptionHandler(ex);
+                    throw;
+                }
             }
         }
 
@@ -221,13 +227,6 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
-        }
-
-        private void GetSubSetting(string key, List<SettingInfo> settingList, IEnumerable<SettingInfo> allSetting)
-        {
-            var subList = allSetting.Where(s => s.Type == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
-            var setting = new SettingInfo { Type = key, ChildSettings = subList };
-            settingList.Add(setting);
         }
     }
 }

@@ -7,15 +7,13 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Services.Implements
+namespace Fanex.CRM.Customer.Services
 {
     using System;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
-    using Fanex.CRM.Customer.Repositories.Implements;
-    using Fanex.CRM.Customer.Repositories.Interfaces;
+    using Fanex.CRM.Customer.Repositories;
     using Fanex.CRM.Customer.Resources;
-    using Fanex.CRM.Customer.Services.Interfaces;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
@@ -70,6 +68,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return customerInfo;
@@ -95,6 +94,7 @@ namespace Fanex.CRM.Customer.Services.Implements
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return updateResult;

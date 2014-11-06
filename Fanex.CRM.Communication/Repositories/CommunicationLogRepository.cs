@@ -7,7 +7,7 @@
 //   <change who="Louis.Nguyen" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Communication.Repositories.Implements
+namespace Fanex.CRM.Communication.Repositories
 {
     using System.Collections.Generic;
     using System.Data;
@@ -19,7 +19,6 @@ namespace Fanex.CRM.Communication.Repositories.Implements
     using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Models;
-    using Fanex.CRM.Communication.Repositories.Interfaces;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;

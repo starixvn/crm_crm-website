@@ -14,8 +14,7 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
-    using Fanex.CRM.Customer.Services.Implements;
-    using Fanex.CRM.Customer.Services.Interfaces;
+    using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
     

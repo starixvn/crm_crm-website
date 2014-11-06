@@ -23,7 +23,7 @@ namespace Fanex.CRM.Feedback.Services
     {
         IList<BaseModel> GetTop { get; }
 
-        dynamic GetAllSetting();
+        dynamic AllSetting();
 
         IList<FeedbackDetail> GetManageFeedback(ManageFeedbackCriteria criteria);
 

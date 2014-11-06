@@ -55,9 +55,9 @@ namespace Fanex.CRM.AdminTool.Controllers
 
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
-        public JsonResult GetMainSetting()
+        public JsonResult MainSetting()
         {
-            var result = _settingRelationService.GetMainSetting();
+            var result = _settingRelationService.MainSetting;
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

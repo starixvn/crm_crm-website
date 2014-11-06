@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Common.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
@@ -21,7 +22,8 @@ namespace Fanex.CRM.Common.Services
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class AuthenticateAction : ActionFilterAttribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
+    public sealed class AuthenticateAction : ActionFilterAttribute
     {
         private readonly AuthenticationType _authenticationType;
 

@@ -7,7 +7,7 @@
 //   <change who="Kan.Nguyen" date="2014.05.09">Created</change>
 // </history>
 
-namespace Fanex.CRM.Customer.Repositories.Implements
+namespace Fanex.CRM.Customer.Repositories
 {
     using System.Collections;
     using System.Collections.Generic;
@@ -16,7 +16,6 @@ namespace Fanex.CRM.Customer.Repositories.Implements
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Customer.Criteria.InformHeadlines;
     using Fanex.CRM.Customer.Models.InformHeadlines;
-    using Fanex.CRM.Customer.Repositories.Interfaces;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
     using Fanex.Data.Repository;
@@ -54,7 +53,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                int effectedRows = db.ExecuteNonQuery(criteria.GetSpParams());
+                db.ExecuteNonQuery(criteria.GetSpParams());
             }
         }
 
@@ -85,7 +84,7 @@ namespace Fanex.CRM.Customer.Repositories.Implements
         {
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                int effectedRows = db.ExecuteNonQuery(criteria.GetSpParams());
+                db.ExecuteNonQuery(criteria.GetSpParams());
                 return new Result { Code = 0, Message = string.Empty };
             }   
         }

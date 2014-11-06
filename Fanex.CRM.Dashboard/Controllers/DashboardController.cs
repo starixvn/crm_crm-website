@@ -14,8 +14,7 @@ namespace Fanex.CRM.Dashboard.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Dashboard.Criteria;
-    using Fanex.CRM.Dashboard.Services.Implements;
-    using Fanex.CRM.Dashboard.Services.Interfaces;
+    using Fanex.CRM.Dashboard.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -47,25 +46,25 @@ namespace Fanex.CRM.Dashboard.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult GetCustomerRemarksView()
+        public PartialViewResult CustomerRemarksView()
         {
             return PartialView("~/Areas/Dashboard/ViewInfo/CustomerRemarks.cshtml");
         }
 
         [ChildActionOnly]
-        public PartialViewResult GetCustomerInfoView()
+        public PartialViewResult CustomerInfoView()
         {
             return PartialView("~/Areas/Dashboard/ViewInfo/CustomerInfo.cshtml");
         }
 
         [ChildActionOnly]
-        public PartialViewResult GetRedemptionLogsView()
+        public PartialViewResult RedemptionLogsView()
         {
             return PartialView("~/Areas/Dashboard/ViewInfo/RedemptionLogs.cshtml");
         }
 
         [ChildActionOnly]
-        public PartialViewResult GetCommunicationLogsView()
+        public PartialViewResult CommunicationLogsView()
         {
             return PartialView("~/Areas/Dashboard/ViewInfo/CommunicationLogs.cshtml");
         }

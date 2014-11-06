@@ -70,7 +70,7 @@ namespace Fanex.CRM.Feedback.Services
         /// Gets all setting.
         /// </summary>
         /// <returns>The all setting object.</returns>
-        public dynamic GetAllSetting()
+        public dynamic AllSetting()
         {
             return new
             {
@@ -98,6 +98,7 @@ namespace Fanex.CRM.Feedback.Services
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
+                throw;
             }
 
             return feebacks;

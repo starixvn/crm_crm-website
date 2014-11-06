@@ -865,20 +865,7 @@ namespace Fanex.CRM.Setting.Services.Implements
         {
             try
             {
-                CacheService.Delete(GetAllSettingSessionKey);
-                CacheService.Delete(GetAllCountrySessionKey);
-                CacheService.Delete(GetAllTitleSessionKey);
-                CacheService.Delete(GetAllFeedbackTemplateSubjectSessionKey);
-
-                CacheService.Delete(GetAllSiteSessionKey);
-                CacheService.Delete(GetAllLanguageSessionKey);
-                CacheService.Delete(GetAllExtensionSessionKey);
-                CacheService.Delete(GetAllCommunicationToolSessionKey);
-                CacheService.Delete(GetAllMainCategorySessionKey);
-                CacheService.Delete(GetAllProductSessionKey);
-                CacheService.Delete(GetAllStatusSessionKey);
-                CacheService.Delete(GetAllRoleSessionKey);
-                CacheService.Delete(GetAllResponseSessionKey);
+                CacheService.Delete();
             }
             catch (Exception ex)
             {

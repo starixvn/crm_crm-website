@@ -55,9 +55,9 @@ namespace Fanex.CRM.Feedback.Controllers
         /// <returns>All setting for edit.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult GetAllSettingToAddCustomerFeedback()
+        public ActionResult AllSettingToAddCustomerFeedback()
         {
-            var allSetting = GetAllSettingToAddFeedback();
+            var allSetting = AllSettingToAddFeedback();
             allSetting.RoleList = ServiceSetting.GetAllRole();
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }

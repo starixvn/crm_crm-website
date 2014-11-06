@@ -13,8 +13,7 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Customer.Criteria;
-    using Fanex.CRM.Customer.Services.Implements;
-    using Fanex.CRM.Customer.Services.Interfaces;
+    using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -36,7 +35,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
-        public ActionResult GetShortCustomerInfo()
+        public ActionResult ShortCustomerInfo()
         {
             return View("~/Areas/Customer/ShortInfo/CustomerInfo.cshtml");
         }

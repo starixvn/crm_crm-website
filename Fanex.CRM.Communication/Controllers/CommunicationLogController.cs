@@ -14,8 +14,7 @@ namespace Fanex.CRM.Communication.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Resources;
-    using Fanex.CRM.Communication.Services.Implements;
-    using Fanex.CRM.Communication.Services.Interfaces;
+    using Fanex.CRM.Communication.Services;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Services.Implements;
@@ -62,7 +61,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// <returns>All setting for edit.</returns>
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult GetAllSetting_Edit()
+        public ActionResult AllSettingForEdit()
         {
             var allSetting = new
             {
@@ -72,7 +71,7 @@ namespace Fanex.CRM.Communication.Controllers
                 LanguageList = _serviceSetting.GetAllLanguage(),
                 MainCategoryList = _serviceSetting.GetAllMainCategory(),
                 ProductList = _serviceSetting.GetAllProduct(),
-                StatusList = _communicationServiceLog.GetAllStatus_Edit(),
+                StatusList = _communicationServiceLog.AllStatusForEdit,
                 SiteList = _serviceSetting.GetAllSite(),
                 RoleList = _serviceSetting.GetAllRole(),
                 ResponseList = _serviceSetting.GetAllResponse()
@@ -89,7 +88,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// All setting for edit.
         /// </returns>
         [HttpPost]
-        public ActionResult GetAllSetting_Insert(int custId)
+        public ActionResult AllSettingForInsert(int custId)
         {
             var allSetting = new
             {
@@ -99,7 +98,7 @@ namespace Fanex.CRM.Communication.Controllers
                 LanguageList = _serviceSetting.GetAllLanguage(),
                 MainCategoryList = _serviceSetting.GetAllMainCategory(),
                 ProductList = _serviceSetting.GetAllProduct(),
-                StatusList = _communicationServiceLog.GetAllStatus_Insert(),
+                StatusList = _communicationServiceLog.AllStatusForInsert,
                 SiteList = _serviceSetting.GetAllSite(),
                 RoleList = _serviceSetting.GetAllRole(),
                 ResponseList = _serviceSetting.GetAllResponse(),
@@ -198,9 +197,9 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetAllStatus()
+        public JsonResult AllStatus()
         {
-            var allStatus = _communicationServiceLog.GetAllStatus_Edit();
+            var allStatus = _communicationServiceLog.AllStatusForEdit;
             var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

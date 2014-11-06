@@ -16,7 +16,7 @@ namespace Fanex.CRM.Customer.BundleConfigs
     /// <summary>
     /// Inform Headlines Bundle Register.
     /// </summary>
-    public class InformHeadlinesBundles
+    public static class InformHeadlinesBundles
     {
         public static void RegisterAll(BundleCollection bundles)
         {
