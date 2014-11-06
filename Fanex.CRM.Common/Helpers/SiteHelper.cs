@@ -9,13 +9,13 @@
 
 namespace Fanex.CRM.Common.Helpers
 {
-    using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Infrastructure.Resources;
 
     /// <summary>
     /// Site Helper.
     /// </summary>
-    public class SiteHelper
+    public static class SiteHelper
     {
         /// <summary>
         /// Gets the name of the site type.
@@ -26,10 +26,12 @@ namespace Fanex.CRM.Common.Helpers
         {
             switch (siteType)
             {
-                case (int)Enumerations.ReportTypes.CreditSite:
+                case (int)ReportType.CreditSite:
                     return Labels.IBC;
-                case (int)Enumerations.ReportTypes.Licensee:
+
+                case (int)ReportType.Licensee:
                     return Labels.Licensee;
+
                 default:
                     return string.Empty;
             }

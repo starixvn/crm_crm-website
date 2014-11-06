@@ -46,47 +46,6 @@ namespace Fanex.CRM.Common.Extensions
                 @"(?<First>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Second>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Third>2[0-4]\d|25[0-5]|[01]?\d\d?)\.(?<Fourth>2[0-4]\d|25[0-5]|[01]?\d\d?)",
                 RegexOptions.Compiled);
 
-        private static readonly char[] IllegalUrlCharacters = new[]
-        { 
-            ';', 
-            '/',
-            '\\',
-            '?', 
-            ':',
-            '@', 
-            '&',
-            '=',
-            '+', 
-            '$', 
-            ',', 
-            '<', 
-            '>', 
-            '#', 
-            '%', 
-            '.',
-            '!',
-            '*', 
-            '\'', 
-            '"', 
-            '(', 
-            ')', 
-            '[',
-            ']', 
-            '{', 
-            '}', 
-            '|', 
-            '^',
-            '`', 
-            '~', 
-            '–', 
-            '‘', 
-            '’', 
-            '“', 
-            '”',
-            '»', 
-            '«'
-        };
-
         private static CultureInfo CurrentCulture
         {
             get
@@ -122,7 +81,7 @@ namespace Fanex.CRM.Common.Extensions
         [DebuggerStepThrough]
         public static string FormatWith(this string target, params object[] args)
         {
-            Check.Argument.IsNotEmpty(target, "target");
+            ArgumentChecker.IsNotEmpty(target, "target");
             return string.Format(CurrentCulture, target, args);
         }
 
@@ -134,7 +93,7 @@ namespace Fanex.CRM.Common.Extensions
         [DebuggerStepThrough]
         public static string Hash(this string target)
         {
-            Check.Argument.IsNotEmpty(target, "target");
+            ArgumentChecker.IsNotEmpty(target, "target");
 
             using (MD5 md5 = MD5.Create())
             {
@@ -150,8 +109,8 @@ namespace Fanex.CRM.Common.Extensions
         {
             const int DotCount = 3;
 
-            Check.Argument.IsNotEmpty(target, "target");
-            Check.Argument.IsNotNegativeOrZero(index, "index");
+            ArgumentChecker.IsNotEmpty(target, "target");
+            ArgumentChecker.IsNotNegativeOrZero(index, "index");
 
             return (target.Length <= index) ? target : string.Concat(target.Substring(0, index - DotCount), new string('.', DotCount));
         }
@@ -217,50 +176,6 @@ namespace Fanex.CRM.Common.Extensions
             return convertedValue;
         }
 
-        /// <summary>
-        /// To the legal URL.
-        /// </summary>
-        /// <param name="target">The target.</param>
-        /// <returns>Convert result.</returns>
-        [DebuggerStepThrough]
-        public static string ToLegalUrl(this string target)
-        {
-            if (string.IsNullOrEmpty(target))
-            {
-                return target;
-            }
-
-            target = target.Trim();
-
-            if (target.IndexOfAny(IllegalUrlCharacters) > -1)
-            {
-                foreach (char character in IllegalUrlCharacters)
-                {
-                    target = target.Replace(character.ToString(CurrentCulture), string.Empty);
-                }
-            }
-
-            target = target.Replace(" ", "-");
-            while (target.Contains("--"))
-            {
-                target = target.Replace("--", "-");
-            }
-
-            return target;
-        }
-
-        [DebuggerStepThrough]
-        public static string UrlEncode(this string target)
-        {
-            return HttpUtility.UrlEncode(target);
-        }
-
-        [DebuggerStepThrough]
-        public static string UrlDecode(this string target)
-        {
-            return HttpUtility.UrlDecode(target);
-        }
-
         [DebuggerStepThrough]
         public static string AttributeEncode(this string target)
         {
@@ -295,14 +210,7 @@ namespace Fanex.CRM.Common.Extensions
         [DebuggerStepThrough]
         public static bool IsNullOrTrimEmpty(this string value)
         {
-            if (value == null)
-            {
-                return true;
-            }
-            else
-            {
-                return string.Empty == value.Trim();
-            }
+            return value == null || value.Trim().Length == 0;
         }
 
         [DebuggerStepThrough]

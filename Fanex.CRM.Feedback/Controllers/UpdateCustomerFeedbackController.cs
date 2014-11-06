@@ -12,6 +12,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
@@ -37,22 +38,22 @@ namespace Fanex.CRM.Feedback.Controllers
             _updateCustomerFeedbackService = updateCustomerFeedbackService ?? new UpdateCustomerFeedbackService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult Index(int id)
         {
             ViewBag.FeedbackId = id;
-            ViewBag.HasReviewFeedbackPermission = HasPermission(FunctionPermission.ReviewFeedback, Constant.Policy.Host);
+            ViewBag.HasReviewFeedbackPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSettings()
         {
-            bool hasDeleteFeedbackPermission = HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host);
+            bool hasDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
             return Json(_updateCustomerFeedbackService.GetAllSettings(hasDeleteFeedbackPermission), JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult GetFeedback(GetFeedbackByIdCriteria criteria)
         {
             return Json(_updateCustomerFeedbackService.GetFeedbackById(criteria), JsonRequestBehavior.AllowGet);
@@ -84,24 +85,24 @@ namespace Fanex.CRM.Feedback.Controllers
         private Result CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria)
         {
             int permissionError = ErrorCodeConstants.NoPermission;
-            if (!HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Host))
+            if (!HasPermission(FunctionPermissions.EditFeedback, Constant.Policy.Host))
             {
                 return new Result(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);
             }
 
-            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Host))
+            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Host))
             {
                 return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
             }
 
-            if (criteria.UpdateReviewMode != (int)Enumerations.Functions.RevewMode.NotUpdate &&
-                !HasPermission(FunctionPermission.ReviewFeedback, Constant.Policy.Host))
+            if (criteria.UpdateReviewMode != (int)RevewMode.NotUpdate &&
+                !HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host))
             {
                 return new Result(permissionError, Labels.NoPermissionOnReviewFunction);
             }
 
-            if (criteria.Status.Id == (int)Enumerations.Functions.CRMStatus.Deleted &&
-                    !HasPermission(FunctionPermission.DeleteFeedback, Constant.Policy.Host))
+            if (criteria.Status.Id == (int)CRMStatus.Deleted &&
+                    !HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host))
             {
                 return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }

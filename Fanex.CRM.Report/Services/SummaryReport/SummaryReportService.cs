@@ -58,7 +58,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         public dynamic AllSettings()
         {
             var minReportDate = AppSetting.MinReportDate.Year;
-            var currentYear = DateTimeUtilize.GetCurrentClientTime().Year;
+            var currentYear = DateTimeUtilize.CurrentClientTime().Year;
             var yearRange = new List<SettingInfo>();
             for (int i = minReportDate; i <= currentYear; i++)
             {

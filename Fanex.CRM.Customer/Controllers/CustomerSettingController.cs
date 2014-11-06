@@ -34,14 +34,14 @@ namespace Fanex.CRM.Customer.Controllers
             _customerServiceInstance = customerServiceInstance ?? new CustomerService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult ShortCustomerInfo()
         {
             return View("~/Areas/Customer/ShortInfo/CustomerInfo.cshtml");
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
             var customerInfo = _customerServiceInstance.GetCustomerInfoByUsername(criteria);
@@ -50,7 +50,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
             var uplineInfo = _customerServiceInstance.GetUplineInfoOfUser(criteria);
@@ -59,7 +59,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
             var updateResult = _customerServiceInstance.UpdateCustomerInfo(criteria);

@@ -86,7 +86,7 @@
     @Scripts.Render("~/Areas/Redemption/EditLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().Date';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().Date';
         var currentUsername = "@AppSession.CurrentUser.Username";
         var viewResources = {
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',

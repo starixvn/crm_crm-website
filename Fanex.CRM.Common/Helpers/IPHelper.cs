@@ -14,7 +14,7 @@ namespace Fanex.CRM.Common.Helpers
     /// <summary>
     /// IP Helper.
     /// </summary>
-    public class IPHelper
+    public static class IPHelper
     {
         public static string ClientIP()
         {

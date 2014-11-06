@@ -12,6 +12,7 @@ namespace Fanex.CRM.Feedback.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services.AddCustomerFeedback;
@@ -37,7 +38,7 @@ namespace Fanex.CRM.Feedback.Controllers
             _feedbackService = feedbackService ?? new AddGuestFeedbackService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateFeedback, Policy = Constant.Policy.Host)]
         public ActionResult Index()
         {
             return View("~/Areas/Feedbacks/AddGuestFeedback/Index.cshtml");
@@ -72,18 +73,18 @@ namespace Fanex.CRM.Feedback.Controllers
         /// </returns>
         private Result CheckAddCustomerFeedbackPermission(AddGuestFeedbackCriteria criteria)
         {
-            if (!HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Host))
+            if (!HasPermission(FunctionPermissions.CreateFeedback, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }
 
-            if (criteria.Status.Id == (int)Enumerations.Functions.CRMStatus.Deleted &&
-                !HasPermission(FunctionPermission.DeleteFeedback.ToString(), Constant.Policy.Host))
+            if (criteria.Status.Id == (int)CRMStatus.Deleted &&
+                !HasPermission(FunctionPermissions.DeleteFeedback.ToString(), Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }
 
-            if (!HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Host))
+            if (!HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoUpdateCustomerPermission);
             }

@@ -472,9 +472,8 @@
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_AddGuestFeedback';
         window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
-        var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';
-        var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
+        var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var currentUsername = "@AppSession.CurrentUser.Username";
         var viewResources = {
             All: '@Labels.All',

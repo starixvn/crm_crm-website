@@ -16,7 +16,7 @@ namespace Fanex.CRM.Common.Helpers
     /// <summary>
     /// HTML Helper.
     /// </summary>
-    public class HtmlHelper
+    public static class HtmlHelper
     {
         public static string ReplaceHtmlTag(string value)
         {

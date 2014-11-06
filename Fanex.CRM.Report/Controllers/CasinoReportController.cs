@@ -11,6 +11,7 @@ namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Report.Criteria.CasinoReport;
     using Fanex.CRM.Report.Services.CasinoReport;
@@ -33,34 +34,34 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         // Casino Daily Statistics.
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "CasinoDailyStatistics")]
+        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
         public ActionResult CasinoDailyStatistics()
         {
             return View("~/Areas/Report/CasinoDailyStatistics/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "CasinoDailyStatistics")]
+        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
         public ActionResult CasinoDailySummary(GetCasinoSummaryCriteria criteria)
         {
             var report = _casinoReportService.GetCasinoDailySummary(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "CasinoDailyStatistics")]
+        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
         public ActionResult ExportCasinoDailySummary(GetCasinoSummaryCriteria criteria)
         {
             _casinoReportService.ExportCasinoDailySummary(criteria);
             return new EmptyResult();
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "CasinoDailyStatistics")]
+        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
         public ActionResult CasinoDailyDetail(GetCasinoDetailCriteria criteria)
         {
             var report = _casinoReportService.GetCasinoDailyDetail(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "CasinoDailyStatistics")]
+        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
         public ActionResult ExportCasinoDailyDetail(GetCasinoDetailCriteria criteria)
         {
             _casinoReportService.ExportCasinoDailyDetail(criteria);
@@ -68,27 +69,27 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         // Casino Weekly Statistics.
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "CasinoWeeklyStatistics")]
+        [AuthenticateAction(AuthenticationType.Read, "CasinoWeeklyStatistics")]
         public ActionResult CasinoWeeklyStatistics()
         {
             return View("~/Areas/Report/CasinoWeeklyStatistics/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "CasinoWeeklyStatistics")]
+        [AuthenticateAction(AuthenticationType.Read, "CasinoWeeklyStatistics")]
         public ActionResult CasinoWeeklySummary(GetCasinoSummaryCriteria criteria)
         {
             var report = _casinoReportService.GetCasinoWeeklySummary(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "CasinoWeeklyStatistics")]
+        [AuthenticateAction(AuthenticationType.Read, "CasinoWeeklyStatistics")]
         public ActionResult ExportCasinoWeeklySummary(GetCasinoSummaryCriteria criteria)
         {
             _casinoReportService.ExportCasinoWeeklySummary(criteria);
             return new EmptyResult();
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "CasinoWeeklyStatistics")]
+        [AuthenticateAction(AuthenticationType.Read, "CasinoWeeklyStatistics")]
         public ActionResult CasinoWeeklyDetail(GetCasinoDetailCriteria criteria)
         {
             var report = _casinoReportService.GetCasinoWeeklyDetail(criteria);

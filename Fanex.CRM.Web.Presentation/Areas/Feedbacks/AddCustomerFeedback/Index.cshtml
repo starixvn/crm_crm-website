@@ -477,8 +477,8 @@
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId;
         var customerName = '@customerName';
-        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
-        var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
+        var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var currentUsername = "@AppSession.CurrentUser.Username";
         var viewResources = { 
             All: '@Labels.All',

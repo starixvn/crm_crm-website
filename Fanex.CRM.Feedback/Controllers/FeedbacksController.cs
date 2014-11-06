@@ -38,7 +38,7 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpGet]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSetting()
         {
             var settings = _feedbackService.AllSetting();
@@ -46,14 +46,14 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpGet]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult ManageFeedback(ManageFeedbackViewModel model)
         {
             return View("~/Areas/Feedbacks/ManageFeedback/Index.cshtml", model);
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult SearchManageFeedback(ManageFeedbackCriteria criteria)
         {
             var feedbacks = _feedbackService.GetManageFeedback(criteria);
@@ -91,14 +91,14 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpGet]
-        [NapAuth(FunctionKey = FunctionPermission.DeleteFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.DeleteFeedback, Policy = Constant.Policy.Host)]
         public ActionResult DeletedFeedback()
         {
             return View("~/Areas/Feedbacks/DeletedFeedback/Index.cshtml");
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.DeleteFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.DeleteFeedback, Policy = Constant.Policy.Host)]
         public ActionResult SearchDeletedFeedback(DeletedFeedbackCriteria criteria)
         {
             var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);

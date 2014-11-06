@@ -35,7 +35,7 @@ namespace Fanex.CRM.Customer.Controllers
             _customerServiceInstance = customerServiceInstance ?? new CustomerDetailService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult Index(string customerId)
         {
             CustomerInfo customerDetail = _customerServiceInstance.GetCustomerInfoDetailById(new GetCustomerInfoDetailByIdCriteria
@@ -47,7 +47,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
             var customerInfo = _customerServiceInstance.GetCustomerInfoDetailById(criteria);
@@ -56,7 +56,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
             var customerInfoDetail = _customerServiceInstance.UpdateCustomerInfoDetail(criteria);

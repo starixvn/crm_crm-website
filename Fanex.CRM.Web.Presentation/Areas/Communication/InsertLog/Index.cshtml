@@ -245,7 +245,7 @@
     @Scripts.Render("~/Areas/Communication/InsertLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var currentTime = '@DateTimeUtilize.GetCurrentClientTime()';
+        var currentTime = '@DateTimeUtilize.CurrentClientTime()';
         var customerId = '@customerId';
         var currentUsername = "@AppSession.CurrentUser.Username";
         var viewResources = {

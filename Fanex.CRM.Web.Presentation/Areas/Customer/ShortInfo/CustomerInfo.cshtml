@@ -193,17 +193,17 @@
             }
             <div class="row item no-border-bg">
                 <ul class="list-unstyled list-menu pull-left">
-                    @if (permission.HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Read))
+                    @if (permission.HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Read))
                     { 
                         <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">@Labels.CRM_Info</a></li>
                     }
-                    @if (permission.HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Read))
+                    @if (permission.HasPermission(FunctionPermissions.CreateFeedback, Constant.Policy.Read))
                     { 
                         <li><a data-ng-href="#" data-ng-click="addFeedback();">@Labels.Add_Feedback</a></li>
                     }
                 </ul>
                 <ul class="list-unstyled list-menu pull-left no-margin">
-                    @if (permission.HasPermission(FunctionPermission.EditFeedback, Constant.Policy.Read))
+                    @if (permission.HasPermission(FunctionPermissions.EditFeedback, Constant.Policy.Read))
                     { 
                         <li><a data-ng-href="#" data-ng-click="viewLatestFeedback();">
                             @Labels.Latest_Feedback</a></li>

@@ -211,7 +211,7 @@
     </div>
     @{
         IPermissionService permission = new PermissionService();
-        var hasReviewPermission = permission.HasPermission(FunctionPermission.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
+        var hasReviewPermission = permission.HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
     }
     @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/TimePicker")
@@ -228,7 +228,7 @@
     @Scripts.Render("~/Areas/Communication/ViewDetailByIdScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")'; 
-        var currentTime = '@DateTimeUtilize.GetCurrentClientTime()'; 
+        var currentTime = '@DateTimeUtilize.CurrentClientTime()'; 
         var communicationLog = @Html.Raw(jsonLogInfo); 
         var hasReviewPermission = @hasReviewPermission;
         var viewResources = {

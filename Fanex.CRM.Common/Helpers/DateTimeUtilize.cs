@@ -128,7 +128,7 @@ namespace Fanex.CRM.Common.Helpers
             return dateTime.Subtract(timeSpan._timeSpan);
         }
 
-        public static DateTime GetCurrentClientTime()
+        public static DateTime CurrentClientTime()
         {
             DateTimeUtilize timeSpan = new DateTimeUtilize();
             return DateTime.Now.Add(timeSpan._timeSpan);

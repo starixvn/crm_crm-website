@@ -60,7 +60,7 @@ namespace Fanex.CRM.Common.Services
         /// <returns>Enumerable of Type T.</returns>
         public virtual IEnumerable<T> GetDynamicData<T>(ICriteria criteria)
         {
-            Check.Argument.IsNotNull(criteria, "criteria");
+            ArgumentChecker.IsNotNull(criteria, "criteria");
 
             try
             {

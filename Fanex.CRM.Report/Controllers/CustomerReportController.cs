@@ -34,7 +34,7 @@ namespace Fanex.CRM.Report.Controllers
             _customerReportService = customerReportService ?? new CustomerReportService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View("~/Areas/Report/CustomerReport/Index.cshtml");
@@ -45,7 +45,7 @@ namespace Fanex.CRM.Report.Controllers
         /// </summary>
         /// <returns>All setting.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult AllSetting()
         {
             var allSetting = new
@@ -62,7 +62,7 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.CRMReport, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult GetCustomerReport(GetCustomerReportCriteria criteria)
         {
             var customerReport = _customerReportService.CustomerReport(criteria);

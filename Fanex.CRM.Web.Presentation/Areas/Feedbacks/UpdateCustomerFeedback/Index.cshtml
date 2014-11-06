@@ -513,7 +513,7 @@
     @Scripts.Render("~/Scripts/TimePicker",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackScripts")
-    @{ var currentTime = DateTimeUtilize.GetCurrentClientTime(); }
+    @{ var currentTime = DateTimeUtilize.CurrentClientTime(); }
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var feedbackId = @ViewBag.FeedbackId;

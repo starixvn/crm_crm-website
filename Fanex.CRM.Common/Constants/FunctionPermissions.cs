@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="FunctionPermission.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="FunctionPermissions.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace Fanex.CRM.Common.Constants
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class FunctionPermission
+    public static class FunctionPermissions
     {
         public const string AdminTool = "AdminTool";
 

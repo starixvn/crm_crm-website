@@ -80,8 +80,8 @@
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 
-        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
-        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = { 
             Customer_Communication_Logs: '@Labels.Customer_Communication_Logs',
             Running_No: '@Labels.Running_No',

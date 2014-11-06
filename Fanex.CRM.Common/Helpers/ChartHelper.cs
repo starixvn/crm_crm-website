@@ -15,7 +15,7 @@ namespace Fanex.CRM.Common.Helpers
     /// <summary>
     /// Chart helper.
     /// </summary>
-    public class ChartHelper
+    public static class ChartHelper
     {
         public static string ViewChartFromToDateTitle(string fromDate, string toDate)
         {

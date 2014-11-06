@@ -109,8 +109,8 @@
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
         window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
-        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = {
             All: '@Labels.All',
             All_Languages: '@Labels.All_Languages',

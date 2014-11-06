@@ -14,6 +14,7 @@ namespace Fanex.CRM.Common.Services
     using System.Linq;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
@@ -40,17 +41,14 @@ namespace Fanex.CRM.Common.Services
             _mainAction = mainAction;
         }
 
-        public enum AuthenticationType
+        public string MainAction
         {
-            /// <summary>
-            /// The read type.
-            /// </summary>
-            Read,
+            get { return _mainAction; }
+        }
 
-            /// <summary>
-            /// The host type.
-            /// </summary>
-            Host
+        public AuthenticationType AuthenticationType
+        {
+            get { return _authenticationType; }
         }
 
         /// <summary>

@@ -12,6 +12,7 @@ namespace Fanex.CRM.Feedback.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
@@ -38,7 +39,7 @@ namespace Fanex.CRM.Feedback.Controllers
             _feedbackService = feedbackService ?? new AddCustomerFeedbackService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CreateFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateFeedback, Policy = Constant.Policy.Host)]
         public ActionResult Index(int custid, string custName)
         {
             var customerInfo = new CustomerInfo
@@ -54,7 +55,7 @@ namespace Fanex.CRM.Feedback.Controllers
         /// </summary>
         /// <returns>All setting for edit.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSettingToAddCustomerFeedback()
         {
             var allSetting = AllSettingToAddFeedback();
@@ -91,23 +92,23 @@ namespace Fanex.CRM.Feedback.Controllers
         /// </returns>
         private Result CheckAddCustomerFeedbackPermission(AddCustomerFeedbackCriteria criteria)
         {
-            if (!HasPermission(FunctionPermission.CreateFeedback, Constant.Policy.Host))
+            if (!HasPermission(FunctionPermissions.CreateFeedback, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }
 
-            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Host))
+            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
             }
 
-            if (criteria.Status.Id == (int)Enumerations.Functions.CRMStatus.Deleted &&
-                !HasPermission(FunctionPermission.DeleteFeedback.ToString(), Constant.Policy.Host))
+            if (criteria.Status.Id == (int)CRMStatus.Deleted &&
+                !HasPermission(FunctionPermissions.DeleteFeedback.ToString(), Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }
 
-            if (!HasPermission(FunctionPermission.CustomerInfo, Constant.Policy.Host))
+            if (!HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoUpdateCustomerPermission);
             }

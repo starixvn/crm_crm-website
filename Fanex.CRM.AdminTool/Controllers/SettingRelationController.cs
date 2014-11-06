@@ -14,6 +14,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.AdminTool.Services.SettingRelation;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
 
@@ -34,13 +35,13 @@ namespace Fanex.CRM.AdminTool.Controllers
             _settingRelationService = settingRelationService ?? new SettingRelationService();
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/AdminTool/SettingRelation/ViewList/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenInsertRelationView(int settingId, string settingValue, string settingType)
         {
             return View(
@@ -54,7 +55,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSetting()
         {
             var result = _settingRelationService.MainSetting;
@@ -63,7 +64,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult SettingByType(GetSettingByTypeCriteria criteria)
         {
             var result = _settingRelationService.SettingByType(criteria);
@@ -72,7 +73,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria)
         {
             var result = _settingRelationService.GetMainSettingForAddRelation(criteria);
@@ -81,7 +82,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
             var result = _settingRelationService.MainSettingRelations(criteria);
@@ -90,7 +91,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public JsonResult AddSettingRelations(AddSettingRelationsCriteria criteria)
         {
             var result = _settingRelationService.AddSettingRelations(criteria);

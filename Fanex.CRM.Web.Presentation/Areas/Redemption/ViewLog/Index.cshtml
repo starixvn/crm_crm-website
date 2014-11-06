@@ -73,8 +73,8 @@
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
         var customerId = @customerId; 
-        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().Date.ToShortFormatedDate()';
-        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().Date.FirstDayOfMonth().ToShortFormatedDate()';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().Date.ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.CurrentClientTime().Date.FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = { 
             Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
             Insert_Redemption_Log: '@Labels.Insert_Redemption_Log',

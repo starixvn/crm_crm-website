@@ -38,7 +38,7 @@ namespace Fanex.CRM.Feedback.Controllers
         public ISettingService ServiceSetting { get; set; }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermission.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSetting()
         {
             return Json(AllSettingToAddFeedback(), JsonRequestBehavior.AllowGet);

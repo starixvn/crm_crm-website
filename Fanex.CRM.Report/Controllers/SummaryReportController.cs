@@ -11,6 +11,7 @@ namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.SummaryReport;
@@ -34,21 +35,21 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult AllSettings()
         {
             return Json(_summaryService.AllSettings(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/Report/SummaryReport/Index.cshtml");
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         [HandleAjaxError]
         public ActionResult GetSummaryReport(GetSummaryReportCriteria criteria)
         {
@@ -57,7 +58,7 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult ExportSummaryReportExcel(GetSummaryReportCriteria criteria)
         {
             _summaryService.ExportSummaryReportExcel(criteria);

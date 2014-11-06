@@ -117,9 +117,9 @@
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_Report_StatisticReport';
         window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var minReportDate = new Date('@AppSetting.MinReportDate.ToShortFormatedDate()');
-        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = {
             Date: '@Labels.Date',
             Time: '@Labels.Time',

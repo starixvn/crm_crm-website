@@ -11,6 +11,7 @@ namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.SettlementReport;
@@ -33,7 +34,7 @@ namespace Fanex.CRM.Report.Controllers
             _settlementReportService = settlementReportService ?? new SettlementReportService();
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/Report/SettlementReport/Index.cshtml");
@@ -41,7 +42,7 @@ namespace Fanex.CRM.Report.Controllers
 
         [HttpPost]
         [HandleAjaxError]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult GetSettlementReport(GetSettlementReportCriteria criteria)
         {
             var logs = _settlementReportService.GetSettlementReport(criteria);

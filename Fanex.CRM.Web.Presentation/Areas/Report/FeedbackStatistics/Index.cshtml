@@ -3,7 +3,7 @@
 @using Fanex.CRM.Common.Helpers;
 @model Fanex.CRM.Infrastructure.Models.BaseModel[]
 @{
-    DateTime currentClientTime = DateTimeUtilize.GetCurrentClientTime();
+    DateTime currentClientTime = DateTimeUtilize.CurrentClientTime();
     string currentClientTimeString = currentClientTime.ToShortFormatedDate();
     string previousWeekTimeString = currentClientTime.AddDays(-7).ToShortFormatedDate();
     var settings = Newtonsoft.Json.JsonConvert.SerializeObject(Model);

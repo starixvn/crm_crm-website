@@ -2,7 +2,7 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
 @{ 
-    DateTime clientDate = DateTimeUtilize.GetCurrentClientTime();
+    DateTime clientDate = DateTimeUtilize.CurrentClientTime();
     string fromDate = Fanex.CRM.Common.Helpers.Helper.GetFirstDayOfWeek(clientDate).ToShortFormatedDate();
     string toDate = clientDate.ToShortFormatedDate();
 }

@@ -21,7 +21,7 @@ namespace Fanex.CRM.Common.Extensions
         [DebuggerStepThrough]
         public static string Shrink(this Guid target)
         {
-            Check.Argument.IsNotEmpty(target, "target");
+            ArgumentChecker.IsNotEmpty(target, "target");
             string base64 = Convert.ToBase64String(target.ToByteArray());
             string encoded = base64.Replace("/", "_").Replace("+", "-");
             return encoded.Substring(0, 22);

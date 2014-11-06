@@ -94,7 +94,7 @@ namespace Fanex.CRM.Common.Models
         {
             get
             {
-                return GetStatusName();
+                return StatusName();
             }
         }
 
@@ -116,7 +116,7 @@ namespace Fanex.CRM.Common.Models
         /// Gets the name of the status.
         /// </summary>
         /// <returns>The name of the status.</returns>
-        public string GetStatusName()
+        private string StatusName()
         {
             return IsActive ? Labels.Active :
                 IsClosed ? Labels.Closed :

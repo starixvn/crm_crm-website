@@ -35,14 +35,14 @@ namespace Fanex.CRM.Remark.Controllers
             _remarkService = remarkService ?? new RemarkService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult Index(int customerId)
         {
             return View("~/Areas/Remark/Index.cshtml", customerId);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult GetRemarks(GetRemarkCriteria criteria)
         {
@@ -52,7 +52,7 @@ namespace Fanex.CRM.Remark.Controllers
             return Json(remarks, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult Update(Remarks model)
         {

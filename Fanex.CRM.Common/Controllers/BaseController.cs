@@ -23,36 +23,34 @@ namespace Fanex.CRM.Common.Controllers
     /// </summary>
     public class BaseController : Controller
     {
-        protected readonly ICurrentContext CurrentContext;
+        private readonly ICurrentContext _currentContext;
 
-        protected readonly ICurrentSession CurrentSession;
+        private readonly ICurrentSession _currentSession;
 
-        protected readonly IServiceContext ServiceContext;
+        private readonly IServiceContext _serviceContext;
 
-        protected readonly string Environment = NapSettings.Settings.Environment;
+        private readonly string _environment = NapSettings.Settings.Environment;
 
-        protected readonly int SiteId = NapSettings.Settings.SiteId;
+        private readonly int _siteId = NapSettings.Settings.SiteId;
 
         private bool _issiteLogin = NapSettings.Settings.EnableDirectLogin;
-
-        private ViewFlags _viewFlags;
 
         private IPermissionService _permissionService = null;
 
         public BaseController()
         {
-            this.CurrentContext = new CurrentContext();
-            ViewBag.Session = this.CurrentSession = new CurrentSession();
-            this.ServiceContext = new ServiceContext
+            this._currentContext = new CurrentContext();
+            ViewBag.Session = this._currentSession = new CurrentSession();
+            this._serviceContext = new ServiceContext
             {
-                UserId = this.CurrentSession.UserId,
-                SiteId = this.SiteId,
-                Ip = this.CurrentContext.IP
+                UserId = this._currentSession.UserId,
+                SiteId = this._siteId,
+                Ip = this._currentContext.IP
             };
 
             ViewFlags = new ViewFlags
             {
-                IsLive = this.Environment.Equals(Constant.LIVE),
+                IsLive = this._environment.Equals(Constant.LIVE),
                 HasEditRight = false
             };
         }
@@ -80,7 +78,7 @@ namespace Fanex.CRM.Common.Controllers
 
             set
             {
-                ViewBag.ViewFlags = this._viewFlags = value;
+                ViewBag.ViewFlags = value;
             }
         }
 
@@ -91,6 +89,31 @@ namespace Fanex.CRM.Common.Controllers
                 _permissionService = _permissionService ?? new PermissionService();
                 return _permissionService;
             }
+        }
+
+        protected ICurrentContext CurrentContext
+        { 
+            get { return _currentContext; }
+        }
+
+        protected ICurrentSession CurrentSession
+        {
+            get { return _currentSession; }
+        }
+
+        protected IServiceContext ServiceContext
+        {
+            get { return _serviceContext; }
+        }
+
+        protected string Environment
+        {
+            get { return _environment; }
+        }
+
+        protected int SiteId
+        {
+            get { return _siteId; }
         }
 
         /// <summary>

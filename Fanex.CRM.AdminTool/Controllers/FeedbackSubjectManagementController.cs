@@ -14,6 +14,7 @@ namespace Fanex.CRM.AdminTool.Controllers
     using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Models;
 
@@ -34,25 +35,25 @@ namespace Fanex.CRM.AdminTool.Controllers
             _feedbackSubjectManagementService = feedbackSubjectManagementService ?? new FeedbackSubjectManagementService();
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View("~/Areas/AdminTool/FeedbackSubjectManagement/ViewList/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenDeleteTemplateView(int templateId)
         {
             return View("~/Areas/AdminTool/FeedbackSubjectManagement/DeleteTemplate/Index.cshtml", templateId);
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenEditTemplateView(int templateId)
         {
             return View("~/Areas/AdminTool/FeedbackSubjectManagement/EditTemplate/Index.cshtml", templateId);
         }
 
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult OpenInsertTemplateView()
         {
             return View("~/Areas/AdminTool/FeedbackSubjectManagement/InsertTemplate/Index.cshtml");
@@ -66,7 +67,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         /// Add result.
         /// </returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.SearchFeedbackSubjectTemplate(criteria);
@@ -75,7 +76,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public JsonResult DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria)
         {
             Result result = _feedbackSubjectManagementService.DeleteTemplate(criteria);
@@ -84,7 +85,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult FeedbackSubjectTemplateById(FeedbackSubjectTemplateByIdCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.FeedbackSubjectTemplateById(criteria);
@@ -93,7 +94,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public JsonResult EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.EditTemplate(criteria);
@@ -102,7 +103,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public JsonResult InsertTemplate(InsertFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.InsertTemplate(criteria);

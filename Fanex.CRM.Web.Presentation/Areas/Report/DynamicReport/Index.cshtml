@@ -49,8 +49,8 @@
                             @Labels.From_Week</label>
                         <div class="display-inline-block week-picker-from-week-container">
                             <input id="fromweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
-                                data-maxdate="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
-                                data-value="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                                data-maxdate="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
+                                data-value="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
                                 data-isendweek="false" />
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                             @Labels.To_Week</label>
                         <div class="display-inline-block week-picker-to-week-container">
                             <input id="toweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
-                                 data-maxdate="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
-                                 data-value="@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()"
+                                 data-maxdate="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
+                                 data-value="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
                                  data-isendweek="true" />
                         </div>
                     </div>
@@ -217,8 +217,8 @@
         parent.document.title = '@Resources.Language.Title_Report_DynamicReport';
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
-        var currentDate = '@DateTimeUtilize.GetCurrentClientTime().ToShortFormatedDate()';
-        var initFromDate = '@DateTimeUtilize.GetCurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
+        var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
+        var initFromDate = '@DateTimeUtilize.CurrentClientTime().FirstDayOfMonth().ToShortFormatedDate()';
         var viewResources = {
             All: '@Labels.All',
             Running_No: '@Labels.Running_No',

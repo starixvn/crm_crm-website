@@ -34,7 +34,7 @@ namespace Fanex.CRM.ActionLog.Controllers
             _actionLogService = actionLogService ?? new ActionLogService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult ActivityLog(int customerId)
         {
@@ -46,7 +46,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The JSON result.</returns>
-        [NapAuth(FunctionKey = FunctionPermission.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetActivityLog(GetActivityLogCriteria criteria)
         {
@@ -68,7 +68,7 @@ namespace Fanex.CRM.ActionLog.Controllers
                 JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermission.ViewSettingLog, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.ViewSettingLog, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult SettingLog()
         {
@@ -80,7 +80,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The JSON result.</returns>
-        [NapAuth(FunctionKey = FunctionPermission.ViewSettingLog, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.ViewSettingLog, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)
         {

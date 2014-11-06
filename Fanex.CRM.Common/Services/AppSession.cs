@@ -15,7 +15,7 @@ namespace Fanex.CRM.Common.Services
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class AppSession
+    public static class AppSession
     {
         private const string CurrentLogInUserKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentLogInUser";
         private const string CurrentUserMenuKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentUserMenu";

@@ -12,7 +12,7 @@ namespace Fanex.CRM.Common.Constants
     /// <summary>
     /// Update Reviewed Mode Constants.
     /// </summary>
-    public class UpdateReviewedModeConstants
+    public static class UpdateReviewedModeConstants
     {
         public const int NotChange = 0;
 
