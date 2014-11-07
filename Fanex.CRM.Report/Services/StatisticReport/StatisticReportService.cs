@@ -589,7 +589,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             {
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.StatisticReport_SheetName);
                 ExportStatisticReportHeader(ref exportExcelInfo, criteria, statisticReport, null);
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
                 return;
             }
 
@@ -607,8 +607,8 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             var normalRowWriter = new NormalRowExcelWriter(exportExcelInfo);
             var totalRowWriter = new TotalRowExcelWriter(exportExcelInfo);
             var firstGrandTotalRowWriter = new FirstGrandTotalRowExcelWriter(exportExcelInfo);
-            NpoiExcelExtensions.SetTotalColorIndex(ref exportExcelInfo);
-            NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetTotalColorIndex(exportExcelInfo);
+            NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
             var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
             var numberOfSheet = (childReportLength / maxRowPerSheet) +
@@ -655,13 +655,9 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             StatisticReportInfo statisticReport,
             List<CountryInfo> countryList)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
-                exportExcelInfo.ExcelFile,
-                new ExcelStyleParam());
-            ICellStyle leftHeaderStyle = NpoiExcelExtensions.HeaderStyle(
-                exportExcelInfo.ExcelFile,
-                new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
+            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle leftHeaderStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
 
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 160 : 160) * NpoiExcelExtensions.FontWidth);
@@ -693,15 +689,19 @@ namespace Fanex.CRM.Report.Services.StatisticReport
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Date, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Time, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Date, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Time, headerStyle);
+            currentColumn++;
             for (var i = 0; i < countryList.Count; i++)
             {
                 var country = countryList[i];
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, country.Name, headerStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, country.Name, headerStyle);
+                currentColumn++;
             }
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Total, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Total, headerStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 

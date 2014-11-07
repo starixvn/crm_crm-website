@@ -55,7 +55,7 @@ namespace Fanex.CRM.Customer.Services
         {
             get
             {
-            return _settingService.AllInformHeadlineSettings();
+                return _settingService.AllInformHeadlineSettings();
             }
         }
 
@@ -119,15 +119,12 @@ namespace Fanex.CRM.Customer.Services
             ExportHeader(ref exportExcelInfo);
             if (statistic.Informs == null || statistic.Informs.Count == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
-                NpoiExcelExtensions.SetColorAtIndex(
-                    ref exportExcelInfo,
-                    NpoiExcelExtensions.EvenRowColor,
-                    NpoiExcelExtensions.EvenRowColorIndex);
-                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.EvenRowColor, NpoiExcelExtensions.EvenRowColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
                 ExportBody(ref exportExcelInfo, statistic.Informs);
             }
@@ -204,15 +201,12 @@ namespace Fanex.CRM.Customer.Services
             ExportInformsStatusHeader(ref exportExcelInfo);
             if (informHeadlines == null || informHeadlines.Count == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
-                NpoiExcelExtensions.SetColorAtIndex(
-                    ref exportExcelInfo,
-                    NpoiExcelExtensions.EvenRowColor,
-                    NpoiExcelExtensions.EvenRowColorIndex);
-                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.EvenRowColor, NpoiExcelExtensions.EvenRowColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
                 ExportInformsStatusBody(ref exportExcelInfo, informHeadlines);
             }
@@ -293,7 +287,7 @@ namespace Fanex.CRM.Customer.Services
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
             var columnWidths = new List<int>() { 280, 100, 150, 100, 150, 150, 100, 150, 150, 100 };
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
@@ -309,16 +303,26 @@ namespace Fanex.CRM.Customer.Services
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Title, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.CreatedTime, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.NoOfHeadlines, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Done, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.RequestCallback, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.NoNeedToCall, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.NoReply, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Uncontactable, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.InternalAccount, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.NeverTouch, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Title, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.CreatedTime, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.NoOfHeadlines, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Done, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.RequestCallback, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.NoNeedToCall, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.NoReply, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Uncontactable, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.InternalAccount, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.NeverTouch, headerStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 
@@ -345,16 +349,25 @@ namespace Fanex.CRM.Customer.Services
                 currentColumn = exportExcelInfo.StartColumn;
 
                 IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Title, titleCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.CreatedDateString, createdTimeCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Total, numberCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Done, numberCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.RequestToCallback, numberCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.NoNeedToCall, numberCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.NoReply, numberCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Uncontactable, numberCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.InternalAccount, numberCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.NeverTouch, numberCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.Title, titleCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.CreatedDateString, createdTimeCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.Total, numberCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.Done, numberCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.RequestToCallback, numberCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.NoNeedToCall, numberCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.NoReply, numberCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.Uncontactable, numberCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.InternalAccount, numberCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.NeverTouch, numberCellStyle);
 
                 currentRow++;
             }
@@ -406,7 +419,7 @@ namespace Fanex.CRM.Customer.Services
         private void ExportInformsStatusTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
             var columnWidths = new List<int>() { 280, 150, 180, 400, 150, 120, 120 };
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
@@ -422,13 +435,20 @@ namespace Fanex.CRM.Customer.Services
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Headline, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Status, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.UpdatedTime, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Remark, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Handler, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Extension, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.ProductStatus, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Headline, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Status, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.UpdatedTime, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Remark, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Handler, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Extension, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.ProductStatus, headerStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 
@@ -459,14 +479,20 @@ namespace Fanex.CRM.Customer.Services
                 currentColumn = exportExcelInfo.StartColumn;
 
                 IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.HeadlineName, titleCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.InformStatus, titleCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.UpdatedTimeString, updatedTimeCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Remark.HtmlDecode(), titleCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Handler, titleCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, inform.Extension, titleCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, productStatus[inform.ProductStatus], titleCellStyle);
-
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.HeadlineName, titleCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.InformStatus, titleCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.UpdatedTimeString, updatedTimeCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.Remark.HtmlDecode(), titleCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.Handler, titleCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.Extension, titleCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, productStatus[inform.ProductStatus], titleCellStyle);
+                currentColumn++;
                 currentRow++;
             }
         }

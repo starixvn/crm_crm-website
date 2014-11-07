@@ -14,7 +14,7 @@ function insertSubSettingRegisterPicker() {
 
         DataPropertyName: {
             Id: "Id",
-            Type: "Type",
+            Type: "SettingType",
             Value: "Value"
         }
     };

@@ -67,7 +67,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
                 try
                 {
                 var allSettings = _settingService.AllSetting();
-                    return allSettings.OrderBy(s => s.Type).ToList();
+                    return allSettings.OrderBy(s => s.SettingType).ToList();
                 }
                 catch (Exception ex)
                 {
@@ -116,7 +116,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             {
                 var allSettings = _settingService.AllSetting();
                 var result = allSettings
-                    .Where(s => s.Type == criteria.MainSetting.Type)
+                    .Where(s => s.SettingType == criteria.MainSetting.SettingType)
                     .Select(s => s)
                     .ToList();
                 return result.OrderBy(s => s.DisplayOrder).ToList();
@@ -144,7 +144,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
 
             var firstElement = _settingService.AllSetting().Where(
                 s => string.Equals(s.Value, setting.Value, StringComparison.OrdinalIgnoreCase) &&
-                    string.Equals(s.Type, setting.Type, StringComparison.OrdinalIgnoreCase));
+                    string.Equals(s.SettingType, setting.SettingType, StringComparison.OrdinalIgnoreCase));
             return firstElement.Any();
         }
 

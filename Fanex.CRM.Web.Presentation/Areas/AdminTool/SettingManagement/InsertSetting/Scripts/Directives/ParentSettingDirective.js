@@ -64,7 +64,7 @@ directiveManager.registerParentSettingContainer = function (angularApplication, 
             if (selectedItem === null) {
                 return {
                     Id: crmConstants.Enums.Setting.NotApply,
-                    Type: viewResources.Symbol_NotApply,
+                    SettingType: viewResources.Symbol_NotApply,
                     Value: viewResources.Symbol_NotApply
                 };
             }

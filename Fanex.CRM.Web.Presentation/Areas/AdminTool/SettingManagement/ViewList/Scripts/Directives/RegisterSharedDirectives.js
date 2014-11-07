@@ -13,8 +13,8 @@ function viewListRegisterPicker() {
         RestrictType: 'C',
 
         DataPropertyName: {
-            Id: "Type",
-            Name: "Type"
+            Id: "SettingType",
+            Name: "SettingType"
         }
     };
 

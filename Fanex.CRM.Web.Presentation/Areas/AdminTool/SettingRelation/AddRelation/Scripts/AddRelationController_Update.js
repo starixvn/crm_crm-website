@@ -5,7 +5,7 @@ camelcase: false */
 function registerUpdateFunctions($scope) {
     $scope.updateSelectedMainSetting = function (mainSetting) {
         $scope.getMainSettingRelationsParams.MainSetting = {
-            Type: mainSetting.Type,
+            SettingType: mainSetting.SettingType,
             Id: mainSetting.Id
         };
         $scope.safeApply();

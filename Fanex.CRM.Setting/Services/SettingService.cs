@@ -689,7 +689,7 @@ namespace Fanex.CRM.Setting.Services
                                     Id = setting.Id,
                                     DisplayOrder = setting.DisplayOrder,
                                     Value = setting.Value,
-                                    Type = setting.Type,
+                                    SettingType = setting.SettingType,
                                     ParentId = parentSetting.Id,
                                     IsSubSetting = true
                                 });
@@ -886,7 +886,7 @@ namespace Fanex.CRM.Setting.Services
             {
                 var allSettings = AllSetting();
                 var settingGroups = allSettings
-                    .GroupBy(x => new { x.Type })
+                    .GroupBy(x => new { Type = x.SettingType })
                     .Select(group => new { group.Key, Count = group.Count() });
                 var settingGroupByType = new List<SettingInfo>();
                 foreach (var s in settingGroups)
@@ -944,8 +944,8 @@ namespace Fanex.CRM.Setting.Services
 
         private void GetSubSetting(string key, List<SettingInfo> settingList, IEnumerable<SettingInfo> allSetting)
         {
-            var subList = allSetting.Where(s => s.Type == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
-            var setting = new SettingInfo { Type = key, ChildSettings = subList };
+            var subList = allSetting.Where(s => s.SettingType == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
+            var setting = new SettingInfo { SettingType = key, ChildSettings = subList };
             settingList.Add(setting);
         }
 

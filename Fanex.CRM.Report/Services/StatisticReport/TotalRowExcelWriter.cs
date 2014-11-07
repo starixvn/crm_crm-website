@@ -70,17 +70,21 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         {
             var row = exportExcelInfo.Worksheet.GetRow(exportExcelInfo.CurrentRow) ?? exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             var currentColumn = exportExcelInfo.CurrentColumn;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.ShortName, TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, string.Empty, CenterTextStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, info.ShortName, TextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, string.Empty, CenterTextStyle);
+            currentColumn++;
 
             var countryLength = info.ChildReports.Count;
             for (var i = 0; i < countryLength; i++)
             {
                 var countryReport = info.ChildReports[i];
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, countryReport.NumberOfIssues, IntStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, countryReport.NumberOfIssues, IntStyle);
+                currentColumn++;
             }
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, (int)info.NumberOfIssues, IntStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, (int)info.NumberOfIssues, IntStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow += 1;
         }
     }

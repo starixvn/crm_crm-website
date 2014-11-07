@@ -55,7 +55,7 @@ namespace Fanex.CRM.AdminTool.Controllers
                 "~/Areas/AdminTool/SettingManagement/InsertSubSetting/Index.cshtml",
                  new SettingInfo
                 {
-                    Type = settingType
+                    SettingType = settingType
                 });
         }
 
@@ -69,7 +69,7 @@ namespace Fanex.CRM.AdminTool.Controllers
                 "~/Areas/AdminTool/SettingManagement/DeleteSetting/Index.cshtml",
                 new SettingInfo
                 {
-                    Type = settingType,
+                    SettingType = settingType,
                     Id = settingId,
                     Value = settingValue
                 });

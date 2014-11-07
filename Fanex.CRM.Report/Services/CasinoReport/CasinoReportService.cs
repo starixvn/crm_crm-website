@@ -11,6 +11,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Web;
     using Fanex.CRM.Common.Extensions;
@@ -127,15 +128,12 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             GenerateCasinoDailySummaryHeader(exportExcelInfo, report.CategoryCasinoGroups);
             if (maxColumnIndex == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
-                NpoiExcelExtensions.SetColorAtIndex(
-                    ref exportExcelInfo,
-                    NpoiExcelExtensions.EvenRowColor,
-                    NpoiExcelExtensions.EvenRowColorIndex);
-                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.EvenRowColor, NpoiExcelExtensions.EvenRowColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
                 GenerateCasinoDailySummaryBody(exportExcelInfo, report.CategoryCasinoGroups);
                 GenerateCasinoDailySummaryFooter(exportExcelInfo, report.Total);
@@ -220,15 +218,12 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             GenerateCasinoDetailHeader(exportExcelInfo);
             if (report.CasinoDetails == null || report.CasinoDetails.Count == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
-                NpoiExcelExtensions.SetColorAtIndex(
-                    ref exportExcelInfo,
-                    NpoiExcelExtensions.EvenRowColor,
-                    NpoiExcelExtensions.EvenRowColorIndex);
-                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.EvenRowColor, NpoiExcelExtensions.EvenRowColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
                 GenerateCasinoDetailBody(exportExcelInfo, report.CasinoDetails);
             }
@@ -307,15 +302,12 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             GenerateCasinoWeeklySummaryHeader(exportExcelInfo, report.GameTypes);
             if (report.WeeklyCategories == null || report.WeeklyCategories.Count == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
-                NpoiExcelExtensions.SetColorAtIndex(
-                    ref exportExcelInfo,
-                    NpoiExcelExtensions.EvenRowColor,
-                    NpoiExcelExtensions.EvenRowColorIndex);
-                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.EvenRowColor, NpoiExcelExtensions.EvenRowColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
                 GenerateCasinoWeeklySummaryBody(exportExcelInfo, report.WeeklyCategories);
                 GenerateCasinoWeeklySummaryFooter(exportExcelInfo, report.GrandTotal);
@@ -386,7 +378,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             ISheet worksheet = exportExcelInfo.Worksheet;
             worksheet.SetColumnWidth(currentColumn++, 280 * NpoiExcelExtensions.FontWidth);
 
@@ -440,7 +432,8 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
                 foreach (var comm in communications)
                 {
-                    NpoiExcelExtensions.RenderCell(ref commRow, ref currentCommColumn, comm.Name, headerStyle);
+                    NpoiExcelExtensions.RenderCell(commRow, currentCommColumn, comm.Name, headerStyle);
+                    currentCommColumn++;
                 }
             }
 
@@ -465,12 +458,14 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             foreach (var category in categoryCasinoGroups)
             {
                 row = worksheet.CreateRow(currentRow);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, category.Category, categoryCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, category.Category, categoryCellStyle);
+                currentColumn++;
                 foreach (var casino in category.CasinoGroups)
                 {
                     foreach (var comm in casino.Communications)
                     {
-                        NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, comm.Value, communicationCellStyle);
+                        NpoiExcelExtensions.RenderCell(row, currentColumn, comm.Value, communicationCellStyle);
+                        currentColumn++;
                     }
                 }
 
@@ -505,7 +500,8 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             {
                 foreach (var comm in casino.Communications)
                 {
-                    NpoiExcelExtensions.RenderCell(ref totalRow, ref currentColumn, comm.Value, communicationCellStyle);
+                    NpoiExcelExtensions.RenderCell(totalRow, currentColumn, comm.Value, communicationCellStyle);
+                    currentColumn++;
                 }
             }
 
@@ -598,7 +594,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
         /// <param name="title">The title.</param>
         private void GenerateCasinoWeeklySummaryTitle(ExportExcelInfo exportExcelInfo, string title)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 280);
             for (int i = 0; i < exportExcelInfo.MaxColumnIndex; i++)
@@ -623,14 +619,17 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             IRow row = exportExcelInfo.Worksheet.CreateRow(currentRow);
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Category, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Category, headerStyle);
+            currentColumn++;
             foreach (var item in gameTypes)
             {
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item, headerStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item, headerStyle);
+                currentColumn++;
             }
 
             // Grand Total.
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Grand_Total, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Grand_Total, headerStyle);
+            currentColumn++;
 
             currentRow += 1;
             exportExcelInfo.CurrentRow = currentRow;
@@ -654,14 +653,17 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             foreach (var category in weeklyCategories)
             {
                 row = worksheet.CreateRow(currentRow);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, category.Name, categoryCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, category.Name, categoryCellStyle);
+                currentColumn++;
                 foreach (var game in category.GameTypeValues)
                 {
-                    NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, game, gameValueCellStyle);
+                    NpoiExcelExtensions.RenderCell(row, currentColumn, game, gameValueCellStyle);
+                    currentColumn++;
                 }
 
                 // Grand Total.
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, category.GrandTotal, gameValueCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, category.GrandTotal, gameValueCellStyle);
+                currentColumn++;
 
                 currentRow++;
                 currentColumn = exportExcelInfo.StartColumn;
@@ -685,14 +687,17 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             ICellStyle gameValueCellStyle = TotalCommunicationCellStyle(exportExcelInfo.ExcelFile);
 
             IRow row = worksheet.CreateRow(currentRow);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, grandTotal.Name, categoryCellStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, grandTotal.Name, categoryCellStyle);
+            currentColumn++;
             foreach (var game in grandTotal.GameTypeValues)
             {
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, game, gameValueCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, game, gameValueCellStyle);
+                currentColumn++;
             }
 
             // Grand Total.
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, grandTotal.GrandTotal, gameValueCellStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, grandTotal.GrandTotal, gameValueCellStyle);
+            currentColumn++;
         }
 
         #endregion
@@ -709,7 +714,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             ISheet worksheet = exportExcelInfo.Worksheet;
             worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExcelExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 100 * NpoiExcelExtensions.FontWidth);
@@ -757,25 +762,44 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(currentRow);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Date, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.StartTime, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.EndTime, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Duration, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Customer, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Site, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.TypeOfContact, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.ProductName, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Ext, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Contact, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Category, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.SubCategory, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Description, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Solution, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Status, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Response, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.HandleBy, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.CreationTime, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Date, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.StartTime, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.EndTime, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Duration, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Customer, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Site, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.TypeOfContact, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.ProductName, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Ext, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Contact, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Country, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Category, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.SubCategory, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Description, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Solution, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Status, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Response, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.HandleBy, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.CreationTime, headerStyle);
+            currentColumn++;
 
             exportExcelInfo.CurrentRow = ++currentRow;
         }
@@ -785,41 +809,58 @@ namespace Fanex.CRM.Report.Services.CasinoReport
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="casinoDetails">The casino details.</param>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private void GenerateCasinoDetailBody(ExportExcelInfo exportExcelInfo, IList<CasinoDetailEntity> casinoDetails)
         {
             int currentRow = exportExcelInfo.CurrentRow;
             ISheet worksheet = exportExcelInfo.Worksheet;
-
             ICellStyle textLeftCellStyle = CategoryCellStyle(exportExcelInfo.ExcelFile);
             ICellStyle textCenterCellStyle = TextCenterCellStyle(exportExcelInfo.ExcelFile);
-
             IRow row;
             int currentColumn;
             foreach (var item in casinoDetails)
             {
                 currentColumn = exportExcelInfo.CurrentColumn;
                 row = worksheet.CreateRow(currentRow);
-
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.FeedbackDateString, textCenterCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.FeedbackTimeString, textCenterCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.ResolutionTimeString, textCenterCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Duration, textCenterCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.UserName, textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.SiteName, textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Communication, textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Product, textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Station, textCenterCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, HtmlHelper.ReplaceHtmlTag(item.Contact), textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.CountryName, textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.MainCategory, textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.SubCategory, textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, HtmlHelper.ReplaceHtmlTag(item.Description), textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, HtmlHelper.ReplaceHtmlTag(item.Solution), textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Status, textCenterCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.Response, textCenterCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.CreatorName, textLeftCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, item.CreateDateString, textCenterCellStyle);
-
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.FeedbackDateString, textCenterCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.FeedbackTimeString, textCenterCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.ResolutionTimeString, textCenterCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.Duration, textCenterCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.UserName, textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.SiteName, textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.Communication, textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.Product, textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.Station, textCenterCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.ReplaceHtmlTag(item.Contact), textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.CountryName, textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.MainCategory, textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.SubCategory, textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.ReplaceHtmlTag(item.Description), textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.ReplaceHtmlTag(item.Solution), textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.Status, textCenterCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.Response, textCenterCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.CreatorName, textLeftCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.CreateDateString, textCenterCellStyle);
                 currentRow++;
             }
         }

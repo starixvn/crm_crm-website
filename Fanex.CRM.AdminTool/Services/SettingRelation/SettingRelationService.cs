@@ -68,7 +68,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             {
                 var allSettings = _settingService.AllSetting();
                 var result = allSettings
-                    .Where(s => s.Type == criteria.MainSetting.Type)
+                    .Where(s => s.SettingType == criteria.MainSetting.SettingType)
                     .Select(s => s)
                     .ToList();
 
@@ -93,7 +93,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             {
                 var mainSetting = MainSetting;
                 return mainSetting
-                    .Where(s => !string.Equals(s.Type, criteria.MainSetting.Type, StringComparison.Ordinal))
+                    .Where(s => !string.Equals(s.SettingType, criteria.MainSetting.SettingType, StringComparison.Ordinal))
                     .Select(s => s)
                     .ToList();
             }
@@ -185,7 +185,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
                         Id = setting.Id,
                         DisplayOrder = parent.DisplayOrder,
                         Value = setting.Value,
-                        Type = setting.Type
+                        SettingType = setting.SettingType
                     })
                     .ToList()
                     .OrderBy(s => s.DisplayOrder);

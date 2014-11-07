@@ -12,6 +12,7 @@ namespace Fanex.CRM.Common.Extensions
     using System;
     using System.Drawing;
     using System.Web;
+    using Fanex.Common;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
@@ -64,44 +65,29 @@ namespace Fanex.CRM.Common.Extensions
         private const string NormalNumberFormat = "#,##0{0}_);-#,##0{1}";
         private const string PositiveNumberFormat = "[RED][>0]#,##0{0}_);[<0]-#,##0{1};#,##0{2}";
 
-        public static void SetHeaderColorIndex(ref ExportExcelInfo exportExcelInfo)
+        public static void SetHeaderColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                HeaderTitleColor,
-                HeaderTitleColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, HeaderTitleColor, HeaderTitleColorIndex);
         }
 
-        public static void SetSubTotalColorIndex(ref ExportExcelInfo exportExcelInfo)
+        public static void SetSubTotalColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                SubTotalRowColor,
-                SubTotalRowColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, SubTotalRowColor, SubTotalRowColorIndex);
         }
 
-        public static void SetTotalColorIndex(ref ExportExcelInfo exportExcelInfo)
+        public static void SetTotalColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                TotalRowColor,
-                TotalRowColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, TotalRowColor, TotalRowColorIndex);
         }
 
-        public static void SetGrandTotalColorIndex(ref ExportExcelInfo exportExcelInfo)
+        public static void SetGrandTotalColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                GrandTotalRowColor,
-                GrandTotalRowColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, GrandTotalRowColor, GrandTotalRowColorIndex);
         }
 
-        public static void SetGrandTotalSeparatorColorIndex(ref ExportExcelInfo exportExcelInfo)
+        public static void SetGrandTotalSeparatorColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                GrandTotalSeparatorColor,
-                GrandTotalSeparatorColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, GrandTotalSeparatorColor, GrandTotalSeparatorColorIndex);
         }
 
         /// <summary>
@@ -281,7 +267,7 @@ namespace Fanex.CRM.Common.Extensions
 
                     if (i == cellRangeAddress.FirstRow && j == cellRangeAddress.FirstColumn)
                     {
-                        SetCellValue(ref cell, cellValue);
+                        SetCellValue(cell, cellValue);
                     }
                 }
             }
@@ -292,7 +278,7 @@ namespace Fanex.CRM.Common.Extensions
         /// </summary>
         /// <param name="exportExcelInfo">The export excel information.</param>
         /// <param name="currentRow">The current row.</param>
-        public static void RenderNoInfoMessage(ref ExportExcelInfo exportExcelInfo, int currentRow)
+        public static void RenderNoInfoMessage(ExportExcelInfo exportExcelInfo, int currentRow)
         {
             CellRangeAddress cellRangeAddress = new CellRangeAddress(
                 currentRow,
@@ -311,14 +297,10 @@ namespace Fanex.CRM.Common.Extensions
         /// <param name="currentColumn">The current column.</param>
         /// <param name="cellValue">The cell value.</param>
         /// <param name="cellStyle">The cell style.</param>
-        public static void RenderCell(
-            ref IRow row,
-            ref int currentColumn,
-            object cellValue,
-            ICellStyle cellStyle)
+        public static void RenderCell(IRow row, int currentColumn, object cellValue, ICellStyle cellStyle)
         {
             ICell cell = row.GetCell(currentColumn) ?? row.CreateCell(currentColumn);
-            SetCellValue(ref cell, cellValue);
+            SetCellValue(cell, cellValue);
             cellStyle.VerticalAlignment = MappingVerticalAlignmentType(CRMVerticalAlignment.Center);
             cell.CellStyle = cellStyle;
             currentColumn += 1;
@@ -329,13 +311,11 @@ namespace Fanex.CRM.Common.Extensions
         /// </summary>
         /// <param name="cell">The target cell.</param>
         /// <param name="cellValue">The cell value.</param>
-        public static void SetCellValue(
-            ref ICell cell,
-            object cellValue)
+        public static void SetCellValue(ICell cell, object cellValue)
         {
             if (cellValue is string)
             {
-                cell.SetCellValue((string)cellValue);
+                cell.SetCellValue(Converter.ToString2(cellValue));
             }
             else if (cellValue is int)
             {
@@ -414,7 +394,7 @@ namespace Fanex.CRM.Common.Extensions
             return cellStyle;
         }
 
-        public static void SetColorAtIndex(ref ExportExcelInfo exportExcelInfo, Color color, short colorIndex)
+        public static void SetColorAtIndex(ExportExcelInfo exportExcelInfo, Color color, short colorIndex)
         {
             HSSFPalette palette = exportExcelInfo.ExcelFile.GetCustomPalette();
             palette.SetColorAtIndex(colorIndex, color.R, color.G, color.B);
@@ -498,61 +478,9 @@ namespace Fanex.CRM.Common.Extensions
             return dataFormat.GetFormat(NormalNumberFormat);
         }
 
-        public static void SetHeaderColorIndex(ExportExcelInfo exportExcelInfo)
-        {
-            NpoiExcelExtensions.SetColorAtIndex(ref exportExcelInfo, HeaderTitleColor, HeaderTitleColorIndex);
-        }
-
-        public static void SetSubTotalColorIndex(ExportExcelInfo exportExcelInfo)
-        {
-            NpoiExcelExtensions.SetColorAtIndex(ref exportExcelInfo, SubTotalRowColor, SubTotalRowColorIndex);
-        }
-
         public static void SetGroupBackgroundColorIndex(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(ref exportExcelInfo, GroupBackgroundColor, GroupBackgroundColorIndex);
-        }
-
-        public static void SetGrandTotalSeparatorColorIndex(ExportExcelInfo exportExcelInfo)
-        {
-            NpoiExcelExtensions.SetColorAtIndex(ref exportExcelInfo, GrandTotalSeparatorColor, GrandTotalSeparatorColorIndex);
-        }
-
-        /// <summary>
-        /// Sets the cell value.
-        /// </summary>
-        /// <param name="cell">The target cell.</param>
-        /// <param name="cellValue">The cell value.</param>
-        public static void SetCellValue(ICell cell, object cellValue)
-        {
-            if (cellValue.GetType() == typeof(string))
-            {
-                cell.SetCellValue((string)cellValue);
-            }
-            else if (cellValue.GetType() == typeof(int))
-            {
-                cell.SetCellValue((int)cellValue);
-            }
-            else if (cellValue.GetType() == typeof(long))
-            {
-                cell.SetCellValue((long)cellValue);
-            }
-            else if (cellValue.GetType() == typeof(double))
-            {
-                cell.SetCellValue((double)cellValue);
-            }
-            else if (cellValue.GetType() == typeof(decimal))
-            {
-                cell.SetCellValue(Convert.ToDouble(cellValue));
-            }
-            else if (cellValue.GetType() == typeof(bool))
-            {
-                cell.SetCellValue((bool)cellValue);
-            }
-            else if (cellValue.GetType() == typeof(DateTime))
-            {
-                cell.SetCellValue((System.DateTime)cellValue);
-            }
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, GroupBackgroundColor, GroupBackgroundColorIndex);
         }
 
         /// <summary>
@@ -569,18 +497,6 @@ namespace Fanex.CRM.Common.Extensions
                 exportExcelInfo.MaxColumnIndex);
             var textStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
             RenderMergedCells(exportExcelInfo, cellRangeAddress, string.Empty, textStyle);
-        }
-
-        /// <summary>
-        /// Renders the no information message.
-        /// </summary>
-        /// <param name="exportExcelInfo">The export excel information.</param>
-        /// <param name="currentRow">The current row.</param>
-        public static void RenderNoInfoMessage(ExportExcelInfo exportExcelInfo, int currentRow)
-        {
-            CellRangeAddress cellRangeAddress = new CellRangeAddress(currentRow, currentRow, exportExcelInfo.StartColumn, exportExcelInfo.MaxColumnIndex);
-            var textStyle = NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, BackgroundColorIndex, true, CRMHorizontalAlignment.Center);
-            RenderMergedCells(exportExcelInfo, cellRangeAddress, Labels.ResultMessage_NoInfo, textStyle);
         }
 
         /// <summary>

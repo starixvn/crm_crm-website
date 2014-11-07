@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Controllers
 {
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -79,6 +80,9 @@ namespace Fanex.CRM.Customer.Controllers
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineCreateTitle, Policy = Constant.Policy.Host)]
         [HttpPost]
+        [SuppressMessage("Microsoft.Design",
+            "CA1011:ConsiderPassingBaseTypesAsParameters",
+            Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult CreateTitle(CreateInformCriteria criteria)
         {
             Result result = !criteria.IsValid()
@@ -104,7 +108,7 @@ namespace Fanex.CRM.Customer.Controllers
             var informs = _informHeadlineService.GetInforms(criteria);
             int totalItem = criteria.TotalItem;
             string title = informs.Count > 0 ? informs[0].Title : string.Empty;
-            
+
             var result = new { TotalItem = totalItem, ChildItems = informs, Title = title };
             return Json(result, JsonRequestBehavior.AllowGet);
         }

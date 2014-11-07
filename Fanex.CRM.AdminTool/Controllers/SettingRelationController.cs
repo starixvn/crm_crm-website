@@ -50,7 +50,7 @@ namespace Fanex.CRM.AdminTool.Controllers
                 {
                     Id = settingId,
                     Value = settingValue,
-                    Type = settingType
+                    SettingType = settingType
                 });
         }
 

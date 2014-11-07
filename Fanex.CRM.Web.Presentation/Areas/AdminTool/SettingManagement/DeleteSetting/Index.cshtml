@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="row">
-            @string.Format(Labels.SettingManagement_DeleteSetting_Message, Model.Type, Model.Value)
+            @string.Format(Labels.SettingManagement_DeleteSetting_Message, Model.SettingType, Model.Value)
         </div>
         <div class="row btn-group">
             <button id="btn-ok" class="btn pull-left btn-ok" data-ng-click="deleteSetting();">@Labels.Ok
@@ -40,7 +40,7 @@
         var settingInfo = 
         {
             Id: @Model.Id,
-            Type: '@Model.Type',
+            SettingType: '@Model.SettingType',
             Value: '@Model.Value'
         };
     </script>

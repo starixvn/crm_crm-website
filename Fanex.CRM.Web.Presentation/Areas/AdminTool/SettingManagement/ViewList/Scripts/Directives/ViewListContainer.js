@@ -57,7 +57,7 @@ viewListApplication.directive('settingManagementListContainer', function () {
                 { HeaderText: viewResources.Delete, Width: 60, Name: "ColDelete", HeaderAlign: "center", CellAlign: "center"}],
             showTitle: true,
             titleInfo: {
-                text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.Type])
+                text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])
             },
             bodyRows: bodyData,
             numberOfFrozenColumn: 1,

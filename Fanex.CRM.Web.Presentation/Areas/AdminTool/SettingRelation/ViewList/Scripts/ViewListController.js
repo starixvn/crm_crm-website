@@ -63,7 +63,7 @@ viewListApplication.controller('viewListController',
                     $.param({
                         settingId: setting.Id,
                         settingValue: setting.Value,
-                        settingType: setting.Type
+                        settingType: setting.SettingType
                     }),
                 viewResources.Setting_Relation_Management,
                 585,

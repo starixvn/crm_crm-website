@@ -83,30 +83,26 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             }
 
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.ShortName, _centerTextStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, info.ShortName, _centerTextStyle);
+            currentColumn++;
             var countryLength = info.ChildReports.Count;
             for (var i = 0; i < countryLength; i++)
             {
                 var countryReport = info.ChildReports[i];
                 if (countryReport.HasData)
                 {
-                    NpoiExcelExtensions.RenderCell(
-                        ref row,
-                        ref currentColumn,
-                        countryReport.NumberOfIssues,
-                        _intStyle);
+                    NpoiExcelExtensions.RenderCell(row, currentColumn, countryReport.NumberOfIssues, _intStyle);
+                    currentColumn++;
                 }
                 else
                 {
-                    NpoiExcelExtensions.RenderCell(
-                       ref row,
-                       ref currentColumn,
-                       string.Empty,
-                       _textStyle);
+                    NpoiExcelExtensions.RenderCell(row, currentColumn, string.Empty, _textStyle);
+                    currentColumn++;
                 }
             }
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.NumberOfIssues, _boldIntStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, info.NumberOfIssues, _boldIntStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow += 1;
         }
     }

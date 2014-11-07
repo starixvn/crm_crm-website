@@ -262,7 +262,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             Justification = "Reviewed. Suppression is OK here.")]
         private void ExportCustomerReportHeader(ref ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
@@ -287,20 +287,32 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Title, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Username, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.VIP, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Birthday, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Title, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Username, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.VIP, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Birthday, headerStyle);
+            currentColumn++;
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.PIC1, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.PIC2, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.PIC3, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.PIC4, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Skype, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Email, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.PIC1, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.PIC2, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.PIC3, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.PIC4, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Skype, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Email, headerStyle);
+            currentColumn++;
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Language, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Site, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Language, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Site, headerStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 
@@ -319,14 +331,11 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
                 exportExcelInfo.Worksheet.VerticallyCenter = true;
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.CustomerReport_SheetName);
                 ExportCustomerReportHeader(ref exportExcelInfo);
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
                 return;
             }
 
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                NpoiExcelExtensions.EvenRowColor,
-                NpoiExcelExtensions.EvenRowColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.EvenRowColor, NpoiExcelExtensions.EvenRowColorIndex);
 
             IRow row;
             int currentColumn;
@@ -409,82 +418,33 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             CustomerInfo customer,
             ICellStyle centerTextStyle)
         {
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Title.Name, centerTextStyle);
-            /*NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.FirstName, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.LastName, exportExcelInfo.TextStyle);*/
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Username, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.BirthDayString, centerTextStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.Title.Name, centerTextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.Username, exportExcelInfo.TextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.IsVIP ? Labels.Symbol_IsVIP : string.Empty, centerTextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.BirthDayString, centerTextStyle);
+            currentColumn++;
 
-            /*var fullPhoneContact = customer.PhoneInfo
-                .Select(phone =>
-                     phone.CountryCode != string.Empty &&
-                     phone.AreaCode != string.Empty &&
-                     phone.PhoneNumber != string.Empty ?
-                     string.Format(Labels.Symbol_FullContactFormat, phone.CountryCode, phone.AreaCode, phone.PhoneNumber) :
-                     string.Empty)
-                    .Where(phoneString => phoneString != string.Empty);
-
-            NpoiExcelExtensions.RenderCell(
-                ref row,
-                ref currentColumn,
-                string.Join("\n", fullPhoneContact),
-                centerTextStyle);
-
-            var fullContact = string.Empty;
-            if (customer.MobilePhone.CountryCode != string.Empty &&
-                customer.MobilePhone.AreaCode != string.Empty &&
-                customer.MobilePhone.PhoneNumber != string.Empty)
-            {
-                fullContact = string.Format(
-                    Labels.Symbol_FullContactFormat,
-                    customer.MobilePhone.CountryCode,
-                    customer.MobilePhone.AreaCode,
-                    customer.MobilePhone.PhoneNumber);
-            }
-
-            NpoiExcelExtensions.RenderCell(
-                ref row,
-                ref currentColumn,
-                fullContact,
-                centerTextStyle);
-
-            fullContact = string.Empty;
-            if (customer.FaxInfo.CountryCode != string.Empty &&
-                customer.FaxInfo.AreaCode != string.Empty &&
-                customer.FaxInfo.FaxNumber != string.Empty)
-            {
-                fullContact = string.Format(
-                    Labels.Symbol_FullContactFormat,
-                    customer.FaxInfo.CountryCode,
-                    customer.FaxInfo.AreaCode,
-                    customer.FaxInfo.FaxNumber);
-            }
-
-            NpoiExcelExtensions.RenderCell(
-                ref row,
-                ref currentColumn,
-                fullContact,
-                centerTextStyle);*/
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.PIC1, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.PIC2, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.PIC3, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.PIC4, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Skype, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Email, exportExcelInfo.TextStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.PIC1, exportExcelInfo.TextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.PIC2, exportExcelInfo.TextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.PIC3, exportExcelInfo.TextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.PIC4, exportExcelInfo.TextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.Skype, exportExcelInfo.TextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.Email, exportExcelInfo.TextStyle);
+            currentColumn++;
 
             var customerLanguages = string.Join(", ", customer.Languages.Select(language => language.Name));
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customerLanguages, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.SiteSetting.Name, exportExcelInfo.TextStyle);
-
-            /*NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[0], exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[1], exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.LineList[2], exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.City, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.Country.Name, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.State, exportExcelInfo.TextStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, customer.AddressInfo.PostCode, exportExcelInfo.TextStyle);*/
-
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customerLanguages, exportExcelInfo.TextStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, customer.SiteSetting.Name, exportExcelInfo.TextStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 
@@ -602,7 +562,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
                        .ToList();
                     break;
                 case "Languages":
-                    sortedCustomerList.Sort((customerA, customerB) => 
+                    sortedCustomerList.Sort((customerA, customerB) =>
                         string.Compare(GetCustomerLanguages(customerB), GetCustomerLanguages(customerA), StringComparison.OrdinalIgnoreCase));
                     break;
                 case "SiteSettingName":

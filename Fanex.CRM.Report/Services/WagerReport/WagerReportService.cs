@@ -105,15 +105,12 @@ namespace Fanex.CRM.Report.Services.WagerReport
             ExportHeader(ref exportExcelInfo);
             if (report.WagerByMonths == null || report.WagerByMonths.Count == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
-                NpoiExcelExtensions.SetColorAtIndex(
-                    ref exportExcelInfo,
-                    NpoiExcelExtensions.EvenRowColor,
-                    NpoiExcelExtensions.EvenRowColorIndex);
-                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.EvenRowColor, NpoiExcelExtensions.EvenRowColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
                 ExportBody(ref exportExcelInfo, report.WagerByMonths);
                 ExportFooter(ref exportExcelInfo, report.GrandTotal);
@@ -194,7 +191,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
         /// <param name="title">The title.</param>
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             var columnWidths = new List<int>() { 200, 200, 200, 200 };
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
@@ -212,10 +209,14 @@ namespace Fanex.CRM.Report.Services.WagerReport
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Month, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Wagers, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Amount, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Total, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Month, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Wagers, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Amount, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Total, headerStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 
@@ -255,8 +256,9 @@ namespace Fanex.CRM.Report.Services.WagerReport
                 {
                     currentColumn = startColumn;
                     IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
-                    NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Name, wagersCellStyle);
-                    NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, wagerByMonth.Wagers[j].Amount, amountCellStyle);
+                    NpoiExcelExtensions.RenderCell(row, currentColumn, wagerByMonth.Wagers[j].Name, wagersCellStyle);
+                    currentColumn++;
+                    NpoiExcelExtensions.RenderCell(row, currentColumn, wagerByMonth.Wagers[j].Amount, amountCellStyle);
                     currentRow++;
                 }
 
@@ -309,8 +311,9 @@ namespace Fanex.CRM.Report.Services.WagerReport
                     NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(amountCellStyle);
                 }
 
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, total.Wagers[i].Name, wagersCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, total.Wagers[i].Amount, amountCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, total.Wagers[i].Name, wagersCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, total.Wagers[i].Amount, amountCellStyle);
                 currentRow++;
             }
 

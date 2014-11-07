@@ -128,7 +128,7 @@ namespace Fanex.CRM.Common.Services
             }
         }
 
-        public static string RedirectUrl 
+        public static string RedirectLink 
         {
             get
             {

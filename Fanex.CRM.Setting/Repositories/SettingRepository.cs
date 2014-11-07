@@ -44,7 +44,7 @@ namespace Fanex.CRM.Setting.Repositories
                             allsetting.Add(new SettingInfo
                             {
                                 Id = Converter.ToInt(reader["settingid"], 0),
-                                Type = Converter.ToString2(reader["settingname"]),
+                                SettingType = Converter.ToString2(reader["settingname"]),
                                 Value = Converter.ToString2(reader["settingvalue"]),
                                 DisplayOrder = Converter.ToInt(reader["displayorder"], 0)
                             });

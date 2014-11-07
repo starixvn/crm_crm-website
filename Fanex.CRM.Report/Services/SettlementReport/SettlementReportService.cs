@@ -332,16 +332,13 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             {
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.SettlementReport_SheetName);
                 ExportSettlementReportHeader(ref exportExcelInfo, criteria, settlementReport);
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
                 return;
             }
 
             var monthReportLength = settlementReport.ChildReports.Count;
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                NpoiExcelExtensions.EvenRowColor,
-                NpoiExcelExtensions.EvenRowColorIndex);
-            NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.EvenRowColor, NpoiExcelExtensions.EvenRowColorIndex);
+            NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
             var oddRowWriter = new OddEvenRowExcelWriter(exportExcelInfo, false);
             var firstGrandTotalRowWriter = new GrandTotalRowExcelWriter(exportExcelInfo, true);
@@ -397,7 +394,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             GetSettlementReportCriteria criteria,
             SettlementReportInfo settlementReport)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
@@ -415,10 +412,14 @@ namespace Fanex.CRM.Report.Services.SettlementReport
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Month, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Country, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Amount, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Total, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Month, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Country, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Amount, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Total, headerStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
     }

@@ -69,7 +69,7 @@ viewListApplication.directive('settingRelationListContainer', function () {
                 { HeaderText: viewResources.Order, Width: 60, Name: "ColOrder", HeaderAlign: "center", CellAlign: "right"}],
             showTitle: true,
             titleInfo: {
-                text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.Type])
+                text: sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])
             },
             bodyRows: bodyData,
             numberOfFrozenColumn: 1,

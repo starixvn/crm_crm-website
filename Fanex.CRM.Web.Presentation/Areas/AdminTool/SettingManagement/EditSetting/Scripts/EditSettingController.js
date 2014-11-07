@@ -45,7 +45,7 @@ editSettingApplication.controller('editSettingController',
                 });
         };
         $scope.checkEditParam = function (editParam) {
-            if (editParam.UpdatedSetting.Type === "") {
+            if (editParam.UpdatedSetting.SettingType === "") {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_EmptySettingName, true, false);
                 return false;
             }
@@ -55,7 +55,7 @@ editSettingApplication.controller('editSettingController',
                 return false;
             }
 
-            if (editParam.UpdatedSetting.Type.length > 100) {
+            if (editParam.UpdatedSetting.SettingType.length > 100) {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_ExceedName, true, false);
                 return false;
             }
@@ -89,7 +89,7 @@ editSettingApplication.controller('editSettingController',
         };
         $scope.updateChangeFlag = function () {
             if ($scope.oldEditSettingParams.UpdatedSetting &&
-                ($scope.oldEditSettingParams.UpdatedSetting.Type !== $scope.editSettingParams.UpdatedSetting.Type ||
+                ($scope.oldEditSettingParams.UpdatedSetting.SettingType !== $scope.editSettingParams.UpdatedSetting.SettingType ||
                 $scope.oldEditSettingParams.UpdatedSetting.Value !== $scope.editSettingParams.UpdatedSetting.Value ||
                 $scope.oldEditSettingParams.UpdatedSetting.DisplayOrder !== $scope.editSettingParams.UpdatedSetting.DisplayOrder ||
                 $scope.oldEditSettingParams.UpdatedSetting.ParentId !== $scope.editSettingParams.UpdatedSetting.ParentId)) {

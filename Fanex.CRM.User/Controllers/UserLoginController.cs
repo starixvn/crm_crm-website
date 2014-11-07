@@ -334,7 +334,7 @@ namespace Fanex.CRM.User.Controllers
                     CreateAuthInfo(user);
                     if (redirectUrl != null && !string.IsNullOrEmpty(redirectUrl.ToString()))
                     {
-                        AppSession.RedirectUrl = redirectUrl.ToString();
+                        AppSession.RedirectLink = redirectUrl.ToString();
                     }
                     //// saves user session & auth info
                     return this.Redirect(FormsAuthentication.DefaultUrl);

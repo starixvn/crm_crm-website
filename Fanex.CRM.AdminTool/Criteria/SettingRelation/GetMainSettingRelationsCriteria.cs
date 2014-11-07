@@ -30,7 +30,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
-            param.Add("settingname", MainSetting.Type);
+            param.Add("settingname", MainSetting.SettingType);
             param.Add("parentid", ParentId);
             return param;
         }

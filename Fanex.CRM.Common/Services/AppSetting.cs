@@ -37,7 +37,7 @@ namespace Fanex.CRM.Common.Services
             get { return CastAide.AsInt32(ConfigurationManager.AppSettings["serverid"]); }
         }
 
-        public static string LoginUrl
+        public static string LoginLink
         {
             get { return CastAide.AsString(ConfigurationManager.AppSettings["loginUrl"]); }
         }

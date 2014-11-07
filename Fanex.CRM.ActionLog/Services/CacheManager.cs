@@ -42,7 +42,7 @@ namespace Fanex.CRM.ActionLog.Services
                     () =>
                     {
                     var countries = SettingServiceInstance.AllCountry()
-                            .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, Type = "Country" });
+                            .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Country" });
 
                     var settings = SettingServiceInstance.AllSetting();
                         settings.AddRange(countries);

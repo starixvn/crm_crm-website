@@ -76,7 +76,9 @@ viewListApplication.controller('viewListController',
         $scope.insertSubSetting = function () {
             parent.homeManager.CachedData.shouldReloadView = false;
             parent.OpenPopup(
-                window.rootUrl + "SettingManagement/OpenInsertSubSettingView?" + $.param({ settingType: $scope.getSettingRelationsParams.MainSetting.Type }),
+                window.rootUrl + "SettingManagement/OpenInsertSubSettingView?" + $.param({
+                    settingType: $scope.getSettingRelationsParams.MainSetting.SettingType 
+                }),
                 viewResources.Insert_New_Setting,
                 480,
                 280,
@@ -95,7 +97,7 @@ viewListApplication.controller('viewListController',
                 window.rootUrl + "SettingManagement/OpenDeleteSettingView?" +
                     $.param({
                         settingId: settingInfo.Id,
-                        settingType: settingInfo.Type,
+                        settingType: settingInfo.SettingType,
                         settingValue: settingInfo.Value
                     }),
                 viewResources.Delete_Setting,

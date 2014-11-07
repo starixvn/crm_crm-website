@@ -5,9 +5,9 @@ camelcase: false */
 function registerUpdateFunctions($scope) {
     $scope.updateSelectedMainSetting = function (mainSetting) {
         var isChange = !$scope.getSettingRelationsParams.MainSetting ||
-            $scope.getSettingRelationsParams.MainSetting.Type !== mainSetting.Type;
+            $scope.getSettingRelationsParams.MainSetting.SettingType !== mainSetting.SettingType;
         $scope.getSettingRelationsParams.MainSetting = {
-            Type: mainSetting.Type
+            SettingType: mainSetting.SettingType
         };
 
         $scope.safeApply();

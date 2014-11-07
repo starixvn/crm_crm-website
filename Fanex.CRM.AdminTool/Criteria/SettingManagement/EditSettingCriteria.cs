@@ -41,7 +41,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
-            param.Add("settingname", UpdatedSetting.Type);
+            param.Add("settingname", UpdatedSetting.SettingType);
             param.Add("settingvalue", UpdatedSetting.Value);
             param.Add("displayorder", UpdatedSetting.DisplayOrder);
             param.Add("settingid", UpdatedSetting.Id);

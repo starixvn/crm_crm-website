@@ -136,15 +136,12 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             GenerateFeedbackStatisticHeader(exportExcelInfo, report.Usernames);
             if (report == null || report.TotalItems == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
-                NpoiExcelExtensions.SetColorAtIndex(
-                    ref exportExcelInfo,
-                    NpoiExcelExtensions.GroupBackgroundColor,
-                    NpoiExcelExtensions.GroupBackgroundColorIndex);
-                NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.GroupBackgroundColor, NpoiExcelExtensions.GroupBackgroundColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
 
                 GenerateFeedbackStatisticBody(exportExcelInfo, report.FeedbackCategories);
                 GenerateFeedbackStatisticFooter(exportExcelInfo, report.GrandTotals);
@@ -225,7 +222,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             GenerateFeedbackStatisticDetailHeader(exportExcelInfo);
             if (report == null || report.TotalItems == 0)
             {
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
             else
             {
@@ -293,7 +290,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <param name="title">The title.</param>
         private void GenerateFeedbackStatisticTitle(ExportExcelInfo exportExcelInfo, string title)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 300);
             for (int i = 0; i < exportExcelInfo.MaxColumnIndex; i++)
@@ -317,11 +314,13 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             IRow subCategoryRow = exportExcelInfo.Worksheet.CreateRow(currentRow);
-            NpoiExcelExtensions.RenderCell(ref subCategoryRow, ref currentColumn, Labels.SubCategory, headerStyle);
+            NpoiExcelExtensions.RenderCell(subCategoryRow, currentColumn, Labels.SubCategory, headerStyle);
+            currentColumn++;
 
             foreach (var item in usernames)
             {
-                NpoiExcelExtensions.RenderCell(ref subCategoryRow, ref currentColumn, item.Name, headerStyle);
+                NpoiExcelExtensions.RenderCell(subCategoryRow, currentColumn, item.Name, headerStyle);
+                currentColumn++;
             }
 
             currentRow += 1;
@@ -368,14 +367,16 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                     currentColumn = exportExcelInfo.StartColumn;
                     IRow subCategoryRow = exportExcelInfo.Worksheet.CreateRow(currentRow);
                     NpoiExcelExtensions.RenderCell(
-                        ref subCategoryRow,
-                        ref currentColumn,
+                        subCategoryRow,
+                        currentColumn,
                         string.Format(subCategoryPattern, subCategory.Name, subCategory.Total),
                         subCategoryCellStyle);
+                    currentColumn++;
 
                     foreach (var resolve in subCategory.Resolves)
                     {
-                        NpoiExcelExtensions.RenderCell(ref subCategoryRow, ref currentColumn, resolve, resolveCellStyle);
+                        NpoiExcelExtensions.RenderCell(subCategoryRow, currentColumn, resolve, resolveCellStyle);
+                        currentColumn++;
                     }
 
                     currentRow++;
@@ -385,16 +386,17 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                 currentColumn = exportExcelInfo.StartColumn;
                 IRow subTotalRow = exportExcelInfo.Worksheet.CreateRow(currentRow);
                 NpoiExcelExtensions.RenderCell(
-                    ref subTotalRow,
-                    ref currentColumn,
+                    subTotalRow,
+                    currentColumn,
                     string.Format(subCategoryPattern, Labels.SubTotal, category.SubTotal.Total),
                     subTotalCellStyle);
+                currentColumn++;
 
                 foreach (var resolve in category.SubTotal.Resolves)
                 {
-                    NpoiExcelExtensions.RenderCell(ref subTotalRow, ref currentColumn, resolve, subTotalResolveCellStyle);
+                    NpoiExcelExtensions.RenderCell(subTotalRow, currentColumn, resolve, subTotalResolveCellStyle);
+                    currentColumn++;
                 }
-                //// ---------- End of Sub-Total. ----------
 
                 exportExcelInfo.Worksheet.GroupRow(currentRow - subCategoriesLen, currentRow);
                 exportExcelInfo.Worksheet.SetRowGroupCollapsed(currentRow - subCategoriesLen, false);
@@ -418,11 +420,13 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             ICellStyle resolveCellStyle = GrandTotalResolveCellStyle(exportExcelInfo.ExcelFile);
 
             IRow subCategoryRow = exportExcelInfo.Worksheet.CreateRow(currentRow);
-            NpoiExcelExtensions.RenderCell(ref subCategoryRow, ref currentColumn, Labels.GrandTotal, subCategoryCellStyle);
+            NpoiExcelExtensions.RenderCell(subCategoryRow, currentColumn, Labels.GrandTotal, subCategoryCellStyle);
+            currentColumn++;
 
             foreach (var item in grandTotals)
             {
-                NpoiExcelExtensions.RenderCell(ref subCategoryRow, ref currentColumn, item, resolveCellStyle);
+                NpoiExcelExtensions.RenderCell(subCategoryRow, currentColumn, item, resolveCellStyle);
+                currentColumn++;
             }
         }
 
@@ -511,7 +515,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             ISheet worksheet = exportExcelInfo.Worksheet;
             worksheet.SetColumnWidth(currentColumn++, 370 * NpoiExcelExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 150 * NpoiExcelExtensions.FontWidth);
@@ -544,12 +548,17 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             IRow headerRow = exportExcelInfo.Worksheet.CreateRow(currentRow);
-            NpoiExcelExtensions.RenderCell(ref headerRow, ref currentColumn, Labels.Feedback, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref headerRow, ref currentColumn, Labels.Customer, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref headerRow, ref currentColumn, Labels.Category, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref headerRow, ref currentColumn, Labels.SubCategory, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref headerRow, ref currentColumn, Labels.Status, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref headerRow, ref currentColumn, Labels.RelatedCustomer, headerStyle);
+            NpoiExcelExtensions.RenderCell(headerRow, currentColumn, Labels.Feedback, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(headerRow, currentColumn, Labels.Customer, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(headerRow, currentColumn, Labels.Category, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(headerRow, currentColumn, Labels.SubCategory, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(headerRow, currentColumn, Labels.Status, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(headerRow, currentColumn, Labels.RelatedCustomer, headerStyle);
 
             exportExcelInfo.CurrentRow = ++currentRow;
         }
@@ -578,17 +587,22 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                     : string.Empty;
                 row = exportExcelInfo.Worksheet.CreateRow(currentRow);
                 NpoiExcelExtensions.RenderCell(
-                    ref row,
-                    ref currentColumn,
+                    row,
+                    currentColumn,
                     string.Format(feedbackPattern, feedback.Subject, feedback.FeedbackDateString, feedback.CreatorName, feedback.CreateDateString, feedback.DurationTime, reviewer),
                     textCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, feedback.Username, textCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, feedback.MainCategory, textCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, feedback.SubCategory, textCellStyle);
-                NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, feedback.Status, textCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.Username, textCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.MainCategory, textCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.SubCategory, textCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, feedback.Status, textCellStyle);
+                currentColumn++;
                 NpoiExcelExtensions.RenderCell(
-                    ref row,
-                    ref currentColumn,
+                    row,
+                    currentColumn,
                     feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer,
                     textCellStyle);
 

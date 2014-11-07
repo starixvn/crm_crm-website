@@ -443,7 +443,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             ExportExcelInfo exportExcelInfo,
             int communicationToolLength)
         {
-            NpoiExcelExtensions.SetGrandTotalColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
             var intNumberStyle = NpoiExcelExtensions.IntNumberStyleGrandTotal(exportExcelInfo.ExcelFile);
             intNumberStyle.Alignment = HorizontalAlignment.Center;
             var textStyle = NpoiExcelExtensions.TextStyleGrandTotal(exportExcelInfo.ExcelFile);
@@ -531,7 +531,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             {
                 exportExcelInfo.CreateSheet(reportSheetName);
                 ExportDetailReportHeader(report, exportExcelInfo);
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
                 return;
             }
 

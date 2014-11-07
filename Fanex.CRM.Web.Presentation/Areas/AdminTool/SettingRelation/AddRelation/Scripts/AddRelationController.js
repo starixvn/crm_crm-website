@@ -53,7 +53,7 @@ addRelationApplication.controller('addRelationController',
                 .then(function (data) {
                     $scope.mainSettingRelationView = data.Result;
                     $scope.oldMainSettingRelationView = angular.copy($scope.mainSettingRelationView);
-                    $scope.addSettingRelationsParams.SettingName = $scope.getMainSettingRelationsParams.MainSetting.Type;
+                    $scope.addSettingRelationsParams.SettingName = $scope.getMainSettingRelationsParams.MainSetting.SettingType;
                     $scope.addSettingRelationsParams.SubSettings = $scope.mainSettingRelationView;
                     $uiBlockerService.unblockUI();
                 },

@@ -18,7 +18,7 @@ insertSubSettingApplication.controller('insertSubSettingController',
         $scope.insertSettingParams = {
             NewSetting: {
                 ParentId: 0,
-                Type: settingInfo.Type,
+                SettingType: settingInfo.SettingType,
                 Value: '',
                 DisplayOrder: ''
             }
@@ -44,7 +44,7 @@ insertSubSettingApplication.controller('insertSubSettingController',
         $scope.completedLoadFilterInfo = function () {
             $scope.updateSelectedParentSetting({
                 Id: crmConstants.Enums.Setting.NotApply,
-                Type: viewResources.Symbol_NotApply,
+                SettingType: viewResources.Symbol_NotApply,
                 Value: viewResources.Symbol_NotApply
             });
             $scope.oldInsertSettingParams = angular.copy($scope.insertSettingParams);
@@ -75,7 +75,7 @@ insertSubSettingApplication.controller('insertSubSettingController',
                 });
         };
         $scope.checkInsertParam = function (insertParam) {
-            if (insertParam.NewSetting.Type === "") {
+            if (insertParam.NewSetting.SettingType === "") {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_EmptySettingName, true, false);
                 return false;
             }
@@ -85,7 +85,7 @@ insertSubSettingApplication.controller('insertSubSettingController',
                 return false;
             }
 
-            if (insertParam.NewSetting.Type.length > 100) {
+            if (insertParam.NewSetting.SettingType.length > 100) {
                 $scope.messageResultOptions = new MessageResult(viewResources.SettingManagement_Error_ExceedName, true, false);
                 return false;
             }
@@ -119,7 +119,7 @@ insertSubSettingApplication.controller('insertSubSettingController',
         };
         $scope.updateChangeFlag = function () {
             if ($scope.oldInsertSettingParams.NewSetting &&
-                ($scope.oldInsertSettingParams.NewSetting.Type !== $scope.insertSettingParams.NewSetting.Type ||
+                ($scope.oldInsertSettingParams.NewSetting.SettingType !== $scope.insertSettingParams.NewSetting.SettingType ||
                 $scope.oldInsertSettingParams.NewSetting.Value !== $scope.insertSettingParams.NewSetting.Value ||
                 $scope.oldInsertSettingParams.NewSetting.DisplayOrder !== $scope.insertSettingParams.NewSetting.DisplayOrder ||
                 $scope.oldInsertSettingParams.NewSetting.ParentId !== $scope.insertSettingParams.NewSetting.ParentId)) {

@@ -88,8 +88,10 @@ namespace Fanex.CRM.Report.Services.SettlementReport
 
             currentColumn++;
 
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.Name, _textStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, info.NumberOfIssues, _intStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, info.Name, _textStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, info.NumberOfIssues, _intStyle);
+            currentColumn++;
 
             if (_isFirstRow)
             {

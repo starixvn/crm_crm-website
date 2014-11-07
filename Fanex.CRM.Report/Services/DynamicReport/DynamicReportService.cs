@@ -722,7 +722,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             GetDynamicReportCriteria criteria,
             DynamicReportInfo dynamicReport)
         {
-            NpoiExcelExtensions.SetHeaderColorIndex(ref exportExcelInfo);
+            NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
@@ -759,20 +759,30 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
             currentColumn = exportExcelInfo.StartColumn;
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Symbol_No, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Running_No, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Feedback_Date, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Symbol_No, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Running_No, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Feedback_Date, headerStyle);
+            currentColumn++;
             NpoiExcelExtensions.RenderCell(
-                ref row,
-                ref currentColumn,
+                row,
+                currentColumn,
                 string.Format("{0}/{1}", Labels.Main_Category, Labels.Sub_Category),
                 headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Subject, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Status, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Duration, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Username, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Handler, headerStyle);
-            NpoiExcelExtensions.RenderCell(ref row, ref currentColumn, Labels.Reviewer, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Subject, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Status, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Duration, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Username, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Handler, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Reviewer, headerStyle);
+            currentColumn++;
             exportExcelInfo.CurrentRow++;
         }
 
@@ -794,16 +804,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             {
                 exportExcelInfo.Worksheet = exportExcelInfo.ExcelFile.CreateSheet(Labels.DynamicReport_SheetName);
                 ExportDynamicReportHeader(ref exportExcelInfo, criteria, dynamicReport);
-                NpoiExcelExtensions.RenderNoInfoMessage(ref exportExcelInfo, exportExcelInfo.CurrentRow);
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
                 return;
             }
 
             var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
             var periodGroupBackgroundColorIndex = (short)HSSFColor.DarkYellow.Index;
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                periodGroupBackgroundColor,
-                periodGroupBackgroundColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, periodGroupBackgroundColor, periodGroupBackgroundColorIndex);
             ICellStyle periodGroupTitleStyle = NpoiExcelExtensions.TextStyle(
                 exportExcelInfo.ExcelFile,
                 periodGroupBackgroundColorIndex,
@@ -900,22 +907,14 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         private void SetStatusColorIndex(ref ExportExcelInfo exportExcelInfo)
         {
             var closedBackgroundColor = Color.FromArgb(221, 221, 221);
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                closedBackgroundColor,
-                _closedBackgroundColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, closedBackgroundColor, _closedBackgroundColorIndex);
 
             var checkedBackgroundColor = Color.FromArgb(242, 242, 242);
-            NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                checkedBackgroundColor,
-                _checkedBackgroundColorIndex);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, checkedBackgroundColor, _checkedBackgroundColorIndex);
 
             var pendingBackgroundColor = Color.FromArgb(240, 237, 196);
             NpoiExcelExtensions.SetColorAtIndex(
-                ref exportExcelInfo,
-                pendingBackgroundColor,
-                _pendingBackgroundColorIndex);
+                exportExcelInfo, pendingBackgroundColor, _pendingBackgroundColorIndex);
         }
 
         /// <summary>

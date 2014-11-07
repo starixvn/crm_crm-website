@@ -21,7 +21,7 @@ namespace Fanex.CRM.Common.Models
     {
         public string Value { get; set; }
 
-        public string Type { get; set; }
+        public string SettingType { get; set; }
 
         public int DisplayOrder { get; set; }
 

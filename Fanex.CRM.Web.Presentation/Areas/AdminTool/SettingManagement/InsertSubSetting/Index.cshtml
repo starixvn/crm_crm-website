@@ -27,7 +27,7 @@
                     @Labels.Setting_Name</label>
                 <div class="col-xs-9 col-sm-9 col-md-10">
                     <input type="text" id="txtSettingName" name="txtSettingName" class="form-control textbox"
-                        data-ng-model="insertSettingParams.NewSetting.Type" disabled="disabled" />
+                        data-ng-model="insertSettingParams.NewSetting.SettingType" disabled="disabled" />
                 </div>
             </div>
             <div class="form-group">
@@ -73,7 +73,7 @@
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var settingInfo = {
-            Type: '@Model.Type'
+            SettingType: '@Model.SettingType'
         };
 
         var viewResources = {
