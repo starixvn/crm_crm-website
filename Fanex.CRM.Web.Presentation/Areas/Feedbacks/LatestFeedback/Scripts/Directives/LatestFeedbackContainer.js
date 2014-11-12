@@ -67,7 +67,9 @@ latestFBApplication.directive('tableLatestFeedbackContainer', function () {
             var tooltips = $('.desTooltip');
             tooltips.unbind('click')
                 .bind('click', function () {
-                    scope.openEditFeedbackPopup($(this).data('id'));
+                    var $this = $(this);
+                    $this.tipsy('hide');
+                    scope.openEditFeedbackPopup($this.data('id'));
                 })
                 .tipsy({ fade: true, gravity: 'nw', html: true, title: function () { return feedbacks[$(this).data('index')].Description; } });
         }

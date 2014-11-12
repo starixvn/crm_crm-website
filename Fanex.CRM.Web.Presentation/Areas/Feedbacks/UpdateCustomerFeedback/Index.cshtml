@@ -470,17 +470,15 @@
         </div>
         <div class="row panel-group last" data-ng-class="panelManager.review ? '' : 'consecutive-container-before'">
             <div class="row title">
-                <div class="pull-left">
+                <div class="pull-left" style="width:45px;">
                     <label for="chkisreview" class="hand">@Labels.Review</label>
                     <input type="checkbox" class="review" id="chkisreview"
                         data-ng-disabled="!hasReviewPermission"
                         data-ng-model="feedback.IsReviewed"
                         data-ng-click="panelManager.review = !panelManager.review" />
-                    <div class="pull-right">
-                        <span class="reviewedby" data-ng-show="feedback.ReviewerId > 0" data-ng-bind="reviewedBy"></span>
-                        <span class="errormsg" style="margin-left:25px;" data-ng-hide="requiredManager.review">@Labels.RequiredInformation</span>
-                    </div>
                 </div>
+                <span class="reviewedby" data-ng-show="feedback.ReviewerId > 0" data-ng-bind="reviewedBy"></span>
+                <span class="errormsg" style="margin-left:25px;" data-ng-hide="requiredManager.review">@Labels.RequiredInformation</span>
             </div>
             <div class="row content" ng-show="panelManager.review">
                 <div class="editerwrapper" id="reviewwrapper">
