@@ -31,6 +31,7 @@ function registerOptions($scope) {
     $scope.solutionOptions = null;
     $scope.tipsyOptions = null;
     $scope.relatedCustomerOptions = null;
+    $scope.licenseeTypeOptions = null;
 
     $scope.IsUpdatingTime = false;
     $scope.isSetFocus = false;
@@ -46,6 +47,7 @@ function registerOptions($scope) {
             OnChangeEvent: $scope.updateSelectedTitle,
             AllText: viewResources.All
         };
+
         $scope.siteOptions = {
             DataList: [],
             OnChangeEvent: $scope.updateSelectedSite,
@@ -128,6 +130,11 @@ function registerOptions($scope) {
             OnChangeEvent: $scope.updateSolution,
             SelectedText: $scope.addCustomerFeedbackParams.Solution,
             EditIconText: viewResources.Insert_Edit_Block
+        };
+
+        $scope.licenseeTypeOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedLicenseeType
         };
 
         $scope.tipsyOptions = {

@@ -60,6 +60,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             var allSetting = AllSettingToAddFeedback();
             allSetting.RoleList = ServiceSetting.AllRole();
+            allSetting.LicenseeType = ServiceSetting.AllLicenseeType();
             return Json(allSetting, JsonRequestBehavior.AllowGet);
         }
 

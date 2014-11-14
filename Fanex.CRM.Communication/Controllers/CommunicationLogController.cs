@@ -73,7 +73,8 @@ namespace Fanex.CRM.Communication.Controllers
                 StatusList = _communicationServiceLog.AllStatusForEdit,
                 SiteList = _serviceSetting.AllSite(),
                 RoleList = _serviceSetting.AllRole(),
-                ResponseList = _serviceSetting.AllResponse()
+                ResponseList = _serviceSetting.AllResponse(),
+                LicenseeType = _serviceSetting.AllLicenseeType()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -101,7 +102,8 @@ namespace Fanex.CRM.Communication.Controllers
                 SiteList = _serviceSetting.AllSite(),
                 RoleList = _serviceSetting.AllRole(),
                 ResponseList = _serviceSetting.AllResponse(),
-                DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId }),
+                LicenseeType = _serviceSetting.AllLicenseeType(),
+                DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId })
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

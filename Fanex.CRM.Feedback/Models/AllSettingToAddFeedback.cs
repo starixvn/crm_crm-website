@@ -42,5 +42,7 @@ namespace Fanex.CRM.Feedback.Models
         public List<SettingInfo> TitleList { get; set; }
 
         public List<SettingInfo> RoleList { get; set; }
+
+        public List<SettingInfo> LicenseeType { get; set; }
     }
 }

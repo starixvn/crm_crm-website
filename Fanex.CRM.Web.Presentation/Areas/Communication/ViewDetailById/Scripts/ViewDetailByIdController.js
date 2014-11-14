@@ -37,6 +37,7 @@ function (
     $scope.subjectOptions = null;
     $scope.startTimeOptions = null;
     $scope.endTimeOptions = null;
+    $scope.licenseeTypeOptions = null;
 
     $scope.initController = function () {
         $scope.getAllSetting();
@@ -283,6 +284,11 @@ function (
                     Id: crmConstants.Enums.Country.NotApply,
                     Name: viewResources.Symbol_NotApply
                 });
+                $scope.licenseeTypeOptions = {
+                    DataList: allSetting.LicenseeType,
+                    OnChangeEvent: $scope.updateSelectedLicenseeType,
+                    SelectedId: $scope.communicationLog.LicenseeType.Id
+                };
 
                 $scope.countryOptions.DataList = $scope.countryOptions.DataList.concat(allSetting.CountryList);
                 $scope.completedLoadFilterInfo();

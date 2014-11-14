@@ -66,6 +66,8 @@ namespace Fanex.CRM.Common.Models
 
         public SettingInfo Response { get; set; }
 
+        public SettingInfo LicenseeType { get; set; }
+
         public string RelatedCustomers { get; set; }
 
         public string RelatedCustomerIds { get; set; }

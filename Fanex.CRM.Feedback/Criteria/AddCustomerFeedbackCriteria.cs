@@ -12,6 +12,7 @@ namespace Fanex.CRM.Feedback.Criteria
 {
     using System.Collections;
     using System.Diagnostics.CodeAnalysis;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Models;
 
     /// <summary>
@@ -19,6 +20,8 @@ namespace Fanex.CRM.Feedback.Criteria
     /// </summary>
     public class AddCustomerFeedbackCriteria : AddGuestFeedbackCriteria
     {
+        public SettingInfo LicenseeType { get; set; }
+
         public bool OverrideCRMInfo { get; set; }
 
         /// <summary>

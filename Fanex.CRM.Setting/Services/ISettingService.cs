@@ -51,6 +51,8 @@ namespace Fanex.CRM.Setting.Services
 
         List<SettingInfo> AllSiteType();
 
+        List<SettingInfo> AllLicenseeType();
+
         int NumberOfFeedbackSubjectTemplate();
 
         List<FeedbackTemplate> FeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria);

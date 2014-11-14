@@ -66,6 +66,9 @@ namespace Fanex.CRM.Communication.Criteria
         [SpParam(SqlParamName = "statusid")]
         public int StatusId { get; set; }
 
+        [SpParam(Ignored = true)]
+        public int LicenseeTypeId { get; set; }
+
         [SpParam(SqlParamName = "description")]
         public string Remark { get; set; }
 

@@ -244,6 +244,7 @@
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Product.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Response.js" />
@@ -272,6 +273,7 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Product.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Response.js" />
@@ -384,6 +386,7 @@
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackController.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Scripts\ManageFeedbackService.js" />
     <Content Include="Areas\Feedbacks\ManageFeedback\Styles\images\icn_edit.png" />
+    <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RelatedCustomerResult.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
@@ -1154,7 +1157,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>58526</DevelopmentServerPort>
+          <DevelopmentServerPort>57501</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

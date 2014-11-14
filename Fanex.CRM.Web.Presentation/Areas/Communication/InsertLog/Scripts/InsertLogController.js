@@ -73,6 +73,9 @@ function (
         Review: '',
         Country: {
             Id: 0
+        },
+        LicenseeType: {
+            Id: 0
         }
     };
     $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
@@ -101,6 +104,7 @@ function (
     $scope.isSetFocus = false;
     $scope.isShowRemarkBox = true;
     $scope.isShowSolutionBox = true;
+    $scope.licenseeTypeOptions = null;
 
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
@@ -166,6 +170,7 @@ function (
         $scope.communicationLog.EndTime = initEndTime;
 
         $scope.communicationLog.Extension = $scope.extensionList[0];
+        $scope.communicationLog.LicenseeType = $scope.licenseeTypeOptions.DataList[0];
 
         $scope.communicationLog.Country = {
             Id: $scope.defaultSettings.CountryId
@@ -193,7 +198,6 @@ function (
         };
 
         $scope.communicationLog.Response = $scope.responseList[0];
-
         $scope.updateRemarkPrefix();
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.updateChangeFlag();
@@ -528,7 +532,8 @@ function (
             StatusId: $scope.communicationLog.Status.Id,
             Remark: $scope.communicationLog.Remark,
             Solution: $scope.communicationLog.Solution,
-            Subject: $scope.communicationLog.Subject
+            Subject: $scope.communicationLog.Subject,
+            LicenseeTypeId: $scope.communicationLog.LicenseeType.Id
         };
 
         if ($scope.validateInsertLogCriteria(insertCriteria)) {
@@ -572,6 +577,7 @@ function (
             $scope.communicationLog.RelatedCustomerId !== $scope.oldCommunicationLog.RelatedCustomerId ||
             $scope.communicationLog.LanguageId !== $scope.oldCommunicationLog.LanguageId ||
             $scope.communicationLog.Country.Id !== $scope.oldCommunicationLog.Country.Id ||
+            $scope.communicationLog.LicenseeType.Id !== $scope.oldCommunicationLog.LicenseeType.Id ||
 
             $scope.communicationLog.CommunicationTool.Id !== $scope.oldCommunicationLog.CommunicationTool.Id ||
             $scope.communicationLog.Extension.Id !== $scope.oldCommunicationLog.Extension.Id ||
@@ -675,6 +681,11 @@ function (
                 $scope.roleList = allSetting.RoleList;
                 $scope.responseList = allSetting.ResponseList;
                 $scope.defaultSettings = allSetting.DefaultSettings;
+                $scope.licenseeTypeOptions = {
+                    DataList: allSetting.LicenseeType,
+                    OnChangeEvent: $scope.updateSelectedLicenseeType
+                };
+
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
@@ -683,7 +694,13 @@ function (
             });
     };
 
+    $scope.updateSelectedLicenseeType = function (licenseeType) {
+        $scope.communicationLog.LicenseeType = licenseeType;
+        $scope.safeApply();
+    };
+
     angular.element(document).ready(function () {
+        sharedScriptManager.safeApply($scope);
         $scope.$watch(function ($scope) {
             $scope.updateChangeFlag();
         });

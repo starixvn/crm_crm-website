@@ -440,6 +440,21 @@ function RegisterTemplate(application) {
 
         directiveManager.registerDropdownContainer(self.application, betTypeRegisterParams);
     };
+    self.registerLicenseeTypePicker = function () {
+        var licenseeTypeRegisterParams = {
+            PlugInName: 'licenseeTypePickerContainer',
+            OptionName: 'licenseeTypeOptions',
+            PickerId: 'licensee-type',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Value"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(self.application, licenseeTypeRegisterParams);
+    };
     self.registerCountryPicker = function () {
         var betTypeRegisterParams = {
             PlugInName: 'countryPickerContainer',

@@ -48,6 +48,7 @@ function (
     $scope.hasReviewPermission = hasReviewPermission;
     $scope.isShowRemarkBox = true;
     $scope.isShowSolutionBox = true;
+    $scope.licenseeTypeOptions = null;
 
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
@@ -494,7 +495,8 @@ function (
             IsReviewed: $scope.hasReviewPermission && $scope.communicationLog.IsReviewed,
             Review: $scope.hasReviewPermission ? $scope.communicationLog.Review : "",
             Subject: $scope.communicationLog.Subject,
-            UpdateReviewedMode: updateReviewedMode
+            UpdateReviewedMode: updateReviewedMode,
+            LicenseeTypeId: $scope.communicationLog.LicenseeType.Id
         };
 
         if ($scope.validateUpdateLogCriteria(updateCriteria)) {
@@ -539,6 +541,7 @@ function (
             $scope.communicationLog.RelatedCustomerId !== $scope.oldCommunicationLog.RelatedCustomerId ||
             $scope.communicationLog.LanguageId !== $scope.oldCommunicationLog.LanguageId ||
             $scope.communicationLog.Country.Id !== $scope.oldCommunicationLog.Country.Id ||
+            $scope.communicationLog.LicenseeType.Id !== $scope.oldCommunicationLog.LicenseeType.Id ||
 
             !sharedScriptManager.datesEqual($scope.communicationLog.StartTime, new Date($scope.oldCommunicationLog.StartTime)) ||
             !sharedScriptManager.datesEqual($scope.communicationLog.EndTime, new Date($scope.oldCommunicationLog.EndTime)) ||
@@ -661,6 +664,12 @@ function (
                 $scope.siteList = allSetting.SiteList;
                 $scope.roleList = allSetting.RoleList;
                 $scope.responseList = allSetting.ResponseList;
+                $scope.licenseeTypeOptions = {
+                    DataList: allSetting.LicenseeType,
+                    OnChangeEvent: $scope.updateSelectedLicenseeType,
+                    SelectedId: $scope.communicationLog.LicenseeType.Id
+                };
+
                 $scope.completedLoadFilterInfo();
             },
             function (data) {
@@ -673,8 +682,13 @@ function (
             viewResources.ReviewedInformation,
             [$scope.communicationLog.Reviewer, $scope.communicationLog.ReviewedTimeString]);
     };
+    $scope.updateSelectedLicenseeType = function (licenseeType) {
+        $scope.communicationLog.LicenseeType = licenseeType;
+        $scope.safeApply();
+    };
 
     angular.element(document).ready(function () {
+        sharedScriptManager.safeApply($scope);
         $scope.$watch(function ($scope) {
             $scope.updateChangeFlag();
         });

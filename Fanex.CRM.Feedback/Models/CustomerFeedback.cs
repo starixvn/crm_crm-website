@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Feedback.Models
 {
-    using System;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
@@ -70,5 +70,7 @@ namespace Fanex.CRM.Feedback.Models
         public int CreatorId { get; set; }
 
         public int UserId { get; set; }
+
+        public SettingInfo LicenseeType { get; set; }
     }
 }

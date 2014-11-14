@@ -430,6 +430,15 @@ namespace Fanex.CRM.Communication.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licensee Type.
+        /// </summary>
+        public static string Licensee_Type {
+            get {
+                return ResourceManager.GetString("Licensee_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Main Category.
         /// </summary>
         public static string Main_Category {

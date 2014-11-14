@@ -200,6 +200,9 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/EditLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogApplication.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogService.js",
                 "~/Areas/Communication/EditLog/Scripts/EditLogController.js",
@@ -218,6 +221,9 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/InsertLogScripts").Include(
                 "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogApplication.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogService.js",
                 "~/Areas/Communication/InsertLog/Scripts/InsertLogController.js",
@@ -235,12 +241,13 @@ namespace Fanex.CRM.Web.View.AppStart
         private static void RegisterBundles_CommunicationLog_ViewDetailById(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Communication/ViewDetailByIdScripts").Include(
-                 "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/DropdownSite.js",
                 "~/Scripts/ShareScripts/Directives/HtmlArea.js",
                 "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
                 "~/Scripts/ShareScripts/Directives/DateTimePicker.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdApplication.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdService.js",
                 "~/Areas/Communication/ViewDetailById/Scripts/ViewDetailByIdController.js",

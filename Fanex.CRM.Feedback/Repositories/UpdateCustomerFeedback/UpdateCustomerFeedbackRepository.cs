@@ -146,6 +146,11 @@ namespace Fanex.CRM.Feedback.Repositories
                 ReviewerId = Converter.ToInt(reader["ReviewerId"]),
                 ReviewerName = Converter.ToString2(reader["ReviewerName"]),
                 Review = Converter.ToString2(reader["Review"]),
+                LicenseeType = new SettingInfo
+                {
+                    Id = 42002,
+                    Value = "Boping API"
+                }
             };
 
             feedback.HasRelated = !string.IsNullOrWhiteSpace(feedback.RelatedCustomer);

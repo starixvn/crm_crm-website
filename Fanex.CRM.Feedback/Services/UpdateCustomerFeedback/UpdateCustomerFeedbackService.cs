@@ -30,7 +30,7 @@ namespace Fanex.CRM.Feedback.Services
 
         public UpdateCustomerFeedbackService()
             : this(null, null)
-        { 
+        {
         }
 
         public UpdateCustomerFeedbackService(IUpdateCustomerFeedbackRepository updateCustomerFeedbackRepsitory, ISettingService settingService)
@@ -80,6 +80,7 @@ namespace Fanex.CRM.Feedback.Services
                 StatusList = statusList,
                 Roles = _settingService.AllRole(),
                 Responses = _settingService.AllResponse(),
+                LicenseeType = _settingService.AllLicenseeType()
             };
         }
 

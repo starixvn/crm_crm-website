@@ -135,6 +135,10 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
 
             $scope.descriptionOptions.SelectedText = '';
             $scope.solutionOptions.SelectedText = '';
+            $scope.licenseeTypeOptions = {
+                DataList: $scope.allSettings.LicenseeType,
+                OnChangeEvent: $scope.updateSelectedLicenseeType
+            };
 
             $scope.updateSelectedCommunicationTool($scope.communicationToolOptions.DataList[0]);
             $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
@@ -149,6 +153,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
             $scope.updateSelectedSubCategory($scope.subCategoryOptions.DataList[0]);
             $scope.updateSelectedCountry($scope.customerInfo.Country);
             $scope.updateSelectedRole($scope.customerInfo.Role);
+            $scope.updateSelectedLicenseeType($scope.licenseeTypeOptions.DataList[0]);
 
             $scope.addCustomerFeedbackParams.CustomerInfo = $scope.customerInfo;
             $scope.updateRemarkPrefix();
@@ -360,6 +365,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
                 $scope.oldParams.Role.Id === $scope.addCustomerFeedbackParams.Role.Id &&
                 $scope.oldParams.RelatedCustomerId === $scope.addCustomerFeedbackParams.RelatedCustomerId &&
                 $scope.oldParams.Description === $scope.addCustomerFeedbackParams.Description &&
+                $scope.oldParams.LicenseeType.Id === $scope.addCustomerFeedbackParams.LicenseeType.Id &&
                 $scope.oldParams.Solution === $scope.addCustomerFeedbackParams.Solution);
         };
         $scope.updateRemarkPrefix = function () {

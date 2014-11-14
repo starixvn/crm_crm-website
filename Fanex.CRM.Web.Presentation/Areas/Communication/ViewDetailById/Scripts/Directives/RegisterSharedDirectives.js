@@ -1,6 +1,7 @@
 ﻿"use strict";
 /* global viewDetailByIdApplication, 
 directiveManager,
+RegisterTemplate,
 crmConstants */
 
 function viewDetailByIdApplicationRegisterPicker() {
@@ -260,6 +261,9 @@ function viewDetailByIdApplicationRegisterPicker() {
     registerSubjectAutoComplete();
     registerStartTimePicker();
     registerEndTimePicker();
+
+    var viewDetailByIdRegister = new RegisterTemplate(viewDetailByIdApplication);
+    viewDetailByIdRegister.registerLicenseeTypePicker();
 }
 
 viewDetailByIdApplicationRegisterPicker();

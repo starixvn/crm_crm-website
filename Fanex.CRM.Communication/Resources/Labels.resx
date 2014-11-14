@@ -315,4 +315,7 @@
   <data name="Communication_Log_ExcessCurrentTime" xml:space="preserve">
     <value>Start time should be smaller than or equal current time.</value>
   </data>
+  <data name="Licensee_Type" xml:space="preserve">
+    <value>Licensee Type</value>
+  </data>
 </root>

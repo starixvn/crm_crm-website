@@ -46,6 +46,7 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllActivityLogActionKey = "Fanex.CRM.Setting.GetAllActivityLogActionKey";
         public const string GetAllSettingLogActionKey = "Fanex.CRM.Setting.GetAllSettingLogActionKey";
         public const string GetAllInformHeadlineSettingKey = "Fanex.CRM.Setting.GetAllInformHeadlineSettingKey";
+        public const string GetAllLicenseeTypeSessionKey = "Fanex.CRM.Setting.GetAllLicenseeTypeSessionKey";
 
         private readonly ISettingRepository _settingRepositoryInstance;
 
@@ -416,6 +417,7 @@ namespace Fanex.CRM.Setting.Services
             {
                 var allProduct = new List<SettingInfo>();
                 allProduct = CacheService.Get<List<SettingInfo>>(GetAllProductSessionKey);
+                allProduct = null;
                 if (allProduct != null)
                 {
                     return allProduct;
@@ -653,6 +655,50 @@ namespace Fanex.CRM.Setting.Services
                     Value = Labels.No
                 }
             };
+        }
+
+        /// <summary>
+        /// Gets all licensee types.
+        /// </summary>
+        /// <returns>The all licensee types.</returns>
+        public List<SettingInfo> AllLicenseeType()
+        {
+            try
+            {
+                var allLicenseeType = CacheService.Get<List<SettingInfo>>(GetAllLicenseeTypeSessionKey);
+                if (allLicenseeType != null)
+                {
+                    return allLicenseeType;
+                }
+
+                allLicenseeType = new List<SettingInfo>();
+                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+                {
+                    SettingName = SettingTypeConstants.LicenseeType,
+                    ParentId = 0
+                });
+
+                var notApplySetting = new SettingInfo
+                {
+                    Id = SettingConstants.NotApply,
+                    Value = Labels.Symbol_NotApply
+                };
+
+                allLicenseeType.Add(notApplySetting);
+
+                foreach (var data in rawData)
+                {
+                    allLicenseeType.Add(data);
+                }
+
+                CacheService.Set(GetAllProductSessionKey, allLicenseeType);
+                return allLicenseeType;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
         }
 
         /// <summary>
