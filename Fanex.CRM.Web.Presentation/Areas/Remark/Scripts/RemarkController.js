@@ -82,6 +82,9 @@ remarkApplication.controller('remarkController',
                     alertBoxService.show(alertResult);
                     $scope.setPlaceHolder();
                     /*Must call getRemarks() function to reset change*/
+                    $scope.lastSpecialRemark = '';
+                    $scope.lastRemark = '';
+                    $scope.resetLastRemark();
                     $scope.getRemarks();
                     $scope.unblockUI();
                 },
@@ -100,16 +103,25 @@ remarkApplication.controller('remarkController',
             if ($scope.lastSpecialRemark.length === 0) {
                 return;
             }
+
             $scope.remarks.SpecialRemarks.push($scope.lastSpecialRemark);
             $scope.lastSpecialRemark = '';
+            $scope.resetLastRemark();
         };
 
         $scope.insertRemark = function () {
             if ($scope.lastRemark.length === 0) {
                 return;
             }
+
             $scope.remarks.NormalRemarks.push($scope.lastRemark);
             $scope.lastRemark = '';
+            $scope.resetLastRemark();
+        };
+
+        $scope.resetLastRemark = function () {
+            // Fix Angular Problem
+            $('.last-remark .textarea-remark').html(remarkResources.RemarkPlaceHolder);
         };
 
         /* jshint camelcase: false */
@@ -190,7 +202,27 @@ remarkApplication.controller('remarkController',
             return text ? text.replace(/\r/g, ' ').replace(/\n/g, ' ') : '';
         };
 
+        $scope.updateRemark = function (remark, isSpecialRemark, remarkIndex) {
+            if (isSpecialRemark) {
+                if (remarkIndex !== $scope.remarks.SpecialRemarks.length) {
+                    $scope.remarks.SpecialRemarks[remarkIndex] = remark;
+                }
+                else {
+                    $scope.lastSpecialRemark = remark;
+                }
+            } else {
+                if (remarkIndex !== $scope.remarks.NormalRemarks.length) {
+                    $scope.remarks.NormalRemarks[remarkIndex] = remark;
+                } else {
+                    $scope.lastRemark = remark;
+                }
+            }
+
+            $scope.safeApply();
+        };
+
         angular.element(document).ready(function () {
+            sharedScriptManager.safeApply($scope);
             $scope.getRemarks();
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,

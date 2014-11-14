@@ -332,6 +332,7 @@
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\DashboardService.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\CommunicationLogsContainer.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\DefaultFocus.js" />
+    <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\RawHtml.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Scripts\Directives\RedemptionLogsContainer.js" />
     <Content Include="Areas\Dashboard\ViewInfo\Styles\Images\verifystatus.png" />
     <Content Include="Areas\Dashboard\VerifyFlag\Scripts\VerifyFlagApplication.js" />
@@ -423,6 +424,9 @@
     <Content Include="Areas\Remark\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Remark\Scripts\Directives\PlaceHolder.js" />
     <Content Include="Areas\Remark\Scripts\Directives\LastRemarkEnterKeyUp.js" />
+    <Content Include="Areas\Remark\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Remark\Scripts\Directives\RemarkEditorDirective.js" />
+    <Content Include="Areas\Remark\Scripts\Directives\RichRemarkEditorDirective.js" />
     <Content Include="Areas\Remark\Scripts\RemarkController.js" />
     <Content Include="Areas\Remark\Scripts\RemarkService.js" />
     <Content Include="Areas\Remark\Scripts\RemarkApplication.js" />
@@ -1126,7 +1130,7 @@
     <Content Include="Areas\AdminTool\SettingManagement\ViewList\Styles\ViewList.less" />
     <Content Include="Areas\AdminTool\SettingRelation\AddRelation\Styles\AddRelation.less" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Styles\ViewList.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />    
+    <Content Include="Configurations\WebDeployment.ConfigTransform\UATSandBox.ConnectionStrings.config" />
     <Content Include="Views\Common\ErrorPage.cshtml" />
     <Content Include="Views\Home\BlankPage.cshtml" />
   </ItemGroup>

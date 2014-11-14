@@ -64,7 +64,8 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
 
                         var isEncoded = fieldName !== 'Remark' &&
                             fieldName !== 'Solution' &&
-                            fieldName !== 'Review';
+                            fieldName !== 'Review' &&
+                            fieldName !== 'SpecialRemark';
                         bodyData.push({
                             Columns: row.concat([
                                 { Name: 'ColFieldName', Value: fieldName },

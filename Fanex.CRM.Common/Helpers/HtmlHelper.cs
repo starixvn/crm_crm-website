@@ -40,7 +40,7 @@ namespace Fanex.CRM.Common.Helpers
                 return xml;
             }
 
-            return xml.Replace("\"", "&quot;").Replace("'", "&apos;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("&", "&amp;");
+            return xml.Replace("&", "&amp;").Replace("\"", "&quot;").Replace("'", "&apos;").Replace("<", "&lt;").Replace(">", "&gt;");
         }
 
         public static string DecodeXml(string xml)
@@ -50,7 +50,7 @@ namespace Fanex.CRM.Common.Helpers
                 return xml;
             }
 
-            return xml.Replace("&quot;", "\"").Replace("&apos;", "'").Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&");
+            return xml.Replace("&amp;", "&").Replace("&quot;", "\"").Replace("&apos;", "'").Replace("&lt;", "<").Replace("&gt;", ">");
         }
 
         public static string ReplaceBreaklineXml(string xml)

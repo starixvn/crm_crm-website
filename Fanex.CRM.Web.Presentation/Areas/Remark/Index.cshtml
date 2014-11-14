@@ -9,36 +9,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="remark-application">
 <head>
     <title>@Resources.Language.Title_SpecialRemarkTab</title>
-    @Styles.Render("~/site/common", "~/Areas/Remark/RemarkStyles")
+    @Styles.Render("~/site/common")
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
+    @Styles.Render("~/Areas/Remark/RemarkStyles")
 </head>
 <body>
     <div class="container main" data-ng-controller="remarkController">
-        <div alert-box-container></div>
+        <div alert-box-container>
+        </div>
         <div class="row panel-group last">
             <div class="row title group-header" data-ng-click="isShowSpecialRemark = !isShowSpecialRemark"
                 data-ng-class="isShowSpecialRemark ? '' : 'border-bottom-none'">@Labels.SpecialRemark</div>
             <div class="row content" data-ng-show="isShowSpecialRemark">
                 <ul class="list-remark col-xs-11 col-sm-11 col-md-11">
                     <li data-ng-repeat="remark in remarks.SpecialRemarks track by $index">
-                        <div class="col-xs-11 col-sm-11 col-md-11">
+                        <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="1"
+                            data-remarkindex="{{$index}}">
                             <span data-ng-bind="$index + 1 + '. '"></span>
-                            <textarea class="textarea-remark" rows="4" data-ng-model="remarks.SpecialRemarks[$index]">
-                            </textarea>
+                            <div class="textarea-remark raw-html-directive" rows="4" data-ng-model="remarks.SpecialRemarks[$index]">
+                            </div>
                         </div>
-                        <span class="icon-del" data-ng-click="deleteRemark(true, $index)"></span>
-                    </li>
+                        <span class="icon-del" data-ng-click="deleteRemark(true, $index)"></span></li>
                     <li class="last-remark">
-                        <div class="col-xs-11 col-sm-11 col-md-11">
+                        <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="1"
+                            data-remarkindex="{{remarks.SpecialRemarks.length}}">
                             <span data-ng-bind="remarks.SpecialRemarks.length + 1 + '. '"></span>
-                            <textarea class="textarea-remark" rows="4"
-                                defaulttext="@Labels.SpecialRemarkPlaceHolder"
-                                data-ng-model="lastSpecialRemark"
-                                on-enter-keyup="insertSpecialRemark()" 
-                                custom-place-holder>
-                            </textarea>
+                            <div class="textarea-remark" rows="4">@Labels.SpecialRemarkPlaceHolder
+                            </div>
                         </div>
-                        <span class="icon-add" data-ng-click="insertSpecialRemark();"></span>
-                    </li>
+                        <span class="icon-add" data-ng-click="insertSpecialRemark();"></span></li>
                 </ul>
             </div>
         </div>
@@ -48,38 +48,34 @@
             <div class="row content" data-ng-show="isShowRemark">
                 <ul class="list-remark col-xs-11 col-sm-11 col-md-11">
                     <li data-ng-repeat="remark in remarks.NormalRemarks track by $index">
-                        <div class="col-xs-11 col-sm-11 col-md-11">
+                        <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="0"
+                            data-remarkindex="{{$index}}">
                             <span data-ng-bind="$index + 1 + '. '"></span>
-                            <textarea class="textarea-remark" rows="4" data-ng-model="remarks.NormalRemarks[$index]" />
-                            </textarea>
+                            <div class="textarea-remark raw-html-directive" rows="4" data-ng-model="remarks.NormalRemarks[$index]" />
                         </div>
-                        <span class="icon-del" data-ng-click="deleteRemark(false, $index)"></span>
-                    </li>
-                    <li class="last-remark">
-                        <div class="col-xs-11 col-sm-11 col-md-11">
-                            <span data-ng-bind="remarks.NormalRemarks.length + 1 + '. '"></span>
-                            <textarea class="textarea-remark" rows="4"
-                                defaulttext="@Labels.RemarkPlaceHolder"
-                                data-ng-model="lastRemark"
-                                on-enter-keyup="insertRemark()"
-                                custom-place-holder>
-                            </textarea>
-                        </div>
-                        <span class="icon-add" data-ng-click="insertRemark();"></span>
-                    </li>
-                </ul>
             </div>
+            <span class="icon-del" data-ng-click="deleteRemark(false, $index)"></span></li>
+            <li class="last-remark">
+                <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="0"
+                    data-remarkindex="{{remarks.NormalRemarks.length}}">
+                    <span data-ng-bind="remarks.NormalRemarks.length + 1 + '. '"></span>
+                    <div class="textarea-remark" rows="4">@Labels.RemarkPlaceHolder
+                    </div>
+                </div>
+                <span class="icon-add" data-ng-click="insertRemark();"></span></li>
+            </ul>
         </div>
-        <div class="row">
-            <button class="btn btn-save" data-ng-click="updateRemarks()">
-                <span class="hotkey">S</span>ave</button>
-        </div>
-        <input type="text" class="textbox default-focus-element"
-            default-focus data-ng-model="isSetFocus" />
     </div>
-
-    @Scripts.Render("~/Scripts/CommomScripts")  
+    <div class="row">
+        <button class="btn btn-save" data-ng-click="updateRemarks()">
+            <span class="hotkey">S</span>ave</button>
+    </div>
+    <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
     @Scripts.Render("~/Areas/Remark/RemarkScripts")
     <script type="text/javascript">
         parent.document.title = document.title;
@@ -89,7 +85,8 @@
             Alert: '@Labels.Alert',
             OK: '@Labels.OK',
             UpdateRemarkSuccess: '@Labels.UpdateRemarkSuccess',
-            Confirm_Ignore_EditCustomer_ChangesTabRemark: '@Html.Raw(Labels.ConfirmIgnoreDataChange)'
+            Confirm_Ignore_EditCustomer_ChangesTabRemark: '@Html.Raw(Labels.ConfirmIgnoreDataChange)',
+            RemarkPlaceHolder: '@Labels.RemarkPlaceHolder'
         };
     </script>
 </body>

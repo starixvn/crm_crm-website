@@ -72,6 +72,7 @@ namespace Fanex.CRM.Remark.Repositories
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 criteria.Remarks = criteria.Remarks.Replace(new string[] { "\n", "\r", "\n\r", "\r\n" }, "&#13;");
+                objectDB.ExecuteNonQuery(criteria.GetSpParams());
                 var outputParams = objectDB.GetOuputParams();
                 return new Result
                 {

@@ -123,6 +123,9 @@
   <data name="ConfirmIgnoreDataChange" xml:space="preserve">
     <value>There are some changes on customer information on Remark tab!&lt;br/&gt;Are you sure you want to ignore these changes?</value>
   </data>
+  <data name="Insert_Edit_Block" xml:space="preserve">
+    <value>Insert Edit Block</value>
+  </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
