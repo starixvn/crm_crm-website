@@ -441,4 +441,13 @@
   <data name="InformHeadlinesStatusName" xml:space="preserve">
     <value>Inform Headlines Status</value>
   </data>
+  <data name="NoHeadlinesToInform" xml:space="preserve">
+    <value>No. headlines to inform</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
 </root>

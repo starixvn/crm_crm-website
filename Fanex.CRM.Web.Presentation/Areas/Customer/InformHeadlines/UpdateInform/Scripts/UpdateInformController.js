@@ -14,11 +14,18 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
     'alertBoxService',
     function ($scope, updateInformService, $uiBlockerService, alertBoxService) {
         $scope.statusOptions = {};
+        $scope.positionOptions = {};
+        $scope.currencyOptions = {};
+        $scope.siteOptions = {};
         $scope.selectedStatusIds = '';
+        $scope.selectedPositionIds = '';
+        $scope.selectedCurrencyIds = '';
+        $scope.selectedSiteIds = '';
         $scope.productStatus = [];
         $scope.extensions = [];
         $scope.titleId = titleId;
         $scope.title = '';
+        $scope.NoHeadlinesToInform = '';
         $scope.oldTitle = '';
         $scope.username = '';
         $scope.informs = [];
@@ -31,9 +38,13 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
         };
         $scope.isStatusChanged = false;
         $scope.isTitleChanged = false;
+        $scope.isNoHeadlinesToInformChanged = false;
+        $scope.isPositionChanged = false;
+        $scope.isCurrencyChanged = false;
+        $scope.isSiteChanged = false;
 
         $scope.isDataChanged = function () {
-            return $scope.isStatusChanged || $scope.isTitleChanged;
+            return $scope.isStatusChanged || $scope.isTitleChanged || isNoHeadlinesToInformChanged || isPositionChanged || isCurrencyChanged || isSiteChanged;
         };
 
         $scope.initController = function () {
@@ -52,9 +63,41 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 NumberOfItemShowShortText: 0
             };
 
+            $scope.positionOptions = {
+                DataList: [],
+                OnChangeEvent: $scope.updateSelectedPosition,
+                AllText: updateInformResources.AllPosition,
+                MaxHeight: 450,
+                NoItemText: updateInformResources.Symbol_NotApply,
+                NoneSelectedText: updateInformResources.No_status_found,
+                NumberOfItemShowShortText: 0
+            };
+
+            $scope.currencyOptions = {
+                DataList: [],
+                OnChangeEvent: $scope.updateSelectedCurrency,
+                AllText: updateInformResources.AllCurrency,
+                MaxHeight: 450,
+                NoItemText: updateInformResources.Symbol_NotApply,
+                NoneSelectedText: updateInformResources.No_status_found,
+                NumberOfItemShowShortText: 0
+            };
+
+            $scope.siteOptions = {
+                DataList: [],
+                OnChangeEvent: $scope.updateSelectedSite,
+                AllText: updateInformResources.AllSite,
+                MaxHeight: 450,
+                NoItemText: updateInformResources.Symbol_NotApply,
+                NoneSelectedText: updateInformResources.No_status_found,
+                NumberOfItemShowShortText: 0
+            };
             updateInformService.getAllInformHeadlineSettings()
                 .then(function (settings) {
                     $scope.statusOptions.DataList = settings.Result.Status;
+                    $scope.positionOptions.DataList = settings.Result.Position;
+                    $scope.currencyOptions.DataList = settings.Result.Currency;
+                    $scope.siteOptions.DataList = settings.Result.Site;
                     $scope.productStatus = settings.Result.ProductStatus;
                     $scope.extensions = settings.Result.Extensions;
                     $scope.getInforms(0, $scope.defaultItemPerPage);
@@ -68,12 +111,28 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             $scope.selectedStatusIds = statusIdList;
         };
 
+        $scope.updateSelectedPosition = function (positionIdList) {
+            $scope.selectedPositionIds = positionIdList;
+        };
+
+        $scope.updateSelectedCurrency = function (currencyIdList) {
+            $scope.selectedCurrencyIds = currencyIdList;
+        };
+
+        $scope.updateSelectedSite = function (siteIdList) {
+            $scope.selectedSiteIds = siteIdList;
+        };
+
         $scope.getInforms = function (pageIndex, itemsPerPage) {
             $uiBlockerService.blockUI();
             $scope.pagerOption.currentPage = pageIndex;
             $scope.pagerOption.itemsPerPage = itemsPerPage;
             var informCriteria = { TitleId: $scope.titleId,
                 Status: $scope.selectedStatusIds,
+                Position: $scope.selectedPositionIds,
+                Currency: $scope.selectedCurrencyIds,
+                Site: $scope.selectedSiteIds,
+                NoHeadlinesToInform: $scope.NoHeadlinesToInform,
                 Username: $scope.username,
                 PageIndex: ++pageIndex, 
                 ItemsPerPage: itemsPerPage };
@@ -81,6 +140,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 .then(function (data) {
                     var result = data.Result;
                     $scope.title = result.Title;
+                    $scope.NoHeadlinesToInform = result.NoHeadlinesToInform;
                     $scope.oldTitle = result.Title;
                     $scope.informs = result.ChildItems;
                     $scope.pagerOption.totalItem = result.TotalItem;
@@ -97,6 +157,18 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             parent.homeManager.CachedData.isChangingDataPopUp = true;
         };
 
+        $scope.updateIsPositionChanged = function () {
+            $scope.isPositionChanged = true;
+            parent.homeManager.CachedData.isChangingDataPopUp = true;
+        };
+        $scope.updateIsStatusChanged = function () {
+            $scope.isCurrencyChanged = true;
+            parent.homeManager.CachedData.isChangingDataPopUp = true;
+        };
+        $scope.updateIsStatusChanged = function () {
+            $scope.isSiteChanged = true;
+            parent.homeManager.CachedData.isChangingDataPopUp = true;
+        };
         $scope.showConfirmIgnoreChange = function (okCallback) {
             var homeManager = parent.homeManager;
             homeManager.CachedData.ignoreConfirmMessagePopUp = updateInformResources.Confirm_Ignore_UpdateInforms_Changes;
@@ -130,7 +202,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             var updatedInforms = $.grep($scope.informs, function (item, i) {
                 return item.IsChanged;
             });
-            var updateCriteria = { TitleId: $scope.titleId, Title: $scope.title, Informs: updatedInforms, IsTitleChanged: $scope.title !== $scope.oldTitle };
+            var updateCriteria = { TitleId: $scope.titleId, NoHeadlinesToInform: $scope.NoHeadlinesToInform, Title: $scope.title, Informs: updatedInforms, IsTitleChanged: $scope.title !== $scope.oldTitle };
             updateInformService.updateInforms(updateCriteria)
                 .then(function (data) {
                     var result = sharedScriptManager.formatAjaxResult(data.Result);

@@ -81,6 +81,9 @@
     <Compile Include="Constants\ViewTypeConstants.cs" />
     <Compile Include="Constants\VIPTypeConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Criteria\GetAllSiteInformHeadlineCriteria.cs" />
+    <Compile Include="Criteria\GetAllCurrencyInformHeadlineCriteria.cs" />
+    <Compile Include="Criteria\GetAllPositionInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\GetActionCriteria.cs" />
     <Compile Include="Criteria\GetAllBetTypeCriteria.cs" />
     <Compile Include="Criteria\GetAllCommunicationToolCriteria.cs" />

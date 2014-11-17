@@ -105,6 +105,54 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
         return html.join('');
     }
 
+    function renderSelectPosition(selectedValue, scope, index) {
+        var html = [];
+        html.push('<select class="position" data-index="' + index + '">');
+        $.each(scope.positionOptions.DataList, function (i, item) {
+            html.push('<option value="', item.Id, '"');
+            if (selectedValue === item.Id) {
+                html.push(' selected ');
+            }
+
+            html.push('>', item.Name, '</option>');
+        });
+
+        html.push('</select>');
+        return html.join('');
+    }
+
+    function renderSelectCurrency(selectedValue, scope, index) {
+        var html = [];
+        html.push('<select class="currency" data-index="' + index + '">');
+        $.each(scope.currencyOptions.DataList, function (i, item) {
+            html.push('<option value="', item.Id, '"');
+            if (selectedValue === item.Id) {
+                html.push(' selected ');
+            }
+
+            html.push('>', item.Name, '</option>');
+        });
+
+        html.push('</select>');
+        return html.join('');
+    }
+
+    function renderSelectSite(selectedValue, scope, index) {
+        var html = [];
+        html.push('<select class="site" data-index="' + index + '">');
+        $.each(scope.siteOptions.DataList, function (i, item) {
+            html.push('<option value="', item.Id, '"');
+            if (selectedValue === item.Id) {
+                html.push(' selected ');
+            }
+
+            html.push('>', item.Name, '</option>');
+        });
+
+        html.push('</select>');
+        return html.join('');
+    }
+
     function renderExtension(selectedValue, scope, index) {
         var html = [];
         html.push('<select class="extension" data-index="' + index + '">');

@@ -22,6 +22,12 @@ namespace Fanex.CRM.Setting.Models
     {
         public List<BaseModel> Status { get; set; }
 
+        public List<BaseModel> Position { get; set; }
+
+        public List<BaseModel> Currency { get; set; }
+
+        public List<BaseModel> Site { get; set; }
+
         public List<BaseModel> ProductStatus { get; set; }
 
         public List<SettingInfo> Extensions { get; set; }

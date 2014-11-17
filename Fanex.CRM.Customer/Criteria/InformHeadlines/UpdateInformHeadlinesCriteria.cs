@@ -48,6 +48,8 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
             }
         }
 
+        public string NoHeadlinesToInform { get; set; }
+
         public override string GetSettingKey()
         {
             return "Customer_InformHeadline_Update";

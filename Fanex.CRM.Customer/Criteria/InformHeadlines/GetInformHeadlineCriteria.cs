@@ -18,9 +18,17 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
     {
         private string _status;
 
+        private string _position;
+
+        private string _site;
+
+        private string _currency;
+
         public int TitleId { get; set; }
 
         public string Username { get; set; }
+
+        public string NoHeadlinesToInform { get; set; }
 
         public string Status 
         { 
@@ -37,6 +45,60 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
             set
             {
                 _status = value;
+            }
+        }
+
+        public string Position
+        {
+            get
+            {
+                if (_position == null)
+                {
+                    _position = string.Empty;
+                }
+
+                return _position;
+            }
+
+            set
+            {
+                _position = value;
+            }
+        }
+
+        public string Site
+        {
+            get
+            {
+                if (_site == null)
+                {
+                    _site = string.Empty;
+                }
+
+                return _site;
+            }
+
+            set
+            {
+                _site = value;
+            }
+        }
+
+        public string Currency
+        {
+            get
+            {
+                if (_currency == null)
+                {
+                    _currency = string.Empty;
+                }
+
+                return _currency;
+            }
+
+            set
+            {
+                _currency = value;
             }
         }
 

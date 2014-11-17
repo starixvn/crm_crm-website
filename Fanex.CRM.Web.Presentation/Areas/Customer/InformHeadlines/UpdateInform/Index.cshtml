@@ -13,26 +13,95 @@
 </head>
 <body>
     <div class="main popup container" data-ng-controller="updateInformHeadlineController">
-        <div class="row" alert-box-container></div>
-        <div class="row filter-frm one-row inform-filter">
-            <div class="item">
-                <label for="title">@Labels.Title</label>
-                <input id="title" type="text" class="textbox title" tabindex="1" @(canUpdateTitle ? "" : "disabled") data-ng-model="title"/>
-            </div>
-            <div class="item">
-                <label for="username">@Labels.Username</label>
-                <input id="username" type="text" class="textbox username" tabindex="2" data-ng-model="username"/>
-            </div>
-            <div class="item">
-                <label for="status">@Labels.Status</label>
-                <div class="selStatus pull-right" status-multi-container data-ng-model="statusOptions.DataList">
-                    <select id="status"></select>
+        <div class="row" alert-box-container>
+        </div>
+        <div class="row filter-frm inform-filter">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+                <div class="row item">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label class="filter-lbl" for="ddltitle">@Labels.Title</label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8">
+                        <input id="title" type="text" class="textbox title" tabindex="1" @(canUpdateTitle ? "" : "disabled") data-ng-model="title"/>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label class="filter-lbl" for="noHeadlinesToInform">@Labels.NoHeadlinesToInform</label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8">
+                        <input id="noHeadlinesToInform" type="text" class="textbox" tabindex="5" data-ng-model="noHeadlinesToInform" />
+                    </div>
                 </div>
             </div>
-            <div class="item">
-                <button type="button" class="btn" data-ng-click="searchInform()">S<span class="hotkey">e</span>arch</button>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="row item">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label class="filter-lbl" for="username">@Labels.Username</label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8">
+                        <input type="text" class="textbox" id="username" tabindex="2" data-ng-model="username" />
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label class="filter-lbl" for="status">@Labels.Status</label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8">
+                        <div class="select-multi" status-multi-container data-ng-model="statusOptions.DataList">
+                            <select tabindex="6" id="status"></select>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <input id="btn-excel" class="btnExcel" type="button" title="@Labels.ExportToExcel" data-ng-click="exportInformsExcel()" />
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="row item">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label class="filter-lbl" for="position">@Labels.Position</label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8">
+                        <div status-multi-container data-ng-model="positionOptions.DataList">
+                            <select tabindex="3" id="position"></select>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row item">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label class="filter-lbl" for="currency">@Labels.Currency</label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8">
+                        <div status-multi-container data-ng-model="currencyOptions.DataList">
+                            <select tabindex="7" id="currency"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+                <div class="row item">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        <label class="filter-lbl" for="site">@Labels.Site</label>
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8">
+                        <div status-multi-container data-ng-model="siteOptions.DataList">
+                            <select tabindex="4" id="site"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row item">
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                    </div>
+                    <div class="col-xs-8 col-sm-8 col-md-8">
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <button type="button" class="btn" data-ng-click="searchInform()">S<span class="hotkey">e</span>arch</button>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <input id="btn-excel" class="btnExcel" type="button" title="@Labels.ExportToExcel" data-ng-click="exportInformsExcel()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div data-ng-model="informs" table-inform-headline-container>
@@ -51,7 +120,6 @@
             </div>
         }
     </div>
-
     @Scripts.Render("~/Scripts/CommomScripts",
         "~/Scripts/FanexGridScripts",
         "~/Scripts/AngularJSLibrary",
