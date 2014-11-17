@@ -17,7 +17,7 @@
         </div>
         <div class="row filter-frm inform-filter">
             <div class="col-xs-4 col-sm-4 col-md-4">
-                <div class="row item">
+                <div class="row row-item">
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <label class="filter-lbl" for="ddltitle">@Labels.Title</label>
                     </div>
@@ -25,17 +25,17 @@
                         <input id="title" type="text" class="textbox title" tabindex="1" @(canUpdateTitle ? "" : "disabled") data-ng-model="title"/>
                     </div>
                 </div>
-                <div class="row item">
+                <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <label class="filter-lbl" for="noHeadlinesToInform">@Labels.NoHeadlinesToInform</label>
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8">
-                        <input id="noHeadlinesToInform" type="text" class="textbox" tabindex="5" data-ng-model="noHeadlinesToInform" />
+                        <input id="noHeadlinesToInform" type="text" class="textbox" number-only-input  tabindex="5" data-ng-model="NoHeadlinesToInform" />
                     </div>
                 </div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="row item">
+                <div class="row row-item">
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <label class="filter-lbl" for="username">@Labels.Username</label>
                     </div>
@@ -43,7 +43,7 @@
                         <input type="text" class="textbox" id="username" tabindex="2" data-ng-model="username" />
                     </div>
                 </div>
-                <div class="row item">
+                <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <label class="filter-lbl" for="status">@Labels.Status</label>
                     </div>
@@ -55,41 +55,40 @@
                 </div>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="row item">
+                <div class="row row-item">
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <label class="filter-lbl" for="position">@Labels.Position</label>
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8">
-                        <div status-multi-container data-ng-model="positionOptions.DataList">
+                        <div class="select-multi" position-multi-container data-ng-model="positionOptions.DataList">
                             <select tabindex="3" id="position"></select>
                         </div>
-
                     </div>
 
                 </div>
-                <div class="row item">
+                <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <label class="filter-lbl" for="currency">@Labels.Currency</label>
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8">
-                        <div status-multi-container data-ng-model="currencyOptions.DataList">
+                        <div class="select-multi" currency-multi-container data-ng-model="currencyOptions.DataList">
                             <select tabindex="7" id="currency"></select>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2">
-                <div class="row item">
+                <div class="row row-item">
                     <div class="col-xs-4 col-sm-4 col-md-4">
                         <label class="filter-lbl" for="site">@Labels.Site</label>
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8">
-                        <div status-multi-container data-ng-model="siteOptions.DataList">
+                        <div site-multi-container data-ng-model="siteOptions.DataList">
                             <select tabindex="4" id="site"></select>
                         </div>
                     </div>
                 </div>
-                <div class="row item">
+                <div class="row">
                     <div class="col-xs-4 col-sm-4 col-md-4">
                     </div>
                     <div class="col-xs-8 col-sm-8 col-md-8">

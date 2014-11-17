@@ -22,13 +22,11 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
 
         private string _site;
 
-        private string _currency;
+        private string _currencyId;
 
         public int TitleId { get; set; }
 
         public string Username { get; set; }
-
-        public string NoHeadlinesToInform { get; set; }
 
         public string Status 
         { 
@@ -84,21 +82,21 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
             }
         }
 
-        public string Currency
+        public string CurrencyId
         {
             get
             {
-                if (_currency == null)
+                if (_currencyId == null)
                 {
-                    _currency = string.Empty;
+                    _currencyId = string.Empty;
                 }
 
-                return _currency;
+                return _currencyId;
             }
 
             set
             {
-                _currency = value;
+                _currencyId = value;
             }
         }
 

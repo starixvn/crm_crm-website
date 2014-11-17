@@ -28,6 +28,8 @@ namespace Fanex.CRM.Customer.Models.InformHeadlines
 
         public string Title { get; set; }
 
+        public int NoHeadline { get; set; }
+
         public int StatusId { get; set; }
 
         public string InformStatus { get; set; }

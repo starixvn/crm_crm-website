@@ -43,5 +43,11 @@ namespace Fanex.CRM.Setting.Repositories
         List<SettingInfo> GetAllBetType(GetAllBetTypeCriteria criteria);
 
         List<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria);
+
+        List<BaseModel> GetAllPositionInformHeadline(GetAllPositionInformHeadlineCriteria criteria);
+
+        List<BaseModel> GetAllCurrencyInformHeadline(GetAllCurrencyInformHeadlineCriteria criteria);
+
+        List<BaseModel> GetAllSiteInformHeadline(GetAllSiteInformHeadlineCriteria criteria);
     }
 }

@@ -108,8 +108,9 @@ namespace Fanex.CRM.Customer.Controllers
             var informs = _informHeadlineService.GetInforms(criteria);
             int totalItem = criteria.TotalItem;
             string title = informs.Count > 0 ? informs[0].Title : string.Empty;
+            int headlinesToInform = informs.Count > 0 ? informs[0].NoHeadline : 0;
 
-            var result = new { TotalItem = totalItem, ChildItems = informs, Title = title };
+            var result = new { TotalItem = totalItem, ChildItems = informs, Title = title, NoHeadlinesToInform = headlinesToInform };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

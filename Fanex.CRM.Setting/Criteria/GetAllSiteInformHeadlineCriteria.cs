@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="GetAllStatusInformHeadlineCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="GetAllSiteInformHeadlineCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------

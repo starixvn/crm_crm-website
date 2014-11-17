@@ -25,8 +25,9 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
         $scope.extensions = [];
         $scope.titleId = titleId;
         $scope.title = '';
-        $scope.NoHeadlinesToInform = '';
+        $scope.NoHeadlinesToInform = 0;
         $scope.oldTitle = '';
+        $scope.oldNoHeadlinesToInform = 0;
         $scope.username = '';
         $scope.informs = [];
         $scope.defaultItemPerPage = 10;
@@ -39,12 +40,11 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
         $scope.isStatusChanged = false;
         $scope.isTitleChanged = false;
         $scope.isNoHeadlinesToInformChanged = false;
-        $scope.isPositionChanged = false;
-        $scope.isCurrencyChanged = false;
-        $scope.isSiteChanged = false;
 
         $scope.isDataChanged = function () {
-            return $scope.isStatusChanged || $scope.isTitleChanged || isNoHeadlinesToInformChanged || isPositionChanged || isCurrencyChanged || isSiteChanged;
+            return $scope.isStatusChanged ||
+                    $scope.isTitleChanged ||
+                    $scope.isNoHeadlinesToInformChanged;
         };
 
         $scope.initController = function () {
@@ -92,6 +92,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 NoneSelectedText: updateInformResources.No_status_found,
                 NumberOfItemShowShortText: 0
             };
+
             updateInformService.getAllInformHeadlineSettings()
                 .then(function (settings) {
                     $scope.statusOptions.DataList = settings.Result.Status;
@@ -130,18 +131,19 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             var informCriteria = { TitleId: $scope.titleId,
                 Status: $scope.selectedStatusIds,
                 Position: $scope.selectedPositionIds,
-                Currency: $scope.selectedCurrencyIds,
+                CurrencyId: $scope.selectedCurrencyIds,
                 Site: $scope.selectedSiteIds,
-                NoHeadlinesToInform: $scope.NoHeadlinesToInform,
                 Username: $scope.username,
-                PageIndex: ++pageIndex, 
-                ItemsPerPage: itemsPerPage };
+                PageIndex: ++pageIndex,
+                ItemsPerPage: itemsPerPage
+            };
             updateInformService.getInforms(informCriteria)
                 .then(function (data) {
                     var result = data.Result;
                     $scope.title = result.Title;
                     $scope.NoHeadlinesToInform = result.NoHeadlinesToInform;
                     $scope.oldTitle = result.Title;
+                    $scope.oldNoHeadlinesToInform = result.NoHeadlinesToInform;
                     $scope.informs = result.ChildItems;
                     $scope.pagerOption.totalItem = result.TotalItem;
 
@@ -157,23 +159,12 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             parent.homeManager.CachedData.isChangingDataPopUp = true;
         };
 
-        $scope.updateIsPositionChanged = function () {
-            $scope.isPositionChanged = true;
-            parent.homeManager.CachedData.isChangingDataPopUp = true;
-        };
-        $scope.updateIsStatusChanged = function () {
-            $scope.isCurrencyChanged = true;
-            parent.homeManager.CachedData.isChangingDataPopUp = true;
-        };
-        $scope.updateIsStatusChanged = function () {
-            $scope.isSiteChanged = true;
-            parent.homeManager.CachedData.isChangingDataPopUp = true;
-        };
         $scope.showConfirmIgnoreChange = function (okCallback) {
             var homeManager = parent.homeManager;
             homeManager.CachedData.ignoreConfirmMessagePopUp = updateInformResources.Confirm_Ignore_UpdateInforms_Changes;
             homeManager.showConfirmIgnoreChangePopUp(function () {
                 $scope.title = $scope.oldTitle;
+                $scope.NoHeadlinesToInform = $scope.oldNoHeadlinesToInform;
                 $scope.isStatusChanged = false;
                 okCallback();
             });
@@ -202,7 +193,14 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             var updatedInforms = $.grep($scope.informs, function (item, i) {
                 return item.IsChanged;
             });
-            var updateCriteria = { TitleId: $scope.titleId, NoHeadlinesToInform: $scope.NoHeadlinesToInform, Title: $scope.title, Informs: updatedInforms, IsTitleChanged: $scope.title !== $scope.oldTitle };
+            var updateCriteria = {
+                TitleId: $scope.titleId,
+                NoHeadLine: $scope.NoHeadlinesToInform,
+                Title: $scope.title,
+                Informs: updatedInforms,
+                IsTitleChanged: $scope.title !== $scope.oldTitle,
+                IsNoHeadlinesToInformChanged: $scope.NoHeadlinesToInform !== $scope.oldNoHeadlinesToInform,
+            };
             updateInformService.updateInforms(updateCriteria)
                 .then(function (data) {
                     var result = sharedScriptManager.formatAjaxResult(data.Result);
@@ -227,6 +225,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                     $scope.getInforms($scope.pagerOption.currentPage, $scope.pagerOption.itemsPerPage);
                     $scope.isTitleChanged = false;
                     $scope.isStatusChanged = false;
+                    $scope.isNoHeadlinesToInformChanged = false;
                     parent.homeManager.CachedData.isChangingDataPopUp = false;
                     // reload parent form (Inform Statistic)
                     parent.homeManager.CachedData.shouldReloadView = true;
@@ -300,6 +299,21 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             $scope.$watch('title', function (newValue, oldValue) {
                 $scope.isTitleChanged = newValue !== $scope.oldTitle;
                 parent.homeManager.CachedData.isChangingDataPopUp = $scope.isDataChanged();
+            });
+
+             $scope.$watch('NoHeadlinesToInform', function (newValue, oldValue) {
+                var arr = String(newValue).split('');
+                var length = arr.length;
+                if (length === 0) { return; }
+                if (length === 1 && (arr[0] === '-' || arr[0] === '.')) { return; }
+                if (length === 2 && newValue === '-.') { return; }
+                if (isNaN(newValue)) {
+                    $scope.NoHeadlinesToInform = oldValue;
+                }
+                else {
+                    $scope.isNoHeadlinesToInformChanged = newValue !== $scope.oldNoHeadlinesToInform;
+                    parent.homeManager.CachedData.isChangingDataPopUp = $scope.isDataChanged();
+                }
             });
         });
     } ]);

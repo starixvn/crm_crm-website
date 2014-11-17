@@ -864,9 +864,9 @@ namespace Fanex.CRM.Setting.Services
                 settings = new InformHeadlineSetting
                 {
                     Status = _settingRepositoryInstance.GetAllStatusInformHeadline(new GetAllStatusInformHeadlineCriteria()),
-                    Position = _settingRepositoryInstance.GetAllStatusInformHeadline(new GetAllStatusInformHeadlineCriteria()),
-                    Currency = _settingRepositoryInstance.GetAllStatusInformHeadline(new GetAllStatusInformHeadlineCriteria()),
-                    Site = _settingRepositoryInstance.GetAllStatusInformHeadline(new GetAllStatusInformHeadlineCriteria()),
+                    Position = _settingRepositoryInstance.GetAllPositionInformHeadline(new GetAllPositionInformHeadlineCriteria()),
+                    Currency = _settingRepositoryInstance.GetAllCurrencyInformHeadline(new GetAllCurrencyInformHeadlineCriteria()),
+                    Site = _settingRepositoryInstance.GetAllSiteInformHeadline(new GetAllSiteInformHeadlineCriteria()),
                     ProductStatus = new List<BaseModel>() 
                     {
                         new BaseModel { Id = HeadlineProductStatusConstants.NotAvailable, Name = Labels.Symbol_NotApply },
