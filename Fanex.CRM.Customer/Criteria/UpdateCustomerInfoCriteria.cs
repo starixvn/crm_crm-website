@@ -13,6 +13,7 @@ namespace Fanex.CRM.Customer.Criteria
     using System.Collections.Generic;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
@@ -65,7 +66,7 @@ namespace Fanex.CRM.Customer.Criteria
 
         public string Skype { get; set; }
 
-        public List<string> PersonalInfoContact { get; set; }
+        public List<PersonalInfoContact> PersonalInfoContacts { get; set; }
 
         public int UserId
         {
@@ -121,9 +122,10 @@ namespace Fanex.CRM.Customer.Criteria
             param.Add("email", StringExtension.GetValueNotNull(Email));
             param.Add("msn", StringExtension.GetValueNotNull(MSN));
             param.Add("skype", StringExtension.GetValueNotNull(Skype));
-            for (var i = 0; i < PersonalInfoContact.Count; i++)
+            for (var i = 0; i < PersonalInfoContacts.Count; i++)
             {
-                param.Add("pic" + (i + 1).ToString(), PersonalInfoContact[i]);
+                param.Add("pic" + (i + 1).ToString() + "name", PersonalInfoContacts[i].Name);
+                param.Add("pic" + (i + 1).ToString(), PersonalInfoContacts[i].Phone);
             }
 
             param.Add("custid", CustomerId);

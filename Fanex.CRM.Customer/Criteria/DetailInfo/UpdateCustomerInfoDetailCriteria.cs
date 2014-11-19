@@ -86,14 +86,26 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
         [SpParam(SqlParamName = "msn")]
         public string MSN { get; set; }
 
+        [SpParam(SqlParamName = "pic1name")]
+        public string PersonalInfoContactName1 { get; set; }
+
         [SpParam(SqlParamName = "pic1")]
         public string PersonalInfoContact1 { get; set; }
+
+        [SpParam(SqlParamName = "pic2name")]
+        public string PersonalInfoContactName2 { get; set; }
 
         [SpParam(SqlParamName = "pic2")]
         public string PersonalInfoContact2 { get; set; }
 
+        [SpParam(SqlParamName = "pic3name")]
+        public string PersonalInfoContactName3 { get; set; }
+
         [SpParam(SqlParamName = "pic3")]
         public string PersonalInfoContact3 { get; set; }
+
+        [SpParam(SqlParamName = "pic4name")]
+        public string PersonalInfoContactName4 { get; set; }
 
         [SpParam(SqlParamName = "pic4")]
         public string PersonalInfoContact4 { get; set; }

@@ -136,12 +136,19 @@ namespace Fanex.CRM.Feedback.Criteria
             param.Add("msn", CustomerInfo.MSN);
             param.Add("bettingcode", CustomerInfo.BettingCode[0]);
             param.Add("refcode2", CustomerInfo.BettingCode[1]);
-            param.Add("pic1", CustomerInfo.PersonalInfoContact[0]);
-            param.Add("pic2", CustomerInfo.PersonalInfoContact[1]);
-            param.Add("pic3", CustomerInfo.PersonalInfoContact[2]);
-            param.Add("pic4", CustomerInfo.PersonalInfoContact[3]);
+            param.Add("pic1name", CustomerInfo.PersonalInfoContacts[0].Name);
+            param.Add("pic1", CustomerInfo.PersonalInfoContacts[0].Phone);
+            param.Add("pic2name", CustomerInfo.PersonalInfoContacts[1].Name);
+            param.Add("pic2", CustomerInfo.PersonalInfoContacts[1].Phone);
+            param.Add("pic3name", CustomerInfo.PersonalInfoContacts[2].Name);
+            param.Add("pic3", CustomerInfo.PersonalInfoContacts[2].Phone);
+            param.Add("pic4name", CustomerInfo.PersonalInfoContacts[3].Name);
+            param.Add("pic4", CustomerInfo.PersonalInfoContacts[3].Phone);
             param.Add("siteid", 0);
             param.Add("isvip", CustomerInfo.IsVIP);
+            param.Add("viber", CustomerInfo.Viber);
+            param.Add("whatsapp", CustomerInfo.WhatsApp);
+            param.Add("line", CustomerInfo.Line);
 
             param.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(StartTime));
             param.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(EndTime));

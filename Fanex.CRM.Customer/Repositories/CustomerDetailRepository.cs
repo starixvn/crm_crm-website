@@ -69,8 +69,7 @@ namespace Fanex.CRM.Customer.Repositories
             BaseModel updateResult = null;
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
+                objectDB.ExecuteNonQuery(criteria.GetSpParams());
                 var outputParams = objectDB.GetOuputParams();
                 updateResult = new BaseModel
                 {

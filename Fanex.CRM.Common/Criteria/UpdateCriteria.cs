@@ -11,7 +11,7 @@ namespace Fanex.CRM.Common.Criteria
 {
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Services;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Update Criteria.

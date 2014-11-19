@@ -106,10 +106,26 @@ namespace Fanex.CRM.Feedback.Repositories
             customer.SiteSetting.Id = Converter.ToInt(reader["SiteId"]);
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode1"]));
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode2"]));
-            customer.PersonalInfoContact.Add(Converter.ToString2(reader["Pic1"]));
-            customer.PersonalInfoContact.Add(Converter.ToString2(reader["Pic2"]));
-            customer.PersonalInfoContact.Add(Converter.ToString2(reader["Pic3"]));
-            customer.PersonalInfoContact.Add(Converter.ToString2(reader["Pic4"]));
+            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic1Name"]),
+                Phone = Converter.ToString2(reader["Pic1"])
+            });
+            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic2Name"]),
+                Phone = Converter.ToString2(reader["Pic2"])
+            });
+            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic3Name"]),
+                Phone = Converter.ToString2(reader["Pic3"])
+            });
+            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic4Name"]),
+                Phone = Converter.ToString2(reader["Pic4"])
+            });
 
             return customer;
         }

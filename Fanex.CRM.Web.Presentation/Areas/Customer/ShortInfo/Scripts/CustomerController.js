@@ -36,7 +36,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             Email: "",
             MSN: "",
             Skype: "",
-            PersonalInfoContact: [],
+            PersonalInfoContacts: [],
             BirthDayString: "",
             BankInfo: {
                 Address: "",
@@ -258,10 +258,14 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                     $scope.oldCustomer.MSN !== $scope.customer.MSN ||
                     $scope.oldCustomer.Skype !== $scope.customer.Skype ||
 
-                    $scope.oldCustomer.PersonalInfoContact[0] !== $scope.customer.PersonalInfoContact[0] ||
-                    $scope.oldCustomer.PersonalInfoContact[1] !== $scope.customer.PersonalInfoContact[1] ||
-                    $scope.oldCustomer.PersonalInfoContact[2] !== $scope.customer.PersonalInfoContact[2] ||
-                    $scope.oldCustomer.PersonalInfoContact[3] !== $scope.customer.PersonalInfoContact[3])) {
+                    $scope.oldCustomer.PersonalInfoContacts[0].Phone !== $scope.customer.PersonalInfoContacts[0].Phone ||
+                    $scope.oldCustomer.PersonalInfoContacts[0].Name !== $scope.customer.PersonalInfoContacts[0].Name ||
+                    $scope.oldCustomer.PersonalInfoContacts[1].Phone !== $scope.customer.PersonalInfoContacts[1].Phone ||
+                    $scope.oldCustomer.PersonalInfoContacts[1].Name !== $scope.customer.PersonalInfoContacts[1].Name ||
+                    $scope.oldCustomer.PersonalInfoContacts[2].Phone !== $scope.customer.PersonalInfoContacts[2].Phone ||
+                    $scope.oldCustomer.PersonalInfoContacts[2].Name !== $scope.customer.PersonalInfoContacts[2].Name ||
+                    $scope.oldCustomer.PersonalInfoContacts[3].Phone !== $scope.customer.PersonalInfoContacts[3].Phone ||
+                    $scope.oldCustomer.PersonalInfoContacts[3].Name !== $scope.customer.PersonalInfoContacts[3].Name)) {
                 parent.homeManager.CachedData.isChangingDataLeftPanel = true;
                 parent.homeManager.CachedData.ignoreConfirmMessageLeftPanel = viewResources.Confirm_Ignore_EditCustomer_ChangesLeftPanel;
             } else {

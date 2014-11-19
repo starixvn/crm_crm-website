@@ -29,6 +29,12 @@ namespace Fanex.CRM.Redemption.Criteria
         [SpParam(SqlParamName = "claimtime")]
         public DateTime ClaimedTime { get; set; }
 
+        public int CurrencyId { get; set; }
+
+        public string DoneBy { get; set; }
+
+        public decimal Amount { get; set; }
+
         [SpParam(SqlParamName = "remark")]
         public string Remark { get; set; }
 
@@ -45,6 +51,9 @@ namespace Fanex.CRM.Redemption.Criteria
             param.Add("custid", CustomerId);
             param.Add("subject", StringExtension.GetValueNotNull(Subject));
             param.Add("claimtime", ClaimedTime);
+            param.Add("currencyid", CurrencyId);
+            param.Add("doneby", DoneBy);
+            param.Add("amount", Amount);
             param.Add("remark", StringExtension.GetValueNotNull(Remark));
             param.Add("statusid", StatusId);
 

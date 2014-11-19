@@ -15,6 +15,12 @@ function (
     $insertLogService) {
     $scope.redemptionLog = {
         ClaimedTime: new Date(currentDate),
+        Currency: {
+            Id: 0,
+            Name: ''
+        },
+        DoneBy: '',
+        Amount: 0,
         Subject: '',
         Status: {
             Id: 0,
@@ -23,6 +29,7 @@ function (
         Remark: ''
     };
     $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
+    $scope.currencies = [];
     $scope.statusList = null;
     $scope.customerId = customerId;
     $scope.isSetFocus = false;
@@ -49,6 +56,8 @@ function (
         $scope.BlockUI();
         $insertLogService.getAllStatus()
             .then(function (data) {
+                $scope.currencies = [{ Id: 1, Name: 'USD' }, { Id: 2, Name: 'EURO'}];
+                $scope.redemptionLog.Currency = $scope.currencies[0];
                 $scope.statusList = data.Result;
                 $scope.redemptionLog.Status.Id = $scope.statusList[0].Id;
                 $scope.oldRedemptionLog.Status.Id = $scope.statusList[0].Id;
@@ -144,6 +153,9 @@ function (
             ClaimedTime: $scope.redemptionLog.ClaimedTime ?
                     moment($scope.redemptionLog.ClaimedTime).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
                     '',
+            CurrencyId: $scope.redemptionLog.Currency.Id,
+            DoneBy: $scope.redemptionLog.DoneBy,
+            Amount: $scope.redemptionLog.Amount,
             Subject: $scope.redemptionLog.Subject,
             StatusId: $scope.redemptionLog.Status.Id,
             Remark: $scope.redemptionLog.Remark,
@@ -165,8 +177,16 @@ function (
     };
     $scope.validateInsertLogCriteria = function (insertLogCriteria) {
         var result = true;
-        if (insertLogCriteria.Subject === '' ||
-            insertLogCriteria.Subject === '<br>') {
+        if (insertLogCriteria.DoneBy.length === 0) {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Redemption_Log_EmptyDoneBy;
+            result = false;
+        }
+
+        if (result && (insertLogCriteria.Subject === '' ||
+            insertLogCriteria.Subject === '<br>')) {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
             /* jshint camelcase: false */

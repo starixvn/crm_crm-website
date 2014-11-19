@@ -411,6 +411,7 @@
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\DropdownStatusContainer.js" />
+    <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\InsertLog\Scripts\InsertLogApplication.js" />

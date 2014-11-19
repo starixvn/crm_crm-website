@@ -186,4 +186,16 @@
   <data name="Deleted" xml:space="preserve">
     <value>Deleted</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="DoneBy" xml:space="preserve">
+    <value>Done By</value>
+  </data>
+  <data name="Redemption_Log_EmptyDoneBy" xml:space="preserve">
+    <value>Done By is mandatory!</value>
+  </data>
 </root>

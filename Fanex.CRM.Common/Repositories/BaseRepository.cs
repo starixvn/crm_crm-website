@@ -12,7 +12,7 @@ namespace Fanex.CRM.Common.Repositories
     using Fanex.Common;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Base Repository.

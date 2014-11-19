@@ -35,6 +35,12 @@ namespace Fanex.CRM.Redemption.Criteria
         [SpParam(SqlParamName = "statusid")]
         public int StatusId { get; set; }
 
+        public int CurrencyId { get; set; }
+
+        public string DoneBy { get; set; }
+
+        public decimal Amount { get; set; }
+
         /// <summary>
         /// Gets the SP parameters.
         /// </summary>
@@ -47,6 +53,9 @@ namespace Fanex.CRM.Redemption.Criteria
             param.Add("claimtime", ClaimedTime);
             param.Add("remark", StringExtension.GetValueNotNull(Remark));
             param.Add("statusid", StatusId);
+            param.Add("currencyid", CurrencyId);
+            param.Add("doneby", DoneBy);
+            param.Add("amount", Amount);
 
             param.Add("userid", UserId);
             param.Add("ip", IP);

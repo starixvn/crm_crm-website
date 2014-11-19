@@ -38,12 +38,27 @@
                     </div>
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-1 col-sm-1 col-md-1">
-                    <label for="status">
-                        @Labels.Status</label>
+                    <label for="currency">
+                        @Labels.Currency</label>
                 </div>
-                <div class="col-xs-3 col-sm-3 col-md-3" data-ng-model="statusList" dropdown-status-container>
-                    <select id="status" tabindex="2">
-                    </select>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <select id="currency" data-ng-model="redemptionLog.Currency" data-ng-options="c.Name for c in currencies"></select>
+                </div>
+            </div>
+            <div class="row row-item">
+                <div class="col-xs-2 col-sm-2 col-md-2">
+                    <label for="doneby">
+                        @Labels.DoneBy
+                        @Html.Raw(Resources.Language.Html_Template_MandatoryField)</label></div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <input id="doneby" type="text" class="textbox" data-ng-model="redemptionLog.DoneBy" />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-1 col-sm-1 col-md-1">
+                    <label for="amount">
+                        @Labels.Amount</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div number-only-input input-Id="amount" input-class="textbox" input-value="redemptionLog.Amount"></div>
                 </div>
             </div>
             <div class="row row-item">
@@ -53,8 +68,16 @@
                         @Html.Raw(Resources.Language.Html_Template_MandatoryField)
                     </label>
                 </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 subject-container">
+                <div class="col-xs-3 col-sm-3 col-md-3 subject-container">
                     <input type="text" class="textbox" id="subject" data-ng-model="redemptionLog.Subject" />
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-1 col-sm-1 col-md-1">
+                    <label for="status">
+                        @Labels.Status</label>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3" data-ng-model="statusList" dropdown-status-container>
+                    <select id="status" tabindex="2">
+                    </select>
                 </div>
             </div>
         </div>

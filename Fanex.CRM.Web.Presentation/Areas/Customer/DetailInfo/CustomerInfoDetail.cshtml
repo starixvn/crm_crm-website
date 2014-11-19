@@ -64,7 +64,7 @@
                                 @Labels.Skype</label></div>
                         <div class="col-md-9">
                             <input id="skype" type="text" class="textbox" id="skype" data-ng-model="customerDetail.Skype"
-                                tabindex="20" />
+                                tabindex="21" />
                         </div>
                     </div>
                     <div class="row item">
@@ -73,7 +73,7 @@
                                 @Labels.MSN</label></div>
                         <div class="col-md-9">
                             <input id="msn" type="text" class="textbox" id="MSN" data-ng-model="customerDetail.MSN"
-                                tabindex="23" />
+                                tabindex="25" />
                         </div>
                     </div>
                     <div class="row item">
@@ -81,7 +81,7 @@
                             <label for="birthday">
                                 @Labels.Birthday</label></div>
                         <div class="col-md-9" date-picker-container>
-                            <input id="birthday" type="text" class="textbox timepicker txtcalendar" tabindex="26" />
+                            <input id="birthday" type="text" class="textbox timepicker txtcalendar" tabindex="29" />
                         </div>
                     </div>
                     <div class="row item">
@@ -89,14 +89,14 @@
                             <label for="language">
                                 @Labels.Language</label></div>
                         <div class="col-md-9" dropdown-language data-ng-model="languageList">
-                            <select id="customerinfodetail-languageoptions" tabindex="29">
+                            <select id="customerinfodetail-languageoptions" tabindex="33">
                             </select>
                         </div>
                     </div>
                     <div class="row row-item">
                         <div class="col-xs-4 col-sm-3 col-md-3">
                             <label for="isVIP" class="labelforcheckbox checkbox">
-                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="32" />
+                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="36" />
                                 @Labels.VIP</label></div>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                                 @Labels.Email</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="email" data-ng-model="customerDetail.Email"
-                                tabindex="21" />
+                                tabindex="22" />
                         </div>
                     </div>
                     <div class="row item">
@@ -151,7 +151,7 @@
                                 @Labels.Passport_Number</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="passport" data-ng-model="customerDetail.Passport.Name"
-                                tabindex="24" />
+                                tabindex="26" />
                         </div>
                     </div>
                     <div class="row item">
@@ -159,7 +159,7 @@
                             <label for="customerinfodetail-siteoptions">
                                 @Labels.Site</label></div>
                         <div class="col-md-9" data-ng-model="siteList" dropdown-site-container>
-                            <select id="customerinfodetail-siteoptions" class="dropdown-siteinfo" tabindex="27">
+                            <select id="customerinfodetail-siteoptions" class="dropdown-siteinfo" tabindex="30">
                             </select>
                         </div>
                     </div>
@@ -169,7 +169,7 @@
                                 @Labels.Secret_Code</label></div>
                         <div class="col-md-9" date-picker-container>
                             <input type="text" class="textbox" id="bettingcode" data-ng-model="customerDetail.BettingCode[0]"
-                                tabindex="30" />
+                                tabindex="34" />
                         </div>
                     </div>
                     <div class="row row-item">
@@ -205,14 +205,16 @@
                                 tabindex="12" />
                         </div>
                     </div>
-                    <div data-ng-repeat="personalInfoContact in customerDetail.PersonalInfoContact track by $index">
+                    <div data-ng-repeat="personalInfoContact in customerDetail.PersonalInfoContacts track by $index">
                         <div class="row item">
                             <div class="col-md-3">
-                                <label for="pic{{ $index + 1 }}">
+                                <label for="pic{{ $index + 1 }}Name">
                                     @Labels.PIC {{ $index + 1 }}</label></div>
                             <div class="col-md-9">
-                                <input type="text" class="textbox" id="pic{{ $index + 1 }}" data-ng-model="customerDetail.PersonalInfoContact[$index]"
-                                    tabindex="{{ 19 + $index * 3 }}" />
+                                <input type="text" class="textbox pic-name" id="pic{{ $index + 1 }}Name" data-ng-model="customerDetail.PersonalInfoContacts[$index].Name"
+                                    tabindex="{{ 19 + $index * 4 }}" />
+                                <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[$index].Phone"
+                                    tabindex="{{ 20 + $index * 4 }}" />
                             </div>
                         </div>
                     </div>
@@ -222,12 +224,13 @@
                                 @Labels.Ref_Codes</label></div>
                         <div class="col-md-9" date-picker-container>
                             <input type="text" class="textbox" id="refcode2" data-ng-model="customerDetail.BettingCode[1]"
-                                tabindex="31" />
+                                tabindex="35" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @*TabIndex start from 60*@
         <div class="row panel-group">
             <div class="row title group-header" data-ng-class="isShowHomeAddressInfo ? '' : 'border-bottom-none'"
                 data-ng-click="isShowHomeAddressInfo = !isShowHomeAddressInfo">
@@ -241,7 +244,7 @@
                                     @Labels.Line {{ $index + 1 }}</label></div>
                             <div class="col-md-9">
                                 <input type="text" class="textbox text-large" id="line{{ $index + 1 }}" data-ng-model="customerDetail.AddressInfo.LineList[$index]"
-                                    tabindex="{{ 33 + $index }}" /></div>
+                                    tabindex="{{ 60 + $index }}" /></div>
                         </div>
                     </div>
                 </div>
@@ -252,7 +255,7 @@
                                 @Labels.City</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="city" data-ng-model="customerDetail.AddressInfo.City"
-                                tabindex="36" /></div>
+                                tabindex="64" /></div>
                     </div>
                     <div class="item col-md-6">
                         <div class="col-md-3">
@@ -260,7 +263,7 @@
                                 @Labels.State</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="state" data-ng-model="customerDetail.AddressInfo.State"
-                                tabindex="37" /></div>
+                                tabindex="65" /></div>
                     </div>
                 </div>
                 <div class="row">
@@ -269,7 +272,7 @@
                             <label for="customerinfodetail-countryoptions">
                                 @Labels.Country</label></div>
                         <div class="col-md-9" data-ng-model="countryList" dropdown-country-container>
-                            <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo" tabindex="38">
+                            <select id="customerinfodetail-countryoptions" class="dropdown-countryinfo" tabindex="66">
                             </select>
                         </div>
                     </div>
@@ -279,11 +282,12 @@
                                 @Labels.Postcode</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="postcode" data-ng-model="customerDetail.AddressInfo.PostCode"
-                                tabindex="39" /></div>
+                                tabindex="67" /></div>
                     </div>
                 </div>
             </div>
         </div>
+        @*TabIndex start from 80*@
         <div class="row panel-group last">
             <div class="row title group-header" data-ng-class="isShowBankInfoInfo ? '' : 'border-bottom-none'"
                 data-ng-click="isShowBankInfoInfo = !isShowBankInfoInfo">
@@ -296,7 +300,7 @@
                                 @Labels.Account_Holder_Name</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="b-firstName" data-ng-model="customerDetail.BankInfo.HolderName"
-                                tabindex="40" /></div>
+                                tabindex="80" /></div>
                     </div>
                     <div class="item col-md-6">
                         <div class="col-md-3">
@@ -304,7 +308,7 @@
                                 @Labels.Bank_s_Name</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="bankName" data-ng-model="customerDetail.BankInfo.Name"
-                                tabindex="41" /></div>
+                                tabindex="81" /></div>
                     </div>
                 </div>
                 <div class="row">
@@ -314,7 +318,7 @@
                                 @Labels.Account_No</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="accountNo" data-ng-model="customerDetail.BankInfo.AccountNumber"
-                                tabindex="42" />
+                                tabindex="82" />
                         </div>
                     </div>
                     <div class="item col-md-6">
@@ -323,7 +327,7 @@
                                 @Labels.IBAN_SWIFT_code</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="IBANcode" data-ng-model="customerDetail.BankInfo.SwiftCode"
-                                tabindex="43" /></div>
+                                tabindex="83" /></div>
                     </div>
                 </div>
                 <div data-ng-repeat="addressLine in customerDetail.BankInfo.AddressInfo.LineList track by $index">
@@ -334,7 +338,7 @@
                                     @Labels.Line {{ $index + 1 }}</label></div>
                             <div class="col-md-9">
                                 <input type="text" maxlength="100" class="textbox text-large" id="bankline{{ $index + 1 }}"
-                                    data-ng-model="customerDetail.BankInfo.AddressInfo.LineList[$index]" tabindex="{{ 44 + $index }}" /></div>
+                                    data-ng-model="customerDetail.BankInfo.AddressInfo.LineList[$index]" tabindex="{{ 84 + $index }}" /></div>
                         </div>
                     </div>
                 </div>
@@ -345,7 +349,7 @@
                                 @Labels.City</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="b-city" data-ng-model="customerDetail.BankInfo.AddressInfo.City"
-                                tabindex="47" /></div>
+                                tabindex="87" /></div>
                     </div>
                     <div class="item col-md-6">
                         <div class="col-md-3">
@@ -353,17 +357,17 @@
                                 @Labels.State</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="b-state" data-ng-model="customerDetail.BankInfo.AddressInfo.State"
-                                tabindex="48" /></div>
+                                tabindex="88" /></div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="item    col-md-6">
+                    <div class="item col-md-6">
                         <div class="col-md-3 widthCol">
                             <label for="customerinfodetail-countryoptions-bank">
                                 @Labels.Country</label></div>
                         <div class="col-md-9" data-ng-model="countryList" dropdown-country-bank-container>
                             <select id="customerinfodetail-countryoptions-bank" class="dropdown-countryinfo"
-                                tabindex="49">
+                                tabindex="89">
                             </select>
                         </div>
                     </div>
@@ -373,7 +377,7 @@
                                 @Labels.Postcode</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="b-postcode" data-ng-model="customerDetail.BankInfo.AddressInfo.PostCode"
-                                tabindex="50" /></div>
+                                tabindex="90" /></div>
                     </div>
                 </div>
             </div>

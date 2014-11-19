@@ -455,7 +455,7 @@ var CustomerManager = function () {
             MobilePhoneAreaCode: customer.MobilePhone.AreaCode,
             MobilePhone: customer.MobilePhone.PhoneNumber,
 
-            PersonalInfoContact: customer.PersonalInfoContact,
+            PersonalInfoContacts: customer.PersonalInfoContacts,
 
             Email: customer.Email,
             MSN: customer.MSN,

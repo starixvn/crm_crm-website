@@ -88,10 +88,27 @@ namespace Fanex.CRM.Customer.Repositories
             customer.NickName = customer.Id > 0 ?
                 Converter.ToString2(reader["UserName2"]) :
                 string.Empty;
-            customer.PersonalInfoContact.Add(Converter.ToString2(reader["PIC1"]));
-            customer.PersonalInfoContact.Add(Converter.ToString2(reader["PIC2"]));
-            customer.PersonalInfoContact.Add(Converter.ToString2(reader["PIC3"]));
-            customer.PersonalInfoContact.Add(Converter.ToString2(reader["PIC4"]));
+            
+            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic4Name"]),
+                Phone = Converter.ToString2(reader["Pic4"])
+            });
+            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic3Name"]),
+                Phone = Converter.ToString2(reader["Pic3"])
+            });
+            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic2Name"]),
+                Phone = Converter.ToString2(reader["Pic2"])
+            });
+            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic1Name"]),
+                Phone = Converter.ToString2(reader["Pic1"])
+            });
 
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode1"]));
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode2"]));

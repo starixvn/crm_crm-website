@@ -178,10 +178,14 @@ function (
             Email: customerDetail.Email,
             Skype: customerDetail.Skype,
             MSN: customerDetail.MSN,
-            PersonalInfoContact1: customerDetail.PersonalInfoContact[0],
-            PersonalInfoContact2: customerDetail.PersonalInfoContact[1],
-            PersonalInfoContact3: customerDetail.PersonalInfoContact[2],
-            PersonalInfoContact4: customerDetail.PersonalInfoContact[3],
+            PersonalInfoContactName1: customerDetail.PersonalInfoContacts[0].Name,
+            PersonalInfoContact1: customerDetail.PersonalInfoContacts[0].Phone,
+            PersonalInfoContactName2: customerDetail.PersonalInfoContacts[1].Name,
+            PersonalInfoContact2: customerDetail.PersonalInfoContacts[1].Phone,
+            PersonalInfoContactName3: customerDetail.PersonalInfoContacts[2].Name,
+            PersonalInfoContact3: customerDetail.PersonalInfoContacts[2].Phone,
+            PersonalInfoContactName4: customerDetail.PersonalInfoContacts[3].Name,
+            PersonalInfoContact4: customerDetail.PersonalInfoContacts[3].Phone,
             SiteId: customerDetail.SiteSetting.Id,
             HomeAddressLine1: customerDetail.AddressInfo.LineList[0],
             HomeAddressLine2: customerDetail.AddressInfo.LineList[1],
@@ -373,10 +377,14 @@ function (
             $scope.oldCustomerDetail.MSN !== $scope.customerDetail.MSN ||
             $scope.oldCustomerDetail.Skype !== $scope.customerDetail.Skype ||
 
-            $scope.oldCustomerDetail.PersonalInfoContact[0] !== $scope.customerDetail.PersonalInfoContact[0] ||
-            $scope.oldCustomerDetail.PersonalInfoContact[1] !== $scope.customerDetail.PersonalInfoContact[1] ||
-            $scope.oldCustomerDetail.PersonalInfoContact[2] !== $scope.customerDetail.PersonalInfoContact[2] ||
-            $scope.oldCustomerDetail.PersonalInfoContact[3] !== $scope.customerDetail.PersonalInfoContact[3] ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[0].Name !== $scope.customerDetail.PersonalInfoContacts[0].Name ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[0].Phone !== $scope.customerDetail.PersonalInfoContacts[0].Phone ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[1].Name !== $scope.customerDetail.PersonalInfoContacts[1].Name ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[1].Phone !== $scope.customerDetail.PersonalInfoContacts[1].Phone ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[2].Name !== $scope.customerDetail.PersonalInfoContacts[2].Name ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[2].Phone !== $scope.customerDetail.PersonalInfoContacts[2].Phone ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[3].Name !== $scope.customerDetail.PersonalInfoContacts[3].Name ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[3].Phone !== $scope.customerDetail.PersonalInfoContacts[3].Phone ||
             $scope.oldCustomerDetail.SiteSetting.Id !== $scope.customerDetail.SiteSetting.Id)) {
             return true;
         }
@@ -425,10 +433,14 @@ function (
             $scope.oldCustomerDetail.MSN !== $scope.customerDetail.MSN ||
             $scope.oldCustomerDetail.Skype !== $scope.customerDetail.Skype ||
 
-            $scope.oldCustomerDetail.PersonalInfoContact[0] !== $scope.customerDetail.PersonalInfoContact[0] ||
-            $scope.oldCustomerDetail.PersonalInfoContact[1] !== $scope.customerDetail.PersonalInfoContact[1] ||
-            $scope.oldCustomerDetail.PersonalInfoContact[2] !== $scope.customerDetail.PersonalInfoContact[2] ||
-            $scope.oldCustomerDetail.PersonalInfoContact[3] !== $scope.customerDetail.PersonalInfoContact[3] ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[0].Name !== $scope.customerDetail.PersonalInfoContacts[0].Name ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[0].Phone !== $scope.customerDetail.PersonalInfoContacts[0].Phone ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[1].Name !== $scope.customerDetail.PersonalInfoContacts[1].Name ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[1].Phone !== $scope.customerDetail.PersonalInfoContacts[1].Phone ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[2].Name !== $scope.customerDetail.PersonalInfoContacts[2].Name ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[2].Phone !== $scope.customerDetail.PersonalInfoContacts[2].Phone ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[3].Name !== $scope.customerDetail.PersonalInfoContacts[3].Name ||
+            $scope.oldCustomerDetail.PersonalInfoContacts[3].Phone !== $scope.customerDetail.PersonalInfoContacts[3].Phone ||
 
             $scope.oldCustomerDetail.SiteSetting.Id !== $scope.customerDetail.SiteSetting.Id ||
             $scope.oldCustomerDetail.AddressInfo.LineList[0] !== $scope.customerDetail.AddressInfo.LineList[0] ||

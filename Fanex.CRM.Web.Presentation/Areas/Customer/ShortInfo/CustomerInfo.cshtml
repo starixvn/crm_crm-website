@@ -164,12 +164,14 @@
                     <input id="skype" type="text" class="textbox" data-ng-model="customer.Skype" data-ng-keyup="textBoxKeyUp($event);" />
                 </div>
             </div>
-            <div class="customer-personalInfoContact-container" data-ng-repeat="personalInfoContact in customer.PersonalInfoContact track by $index">
+            <div class="customer-personalInfoContact-container" data-ng-repeat="personalInfoContact in customer.PersonalInfoContacts track by $index">
                 <div class="row item no-border-bg">
-                    <label for="pic{{ $index + 1 }}" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                    <label for="pic{{ $index + 1 }}Name" class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
                         @Labels.PIC {{ $index + 1 }}</label>
                     <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                        <input id="pic{{ $index + 1 }}" type="text" class="textbox" data-ng-model="customer.PersonalInfoContact[$index]"
+                        <input id="pic{{ $index + 1 }}Name" type="text" class="textbox pic-name" data-ng-model="customer.PersonalInfoContacts[$index].Name"
+                            data-ng-keyup="textBoxKeyUp($event);" />
+                        <input type="text" class="textbox phone" data-ng-model="customer.PersonalInfoContacts[$index].Phone"
                             data-ng-change="editPersonalInfo(this);" data-ng-keyup="textBoxKeyUp($event);" />
                     </div>
                 </div>

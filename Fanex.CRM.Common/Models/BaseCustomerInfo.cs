@@ -27,7 +27,7 @@ namespace Fanex.CRM.Common.Models
             Country = new BaseModel();
             Languages = new List<BaseModel>();
             PhoneInfo = new List<PhoneInfo>();
-            PersonalInfoContact = new List<string>();
+            PersonalInfoContacts = new List<PersonalInfoContact>();
             BettingCode = new List<string>();
             UplineInfo = new List<BaseCustomerInfo>();
         }
@@ -58,7 +58,13 @@ namespace Fanex.CRM.Common.Models
 
         public string Skype { get; set; }
 
-        public List<string> PersonalInfoContact { get; set; }
+        public string Viber { get; set; }
+
+        public string WhatsApp { get; set; }
+
+        public string Line { get; set; }
+
+        public List<PersonalInfoContact> PersonalInfoContacts { get; set; }
 
         public string BirthDayString { get; set; }
 
