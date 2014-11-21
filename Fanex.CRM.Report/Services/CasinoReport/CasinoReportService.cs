@@ -201,7 +201,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             criteria.FromCache = criteria.FullReport = true;
             CasinoDetail report = GetCasinoDailyDetail(criteria);
 
-            int maxColumnIndex = 18;
+            int maxColumnIndex = 19;
             string excelFileName = string.Format(Labels.CasinoDetailExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
             HSSFWorkbook workbook = new HSSFWorkbook();
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
@@ -725,6 +725,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             worksheet.SetColumnWidth(currentColumn++, 120 * NpoiExcelExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 120 * NpoiExcelExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
+            worksheet.SetColumnWidth(currentColumn++, 80 * NpoiExcelExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 250 * NpoiExcelExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 120 * NpoiExcelExtensions.FontWidth);
             worksheet.SetColumnWidth(currentColumn++, 250 * NpoiExcelExtensions.FontWidth);
@@ -780,7 +781,9 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             currentColumn++;
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Ext, headerStyle);
             currentColumn++;
-            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Contact, headerStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Role, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.ContactInfo, headerStyle);
             currentColumn++;
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Country, headerStyle);
             currentColumn++;
@@ -841,6 +844,8 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 NpoiExcelExtensions.RenderCell(row, currentColumn, item.Product, textLeftCellStyle);
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(row, currentColumn, item.Station, textCenterCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, item.Role, textCenterCellStyle);
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.ReplaceHtmlTag(item.Contact), textLeftCellStyle);
                 currentColumn++;

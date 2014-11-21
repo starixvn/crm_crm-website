@@ -16,6 +16,7 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
             { HeaderText: casinoWeeklyResources.TypeOfContact, Width: 100, Name: 'ColCommunication', HeaderAlign: 'center', CellAlign: 'left' },
             { HeaderText: casinoWeeklyResources.ProductName, Width: 100, Name: 'ColProduct', HeaderAlign: 'center', CellAlign: 'left' },
             { HeaderText: casinoWeeklyResources.Ext, Width: 60, Name: 'ColStation', HeaderAlign: 'center', CellAlign: 'center' },
+            { HeaderText: casinoWeeklyResources.Role, Width: 60, Name: 'ColRole', HeaderAlign: 'center', CellAlign: 'center' },
             { HeaderText: casinoWeeklyResources.Contact, Width: 220, Name: 'ColContact', HeaderAlign: 'center', CellAlign: 'left' },
             { HeaderText: casinoWeeklyResources.Country, Width: 110, Name: 'ColCountry', HeaderAlign: 'center', CellAlign: 'left' },
             { HeaderText: casinoWeeklyResources.Category, Width: 200, Name: 'ColMainCategory', HeaderAlign: 'center', CellAlign: 'left' },
@@ -78,7 +79,8 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
                 { Name: 'ColCommunication', Value: detail.Communication },
                 { Name: 'ColProduct', Value: detail.Product },
                 { Name: 'ColStation', Value: detail.Station },
-                { Name: 'ColContact', Value: buildContact(detail.MSN, detail.Skype, detail.Email, detail.Phone, detail.MobilePhone) },
+                { Name: 'ColRole', Value: detail.Role },
+                { Name: 'ColContact', Value: detail.Contact },
                 { Name: 'ColCountry', Value: detail.CountryName },
                 { Name: 'ColMainCategory', Value: detail.MainCategory },
                 { Name: 'ColSubCategory', Value: detail.SubCategory },
@@ -96,13 +98,13 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
         return bodyData;
     }
 
-    function buildContact(msn, skype, email, phone, mobile) {
-        return casinoWeeklyResources.MSN + ': ' + (msn ? sharedScriptManager.encodeHtml(msn) : '-') +
-            '<br/>' + casinoWeeklyResources.Skype + ': ' + (skype ? sharedScriptManager.encodeHtml(skype) : '-') +
-            '<br/>' + casinoWeeklyResources.Email + ': ' + (email ? sharedScriptManager.encodeHtml(email) : '-') +
-            '<br/>' + casinoWeeklyResources.Phone + ': ' + (phone ? sharedScriptManager.encodeHtml(phone) : '-') +
-            '<br/>' + casinoWeeklyResources.Mobile + ': ' + (mobile ? sharedScriptManager.encodeHtml(mobile) : '-');
-    }
+//    function buildContact(msn, skype, email, phone, mobile) {
+//        return casinoWeeklyResources.MSN + ': ' + (msn ? sharedScriptManager.encodeHtml(msn) : '-') +
+//            '<br/>' + casinoWeeklyResources.Skype + ': ' + (skype ? sharedScriptManager.encodeHtml(skype) : '-') +
+//            '<br/>' + casinoWeeklyResources.Email + ': ' + (email ? sharedScriptManager.encodeHtml(email) : '-') +
+//            '<br/>' + casinoWeeklyResources.Phone + ': ' + (phone ? sharedScriptManager.encodeHtml(phone) : '-') +
+//            '<br/>' + casinoWeeklyResources.Mobile + ': ' + (mobile ? sharedScriptManager.encodeHtml(mobile) : '-');
+//    }
 
     function renderCasinoWeeklyDetail(scope, element, attrs) {
         var report = scope.weeklyDetail;

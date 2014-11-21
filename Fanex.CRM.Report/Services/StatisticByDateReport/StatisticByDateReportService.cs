@@ -183,7 +183,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 var exportExcelInfo = new ExportExcelInfo
                 {
                     ExcelFile = new HSSFWorkbook(),
-                    MaxColumnIndex = 18
+                    MaxColumnIndex = 19
                 };
 
                 ExportDetailReportBody(report, exportExcelInfo);
@@ -274,12 +274,19 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                         CreationTimeString = DateTimeUtilize.ChangeTimeZoneToClient(data.CreationTime),
                         ResolutionTimeString = resolutionDate.ToHourMinuteMiddayTypeFormated(),
 
+                        Role = data.Role,
                         CommunicationTool = data.CommunicationTool,
                         MSN = data.MSN,
                         Skype = data.Skype,
                         Email = data.Email,
                         Phone = data.Phone,
-                        MobilePhone = data.MobilePhone
+                        MobilePhone = data.MobilePhone,
+                        Bbm = data.Bbm,
+                        WhatsApp = data.WhatsApp,
+                        Line = data.Line,
+                        WEChat = data.WEChat,
+                        Yahoo = data.Yahoo,
+                        QQ = data.QQ
                     };
 
                     result.ChildReports.Add(detailInfo);
@@ -490,7 +497,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             leftTitleStyle.Alignment = HorizontalAlignment.Left;
 
             exportExcelInfo.ResetCurrentColumn();
-            var columnWidths = new List<int> { 100, 100, 100, 100, 200, 140, 140, 100, 250, 120, 120, 300, 300, 480, 480, 100, 100, 140, 120 };
+            var columnWidths = new List<int> { 100, 100, 100, 100, 200, 140, 140, 100, 100, 250, 120, 120, 300, 300, 480, 480, 100, 100, 140, 120 };
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
             ExportHeaderTitle(exportExcelInfo, report != null ? report.Name : string.Empty, leftTitleStyle);
@@ -505,7 +512,8 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.RenderCell(Labels.Site, headerStyle);
             exportExcelInfo.RenderCell(Labels.Type_Of_Contact, headerStyle);
             exportExcelInfo.RenderCell(Labels.Symbol_Extension, headerStyle);
-            exportExcelInfo.RenderCell(Labels.Contact, headerStyle);
+            exportExcelInfo.RenderCell(Labels.Role, headerStyle);
+            exportExcelInfo.RenderCell(Labels.ContactInfo, headerStyle);
             exportExcelInfo.RenderCell(Labels.Product, headerStyle);
             exportExcelInfo.RenderCell(Labels.Country, headerStyle);
             exportExcelInfo.RenderCell(Labels.Category, headerStyle);
@@ -579,12 +587,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 info.Duration.Days.ToString("00"),
                 info.Duration.Hours.ToString("00"),
                 info.Duration.Minutes.ToString("00"));
-            var contactInfo =
-                 Labels.MSN + ": " + info.MSN +
-                 "\n" + Labels.Skype + ": " + info.Skype +
-                 "\n" + Labels.Email + ": " + info.Email +
-                 "\n" + Labels.Phone + ": " + info.Phone +
-                 "\n" + Labels.Mobile + ": " + info.MobilePhone;
 
             exportExcelInfo.ResetCurrentColumn();
             exportExcelInfo.CreateCurrentRow();
@@ -596,7 +598,8 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.RenderCell(info.SiteInfo.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.CommunicationTool.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.Extension.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(contactInfo, textStyle);
+            exportExcelInfo.RenderCell(info.Role, textStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.ReplaceHtmlTag(info.Contact), textStyle);
             exportExcelInfo.RenderCell(info.Product.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.MainCategory.Name, centerTextStyle);

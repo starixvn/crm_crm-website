@@ -43,12 +43,6 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
         if (childReportLength > 0) {
             for (var i = 0; i < childReportLength; i++) {
                 var info = report.ChildReports[i];
-                var contactInfo =
-                   viewResources.MSN + ": " + sharedScriptManager.encodeHtml(info.MSN) +
-                   "<br/>" + viewResources.Skype + ": " + sharedScriptManager.encodeHtml(info.Skype) +
-                   "<br/>" + viewResources.Email + ": " + sharedScriptManager.encodeHtml(info.Email) +
-                   "<br/>" + viewResources.Phone + ": " + sharedScriptManager.encodeHtml(info.Phone) +
-                   "<br/>" + viewResources.Mobile + ": " + sharedScriptManager.encodeHtml(info.MobilePhone);
 
                 bodyData.push({
                     Columns: [{ Name: "ColDate", Value: info.StartDateString },
@@ -65,7 +59,8 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
                     { Name: "ColSite", Value: info.SiteInfo.Name },
                     { Name: "ColTypeOfContact", Value: info.CommunicationTool.Name },
                     { Name: "ColExtension", Value: info.Extension.Name },
-                    { Name: "ColContact", Value: contactInfo },
+                    { Name: "ColRole", Value: info.Role },
+                    { Name: "ColContact", Value: info.Contact },
                     { Name: "ColProduct", Value: info.Product.Name },
                     { Name: "ColCountry", Value: info.Country.Name },
                     { Name: "ColCategory", Value: info.MainCategory.Name },
@@ -91,6 +86,7 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
                 { HeaderText: viewResources.Site, Width: 100, Name: "ColSite", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Type_Of_Contact, Width: 100, Name: "ColTypeOfContact", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Symbol_Extension, Width: 60, Name: "ColExtension", HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: viewResources.Role, Width: 60, Name: "ColRole", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Contact, Width: 220, Name: "ColContact", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Product, Width: 100, Name: "ColProduct", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Country, Width: 100, Name: "ColCountry", HeaderAlign: "center", CellAlign: "center" },

@@ -708,7 +708,7 @@
   <data name="Weekly_Statistics" xml:space="preserve">
     <value>Weekly Statistics</value>
   </data>
-   <data name="FeedbackStatisticTitle" xml:space="preserve">
+  <data name="FeedbackStatisticTitle" xml:space="preserve">
     <value>Feedback Statistics Report from {0} to {1}</value>
   </data>
   <data name="Day" xml:space="preserve">
@@ -764,5 +764,11 @@
   </data>
   <data name="FeedbackStatisticDetailSheetName" xml:space="preserve">
     <value>Feedback Statistic Detail</value>
+  </data>
+  <data name="ContactInfo" xml:space="preserve">
+    <value>Contact Info</value>
+  </data>
+  <data name="BBM" xml:space="preserve">
+    <value>BBM</value>
   </data>
 </root>

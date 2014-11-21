@@ -97,13 +97,19 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
                         Response = new SettingInfo { Name = Converter.ToString2(reader["Response"]) },
                         Handler = Converter.ToString2(reader["CreatorName"]),
                         CreationTime = Converter.ToDateTime(reader["CreateDate"]),
-
+                        Role = Converter.ToString2(reader["Role"]),
                         CommunicationTool = new SettingInfo { Name = Converter.ToString2(reader["Communication"]) },
                         MSN = Converter.ToString2(reader["MSN"]),
                         Skype = Converter.ToString2(reader["Skype"]),
                         Email = Converter.ToString2(reader["Email"]),
                         Phone = Converter.ToString2(reader["Phone"]),
-                        MobilePhone = Converter.ToString2(reader["MobilePhone"])
+                        MobilePhone = Converter.ToString2(reader["MobilePhone"]),
+                        WhatsApp = Converter.ToString2(reader["WhatsApp"]),
+                        Line = Converter.ToString2(reader["Line"]),
+                        WEChat = Converter.ToString2(reader["WeChat"]),
+                        Yahoo = Converter.ToString2(reader["Yahoo"]),
+                        QQ = Converter.ToString2(reader["QQ"]),
+                        Bbm = Converter.ToString2(reader["BBM"]),
                     });
                 }
             }

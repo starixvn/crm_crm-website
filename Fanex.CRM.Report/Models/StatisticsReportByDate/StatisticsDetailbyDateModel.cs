@@ -10,8 +10,10 @@
 namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 {
     using System;
+    using System.Web;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Report.Resources;
 
     /// <summary>
     /// Statistics Detail By Date Information.
@@ -44,6 +46,40 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
         public string Phone { get; set; }
 
         public string MobilePhone { get; set; }
+
+        public string WhatsApp { get; set; }
+
+        public string Line { get; set; }
+
+        public string WEChat { get; set; }
+
+        public string Yahoo { get; set; }
+
+        public string QQ { get; set; }
+
+        public string Bbm { get; set; }
+
+        public string Role { get; set; }
+
+        public string Contact
+        {
+            get
+            {
+                return string.Format(
+                    "{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}",
+                    string.IsNullOrEmpty(Bbm) ? string.Empty : string.Format("{0}: {1}{2}", Labels.BBM, HttpContext.Current.Server.HtmlEncode(Bbm), "<br/>"),
+                    string.IsNullOrEmpty(Email) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Email, HttpContext.Current.Server.HtmlEncode(Email), "<br/>"),
+                    string.IsNullOrEmpty(Line) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Line, HttpContext.Current.Server.HtmlEncode(Line), "<br/>"),
+                    string.IsNullOrEmpty(MSN) ? string.Empty : string.Format("{0}: {1}{2}", Labels.MSN, HttpContext.Current.Server.HtmlEncode(MSN), "<br/>"),
+                    string.IsNullOrEmpty(MobilePhone) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Mobile, HttpContext.Current.Server.HtmlEncode(MobilePhone), "<br/>"),
+                    string.IsNullOrEmpty(Phone) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Phone, HttpContext.Current.Server.HtmlEncode(Phone), "<br/>"),
+                    string.IsNullOrEmpty(QQ) ? string.Empty : string.Format("{0}: {1}{2}", Labels.QQ, HttpContext.Current.Server.HtmlEncode(QQ), "<br/>"),
+                    string.IsNullOrEmpty(Skype) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Skype, HttpContext.Current.Server.HtmlEncode(Skype), "<br/>"),
+                    string.IsNullOrEmpty(WEChat) ? string.Empty : string.Format("{0}: {1}{2}", Labels.WeChat, HttpContext.Current.Server.HtmlEncode(WEChat), "<br/>"),
+                    string.IsNullOrEmpty(WhatsApp) ? string.Empty : string.Format("{0}: {1}{2}", Labels.WhatsApp, HttpContext.Current.Server.HtmlEncode(WhatsApp), "<br/>"),
+                    string.IsNullOrEmpty(Yahoo) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Yahoo, HttpContext.Current.Server.HtmlEncode(Yahoo), string.Empty));
+            }
+        }
 
         public SettingInfo Extension { get; set; }
 
