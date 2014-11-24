@@ -113,6 +113,7 @@
     <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
     <Compile Include="Entities\SummaryReport\SummaryRawData.cs" />
     <Compile Include="Entities\WagerReport\WagerRawData.cs" />
+    <Compile Include="Helpers\FieldHelper.cs" />
     <Compile Include="Models\CasinoReport\CasinoDailySummary.cs" />
     <Compile Include="Models\CasinoReport\CasinoDetail.cs" />
     <Compile Include="Models\CasinoReport\CasinoGroup.cs" />

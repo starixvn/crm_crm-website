@@ -43,11 +43,6 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
             headerColumnHeight: 29,
             showPager: true,
             customPager: true,
-            showTitle: true,
-            titleInfo: {
-                text: 'New case for keno game 2 - No. headlines to inform: 165',
-                showExcelButton: true,
-            },
             pagerOption: {
                 itemsPerPage: scope.pagerOption.itemsPerPage,
                 currentPage: scope.pagerOption.currentPage,

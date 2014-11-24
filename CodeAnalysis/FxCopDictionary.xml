@@ -3,9 +3,13 @@
   <Words>
     <Recognized>
       <Word>fanex</Word>
+      <Word>QQ</Word>
+      <Word>WhatsApp</Word>
+      <Word>Whats</Word>
       <Word />
     </Recognized>
-    <Unrecognized />
+    <Unrecognized>
+    </Unrecognized>
     <Deprecated>
       <Term>username</Term>
     </Deprecated>
@@ -14,10 +18,15 @@
       <Term CompoundAlternate="AnteMeridem">AM</Term>
       <Term />
     </Compound>
-    <DiscreteExceptions />
+    <DiscreteExceptions>
+      <Term d4p1:nil="true" xmlns:d4p1="http://www.w3.org/2001/XMLSchema-instance" />
+    </DiscreteExceptions>
   </Words>
   <Acronyms>
     <CasingExceptions>
+      <Acronym>QQ</Acronym>
+      <Acronym>WeChat</Acronym>
+      <Acronym>whatsApp</Acronym>
       <Acronym>Fanex</Acronym>
       <Acronym>CRM</Acronym>
       <Acronym>VIP</Acronym>
