@@ -76,7 +76,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             try
             {
                 criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.ToDate);
+                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
 
                 var repositoryResult = StatisticByDateReportRepository.MainReport(criteria);
                 var reportTitle = string.Format(

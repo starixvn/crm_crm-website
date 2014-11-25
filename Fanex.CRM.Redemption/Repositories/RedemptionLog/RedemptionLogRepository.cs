@@ -155,6 +155,9 @@ namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
                 Id = Converter.ToInt(reader["Id"]),
                 CustomerId = Converter.ToInt(reader["CustId"]),
                 ClaimedTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ClaimTime"])).ToShortFormatedDate(),
+                Currency = new BaseModel { Id = Converter.ToInt(reader["CurrencyId"]) },
+                DoneBy = Converter.ToString2(reader["DoneBy"]),
+                Amount = Converter.ToDecimal(reader["Amount"]),
                 Subject = Converter.ToString2(reader["Subject"]).HtmlEncode(),
                 Remark = Converter.ToString2(reader["Remark"]),
                 Status = new SettingInfo

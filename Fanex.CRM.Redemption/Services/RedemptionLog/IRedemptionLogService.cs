@@ -25,8 +25,8 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
 
         Result InsertLog(InsertLogCriteria criteria);
 
-        List<SettingInfo> AllStatusInsert();
+        dynamic AllSettingsInsert();
 
-        List<SettingInfo> AllStatusEdit();
+        dynamic AllSettingsEdit();
     }
 }

@@ -39,7 +39,7 @@ namespace Fanex.CRM.Setting.Services
 
         List<SettingInfo> AllProduct();
 
-        List<SettingInfo> AllStatus(GetAllStatusCriteria criteria);
+        List<SettingInfo> AllStatus(int statusType);
 
         List<SettingInfo> AllRole();
 
@@ -51,7 +51,9 @@ namespace Fanex.CRM.Setting.Services
 
         List<SettingInfo> AllSiteType();
 
-        List<SettingInfo> AllLicenseeType();
+        List<BaseModel> AllLicenseeType();
+
+        List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria);
 
         int NumberOfFeedbackSubjectTemplate();
 
@@ -66,7 +68,5 @@ namespace Fanex.CRM.Setting.Services
         void ResetAllCache();
 
         List<SettingInfo> MainSetting();
-
-        List<SettingInfo> AllFeedbackStatus();
     }
 }

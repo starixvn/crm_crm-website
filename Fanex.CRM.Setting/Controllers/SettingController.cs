@@ -11,6 +11,7 @@ namespace Fanex.CRM.Setting.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
 
@@ -97,7 +98,7 @@ namespace Fanex.CRM.Setting.Controllers
         [HttpPost]
         public JsonResult AllStatus()
         {
-            var allStatus = _settingServiceInstance.AllStatus(new GetAllStatusCriteria());
+            var allStatus = _settingServiceInstance.AllStatus(ViewTypeConstants.All);
             var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

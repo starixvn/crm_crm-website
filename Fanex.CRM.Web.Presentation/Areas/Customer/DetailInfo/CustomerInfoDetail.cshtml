@@ -27,53 +27,9 @@
                             <label for="customerinfodetail-titleoptions">
                                 @Labels.Title</label></div>
                         <div class="col-md-9" data-ng-model="titleList" dropdown-title-container>
-                            <select id="customerinfodetail-titleoptions" tabindex="1" class="selTitle" default-focus
+                            <select id="customerinfodetail-titleoptions" tabindex="1" default-focus
                                 data-ng-issetfocus="isSetFocus">
                             </select>
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="contact1">
-                                @Labels.Contact_Number_1</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="contact1" data-ng-model="customerDetail.PhoneInfo[0].CountryCode"
-                                tabindex="4" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[0].AreaCode"
-                                tabindex="5" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[0].PhoneNumber"
-                                tabindex="6" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="faxInfo">
-                                @Labels.Fax</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode"
-                                tabindex="13" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.FaxInfo.AreaCode"
-                                tabindex="14" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.FaxNumber"
-                                tabindex="15" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="skype">
-                                @Labels.Skype</label></div>
-                        <div class="col-md-9">
-                            <input id="skype" type="text" class="textbox" id="skype" data-ng-model="customerDetail.Skype"
-                                tabindex="21" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="msn">
-                                @Labels.MSN</label></div>
-                        <div class="col-md-9">
-                            <input id="msn" type="text" class="textbox" id="MSN" data-ng-model="customerDetail.MSN"
-                                tabindex="25" />
                         </div>
                     </div>
                     <div class="row item">
@@ -81,7 +37,7 @@
                             <label for="birthday">
                                 @Labels.Birthday</label></div>
                         <div class="col-md-9" date-picker-container>
-                            <input id="birthday" type="text" class="textbox timepicker txtcalendar" tabindex="29" />
+                            <input id="birthday" type="text" class="textbox timepicker txtcalendar" tabindex="4" />
                         </div>
                     </div>
                     <div class="row item">
@@ -89,15 +45,19 @@
                             <label for="language">
                                 @Labels.Language</label></div>
                         <div class="col-md-9" dropdown-language data-ng-model="languageList">
-                            <select id="customerinfodetail-languageoptions" tabindex="33">
+                            <select id="customerinfodetail-languageoptions" tabindex="7">
                             </select>
                         </div>
                     </div>
-                    <div class="row row-item">
-                        <div class="col-xs-4 col-sm-3 col-md-3">
-                            <label for="isVIP" class="labelforcheckbox checkbox">
-                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="36" />
-                                @Labels.VIP</label></div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="customerinfodetail-licenseeTypeoptions">
+                                @Labels.LicenseeType</label></div>
+                        <div class="col-md-9">
+                            <select id="customerinfodetail-licenseeTypeoptions" tabindex="10"
+                                data-ng-model="customerDetail.LicenseeType" data-ng-options="s.Name for s in licenseeTypes track by s.Id">
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -112,46 +72,11 @@
                     </div>
                     <div class="row item">
                         <div class="col-md-3">
-                            <label for="contact2">
-                                @Labels.Contact_Number_2</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="contact2" data-ng-model="customerDetail.PhoneInfo[1].CountryCode"
-                                tabindex="7" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[1].AreaCode"
-                                tabindex="8" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[1].PhoneNumber"
-                                tabindex="9" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="mobile">
-                                @Labels.Mobile</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="mobile" data-ng-model="customerDetail.MobilePhone.CountryCode"
-                                tabindex="16" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.MobilePhone.AreaCode"
-                                tabindex="17" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.MobilePhone.PhoneNumber"
-                                tabindex="18" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="email">
-                                @Labels.Email</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox" id="email" data-ng-model="customerDetail.Email"
-                                tabindex="22" />
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
                             <label for="passport">
                                 @Labels.Passport_Number</label></div>
                         <div class="col-md-9">
                             <input type="text" class="textbox" id="passport" data-ng-model="customerDetail.Passport.Name"
-                                tabindex="26" />
+                                tabindex="5" />
                         </div>
                     </div>
                     <div class="row item">
@@ -159,27 +84,23 @@
                             <label for="customerinfodetail-siteoptions">
                                 @Labels.Site</label></div>
                         <div class="col-md-9" data-ng-model="siteList" dropdown-site-container>
-                            <select id="customerinfodetail-siteoptions" class="dropdown-siteinfo" tabindex="30">
+                            <select id="customerinfodetail-siteoptions" class="dropdown-siteinfo" tabindex="8">
                             </select>
                         </div>
                     </div>
-                    <div class="row item">
-                        <div class="col-md-3">
-                            <label for="bettingcode">
-                                @Labels.Secret_Code</label></div>
-                        <div class="col-md-9" date-picker-container>
-                            <input type="text" class="textbox" id="bettingcode" data-ng-model="customerDetail.BettingCode[0]"
-                                tabindex="34" />
-                        </div>
-                    </div>
                     <div class="row row-item">
-                        @if (Model.HeadLine)
-                        {
-                        <div class="col-xs-5 col-sm-4 col-md-4">
-                            <label for="headline" class="labelforcheckbox checkbox">
-                                <input id="headline" type="checkbox" data-ng-model="customerDetail.HeadLine" disabled />
-                                @Labels.Headline</label></div>
-                        }
+                        <div class="col-xs-4 col-sm-3 col-md-3">
+                            <label for="isVIP" class="labelforcheckbox checkbox">
+                                <input id="isVIP" type="checkbox" data-ng-model="customerDetail.IsVIP" tabindex="11" />
+                                @Labels.VIP</label></div>
+                        <div class="col-md-9">
+                            @if (Model.HeadLine)
+                            {
+                                <label for="headline" class="labelforcheckbox checkbox">
+                                    <input id="headline" type="checkbox" data-ng-model="customerDetail.HeadLine" disabled />
+                                    @Labels.Headline</label>
+                            }
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -194,37 +115,223 @@
                     </div>
                     <div class="row item">
                         <div class="col-md-3">
-                            <label for="contact3">
-                                @Labels.Contact_Number_3</label></div>
-                        <div class="col-md-9">
-                            <input type="text" class="textbox code-country" id="contact3" data-ng-model="customerDetail.PhoneInfo[2].CountryCode"
-                                tabindex="10" />
-                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[2].AreaCode"
-                                tabindex="11" />
-                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[2].PhoneNumber"
-                                tabindex="12" />
-                        </div>
-                    </div>
-                    <div data-ng-repeat="personalInfoContact in customerDetail.PersonalInfoContacts track by $index">
-                        <div class="row item">
-                            <div class="col-md-3">
-                                <label for="pic{{ $index + 1 }}Name">
-                                    @Labels.PIC {{ $index + 1 }}</label></div>
-                            <div class="col-md-9">
-                                <input type="text" class="textbox pic-name" id="pic{{ $index + 1 }}Name" data-ng-model="customerDetail.PersonalInfoContacts[$index].Name"
-                                    tabindex="{{ 19 + $index * 4 }}" />
-                                <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[$index].Phone"
-                                    tabindex="{{ 20 + $index * 4 }}" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row item">
-                        <div class="col-md-3">
                             <label for="refcode2">
                                 @Labels.Ref_Codes</label></div>
                         <div class="col-md-9" date-picker-container>
                             <input type="text" class="textbox" id="refcode2" data-ng-model="customerDetail.BettingCode[1]"
+                                tabindex="6" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="bettingcode">
+                                @Labels.Secret_Code</label></div>
+                        <div class="col-md-9" date-picker-container>
+                            <input type="text" class="textbox" id="bettingcode" data-ng-model="customerDetail.BettingCode[0]"
+                                tabindex="9" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*TabIndex start from 15*@
+        <div class="row panel-group">
+            <div class="row title group-header" data-ng-class="isShowCommunicationInfo ? '' : 'border-bottom-none'"
+                data-ng-click="isShowCommunicationInfo = !isShowCommunicationInfo">@Labels.Communication_Info</div>
+            <div class="row content" data-ng-show="isShowCommunicationInfo">
+                <div class="col-md-4">
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="contact1">
+                                @Labels.Contact_Number_1</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox code-country" id="contact1" data-ng-model="customerDetail.PhoneInfo[0].CountryCode"
+                                tabindex="15" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[0].AreaCode"
+                                tabindex="16" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[0].PhoneNumber"
+                                tabindex="17" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="faxInfo">
+                                @Labels.Fax</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox code-country" id="faxInfo" data-ng-model="customerDetail.FaxInfo.CountryCode"
+                                tabindex="24" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.FaxInfo.AreaCode"
+                                tabindex="25" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.FaxInfo.FaxNumber"
+                                tabindex="26" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="picName2">
+                                @Labels.PIC_2</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox pic-name" id="picName2" data-ng-model="customerDetail.PersonalInfoContacts[1].Name"
+                                tabindex="32" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[1].Phone"
+                                tabindex="33" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="skype">
+                                @Labels.Skype</label></div>
+                        <div class="col-md-9">
+                            <input id="skype" type="text" class="textbox" data-ng-model="customerDetail.Skype"
+                                tabindex="38" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="wechat">
+                                @Labels.WeChat</label></div>
+                        <div class="col-md-9">
+                            <input id="wechat" type="text" class="textbox" data-ng-model="customerDetail.WeChat"
+                                tabindex="41" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="yahoo">
+                                @Labels.Yahoo</label></div>
+                        <div class="col-md-9">
+                            <input id="yahoo" type="text" class="textbox" data-ng-model="customerDetail.Yahoo"
+                                tabindex="44" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="contact2">
+                                @Labels.Contact_Number_2</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox code-country" id="contact2" data-ng-model="customerDetail.PhoneInfo[1].CountryCode"
+                                tabindex="18" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[1].AreaCode"
+                                tabindex="19" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[1].PhoneNumber"
+                                tabindex="20" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="mobile">
+                                @Labels.Mobile</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox code-country" id="mobile" data-ng-model="customerDetail.MobilePhone.CountryCode"
+                                tabindex="27" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.MobilePhone.AreaCode"
+                                tabindex="28" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.MobilePhone.PhoneNumber"
+                                tabindex="29" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="picName3">
+                                @Labels.PIC_3</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox pic-name" id="picName3" data-ng-model="customerDetail.PersonalInfoContacts[2].Name"
+                                tabindex="34" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[2].Phone"
                                 tabindex="35" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="email">
+                                @Labels.Email</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox" id="email" data-ng-model="customerDetail.Email"
+                                tabindex="39" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="whatsapp">
+                                @Labels.WhatsApp</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox" id="whatsapp" data-ng-model="customerDetail.WhatsApp"
+                                tabindex="42" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="qq">
+                                @Labels.QQ</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox" id="qq" data-ng-model="customerDetail.QQ"
+                                tabindex="45" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="contact3">
+                                @Labels.Contact_Number_3</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox code-country" id="contact3" data-ng-model="customerDetail.PhoneInfo[2].CountryCode"
+                                tabindex="21" />
+                            <input type="text" class="textbox code-area" data-ng-model="customerDetail.PhoneInfo[2].AreaCode"
+                                tabindex="22" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PhoneInfo[2].PhoneNumber"
+                                tabindex="23" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="picName1">
+                                @Labels.PIC_1</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox pic-name" id="picName1" data-ng-model="customerDetail.PersonalInfoContacts[0].Name"
+                                tabindex="30" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[0].Phone"
+                                tabindex="31" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="picName4">
+                                @Labels.PIC_4</label></div>
+                        <div class="col-md-9">
+                            <input type="text" class="textbox pic-name" id="picName4" data-ng-model="customerDetail.PersonalInfoContacts[3].Name"
+                                tabindex="36" />
+                            <input type="text" class="textbox phone" data-ng-model="customerDetail.PersonalInfoContacts[3].Phone"
+                                tabindex="37" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="msn">
+                                @Labels.MSN</label></div>
+                        <div class="col-md-9">
+                            <input id="msn" type="text" class="textbox" data-ng-model="customerDetail.MSN"
+                                tabindex="40" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="line">
+                                @Labels.Line</label></div>
+                        <div class="col-md-9">
+                            <input id="line" type="text" class="textbox" data-ng-model="customerDetail.Line"
+                                tabindex="43" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-md-3">
+                            <label for="bbm">
+                                @Labels.BBM</label></div>
+                        <div class="col-md-9">
+                            <input id="bbm" type="text" class="textbox" data-ng-model="customerDetail.BBM"
+                                tabindex="46" />
                         </div>
                     </div>
                 </div>

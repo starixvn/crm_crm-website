@@ -50,6 +50,17 @@
                             <input type="text" class="textbox" id="refCodes" tabindex="8" data-ng-model="feedback.CustomerInfo.BettingCode[1]" />
                         </div>
                     </div>
+                    <div class="row item">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <label for="isVIP" class="labelforcheckbox checkbox">
+                                <input id="isVIP" type="checkbox" tabindex="11" data-ng-model="feedback.CustomerInfo.IsVIP" />@Labels.VIP</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <label for="chkIsOverrideCrmInfo" class="labelforcheckbox checkbox">
+                                <input type="checkbox" id="chkIsOverrideCrmInfo" tabindex="12" data-ng-model="feedback.OverrideCRMInfo" />
+                                @Labels.OverwriteCRMInfo</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4">
                     <div class="row item">
@@ -99,16 +110,14 @@
                         </div>
                     </div>
                     <div class="row item">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="isVIP" class="labelforcheckbox checkbox">
-                                <input id="isVIP" type="checkbox" tabindex="10" data-ng-model="feedback.CustomerInfo.IsVIP" />@Labels.VIP</label>
+                            <div class="col-xs-4 col-sm-4 col-md-4 ">
+                                <label for="licensee-type">
+                                    @Labels.Licensee_Type</label></div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <select id="licensee-type" tabindex="10" data-ng-model="feedback.LicenseeType" data-ng-options="s.Name for s in settings.LicenseeTypes track by s.Id">
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8">
-                            <label for="chkIsOverrideCrmInfo" class="labelforcheckbox checkbox">
-                                <input type="checkbox" id="chkIsOverrideCrmInfo" tabindex="11" data-ng-model="feedback.OverrideCRMInfo" />
-                                @Labels.OverwriteCRMInfo</label>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="separate row" data-ng-show="panelManager.customer">
@@ -142,7 +151,7 @@
                                 @Labels.PIC_2</label></div>
                         <div class="col-xs-8 col-sm-8 col-md-8">
                             <input type="text" class="textbox pic-name" id="pic2NameInfo" tabindex="29" data-ng-model="feedback.CustomerInfo.PersonalInfoContacts[1].Name" />
-                            <input type="text" class="textbox phone" id="pic2Info" data-ng-model="feedback.CustomerInfo.PersonalInfoContact[1].Phone"
+                            <input type="text" class="textbox phone" id="pic2Info" data-ng-model="feedback.CustomerInfo.PersonalInfoContacts[1].Phone"
                                 tabindex="30" />
                         </div>
                     </div>
@@ -156,10 +165,18 @@
                     </div>
                     <div class="row item">
                         <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="viber">@Labels.Viber</label>
+                            <label for="wechat">@Labels.WeChat</label>
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="viber" tabindex="38" data-ng-model="feedback.CustomerInfo.Viber" />
+                            <input type="text" class="textbox" id="wechat" tabindex="38" data-ng-model="feedback.CustomerInfo.WeChat" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <label for="yahoo">@Labels.Yahoo</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <input type="text" class="textbox" id="yahoo" tabindex="41" data-ng-model="feedback.CustomerInfo.Yahoo" />
                         </div>
                     </div>
                 </div>
@@ -190,7 +207,7 @@
                                 @Labels.PIC_3</label></div>
                         <div class="col-xs-8 col-sm-8 col-md-8">
                             <input type="text" class="textbox pic-name" id="pic3NameInfo" tabindex="31" data-ng-model="feedback.CustomerInfo.PersonalInfoContacts[2].Name" />
-                            <input type="text" class="textbox phone" id="pic3Info" data-ng-model="feedback.CustomerInfo.PersonalInfoContact[2].Phone"
+                            <input type="text" class="textbox phone" id="pic3Info" data-ng-model="feedback.CustomerInfo.PersonalInfoContacts[2].Phone"
                                 tabindex="32" />
                         </div>
                     </div>
@@ -208,6 +225,14 @@
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8">
                             <input type="text" class="textbox" id="whatsapp" tabindex="39" data-ng-model="feedback.CustomerInfo.WhatsApp" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <label for="qq">@Labels.QQ</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <input type="text" class="textbox" id="qq" tabindex="42" data-ng-model="feedback.CustomerInfo.QQ" />
                         </div>
                     </div>
                 </div>
@@ -238,7 +263,7 @@
                                 @Labels.PIC_4</label></div>
                         <div class="col-xs-8 col-sm-8 col-md-8">
                             <input type="text" class="textbox pic-name" id="pic4NameInfo" tabindex="33" data-ng-model="feedback.CustomerInfo.PersonalInfoContacts[3].Name" />
-                            <input type="text" class="textbox phone" id="pic4Info" data-ng-model="feedback.CustomerInfo.PersonalInfoContact[3].Phone"
+                            <input type="text" class="textbox phone" id="pic4Info" data-ng-model="feedback.CustomerInfo.PersonalInfoContacts[3].Phone"
                                 tabindex="34" />
                         </div>
                     </div>
@@ -256,6 +281,14 @@
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8">
                             <input type="text" class="textbox" id="line" tabindex="40" data-ng-model="feedback.CustomerInfo.Line" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <label for="bbm">@Labels.BBM</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <input type="text" class="textbox" id="bbm" tabindex="43" data-ng-model="feedback.CustomerInfo.BBM" />
                         </div>
                     </div>
                 </div>
@@ -354,15 +387,6 @@
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
                                 <select id="ddlstatus" tabindex="70" data-ng-model="feedback.Status" data-ng-options="s.Name for s in settings.StatusList track by s.Id">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row item">
-                            <div class="col-xs-4 col-sm-4 col-md-4 ">
-                                <label for="licensee-type">
-                                    @Labels.Licensee_Type</label></div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 licensee-type-picker-container" data-ng-model="licenseeTypeOptions.DataList">
-                                <select id="licensee-type" tabindex="73">
                                 </select>
                             </div>
                         </div>

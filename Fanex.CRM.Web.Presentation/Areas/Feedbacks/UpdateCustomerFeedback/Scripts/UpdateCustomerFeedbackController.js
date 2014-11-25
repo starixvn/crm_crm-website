@@ -16,7 +16,6 @@ function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
     $scope.reviewedBy = '';
     $scope.relatedCustomers = [];
     $scope.hasReviewPermission = hasReviewFeedbackPermission === 'True';
-    $scope.licenseeTypeOptions = null;
     var oldReview;
     $scope.panelManager = {
         customer: false,
@@ -191,11 +190,6 @@ function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
                             OnChangeEvent: $scope.updateReview,
                             SelectedText: $scope.feedback.Review,
                             EditIconText: updateFeedbackResources.InsertEditBlock
-                        };
-                        $scope.licenseeTypeOptions = {
-                            DataList: $scope.settings.LicenseeType,
-                            OnChangeEvent: $scope.updateSelectedLicenseeType,
-                            SelectedId: $scope.feedback.LicenseeType.Id
                         };
 
                         angular.forEach($scope.settings.Products, function (product, index) {
@@ -398,11 +392,7 @@ function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
             orgLengt = arrayTemp.length;
         }
     };
-    $scope.updateSelectedLicenseeType = function (licenseeType) {
-        $scope.feedback.LicenseeType = licenseeType;
-        $scope.safeApply();
-    };
-
+    
     angular.element(document).ready(function () {
         sharedScriptManager.safeApply($scope);
         $scope.initController();

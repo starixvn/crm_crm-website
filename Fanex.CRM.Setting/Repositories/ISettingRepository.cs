@@ -49,5 +49,9 @@ namespace Fanex.CRM.Setting.Repositories
         List<BaseModel> GetAllCurrencyInformHeadline(GetAllCurrencyInformHeadlineCriteria criteria);
 
         List<BaseModel> GetAllSiteInformHeadline(GetAllSiteInformHeadlineCriteria criteria);
+
+        List<BaseModel> GetAllLicenseeType(GetAllLicenseeTypeCriteria criteria);
+
+        List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria);
     }
 }

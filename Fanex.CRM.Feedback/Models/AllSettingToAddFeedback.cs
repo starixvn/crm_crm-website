@@ -13,6 +13,7 @@ namespace Fanex.CRM.Feedback.Models
     using System;
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Models;
 
     /// <summary>
@@ -43,6 +44,6 @@ namespace Fanex.CRM.Feedback.Models
 
         public List<SettingInfo> RoleList { get; set; }
 
-        public List<SettingInfo> LicenseeType { get; set; }
+        public List<BaseModel> LicenseeType { get; set; }
     }
 }

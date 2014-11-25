@@ -98,5 +98,17 @@ namespace Fanex.CRM.Customer.Services
 
             return updateResult;
         }
+
+        public dynamic GetSettings()
+        {
+            return new
+            {
+                Titles = _settingService.AllTitle(),
+                Languages = _settingService.AllLanguage(),
+                Sites = _settingService.AllSite(),
+                LicenseeTypes = _settingService.AllLicenseeType(),
+                Countries = _settingService.AllCountry()
+            };
+        }
     }
 }

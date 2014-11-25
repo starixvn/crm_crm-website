@@ -56,9 +56,9 @@ function (
         $scope.BlockUI();
         $insertLogService.getAllStatus()
             .then(function (data) {
-                $scope.currencies = [{ Id: 1, Name: 'USD' }, { Id: 2, Name: 'EURO'}];
+                $scope.currencies = data.Result.Currencies;
                 $scope.redemptionLog.Currency = $scope.currencies[0];
-                $scope.statusList = data.Result;
+                $scope.statusList = data.Result.StatusList;
                 $scope.redemptionLog.Status.Id = $scope.statusList[0].Id;
                 $scope.oldRedemptionLog.Status.Id = $scope.statusList[0].Id;
                 $scope.loadedFilter.push({

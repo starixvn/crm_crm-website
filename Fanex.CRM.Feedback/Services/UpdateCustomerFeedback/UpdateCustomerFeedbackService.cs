@@ -11,13 +11,13 @@ namespace Fanex.CRM.Feedback.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Repositories;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
 
     /// <summary>
@@ -54,16 +54,13 @@ namespace Fanex.CRM.Feedback.Services
             var languages = _settingService.AllLanguage();
             languages.Insert(0, new SettingInfo { Id = 0, Name = Labels.Symbol_NA });
 
-            var statusList = new List<SettingInfo>();
-            var statusRawData = _settingService.AllStatus(new GetAllStatusCriteria { ViewType = ViewTypeConstants.CommunicationTool });
-            if (statusRawData != null)
+            var statusRawData = _settingService.AllStatus(ViewTypeConstants.CommunicationTool);
+            if (!hasDeleteFeedbackPermission)
             {
-                foreach (var status in statusRawData)
+                var deletedStatus = statusRawData.SingleOrDefault(s => string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase));
+                if (deletedStatus != null)
                 {
-                    if (IsIncludedStatus(status.Name, hasDeleteFeedbackPermission))
-                    {
-                        statusList.Add(status);
-                    }
+                    statusRawData.Remove(deletedStatus);    
                 }
             }
 
@@ -77,10 +74,10 @@ namespace Fanex.CRM.Feedback.Services
                 Products = _settingService.AllProduct(),
                 Countries = countries,
                 Languages = languages,
-                StatusList = statusList,
+                StatusList = statusRawData,
                 Roles = _settingService.AllRole(),
                 Responses = _settingService.AllResponse(),
-                LicenseeType = _settingService.AllLicenseeType()
+                LicenseeTypes = _settingService.AllLicenseeType()
             };
         }
 
@@ -92,15 +89,6 @@ namespace Fanex.CRM.Feedback.Services
         public void UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)
         {
             _updateCustomerFeedbackRepsitory.UpdateFeedback(criteria);
-        }
-
-        private bool IsIncludedStatus(string statusName, bool hasDeleteFeedbackPermission)
-        {
-            return string.Equals(statusName, Labels.Checked, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(statusName, Labels.Solved, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(statusName, Labels.Closed, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(statusName, Labels.Pending, StringComparison.OrdinalIgnoreCase) ||
-                (hasDeleteFeedbackPermission && string.Equals(statusName, Labels.Deleted, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

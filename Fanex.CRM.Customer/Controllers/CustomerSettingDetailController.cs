@@ -63,5 +63,10 @@ namespace Fanex.CRM.Customer.Controllers
             var jsonResult = Json(customerInfoDetail, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
+
+        public JsonResult AllSettings() 
+        {
+            return Json(_customerServiceInstance.GetSettings(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

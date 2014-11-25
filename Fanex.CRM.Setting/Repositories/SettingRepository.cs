@@ -299,7 +299,7 @@ namespace Fanex.CRM.Setting.Repositories
             var allStatus = new List<SettingInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
                     if (reader != null)
                     {
@@ -516,6 +516,58 @@ namespace Fanex.CRM.Setting.Repositories
             }
 
             return allBetType;
+        }
+
+        /// <summary>
+        /// Gets the type of all licensee.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Licensee Type list.</returns>
+        public List<BaseModel> GetAllLicenseeType(GetAllLicenseeTypeCriteria criteria)
+        {
+            var licenseeTypes = new List<BaseModel>();
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = db.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        licenseeTypes.Add(new BaseModel 
+                        { 
+                            Id = Converter.ToInt(reader["LicenseeType"]),
+                            Name = Converter.ToString2(reader["Licensee"])
+                        });    
+                    }
+                }
+            }
+
+            return licenseeTypes;
+        }
+
+        /// <summary>
+        /// Gets all currency.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The currency list.</returns>
+        public List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria)
+        {
+            var currencies = new List<BaseModel>();
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = db.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        currencies.Add(new BaseModel
+                        {
+                            Id = Converter.ToInt(reader["CurrencyId"]),
+                            Name = Converter.ToString2(reader["Currency"])
+                        });
+                    }
+                }
+            }
+
+            return currencies;
         }
     }
 }

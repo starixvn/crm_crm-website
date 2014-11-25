@@ -15,6 +15,7 @@ namespace Fanex.CRM.ActionLog.Services
     using Fanex.CRM.ActionLog.Resources;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
 
     /// <summary>
@@ -41,14 +42,18 @@ namespace Fanex.CRM.ActionLog.Services
                     key,
                     () =>
                     {
-                    var countries = SettingServiceInstance.AllCountry()
+                        var countries = SettingServiceInstance.AllCountry()
                             .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Country" });
 
-                    var settings = SettingServiceInstance.AllSetting();
+                        var currencies = SettingServiceInstance.GetAllCurrency(new GetAllCurrencyCriteria())
+                            .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Currency" });
+
+                        var settings = SettingServiceInstance.AllSetting();
                         settings.AddRange(countries);
+                        settings.AddRange(currencies);
 
                         // Add default N/A
-                        settings.Add(new SettingInfo { Id = 0, Value = Labels.NA });
+                        settings.Add(new SettingInfo { Id = 0, Value = Labels.NA, SettingType = string.Empty });
 
                         return ListToHash(settings);
                     });
@@ -96,7 +101,7 @@ namespace Fanex.CRM.ActionLog.Services
             IDictionary<string, string> settingHash = new Dictionary<string, string>(128);
             foreach (SettingInfo setting in settingInfos)
             {
-                settingHash.Add(setting.Id.ToString(), setting.Value);
+                settingHash.Add(setting.Id.ToString() + setting.SettingType, setting.Value);
             }
 
             return settingHash;

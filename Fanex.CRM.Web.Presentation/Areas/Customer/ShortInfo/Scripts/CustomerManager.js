@@ -1,6 +1,5 @@
 ﻿"use strict";
-/* global sharedScriptManager, accId, crmConstants */
-
+/* global sharedScriptManager, accId, crmConstants, hotKeyManager */
 var customerManager;
 var CustomerManager = function () {
     var self = this;
@@ -507,8 +506,11 @@ var CustomerManager = function () {
             parent.$.unblockUI();
         } catch (e) {
         }
+
+        hotKeyManager.CachedData.isBlockingUI = false;
     };
     self.BlockUI = function () {
+        hotKeyManager.CachedData.isBlockingUI = true;
         try {
             parent.BlockUI();
         } catch (e) {

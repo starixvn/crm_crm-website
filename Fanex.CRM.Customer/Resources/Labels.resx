@@ -450,4 +450,25 @@
   <data name="Currency" xml:space="preserve">
     <value>Currency</value>
   </data>
+  <data name="BBM" xml:space="preserve">
+    <value>BBM</value>
+  </data>
+  <data name="Communication_Info" xml:space="preserve">
+    <value>Communication Info</value>
+  </data>
+  <data name="QQ" xml:space="preserve">
+    <value>QQ</value>
+  </data>
+  <data name="WeChat" xml:space="preserve">
+    <value>WeChat</value>
+  </data>
+  <data name="WhatsApp" xml:space="preserve">
+    <value>What's App</value>
+  </data>
+  <data name="Yahoo" xml:space="preserve">
+    <value>Yahoo</value>
+  </data>
+  <data name="LicenseeType" xml:space="preserve">
+    <value>Licensee Type</value>
+  </data>
 </root>

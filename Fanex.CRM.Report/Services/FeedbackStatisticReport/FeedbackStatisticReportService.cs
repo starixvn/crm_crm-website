@@ -264,7 +264,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                 }
             }
 
-            var statusList = _settingService.AllStatus(new GetAllStatusCriteria { ViewType = ViewTypeConstants.All });
+            var statusList = _settingService.AllStatus(ViewTypeConstants.All);
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NotApply);
 

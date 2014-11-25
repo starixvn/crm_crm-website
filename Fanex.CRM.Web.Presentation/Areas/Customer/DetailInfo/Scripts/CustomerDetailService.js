@@ -47,72 +47,9 @@ customerDetailApplication.factory('$customerDetailService', ['$http', '$q',
 
          return deferred.promise;
      };
-     serviceInstance.getAllSite = function () {
+     serviceInstance.getAllSettings = function () {
          var deferred = $q.defer();
-         $http.post(window.rootUrl + "Setting/AllSite", null)
-             .success(function (data, status, headers, config) {
-                 deferred.resolve({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             }).error(function (data, status, headers, config) {
-                 deferred.reject({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             });
-
-         return deferred.promise;
-     };
-     serviceInstance.getAllCountry = function () {
-         var deferred = $q.defer();
-         $http.post(window.rootUrl + "Setting/AllCountry", null)
-             .success(function (data, status, headers, config) {
-                 deferred.resolve({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             }).error(function (data, status, headers, config) {
-                 deferred.reject({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             });
-
-         return deferred.promise;
-     };
-     serviceInstance.getAllLanguage = function () {
-         var deferred = $q.defer();
-         $http.post(window.rootUrl + "Setting/AllLanguage", null)
-             .success(function (data, status, headers, config) {
-                 deferred.resolve({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             }).error(function (data, status, headers, config) {
-                 deferred.reject({
-                     Result: data,
-                     Status: status,
-                     Headers: headers,
-                     Config: config
-                 });
-             });
-
-         return deferred.promise;
-     };
-     serviceInstance.getAllTitle = function () {
-         var deferred = $q.defer();
-         $http.post(window.rootUrl + "Setting/AllTitle", null)
+         $http.get(window.rootUrl + "CustomerSettingDetail/AllSettings")
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

@@ -51,6 +51,7 @@ namespace Fanex.CRM.Communication.Criteria
             param.Add("bettypeid", BetTypeId);
             param.Add("responseid", ResponseId);
             param.Add("statusid", StatusId);
+            param.Add("licenseetype", LicenseeTypeId);
             param.Add("description", StringExtension.GetValueNotNull(Remark));
             param.Add("solution", StringExtension.GetValueNotNull(Solution));
             param.Add("subject", StringExtension.GetValueNotNull(Subject));

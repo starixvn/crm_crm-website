@@ -79,6 +79,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BBM.
+        /// </summary>
+        public static string BBM {
+            get {
+                return ResourceManager.GetString("BBM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet Type.
         /// </summary>
         public static string BetType {
@@ -727,6 +736,15 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to QQ.
+        /// </summary>
+        public static string QQ {
+            get {
+                return ResourceManager.GetString("QQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ref Codes.
         /// </summary>
         public static string RefCodes {
@@ -1006,15 +1024,6 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Viber.
-        /// </summary>
-        public static string Viber {
-            get {
-                return ResourceManager.GetString("Viber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to VIP.
         /// </summary>
         public static string VIP {
@@ -1024,11 +1033,29 @@ namespace Fanex.CRM.Feedback.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to WeChat.
+        /// </summary>
+        public static string WeChat {
+            get {
+                return ResourceManager.GetString("WeChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What&apos;s App.
         /// </summary>
         public static string WhatsApp {
             get {
                 return ResourceManager.GetString("WhatsApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yahoo.
+        /// </summary>
+        public static string Yahoo {
+            get {
+                return ResourceManager.GetString("Yahoo", resourceCulture);
             }
         }
     }

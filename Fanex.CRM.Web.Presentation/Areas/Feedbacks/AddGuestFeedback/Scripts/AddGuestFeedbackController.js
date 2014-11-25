@@ -26,7 +26,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             Passport: {
                 Name: ''
             },
-            PersonalInfoContact: ["", "", "", ""],
+            PersonalInfoContacts: [{ Name: '', Phone: '' }, { Name: '', Phone: '' }, { Name: '', Phone: '' }, { Name: '', Phone: ''}],
             BettingCode: ["", ""],
             PhoneInfo: [{
                 CountryCode: "",
@@ -139,6 +139,10 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
 
             $scope.descriptionOptions.SelectedText = '';
             $scope.solutionOptions.SelectedText = '';
+            $scope.licenseeTypeOptions = {
+                DataList: $scope.allSettings.LicenseeType,
+                OnChangeEvent: $scope.updateSelectedLicenseeType
+            };
 
             $scope.updateSelectedCommunicationTool($scope.communicationToolOptions.DataList[0]);
             $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
@@ -151,6 +155,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             $scope.updateSelectedSubCategory($scope.subCategoryOptions.DataList[0]);
             $scope.addGuestFeedbackParams.CustomerInfo = $scope.customerInfo;
             $scope.updateRemarkPrefix();
+            $scope.updateSelectedLicenseeType($scope.licenseeTypeOptions.DataList[0]);
 
             $scope.oldParams = angular.copy($scope.addGuestFeedbackParams);
             $scope.oldParams.CustomerInfo.BirthDayString = 'Jan 01, 1970';
@@ -346,8 +351,8 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                 sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.PhoneInfo, $scope.addGuestFeedbackParams.CustomerInfo.PhoneInfo) &&
                 sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.FaxInfo, $scope.addGuestFeedbackParams.CustomerInfo.FaxInfo) &&
                 sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.MobilePhone, $scope.addGuestFeedbackParams.CustomerInfo.MobilePhone) &&
-                sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.PersonalInfoContact,
-                    $scope.addGuestFeedbackParams.CustomerInfo.PersonalInfoContact) &&
+                sharedScriptManager.deepCompare($scope.oldParams.CustomerInfo.PersonalInfoContacts,
+                    $scope.addGuestFeedbackParams.CustomerInfo.PersonalInfoContacts) &&
                 $scope.oldParams.CustomerInfo.Skype === $scope.addGuestFeedbackParams.CustomerInfo.Skype &&
                 $scope.oldParams.CustomerInfo.Email === $scope.addGuestFeedbackParams.CustomerInfo.Email &&
                 $scope.oldParams.CustomerInfo.MSN === $scope.addGuestFeedbackParams.CustomerInfo.MSN &&

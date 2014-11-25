@@ -19,9 +19,7 @@ $customerReportService) {
     $scope.toDateOptions = null;
     $scope.siteOptions = null;
     $scope.titleOptions = null;
-    //$scope.customerTypeOptions = null;
     $scope.languageOptions = null;
-    //$scope.countryOptions = null;
     $scope.defaultFocusOptions = null;
     $scope.downloadFileOptions = null;
     $scope.vipTypeOptions = null;
@@ -36,14 +34,9 @@ $customerReportService) {
         FromDate: '',
         ToDate: '',
         Username: '',
-        //FirstName: '',
-        //LastName: '',
-
-        //CountryIds: '',
         LanguageIds: '',
         SiteIds: '',
         Title: null,
-        //CustomerType: null,
         VIPType: null,
         PageIndex: 0,
         PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
@@ -54,14 +47,13 @@ $customerReportService) {
     $scope.lastSelectedParams = angular.copy($scope.searchCriteria);
 
     $scope.initController = function () {
-        $scope.getAllSetting();
+        $scope.initPicker();
         hotKeyManager.CachedData.ActiveDocumentManager.push({
             Value: $scope,
             Id: "Report_CustomerReport"
         });
 
-        $scope.initPicker();
-
+        $scope.getAllSetting();
         $scope.defaultFocusOptions = {
             IsSetFocus: false,
             OnChangeEvent: $scope.completeSetFocus
@@ -93,23 +85,11 @@ $customerReportService) {
         };
         $scope.updateToDatePicker();
 
-        $scope.siteOptions = {
-            DataList: [],
-            OnChangeEvent: $scope.updateSelectedSite,
-            AllText: viewResources.All
-        };
-
         $scope.titleOptions = {
             DataList: [],
             OnChangeEvent: $scope.updateSelectedTitle,
             AllText: viewResources.All
         };
-
-        /*$scope.customerTypeOptions = {
-        DataList: [],
-        OnChangeEvent: $scope.updateSelectedCustomerType,
-        AllText: viewResources.All
-        };*/
 
         $scope.vipTypeOptions = {
             DataList: [],
@@ -161,29 +141,23 @@ $customerReportService) {
         $scope.BlockUI();
         $scope.isLoadedAllSite = false;
         $customerReportService.getAllSetting()
-.then(function (data) {
-    var allSetting = data.Result;
-    $scope.siteOptions.DataList = allSetting.SiteList;
-    $scope.titleOptions.DataList = allSetting.TitleList;
-    //$scope.customerTypeOptions.DataList = allSetting.CustomerTypeList;
-    $scope.vipTypeOptions.DataList = allSetting.VIPTypeList;
-    $scope.languageOptions.DataList = allSetting.LanguageList;
-    //$scope.countryOptions.DataList = allSetting.CountryList;
-    $scope.completedLoadFilterInfo();
-},
-function (data) {
-    $scope.completedLoadFilterInfo();
-});
+            .then(function (data) {
+                var allSetting = data.Result;
+                $scope.siteOptions.DataList = allSetting.SiteList;
+                $scope.titleOptions.DataList = allSetting.TitleList;
+                $scope.vipTypeOptions.DataList = allSetting.VIPTypeList;
+                $scope.languageOptions.DataList = allSetting.LanguageList;
+                $scope.completedLoadFilterInfo();
+            },
+            function (data) {
+                $scope.completedLoadFilterInfo();
+            });
     };
     $scope.completedLoadFilterInfo = function () {
         $scope.searchCriteria.Title = $scope.titleOptions.DataList[0];
-        //$scope.searchCriteria.CustomerType = $scope.customerTypeOptions.DataList[0];
         $scope.searchCriteria.VIPType = $scope.vipTypeOptions.DataList[0];
         $scope.unblockUI();
     };
-    /*$scope.updateSelectedCountry = function (countryIdList) {
-    $scope.searchCriteria.CountryIds = countryIdList;
-    };*/
     $scope.updateSelectedLanguage = function (languageIdList) {
         $scope.searchCriteria.LanguageIds = languageIdList;
     };
@@ -193,9 +167,6 @@ function (data) {
     $scope.updateSelectedTitle = function (title) {
         $scope.searchCriteria.Title = title;
     };
-    /*$scope.updateSelectedCustomerType = function (customerType) {
-    $scope.searchCriteria.CustomerType = customerType;
-    };*/
     $scope.updateFromDate = function (selectedDate) {
         $scope.searchCriteria.FromDate = selectedDate;
         if ($scope.toDateOptions) {
@@ -221,21 +192,16 @@ function (data) {
         $scope.BlockUI();
         var getReportCriteria = {
             FromDateBirthDay: $scope.searchCriteria.FromDate ?
-moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
-'',
+                moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                '',
             ToDateBirthDay: $scope.searchCriteria.ToDate ?
-moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
-'',
+                moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+                '',
 
             Username: $scope.searchCriteria.Username,
-            //FirstName: $scope.searchCriteria.FirstName,
-            //LastName: $scope.searchCriteria.LastName,
-
-            //CountryIds: $scope.searchCriteria.CountryIds,
             LanguageIds: $scope.searchCriteria.LanguageIds,
             SiteIds: $scope.searchCriteria.SiteIds,
             TitleId: $scope.searchCriteria.Title.Id,
-            //CustomerTypeId: $scope.searchCriteria.CustomerType.Id,
             VIPTypeId: $scope.searchCriteria.VIPType.Id,
             PageIndex: $scope.searchCriteria.PageIndex,
             PageSize: $scope.searchCriteria.PageSize,
@@ -246,14 +212,14 @@ moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.Sh
 
         $scope.lastSelectedParams = getReportCriteria;
         $customerReportService.getCustomerReport(getReportCriteria)
-.then(function (data) {
-    $scope.customerReportOptions.DataList = data.Result;
-    $scope.customerReportOptions.IsUpdateGrid = true;
-    $scope.unblockUI();
-},
-function (data) {
-    $scope.unblockUI();
-});
+            .then(function (data) {
+                $scope.customerReportOptions.DataList = data.Result;
+                $scope.customerReportOptions.IsUpdateGrid = true;
+                $scope.unblockUI();
+            },
+            function (data) {
+                $scope.unblockUI();
+            });
     };
     $scope.pagingCustomerReport = function (pageIndex, pageSize) {
         $scope.BlockUI();
@@ -262,28 +228,28 @@ function (data) {
         $scope.lastSelectedParams.IsGetFromCached = true;
         $scope.lastSelectedParams.IsSortReport = false;
         $customerReportService.getCustomerReport($scope.lastSelectedParams)
-.then(function (data) {
-    $scope.customerReportOptions.DataList = data.Result;
-    $scope.customerReportOptions.IsUpdateGrid = true;
-    $scope.unblockUI();
-},
-function (data) {
-    $scope.unblockUI();
-});
+            .then(function (data) {
+                $scope.customerReportOptions.DataList = data.Result;
+                $scope.customerReportOptions.IsUpdateGrid = true;
+                $scope.unblockUI();
+            },
+            function (data) {
+                $scope.unblockUI();
+            });
     };
     $scope.sortCustomerReport = function () {
         $scope.BlockUI();
         $scope.lastSelectedParams.IsGetFromCached = true;
         $scope.lastSelectedParams.IsSortReport = true;
         $customerReportService.getCustomerReport($scope.lastSelectedParams)
-.then(function (data) {
-    $scope.customerReportOptions.DataList = data.Result;
-    $scope.customerReportOptions.IsUpdateGrid = true;
-    $scope.unblockUI();
-},
-function (data) {
-    $scope.unblockUI();
-});
+            .then(function (data) {
+                $scope.customerReportOptions.DataList = data.Result;
+                $scope.customerReportOptions.IsUpdateGrid = true;
+                $scope.unblockUI();
+            },
+            function (data) {
+                $scope.unblockUI();
+            });
     };
     $scope.exportReport = function () {
         $scope.downloadFileOptions = {

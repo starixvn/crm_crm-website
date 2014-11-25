@@ -41,12 +41,15 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllMainCategorySessionKey = "Fanex.CRM.Setting.GetAllMainCategorySessionKey";
         public const string GetAllProductSessionKey = "Fanex.CRM.Setting.GetAllProductSessionKey";
         public const string GetAllStatusSessionKey = "Fanex.CRM.Setting.GetAllStatusSessionKey";
+        public const string GetAllStatusCommunicationTool = "Fanex.CRM.Setting.GetAllStatusCommunicationToolSessionKey";
+        public const string GetAllStatusRedemption = "Fanex.CRM.Setting.GetAllStatusRedemptionSessionKey";
         public const string GetAllRoleSessionKey = "Fanex.CRM.Setting.GetAllRoleSessionKey";
         public const string GetAllResponseSessionKey = "Fanex.CRM.Setting.GetAllResponseSessionKey";
         public const string GetAllActivityLogActionKey = "Fanex.CRM.Setting.GetAllActivityLogActionKey";
         public const string GetAllSettingLogActionKey = "Fanex.CRM.Setting.GetAllSettingLogActionKey";
         public const string GetAllInformHeadlineSettingKey = "Fanex.CRM.Setting.GetAllInformHeadlineSettingKey";
         public const string GetAllLicenseeTypeSessionKey = "Fanex.CRM.Setting.GetAllLicenseeTypeSessionKey";
+        public const string GetAllCurrencySessionKey = "Fanex.CRM.Setting.GetAllCurrencySessionKey";
 
         private readonly ISettingRepository _settingRepositoryInstance;
 
@@ -417,7 +420,6 @@ namespace Fanex.CRM.Setting.Services
             {
                 var allProduct = new List<SettingInfo>();
                 allProduct = CacheService.Get<List<SettingInfo>>(GetAllProductSessionKey);
-                allProduct = null;
                 if (allProduct != null)
                 {
                     return allProduct;
@@ -468,23 +470,35 @@ namespace Fanex.CRM.Setting.Services
         /// <summary>
         /// Gets all status.
         /// </summary>
-        /// <param name="criteria">The criteria.</param>
+        /// <param name="statusType">Type of the status.</param>
         /// <returns>
         /// All status.
         /// </returns>
-        public List<SettingInfo> AllStatus(GetAllStatusCriteria criteria)
+        public List<SettingInfo> AllStatus(int statusType)
         {
+            string key = GetAllStatusSessionKey;
+            if (statusType == ViewTypeConstants.CommunicationTool)
+            {
+                key = GetAllStatusCommunicationTool;    
+            }
+            else if (statusType == ViewTypeConstants.Redemption)
+            {
+                key = GetAllStatusRedemption; 
+            }
+
             try
             {
-                var allStatus = new List<SettingInfo>();
-                allStatus = null;
+                var allStatus = CacheService.Get<List<SettingInfo>>(key);
                 if (allStatus != null)
                 {
                     return allStatus;
                 }
 
-                allStatus = _settingRepositoryInstance.GetAllStatus(criteria);
-                allStatus = allStatus.OrderBy(s => s.DisplayOrder).ToList();
+                allStatus = _settingRepositoryInstance.GetAllStatus(new GetAllStatusCriteria(statusType))
+                    .OrderBy(s => s.DisplayOrder)
+                    .ToList();
+                CacheService.Set(key, allStatus);
+
                 return allStatus;
             }
             catch (Exception ex)
@@ -661,44 +675,69 @@ namespace Fanex.CRM.Setting.Services
         /// Gets all licensee types.
         /// </summary>
         /// <returns>The all licensee types.</returns>
-        public List<SettingInfo> AllLicenseeType()
+        public List<BaseModel> AllLicenseeType()
         {
+            string key = GetAllLicenseeTypeSessionKey;
             try
             {
-                var allLicenseeType = CacheService.Get<List<SettingInfo>>(GetAllLicenseeTypeSessionKey);
-                if (allLicenseeType != null)
+                var licenseeTypes = CacheService.Get<List<BaseModel>>(key);
+                if (licenseeTypes != null)
                 {
-                    return allLicenseeType;
+                    return licenseeTypes;
                 }
 
-                allLicenseeType = new List<SettingInfo>();
-                var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
-                {
-                    SettingName = SettingTypeConstants.LicenseeType,
-                    ParentId = 0
-                });
-
-                var notApplySetting = new SettingInfo
+                licenseeTypes = _settingRepositoryInstance.GetAllLicenseeType(new GetAllLicenseeTypeCriteria());
+                licenseeTypes.Insert(
+                    0, 
+                    new BaseModel
                 {
                     Id = SettingConstants.NotApply,
-                    Value = Labels.Symbol_NotApply
-                };
+                    Name = Labels.Symbol_NotApply
+                });
 
-                allLicenseeType.Add(notApplySetting);
-
-                foreach (var data in rawData)
-                {
-                    allLicenseeType.Add(data);
-                }
-
-                CacheService.Set(GetAllProductSessionKey, allLicenseeType);
-                return allLicenseeType;
+                CacheService.Set(key, licenseeTypes);
+                return licenseeTypes;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Gets all currency.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The currency list.</returns>
+        public List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria)
+        {
+            string key = GetAllCurrencySessionKey;
+            try
+            {
+                var currencies = CacheService.Get<List<BaseModel>>(key);
+                if (currencies != null)
+                {
+                    return currencies;
+                }
+
+                currencies = _settingRepositoryInstance.GetAllCurrency(criteria);
+                currencies.Insert(
+                    0,
+                    new BaseModel
+                    {
+                        Id = SettingConstants.NotApply,
+                        Name = Labels.Symbol_NotApply
+                    });
+
+                CacheService.Set(key, currencies);
+                return currencies;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }    
         }
 
         /// <summary>
@@ -950,45 +989,6 @@ namespace Fanex.CRM.Setting.Services
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Gets all feedback status.
-        /// </summary>
-        /// <returns>
-        /// All feedback status.
-        /// </returns>
-        public List<SettingInfo> AllFeedbackStatus()
-        {
-            try
-            {
-                var allStatusResult = new List<SettingInfo>();
-                var allStatusSetting = AllStatus(new GetAllStatusCriteria
-                {
-                    ViewType = ViewTypeConstants.CommunicationTool
-                });
-
-                if (allStatusSetting == null)
-                {
-                    return allStatusResult;
-                }
-
-                return allStatusSetting.Where(status => IsFeedbackStatus(status.Name)).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        private bool IsFeedbackStatus(string statusName)
-        {
-            return string.Equals(statusName, Labels.Checked, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(statusName, Labels.Solved, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(statusName, Labels.Closed, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(statusName, Labels.Pending, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(statusName, Labels.Deleted, StringComparison.OrdinalIgnoreCase);
         }
 
         private void GetSubSetting(string key, List<SettingInfo> settingList, IEnumerable<SettingInfo> allSetting)

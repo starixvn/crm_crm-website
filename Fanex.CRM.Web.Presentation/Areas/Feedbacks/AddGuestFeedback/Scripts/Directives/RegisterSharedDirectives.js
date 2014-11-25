@@ -28,6 +28,7 @@ function addGuestFeedbackRegisterPicker() {
     addGuestFeedbackRegister.registerTipsyDirective();
     addGuestFeedbackRegister.registerRelatedCustomerDirective();
     addGuestFeedbackRegister.registerDefaultFocus();
+    addGuestFeedbackRegister.registerLicenseeTypePicker();
 
     var birthdayRegisterParams = {
         PlugInName: 'datePickerContainer',

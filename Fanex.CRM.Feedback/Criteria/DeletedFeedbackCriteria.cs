@@ -12,7 +12,6 @@ namespace Fanex.CRM.Feedback.Criteria
 {
     using System;
     using System.Collections;
-    using Fanex.CRM.Common.Helpers;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -58,8 +57,8 @@ namespace Fanex.CRM.Feedback.Criteria
         public override Hashtable GetSpParams()
         {
             var inputParams = new Hashtable();
-            inputParams.Add("fromdate", DateTimeUtilize.ChangeClientFromTimeToServerTime(FromDate));
-            inputParams.Add("todate", DateTimeUtilize.ChangeClientToTimeToServerTime(ToDate));
+            inputParams.Add("fromdate", FromDate);
+            inputParams.Add("todate", ToDate);
 
             inputParams.Add("username", Username);
             if (IsGuest >= 0)

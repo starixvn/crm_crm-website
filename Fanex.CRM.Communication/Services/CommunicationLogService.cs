@@ -11,6 +11,7 @@ namespace Fanex.CRM.Communication.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Communication.Criteria;
@@ -21,7 +22,6 @@ namespace Fanex.CRM.Communication.Services
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
 
     /// <summary>
@@ -70,37 +70,18 @@ namespace Fanex.CRM.Communication.Services
         {
             get
             {
-                var allStatusResult = new List<SettingInfo>();
                 try
                 {
-                    var allStatusSetting = _serviceSetting.AllStatus(new GetAllStatusCriteria
-                    {
-                        ViewType = ViewTypeConstants.CommunicationTool
-                    });
+                    var allStatusSetting = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+                        .Where(s => !string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase));
 
-                    if (allStatusSetting == null)
-                    {
-                        return allStatusResult;
-                    }
-
-                    foreach (var status in allStatusSetting)
-                    {
-                        if (status.Name == Labels.Checked ||
-                            status.Name == Labels.Solved ||
-                            status.Name == Labels.Closed ||
-                            status.Name == Labels.Pending)
-                        {
-                            allStatusResult.Add(status);
-                        }
-                    }
+                    return allStatusSetting.ToList();
                 }
                 catch (Exception ex)
                 {
                     LogExtensions.ExceptionHandler(ex);
                     throw;
                 }
-
-                return allStatusResult;
             }
         }
 

@@ -77,12 +77,22 @@ namespace Fanex.CRM.Customer.Repositories
                 {
                     Id = Converter.ToInt(reader["CountryID"])
                 },
+                //LicenseeType = new BaseModel 
+                //{
+                //    Id = Converter.ToInt(reader["LicenseeType"])
+                //},
 
                 Question = Converter.ToString2(reader["Question"]),
                 Answer = Converter.ToString2(reader["Answer"]),
                 IsVIP = Converter.ToBool(reader["IsVIP"]),
                 CreatedDate = Converter.ToDateTime(reader["CreateDate"]),
-                BirthDay = Converter.ToDateTime(reader["BirthDay"]).ToShortFormatedDate()
+                BirthDay = Converter.ToDateTime(reader["BirthDay"]).ToShortFormatedDate(),
+                WeChat = Converter.ToString2(reader["WeChat"]),
+                WhatsApp = Converter.ToString2(reader["WhatsApp"]),
+                Line = Converter.ToString2(reader["Line"]),
+                Yahoo = Converter.ToString2(reader["Yahoo"]),
+                QQ = Converter.ToString2(reader["QQ"]),
+                BBM = Converter.ToString2(reader["BBM"])
             };
 
             customer.NickName = customer.Id > 0 ?
@@ -91,13 +101,8 @@ namespace Fanex.CRM.Customer.Repositories
             
             customer.PersonalInfoContacts.Add(new PersonalInfoContact
             {
-                Name = Converter.ToString2(reader["Pic4Name"]),
-                Phone = Converter.ToString2(reader["Pic4"])
-            });
-            customer.PersonalInfoContacts.Add(new PersonalInfoContact
-            {
-                Name = Converter.ToString2(reader["Pic3Name"]),
-                Phone = Converter.ToString2(reader["Pic3"])
+                Name = Converter.ToString2(reader["Pic1Name"]),
+                Phone = Converter.ToString2(reader["Pic1"])
             });
             customer.PersonalInfoContacts.Add(new PersonalInfoContact
             {
@@ -106,8 +111,13 @@ namespace Fanex.CRM.Customer.Repositories
             });
             customer.PersonalInfoContacts.Add(new PersonalInfoContact
             {
-                Name = Converter.ToString2(reader["Pic1Name"]),
-                Phone = Converter.ToString2(reader["Pic1"])
+                Name = Converter.ToString2(reader["Pic3Name"]),
+                Phone = Converter.ToString2(reader["Pic3"])
+            });
+            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic4Name"]),
+                Phone = Converter.ToString2(reader["Pic4"])
             });
 
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode1"]));

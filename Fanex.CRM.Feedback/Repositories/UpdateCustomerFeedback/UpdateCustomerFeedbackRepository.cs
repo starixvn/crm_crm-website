@@ -95,7 +95,17 @@ namespace Fanex.CRM.Feedback.Repositories
                 MSN = Converter.ToString2(reader["MSN"]),
                 Passport = new BaseModel { Name = Converter.ToString2(reader["Passport"]) },
                 BirthDay = birthday == DateTime.MinValue ? string.Empty : birthday.ToShortFormatedDate(),
-                IsVIP = Converter.ToBool(reader["IsVip"])
+                IsVIP = Converter.ToBool(reader["IsVip"]),
+                WeChat = Converter.ToString2(reader["WeChat"]),
+                WhatsApp = Converter.ToString2(reader["WhatsApp"]),
+                Line = Converter.ToString2(reader["Line"]),
+                Yahoo = Converter.ToString2(reader["Yahoo"]),
+                QQ = Converter.ToString2(reader["QQ"]),
+                BBM = Converter.ToString2(reader["BBM"]),
+                LicenseeType = new BaseModel
+                {
+                    Id = Converter.ToInt(reader["LicenseeType"])
+                }
             };
 
             customer.BirthDayString = customer.BirthDay;
@@ -106,26 +116,33 @@ namespace Fanex.CRM.Feedback.Repositories
             customer.SiteSetting.Id = Converter.ToInt(reader["SiteId"]);
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode1"]));
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode2"]));
-            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            PersonalInfoContact pic = new PersonalInfoContact 
             {
                 Name = Converter.ToString2(reader["Pic1Name"]),
                 Phone = Converter.ToString2(reader["Pic1"])
-            });
-            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            };
+            customer.PersonalInfoContacts.Add(pic);
+
+            pic = new PersonalInfoContact
             {
                 Name = Converter.ToString2(reader["Pic2Name"]),
                 Phone = Converter.ToString2(reader["Pic2"])
-            });
-            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            };
+            customer.PersonalInfoContacts.Add(pic);
+
+            pic = new PersonalInfoContact
             {
                 Name = Converter.ToString2(reader["Pic3Name"]),
                 Phone = Converter.ToString2(reader["Pic3"])
-            });
-            customer.PersonalInfoContacts.Add(new PersonalInfoContact
+            };
+            customer.PersonalInfoContacts.Add(pic);
+
+            pic = new PersonalInfoContact
             {
                 Name = Converter.ToString2(reader["Pic4Name"]),
                 Phone = Converter.ToString2(reader["Pic4"])
-            });
+            };
+            customer.PersonalInfoContacts.Add(pic);
 
             return customer;
         }
@@ -161,12 +178,7 @@ namespace Fanex.CRM.Feedback.Repositories
                 IsReviewed = Converter.ToBool(reader["IsReviewed"]),
                 ReviewerId = Converter.ToInt(reader["ReviewerId"]),
                 ReviewerName = Converter.ToString2(reader["ReviewerName"]),
-                Review = Converter.ToString2(reader["Review"]),
-                LicenseeType = new SettingInfo
-                {
-                    Id = 42002,
-                    Value = "Boping API"
-                }
+                Review = Converter.ToString2(reader["Review"])
             };
 
             feedback.HasRelated = !string.IsNullOrWhiteSpace(feedback.RelatedCustomer);

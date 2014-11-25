@@ -243,17 +243,17 @@ namespace Fanex.CRM.ActionLog.Services
             if (string.Equals(keyLower, "LanguageID", StringComparison.OrdinalIgnoreCase))
             {
                 fieldName = "Language";
-                return GetMultipleSettingValue(value);
+                return GetMultipleSettingValue(value, fieldName);
             }
 
             fieldName = key.Replace("ID", string.Empty);
-            return GetSettingValue(value);
+            return GetSettingValue(value, fieldName);
         }
 
-        private string GetSettingValue(string key)
+        private string GetSettingValue(string key, string settingType)
         {
             string settingValue;
-            if (!_settingHash.TryGetValue(key, out settingValue))
+            if (!_settingHash.TryGetValue(key + settingType, out settingValue))
             {
                 settingValue = key;
             }
@@ -265,17 +265,18 @@ namespace Fanex.CRM.ActionLog.Services
         /// Gets the multiple setting value.
         /// </summary>
         /// <param name="value">The value.</param>
+        /// <param name="settingType">Type of the setting.</param>
         /// <returns>
         /// The value from hash.
         /// </returns>
-        private string GetMultipleSettingValue(string value)
+        private string GetMultipleSettingValue(string value, string settingType)
         {
             var valueList = value.Split(new char[] { ',' });
 
             int keyCount = valueList.Length;
             for (int i = 0; i < keyCount; i++)
             {
-                valueList[i] = GetSettingValue(valueList[i]);
+                valueList[i] = GetSettingValue(valueList[i], settingType);
             }
 
             return string.Join(", ", valueList);

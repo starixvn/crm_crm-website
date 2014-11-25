@@ -21,11 +21,9 @@ function customerReportRegisterPicker() {
     };
 
     customerReportRegister.registerDatePicker();
-    //customerReportRegister.registerCountryMultiSelectPicker();
     customerReportRegister.registerLanguageMultiSelectPicker();
     customerReportRegister.registerSiteMultiSelectPicker();
     customerReportRegister.registerTitlePicker();
-    //customerReportRegister.registerCustomerTypePicker();
     customerReportRegister.registerVIPTypePicker();
     customerReportRegister.registerDefaultFocus();
     customerReportRegister.registerDownloadFile();

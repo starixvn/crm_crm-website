@@ -168,30 +168,19 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             try
             {
-                var allStatus = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllStatus(new GetAllStatusCriteria
-                {
-                    ViewType = ViewTypeConstants.CommunicationTool
-                });
+                var rawData = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+                    .Where(s => !string.Equals(s.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
+                    .ToList();
 
-                allStatus.Add(new SettingInfo
-                {
-                    Id = SettingConstants.NotApply,
-                    Name = Labels.All
-                });
-
-                foreach (var rawStatus in rawData)
-                {
-                    if (rawStatus.Name == Labels.Checked ||
-                        rawStatus.Name == Labels.Solved ||
-                        rawStatus.Name == Labels.Closed ||
-                        rawStatus.Name == Labels.Pending)
+                rawData.Insert(
+                    0, 
+                    new SettingInfo
                     {
-                        allStatus.Add(rawStatus);
-                    }
-                }
+                        Id = SettingConstants.NotApply,
+                        Name = Labels.All
+                    });
 
-                return allStatus;
+                return rawData;
             }
             catch (Exception ex)
             {

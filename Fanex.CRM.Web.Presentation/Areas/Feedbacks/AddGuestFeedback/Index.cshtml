@@ -60,6 +60,12 @@
                             <input type="text" class="textbox timepicker txtcalendar" id="birthdayInfo" tabindex="5" />
                         </div>
                     </div>
+                    <div class="row item">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <label for="isVIP" class="labelforcheckbox checkbox">
+                                <input id="isVIP" type="checkbox" tabindex="11" data-ng-model="customerInfo.IsVIP" />@Language.VIP</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4">
                     <div class="row item">
@@ -90,8 +96,11 @@
                     </div>
                     <div class="row item">
                         <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="isVIP" class="labelforcheckbox checkbox">
-                                <input id="isVIP" type="checkbox" tabindex="10" data-ng-model="customerInfo.IsVIP" />@Language.VIP</label>
+                            <label for="licensee-type">@Labels.Licensee_Type</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8 licensee-type-picker-container" data-ng-model="licenseeTypeOptions.DataList">
+                            <select id="licensee-type" tabindex="10">
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -145,10 +154,18 @@
                     </div>
                     <div class="row item">
                         <div class="col-xs-4 col-sm-4 col-md-4">
-                            <label for="viber">@Labels.Viber</label>
+                            <label for="wechat">@Labels.WeChat</label>
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8">
-                            <input type="text" class="textbox" id="viber" tabindex="38" data-ng-model="customerInfo.Viber" />
+                            <input type="text" class="textbox" id="wechat" tabindex="38" data-ng-model="customerInfo.WeChat" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <label for="yahoo">@Labels.Yahoo</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <input type="text" class="textbox" id="yahoo" tabindex="41" data-ng-model="customerInfo.Yahoo" />
                         </div>
                     </div>
                  </div>
@@ -203,6 +220,14 @@
                             <input type="text" class="textbox" id="whatsapp" tabindex="39" data-ng-model="customerInfo.WhatsApp" />
                         </div>
                     </div>
+                    <div class="row item">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <label for="qq">@Labels.QQ</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <input type="text" class="textbox" id="qq" tabindex="42" data-ng-model="customerInfo.QQ" />
+                        </div>
+                    </div>
                  </div>
                  <div class="col-xs-4 col-sm-4 col-md-4">
                     <div class="row item">
@@ -255,6 +280,14 @@
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8">
                             <input type="text" class="textbox" id="line" tabindex="40" data-ng-model="customerInfo.Line" />
+                        </div>
+                    </div>
+                    <div class="row item">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <label for="bbm">@Labels.BBM</label>
+                        </div>
+                        <div class="col-xs-8 col-sm-8 col-md-8">
+                            <input type="text" class="textbox" id="bbm" tabindex="43" data-ng-model="customerInfo.BBM" />
                         </div>
                     </div>
                  </div>

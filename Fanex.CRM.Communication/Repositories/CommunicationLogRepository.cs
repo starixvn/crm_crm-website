@@ -261,11 +261,7 @@ namespace Fanex.CRM.Communication.Repositories
                 Reviewer = Converter.ToString2(reader["reviewer"]),
                 ReviewedTimeString = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["SolveDate"])).ToLongFormatedDateTime(),
 
-                LicenseeType = new SettingInfo
-                {
-                    Id = 42002,
-                    Value = "Boping API"
-                }
+                LicenseeType = new SettingInfo { Id = Converter.ToInt(reader["LicenseeType"]) }
             };
 
             return logInfo;

@@ -146,9 +146,12 @@ namespace Fanex.CRM.Feedback.Criteria
             param.Add("pic4", CustomerInfo.PersonalInfoContacts[3].Phone);
             param.Add("siteid", 0);
             param.Add("isvip", CustomerInfo.IsVIP);
-            param.Add("viber", CustomerInfo.Viber);
+            param.Add("wechat", CustomerInfo.WeChat);
             param.Add("whatsapp", CustomerInfo.WhatsApp);
             param.Add("line", CustomerInfo.Line);
+            param.Add("yahoo", CustomerInfo.Yahoo);
+            param.Add("qq", CustomerInfo.QQ);
+            param.Add("bbm", CustomerInfo.BBM);
 
             param.Add("feedbackdate", DateTimeUtilize.ChangeTimeZoneToServer(StartTime));
             param.Add("resolutiondate", DateTimeUtilize.ChangeTimeZoneToServer(EndTime));
@@ -162,6 +165,7 @@ namespace Fanex.CRM.Feedback.Criteria
             param.Add("languageid", Language.Id);
             param.Add("responseid", Response.Id);
             param.Add("statusid", Status.Id);
+            param.Add("licenseetype", CustomerInfo.LicenseeType.Id);
 
             param.Add("relatedcustid", RelatedCustomerId);
             param.Add("subject", Subject);

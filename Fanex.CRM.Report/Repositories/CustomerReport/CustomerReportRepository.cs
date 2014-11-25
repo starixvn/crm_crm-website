@@ -83,12 +83,29 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
                  Languages = new List<BaseModel>(),
 
                  Skype = Converter.ToString2(reader["Skype"]),
-                 Email = Converter.ToString2(reader["Email"]),
-                 PIC1 = Converter.ToString2(reader["Pic1"]),
-                 PIC2 = Converter.ToString2(reader["Pic2"]),
-                 PIC3 = Converter.ToString2(reader["Pic3"]),
-                 PIC4 = Converter.ToString2(reader["Pic4"]),
+                 Email = Converter.ToString2(reader["Email"])
              };
+
+            customerInfo.PersonalInfoContacts.Add(new PersonalInfoContact 
+            { 
+                Name = Converter.ToString2(reader["Pic1Name"]),
+                Phone = Converter.ToString2(reader["Pic1"])
+            });
+            customerInfo.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic2Name"]),
+                Phone = Converter.ToString2(reader["Pic2"])
+            });
+            customerInfo.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic3Name"]),
+                Phone = Converter.ToString2(reader["Pic3"])
+            });
+            customerInfo.PersonalInfoContacts.Add(new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic4Name"]),
+                Phone = Converter.ToString2(reader["Pic4"])
+            });
 
             var languages = Converter.ToString2(reader["Language"]);
             var languageArray = languages.Split(',');

@@ -177,7 +177,7 @@ namespace Fanex.CRM.Feedback.Services
                 }
             }
 
-            var statusList = _serviceSetting.AllStatus(new GetAllStatusCriteria { ViewType = ViewTypeConstants.All });
+            var statusList = _serviceSetting.AllStatus(ViewTypeConstants.All);
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NA);
 
@@ -289,15 +289,8 @@ namespace Fanex.CRM.Feedback.Services
         /// <returns>The list of SettingInfo object.</returns>
         private IList<SettingInfo> GetStatus()
         {
-            var status = _serviceSetting.AllStatus(new GetAllStatusCriteria
-            {
-                ViewType = ViewTypeConstants.CommunicationTool
-            })
-                .Where(r =>
-                    string.Equals(r.Name, "Checked", StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(r.Name, "Solved", StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(r.Name, "Closed", StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(r.Name, "Pending", StringComparison.OrdinalIgnoreCase))
+            var status = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+                .Where(r => !string.Equals(r.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
             status.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });

@@ -86,6 +86,24 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
         [SpParam(SqlParamName = "msn")]
         public string MSN { get; set; }
 
+        [SpParam(SqlParamName = "wechat")]
+        public string WeChat { get; set; }
+
+        [SpParam(SqlParamName = "whatsapp")]
+        public string WhatsApp { get; set; }
+
+        [SpParam(SqlParamName = "line")]
+        public string Line { get; set; }
+
+        [SpParam(SqlParamName = "yahoo")]
+        public string Yahoo { get; set; }
+
+        [SpParam(SqlParamName = "qq")]
+        public string QQ { get; set; }
+
+        [SpParam(SqlParamName = "bbm")]
+        public string BBM { get; set; }
+
         [SpParam(SqlParamName = "pic1name")]
         public string PersonalInfoContactName1 { get; set; }
 
@@ -169,6 +187,9 @@ namespace Fanex.CRM.Customer.Criteria.DetailInfo
 
         [SpParam(SqlParamName = "birthday")]
         public string BirthDay { get; set; }
+
+        [SpParam(SqlParamName = "licenseetype")]
+        public string LicenseeTypeId { get; set; }
 
         [SpParam(SqlParamName = "isvip")]
         public string IsVIP { get; set; }

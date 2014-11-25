@@ -440,21 +440,6 @@ function RegisterTemplate(application) {
         directiveManager.registerMultiSelectContainer(self.application, currencyRegisterParams);
     };
 
-    self.registerSiteMultiSelectPicker = function () {
-        var siteRegisterParams = {
-            PlugInName: 'siteMultiContainer',
-            OptionName: 'siteOptions',
-            PickerId: 'site',
-            RestrictType: 'A',
-            DataPropertyName: {
-                Id: 'Id',
-                Name: 'Name'
-            }
-        };
-
-        directiveManager.registerMultiSelectContainer(self.application, siteRegisterParams);
-    };
-
     self.registerLanguagePicker = function () {
         var languageRegisterParams = {
             PlugInName: 'languagePickerContainer',
@@ -494,7 +479,7 @@ function RegisterTemplate(application) {
 
             DataPropertyName: {
                 Id: "Id",
-                Name: "Value"
+                Name: "Name"
             }
         };
 

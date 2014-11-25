@@ -81,6 +81,8 @@
     <Compile Include="Constants\ViewTypeConstants.cs" />
     <Compile Include="Constants\VIPTypeConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Criteria\GetAllCurrencyCriteria.cs" />
+    <Compile Include="Criteria\GetAllLicenseeTypeCriteria.cs" />
     <Compile Include="Criteria\GetAllSiteInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\GetAllCurrencyInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\GetAllPositionInformHeadlineCriteria.cs" />

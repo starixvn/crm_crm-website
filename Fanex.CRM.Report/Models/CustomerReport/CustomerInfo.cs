@@ -22,12 +22,36 @@ namespace Fanex.CRM.Report.Models.CustomerReport
 
         public string Username { get; set; }
 
-        public string PIC1 { get; set; }
+        public string PIC1
+        {
+            get
+            {
+                return PersonalInfoContacts[0].ToString();
+            }
+        }
 
-        public string PIC2 { get; set; }
+        public string PIC2
+        {
+            get
+            {
+                return PersonalInfoContacts[1].ToString();
+            }
+        }
 
-        public string PIC3 { get; set; }
+        public string PIC3
+        {
+            get
+            {
+                return PersonalInfoContacts[2].ToString();
+            }
+        }
 
-        public string PIC4 { get; set; }
+        public string PIC4
+        {
+            get
+            {
+                return PersonalInfoContacts[3].ToString();
+            }
+        }
     }
 }

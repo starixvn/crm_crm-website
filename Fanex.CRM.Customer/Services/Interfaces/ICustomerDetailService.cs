@@ -18,5 +18,7 @@ namespace Fanex.CRM.Customer.Services
         CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria);
 
         BaseModel UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria);
+
+        dynamic GetSettings();
     }
 }

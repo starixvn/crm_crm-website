@@ -174,7 +174,7 @@ customerDetailApplication.directive('dropdownSiteContainer', function () {
             listData: dropdownLanguage
         });
 
-        element.find("#customerinfodetail-languageoptions .fanex-multiselect-state-default").attr("tabindex", 33);
+        element.find("#customerinfodetail-languageoptions .fanex-multiselect-state-default").attr("tabindex", 7);
     }
 
     return {

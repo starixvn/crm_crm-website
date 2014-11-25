@@ -20,8 +20,6 @@ namespace Fanex.CRM.Feedback.Criteria
     /// </summary>
     public class AddCustomerFeedbackCriteria : AddGuestFeedbackCriteria
     {
-        public SettingInfo LicenseeType { get; set; }
-
         public bool OverrideCRMInfo { get; set; }
 
         /// <summary>

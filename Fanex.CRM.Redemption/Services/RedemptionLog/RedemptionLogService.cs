@@ -10,10 +10,8 @@
 namespace Fanex.CRM.Redemption.Services.RedemptionLog
 {
     using System;
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
     using Fanex.CRM.Common.Helpers;
-    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
@@ -149,41 +147,18 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
         /// Gets all status for inserting.
         /// </summary>
         /// <returns>All status.</returns>
-        public List<SettingInfo> AllStatusInsert()
+        public dynamic AllSettingsInsert()
         {
             try
             {
-                var allStatusResult = new List<SettingInfo>();
-                var allStatusSetting = _serviceSetting.AllStatus(new GetAllStatusCriteria
-                {
-                    ViewType = ViewTypeConstants.Redemption
-                });
+                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption)
+                    .Where(s => !string.Equals(s.Name, Labels.Deleted));
 
-                if (allStatusSetting == null)
+                return new
                 {
-                    return allStatusResult;
-                }
-
-                allStatusResult = new List<SettingInfo> 
-                { 
-                    new SettingInfo(),
-                    new SettingInfo(),
-                    new SettingInfo()
+                    StatusList = statusList,
+                    Currencies = _serviceSetting.GetAllCurrency(new GetAllCurrencyCriteria())
                 };
-
-                Dictionary<string, int> statusIndex = new Dictionary<string, int>();
-                statusIndex.Add(Labels.Open, 0);
-                statusIndex.Add(Labels.Closed, 1);
-                statusIndex.Add(Labels.KIV, 2);
-                foreach (var status in allStatusSetting)
-                {
-                    if (statusIndex.ContainsKey(status.Name))
-                    {
-                        allStatusResult[statusIndex[status.Name]] = status;
-                    }
-                }
-
-                return allStatusResult;
             }
             catch (Exception ex)
             {
@@ -196,47 +171,17 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
         /// Gets all status for editing.
         /// </summary>
         /// <returns>All status.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        public List<SettingInfo> AllStatusEdit()
+        public dynamic AllSettingsEdit()
         {
             try
             {
-                var allStatusResult = new List<SettingInfo>();
-                var allStatusSetting = _serviceSetting.AllStatus(new GetAllStatusCriteria
-                {
-                    ViewType = ViewTypeConstants.Redemption
-                });
+                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption);
 
-                if (allStatusSetting == null)
+                return new
                 {
-                    return allStatusResult;
-                }
-
-                allStatusResult = new List<SettingInfo> 
-                { 
-                    new SettingInfo(),
-                    new SettingInfo(),
-                    new SettingInfo(),
-                    new SettingInfo()
+                    StatusList = statusList,
+                    Currencies = _serviceSetting.GetAllCurrency(new GetAllCurrencyCriteria())
                 };
-
-                Dictionary<string, int> statusIndex = new Dictionary<string, int>();
-                statusIndex.Add(Labels.Open, 0);
-                statusIndex.Add(Labels.Closed, 1);
-                statusIndex.Add(Labels.KIV, 2);
-                statusIndex.Add(Labels.Deleted, 3);
-
-                foreach (var status in allStatusSetting)
-                {
-                    if (statusIndex.ContainsKey(status.Name))
-                    {
-                        allStatusResult[statusIndex[status.Name]] = status;
-                    }
-                }
-
-                return allStatusResult;
             }
             catch (Exception ex)
             {

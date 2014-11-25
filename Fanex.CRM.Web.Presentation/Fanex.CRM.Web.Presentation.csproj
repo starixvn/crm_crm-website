@@ -402,6 +402,7 @@
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DropdownStatusContainer.js" />
+    <Content Include="Areas\Redemption\EditLog\Scripts\Directives\NumberOnlyInput.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\RemarkEditorContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\SubjectAutoComplete.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\EditLogApplication.js" />
@@ -771,7 +772,7 @@
     <Content Include="Areas\Report\WeeklyStatisticsReport\Styles\WeeklyStatisticsReport.less" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Styles.less" />
-    <None Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
+    <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />

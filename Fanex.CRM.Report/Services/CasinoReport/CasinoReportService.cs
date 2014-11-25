@@ -80,6 +80,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 // Get data from DB.
                 criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
                 criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+                criteria.ReportType = CasinoDailyType;
                 try
                 {
                     report = _casinoReportRepository.GetCasinoDailySummary(criteria);

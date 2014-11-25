@@ -11,6 +11,7 @@ namespace Fanex.CRM.Redemption.Models
 {
     using System;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// Log Information.
@@ -29,5 +30,11 @@ namespace Fanex.CRM.Redemption.Models
         public SettingInfo Status { get; set; }
 
         public string Remark { get; set; }
+
+        public BaseModel Currency { get; set; }
+
+        public string DoneBy { get; set; }
+
+        public decimal Amount { get; set; }
     }
 }

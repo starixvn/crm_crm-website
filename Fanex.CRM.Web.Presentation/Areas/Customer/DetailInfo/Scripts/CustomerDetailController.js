@@ -18,14 +18,13 @@ function (
     $scope.countryList = null;
     $scope.languageList = null;
     $scope.titleList = null;
+    $scope.licenseeTypes = [];
 
-    $scope.isLoadedAllSite = false;
-    $scope.isLoadedAllCountry = false;
-    $scope.isLoadedAllLanguage = false;
-    $scope.isLoadedAllTitle = false;
+    $scope.isLoadedAllSettings = false;
     $scope.isSetFocus = false;
 
     $scope.isShowPersonalInfo = true;
+    $scope.isShowCommunicationInfo = true;
     $scope.isShowHomeAddressInfo = true;
     $scope.isShowBankInfoInfo = true;
     $scope.selectedLangueList = '';
@@ -40,78 +39,30 @@ function (
         $scope.DOMElements.textboxFirstName = $("#firstName");
     };
 
-    $scope.getAllSite = function () {
+    $scope.getAllSettings = function () {
         $scope.BlockUI();
-        $scope.isLoadedAllSite = false;
-        $customerDetailService.getAllSite()
+        $scope.isLoadedAllSettings = false;
+        $customerDetailService.getAllSettings()
             .then(function (data) {
-                $scope.siteList = data.Result;
-                $scope.isLoadedAllSite = true;
+                $scope.siteList = data.Result.Sites;
+                $scope.titleList = data.Result.Titles;
+                $scope.countryList = data.Result.Countries;
+                $scope.languageList = data.Result.Languages;
+                $scope.licenseeTypes = data.Result.LicenseeTypes;
+                $scope.isLoadedAllSettings = true;
+
                 $scope.completedLoadDetailInfo();
             },
             function (data) {
                 /* jshint unused: vars */
-                $scope.isLoadedAllSite = true;
-                $scope.completedLoadDetailInfo();
-            });
-    };
-    $scope.getAllTitle = function () {
-        $scope.BlockUI();
-        $scope.isLoadedAllTitle = false;
-        $customerDetailService.getAllTitle()
-            .then(function (data) {
-                $scope.titleList = data.Result;
-                $scope.isLoadedAllTitle = true;
-                $scope.completedLoadDetailInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.isLoadedAllTitle = true;
+                $scope.isLoadedAllSettings = true;
                 $scope.completedLoadDetailInfo();
             });
     };
     $scope.completedLoadDetailInfo = function () {
-        if ($scope.isLoadedAllSite &&
-            $scope.isLoadedAllCountry &&
-            $scope.isLoadedAllLanguage &&
-            $scope.isLoadedAllTitle) {
+        if ($scope.isLoadedAllSettings) {
             $scope.unblockUI();
         }
-    };
-    $scope.getAllCountry = function () {
-        $scope.BlockUI();
-        $scope.isLoadedAllCountry = false;
-        $customerDetailService.getAllCountry()
-            .then(function (data) {
-                $scope.countryList = data.Result;
-                $scope.isLoadedAllCountry = true;
-                $scope.completedLoadDetailInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.isLoadedAllCountry = true;
-                $scope.completedLoadDetailInfo();
-            });
-    };
-    $scope.getAllLanguage = function () {
-        $scope.BlockUI();
-        $scope.isLoadedAllLanguage = false;
-        $customerDetailService.getAllLanguage()
-            .then(function (data) {
-                $scope.languageList = data.Result;
-                $scope.isLoadedAllLanguage = true;
-                $scope.renderAllLanguageResult(data.Result);
-                $scope.completedLoadDetailInfo();
-            },
-            function (data) {
-                /* jshint unused: vars */
-                $scope.isLoadedAllLanguage = true;
-                $scope.completedLoadDetailInfo();
-            });
-    };
-    $scope.renderAllLanguageResult = function (result) {
-        /* jshint unused: vars */
-        $scope.isLoadedAllLanguage = true;
     };
     $scope.isCustomerKnowLanguage = function (languageId) {
         var result = false;
@@ -125,8 +76,6 @@ function (
         }
 
         return result;
-    };
-    $scope.getCustomerInfoDetailById = function () {
     };
     $scope.unblockUI = function () {
         try {
@@ -178,6 +127,12 @@ function (
             Email: customerDetail.Email,
             Skype: customerDetail.Skype,
             MSN: customerDetail.MSN,
+            WeChat: customerDetail.WeChat,
+            WhatsApp: customerDetail.WhatsApp,
+            Line: customerDetail.Line,
+            Yahoo: customerDetail.Yahoo,
+            QQ: customerDetail.QQ,
+            BBM: customerDetail.BBM,
             PersonalInfoContactName1: customerDetail.PersonalInfoContacts[0].Name,
             PersonalInfoContact1: customerDetail.PersonalInfoContacts[0].Phone,
             PersonalInfoContactName2: customerDetail.PersonalInfoContacts[1].Name,
@@ -212,7 +167,8 @@ function (
                 '',
             BettingCode: customerDetail.BettingCode[0],
             RefCode2: customerDetail.BettingCode[1],
-            IsVIP: customerDetail.IsVIP
+            IsVIP: customerDetail.IsVIP,
+            LicenseeTypeId: customerDetail.LicenseeType.Id
         };
 
         $scope.BlockUI();
@@ -432,6 +388,12 @@ function (
             $scope.oldCustomerDetail.Email !== $scope.customerDetail.Email ||
             $scope.oldCustomerDetail.MSN !== $scope.customerDetail.MSN ||
             $scope.oldCustomerDetail.Skype !== $scope.customerDetail.Skype ||
+            $scope.oldCustomerDetail.WeChat !== $scope.customerDetail.WeChat ||
+            $scope.oldCustomerDetail.WhatsApp !== $scope.customerDetail.WhatsApp ||
+            $scope.oldCustomerDetail.Line !== $scope.customerDetail.Line ||
+            $scope.oldCustomerDetail.Yahoo !== $scope.customerDetail.Yahoo ||
+            $scope.oldCustomerDetail.QQ !== $scope.customerDetail.QQ ||
+            $scope.oldCustomerDetail.BBM !== $scope.customerDetail.BBM ||
 
             $scope.oldCustomerDetail.PersonalInfoContacts[0].Name !== $scope.customerDetail.PersonalInfoContacts[0].Name ||
             $scope.oldCustomerDetail.PersonalInfoContacts[0].Phone !== $scope.customerDetail.PersonalInfoContacts[0].Phone ||
@@ -472,7 +434,8 @@ function (
             $scope.oldCustomerDetail.IsVIP !== $scope.customerDetail.IsVIP ||
             $scope.oldCustomerDetail.BettingCode[0] !== $scope.customerDetail.BettingCode[0] ||
             $scope.oldCustomerDetail.BettingCode[1] !== $scope.customerDetail.BettingCode[1] ||
-            $scope.oldCustomerDetail.Title.Id !== $scope.customerDetail.Title.Id)) {
+            $scope.oldCustomerDetail.Title.Id !== $scope.customerDetail.Title.Id ||
+            $scope.oldCustomerDetail.LicenseeType.Id !== $scope.customerDetail.LicenseeType.Id)) {
             parent.homeManager.CachedData.isChangingData = true;
             parent.homeManager.CachedData.ignoreConfirmMessage = viewResources.Confirm_Ignore_EditCustomer_ChangesTabDetail;
         } else {
@@ -515,10 +478,8 @@ function (
         $scope.initController();
         $scope.setFocus();
         $scope.$apply();
-        $scope.getAllSite();
-        $scope.getAllCountry();
-        $scope.getAllLanguage();
-        $scope.getAllTitle();
+        $scope.getAllSettings();
+
         $scope.$watch(function ($scope) {
             $scope.updateIsChangeCustomerInfoFlag();
         });

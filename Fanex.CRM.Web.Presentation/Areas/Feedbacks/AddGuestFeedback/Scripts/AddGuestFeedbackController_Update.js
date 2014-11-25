@@ -136,4 +136,8 @@ function registerUpdateFunctions($scope) {
         $scope.inputRelatedCustomerLength = relatedCustomerLength;
         $scope.isEditingRelatedCustomer = true;
     };
+
+    $scope.updateSelectedLicenseeType = function (licenseeType) {
+        $scope.addGuestFeedbackParams.LicenseeType = licenseeType;
+    };
 }

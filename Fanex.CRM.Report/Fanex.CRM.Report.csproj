@@ -147,7 +147,9 @@
     <Compile Include="Repositories\StatisticByDateReport\StatisticByDateRepository.cs" />
     <Compile Include="Repositories\StatisticByDateReport\IStatisticByDateRepository.cs" />
     <Compile Include="Repositories\CasinoReport\CasinoReportRepository.cs" />
-    <Compile Include="Repositories\CustomerReport\CustomerReportRepository.cs" />
+    <Compile Include="Repositories\CustomerReport\CustomerReportRepository.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Repositories\DynamicReport\DynamicReportRepository.cs" />
     <Compile Include="Repositories\FeedbackStatisticReport\FeedbackStatisticReportRepository.cs" />
     <Compile Include="Repositories\SummaryReport\SummaryReportRepository.cs" />

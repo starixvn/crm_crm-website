@@ -16,6 +16,7 @@ function (
     $scope.redemptionLog.Subject = sharedScriptManager.decodeHtml($scope.redemptionLog.Subject);
     $scope.oldRedemptionLog = angular.copy($scope.redemptionLog);
     $scope.statusList = null;
+    $scope.currencies = null;
 
     $scope.loadedFilter = [];
     $scope.feedbackSubjectTemplateList = [];
@@ -40,7 +41,8 @@ function (
         $scope.BlockUI();
         $editLogService.getAllStatus()
             .then(function (data) {
-                $scope.statusList = data.Result;
+                $scope.currencies = data.Result.Currencies;
+                $scope.statusList = data.Result.StatusList;
                 $scope.loadedFilter.push({
                     Id: 'Status'
                 });
@@ -136,7 +138,10 @@ function (
                     '',
             Subject: $scope.redemptionLog.Subject,
             StatusId: $scope.redemptionLog.Status.Id,
-            Remark: $scope.redemptionLog.Remark
+            Remark: $scope.redemptionLog.Remark,
+            CurrencyId: $scope.redemptionLog.Currency.Id,
+            DoneBy: $scope.redemptionLog.DoneBy,
+            Amount: $scope.redemptionLog.Amount
         };
 
         if ($scope.validateUpdateLogCriteria(updateLogCriteria)) {
@@ -154,7 +159,15 @@ function (
     };
     $scope.validateUpdateLogCriteria = function (criteria) {
         var result = true;
-        if (criteria.Subject === '' ||
+        if (criteria.DoneBy.length === 0) {
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = false;
+            /* jshint camelcase: false */
+            $scope.resultMessage = viewResources.Redemption_Log_EmptyDoneBy;
+            result = false;
+        }
+
+        if (result && criteria.Subject === '' ||
             criteria.Subject === '<br>') {
             $scope.isShowResultMessage = true;
             $scope.isSuccess = false;
@@ -223,7 +236,10 @@ function (
     $scope.updateChangeFlag = function () {
         if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
             $scope.redemptionLog.Status.Id !== $scope.oldRedemptionLog.Status.Id ||
-            $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
+            $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark ||
+            $scope.redemptionLog.DoneBy !== $scope.oldRedemptionLog.DoneBy ||
+            $scope.redemptionLog.Amount !== $scope.oldRedemptionLog.Amount ||
+            $scope.redemptionLog.Currency.Id !== $scope.oldRedemptionLog.Currency.Id) {
             parent.homeManager.CachedData.isChangingDataPopUp = true;
             parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_EditRedemption_Changes;
         } else {

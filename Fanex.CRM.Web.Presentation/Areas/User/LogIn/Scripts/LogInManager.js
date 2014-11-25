@@ -98,6 +98,10 @@ var CRMLoginManager = {
     initComponent: function () {
         $('#username').focus();
 
+        $('#btnLogin').bind('click', function (evt) {
+            return CRMLoginManager.doLogin();
+        });
+
         $('#password').keydown(function (evt) {
             CRMLoginManager.doEnter(evt, 'CRMLoginManager.doLogin()');
         });

@@ -16,6 +16,11 @@ namespace Fanex.CRM.Setting.Criteria
     /// </summary>
     public class GetAllStatusCriteria : CriteriaBase
     {
+        public GetAllStatusCriteria(int statusType)
+        {
+            ViewType = statusType;
+        }
+
         [SpParam(SqlParamName = "type")]
         public int ViewType { get; set; }
 

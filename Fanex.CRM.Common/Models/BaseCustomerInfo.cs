@@ -32,11 +32,11 @@ namespace Fanex.CRM.Common.Models
             UplineInfo = new List<BaseCustomerInfo>();
         }
 
+        #region Customer Info
+
+        public List<BaseCustomerInfo> UplineInfo { get; set; }
+
         public SettingInfo Title { get; set; }
-
-        public BaseModel SiteSetting { get; set; }
-
-        public BaseModel Country { get; set; }
 
         public string FirstName { get; set; }
 
@@ -44,41 +44,79 @@ namespace Fanex.CRM.Common.Models
 
         public string NickName { get; set; }
 
-        public List<BaseModel> Languages { get; set; }
+        public string BirthDayString { get; set; }
+
+        public BaseModel SiteSetting { get; set; }
+
+        public BaseModel Passport { get; set; }
+
+        public bool HeadLine { get; set; }
+
+        public bool IsHeadline { get; set; }
+
+        public bool IsVIP { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public bool IsClosed { get; set; }
+
+        public bool IsSuspended { get; set; }
+
+        public string Status
+        {
+            get
+            {
+                return StatusName();
+            }
+        }
+
+        public BaseModel LicenseeType { get; set; }
+        
+        #endregion
+
+        #region Communication
 
         public List<PhoneInfo> PhoneInfo { get; set; }
 
+        public FaxInfo FaxInfo { get; set; }
+
         public PhoneInfo MobilePhone { get; set; }
 
-        public FaxInfo FaxInfo { get; set; }
+        public List<PersonalInfoContact> PersonalInfoContacts { get; set; }
+
+        public string Skype { get; set; }
 
         public string Email { get; set; }
 
         public string MSN { get; set; }
 
-        public string Skype { get; set; }
-
-        public string Viber { get; set; }
+        public string WeChat { get; set; }
 
         public string WhatsApp { get; set; }
 
         public string Line { get; set; }
 
-        public List<PersonalInfoContact> PersonalInfoContacts { get; set; }
+        public string Yahoo { get; set; }
 
-        public string BirthDayString { get; set; }
+        public string QQ { get; set; }
+
+        public string BBM { get; set; }
+
+        #endregion
+
+        public BaseModel Country { get; set; }
+
+        public List<BaseModel> Languages { get; set; }
 
         public BankInfo BankInfo { get; set; }
-
-        public bool IsVIP { get; set; }
-
-        public bool IsHeadline { get; set; }
 
         public string Question { get; set; }
 
         public string Answer { get; set; }
 
         public string Remark { get; set; }
+
+        public string Remark2 { get; set; }
 
         public DateTime CreatedDate { get; set; }
 
@@ -94,29 +132,7 @@ namespace Fanex.CRM.Common.Models
 
         public List<string> BettingCode { get; set; }
 
-        public string Remark2 { get; set; }
-
-        public string Status
-        {
-            get
-            {
-                return StatusName();
-            }
-        }
-
-        public bool IsActive { get; set; }
-
-        public bool IsClosed { get; set; }
-
-        public bool IsSuspended { get; set; }
-
-        public List<BaseCustomerInfo> UplineInfo { get; set; }
-
-        public BaseModel Passport { get; set; }
-
         public AddressInfo AddressInfo { get; set; }
-
-        public bool HeadLine { get; set; }
 
         /// <summary>
         /// Gets the name of the status.

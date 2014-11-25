@@ -29,6 +29,7 @@ function registerOptions($scope) {
     $scope.solutionOptions = null;
     $scope.tipsyOptions = null;
     $scope.relatedCustomerOptions = null;
+    $scope.licenseeTypeOptions = null;
 
     $scope.IsUpdatingTime = false;
     $scope.isSetFocus = false;
@@ -123,6 +124,7 @@ function registerOptions($scope) {
             Title: viewResources.Helper_RelatedInputMessage,
             IsUpdateTip: true
         };
+
         $scope.relatedCustomerOptions = {
             SuggestLink: window.rootUrl + 'CustomerSetting/RelatedCustomerAutoSuggestion',
             VerifyUsernameLink: window.rootUrl + 'CustomerSetting/VerifyUsername',
@@ -130,6 +132,11 @@ function registerOptions($scope) {
             IsUpdate: true,
             CompleteUpdate: $scope.completeUpdateRelatedCustomer,
             OnChangeEvent: $scope.updateRelatedCustomer
+        };
+
+        $scope.licenseeTypeOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedLicenseeType
         };
     };
 }

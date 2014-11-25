@@ -16,6 +16,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
+    using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
@@ -78,8 +79,9 @@ namespace Fanex.CRM.Feedback.Controllers
                 ProductList = ServiceSetting.AllProduct(),
                 SiteList = ServiceSetting.AllSite(),
                 ResponseList = ServiceSetting.AllResponse(),
-                StatusList = ServiceSetting.AllFeedbackStatus(),
-                TitleList = ServiceSetting.AllTitle()
+                StatusList = ServiceSetting.AllStatus(ViewTypeConstants.CommunicationTool),
+                TitleList = ServiceSetting.AllTitle(),
+                LicenseeType = ServiceSetting.AllLicenseeType()
             };
 
             return allSetting;

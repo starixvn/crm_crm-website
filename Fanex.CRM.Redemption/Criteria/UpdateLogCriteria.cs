@@ -35,10 +35,13 @@ namespace Fanex.CRM.Redemption.Criteria
         [SpParam(SqlParamName = "statusid")]
         public int StatusId { get; set; }
 
+        [SpParam(SqlParamName = "currencyid")]
         public int CurrencyId { get; set; }
 
+        [SpParam(SqlParamName = "doneby")]
         public string DoneBy { get; set; }
 
+        [SpParam(SqlParamName = "amount")]
         public decimal Amount { get; set; }
 
         /// <summary>

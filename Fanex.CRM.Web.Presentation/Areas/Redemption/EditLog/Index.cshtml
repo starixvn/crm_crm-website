@@ -42,7 +42,7 @@
                         @Labels.Currency</label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="currency" data-ng-model="redemptionLog.Currency" data-ng-options="c.Name for c in currencies"></select>
+                    <select id="currency" data-ng-model="redemptionLog.Currency" data-ng-options="c.Name for c in currencies track by c.Id"></select>
                 </div>
             </div>
             <div class="row row-item">
@@ -113,6 +113,7 @@
         var currentUsername = "@AppSession.CurrentUser.Username";
         var viewResources = {
             Insert_Edit_Block: '@Labels.Insert_Edit_Block',
+            Redemption_Log_EmptyDoneBy: '@Labels.Redemption_Log_EmptyDoneBy',
             Redemption_Log_EmptySubject: '@Labels.Redemption_Log_EmptySubject',
             Redemption_Log_EmptyRemark: '@Labels.Redemption_Log_EmptyRemark',
             Confirm_Ignore_EditRedemption_Changes: '@Html.Raw(Labels.Confirm_Ignore_EditRedemption_Changes)'
