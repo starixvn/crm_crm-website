@@ -107,7 +107,7 @@
         },
         html: function (v) {
             if (v) {
-                this.pastHTML(v);
+                this.pasteHTML(v);
             } else {
                 return toHtmlString();
             }

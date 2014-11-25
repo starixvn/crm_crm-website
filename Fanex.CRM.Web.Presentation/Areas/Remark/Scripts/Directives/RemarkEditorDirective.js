@@ -35,20 +35,14 @@ remarkApplication.directive('remarkEditorDirective', function ($compile) {
     return {
         restrict: 'C',
         link: function (scope, element, attrs) {
-            element.bind("click", function () {
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                $compile(element.find(".textarea-remark"))(scope);
                 var editor = $(element);
                 if (!editor.hasClass("rich-remark-editor-directive")) {
                     editor.addClass("rich-remark-editor-directive");
                     $compile(element)(scope);
-                    element.find(".jHtmlArea iframe")[0].contentWindow.focus();
                 }
             });
-
-            element.mouseleave(function () {
-                hideEditorBox(scope, element, attrs);
-            });
-
-            $compile(element.find(".textarea-remark"))(scope);
         }
     };
 });

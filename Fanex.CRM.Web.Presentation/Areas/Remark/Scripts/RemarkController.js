@@ -84,7 +84,8 @@ remarkApplication.controller('remarkController',
                     /*Must call getRemarks() function to reset change*/
                     $scope.lastSpecialRemark = '';
                     $scope.lastRemark = '';
-                    $scope.resetLastRemark();
+                    $scope.resetLastRemark(0);
+                    $scope.resetLastRemark(1);
                     $scope.getRemarks();
                     $scope.unblockUI();
                 },
@@ -100,28 +101,32 @@ remarkApplication.controller('remarkController',
         };
 
         $scope.insertSpecialRemark = function () {
-            if ($scope.lastSpecialRemark.length === 0) {
+            if ($scope.lastSpecialRemark.length === 0 ||
+                $scope.lastSpecialRemark === remarkResources.RemarkPlaceHolder) {
                 return;
             }
 
             $scope.remarks.SpecialRemarks.push($scope.lastSpecialRemark);
             $scope.lastSpecialRemark = '';
-            $scope.resetLastRemark();
+            $scope.resetLastRemark(1);
         };
 
         $scope.insertRemark = function () {
-            if ($scope.lastRemark.length === 0) {
+            if ($scope.lastRemark.length === 0 ||
+                $scope.lastRemark === remarkResources.RemarkPlaceHolder) {
                 return;
             }
 
             $scope.remarks.NormalRemarks.push($scope.lastRemark);
             $scope.lastRemark = '';
-            $scope.resetLastRemark();
+            $scope.resetLastRemark(0);
         };
 
-        $scope.resetLastRemark = function () {
+        $scope.resetLastRemark = function (isSpecialRemark) {
             // Fix Angular Problem
-            $('.last-remark .textarea-remark').html(remarkResources.RemarkPlaceHolder);
+            $('.last-remark .rich-remark-editor-directive[data-isspecialremark=' + isSpecialRemark + '] textarea')
+                .val(remarkResources.RemarkPlaceHolder)
+                .htmlarea('updateHtmlArea');
         };
 
         /* jshint camelcase: false */

@@ -64,9 +64,17 @@ remarkApplication.directive('richRemarkEditorDirective', function () {
                 return isBubble;
             },
             blurEvent: function () {
+                if (editor.htmlarea("toHtmlString") === '' ||
+                    editor.htmlarea("toHtmlString") === '<br>') {
+                    editor.val(remarkResources.RemarkPlaceHolder).htmlarea('updateHtmlArea');
+                }
+
                 return hotKeyManager.documentBlur();
             },
             clickEvent: function () {
+                if (editor.htmlarea("toHtmlString") === remarkResources.RemarkPlaceHolder) {
+                    editor.val('').htmlarea('updateHtmlArea');
+                }
             },
             toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
@@ -83,20 +91,22 @@ remarkApplication.directive('richRemarkEditorDirective', function () {
 
     function remarkText(isSpecialRemark, remarkIndex, scope) {
         if (isSpecialRemark) {
-            return remarkIndex === scope.remarks.SpecialRemarks.length ?
-                "" :
+            return !scope.remarks || remarkIndex === scope.remarks.SpecialRemarks.length ?
+                remarkResources.RemarkPlaceHolder :
                 scope.remarks.SpecialRemarks[remarkIndex];
         }
 
-        return remarkIndex === scope.remarks.NormalRemarks.length ?
-            "" :
+        return !scope.remarks || remarkIndex === scope.remarks.NormalRemarks.length ?
+            remarkResources.RemarkPlaceHolder :
             scope.remarks.NormalRemarks[remarkIndex];
     }
 
     return {
         restrict: 'C',
         link: function (scope, element, attrs) {
-            renderRemarkEditor(scope, element, attrs);
+            scope.$watch(attrs.ngModel, function (newval, oldval) {
+                renderRemarkEditor(scope, element, attrs);
+            });
         }
     };
 });
