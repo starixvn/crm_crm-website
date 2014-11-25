@@ -102,6 +102,7 @@ remarkApplication.controller('remarkController',
 
         $scope.insertSpecialRemark = function () {
             if ($scope.lastSpecialRemark.length === 0 ||
+                $scope.lastSpecialRemark === "<br>" ||
                 $scope.lastSpecialRemark === remarkResources.RemarkPlaceHolder) {
                 return;
             }
@@ -113,6 +114,7 @@ remarkApplication.controller('remarkController',
 
         $scope.insertRemark = function () {
             if ($scope.lastRemark.length === 0 ||
+                $scope.lastRemark === "<br>" ||
                 $scope.lastRemark === remarkResources.RemarkPlaceHolder) {
                 return;
             }

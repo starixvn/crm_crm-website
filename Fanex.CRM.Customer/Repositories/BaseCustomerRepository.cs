@@ -77,10 +77,10 @@ namespace Fanex.CRM.Customer.Repositories
                 {
                     Id = Converter.ToInt(reader["CountryID"])
                 },
-                //LicenseeType = new BaseModel 
-                //{
-                //    Id = Converter.ToInt(reader["LicenseeType"])
-                //},
+                LicenseeType = new BaseModel
+                {
+                    Id = Converter.ToInt(reader["LicenseeType"])
+                },
 
                 Question = Converter.ToString2(reader["Question"]),
                 Answer = Converter.ToString2(reader["Answer"]),

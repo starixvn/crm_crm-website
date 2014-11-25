@@ -99,7 +99,7 @@ namespace Fanex.CRM.Customer.Services
             return updateResult;
         }
 
-        public dynamic GetSettings()
+        public dynamic AllSettings()
         {
             return new
             {

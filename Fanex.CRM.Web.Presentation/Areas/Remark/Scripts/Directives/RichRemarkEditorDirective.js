@@ -2,7 +2,8 @@
 /* global remarkApplication,
 sharedScriptManager,
 hotKeyManager,
-keyboardManager */
+keyboardManager,
+remarkResources */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 remarkApplication.directive('richRemarkEditorDirective', function () {

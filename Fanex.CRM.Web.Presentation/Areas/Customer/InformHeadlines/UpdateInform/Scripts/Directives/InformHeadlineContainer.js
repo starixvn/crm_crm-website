@@ -59,7 +59,7 @@ updateInformHeadlineApplication.directive('tableInformHeadlineContainer', functi
         var reportLength = informs.length;
         var rowHeight;
         if (reportLength < 10) {
-            rowHeight = 690 / reportLength;
+            rowHeight = 630 / reportLength;
         }
 
         for (var i = 0; i < reportLength; i++) {

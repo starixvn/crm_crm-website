@@ -27,10 +27,10 @@ namespace Fanex.CRM.Report.Helpers
         /// <param name="msn">The MSN information.</param>
         /// <param name="mobilePhone">The mobile phone information.</param>
         /// <param name="phone">The phone information.</param>
-        /// <param name="QQ">The QQ information.</param>
+        /// <param name="qq">The QQ information.</param>
         /// <param name="skype">The skype information.</param>
-        /// <param name="WeChat">The we chat information.</param>
-        /// <param name="WhatsApp">The Communicate information.</param>
+        /// <param name="wechat">The we chat information.</param>
+        /// <param name="whatsApp">The Communicate information.</param>
         /// <param name="yahoo">The yahoo information.</param>
         /// <returns>The contact information.</returns>
         [SuppressMessage("StyleCop.CSharp.NamingRules", "SA1306:FieldNamesMustBeginWithLowerCaseLetter", Justification = "Need Review.")]
@@ -41,10 +41,10 @@ namespace Fanex.CRM.Report.Helpers
                                                 string msn,
                                                 string mobilePhone,
                                                 string phone,
-                                                string QQ,
+                                                string qq,
                                                 string skype,
-                                                string WeChat,
-                                                string WhatsApp,
+                                                string wechat,
+                                                string whatsApp,
                                                 string yahoo)
         {
             return string.Format(
@@ -55,10 +55,10 @@ namespace Fanex.CRM.Report.Helpers
                     string.IsNullOrEmpty(msn) ? string.Empty : string.Format("{0}: {1}{2}", Labels.MSN, HttpContext.Current.Server.HtmlEncode(msn), "<br/>"),
                     string.IsNullOrEmpty(mobilePhone) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Mobile, HttpContext.Current.Server.HtmlEncode(mobilePhone), "<br/>"),
                     string.IsNullOrEmpty(phone) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Phone, HttpContext.Current.Server.HtmlEncode(phone), "<br/>"),
-                    string.IsNullOrEmpty(QQ) ? string.Empty : string.Format("{0}: {1}{2}", Labels.QQ, HttpContext.Current.Server.HtmlEncode(QQ), "<br/>"),
+                    string.IsNullOrEmpty(qq) ? string.Empty : string.Format("{0}: {1}{2}", Labels.QQ, HttpContext.Current.Server.HtmlEncode(qq), "<br/>"),
                     string.IsNullOrEmpty(skype) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Skype, HttpContext.Current.Server.HtmlEncode(skype), "<br/>"),
-                    string.IsNullOrEmpty(WeChat) ? string.Empty : string.Format("{0}: {1}{2}", Labels.WeChat, HttpContext.Current.Server.HtmlEncode(WeChat), "<br/>"),
-                    string.IsNullOrEmpty(WhatsApp) ? string.Empty : string.Format("{0}: {1}{2}", Labels.WhatsApp, HttpContext.Current.Server.HtmlEncode(WhatsApp), "<br/>"),
+                    string.IsNullOrEmpty(wechat) ? string.Empty : string.Format("{0}: {1}{2}", Labels.WeChat, HttpContext.Current.Server.HtmlEncode(wechat), "<br/>"),
+                    string.IsNullOrEmpty(whatsApp) ? string.Empty : string.Format("{0}: {1}{2}", Labels.WhatsApp, HttpContext.Current.Server.HtmlEncode(whatsApp), "<br/>"),
                     string.IsNullOrEmpty(yahoo) ? string.Empty : string.Format("{0}: {1}{2}", Labels.Yahoo, HttpContext.Current.Server.HtmlEncode(yahoo), string.Empty));
         }
     }
