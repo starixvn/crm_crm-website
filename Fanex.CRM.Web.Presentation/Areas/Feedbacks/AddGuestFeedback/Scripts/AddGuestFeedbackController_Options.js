@@ -29,7 +29,7 @@ function registerOptions($scope) {
     $scope.solutionOptions = null;
     $scope.tipsyOptions = null;
     $scope.relatedCustomerOptions = null;
-    $scope.licenseeTypeOptions = null;
+    $scope.licenseeTypes = [];
 
     $scope.IsUpdatingTime = false;
     $scope.isSetFocus = false;
@@ -132,11 +132,6 @@ function registerOptions($scope) {
             IsUpdate: true,
             CompleteUpdate: $scope.completeUpdateRelatedCustomer,
             OnChangeEvent: $scope.updateRelatedCustomer
-        };
-
-        $scope.licenseeTypeOptions = {
-            DataList: [],
-            OnChangeEvent: $scope.updateSelectedLicenseeType
         };
     };
 }

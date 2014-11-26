@@ -139,10 +139,6 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
 
             $scope.descriptionOptions.SelectedText = '';
             $scope.solutionOptions.SelectedText = '';
-            $scope.licenseeTypeOptions = {
-                DataList: $scope.allSettings.LicenseeType,
-                OnChangeEvent: $scope.updateSelectedLicenseeType
-            };
 
             $scope.updateSelectedCommunicationTool($scope.communicationToolOptions.DataList[0]);
             $scope.updateSelectedProduct($scope.productOptions.DataList[0]);
@@ -155,7 +151,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             $scope.updateSelectedSubCategory($scope.subCategoryOptions.DataList[0]);
             $scope.addGuestFeedbackParams.CustomerInfo = $scope.customerInfo;
             $scope.updateRemarkPrefix();
-            $scope.updateSelectedLicenseeType($scope.licenseeTypeOptions.DataList[0]);
+            $scope.customerInfo.LicenseeType = $scope.allSettings.LicenseeType[0];
 
             $scope.oldParams = angular.copy($scope.addGuestFeedbackParams);
             $scope.oldParams.CustomerInfo.BirthDayString = 'Jan 01, 1970';

@@ -1,4 +1,4 @@
-@import "../../../Content/site/variables.less";
+@import "../../../Content/site/mixins.less";
 
 .list-remark {
     margin: 0 0 0 30px;
@@ -18,7 +18,6 @@
         }
 
         .icon-del {
-            margin: 4px 0 0 10px;
             float: none;
             display: inline-block;
         }
@@ -71,41 +70,50 @@
     }
 }
 
-.remarkeditorbox
-{
+.remarkeditorbox {
     border: 1px solid #B1B1B1;
     color: #666666;
-    float: right;
-    line-height: 20px;
-    padding: 0 3px;
+    display: inline-block;
+    padding: 0 5px;
     resize: vertical;
-    width: 97%;
+    width: 99%;
+    margin-left: 4px;
 }
 
 .list-remark .remark-editor-directive 
 {
-    li 
-    {
+    li {
         width: auto;
     }
     
     .jHtmlArea
     {
-        margin-left: 31px;
-        width: 97.9% !important;
         background-color: transparent;
+        display: inline-block;        
+        width: 97.9% !important;
         
-        .ToolBar
-        {
+        .ToolBar {
             border: solid 1px #b1b1b1;
             border-bottom: none;
             height: 25px;
             background-color: #e2e2e2;            
         }
+
+        div.jHtmlAreaColorPickerMenu {
+            width: 114px;
+            z-index: 500!important;
+
+            *, *:before, *:after {
+                .box-sizing(content-box);
+            }
+        }
         
-        iframe
-        {
+        iframe {
             margin-top: 0px!important;
         }
+    }
+
+    .number {
+        vertical-align: top;
     }
 }

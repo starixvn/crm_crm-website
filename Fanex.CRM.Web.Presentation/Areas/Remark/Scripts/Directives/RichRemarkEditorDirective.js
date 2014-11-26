@@ -2,20 +2,16 @@
 /* global remarkApplication,
 sharedScriptManager,
 hotKeyManager,
-keyboardManager,
 remarkResources */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 remarkApplication.directive('richRemarkEditorDirective', function () {
-    var isAlt = false;
-    var ctrlKeyCode = keyboardManager.Enums.KeyCode.Ctrl,
-        enterKeyCode = keyboardManager.Enums.KeyCode.Enter;
-
     function renderRemarkEditor(scope, element, attrs) {
         var textArea = element.find(".textarea-remark");
         var remarkIndex = parseInt(element.attr("data-remarkindex"));
         var isSpecialRemark = parseInt(element.attr("data-isspecialremark")) ? true : false;
         var remark = remarkText(isSpecialRemark, remarkIndex, scope);
+
         var editorHTML =
             '<textarea name="rich-remark-editor" class="remarkeditorbox">' +
                 sharedScriptManager.encodeHtml(remark) +
@@ -31,38 +27,6 @@ remarkApplication.directive('richRemarkEditorDirective', function () {
                     editor.htmlarea("toHtmlString"),
                     isSpecialRemark,
                     remarkIndex);
-            },
-            keyUpEvent: function (eventObject) {
-                if (eventObject.which === ctrlKeyCode) {
-                    isAlt = false;
-                }
-
-                hotKeyManager.keyUp(eventObject);
-            },
-            keyDownEvent: function (eventObject) {
-                var keyCode = eventObject.which;
-                if (keyCode === ctrlKeyCode) {
-                    isAlt = true;
-                }
-                else if (keyCode === enterKeyCode && isAlt) {
-                    scope.$apply(function () {
-                        if (isSpecialRemark && remarkIndex === scope.remarks.SpecialRemarks.length) {
-                            scope.insertSpecialRemark();
-                        } else if (!isSpecialRemark && remarkIndex === scope.remarks.NormalRemarks.length) {
-                            scope.insertRemark();
-                        }
-
-                        $('textarea').val("").htmlarea('updateHtmlArea');
-                    });
-                }
-
-                var isBubble = hotKeyManager.documentKeyDown(eventObject);
-                if (isBubble) {
-                    parent.hotKeyManager.CachedData.KeyPress = hotKeyManager.CachedData.KeyPress;
-                    isBubble = parent.hotKeyManager.documentKeyDown(eventObject);
-                }
-
-                return isBubble;
             },
             blurEvent: function () {
                 if (editor.htmlarea("toHtmlString") === '' ||
@@ -86,8 +50,10 @@ remarkApplication.directive('richRemarkEditorDirective', function () {
             ]
         });
 
-        $('.jHtmlArea').find('iframe').css('height', '170px');
-        $('.remarkeditorbox').css('height', '194px');
+        var editorcss = { 'color': '#666', 'font-family': 'inherit', 'font-size': '14px', 'padding': '2px 5px' };
+        $('.jHtmlArea').find('iframe').css('height', '170px')
+            .contents().find('body').css(editorcss);
+        $('.remarkeditorbox').css('height', '170px');
     }
 
     function remarkText(isSpecialRemark, remarkIndex, scope) {

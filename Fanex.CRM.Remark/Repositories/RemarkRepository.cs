@@ -45,7 +45,7 @@ namespace Fanex.CRM.Remark.Repositories
                         string remark = null;
                         while (reader.Read())
                         {
-                            remark = HtmlHelper.DecodeXml(Converter.ToString2(reader["Remark"]));
+                            remark = Converter.ToString2(reader["Remark"]);
                             if (Converter.ToBool(reader["IsSpecial"]))
                             {
                                 specialRemarks.Add(remark);
@@ -71,7 +71,6 @@ namespace Fanex.CRM.Remark.Repositories
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                criteria.Remarks = criteria.Remarks.Replace(new string[] { "\n", "\r", "\n\r", "\r\n" }, "&#13;");
                 objectDB.ExecuteNonQuery(criteria.GetSpParams());
                 var outputParams = objectDB.GetOuputParams();
                 return new Result

@@ -53,7 +53,7 @@ function (
         $scope.BlockUI();
         $redemptionViewLogService.getAllStatus()
             .then(function (data) {
-                $scope.statusList = data.Result;
+                $scope.statusList = data.Result.StatusList;
                 $scope.completedLoadFilterInfo();
             },
             function (data) {

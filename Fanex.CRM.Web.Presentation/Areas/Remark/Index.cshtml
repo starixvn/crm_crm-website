@@ -26,7 +26,7 @@
                     <li data-ng-repeat="remark in remarks.SpecialRemarks track by $index">
                         <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="1"
                             data-remarkindex="{{$index}}">
-                            <span data-ng-bind="$index + 1 + '. '"></span>
+                            <span class="number" data-ng-bind="$index + 1 + '. '"></span>
                             <div class="textarea-remark raw-html-directive" rows="4" data-ng-model="remarks.SpecialRemarks[$index]">
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="1"
                             data-remarkindex="{{remarks.SpecialRemarks.length}}">
-                            <span data-ng-bind="remarks.SpecialRemarks.length + 1 + '. '"></span>
+                            <span class="number" data-ng-bind="remarks.SpecialRemarks.length + 1 + '. '"></span>
                             <div class="textarea-remark" rows="4">@Labels.SpecialRemarkPlaceHolder
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                     <li data-ng-repeat="remark in remarks.NormalRemarks track by $index">
                         <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="0"
                             data-remarkindex="{{$index}}">
-                            <span data-ng-bind="$index + 1 + '. '"></span>
+                            <span class="number" data-ng-bind="$index + 1 + '. '"></span>
                             <div class="textarea-remark raw-html-directive" rows="4" data-ng-model="remarks.NormalRemarks[$index]" />
                         </div>
             </div>
@@ -58,7 +58,7 @@
             <li class="last-remark">
                 <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="0"
                     data-remarkindex="{{remarks.NormalRemarks.length}}">
-                    <span data-ng-bind="remarks.NormalRemarks.length + 1 + '. '"></span>
+                    <span class="number" data-ng-bind="remarks.NormalRemarks.length + 1 + '. '"></span>
                     <div class="textarea-remark" rows="4">@Labels.RemarkPlaceHolder
                     </div>
                 </div>

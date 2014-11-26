@@ -427,8 +427,6 @@
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogController.js" />
     <Content Include="Areas\Redemption\ViewLog\Scripts\RedemptionViewLogService.js" />
     <Content Include="Areas\Remark\Scripts\Directives\DefaultFocus.js" />
-    <Content Include="Areas\Remark\Scripts\Directives\PlaceHolder.js" />
-    <Content Include="Areas\Remark\Scripts\Directives\LastRemarkEnterKeyUp.js" />
     <Content Include="Areas\Remark\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Remark\Scripts\Directives\RemarkEditorDirective.js" />
     <Content Include="Areas\Remark\Scripts\Directives\RichRemarkEditorDirective.js" />
