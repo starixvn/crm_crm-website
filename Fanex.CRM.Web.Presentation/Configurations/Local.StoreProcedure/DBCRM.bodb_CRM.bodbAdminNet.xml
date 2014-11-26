@@ -2,14 +2,14 @@
 <Functions>
     <Function Name="Customer">
         <Setting Key="Customer_CustomerInfo_GetUplineList" SpName="Acc_CRM_CustomerGetUplineList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_CustomerInfo_GetCustomerByUsername" SpName="Acc_CRM_CustomerSearch_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_CustomerInfo_GetCustomerByUsername" SpName="Acc_CRM_CustomerSearch_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_CustomerInfo_UpdateCustomerSuggestion" SpName="Acc_CRM_CustomerUpdUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_CustomerInfo_Update" SpName="Acc_CRM_CustomerUpdateBasicInfo_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_CustomerInfo_Update" SpName="Acc_CRM_CustomerUpdateBasicInfo_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 
         <Setting Key="Customer_CustomerInfoDetail_GetInfoById" SpName="Acc_CRM_CustomerSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_CustomerInfoDetail_GetInfoById_New" SpName="Acc_CRM_CustomerSel_New_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_CustomerInfoDetail_GetInfoById_New" SpName="Acc_CRM_CustomerSel_New_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_CustomerInfoDetail_Update" SpName="Acc_CRM_CustomerUpd_Xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_CustomerInfoDetail_Update_New" SpName="Acc_CRM_CustomerUpd_New_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_CustomerInfoDetail_Update_New" SpName="Acc_CRM_CustomerUpd_New_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 
         <Setting Key="Customer_Dashboard_GetCustomerInfo" SpName="Acc_CRM_MainInformationVerifySel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_Dashboard_GetCustomerRemarks" SpName="Acc_CRM_MainInformationSpecialRemarkSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -19,22 +19,22 @@
     </Function>
     <Function Name="Communication">
         <Setting Key="Communication_Log_GetInfoByCustomerId" SpName="Acc_CRM_CommunicationLogList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Communication_Log_Update" SpName="Acc_CRM_CommunicationLogUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Communication_Log_Insert" SpName="Acc_CRM_CommunicationLogIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Communication_Log_GetInfoById" SpName="Acc_CRM_CommunicationLogSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Communication_Log_Update" SpName="Acc_CRM_CommunicationLogUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Communication_Log_Insert" SpName="Acc_CRM_CommunicationLogIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Communication_Log_GetInfoById" SpName="Acc_CRM_CommunicationLogSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Communication_Log_GetDefaultSettings" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
     <Function Name="Redemption">
         <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Redemption_Log_Update" SpName="Acc_CRM_RedemptionUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Redemption_Log_Insert" SpName="Acc_CRM_RedemptionIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Redemption_Log_GetInfoById" SpName="Acc_CRM_RedemptionSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Redemption_Log_Update" SpName="Acc_CRM_RedemptionUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Redemption_Log_Insert" SpName="Acc_CRM_RedemptionIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Redemption_Log_GetInfoById" SpName="Acc_CRM_RedemptionSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
     <Function Name="Setting">
         <Setting Key="Setting_FeedbackTemplateSubject_Get" SpName="Acc_CRM_SubjectTemplateSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
     <Function Name="Feedback">
-        <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="FeedbackSelByID" SpName="Acc_CRM_FeedbackSelByID_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="FeedbackSelByDate" SpName="Acc_CRM_FeedbackSelByDate" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="FeedbackGetLastest" SpName="Acc_CRM_FeedbackGetLatest_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="FeedbackStatistics" SpName="Acc_CRM_Rpt_FeedbackStatistics_xtest"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -64,15 +64,21 @@
         <Setting Key="Setting_SettingInfo_GetAllCommunicationTool" SpName="Acc_CRM_CommunicationToolList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Setting_SettingInfo_GetAllMainCategory" SpName="Acc_CRM_MainCategoryList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Setting_SettingInfo_GetAllSubCategory" SpName="Acc_CRM_SubCategoryList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Setting_SettingInfo_GetAllStatus" SpName="Acc_CRM_StatusList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Setting_SettingInfo_GetAllStatus" SpName="Acc_CRM_StatusList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Setting_SettingInfo_GetAllBetType" SpName="Acc_CRM_BetTypeList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+            <Mapping DataField="SiteID" ObjectProperty="Id" />
+            <Mapping DataField="SiteName" ObjectProperty="Name" />
+        </Setting>
+        <Setting Key="Setting_SettingInfo_GetAllLicenseeType" SpName="Acc_CRM_LicenseeTypeSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Setting_SettingInfo_GetAllCurrency" SpName="Acc_CRM_CurrencyList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
     <Function Name="CustomerFeedback">
         <Setting Key="AutoSuggestionCustomer" SpName="Acc_CRM_AutoSuggestionCustomer" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="CustomerInfoUpd" SpName="Acc_CRM_CustomerInfoUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="autoSearchSuggest" SpName="Acc_CRM_CustomerSelUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="FeedbackInfoUpd" SpName="Acc_CRM_FeedbackInfoUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="FeedbackInfoUpd" SpName="Acc_CRM_FeedbackInfoUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Acc_CRM_GuestFeedbackIns" SpName="Acc_CRM_GuestFeedbackIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="CustomerVerify" SpName="Acc_CRM_RelatedCustomerVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
@@ -82,10 +88,6 @@
         <Setting Key="SettingRelationDel" SpName="Acc_CRM_SettingRelationDel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet"/>
         <Setting Key="SettingRelationUpd" SpName="Acc_CRM_SettingRelationUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Acc_CRM_SettingUpd" SpName="Acc_CRM_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
-            <Mapping DataField="SiteID" ObjectProperty="Id" />
-            <Mapping DataField="SiteName" ObjectProperty="Name" />
-        </Setting>
     </Function>
 
     <Function Name="Remark">
@@ -122,8 +124,8 @@
     <Function Name="Inform Headline">
         <Setting Key="Customer_InformHeadline_StatusList" SpName="Acc_CRM_InformHeadlineStatusList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_InformHeadline_Statistics" SpName="Acc_CRM_InformHeadlineStatistics_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_InformHeadline_Insert" SpName="Acc_CRM_InformHeadlineIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_InformHeadline_GetList" SpName="Acc_CRM_InformHeadlineList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_InformHeadline_Update" SpName="Acc_CRM_InformHeadlineUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_InformHeadline_Insert" SpName="Acc_CRM_InformHeadlineIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_InformHeadline_GetList" SpName="Acc_CRM_InformHeadlineList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_InformHeadline_Update" SpName="Acc_CRM_InformHeadlineUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
 </Functions>
