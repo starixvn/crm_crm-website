@@ -38,11 +38,13 @@
         "~/CRM/DownLoadFile/Scripts",
         "~/Areas/Customer/InformHeadlines/InformStatisticScript")
     <script type="text/javascript">
+        parent.document.title = '@Labels.Title_InformHeadlines';
         window.rootUrl = '@Url.Content("~")';
         var canUpdateStatus = @canUpdateStatus;
         var informStatisticResourceView = {
             Title: '@Labels.Title',
             NoOfHeadlines: '@Labels.NoOfHeadlines',
+            NoOfHeadlinesToInform: '@Labels.NoOfHeadlinesToInform',
             CreatedDate: '@Labels.CreatedDate',
             Done: '@Labels.Done',
             RequestCallback: '@Labels.RequestCallback',

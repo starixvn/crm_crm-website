@@ -50,7 +50,7 @@ casinoWeeklyApplication.directive('tableWeeklySummaryContainer', function () {
             numberOfFrozenColumn: 1,
             fullWidth: true,
             fullHeight: true,
-            gridExpandHeight: 120,
+            gridExpandHeight: 140,
             showDistinctRow: false,
             showHighlightRow: false,
             headerColumnHeight: 29

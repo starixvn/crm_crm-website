@@ -475,11 +475,38 @@ namespace Fanex.CRM.Customer.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select at least one Currency!.
+        /// </summary>
+        public static string InformHeadline_NoCurrencyFound {
+            get {
+                return ResourceManager.GetString("InformHeadline_NoCurrencyFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no change!.
         /// </summary>
         public static string InformHeadline_NoDataChanged {
             get {
                 return ResourceManager.GetString("InformHeadline_NoDataChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least one Position!.
+        /// </summary>
+        public static string InformHeadline_NoPositionFound {
+            get {
+                return ResourceManager.GetString("InformHeadline_NoPositionFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select at least one Site!.
+        /// </summary>
+        public static string InformHeadline_NoSiteFound {
+            get {
+                return ResourceManager.GetString("InformHeadline_NoSiteFound", resourceCulture);
             }
         }
         
@@ -750,6 +777,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string NoOfHeadlines {
             get {
                 return ResourceManager.GetString("NoOfHeadlines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No. Of Headlines To Inform.
+        /// </summary>
+        public static string NoOfHeadlinesToInform {
+            get {
+                return ResourceManager.GetString("NoOfHeadlinesToInform", resourceCulture);
             }
         }
         
@@ -1029,6 +1065,15 @@ namespace Fanex.CRM.Customer.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM System - Inform Headlines.
+        /// </summary>
+        public static string Title_InformHeadlines {
+            get {
+                return ResourceManager.GetString("Title_InformHeadlines", resourceCulture);
             }
         }
         

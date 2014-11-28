@@ -101,7 +101,7 @@ function ($scope, casinoDailyService, $uiBlockerService) {
         $scope.showSummary = false;
         $uiBlockerService.blockUI();
         casinoDailyService.getCasinoDailyDetail($scope.searchCriteria.FromDate, $scope.searchCriteria.ToDate,
-            page = page || 1, size || sharedScriptManager.cachedData.defaultItemsPerPage)
+            page = page || 0, size || sharedScriptManager.cachedData.defaultItemsPerPage)
         .then(function (data) {
             $scope.dailyDetail = data.Result;
             $uiBlockerService.unblockUI();

@@ -76,7 +76,7 @@ namespace Fanex.CRM.Remark.Services
                 {
                     foreach (var remark in criteria.SpecialRemarks)
                     {
-                        if (remark == null)
+                        if (string.IsNullOrWhiteSpace(remark))
                         {
                             continue;
                         }
@@ -90,7 +90,7 @@ namespace Fanex.CRM.Remark.Services
                 {
                     foreach (var remark in criteria.NormalRemarks)
                     {
-                        if (remark == null)
+                        if (string.IsNullOrWhiteSpace(remark))
                         {
                             continue;
                         }

@@ -112,7 +112,7 @@ namespace Fanex.CRM.Customer.Services
                 StartRow = 0,
                 StartColumn = 0,
                 CurrentRow = 0,
-                MaxColumnIndex = 9
+                MaxColumnIndex = 10
             };
 
             ExportTitle(ref exportExcelInfo, statistic.ReportTitle);
@@ -286,7 +286,7 @@ namespace Fanex.CRM.Customer.Services
         /// <param name="title">The title.</param>
         private void ExportTitle(ref ExportExcelInfo exportExcelInfo, string title)
         {
-            var columnWidths = new List<int>() { 280, 100, 150, 100, 150, 150, 100, 150, 150, 100 };
+            var columnWidths = new List<int>() { 280, 100, 100, 100, 100, 150, 150, 100, 150, 150, 100 };
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
@@ -308,6 +308,8 @@ namespace Fanex.CRM.Customer.Services
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.CreatedTime, headerStyle);
             currentColumn++;
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.NoOfHeadlines, headerStyle);
+            currentColumn++;
+            NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.NoOfHeadlinesToInform, headerStyle);
             currentColumn++;
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Done, headerStyle);
             currentColumn++;
@@ -354,6 +356,8 @@ namespace Fanex.CRM.Customer.Services
                 NpoiExcelExtensions.RenderCell(row, currentColumn, inform.CreatedDateString, createdTimeCellStyle);
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(row, currentColumn, inform.Total, numberCellStyle);
+                currentColumn++;
+                NpoiExcelExtensions.RenderCell(row, currentColumn, inform.NoOfHeadlinesToInform, numberCellStyle);
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(row, currentColumn, inform.Done, numberCellStyle);
                 currentColumn++;

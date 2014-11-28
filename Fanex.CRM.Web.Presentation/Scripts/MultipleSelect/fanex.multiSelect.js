@@ -53,6 +53,7 @@
         showHeader: true,
         showFooter: false,
         showTooltip: true,
+        autoCheckAll: true,
         maxHeight: 400,
         minWidth: 200,
         checkAllText: 'Check All',
@@ -344,7 +345,7 @@
         },
         updateCheckall: function () {
             var me = this;
-            if (me.numGroup == me.$options.find('input[childgroupid="fanex-multiselect-option-group-0"]').filter(':checked').length) {
+            if (me.options.autoCheckAll && me.numGroup == me.$options.find('input[childgroupid="fanex-multiselect-option-group-0"]').filter(':checked').length) {
                 me.$headerCheckbox.prop('checked', true);
                 me.$listGroupCheckBox.prop('checked', true);
             }
@@ -371,7 +372,9 @@
                     if (options.showParentSelectedText) {
                         $checked = me.$mainParentGroup.find('input:checked');
                         numChecked = $checked.length;
-                        //me.$multiSelect.attr('parent-checked-value', parentCheckValue.join(','));
+                        if (options.autoCheckAll) {
+                            me.$multiSelect.attr('parent-checked-value', parentCheckValue.join(','));
+                        }
                     }
 
                     if (numChecked > 0) {
@@ -649,7 +652,7 @@
                             currentChildSelected = childrenNodes.filter(':checked').length,
                             currentChildLength = childrenNodes.length;
                         if (currentChildLength == currentChildSelected) {
-                            currentGroup.prev().find('input').prop('checked', true);
+                            //currentGroup.prev().find('input').prop('checked', true);
                             me.updateParentSelected(current.parent().parent().parent().parent());
                         }
 

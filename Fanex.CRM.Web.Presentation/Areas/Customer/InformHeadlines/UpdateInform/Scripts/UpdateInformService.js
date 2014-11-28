@@ -70,5 +70,9 @@ updateInformHeadlineApplication.factory('updateInformHeadlineService', ['$http',
          return deferred.promise;
      };
 
+     serviceInstance.isSiteCheckAll = function () {
+         return $('#siteHeaderCheckBox').prop('checked');
+     };
+
      return serviceInstance;
  } ]);

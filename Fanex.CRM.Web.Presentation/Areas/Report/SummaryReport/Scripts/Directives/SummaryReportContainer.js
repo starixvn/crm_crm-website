@@ -49,7 +49,7 @@ summaryReportApplication.directive('tableSummaryReportContainer', function () {
             numberOfFrozenColumn: 1,
             fullWidth: true,
             fullHeight: true,
-            gridExpandHeight: 100,
+            gridExpandHeight: 120,
             showDistinctRow: false,
             showHighlightRow: true,
             headerColumnHeight: 29

@@ -14,14 +14,6 @@ namespace Fanex.CRM.Common.Constants
     /// </summary>
     public static class FunctionPermissions
     {
-        public const string AdminTool = "AdminTool";
-
-        public const string SettingManagement = "SettingManagement";
-
-        public const string SettingRelationManagement = "SettingRelationshipManagement";
-
-        public const string FBSubjectTemplateManagement = "FBSubjectTemplateManagement";
-
         public const string CreateFeedback = "CreateFeedback";
 
         public const string EditFeedback = "EditFeedback";
@@ -32,15 +24,7 @@ namespace Fanex.CRM.Common.Constants
 
         public const string CustomerInfo = "Customer_Guest";
 
-        public const string SearchCustomerInfo = "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKeyOld";
-
         public const string CRMReport = "CRMReport";
-
-        public const string ViewSettingLog = "ViewSettingLog";
-
-        public const string DynamicReport = "DynamicReport";
-
-        public const string CustomerReport = "CustomerReport";
 
         public const string InformHeadline = "InformHeadline";
 

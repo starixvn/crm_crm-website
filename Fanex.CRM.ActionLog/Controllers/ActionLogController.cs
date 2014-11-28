@@ -14,6 +14,8 @@ namespace Fanex.CRM.ActionLog.Controllers
     using Fanex.CRM.ActionLog.Services;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 
@@ -34,8 +36,8 @@ namespace Fanex.CRM.ActionLog.Controllers
             _actionLogService = actionLogService ?? new ActionLogService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         [HttpGet]
+        [AuthenticateAction(AuthenticationType.Read, "ActivityLog")]
         public ActionResult ActivityLog(int customerId)
         {
             return View("~/Areas/ActionLog/ActivityLog/Index.cshtml", customerId);
@@ -46,8 +48,8 @@ namespace Fanex.CRM.ActionLog.Controllers
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The JSON result.</returns>
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         [HttpPost]
+        [AuthenticateAction(AuthenticationType.Read, "ActivityLog")]
         public ActionResult GetActivityLog(GetActivityLogCriteria criteria)
         {
             var activityLogs = _actionLogService.GetActivityLogs(criteria);
@@ -68,8 +70,8 @@ namespace Fanex.CRM.ActionLog.Controllers
                 JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.ViewSettingLog, Policy = Constant.Policy.Read)]
         [HttpGet]
+        [AuthenticateAction(AuthenticationType.Read, "SettingLog")]
         public ActionResult SettingLog()
         {
             return View("~/Areas/ActionLog/SettingLog/Index.cshtml");
@@ -80,8 +82,8 @@ namespace Fanex.CRM.ActionLog.Controllers
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The JSON result.</returns>
-        [NapAuth(FunctionKey = FunctionPermissions.ViewSettingLog, Policy = Constant.Policy.Read)]
         [HttpPost]
+        [AuthenticateAction(AuthenticationType.Read, "SettingLog")]
         public ActionResult GetSettingLog(GetSettingLogCriteria criteria)
         {
             var settingLogs = _actionLogService.GetSettingLogs(criteria);

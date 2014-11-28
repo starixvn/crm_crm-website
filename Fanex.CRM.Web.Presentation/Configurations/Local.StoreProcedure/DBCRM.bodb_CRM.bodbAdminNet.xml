@@ -46,9 +46,9 @@
         <Setting Key="FeedSubjectTemplateInsert" SpName="Acc_CRM_SubjectTemplateIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="FeedSubjectTemplateDelete" SpName="Acc_CRM_SubjectTemplateDel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="dailysummaryreport" SpName="Acc_CRM_Rpt_CustomerStatistics_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="dailydetailreport" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="dailydetailreport" SpName="Acc_CRM_Rpt_CustomerStatisticsDetail_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="dailylicenseesummaryreport" SpName="Acc_CRM_Rpt_LicenseeStatistics"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="dailylicenseedetailreport" SpName="Acc_CRM_Rpt_LicenseeStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="dailylicenseedetailreport" SpName="Acc_CRM_Rpt_LicenseeStatisticsDetail_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="casinodailysummary" SpName="Acc_CRM_Rpt_CasinoStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="ManageFeedbackList" SpName="Acc_CRM_ManageFeedbackList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -77,7 +77,7 @@
         <Setting Key="AutoSuggestionCustomer" SpName="Acc_CRM_AutoSuggestionCustomer" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="CustomerFeedbackIns" SpName="Acc_CRM_CustomerFeedbackIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="CustomerInfoUpd" SpName="Acc_CRM_CustomerInfoUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="autoSearchSuggest" SpName="Acc_CRM_CustomerSelUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="autoSearchSuggest" SpName="Acc_CRM_CustomerSelUserSearch_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="FeedbackInfoUpd" SpName="Acc_CRM_FeedbackInfoUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Acc_CRM_GuestFeedbackIns" SpName="Acc_CRM_GuestFeedbackIns_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="CustomerVerify" SpName="Acc_CRM_RelatedCustomerVerify" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -104,7 +104,7 @@
 
     <Function Name="Report">
         <Setting Key="Report_DynamicReport_GetReport" SpName="Acc_CRM_Rpt_DynamicFeedback_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Report_CustomerReport_GetReport" SpName="Acc_Crm_Rpt_CustomerReport_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Report_CustomerReport_GetReport" SpName="Acc_Crm_Rpt_CustomerReport_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
             <Mapping DataField="Month" ObjectProperty="Month" />
             <Mapping DataField="CountryID" ObjectProperty="CountryId" />
@@ -123,7 +123,7 @@
 
     <Function Name="Inform Headline">
         <Setting Key="Customer_InformHeadline_StatusList" SpName="Acc_CRM_InformHeadlineStatusList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_InformHeadline_Statistics" SpName="Acc_CRM_InformHeadlineStatistics_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_InformHeadline_Statistics" SpName="Acc_CRM_InformHeadlineStatistics_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_InformHeadline_Insert" SpName="Acc_CRM_InformHeadlineIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_InformHeadline_GetList" SpName="Acc_CRM_InformHeadlineList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_InformHeadline_Update" SpName="Acc_CRM_InformHeadlineUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

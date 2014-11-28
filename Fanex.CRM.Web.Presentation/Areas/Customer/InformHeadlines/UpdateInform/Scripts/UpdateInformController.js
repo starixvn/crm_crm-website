@@ -90,7 +90,8 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 MaxHeight: 450,
                 NoItemText: updateInformResources.Symbol_NotApply,
                 NoneSelectedText: updateInformResources.No_status_found,
-                NumberOfItemShowShortText: 0
+                NumberOfItemShowShortText: 0,
+                AutoCheckAll: false
             };
 
             updateInformService.getAllInformHeadlineSettings()
@@ -132,7 +133,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 Status: $scope.selectedStatusIds,
                 Position: $scope.selectedPositionIds,
                 CurrencyId: $scope.selectedCurrencyIds,
-                Site: $scope.selectedSiteIds,
+                Site: updateInformService.isSiteCheckAll() ? '' : $scope.selectedSiteIds,
                 Username: $scope.username,
                 PageIndex: ++pageIndex,
                 ItemsPerPage: itemsPerPage
@@ -199,7 +200,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 Title: $scope.title,
                 Informs: updatedInforms,
                 IsTitleChanged: $scope.title !== $scope.oldTitle,
-                IsNoHeadlinesToInformChanged: $scope.NoHeadlinesToInform !== $scope.oldNoHeadlinesToInform,
+                IsNoHeadlinesToInformChanged: $scope.NoHeadlinesToInform !== $scope.oldNoHeadlinesToInform
             };
             updateInformService.updateInforms(updateCriteria)
                 .then(function (data) {
@@ -241,6 +242,30 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 alertBoxService.show({
                     type: crmConstants.Enums.MessageType.Error,
                     message: updateInformResources.InformHeadline_NoStatusFound
+                });
+                return;
+            }
+
+            if ($scope.selectedPositionIds.length === 0) {
+                alertBoxService.show({
+                    type: crmConstants.Enums.MessageType.Error,
+                    message: updateInformResources.InformHeadline_NoPositionFound
+                });
+                return;
+            }
+
+            if ($scope.selectedCurrencyIds.length === 0) {
+                alertBoxService.show({
+                    type: crmConstants.Enums.MessageType.Error,
+                    message: updateInformResources.InformHeadline_NoCurrencyFound
+                });
+                return;
+            }
+
+            if ($scope.selectedSiteIds.length === 0) {
+                alertBoxService.show({
+                    type: crmConstants.Enums.MessageType.Error,
+                    message: updateInformResources.InformHeadline_NoSiteFound
                 });
                 return;
             }
@@ -301,7 +326,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
                 parent.homeManager.CachedData.isChangingDataPopUp = $scope.isDataChanged();
             });
 
-             $scope.$watch('NoHeadlinesToInform', function (newValue, oldValue) {
+            $scope.$watch('NoHeadlinesToInform', function (newValue, oldValue) {
                 var arr = String(newValue).split('');
                 var length = arr.length;
                 if (length === 0) { return; }

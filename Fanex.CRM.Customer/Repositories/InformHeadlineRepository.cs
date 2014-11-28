@@ -102,6 +102,7 @@ namespace Fanex.CRM.Customer.Repositories
                 Title = Converter.ToString2(reader["title"]),
                 CreatedTime = Converter.ToDateTime(reader["createdtime"]),
                 Total = Converter.ToInt(reader["total"]),
+                NoOfHeadlinesToInform = Converter.ToInt(reader["noheadline"]),
                 Done = Converter.ToInt(reader["done"]),
                 RequestToCallback = Converter.ToInt(reader["request_to_call_back"]),
                 NoNeedToCall = Converter.ToInt(reader["no_need_to_call"]),

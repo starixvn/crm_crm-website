@@ -900,12 +900,20 @@ namespace Fanex.CRM.Setting.Services
                     return settings;
                 }
 
+                var roles = new List<BaseModel> 
+                {
+                    new BaseModel { Id = RoleIdConstants.Member, Name = Labels.Member },
+                    new BaseModel { Id = RoleIdConstants.Agent, Name = Labels.Agent },
+                    new BaseModel { Id = RoleIdConstants.Master, Name = Labels.Master },
+                    new BaseModel { Id = RoleIdConstants.Super, Name = Labels.Super }
+                };
+
                 settings = new InformHeadlineSetting
                 {
                     Status = _settingRepositoryInstance.GetAllStatusInformHeadline(new GetAllStatusInformHeadlineCriteria()),
-                    Position = _settingRepositoryInstance.GetAllPositionInformHeadline(new GetAllPositionInformHeadlineCriteria()),
-                    Currency = _settingRepositoryInstance.GetAllCurrencyInformHeadline(new GetAllCurrencyInformHeadlineCriteria()),
-                    Site = _settingRepositoryInstance.GetAllSiteInformHeadline(new GetAllSiteInformHeadlineCriteria()),
+                    Position = roles,
+                    Currency = GetAllCurrency(new GetAllCurrencyCriteria()),
+                    Site = AllSite()[0].ChildSites.Select(s => new BaseModel { Id = s.Id, Name = s.Name }).ToList(),
                     ProductStatus = new List<BaseModel>() 
                     {
                         new BaseModel { Id = HeadlineProductStatusConstants.NotAvailable, Name = Labels.Symbol_NotApply },

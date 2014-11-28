@@ -79,7 +79,8 @@ directiveManager.registerMultiSelectContainer = function (angularApplication, re
                 noItemText: options.NoItemText,
                 noneSelectedText: options.NoneSelectedText,
                 selectedList: options.NumberOfItemShowShortText,
-                listData: dropdownOptions
+                listData: dropdownOptions,
+                autoCheckAll: options.AutoCheckAll
             });
 
             elementChange(element);

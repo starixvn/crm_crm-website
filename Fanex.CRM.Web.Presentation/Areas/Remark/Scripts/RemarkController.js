@@ -55,11 +55,15 @@ remarkApplication.controller('remarkController',
 
         $scope.updateRemarksAfterPreventUnsavedAction = function () {
             $scope.blockUI();
-            if ($scope.lastSpecialRemark.length !== 0) {
+            if ($scope.lastSpecialRemark.trim().length !== 0 &&
+                $scope.lastSpecialRemark !== "<br>" &&
+                $scope.lastSpecialRemark !== remarkResources.RemarkPlaceHolder) {
                 $scope.remarks.SpecialRemarks.push($scope.lastSpecialRemark);
                 $scope.lastSpecialRemark = '';
             }
-            if ($scope.lastRemark.length !== 0) {
+            if ($scope.lastRemark.trim().length !== 0 &&
+                $scope.lastRemark !== "<br>" &&
+                $scope.lastRemark !== remarkResources.RemarkPlaceHolder) {
                 $scope.remarks.NormalRemarks.push($scope.lastRemark);
                 $scope.lastRemark = '';
             }
@@ -101,7 +105,7 @@ remarkApplication.controller('remarkController',
         };
 
         $scope.insertSpecialRemark = function () {
-            if ($scope.lastSpecialRemark.length === 0 ||
+            if ($scope.lastSpecialRemark.trim().length === 0 ||
                 $scope.lastSpecialRemark === "<br>" ||
                 $scope.lastSpecialRemark === remarkResources.RemarkPlaceHolder) {
                 return;
@@ -113,7 +117,7 @@ remarkApplication.controller('remarkController',
         };
 
         $scope.insertRemark = function () {
-            if ($scope.lastRemark.length === 0 ||
+            if ($scope.lastRemark.trim().length === 0 ||
                 $scope.lastRemark === "<br>" ||
                 $scope.lastRemark === remarkResources.RemarkPlaceHolder) {
                 return;
@@ -153,7 +157,7 @@ remarkApplication.controller('remarkController',
 
         $scope.compareOldNewValues = function () {
             /*check last remark change*/
-            if ($scope.lastSpecialRemark.length !== 0 || $scope.lastRemark.length !== 0) {
+            if ($scope.lastSpecialRemark.trim().length !== 0 || $scope.lastRemark.trim().length !== 0) {
                 return true;
             }
 

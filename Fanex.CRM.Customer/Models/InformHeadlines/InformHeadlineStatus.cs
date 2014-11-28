@@ -53,6 +53,8 @@ namespace Fanex.CRM.Customer.Models.InformHeadlines
 
         public int Total { get; set; }
 
+        public int NoOfHeadlinesToInform { get; set; }
+
         public int Done { get; set; }
 
         public int RequestToCallback { get; set; }

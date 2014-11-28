@@ -179,12 +179,13 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             int totalItems = casinoDailyDetails != null ? casinoDailyDetails.Count : 0;
             if (totalItems > 0)
             {
-                int page = criteria.PageIndex - 1;
                 return new CasinoDetail
                 {
                     Title = title,
                     TotalItems = totalItems,
-                    CasinoDetails = criteria.FullReport ? casinoDailyDetails : casinoDailyDetails.Skip(criteria.ItemsPerPage * page).Take(criteria.ItemsPerPage).ToList(),
+                    CasinoDetails = criteria.FullReport ? 
+                        casinoDailyDetails : 
+                        casinoDailyDetails.Skip(criteria.ItemsPerPage * criteria.PageIndex).Take(criteria.ItemsPerPage).ToList(),
                     CurrentPage = criteria.PageIndex,
                     ItemsPerPage = criteria.ItemsPerPage
                 };
@@ -353,12 +354,11 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             int totalItems = casinoDetails != null ? casinoDetails.Count : 0;
             if (totalItems > 0)
             {
-                int page = criteria.PageIndex - 1;
                 return new CasinoDetail
                 {
                     Title = title,
                     TotalItems = totalItems,
-                    CasinoDetails = casinoDetails.Skip(criteria.ItemsPerPage * page).Take(criteria.ItemsPerPage).ToList(),
+                    CasinoDetails = casinoDetails.Skip(criteria.ItemsPerPage * criteria.PageIndex).Take(criteria.ItemsPerPage).ToList(),
                     CurrentPage = criteria.PageIndex,
                     ItemsPerPage = criteria.ItemsPerPage
                 };

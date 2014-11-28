@@ -5,6 +5,7 @@ sharedScriptManager */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 casinoDailyApplication.directive('tableDailyDetailContainer', function () {
+    var tableDailyDetail, gridOptions;
     function getGridOptions(scope, report, bodyData) {
         var columns = [
             { HeaderText: casinoDailyResources.Date, Width: 80, Name: 'ColDate', HeaderAlign: 'center', CellAlign: 'center' },
@@ -55,10 +56,14 @@ casinoDailyApplication.directive('tableDailyDetailContainer', function () {
             customPager: true,
             pagerOption: {
                 itemsPerPage: report.ItemsPerPage,
-                currentPage: report.PageIndex,
+                currentPage: report.CurrentPage,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
                 totalItem: report.TotalItems,
                 pagerSelectCallBack: function (page_index, itemsPerPage) {
+                    gridOptions.pagerOption.currentPage = page_index;
+                    gridOptions.pagerOption.itemsPerPage = itemsPerPage;
+                    tableDailyDetail.fanexGrid(gridOptions);
+
                     scope.getCasinoDailyDetail(page_index, itemsPerPage);
                     return false;
                 }
@@ -84,8 +89,7 @@ casinoDailyApplication.directive('tableDailyDetailContainer', function () {
                 { Name: 'ColProduct', Value: detail.Product },
                 { Name: 'ColStation', Value: detail.Station },
                 { Name: 'ColRole', Value: detail.Role },
-                //{ Name: 'ColContact', Value: buildContact(detail.MSN, detail.Skype, detail.Email, detail.Phone, detail.MobilePhone) },
-                {Name: 'ColContact', Value: detail.Contact },
+                { Name: 'ColContact', Value: detail.Contact },
                 { Name: 'ColCountry', Value: detail.CountryName },
                 { Name: 'ColMainCategory', Value: detail.MainCategory },
                 { Name: 'ColSubCategory', Value: detail.SubCategory },
@@ -103,23 +107,15 @@ casinoDailyApplication.directive('tableDailyDetailContainer', function () {
         return bodyData;
     }
 
-//    function buildContact(msn, skype, email, phone, mobile) {
-//        return casinoDailyResources.MSN + ': ' + (msn ? sharedScriptManager.encodeHtml(msn) : '-') +
-//            '<br/>' + casinoDailyResources.Skype + ': ' + (skype ? sharedScriptManager.encodeHtml(skype) : '-') +
-//            '<br/>' + casinoDailyResources.Email + ': ' + (email ? sharedScriptManager.encodeHtml(email) : '-') +
-//            '<br/>' + casinoDailyResources.Phone + ': ' + (phone ? sharedScriptManager.encodeHtml(phone) : '-') +
-//            '<br/>' + casinoDailyResources.Mobile + ': ' + (mobile ? sharedScriptManager.encodeHtml(mobile) : '-');
-//    }
-
     function renderCasinoDailyDetail(scope, element, attrs) {
         var report = scope.dailyDetail;
 
         var casinoDetails = report.CasinoDetails;
         var bodyData = casinoDetails ? getGridBody(casinoDetails) : [];
-        var gridOptions = getGridOptions(scope, report, bodyData);
+        gridOptions = getGridOptions(scope, report, bodyData);
 
-        var grid = element.find('#table-daily-detail');
-        grid.empty().removeClass('hide').fanexGrid(gridOptions);
+        tableDailyDetail = element.find('#table-daily-detail');
+        tableDailyDetail.empty().removeClass('hide').fanexGrid(gridOptions);
         element.find('#button-back').click(function () {
             scope.showSummary = true;
             scope.$apply();

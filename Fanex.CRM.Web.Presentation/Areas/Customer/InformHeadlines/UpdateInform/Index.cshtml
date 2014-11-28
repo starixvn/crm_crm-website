@@ -71,7 +71,7 @@
                         <label class="filter-lbl" for="site">@Labels.Site</label>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
-                        <div site-multi-container data-ng-model="siteOptions.DataList">
+                        <div class="site-picker-container" data-ng-model="siteOptions.DataList">
                             <select tabindex="4" id="site">
                             </select>
                         </div>
@@ -149,6 +149,9 @@
             Confirm_Ignore_UpdateInforms_Changes: '@Html.Raw(Labels.Confirm_Ignore_UpdateInforms_Changes)',
             UpdateInforms_TitleEmpty: '@Labels.UpdateInforms_TitleEmpty',
             InformHeadline_NoStatusFound: '@Labels.InformHeadline_NoStatusFound',
+            InformHeadline_NoPositionFound: '@Labels.InformHeadline_NoPositionFound',
+            InformHeadline_NoCurrencyFound: '@Labels.InformHeadline_NoCurrencyFound',
+            InformHeadline_NoSiteFound: '@Labels.InformHeadline_NoSiteFound',
             InformHeadline_NoDataChanged: '@Labels.InformHeadline_NoDataChanged',
             Confirm_Export_InformStatus: '@Html.Raw(Labels.Confirm_Export_InformStatus)'
         };

@@ -471,4 +471,19 @@
   <data name="LicenseeType" xml:space="preserve">
     <value>Licensee Type</value>
   </data>
+  <data name="NoOfHeadlinesToInform" xml:space="preserve">
+    <value>No. Of Headlines To Inform</value>
+  </data>
+  <data name="Title_InformHeadlines" xml:space="preserve">
+    <value>CRM System - Inform Headlines</value>
+  </data>
+  <data name="InformHeadline_NoCurrencyFound" xml:space="preserve">
+    <value>Please select at least one Currency!</value>
+  </data>
+  <data name="InformHeadline_NoPositionFound" xml:space="preserve">
+    <value>Please select at least one Position!</value>
+  </data>
+  <data name="InformHeadline_NoSiteFound" xml:space="preserve">
+    <value>Please select at least one Site!</value>
+  </data>
 </root>

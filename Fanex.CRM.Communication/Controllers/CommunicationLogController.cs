@@ -12,6 +12,8 @@ namespace Fanex.CRM.Communication.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services;
@@ -59,7 +61,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// </summary>
         /// <returns>All setting for edit.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult AllSettingForEdit()
         {
             var allSetting = new
@@ -88,6 +90,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// All setting for edit.
         /// </returns>
         [HttpPost]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult AllSettingForInsert(int custId)
         {
             var allSetting = new
@@ -198,6 +201,7 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult AllStatus()
         {
             var allStatus = _communicationServiceLog.AllStatusForEdit;

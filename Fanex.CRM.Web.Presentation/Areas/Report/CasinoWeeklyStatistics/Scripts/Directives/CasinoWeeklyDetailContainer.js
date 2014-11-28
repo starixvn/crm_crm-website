@@ -5,6 +5,7 @@ sharedScriptManager */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
+    var tableWeeklyDetail, gridOptions;
     function getGridOptions(scope, report, bodyData) {
         var columns = [
             { HeaderText: casinoWeeklyResources.Date, Width: 80, Name: 'ColDate', HeaderAlign: 'center', CellAlign: 'center' },
@@ -51,10 +52,14 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
             customPager: true,
             pagerOption: {
                 itemsPerPage: report.ItemsPerPage,
-                currentPage: report.PageIndex,
+                currentPage: report.CurrentPage,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
                 totalItem: report.TotalItems,
                 pagerSelectCallBack: function (page_index, itemsPerPage) {
+                    gridOptions.pagerOption.currentPage = page_index;
+                    gridOptions.pagerOption.itemsPerPage = itemsPerPage;
+                    tableWeeklyDetail.fanexGrid(gridOptions);
+
                     scope.getCasinoWeeklyDetail(page_index, itemsPerPage);
                     return false;
                 }
@@ -98,23 +103,15 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
         return bodyData;
     }
 
-//    function buildContact(msn, skype, email, phone, mobile) {
-//        return casinoWeeklyResources.MSN + ': ' + (msn ? sharedScriptManager.encodeHtml(msn) : '-') +
-//            '<br/>' + casinoWeeklyResources.Skype + ': ' + (skype ? sharedScriptManager.encodeHtml(skype) : '-') +
-//            '<br/>' + casinoWeeklyResources.Email + ': ' + (email ? sharedScriptManager.encodeHtml(email) : '-') +
-//            '<br/>' + casinoWeeklyResources.Phone + ': ' + (phone ? sharedScriptManager.encodeHtml(phone) : '-') +
-//            '<br/>' + casinoWeeklyResources.Mobile + ': ' + (mobile ? sharedScriptManager.encodeHtml(mobile) : '-');
-//    }
-
     function renderCasinoWeeklyDetail(scope, element, attrs) {
         var report = scope.weeklyDetail;
         
         var casinoDetails = report.CasinoDetails;
         var bodyData = casinoDetails ? getGridBody(casinoDetails) : [];
-        var gridOptions = getGridOptions(scope, report, bodyData);
+        gridOptions = getGridOptions(scope, report, bodyData);
 
-        var grid = element.find('#table-weekly-detail');
-        grid.empty().removeClass('hide').fanexGrid(gridOptions);
+        tableWeeklyDetail = element.find('#table-weekly-detail');
+        tableWeeklyDetail.empty().removeClass('hide').fanexGrid(gridOptions);
         element.find('#button-back').click(function () {
             scope.showSummary = true;
             scope.$apply();
