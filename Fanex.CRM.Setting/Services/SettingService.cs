@@ -508,6 +508,23 @@ namespace Fanex.CRM.Setting.Services
             }
         }
 
+        public List<SettingInfo> AllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria)
+        {
+            try
+            {
+                var allCurrency = new List<SettingInfo>();
+
+                allCurrency = _settingRepositoryInstance.GetAllCurrencyRedemption(criteria);
+                allCurrency = allCurrency.OrderBy(s => s.DisplayOrder).ToList();
+                return allCurrency;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
         /// <summary>
         /// Gets all role.
         /// </summary>

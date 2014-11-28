@@ -20,6 +20,38 @@ function RegisterTemplate(application) {
         directiveManager.registerDropdownContainer(self.application, reportTypeRegisterParams);
     };
 
+    self.registerReportByPicker = function () {
+        var reportByRegisterParams = {
+            PlugInName: 'reportByPickerContainer',
+            OptionName: 'reportByOptions',
+            PickerId: 'reportby',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(self.application, reportByRegisterParams);
+    };
+
+    self.registerCurrencyPicker = function () {
+        var currencyRegisterParams = {
+            PlugInName: 'currencyPickerContainer',
+            OptionName: 'currencyOptions',
+            PickerId: 'currency',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerDropdownContainer(self.application, currencyRegisterParams);
+    };
+
     self.registerDatePicker = function () {
         var fromDateRegisterParams = {
             PlugInName: 'datePickerFromDateContainer',

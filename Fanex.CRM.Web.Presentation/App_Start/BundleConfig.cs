@@ -108,6 +108,7 @@ namespace Fanex.CRM.Web.View.AppStart
             RegisterBundles_Dashboard_ViewInfo(ref bundles);
             RegisterBundles_Dashboard_VerifyFlag(ref bundles);
             RegisterBundles_Report_DynamicReport(ref bundles);
+            RegisterBundles_Report_RedemptionStatistics(ref bundles);
             RegisterBundles_Report_CustomerReport(ref bundles);
             RegisterBundles_Chart(ref bundles);
             RegisterBundles_User_LogIn(ref bundles);
@@ -448,6 +449,30 @@ namespace Fanex.CRM.Web.View.AppStart
             bundles.AddAndInclude(
                 "~/Areas/Report/DynamicReportStyles",
                 "~/Areas/Report/DynamicReport/Styles/DynamicReport.less");
+        }
+
+        private static void RegisterBundles_Report_RedemptionStatistics(ref BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/Report/RedemptionStatisticsScripts").Include(
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/DropdownSite.js",
+                "~/Scripts/MultipleSelect/fanex.multiSelect.js",
+                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/SubjectAutoComplete.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/RedemptionStatistics/Scripts/RedemptionStatisticsApplication.js",
+                "~/Areas/Report/RedemptionStatistics/Scripts/RedemptionStatisticsService.js",
+                "~/Areas/Report/RedemptionStatistics/Scripts/RedemptionStatisticsController.js",
+                "~/Areas/Report/RedemptionStatistics/Scripts/Directives/*.js"));
+
+            bundles.AddAndInclude(
+                "~/Areas/Report/RedemptionStatisticsStyles",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Areas/Report/RedemptionStatistics/Styles/RedemptionStatistics.less");
         }
 
         /// <summary>

@@ -47,5 +47,7 @@ namespace Fanex.CRM.Setting.Repositories
         List<BaseModel> GetAllLicenseeType(GetAllLicenseeTypeCriteria criteria);
 
         List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria);
+
+        List<SettingInfo> GetAllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria);
     }
 }

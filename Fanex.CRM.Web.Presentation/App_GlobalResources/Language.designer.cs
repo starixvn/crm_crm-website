@@ -691,15 +691,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No. headlines to inform.
-        /// </summary>
-        internal static string NoHeadlinesToInform {
-            get {
-                return ResourceManager.GetString("NoHeadlinesToInform", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Overwrite current CRM Info.
         /// </summary>
         internal static string OverwriteCRMInfo {
@@ -750,15 +741,6 @@ namespace Resources {
         internal static string PIC4 {
             get {
                 return ResourceManager.GetString("PIC4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Position.
-        /// </summary>
-        internal static string Position {
-            get {
-                return ResourceManager.GetString("Position", resourceCulture);
             }
         }
         
@@ -1194,6 +1176,15 @@ namespace Resources {
         internal static string Title_Report_FeedbackStatistics {
             get {
                 return ResourceManager.GetString("Title_Report_FeedbackStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CRM System - Redemption Statistics Report.
+        /// </summary>
+        internal static string Title_Report_RedemptionStatistics {
+            get {
+                return ResourceManager.GetString("Title_Report_RedemptionStatistics", resourceCulture);
             }
         }
         

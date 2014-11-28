@@ -522,4 +522,7 @@ Thanks and best regards.&lt;br&gt;&lt;hr&gt;&lt;i&gt;This email is confidential.
   <data name="Title_DeletedFeedback" xml:space="preserve">
     <value>CRM System - Deleted Feedback</value>
   </data>
+  <data name="Title_Report_RedemptionStatistics" xml:space="preserve">
+    <value>CRM System - Redemption Statistics Report</value>
+  </data>
 </root>

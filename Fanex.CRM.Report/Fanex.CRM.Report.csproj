@@ -40,6 +40,9 @@
     <Reference Include="Fanex.Data">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Excel">
+      <HintPath>..\Dependency\Fanex.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.NAP.Core, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependency\Fanex\Fanex.NAP.Core.dll</HintPath>
@@ -86,6 +89,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ReportBundles.cs" />
     <Compile Include="Controllers\CasinoReportController.cs" />
+    <Compile Include="Controllers\RedemptionStatisticReportController.cs" />
     <Compile Include="Controllers\CustomerReportController.cs" />
     <Compile Include="Controllers\DailyStatisticsReportController.cs" />
     <Compile Include="Controllers\DynamicReportController.cs" />
@@ -97,6 +101,8 @@
     <Compile Include="Controllers\WeeklyStatisticsReportController.cs" />
     <Compile Include="Criteria\CasinoReport\GetCasinoDetailCriteria.cs" />
     <Compile Include="Criteria\CasinoReport\GetCasinoSummaryCriteria.cs" />
+    <Compile Include="Criteria\RedemptionStatisticsReport\GetRedemptionStatisticsDetailCriteria.cs" />
+    <Compile Include="Criteria\RedemptionStatisticsReport\GetRedemptionStatisticsSummaryCriteria.cs" />
     <Compile Include="Criteria\CustomerReport\GetCustomerReportCriteria.cs" />
     <Compile Include="Criteria\DynamicReport\GetDynamicReportCriteria.cs" />
     <Compile Include="Criteria\FeedbackStatisticReport\GetFeedbackStatisticCriteria.cs" />
@@ -106,6 +112,8 @@
     <Compile Include="Criteria\SummaryReport\GetSummaryReportCriteria.cs" />
     <Compile Include="Criteria\StatisticByDateReport\GetDetailReportCriteria.cs" />
     <Compile Include="Entities\CasinoReport\CasinoDetailEntity.cs" />
+    <Compile Include="Entities\RedemptionStatistics\RedemptionStatisticsDetailEntity.cs" />
+    <Compile Include="Entities\RedemptionStatistics\RedemptionStatisticsEntity.cs" />
     <Compile Include="Entities\StatisticsReportByDate\StatisticByDateEntity.cs" />
     <Compile Include="Entities\StatisticReport\StatisticReportEntity.cs" />
     <Compile Include="Criteria\WagerReport\GetWagerReportCriteria.cs" />
@@ -121,6 +129,7 @@
     <Compile Include="Models\CasinoReport\CasinoWeeklySummary.cs" />
     <Compile Include="Models\CasinoReport\CategoryCasinoGroup.cs" />
     <Compile Include="Models\CasinoReport\CommunicationValue.cs" />
+    <Compile Include="Models\RedemptionStatistics\RedemptionStatisticsInfo.cs" />
     <Compile Include="Models\CustomerReport\CustomerInfo.cs" />
     <Compile Include="Models\CustomerReport\CustomerReportInfo.cs" />
     <Compile Include="Models\DynamicReportInfo.cs" />
@@ -165,6 +174,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Labels.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\RedemptionStatisticsReport\RedemptionStatisticsService.cs" />
+    <Compile Include="Services\RedemptionStatisticsReport\IRedemptionStatisticsService.cs" />
     <Compile Include="Services\DailyStatisticsReport\DailyStatisticsReportService.cs" />
     <Compile Include="Services\CasinoReport\CasinoReportService.cs" />
     <Compile Include="Services\CustomerReport\CustomerReportService.cs" />

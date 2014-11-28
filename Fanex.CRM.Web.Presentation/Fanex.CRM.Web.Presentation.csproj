@@ -443,6 +443,12 @@
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\CasinoWeeklyService.js" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\Directives\CasinoWeeklyDetailContainer.js" />
     <Content Include="Areas\Report\CasinoWeeklyStatistics\Scripts\Directives\CasinoWeeklySummaryContainer.js" />
+    <Content Include="Areas\Report\RedemptionStatistics\Scripts\Directives\RedemptionStatisticsDetailContainer.js" />
+    <Content Include="Areas\Report\RedemptionStatistics\Scripts\Directives\RedemptionStatisticsContainer.js" />
+    <Content Include="Areas\Report\RedemptionStatistics\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\RedemptionStatistics\Scripts\RedemptionStatisticsApplication.js" />
+    <Content Include="Areas\Report\RedemptionStatistics\Scripts\RedemptionStatisticsController.js" />
+    <Content Include="Areas\Report\RedemptionStatistics\Scripts\RedemptionStatisticsService.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportApplication.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportController.js" />
     <Content Include="Areas\Report\CustomerReport\Scripts\CustomerReportService.js" />
@@ -1027,6 +1033,8 @@
     <Content Include="Views\Home\_DashboardMenu.cshtml" />
     <Content Include="Views\Home\_SearchCustomerRemind.cshtml" />
     <Content Include="Areas\User\LogIn\Styles\login.less" />
+    <Content Include="Areas\Report\RedemptionStatistics\Index.cshtml" />
+    <Content Include="Areas\Report\RedemptionStatistics\Styles\RedemptionStatistics.less" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

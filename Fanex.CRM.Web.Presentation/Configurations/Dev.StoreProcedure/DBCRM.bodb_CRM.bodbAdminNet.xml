@@ -29,6 +29,7 @@
     <Setting Key="Redemption_Log_Update" SpName="Acc_CRM_RedemptionUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Redemption_Log_Insert" SpName="Acc_CRM_RedemptionIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Redemption_Log_GetInfoById" SpName="Acc_CRM_RedemptionSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Redemption_Statisics_GetCurrencyList" SpName="Acc_CRM_CurrencyList_Redemption" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
   <Function Name="Setting">
     <Setting Key="Setting_FeedbackTemplateSubject_Get" SpName="Acc_CRM_SubjectTemplateSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -119,6 +120,8 @@
     </Setting>
     <Setting Key="Report_WagerReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_SummaryReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSummary" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_RedemptionStatistics_GetSummaryReport" SpName="Acc_Crm_Rpt_RedemptionStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_RedemptionStatistics_GetDetailReport" SpName="Acc_Crm_Rpt_RedemptionStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 
   <Function Name="Inform Headline">

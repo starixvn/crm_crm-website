@@ -376,6 +376,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        public static string Currency {
+            get {
+                return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer.
         /// </summary>
         public static string Customer {
@@ -1335,6 +1344,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string RelatedCustomer {
             get {
                 return ResourceManager.GetString("RelatedCustomer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report By.
+        /// </summary>
+        public static string Report_by {
+            get {
+                return ResourceManager.GetString("Report_by", resourceCulture);
             }
         }
         
