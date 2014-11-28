@@ -85,7 +85,7 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
                 { Name: 'ColProduct', Value: detail.Product },
                 { Name: 'ColStation', Value: detail.Station },
                 { Name: 'ColRole', Value: detail.Role },
-                { Name: 'ColContact', Value: detail.Contact },
+                { Name: 'ColContact', Value: detail.Contact, CssClass: 'word-wrap-contactinfo' },
                 { Name: 'ColCountry', Value: detail.CountryName },
                 { Name: 'ColMainCategory', Value: detail.MainCategory },
                 { Name: 'ColSubCategory', Value: detail.SubCategory },

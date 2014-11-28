@@ -60,7 +60,7 @@ dailyStatisticsReportApplication.directive('tableDetailReportContainer', functio
                     { Name: "ColTypeOfContact", Value: info.CommunicationTool.Name },
                     { Name: "ColExtension", Value: info.Extension.Name },
                     { Name: "ColRole", Value: info.Role },
-                    { Name: "ColContact", Value: info.Contact },
+                    { Name: "ColContact", Value: info.Contact, CssClass: 'word-wrap-contactinfo' },
                     { Name: "ColProduct", Value: info.Product.Name },
                     { Name: "ColCountry", Value: info.Country.Name },
                     { Name: "ColCategory", Value: info.MainCategory.Name },
@@ -125,7 +125,7 @@ dailyStatisticsReportApplication.directive('tableDetailReportContainer', functio
                 itemsPerPage: selfScope.getDetailReportCriteria.PageSize,
                 currentPage: selfScope.getDetailReportCriteria.PageIndex - 1,
                 itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: report ? report.TotalChildInfo : 0,
+                totalItem: report ? report.TotalChildReports : 0,
                 pagerSelectCallBack: rerenderAfterPaged
             }
         };

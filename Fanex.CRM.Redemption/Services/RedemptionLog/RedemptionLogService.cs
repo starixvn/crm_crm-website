@@ -151,7 +151,9 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
         {
             try
             {
-                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption);
+                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption)
+                    .Where(s => !string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
                 return new
                 {
                     StatusList = statusList,

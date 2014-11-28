@@ -18,8 +18,18 @@ namespace Fanex.CRM.Common.Helpers
     /// </summary>
     public static class HtmlHelper
     {
+        /// <summary>
+        /// Replaces the HTML tag.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The string without HTML tag.</returns>
         public static string ReplaceHtmlTag(string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return string.Empty;
+            }
+
             var result = value.Replace("<br/>", "\n").Replace("<br>", "\n");
             result = HttpUtility.HtmlDecode(result);
             result = Regex.Replace(result, "<[^<>]+>", string.Empty);

@@ -26,6 +26,7 @@ function (
     $scope.isSuccess = false;
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
+    $scope.amountString = $scope.redemptionLog.Amount;
 
     $scope.initController = function () {
         $scope.getAllStatus();
@@ -141,7 +142,7 @@ function (
             Remark: $scope.redemptionLog.Remark,
             CurrencyId: $scope.redemptionLog.Currency.Id,
             DoneBy: $scope.redemptionLog.DoneBy,
-            Amount: $scope.redemptionLog.Amount
+            Amount: $scope.getAmount()
         };
 
         if ($scope.validateUpdateLogCriteria(updateLogCriteria)) {
@@ -214,6 +215,9 @@ function (
         $scope.$apply();
         parent.ClosePopup();
     };
+    $scope.getAmount = function () {
+        return parseFloat($scope.amountString.replace(/,/g, ''));
+    };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
         $scope.updateLog();
@@ -238,7 +242,7 @@ function (
             $scope.redemptionLog.Status.Id !== $scope.oldRedemptionLog.Status.Id ||
             $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark ||
             $scope.redemptionLog.DoneBy !== $scope.oldRedemptionLog.DoneBy ||
-            $scope.redemptionLog.Amount !== $scope.oldRedemptionLog.Amount ||
+            $scope.redemptionLog.Amount !== $scope.getAmount() ||
             $scope.redemptionLog.Currency.Id !== $scope.oldRedemptionLog.Currency.Id) {
             parent.homeManager.CachedData.isChangingDataPopUp = true;
             parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_EditRedemption_Changes;

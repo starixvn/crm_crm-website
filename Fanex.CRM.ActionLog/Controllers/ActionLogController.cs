@@ -37,7 +37,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         }
 
         [HttpGet]
-        [AuthenticateAction(AuthenticationType.Read, "ActivityLog")]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult ActivityLog(int customerId)
         {
             return View("~/Areas/ActionLog/ActivityLog/Index.cshtml", customerId);
@@ -49,7 +49,7 @@ namespace Fanex.CRM.ActionLog.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>The JSON result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "ActivityLog")]
+        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetActivityLog(GetActivityLogCriteria criteria)
         {
             var activityLogs = _actionLogService.GetActivityLogs(criteria);

@@ -36,6 +36,7 @@ function (
     $scope.isSuccess = false;
     $scope.isShowResultMessage = false;
     $scope.resultMessage = '';
+    $scope.amountString = $scope.redemptionLog.Amount;
 
     $scope.loadedFilter = [];
     $scope.feedbackSubjectTemplateList = [];
@@ -155,7 +156,7 @@ function (
                     '',
             CurrencyId: $scope.redemptionLog.Currency.Id,
             DoneBy: $scope.redemptionLog.DoneBy,
-            Amount: $scope.redemptionLog.Amount,
+            Amount: $scope.getAmount(),
             Subject: $scope.redemptionLog.Subject,
             StatusId: $scope.redemptionLog.Status.Id,
             Remark: $scope.redemptionLog.Remark,
@@ -223,6 +224,9 @@ function (
         $scope.$apply();
         parent.ClosePopup();
     };
+    $scope.getAmount = function () {
+        return parseFloat($scope.amountString.replace(/,/g, ''));
+    };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
         $scope.insertLog();
@@ -254,7 +258,10 @@ function (
     $scope.updateChangeFlag = function () {
         if ($scope.redemptionLog.Subject !== $scope.oldRedemptionLog.Subject ||
                 $scope.redemptionLog.Status.Id !== $scope.oldRedemptionLog.Status.Id ||
-                $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark) {
+                $scope.redemptionLog.Remark !== $scope.oldRedemptionLog.Remark ||
+                $scope.redemptionLog.Currency.Id !== $scope.oldRedemptionLog.Currency.Id ||
+                $scope.redemptionLog.DoneBy !== $scope.oldRedemptionLog.DoneBy ||
+                $scope.redemptionLog.Amount !== $scope.getAmount()) {
             parent.homeManager.CachedData.isChangingDataPopUp = true;
             parent.homeManager.CachedData.ignoreConfirmMessagePopUp = viewResources.Confirm_Ignore_InsertRedemption_Changes;
         } else {

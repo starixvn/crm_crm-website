@@ -76,6 +76,18 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                 sortInfo.sortField = "StatusName";
                 sortInfo.sortDataType = sortDataTypeEnums.String;
                 break;
+            case "ColCurrency":
+                sortInfo.sortField = "Currency";
+                sortInfo.sortDataType = sortDataTypeEnums.String;
+                break;
+            case "ColDoneBy":
+                sortInfo.sortField = "DoneBy";
+                sortInfo.sortDataType = sortDataTypeEnums.String;
+                break;
+            case "ColAmount":
+                sortInfo.sortField = "Amount";
+                sortInfo.sortDataType = sortDataTypeEnums.Number;
+                break;
         }
 
         return sortInfo;
@@ -104,6 +116,27 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                     var isGreaterThan = compareValues(sortInfo, valueA, valueB);
                     return isGreaterThan;
                 });
+            case "Currency":
+                return cachedLogs.sort(function (elementA, elementB) {
+                    var valueA = elementA.Currency.Name.toLowerCase();
+                    var valueB = elementB.Currency.Name.toLowerCase();
+                    var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                    return isGreaterThan;
+                });
+            case "DoneBy":
+                return cachedLogs.sort(function (elementA, elementB) {
+                    var valueA = elementA.DoneBy.toLowerCase();
+                    var valueB = elementB.DoneBy.toLowerCase();
+                    var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                    return isGreaterThan;
+                });
+            case "Amount":
+                return cachedLogs.sort(function (elementA, elementB) {
+                    var valueA = elementA.Amount;
+                    var valueB = elementB.Amount;
+                    var isGreaterThan = compareValues(sortInfo, valueA, valueB);
+                    return isGreaterThan;
+                });
         }
 
         return cachedLogs;
@@ -125,7 +158,10 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
-                        { Name: "ColStatus", Value: info.Status.Value}],
+                        { Name: "ColStatus", Value: info.Status.Value },
+                        { Name: "ColCurrency", Value: info.Currency.Name },
+                        { Name: "ColDoneBy", Value: info.DoneBy },
+                        { Name: "ColAmount", Value: info.Amount }],
                     CssClass: 'editlog-link-row'
                 });
             }
@@ -158,7 +194,10 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
-                        { Name: "ColStatus", Value: info.Status.Value}],
+                        { Name: "ColStatus", Value: info.Status.Value },
+                        { Name: "ColCurrency", Value: info.Currency.Name },
+                        { Name: "ColDoneBy", Value: info.DoneBy, CssClass: 'word-wrap' },
+                        { Name: "ColAmount", Value: info.Amount }],
                     CssClass: 'editlog-link-row'
                 });
             }
@@ -166,9 +205,20 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
 
         /* jshint camelcase: false */
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Subject, Width: 675, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
-                { HeaderText: viewResources.Claimed_Time, Width: 120, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center", Sort: true },
-                { HeaderText: viewResources.Status, Width: 140, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true}],
+            columns: [{ HeaderText: viewResources.Subject, Width: 440, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
+                { HeaderText: viewResources.Claimed_Time, Width: 100, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center", Sort: true },
+                { HeaderText: viewResources.Status, Width: 80, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true },
+                { HeaderText: viewResources.Currency, Width: 90, Name: "ColCurrency", HeaderAlign: "center", CellAlign: "center", Sort: true },
+                { HeaderText: viewResources.DoneBy, Width: 120, Name: "ColDoneBy", HeaderAlign: "center", CellAlign: "left", Sort: true },
+                {
+                    HeaderText: viewResources.Amount,
+                    Width: 90,
+                    Name: "ColAmount",
+                    HeaderAlign: "center",
+                    CellAlign: "right",
+                    Sort: true,
+                    FormatNumber: crmConstants.Enums.FormatConstant.TwoDecimalNumber
+                }],
             showTitle: true,
             titleInfo: {
                 text: viewResources.Customer_Redemption_Logs

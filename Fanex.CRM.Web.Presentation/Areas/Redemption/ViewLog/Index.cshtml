@@ -68,7 +68,7 @@
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    @Scripts.Render("~/Areas/Redemption/ViewLogScripts")
+    @Scripts.Render("~/Scripts/FanexGridV2/NumeralScripts", "~/Areas/Redemption/ViewLogScripts")
     <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
@@ -82,7 +82,10 @@
             Claimed_Time: '@Labels.Claimed_Time',
             Status: '@Labels.Status',
             Customer_Redemption_Logs: '@Labels.Customer_Redemption_Logs',
-            All: '@Labels.All'
+            All: '@Labels.All',
+            Currency: '@Labels.Currency',
+            DoneBy: '@Labels.DoneBy',
+            Amount: '@Labels.Amount'
         }; 
     </script>
 </body>

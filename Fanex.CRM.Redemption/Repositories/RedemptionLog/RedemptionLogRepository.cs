@@ -134,7 +134,10 @@ namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
                 Status = new SettingInfo
                 {
                     Value = Converter.ToString2(reader["Status"])
-                }
+                },
+                Currency = new BaseModel { Name = Converter.ToString2(reader["Currency"]) },
+                DoneBy = Converter.ToString2(reader["DoneBy"]),
+                Amount = Converter.ToDecimal(reader["Amount"])
             };
 
             return logInfo;
