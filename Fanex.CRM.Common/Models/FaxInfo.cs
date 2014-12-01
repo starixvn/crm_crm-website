@@ -22,5 +22,21 @@ namespace Fanex.CRM.Common.Models
         public string AreaCode { get; set; }
 
         public string FaxNumber { get; set; }
+
+        public override string ToString()
+        {
+            string firstJoin = JoinTwoFields(AreaCode, CountryCode);
+            return JoinTwoFields(firstJoin, FaxNumber);
+        }
+
+        private string JoinTwoFields(string name, string value)
+        {
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(value))
+            {
+                return name + value;
+            }
+
+            return name + " - " + value;
+        }
     }
 }

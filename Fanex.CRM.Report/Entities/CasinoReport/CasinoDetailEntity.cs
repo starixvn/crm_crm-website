@@ -11,6 +11,7 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
 {
     using System;
     using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Report.Helpers;
 
@@ -20,23 +21,65 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
     [Serializable]
     public class CasinoDetailEntity
     {
-        public string UserName { get; set; }
+        #region Communication
+
+        public string PhoneCountryCode { get; set; }
+
+        public string PhoneAreaCode { get; set; }
 
         public string Phone { get; set; }
 
-        public string MobilePhone { get; set; }
+        public string Phone2CountryCode { get; set; }
 
-        public string Email { get; set; }
+        public string Phone2AreaCode { get; set; }
+
+        public string Phone2 { get; set; }
+
+        public string Phone3CountryCode { get; set; }
+
+        public string Phone3AreaCode { get; set; }
+
+        public string Phone3 { get; set; }
+
+        public string PIC1Name { get; set; }
+
+        public string PIC1 { get; set; }
+
+        public string PIC2Name { get; set; }
+
+        public string PIC2 { get; set; }
+
+        public string PIC3Name { get; set; }
+
+        public string PIC3 { get; set; }
+
+        public string PIC4Name { get; set; }
+
+        public string PIC4 { get; set; }
+
+        public string FaxCountryCode { get; set; }
+
+        public string FaxAreaCode { get; set; }
+
+        public string Fax { get; set; }
+
+        public string MobilePhoneCountryCode { get; set; }
+
+        public string MobilePhoneAreaCode { get; set; }
+
+        public string MobilePhone { get; set; }
 
         public string Skype { get; set; }
 
+        public string Email { get; set; }
+
         public string MSN { get; set; }
+
+        public string WEChat { get; set; }
 
         public string WhatsApp { get; set; }
 
         public string Line { get; set; }
-
-        public string WEChat { get; set; }
 
         public string Yahoo { get; set; }
 
@@ -44,13 +87,40 @@ namespace Fanex.CRM.Report.Entities.CasinoReport
 
         public string Bbm { get; set; }
 
+        #endregion
+
+        public string UserName { get; set; }
+
         public string Product { get; set; }
 
         public string Contact
         {
             get
             {
-                return FieldHelper.GenerateContactInfo(Bbm, Email, Line, MSN, MobilePhone, Phone, QQ, Skype, WEChat, WhatsApp, Yahoo);
+                BaseCustomerInfo customer = new BaseCustomerInfo
+                {
+                    FaxInfo = new FaxInfo { AreaCode = FaxAreaCode, CountryCode = FaxCountryCode, FaxNumber = Fax },
+                    MobilePhone = new PhoneInfo { AreaCode = MobilePhoneAreaCode, CountryCode = MobilePhoneCountryCode, PhoneNumber = MobilePhone },
+                    Skype = Skype,
+                    Email = Email,
+                    MSN = MSN,
+                    WeChat = WEChat,
+                    WhatsApp = WhatsApp,
+                    Line = Line,
+                    Yahoo = Yahoo,
+                    QQ = QQ,
+                    BBM = Bbm
+                };
+
+                customer.PhoneInfo.Add(new PhoneInfo { AreaCode = PhoneAreaCode, CountryCode = PhoneCountryCode, PhoneNumber = Phone });
+                customer.PhoneInfo.Add(new PhoneInfo { AreaCode = Phone2AreaCode, CountryCode = Phone2CountryCode, PhoneNumber = Phone2 });
+                customer.PhoneInfo.Add(new PhoneInfo { AreaCode = Phone3AreaCode, CountryCode = Phone3CountryCode, PhoneNumber = Phone3 });
+
+                customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC1Name, Phone = PIC1 });
+                customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC2Name, Phone = PIC2 });
+                customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC3Name, Phone = PIC3 });
+                customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC4Name, Phone = PIC4 });
+                return FieldHelper.GenerateContactInfo(customer);
             }
         }
 

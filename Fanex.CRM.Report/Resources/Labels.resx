@@ -771,4 +771,7 @@
   <data name="BBM" xml:space="preserve">
     <value>BBM</value>
   </data>
+  <data name="PIC" xml:space="preserve">
+    <value>PIC</value>
+  </data>
 </root>

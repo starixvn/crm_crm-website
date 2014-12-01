@@ -158,10 +158,10 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
-                        { Name: "ColStatus", Value: info.Status.Value },
                         { Name: "ColCurrency", Value: info.Currency.Name },
+                        { Name: "ColAmount", Value: info.Amount },
                         { Name: "ColDoneBy", Value: info.DoneBy },
-                        { Name: "ColAmount", Value: info.Amount }],
+                        { Name: "ColStatus", Value: info.Status.Value }],
                     CssClass: 'editlog-link-row'
                 });
             }
@@ -194,10 +194,10 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                             TdClass: 'editlog-link-td'
                         },
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
-                        { Name: "ColStatus", Value: info.Status.Value },
                         { Name: "ColCurrency", Value: info.Currency.Name },
+                        { Name: "ColAmount", Value: info.Amount },
                         { Name: "ColDoneBy", Value: info.DoneBy, CssClass: 'word-wrap' },
-                        { Name: "ColAmount", Value: info.Amount }],
+                        { Name: "ColStatus", Value: info.Status.Value }],
                     CssClass: 'editlog-link-row'
                 });
             }
@@ -207,9 +207,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
         var gridOptions = {
             columns: [{ HeaderText: viewResources.Subject, Width: 440, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
                 { HeaderText: viewResources.Claimed_Time, Width: 100, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center", Sort: true },
-                { HeaderText: viewResources.Status, Width: 80, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true },
                 { HeaderText: viewResources.Currency, Width: 90, Name: "ColCurrency", HeaderAlign: "center", CellAlign: "center", Sort: true },
-                { HeaderText: viewResources.DoneBy, Width: 120, Name: "ColDoneBy", HeaderAlign: "center", CellAlign: "left", Sort: true },
                 {
                     HeaderText: viewResources.Amount,
                     Width: 90,
@@ -218,7 +216,9 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                     CellAlign: "right",
                     Sort: true,
                     FormatNumber: crmConstants.Enums.FormatConstant.TwoDecimalNumber
-                }],
+                },
+                { HeaderText: viewResources.DoneBy, Width: 120, Name: "ColDoneBy", HeaderAlign: "center", CellAlign: "left", Sort: true },
+                { HeaderText: viewResources.Status, Width: 80, Name: "ColStatus", HeaderAlign: "center", CellAlign: "center", Sort: true }],
             showTitle: true,
             titleInfo: {
                 text: viewResources.Customer_Redemption_Logs
