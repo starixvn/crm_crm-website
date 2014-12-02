@@ -41,7 +41,6 @@ namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
         [SpParam(SqlParamName = "statusid")]
         public string StatusId { get; set; }
 
-
         public override string GetSettingKey()
         {
             return "Report_RedemptionStatistics_GetDetailReport";

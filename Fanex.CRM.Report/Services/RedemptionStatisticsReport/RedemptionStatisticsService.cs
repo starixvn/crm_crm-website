@@ -326,7 +326,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.ClaimedDate, item.CreateDate.ToShortFormatedDate(), null, string.Empty, align));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Customer, item.UserName, null, string.Empty, align));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Subject, HttpContext.Current.Server.HtmlEncode(item.Subject), item.Subject, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(
+                currentColIndex++,
+                Labels.Subject,
+                HttpContext.Current.Server.HtmlEncode(item.Subject),
+                item.Subject,
+                string.Empty,
+                align));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, item.Currency, null, string.Empty, align));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, align));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Status, item.Status, null, string.Empty, align));
