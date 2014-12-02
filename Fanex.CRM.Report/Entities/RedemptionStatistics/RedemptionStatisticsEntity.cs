@@ -25,6 +25,6 @@ namespace Fanex.CRM.Report.Entities.RedemptionStatistics
 
         public string Currency { get; set; }
 
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
     }
 }

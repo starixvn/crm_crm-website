@@ -17,6 +17,7 @@
 </head>
 <body class="dynamicReportController" data-ng-controller="redemptionStatisticsController">
     <div class="main container">
+        <div class="row" alert-box-container></div>
         <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
             <div class="row row-item">
                 <div class="pull-left">
@@ -92,7 +93,8 @@
         <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
     </div>
     <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/CommomScripts",
+                    "~/Scripts/FanexGridV2/NumeralScripts")
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
     <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
@@ -114,8 +116,8 @@
         var viewResources = {
             All: '@Labels.All',
             AllStatus: 'All',
-            Symbol_NotApply: 'NotApply',
-            No_status_found: 'No_status_found',
+            Symbol_NotApply: '@Labels.No_status',
+            No_status_found: '@Labels.No_status_found',
         }; 
     </script>
 </body>

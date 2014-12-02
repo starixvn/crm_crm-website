@@ -25,10 +25,8 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         List<BaseModel> AllReportBy();
 
-        RedemptionStatisticsInfo GetRedemptionSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria);
+        GridOptions GetRedemptionSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria);
 
-        GridOptions GetRedemptionSummaryReportV2(GetRedemptionStatisticsSummaryCriteria criteria);
-
-        IEnumerable<RedemptionStatisticsDetailEntity> GetRedemptionDetailReport(GetRedemptionStatisticsDetailCriteria criteria);
+        GridOptions GetRedemptionDetailReport(GetRedemptionStatisticsDetailCriteria criteria);
     }
 }

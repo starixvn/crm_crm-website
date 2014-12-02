@@ -1,5 +1,5 @@
 ﻿"use strict";
-/* global dynamicReportApplication,
+/* global redemptionStatisticsApplication,
 RegisterTemplate */
 function redemptionStatisticsRegisterPicker() {
     var redemptionStatisticsRegister = new RegisterTemplate(redemptionStatisticsApplication);

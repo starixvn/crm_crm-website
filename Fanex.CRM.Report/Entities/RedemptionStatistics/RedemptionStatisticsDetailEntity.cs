@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="RedemptionStatisticsEntity.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="RedemptionStatisticsDetailEntity.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -21,7 +21,7 @@ namespace Fanex.CRM.Report.Entities.RedemptionStatistics
 
         public DateTime CreateDate { get; set; }
 
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
 
         public string DoneBy { get; set; }
 

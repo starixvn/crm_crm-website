@@ -9,9 +9,9 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
-    using Fanex.Data.Repository;
-    using Fanex.CRM.Infrastructure.Models;
     using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Models;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get All Report By Redemption Statistics Criteria.

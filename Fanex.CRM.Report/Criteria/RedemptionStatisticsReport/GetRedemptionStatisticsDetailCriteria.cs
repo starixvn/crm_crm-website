@@ -26,6 +26,12 @@ namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
         [SpParam(SqlParamName = "subject")]
         public string Subject { get; set; }
 
+        [SpParam(Ignored = true)]
+        public int PageIndex { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int PageSize { get; set; }
+
         [SpParam(SqlParamName = "currencyid")]
         public int CurrencyId { get; set; }
 
@@ -35,17 +41,6 @@ namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
         [SpParam(SqlParamName = "statusid")]
         public string StatusId { get; set; }
 
-        [SpParam(Ignored = true)]
-        public int PageIndex { get; set; }
-
-        [SpParam(Ignored = true)]
-        public int PageSize { get; set; }
-
-        [SpParam(Ignored = true)]
-        public bool IsGetFromCached { get; set; }
-
-        [SpParam(Ignored = true)]
-        public bool IsGetFullReport { get; set; }
 
         public override string GetSettingKey()
         {

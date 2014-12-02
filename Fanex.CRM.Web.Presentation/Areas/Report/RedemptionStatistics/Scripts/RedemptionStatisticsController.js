@@ -5,17 +5,17 @@ viewResources,
 crmConstants,
 currentDate: true,
 initFromDate: true,
-weekPickerManager,
 moment,
 sharedScriptManager */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 /* jshint maxstatements: 412 */
-redemptionStatisticsApplication.controller('redemptionStatisticsController', ['$scope', '$http', '$redemptionStatisticsService',
+redemptionStatisticsApplication.controller('redemptionStatisticsController', ['$scope', '$http', '$redemptionStatisticsService', 'alertBoxService',
 function (
     $scope,
     $http,
-    $redemptionStatisticsService) {
+    $redemptionStatisticsService,
+    alertBoxService) {
 
     $scope.isSetFocus = false;
     $scope.isShowFilter = true;
@@ -30,7 +30,7 @@ function (
     $scope.isSubmitClick = false;
 
     $scope.isShowSummary = true;
-
+    $scope.title = '';
     $scope.selectedStatusIds = '';
 
     $scope.searchCriteria = {
@@ -42,8 +42,7 @@ function (
         Currency: '',
         ReportBy: '',
         PageIndex: 0,
-        PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
-        IsGetFromCached: false
+        PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
     };
 
     $scope.searchDetailCriteria = {
@@ -53,14 +52,14 @@ function (
         Currency: null,
         ReportBy: null,
         PageIndex: 0,
-        PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
-        IsGetFromCached: false
+        PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
     };
     $scope.redemptionStatisticsOptions = {
         SummaryDataList: null,
         DetailDataList: null
     };
     $scope.lastSelectedParams = null;
+    $scope.lastSelectedDetailParams = null;
 
     $scope.initController = function () {
         $scope.getAllSetting();
@@ -105,7 +104,7 @@ function (
             AllText: viewResources.All,
             MaxHeight: 450,
             NoItemText: viewResources.Symbol_NotApply,
-            NoneSelectedText: viewResources.No_status_found,
+            NoneSelectedText: viewResources.Symbol_NotApply,
             NumberOfItemShowShortText: 0
         };
 
@@ -202,6 +201,7 @@ function (
     };
 
     $scope.getRedemptionStatisticsReport = function () {
+        alertBoxService.hide();
         $scope.BlockUI();
         var getReportCriteria = {
             FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
@@ -212,9 +212,17 @@ function (
             ReportBy: $scope.searchCriteria.ReportBy.Id,
             Subject: $scope.searchCriteria.Subject,
             PageIndex: $scope.searchCriteria.PageIndex,
-            PageSize: $scope.searchCriteria.PageSize,
-            IsGetFromCached: false
+            PageSize: $scope.searchCriteria.PageSize
         };
+
+        if (!getReportCriteria.StatusId) {
+            alertBoxService.show({
+                type: crmConstants.Enums.MessageType.Error,
+                message: viewResources.No_status_found
+            });
+            $scope.unblockUI();
+            return false;
+        }
 
         $scope.lastSelectedParams = getReportCriteria;
         $redemptionStatisticsService.getRedemptionStatisticsReport(getReportCriteria)
@@ -231,8 +239,10 @@ function (
         });
     };
 
-    $scope.getRedemptionStatisticsDetailReport = function (month, year, subject, currency) {
+    $scope.getRedemptionStatisticsDetailReport = function (subject, currency, month, year, title) {
         $scope.BlockUI();
+        $scope.title = title;
+
         var getReportDetailCriteria = {
             Month: month,
             Year: year,
@@ -241,10 +251,10 @@ function (
             ReportBy: $scope.searchCriteria.ReportBy.Id,
             Subject: subject,
             PageIndex: $scope.searchCriteria.PageIndex,
-            PageSize: $scope.searchCriteria.PageSize,
-            IsGetFromCached: false
+            PageSize: $scope.searchCriteria.PageSize
         };
 
+        $scope.lastSelectedDetailParams = getReportDetailCriteria;
         $redemptionStatisticsService.getRedemptionStatisticsDetailReport(getReportDetailCriteria)
         .then(function (data) {
             $scope.redemptionStatisticsOptions.DetailDataList = data.Result;
@@ -265,8 +275,17 @@ function (
 
     $scope.exportSummaryReport = function () {
         $scope.downloadFileOptions = {
-            URL: window.rootUrl + "RedemptionStatisticsReport/ExportReport",
+            URL: window.rootUrl + "RedemptionStatisticsReport/ExportSummaryReport",
             Params: $scope.lastSelectedParams
+        };
+
+        $scope.$apply();
+    };
+
+    $scope.exportDetailReport = function () {
+        $scope.downloadFileOptions = {
+            URL: window.rootUrl + "RedemptionStatisticsReport/ExportDetailReport",
+            Params: $scope.lastSelectedDetailParams
         };
 
         $scope.$apply();

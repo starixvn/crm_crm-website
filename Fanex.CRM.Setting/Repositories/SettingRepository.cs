@@ -478,9 +478,12 @@ namespace Fanex.CRM.Setting.Repositories
         }
 
         /// <summary>
+        /// Gets the type of all licensee.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
-        /// <returns>The Licensee Type list.</returns>
+        /// <returns>
+        /// The Licensee Type list.
+        /// </returns>
         public List<BaseModel> GetAllLicenseeType(GetAllLicenseeTypeCriteria criteria)
         {
             var licenseeTypes = new List<BaseModel>();

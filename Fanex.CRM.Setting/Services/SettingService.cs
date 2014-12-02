@@ -479,7 +479,7 @@ namespace Fanex.CRM.Setting.Services
             string key = GetAllStatusSessionKey;
             if (statusType == ViewTypeConstants.CommunicationTool)
             {
-                key = GetAllStatusCommunicationTool;    
+                key = GetAllStatusCommunicationTool;
             }
             else if (statusType == ViewTypeConstants.Redemption)
             {
@@ -508,6 +508,11 @@ namespace Fanex.CRM.Setting.Services
             }
         }
 
+        /// <summary>
+        /// All the currency redemption.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Setting Info List.</returns>
         public List<SettingInfo> AllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria)
         {
             try

@@ -13,6 +13,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
@@ -20,14 +21,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;
     using Fanex.CRM.Report.Entities.RedemptionStatistics;
-    using Fanex.CRM.Report.Models.RedemptionStatistics;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
-    using Fanex.NAP.Core.Service.Impl;
-    using Fanex.Excel.Models;
     using Fanex.Excel.Enums;
+    using Fanex.Excel.Models;
+    using Fanex.NAP.Core.Service.Impl;
 
     /// <summary>
     /// Dynamic Report Service.
@@ -36,8 +36,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     {
         private const string SummaryReportSessionKey = "Fanex.CRM.Report.Services.RedemptionStatisticsReport.SummaryReport";
         private const string DetailReportSessionKey = "Fanex.CRM.Report.Services.RedemptionStatisticsReport.DetailReport";
-
-        private GridOptions _gridOptions { get; set; }
+        private const string CurrencyListSessionKey = "Fanex.CRM.Report.Services.RedemptionStatisticsReport.CurrencyList";
 
         private ISettingService _serviceSetting;
 
@@ -60,7 +59,24 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             try
             {
-                return _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool);
+                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption);
+
+                int deleteIndex = -1;
+                for (int i = 0; i < statusList.Count; i++)
+                {
+                    if (statusList[i].Name == "Deleted")
+                    {
+                        deleteIndex = i;
+                        break;
+                    }
+                }
+
+                if (deleteIndex >= 0)
+                {
+                    statusList.RemoveAt(deleteIndex);
+                }
+
+                return statusList;
             }
             catch (Exception ex)
             {
@@ -69,10 +85,19 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             }
         }
 
+        /// <summary>
+        /// All the report by.
+        /// </summary>
+        /// <returns>The Setting List.</returns>
         public List<BaseModel> AllReportBy()
         {
             return GetAllReportByRedemptionCriteria.ReportByList;
         }
+
+        /// <summary>
+        /// All the currency redemption.
+        /// </summary>
+        /// <returns>The Setting Info List.</returns>
         public List<SettingInfo> AllCurrencyRedemption()
         {
             try
@@ -91,6 +116,10 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                     allCurrency.Add(rawStatus);
                 }
 
+                //// Save Currency Dictionary
+                Dictionary<string, int> currencyDict = allCurrency.ToDictionary(i => i.Name, i => i.Id);
+                SessionExtension.AddSession(HttpContext.Current.Session, CurrencyListSessionKey, currencyDict);
+
                 return allCurrency;
             }
             catch (Exception ex)
@@ -100,46 +129,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             }
         }
 
-        public RedemptionStatisticsInfo GetRedemptionSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
-        {
-            string key = SummaryReportSessionKey;
-            List<RedemptionStatisticsEntity> summaryReportData = null;
-            if (criteria.IsGetFromCached)
-            {
-                summaryReportData = (List<RedemptionStatisticsEntity>)SessionExtension.GetSession(HttpContext.Current.Session, key);
-            }
-
-            string title = string.Format("Redemption Statistics Report from {0} to {1}", criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
-            int totalItems = 0;
-            if (summaryReportData == null)
-            {
-                summaryReportData = new List<RedemptionStatisticsEntity>();
-                // Get data from DB.
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                try
-                {
-                    summaryReportData = this.GetData<RedemptionStatisticsEntity>(criteria, out totalItems).ToList();
-                    SessionExtension.AddSession(HttpContext.Current.Session, key, summaryReportData);
-                }
-                catch (Exception ex)
-                {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
-                }
-            }
-
-            return new RedemptionStatisticsInfo
-            {
-                Title = title,
-                ReportData = summaryReportData,
-                TotalData = null,
-                CurrentPage = criteria.PageIndex,
-                ItemsPerPage = criteria.PageSize
-            };
-        }
-
-        public GridOptions GetRedemptionSummaryReportV2(GetRedemptionStatisticsSummaryCriteria criteria)
+        /// <summary>
+        /// Gets the redemption summary report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Grid Options.</returns>
+        public GridOptions GetRedemptionSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
         {
             var gridOptions = new GridOptions();
             gridOptions.Columns = this.GenSummaryHeaderRow();
@@ -147,90 +142,232 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             gridOptions.ShowHighlightRow = true;
             gridOptions.ShowTitle = true;
             gridOptions.ShowFooter = true;
-            gridOptions.TitleInfoText = string.Format("Redemption Statistics Report from {0} to {1}", criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
+            gridOptions.TitleInfoText = string.Format(
+                Labels.RedemptionStatisticsReportTitle,
+                criteria.FromDate.ToShortFormatedDate(),
+                criteria.ToDate.ToShortFormatedDate());
 
-            string key = SummaryReportSessionKey;
-            List<RedemptionStatisticsEntity> summaryReportData = null;
-
-            string title = string.Format("Redemption Statistics Report from {0} to {1}", criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
-            int totalItems = 0;
-
-            summaryReportData = new List<RedemptionStatisticsEntity>();
-            // Get data from DB.
+            List<RedemptionStatisticsEntity> summaryReportData = new List<RedemptionStatisticsEntity>();
             criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
             criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
             try
             {
-                summaryReportData = this.GetData<RedemptionStatisticsEntity>(criteria, out totalItems).ToList();
-
+                //// Body Row.
+                summaryReportData = this.GetData<RedemptionStatisticsEntity>(criteria).ToList();
+                var currencyDict = (Dictionary<string, int>)SessionExtension.GetSession(HttpContext.Current.Session, CurrencyListSessionKey);
                 foreach (var item in summaryReportData)
                 {
-                    var dataRow = GenSummaryDataRow(item);
-                    this._gridOptions.BodyRows.Add(dataRow);
+                    var currencyId = 0;
+                    currencyDict.TryGetValue(item.Currency, out currencyId);
+                    var dataRow = GenSummaryDataRow(item, currencyId);
+                    gridOptions.BodyRows.Add(dataRow);
                 }
-                SessionExtension.AddSession(HttpContext.Current.Session, key, this._gridOptions);
+
+                //// Total Row.
+                var currencyGroup = summaryReportData.GroupBy(i => i.Currency).Select(d => new
+                {
+                    Currency = d.Key,
+                    Amount = d.Sum(x => x.Amount)
+                }).ToList();
+
+                int totalCurrency = currencyGroup.Count;
+                foreach (var item in currencyGroup)
+                {
+                    var dataRow = GenSummaryTotalRow(item.Currency, item.Amount, ref totalCurrency);
+                    gridOptions.FooterRows.Add(dataRow);
+                }
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
-            return this._gridOptions;
+
+            return gridOptions;
         }
 
-        public IEnumerable<RedemptionStatisticsDetailEntity> GetRedemptionDetailReport(GetRedemptionStatisticsDetailCriteria criteria)
+        /// <summary>
+        /// Gets the redemption detail report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Grid Options.</returns>
+        public GridOptions GetRedemptionDetailReport(GetRedemptionStatisticsDetailCriteria criteria)
         {
-            string key = DetailReportSessionKey;
-            IEnumerable<RedemptionStatisticsDetailEntity> detailReportData = null;
-            if (criteria.IsGetFromCached)
-            {
-                detailReportData = (List<RedemptionStatisticsDetailEntity>)SessionExtension.GetSession(HttpContext.Current.Session, key);
-            }
+            var gridOptions = new GridOptions();
+            gridOptions.Columns = this.GenDetailHeaderRow();
+            gridOptions.ShowDistinctRow = true;
+            gridOptions.ShowHighlightRow = true;
+            gridOptions.ShowTitle = true;
+            gridOptions.ShowFooter = true;
+            gridOptions.TitleInfoText = Labels.RedemptionStatisticsDetailReportTitle;
 
-            string title = string.Format("Redemption Statistics Detail Report", criteria.Month, criteria.Year);
-            int totalItems = 0;
-            if (detailReportData == null)
+            List<RedemptionStatisticsDetailEntity> detailReportData = new List<RedemptionStatisticsDetailEntity>();
+            //// Get data from DB.
+            try
             {
-                detailReportData = new List<RedemptionStatisticsDetailEntity>();
-                // Get data from DB.
-                try
+                //// Body Row.
+                detailReportData = this.GetData<RedemptionStatisticsDetailEntity>(criteria).ToList();
+                foreach (var item in detailReportData)
                 {
-                    detailReportData = this.GetData<RedemptionStatisticsDetailEntity>(criteria, out totalItems).ToList();
-                    SessionExtension.AddSession(HttpContext.Current.Session, key, detailReportData);
-                }
-                catch (Exception ex)
-                {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
+                    var dataRow = GenDetailDataRow(item);
+                    gridOptions.BodyRows.Add(dataRow);
                 }
             }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
 
-            return detailReportData;
+            return gridOptions;
         }
 
+        /// <summary>
+        /// Gens the summary header row.
+        /// </summary>
+        /// <returns>The Header Columns List.</returns>
         private List<HeaderColumns> GenSummaryHeaderRow()
         {
             var headerRow = new List<HeaderColumns>();
             headerRow.Add(new HeaderColumns() { HeaderText = Labels.Date, Name = Labels.Date, Width = 200 });
             headerRow.Add(new HeaderColumns() { HeaderText = Labels.Currency, Name = Labels.Currency, Width = 150 });
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Amount, Name = Labels.Amount, Width = 150 });
+            headerRow.Add(new HeaderColumns(Labels.Amount, Labels.Amount, 150, HAlignment.Left, "center", ExcelCellType.Double));
             return headerRow;
         }
 
-        private GridDataRow GenSummaryDataRow(RedemptionStatisticsEntity item)
+        /// <summary>
+        /// Gens the detail header row.
+        /// </summary>
+        /// <returns>The Header Columns List.</returns>
+        private List<HeaderColumns> GenDetailHeaderRow()
+        {
+            var headerRow = new List<HeaderColumns>();
+            headerRow.Add(new HeaderColumns() { HeaderText = Labels.ClaimedDate, Name = Labels.ClaimedDate, Width = 150 });
+            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Customer, Name = Labels.Customer, Width = 150 });
+            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Subject, Name = Labels.Subject, Width = 350 });
+            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Currency, Name = Labels.Currency, Width = 100 });
+            headerRow.Add(new HeaderColumns(Labels.Amount, Labels.Amount, 100, HAlignment.Left, "center", ExcelCellType.Double));
+            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Status, Name = Labels.Status, Width = 100 });
+            headerRow.Add(new HeaderColumns() { HeaderText = Labels.DoneBy, Name = Labels.DoneBy, Width = 100 });
+            return headerRow;
+        }
+
+        /// <summary>
+        /// Gens the summary data row.
+        /// </summary>
+        /// <param name="item">The Redemption Statistics Entity item.</param>
+        /// <param name="currencyId">The currency identifier.</param>
+        /// <returns>The Grid Data Row.</returns>
+        private GridDataRow GenSummaryDataRow(RedemptionStatisticsEntity item, int currencyId)
         {
             var dataRow = new GridDataRow();
             int currentColIndex = 0;
-            var align = HAlignment.Right;
+            var align = HAlignment.Left;
 
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Date, "Date", "CustomeCss", align, true));
+            var clickDateFormat = "<span class=\"detail-date link\" data-subject=\"{0}\" " +
+                                    "data-currency=\"{1}\" data-currency-id=\"{2}\" data-month=\"{3}\" data-year=\"{4}\">{5}</span>";
+            var clickCurrencyFormat = "<span class=\"detail-currency link\" data-subject=\"{0}\" " +
+                                    "data-currency=\"{1}\" data-currency-id=\"{2}\" data-month=\"{3}\" data-year=\"{4}\">{5}</span>";
+            var dateIdFormat = "{0} {1}";
+
+            var dateId = string.Format(dateIdFormat, DateTimeUtilize.GetMonthName(item.Month), item.Year);
+            var dateSpan = string.Format(clickDateFormat, string.Empty, string.Empty, 0, item.Month, item.Year, dateId);
+            var currencySpan = string.Format(
+                clickCurrencyFormat,
+                string.Empty,
+                item.Currency,
+                currencyId,
+                item.Month,
+                item.Year,
+                item.Currency);
+
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Date, dateSpan, dateId, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, currencySpan, item.Currency, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, align));
 
             return dataRow;
         }
 
-        private Columns CreateColumns(int colIndex, string name, object value, string cellClass, HAlignment cellAlign, bool isBold = false)
+        /// <summary>
+        /// Gens the summary total row.
+        /// </summary>
+        /// <param name="currency">The currency.</param>
+        /// <param name="amount">The amount.</param>
+        /// <param name="mergeNum">The merge number.</param>
+        /// <returns>The Grid Data Row.</returns>
+        private GridDataRow GenSummaryTotalRow(string currency, decimal amount, ref int mergeNum)
         {
-            return new Columns(colIndex) { Name = name, Value = value, TDClass = cellClass, CellAlignment = cellAlign, Bold = isBold };
+            var dataRow = new GridDataRow();
+            int currentColIndex = 0;
+            var align = HAlignment.Left;
+
+            if (mergeNum > 0)
+            {
+                dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Date, Labels.Total, null, string.Empty, HAlignment.Right, true, mergeNum));
+                mergeNum = 0;
+            }
+
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, currency, null, string.Empty, align, true));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, amount, null, string.Empty, align, true));
+
+            return dataRow;
+        }
+
+        /// <summary>
+        /// Gens the detail data row.
+        /// </summary>
+        /// <param name="item">The Redemption Statistics Detail Entity item.</param>
+        /// <returns>The Grid Data Row.</returns>
+        private GridDataRow GenDetailDataRow(RedemptionStatisticsDetailEntity item)
+        {
+            var dataRow = new GridDataRow();
+            int currentColIndex = 0;
+            var align = HAlignment.Left;
+
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.ClaimedDate, item.CreateDate.ToShortFormatedDate(), null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Customer, item.UserName, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Subject, HttpContext.Current.Server.HtmlEncode(item.Subject), item.Subject, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, item.Currency, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Status, item.Status, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.DoneBy, item.DoneBy, null, string.Empty, align));
+
+            return dataRow;
+        }
+
+        /// <summary>
+        /// Creates the columns.
+        /// </summary>
+        /// <param name="colIndex">Index of the col.</param>
+        /// <param name="name">The column name.</param>
+        /// <param name="value">The column value.</param>
+        /// <param name="excelValue">The excel value.</param>
+        /// <param name="cellClass">The cell class.</param>
+        /// <param name="cellAlign">The cell align.</param>
+        /// <param name="isBold">If set to <c>true</c> [is bold].</param>
+        /// <param name="mergeNum">The merge number.</param>
+        /// <returns>The Created Column.</returns>
+        private Columns CreateColumns(
+            int colIndex,
+            string name,
+            object value,
+            object excelValue,
+            string cellClass,
+            HAlignment cellAlign,
+            bool isBold = false,
+            int mergeNum = 1)
+        {
+            string displayValue = excelValue == null ? Converter.ToString2(value) : Converter.ToString2(excelValue);
+            return new Columns(colIndex)
+            {
+                Name = name ?? string.Empty,
+                Value = value ?? string.Empty,
+                DisplayValue = displayValue,
+                TDClass = cellClass ?? string.Empty,
+                CellAlignment = cellAlign,
+                Bold = isBold,
+                MergeRowNumber = mergeNum
+            };
         }
     }
 }

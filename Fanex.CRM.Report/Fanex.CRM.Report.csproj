@@ -40,7 +40,7 @@
     <Reference Include="Fanex.Data">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Excel">
+    <Reference Include="Fanex.Excel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\Dependency\Fanex.Excel.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.NAP.Core, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -68,8 +68,23 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI">
       <HintPath>..\Dependency\Fanex\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>..\Dependency\NPoi\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>..\Dependency\NPoi\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>..\Dependency\NPoi\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="OfficeOpenXmlCrypto">
+      <HintPath>..\Dependency\NPoi\OfficeOpenXmlCrypto.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -89,7 +104,7 @@
   <ItemGroup>
     <Compile Include="App_Start\ReportBundles.cs" />
     <Compile Include="Controllers\CasinoReportController.cs" />
-    <Compile Include="Controllers\RedemptionStatisticReportController.cs" />
+    <Compile Include="Controllers\RedemptionStatisticsReportController.cs" />
     <Compile Include="Controllers\CustomerReportController.cs" />
     <Compile Include="Controllers\DailyStatisticsReportController.cs" />
     <Compile Include="Controllers\DynamicReportController.cs" />
@@ -205,6 +220,7 @@
     <Compile Include="Services\WeeklyStatisticsReport\WeeklyStatisticsReportService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

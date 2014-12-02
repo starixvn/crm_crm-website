@@ -774,13 +774,28 @@
   <data name="PIC" xml:space="preserve">
     <value>PIC</value>
   </data>
-    <data name="Currency" xml:space="preserve">
+  <data name="Currency" xml:space="preserve">
     <value>Currency</value>
   </data>
   <data name="Report_by" xml:space="preserve">
     <value>Report By</value>
   </data>
-  <data name="Report_by" xml:space="preserve">
-    <value>Report By</value>
+  <data name="RedemptionStatisticsDetailReportTitle" xml:space="preserve">
+    <value>Redemption Statistics Detail Report</value>
+  </data>
+  <data name="RedemptionStatisticsReportTitle" xml:space="preserve">
+    <value>Redemption Statistics Report from {0} to {1}</value>
+  </data>
+  <data name="ClaimedDate" xml:space="preserve">
+    <value>Claimed Date</value>
+  </data>
+  <data name="DoneBy" xml:space="preserve">
+    <value>Done By</value>
+  </data>
+  <data name="No_status" xml:space="preserve">
+    <value>No status found</value>
+  </data>
+  <data name="No_status_found" xml:space="preserve">
+    <value>Please select at least one Status!</value>
   </data>
 </root>

@@ -39,9 +39,7 @@ namespace Fanex.CRM.Report.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
-            //rem for test
-            //return View("~/Areas/Report/WeeklyStatisticsReport/Index.cshtml");
-            return View("~/Areas/Report/RedemptionStatistics/Index.cshtml");
+            return View("~/Areas/Report/WeeklyStatisticsReport/Index.cshtml");
         }
 
         /// <summary>

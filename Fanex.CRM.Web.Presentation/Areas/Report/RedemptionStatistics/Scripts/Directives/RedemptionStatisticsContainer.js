@@ -1,94 +1,53 @@
 ﻿"use strict";
-/* global dynamicReportApplication,
-crmConstants,
-sharedScriptManager,
-viewResources,
-moment */
+/* global redemptionStatisticsApplication,
+crmConstants*/
 /* jshint unused: vars */
 /* jshint camelcase: false */
 redemptionStatisticsApplication.directive('tableRedemptionStatisticsContainer', function () {
-    var cachedRedemptionStatisticsReport;
-    var cachedGridOptions;
     var selfScope;
-    var cachedTable;
 
-    function getGridOptions(data) {
-        var bodyData = [];
-        var footerData = [];
-        var row;
-
-        var columns = [
-            { HeaderText: 'Date', Width: 200, Name: 'ColDate', HeaderAlign: 'center', CellAlign: 'left' },
-            { HeaderText: 'Currency', Width: 150, Name: 'ColCurrency', HeaderAlign: 'center', CellAlign: 'left' },
-            { HeaderText: 'Amount', Width: 150, Name: 'ColAmount', HeaderAlign: 'center', CellAlign: 'left' }
-        ];
-
-        var clickDateFormat = '<span class="detail-date link" data-subject="{0}">{1}</span>';
-        var clickCurrencyFormat = '<span class="detail-currency link" data-currency-id="{0}">{1}</span>';
-        var dateIdFormat = '{0} {1}';
-
-        var clickDateCol = '';
-        var clickCurrencyCol = '';
-        var dateId = '';
-
-        var reportData = data.ReportData;
-        if (reportData && reportData.length > 0) {
-            $.each(reportData, function (index, item) {
-
-                dateId = dateIdFormat.format(crmConstants.MonthNames[item.Month], item.Year);
-                clickDateCol = clickDateFormat.format(item.Subject, dateId);
-                clickCurrencyCol = clickCurrencyFormat.format(item.Currency, item.Currency);
-
-                row = {
-                    Columns: [
-                        { Name: 'ColDate', Value: clickDateCol },
-                        { Name: 'ColCurrency', Value: clickCurrencyCol },
-                        { Name: 'ColAmount', Value: item.Amount}]
-                };
-                bodyData.push(row);
-            });
-        }
-
-        return {
-            columns: columns,
-            bodyRows: bodyData,
-
-            showDistinctRow: true,
-            showNumberColumn: false,
-            showPager: true,
-            showTitle: true,
+    function modifyGridOptions(data) {
+        var options = {
             titleInfo: {
-                text: data.Title,
+                text: data.TitleInfoText,
                 showExcelButton: true,
                 exportExcelFunction: function () {
                     selfScope.exportSummaryReport();
                 }
             },
-            pagerOption: {
-                currentPage: 0,
-                itemsPerPage: selfScope.lastSelectedParams.PageSize,
-                itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions
-            }
+            headerColumnHeight: 29,
+            bodyRowHeight: 29,
+            fullWidth: true,
+            fullHeight: false,
+            gridHeight: 665,
+            //gridExpandHeight: 180
         };
+
+        return $.extend({}, data, options);
     }
 
     function renderRedemptionSummary(scope, element, attrs) {
         selfScope = scope;
 
         var report = scope.redemptionStatisticsOptions.SummaryDataList;
-        var gridOptions = getGridOptions(report);
+        report = modifyGridOptions(report);
 
         var grid = element.find('#table-redemption-statistics-report');
-        grid.empty().removeClass('hide').fanexGrid(gridOptions);
+        grid.empty().removeClass('hide').fanexGrid(report);
         bindDateLink(grid, scope);
     }
 
     function bindDateLink(table, scope) {
-        var viewLinks = table.find(".detail-date");
-        viewLinks.unbind("click");
-        viewLinks.click(function () {
-            var subject = parseInt($(this).attr("data-subject"));
-            scope.getRedemptionStatisticsDetailReport(subject);
+        var viewDateLinks = table.find(".detail-date, .detail-currency");
+        viewDateLinks.unbind("click");
+        viewDateLinks.click(function () {
+            var subject = $(this).attr("data-subject");
+            var currencyId = parseInt($(this).attr("data-currency-id"));
+            var month = parseInt($(this).attr("data-month"));
+            var year = parseInt($(this).attr("data-year"));
+
+            var title = !currencyId ? crmConstants.MonthNames[month-1] + ' ' + year : $(this).attr("data-currency");
+            scope.getRedemptionStatisticsDetailReport(subject, currencyId, month, year, title);
         });
     }
 

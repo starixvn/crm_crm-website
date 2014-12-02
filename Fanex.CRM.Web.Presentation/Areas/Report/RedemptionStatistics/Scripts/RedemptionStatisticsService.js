@@ -5,7 +5,7 @@ redemptionStatisticsApplication.factory('$redemptionStatisticsService', ['$http'
         var serviceInstance = {};
         serviceInstance.getAllSetting = function () {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "RedemptionStatisticReport/AllSetting", null)
+            $http.post(window.rootUrl + "RedemptionStatisticsReport/AllSetting", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -27,7 +27,7 @@ redemptionStatisticsApplication.factory('$redemptionStatisticsService', ['$http'
 
         serviceInstance.getRedemptionStatisticsReport = function (getReportCriteria) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "RedemptionStatisticReport/GetRedemptionStisticsSummaryReportV2", getReportCriteria)
+            $http.post(window.rootUrl + "RedemptionStatisticsReport/GetRedemptionStatisticsSummaryReport", getReportCriteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -49,7 +49,7 @@ redemptionStatisticsApplication.factory('$redemptionStatisticsService', ['$http'
 
         serviceInstance.getRedemptionStatisticsDetailReport = function (getDetailReportCriteria) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "RedemptionStatisticReport/GetRedemptionStisticsDetailReport", getDetailReportCriteria)
+            $http.post(window.rootUrl + "RedemptionStatisticsReport/GetRedemptionStatisticsDetailReport", getDetailReportCriteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

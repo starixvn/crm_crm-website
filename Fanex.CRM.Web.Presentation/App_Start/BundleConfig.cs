@@ -451,9 +451,14 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Areas/Report/DynamicReport/Styles/DynamicReport.less");
         }
 
+        /// <summary>
+        /// Registers the bundles_ report_ redemption statistics.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
         private static void RegisterBundles_Report_RedemptionStatistics(ref BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Areas/Report/RedemptionStatisticsScripts").Include(
+                "~/Scripts/ShareScripts/Applications/AlertBox.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",

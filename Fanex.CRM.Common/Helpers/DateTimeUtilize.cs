@@ -19,6 +19,22 @@ namespace Fanex.CRM.Common.Helpers
     /// </summary>
     public class DateTimeUtilize
     {
+        private static string[] monthName =
+                                    {
+                                        "January",
+                                        "February", 
+                                        "March", 
+                                        "April", 
+                                        "May", 
+                                        "June",
+                                        "July", 
+                                        "August", 
+                                        "September", 
+                                        "October", 
+                                        "November", 
+                                        "December"
+                                    };
+
         private TimeSpan _timeSpan;
 
         public DateTimeUtilize()
@@ -29,6 +45,11 @@ namespace Fanex.CRM.Common.Helpers
         public static DateTime ResetEndDay(DateTime date)
         {
             return date.AddDays(1).AddSeconds(-1);
+        }
+
+        public static string GetMonthName(int month)
+        {
+            return DateTimeUtilize.monthName[month - 1];
         }
 
         #region Convert time client <->server

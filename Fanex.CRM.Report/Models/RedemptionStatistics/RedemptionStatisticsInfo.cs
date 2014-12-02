@@ -10,8 +10,8 @@
 namespace Fanex.CRM.Report.Models.RedemptionStatistics
 {
     using System;
-    using Fanex.CRM.Report.Entities.RedemptionStatistics;
     using System.Collections.Generic;
+    using Fanex.CRM.Report.Entities.RedemptionStatistics;
 
     /// <summary>
     /// Redemption Statistic Report Information.
