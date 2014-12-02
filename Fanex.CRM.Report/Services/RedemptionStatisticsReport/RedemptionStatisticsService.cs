@@ -60,30 +60,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             try
             {
-                var allStatus = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllStatus(new GetAllStatusCriteria
-                {
-                    ViewType = ViewTypeConstants.CommunicationTool
-                });
-
-                allStatus.Add(new SettingInfo
-                {
-                    Id = SettingConstants.NotApply,
-                    Name = Labels.All
-                });
-
-                foreach (var rawStatus in rawData)
-                {
-                    if (rawStatus.Name == Labels.Checked ||
-                        rawStatus.Name == Labels.Solved ||
-                        rawStatus.Name == Labels.Closed ||
-                        rawStatus.Name == Labels.Pending)
-                    {
-                        allStatus.Add(rawStatus);
-                    }
-                }
-
-                return allStatus;
+                return _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool);
             }
             catch (Exception ex)
             {
