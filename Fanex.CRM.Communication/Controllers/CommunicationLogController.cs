@@ -61,7 +61,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// </summary>
         /// <returns>All setting for edit.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
+        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSettingForEdit()
         {
             var allSetting = new
@@ -90,7 +90,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// All setting for edit.
         /// </returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSettingForInsert(int custId)
         {
             var allSetting = new
@@ -201,7 +201,6 @@ namespace Fanex.CRM.Communication.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult AllStatus()
         {
             var allStatus = _communicationServiceLog.AllStatusForEdit;
