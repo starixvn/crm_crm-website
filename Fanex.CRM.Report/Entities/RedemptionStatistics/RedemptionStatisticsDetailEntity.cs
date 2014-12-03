@@ -27,6 +27,8 @@ namespace Fanex.CRM.Report.Entities.RedemptionStatistics
 
         public string Currency { get; set; }
 
+        public int CurrencyId { get; set; }
+
         public string Status { get; set; }
 
         public string UserName { get; set; }

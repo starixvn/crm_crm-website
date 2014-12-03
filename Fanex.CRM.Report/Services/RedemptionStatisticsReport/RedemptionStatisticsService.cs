@@ -36,7 +36,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     {
         private const string SummaryReportSessionKey = "Fanex.CRM.Report.Services.RedemptionStatisticsReport.SummaryReport";
         private const string DetailReportSessionKey = "Fanex.CRM.Report.Services.RedemptionStatisticsReport.DetailReport";
-        private const string CurrencyListSessionKey = "Fanex.CRM.Report.Services.RedemptionStatisticsReport.CurrencyList";
 
         private ISettingService _serviceSetting;
 
@@ -116,10 +115,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                     allCurrency.Add(rawStatus);
                 }
 
-                //// Save Currency Dictionary
-                Dictionary<string, int> currencyDict = allCurrency.ToDictionary(i => i.Name, i => i.Id);
-                SessionExtension.AddSession(HttpContext.Current.Session, CurrencyListSessionKey, currencyDict);
-
                 return allCurrency;
             }
             catch (Exception ex)
@@ -154,12 +149,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             {
                 //// Body Row.
                 summaryReportData = this.GetData<RedemptionStatisticsEntity>(criteria).ToList();
-                var currencyDict = (Dictionary<string, int>)SessionExtension.GetSession(HttpContext.Current.Session, CurrencyListSessionKey);
                 foreach (var item in summaryReportData)
                 {
-                    var currencyId = 0;
-                    currencyDict.TryGetValue(item.Currency, out currencyId);
-                    var dataRow = GenSummaryDataRow(item, currencyId);
+                    var dataRow = GenSummaryDataRow(item);
                     gridOptions.BodyRows.Add(dataRow);
                 }
 
@@ -256,13 +248,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// Gens the summary data row.
         /// </summary>
         /// <param name="item">The Redemption Statistics Entity item.</param>
-        /// <param name="currencyId">The currency identifier.</param>
         /// <returns>The Grid Data Row.</returns>
-        private GridDataRow GenSummaryDataRow(RedemptionStatisticsEntity item, int currencyId)
+        private GridDataRow GenSummaryDataRow(RedemptionStatisticsEntity item)
         {
             var dataRow = new GridDataRow();
             int currentColIndex = 0;
-            var align = HAlignment.Left;
+            var align = HAlignment.Center;
 
             var clickDateFormat = "<span class=\"detail-date link\" data-subject=\"{0}\" " +
                                     "data-currency=\"{1}\" data-currency-id=\"{2}\" data-month=\"{3}\" data-year=\"{4}\">{5}</span>";
@@ -276,14 +267,14 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 clickCurrencyFormat,
                 string.Empty,
                 item.Currency,
-                currencyId,
+                item.CurrencyId,
                 item.Month,
                 item.Year,
                 item.Currency);
 
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Date, dateSpan, dateId, string.Empty, align));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, currencySpan, item.Currency, string.Empty, align));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, HAlignment.Right));
 
             return dataRow;
         }
@@ -299,7 +290,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             var dataRow = new GridDataRow();
             int currentColIndex = 0;
-            var align = HAlignment.Left;
+            var align = HAlignment.Center;
 
             if (mergeNum > 0)
             {
@@ -308,7 +299,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             }
 
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, currency, null, string.Empty, align, true));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, amount, null, string.Empty, align, true));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, amount, null, string.Empty, HAlignment.Right, true));
 
             return dataRow;
         }
@@ -322,21 +313,21 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             var dataRow = new GridDataRow();
             int currentColIndex = 0;
-            var align = HAlignment.Left;
+            var align = HAlignment.Center;
 
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.ClaimedDate, item.CreateDate.ToShortFormatedDate(), null, string.Empty, align));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Customer, item.UserName, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.ClaimedDate, item.CreateDate.ToShortFormatedDate(), null, string.Empty, HAlignment.Center));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Customer, item.UserName, null, string.Empty, HAlignment.Left));
             dataRow.Columns.Add(this.CreateColumns(
                 currentColIndex++,
                 Labels.Subject,
                 HttpContext.Current.Server.HtmlEncode(item.Subject),
                 item.Subject,
                 string.Empty,
-                align));
+                HAlignment.Left));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, item.Currency, null, string.Empty, align));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, HAlignment.Right));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Status, item.Status, null, string.Empty, align));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.DoneBy, item.DoneBy, null, string.Empty, align));
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.DoneBy, item.DoneBy, null, string.Empty, HAlignment.Left));
 
             return dataRow;
         }
