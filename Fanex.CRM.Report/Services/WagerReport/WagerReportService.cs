@@ -259,6 +259,8 @@ namespace Fanex.CRM.Report.Services.WagerReport
                     NpoiExcelExtensions.RenderCell(row, currentColumn, wagerByMonth.Wagers[j].Name, wagersCellStyle);
                     currentColumn++;
                     NpoiExcelExtensions.RenderCell(row, currentColumn, wagerByMonth.Wagers[j].Amount, amountCellStyle);
+                    currentColumn++;
+
                     currentRow++;
                 }
 
@@ -305,15 +307,12 @@ namespace Fanex.CRM.Report.Services.WagerReport
                 IRow row = exportExcelInfo.Worksheet.GetRow(currentRow) ?? exportExcelInfo.Worksheet.CreateRow(currentRow);
                 wagersCellStyle = GetGrandTotalWagersCellStyle(workbook);
                 amountCellStyle = GetGrandTotalAmountCellStyle(workbook);
-                if (i == 0)
-                {
-                    NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(wagersCellStyle);
-                    NpoiExcelExtensions.SetBorderToFirstGrandTotalCell(amountCellStyle);
-                }
 
                 NpoiExcelExtensions.RenderCell(row, currentColumn, total.Wagers[i].Name, wagersCellStyle);
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(row, currentColumn, total.Wagers[i].Amount, amountCellStyle);
+                currentColumn++;
+
                 currentRow++;
             }
 

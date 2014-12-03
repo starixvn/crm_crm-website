@@ -8,8 +8,7 @@
       <Word>Whats</Word>
       <Word />
     </Recognized>
-    <Unrecognized>
-    </Unrecognized>
+    <Unrecognized />
     <Deprecated>
       <Term>username</Term>
     </Deprecated>
@@ -41,6 +40,7 @@
       <Acronym>PIC</Acronym>
       <Acronym>BBM</Acronym>
       <Acronym>We</Acronym>
+      <Acronym>PICs</Acronym>
     </CasingExceptions>
   </Acronyms>
 </Dictionary>
