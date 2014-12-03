@@ -14,6 +14,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using System.Linq;
     using System.Web;
     using Fanex.Common;
+    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
@@ -25,9 +26,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
+    using Fanex.Excel;
     using Fanex.Excel.Enums;
     using Fanex.Excel.Models;
     using Fanex.NAP.Core.Service.Impl;
+    using NPOI.HSSF.UserModel;
+    using NPOI.SS.UserModel;
 
     /// <summary>
     /// Dynamic Report Service.
@@ -212,6 +216,30 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             }
 
             return gridOptions;
+        }
+
+        /// <summary>
+        /// Generates the work book.
+        /// </summary>
+        /// <param name="result">The result.</param>
+        /// <returns>The Workbook.</returns>
+        public IWorkbook GenerateWorkBook(FanexExcel result)
+        {
+            var wb = result.ToExcel2003();
+            HSSFPalette palette = ((HSSFWorkbook)wb).GetCustomPalette();
+            palette.SetColorAtIndex(
+                NpoiExcelExtensions.GrandTotalRowColorIndex, 
+                NpoiExcelExtensions.GrandTotalRowColor.R, 
+                NpoiExcelExtensions.GrandTotalRowColor.G, 
+                NpoiExcelExtensions.GrandTotalRowColor.B);
+
+            var footer = result.GetFooterCellStyles;
+            ICellStyle rightGeneral = wb.GetCellStyleAt(footer.General.Right.UpperStyle.Index);
+            rightGeneral.FillForegroundColor = NpoiExcelExtensions.GrandTotalRowColorIndex;
+            rightGeneral.FillPattern = FillPattern.SolidForeground;
+            rightGeneral.BorderTop = BorderStyle.None;
+
+            return wb;
         }
 
         /// <summary>

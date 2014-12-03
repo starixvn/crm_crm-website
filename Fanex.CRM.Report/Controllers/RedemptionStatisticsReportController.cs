@@ -21,6 +21,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.Excel.Extensions;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using NPOI.SS.UserModel;
 
     /// <summary>
     /// Feedback statistic report controller.
@@ -74,22 +75,38 @@ namespace Fanex.CRM.Report.Controllers
             return new JsonNetResult(_redemptionStatisticsService.GetRedemptionDetailReport(criteria));
         }
 
+        /// <summary>
+        /// Exports the summary report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Action Result.</returns>
         [HttpGet]
         public ActionResult ExportSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
         {
             criteria.Subject = criteria.Subject ?? string.Empty;
             FanexExcel result = new FanexExcel(_redemptionStatisticsService.GetRedemptionSummaryReport(criteria));
-            NpoiExcelExtensions.ResponseStreamExcel(result.ToExcel2003(), this.GetSummaryFileName(criteria));
+
+            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateWorkBook(result), this.GetSummaryFileName(criteria));
             return new EmptyResult();
         }
 
+        /// <summary>
+        /// Exports the detail report.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Action Result.</returns>
         [HttpGet]
         public ActionResult ExportDetailReport(GetRedemptionStatisticsDetailCriteria criteria)
         {
             criteria.Subject = criteria.Subject ?? string.Empty;
             criteria.StatusId = criteria.StatusId ?? string.Empty;
             FanexExcel result = new FanexExcel(_redemptionStatisticsService.GetRedemptionDetailReport(criteria));
-            NpoiExcelExtensions.ResponseStreamExcel(result.ToExcel2003(), Labels.RedemptionStatisticsDetailReportTitle);
+            var wb = result.ToExcel2003();
+            var footer = result.GetFooterCellStyles;
+            ICellStyle centerGenral = wb.GetCellStyleAt(footer.General.Right.UpperStyle.Index);
+            centerGenral.FillForegroundColor = NpoiExcelExtensions.GrandTotalRowColorIndex;
+
+            NpoiExcelExtensions.ResponseStreamExcel(wb, Labels.RedemptionStatisticsDetailReportTitle);
             return new EmptyResult();
         }
 

@@ -13,9 +13,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;
-    using Fanex.CRM.Report.Entities.RedemptionStatistics;
-    using Fanex.CRM.Report.Models.RedemptionStatistics;
+    using Fanex.Excel;
     using Fanex.Excel.Models;
+    using NPOI.SS.UserModel;
 
     public interface IRedemptionStatisticsService
     {
@@ -28,5 +28,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         GridOptions GetRedemptionSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria);
 
         GridOptions GetRedemptionDetailReport(GetRedemptionStatisticsDetailCriteria criteria);
+
+        IWorkbook GenerateWorkBook(FanexExcel result);
     }
 }
