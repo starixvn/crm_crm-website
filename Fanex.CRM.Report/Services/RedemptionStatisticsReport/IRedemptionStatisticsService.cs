@@ -29,6 +29,8 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
         GridOptions GetRedemptionDetailReport(GetRedemptionStatisticsDetailCriteria criteria);
 
-        IWorkbook GenerateWorkBook(FanexExcel result);
+        IWorkbook GenerateSummaryExcelWorkbook(GetRedemptionStatisticsSummaryCriteria criteria);
+
+        IWorkbook GenerateDetailExcelWorkbook(GetRedemptionStatisticsDetailCriteria criteria);
     }
 }

@@ -29,8 +29,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     using Fanex.Excel;
     using Fanex.Excel.Enums;
     using Fanex.Excel.Models;
+    using Fanex.Excel.Repositories.CustomColors;
     using Fanex.NAP.Core.Service.Impl;
-    using NPOI.HSSF.UserModel;
+    using NPOI.HSSF.Util;
     using NPOI.SS.UserModel;
 
     /// <summary>
@@ -219,25 +220,42 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         }
 
         /// <summary>
-        /// Generates the work book.
+        /// Generates the summary excel workbook.
         /// </summary>
-        /// <param name="result">The result.</param>
-        /// <returns>The Workbook.</returns>
-        public IWorkbook GenerateWorkBook(FanexExcel result)
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Workbook Result.</returns>
+        public IWorkbook GenerateSummaryExcelWorkbook(GetRedemptionStatisticsSummaryCriteria criteria)
         {
-            var wb = result.ToExcel2003();
-            HSSFPalette palette = ((HSSFWorkbook)wb).GetCustomPalette();
-            palette.SetColorAtIndex(
-                NpoiExcelExtensions.GrandTotalRowColorIndex, 
-                NpoiExcelExtensions.GrandTotalRowColor.R, 
-                NpoiExcelExtensions.GrandTotalRowColor.G, 
-                NpoiExcelExtensions.GrandTotalRowColor.B);
+            GridOptions gridOption = this.GetRedemptionSummaryReport(criteria);
 
-            var footer = result.GetFooterCellStyles;
-            ICellStyle rightGeneral = wb.GetCellStyleAt(footer.General.Right.UpperStyle.Index);
-            rightGeneral.FillForegroundColor = NpoiExcelExtensions.GrandTotalRowColorIndex;
-            rightGeneral.FillPattern = FillPattern.SolidForeground;
-            rightGeneral.BorderTop = BorderStyle.None;
+            gridOption.ShowFooterLineBreak = false;
+            gridOption.TitleType = Excel.Enums.TitleType.TwoLineBlue;
+            FanexExcel result = new FanexExcel(gridOption);
+            result.SetColorAtIndex(
+                GrandTotalRowColor.Index,
+                new short[] { NpoiExcelExtensions.GrandTotalRowColor.R, NpoiExcelExtensions.GrandTotalRowColor.G, NpoiExcelExtensions.GrandTotalRowColor.B });
+
+            IWorkbook wb = result.ToExcel2003();
+            var footerFont = result.GetFooterCellStyles.General.Center.Style.GetFont(wb);
+            footerFont.Color = HSSFColor.White.Index;
+
+            return wb;
+        }
+
+        /// <summary>
+        /// Generates the detail excel workbook.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The Workbook Result.</returns>
+        public IWorkbook GenerateDetailExcelWorkbook(GetRedemptionStatisticsDetailCriteria criteria)
+        {
+            GridOptions gridOption = this.GetRedemptionDetailReport(criteria);
+
+            gridOption.ShowFooterLineBreak = false;
+            gridOption.TitleType = Excel.Enums.TitleType.TwoLineBlue;
+            FanexExcel result = new FanexExcel(gridOption);
+
+            IWorkbook wb = result.ToExcel2003();
 
             return wb;
         }
@@ -355,7 +373,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, item.Currency, null, string.Empty, align));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, HAlignment.Right));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Status, item.Status, null, string.Empty, align));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.DoneBy, item.DoneBy, null, string.Empty, HAlignment.Left));
+            dataRow.Columns.Add(this.CreateColumns(
+                currentColIndex++,
+                Labels.DoneBy,
+                HttpContext.Current.Server.HtmlEncode(item.DoneBy),
+                item.DoneBy,
+                string.Empty,
+                HAlignment.Left));
 
             return dataRow;
         }
@@ -382,7 +406,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             bool isBold = false,
             int mergeNum = 1)
         {
-            string displayValue = excelValue == null ? Converter.ToString2(value) : Converter.ToString2(excelValue);
+            string displayValue = excelValue == null ? null : Converter.ToString2(excelValue);
             return new Columns(colIndex)
             {
                 Name = name ?? string.Empty,

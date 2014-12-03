@@ -17,11 +17,9 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Report.Services.DynamicReport;
-    using Fanex.Excel;
     using Fanex.Excel.Extensions;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using NPOI.SS.UserModel;
 
     /// <summary>
     /// Feedback statistic report controller.
@@ -84,9 +82,9 @@ namespace Fanex.CRM.Report.Controllers
         public ActionResult ExportSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
         {
             criteria.Subject = criteria.Subject ?? string.Empty;
-            FanexExcel result = new FanexExcel(_redemptionStatisticsService.GetRedemptionSummaryReport(criteria));
 
-            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateWorkBook(result), this.GetSummaryFileName(criteria));
+            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateSummaryExcelWorkbook(criteria), this.GetSummaryFileName(criteria));
+
             return new EmptyResult();
         }
 
@@ -100,13 +98,9 @@ namespace Fanex.CRM.Report.Controllers
         {
             criteria.Subject = criteria.Subject ?? string.Empty;
             criteria.StatusId = criteria.StatusId ?? string.Empty;
-            FanexExcel result = new FanexExcel(_redemptionStatisticsService.GetRedemptionDetailReport(criteria));
-            var wb = result.ToExcel2003();
-            var footer = result.GetFooterCellStyles;
-            ICellStyle centerGenral = wb.GetCellStyleAt(footer.General.Right.UpperStyle.Index);
-            centerGenral.FillForegroundColor = NpoiExcelExtensions.GrandTotalRowColorIndex;
 
-            NpoiExcelExtensions.ResponseStreamExcel(wb, Labels.RedemptionStatisticsDetailReportTitle);
+            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateDetailExcelWorkbook(criteria), Labels.RedemptionStatisticsDetailReportTitle);
+
             return new EmptyResult();
         }
 
