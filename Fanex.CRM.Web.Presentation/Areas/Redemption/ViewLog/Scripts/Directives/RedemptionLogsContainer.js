@@ -160,7 +160,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
                         { Name: "ColCurrency", Value: info.Currency.Name },
                         { Name: "ColAmount", Value: info.Amount },
-                        { Name: "ColDoneBy", Value: info.DoneBy },
+                        { Name: "ColDoneBy", Value: sharedScriptManager.encodeHtml(info.DoneBy) },
                         { Name: "ColStatus", Value: info.Status.Value }],
                     CssClass: 'editlog-link-row'
                 });
@@ -196,7 +196,7 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
                         { Name: "ColClaimedTime", Value: info.ClaimedTime },
                         { Name: "ColCurrency", Value: info.Currency.Name },
                         { Name: "ColAmount", Value: info.Amount },
-                        { Name: "ColDoneBy", Value: info.DoneBy, CssClass: 'word-wrap' },
+                        { Name: "ColDoneBy", Value: sharedScriptManager.encodeHtml(info.DoneBy), CssClass: 'word-wrap' },
                         { Name: "ColStatus", Value: info.Status.Value }],
                     CssClass: 'editlog-link-row'
                 });
@@ -205,12 +205,12 @@ redemptionViewLogApplication.directive('tableRedemptionLogsContainer', function 
 
         /* jshint camelcase: false */
         var gridOptions = {
-            columns: [{ HeaderText: viewResources.Subject, Width: 440, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
+            columns: [{ HeaderText: viewResources.Subject, Width: 430, Name: "ColSubject", HeaderAlign: "center", CellAlign: "left", Sort: true },
                 { HeaderText: viewResources.Claimed_Time, Width: 100, Name: "ColClaimedTime", HeaderAlign: "center", CellAlign: "center", Sort: true },
                 { HeaderText: viewResources.Currency, Width: 90, Name: "ColCurrency", HeaderAlign: "center", CellAlign: "center", Sort: true },
                 {
                     HeaderText: viewResources.Amount,
-                    Width: 90,
+                    Width: 100,
                     Name: "ColAmount",
                     HeaderAlign: "center",
                     CellAlign: "right",

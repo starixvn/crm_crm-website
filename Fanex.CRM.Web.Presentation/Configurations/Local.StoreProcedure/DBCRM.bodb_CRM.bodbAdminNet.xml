@@ -13,7 +13,7 @@
 
         <Setting Key="Customer_Dashboard_GetCustomerInfo" SpName="Acc_CRM_MainInformationVerifySel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_Dashboard_GetCustomerRemarks" SpName="Acc_CRM_MainInformationSpecialRemarkSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_Dashboard_GetRedemptionLogs" SpName="Acc_CRM_MainInformationRedemptionSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_Dashboard_GetRedemptionLogs" SpName="Acc_CRM_MainInformationRedemptionSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_Dashboard_GetCommunicationLogs" SpName="Acc_CRM_MainInformationCommunicationLogSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_Dashboard_UpdateVerifyFlag" SpName="Acc_CRM_CustomerInformationVerify_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
@@ -25,7 +25,7 @@
         <Setting Key="Communication_Log_GetDefaultSettings" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
     <Function Name="Redemption">
-        <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Redemption_Log_Update" SpName="Acc_CRM_RedemptionUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Redemption_Log_Insert" SpName="Acc_CRM_RedemptionIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Redemption_Log_GetInfoById" SpName="Acc_CRM_RedemptionSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -50,7 +50,7 @@
         <Setting Key="dailylicenseesummaryreport" SpName="Acc_CRM_Rpt_LicenseeStatistics"  DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="dailylicenseedetailreport" SpName="Acc_CRM_Rpt_LicenseeStatisticsDetail_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="casinodailysummary" SpName="Acc_CRM_Rpt_CasinoStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="casinodailydetail" SpName="Acc_CRM_Rpt_CasinoStatisticsDetail_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="ManageFeedbackList" SpName="Acc_CRM_ManageFeedbackList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
     <Function Name="Setting">

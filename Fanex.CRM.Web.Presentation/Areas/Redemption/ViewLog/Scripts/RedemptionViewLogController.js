@@ -163,7 +163,7 @@ function (
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
             var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
             parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-            parent.homeManager.showConfirmIgnoreChangePopUp(popUpController.ignoreChanges,
+            parent.homeManager.showConfirmIgnoreChangePopUp(function () { parent.homeManager.CachedData.isChangingDataPopUp = false; parent.ClosePopup(); },
                 popUpController.setFocus);
             return false;
         }

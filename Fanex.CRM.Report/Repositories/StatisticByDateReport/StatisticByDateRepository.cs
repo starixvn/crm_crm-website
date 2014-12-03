@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
@@ -71,6 +72,9 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The detail report.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+             "SP2101:MethodMustNotContainMoreLinesThan",
+             Justification = "Reviewed. Suppression is OK here.")]
         public List<StatisticsDetailbyDateModel> DetailReport(GetDetailReportCriteria criteria)
         {
             var result = new List<StatisticsDetailbyDateModel>();
@@ -80,7 +84,7 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
                 var reader = objDb.ExecuteReader();
                 while (reader.Read())
                 {
-                    result.Add(new StatisticsDetailbyDateModel
+                    StatisticsDetailbyDateModel statisticsDetail = new StatisticsDetailbyDateModel
                     {
                         StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
                         ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
@@ -99,18 +103,70 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
                         CreationTime = Converter.ToDateTime(reader["CreateDate"]),
                         Role = Converter.ToString2(reader["Role"]),
                         CommunicationTool = new SettingInfo { Name = Converter.ToString2(reader["Communication"]) },
+                        Fax = new FaxInfo 
+                        { 
+                            CountryCode = Converter.ToString2(reader["FaxCountryCode"]), 
+                            AreaCode = Converter.ToString2(reader["FaxAreaCode"]), 
+                            FaxNumber = Converter.ToString2(reader["Fax"])
+                        },
+                        MobilePhone = new PhoneInfo
+                        {
+                            CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
+                            AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"]),
+                            PhoneNumber = Converter.ToString2(reader["MobilePhone"])
+                        },
                         MSN = Converter.ToString2(reader["MSN"]),
                         Skype = Converter.ToString2(reader["Skype"]),
                         Email = Converter.ToString2(reader["Email"]),
-                        Phone = Converter.ToString2(reader["Phone"]),
-                        MobilePhone = Converter.ToString2(reader["MobilePhone"]),
                         WhatsApp = Converter.ToString2(reader["WhatsApp"]),
                         Line = Converter.ToString2(reader["Line"]),
                         WEChat = Converter.ToString2(reader["WeChat"]),
                         Yahoo = Converter.ToString2(reader["Yahoo"]),
                         QQ = Converter.ToString2(reader["QQ"]),
-                        Bbm = Converter.ToString2(reader["BBM"]),
+                        Bbm = Converter.ToString2(reader["BBM"])
+                    };
+
+                    statisticsDetail.Phones.Add(new PhoneInfo 
+                    {
+                        CountryCode = Converter.ToString2(reader["PhoneCountryCode"]),
+                        AreaCode = Converter.ToString2(reader["PhoneAreaCode"]),
+                        PhoneNumber = Converter.ToString2(reader["Phone"])
                     });
+                    statisticsDetail.Phones.Add(new PhoneInfo
+                    {
+                        CountryCode = Converter.ToString2(reader["Phone2CountryCode"]),
+                        AreaCode = Converter.ToString2(reader["Phone2AreaCode"]),
+                        PhoneNumber = Converter.ToString2(reader["Phone2"])
+                    });
+                    statisticsDetail.Phones.Add(new PhoneInfo
+                    {
+                        CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
+                        AreaCode = Converter.ToString2(reader["Phone3AreaCode"]),
+                        PhoneNumber = Converter.ToString2(reader["Phone3"])
+                    });
+
+                    statisticsDetail.PICs.Add(new PersonalInfoContact 
+                    {
+                        Name = Converter.ToString2(reader["PIC1Name"]),
+                        Phone = Converter.ToString2(reader["PIC1"])
+                    });
+                    statisticsDetail.PICs.Add(new PersonalInfoContact
+                    {
+                        Name = Converter.ToString2(reader["PIC2Name"]),
+                        Phone = Converter.ToString2(reader["PIC2"])
+                    });
+                    statisticsDetail.PICs.Add(new PersonalInfoContact
+                    {
+                        Name = Converter.ToString2(reader["PIC3Name"]),
+                        Phone = Converter.ToString2(reader["PIC3"])
+                    });
+                    statisticsDetail.PICs.Add(new PersonalInfoContact
+                    {
+                        Name = Converter.ToString2(reader["PIC4Name"]),
+                        Phone = Converter.ToString2(reader["PIC4"])
+                    });
+
+                    result.Add(statisticsDetail);
                 }
             }
 

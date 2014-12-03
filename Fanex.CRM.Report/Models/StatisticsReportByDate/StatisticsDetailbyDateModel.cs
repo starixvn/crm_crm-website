@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 {
     using System;
+    using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Helpers;
@@ -20,53 +21,21 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
     [Serializable]
     public class StatisticsDetailbyDateModel
     {
+        public StatisticsDetailbyDateModel()
+        {
+            Phones = new List<PhoneInfo>();
+            PICs = new List<PersonalInfoContact>();
+        }
+
         #region Communication
 
-        public string PhoneCountryCode { get; set; }
+        public List<PhoneInfo> Phones { get; set; }
 
-        public string PhoneAreaCode { get; set; }
+        public List<PersonalInfoContact> PICs { get; set; }
 
-        public string Phone { get; set; }
+        public FaxInfo Fax { get; set; }
 
-        public string Phone2CountryCode { get; set; }
-
-        public string Phone2AreaCode { get; set; }
-
-        public string Phone2 { get; set; }
-
-        public string Phone3CountryCode { get; set; }
-
-        public string Phone3AreaCode { get; set; }
-
-        public string Phone3 { get; set; }
-
-        public string PIC1Name { get; set; }
-
-        public string PIC1 { get; set; }
-
-        public string PIC2Name { get; set; }
-
-        public string PIC2 { get; set; }
-
-        public string PIC3Name { get; set; }
-
-        public string PIC3 { get; set; }
-
-        public string PIC4Name { get; set; }
-
-        public string PIC4 { get; set; }
-
-        public string FaxCountryCode { get; set; }
-
-        public string FaxAreaCode { get; set; }
-
-        public string Fax { get; set; }
-
-        public string MobilePhoneCountryCode { get; set; }
-
-        public string MobilePhoneAreaCode { get; set; }
-
-        public string MobilePhone { get; set; }
+        public PhoneInfo MobilePhone { get; set; }
 
         public string Skype { get; set; }
 
@@ -112,8 +81,10 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
             {
                 BaseCustomerInfo customer = new BaseCustomerInfo
                 {
-                    FaxInfo = new FaxInfo { AreaCode = FaxAreaCode, CountryCode = FaxCountryCode, FaxNumber = Fax },
-                    MobilePhone = new PhoneInfo { AreaCode = MobilePhoneAreaCode, CountryCode = MobilePhoneCountryCode, PhoneNumber = MobilePhone },
+                    PhoneInfo = Phones,
+                    PersonalInfoContacts = PICs,
+                    FaxInfo = Fax,
+                    MobilePhone = MobilePhone,
                     Skype = Skype,
                     Email = Email,
                     MSN = MSN,
@@ -125,14 +96,6 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
                     BBM = Bbm
                 };
 
-                customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC1Name, Phone = PIC1 });
-                customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC2Name, Phone = PIC2 });
-                customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC3Name, Phone = PIC3 });
-                customer.PersonalInfoContacts.Add(new PersonalInfoContact { Name = PIC4Name, Phone = PIC4 });
-
-                customer.PhoneInfo.Add(new PhoneInfo { AreaCode = PhoneAreaCode, CountryCode = PhoneCountryCode, PhoneNumber = Phone });
-                customer.PhoneInfo.Add(new PhoneInfo { AreaCode = Phone2AreaCode, CountryCode = Phone2CountryCode, PhoneNumber = Phone2 });
-                customer.PhoneInfo.Add(new PhoneInfo { AreaCode = Phone3AreaCode, CountryCode = Phone3CountryCode, PhoneNumber = Phone3 });
                 return FieldHelper.GenerateContactInfo(customer);
             }
         }

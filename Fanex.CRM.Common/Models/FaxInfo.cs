@@ -25,7 +25,7 @@ namespace Fanex.CRM.Common.Models
 
         public override string ToString()
         {
-            string firstJoin = JoinTwoFields(AreaCode, CountryCode);
+            string firstJoin = JoinTwoFields(CountryCode, AreaCode);
             return JoinTwoFields(firstJoin, FaxNumber);
         }
 
