@@ -798,4 +798,16 @@
   <data name="No_status_found" xml:space="preserve">
     <value>Please select at least one Status!</value>
   </data>
+  <data name="RedemptionStatisticsDetailReportFilename" xml:space="preserve">
+    <value>Redemption_Statistics_Detail_Report</value>
+  </data>
+  <data name="RedemptionStatisticsReportFilename" xml:space="preserve">
+    <value>Redemption_Statistics_{0}_{1}</value>
+  </data>
+  <data name="RedemptionStatisticsDetailSheetName" xml:space="preserve">
+    <value>Redemption Statistics Detail</value>
+  </data>
+  <data name="RedemptionStatisticsSheetName" xml:space="preserve">
+    <value>Redemption Statistics</value>
+  </data>
 </root>

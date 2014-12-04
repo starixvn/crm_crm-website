@@ -196,6 +196,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             gridOptions.ShowHighlightRow = true;
             gridOptions.ShowTitle = true;
             gridOptions.ShowFooter = true;
+            gridOptions.NumberOfFrozenColumn = 2;
             gridOptions.TitleInfoText = Labels.RedemptionStatisticsDetailReportTitle;
 
             List<RedemptionStatisticsDetailEntity> detailReportData = new List<RedemptionStatisticsDetailEntity>();
@@ -235,7 +236,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 GrandTotalRowColor.Index,
                 new short[] { NpoiExcelExtensions.GrandTotalRowColor.R, NpoiExcelExtensions.GrandTotalRowColor.G, NpoiExcelExtensions.GrandTotalRowColor.B });
 
-            IWorkbook wb = result.ToExcel2003();
+            IWorkbook wb = result.ToExcel2003(Labels.RedemptionStatisticsSheetName);
             var footerFont = result.GetFooterCellStyles.General.Center.Style.GetFont(wb);
             footerFont.Color = HSSFColor.White.Index;
 
@@ -255,7 +256,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             gridOption.TitleType = Excel.Enums.TitleType.TwoLineBlue;
             FanexExcel result = new FanexExcel(gridOption);
 
-            IWorkbook wb = result.ToExcel2003();
+            IWorkbook wb = result.ToExcel2003(Labels.RedemptionStatisticsDetailSheetName);
 
             return wb;
         }
@@ -280,12 +281,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         private List<HeaderColumns> GenDetailHeaderRow()
         {
             var headerRow = new List<HeaderColumns>();
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.ClaimedDate, Name = Labels.ClaimedDate, Width = 150 });
+            headerRow.Add(new HeaderColumns() { HeaderText = Labels.ClaimedDate, Name = Labels.ClaimedDate, Width = 100 });
             headerRow.Add(new HeaderColumns() { HeaderText = Labels.Customer, Name = Labels.Customer, Width = 150 });
             headerRow.Add(new HeaderColumns() { HeaderText = Labels.Subject, Name = Labels.Subject, Width = 350 });
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Currency, Name = Labels.Currency, Width = 100 });
+            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Currency, Name = Labels.Currency, Width = 80 });
             headerRow.Add(new HeaderColumns(Labels.Amount, Labels.Amount, 100, HAlignment.Left, "center", ExcelCellType.Double));
-            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Status, Name = Labels.Status, Width = 100 });
+            headerRow.Add(new HeaderColumns() { HeaderText = Labels.Status, Name = Labels.Status, Width = 80 });
             headerRow.Add(new HeaderColumns() { HeaderText = Labels.DoneBy, Name = Labels.DoneBy, Width = 100 });
             return headerRow;
         }
@@ -343,10 +344,20 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Date, Labels.Total, null, string.Empty, HAlignment.Right, true, mergeNum));
                 mergeNum = 0;
             }
+            else
+            {
+                currentColIndex++;
+            }
 
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, currency, null, string.Empty, align, true));
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, amount, null, string.Empty, HAlignment.Right, true));
+            var currencyColumn = this.CreateColumns(currentColIndex, Labels.Currency, currency, null, string.Empty, align, true);
+            currencyColumn.ColumnIndex = currentColIndex;
+            currentColIndex++;
 
+            var amountColumn = this.CreateColumns(currentColIndex, Labels.Amount, amount, null, string.Empty, HAlignment.Right, true);
+            amountColumn.ColumnIndex = currentColIndex;
+
+            dataRow.Columns.Add(currencyColumn);
+            dataRow.Columns.Add(amountColumn);
             return dataRow;
         }
 

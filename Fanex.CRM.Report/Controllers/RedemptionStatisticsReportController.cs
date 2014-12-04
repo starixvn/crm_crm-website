@@ -99,7 +99,7 @@ namespace Fanex.CRM.Report.Controllers
             criteria.Subject = criteria.Subject ?? string.Empty;
             criteria.StatusId = criteria.StatusId ?? string.Empty;
 
-            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateDetailExcelWorkbook(criteria), Labels.RedemptionStatisticsDetailReportTitle);
+            NpoiExcelExtensions.ResponseStreamExcel(_redemptionStatisticsService.GenerateDetailExcelWorkbook(criteria), Labels.RedemptionStatisticsDetailReportFilename);
 
             return new EmptyResult();
         }
@@ -112,10 +112,11 @@ namespace Fanex.CRM.Report.Controllers
 
         private string GetSummaryFileName(GetRedemptionStatisticsSummaryCriteria criteria)
         {
+            string pattern = "yyyyMMdd";
             return string.Format(
-                Labels.RedemptionStatisticsReportTitle,
-                criteria.FromDate.ToShortFormatedDateWithSlash(),
-                criteria.ToDate.ToShortFormatedDateWithSlash());
+                Labels.RedemptionStatisticsReportFilename,
+                criteria.FromDate.ToString(pattern),
+                criteria.ToDate.ToString(pattern));
         }
     }
 }
