@@ -17,10 +17,11 @@ redemptionStatisticsApplication.directive('tableRedemptionStatisticsDetailContai
                 showButtonsWhenNoData: true
             },
             fullWidth: true,
-            fullHeight: false,
-            gridHeight: 680,
+            fullHeight: true,
+            gridExpandHeight: 200,
             headerColumnHeight: 29,
             bodyRowHeight: 29,
+            autoFixFrozenRowHeight: true
         };
 
         return $.extend({}, data, options);

@@ -51,7 +51,7 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
             });
 
             txtCalendar.datepicker("setDate", options.InitDate ? new Date(options.InitDate) : null);
-            oldValue = new Date(options.InitDate);
+            oldValue = options.InitDate ? new Date(options.InitDate) : null;
             element.on('change', function () {
                 onChangeDateEvent(scope, element, attrs);
             });

@@ -101,7 +101,7 @@ namespace Fanex.CRM.ActionLog.Services
             IDictionary<string, string> settingHash = new Dictionary<string, string>(128);
             foreach (SettingInfo setting in settingInfos)
             {
-                settingHash.Add(setting.Id.ToString() + setting.SettingType, setting.Value);
+                settingHash.Add(setting.Id.ToString() + setting.SettingType.ToUpperInvariant(), setting.Value);
             }
 
             return settingHash;

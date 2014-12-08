@@ -19,8 +19,7 @@ redemptionStatisticsApplication.directive('tableRedemptionStatisticsContainer', 
             bodyRowHeight: 29,
             fullWidth: true,
             fullHeight: false,
-            gridHeight: 665,
-            //gridExpandHeight: 180
+            gridHeight: 665
         };
 
         return $.extend({}, data, options);

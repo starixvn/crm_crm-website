@@ -57,8 +57,10 @@ function registerUpdateFunctions($scope) {
         $scope.safeApply();
     };
     $scope.updateBirthday = function (birthday) {
-        $scope.customerInfo.BirthDay = sharedScriptManager.formatTimeToSendToServer(birthday);
-        $scope.customerInfo.BirthDayString = moment(new Date(birthday)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment);
+        $scope.customerInfo.BirthDay = birthday ? sharedScriptManager.formatTimeToSendToServer(birthday) : null;
+        $scope.customerInfo.BirthDayString = birthday ?
+            moment(new Date(birthday)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
+            null;
     };
     $scope.updateDescription = function (description) {
         $scope.descriptionOptions.SelectedText = description;

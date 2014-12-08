@@ -22,13 +22,14 @@
         <Setting Key="Communication_Log_Update" SpName="Acc_CRM_CommunicationLogUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Communication_Log_Insert" SpName="Acc_CRM_CommunicationLogIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Communication_Log_GetInfoById" SpName="Acc_CRM_CommunicationLogSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Communication_Log_GetDefaultSettings" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Communication_Log_GetDefaultSettings" SpName="Acc_CRM_CustomerCommLogDefaultInfo_Sel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
     <Function Name="Redemption">
         <Setting Key="Redemption_Log_GetInfoByCustomerId" SpName="Acc_CRM_RedemptionList_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Redemption_Log_Update" SpName="Acc_CRM_RedemptionUpd_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Redemption_Log_Insert" SpName="Acc_CRM_RedemptionIns_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Redemption_Log_GetInfoById" SpName="Acc_CRM_RedemptionSel_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Redemption_Statisics_GetCurrencyList" SpName="Acc_CRM_CurrencyList_Redemption_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
     <Function Name="Setting">
         <Setting Key="Setting_FeedbackTemplateSubject_Get" SpName="Acc_CRM_SubjectTemplateSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -119,8 +120,8 @@
         </Setting>
         <Setting Key="Report_WagerReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Report_SummaryReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSummary_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Report_RedemptionStatistics_GetSummaryReport" SpName="Acc_Crm_Rpt_RedemptionStatistics" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Report_RedemptionStatistics_GetDetailReport" SpName="Acc_Crm_Rpt_RedemptionStatisticsDetail" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Report_RedemptionStatistics_GetSummaryReport" SpName="Acc_Crm_Rpt_RedemptionStatistics_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Report_RedemptionStatistics_GetDetailReport" SpName="Acc_Crm_Rpt_RedemptionStatisticsDetail_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     </Function>
 
     <Function Name="Inform Headline">

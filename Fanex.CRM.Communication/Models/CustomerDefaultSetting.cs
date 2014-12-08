@@ -23,5 +23,7 @@ namespace Fanex.CRM.Communication.Models
         public int RoleId { get; set; }
 
         public int DefaultLanguage { get; set; }
+
+        public int LicenseeTypeId { get; set; }
     }
 }

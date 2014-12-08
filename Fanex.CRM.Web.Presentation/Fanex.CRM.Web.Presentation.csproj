@@ -274,7 +274,6 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\MainCategory.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Product.js" />
-    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RelatedCustomer.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\RemarkEditor.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Response.js" />

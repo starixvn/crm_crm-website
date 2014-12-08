@@ -106,7 +106,7 @@ namespace Fanex.CRM.Feedback.Criteria
         public override Hashtable GetSpParams()
         {
             var param = new Hashtable();
-            param.Add("userid", CustomerInfo.Id);
+            param.Add("userid", UserId);
             param.Add("username", CustomerInfo.Name);
 
             param.Add("firstname", CustomerInfo.FirstName);

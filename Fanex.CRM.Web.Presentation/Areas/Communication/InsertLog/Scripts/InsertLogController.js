@@ -104,7 +104,7 @@ function (
     $scope.isSetFocus = false;
     $scope.isShowRemarkBox = true;
     $scope.isShowSolutionBox = true;
-    $scope.licenseeTypeOptions = null;
+    $scope.licenseeTypes = [];
 
     $scope.isUpdatingTime = false;
     $scope.initController = function () {
@@ -170,8 +170,6 @@ function (
         $scope.communicationLog.EndTime = initEndTime;
 
         $scope.communicationLog.Extension = $scope.extensionList[0];
-        $scope.communicationLog.LicenseeType = $scope.licenseeTypeOptions.DataList[0];
-
         $scope.communicationLog.Country = {
             Id: $scope.defaultSettings.CountryId
         };
@@ -198,6 +196,8 @@ function (
         };
 
         $scope.communicationLog.Response = $scope.responseList[0];
+        $scope.communicationLog.LicenseeType.Id = $scope.defaultSettings.LicenseeTypeId;
+
         $scope.updateRemarkPrefix();
         $scope.oldCommunicationLog = angular.copy($scope.communicationLog);
         $scope.updateChangeFlag();
@@ -681,10 +681,7 @@ function (
                 $scope.roleList = allSetting.RoleList;
                 $scope.responseList = allSetting.ResponseList;
                 $scope.defaultSettings = allSetting.DefaultSettings;
-                $scope.licenseeTypeOptions = {
-                    DataList: allSetting.LicenseeType,
-                    OnChangeEvent: $scope.updateSelectedLicenseeType
-                };
+                $scope.licenseeTypes = allSetting.LicenseeType;
 
                 $scope.completedLoadFilterInfo();
             },
@@ -692,11 +689,6 @@ function (
                 /* jshint unused: vars */
                 $scope.completedLoadFilterInfo();
             });
-    };
-
-    $scope.updateSelectedLicenseeType = function (licenseeType) {
-        $scope.communicationLog.LicenseeType = licenseeType;
-        $scope.safeApply();
     };
 
     angular.element(document).ready(function () {

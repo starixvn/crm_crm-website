@@ -151,10 +151,10 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             $scope.updateSelectedSubCategory($scope.subCategoryOptions.DataList[0]);
             $scope.addGuestFeedbackParams.CustomerInfo = $scope.customerInfo;
             $scope.updateRemarkPrefix();
+            $scope.customerInfo.Title = $scope.allSettings.TitleList[0];
             $scope.customerInfo.LicenseeType = $scope.allSettings.LicenseeType[0];
 
             $scope.oldParams = angular.copy($scope.addGuestFeedbackParams);
-            $scope.oldParams.CustomerInfo.BirthDayString = 'Jan 01, 1970';
             $scope.updateChangeFlag();
             $scope.isLoading = false;
             $uiBlockerService.unblockUI();
@@ -315,6 +315,8 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                 setTimeout(function () {
                     $scope.messageResultOptions = new MessageResult('', false, false);
                     $scope.safeApply();
+
+                    parent.leftPanelManager.loadLeftPanel($scope.customerInfo.Name, true);
                 }, sharedScriptManager.cachedData.alertSuccessTime);
 
                 $uiBlockerService.unblockUI();

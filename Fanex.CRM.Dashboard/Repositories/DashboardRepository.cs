@@ -225,7 +225,7 @@ namespace Fanex.CRM.Dashboard.Repositories
                 {
                     Value = Converter.ToString2(reader["Status"])
                 },
-                Amount = Convert.ToDecimal(reader["Amount"]),
+                Amount = Converter.ToDecimal(reader["Amount"]),
                 DoneBy = Converter.ToString2(reader["DoneBy"]),
                 Currency = new BaseModel { Name = Converter.ToString2(reader["Currency"]) }
             };

@@ -220,11 +220,11 @@ namespace Fanex.CRM.ActionLog.Services
         /// </returns>
         private string GetSettingValue(string key, string value, ref string fieldName)
         {
-            string keyLower = key.ToUpperInvariant();
+            string keyUpper = key.ToUpperInvariant();
 
             // Convert bit value (1/0) to Yes/No.
             string[] boolValues;
-            if (_actionLogBoolValueHash.TryGetValue(keyLower, out boolValues))
+            if (_actionLogBoolValueHash.TryGetValue(keyUpper, out boolValues))
             {
                 int index;
                 if (int.TryParse(value, out index) && index < 2)
@@ -234,13 +234,13 @@ namespace Fanex.CRM.ActionLog.Services
             }
 
             // Value isn't in Setting hash.
-            if (!_actionLogKeyHash.ContainsKey(keyLower))
+            if (!_actionLogKeyHash.ContainsKey(keyUpper))
             {
                 return value;
             }
 
             // LanguageID can be stored multiple values.
-            if (string.Equals(keyLower, "LanguageID", StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(keyUpper, "LanguageID", StringComparison.OrdinalIgnoreCase))
             {
                 fieldName = "Language";
                 return GetMultipleSettingValue(value, fieldName);
@@ -250,10 +250,21 @@ namespace Fanex.CRM.ActionLog.Services
             return GetSettingValue(value, fieldName);
         }
 
+        /// <summary>
+        /// Gets the setting value.
+        /// </summary>
+        /// <param name="key">The key parameter.</param>
+        /// <param name="settingType">Type of the setting.</param>
+        /// <returns>The value of key.</returns>
         private string GetSettingValue(string key, string settingType)
         {
+            if (string.Equals(key, "0", StringComparison.OrdinalIgnoreCase))
+            {
+                return "N/A";
+            }
+
             string settingValue;
-            if (!_settingHash.TryGetValue(key + settingType, out settingValue))
+            if (!_settingHash.TryGetValue(key + settingType.ToUpperInvariant(), out settingValue))
             {
                 settingValue = key;
             }

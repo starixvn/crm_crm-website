@@ -325,11 +325,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/RawHtml.js",
-                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Remark/Scripts/RemarkApplication.js",
-                "~/Areas/Remark/Scripts/RemarkService.js",
-                "~/Areas/Remark/Scripts/RemarkController.js",
-                "~/Areas/Remark/Scripts/Directives/*.js"));
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js"));
 
             bundles.AddAndInclude(
                 "~/Areas/Remark/RemarkStyles",

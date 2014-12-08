@@ -42,7 +42,7 @@ settingLogApplication.directive('tableSettingLogsContainer', function () {
 
                 var row = [
                     { Name: 'ColLogDate', Value: info.LogDateString, MergeRowNumber: mergeRowNumber },
-                    { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber },
+                    { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber, CssClass: 'username-wordwrap' },
                     { Name: 'ColAction', Value: info.ActionName, MergeRowNumber: mergeRowNumber },
                     { Name: 'ColEntity', Value: info.Entity, MergeRowNumber: mergeRowNumber },
                     { Name: 'ColEntityId', Value: info.Id, MergeRowNumber: mergeRowNumber}];

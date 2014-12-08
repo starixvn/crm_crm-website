@@ -379,7 +379,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 Labels.Subject,
                 HttpContext.Current.Server.HtmlEncode(item.Subject),
                 item.Subject,
-                string.Empty,
+                "subject-wordwrap",
                 HAlignment.Left));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Currency, item.Currency, null, string.Empty, align));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Amount, item.Amount, null, string.Empty, HAlignment.Right));

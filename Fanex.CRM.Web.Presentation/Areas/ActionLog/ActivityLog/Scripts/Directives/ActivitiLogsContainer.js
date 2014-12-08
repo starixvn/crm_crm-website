@@ -42,7 +42,7 @@ activityLogApplication.directive('tableActivityLogsContainer', function () {
 
                 var row = [
                     { Name: 'ColLogDate', Value: info.LogDateString, MergeRowNumber: mergeRowNumber },
-                    { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber },
+                    { Name: 'ColUsername', Value: info.Username, MergeRowNumber: mergeRowNumber, CssClass: 'username-wordwrap' },
                     { Name: 'ColAction', Value: info.ActionName, MergeRowNumber: mergeRowNumber}];
                 if (mergeRowNumber === 0) {
                     bodyData.push({
