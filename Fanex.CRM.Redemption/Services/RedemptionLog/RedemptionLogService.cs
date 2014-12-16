@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Redemption.Services.RedemptionLog
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Infrastructure.Constants;
@@ -43,6 +44,17 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
         {
             _logRepositoryInstance = logRepositoryInstance ?? new RedemptionLogRepository();
             _serviceSetting = serviceSetting ?? new SettingService();
+        }
+
+        private List<BaseModel> RedemptionCurrencies
+        {
+            get
+            {
+                var currencies = _serviceSetting.AllCurrencyRedemption(new GetAllCurrencyRedemptionCriteria());
+                currencies.Insert(0, new BaseModel { Id = SettingConstants.NotApply, Name = Labels.Symbol_NotApply });
+
+                return currencies;
+            }
         }
 
         /// <summary>
@@ -157,7 +169,7 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
                 return new
                 {
                     StatusList = statusList,
-                    Currencies = _serviceSetting.GetAllCurrency(new GetAllCurrencyCriteria())
+                    Currencies = RedemptionCurrencies
                 };
             }
             catch (Exception ex)
@@ -180,7 +192,7 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
                 return new
                 {
                     StatusList = statusList,
-                    Currencies = _serviceSetting.GetAllCurrency(new GetAllCurrencyCriteria())
+                    Currencies = RedemptionCurrencies
                 };
             }
             catch (Exception ex)

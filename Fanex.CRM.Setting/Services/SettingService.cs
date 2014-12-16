@@ -50,6 +50,7 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllInformHeadlineSettingKey = "Fanex.CRM.Setting.GetAllInformHeadlineSettingKey";
         public const string GetAllLicenseeTypeSessionKey = "Fanex.CRM.Setting.GetAllLicenseeTypeSessionKey";
         public const string GetAllCurrencySessionKey = "Fanex.CRM.Setting.GetAllCurrencySessionKey";
+        public const string GetAllCurrencyRedemptionSessionKey = "Fanex.CRM.Setting.GetAllCurrencyRedemptionSessionKey";
 
         private readonly ISettingRepository _settingRepositoryInstance;
 
@@ -513,15 +514,19 @@ namespace Fanex.CRM.Setting.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Setting Info List.</returns>
-        public List<SettingInfo> AllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria)
+        public List<BaseModel> AllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria)
         {
+            string key = GetAllCurrencyRedemptionSessionKey;
             try
             {
-                var allCurrency = new List<SettingInfo>();
+                var currencies = CacheService.Get<List<BaseModel>>(key);
+                if (currencies == null)
+                {
+                    currencies = _settingRepositoryInstance.GetAllCurrencyRedemption(criteria);
+                    CacheService.Set(key, currencies);
+                }
 
-                allCurrency = _settingRepositoryInstance.GetAllCurrencyRedemption(criteria);
-                allCurrency = allCurrency.OrderBy(s => s.DisplayOrder).ToList();
-                return allCurrency;
+                return currencies;
             }
             catch (Exception ex)
             {

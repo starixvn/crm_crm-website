@@ -40,13 +40,14 @@ redemptionStatisticsApplication.directive('tableRedemptionStatisticsContainer', 
         var viewDateLinks = table.find(".detail-date, .detail-currency");
         viewDateLinks.unbind("click");
         viewDateLinks.click(function () {
-            var subject = $(this).attr("data-subject");
-            var currencyId = parseInt($(this).attr("data-currency-id"));
-            var month = parseInt($(this).attr("data-month"));
-            var year = parseInt($(this).attr("data-year"));
+            var $this = $(this);
+            var currencyId = parseInt($this.attr("data-currency-id"));
+            var month = parseInt($this.attr("data-month"));
+            var year = parseInt($this.attr("data-year"));
 
-            var title = !currencyId ? crmConstants.MonthNames[month-1] + ' ' + year : $(this).attr("data-currency");
-            scope.getRedemptionStatisticsDetailReport(subject, currencyId, month, year, title);
+            var title = currencyId ? $this.attr("data-currency") :
+                month === 0 ? year : crmConstants.MonthNames[month - 1] + ' ' + year;
+            scope.getRedemptionStatisticsDetailReport(title, currencyId, year, month);
         });
     }
 

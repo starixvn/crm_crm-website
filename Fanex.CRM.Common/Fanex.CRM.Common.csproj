@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\FunctionPermissions.cs" />
+    <Compile Include="Constants\Pager.cs" />
     <Compile Include="Constants\UpdateReviewedModeConstants.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommonController.cs" />

@@ -48,6 +48,6 @@ namespace Fanex.CRM.Setting.Repositories
 
         List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria);
 
-        List<SettingInfo> GetAllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria);
+        List<BaseModel> GetAllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria);
     }
 }

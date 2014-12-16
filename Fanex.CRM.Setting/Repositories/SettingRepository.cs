@@ -451,9 +451,9 @@ namespace Fanex.CRM.Setting.Repositories
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The BaseModel list.</returns>
-        public List<SettingInfo> GetAllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria)
+        public List<BaseModel> GetAllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria)
         {
-            var allCurrency = new List<SettingInfo>();
+            var allCurrency = new List<BaseModel>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
@@ -462,7 +462,7 @@ namespace Fanex.CRM.Setting.Repositories
                     {
                         while (reader.Read())
                         {
-                            var setting = new SettingInfo()
+                            var setting = new BaseModel()
                             {
                                 Id = Converter.ToInt(reader["CurrencyId"]),
                                 Name = Converter.ToString2(reader["Currency"])

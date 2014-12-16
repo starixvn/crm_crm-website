@@ -169,6 +169,8 @@
     <Compile Include="Models\StatisticsReportByDate\StatisticsInfoByDateRepositoryResultModel.cs" />
     <Compile Include="Models\StatisticsReportByDate\StatisticsReportByDateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\RedemptionStatisticsReport\IRedemptionStatisticsRepository.cs" />
+    <Compile Include="Repositories\RedemptionStatisticsReport\RedemptionStatisticsRepository.cs" />
     <Compile Include="Repositories\StatisticByDateReport\StatisticByDateRepository.cs" />
     <Compile Include="Repositories\StatisticByDateReport\IStatisticByDateRepository.cs" />
     <Compile Include="Repositories\CasinoReport\CasinoReportRepository.cs" />

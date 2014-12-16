@@ -27,19 +27,16 @@ namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
         public string Subject { get; set; }
 
         [SpParam(SqlParamName = "currencyid")]
-        public int CurrencyId { get; set; }
+        public string CurrencyId { get; set; }
 
         [SpParam(SqlParamName = "reportby")]
-        public int ReportBy { get; set; }
+        public virtual int ReportBy { get; set; }
 
         [SpParam(SqlParamName = "statusid")]
         public string StatusId { get; set; }
 
         [SpParam(Ignored = true)]
-        public int PageIndex { get; set; }
-
-        [SpParam(Ignored = true)]
-        public int PageSize { get; set; }
+        public bool FromCache { get; set; }
 
         public override string GetSettingKey()
         {

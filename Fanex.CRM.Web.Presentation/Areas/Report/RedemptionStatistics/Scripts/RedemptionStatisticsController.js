@@ -31,12 +31,10 @@ function (
 
     $scope.isShowSummary = true;
     $scope.title = '';
-    $scope.selectedStatusIds = '';
 
     $scope.searchCriteria = {
         FromDate: new Date(initFromDate),
         ToDate: new Date(currentDate),
-
         Subject: '',
         Status: '',
         Currency: '',
@@ -152,12 +150,13 @@ function (
     $scope.completedLoadFilterInfo = function () {
         $scope.searchCriteria.Currency = $scope.currencyOptions.DataList[0];
         $scope.searchCriteria.ReportBy = $scope.reportByOptions.DataList[0];
+        $scope.updateSelectedCurrency($scope.currencyOptions.DataList[0]);
 
         $scope.unblockUI();
     };
 
     $scope.updateSelectedStatus = function (statusIdList) {
-        $scope.selectedStatusIds = statusIdList;
+        $scope.searchCriteria.Status = statusIdList;
     };
 
     $scope.updateFromDatePicker = function () {
@@ -191,8 +190,16 @@ function (
     };
 
     $scope.updateSelectedCurrency = function (currency) {
-        $scope.searchCriteria.Currency = currency;
-        $scope.$apply();
+        if (currency.Id === 0) { // all
+            var currencyIds = [];
+            angular.forEach($scope.currencyOptions.DataList, function (value, key) {
+                if (value.Id !== 0) { this.push(value.Id); }
+            }, currencyIds);
+            $scope.searchCriteria.Currency = currencyIds.join();
+        }
+        else {
+            $scope.searchCriteria.Currency = currency.Id;
+        }
     };
 
     $scope.updateSelectedReportBy = function (reportBy) {
@@ -206,13 +213,10 @@ function (
         var getReportCriteria = {
             FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
             ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
-
-            StatusId: $scope.selectedStatusIds,
-            CurrencyId: $scope.searchCriteria.Currency.Id,
+            StatusId: $scope.searchCriteria.Status,
+            CurrencyId: $scope.searchCriteria.Currency,
             ReportBy: $scope.searchCriteria.ReportBy.Id,
-            Subject: $scope.searchCriteria.Subject,
-            PageIndex: $scope.searchCriteria.PageIndex,
-            PageSize: $scope.searchCriteria.PageSize
+            Subject: $scope.searchCriteria.Subject
         };
 
         if (!getReportCriteria.StatusId) {
@@ -229,7 +233,6 @@ function (
         .then(function (data) {
             $scope.redemptionStatisticsOptions.SummaryDataList = data.Result;
             $scope.isSubmitClick = true;
-
             $scope.isShowSummary = true;
 
             $scope.unblockUI();
@@ -239,28 +242,58 @@ function (
         });
     };
 
-    $scope.getRedemptionStatisticsDetailReport = function (subject, currency, month, year, title) {
+    $scope.getRedemptionStatisticsDetailReport = function (title, currency, year, month) {
         $scope.BlockUI();
         $scope.title = title;
 
+        var fromdate = '', todate = '';
+        if (year !== 0 && month !== 0) {
+            fromdate = moment(new Date(year, month - 1, 1)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment);
+            todate = moment(new Date(year, month, 0)).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment);
+        }
+        else if (year !== 0 && month === 0) {
+            fromdate = 'Jan 01, ' + year;
+            todate = 'Dec 31, ' + year;
+        }
+        else {
+            fromdate = moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment);
+            todate = moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment);
+        }
+
+        if (currency === 0) {
+            currency = $scope.searchCriteria.Currency;
+        }
+
         var getReportDetailCriteria = {
-            Month: month,
-            Year: year,
-            StatusId: $scope.selectedStatusIds,
+            FromDate: fromdate,
+            ToDate: todate,
+            StatusId: $scope.searchCriteria.Status,
             CurrencyId: currency,
             ReportBy: $scope.searchCriteria.ReportBy.Id,
-            Subject: subject,
-            PageIndex: $scope.searchCriteria.PageIndex,
-            PageSize: $scope.searchCriteria.PageSize
+            Subject: $scope.searchCriteria.Subject
         };
 
         $scope.lastSelectedDetailParams = getReportDetailCriteria;
         $redemptionStatisticsService.getRedemptionStatisticsDetailReport(getReportDetailCriteria)
         .then(function (data) {
             $scope.redemptionStatisticsOptions.DetailDataList = data.Result;
-
             $scope.isShowSummary = false;
+            $scope.unblockUI();
+        },
+        function (data) {
+            $scope.unblockUI();
+        });
+    };
 
+    $scope.getRedemptionStatisticsDetailReportWithPaging = function (pageIndex, pageSize) {
+        $scope.BlockUI();
+
+        $scope.lastSelectedDetailParams.PageIndex = pageIndex;
+        $scope.lastSelectedDetailParams.ItemsPerPage = pageSize;
+        $redemptionStatisticsService.getRedemptionStatisticsDetailReport($scope.lastSelectedDetailParams)
+        .then(function (data) {
+            $scope.redemptionStatisticsOptions.DetailDataList = data.Result;
+            $scope.isShowSummary = false;
             $scope.unblockUI();
         },
         function (data) {

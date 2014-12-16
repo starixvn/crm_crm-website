@@ -15,31 +15,19 @@ namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
     /// <summary>
     /// Get Redemption Statistics Detail Report.
     /// </summary>
-    public class GetRedemptionStatisticsDetailCriteria : CriteriaBase
+    public class GetRedemptionStatisticsDetailCriteria : GetRedemptionStatisticsSummaryCriteria
     {
-        [SpParam(SqlParamName = "month")]
-        public int Month { get; set; }
-
-        [SpParam(SqlParamName = "year")]
-        public int Year { get; set; }
-
-        [SpParam(SqlParamName = "subject")]
-        public string Subject { get; set; }
-
         [SpParam(Ignored = true)]
+        public override int ReportBy { get; set; }
+
+        [SpParam(SqlParamName = "pageindex")]
         public int PageIndex { get; set; }
 
-        [SpParam(Ignored = true)]
-        public int PageSize { get; set; }
+        [SpParam(SqlParamName = "itemsperpage")]
+        public int ItemsPerPage { get; set; }
 
-        [SpParam(SqlParamName = "currencyid")]
-        public int CurrencyId { get; set; }
-
-        [SpParam(SqlParamName = "reportby")]
-        public int ReportBy { get; set; }
-
-        [SpParam(SqlParamName = "statusid")]
-        public string StatusId { get; set; }
+        [SpParam(SqlParamName = "totalrows")]
+        public int TotalRows { get; set; }
 
         public override string GetSettingKey()
         {

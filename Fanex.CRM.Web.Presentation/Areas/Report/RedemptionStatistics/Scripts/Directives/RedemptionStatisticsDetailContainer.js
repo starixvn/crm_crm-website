@@ -24,6 +24,11 @@ redemptionStatisticsApplication.directive('tableRedemptionStatisticsDetailContai
             autoFixFrozenRowHeight: true
         };
 
+        data.pagerOption.pagerSelectCallBack = function (page_index, itemsPerPage, jq) {
+            selfScope.getRedemptionStatisticsDetailReportWithPaging(page_index, itemsPerPage);
+            return false;
+        };
+
         return $.extend({}, data, options);
     }
 

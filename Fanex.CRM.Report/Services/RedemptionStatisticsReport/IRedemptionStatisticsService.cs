@@ -21,7 +21,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     {
         List<SettingInfo> AllStatus();
 
-        List<SettingInfo> AllCurrencyRedemption();
+        List<BaseModel> AllCurrencyRedemption();
 
         List<BaseModel> AllReportBy();
 

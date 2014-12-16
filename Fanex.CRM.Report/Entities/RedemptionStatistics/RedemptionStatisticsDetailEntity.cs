@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Entities.RedemptionStatistics
     {
         public string Subject { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime ClaimTime { get; set; }
 
         public decimal Amount { get; set; }
 
