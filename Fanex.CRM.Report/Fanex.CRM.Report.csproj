@@ -179,6 +179,8 @@
     </Compile>
     <Compile Include="Repositories\DynamicReport\DynamicReportRepository.cs" />
     <Compile Include="Repositories\FeedbackStatisticReport\FeedbackStatisticReportRepository.cs" />
+    <Compile Include="Repositories\StatisticReport\IStatisticReportRepository.cs" />
+    <Compile Include="Repositories\StatisticReport\StatisticReportRepository.cs" />
     <Compile Include="Repositories\SummaryReport\SummaryReportRepository.cs" />
     <Compile Include="Repositories\WagerReport\WagerReportRepository.cs" />
     <Compile Include="Repositories\CasinoReport\ICasinoReportRepository.cs" />

@@ -109,12 +109,7 @@
       <Mapping DataField="CountryName" ObjectProperty="CountryName" />
       <Mapping DataField="NoOfIssues" ObjectProperty="NumberOfIssues" />
     </Setting>
-    <Setting Key="Report_StatisticReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
-      <Mapping DataField="FeedbackDate" ObjectProperty="DateTime" />
-      <Mapping DataField="CountryID" ObjectProperty="CountryId" />
-      <Mapping DataField="CountryName" ObjectProperty="CountryName" />
-      <Mapping DataField="NoOfIssues" ObjectProperty="NumberOfIssues" />
-    </Setting>
+    <Setting Key="Report_StatisticReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_WagerReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_SummaryReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSummary" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>

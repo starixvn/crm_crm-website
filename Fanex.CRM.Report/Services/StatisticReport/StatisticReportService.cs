@@ -25,6 +25,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
     using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Entities.StatisticReport;
     using Fanex.CRM.Report.Models.StatisticReport;
+    using Fanex.CRM.Report.Repositories.StatisticReport;
     using Fanex.CRM.Report.Resources;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
@@ -40,16 +41,18 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         private readonly string _statisticReportSessionKey = "Fanex.CRM.Report.StatisticReport.StatisticReportSessionKey_" +
             (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
 
-        private ISettingService _serviceSetting;
+        private readonly ISettingService _serviceSetting;
+        private readonly IStatisticReportRepository _statisticReportRepository;
 
         public StatisticReportService()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public StatisticReportService(ISettingService serviceSetting)
+        public StatisticReportService(IStatisticReportRepository statisticReportRepository, ISettingService serviceSetting)
         {
             _serviceSetting = serviceSetting ?? new SettingService();
+            _statisticReportRepository = statisticReportRepository ?? new StatisticReportRepository();
         }
 
         /// <summary>
@@ -165,7 +168,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
                 {
                     criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
                     criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                    var rawData = GetDynamicData<StatisticReportEntity>(criteria).ToList();
+                    var rawData = _statisticReportRepository.GetStatisticReport(criteria);
 
                     var countryList = rawData
                         .GroupBy(statisticReportEntity => statisticReportEntity.CountryId)
