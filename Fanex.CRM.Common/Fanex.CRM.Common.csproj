@@ -125,6 +125,7 @@
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Services\CRMAuthAttribute.cs" />
+    <Compile Include="Services\AjaxNapAuthAttribute.cs" />
     <Compile Include="Services\IPermissionService.cs" />
     <Compile Include="Services\IServiceBase.cs" />
     <Compile Include="Services\PermissionService.cs" />

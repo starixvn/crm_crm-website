@@ -464,7 +464,7 @@ var CustomerManager = function () {
     self.ShowUpdateResult = function (updateResult) {
         updateResult = sharedScriptManager.formatAjaxResult(updateResult);
         self.DOMElements.divResultPopUp.removeClass("display-none");
-        self.DOMElements.divResultPopUp.html(updateResult.Name);
+        self.DOMElements.divResultPopUp.html(updateResult.Name || updateResult.Message);
         self.DOMElements.divResultPopUp.dialog({
             width: 250,
             height: 150,

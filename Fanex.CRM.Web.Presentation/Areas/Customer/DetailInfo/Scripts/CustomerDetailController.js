@@ -263,7 +263,7 @@ function (
     $scope.showUpdateResult = function (updateResult) {
         updateResult = sharedScriptManager.formatAjaxResult(updateResult);
         $scope.DOMElements.divResultPopUp.removeClass("display-none");
-        $scope.DOMElements.divResultPopUp.html(updateResult.Name);
+        $scope.DOMElements.divResultPopUp.html(updateResult.Name || updateResult.Message);
         $scope.DOMElements.divResultPopUp.dialog({
             width: 250,
             height: 150,

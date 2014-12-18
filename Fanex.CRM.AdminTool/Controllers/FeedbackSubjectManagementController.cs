@@ -13,10 +13,12 @@ namespace Fanex.CRM.AdminTool.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.FeedbackSubjectManagement;
     using Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement;
+    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// Feedback Subject Management Controller.
@@ -76,7 +78,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Host, "Index")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
         public JsonResult DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria)
         {
             Result result = _feedbackSubjectManagementService.DeleteTemplate(criteria);
@@ -94,7 +96,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Host, "Index")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
         public JsonResult EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.EditTemplate(criteria);
@@ -103,7 +105,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         }
 
         [HttpPost]
-        [AuthenticateAction(AuthenticationType.Host, "Index")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.FBSubjectTemplateManagement, Policy = Constant.Policy.Host)]
         public JsonResult InsertTemplate(InsertFeedbackSubjectTemplateCriteria criteria)
         {
             var result = _feedbackSubjectManagementService.InsertTemplate(criteria);

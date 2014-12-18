@@ -31,5 +31,11 @@ namespace Fanex.CRM.Common.Constants
         public const string InformHeadlineCreateTitle = "InformHeadlineTitle";
 
         public const string InformHeadlineUpdateStatus = "InformHeadlineDetail";
+
+        public const string SettingManagement = "SettingManagement";
+
+        public const string SettingRelationManagement = "SettingRelationshipManagement";
+
+        public const string FBSubjectTemplateManagement = "FBSubjectTemplateManagement";
     }
 }

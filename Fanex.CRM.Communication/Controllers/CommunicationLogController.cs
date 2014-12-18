@@ -165,7 +165,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>Update Result.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Host)]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
             Result updateResult;
