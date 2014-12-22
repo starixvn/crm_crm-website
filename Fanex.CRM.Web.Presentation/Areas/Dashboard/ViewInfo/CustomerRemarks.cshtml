@@ -5,7 +5,7 @@
     </div>
     <div class="nodata-message" data-ng-class="{ 'display-none': customerRemarks !== undefined && customerRemarks !== null && customerRemarks.length !== 0 }">@Labels.There_is_no_data</div>
     <ul class="custinfo row content list-unstyled">
-        <li class="raw-html-directive" data-ng-repeat="remark in customerRemarks track by $index"
-            data-ng-text="getRemarkText($index)"></li>
+        <li data-ng-repeat="remark in customerRemarks">
+            <span data-ng-bind-html="getRemarkText($index)"></span></li>
     </ul>
 </div>

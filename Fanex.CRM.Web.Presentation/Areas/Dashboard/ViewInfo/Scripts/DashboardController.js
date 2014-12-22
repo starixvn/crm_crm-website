@@ -345,12 +345,8 @@ dashboardApplication.controller('dashboardController', ['$scope',
             });
         };
 
-        $scope.replaceLineBreak = function (text) {
-            return text ? text.replace(/\r/g, '<br />').replace(/\n/g, '<br />') : "";
-        };
         $scope.getRemarkText = function (index) {
-            return '<span>' + (index + 1) + '.</span> ' +
-                   '<span>' + $scope.replaceLineBreak($scope.customerRemarks[index]) + '</span>';
+            return (index + 1) + '. ' + this.remark;
         };
 
         angular.element(document).ready(function () {
