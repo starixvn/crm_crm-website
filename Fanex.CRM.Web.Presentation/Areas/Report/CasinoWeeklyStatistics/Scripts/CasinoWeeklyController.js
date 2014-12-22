@@ -85,6 +85,15 @@ function ($scope, casinoWeeklyService, $uiBlockerService) {
         $scope.$apply();
     };
 
+    $scope.exportCasinoWeeklyDetail = function () {
+        $scope.downloadFileOptions = {
+            URL: window.rootUrl + 'CasinoReport/ExportCasinoWeeklyDetail',
+            Params: { fromDate: $scope.fromDate, toDate: $scope.toDate }
+        };
+
+        $scope.$apply();
+    };
+
     $scope.invokeHotKey_CtrlS = function () {
         $scope.getCasinoWeeklySummary();
     };

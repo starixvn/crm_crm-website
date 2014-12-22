@@ -35,6 +35,10 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
             showTitle: true,
             titleInfo: {
                 text: report.Title,
+                showExcelButton: true,
+                exportExcelFunction: function () {
+                    scope.exportCasinoWeeklyDetail();
+                },
                 customButtons: '<input id="button-back" class="btnGoBack" type="button" title="' + casinoWeeklyResources.GoBack + '"/>',
                 showButtonsWhenNoData: true
             },

@@ -157,7 +157,10 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 casinoDailyDetails = (IList<CasinoDetailEntity>)SessionExtension.GetSession(HttpContext.Current.Session, key);
             }
 
-            string title = string.Format(Labels.CasinoDailyDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
+            string title = string.Format(
+                criteria.ReportType == CasinoWeeklyType ? Labels.CasinoWeeklyDetailTitle : Labels.CasinoDailyDetailTitle,
+                criteria.FromDate.ToShortFormatedDate(),
+                criteria.ToDate.ToShortFormatedDate());
             if (casinoDailyDetails == null)
             {
                 // Get data from DB.
@@ -204,7 +207,10 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             CasinoDetail report = GetCasinoDailyDetail(criteria);
 
             int maxColumnIndex = 19;
-            string excelFileName = string.Format(Labels.CasinoDetailExcelName, FormatReportDate(criteria.FromDate), FormatReportDate(criteria.ToDate));
+            string excelFileName = string.Format(
+                criteria.ReportType == CasinoWeeklyType ? Labels.CasinoWeeklyExcelName : Labels.CasinoDetailExcelName,
+                FormatReportDate(criteria.FromDate),
+                FormatReportDate(criteria.ToDate));
             HSSFWorkbook workbook = new HSSFWorkbook();
             ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {

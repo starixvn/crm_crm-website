@@ -241,6 +241,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CasinoWeeklyReport-{0}-{1}.
+        /// </summary>
+        public static string CasinoWeeklyExcelName {
+            get {
+                return ResourceManager.GetString("CasinoWeeklyExcelName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Casino Weekly Statistics.
         /// </summary>
         public static string CasinoWeeklyStatistics_Report {

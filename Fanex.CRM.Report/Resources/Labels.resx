@@ -810,4 +810,7 @@
   <data name="RedemptionStatisticsSheetName" xml:space="preserve">
     <value>Redemption Statistics</value>
   </data>
+  <data name="CasinoWeeklyExcelName" xml:space="preserve">
+    <value>CasinoWeeklyReport-{0}-{1}</value>
+  </data>
 </root>

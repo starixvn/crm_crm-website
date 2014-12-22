@@ -10,11 +10,14 @@
 namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Report.Criteria.CasinoReport;
     using Fanex.CRM.Report.Services.CasinoReport;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Casino Report Controller.
@@ -34,34 +37,34 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         // Casino Daily Statistics.
-        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
+        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult CasinoDailyStatistics()
         {
             return View("~/Areas/Report/CasinoDailyStatistics/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult CasinoDailySummary(GetCasinoSummaryCriteria criteria)
         {
             var report = _casinoReportService.GetCasinoDailySummary(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult ExportCasinoDailySummary(GetCasinoSummaryCriteria criteria)
         {
             _casinoReportService.ExportCasinoDailySummary(criteria);
             return new EmptyResult();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult CasinoDailyDetail(GetCasinoDetailCriteria criteria)
         {
             var report = _casinoReportService.GetCasinoDailyDetail(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "CasinoDailyStatistics")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult ExportCasinoDailyDetail(GetCasinoDetailCriteria criteria)
         {
             _casinoReportService.ExportCasinoDailyDetail(criteria);
@@ -69,31 +72,39 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         // Casino Weekly Statistics.
-        [AuthenticateAction(AuthenticationType.Read, "CasinoWeeklyStatistics")]
+        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult CasinoWeeklyStatistics()
         {
             return View("~/Areas/Report/CasinoWeeklyStatistics/Index.cshtml");
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "CasinoWeeklyStatistics")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult CasinoWeeklySummary(GetCasinoSummaryCriteria criteria)
         {
             var report = _casinoReportService.GetCasinoWeeklySummary(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "CasinoWeeklyStatistics")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult ExportCasinoWeeklySummary(GetCasinoSummaryCriteria criteria)
         {
             _casinoReportService.ExportCasinoWeeklySummary(criteria);
             return new EmptyResult();
         }
 
-        [AuthenticateAction(AuthenticationType.Read, "CasinoWeeklyStatistics")]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult CasinoWeeklyDetail(GetCasinoDetailCriteria criteria)
         {
             var report = _casinoReportService.GetCasinoWeeklyDetail(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
+        }
+
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
+        public ActionResult ExportCasinoWeeklyDetail(GetCasinoDetailCriteria criteria)
+        {
+            criteria.ReportType = 3; // Weekly
+            _casinoReportService.ExportCasinoDailyDetail(criteria);
+            return new EmptyResult();
         }
     }
 }

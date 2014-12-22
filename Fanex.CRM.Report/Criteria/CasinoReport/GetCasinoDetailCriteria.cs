@@ -33,6 +33,9 @@ namespace Fanex.CRM.Report.Criteria.CasinoReport
         [SpParam(Ignored = true)]
         public bool FullReport { get; set; }
 
+        [SpParam(Ignored = true)]
+        public int ReportType { get; set; }
+
         public override string GetSettingKey()
         {
             return "casinodailydetail";
