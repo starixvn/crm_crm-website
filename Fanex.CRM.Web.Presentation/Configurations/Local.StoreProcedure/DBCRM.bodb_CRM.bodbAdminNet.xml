@@ -3,7 +3,7 @@
     <Function Name="Customer">
         <Setting Key="Customer_CustomerInfo_GetUplineList" SpName="Acc_CRM_CustomerGetUplineList_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_CustomerInfo_GetCustomerByUsername" SpName="Acc_CRM_CustomerSearch_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-        <Setting Key="Customer_CustomerInfo_UpdateCustomerSuggestion" SpName="Acc_CRM_CustomerUpdUserSearch" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+        <Setting Key="Customer_CustomerInfo_UpdateCustomerSuggestion" SpName="Acc_CRM_CustomerUpdUserSearch_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
         <Setting Key="Customer_CustomerInfo_Update" SpName="Acc_CRM_CustomerUpdateBasicInfo_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
 
         <Setting Key="Customer_CustomerInfoDetail_GetInfoById" SpName="Acc_CRM_CustomerSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />

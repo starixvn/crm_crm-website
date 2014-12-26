@@ -274,7 +274,15 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
         };
 
         $scope.exportInformsExcel = function () {
-            var params = { TitleId: $scope.titleId };
+            var params = { 
+                TitleId: $scope.titleId,
+                Status: $scope.selectedStatusIds,
+                Position: $scope.selectedPositionIds,
+                CurrencyId: $scope.selectedCurrencyIds,
+                Site: updateInformService.isSiteCheckAll() ? '' : $scope.selectedSiteIds,
+                Username: $scope.username
+            };
+
             var homeManager = parent.homeManager;
             if (!homeManager.CachedData.isChangingDataPopUp) {
                 $scope.downloadFileOptions = {
