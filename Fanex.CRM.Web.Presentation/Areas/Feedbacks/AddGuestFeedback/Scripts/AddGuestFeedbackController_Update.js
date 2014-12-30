@@ -99,6 +99,7 @@ function registerUpdateFunctions($scope) {
 
         $scope.addGuestFeedbackParams.MainCategory = mainCategory;
         $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
+        $scope.addGuestFeedbackParams.SubCategory = $scope.subCategoryOptions.DataList[0];
         $scope.safeApply();
     };
     $scope.updateSelectedBetType = function (betType) {
