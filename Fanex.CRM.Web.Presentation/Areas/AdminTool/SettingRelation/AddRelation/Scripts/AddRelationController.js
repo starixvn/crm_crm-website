@@ -72,6 +72,17 @@ addRelationApplication.controller('addRelationController',
         };
         $scope.addSettingRelations = function () {
             $uiBlockerService.blockUI();
+
+            var subSettingLength = $scope.addSettingRelationsParams.SubSettings.length;
+            for (var i = 0; i < subSettingLength; i++) {
+                var subSetting = $scope.addSettingRelationsParams.SubSettings[i];
+                $scope.addSettingRelationsParams.SubSettings[i] = {
+                    Id: subSetting.Id,
+                    DisplayOrder: subSetting.DisplayOrder,
+                    IsSubSetting: subSetting.IsSubSetting
+                };
+            }
+
             addRelationService.addSettingRelations($scope.addSettingRelationsParams)
                 .then(function (data) {
                     $scope.showAddResult(data.Result);
