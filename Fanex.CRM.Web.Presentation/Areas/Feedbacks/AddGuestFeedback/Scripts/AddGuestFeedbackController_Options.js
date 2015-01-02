@@ -10,8 +10,6 @@ viewResources */
 function registerOptions($scope) {
     $scope.titleOptions = null;
     $scope.birthdayOptions = null;
-    $scope.startTimeOptions = null;
-    $scope.endTimeOptions = null;
     $scope.communicationToolOptions = null;
     $scope.productOptions = null;
     $scope.responseOptions = null;
@@ -55,19 +53,12 @@ function registerOptions($scope) {
             CompleteRender: $scope.completeRenderBirthday
         };
 
-        $scope.addGuestFeedbackParams.StartTime = sharedScriptManager.newFeedbackTime(currentTime);
-        $scope.addGuestFeedbackParams.EndTime = sharedScriptManager.newFeedbackTime(currentTime);
-        $scope.addGuestFeedbackParams.EndTime.setMinutes($scope.addGuestFeedbackParams.StartTime.getMinutes() + 1);
-        $scope.startTimeOptions = {
-            OnChangeEvent: $scope.updateStartTime,
-            SelectedTime: $scope.addGuestFeedbackParams.StartTime,
-            CurrentTime: sharedScriptManager.newFeedbackTime(currentTime)
-        };
-        $scope.endTimeOptions = {
-            OnChangeEvent: $scope.updateEndTime,
-            SelectedTime: $scope.addGuestFeedbackParams.EndTime,
-            CurrentTime: sharedScriptManager.newFeedbackTime(currentTime)
-        };
+        var starttime = sharedScriptManager.newFeedbackTime(currentTime);
+        var endtime = sharedScriptManager.newFeedbackTime(currentTime);
+        endtime.setMinutes(endtime.getMinutes() + 1);
+        $scope.addGuestFeedbackParams.StartTime = sharedScriptManager.formatTimeToSendToServer(starttime);
+        $scope.addGuestFeedbackParams.EndTime = sharedScriptManager.formatTimeToSendToServer(endtime);
+       
         $scope.communicationToolOptions = {
             DataList: [],
             OnChangeEvent: $scope.updateSelectedCommunicationTool

@@ -8,50 +8,6 @@ viewResources,
 MessageResult */
 /* exported registerUpdateFunctions */
 function registerUpdateFunctions($scope) {
-    $scope.updateStartTime = function (selectedTime) {
-        if ($scope.isLoading) {
-            return;
-        }
-
-        if (!$scope.IsUpdatingTime) {
-            $scope.addGuestFeedbackParams.StartTime = selectedTime;
-        }
-
-        if (new Date($scope.addGuestFeedbackParams.EndTime) <= selectedTime) {
-            $scope.addGuestFeedbackParams.EndTime = sharedScriptManager.newFeedbackTime(selectedTime);
-            $scope.addGuestFeedbackParams.EndTime.setMinutes(selectedTime.getMinutes() + 1);
-        }
-
-        if (!$scope.$$phase && !$scope.IsUpdatingTime) {
-            $scope.IsUpdatingTime = true;
-            $scope.$apply();
-            $scope.IsUpdatingTime = false;
-        }
-
-        $scope.updateRemarkPrefix();
-    };
-    $scope.updateEndTime = function (selectedTime) {
-        if ($scope.isLoading) {
-            return;
-        }
-
-        if (!$scope.IsUpdatingTime) {
-            $scope.addGuestFeedbackParams.EndTime = selectedTime;
-        }
-
-        if (selectedTime <= new Date($scope.addGuestFeedbackParams.StartTime)) {
-            $scope.addGuestFeedbackParams.StartTime = sharedScriptManager.newFeedbackTime(selectedTime);
-            $scope.addGuestFeedbackParams.StartTime.setMinutes(selectedTime.getMinutes() - 1);
-        }
-
-        if (!$scope.$$phase && !$scope.IsUpdatingTime) {
-            $scope.IsUpdatingTime = true;
-            $scope.$apply();
-            $scope.IsUpdatingTime = false;
-        }
-
-        $scope.updateRemarkPrefix();
-    };
     $scope.updateSelectedSubject = function (subject) {
         $scope.addGuestFeedbackParams.Subject = subject;
         $scope.safeApply();

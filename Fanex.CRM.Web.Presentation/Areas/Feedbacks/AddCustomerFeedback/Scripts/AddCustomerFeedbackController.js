@@ -246,6 +246,13 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
         $scope.validateAddParams = function (params) {
             var result = true;
             var message = '';
+            var feedbackTime = new Date(params.StartTime);
+            var resolutionTime = new Date(params.EndTime);
+            if (feedbackTime > resolutionTime) {
+                message = viewResources.ErrorFeedbackResolutionTime;
+                result = false;
+            }
+
             if (result && params.CommunicationTool.Id === crmConstants.Enums.CommunicationTool.NotApply) {
                 message = viewResources.Error_NACommmunicationTool;
                 result = false;

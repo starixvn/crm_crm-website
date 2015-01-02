@@ -36,25 +36,8 @@ function addGuestFeedbackRegisterPicker() {
         PickerId: 'birthdayInfo',
         RestrictType: 'C'
     };
-    var startTimeRegisterParams = {
-        PlugInName: 'timePickerStartTimeContainer',
-        OptionName: 'startTimeOptions',
-        PickerId: 'startTime',
-        RestrictType: 'C',
-        PickerType: crmConstants.Enums.CalendarPickerType.FromDate
-    };
-
-    var endTimeRegisterParams = {
-        PlugInName: 'timePickerEndTimeContainer',
-        OptionName: 'endTimeOptions',
-        PickerId: 'endTime',
-        RestrictType: 'C',
-        PickerType: crmConstants.Enums.CalendarPickerType.ToDate
-    };
 
     directiveManager.registerDatePickerContainer(addGuestFeedbackApplication, birthdayRegisterParams);
-    directiveManager.registerDateTimePicker(addGuestFeedbackApplication, startTimeRegisterParams);
-    directiveManager.registerDateTimePicker(addGuestFeedbackApplication, endTimeRegisterParams);
 }
 
 addGuestFeedbackRegisterPicker();

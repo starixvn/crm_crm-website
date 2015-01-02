@@ -248,6 +248,13 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             var result = true;
             var message = '';
 
+            var feedbackTime = new Date(params.StartTime);
+            var resolutionTime = new Date(params.EndTime);
+            if (feedbackTime > resolutionTime) {
+                message = viewResources.ErrorFeedbackResolutionTime;
+                result = false;
+            }
+
             if (result && $.trim(params.CustomerInfo.Name) === '') {
                 message = viewResources.Error_EmptyId;
                 result = false;
