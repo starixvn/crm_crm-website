@@ -45,7 +45,11 @@ namespace Fanex.CRM.Remark.Repositories
                         string remark = null;
                         while (reader.Read())
                         {
-                            remark = Converter.ToString2(reader["Remark"]);
+                            // Old editor is textarea
+                            // New editor is wysiwyg html editor
+                            // So, we MUST replace like below to make sure that remarks HISTORY are displayed properly.
+                            remark = Converter.ToString2(reader["Remark"])
+                                .Replace(new string[] { "\n", "\r", "\n\r", "\r\n" }, "<br/>");
                             if (Converter.ToBool(reader["IsSpecial"]))
                             {
                                 specialRemarks.Add(remark);

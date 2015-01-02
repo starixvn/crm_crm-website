@@ -346,7 +346,8 @@ dashboardApplication.controller('dashboardController', ['$scope',
         };
 
         $scope.getRemarkText = function (index) {
-            return (index + 1) + '. ' + this.remark;
+            var customerRemark = this.remark ? this.remark.replace(/\r/g, '<br/>').replace(/\n/g, '<br/>') : '';
+            return (index + 1) + '. ' + customerRemark;
         };
 
         angular.element(document).ready(function () {
