@@ -606,8 +606,8 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.MainCategory.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.SubCategory.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(info.Remark, textStyle);
-            exportExcelInfo.RenderCell(info.Solution, textStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.ReplaceHtmlTag(info.Remark), textStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.ReplaceHtmlTag(info.Solution), textStyle);
             exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
             exportExcelInfo.RenderCell(info.Response.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.Handler, centerTextStyle);
