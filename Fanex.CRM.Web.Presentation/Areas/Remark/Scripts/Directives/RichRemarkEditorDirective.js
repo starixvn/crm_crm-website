@@ -68,11 +68,35 @@ remarkApplication.directive('richRemarkEditorDirective', function () {
             scope.remarks.NormalRemarks[remarkIndex];
     }
 
+    function updateRemarkText(isSpecial, index, remark) {
+        var editor = $('.rich-remark-editor-directive' +
+                        '[data-remarkindex="' + index + '"]' +
+                        '[data-isspecialremark="' + isSpecial + '"] textarea');
+        if (editor.length && remark !== editor.htmlarea("toHtmlString")) {
+            editor.val(remark).htmlarea('updateHtmlArea');
+        }
+    }
+
     return {
         restrict: 'C',
         link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (newval, oldval) {
-                renderRemarkEditor(scope, element, attrs);
+            renderRemarkEditor(scope, element, attrs);
+            scope.$watch(function ($scope) {
+                if (!$scope.remarks) {
+                    return;
+                }
+
+                var remarkLength = $scope.remarks.SpecialRemarks.length;
+                var isSpecial = 1;
+                for (var i = 0; i < remarkLength; i++) {
+                    updateRemarkText(isSpecial, i, $scope.remarks.SpecialRemarks[i]);
+                }
+
+                remarkLength = $scope.remarks.NormalRemarks.length;
+                isSpecial = 0;
+                for (var i = 0; i < remarkLength; i++) {
+                    updateRemarkText(isSpecial, i, $scope.remarks.NormalRemarks[i]);
+                }
             });
         }
     };
