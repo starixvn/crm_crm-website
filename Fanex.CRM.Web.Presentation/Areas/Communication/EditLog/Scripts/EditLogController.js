@@ -568,6 +568,13 @@ function (
     };
     $scope.validateUpdateLogCriteria = function (criteria) {
         var result = true;
+        var feedbackTime = new Date(criteria.StartTime);
+        var resolutionTime = new Date(criteria.EndTime);
+        if (feedbackTime > resolutionTime) {
+            $scope.resultMessage = viewResources.Communication_Log_ErrorEndTime;
+            result = false;
+        }
+
         if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
             result = false;

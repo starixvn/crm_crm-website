@@ -164,10 +164,11 @@ function (
         $scope.subCategoryList = $scope.mainCategoryList[0].ChildSettings;
         $scope.betTypeList = $scope.productList[0].ChildSettings;
 
-        $scope.communicationLog.StartTime = new Date(currentTime);
-        var initEndTime = new Date(currentTime);
-        initEndTime.setMinutes(new Date(currentTime).getMinutes() + 1);
-        $scope.communicationLog.EndTime = initEndTime;
+        var starttime = sharedScriptManager.newFeedbackTime(currentTime);
+        var endtime = sharedScriptManager.newFeedbackTime(currentTime);
+        endtime.setMinutes(endtime.getMinutes() + 1);
+        $scope.communicationLog.StartTime = sharedScriptManager.formatTimeToSendToServer(starttime);
+        $scope.communicationLog.EndTime = sharedScriptManager.formatTimeToSendToServer(endtime);
 
         $scope.communicationLog.Extension = $scope.extensionList[0];
         $scope.communicationLog.Country = {
@@ -600,6 +601,13 @@ function (
     };
     $scope.validateInsertLogCriteria = function (criteria) {
         var result = true;
+        var feedbackTime = new Date(criteria.StartTime);
+        var resolutionTime = new Date(criteria.EndTime);
+        if (feedbackTime > resolutionTime) {
+            $scope.resultMessage = viewResources.Communication_Log_ErrorEndTime;
+            result = false;
+        }
+
         if (result && criteria.CommunicationToolId === crmConstants.Enums.CommunicationTool.NotApply) {
             $scope.resultMessage = viewResources.Communication_Log_NACommmunicationTool;
             result = false;

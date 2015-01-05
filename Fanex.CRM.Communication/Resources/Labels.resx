@@ -318,4 +318,7 @@
   <data name="Licensee_Type" xml:space="preserve">
     <value>Licensee Type</value>
   </data>
+  <data name="Communication_Log_ErrorEndTime" xml:space="preserve">
+    <value>Start Time should be smaller than End Time!</value>
+  </data>
 </root>

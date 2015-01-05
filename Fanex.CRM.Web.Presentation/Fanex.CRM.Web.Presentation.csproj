@@ -241,6 +241,7 @@
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListController_Update.js" />
     <Content Include="Areas\AdminTool\SettingRelation\ViewList\Scripts\ViewListService.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\BetType.js" />
+    <Content Include="Areas\Communication\EditLog\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\Language.js" />
     <Content Include="Areas\Communication\EditLog\Scripts\Directives\MainCategory.js" />
@@ -268,6 +269,7 @@
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\BetType.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\CommunicationTool.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Country.js" />
+    <Content Include="Areas\Communication\InsertLog\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\DefaultFocus.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\EndTime.js" />
     <Content Include="Areas\Communication\InsertLog\Scripts\Directives\Extension.js" />
@@ -347,6 +349,7 @@
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackController_Update.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\AddCustomerFeedbackService.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\AddCustomerFeedbackDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\AddCustomerFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackApplication.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController.js" />
@@ -355,6 +358,7 @@
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackController_Update.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\AddGuestFeedbackService.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\AddGuestFeedbackDirectives.js" />
+    <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\DatetimePicker.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\AddGuestFeedback.less" />
     <Content Include="Areas\Feedbacks\AddGuestFeedback\Styles\Images\error.gif" />

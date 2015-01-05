@@ -35,9 +35,8 @@
                     <label for="startTime">
                         @Labels.Start_Time</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <div data-ng-model="communicationLog.StartTime" time-picker-start-time-container>
-                        <input id="startTime" type="text" class="textbox timepicker txtcalendar" />
-                    </div>
+                    <input type="text" id="startTime" class="txtcalendar textbox timepicker"
+                        readonly data-ng-model="communicationLog.StartTime" datetimepicker />
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="ext">
@@ -53,9 +52,8 @@
                     <label for="endTime">
                         @Labels.End_Time</label></div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <div data-ng-model="communicationLog.EndTime" time-picker-end-time-container>
-                        <input id="endTime" type="text" class="textbox timepicker txtcalendar" />
-                    </div>
+                    <input type="text" id="endTime" class="txtcalendar textbox timepicker"
+                        readonly data-ng-model="communicationLog.EndTime" datetimepicker />
                 </div>
                 <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-xs-2 col-sm-2 col-md-2">
                     <label for="country">
@@ -295,6 +293,7 @@
             Communication_Log_EmptySolution: '@Labels.Communication_Log_EmptySolution',            
             Confirm_Ignore_EditCommunication_Changes: '@Html.Raw(Labels.Confirm_Ignore_EditCommunication_Changes)',
     
+            Communication_Log_ErrorEndTime: '@Labels.Communication_Log_ErrorEndTime',
             Communication_Log_NACommmunicationTool:'@Labels.Communication_Log_NACommmunicationTool',
             Communication_Log_NACountry:'@Labels.Communication_Log_NACountry',
             Communication_Log_NALanguage:'@Labels.Communication_Log_NALanguage',
