@@ -1,7 +1,6 @@
 ﻿"use strict";
 /* global addCustomerFeedbackApplication,
 RegisterTemplate,
-crmConstants,
 directiveManager */
 function addCustomerFeedbackRegisterPicker() {
     var addCustomerFeedbackRegister = new RegisterTemplate(addCustomerFeedbackApplication);
