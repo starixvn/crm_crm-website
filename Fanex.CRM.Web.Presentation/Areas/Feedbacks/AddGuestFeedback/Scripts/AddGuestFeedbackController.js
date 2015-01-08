@@ -396,7 +396,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             }
         };
         $scope.generateRemarkPrefix = function () {
-            return sharedScriptManager.stringFormat("{0}/{1} ",
+            return sharedScriptManager.stringFormat("{0}/{1}&nbsp;",
             [moment($scope.addGuestFeedbackParams.StartTime).format(crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix),
                 $scope.addGuestFeedbackParams.CommunicationTool.Name]);
         };
