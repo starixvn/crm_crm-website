@@ -305,8 +305,8 @@
                                 <label for="startTime">@Language.FeedbackDate</label>
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
-                                <input type="text" id="startTime" class="txtcalendar textbox timepicker" tabindex="60"
-                                    readonly data-ng-model="addGuestFeedbackParams.StartTime" datetimepicker />
+                                <input type="text" id="startTime" class="txtcalendar textbox timepicker" tabindex="60" readonly
+                                    onselect="onStartTimeChanged();" data-ng-model="addGuestFeedbackParams.StartTime" datetimepicker />
                             </div>
                         </div>
                         <div class="row item">

@@ -400,6 +400,11 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
             [moment($scope.addGuestFeedbackParams.StartTime).format(crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix),
                 $scope.addGuestFeedbackParams.CommunicationTool.Name]);
         };
+        $scope.onStartTimeChanged = function () {
+            $scope.$apply(function () {
+                $scope.updateRemarkPrefix();
+            });
+        };
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);

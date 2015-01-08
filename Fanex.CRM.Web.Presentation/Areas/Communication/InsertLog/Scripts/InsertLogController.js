@@ -220,6 +220,11 @@ function (
             $scope.lastRemarkPrefix = remarkPrefix;
         }
     };
+    $scope.onStartTimeChanged = function () {
+        $scope.$apply(function () {
+            $scope.updateRemarkPrefix();
+        });
+    };
     /* jshint camelcase: false */
     $scope.invokeHotKey_CtrlS = function () {
         $scope.insertLog();

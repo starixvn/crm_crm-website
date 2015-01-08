@@ -390,6 +390,11 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
             [moment($scope.addCustomerFeedbackParams.StartTime).format(crmConstants.Enums.FormatConstant.StartTime_RemarkPrefix),
                 $scope.addCustomerFeedbackParams.CommunicationTool.Name]);
         };
+        $scope.onStartTimeChanged = function () {
+            $scope.$apply(function () {
+                $scope.updateRemarkPrefix();
+            });
+        };
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);
@@ -398,6 +403,7 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
             $scope.$watch(function ($scope) {
                 $scope.updateChangeFlag();
             });
+
             $scope.initController();
             $scope.setFocus();
             $scope.registerHotKey();

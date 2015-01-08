@@ -323,8 +323,8 @@
                                 <label for="startTime">@Language.FeedbackDate</label>
                             </div>
                             <div class="col-xs-8 col-sm-8 col-md-8">
-                                <input type="text" id="startTime" class="txtcalendar textbox timepicker" tabindex="60"
-                                    readonly data-ng-model="addCustomerFeedbackParams.StartTime" datetimepicker />
+                                <input type="text" id="startTime" class="txtcalendar textbox timepicker" tabindex="60" readonly
+                                    onselect="onStartTimeChanged();" data-ng-model="addCustomerFeedbackParams.StartTime" datetimepicker />
                             </div>
                         </div>
                         <div class="row item">
@@ -566,7 +566,7 @@
     <script type="text/javascript" src="~/Scripts/InputBox/jquery.fcbkcomplete.js"></script>
     @Scripts.Render("~/Scripts/TimePicker",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
-        "~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts?ver=2")
+        "~/Areas/Feedbacks/AddCustomerFeedback/AddCustomerFeedbackScripts")
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_AddFeedback';
         window.rootUrl = '@Url.Content("~")';

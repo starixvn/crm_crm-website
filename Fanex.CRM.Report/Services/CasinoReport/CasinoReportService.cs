@@ -148,19 +148,29 @@ namespace Fanex.CRM.Report.Services.CasinoReport
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The Casino Daily Detail object.</returns>
+        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         public CasinoDetail GetCasinoDailyDetail(GetCasinoDetailCriteria criteria)
         {
-            string key = CasinoDailyDetailsSessionKey;
+            string key, title;
+            if (criteria.ReportType == CasinoWeeklyType)
+            {
+                key = CasinoWeeklyDetailSessionKey;
+                title = string.Format(Labels.CasinoWeeklyDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
+            }
+            else
+            {
+                key = CasinoDailyDetailsSessionKey;
+                title = string.Format(Labels.CasinoDailyDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
+            }
+
             IList<CasinoDetailEntity> casinoDailyDetails = null;
             if (criteria.FromCache)
             {
                 casinoDailyDetails = (IList<CasinoDetailEntity>)SessionExtension.GetSession(HttpContext.Current.Session, key);
             }
 
-            string title = string.Format(
-                criteria.ReportType == CasinoWeeklyType ? Labels.CasinoWeeklyDetailTitle : Labels.CasinoDailyDetailTitle,
-                criteria.FromDate.ToShortFormatedDate(),
-                criteria.ToDate.ToShortFormatedDate());
             if (casinoDailyDetails == null)
             {
                 // Get data from DB.
