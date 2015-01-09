@@ -160,6 +160,24 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BET2.
+        /// </summary>
+        public static string Bet2 {
+            get {
+                return ResourceManager.GetString("Bet2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bingo.
+        /// </summary>
+        public static string Bingo {
+            get {
+                return ResourceManager.GetString("Bingo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birthday.
         /// </summary>
         public static string Birthday {
@@ -997,6 +1015,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IBCBET CASINO.
+        /// </summary>
+        public static string IBCBetCasino {
+            get {
+                return ResourceManager.GetString("IBCBetCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to item(s).
         /// </summary>
         public static string Items {
@@ -1087,6 +1114,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Live Casino.
+        /// </summary>
+        public static string LiveCasino {
+            get {
+                return ResourceManager.GetString("LiveCasino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LiveChat.
         /// </summary>
         public static string LiveChat {
@@ -1119,6 +1155,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string MAY {
             get {
                 return ResourceManager.GetString("MAY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mini Game.
+        /// </summary>
+        public static string MiniGame {
+            get {
+                return ResourceManager.GetString("MiniGame", resourceCulture);
             }
         }
         
@@ -1249,6 +1294,15 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NUMBER GAME.
+        /// </summary>
+        public static string NumberGame {
+            get {
+                return ResourceManager.GetString("NumberGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OCT.
         /// </summary>
         public static string OCT {
@@ -1335,6 +1389,15 @@ namespace Fanex.CRM.Report.Resources {
         public static string Please_choose_one {
             get {
                 return ResourceManager.GetString("Please_choose_one", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Poker.
+        /// </summary>
+        public static string Poker {
+            get {
+                return ResourceManager.GetString("Poker", resourceCulture);
             }
         }
         

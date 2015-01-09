@@ -154,7 +154,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 try
                 {
                     // Body Row.
-                    var rawdata = this.GetData<RedemptionStatisticsEntity>(criteria)
+                    var rawdata = _redemptionRepository.GetRedemptionSummary(criteria)
                         .GroupBy(r => new { r.Month, r.Year, r.CurrencyId, r.Currency })
                         .OrderByDescending(r => r.Key.Year).ThenByDescending(r => r.Key.Month);
                     foreach (var customGroup in rawdata)
@@ -415,7 +415,8 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             int currentColIndex = 0;
             var align = HAlignment.Center;
 
-            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.ClaimedDate, item.ClaimTime.ToShortFormatedDate(), null, string.Empty, HAlignment.Center));
+            var claimTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(item.ClaimTime).ToShortFormatedDate();
+            dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.ClaimedDate, claimTime, null, string.Empty, HAlignment.Center));
             dataRow.Columns.Add(this.CreateColumns(currentColIndex++, Labels.Customer, item.UserName, null, string.Empty, HAlignment.Left));
             dataRow.Columns.Add(this.CreateColumns(
                 currentColIndex++,

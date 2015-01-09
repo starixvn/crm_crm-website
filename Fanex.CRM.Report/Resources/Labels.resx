@@ -813,4 +813,25 @@
   <data name="CasinoWeeklyExcelName" xml:space="preserve">
     <value>CasinoWeeklyReport-{0}-{1}</value>
   </data>
+  <data name="Bet2" xml:space="preserve">
+    <value>BET2</value>
+  </data>
+  <data name="Bingo" xml:space="preserve">
+    <value>Bingo</value>
+  </data>
+  <data name="IBCBetCasino" xml:space="preserve">
+    <value>IBCBET CASINO</value>
+  </data>
+  <data name="LiveCasino" xml:space="preserve">
+    <value>Live Casino</value>
+  </data>
+  <data name="MiniGame" xml:space="preserve">
+    <value>Mini Game</value>
+  </data>
+  <data name="NumberGame" xml:space="preserve">
+    <value>NUMBER GAME</value>
+  </data>
+  <data name="Poker" xml:space="preserve">
+    <value>Poker</value>
+  </data>
 </root>

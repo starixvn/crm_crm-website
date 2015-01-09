@@ -12,6 +12,7 @@ namespace Fanex.CRM.Report.Repositories.RedemptionStatisticsReport
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.Common;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Report.Criteria.RedemptionStatisticsReport;
     using Fanex.CRM.Report.Entities.RedemptionStatistics;
     using Fanex.Data;
@@ -21,6 +22,40 @@ namespace Fanex.CRM.Report.Repositories.RedemptionStatisticsReport
     /// </summary>
     public class RedemptionStatisticsRepository : IRedemptionStatisticsRepository
     {
+        /// <summary>
+        /// Gets the redemption detail.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>The list of Redemption statistics.</returns>
+        public IList<RedemptionStatisticsEntity> GetRedemptionSummary(GetRedemptionStatisticsSummaryCriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
+                {
+                    RedemptionStatisticsEntity entity;
+                    IList<RedemptionStatisticsEntity> redemptions = new List<RedemptionStatisticsEntity>();
+                    while (reader.Read())
+                    {
+                        entity = new RedemptionStatisticsEntity
+                        {
+                            ClaimTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ClaimTime"])),
+                            Subject = Converter.ToString2(reader["Subject"]),
+                            CurrencyId = Converter.ToInt(reader["CurrencyId"]),
+                            Currency = Converter.ToString2(reader["Currency"]),
+                            Amount = Converter.ToDecimal(reader["Amount"])
+                        };
+
+                        entity.Year = entity.ClaimTime.Year;
+                        entity.Month = entity.ClaimTime.Month;
+                        redemptions.Add(entity);
+                    }
+
+                    return redemptions;
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the redemption detail report.
         /// </summary>

@@ -17,6 +17,8 @@ namespace Fanex.CRM.Report.Entities.RedemptionStatistics
     [Serializable]
     public class RedemptionStatisticsEntity
     {
+        public DateTime ClaimTime { get; set; }
+
         public string Subject { get; set; }
 
         public int Month { get; set; }

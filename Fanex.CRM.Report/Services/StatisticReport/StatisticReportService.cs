@@ -293,7 +293,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         {
             var countryLength = countryDictionary.Count;
             var fromDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate();
-            var toDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate();
+            var toDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate();
 
             StatisticReportInfo statisticReport = new StatisticReportInfo
             {
@@ -383,7 +383,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         {
             var countryLength = countryDictionary.Count;
             var fromDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate();
-            var toDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate();
+            var toDateClient = DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate();
 
             StatisticReportInfo statisticReport = new StatisticReportInfo
             {
@@ -402,7 +402,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
                 return statisticReport;
             }
 
-            var dateGroups = rawData.GroupBy(data => DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.DateTime).ToShortFormatedDate());
+            var dateGroups = rawData.GroupBy(data => data.DateTime.ToShortFormatedDate());
             foreach (var dateGroup in dateGroups)
             {
                 var dateReport = new StatisticReportInfo
