@@ -10,6 +10,8 @@
 namespace Fanex.CRM.Report.Criteria.SettlementReport
 {
     using System;
+    using System.Collections;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -17,7 +19,7 @@ namespace Fanex.CRM.Report.Criteria.SettlementReport
     /// </summary>
     public class GetSettlementReportCriteria : CriteriaBase
     {
-        [SpParam(SqlParamName = "year")]
+        [SpParam(Ignored = true)]
         public int Year { get; set; }
 
         [SpParam(Ignored = true)]
@@ -40,6 +42,24 @@ namespace Fanex.CRM.Report.Criteria.SettlementReport
         public override bool IsValid()
         {
             return true;
+        }
+
+        /// <summary>
+        /// Gets the stored procedure parameter.
+        /// </summary>
+        /// <returns>The hash table.</returns>
+        public override Hashtable GetSpParams()
+        {
+            var fromDate = new DateTime(Year, 1, 1);
+            var toDate = new DateTime(Year, 12, 31, 23, 59, 59);
+
+            Hashtable inputParams = new Hashtable 
+            {
+                { "FromDate", DateTimeUtilize.ChangeClientFromTimeToServerTime(fromDate) },
+                { "ToDate", DateTimeUtilize.ChangeClientToTimeToServerTime(toDate) }
+            };
+
+            return inputParams;
         }
     }
 }

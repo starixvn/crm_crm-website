@@ -22,6 +22,8 @@ namespace Fanex.CRM.Report.Repositories.RedemptionStatisticsReport
     /// </summary>
     public class RedemptionStatisticsRepository : IRedemptionStatisticsRepository
     {
+        private const int SummaryByYear = 2;
+
         /// <summary>
         /// Gets the redemption detail.
         /// </summary>
@@ -47,7 +49,11 @@ namespace Fanex.CRM.Report.Repositories.RedemptionStatisticsReport
                         };
 
                         entity.Year = entity.ClaimTime.Year;
-                        entity.Month = entity.ClaimTime.Month;
+                        if (criteria.ReportBy != SummaryByYear)
+                        {
+                            entity.Month = entity.ClaimTime.Month;
+                        }
+
                         redemptions.Add(entity);
                     }
 

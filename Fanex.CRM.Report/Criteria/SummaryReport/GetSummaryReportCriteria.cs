@@ -9,6 +9,9 @@
 
 namespace Fanex.CRM.Report.Criteria.SummaryReport
 {
+    using System;
+    using System.Collections;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -16,6 +19,7 @@ namespace Fanex.CRM.Report.Criteria.SummaryReport
     /// </summary>
     public class GetSummaryReportCriteria : CriteriaBase
     {
+        [SpParam(Ignored = true)]
         public int Year { get; set; }
 
         public int SiteType { get; set; }
@@ -34,6 +38,25 @@ namespace Fanex.CRM.Report.Criteria.SummaryReport
         public override bool IsValid()
         {
             return Year > 0;
+        }
+
+        /// <summary>
+        /// Gets the stored procedure parameter.
+        /// </summary>
+        /// <returns>The hash table.</returns>
+        public override Hashtable GetSpParams()
+        {
+            var fromDate = new DateTime(Year, 1, 1);
+            var toDate = new DateTime(Year, 12, 31, 23, 59, 59);
+
+            Hashtable inputParams = new Hashtable 
+            {
+                { "FromDate", DateTimeUtilize.ChangeClientFromTimeToServerTime(fromDate) },
+                { "ToDate", DateTimeUtilize.ChangeClientToTimeToServerTime(toDate) },
+                { "SiteType", SiteType }
+            };
+
+            return inputParams;
         }
     }
 }
