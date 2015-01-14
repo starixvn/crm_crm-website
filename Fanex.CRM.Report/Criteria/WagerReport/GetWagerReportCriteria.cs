@@ -9,9 +9,7 @@
 
 namespace Fanex.CRM.Report.Criteria.WagerReport
 {
-    using System;
-    using System.Collections;
-    using Fanex.CRM.Common.Helpers;
+    using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -19,8 +17,15 @@ namespace Fanex.CRM.Report.Criteria.WagerReport
     /// </summary>
     public class GetWagerReportCriteria : CriteriaBase
     {
-        [SpParam(Ignored = true)]
         public int Year { get; set; }
+
+        public int TimeSpan
+        {
+            get
+            {
+                return AppSetting.TimeSpan * -1;
+            }
+        } 
 
         [SpParam(Ignored = true)]
         public bool IsCached { get; set; }
@@ -33,24 +38,6 @@ namespace Fanex.CRM.Report.Criteria.WagerReport
         public override bool IsValid()
         {
             return Year > 0;
-        }
-
-        /// <summary>
-        /// Gets the stored procedure parameter.
-        /// </summary>
-        /// <returns>The hash table.</returns>
-        public override Hashtable GetSpParams()
-        {
-            var fromDate = new DateTime(Year, 1, 1);
-            var toDate = new DateTime(Year, 12, 31, 23, 59, 59);
-
-            Hashtable inputParams = new Hashtable 
-            {
-                { "FromDate", DateTimeUtilize.ChangeClientFromTimeToServerTime(fromDate) },
-                { "ToDate", DateTimeUtilize.ChangeClientToTimeToServerTime(toDate) }
-            };
-
-            return inputParams;
         }
     }
 }
