@@ -82,6 +82,7 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
         };
         $scope.viewDetail = function (siteType) {
             $uiBlockerService.blockUI();
+            $scope.searchCriteria.SiteType = siteType;
             $scope.getDetailReportCriteria = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
                 ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
@@ -139,6 +140,7 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
         };
 
         angular.element(document).ready(function () {
+            $uiBlockerService.blockUI();
             registerOptions($scope);
             registerUpdateFunctions($scope);
             registerHotkeyFunctions($scope);
@@ -146,5 +148,6 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
             $scope.initController();
             $scope.setFocus();
             $scope.registerHotKey();
+            $uiBlockerService.unblockUI();
         });
     } ]);
