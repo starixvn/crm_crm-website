@@ -75,7 +75,7 @@
         parent.document.title = '@Labels.Weekly_Statistics_Report';
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
-        var initFromDate = ' @DateTimeExtension.FirstDayOfWeek(DateTimeUtilize.CurrentClientTime()).ToShortFormatedDate()';
+        var initFromDate = '@DateTimeExtension.FirstDayOfWeek(DateTimeUtilize.CurrentClientTime()).ToShortFormatedDate()';
         var viewResources = {
             All: '@Labels.All',
             Complaints_Enquiries: '@Labels.Complaints_Enquiries',
