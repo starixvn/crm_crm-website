@@ -136,7 +136,7 @@ directiveManager.registerMonthPickerContainer = function (angularApplication, re
 
                 yearDropdown.unbind("change");
                 yearDropdown.change(function () {
-                    onChangeEvent(scope, parseInt(monthDropdown.val()), parseInt(yearDropdown.val()));
+                    onChangeEvent(scope, 1/*parseInt(monthDropdown.val())*/, parseInt(yearDropdown.val()));
                     ngModelChange(scope, element, attrs, newVal, oldVal);
                 });
             }

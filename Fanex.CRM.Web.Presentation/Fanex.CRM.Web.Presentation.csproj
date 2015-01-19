@@ -556,7 +556,9 @@
     <Content Include="Configurations\PRO.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\PRO.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
-    <Content Include="Configurations\UAT.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\UAT.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Configurations\UAT.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
     <Content Include="Configurations\UAT.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
