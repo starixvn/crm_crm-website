@@ -106,15 +106,15 @@
   <Function Name="Report">
     <Setting Key="Report_DynamicReport_GetReport" SpName="Acc_CRM_Rpt_DynamicFeedback_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_CustomerReport_GetReport" SpName="Acc_Crm_Rpt_CustomerReport_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Report_SettlementReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSettlement_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
       <Mapping DataField="Month" ObjectProperty="Month" />
       <Mapping DataField="CountryID" ObjectProperty="CountryId" />
       <Mapping DataField="CountryName" ObjectProperty="CountryName" />
       <Mapping DataField="NoOfIssues" ObjectProperty="NumberOfIssues" />
     </Setting>
-    <Setting Key="Report_StatisticReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Report_WagerReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Report_SummaryReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSummary_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_StatisticReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsPeriod_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_WagerReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsWagers_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Report_SummaryReport_GetReport" SpName="Acc_CRM_Rpt_FeedbackStatisticsSummary_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_RedemptionStatistics_GetSummaryReport" SpName="Acc_Crm_Rpt_RedemptionStatistics_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Report_RedemptionStatistics_GetDetailReport" SpName="Acc_Crm_Rpt_RedemptionStatisticsDetail_xpre" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
