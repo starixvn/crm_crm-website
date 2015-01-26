@@ -136,15 +136,32 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             $scope.detailLinkClick();
         };
         $scope.viewLatestFeedback = function () {
+            if (parent.homeManager.CachedData.isChangingData ||
+                parent.homeManager.CachedData.isChangingDataLeftPanel) {
+                parent.homeManager.showConfirmIgnoreChange($scope.viewLatestFeedbackAfterCheckChanging);
+                return;
+            }
+
+            $scope.viewLatestFeedbackAfterCheckChanging();
+        };
+        $scope.viewLatestFeedbackAfterCheckChanging = function () {
             var url = '../Feedbacks/LatestFeedback?' + $.param({
                 custid: $scope.customer.Id,
                 custName: $scope.customer.Name
             });
             parent.menuManager.goToURL('centerFr', url);
             parent.menuManager.setActiveClassForLeftPanel('Latest Feedback');
-
         };
         $scope.manageFeedback = function () {
+            if (parent.homeManager.CachedData.isChangingData ||
+                parent.homeManager.CachedData.isChangingDataLeftPanel) {
+                parent.homeManager.showConfirmIgnoreChange($scope.manageFeedbackAfterCheckChanging);
+                return;
+            }
+
+            $scope.manageFeedbackAfterCheckChanging();    
+        };
+        $scope.manageFeedbackAfterCheckChanging = function () {
             var url = '../Feedbacks/ManageFeedback?' + $.param({
                 custid: $scope.customer.Id,
                 custName: $scope.customer.Name,

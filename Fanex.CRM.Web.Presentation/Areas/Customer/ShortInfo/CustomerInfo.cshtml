@@ -220,7 +220,7 @@
     @Scripts.Render("~/Scripts/AngularJSLibrary")
     @Scripts.Render("~/Scripts/PopUp")
     @Scripts.Render("~/Scripts/FanexMultipleSelect")
-    @Scripts.Render("~/Areas/ShortCustomerInfo/Scripts")
+    @Scripts.Render("~/Areas/ShortCustomerInfo/Scripts?v=1")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var accId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);

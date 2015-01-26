@@ -323,6 +323,7 @@ addGuestFeedbackApplication.controller('addGuestFeedbackController',
                     $scope.messageResultOptions = new MessageResult('', false, false);
                     $scope.safeApply();
 
+                    parent.leftPanelManager.DOMElements.checkboxIsGuest.attr('checked', true);
                     parent.leftPanelManager.loadLeftPanel($scope.customerInfo.Name, true);
                 }, sharedScriptManager.cachedData.alertSuccessTime);
 

@@ -55,7 +55,7 @@ weeklyStatisticsReportApplication.directive('tableDetailReportContainer', functi
                             sharedScriptManager.pad2(info.Duration.Hours),
                             sharedScriptManager.pad2(info.Duration.Minutes)])
                     },
-                    { Name: "ColCustomer", Value: info.Username },
+                    { Name: "ColCustomer", Value: info.Username, CssClass: 'word-wrap-customer' },
                     { Name: "ColSite", Value: info.SiteInfo.Name },
                     { Name: "ColTypeOfContact", Value: info.CommunicationTool.Name },
                     { Name: "ColExtension", Value: info.Extension.Name },

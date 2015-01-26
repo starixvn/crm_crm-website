@@ -83,7 +83,7 @@ casinoDailyApplication.directive('tableDailyDetailContainer', function () {
                 { Name: 'ColStartTime', Value: detail.FeedbackTimeString },
                 { Name: 'ColEndTime', Value: detail.ResolutionTimeString },
                 { Name: 'ColDuration', Value: detail.Duration },
-                { Name: 'ColUserName', Value: detail.UserName },
+                { Name: 'ColUserName', Value: detail.UserName, CssClass: 'word-wrap-customer' },
                 { Name: 'ColSite', Value: detail.SiteName },
                 { Name: 'ColCommunication', Value: detail.Communication },
                 { Name: 'ColProduct', Value: detail.Product },

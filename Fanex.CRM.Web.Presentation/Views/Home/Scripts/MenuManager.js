@@ -84,14 +84,14 @@ var MenuManager = function () {
     };
 
     self.goToURL = function (frameId, url) {
+        // reset changing parameters
+        parent.homeManager.CachedData.isChangingData = parent.homeManager.CachedData.isChangingDataLeftPanel = false;
         if (parent.dashboardManager) {
             parent.dashboardManager.CachedData.currentSubMenu = '';
             self.CachedData.currentMenuTabIndex = 1;
         }
 
-        $("#" + frameId).attr({
-            src: url
-        });
+        $("#" + frameId).attr({ src: url });
     };
 
     self.getDashboardMenu = function (tabId) {
