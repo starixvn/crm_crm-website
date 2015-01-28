@@ -1114,20 +1114,20 @@ namespace Fanex.CRM.Report.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Live Casino.
-        /// </summary>
-        public static string LiveCasino {
-            get {
-                return ResourceManager.GetString("LiveCasino", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to LiveChat.
         /// </summary>
         public static string LiveChat {
             get {
                 return ResourceManager.GetString("LiveChat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Live Casino.
+        /// </summary>
+        public static string LiveCS {
+            get {
+                return ResourceManager.GetString("LiveCS", resourceCulture);
             }
         }
         

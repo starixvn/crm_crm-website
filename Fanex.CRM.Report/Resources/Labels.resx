@@ -822,7 +822,7 @@
   <data name="IBCBetCasino" xml:space="preserve">
     <value>IBCBET CASINO</value>
   </data>
-  <data name="LiveCasino" xml:space="preserve">
+  <data name="LiveCS" xml:space="preserve">
     <value>Live Casino</value>
   </data>
   <data name="MiniGame" xml:space="preserve">
