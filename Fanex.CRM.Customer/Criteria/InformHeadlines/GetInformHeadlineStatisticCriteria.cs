@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Customer.Criteria.InformHeadlines
 {
+    using Fanex.CRM.Common.Services;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -16,6 +17,14 @@ namespace Fanex.CRM.Customer.Criteria.InformHeadlines
     /// </summary>
     public class GetInformHeadlineStatisticCriteria : CriteriaBase
     {
+        public int TimeSpan
+        {
+            get
+            {
+                return AppSetting.TimeSpan * -1;
+            }
+        }
+
         [SpParam(Ignored = true)]
         public bool IsCached { get; set; }
 
