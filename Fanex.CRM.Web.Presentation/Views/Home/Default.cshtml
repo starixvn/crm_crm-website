@@ -1,4 +1,7 @@
-﻿@using Fanex.CRM.Infrastructure.Extensions
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Fanex.CRM.Infrastructure.Extensions
 @using Fanex.CRM.Infrastructure.Resources
 @using Fanex.CRM.Customer.Criteria
 @using Fanex.CRM.Customer.Services
@@ -18,20 +21,17 @@
     string redirectUrl = ViewBag.RedirectUrl;
     
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />
+@section Styles{
+    @*<link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />*@
+    @*<link href="@Url.Content("~/Content/Vendors/jqueryui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />*@
     <link href="@Url.Content("~/Scripts/autocomplete/autocomplete.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Views/Home/Styles/default.less?ver=5")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/customizeJqueryUI.less?ver=1")" rel="stylesheet" type="text/css" />
+    
     @Styles.Render("~/Views/HomeStyles")
     <!--[if lte IE 8]>
 		 <script src="~/Scripts/Chart/ChartJs/excanvas.js?ver=2"></script>
 	<![endif]-->
-</head>
+    }
 <body>
     @*<div id="fullsize" class="fullsize">
     </div>*@
@@ -104,7 +104,7 @@
     </div>
     <div id="div-resultpopup" class="selector display-none">
     </div>
-    <script type="text/javascript" src="~/Scripts/jquery.js"></script>
+    <script type="text/javascript" src="~/Scripts/JQuery/jquery-1.8.2.js"></script>
     <script type="text/javascript" src="~/Scripts/json2.js"></script>
     <script type="text/javascript" src="~/Scripts/ShareScripts/HotKeyManager.js"></script>
     <script type="text/javascript" src="~/Scripts/ShareScripts/CRMConstants.js"></script>
@@ -113,7 +113,8 @@
     <script type="text/javascript" src="~/Scripts/ShareScripts/FixBugManager.js"></script>
     <script type="text/javascript" src="~/Scripts/ShareScripts/DialogManager.js"></script>
     <script type="text/javascript" src="~/Scripts/jscookies.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery-ui-1.8.14.custom.js"></script>
+    @*<script type="text/javascript" src="~/Scripts/jquery-ui-1.8.14.custom.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/Vendors/jqueryui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.blockUI.1.33.js"></script>
     <script type="text/javascript" src="~/Scripts/BlockUI.js"></script>

@@ -6,7 +6,9 @@
 <head>
     <title>@ViewBag.Title</title>
     @Styles.Render("~/site/common")
+    @RenderSection("Styles", required: false)
     @Scripts.Render("~/scripts/respond")
+
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
     </script>

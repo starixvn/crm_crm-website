@@ -75,3 +75,4 @@ bin
 /Fanex.CRM.Web.Models/Fanex.CRM.Web.Models.csproj.vspscc
 /Fanex.CRM.suo
 
+*StyleCop.Cache

@@ -346,7 +346,7 @@ var HomeManager = function () {
                 zIndex: 500,
                 resizable: false,
                 modal: true,
-                position: [2, 90],
+                position: { my: "left+2 top+90", at: "left top" },
                 title: self.CachedData.ViewResources.Alert,
                 close: function (event, ui) {
                     /*jshint unused: vars */
