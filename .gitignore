@@ -76,3 +76,11 @@ bin
 /Fanex.CRM.suo
 
 *StyleCop.Cache
+
+/cireport
+*.StyleCop.violations.xml
+*.StyleCop.xml
+*.FxCop.xml
+MsBuild.xml
+MSBUILD.SUMMARY.email
+SUMMARY.DISPLAY.xml
