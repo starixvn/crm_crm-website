@@ -95,7 +95,7 @@ var LeftPanelManager = function () {
             zIndex: 500,
             resizable: false,
             modal: true,
-            position: [5, 108],
+            position: { my: "left+5 top+108", at: "left top" },
             title: 'Alert',
             close: function (event, ui) {
                 /*jshint unused: vars */

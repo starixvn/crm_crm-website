@@ -84,3 +84,4 @@ bin
 MsBuild.xml
 MSBUILD.SUMMARY.email
 SUMMARY.DISPLAY.xml
+*.suo

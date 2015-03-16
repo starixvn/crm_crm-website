@@ -270,7 +270,7 @@ function (
             zIndex: 500,
             resizable: false,
             modal: true,
-            position: 'center',
+            // position: 'center',
             title: viewResources.Alert,
             close: function (event, ui) {
                 /*jshint unused: vars */

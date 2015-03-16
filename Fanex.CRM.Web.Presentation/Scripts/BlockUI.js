@@ -7,7 +7,9 @@
             css: {
                 top: ($(window).height() - 100) / 2 + 'px',
                 left: ($(window).width() - 100) / 2 + 'px',
-                border: 'none'
+                border: 'none',
+                width: '100px',
+                height: '100px'
             }
         });
     } else {
@@ -18,7 +20,9 @@
             css: {
                 top: ($(window).height() - 136) / 2 + 'px',
                 left: ($(window).width() - 136) / 2 + 'px',
-                border: 'none'
+                border: 'none',
+                width: '100px',
+                height: '130px'
             }
         });
     }

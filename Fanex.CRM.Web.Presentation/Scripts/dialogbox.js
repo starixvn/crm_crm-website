@@ -27,21 +27,21 @@ function OpenPopup(url,
         width: width,
         height: height,
         autoOpen: false,
-        position: position || ['center', 'center'],
+        position: position || { my: "center", at: "center" },
         open: function (event, ui) {
-            $("#innerFrame").attr({ "src": url }).css({ "height": $(this).css("height"), "width": $(this).css("width") });
+            $("#innerFrame").attr({ "src": url }).css({ "height": $(this).css("height"), "width": $(this).width() - 2});
         },
         dragStart: function (event, ui) {
             $("#innerFrame").hide();
         },
         dragStop: function (event, ui) {
-            $("#innerFrame").css({ "height": $(this).css("height"), "width": $(this).css("width") }).show();
+            $("#innerFrame").css({ "height": $(this).css("height"), "width": $(this).width() - 2 }).show();
         },
         resizeStart: function (event, ui) {
             $("#innerFrame").hide();
         },
         resizeStop: function (event, ui) {
-            $("#innerFrame").css({ "height": $(this).css("height"), "width": $(this).css("width") }).show();
+            $("#innerFrame").css({ "height": $(this).css("height"), "width": $(this).width() - 2 }).show();
         },
         beforeClose: function () {
             if (beforeCloseEvent && typeof (beforeCloseEvent) === "function") {

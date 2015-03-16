@@ -132,7 +132,7 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
                 3000,
                 null,
                 $scope.closeEditView,
-                ['center', 200],
+                { my: "center top+200", at: "center top" },
                 $scope.beforeCloseEditView);
         };
         $scope.deleteTemplate = function (template) {
@@ -148,7 +148,7 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
                 3000,
                 null,
                 $scope.closeDeleteView,
-                ['center', 200],
+                { my: "center top+200", at: "center top" },
                 null);
         };
         $scope.closeDeleteView = function () {
@@ -207,7 +207,7 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
                 3000,
                 null,
                 $scope.closeInsertView,
-                ['center', 200],
+                { my: "center top+200", at: "center top" },
                 $scope.beforeCloseInsertView);
         };
         $scope.beforeCloseInsertView = function () {

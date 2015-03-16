@@ -207,7 +207,7 @@ function (
             3000,
             null,
             $scope.closeInsertView,
-            ['center', 120],
+            { my: "center top+120", at: "center top" },
             $scope.beforeCloseInsertView);
     };
     $scope.editLog = function (logId) {
@@ -225,7 +225,7 @@ function (
             3000,
             null,
             $scope.closeEditView,
-            ['center', 120],
+            { my: "center top+120", at: "center top" },
             $scope.beforeCloseEditView);
     };
     $scope.unblockUI = function () {

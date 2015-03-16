@@ -70,7 +70,7 @@ viewListApplication.controller('viewListController',
                 3000,
                 null,
                 $scope.closeInsertView,
-                ['center', 200],
+                { my: "center top+200", at: "center top" },
                 $scope.beforeCloseInsertView);
         };
         $scope.insertSubSetting = function () {
@@ -88,7 +88,7 @@ viewListApplication.controller('viewListController',
                 3000,
                 null,
                 $scope.closeInsertView,
-                ['center', 200],
+                { my: "center top+200", at: "center top" },
                 $scope.beforeCloseInsertView);
         };
         $scope.deleteSetting = function (settingInfo) {
@@ -109,7 +109,7 @@ viewListApplication.controller('viewListController',
                 3000,
                 null,
                 $scope.closeDeleteView,
-                ['center', 200],
+                { my: "center top+200", at: "center top" },
                 $scope.beforeCloseDeleteView);
         };
         $scope.editSetting = function (settingInfo) {
@@ -128,7 +128,7 @@ viewListApplication.controller('viewListController',
                 3000,
                 null,
                 $scope.closeEditView,
-                ['center', 200],
+                { my: "center top+200", at: "center top" },
                 $scope.beforeCloseEditView);
         };
 
