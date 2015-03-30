@@ -4,12 +4,16 @@
             message: '<table class="blockUI"><tr><td class="tdloading"></td></tr></table>',
             fadeIn: 0,
             fadeOut: 0,
+            overlayCSS: {
+                backgroundColor: "transparent"
+            },
             css: {
                 top: ($(window).height() - 100) / 2 + 'px',
                 left: ($(window).width() - 100) / 2 + 'px',
                 border: 'none',
                 width: '100px',
-                height: '100px'
+                height: '100px',
+                backgroundColor: "transparent"
             }
         });
     } else {
@@ -17,12 +21,16 @@
             message: '<table class="blockUI"><tr><td class="tdloading"></td></tr><tr><td><b>' + msg + '</b></td></tr></table>',
             fadeIn: 0,
             fadeOut: 0,
+            overlayCSS: {
+                backgroundColor: "transparent"
+            },
             css: {
                 top: ($(window).height() - 136) / 2 + 'px',
                 left: ($(window).width() - 136) / 2 + 'px',
                 border: 'none',
                 width: '100px',
-                height: '130px'
+                height: '130px',
+                backgroundColor: "transparent"
             }
         });
     }
