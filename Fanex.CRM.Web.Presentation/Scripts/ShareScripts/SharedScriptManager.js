@@ -86,6 +86,10 @@ var SharedScriptManager = function () {
         }
     };
     self.stringFormat = function (strValue, paramArr) {
+        if (!strValue) {
+            return "";
+        }
+
         var len = paramArr.length;
         for (var i = 0; i < len; i++) {
             var paramInfo = paramArr[i];

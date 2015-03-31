@@ -1,0 +1,56 @@
+﻿﻿@using Fanex.CRM.InformHeadline.Resources;
+@using Fanex.CRM.Infrastructure.Extensions;
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-settingrelation-application">
+<head>
+    <title>"Labels"</title>
+    @Styles.Render("~/site/common")
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
+    @Styles.Render("~/Areas/Admin/SettingRelation/ViewListStyles")
+</head>
+<body class="viewListController" data-ng-controller="viewListController">
+    <div class="container main">
+        <div class="row filter-frm one-row">
+            <div class="item afterButton main-setting-container" data-ng-model="mainSettingOptions.DataList">
+                <select id="mainsetting">
+                </select>
+            </div>
+            <div class="item afterButton">
+                <button id="btn-search" class="btn pull-left btn" data-ng-click="getSettingRelations();">
+                    <span class="hotkey">S</span>earch
+                </button>
+            </div>
+        </div>
+        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="inform-headline-list-container" class="inform-headline-list-container"
+                data-ng-model="settingRelationView">
+                <div id="settingrelation-list" class="freegrid display-none">
+                </div>
+            </div>
+        </div>        
+    </div>
+    @Scripts.Render("~/Scripts/CommomScripts")
+    @Scripts.Render("~/Scripts/AngularJSLibrary")
+    @Scripts.Render(
+        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+        "~/Scripts/FanexGridScripts",
+        "~/Areas/InformHeadline/ViewListScripts")
+    <script type="text/javascript">
+        parent.document.title = 'Title_InformHeadline';
+        window.rootUrl = '@Url.Content("~")';
+        var viewResources = {
+
+        };
+    </script>
+</body>
+</html>

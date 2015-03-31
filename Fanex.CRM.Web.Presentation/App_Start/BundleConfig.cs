@@ -10,13 +10,12 @@
 namespace Fanex.CRM.Web.View.AppStart
 {
     using System.Diagnostics.CodeAnalysis;
-    using System.Web;
     using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
     using Fanex.CRM.AdminTool;
-    using Fanex.CRM.Customer.BundleConfigs;
     using Fanex.CRM.Feedback.Bundles;
+    using Fanex.CRM.InformHeadline;
     using Fanex.CRM.Report;
 
     /// <summary>
@@ -129,8 +128,8 @@ namespace Fanex.CRM.Web.View.AppStart
             ReportBundles.RegisterBundles(bundles);
             ReportBundles.RegisterBundles(bundles);
 
-            InformHeadlinesBundles.RegisterAll(bundles);
             AdminToolBundles.RegisterBundles(bundles);
+            InformHeadlineBundles.RegisterBundles(bundles);
 
             RegisterBundles_FanexGrid(bundles);
         }
@@ -691,7 +690,7 @@ namespace Fanex.CRM.Web.View.AppStart
         {
             bundles.Add(new Bundle(bundleVirtualPath)
             {
-                Transforms = { new CssTransformer(), new CssMinify() },
+                Transforms = { new StyleTransformer(), new CssMinify() },
                 Orderer = new NullOrderer()
             }.Include(virtualPaths));
         }

@@ -1,0 +1,64 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="InformHeadlineBundles.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+
+namespace Fanex.CRM.InformHeadline
+{
+    using System.Web.Optimization;
+    using BundleTransformer.Core.Orderers;
+    using BundleTransformer.Core.Transformers;
+
+    /// <summary>
+    /// Bundle Config of Report.
+    /// </summary>
+    public static class InformHeadlineBundles
+    {
+        /// <summary>
+        /// Registers the bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        public static void RegisterBundles(BundleCollection bundles)
+        {
+            RegisterInformHeadlineViewListBundles(bundles);            
+        }
+
+        /// <summary>
+        /// Register Setting Relation View List Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterInformHeadlineViewListBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/InformHeadline/ViewListScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/InformHeadline/ViewList/Scripts/ViewListApplication.js",
+                "~/Areas/InformHeadline/ViewList/Scripts/ViewListService.js",
+                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController.js",
+                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController_Options.js",
+                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController_Update.js",
+                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController_HotKey.js",
+                "~/Areas/InformHeadline/ViewList/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/InformHeadline/ViewListStyles",
+                "~/Areas/InformHeadline/ViewList/Styles/ViewList.less");
+        }
+
+        private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)
+        {
+            bundles.Add(new Bundle(bundleVirtualPath)
+            {
+                Transforms = { new StyleTransformer(), new CssMinify() },
+                Orderer = new NullOrderer()
+            }.Include(virtualPaths));
+        }
+    }
+}
