@@ -1,7 +1,6 @@
 ﻿"use strict";
 /* global viewListApplication,
 sharedScriptManager,
-viewResources,
 registerOptions,
 registerUpdateFunctions,
 registerHotkeyFunctions */

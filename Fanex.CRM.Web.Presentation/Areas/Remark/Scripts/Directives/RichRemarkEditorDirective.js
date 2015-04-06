@@ -95,8 +95,8 @@ remarkApplication.directive('richRemarkEditorDirective', function () {
 
                 remarkLength = $scope.remarks.NormalRemarks.length;
                 isSpecial = 0;
-                for (i = 0; i < remarkLength; i++) {
-                    updateRemarkText(isSpecial, i, $scope.remarks.NormalRemarks[i]);
+                for (var j = 0; j < remarkLength; j++) {
+                    updateRemarkText(isSpecial, j, $scope.remarks.NormalRemarks[j]);
                 }
             });
         }
