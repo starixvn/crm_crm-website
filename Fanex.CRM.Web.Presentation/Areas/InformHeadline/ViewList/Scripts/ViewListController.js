@@ -14,7 +14,8 @@ viewListApplication.controller('viewListController',
         $scope.getSettingRelationsParams = {
             MainSetting: null
         };
-        $scope.settingRelationView = null;
+
+        $scope.listData = null;
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
             $scope.initDefaultOption();
@@ -41,11 +42,11 @@ viewListApplication.controller('viewListController',
 
             viewListService.getSettingRelations($scope.getSettingRelationsParams)
                 .then(function (data) {
-                    $scope.settingRelationView = data.Result;
+                    $scope.listData = data.Result;
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
-                    $scope.settingRelationView = null;
+                    $scope.listData = null;
                     $uiBlockerService.unblockUI();
                 });
         };

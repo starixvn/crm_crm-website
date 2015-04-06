@@ -1,54 +1,38 @@
 ﻿"use strict";
 /* global viewListApplication,
 crmConstants,
-sharedScriptManager,
 viewResources */
 /* jshint camelcase: false,
 unused: vars */
-viewListApplication.directive('informHeadlineListContainer', function () {
+viewListApplication.directive('informHeadlineListContainer', function ($document) {
     var selfScope;
-    var settingRelationView;
+    var listData;
 
-    function renderSettingRelations(scope, element, attrs) {
+    function renderListData(scope, element, attrs) {
         selfScope = scope;
-        settingRelationView = scope.settingRelationView;
-        if (scope.settingRelationView === null) {
+        listData = scope.listData;
+
+        if (scope.listData === null) {
             return;
         }
 
-        var tableSetting = element.find("#settingrelation-list");
+        var tableSetting = element.find("#inform-headline-list");
         var bodyData = [];
         tableSetting.empty();
-        var settingLength = scope.settingRelationView.length;
-        if (settingLength > 0) {
-            for (var i = 0; i < settingLength; i++) {
-                var setting = settingRelationView[i];
-                var subRows = [];
-                var subSettingLength = setting.ChildSettings ?
-                    setting.ChildSettings.length :
-                    0;
-                for (var j = 0; j < subSettingLength; j++) {
-                    var subSetting = setting.ChildSettings[j];
-                    subRows.push({
-                        Columns: [
-                                { Name: "ColSettingName", Value: subSetting.Value },
-                                { Name: "ColRelation", Value: '' },
-                                { Name: "ColSettingId", Value: subSetting.Id },
-                                { Name: "ColOrder", Value: subSetting.DisplayOrder}],
-                        CssClass: j % 2 === 0 ? ' freegrid-even' : ''
-                    });
-                }
+        var rowsCount = scope.listData.length;
+        if (rowsCount > 0) {
+            for (var i = 0; i < rowsCount; i++) {
+                var setting = listData[i];
 
                 bodyData.push({
                     Columns: [
-                                { Name: "ColSettingName", Value: setting.Value },
                                 {
                                     Name: "ColRelation",
-                                    Value: '<a class="c hand addSetting" href="JavaScript:void(0);" data-row-index="' + i + '"></a>'
+                                    Value: '<button type="button" class="actionButton" href="#">&nbsp;</button>'
                                 },
+                                { Name: "ColSettingName", Value: setting.Value },
                                 { Name: "ColSettingId", Value: setting.Id },
                                 { Name: "ColOrder", Value: setting.DisplayOrder}],
-                    SubRows: subRows,
                     CssClass: 'editlog-link-row row-index-' + i
                 });
             }
@@ -56,23 +40,23 @@ viewListApplication.directive('informHeadlineListContainer', function () {
 
         var gridOptions = {
             columns: [
+                { HeaderText: viewResources.Relation, Width: 50, Name: "ColRelation", HeaderAlign: "center", CellAlign: "center" },
                 {
                     HeaderText: viewResources.Setting,
-                    Width: 400,
+                    Width: 200,
                     Name: "ColSettingName",
                     HeaderAlign: "center",
                     CellAlign: "left",
                     ShowCollapseExpand: true
                 },
-                { HeaderText: viewResources.Relation, Width: 60, Name: "ColRelation", HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: viewResources.Setting_Id, Width: 80, Name: "ColSettingId", HeaderAlign: "center", CellAlign: "right" },
-                { HeaderText: viewResources.Order, Width: 60, Name: "ColOrder", HeaderAlign: "center", CellAlign: "right"}],
+                { HeaderText: viewResources.Setting_Id, Width: 100, Name: "ColSettingId", HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: viewResources.Order, Width: 100, Name: "ColOrder", HeaderAlign: "center", CellAlign: "right"}],
             showTitle: true,
             titleInfo: {
                 text: "sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])"
             },
             bodyRows: bodyData,
-            numberOfFrozenColumn: 1,
+            numberOfFrozenColumn: 0,
             fullWidth: true,
             fullHeight: true,
             gridHeight: 0,
@@ -85,12 +69,23 @@ viewListApplication.directive('informHeadlineListContainer', function () {
         };
 
         tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-
-        var addIcons = tableSetting.find(".addSetting");
-        addIcons.unbind("click");
-        addIcons.click(function () {
-            var rowIndex = parseInt($(this).attr("data-row-index"));
-            selfScope.addRelation(settingRelationView[rowIndex]);
+        var $contextMenu = $("#contextMenu");
+        $document.click(function () {
+            $contextMenu.hide();
+        });
+        angular.element(".grid-container").scroll(function () {
+            $contextMenu.hide();
+        });
+        tableSetting.on("click", ".actionButton", function (e) {
+            var $element = angular.element(e.target);
+            
+            var offset = $element.offset();
+            $contextMenu.show().css({
+                display: "block",
+                left: offset.left,
+                top: offset.top + $element.height()
+            });
+            return false;
         });
     }
 
@@ -99,7 +94,7 @@ viewListApplication.directive('informHeadlineListContainer', function () {
         scope: true,
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (oldval, newval) {
-                renderSettingRelations(scope, element, attrs);
+                renderListData(scope, element, attrs);
             });
         }
     };

@@ -403,6 +403,10 @@
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\warning.png" />
+    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\close-case.png" />
+    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\edit.png" />
+    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\list.png" />
+    <Content Include="Areas\InformHeadline\ViewList\Styles\Images\open-case.png" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\ButtonSave.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DatePickerContainer.js" />
     <Content Include="Areas\Redemption\EditLog\Scripts\Directives\DefaultFocus.js" />
