@@ -11,11 +11,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="redemption-editlog-application">
 <head>
     <title>@Labels.Insert_Redemption_Log </title>
-    @Styles.Render("~/site/common")
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/autocomplete/autocomplete.css")" />
-    @Styles.Render("~/Areas/Redemption/EditLogStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
+    @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")" />
+    @RazorHelper.RenderStyles("~/Areas/Redemption/EditLogStyles")
 </head>
 <body>
     <div class="main popup container" data-ng-controller="editLogController">
@@ -97,16 +97,16 @@
         </div>
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/TimePicker")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    @Scripts.Render("~/Areas/Redemption/EditLogScripts")
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/TimePicker")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+    @RazorHelper.RenderScripts("~/Areas/Redemption/EditLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var currentDate = '@DateTimeUtilize.CurrentClientTime().Date';

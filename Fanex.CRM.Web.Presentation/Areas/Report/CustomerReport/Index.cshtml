@@ -6,12 +6,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-customerreport-application">
 <head>
     <title>@Labels.Customer_Report </title>
-    @Styles.Render("~/site/common")
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Areas/Report/CustomerReportStyles")
-    @Styles.Render("~/Styles/FanexMultipleSelect")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
+    @RazorHelper.RenderStyles("~/Areas/Report/CustomerReportStyles")
+    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
 </head>
 <body class="customerReportController" data-ng-controller="customerReportController">
     <div class="main container">
@@ -98,14 +98,14 @@
         <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
     </div>
     <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    @Scripts.Render("~/Scripts/FanexMultipleSelect")
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    @Scripts.Render("~/CRM/DownLoadFile/Scripts")
-    @Scripts.Render("~/Areas/Report/CustomerReportScripts")
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+    @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
+    @RazorHelper.RenderScripts("~/Areas/Report/CustomerReportScripts")
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_Report_CustomerReport';
         window.rootUrl = '@Url.Content("~")';

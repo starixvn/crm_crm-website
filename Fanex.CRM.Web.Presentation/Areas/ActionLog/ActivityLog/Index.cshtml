@@ -12,7 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="activitylog-application">
 <head>
     <title>@Resources.Language.Title_ActivityLogTab</title>
-    @Styles.Render("~/site/common", "~/Areas/ActionLog/ActivityLogStyles")
+    @RazorHelper.RenderStyles("~/site/common", "~/Areas/ActionLog/ActivityLogStyles")
 </head>
 <body>
 <div class="container main" data-ng-controller="activityLogController">
@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-    @Scripts.Render("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/ActionLog/ActivityLogScripts")
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/ActionLog/ActivityLogScripts")
     <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';

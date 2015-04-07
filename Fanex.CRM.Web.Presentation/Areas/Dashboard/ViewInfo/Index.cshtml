@@ -8,11 +8,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="dashboard-application">
 <head>
     <title>@Resources.Language.Title_MainTab </title>
-    @Styles.Render("~/site/common")
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
-    @Styles.Render("~/Areas/Dashboard/ViewInfoStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
+    @RazorHelper.RenderStyles("~/Areas/Dashboard/ViewInfoStyles")
 </head>
 <body class="leftPanel" data-ng-controller="dashboardController">
     <div class="container main">
@@ -40,13 +40,13 @@
         </div>
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    <script type="text/javascript" src="~/Scripts/Paging/jpager.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    @Scripts.Render("~/Scripts/FanexGridV2/NumeralScripts", "~/Areas/Dashboard/ViewInfoScripts")
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/Paging/jpager.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts", "~/Areas/Dashboard/ViewInfoScripts")
     <script type="text/javascript"> 
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';

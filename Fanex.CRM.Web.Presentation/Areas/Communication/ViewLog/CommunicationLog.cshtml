@@ -11,11 +11,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communication-application">
 <head>
     <title>@Resources.Language.Title_CommunicationTab  </title>
-    @Styles.Render("~/site/common")
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Areas/Communication/ViewLogStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
+    @RazorHelper.RenderStyles("~/Areas/Communication/ViewLogStyles")
 </head>
 <body>
     <div id="communicationcontroller" class="container main" data-ng-controller="communicationController">
@@ -68,14 +68,14 @@
                 <span class="hotkey">I</span>nsert Case</button>
         </div>
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    @Scripts.Render("~/Scripts/PopUp")
-    <script type="text/javascript" src="~/Scripts/Paging/jpager.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    @Scripts.Render("~/Areas/Communication/ViewLogScripts")
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/PopUp")
+    @RazorHelper.RenderScripts("~/Scripts/Paging/jpager.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+    @RazorHelper.RenderScripts("~/Areas/Communication/ViewLogScripts")
     <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';

@@ -7,9 +7,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-application">
 <head>
     <title>@Labels.Customer_Info </title>
-    @Styles.Render("~/site/common")
-    @Styles.Render("~/Areas/ShortCustomerInfo/Styles")
-    @Styles.Render("~/Styles/FanexMultipleSelect")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Areas/ShortCustomerInfo/Styles")
+    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
 </head>
 <body class="leftPanel">
     <div id="divContent" class="container left-container customerinfo-container display-none"
@@ -216,11 +216,11 @@
             </div>
         </div>
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    @Scripts.Render("~/Scripts/PopUp")
-    @Scripts.Render("~/Scripts/FanexMultipleSelect")
-    @Scripts.Render("~/Areas/ShortCustomerInfo/Scripts?v=1")
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/PopUp")
+    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
+    @RazorHelper.RenderScripts("~/Areas/ShortCustomerInfo/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var accId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);

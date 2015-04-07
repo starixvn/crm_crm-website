@@ -4,14 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-feedbacksubjectmanagement-application">
 <head>
     <title>@Labels.Title_AdminTool_FeedbackSubjectManagement </title>
-    @Styles.Render("~/site/common")
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/InputBox/style.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")"/>
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
-    @Styles.Render("~/Areas/Admin/FeedbackSubjectManagement/ViewListStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
+    @RazorHelper.RenderStyles("~/Scripts/InputBox/style.css")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
+    @RazorHelper.RenderStyles("~/Areas/Admin/FeedbackSubjectManagement/ViewListStyles")
 </head>
 <body class="feedbackSubjectManagementController" data-ng-controller="feedbackSubjectManagementController">
     <div class="container main">
@@ -49,15 +49,15 @@
         </div>
         <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
-    <script type="text/javascript" src="~/Scripts/Paging/jpager.js"></script>
-    @Scripts.Render(
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
+    @RazorHelper.RenderScripts("~/Scripts/Paging/jpager.js")
+    @RazorHelper.RenderScripts(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Scripts/FanexGridScripts",
         "~/Areas/Admin/FeedbackSubjectManagement/ViewListScripts")

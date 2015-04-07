@@ -7,12 +7,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedbacks-updatecustomerfeedback-application">
 <head>
     <title></title>
-    @Styles.Render("~/site/common")
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/Tipsy-Tooltip/tipsy.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/InputBox/style.css")" />
-    @Styles.Render("~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")" />
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
+    @RazorHelper.RenderStyles("~/Scripts/Tipsy-Tooltip/tipsy.css")" />
+    @RazorHelper.RenderStyles("~/Scripts/InputBox/style.css")" />
+    @RazorHelper.RenderStyles("~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackStyles")
 </head>
 <body data-ng-controller="updateCustomerFeedbackController">
     <div class="main container popup">
@@ -561,17 +561,17 @@
         </div>
         <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
-    <script type="text/javascript" src="~/Scripts/Tipsy-Tooltip/jquery.tipsy.js"></script>
-    <script type="text/javascript" src="~/Scripts/common.js"></script>
-    <script type="text/javascript" src="~/Scripts/InputBox/jquery.fcbkcomplete.js"></script>
-    @Scripts.Render("~/Scripts/TimePicker",
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
+    @RazorHelper.RenderScripts("~/Scripts/Tipsy-Tooltip/jquery.tipsy.js")
+    @RazorHelper.RenderScripts("~/Scripts/common.js")
+    @RazorHelper.RenderScripts("~/Scripts/InputBox/jquery.fcbkcomplete.js")
+    @RazorHelper.RenderScripts("~/Scripts/TimePicker",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Feedbacks/UpdateCustomerFeedback/UpdateCustomerFeedbackScripts")
     @{ var currentTime = DateTimeUtilize.CurrentClientTime(); }

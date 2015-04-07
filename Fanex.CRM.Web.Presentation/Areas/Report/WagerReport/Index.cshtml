@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-wagerreport-application">
 <head>
     <title>@Labels.WagerReport</title>
-    @Styles.Render("~/site/common", "~/Areas/Report/WagerReportStyles", "~/Content/site/ResultMessageStyles")
+    @RazorHelper.RenderStyles("~/site/common", "~/Areas/Report/WagerReportStyles", "~/Content/site/ResultMessageStyles")
 </head>
 <body>
     <div class="container main" data-ng-controller="wagerReportController">
@@ -36,11 +36,11 @@
             <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts", "~/Scripts/FanexGridV2/NumeralScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-    @Scripts.Render("~/CRM/DownLoadFile/Scripts",
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/FanexGridV2/NumeralScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts",
         "~/Areas/Report/WagerReportScripts",
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     <script type="text/javascript">

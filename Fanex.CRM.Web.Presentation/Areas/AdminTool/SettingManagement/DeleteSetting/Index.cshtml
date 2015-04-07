@@ -6,8 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-settingmanagement-deletesetting">
 <head>
     <title>@Labels.Title_AdminTool_SettingManagement </title>
-    @Styles.Render("~/site/common")
-    @Styles.Render("~/Areas/Admin/SettingManagement/DeleteSettingStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Areas/Admin/SettingManagement/DeleteSettingStyles")
 </head>
 <body class="deleteSettingController" data-ng-controller="deleteSettingController">
     <div class="container main popup">
@@ -30,9 +30,9 @@
             </button>
         </div>
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    @Scripts.Render(
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Admin/SettingManagement/DeleteSettingScripts")
     <script type="text/javascript">

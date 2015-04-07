@@ -4,8 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-settingmanagement-insertnewsetting-application">
 <head>
     <title>@Labels.Title_AdminTool_SettingManagement </title>
-    @Styles.Render("~/site/common")
-    @Styles.Render("~/Areas/Admin/SettingManagement/InsertSettingStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Areas/Admin/SettingManagement/InsertSettingStyles")
 </head>
 <body class="insertSettingController" data-ng-controller="insertSettingController">
     <div class="container main popup">
@@ -63,9 +63,9 @@
         </div>
         <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    @Scripts.Render(
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Areas/Admin/SettingManagement/InsertSettingScripts")
     <script type="text/javascript">

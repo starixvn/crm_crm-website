@@ -12,12 +12,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communicationlog-edit-application">
 <head>
     <title>@Labels.Edit_Communication_Log </title>
-    @Styles.Render("~/site/common")
-    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/autocomplete/autocomplete.css")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Styles/FanexMultipleSelect")
-    @Styles.Render("~/Areas/Communication/EditLogStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
+    @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
+    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+    @RazorHelper.RenderStyles("~/Areas/Communication/EditLogStyles")
 </head>
 <body>
     <div class="main popup container editlogcontroller" data-ng-controller="editLogController">
@@ -261,19 +261,19 @@
         IPermissionService permission = new PermissionService();
         var hasReviewPermission = permission.HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
     }
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/TimePicker")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    @Scripts.Render("~/Scripts/FanexMultipleSelect")
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
-    <script type="text/javascript" src="~/Scripts/common.js"></script>
-    <script type="text/javascript" src="~/Scripts/InputBox/jquery.fcbkcomplete.js"></script>
-    @Scripts.Render("~/Areas/Communication/EditLogScripts?v=1")
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/TimePicker")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/FanexMultipleSelect")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
+    @RazorHelper.RenderScripts("~/Scripts/common.js")
+    @RazorHelper.RenderScripts("~/Scripts/InputBox/jquery.fcbkcomplete.js")
+    @RazorHelper.RenderScripts("~/Areas/Communication/EditLogScripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")'; 
         var currentTime = '@DateTimeUtilize.CurrentClientTime()'; 

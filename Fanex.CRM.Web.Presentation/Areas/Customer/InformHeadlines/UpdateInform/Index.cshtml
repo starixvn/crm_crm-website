@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-informheadline-update">
 <head>
     <title></title>
-    @Styles.Render("~/site/common",
+    @RazorHelper.RenderStyles("~/site/common",
         "~/Styles/FanexMultipleSelect",
         "~/Areas/Customer/InformHeadlines/UpdateInformStyle")
 </head>
@@ -126,7 +126,7 @@
             </div>
         }
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts",
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
         "~/Scripts/FanexGridScripts",
         "~/Scripts/AngularJSLibrary",
         "~/CRM/DownLoadFile/Scripts",

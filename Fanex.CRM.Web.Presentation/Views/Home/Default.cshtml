@@ -26,7 +26,7 @@
     @RazorHelper.RenderStyles("~/Views/Home/Styles/default.less")
     @RazorHelper.RenderStyles("~/Views/HomeStyles")
     <!--[if lte IE 8]>
-		 <script src="~/Scripts/Chart/ChartJs/excanvas.js?ver=2"></script>
+		 @RazorHelper.RenderScripts("~/Scripts/Chart/ChartJs/excanvas.js")
 	<![endif]-->
 }
 <body>
@@ -122,7 +122,7 @@
     @RazorHelper.RenderScripts("~/Views/Home/Scripts/Main.js")
     @RazorHelper.RenderScripts("~/Views/HomeScripts")
     @RazorHelper.RenderScripts("~/Views/Home/Dashboard/Scripts")
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var userSearch = '@userSearched';
         var isGuestSearch = '@isGuest';
@@ -134,4 +134,3 @@
         setInterval('udpateOnlineStatus()', 20000);
     </script>
 </body>
-</html> 
