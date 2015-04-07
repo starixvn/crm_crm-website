@@ -21,17 +21,14 @@
     string redirectUrl = ViewBag.RedirectUrl;
     
 }
-@section Styles{
-    @*<link href="@Url.Content("~/Content/site/ui-darkness/jquery-ui-1.8.14.custom.css")" rel="stylesheet" type="text/css" />*@
-    @*<link href="@Url.Content("~/Content/Vendors/jqueryui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />*@
-    <link href="@Url.Content("~/Scripts/autocomplete/autocomplete.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Views/Home/Styles/default.less?ver=5")" rel="stylesheet" type="text/css" />
-    
-    @Styles.Render("~/Views/HomeStyles")
+@section Styles{    
+    @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
+    @RazorHelper.RenderStyles("~/Views/Home/Styles/default.less")
+    @RazorHelper.RenderStyles("~/Views/HomeStyles")
     <!--[if lte IE 8]>
 		 <script src="~/Scripts/Chart/ChartJs/excanvas.js?ver=2"></script>
 	<![endif]-->
-    }
+}
 <body>
     @*<div id="fullsize" class="fullsize">
     </div>*@
@@ -104,26 +101,27 @@
     </div>
     <div id="div-resultpopup" class="selector display-none">
     </div>
-    <script type="text/javascript" src="~/Scripts/JQuery/jquery-1.8.2.js"></script>
-    <script type="text/javascript" src="~/Scripts/json2.js"></script>
-    <script type="text/javascript" src="~/Scripts/ShareScripts/HotKeyManager.js"></script>
-    <script type="text/javascript" src="~/Scripts/ShareScripts/CRMConstants.js"></script>
-    <script type="text/javascript" src="~/Scripts/ShareScripts/SharedScriptManager.js"></script>
-    <script type="text/javascript" src="~/Scripts/ShareScripts/KeyboardManager.js"></script>
-    <script type="text/javascript" src="~/Scripts/ShareScripts/FixBugManager.js"></script>
-    <script type="text/javascript" src="~/Scripts/ShareScripts/DialogManager.js?v=1"></script>
-    <script type="text/javascript" src="~/Scripts/jscookies.js"></script>
-    @*<script type="text/javascript" src="~/Scripts/jquery-ui-1.8.14.custom.js"></script>*@
-    <script type="text/javascript" src="~/Scripts/Vendors/jqueryui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.blockUI.1.33.js"></script>
-    <script type="text/javascript" src="~/Scripts/BlockUI.js"></script>
-    <script type="text/javascript" src="~/Scripts/common.js"></script>
-    @Scripts.Render("~/Scripts/PopUp")
-    @Scripts.Render("~/CRM/Chart/Scripts")
-    <script type="text/javascript" src="~/Views/Home/Scripts/Main.js?ver=2"></script>
-    @Scripts.Render("~/Views/HomeScripts?v=2")
-    @Scripts.Render("~/Views/Home/Dashboard/Scripts")
+
+    @RazorHelper.RenderScripts("~/Scripts/JQuery/jquery-1.8.2.js",
+                            "~/Scripts/json2.js",
+                            "~/Scripts/ShareScripts/HotKeyManager.js",
+                            "~/Scripts/ShareScripts/CRMConstants.js",
+                            "~/Scripts/ShareScripts/SharedScriptManager.js",
+                            "~/Scripts/ShareScripts/KeyboardManager.js",
+                            "~/Scripts/ShareScripts/FixBugManager.js",
+                            "~/Scripts/ShareScripts/DialogManager.js",
+                            "~/Scripts/jscookies.js",
+                            "~/Scripts/Vendors/jqueryui/jquery-ui.min.js",
+                            "~/Scripts/autocomplete/jquery.autocomplete.js",
+                            "~/Scripts/jquery.blockUI.1.33.js",
+                            "~/Scripts/BlockUI.js",
+                            "~/Scripts/common.js")
+
+    @RazorHelper.RenderScripts("~/Scripts/PopUp")
+    @RazorHelper.RenderScripts("~/CRM/Chart/Scripts")
+    @RazorHelper.RenderScripts("~/Views/Home/Scripts/Main.js")
+    @RazorHelper.RenderScripts("~/Views/HomeScripts")
+    @RazorHelper.RenderScripts("~/Views/Home/Dashboard/Scripts")
     <script language="javascript" type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
         var userSearch = '@userSearched';
@@ -136,4 +134,4 @@
         setInterval('udpateOnlineStatus()', 20000);
     </script>
 </body>
-</html>
+</html> 
