@@ -22,5 +22,7 @@ namespace Fanex.CRM.Common.Services
         bool HasHostPermission(string functionName);
 
         bool HasPermission(string functionName, Constant.Policy policy);
+
+        Constant.Policy GetPolicy(string functionName);
     }
 }

@@ -150,6 +150,11 @@ namespace Fanex.CRM.Common.Controllers
             return PermissionService.HasPermission(functionName, policy);
         }
 
+        public Constant.Policy GetPolicy(string functionName)
+        {
+            return PermissionService.GetPolicy(functionName);
+        }
+
         /// <summary>
         /// Execute before each request, if Downtime then go to Downtime page
         /// Or not Authenticate will go to Login Page.

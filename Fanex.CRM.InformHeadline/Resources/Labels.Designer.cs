@@ -59,5 +59,131 @@ namespace Fanex.CRM.InformHeadline.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created Date.
+        /// </summary>
+        public static string CreatedDate {
+            get {
+                return ResourceManager.GetString("CreatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        public static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inform Headlines.
+        /// </summary>
+        public static string InformHeadlines {
+            get {
+                return ResourceManager.GetString("InformHeadlines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inform Headlines Cases.
+        /// </summary>
+        public static string InformHeadlinesCases {
+            get {
+                return ResourceManager.GetString("InformHeadlinesCases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internal account.
+        /// </summary>
+        public static string InternalAccount {
+            get {
+                return ResourceManager.GetString("InternalAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Never touch.
+        /// </summary>
+        public static string NeverTouch {
+            get {
+                return ResourceManager.GetString("NeverTouch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No. of Direct Accounts.
+        /// </summary>
+        public static string NoDirectAccounts {
+            get {
+                return ResourceManager.GetString("NoDirectAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No need to call.
+        /// </summary>
+        public static string NoNeedToCall {
+            get {
+                return ResourceManager.GetString("NoNeedToCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No reply.
+        /// </summary>
+        public static string NoReply {
+            get {
+                return ResourceManager.GetString("NoReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to call back.
+        /// </summary>
+        public static string RequestToCallBack {
+            get {
+                return ResourceManager.GetString("RequestToCallBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uncontactable.
+        /// </summary>
+        public static string Uncontactable {
+            get {
+                return ResourceManager.GetString("Uncontactable", resourceCulture);
+            }
+        }
     }
 }

@@ -7,26 +7,85 @@
 namespace Fanex.CRM.InformHeadline.Controllers
 {
     using System.Web.Mvc;
-    using Fanex.CRM.Common.Controllers;
-    using Fanex.NAP.Core.Web.Attribute;
     using Fanex.CRM.Common.Constants;
+    using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.InformHeadline.Criteria;
+    using Fanex.CRM.InformHeadline.Services;
     using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class InformHeadlineController : BaseController
     {
-        public InformHeadlineController()            
+        private readonly IInformHeadlineService _informHeadlineService;
+
+        public InformHeadlineController()
+            : this(null)
         {
         }
 
+        public InformHeadlineController(IInformHeadlineService informHeadlineService)
+        {
+            _informHeadlineService = informHeadlineService ?? new InformHeadlineService();
+        }
+
+        /// <summary>
+        /// Index action.
+        /// </summary>
+        /// <returns>Action Result.</returns>
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult Index()
         {
-            ViewBag.HasSearchPermission = HasHostPermission(FunctionPermissions.InformHeadlineContact);
+            var permission = GetPermission();
+
+            if (permission != null)
+            {
+                ViewBag.Policy = permission.Policy;
+                ViewBag.PermissionType = permission.PermissionType;
+            }
+
             return View("~/Areas/InformHeadline/ViewList/Index.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineUpdateStatus, Policy = Constant.Policy.Read)]
+        [HttpPost]
+        public ActionResult GetInforms(GetInformHeadlineCriteria criteria)
+        {
+            var informs = _informHeadlineService.GetInforms(criteria);                        
+            var result = new { Items = informs };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Get Permission.
+        /// </summary>
+        /// <returns>Null if don't have permission.</returns>
+        private dynamic GetPermission()
+        {
+            var searchPolicy = GetPolicy(FunctionPermissions.InformHeadlineSearch);
+            if (searchPolicy != Constant.Policy.None)
+            {
+                return new 
+                {
+                    PermissionType = "Search",
+                    Policy = searchPolicy.ToString()
+                };
+            }
+
+            var contactPolicy = GetPolicy(FunctionPermissions.InformHeadlineContact);
+            if (contactPolicy != Constant.Policy.None)
+            {
+                return new
+                {
+                    PermissionType = "Contact",
+                    Policy = contactPolicy.ToString()
+                };
+            }
+
+            return null;
         }
     }
 }

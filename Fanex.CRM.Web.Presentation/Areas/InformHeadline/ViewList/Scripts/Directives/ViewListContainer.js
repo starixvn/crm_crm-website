@@ -22,38 +22,48 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
         var rowsCount = scope.listData.length;
         if (rowsCount > 0) {
             for (var i = 0; i < rowsCount; i++) {
-                var setting = listData[i];
+                var item = listData[i];
 
                 bodyData.push({
                     Columns: [
-                                {
-                                    Name: "ColRelation",
-                                    Value: '<button type="button" class="actionButton" href="#">&nbsp;</button>'
-                                },
-                                { Name: "ColSettingName", Value: setting.Value },
-                                { Name: "ColSettingId", Value: setting.Id },
-                                { Name: "ColOrder", Value: setting.DisplayOrder}],
-                    CssClass: 'editlog-link-row row-index-' + i
+                            {
+                                Name: "Edit", Value: '<button type="button" class="actionButton" href="#">&nbsp;</button>'
+                            },
+                            { Name: "Title", Value: item.Title },
+                            { Name: "CreatedDate", Value: item.CreatedDate },
+                            { Name: "NoDirectAccounts", Value: item.Total },
+                            { Name: "Status", Value: item.Status },
+                            { Name: "Done", Value: item.Done },
+                            { Name: "RequestToCallBack", Value: item.RequestToCallBack },
+                            { Name: "NoNeedToCall", Value: item.NoNeedToCall },
+                            { Name: "NoReply", Value: item.NoReply },
+                            { Name: "Uncontactable", Value: item.Uncontactable },
+                            { Name: "InternalAccount", Value: item.InternalAccount },
+                            { Name: "NeverTouch", Value: item.NeverTouch }
+                        ],
+                       CssClass: "status-" + item.Status.toLowerCase()
                 });
             }
         }
 
         var gridOptions = {
             columns: [
-                { HeaderText: viewResources.Relation, Width: 50, Name: "ColRelation", HeaderAlign: "center", CellAlign: "center" },
-                {
-                    HeaderText: viewResources.Setting,
-                    Width: 200,
-                    Name: "ColSettingName",
-                    HeaderAlign: "center",
-                    CellAlign: "left",
-                    ShowCollapseExpand: true
-                },
-                { HeaderText: viewResources.Setting_Id, Width: 100, Name: "ColSettingId", HeaderAlign: "center", CellAlign: "right" },
-                { HeaderText: viewResources.Order, Width: 100, Name: "ColOrder", HeaderAlign: "center", CellAlign: "right"}],
+                    { HeaderText: viewResources.Edit, Width: 50, Name: "Edit", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Title, Width: 200, Name: "Title", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
+                    { HeaderText: viewResources.CreatedDate, Width: 100, Name: "CreatedDate", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY" },
+                    { HeaderText: viewResources.NoDirectAccounts, Width: 100, Name: "NoDirectAccounts", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Status, Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Done, Width: 100, Name: "Done", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.RequestToCallBack, Width: 100, Name: "RequestToCallBack", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.NoNeedToCall, Width: 100, Name: "NoNeedToCall", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.NoReply, Width: 100, Name: "NoReply", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Uncontactable, Width: 100, Name: "Uncontactable", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.InternalAccount, Width: 100, Name: "InternalAccount", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.NeverTouch, Width: 100, Name: "NeverTouch", HeaderAlign: "center", CellAlign: "center" }
+                ],
             showTitle: true,
             titleInfo: {
-                text: "sharedScriptManager.stringFormat(viewResources.ViewListTitle, [scope.getSettingRelationsParams.MainSetting.SettingType])"
+                text: viewResources.InformHeadlinesCases
             },
             bodyRows: bodyData,
             numberOfFrozenColumn: 0,
@@ -67,7 +77,7 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
             headerColumnHeight: 29,
             bodyRowHeight: 25,
             showColumnsShowHide: false,
-            columnsNeedHide: scope.hasSearchPermission === true ? null : [0] 
+            columnsNeedHide: scope.permissionType === "Search" ? null : [0]
         };
 
         tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);

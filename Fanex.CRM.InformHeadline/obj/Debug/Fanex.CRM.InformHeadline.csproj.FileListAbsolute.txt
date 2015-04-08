@@ -45,8 +45,6 @@ D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\DNAide.pdb
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Fanex.Logging.pdb
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Enyim.Caching.pdb
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Enyim.Caching.xml
-D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Microsoft.Practices.Unity.pdb
-D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Microsoft.Practices.Unity.Interception.pdb
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\ru-ru\BundleTransformer.Core.resources.dll
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\obj\Debug\Fanex.CRM.InformHeadline.csprojResolveAssemblyReference.cache
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\obj\Debug\Fanex.CRM.InformHeadline.Resources.Labels.resources

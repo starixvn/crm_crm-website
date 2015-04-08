@@ -10,38 +10,18 @@ camelcase: false */
 viewListApplication.controller('viewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
-        $scope.getSettingRelationsParams = {
-            MainSetting: null
-        };
-
         $scope.listData = null;
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
             $scope.initDefaultOption();
-            $scope.getMainSetting();
+            $scope.getInforms();
         };
-        $scope.getMainSetting = function () {
-            $uiBlockerService.blockUI();
-            var params = {};
-            viewListService.getMainSetting(params)
-                .then(function (data) {
-                    $scope.mainSettingOptions.DataList = data.Result;
-                    $scope.completedLoadFilterInfo();
-                },
-                function (data) {
-                    $scope.completedLoadFilterInfo();
-                });
-        };
-        $scope.completedLoadFilterInfo = function () {
-            $scope.updateSelectedMainSetting($scope.mainSettingOptions.DataList[0]);
-            $scope.getSettingRelations();
-        };
-        $scope.getSettingRelations = function () {
+        $scope.getInforms = function () {
             $uiBlockerService.blockUI();
 
-            viewListService.getSettingRelations($scope.getSettingRelationsParams)
+            viewListService.getInforms()
                 .then(function (data) {
-                    $scope.listData = data.Result;
+                    $scope.listData = data.Result.Items;
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
@@ -49,11 +29,12 @@ viewListApplication.controller('viewListController',
                     $uiBlockerService.unblockUI();
                 });
         };
+        
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);
             registerHotkeyFunctions($scope);
             $scope.initController();
-            $scope.registerHotKey();
+            $scope.registerHotKey();            
         });
     } ]);
