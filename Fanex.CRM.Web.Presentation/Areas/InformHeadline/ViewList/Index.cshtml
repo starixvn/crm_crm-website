@@ -9,14 +9,18 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
     @Styles.Render("~/Areas/InformHeadline/ViewListStyles")
 </head>
-<body class="viewListController" data-ng-controller="viewListController">
-   <div id="contextMenu" class="dropdown clearfix" style="display: none;position: absolute">
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:relative">      
-      <li><a class="edit-menu-item" tabindex="-1" href="#">Edit number of account</a></li>
-      <li class="divider"></li>
-      <li><a class="close-menu-item" tabindex="-1" href="#">Close case</a></li>
-    </ul>
-  </div>
+<body class="viewListController" data-ng-controller="viewListController" 
+    ng-init="hasSearchPermission=@(ViewBag.HasSearchPermission ? "true" : "false")">
+    @if (ViewBag.HasSearchPermission)
+    {
+       <div id="contextMenu" class="dropdown clearfix" style="display: none;position: absolute">
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:relative">      
+          <li><a class="edit-menu-item" tabindex="-1" href="#">Edit number of account</a></li>
+          <li class="divider"></li>
+          <li><a class="close-menu-item" tabindex="-1" href="#">Close case</a></li>
+        </ul>
+      </div>
+    }
     <div class="container main">
         <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
             <div class="col-xs-12 col-sm-12 col-md-12">

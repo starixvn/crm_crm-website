@@ -65,7 +65,9 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
             showTree: true,
             treeParentPaddingLeft: 5,
             headerColumnHeight: 29,
-            bodyRowHeight: 25
+            bodyRowHeight: 25,
+            showColumnsShowHide: false,
+            columnsNeedHide: scope.hasSearchPermission === true ? null : [0] 
         };
 
         tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
@@ -78,7 +80,7 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
         });
         tableSetting.on("click", ".actionButton", function (e) {
             var $element = angular.element(e.target);
-            
+
             var offset = $element.offset();
             $contextMenu.show().css({
                 display: "block",

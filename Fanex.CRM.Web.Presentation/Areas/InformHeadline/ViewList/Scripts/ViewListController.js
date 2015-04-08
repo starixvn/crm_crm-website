@@ -49,7 +49,6 @@ viewListApplication.controller('viewListController',
                     $uiBlockerService.unblockUI();
                 });
         };
-
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);
