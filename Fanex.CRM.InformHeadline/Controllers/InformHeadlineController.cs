@@ -9,6 +9,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Services;
     using Fanex.NAP.Core.Business;
@@ -57,6 +58,15 @@ namespace Fanex.CRM.InformHeadline.Controllers
             var informs = _informHeadlineService.GetInforms(criteria);                        
             var result = new { Items = informs };
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
+        public void ExportInforms(GetInformHeadlineCriteria criteria)
+        {
+            const string FILENAME = "InformHeadlines";
+            var excel = _informHeadlineService.GetInformHeadlineExcel(criteria, FILENAME);
+            excel.BuildWorkBook();
+            excel.ResponseStreamExcel();
         }
 
         /// <summary>

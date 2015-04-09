@@ -29,7 +29,7 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
                             {
                                 Name: "Edit", Value: '<button type="button" class="actionButton" href="#">&nbsp;</button>'
                             },
-                            { Name: "Title", Value: item.Title },
+                            { Name: "Title", Value: '<a href="javascript:void(0)">' + item.Title + '</a>' },
                             { Name: "CreatedDate", Value: item.CreatedDate },
                             { Name: "NoDirectAccounts", Value: item.Total },
                             { Name: "Status", Value: item.Status },
@@ -41,7 +41,7 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
                             { Name: "InternalAccount", Value: item.InternalAccount },
                             { Name: "NeverTouch", Value: item.NeverTouch }
                         ],
-                       CssClass: "status-" + item.Status.toLowerCase()
+                    CssClass: "status-" + item.Status.toLowerCase()
                 });
             }
         }
@@ -63,7 +63,11 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
                 ],
             showTitle: true,
             titleInfo: {
-                text: viewResources.InformHeadlinesCases
+                text: viewResources.InformHeadlinesCases,
+                showExcelButton: true,
+                exportExcelFunction: function () {
+                    scope.exportInformHeadlines();
+                }
             },
             bodyRows: bodyData,
             numberOfFrozenColumn: 0,
@@ -81,7 +85,7 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
         };
 
         tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var $contextMenu = $("#contextMenu");
+        var $contextMenu = angular.element("#contextMenu");
         $document.click(function () {
             $contextMenu.hide();
         });
@@ -90,6 +94,13 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
         });
         tableSetting.on("click", ".actionButton", function (e) {
             var $element = angular.element(e.target);
+            
+            $contextMenu.find("li").hide();
+            if ($element.closest("tr").hasClass("status-closed")) {
+                $contextMenu.find(".status-closed").show();
+            } else {                
+                $contextMenu.find(":not(.status-closed)").show();
+            }
 
             var offset = $element.offset();
             $contextMenu.show().css({

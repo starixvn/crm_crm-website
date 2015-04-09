@@ -9,6 +9,7 @@ namespace Fanex.CRM.InformHeadline.Services
     using System;
     using System.Collections.Generic;
     using Fanex.CRM.InformHeadline.Criteria;
+    using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Repositories;
     using Fanex.CRM.Infrastructure.Helpers;
@@ -22,12 +23,12 @@ namespace Fanex.CRM.InformHeadline.Services
 
         public InformHeadlineService()
             : this(null)
-        {
+        {            
         }
 
         public InformHeadlineService(IInformHeadlineRepository informHeadlineRepository)
         {
-            _informHeadlineRepository = informHeadlineRepository ?? new InformHeadlineRepository();            
+            _informHeadlineRepository = informHeadlineRepository ?? new InformHeadlineRepository();
         }
 
         /// <summary>
@@ -46,6 +47,19 @@ namespace Fanex.CRM.InformHeadline.Services
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Exports the get casino daily summaries.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="fileName">File name.</param>
+        /// <returns>Inform headline excel.</returns>
+        public InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlineCriteria criteria, string fileName)
+        {
+            var data = _informHeadlineRepository.GetInforms(criteria);
+
+            return new InformHeadlineExcel(data, fileName);
         }
     }
 }

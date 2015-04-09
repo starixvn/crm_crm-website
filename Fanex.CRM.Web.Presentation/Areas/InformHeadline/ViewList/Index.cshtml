@@ -11,10 +11,12 @@
 </head>
 <body class="viewListController" data-ng-controller="viewListController" 
     data-ng-init="permissionType='@ViewBag.PermissionType';policy='@ViewBag.Policy';">
-    <div>@ViewBag.PermissionType</div>
-    <div>@ViewBag.Policy</div>
+     <div class="row download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
        <div id="contextMenu" class="dropdown clearfix" style="display: none;position: absolute">
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:relative">      
+          <li class="status-closed"><a class="edit-menu-item" tabindex="-1" href="#">Open case</a></li>
           <li><a class="edit-menu-item" tabindex="-1" href="#">Edit number of account</a></li>
           <li class="divider"></li>
           <li><a class="close-menu-item" tabindex="-1" href="#">Close case</a></li>
@@ -43,7 +45,7 @@
                 <button id="buttoninsert" class="btn">
                     <span class="hotkey">N</span>ew Case</button>
             </div>        
-        }
+        }       
     </div>
 
     @Scripts.Render("~/Scripts/CommomScripts")
@@ -51,6 +53,7 @@
     @Scripts.Render(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
         "~/Scripts/FanexGridScripts",
+        "~/CRM/DownLoadFile/Scripts",
         "~/Areas/InformHeadline/ViewListScripts")
         <script type='text/javascript'
   src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>

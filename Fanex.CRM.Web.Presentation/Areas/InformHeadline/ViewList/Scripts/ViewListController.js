@@ -29,12 +29,19 @@ viewListApplication.controller('viewListController',
                     $uiBlockerService.unblockUI();
                 });
         };
-        
+        $scope.exportInformHeadlines = function () {
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + 'InformHeadline/ExportInforms',
+                Params: { IsCached: true }
+            };
+
+            $scope.$apply();
+        };
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);
             registerHotkeyFunctions($scope);
             $scope.initController();
-            $scope.registerHotKey();            
+            $scope.registerHotKey();
         });
     } ]);

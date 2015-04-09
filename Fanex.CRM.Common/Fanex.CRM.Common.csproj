@@ -89,6 +89,7 @@
     <Compile Include="Enumerations\CRMStatus.cs" />
     <Compile Include="Enumerations\ReportType.cs" />
     <Compile Include="Enumerations\RevewMode.cs" />
+    <Compile Include="Excel\BaseExcel.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
     <Compile Include="Extensions\NpoiExcelExtensions.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
