@@ -10,6 +10,7 @@ namespace Fanex.CRM.InformHeadline.Services
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -19,5 +20,7 @@ namespace Fanex.CRM.InformHeadline.Services
         IList<InformHeadline> GetInforms(GetInformHeadlineCriteria criteria);
 
         InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlineCriteria criteria, string fileName);
+
+        Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria);
     }
 }

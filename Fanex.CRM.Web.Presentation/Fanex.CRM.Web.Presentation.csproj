@@ -663,6 +663,7 @@
     <Content Include="Scripts\FanexGridV2\moment.js" />
     <Content Include="Scripts\FanexGridV2\numeral.js" />
     <Content Include="Scripts\jquery-ui-1.8.6.custom.min.js" />
+    <Content Include="Scripts\Global\site.js" />
     <Content Include="Scripts\JQuery\jquery-1.8.2.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
     <Content Include="Scripts\JQuery\jquery.fileDownload.js" />
@@ -1207,6 +1208,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\InformHeadline\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_BaseLayout.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

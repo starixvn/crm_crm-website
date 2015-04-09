@@ -7,8 +7,10 @@
 namespace Fanex.CRM.InformHeadline.Repositories
 {
     using System.Collections.Generic;
+    using Fanex.Common;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Models;
+    using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
 
     /// <summary>
@@ -34,6 +36,29 @@ namespace Fanex.CRM.InformHeadline.Repositories
                 
                 return informs;
             }
+        }
+
+        /// <summary>
+        /// Update inform status.
+        /// </summary>
+        /// <param name="criteria">Criteria data.</param>
+        /// <returns>Result object.</returns>
+        public Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria)
+        {
+            Result editResult = null;
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                editResult = new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
+            }
+
+            return editResult;
         }
     }
 }

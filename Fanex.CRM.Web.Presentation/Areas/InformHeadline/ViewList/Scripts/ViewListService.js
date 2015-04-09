@@ -10,5 +10,10 @@ viewListApplication.factory('viewListService',
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 
+        serviceInstance.updateInformStatus = function (params) {
+            var url = window.rootUrl + "InformHeadline/UpdateInformStatus";
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
+        };
+
         return serviceInstance;
     } ]);

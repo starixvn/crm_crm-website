@@ -13,6 +13,7 @@ namespace Fanex.CRM.InformHeadline.Services
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Repositories;
     using Fanex.CRM.Infrastructure.Helpers;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -60,6 +61,24 @@ namespace Fanex.CRM.InformHeadline.Services
             var data = _informHeadlineRepository.GetInforms(criteria);
 
             return new InformHeadlineExcel(data, fileName);
+        }
+
+        /// <summary>
+        /// Update inform status.
+        /// </summary>
+        /// <param name="criteria">Criteria data.</param>
+        /// <returns>Result object.</returns>
+        public Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria)
+        {
+            try
+            {
+                return _informHeadlineRepository.UpdateInformStatus(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
         }
     }
 }

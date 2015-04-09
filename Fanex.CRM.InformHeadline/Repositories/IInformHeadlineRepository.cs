@@ -12,6 +12,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
     using System.Text;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Models;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -19,5 +20,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
     public interface IInformHeadlineRepository
     {
         IList<InformHeadline> GetInforms(GetInformHeadlineCriteria criteria);
+
+        Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria);
     }
 }

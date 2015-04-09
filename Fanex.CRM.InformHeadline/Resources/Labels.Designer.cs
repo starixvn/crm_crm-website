@@ -185,5 +185,14 @@ namespace Fanex.CRM.InformHeadline.Resources {
                 return ResourceManager.GetString("Uncontactable", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Failed!.
+        /// </summary>
+        public static string UpdateFailed {
+            get {
+                return ResourceManager.GetString("UpdateFailed", resourceCulture);
+            }
+        }
     }
 }

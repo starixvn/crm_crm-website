@@ -159,4 +159,7 @@
   <data name="Uncontactable" xml:space="preserve">
     <value>Uncontactable</value>
   </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Update Failed!</value>
+  </data>
 </root>

@@ -1,28 +1,35 @@
 ﻿﻿@using Fanex.CRM.InformHeadline.Resources;
 @using Fanex.CRM.Infrastructure.Extensions;
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="inform-headline-application">
-<head>
-    <title>@Labels.InformHeadlines</title>
-    @Styles.Render("~/site/common")
+@{    
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+@{
+    ViewBag.Title = Labels.InformHeadlines;
+}    
+@section Styles{
+
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
+
     @Styles.Render("~/Areas/InformHeadline/ViewListStyles")
-</head>
-<body class="viewListController" data-ng-controller="viewListController" 
+}
+<div data-ng-app="inform-headline-application">
+<div class="viewListController" data-ng-controller="viewListController" 
     data-ng-init="permissionType='@ViewBag.PermissionType';policy='@ViewBag.Policy';">
+
+    @if (ViewBag.PermissionType != null)
+    {
      <div class="row download-file-container" data-ng-model="downloadFileOptions">
             <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
        <div id="contextMenu" class="dropdown clearfix" style="display: none;position: absolute">
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu" style="display:block;position:relative">      
-          <li class="status-closed"><a class="edit-menu-item" tabindex="-1" href="#">Open case</a></li>
+          <li class="status-closed"><a data-status="0" class="open-menu-item" tabindex="-1" href="#">Open case</a></li>
           <li><a class="edit-menu-item" tabindex="-1" href="#">Edit number of account</a></li>
           <li class="divider"></li>
-          <li><a class="close-menu-item" tabindex="-1" href="#">Close case</a></li>
+          <li><a class="close-menu-item" data-status="1" tabindex="-1" href="#">Close case</a></li>
         </ul>
-      </div>
-    
+      </div>    
     <div class="container main">
         <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -47,34 +54,41 @@
             </div>        
         }       
     </div>
-
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    @Scripts.Render(
-        "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
-        "~/Scripts/FanexGridScripts",
-        "~/CRM/DownLoadFile/Scripts",
-        "~/Areas/InformHeadline/ViewListScripts")
-        <script type='text/javascript'
-  src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        parent.document.title = '@Labels.InformHeadlines';
-        window.rootUrl = '@Url.Content("~")';
-        var viewResources = {
-            Edit: '@Labels.Edit',
-            InformHeadlinesCases: '@Labels.InformHeadlinesCases',
-            Title: '@Labels.Title',
-            CreatedDate: '@Labels.CreatedDate',
-            NoDirectAccounts: '@Labels.NoDirectAccounts',
-            Status: '@Labels.Status',
-            Done: '@Labels.Done',
-            RequestToCallBack: '@Labels.RequestToCallBack',
-            NoNeedToCall: '@Labels.NoNeedToCall',
-            NoReply: '@Labels.NoReply',
-            Uncontactable: '@Labels.Uncontactable',
-            InternalAccount: '@Labels.InternalAccount',
-            NeverTouch: '@Labels.NeverTouch'
-        };
-    </script>
-</body>
-</html>
+       
+    @section Scripts {
+        @Scripts.Render("~/Scripts/CommomScripts")
+        @Scripts.Render("~/Scripts/AngularJSLibrary")
+        @Scripts.Render(
+            "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+            "~/Scripts/FanexGridScripts",
+            "~/CRM/DownLoadFile/Scripts",
+            "~/Areas/InformHeadline/ViewListScripts")
+            <script type='text/javascript'
+      src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            parent.document.title = '@Labels.InformHeadlines';
+            var viewResources = {
+                Edit: '@Labels.Edit',
+                InformHeadlinesCases: '@Labels.InformHeadlinesCases',
+                Title: '@Labels.Title',
+                CreatedDate: '@Labels.CreatedDate',
+                NoDirectAccounts: '@Labels.NoDirectAccounts',
+                Status: '@Labels.Status',
+                Done: '@Labels.Done',
+                RequestToCallBack: '@Labels.RequestToCallBack',
+                NoNeedToCall: '@Labels.NoNeedToCall',
+                NoReply: '@Labels.NoReply',
+                Uncontactable: '@Labels.Uncontactable',
+                InternalAccount: '@Labels.InternalAccount',
+                NeverTouch: '@Labels.NeverTouch',
+                UpdateFailed: '@Labels.UpdateFailed'
+            };
+        </script>   
+        }     
+    }
+    else
+    {
+        <div class="text-center text-danger">@Fanex.CRM.Infrastructure.Resources.Labels.NoPermission</div>
+    }
+</div>
+</div>

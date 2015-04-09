@@ -51,7 +51,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return View("~/Areas/InformHeadline/ViewList/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineUpdateStatus, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetInforms(GetInformHeadlineCriteria criteria)
         {
@@ -60,13 +60,21 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         public void ExportInforms(GetInformHeadlineCriteria criteria)
         {
             const string FILENAME = "InformHeadlines";
             var excel = _informHeadlineService.GetInformHeadlineExcel(criteria, FILENAME);
             excel.BuildWorkBook();
             excel.ResponseStreamExcel();
+        }
+
+        [HttpPost]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        public JsonResult UpdateInformStatus(UpdateInformHeadlineCriteria criteria)
+        {            
+            var result = _informHeadlineService.UpdateInformStatus(criteria);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

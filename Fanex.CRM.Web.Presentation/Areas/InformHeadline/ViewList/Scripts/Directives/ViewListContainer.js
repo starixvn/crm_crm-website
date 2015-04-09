@@ -16,9 +16,9 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
             return;
         }
 
-        var tableSetting = element.find("#inform-headline-list");
+        var $tableSetting = element.find("#inform-headline-list");
         var bodyData = [];
-        tableSetting.empty();
+        $tableSetting.empty();
         var rowsCount = scope.listData.length;
         if (rowsCount > 0) {
             for (var i = 0; i < rowsCount; i++) {
@@ -41,7 +41,8 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
                             { Name: "InternalAccount", Value: item.InternalAccount },
                             { Name: "NeverTouch", Value: item.NeverTouch }
                         ],
-                    CssClass: "status-" + item.Status.toLowerCase()
+                    CssClass: 'status-' + item.Status.toLowerCase(),
+                    CustomAttr: 'data-title-id=' + item.TitleId
                 });
             }
         }
@@ -84,7 +85,7 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
             columnsNeedHide: scope.permissionType === "Search" ? null : [0]
         };
 
-        tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+        $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
         var $contextMenu = angular.element("#contextMenu");
         $document.click(function () {
             $contextMenu.hide();
@@ -92,13 +93,25 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
         angular.element(".grid-container").scroll(function () {
             $contextMenu.hide();
         });
-        tableSetting.on("click", ".actionButton", function (e) {
+        $contextMenu.on("click", "a", function (e) {
             var $element = angular.element(e.target);
-            
+            if ($element.hasClass("edit-menu-item")) {
+                // not implemented.
+            }
+            else {
+                var titleId = $contextMenu.data("title-id");
+                var status = $element.data("status");
+                scope.updateInformStatus(titleId, status);
+            }
+        });
+        $tableSetting.on("click", ".actionButton", function (e) {
+            var $element = angular.element(e.target);
+            var titleId = $element.closest("tr").data("title-id");
+            $contextMenu.data("title-id", titleId);
             $contextMenu.find("li").hide();
             if ($element.closest("tr").hasClass("status-closed")) {
                 $contextMenu.find(".status-closed").show();
-            } else {                
+            } else {
                 $contextMenu.find(":not(.status-closed)").show();
             }
 

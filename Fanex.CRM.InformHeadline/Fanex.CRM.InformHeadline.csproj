@@ -38,6 +38,10 @@
     <Reference Include="BundleTransformer.Core">
       <HintPath>..\packages\BundleTransformer.Core.1.9.52\lib\net40\BundleTransformer.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Dependency\Fanex\Fanex.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Data, Version=0.5.404.63, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Data.0.5.404.63\lib\net40\Fanex.Data.dll</HintPath>
     </Reference>
@@ -99,6 +103,7 @@
   <ItemGroup>
     <Compile Include="App_Start\InformHeadlineBundles.cs" />
     <Compile Include="Controllers\InformHeadlineController.cs" />
+    <Compile Include="Criteria\UpdateInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\GetInformHeadlineCriteria.cs" />
     <Compile Include="Excel\InformHeadlineExcel.cs" />
     <Compile Include="Models\InformHeadline.cs" />
