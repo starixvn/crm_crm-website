@@ -49,7 +49,7 @@
         @if (ViewBag.PermissionType == "Search" && ViewBag.Policy == "Host")
         {
             <div class="row btn-group">
-                <button id="buttoninsert" class="btn">
+                <button id="buttoninsert" class="btn" data-ng-click="showAddCaseDialog()">
                     <span class="hotkey">N</span>ew Case</button>
             </div>        
         }       
@@ -81,7 +81,8 @@
                 Uncontactable: '@Labels.Uncontactable',
                 InternalAccount: '@Labels.InternalAccount',
                 NeverTouch: '@Labels.NeverTouch',
-                UpdateFailed: '@Labels.UpdateFailed'
+                UpdateFailed: '@Labels.UpdateFailed',
+                NewInformHeadlines: '@Labels.NewInformHeadlines'
             };
         </script>   
         }     

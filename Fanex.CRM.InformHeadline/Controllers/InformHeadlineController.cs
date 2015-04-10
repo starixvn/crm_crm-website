@@ -51,6 +51,13 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return View("~/Areas/InformHeadline/ViewList/Index.cshtml");
         }
 
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [HttpGet]
+        public ActionResult NewInform()
+        {            
+            return View("~/Areas/InformHeadline/NewInform/Index.cshtml");
+        }
+
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetInforms(GetInformHeadlineCriteria criteria)

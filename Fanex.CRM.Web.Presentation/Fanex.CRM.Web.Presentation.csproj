@@ -403,6 +403,18 @@
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\warning.png" />
+    <Content Include="Areas\InformHeadline\NewInform\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\InformHeadline\NewInform\Scripts\Directives\ViewListContainer.js" />
+    <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListApplication.js" />
+    <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
+    <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController_HotKey.js" />
+    <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController_Options.js" />
+    <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController_Update.js" />
+    <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListService.js" />
+    <Content Include="Areas\InformHeadline\NewInform\Styles\Images\close-case.png" />
+    <Content Include="Areas\InformHeadline\NewInform\Styles\Images\edit.png" />
+    <Content Include="Areas\InformHeadline\NewInform\Styles\Images\list.png" />
+    <Content Include="Areas\InformHeadline\NewInform\Styles\Images\open-case.png" />
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\close-case.png" />
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\edit.png" />
     <Content Include="Areas\InformHeadline\ViewList\Styles\Images\list.png" />
@@ -1211,6 +1223,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_BaseLayout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\InformHeadline\NewInform\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\InformHeadline\NewInform\Styles\ViewList.less" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

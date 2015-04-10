@@ -124,6 +124,15 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Inform Headlines.
+        /// </summary>
+        public static string NewInformHeadlines {
+            get {
+                return ResourceManager.GetString("NewInformHeadlines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No. of Direct Accounts.
         /// </summary>
         public static string NoDirectAccounts {

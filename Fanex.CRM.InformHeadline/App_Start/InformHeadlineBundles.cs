@@ -21,11 +21,12 @@ namespace Fanex.CRM.InformHeadline
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            RegisterInformHeadlineViewListBundles(bundles);            
+            RegisterInformHeadlineViewListBundles(bundles);
+            RegisterInformHeadlineNewInformBundles(bundles);    
         }
 
         /// <summary>
-        /// Register Setting Relation View List Bundles.
+        /// Register View List Bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
         private static void RegisterInformHeadlineViewListBundles(BundleCollection bundles)
@@ -50,6 +51,34 @@ namespace Fanex.CRM.InformHeadline
                 bundles,
                 "~/Areas/InformHeadline/ViewListStyles",
                 "~/Areas/InformHeadline/ViewList/Styles/ViewList.less");
+        }
+
+        /// <summary>
+        /// Register New Inform Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterInformHeadlineNewInformBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/InformHeadline/NewInformScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/InformHeadline/NewInform/Scripts/ViewListApplication.js",
+                "~/Areas/InformHeadline/NewInform/Scripts/ViewListService.js",
+                "~/Areas/InformHeadline/NewInform/Scripts/ViewListController.js",
+                "~/Areas/InformHeadline/NewInform/Scripts/ViewListController_Options.js",
+                "~/Areas/InformHeadline/NewInform/Scripts/ViewListController_Update.js",
+                "~/Areas/InformHeadline/NewInform/Scripts/ViewListController_HotKey.js",
+                "~/Areas/InformHeadline/NewInform/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/InformHeadline/NewInformStyles",
+                "~/Areas/InformHeadline/NewInform/Styles/ViewList.less");
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)

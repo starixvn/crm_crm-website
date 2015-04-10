@@ -138,6 +138,9 @@
   <data name="NeverTouch" xml:space="preserve">
     <value>Never touch</value>
   </data>
+  <data name="NewInformHeadlines" xml:space="preserve">
+    <value>New Inform Headlines</value>
+  </data>
   <data name="NoDirectAccounts" xml:space="preserve">
     <value>No. of Direct Accounts</value>
   </data>

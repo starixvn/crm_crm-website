@@ -61,6 +61,26 @@ viewListApplication.controller('viewListController',
                 },
                 handleUpdateFailed);
         };
+        $scope.showAddCaseDialog = function () {
+            console.log(parent);
+            parent.homeManager.CachedData.shouldReloadView = false;
+            parent.OpenPopup(
+                window.rootUrl + "InformHeadline/NewInform?" +
+                    $.param({
+                        settingId: 1
+                    }),
+                viewResources.NewInformHeadlines,
+                900,
+                700,
+                true,
+                false,
+                parent.window,
+                3000,
+                null,
+                $scope.closeEditView,
+                ['center', 50],
+                $scope.beforeCloseEditView);
+        };
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);
