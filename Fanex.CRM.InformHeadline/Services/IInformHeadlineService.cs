@@ -7,6 +7,7 @@
 namespace Fanex.CRM.InformHeadline.Services
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
@@ -17,10 +18,15 @@ namespace Fanex.CRM.InformHeadline.Services
     /// </summary>
     public interface IInformHeadlineService
     {
-        IList<InformHeadline> GetInforms(GetInformHeadlineCriteria criteria);
+        IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
 
-        InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlineCriteria criteria, string fileName);
+        InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName);
 
         Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria);
+
+        IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria);
+
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        dynamic GetFilterSettings();
     }
 }

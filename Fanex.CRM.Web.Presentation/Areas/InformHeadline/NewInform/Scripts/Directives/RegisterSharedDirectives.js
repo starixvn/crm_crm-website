@@ -19,6 +19,7 @@ function viewListRegisterPicker() {
     };
 
     directiveManager.registerDropdownContainer(viewListApplication, mainSettingRegisterParams);
+    viewListRegister.registerSiteMultiSelectPicker();
 }
 
 viewListRegisterPicker();

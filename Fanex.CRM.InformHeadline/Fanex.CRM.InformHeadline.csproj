@@ -103,9 +103,11 @@
   <ItemGroup>
     <Compile Include="App_Start\InformHeadlineBundles.cs" />
     <Compile Include="Controllers\InformHeadlineController.cs" />
+    <Compile Include="Criteria\GetDirectAccountsCriteria.cs" />
     <Compile Include="Criteria\UpdateInformHeadlineCriteria.cs" />
-    <Compile Include="Criteria\GetInformHeadlineCriteria.cs" />
+    <Compile Include="Criteria\GetInformHeadlinesCriteria.cs" />
     <Compile Include="Excel\InformHeadlineExcel.cs" />
+    <Compile Include="Models\DirectAccount.cs" />
     <Compile Include="Models\InformHeadline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IInformHeadlineRepository.cs" />

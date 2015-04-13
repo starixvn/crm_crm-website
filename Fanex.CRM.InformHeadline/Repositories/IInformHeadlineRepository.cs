@@ -19,8 +19,10 @@ namespace Fanex.CRM.InformHeadline.Repositories
     /// </summary>
     public interface IInformHeadlineRepository
     {
-        IList<InformHeadline> GetInforms(GetInformHeadlineCriteria criteria);
+        IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
 
         Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria);
+
+        IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria);
     }
 }

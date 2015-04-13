@@ -32,6 +32,8 @@ namespace Fanex.CRM.InformHeadline.Controllers
             _informHeadlineService = informHeadlineService ?? new InformHeadlineService();
         }
 
+        #region InformHeadline Cases
+
         /// <summary>
         /// Index action.
         /// </summary>
@@ -51,16 +53,9 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return View("~/Areas/InformHeadline/ViewList/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
-        [HttpGet]
-        public ActionResult NewInform()
-        {            
-            return View("~/Areas/InformHeadline/NewInform/Index.cshtml");
-        }
-
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
         [HttpPost]
-        public ActionResult GetInforms(GetInformHeadlineCriteria criteria)
+        public ActionResult GetInforms(GetInformHeadlinesCriteria criteria)
         {
             var informs = _informHeadlineService.GetInforms(criteria);                        
             var result = new { Items = informs };
@@ -68,7 +63,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
         }
 
         [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
-        public void ExportInforms(GetInformHeadlineCriteria criteria)
+        public void ExportInforms(GetInformHeadlinesCriteria criteria)
         {
             const string FILENAME = "InformHeadlines";
             var excel = _informHeadlineService.GetInformHeadlineExcel(criteria, FILENAME);
@@ -82,6 +77,31 @@ namespace Fanex.CRM.InformHeadline.Controllers
         {            
             var result = _informHeadlineService.UpdateInformStatus(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion InformHeadline Cases
+
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [HttpGet]
+        public ActionResult NewInform()
+        {
+            return View("~/Areas/InformHeadline/NewInform/Index.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult GetDirectAccounts(GetDirectAccountsCriteria criteria)
+        {
+            var data = _informHeadlineService.GetDirectAccounts(criteria);
+            var result = new { Items = data };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        public ActionResult AllSettings()
+        {
+            return Json(_informHeadlineService.GetFilterSettings(), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

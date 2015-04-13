@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\CommunicationToolConstants.cs" />
+    <Compile Include="Constants\LicenseeTypeConstants.cs" />
     <Compile Include="Constants\CustomerTypeConstants.cs" />
     <Compile Include="Constants\ExtensionConstants.cs" />
     <Compile Include="Constants\FeedbackStatisticFilterType.cs" />

@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Setting.Criteria
 {
+    using Fanex.CRM.Setting.Constants;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -16,6 +17,13 @@ namespace Fanex.CRM.Setting.Criteria
     /// </summary>
     public class GetAllSiteCriteria : CriteriaBase
     {
+        public GetAllSiteCriteria()
+        {
+            LicenseeType = LicenseeTypeConstants.All;
+        }
+
+        public int LicenseeType { get; set; }
+
         public override string GetSettingKey()
         {
             return "Setting_SettingInfo_GetAllSite";

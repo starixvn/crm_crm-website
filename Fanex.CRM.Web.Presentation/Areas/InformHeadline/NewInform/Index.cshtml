@@ -5,109 +5,113 @@
 }
 @{
     ViewBag.Title = Labels.InformHeadlines;
-}    
+}
 @section Styles{
-
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
-
+    @Styles.Render("~/Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.css")
     @Styles.Render("~/Areas/InformHeadline/NewInformStyles")
 }
 <div data-ng-app="inform-headline-application">
-<div class="viewListController" data-ng-controller="viewListController">
-     <div class="row download-file-container" data-ng-model="downloadFileOptions">
+    <div class="viewListController" data-ng-controller="viewListController">
+        <div class="row download-file-container" data-ng-model="downloadFileOptions">
             <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
-        </div>          
-    <div class="container main">
-         <div class="row filter-frm one-row deletedFeedback">
-            <form novalidate data-ng-submit="searchDeletedFeedback();">
-            <div class="row row-item">
-                <div class="">                    
-                    <input type="text" id="txtTitle" placeholder="Title" class="textbox" data-ng-model="searchCriteria.Username" />
-                </div>
-            </div>
-            <div class="row row-item">
-                <div class="item">                    
-                    <input type="text" id="txtTitle" placeholder="Title" class="textbox" data-ng-model="searchCriteria.Username" />
-                </div>
-                <div class="item">
-                    <label for="txtfromdate" class="width-70">
-                        Labels.FromDate</label>
-                    <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                        <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+        </div>
+        <div class="container main">
+            <div class="row filter-frm one-row deletedFeedback">
+                <form novalidate data-ng-submit="searchDeletedFeedback();">
+                <div class="row row-item">
+                    <div class="">
+                        <input type="text" id="txtTitle" placeholder="@Labels.Title" class="textbox" data-ng-model="searchCriteria.Username" />
                     </div>
                 </div>
-                <div class="item">
-                    <label for="txttodate" class="lblToDate">
-                        Labels.ToDate</label>
-                    <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                        <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                <div class="row row-item">
+                    <div class="item">
+                        <label for="txtfromdate" class="width-70">
+                            @Labels.Currency</label>
+                        <div class="display-inline-block">
+                            <dropdowntree ng-model="selectedCurrencies" data-settings="currencyDropdownSettings"></dropdowntree>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="txtfromdate" class="width-70">
+                            @Labels.Position</label>
+                        <div class="display-inline-block">
+                            <dropdowntree ng-model="selectedPositions" data-settings="positionDropdownSettings"></dropdowntree>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for="txtfromdate" class="width-70">
+                            @Labels.Site</label>
+                        <div class="display-inline-block">
+                            <dropdowntree ng-model="selectedSites" data-settings="siteDropdownSettings"></dropdowntree>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <button class="btn" data-ng-click="getDirectAccounts()">@Labels.Search</button>
                     </div>
                 </div>
-                 <div class="item">
-                    <button class="btn">Labels.Submit</button>
+                <div class="row row-item">
+                    <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
+                        <label for="main-category" class="width-80">@Labels.DirectAccounts</label>
+                        <div class="display-inline-block">
+                            <input id="headlineCheckBox" type="checkbox" data-ng-model="headlineChecked" />
+                            <label for="headlineCheckBox" class="width-80">@Labels.Headline</label>
+                            {{directChecked}}
+                            <input id="directCheckBox" type="checkbox" data-ng-model="directChecked" />
+                            <label for="directCheckBox" class="width-80">@Labels.WithoutAnyGroup</label>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="row">
+                <div id="inform-headline-list-container" class="inform-headline-list-container" data-ng-model="listData">
+                    <div id="inform-headline-list" class="freegrid display-none">
+                    </div>
                 </div>
             </div>
-            <div class="row row-item">
-                <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
-                    <label for="main-category" class="width-80">
-                        Labels.MainCategory</label>
-                    <select id="main-category" class="selMainCategory">
-                    </select>
-                </div>
-                <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
-                    <label for="sub-category" class="width-70">
-                        Labels.SubCategory</label>
-                    <select id="sub-category" class="selSubCategory">
-                    </select>
-                </div>
-            </div>
-            </form>
+            @if (ViewBag.PermissionType == "Search" && ViewBag.Policy == "Host")
+            {
+                <div class="row btn-group">
+                    <button id="buttoninsert" class="btn" data-ng-click="showAddCaseDialog()">
+                        <span class="hotkey">N</span>ew Case</button>
+                </div>        
+            }
         </div>
-        <div class="row">
-            <div id="inform-headline-list-container" class="inform-headline-list-container" data-ng-model="listData">
-                <div id="inform-headline-list" class="freegrid display-none">
-                </div>
-            </div>
-        </div>
-        @if (ViewBag.PermissionType == "Search" && ViewBag.Policy == "Host")
-        {
-            <div class="row btn-group">
-                <button id="buttoninsert" class="btn" data-ng-click="showAddCaseDialog()">
-                    <span class="hotkey">N</span>ew Case</button>
-            </div>        
-        }       
-    </div>
-       
-    @section Scripts {
-        @Scripts.Render("~/Scripts/CommomScripts")
-        @Scripts.Render("~/Scripts/AngularJSLibrary")
-        @Scripts.Render(
+        @section Scripts {
+            @Scripts.Render("~/Scripts/CommomScripts")
+            @Scripts.Render("~/Scripts/AngularJSLibrary")
+            <script src="../../../Scripts/AngularJS/angular-sanitize.min.js" type="text/javascript"></script>
+            @Scripts.Render("~/Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.min.js")
+            @Scripts.Render(
             "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
             "~/Scripts/FanexGridScripts",
             "~/CRM/DownLoadFile/Scripts",
-            "~/Areas/InformHeadline/ViewListScripts")
-            <script type='text/javascript'
-      src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-            parent.document.title = '@Labels.InformHeadlines';
-            var viewResources = {
-                Edit: '@Labels.Edit',
-                InformHeadlinesCases: '@Labels.InformHeadlinesCases',
-                Title: '@Labels.Title',
-                CreatedDate: '@Labels.CreatedDate',
-                NoDirectAccounts: '@Labels.NoDirectAccounts',
-                Status: '@Labels.Status',
-                Done: '@Labels.Done',
-                RequestToCallBack: '@Labels.RequestToCallBack',
-                NoNeedToCall: '@Labels.NoNeedToCall',
-                NoReply: '@Labels.NoReply',
-                Uncontactable: '@Labels.Uncontactable',
-                InternalAccount: '@Labels.InternalAccount',
-                NeverTouch: '@Labels.NeverTouch',
-                UpdateFailed: '@Labels.UpdateFailed'
-            };
-        </script>   
-        }     
-</div>
+                     "~/Areas/InformHeadline/NewInformScripts")<script src="../../../Scripts/AngularJS/angular-sanitize.min.js"
+                         type="text/javascript"></script>
+            <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+            <script type="text/javascript">
+                parent.document.title = '@Labels.InformHeadlines';
+                var viewResources = {
+                    Title: '@Labels.Title',
+                    Status: '@Labels.Status',
+                    Search: '@Labels.Search',
+                    Currency: '@Labels.Currency',
+                    Position: '@Labels.Position',
+                    Site: '@Labels.Site',
+                    DirectAccounts: '@Labels.DirectAccounts',
+                    Headline: '@Labels.Headline',
+                    WithoutAnyGroup: '@Labels.WithoutAnyGroup',
+                    UpdatedTime: '@Labels.UpdatedTime',
+                    Remark: '@Labels.Remark',
+                    Handler: '@Labels.Handler',
+                    Extension: '@Labels.Extension',
+                    ProductStatus: '@Labels.ProductStatus',
+                    Save: '@Labels.Save',
+                    NewInformHeadlines: '@Labels.NewInformHeadlines'
+                };
+            </script>
+        }
+    </div>
 </div>

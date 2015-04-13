@@ -142,11 +142,12 @@ namespace Fanex.CRM.Setting.Services
         /// <summary>
         /// Gets all site.
         /// </summary>
+        /// <param name="criteria">Get all site criteria.</param>
         /// <returns>All site value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public List<SiteInfo> AllSite()
+        public List<SiteInfo> AllSite(GetAllSiteCriteria criteria = null)
         {
             try
             {
@@ -158,7 +159,7 @@ namespace Fanex.CRM.Setting.Services
                 }
 
                 allSite = new List<SiteInfo>();
-                var crmSite = GetDynamicData<SiteInfo>(new GetAllSiteCriteria());
+                var crmSite = GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
                 var rawDataGroups = crmSite.GroupBy(setting => setting.IsLicensee);
                 foreach (var rawDataGroup in rawDataGroups)
                 {

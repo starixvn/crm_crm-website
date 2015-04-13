@@ -25,21 +25,9 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
                 var item = listData[i];
 
                 bodyData.push({
-                    Columns: [
-                            {
-                                Name: "Edit", Value: '<button type="button" class="actionButton" href="#">&nbsp;</button>'
-                            },
-                            { Name: "Title", Value: '<a href="javascript:void(0)">' + item.Title + '</a>' },
-                            { Name: "CreatedDate", Value: item.CreatedDate },
-                            { Name: "NoDirectAccounts", Value: item.Total },
-                            { Name: "Status", Value: item.Status },
-                            { Name: "Done", Value: item.Done },
-                            { Name: "RequestToCallBack", Value: item.RequestToCallBack },
-                            { Name: "NoNeedToCall", Value: item.NoNeedToCall },
-                            { Name: "NoReply", Value: item.NoReply },
-                            { Name: "Uncontactable", Value: item.Uncontactable },
-                            { Name: "InternalAccount", Value: item.InternalAccount },
-                            { Name: "NeverTouch", Value: item.NeverTouch }
+                    Columns: [                            
+                            { Name: "DirectAccount", Value: item.UserName },
+                            { Name: "Status", Value: item.InformHeadlineStatusID },
                         ],
                     CssClass: 'status-' + item.Status.toLowerCase(),
                     CustomAttr: 'data-title-id=' + item.TitleId
@@ -49,18 +37,8 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
 
         var gridOptions = {
             columns: [
-                    { HeaderText: viewResources.Edit, Width: 50, Name: "Edit", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Title, Width: 200, Name: "Title", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
-                    { HeaderText: viewResources.CreatedDate, Width: 100, Name: "CreatedDate", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY" },
-                    { HeaderText: viewResources.NoDirectAccounts, Width: 100, Name: "NoDirectAccounts", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Status, Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Done, Width: 100, Name: "Done", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.RequestToCallBack, Width: 100, Name: "RequestToCallBack", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NoNeedToCall, Width: 100, Name: "NoNeedToCall", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NoReply, Width: 100, Name: "NoReply", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Uncontactable, Width: 100, Name: "Uncontactable", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.InternalAccount, Width: 100, Name: "InternalAccount", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NeverTouch, Width: 100, Name: "NeverTouch", HeaderAlign: "center", CellAlign: "center" }
+                    { HeaderText: viewResources.DirectAccount, Width: 100, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Status, Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "center" }                    
                 ],
             showTitle: true,
             titleInfo: {

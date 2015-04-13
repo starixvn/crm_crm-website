@@ -72,7 +72,7 @@
       <Mapping DataField="SiteName" ObjectProperty="Name" />
     </Setting>
     <Setting Key="Setting_SettingInfo_GetAllLicenseeType" SpName="Acc_CRM_LicenseeTypeSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Setting_SettingInfo_GetAllCurrency" SpName="Acc_CRM_CurrencyList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Setting_SettingInfo_GetAllCurrency" SpName="Acc_CRM_CurrencyList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />    
   </Function>
   <Function Name="CustomerFeedback">
     <Setting Key="AutoSuggestionCustomer" SpName="Acc_CRM_AutoSuggestionCustomer" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
@@ -122,5 +122,7 @@
   <Function Name="Inform Headline">
     <Setting Key="Acc_CRM_InformHeadlineList" SpName="Acc_CRM_InformHeadlineList" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformTitleStatusUpd" SpName="Acc_CRM_InformTitleStatusUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineUpd" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
   </Function>
 </Functions>

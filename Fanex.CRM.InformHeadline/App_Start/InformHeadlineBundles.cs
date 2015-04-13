@@ -64,6 +64,7 @@ namespace Fanex.CRM.InformHeadline
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                 "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Scripts/ShareScripts/MessageResult.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",

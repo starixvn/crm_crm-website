@@ -11,7 +11,6 @@ camelcase: false */
 viewListApplication.controller('viewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
-
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
@@ -21,13 +20,34 @@ viewListApplication.controller('viewListController',
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
             $scope.initDefaultOption();
-            $scope.getInforms();
+            $scope.getAllSettings();
         };
-
-        $scope.getInforms = function () {
+        $scope.updateSelectedSite = function (siteIdList) {
+            $scope.searchCriteria.SiteIds = siteIdList;
+        };
+        $scope.getDirectAccounts = function () {
             $uiBlockerService.blockUI();
+            var accountType = 0;
+            // 1: headline, 2: direct, 3: Both
+            if($scope.headlineChecked)
+            {
+                accountType = 1;
+            }
 
-            viewListService.getInforms()
+            if($scope.directChecked)
+            {
+                accountType += 2;
+            }
+
+            var params = {
+                Currency: $scope.selectedCurrencies.toString(),
+                Site: $scope.selectedSites.toString(),
+                Level: $scope.selectedPositions.toString(),
+                TypeAccount: accountType,
+                PageIndex: 1,
+                ItemsPerPage: 100
+            };
+            viewListService.getDirectAccounts(params)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
                     $uiBlockerService.unblockUI();
@@ -56,29 +76,51 @@ viewListApplication.controller('viewListController',
                     if (data.Result.Code > 0) {
                         handleUpdateFailed();
                     } else {
-                        $scope.getInforms();
+                        $scope.getDirectAccounts();
                     }
                 },
                 handleUpdateFailed);
         };
-        $scope.showAddCaseDialog = function () {
-            parent.homeManager.CachedData.shouldReloadView = false;
-            parent.OpenPopup(
-                window.rootUrl + "SettingManagement/OpenEditSettingView?" +
-                    $.param({
-                        settingId: 1
-                    }),
-                viewResources.NewInformHeadlines,
-                480,
-                230,
-                true,
-                false,
-                parent.window,
-                3000,
-                null,
-                $scope.closeEditView,
-                ['center', 200],
-                $scope.beforeCloseEditView);
+
+        $scope.currencyDropdownSettings = {
+            hasFilter: false,
+            idMember: "Id",
+            nameMember: "Name",
+            selectedMember: "Id",
+            sourceData: null,
+            width: 150,
+            templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
+        };
+        $scope.positionDropdownSettings = {
+            hasFilter: false,
+            idMember: "Id",
+            nameMember: "Name",
+            selectedMember: "Id",
+            sourceData: null,
+            width: 150,
+            templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
+        };
+        $scope.siteDropdownSettings = {
+            hasFilter: false,
+            idMember: "Id",
+            nameMember: "Name",
+            selectedMember: "Name",
+            sourceData: null,
+            width: 220,
+            templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
+        };
+        $scope.getAllSettings = function () {
+            $uiBlockerService.blockUI();
+            $scope.positionDropdownSettings.sourceData = viewListService.getPositions();
+            viewListService.getAllSettings()
+            .then(function (data) {
+                var allSetting = data.Result;
+                $scope.siteDropdownSettings.sourceData = allSetting.Sites[0].ChildSites;
+                $scope.currencyDropdownSettings.sourceData = allSetting.Currencies;
+            },
+            function (data) {
+                $uiBlockerService.unblockUI();
+            });
         };
         angular.element(document).ready(function () {
             registerOptions($scope);

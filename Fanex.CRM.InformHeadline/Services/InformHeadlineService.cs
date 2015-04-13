@@ -14,6 +14,9 @@ namespace Fanex.CRM.InformHeadline.Services
     using Fanex.CRM.InformHeadline.Repositories;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Constants;
+    using Fanex.CRM.Setting.Criteria;
+    using Fanex.CRM.Setting.Services;
 
     /// <summary>
     /// TODO: Update summary.
@@ -21,15 +24,17 @@ namespace Fanex.CRM.InformHeadline.Services
     public class InformHeadlineService : IInformHeadlineService
     {
         private readonly IInformHeadlineRepository _informHeadlineRepository;
+        private readonly ISettingService _settingServices;
 
         public InformHeadlineService()
-            : this(null)
+            : this(null, null)
         {            
         }
 
-        public InformHeadlineService(IInformHeadlineRepository informHeadlineRepository)
+        public InformHeadlineService(IInformHeadlineRepository informHeadlineRepository, ISettingService settingServices)
         {
             _informHeadlineRepository = informHeadlineRepository ?? new InformHeadlineRepository();
+            _settingServices = settingServices ?? new SettingService();
         }
 
         /// <summary>
@@ -37,7 +42,7 @@ namespace Fanex.CRM.InformHeadline.Services
         /// </summary>
         /// <param name="criteria">Criteria data.</param>
         /// <returns>List of informs.</returns>
-        public IList<InformHeadline> GetInforms(GetInformHeadlineCriteria criteria)
+        public IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria)
         {
             try
             {
@@ -56,7 +61,7 @@ namespace Fanex.CRM.InformHeadline.Services
         /// <param name="criteria">The criteria.</param>
         /// <param name="fileName">File name.</param>
         /// <returns>Inform headline excel.</returns>
-        public InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlineCriteria criteria, string fileName)
+        public InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName)
         {
             var data = _informHeadlineRepository.GetInforms(criteria);
 
@@ -79,6 +84,40 @@ namespace Fanex.CRM.InformHeadline.Services
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Get direct accounts for new case.
+        /// </summary>
+        /// <param name="criteria">Get direct account criteria.</param>
+        /// <returns>List of direct account.</returns>
+        public IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria)
+        {
+            try
+            {
+                return _informHeadlineRepository.GetDirectAccounts(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets all settings.
+        /// </summary>
+        /// <returns>The object with all settings.</returns>
+        public dynamic GetFilterSettings()
+        {
+            return new
+            {
+                Sites = _settingServices.AllSite(new GetAllSiteCriteria()
+                {
+                    LicenseeType = LicenseeTypeConstants.Credit
+                }),
+                Currencies = _settingServices.GetAllCurrency(new GetAllCurrencyCriteria())
+            };
         }
     }
 }

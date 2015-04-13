@@ -23,7 +23,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// </summary>
         /// <param name="criteria">Get inform criteria.</param>
         /// <returns>List of informs.</returns>
-        public IList<InformHeadline> GetInforms(GetInformHeadlineCriteria criteria)
+        public IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria)
         {
             var informs = new List<InformHeadline>();
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
@@ -59,6 +59,26 @@ namespace Fanex.CRM.InformHeadline.Repositories
             }
 
             return editResult;
+        }
+
+        /// <summary>
+        /// Get direct accounts for new case.
+        /// </summary>
+        /// <param name="criteria">Get direct account criteria.</param>
+        /// <returns>List of direct account.</returns>
+        public IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria)
+        {
+            var result = new List<DirectAccount>();
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var rawdata = db.Query<DirectAccount>(criteria.GetSpParams());
+                foreach (var item in rawdata)
+                {
+                    result.Add(item);
+                }
+
+                return result;
+            }
         }
     }
 }

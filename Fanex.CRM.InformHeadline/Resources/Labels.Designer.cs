@@ -70,6 +70,24 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currency.
+        /// </summary>
+        public static string Currency {
+            get {
+                return ResourceManager.GetString("Currency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Direct Accounts.
+        /// </summary>
+        public static string DirectAccounts {
+            get {
+                return ResourceManager.GetString("DirectAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         public static string Done {
@@ -84,6 +102,33 @@ namespace Fanex.CRM.InformHeadline.Resources {
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extension.
+        /// </summary>
+        public static string Extension {
+            get {
+                return ResourceManager.GetString("Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handler.
+        /// </summary>
+        public static string Handler {
+            get {
+                return ResourceManager.GetString("Handler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Headline.
+        /// </summary>
+        public static string Headline {
+            get {
+                return ResourceManager.GetString("Headline", resourceCulture);
             }
         }
         
@@ -160,11 +205,65 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Position.
+        /// </summary>
+        public static string Position {
+            get {
+                return ResourceManager.GetString("Position", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product Status.
+        /// </summary>
+        public static string ProductStatus {
+            get {
+                return ResourceManager.GetString("ProductStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remark.
+        /// </summary>
+        public static string Remark {
+            get {
+                return ResourceManager.GetString("Remark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request to call back.
         /// </summary>
         public static string RequestToCallBack {
             get {
                 return ResourceManager.GetString("RequestToCallBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Search {
+            get {
+                return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Site.
+        /// </summary>
+        public static string Site {
+            get {
+                return ResourceManager.GetString("Site", resourceCulture);
             }
         }
         
@@ -196,11 +295,29 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updated Time.
+        /// </summary>
+        public static string UpdatedTime {
+            get {
+                return ResourceManager.GetString("UpdatedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Failed!.
         /// </summary>
         public static string UpdateFailed {
             get {
                 return ResourceManager.GetString("UpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Without any group.
+        /// </summary>
+        public static string WithoutAnyGroup {
+            get {
+                return ResourceManager.GetString("WithoutAnyGroup", resourceCulture);
             }
         }
     }
