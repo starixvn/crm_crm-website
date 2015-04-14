@@ -403,13 +403,9 @@
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\warning.png" />
-    <Content Include="Areas\InformHeadline\NewInform\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\Directives\ViewListContainer.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
-    <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController_HotKey.js" />
-    <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController_Options.js" />
-    <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController_Update.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListService.js" />
     <Content Include="Areas\InformHeadline\NewInform\Styles\Images\close-case.png" />
     <Content Include="Areas\InformHeadline\NewInform\Styles\Images\edit.png" />

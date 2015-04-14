@@ -80,5 +80,25 @@ namespace Fanex.CRM.InformHeadline.Repositories
                 return result;
             }
         }
+
+        /// <summary>
+        /// Get inform statuses.
+        /// </summary>
+        /// <param name="criteria">Criteria object.</param>
+        /// <returns>List of status.</returns>
+        public IList<InformStatus> GetInformStatuses(GetInformStatusesCriteria criteria)
+        {
+            var result = new List<InformStatus>();
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var rawdata = db.Query<InformStatus>(criteria.GetSpParams());
+                foreach (var item in rawdata)
+                {
+                    result.Add(item);
+                }
+
+                return result;
+            }
+        }
     }
 }

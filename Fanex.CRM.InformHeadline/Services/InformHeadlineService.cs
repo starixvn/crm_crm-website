@@ -108,7 +108,7 @@ namespace Fanex.CRM.InformHeadline.Services
         /// Gets all settings.
         /// </summary>
         /// <returns>The object with all settings.</returns>
-        public dynamic GetFilterSettings()
+        public dynamic GetNewInformSettings()
         {
             return new
             {
@@ -116,7 +116,11 @@ namespace Fanex.CRM.InformHeadline.Services
                 {
                     LicenseeType = LicenseeTypeConstants.Credit
                 }),
-                Currencies = _settingServices.GetAllCurrency(new GetAllCurrencyCriteria())
+                Currencies = _settingServices.GetAllCurrency(new GetAllCurrencyCriteria()
+                {
+                    IsTest = 0
+                }),
+                Statuses = _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria())
             };
         }
     }

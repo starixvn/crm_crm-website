@@ -27,7 +27,7 @@ viewListApplication.factory('viewListService',
 
         serviceInstance.getAllSettings = function () {
             var deferred = $q.defer();
-            $http.get(window.rootUrl + 'InformHeadline/GetAllSettings')
+            $http.get(window.rootUrl + 'InformHeadline/AllSettings')
             .success(function (data, status, headers, config) {
                 deferred.resolve({
                     Result: data,

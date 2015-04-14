@@ -1,9 +1,6 @@
 ﻿"use strict";
 /* global viewListApplication,
 sharedScriptManager,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
 viewResources, Site */
 /* jshint unused: vars,
 camelcase: false */
@@ -19,7 +16,6 @@ viewListApplication.controller('viewListController',
         $scope.listData = null;
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
-            $scope.initDefaultOption();
             $scope.getAllSettings();
         };
         $scope.updateSelectedSite = function (siteIdList) {
@@ -29,13 +25,11 @@ viewListApplication.controller('viewListController',
             $uiBlockerService.blockUI();
             var accountType = 0;
             // 1: headline, 2: direct, 3: Both
-            if($scope.headlineChecked)
-            {
+            if ($scope.headlineChecked) {
                 accountType = 1;
             }
 
-            if($scope.directChecked)
-            {
+            if ($scope.directChecked) {
                 accountType += 2;
             }
 
@@ -83,6 +77,7 @@ viewListApplication.controller('viewListController',
         };
 
         $scope.currencyDropdownSettings = {
+            checkedAll: true,
             hasFilter: false,
             idMember: "Id",
             nameMember: "Name",
@@ -92,6 +87,7 @@ viewListApplication.controller('viewListController',
             templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
         };
         $scope.positionDropdownSettings = {
+            checkedAll: true,
             hasFilter: false,
             idMember: "Id",
             nameMember: "Name",
@@ -101,6 +97,7 @@ viewListApplication.controller('viewListController',
             templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
         };
         $scope.siteDropdownSettings = {
+            checkedAll: true,
             hasFilter: false,
             idMember: "Id",
             nameMember: "Name",
@@ -117,16 +114,13 @@ viewListApplication.controller('viewListController',
                 var allSetting = data.Result;
                 $scope.siteDropdownSettings.sourceData = allSetting.Sites[0].ChildSites;
                 $scope.currencyDropdownSettings.sourceData = allSetting.Currencies;
+                $uiBlockerService.unblockUI();
             },
             function (data) {
                 $uiBlockerService.unblockUI();
             });
         };
         angular.element(document).ready(function () {
-            registerOptions($scope);
-            registerUpdateFunctions($scope);
-            registerHotkeyFunctions($scope);
             $scope.initController();
-            $scope.registerHotKey();
         });
     } ]);

@@ -204,4 +204,7 @@
   <data name="WithoutAnyGroup" xml:space="preserve">
     <value>Without any group</value>
   </data>
+  <data name="DirectAccount" xml:space="preserve">
+    <value>Direct Account</value>
+  </data>
 </root>

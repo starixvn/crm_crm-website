@@ -16,6 +16,17 @@ namespace Fanex.CRM.Setting.Criteria
     /// </summary>
     public class GetAllCurrencyCriteria : CriteriaBase
     {
+        public GetAllCurrencyCriteria()
+        {
+            IsTest = 1;
+        }
+
+        /// <summary>
+        /// Gets or sets the value indicating whether data will remove test currencies or not.
+        /// </summary>
+        /// <value>Default is 1, value = 0 will remove test currencies.</value>
+        public int IsTest { get; set; }
+
         public override string GetSettingKey()
         {
             return "Setting_SettingInfo_GetAllCurrency";

@@ -79,6 +79,15 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Direct Account.
+        /// </summary>
+        public static string DirectAccount {
+            get {
+                return ResourceManager.GetString("DirectAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Direct Accounts.
         /// </summary>
         public static string DirectAccounts {

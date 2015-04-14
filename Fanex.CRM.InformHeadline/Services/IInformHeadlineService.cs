@@ -27,6 +27,6 @@ namespace Fanex.CRM.InformHeadline.Services
         IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria);
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
-        dynamic GetFilterSettings();
+        dynamic GetNewInformSettings();
     }
 }

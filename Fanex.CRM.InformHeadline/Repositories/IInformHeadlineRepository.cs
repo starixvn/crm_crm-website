@@ -24,5 +24,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
         Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria);
 
         IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria);
+
+        IList<InformStatus> GetInformStatuses(GetInformStatusesCriteria criteria);
     }
 }

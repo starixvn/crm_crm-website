@@ -29,8 +29,7 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
                             { Name: "DirectAccount", Value: item.UserName },
                             { Name: "Status", Value: item.InformHeadlineStatusID },
                         ],
-                    CssClass: 'status-' + item.Status.toLowerCase(),
-                    CustomAttr: 'data-title-id=' + item.TitleId
+                    CssClass: 'status-'
                 });
             }
         }
@@ -58,9 +57,7 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
             showTree: true,
             treeParentPaddingLeft: 5,
             headerColumnHeight: 29,
-            bodyRowHeight: 25,
-            showColumnsShowHide: false,
-            columnsNeedHide: scope.permissionType === "Search" ? null : [0]
+            bodyRowHeight: 25
         };
 
         $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);

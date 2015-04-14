@@ -101,7 +101,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         public ActionResult AllSettings()
         {
-            return Json(_informHeadlineService.GetFilterSettings(), JsonRequestBehavior.AllowGet);
+            return Json(_informHeadlineService.GetNewInformSettings(), JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
