@@ -12,9 +12,12 @@ viewListApplication.controller('viewListController',
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
         }
-
+        $scope.showSaveButton = false;
         $scope.listData = null;
         $scope.informStatuses = [];
+        $scope.productStatuses = [];
+        $scope.stations = [];
+
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
             $scope.getAllSettings();
@@ -23,6 +26,7 @@ viewListApplication.controller('viewListController',
             $scope.searchCriteria.SiteIds = siteIdList;
         };
         $scope.getDirectAccounts = function () {
+
             $uiBlockerService.blockUI();
             var accountType = 0;
             // 1: headline, 2: direct, 3: Both
@@ -45,20 +49,17 @@ viewListApplication.controller('viewListController',
             viewListService.getDirectAccounts(params)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
+                    $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
                     $scope.listData = null;
+                    $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
                 });
         };
-        $scope.exportInformHeadlines = function () {
-            $scope.downloadFileOptions = {
-                URL: window.rootUrl + 'InformHeadline/ExportInforms',
-                Params: { IsCached: true }
-            };
-
-            $scope.$apply();
+        $scope.saveInforms = function () {
+            
         };
         $scope.updateInformStatus = function (titleId, status) {
             $uiBlockerService.blockUI();
@@ -134,6 +135,8 @@ viewListApplication.controller('viewListController',
                 $scope.siteDropdownSettings.sourceData = allSetting.Sites[0].ChildSites;
                 $scope.currencyDropdownSettings.sourceData = allSetting.Currencies;
                 $scope.informStatuses = allSetting.Statuses;
+                $scope.productStatuses = allSetting.ProductStatuses;
+                $scope.stations = allSetting.Stations;
                 $uiBlockerService.unblockUI();
             },
             function (data) {

@@ -511,6 +511,47 @@ namespace Fanex.CRM.Setting.Services
         }
 
         /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <param name="statusType">Type of the status.</param>
+        /// <returns>
+        /// All status.
+        /// </returns>
+        public IList<Status> GetStatuses(int statusType)
+        {
+            string key = GetAllStatusSessionKey;
+            if (statusType == ViewTypeConstants.CommunicationTool)
+            {
+                key = GetAllStatusCommunicationTool;
+            }
+            else if (statusType == ViewTypeConstants.Redemption)
+            {
+                key = GetAllStatusRedemption;
+            }
+
+            try
+            {
+                var allStatus = CacheService.Get<IList<Status>>(key);
+                if (allStatus != null)
+                {
+                    return allStatus;
+                }
+
+                allStatus = _settingRepositoryInstance.GetStatuses(new GetAllStatusCriteria(statusType))
+                    .OrderBy(s => s.DisplayOrder)
+                    .ToList();
+                CacheService.Set(key, allStatus);
+
+                return allStatus;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// All the currency redemption.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
@@ -1019,6 +1060,23 @@ namespace Fanex.CRM.Setting.Services
                 }
 
                 return settingGroupByType.OrderBy(s => s.DisplayOrder).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get stations.
+        /// </summary>
+        /// <returns>List of stations.</returns>
+        public List<Station> GetStations()
+        {
+            try
+            {
+                return _settingRepositoryInstance.GetStations(new GetStationsCriteria());
             }
             catch (Exception ex)
             {

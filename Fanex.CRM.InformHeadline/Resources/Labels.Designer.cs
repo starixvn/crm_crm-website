@@ -169,6 +169,15 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to N/A.
+        /// </summary>
+        public static string NA {
+            get {
+                return ResourceManager.GetString("NA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Never touch.
         /// </summary>
         public static string NeverTouch {

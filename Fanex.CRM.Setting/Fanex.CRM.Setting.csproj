@@ -85,6 +85,7 @@
     <Compile Include="Constants\ViewTypeConstants.cs" />
     <Compile Include="Constants\VIPTypeConstants.cs" />
     <Compile Include="Controllers\SettingController.cs" />
+    <Compile Include="Criteria\GetStationsCriteria.cs" />
     <Compile Include="Criteria\GetAllReportByRedemptionCriteria.cs" />
     <Compile Include="Criteria\GetAllCurrencyRedemptionCriteria.cs" />
     <Compile Include="Criteria\GetAllCurrencyCriteria.cs" />
@@ -105,6 +106,8 @@
     <Compile Include="Criteria\GetFeedbackSubjectTemplateByPagingIndexCriteria.cs" />
     <Compile Include="Criteria\GetSettingByIdCriteria.cs" />
     <Compile Include="Criteria\GetSettingRelationByNameCriteria.cs" />
+    <Compile Include="Models\Status.cs" />
+    <Compile Include="Models\Station.cs" />
     <Compile Include="Models\FeedbackTemplate.cs" />
     <Compile Include="Models\InformHeadlineSetting.cs" />
     <Compile Include="Models\SiteInfo.cs" />

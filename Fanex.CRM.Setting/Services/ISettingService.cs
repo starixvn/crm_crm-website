@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Setting.Services
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
@@ -41,6 +42,8 @@ namespace Fanex.CRM.Setting.Services
 
         List<SettingInfo> AllStatus(int statusType);
 
+        IList<Status> GetStatuses(int statusType);
+
         List<BaseModel> AllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria);
 
         List<SettingInfo> AllRole();
@@ -70,5 +73,8 @@ namespace Fanex.CRM.Setting.Services
         void ResetAllCache();
 
         List<SettingInfo> MainSetting();
+
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        List<Station> GetStations();
     }
 }

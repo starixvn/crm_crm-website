@@ -321,6 +321,26 @@ namespace Fanex.CRM.Setting.Repositories
         }
 
         /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>All sub Status.</returns>
+        public IList<Status> GetStatuses(GetAllStatusCriteria criteria)
+        {
+            var result = new List<Status>();
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var rawdata = db.Query<Status>(criteria.GetSpParams());
+                foreach (var item in rawdata)
+                {
+                    result.Add(item);
+                }
+
+                return result;
+            }
+        }
+
+        /// <summary>
         /// Gets the feedback subject template by identifier.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
@@ -529,6 +549,26 @@ namespace Fanex.CRM.Setting.Repositories
             }
 
             return currencies;
+        }
+
+        /// <summary>
+        /// Get stations.
+        /// </summary>
+        /// <param name="criteria">Criteria object.</param>
+        /// <returns>List of station.</returns>
+        public List<Station> GetStations(GetStationsCriteria criteria)
+        {
+            var result = new List<Station>();
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var rawdata = db.Query<Station>(criteria.GetSpParams());
+                foreach (var item in rawdata)
+                {
+                    result.Add(item);
+                }
+
+                return result;
+            }
         }
     }
 }

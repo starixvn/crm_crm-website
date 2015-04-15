@@ -4,7 +4,7 @@ crmConstants,
 viewResources */
 /* jshint camelcase: false,
 unused: vars */
-viewListApplication.directive('informHeadlineListContainer', function ($document) {
+viewListApplication.directive('informHeadlineListContainer',['$document', function ($document) {
     var selfScope;
     var listData;
 
@@ -134,4 +134,4 @@ viewListApplication.directive('informHeadlineListContainer', function ($document
             });
         }
     };
-});
+}]);

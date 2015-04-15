@@ -31,7 +31,7 @@ namespace Fanex.CRM.InformHeadline
         /// <param name="bundles">The bundles.</param>
         private static void RegisterInformHeadlineViewListBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/InformHeadline/ViewListScripts").Include(
+            bundles.Add(new ScriptBundle("~/Bundles/InformHeadline/ViewListScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
@@ -60,7 +60,7 @@ namespace Fanex.CRM.InformHeadline
         /// <param name="bundles">The bundles.</param>
         private static void RegisterInformHeadlineNewInformBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/InformHeadline/NewInformScripts").Include(
+            bundles.Add(new ScriptBundle("~/Bundles/InformHeadline/NewInformScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/DirectiveManager.js",
                 "~/Scripts/ShareScripts/Directives/DefaultFocus.js",

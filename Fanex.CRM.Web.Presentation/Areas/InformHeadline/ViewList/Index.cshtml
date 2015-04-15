@@ -8,10 +8,9 @@
 }    
 @section Styles{
 
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
-
-    @Styles.Render("~/Areas/InformHeadline/ViewListStyles")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css",
+        "~/Content/site/customizeFanexGridV2.less",
+        "~/Areas/InformHeadline/ViewListStyles")
 }
 <div data-ng-app="inform-headline-application">
 <div class="viewListController" data-ng-controller="viewListController" 
@@ -56,15 +55,14 @@
     </div>
        
     @section Scripts {
-        @Scripts.Render("~/Scripts/CommomScripts")
-        @Scripts.Render("~/Scripts/AngularJSLibrary")
-        @Scripts.Render(
+        @RazorHelper.RenderScripts(
+            "~/Scripts/CommomScripts",
+            "~/Scripts/AngularJSLibrary",
+            "~/Content/bootstrap/js/bootstrap.min.js",
             "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
             "~/Scripts/FanexGridScripts",
             "~/CRM/DownLoadFile/Scripts",
-            "~/Areas/InformHeadline/ViewListScripts")
-            <script type='text/javascript'
-      src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+            "~/Bundles/InformHeadline/ViewListScripts")    
         <script type="text/javascript">
             parent.document.title = '@Labels.InformHeadlines';
             var viewResources = {

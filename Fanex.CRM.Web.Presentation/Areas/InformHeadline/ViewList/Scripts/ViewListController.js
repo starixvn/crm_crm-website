@@ -69,15 +69,15 @@ viewListApplication.controller('viewListController',
                         titleId: titleId
                     }),
                 viewResources.NewInformHeadlines,
-                900,
-                700,
+                1000,
+                800,
                 true,
                 false,
                 parent.window,
                 3000,
                 null,
                 $scope.closeEditView,
-                ['center', 50],
+                { my: "center", at: "center" },
                 $scope.beforeCloseEditView);
         };
         angular.element(document).ready(function () {

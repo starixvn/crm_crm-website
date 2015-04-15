@@ -7,10 +7,10 @@
     ViewBag.Title = Labels.InformHeadlines;
 }
 @section Styles{
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")"  />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")"  />
-    @Styles.Render("~/Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.css")
-    @Styles.Render("~/Areas/InformHeadline/NewInformStyles")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css",
+        "~/Content/site/customizeFanexGridV2.less",
+        "~/Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.css",
+        "~/Areas/InformHeadline/NewInformStyles")
 }
 <div data-ng-app="inform-headline-application">
     <div class="viewListController" data-ng-controller="viewListController">
@@ -70,23 +70,23 @@
                     </div>
                 </div>
             </div> 
-            <div class="row btn-group">
-                <button id="buttoninsert" class="btn" data-ng-click="showAddCaseDialog()">
+            <div class="row btn-group" data-ng-show="showSaveButton">
+                <button id="buttoninsert" class="btn" data-ng-click="saveInforms()">
                     @Labels.Save</button>
             </div>              
         </div>
         @section Scripts {
-            @Scripts.Render("~/Scripts/CommomScripts")
-            @Scripts.Render("~/Scripts/AngularJSLibrary")
-            <script src="../../../Scripts/AngularJS/angular-sanitize.min.js" type="text/javascript"></script>
-            @Scripts.Render("~/Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.min.js")
-            @Scripts.Render(
-            "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
-            "~/Scripts/FanexGridScripts",
-            "~/CRM/DownLoadFile/Scripts",
-                     "~/Areas/InformHeadline/NewInformScripts")<script src="../../../Scripts/AngularJS/angular-sanitize.min.js"
-                         type="text/javascript"></script>
-            <script type='text/javascript' src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+            @RazorHelper.RenderScripts(
+                "~/Scripts/CommomScripts",
+                "~/Scripts/AngularJSLibrary",
+                "~/Content/bootstrap/js/bootstrap.min.js",
+                "~/Scripts/AngularJS/angular-sanitize.min.js",
+                "~/Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.min.js",
+                "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+                "~/Scripts/FanexGridScripts",
+                "~/CRM/DownLoadFile/Scripts",
+                "~/Bundles/InformHeadline/NewInformScripts")
+            
             <script type="text/javascript">
                 parent.document.title = '@Labels.InformHeadlines';
                 var viewResources = {

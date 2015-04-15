@@ -12,10 +12,12 @@ namespace Fanex.CRM.InformHeadline.Services
     using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Repositories;
+    using Fanex.CRM.InformHeadline.Resources;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Criteria;
+    using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services;
 
     /// <summary>
@@ -110,6 +112,16 @@ namespace Fanex.CRM.InformHeadline.Services
         /// <returns>The object with all settings.</returns>
         public dynamic GetNewInformSettings()
         {
+            var productStatuses = _settingServices.GetStatuses(ViewTypeConstants.InformHeadline);
+            productStatuses.Insert(
+                0, 
+                new Status()
+            {
+                StatusId = 0,
+                Name = Labels.NA,
+                DisplayOrder = 0
+            });
+
             return new
             {
                 Sites = _settingServices.AllSite(new GetAllSiteCriteria()
@@ -121,7 +133,8 @@ namespace Fanex.CRM.InformHeadline.Services
                     IsTest = 0
                 }),
                 Statuses = _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()),
-                ProductStatuses = _settingServices.AllStatus(ViewTypeConstants.InformHeadline)
+                ProductStatuses = productStatuses,
+                Stations = _settingServices.GetStations()
             };
         }
     }
