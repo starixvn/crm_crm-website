@@ -10,7 +10,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-casinoweekly-application">
 <head>
     <title>@Labels.CasinoWeeklyStatistics_Report</title>
-    @Styles.Render("~/site/common", "~/bundles/Report/CasinoWeeklyStyles")
+    @RazorHelper.RenderStyles("~/site/common", "~/bundles/Report/CasinoWeeklyStyles")
 </head>
 <body>
     <div class="main container" data-ng-controller="casinoweeklyController">
@@ -91,11 +91,11 @@
             Mobile: '@Labels.Mobile'
         };
     </script>
-    @Scripts.Render("~/Scripts/CommomScripts",
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
         "~/Scripts/FanexGridScripts",
         "~/Scripts/FanexGridV2/NumeralScripts",
         "~/Scripts/AngularJSLibrary",
         "~/CRM/DownLoadFile/Scripts",
-        "~/bundles/Report/CasinoWeeklyScripts?v=1")
+        "~/bundles/Report/CasinoWeeklyScripts")
 </body>
 </html>

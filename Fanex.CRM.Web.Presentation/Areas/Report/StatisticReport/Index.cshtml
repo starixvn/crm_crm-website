@@ -7,12 +7,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-statisticreport-application">
 <head>
     <title>@Labels.Statistic_Report </title>
-    @Styles.Render("~/site/common")
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    @Styles.Render("~/Content/site/ResultMessageStyles")
-    @Styles.Render("~/Areas/Report/StatisticReportStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
+    @RazorHelper.RenderStyles("~/Content/site/ResultMessageStyles")
+    @RazorHelper.RenderStyles("~/Areas/Report/StatisticReportStyles")
 </head>
 <body class="statisticReportController" data-ng-controller="statisticReportController">
     <div class="result-message-container display-none">
@@ -107,13 +107,13 @@
         <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
     </div>
     <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/FanexGridV2/NumeralScripts")
-    @Scripts.Render("~/Scripts/FanexGridScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    @Scripts.Render("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
-    @Scripts.Render("~/CRM/DownLoadFile/Scripts")
-    @Scripts.Render("~/Areas/Report/StatisticReportScripts?v=1")
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
+    @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
+    @RazorHelper.RenderScripts("~/Areas/Report/StatisticReportScripts")
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_Report_StatisticReport';
         window.rootUrl = '@Url.Content("~")';

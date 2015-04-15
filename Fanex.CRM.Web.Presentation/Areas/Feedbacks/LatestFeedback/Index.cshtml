@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedback-latest-application">
 <head>
     <title>@Labels.LatestFeedbackDocumentTitle</title>
-    @Styles.Render("~/site/common",
+    @RazorHelper.RenderStyles("~/site/common",
         "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackStyles")
 </head>
 <body>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts",
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
         "~/Scripts/AngularJSLibrary",
         "~/Scripts/FanexGridScripts",
         "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts")

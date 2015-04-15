@@ -22,9 +22,9 @@ namespace Fanex.CRM.Common.Services
         private static IDictionary<string, bool> actionLogKeyHash = null;
         private static IDictionary<string, string[]> actionLogBoolValueHash = null;
 
-        public static string Version
+        public static string ResourceVersion
         {
-            get { return CastAide.AsString(ConfigurationManager.AppSettings["version"]); }
+            get { return CastAide.AsString(ConfigurationManager.AppSettings["resourceVersion"]); }
         }
 
         public static bool IsLocalTest

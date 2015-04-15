@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customer-informheadline-create">
 <head>
     <title></title>
-    @Styles.Render("~/site/common",
+    @RazorHelper.RenderStyles("~/site/common",
         "~/Areas/Customer/InformHeadlines/CreateTitleStyle")
 </head>
 <body>
@@ -24,7 +24,7 @@
         </form>
     </div>
 
-    @Scripts.Render("~/Scripts/CommomScripts",
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
         "~/Scripts/AngularJSLibrary",
         "~/Areas/Customer/InformHeadlines/CreateTitleScript")
     <script type="text/javascript">

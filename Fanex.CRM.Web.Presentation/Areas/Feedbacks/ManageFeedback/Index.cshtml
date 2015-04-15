@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedback-manage-application">
 <head>
     <title>@Resources.Language.Title_ManageFeedback</title>
-    @Styles.Render("~/site/common",
+    @RazorHelper.RenderStyles("~/site/common",
         "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackStyles")
 </head>
 <body>
@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts",
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
         "~/Scripts/AngularJSLibrary",
         "~/Scripts/FanexGridScripts",
         "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackScripts")

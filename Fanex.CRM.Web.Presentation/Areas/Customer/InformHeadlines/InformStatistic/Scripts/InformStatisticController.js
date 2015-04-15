@@ -47,7 +47,7 @@ informHeadlineStatisticApplication.controller('informHeadlineStatisticController
                 3000,
                 null,
                 $scope.closeCreateTitle,
-                ['center', 120],
+                { my: "center top+120", at: "center top" },
                 null);
         };
 

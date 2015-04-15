@@ -11,7 +11,7 @@
     <meta charset="utf-8" />
     <title>@Resources.Language.Sign_In</title>
     <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/Areas/User/LogInStyles")
+    @RazorHelper.RenderStyles("~/Areas/User/LogInStyles")
 </head>
 <body>
     <div id='not-supported-browser-panel' style="display: none">
@@ -49,10 +49,10 @@
         </div>
     
     
-    <script type="text/javascript" src="~/Scripts/jquery.js"></script>
-    <script type="text/javascript" src="~/Scripts/JQuery/jquery-1.8.2.js"></script>
-    <script type="text/javascript" src="~/Scripts/ShareScripts/SharedScriptManager.js"></script>       
-    <script type="text/javascript" src="~/Scripts/CryptoJS.js"></script>         
-    <script type="text/javascript" src="~/Areas/User/LogIn/Scripts/LogInManager.js"></script>
+    @RazorHelper.RenderScripts("~/Scripts/jquery.js")
+    @RazorHelper.RenderScripts("~/Scripts/JQuery/jquery-1.8.2.js")
+    @RazorHelper.RenderScripts("~/Scripts/ShareScripts/SharedScriptManager.js")       
+    @RazorHelper.RenderScripts("~/Scripts/CryptoJS.js")         
+    @RazorHelper.RenderScripts("~/Areas/User/LogIn/Scripts/LogInManager.js")
 </body>
 </html>

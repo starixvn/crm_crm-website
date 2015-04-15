@@ -6,14 +6,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-dynamicreport-application">
 <head>
     <title>@Labels.DocumentTitle_DynamicReport </title>
-    @Styles.Render("~/site/common")
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Grid.css?ver=1")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Scripts/FanexGridV2/Fanex.Pagination.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/site/customizeFanexGridV2.less?ver=1")" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/autocomplete/autocomplete.css")"  />
-    @Styles.Render("~/Areas/Report/DynamicReportStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
+    @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
+    @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
+    @RazorHelper.RenderStyles("~/Areas/Report/DynamicReportStyles")
 </head>
 <body class="dynamicReportController" data-ng-controller="dynamicReportController">
     <div class="main container">
@@ -201,18 +201,18 @@
         <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
     </div>
     <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-    @Scripts.Render("~/Scripts/CommomScripts")
-    @Scripts.Render("~/Scripts/AngularJSLibrary")
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Pagination.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/Fanex.Grid.js"></script>
-    <script type="text/javascript" src="~/Scripts/FanexGridV2/moment.js"></script>
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js"></script>
-    <script type="text/javascript" src="~/Scripts/Jlinq/jlinq/jlinq.jquery.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.highlight-3.js"></script>
-    <script type="text/javascript" src="~/Scripts/autocomplete/jquery.autocomplete.client.js"></script>
-    @Scripts.Render("~/CRM/DownLoadFile/Scripts")
-    @Scripts.Render("~/Areas/Report/DynamicReportScripts")
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.highlight-3.js")
+    @RazorHelper.RenderScripts("~/Scripts/autocomplete/jquery.autocomplete.client.js")
+    @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
+    @RazorHelper.RenderScripts("~/Areas/Report/DynamicReportScripts")
     <script type="text/javascript">
         parent.document.title = '@Resources.Language.Title_Report_DynamicReport';
         parent.document.title = document.title;

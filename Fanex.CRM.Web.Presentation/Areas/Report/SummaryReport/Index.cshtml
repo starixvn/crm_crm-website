@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-summaryreport-application">
 <head>
     <title>@Labels.SummaryReport</title>
-    @Styles.Render("~/site/common",
+    @RazorHelper.RenderStyles("~/site/common",
         "~/Areas/Report/SummaryReportStyles",
         "~/Content/site/ResultMessageStyles",
         "~/Styles/FanexMultipleSelect")
@@ -53,7 +53,7 @@
             <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
     </div>
-    @Scripts.Render("~/Scripts/CommomScripts",
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
 "~/Scripts/FanexGridV2/NumeralScripts",
 "~/Scripts/FanexGridScripts",
 "~/Scripts/FanexMultipleSelect",

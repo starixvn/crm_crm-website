@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedback-statistic-detail-application">
 <head>
     <title>@Resources.Language.Title_Report_FeedbackStatistics</title>
-    @Styles.Render("~/site/common", "~/bundles/Report/FeedbackStatisticDetailStyles")
+    @RazorHelper.RenderStyles("~/site/common", "~/bundles/Report/FeedbackStatisticDetailStyles")
 </head>
 <body data-ng-controller="feedbackStatisticDetailController">
     <div class="main container">
@@ -33,7 +33,7 @@
             RelatedCustomer: '@Labels.RelatedCustomer'
         };
    </script>
-   @Scripts.Render("~/Scripts/CommomScripts",
+   @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
         "~/Scripts/FanexGridScripts",
         "~/Scripts/AngularJSLibrary",
         "~/CRM/DownLoadFile/Scripts",

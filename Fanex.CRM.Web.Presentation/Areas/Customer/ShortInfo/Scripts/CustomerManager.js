@@ -160,7 +160,7 @@ var CustomerManager = function () {
             zIndex: 500,
             resizable: false,
             modal: true,
-            position: [2, 80],
+            position: { my: "left+2 top+80", at: "left top" },
             title: self.CacheData.ViewResources.Alert,
             close: function (event, ui) {
                 /*jshint unused: vars */
@@ -186,7 +186,7 @@ var CustomerManager = function () {
             width: 280,
             height: 150,
             zIndex: 500,
-            position: [2, 80],
+            position: { my: "left+2 top+80", at: "left top" },
             resizable: false,
             modal: true,
             title: self.CacheData.ViewResources.SearchByGuest_DialogTitle,
@@ -471,7 +471,7 @@ var CustomerManager = function () {
             zIndex: 500,
             resizable: false,
             modal: true,
-            position: [2, 80],
+            position: { my: "left+2 top+80", at: "left top" },
             title: self.CacheData.ViewResources.Alert,
             close: function (event, ui) {
                 /*jshint unused: vars */

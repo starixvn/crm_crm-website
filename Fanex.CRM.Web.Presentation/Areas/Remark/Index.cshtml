@@ -9,10 +9,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="remark-application">
 <head>
     <title>@Resources.Language.Title_SpecialRemarkTab</title>
-    @Styles.Render("~/site/common")
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.css")"  />
-    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")" />
-    @Styles.Render("~/Areas/Remark/RemarkStyles")
+    @RazorHelper.RenderStyles("~/site/common")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
+    @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
+    @RazorHelper.RenderStyles("~/Areas/Remark/RemarkStyles")
 </head>
 <body>
     <div class="container main" data-ng-controller="remarkController">
@@ -73,16 +73,16 @@
         </div>
     </div>
     <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
-    @Scripts.Render("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/Remark/RemarkScripts")
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Remark/Scripts/RemarkApplication.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Remark/Scripts/RemarkService.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Remark/Scripts/RemarkController.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Remark/Scripts/Directives/DefaultFocus.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Remark/Scripts/Directives/RemarkEditorDirective.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Remark/Scripts/Directives/RichRemarkEditorDirective.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Areas/Remark/Scripts/Directives/RegisterSharedDirectives.js")"></script>
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/Remark/RemarkScripts")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
+    @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/RemarkApplication.js")
+    @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/RemarkService.js")
+    @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/RemarkController.js")
+    @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/Directives/DefaultFocus.js")
+    @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/Directives/RemarkEditorDirective.js")
+    @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/Directives/RichRemarkEditorDirective.js")
+    @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/Directives/RegisterSharedDirectives.js")
 
     <script type="text/javascript">
         parent.document.title = document.title;

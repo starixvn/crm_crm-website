@@ -700,7 +700,7 @@ function (
             3000,
             null,
             $scope.closeEditView,
-            ['center', 50],
+            { my: "center top+50", at: "center top" },
             null);
     };
     $scope.setFocus = function () {

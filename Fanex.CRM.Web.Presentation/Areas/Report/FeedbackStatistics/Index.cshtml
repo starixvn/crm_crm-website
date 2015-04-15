@@ -12,7 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedback-statistic-application">
 <head>
     <title>@Resources.Language.Title_Report_FeedbackStatistics</title>
-    @Styles.Render("~/site/common", "~/bundles/Report/FeedbackStatisticStyles")
+    @RazorHelper.RenderStyles("~/site/common", "~/bundles/Report/FeedbackStatisticStyles")
 </head>
 <body>
     <div class="main container" data-ng-controller="feedbackStatisticController">
@@ -118,7 +118,7 @@
            FeedbackStatisticDetailReport: '@Labels.FeedbackStatisticDetailReport'
        };
    </script>
-   @Scripts.Render("~/Scripts/CommomScripts",
+   @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
         "~/Scripts/FanexGridScripts",
         "~/Scripts/FanexGridV2/NumeralScripts",
         "~/Scripts/AngularJSLibrary",

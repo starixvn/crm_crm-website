@@ -74,7 +74,7 @@ viewListApplication.controller('viewListController',
                 3000,
                 null,
                 $scope.closeInsertView,
-                ['center', 200],
+                { my: "center top+200", at: "center top" },
                 $scope.beforeCloseInsertView);
         };
         $scope.beforeCloseInsertView = function () {

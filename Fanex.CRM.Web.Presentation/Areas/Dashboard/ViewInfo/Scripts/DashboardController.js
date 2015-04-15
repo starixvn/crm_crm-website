@@ -171,7 +171,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 3000,
                 null,
                 $scope.closeEditRedemptionLogView,
-                ['center', 120],
+                { my: "center top+120", at: "center top" },
                 $scope.beforeCloseEditRedemptionLogView);
         };
         $scope.closeEditCommunicationLogView = function () {
@@ -257,7 +257,7 @@ dashboardApplication.controller('dashboardController', ['$scope',
                 3000,
                 null,
                 $scope.closeEditView,
-                ['center', 120],
+                { my: "center top+120", at: "center top" },
                 $scope.beforeCloseEditView);
         };
         /* jshint camelcase: false */
