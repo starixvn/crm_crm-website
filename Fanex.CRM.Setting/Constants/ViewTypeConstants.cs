@@ -19,5 +19,7 @@ namespace Fanex.CRM.Setting.Constants
         public const int CommunicationTool = 1;
 
         public const int Redemption = 2;
+
+        public const int InformHeadline = 3;
     }
 }

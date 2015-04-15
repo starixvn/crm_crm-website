@@ -22,7 +22,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName);
 
-        Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria);
+        Result UpdateInformStatus(UpdateInformStatusCriteria criteria);
 
         IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria);
 

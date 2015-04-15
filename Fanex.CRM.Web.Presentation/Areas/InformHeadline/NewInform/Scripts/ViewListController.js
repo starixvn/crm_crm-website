@@ -14,6 +14,7 @@ viewListApplication.controller('viewListController',
         }
 
         $scope.listData = null;
+        $scope.informStatuses = [];
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);
             $scope.getAllSettings();
@@ -39,7 +40,7 @@ viewListApplication.controller('viewListController',
                 Level: $scope.selectedPositions.toString(),
                 TypeAccount: accountType,
                 PageIndex: 1,
-                ItemsPerPage: 100
+                ItemsPerPage: 1000
             };
             viewListService.getDirectAccounts(params)
                 .then(function (data) {
@@ -60,6 +61,24 @@ viewListApplication.controller('viewListController',
             $scope.$apply();
         };
         $scope.updateInformStatus = function (titleId, status) {
+            $uiBlockerService.blockUI();
+
+            viewListService.updateInformStatus({
+                titleId: titleId,
+                statusType: status.toString() === "1" // false : Open, true: Close
+            })
+                .then(function (data) {
+                    if (data.Result.Code > 0) {
+                        handleUpdateFailed();
+                    } else {
+                        $scope.getDirectAccounts();
+                    }
+                },
+                handleUpdateFailed);
+        };
+
+        // New inform cases popup        
+        $scope.updateInformHeadlines = function (titleId, status) {
             $uiBlockerService.blockUI();
 
             viewListService.updateInformStatus({
@@ -114,6 +133,7 @@ viewListApplication.controller('viewListController',
                 var allSetting = data.Result;
                 $scope.siteDropdownSettings.sourceData = allSetting.Sites[0].ChildSites;
                 $scope.currencyDropdownSettings.sourceData = allSetting.Currencies;
+                $scope.informStatuses = allSetting.Statuses;
                 $uiBlockerService.unblockUI();
             },
             function (data) {

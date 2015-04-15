@@ -43,22 +43,19 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// </summary>
         /// <param name="criteria">Criteria data.</param>
         /// <returns>Result object.</returns>
-        public Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria)
+        public Result UpdateInformStatus(UpdateInformStatusCriteria criteria)
         {
-            Result editResult = null;
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 objectDB.ExecuteNonQuery();
                 var outputParams = objectDB.GetOuputParams();
-                editResult = new Result
+                return new Result
                 {
                     Code = Converter.ToInt(outputParams["errcode"]),
                     Message = Converter.ToString2(outputParams["errmsg"])
                 };
             }
-
-            return editResult;
         }
 
         /// <summary>
@@ -98,6 +95,26 @@ namespace Fanex.CRM.InformHeadline.Repositories
                 }
 
                 return result;
+            }
+        }
+
+        /// <summary>
+        /// Update Inform headline for new cases.
+        /// </summary>
+        /// <param name="criteria">Criteria object.</param>
+        /// <returns>Result object.</returns>
+        public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                return new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
             }
         }
     }

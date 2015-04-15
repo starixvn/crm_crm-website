@@ -15,11 +15,11 @@ namespace Fanex.CRM.InformHeadline.Criteria
     {
         public int TitleId { get; set; }
 
-        public bool StatusType { get; set; }
+        public string Content { get; set; }
 
         public override string GetSettingKey()
         {
-            return "Acc_CRM_InformTitleStatusUpd";
+            return "Acc_CRM_InformHeadlineUpd";
         }
 
         public override bool IsValid()

@@ -73,7 +73,7 @@ namespace Fanex.CRM.InformHeadline.Services
         /// </summary>
         /// <param name="criteria">Criteria data.</param>
         /// <returns>Result object.</returns>
-        public Result UpdateInformStatus(UpdateInformHeadlineCriteria criteria)
+        public Result UpdateInformStatus(UpdateInformStatusCriteria criteria)
         {
             try
             {
@@ -120,7 +120,8 @@ namespace Fanex.CRM.InformHeadline.Services
                 {
                     IsTest = 0
                 }),
-                Statuses = _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria())
+                Statuses = _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()),
+                ProductStatuses = _settingServices.AllStatus(ViewTypeConstants.InformHeadline)
             };
         }
     }

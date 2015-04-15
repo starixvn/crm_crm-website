@@ -73,7 +73,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
 
         [HttpPost]
         [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
-        public JsonResult UpdateInformStatus(UpdateInformHeadlineCriteria criteria)
+        public JsonResult UpdateInformStatus(UpdateInformStatusCriteria criteria)
         {            
             var result = _informHeadlineService.UpdateInformStatus(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);

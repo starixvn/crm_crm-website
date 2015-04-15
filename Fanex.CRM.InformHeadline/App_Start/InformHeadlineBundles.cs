@@ -48,8 +48,9 @@ namespace Fanex.CRM.InformHeadline
                 "~/Areas/InformHeadline/ViewList/Scripts/Directives/*.js"));
 
             AddAndInclude(
-                bundles,
+                bundles,                
                 "~/Areas/InformHeadline/ViewListStyles",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/ViewList/Styles/ViewList.less");
         }
 
@@ -74,8 +75,9 @@ namespace Fanex.CRM.InformHeadline
                 "~/Areas/InformHeadline/NewInform/Scripts/Directives/*.js"));
 
             AddAndInclude(
-                bundles,
+                bundles,                
                 "~/Areas/InformHeadline/NewInformStyles",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/NewInform/Styles/ViewList.less");
         }
 
