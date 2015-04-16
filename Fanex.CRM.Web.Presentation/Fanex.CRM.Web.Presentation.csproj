@@ -403,6 +403,14 @@
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\icn_edit.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\icn_view.png" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Images\warning.png" />
+    <Content Include="Areas\InformHeadline\UpdateInform\Scripts\Directives\ViewListContainer.js" />
+    <Content Include="Areas\InformHeadline\UpdateInform\Scripts\ViewListApplication.js" />
+    <Content Include="Areas\InformHeadline\UpdateInform\Scripts\ViewListController.js" />
+    <Content Include="Areas\InformHeadline\UpdateInform\Scripts\ViewListService.js" />
+    <Content Include="Areas\InformHeadline\UpdateInform\Styles\Images\close-case.png" />
+    <Content Include="Areas\InformHeadline\UpdateInform\Styles\Images\edit.png" />
+    <Content Include="Areas\InformHeadline\UpdateInform\Styles\Images\list.png" />
+    <Content Include="Areas\InformHeadline\UpdateInform\Styles\Images\open-case.png" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\Directives\ViewListContainer.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\ViewListController.js" />
@@ -1229,6 +1237,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\InformHeadline\NewInform\Styles\ViewList.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\InformHeadline\UpdateInform\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\InformHeadline\UpdateInform\Styles\ViewList.less" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

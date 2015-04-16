@@ -210,4 +210,7 @@
   <data name="NA" xml:space="preserve">
     <value>N/A</value>
   </data>
+  <data name="UpdateInformHeadlines" xml:space="preserve">
+    <value>Update Inform Headlines</value>
+  </data>
 </root>

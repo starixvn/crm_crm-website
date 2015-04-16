@@ -331,6 +331,15 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Inform Headlines.
+        /// </summary>
+        public static string UpdateInformHeadlines {
+            get {
+                return ResourceManager.GetString("UpdateInformHeadlines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Without any group.
         /// </summary>
         public static string WithoutAnyGroup {

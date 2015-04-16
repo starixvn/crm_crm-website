@@ -59,16 +59,16 @@ namespace Fanex.CRM.InformHeadline.Repositories
         }
 
         /// <summary>
-        /// Get direct accounts for new case.
+        /// Get informs for new case.
         /// </summary>
-        /// <param name="criteria">Get direct account criteria.</param>
-        /// <returns>List of direct account.</returns>
-        public IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria)
+        /// <param name="criteria">Get new informs criteria.</param>
+        /// <returns>List of new informs.</returns>
+        public IList<NewInform> GetNewInforms(GetNewInformsCriteria criteria)
         {
-            var result = new List<DirectAccount>();
+            var result = new List<NewInform>();
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var rawdata = db.Query<DirectAccount>(criteria.GetSpParams());
+                var rawdata = db.Query<NewInform>(criteria.GetSpParams());
                 foreach (var item in rawdata)
                 {
                     result.Add(item);
@@ -115,6 +115,34 @@ namespace Fanex.CRM.InformHeadline.Repositories
                     Code = Converter.ToInt(outputParams["errcode"]),
                     Message = Converter.ToString2(outputParams["errmsg"])
                 };
+            }
+        }
+
+        /// <summary>
+        /// Get informs for update case.
+        /// </summary>
+        /// <param name="criteria">Get update informs criteria.</param>
+        /// <returns>List of update informs.</returns>
+        public IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria)
+        {
+            var result = new List<UpdateInform>();
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                var rawdata = db.Query<UpdateInform>(criteria.GetSpParams());
+                foreach (var item in rawdata)
+                {
+                    result.Add(item);
+                }
+
+                return result;
+            }
+        }
+
+        public TitleDetail GetTileDetail(GetTitleDetailCriteria criteria)
+        {
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.QueryEntity<TitleDetail>(criteria.GetSpParams());               
             }
         }
     }

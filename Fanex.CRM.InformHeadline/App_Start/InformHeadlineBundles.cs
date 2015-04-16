@@ -22,7 +22,8 @@ namespace Fanex.CRM.InformHeadline
         public static void RegisterBundles(BundleCollection bundles)
         {
             RegisterInformHeadlineViewListBundles(bundles);
-            RegisterInformHeadlineNewInformBundles(bundles);    
+            RegisterInformHeadlineNewInformBundles(bundles);
+            RegisterInformHeadlineUpdateInformBundles(bundles);
         }
 
         /// <summary>
@@ -79,6 +80,33 @@ namespace Fanex.CRM.InformHeadline
                 "~/Areas/InformHeadline/NewInformStyles",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.css",
                 "~/Areas/InformHeadline/NewInform/Styles/ViewList.less");
+        }
+
+        /// <summary>
+        /// Register Update Inform Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterInformHeadlineUpdateInformBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Bundles/InformHeadline/UpdateInformScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                 "~/Scripts/ShareScripts/Directives/MultiSelect.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/InformHeadline/UpdateInform/Scripts/ViewListApplication.js",
+                "~/Areas/InformHeadline/UpdateInform/Scripts/ViewListService.js",
+                "~/Areas/InformHeadline/UpdateInform/Scripts/ViewListController.js",
+                "~/Areas/InformHeadline/UpdateInform/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/InformHeadline/UpdateInformStyles",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/InformHeadline/UpdateInform/Styles/ViewList.less");
         }
 
         private static void AddAndInclude(BundleCollection bundles, string bundleVirtualPath, params string[] virtualPaths)

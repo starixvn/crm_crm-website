@@ -12,20 +12,37 @@ newInformApplication.controller('NewInformController',
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
         }
+        $scope.titleDetail = {};
         $scope.showSaveButton = false;
         $scope.listData = null;
         $scope.informStatuses = [];
         $scope.productStatuses = [];
         $scope.stations = [];
 
-        $scope.initController = function () {
+        function initController() {
             sharedScriptManager.safeApply($scope);
             $scope.getAllSettings();
-        };
-        $scope.updateSelectedSite = function (siteIdList) {
-            $scope.searchCriteria.SiteIds = siteIdList;
-        };
-        $scope.getDirectAccounts = function () {
+        }
+
+        function getAllSettings() {
+            $uiBlockerService.blockUI();
+            $scope.positionDropdownSettings.sourceData = newInformService.getPositions();
+            newInformService.getAllSettings()
+            .then(function (data) {
+                var allSetting = data.Result;
+                $scope.siteDropdownSettings.sourceData = allSetting.Sites[0].ChildSites;
+                $scope.currencyDropdownSettings.sourceData = allSetting.Currencies;
+                $scope.informStatuses = allSetting.Statuses;
+                $scope.productStatuses = allSetting.ProductStatuses;
+                $scope.stations = allSetting.Stations;
+                $uiBlockerService.unblockUI();
+            },
+            function (data) {
+                $uiBlockerService.unblockUI();
+            });
+        }
+
+        $scope.getInforms = function () {
 
             $uiBlockerService.blockUI();
             var accountType = 0;
@@ -46,7 +63,7 @@ newInformApplication.controller('NewInformController',
                 PageIndex: 1,
                 ItemsPerPage: 1000
             };
-            newInformService.getDirectAccounts(params)
+            newInformService.getInforms(params)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
                     $scope.showSaveButton = data.Result.Items.length > 0;
@@ -59,7 +76,7 @@ newInformApplication.controller('NewInformController',
                 });
         };
         $scope.saveInforms = function () {
-            
+
         };
         $scope.updateInformStatus = function (titleId, status) {
             $uiBlockerService.blockUI();
@@ -126,24 +143,8 @@ newInformApplication.controller('NewInformController',
             width: 220,
             templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
         };
-        $scope.getAllSettings = function () {
-            $uiBlockerService.blockUI();
-            $scope.positionDropdownSettings.sourceData = newInformService.getPositions();
-            newInformService.getAllSettings()
-            .then(function (data) {
-                var allSetting = data.Result;
-                $scope.siteDropdownSettings.sourceData = allSetting.Sites[0].ChildSites;
-                $scope.currencyDropdownSettings.sourceData = allSetting.Currencies;
-                $scope.informStatuses = allSetting.Statuses;
-                $scope.productStatuses = allSetting.ProductStatuses;
-                $scope.stations = allSetting.Stations;
-                $uiBlockerService.unblockUI();
-            },
-            function (data) {
-                $uiBlockerService.unblockUI();
-            });
-        };
+
         angular.element(document).ready(function () {
-            $scope.initController();
+            initController();
         });
     } ]);

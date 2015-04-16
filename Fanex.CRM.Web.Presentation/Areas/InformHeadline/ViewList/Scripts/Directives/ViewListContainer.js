@@ -95,11 +95,12 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
         });
         $contextMenu.on("click", "a", function (e) {
             var $element = angular.element(e.target);
+            var titleId = $contextMenu.data("title-id");
             if ($element.hasClass("edit-menu-item")) {
-                // not implemented.
+                scope.showUpdateCaseDialog(titleId);
             }
             else {
-                var titleId = $contextMenu.data("title-id");
+
                 var status = $element.data("status");
                 scope.updateInformStatus(titleId, status);
             }
@@ -134,4 +135,4 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
             });
         }
     };
-}]);
+} ]);

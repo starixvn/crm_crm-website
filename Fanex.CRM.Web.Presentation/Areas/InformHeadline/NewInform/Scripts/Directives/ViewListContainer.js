@@ -47,7 +47,7 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
                             { Name: "Status", Value: generateDropdown(scope.informStatuses, "SettingId", "SettingValue", item.InformHeadlineStatusId) },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
                             { Name: "Remark", Value: "<textarea></textarea>" },
-                            { Name: "Handler", Value: item.UpdatedTime },
+                            { Name: "Handler", Value: '' },
                             { Name: "Extension", Value: stationDropdownHtml },
                             { Name: "ProductStatus", Value: productStatusDropdownHtml }
                         ],
@@ -58,7 +58,7 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
 
         var gridOptions = {
             columns: [
-                    { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Status, Width: 120, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Remark, Width: 200, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },

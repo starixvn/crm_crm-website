@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DirectAccount.cs" company="">
+// <copyright file="NewInform.cs" company="">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,7 +9,7 @@ namespace Fanex.CRM.InformHeadline.Models
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class DirectAccount
+    public class NewInform
     {
         public int Id { get; set; }
 

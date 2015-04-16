@@ -89,15 +89,15 @@ namespace Fanex.CRM.InformHeadline.Services
         }
 
         /// <summary>
-        /// Get direct accounts for new case.
+        /// Get informs for new case.
         /// </summary>
-        /// <param name="criteria">Get direct account criteria.</param>
-        /// <returns>List of direct account.</returns>
-        public IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria)
+        /// <param name="criteria">Get informs criteria.</param>
+        /// <returns>List of informs.</returns>
+        public IList<NewInform> GetNewInforms(GetNewInformsCriteria criteria)
         {
             try
             {
-                return _informHeadlineRepository.GetDirectAccounts(criteria);
+                return _informHeadlineRepository.GetNewInforms(criteria);
             }
             catch (Exception ex)
             {
@@ -136,6 +136,42 @@ namespace Fanex.CRM.InformHeadline.Services
                 ProductStatuses = productStatuses,
                 Stations = _settingServices.GetStations()
             };
+        }
+
+        /// <summary>
+        /// Get informs for new case.
+        /// </summary>
+        /// <param name="criteria">Get informs criteria.</param>
+        /// <returns>List of informs.</returns>
+        public IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria)
+        {
+            try
+            {
+                return _informHeadlineRepository.GetUpdateInforms(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get title detail.
+        /// </summary>
+        /// <param name="criteria">Criteria object.</param>
+        /// <returns>Title detail.</returns>
+        public TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria)
+        {
+            try
+            {
+                return _informHeadlineRepository.GetTileDetail(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
         }
     }
 }

@@ -24,9 +24,13 @@ namespace Fanex.CRM.InformHeadline.Services
 
         Result UpdateInformStatus(UpdateInformStatusCriteria criteria);
 
-        IList<DirectAccount> GetDirectAccounts(GetDirectAccountsCriteria criteria);
+        IList<NewInform> GetNewInforms(GetNewInformsCriteria criteria);
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         dynamic GetNewInformSettings();
+
+        IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria);
+
+        TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria);
     }
 }

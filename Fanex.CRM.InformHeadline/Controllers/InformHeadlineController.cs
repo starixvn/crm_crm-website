@@ -81,6 +81,8 @@ namespace Fanex.CRM.InformHeadline.Controllers
 
         #endregion InformHeadline Cases
 
+        #region New Inform
+
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         [HttpGet]
         public ActionResult NewInform()
@@ -90,18 +92,53 @@ namespace Fanex.CRM.InformHeadline.Controllers
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         [HttpPost]
-        public ActionResult GetDirectAccounts(GetDirectAccountsCriteria criteria)
+        public ActionResult GetNewInforms(GetNewInformsCriteria criteria)
         {
-            var data = _informHeadlineService.GetDirectAccounts(criteria);
+            var data = _informHeadlineService.GetNewInforms(criteria);
             var result = new { Items = data };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion New Inform
+
+        #region Update Inform
+
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         [HttpGet]
+        public ActionResult UpdateInform(int titleId)
+        {
+            ViewBag.TitleId = titleId;
+            return View("~/Areas/InformHeadline/UpdateInform/Index.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult GetUpdateInforms(GetUpdateInformsCriteria criteria)
+        {
+            var data = _informHeadlineService.GetUpdateInforms(criteria);
+            var result = new { Items = data };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion Update Inform
+
+        [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         public ActionResult AllSettings()
         {
             return Json(_informHeadlineService.GetNewInformSettings(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        public ActionResult GetTitleDetail(int titleId)
+        {
+            var title = _informHeadlineService.GetTitleDetail(
+                            new GetTitleDetailCriteria()
+                            {
+                                TitleId = titleId
+                            });
+            return Json(title, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

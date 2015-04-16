@@ -15,36 +15,14 @@ newInformApplication.factory('newInformService',
             ];
         };
 
-        serviceInstance.getDirectAccounts = function (params) {
-            var url = window.rootUrl + "InformHeadline/GetDirectAccounts";
-            return sharedScriptManager.registerAngularService($http, $q, url, params);
-        };
-
-        serviceInstance.updateInformStatus = function (params) {
-            var url = window.rootUrl + "InformHeadline/UpdateInformStatus";
+        serviceInstance.getInforms = function (params) {
+            var url = window.rootUrl + "InformHeadline/GetNewInforms";
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 
         serviceInstance.getAllSettings = function () {
-            var deferred = $q.defer();
-            $http.get(window.rootUrl + 'InformHeadline/AllSettings')
-            .success(function (data, status, headers, config) {
-                deferred.resolve({
-                    Result: data,
-                    Status: status,
-                    Headers: headers,
-                    Config: config
-                });
-            }).error(function (data, status, headers, config) {
-                deferred.reject({
-                    Result: data,
-                    Status: status,
-                    Headers: headers,
-                    Config: config
-                });
-            });
-
-            return deferred.promise;
+            var url = window.rootUrl + 'InformHeadline/AllSettings';
+            return sharedScriptManager.registerAngularService($http, $q, url);
         };
 
         return serviceInstance;

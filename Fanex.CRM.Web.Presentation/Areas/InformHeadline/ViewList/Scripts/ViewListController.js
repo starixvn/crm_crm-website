@@ -80,6 +80,25 @@ informHeadlineApplication.controller('ViewListController',
                 { my: "center", at: "center" },
                 $scope.beforeCloseEditView);
         };
+        $scope.showUpdateCaseDialog = function (titleId) {
+            parent.homeManager.CachedData.shouldReloadView = false;
+            parent.OpenPopup(
+                window.rootUrl + "InformHeadline/UpdateInform?" +
+                    $.param({
+                        titleId: titleId
+                    }),
+                viewResources.UpdateInformHeadlines,
+                1000,
+                800,
+                true,
+                false,
+                parent.window,
+                3000,
+                null,
+                $scope.closeEditView,
+                { my: "center", at: "center" },
+                $scope.beforeCloseEditView);
+        };
         angular.element(document).ready(function () {
             registerOptions($scope);
             registerUpdateFunctions($scope);
