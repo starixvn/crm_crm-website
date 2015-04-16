@@ -1,10 +1,10 @@
 ﻿"use strict";
-/* global viewListApplication,
+/* global newInformApplication,
 crmConstants,
 viewResources */
 /* jshint camelcase: false,
 unused: vars */
-viewListApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
+newInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
     var selfScope;
     var listData;
 
@@ -21,8 +21,6 @@ viewListApplication.directive('informHeadlineListContainer', ['$document', funct
 
         return html;
     }
-
-
 
     function renderListData(scope, element, attrs) {
         selfScope = scope;

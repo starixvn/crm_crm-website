@@ -1,7 +1,7 @@
 ﻿'use strict';
-/* global viewListApplication,
+/* global informHeadlineApplication,
 sharedScriptManager */
-viewListApplication.factory('viewListService',
+informHeadlineApplication.factory('viewListService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};

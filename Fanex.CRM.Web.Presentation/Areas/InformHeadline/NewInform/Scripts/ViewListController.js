@@ -1,13 +1,13 @@
 ﻿"use strict";
-/* global viewListApplication,
+/* global newInformApplication,
 sharedScriptManager,
 viewResources, Site */
 /* jshint unused: vars,
 camelcase: false */
 
-viewListApplication.controller('viewListController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
-    function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
+newInformApplication.controller('NewInformController',
+    ['$scope', '$uiBlockerService', '$resultMessageService', 'newInformService',
+    function ($scope, $uiBlockerService, $resultMessageService, newInformService) {
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
@@ -46,7 +46,7 @@ viewListApplication.controller('viewListController',
                 PageIndex: 1,
                 ItemsPerPage: 1000
             };
-            viewListService.getDirectAccounts(params)
+            newInformService.getDirectAccounts(params)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
                     $scope.showSaveButton = data.Result.Items.length > 0;
@@ -64,7 +64,7 @@ viewListApplication.controller('viewListController',
         $scope.updateInformStatus = function (titleId, status) {
             $uiBlockerService.blockUI();
 
-            viewListService.updateInformStatus({
+            newInformService.updateInformStatus({
                 titleId: titleId,
                 statusType: status.toString() === "1" // false : Open, true: Close
             })
@@ -82,7 +82,7 @@ viewListApplication.controller('viewListController',
         $scope.updateInformHeadlines = function (titleId, status) {
             $uiBlockerService.blockUI();
 
-            viewListService.updateInformStatus({
+            newInformService.updateInformStatus({
                 titleId: titleId,
                 statusType: status.toString() === "1" // false : Open, true: Close
             })
@@ -128,8 +128,8 @@ viewListApplication.controller('viewListController',
         };
         $scope.getAllSettings = function () {
             $uiBlockerService.blockUI();
-            $scope.positionDropdownSettings.sourceData = viewListService.getPositions();
-            viewListService.getAllSettings()
+            $scope.positionDropdownSettings.sourceData = newInformService.getPositions();
+            newInformService.getAllSettings()
             .then(function (data) {
                 var allSetting = data.Result;
                 $scope.siteDropdownSettings.sourceData = allSetting.Sites[0].ChildSites;

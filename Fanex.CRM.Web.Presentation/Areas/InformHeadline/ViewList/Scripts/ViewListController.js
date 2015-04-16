@@ -1,5 +1,5 @@
 ﻿"use strict";
-/* global viewListApplication,
+/* global informHeadlineApplication,
 sharedScriptManager,
 registerOptions,
 registerUpdateFunctions,
@@ -8,7 +8,7 @@ viewResources, Site */
 /* jshint unused: vars,
 camelcase: false */
 
-viewListApplication.controller('viewListController',
+informHeadlineApplication.controller('ViewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
 

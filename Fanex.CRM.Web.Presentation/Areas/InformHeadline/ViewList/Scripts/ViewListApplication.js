@@ -1,7 +1,7 @@
 ﻿/* global sharedScriptManager, RegisterTemplate */
-/* exported viewListApplication */
-var viewListApplication = angular.module('inform-headline-application',
+/* exported informHeadlineApplication */
+var informHeadlineApplication = angular.module('informHeadlineApplication',
     ['$uiBlockerApplication', '$resultMessageApplication']);
-sharedScriptManager.setNoCachingHttpRequest(viewListApplication);
-var viewListRegister = new RegisterTemplate(viewListApplication);
+sharedScriptManager.setNoCachingHttpRequest(informHeadlineApplication);
+var viewListRegister = new RegisterTemplate(informHeadlineApplication);
 viewListRegister.registerDownloadFile();

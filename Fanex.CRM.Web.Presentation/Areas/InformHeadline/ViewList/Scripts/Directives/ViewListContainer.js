@@ -1,10 +1,10 @@
 ﻿"use strict";
-/* global viewListApplication,
+/* global informHeadlineApplication,
 crmConstants,
 viewResources */
 /* jshint camelcase: false,
 unused: vars */
-viewListApplication.directive('informHeadlineListContainer',['$document', function ($document) {
+informHeadlineApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
     var selfScope;
     var listData;
 
@@ -12,14 +12,14 @@ viewListApplication.directive('informHeadlineListContainer',['$document', functi
         selfScope = scope;
         listData = scope.listData;
 
-        if (scope.listData === null) {
+        if (listData === null) {
             return;
         }
 
         var $tableSetting = element.find("#inform-headline-list");
         var bodyData = [];
         $tableSetting.empty();
-        var rowsCount = scope.listData.length;
+        var rowsCount = listData.length;
         if (rowsCount > 0) {
             for (var i = 0; i < rowsCount; i++) {
                 var item = listData[i];

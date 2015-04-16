@@ -1,7 +1,7 @@
 ﻿/* global sharedScriptManager, RegisterTemplate */
-/* exported viewListApplication */
-var viewListApplication = angular.module('inform-headline-application',
+/* exported newInformApplication */
+var newInformApplication = angular.module('newInformApplication',
     ['$uiBlockerApplication', '$resultMessageApplication', 'fanex.dropdowntree']);
-sharedScriptManager.setNoCachingHttpRequest(viewListApplication);
-var viewListRegister = new RegisterTemplate(viewListApplication);
+sharedScriptManager.setNoCachingHttpRequest(newInformApplication);
+var viewListRegister = new RegisterTemplate(newInformApplication);
 viewListRegister.registerDownloadFile();

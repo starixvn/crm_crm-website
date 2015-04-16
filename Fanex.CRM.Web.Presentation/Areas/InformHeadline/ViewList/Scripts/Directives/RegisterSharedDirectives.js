@@ -1,9 +1,9 @@
 ﻿"use strict";
-/* global viewListApplication,
+/* global informHeadlineApplication,
 RegisterTemplate,
 directiveManager */
 function viewListRegisterPicker() {
-    var viewListRegister = new RegisterTemplate(viewListApplication);
+    var viewListRegister = new RegisterTemplate(informHeadlineApplication);
     viewListRegister.registerDefaultFocus();
 
     var mainSettingRegisterParams = {
@@ -18,7 +18,7 @@ function viewListRegisterPicker() {
         }
     };
 
-    directiveManager.registerDropdownContainer(viewListApplication, mainSettingRegisterParams);
+    directiveManager.registerDropdownContainer(informHeadlineApplication, mainSettingRegisterParams);
 }
 
 viewListRegisterPicker();
