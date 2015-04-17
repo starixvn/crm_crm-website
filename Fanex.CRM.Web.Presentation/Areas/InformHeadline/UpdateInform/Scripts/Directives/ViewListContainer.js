@@ -6,13 +6,13 @@ viewResources */
 unused: vars */
 updateInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
     var selfScope;
-    var listData;
 
-    function generateDropdown(data, valueProperty, textProperty, selectedValue) {
-        var html = '<select style="width: 100px">';
+    function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
+        var html = '<select data-binding-name="' + bindingName + '" style="width: 100px">';
 
         for (var i = 0; i < data.length; i++) {
             var item = data[i];
+
             html += '<option value="' + item[valueProperty] + '" ' +
                     (item[valueProperty] == selectedValue ? 'selected' : '') +
                      ' >' + item[textProperty] + '</option>';
@@ -21,34 +21,50 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
 
         return html;
     }
-
+    function htmlEncode(value) {
+        return $('<div/>').text(value).html();
+    }
+    function htmlDecode(value) {
+        return $('<div/>').html(value).text();
+    }
     function renderListData(scope, element, attrs) {
         selfScope = scope;
-        listData = scope.listData;
 
-        if (scope.listData === null) {
+        if (scope.dataSource === null) {
             return;
         }
 
         var $tableSetting = element.find("#inform-headline-list");
-        var bodyData = [];
         $tableSetting.empty();
-        var rowsCount = scope.listData.length;
+        var bodyData = [];
+        var rowsCount = scope.dataSource.length;
         if (rowsCount > 0) {
-
             for (var i = 0; i < rowsCount; i++) {
-                var item = listData[i];
+                var item = scope.dataSource[i];
                 bodyData.push({
                     Columns: [
                             { Name: "DirectAccount", Value: item.UserName },
-                            { Name: "Status", Value: generateDropdown(scope.informStatuses, "SettingId", "SettingValue", item.InformHeadlineStatusId) },
+                            { Name: "Status", Value: item, CustomCellRender: function (columnModel) {
+                                return generateDropdown(scope.$parent.informStatuses, "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
+                            }
+                            },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
-                            { Name: "Remark", Value: "<textarea></textarea>" },
-                            { Name: "Handler", Value: item.Handler },
-                            { Name: "Extension", Value: generateDropdown(scope.stations, "StationId", "Name", item.Extension) },
-                            { Name: "ProductStatus", Value: generateDropdown(scope.productStatuses, "StatusId", "Name", item.ProductStatus) }
+                            { Name: "Remark", Value: item, CustomCellRender: function (columnModel) {
+                                return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
+                            }
+                            },
+                            { Name: "Handler", Value: '' },
+                            { Name: "Extension", Value: item, CustomCellRender: function (columnModel) {
+                                return generateDropdown(scope.$parent.stations, "Extension", "StationId", "Name", columnModel.Value.Extension);
+                            }
+                            },
+                            { Name: "ProductStatus", Value: item, CustomCellRender: function (columnModel) {
+                                return generateDropdown(scope.$parent.productStatuses, "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
+                            }
+                            },
                         ],
-                    CssClass: item.Case > 0 ? 'updated' : (item.GroupId > 0 ? 'headline' : 'direct')                               
+                    CssClass: item.GroupId > 0 ? 'headline' : 'direct',
+                    CustomAttr: 'data-headline-id=' + item.HeadlineId + ' data-rowindex=' + (item.Id - 1)
                 });
             }
         }
@@ -59,7 +75,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                     { HeaderText: viewResources.Status, Width: 120, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "MMM DD, YYYY" },
                     { HeaderText: viewResources.Remark, Width: 200, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Extension, Width: 120, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.ProductStatus, Width: 120, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
@@ -78,57 +94,44 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                 itemsPerPage: 10,
                 maxItemsPerPage: 100,
                 currentPage: 0,
-                totalItem: scope.listData.length,
+                totalItem: scope.dataSource.length,
                 startPerPage: 10,
                 pageStep: 10
             }
         };
 
-        $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var $contextMenu = angular.element("#contextMenu");
-        $document.click(function () {
-            $contextMenu.hide();
-        });
-        angular.element(".grid-container").scroll(function () {
-            $contextMenu.hide();
-        });
-        $contextMenu.on("click", "a", function (e) {
-            var $element = angular.element(e.target);
-            if ($element.hasClass("edit-menu-item")) {
-                // not implemented.
-            }
-            else {
-                var titleId = $contextMenu.data("title-id");
-                var status = $element.data("status");
-                scope.updateInformStatus(titleId, status);
-            }
-        });
-        $tableSetting.on("click", ".actionButton", function (e) {
-            var $element = angular.element(e.target);
-            var titleId = $element.closest("tr").data("title-id");
-            $contextMenu.data("title-id", titleId);
-            $contextMenu.find("li").hide();
-            if ($element.closest("tr").hasClass("status-closed")) {
-                $contextMenu.find(".status-closed").show();
-            } else {
-                $contextMenu.find(":not(.status-closed)").show();
-            }
+        function updateDataSource($target, useHtmlEncode) {
+            var $tr = $target.closest("tr");
+            var headlineId = $tr.data("headline-id");
+            var rowIndex = parseInt($tr.data("rowindex"));
+            var bindingName = $target.data("binding-name");
 
-            var offset = $element.offset();
-            $contextMenu.show().css({
-                display: "block",
-                left: offset.left,
-                top: offset.top + $element.height()
-            });
-            return false;
+            var dataItem = scope.dataSource[rowIndex];
+            dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
+            scope.updatedItems[headlineId] = dataItem;
+        }
+
+        $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+
+        $tableSetting.on("change", "select", function (e) {
+            updateDataSource(angular.element(e.target));
+        });
+
+        $tableSetting.on("change", "textarea", function (e) {
+            updateDataSource(angular.element(e.target), true);
         });
     }
 
     return {
-        restrict: 'C',
-        scope: true,
+        restrict: 'A',
+        require: '^ngModel',
+        scope: {
+            dataSource: '=ngModel',
+            updatedItems: '='
+        },
         link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (oldval, newval) {
+            scope.updatedItems = scope.updatedItems || {};
+            scope.$watch("dataSource", function (oldval, newval) {
                 renderListData(scope, element, attrs);
             });
         }

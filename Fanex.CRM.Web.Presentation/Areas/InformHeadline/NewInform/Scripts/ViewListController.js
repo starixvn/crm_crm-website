@@ -15,13 +15,16 @@ newInformApplication.controller('NewInformController',
         $scope.titleDetail = {};
         $scope.showSaveButton = false;
         $scope.listData = null;
+        $scope.updatedItems = {};
         $scope.informStatuses = [];
         $scope.productStatuses = [];
         $scope.stations = [];
 
+        var _searchCriteria = {};
+
         function initController() {
             sharedScriptManager.safeApply($scope);
-            $scope.getAllSettings();
+            getAllSettings();
         }
 
         function getAllSettings() {
@@ -55,7 +58,7 @@ newInformApplication.controller('NewInformController',
                 accountType += 2;
             }
 
-            var params = {
+            _searchCriteria = {
                 Currency: $scope.selectedCurrencies.toString(),
                 Site: $scope.selectedSites.toString(),
                 Level: $scope.selectedPositions.toString(),
@@ -63,7 +66,7 @@ newInformApplication.controller('NewInformController',
                 PageIndex: 1,
                 ItemsPerPage: 1000
             };
-            newInformService.getInforms(params)
+            newInformService.getInforms(_searchCriteria)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
                     $scope.showSaveButton = data.Result.Items.length > 0;
@@ -75,8 +78,23 @@ newInformApplication.controller('NewInformController',
                     $uiBlockerService.unblockUI();
                 });
         };
-        $scope.saveInforms = function () {
+        $scope.insertInforms = function () {
+            var items = [];
+            for (var key in $scope.updatedItems) {
+                if ($scope.updatedItems.hasOwnProperty(key)) {
+                    items.push($scope.updatedItems[key]);
+                }
+            }
+            _searchCriteria.Title = $scope.titleDetail.Title;
+            _searchCriteria.Informs = items;
 
+            newInformService.insertInforms(_searchCriteria)
+                .then(function (data) {
+                    $uiBlockerService.unblockUI();
+                },
+                function (data) {
+                    $uiBlockerService.unblockUI();
+                });
         };
         $scope.updateInformStatus = function (titleId, status) {
             $uiBlockerService.blockUI();

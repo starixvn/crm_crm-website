@@ -30,5 +30,7 @@ namespace Fanex.CRM.Infrastructure.Models
         public int Code { get; set; }
 
         public string Message { get; set; }
+
+        public object ExtendedData { get; set; }
     }
 }

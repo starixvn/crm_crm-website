@@ -16,6 +16,7 @@ updateInformApplication.controller('UpdateInformController',
         $scope.titleDetail = null;
         $scope.showSaveButton = false;
         $scope.listData = null;
+        $scope.updatedItems = {};
         $scope.informStatuses = [];
         $scope.productStatuses = [];
         $scope.stations = [];
@@ -76,6 +77,7 @@ updateInformApplication.controller('UpdateInformController',
             }
 
             var params = {
+                TitleId: $scope.titleId,
                 Currency: $scope.selectedCurrencies.toString(),
                 Site: $scope.selectedSites.toString(),
                 Level: $scope.selectedPositions.toString(),
@@ -95,8 +97,25 @@ updateInformApplication.controller('UpdateInformController',
                     $uiBlockerService.unblockUI();
                 });
         };
-        $scope.saveInforms = function () {
-
+        $scope.updateInforms = function () {
+            var items = [];
+            for (var key in $scope.updatedItems) {
+                if ($scope.updatedItems.hasOwnProperty(key)) {
+                    items.push($scope.updatedItems[key]);
+                }
+            }
+            _searchCriteria.Title = $scope.titleDetail.Title;
+            var params = {
+                InsertCriteria: _searchCriteria,
+                Informs: items
+            };
+            newInformService.updateInforms(params)
+                .then(function (data) {
+                    $uiBlockerService.unblockUI();
+                },
+                function (data) {
+                    $uiBlockerService.unblockUI();
+                });
         };
         $scope.updateInformStatus = function (titleId, status) {
             $uiBlockerService.blockUI();

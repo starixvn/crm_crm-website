@@ -8,6 +8,7 @@ namespace Fanex.CRM.InformHeadline.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
@@ -30,7 +31,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         public InformHeadlineService()
             : this(null, null)
-        {            
+        {
         }
 
         public InformHeadlineService(IInformHeadlineRepository informHeadlineRepository, ISettingService settingServices)
@@ -114,7 +115,7 @@ namespace Fanex.CRM.InformHeadline.Services
         {
             var productStatuses = _settingServices.GetStatuses(ViewTypeConstants.InformHeadline);
             productStatuses.Insert(
-                0, 
+                0,
                 new Status()
             {
                 StatusId = 0,
@@ -172,6 +173,69 @@ namespace Fanex.CRM.InformHeadline.Services
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Update inform headline.
+        /// </summary>
+        /// <param name="criteria">Criteria object.</param>
+        /// <returns>Result object.</returns>
+        public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
+        {
+            try
+            {
+                return _informHeadlineRepository.UpdateInformHeadline(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Insert inform headline.
+        /// </summary>
+        /// <param name="criteria">Criteria object.</param>
+        /// <returns>Result object.</returns>
+        public Result InsertInformHeadline(InsertInformHeadlineCriteria criteria)
+        {
+            try
+            {
+                var result = _informHeadlineRepository.InsertInformHeadline(criteria);
+                var updateCriteria = new UpdateInformHeadlineCriteria();
+                updateCriteria.TitleId = (int)result.ExtendedData;
+                updateCriteria.Content = BuildUpdateInformsXml(criteria.Informs);
+
+                return _informHeadlineRepository.UpdateInformHeadline(updateCriteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Build update inform XML.
+        /// </summary>
+        /// <param name="informs">List of inform.</param>
+        /// <returns>XML string.</returns>
+        private static string BuildUpdateInformsXml(IList<UpdateInform> informs)
+        {
+            var builder = new StringBuilder("<Content>");
+            foreach (var item in informs)
+            {
+                builder.AppendFormat(
+                    "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' />",
+                    item.HeadlineId, 
+                    item.InformHeadlineStatusId, 
+                    item.Remark, 
+                    item.Extension, 
+                    item.ProductStatus);
+            }
+
+            return builder.Append("</Content>").ToString();
         }
     }
 }

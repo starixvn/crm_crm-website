@@ -129,6 +129,7 @@
     </Setting>
     <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineUpd" SpName="Acc_CRM_InformHeadlineUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformHeadlineIns" SpName="Acc_CRM_InformHeadlineIns" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineStatusSel" SpName="Acc_CRM_InformHeadlineStatusSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
       <Mapping DataField="Cases" ObjectProperty="Case" />

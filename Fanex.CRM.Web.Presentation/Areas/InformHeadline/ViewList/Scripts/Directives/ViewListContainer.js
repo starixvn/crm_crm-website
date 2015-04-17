@@ -106,21 +106,21 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
             }
         });
         $tableSetting.on("click", ".actionButton", function (e) {
-            var $element = angular.element(e.target);
-            var titleId = $element.closest("tr").data("title-id");
+            var $target = angular.element(e.target);
+            var titleId = $target.closest("tr").data("title-id");
             $contextMenu.data("title-id", titleId);
             $contextMenu.find("li").hide();
-            if ($element.closest("tr").hasClass("status-closed")) {
+            if ($target.closest("tr").hasClass("status-closed")) {
                 $contextMenu.find(".status-closed").show();
             } else {
                 $contextMenu.find(":not(.status-closed)").show();
             }
 
-            var offset = $element.offset();
+            var offset = $target.offset();
             $contextMenu.show().css({
                 display: "block",
                 left: offset.left,
-                top: offset.top + $element.height()
+                top: offset.top + $target.height()
             });
             return false;
         });

@@ -57,7 +57,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
         [HttpPost]
         public ActionResult GetInforms(GetInformHeadlinesCriteria criteria)
         {
-            var informs = _informHeadlineService.GetInforms(criteria);                        
+            var informs = _informHeadlineService.GetInforms(criteria);
             var result = new { Items = informs };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -74,7 +74,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
         [HttpPost]
         [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         public JsonResult UpdateInformStatus(UpdateInformStatusCriteria criteria)
-        {            
+        {
             var result = _informHeadlineService.UpdateInformStatus(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -124,6 +124,13 @@ namespace Fanex.CRM.InformHeadline.Controllers
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        public ActionResult InsertInforms(InsertInformHeadlineCriteria criteria)
+        {
+            return Json(_informHeadlineService.InsertInformHeadline(criteria), JsonRequestBehavior.DenyGet);            
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         public ActionResult AllSettings()
         {
             return Json(_informHeadlineService.GetNewInformSettings(), JsonRequestBehavior.AllowGet);
@@ -150,7 +157,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
             var searchPolicy = GetPolicy(FunctionPermissions.InformHeadlineSearch);
             if (searchPolicy != Constant.Policy.None)
             {
-                return new 
+                return new
                 {
                     PermissionType = "Search",
                     Policy = searchPolicy.ToString()

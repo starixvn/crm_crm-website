@@ -61,13 +61,10 @@ informHeadlineApplication.controller('ViewListController',
                 },
                 handleUpdateFailed);
         };
-        $scope.showAddCaseDialog = function (titleId) {
+        $scope.showAddCaseDialog = function () {
             parent.homeManager.CachedData.shouldReloadView = false;
             parent.OpenPopup(
-                window.rootUrl + "InformHeadline/NewInform?" +
-                    $.param({
-                        titleId: titleId
-                    }),
+                window.rootUrl + "InformHeadline/NewInform",
                 viewResources.NewInformHeadlines,
                 1000,
                 800,

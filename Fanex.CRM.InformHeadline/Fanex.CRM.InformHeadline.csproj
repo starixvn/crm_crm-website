@@ -103,6 +103,7 @@
   <ItemGroup>
     <Compile Include="App_Start\InformHeadlineBundles.cs" />
     <Compile Include="Controllers\InformHeadlineController.cs" />
+    <Compile Include="Criteria\InsertInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\GetTitleDetailCriteria.cs" />
     <Compile Include="Criteria\GetUpdateInformsCriteria.cs" />
     <Compile Include="Criteria\UpdateInformHeadlineCriteria.cs" />

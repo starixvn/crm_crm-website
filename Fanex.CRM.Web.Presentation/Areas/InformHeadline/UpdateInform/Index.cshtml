@@ -65,13 +65,13 @@
                 </form>
             </div>
             <div class="row">
-                <div id="inform-headline-list-container" class="inform-headline-list-container" data-ng-model="listData">
+                <div id="inform-headline-list-container" inform-headline-list-container  data-ng-model="listData" updated-items="updatedItems">
                     <div id="inform-headline-list" class="freegrid display-none">
                     </div>
                 </div>
             </div> 
             <div class="row btn-group" data-ng-show="showSaveButton">
-                <button id="buttoninsert" class="btn" data-ng-click="saveInforms()">
+                <button id="buttoninsert" class="btn" data-ng-click="updateInforms()">
                     @Labels.Save</button>
             </div>              
         </div>

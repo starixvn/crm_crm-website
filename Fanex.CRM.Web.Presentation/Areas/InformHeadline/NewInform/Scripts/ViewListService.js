@@ -25,5 +25,10 @@ newInformApplication.factory('newInformService',
             return sharedScriptManager.registerAngularService($http, $q, url);
         };
 
+        serviceInstance.insertInforms = function (params) {
+            var url = window.rootUrl + 'InformHeadline/InsertInforms';
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
+        };
+
         return serviceInstance;
     } ]);

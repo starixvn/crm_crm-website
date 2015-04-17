@@ -30,5 +30,10 @@ updateInformApplication.factory('updateInformService',
             return sharedScriptManager.registerAngularService($http, $q, url);
         };
 
+        serviceInstance.updateInforms = function (params) {
+            var url = window.rootUrl + 'InformHeadline/UpdateInforms';
+            return sharedScriptManager.registerAngularService($http, $q, url, params);
+        };
+
         return serviceInstance;
     } ]);
