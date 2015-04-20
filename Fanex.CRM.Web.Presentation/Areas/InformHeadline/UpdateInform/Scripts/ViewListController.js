@@ -6,12 +6,18 @@ viewResources, Site */
 camelcase: false */
 
 updateInformApplication.controller('UpdateInformController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'updateInformService',
-    function ($scope, $uiBlockerService, $resultMessageService, updateInformService) {
+    ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
+    function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
+
+        var HEADLINE_ACCOUNT_TYPE = 1;
+        var DIRECT_ACCOUNT_TYPE = 2;
+        var BOTH_ACCOUNT_TYPE = 3;
+
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
         }
+
         $scope.titleId = 0;
         $scope.titleDetail = null;
         $scope.showSaveButton = false;
@@ -21,11 +27,14 @@ updateInformApplication.controller('UpdateInformController',
         $scope.productStatuses = [];
         $scope.stations = [];
 
+        $scope.currencyDropdownSettings = {};
+        $scope.positionDropdownSettings = {};
+        $scope.siteDropdownSettings = {};
+
+
         function initController() {
             sharedScriptManager.safeApply($scope);
             getTitleDetail();
-            getAllSettings();
-            console.log($scope.titleDetail);
         }
 
         function getTitleDetail() {
@@ -37,6 +46,7 @@ updateInformApplication.controller('UpdateInformController',
             updateInformService.getTitleDetail(params)
                 .then(function (data) {
                     $scope.titleDetail = data.Result;
+                    getAllSettings();
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
@@ -45,17 +55,54 @@ updateInformApplication.controller('UpdateInformController',
                 });
         }
 
+        function createCurrencyDropdownSettings(sourceData, currencyIds) {
+            $scope.currencyDropdownSettings = {
+                sourceData: sourceData,
+                checkedFilter: function (item) {
+                    return currencyIds.indexOf(item.Id.toString()) > -1;
+                }
+            };
+        }
+
+        function createPositionDropdownSettings(sourceData, positions) {
+            $scope.positionDropdownSettings = {
+                sourceData: sourceData,
+                checkedFilter: function (item) {
+                    return positions.indexOf(item.Id.toString()) > -1;
+                }
+            };
+        }
+
+        function createSiteDropdownSettings(sourceData, sites) {
+            $scope.siteDropdownSettings = {
+                width: 220,
+                sourceData: sourceData,
+                checkedFilter: function (item) {
+                    return sites.indexOf(item.Name.toString()) > -1;
+                }
+            };
+        }
+
         function getAllSettings() {
             $uiBlockerService.blockUI();
-            $scope.positionDropdownSettings.sourceData = updateInformService.getPositions();
+            createPositionDropdownSettings(updateInformService.getPositions(), $scope.titleDetail.Positions);
+
             updateInformService.getAllSettings()
             .then(function (data) {
                 var allSetting = data.Result;
-                $scope.siteDropdownSettings.sourceData = allSetting.Sites[0].ChildSites;
-                $scope.currencyDropdownSettings.sourceData = allSetting.Currencies;
+
                 $scope.informStatuses = allSetting.Statuses;
                 $scope.productStatuses = allSetting.ProductStatuses;
                 $scope.stations = allSetting.Stations;
+
+                createCurrencyDropdownSettings(allSetting.Currencies, $scope.titleDetail.Currencies.split(','));
+                createSiteDropdownSettings(allSetting.Sites[0].ChildSites, $scope.titleDetail.Sites);
+
+                $scope.headlineChecked = $scope.titleDetail.TypeAccount == HEADLINE_ACCOUNT_TYPE ||
+                                        $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
+                $scope.directChecked = $scope.titleDetail.TypeAccount == DIRECT_ACCOUNT_TYPE ||
+                                        $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
+                $timeout($scope.getInforms, 1000);
                 $uiBlockerService.unblockUI();
             },
             function (data) {
@@ -69,11 +116,11 @@ updateInformApplication.controller('UpdateInformController',
             var accountType = 0;
             // 1: headline, 2: direct, 3: Both
             if ($scope.headlineChecked) {
-                accountType = 1;
+                accountType = HEADLINE_ACCOUNT_TYPE;
             }
 
             if ($scope.directChecked) {
-                accountType += 2;
+                accountType += DIRECT_ACCOUNT_TYPE;
             }
 
             var params = {
@@ -150,37 +197,6 @@ updateInformApplication.controller('UpdateInformController',
                     }
                 },
                 handleUpdateFailed);
-        };
-
-        $scope.currencyDropdownSettings = {
-            checkedAll: true,
-            hasFilter: false,
-            idMember: "Id",
-            nameMember: "Name",
-            selectedMember: "Id",
-            sourceData: null,
-            width: 150,
-            templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
-        };
-        $scope.positionDropdownSettings = {
-            checkedAll: true,
-            hasFilter: false,
-            idMember: "Id",
-            nameMember: "Name",
-            selectedMember: "Id",
-            sourceData: null,
-            width: 150,
-            templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
-        };
-        $scope.siteDropdownSettings = {
-            checkedAll: true,
-            hasFilter: false,
-            idMember: "Id",
-            nameMember: "Name",
-            selectedMember: "Name",
-            sourceData: null,
-            width: 220,
-            templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
         };
 
         angular.element(document).ready(function () {

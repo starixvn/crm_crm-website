@@ -20,5 +20,7 @@ namespace Fanex.CRM.InformHeadline.Models
         public string Sites { get; set; }
 
         public int TypeAccount { get; set; }
+
+        public string Positions { get; set; }
     }
 }

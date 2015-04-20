@@ -8,6 +8,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
 {
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
     using Fanex.Common;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Models;
@@ -25,17 +26,10 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// <param name="criteria">Get inform criteria.</param>
         /// <returns>List of informs.</returns>
         public IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria)
-        {
-            var informs = new List<InformHeadline>();
+        {            
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var rawdata = db.Query<InformHeadline>(criteria.GetSpParams());
-                foreach (var item in rawdata)
-                {                    
-                    informs.Add(item);
-                }
-                
-                return informs;
+                return db.Query<InformHeadline>(criteria.GetSpParams()).ToList();
             }
         }
 
@@ -66,16 +60,9 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// <returns>List of new informs.</returns>
         public IList<NewInform> GetNewInforms(GetNewInformsCriteria criteria)
         {
-            var result = new List<NewInform>();
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var rawdata = db.Query<NewInform>(criteria.GetSpParams());
-                foreach (var item in rawdata)
-                {
-                    result.Add(item);
-                }
-
-                return result;
+                return db.Query<NewInform>(criteria.GetSpParams()).ToList();                
             }
         }
 
@@ -86,16 +73,9 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// <returns>List of status.</returns>
         public IList<InformStatus> GetInformStatuses(GetInformStatusesCriteria criteria)
         {
-            var result = new List<InformStatus>();
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var rawdata = db.Query<InformStatus>(criteria.GetSpParams());
-                foreach (var item in rawdata)
-                {
-                    result.Add(item);
-                }
-
-                return result;
+                return db.Query<InformStatus>(criteria.GetSpParams()).ToList();                
             }
         }
 
@@ -148,16 +128,9 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// <returns>List of update informs.</returns>
         public IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria)
         {
-            var result = new List<UpdateInform>();
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var rawdata = db.Query<UpdateInform>(criteria.GetSpParams());
-                foreach (var item in rawdata)
-                {
-                    result.Add(item);
-                }
-
-                return result;
+                return db.Query<UpdateInform>(criteria.GetSpParams()).ToList();                
             }
         }
 
