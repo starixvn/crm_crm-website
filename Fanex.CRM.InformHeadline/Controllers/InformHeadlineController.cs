@@ -120,6 +120,23 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [HttpGet]
+        public ActionResult ContactInform(int titleId)
+        {
+            ViewBag.TitleId = titleId;
+            return View("~/Areas/InformHeadline/ContactInform/Index.cshtml");
+        }
+
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult GetContactInforms(GetContactInformsCriteria criteria)
+        {
+            var data = _informHeadlineService.GetContactInforms(criteria);
+            var result = new { Items = data };
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion Update Inform
 
         [HttpPost]
@@ -127,6 +144,20 @@ namespace Fanex.CRM.InformHeadline.Controllers
         public ActionResult InsertInforms(InsertInformHeadlineCriteria criteria)
         {
             return Json(_informHeadlineService.InsertInformHeadline(criteria), JsonRequestBehavior.DenyGet);            
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Host)]
+        public ActionResult UpdateContentInforms(UpdateContentInformHeadlineCriteria criteria)
+        {
+            return Json(_informHeadlineService.UpdateContentInformHeadline(criteria), JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        public ActionResult UpdateInforms(UpdateInformHeadlineCriteria criteria)
+        {
+            return Json(_informHeadlineService.UpdateInformHeadline(criteria), JsonRequestBehavior.DenyGet);
         }
 
         [HttpPost]

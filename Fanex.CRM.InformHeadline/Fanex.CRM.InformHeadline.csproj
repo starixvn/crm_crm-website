@@ -103,10 +103,12 @@
   <ItemGroup>
     <Compile Include="App_Start\InformHeadlineBundles.cs" />
     <Compile Include="Controllers\InformHeadlineController.cs" />
+    <Compile Include="Criteria\GetContactInformsCriteria.cs" />
+    <Compile Include="Criteria\UpdateInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\InsertInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\GetTitleDetailCriteria.cs" />
     <Compile Include="Criteria\GetUpdateInformsCriteria.cs" />
-    <Compile Include="Criteria\UpdateInformHeadlineCriteria.cs" />
+    <Compile Include="Criteria\UpdateContentInformHeadlineCriteria.cs" />
     <Compile Include="Criteria\GetInformStatusesCriteria.cs" />
     <Compile Include="Criteria\GetNewInformsCriteria.cs" />
     <Compile Include="Criteria\UpdateInformStatusCriteria.cs" />

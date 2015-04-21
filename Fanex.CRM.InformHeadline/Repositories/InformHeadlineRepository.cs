@@ -84,7 +84,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
         /// </summary>
         /// <param name="criteria">Criteria object.</param>
         /// <returns>Result object.</returns>
-        public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
+        public Result UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -122,6 +122,26 @@ namespace Fanex.CRM.InformHeadline.Repositories
         }
 
         /// <summary>
+        /// Update Inform headline for new cases.
+        /// </summary>
+        /// <param name="criteria">Criteria object.</param>
+        /// <returns>Result object.</returns>
+        public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
+        {
+            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
+            {
+                objectDB.AssignParamValues(criteria.GetSpParams());
+                objectDB.ExecuteNonQuery();
+                var outputParams = objectDB.GetOuputParams();
+                return new Result
+                {
+                    Code = Converter.ToInt(outputParams["errcode"]),
+                    Message = Converter.ToString2(outputParams["errmsg"])
+                };
+            }
+        }
+
+        /// <summary>
         /// Get informs for update case.
         /// </summary>
         /// <param name="criteria">Get update informs criteria.</param>
@@ -139,6 +159,14 @@ namespace Fanex.CRM.InformHeadline.Repositories
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.QueryEntity<TitleDetail>(criteria.GetSpParams());               
+            }
+        }
+
+        public IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
+        {
+            using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                return db.Query<UpdateInform>(criteria.GetSpParams()).ToList();
             }
         }
     }

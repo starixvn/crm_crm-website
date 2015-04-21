@@ -33,8 +33,12 @@ namespace Fanex.CRM.InformHeadline.Services
 
         TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria);
 
-        Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria);
+        Result UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria);
 
         Result InsertInformHeadline(InsertInformHeadlineCriteria criteria);
+
+        Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria);
+
+        IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria);
     }
 }

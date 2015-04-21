@@ -41,6 +41,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         if (rowsCount > 0) {
             for (var i = 0; i < rowsCount; i++) {
                 var item = scope.dataSource[i];
+                
                 bodyData.push({
                     Columns: [
                             { Name: "DirectAccount", Value: item.UserName },
@@ -53,7 +54,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                                 return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
                             }
                             },
-                            { Name: "Handler", Value: '' },
+                            { Name: "Handler", Value: item.Handler },
                             { Name: "Extension", Value: item, CustomCellRender: function (columnModel) {
                                 return generateDropdown(scope.$parent.stations, "Extension", "StationId", "Name", columnModel.Value.Extension);
                             }
@@ -64,7 +65,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                             },
                         ],
                     CssClass: item.GroupId > 0 ? 'headline' : 'direct',
-                    CustomAttr: 'data-headline-id=' + item.HeadlineId + ' data-rowindex=' + (item.Id - 1)
+                    CustomAttr: 'data-headline-id=' + item.HeadlineId + ' data-rowindex=' + i
                 });
             }
         }
@@ -105,7 +106,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             var headlineId = $tr.data("headline-id");
             var rowIndex = parseInt($tr.data("rowindex"));
             var bindingName = $target.data("binding-name");
-
+            
             var dataItem = scope.dataSource[rowIndex];
             dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
             scope.updatedItems[headlineId] = dataItem;

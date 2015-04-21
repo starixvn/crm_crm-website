@@ -30,7 +30,7 @@ updateInformApplication.controller('UpdateInformController',
         $scope.currencyDropdownSettings = {};
         $scope.positionDropdownSettings = {};
         $scope.siteDropdownSettings = {};
-
+        var _searchCriteria = {};
 
         function initController() {
             sharedScriptManager.safeApply($scope);
@@ -47,14 +47,19 @@ updateInformApplication.controller('UpdateInformController',
                 .then(function (data) {
                     $scope.titleDetail = data.Result;
                     getAllSettings();
-                    $uiBlockerService.unblockUI();
                 },
                 function (data) {
                     $scope.titleDetail = null;
                     $uiBlockerService.unblockUI();
                 });
         }
-
+        function isFilterChanged() {
+            var titleDetail = $scope.titleDetail;
+            return _searchCriteria.Currency != titleDetail.Currencies ||
+                    _searchCriteria.Site != titleDetail.Sites ||
+                    _searchCriteria.TypeAccount != titleDetail.TypeAccount ||
+                    _searchCriteria.Level != titleDetail.Positions;
+        }
         function createCurrencyDropdownSettings(sourceData, currencyIds) {
             $scope.currencyDropdownSettings = {
                 sourceData: sourceData,
@@ -76,6 +81,7 @@ updateInformApplication.controller('UpdateInformController',
         function createSiteDropdownSettings(sourceData, sites) {
             $scope.siteDropdownSettings = {
                 width: 220,
+                selectedMember: "Name",
                 sourceData: sourceData,
                 checkedFilter: function (item) {
                     return sites.indexOf(item.Name.toString()) > -1;
@@ -102,8 +108,8 @@ updateInformApplication.controller('UpdateInformController',
                                         $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
                 $scope.directChecked = $scope.titleDetail.TypeAccount == DIRECT_ACCOUNT_TYPE ||
                                         $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
+                
                 $timeout($scope.getInforms, 1000);
-                $uiBlockerService.unblockUI();
             },
             function (data) {
                 $uiBlockerService.unblockUI();
@@ -123,7 +129,7 @@ updateInformApplication.controller('UpdateInformController',
                 accountType += DIRECT_ACCOUNT_TYPE;
             }
 
-            var params = {
+            _searchCriteria = {
                 TitleId: $scope.titleId,
                 Currency: $scope.selectedCurrencies.toString(),
                 Site: $scope.selectedSites.toString(),
@@ -132,7 +138,10 @@ updateInformApplication.controller('UpdateInformController',
                 PageIndex: 1,
                 ItemsPerPage: 1000
             };
-            updateInformService.getInforms(params)
+
+            _searchCriteria.ChangeFilter = isFilterChanged();
+
+            updateInformService.getInforms(_searchCriteria)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
                     $scope.showSaveButton = data.Result.Items.length > 0;
@@ -152,11 +161,10 @@ updateInformApplication.controller('UpdateInformController',
                 }
             }
             _searchCriteria.Title = $scope.titleDetail.Title;
-            var params = {
-                InsertCriteria: _searchCriteria,
-                Informs: items
-            };
-            newInformService.updateInforms(params)
+            _searchCriteria.Informs = items;
+            _searchCriteria.ChangeFilter = isFilterChanged();
+
+            updateInformService.updateInforms(_searchCriteria)
                 .then(function (data) {
                     $uiBlockerService.unblockUI();
                 },

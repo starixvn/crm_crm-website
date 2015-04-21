@@ -27,9 +27,9 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
                 bodyData.push({
                     Columns: [
                             {
-                                Name: "Edit", Value: '<button type="button" class="actionButton" href="#">&nbsp;</button>'
+                                Name: "Edit", Value: '<button type="button" class="actionButton">&nbsp;</button>'
                             },
-                            { Name: "Title", Value: '<a href="javascript:void(0)">' + item.Title + '</a>' },
+                            { Name: "Title", Value: '<a class="title" href="javascript:void(0)">' + item.Title + '</a>' },
                             { Name: "CreatedDate", Value: item.CreatedDate },
                             { Name: "NoDirectAccounts", Value: item.Total },
                             { Name: "Status", Value: item.Status },
@@ -123,6 +123,12 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
                 top: offset.top + $target.height()
             });
             return false;
+        });
+
+        $tableSetting.on("click", ".title", function (e) {
+            var $target = angular.element(e.target);
+            var titleId = $target.closest("tr").data("title-id");
+            scope.showUpdateCaseDialog(titleId);
         });
     }
 

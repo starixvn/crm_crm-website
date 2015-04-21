@@ -158,6 +158,24 @@ namespace Fanex.CRM.InformHeadline.Services
         }
 
         /// <summary>
+        /// Get informs for contact page.
+        /// </summary>
+        /// <param name="criteria">Get informs criteria.</param>
+        /// <returns>List of informs.</returns>
+        public IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
+        {
+            try
+            {
+                return _informHeadlineRepository.GetContactInforms(criteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Get title detail.
         /// </summary>
         /// <param name="criteria">Criteria object.</param>
@@ -176,15 +194,16 @@ namespace Fanex.CRM.InformHeadline.Services
         }
 
         /// <summary>
-        /// Update inform headline.
+        /// Update content of inform headlines.
         /// </summary>
         /// <param name="criteria">Criteria object.</param>
         /// <returns>Result object.</returns>
-        public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
+        public Result UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria)
         {
             try
             {
-                return _informHeadlineRepository.UpdateInformHeadline(criteria);
+                criteria.Content = BuildUpdateInformsXml(criteria.Informs);
+                return _informHeadlineRepository.UpdateContentInformHeadline(criteria);
             }
             catch (Exception ex)
             {
@@ -194,7 +213,7 @@ namespace Fanex.CRM.InformHeadline.Services
         }
 
         /// <summary>
-        /// Insert inform headline.
+        /// Insert inform headlines.
         /// </summary>
         /// <param name="criteria">Criteria object.</param>
         /// <returns>Result object.</returns>
@@ -203,11 +222,36 @@ namespace Fanex.CRM.InformHeadline.Services
             try
             {
                 var result = _informHeadlineRepository.InsertInformHeadline(criteria);
-                var updateCriteria = new UpdateInformHeadlineCriteria();
-                updateCriteria.TitleId = (int)result.ExtendedData;
-                updateCriteria.Content = BuildUpdateInformsXml(criteria.Informs);
 
-                return _informHeadlineRepository.UpdateInformHeadline(updateCriteria);
+                if (result.Code != 0)
+                {
+                    return result;
+                }
+
+                var updateContentCriteria = new UpdateContentInformHeadlineCriteria();
+                updateContentCriteria.Informs = criteria.Informs;
+                updateContentCriteria.TitleId = (int)result.ExtendedData;
+
+                return _informHeadlineRepository.UpdateContentInformHeadline(updateContentCriteria);
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update inform headline.
+        /// </summary>
+        /// <param name="criteria">Criteria object.</param>
+        /// <returns>Result object.</returns>
+        public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
+        {
+            try
+            {
+                criteria.Content = BuildUpdateInformsXml(criteria.Informs);
+                return _informHeadlineRepository.UpdateInformHeadline(criteria);
             }
             catch (Exception ex)
             {
@@ -223,15 +267,20 @@ namespace Fanex.CRM.InformHeadline.Services
         /// <returns>XML string.</returns>
         private static string BuildUpdateInformsXml(IList<UpdateInform> informs)
         {
+            if (informs == null)
+            {
+                return string.Empty;
+            }
+
             var builder = new StringBuilder("<Content>");
             foreach (var item in informs)
             {
                 builder.AppendFormat(
                     "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' />",
-                    item.HeadlineId, 
-                    item.InformHeadlineStatusId, 
-                    item.Remark, 
-                    item.Extension, 
+                    item.HeadlineId,
+                    item.InformHeadlineStatusId,
+                    item.Remark,
+                    item.Extension,
                     item.ProductStatus);
             }
 
