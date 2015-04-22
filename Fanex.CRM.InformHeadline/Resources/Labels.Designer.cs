@@ -61,6 +61,51 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Direct account (A) will be removed..
+        /// </summary>
+        public static string ChangedHeadlineCase1 {
+            get {
+                return ResourceManager.GetString("ChangedHeadlineCase1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New direct account (A) found..
+        /// </summary>
+        public static string ChangedHeadlineCase2 {
+            get {
+                return ResourceManager.GetString("ChangedHeadlineCase2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This group headline is changed from (A) to (B)..
+        /// </summary>
+        public static string ChangedHeadlineCase3 {
+            get {
+                return ResourceManager.GetString("ChangedHeadlineCase3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This direct account (A) is now headline..
+        /// </summary>
+        public static string ChangedHeadlineCase4 {
+            get {
+                return ResourceManager.GetString("ChangedHeadlineCase4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This direct account (A) is now below a group..
+        /// </summary>
+        public static string ChangedHeadlineCase5 {
+            get {
+                return ResourceManager.GetString("ChangedHeadlineCase5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created Date.
         /// </summary>
         public static string CreatedDate {

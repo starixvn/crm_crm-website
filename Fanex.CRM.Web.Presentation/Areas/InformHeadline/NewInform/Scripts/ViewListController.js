@@ -79,6 +79,7 @@ newInformApplication.controller('NewInformController',
                 });
         };
         $scope.insertInforms = function () {
+            $uiBlockerService.blockUI();
             var items = [];
             for (var key in $scope.updatedItems) {
                 if ($scope.updatedItems.hasOwnProperty(key)) {

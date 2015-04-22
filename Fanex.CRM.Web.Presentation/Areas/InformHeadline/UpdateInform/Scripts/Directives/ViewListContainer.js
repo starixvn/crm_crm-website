@@ -5,7 +5,8 @@ viewResources */
 /* jshint camelcase: false,
 unused: vars */
 updateInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
-    var selfScope;
+    var MIN_PAGE_SIZE = 100;
+    var MAX_PAGE_SIZE = 500;    
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
         var html = '<select data-binding-name="' + bindingName + '" style="width: 100px">';
@@ -27,24 +28,25 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
     function htmlDecode(value) {
         return $('<div/>').html(value).text();
     }
-    function renderListData(scope, element, attrs) {
-        selfScope = scope;
-
-        if (scope.dataSource === null) {
-            return;
-        }
-
-        var $tableSetting = element.find("#inform-headline-list");
-        $tableSetting.empty();
+    function generateBodyRows(scope, pageIndex, pageSize) {
         var bodyData = [];
         var rowsCount = scope.dataSource.length;
-        if (rowsCount > 0) {
-            for (var i = 0; i < rowsCount; i++) {
+        var firstRowIndex = pageIndex * pageSize;
+        if (rowsCount >= firstRowIndex) {
+
+            var lastRowIndex = firstRowIndex + pageSize;
+            if (lastRowIndex > rowsCount) {
+                lastRowIndex = rowsCount;
+            }
+
+            for (var i = firstRowIndex; i < lastRowIndex; i++) {
                 var item = scope.dataSource[i];
-                
+
+                var userName = item.UserName || item.NewUserName || item.OldUserName;
+
                 bodyData.push({
                     Columns: [
-                            { Name: "DirectAccount", Value: item.UserName },
+                            { Name: "DirectAccount", Value: item.Case == 0 ? userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>' },
                             { Name: "Status", Value: item, CustomCellRender: function (columnModel) {
                                 return generateDropdown(scope.$parent.informStatuses, "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
                             }
@@ -64,11 +66,22 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                             }
                             },
                         ],
-                    CssClass: item.GroupId > 0 ? 'headline' : 'direct',
+                    CssClass: item.Case > 0 ? 'updated' : (item.GroupId > 0 ? 'headline' : 'direct'),
                     CustomAttr: 'data-headline-id=' + item.HeadlineId + ' data-rowindex=' + i
                 });
             }
         }
+
+        return bodyData;
+    }
+    function renderListData(scope, element, attrs) {
+
+        if (scope.dataSource === null) {
+            return;
+        }
+
+        var $tableSetting = element.find("#inform-headline-list");
+        $tableSetting.empty();
 
         var gridOptions = {
             columns: [
@@ -80,7 +93,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                     { HeaderText: viewResources.Extension, Width: 120, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.ProductStatus, Width: 120, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
-            bodyRows: bodyData,
+            bodyRows: generateBodyRows(scope, 0, MIN_PAGE_SIZE),
             numberOfFrozenColumn: 0,
             fullWidth: true,
             showDistinctRow: false,
@@ -91,13 +104,23 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             bodyRowHeight: 20,
             gridExpandHeight: 230,
             showPager: true,
+            customPager: true,
             pagerOption: {
-                itemsPerPage: 10,
-                maxItemsPerPage: 100,
+                itemsPerPage: MIN_PAGE_SIZE,
+                maxItemsPerPage: MAX_PAGE_SIZE,
                 currentPage: 0,
                 totalItem: scope.dataSource.length,
-                startPerPage: 10,
-                pageStep: 10
+                startPerPage: MIN_PAGE_SIZE,
+                pageStep: MIN_PAGE_SIZE,
+                pagerSelectCallBack: function (pageIndex, pageSize) {
+                    console.log(pageIndex, pageSize);
+                    gridOptions.pagerOption.pageSize = pageSize;
+                    gridOptions.pagerOption.currentPage = pageIndex;
+                    gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
+                    $tableSetting.fanexGrid(gridOptions);
+
+                    $tableSetting.find(".description-tooltip").hover(addTooltip);
+                }
             }
         };
 
@@ -106,10 +129,39 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             var headlineId = $tr.data("headline-id");
             var rowIndex = parseInt($tr.data("rowindex"));
             var bindingName = $target.data("binding-name");
-            
+
             var dataItem = scope.dataSource[rowIndex];
             dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
             scope.updatedItems[headlineId] = dataItem;
+        }
+
+        function getDescriptionCase(dataItem, caseId) {
+            var message = viewResources['ChangedHeadlineCase' + caseId];
+
+            switch (parseInt(caseId)) {
+                case 1:
+                case 5:
+                    {
+                        message = message.replace('(A)', dataItem.OldUserName);
+                        break;
+                    }
+                case 2:
+                case 4:
+                    {
+                        message = message.replace('(A)', dataItem.NewUserName);
+                        break;
+                    }
+                case 3:
+                    {
+                        message = message.replace('(A)', dataItem.OldUserName);
+                        message = message.replace('(B)', dataItem.NewUserName);
+                        break;
+                    }
+                default:
+                    break;
+            }
+
+            return message;
         }
 
         $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
@@ -121,6 +173,18 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         $tableSetting.on("change", "textarea", function (e) {
             updateDataSource(angular.element(e.target), true);
         });
+
+        function addTooltip(e) {
+            var $target = angular.element(e.target);
+            var rowIndex = parseInt($target.closest("tr").data("rowindex"));
+            var caseId = $target.data("case");
+            var message = getDescriptionCase(scope.dataSource[rowIndex], caseId);
+
+            $target.attr("data-original-title", message).tooltip({ placement: "right" }).tooltip("show");
+            $target.unbind("hover", addTooltip);
+        }
+
+        $tableSetting.find(".description-tooltip").hover(addTooltip);
     }
 
     return {

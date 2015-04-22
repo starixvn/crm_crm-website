@@ -35,7 +35,7 @@ namespace Fanex.CRM.InformHeadline.Models
 
         public string Handler { get; set; }
 
-        public string Extension { get; set; }
+        public int Extension { get; set; }
 
         public int ProductStatus { get; set; }
 

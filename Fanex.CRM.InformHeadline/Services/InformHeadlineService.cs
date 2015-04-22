@@ -257,7 +257,7 @@ namespace Fanex.CRM.InformHeadline.Services
                 updateContentCriteria.Informs = criteria.Informs;
                 updateContentCriteria.TitleId = (int)result.ExtendedData;
 
-                return _informHeadlineRepository.UpdateContentInformHeadline(updateContentCriteria);
+                return UpdateContentInformHeadline(updateContentCriteria);
             }
             catch (Exception ex)
             {

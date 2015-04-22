@@ -108,7 +108,7 @@ updateInformApplication.controller('UpdateInformController',
                                         $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
                 $scope.directChecked = $scope.titleDetail.TypeAccount == DIRECT_ACCOUNT_TYPE ||
                                         $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
-                
+
                 $timeout($scope.getInforms, 1000);
             },
             function (data) {
@@ -154,6 +154,7 @@ updateInformApplication.controller('UpdateInformController',
                 });
         };
         $scope.updateInforms = function () {
+            $uiBlockerService.blockUI();
             var items = [];
             for (var key in $scope.updatedItems) {
                 if ($scope.updatedItems.hasOwnProperty(key)) {
