@@ -29,6 +29,9 @@ namespace Fanex.CRM.InformHeadline.Services
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         dynamic GetNewInformSettings();
 
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        dynamic GetContactInformSettings();
+
         IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria);
 
         TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria);

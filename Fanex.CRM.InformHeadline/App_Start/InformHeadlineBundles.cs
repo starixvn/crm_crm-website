@@ -21,16 +21,17 @@ namespace Fanex.CRM.InformHeadline
         /// <param name="bundles">The bundles.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            RegisterInformHeadlineViewListBundles(bundles);
-            RegisterInformHeadlineNewInformBundles(bundles);
-            RegisterInformHeadlineUpdateInformBundles(bundles);
+            RegisterViewListBundles(bundles);
+            RegisterNewInformBundles(bundles);
+            RegisterUpdateInformBundles(bundles);
+            RegisterContactInformBundles(bundles);
         }
 
         /// <summary>
         /// Register View List Bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterInformHeadlineViewListBundles(BundleCollection bundles)
+        private static void RegisterViewListBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Bundles/InformHeadline/ViewListScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
@@ -59,7 +60,7 @@ namespace Fanex.CRM.InformHeadline
         /// Register New Inform Bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterInformHeadlineNewInformBundles(BundleCollection bundles)
+        private static void RegisterNewInformBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Bundles/InformHeadline/NewInformScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
@@ -86,7 +87,34 @@ namespace Fanex.CRM.InformHeadline
         /// Register Update Inform Bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterInformHeadlineUpdateInformBundles(BundleCollection bundles)
+        private static void RegisterContactInformBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Bundles/InformHeadline/ContactInformScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/DirectiveManager.js",
+                "~/Scripts/ShareScripts/Directives/DefaultFocus.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
+                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Scripts/ShareScripts/MessageResult.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Areas/InformHeadline/ContactInform/Scripts/ViewListApplication.js",
+                "~/Areas/InformHeadline/ContactInform/Scripts/ViewListService.js",
+                "~/Areas/InformHeadline/ContactInform/Scripts/ViewListController.js",
+                "~/Areas/InformHeadline/ContactInform/Scripts/Directives/*.js"));
+
+            AddAndInclude(
+                bundles,
+                "~/Areas/InformHeadline/ContactInformStyles",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/InformHeadline/ContactInform/Styles/ViewList.less");
+        }
+
+        /// <summary>
+        /// Register Update Inform Bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterUpdateInformBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Bundles/InformHeadline/UpdateInformScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",

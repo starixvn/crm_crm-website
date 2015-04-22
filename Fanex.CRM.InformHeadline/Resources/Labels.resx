@@ -213,4 +213,7 @@
   <data name="UpdateInformHeadlines" xml:space="preserve">
     <value>Update Inform Headlines</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
 </root>

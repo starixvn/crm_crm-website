@@ -25,13 +25,13 @@ contactInformApplication.factory('updateInformService',
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 
-        serviceInstance.getAllSettings = function () {
-            var url = window.rootUrl + 'InformHeadline/AllSettings';
+        serviceInstance.getSettings = function () {
+            var url = window.rootUrl + 'InformHeadline/ContactInformSettings';
             return sharedScriptManager.registerAngularService($http, $q, url);
         };
 
         serviceInstance.updateInforms = function (params) {
-            var url = window.rootUrl + 'InformHeadline/UpdateInforms';
+            var url = window.rootUrl + 'InformHeadline/UpdateContentInforms';
             return sharedScriptManager.registerAngularService($http, $q, url, params);
         };
 

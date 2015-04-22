@@ -140,6 +140,30 @@ namespace Fanex.CRM.InformHeadline.Services
         }
 
         /// <summary>
+        /// Gets all settings.
+        /// </summary>
+        /// <returns>The object with all settings.</returns>
+        public dynamic GetContactInformSettings()
+        {
+            var productStatuses = _settingServices.GetStatuses(ViewTypeConstants.InformHeadline);
+            productStatuses.Insert(
+                0,
+                new Status()
+                {
+                    StatusId = 0,
+                    Name = Labels.NA,
+                    DisplayOrder = 0
+                });
+
+            return new
+            {
+                Statuses = _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()),
+                ProductStatuses = productStatuses,
+                Stations = _settingServices.GetStations()
+            };
+        }
+
+        /// <summary>
         /// Get informs for new case.
         /// </summary>
         /// <param name="criteria">Get informs criteria.</param>
@@ -166,6 +190,7 @@ namespace Fanex.CRM.InformHeadline.Services
         {
             try
             {
+                criteria.UserName = criteria.UserName ?? string.Empty;
                 return _informHeadlineRepository.GetContactInforms(criteria);
             }
             catch (Exception ex)
@@ -277,7 +302,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 builder.AppendFormat(
                     "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' />",
-                    item.HeadlineId,
+                    item.HeadlineId == 0 ? item.NewCustId : item.HeadlineId,
                     item.InformHeadlineStatusId,
                     item.Remark,
                     item.Extension,

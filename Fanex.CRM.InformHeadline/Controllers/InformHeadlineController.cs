@@ -169,6 +169,13 @@ namespace Fanex.CRM.InformHeadline.Controllers
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        public ActionResult ContactInformSettings()
+        {
+            return Json(_informHeadlineService.GetContactInformSettings(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
         public ActionResult GetTitleDetail(int titleId)
         {
             var title = _informHeadlineService.GetTitleDetail(

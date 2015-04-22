@@ -5,7 +5,7 @@ viewResources, Site */
 /* jshint unused: vars,
 camelcase: false */
 
-contactInformApplication.controller('UpdateInformController',
+contactInformApplication.controller('ContactInformController',
     ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
     function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
 
@@ -26,10 +26,8 @@ contactInformApplication.controller('UpdateInformController',
         $scope.informStatuses = [];
         $scope.productStatuses = [];
         $scope.stations = [];
+        $scope.username = '';
 
-        $scope.currencyDropdownSettings = {};
-        $scope.positionDropdownSettings = {};
-        $scope.siteDropdownSettings = {};
         var _searchCriteria = {};
 
         function initController() {
@@ -46,13 +44,14 @@ contactInformApplication.controller('UpdateInformController',
             updateInformService.getTitleDetail(params)
                 .then(function (data) {
                     $scope.titleDetail = data.Result;
-                    getAllSettings();
+                    getSettings();
                 },
                 function (data) {
                     $scope.titleDetail = null;
                     $uiBlockerService.unblockUI();
                 });
         }
+
         function isFilterChanged() {
             var titleDetail = $scope.titleDetail;
             return _searchCriteria.Currency != titleDetail.Currencies ||
@@ -60,40 +59,23 @@ contactInformApplication.controller('UpdateInformController',
                     _searchCriteria.TypeAccount != titleDetail.TypeAccount ||
                     _searchCriteria.Level != titleDetail.Positions;
         }
-        function createCurrencyDropdownSettings(sourceData, currencyIds) {
-            $scope.currencyDropdownSettings = {
+
+        function createStatusDropdownSettings(sourceData) {
+            $scope.statusDropdownSettings = {
+                idMember: "SettingId",
+                nameMember: "SettingValue",
+                selectedMember: "SettingId",
                 sourceData: sourceData,
-                checkedFilter: function (item) {
-                    return currencyIds.indexOf(item.Id.toString()) > -1;
-                }
+                width: 200,
+                checkedAll: true,
+                templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
             };
         }
 
-        function createPositionDropdownSettings(sourceData, positions) {
-            $scope.positionDropdownSettings = {
-                sourceData: sourceData,
-                checkedFilter: function (item) {
-                    return positions.indexOf(item.Id.toString()) > -1;
-                }
-            };
-        }
-
-        function createSiteDropdownSettings(sourceData, sites) {
-            $scope.siteDropdownSettings = {
-                width: 220,
-                selectedMember: "Name",
-                sourceData: sourceData,
-                checkedFilter: function (item) {
-                    return sites.indexOf(item.Name.toString()) > -1;
-                }
-            };
-        }
-
-        function getAllSettings() {
+        function getSettings() {
             $uiBlockerService.blockUI();
-            createPositionDropdownSettings(updateInformService.getPositions(), $scope.titleDetail.Positions);
 
-            updateInformService.getAllSettings()
+            updateInformService.getSettings()
             .then(function (data) {
                 var allSetting = data.Result;
 
@@ -101,14 +83,8 @@ contactInformApplication.controller('UpdateInformController',
                 $scope.productStatuses = allSetting.ProductStatuses;
                 $scope.stations = allSetting.Stations;
 
-                createCurrencyDropdownSettings(allSetting.Currencies, $scope.titleDetail.Currencies.split(','));
-                createSiteDropdownSettings(allSetting.Sites[0].ChildSites, $scope.titleDetail.Sites);
+                createStatusDropdownSettings($scope.informStatuses);
 
-                $scope.headlineChecked = $scope.titleDetail.TypeAccount == HEADLINE_ACCOUNT_TYPE ||
-                                        $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
-                $scope.directChecked = $scope.titleDetail.TypeAccount == DIRECT_ACCOUNT_TYPE ||
-                                        $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
-                
                 $timeout($scope.getInforms, 1000);
             },
             function (data) {
@@ -130,11 +106,9 @@ contactInformApplication.controller('UpdateInformController',
             }
 
             _searchCriteria = {
+                UserName: $scope.username,
                 TitleId: $scope.titleId,
-                Currency: $scope.selectedCurrencies.toString(),
-                Site: $scope.selectedSites.toString(),
-                Level: $scope.selectedPositions.toString(),
-                TypeAccount: accountType,
+                StatusId: $scope.selectedStatuses.toString(),
                 PageIndex: 1,
                 ItemsPerPage: 1000
             };
@@ -152,16 +126,16 @@ contactInformApplication.controller('UpdateInformController',
                 });
         };
         $scope.updateInforms = function () {
+            $uiBlockerService.blockUI();
             var items = [];
             for (var key in $scope.updatedItems) {
                 if ($scope.updatedItems.hasOwnProperty(key)) {
                     items.push($scope.updatedItems[key]);
                 }
             }
-            _searchCriteria.Title = $scope.titleDetail.Title;
-            _searchCriteria.Informs = items;
-            _searchCriteria.ChangeFilter = isFilterChanged();
 
+            _searchCriteria.Informs = items;
+                        
             updateInformService.updateInforms(_searchCriteria)
                 .then(function (data) {
                     $uiBlockerService.unblockUI();
