@@ -301,12 +301,13 @@ namespace Fanex.CRM.InformHeadline.Services
             foreach (var item in informs)
             {
                 builder.AppendFormat(
-                    "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' />",
-                    item.HeadlineId == 0 ? item.NewCustId : item.HeadlineId,
+                    "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' IsKeep='{5}' />",
+                    item.HeadlineId == 0 ? (item.NewCustId == 0 ? item.OldCustId : item.NewCustId) : item.HeadlineId,
                     item.InformHeadlineStatusId,
                     item.Remark,
                     item.Extension,
-                    item.ProductStatus);
+                    item.ProductStatus,
+                    item.IsKeep ? 1 : 0);
             }
 
             return builder.Append("</Content>").ToString();

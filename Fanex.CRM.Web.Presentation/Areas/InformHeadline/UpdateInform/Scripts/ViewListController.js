@@ -89,6 +89,12 @@ updateInformApplication.controller('UpdateInformController',
             };
         }
 
+        function isFilterValid() {
+            return $scope.selectedCurrencies.length > 0 &&
+                $scope.selectedSites.length > 0 &&
+                $scope.selectedPositions.length > 0;
+        }
+
         function getAllSettings() {
             $uiBlockerService.blockUI();
             createPositionDropdownSettings(updateInformService.getPositions(), $scope.titleDetail.Positions);
@@ -118,7 +124,6 @@ updateInformApplication.controller('UpdateInformController',
 
         $scope.getInforms = function () {
 
-            $uiBlockerService.blockUI();
             var accountType = 0;
             // 1: headline, 2: direct, 3: Both
             if ($scope.headlineChecked) {
@@ -129,6 +134,16 @@ updateInformApplication.controller('UpdateInformController',
                 accountType += DIRECT_ACCOUNT_TYPE;
             }
 
+            if (accountType == 0 || isFilterValid() == false) {
+                $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
+                $uiBlockerService.unblockUI();
+                return;
+            } else {
+                $scope.messageResultOptions = new MessageResult("", false, false);
+            }
+
+            $uiBlockerService.blockUI();
+
             _searchCriteria = {
                 TitleId: $scope.titleId,
                 Currency: $scope.selectedCurrencies.toString(),
@@ -136,7 +151,7 @@ updateInformApplication.controller('UpdateInformController',
                 Level: $scope.selectedPositions.toString(),
                 TypeAccount: accountType,
                 PageIndex: 1,
-                ItemsPerPage: 1000
+                ItemsPerPage: 10000
             };
 
             _searchCriteria.ChangeFilter = isFilterChanged();
@@ -167,9 +182,14 @@ updateInformApplication.controller('UpdateInformController',
 
             updateInformService.updateInforms(_searchCriteria)
                 .then(function (data) {
+                    $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
+                    setTimeout(function () {
+                        parent.ClosePopup();
+                    }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
+                    $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });
         };

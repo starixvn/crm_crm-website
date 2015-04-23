@@ -5,8 +5,10 @@ viewResources */
 /* jshint camelcase: false,
 unused: vars */
 updateInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
+    var KEPT_FOR_REFERENCE_HEADLINE_ID = 45007;
     var MIN_PAGE_SIZE = 100;
-    var MAX_PAGE_SIZE = 500;    
+    var MAX_PAGE_SIZE = 500;
+    var selfScope;
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
         var html = '<select data-binding-name="' + bindingName + '" style="width: 100px">';
@@ -28,6 +30,33 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
     function htmlDecode(value) {
         return $('<div/>').html(value).text();
     }
+    function hasKeepThisAccountOption(caseId) {
+        return caseId == 1 || caseId == 5 || caseId == 12;
+    }
+
+    function renderDropdownCell(columnModel, data, bindingName, valueProperty, textProperty, selectedValue) {
+        if (columnModel.Value.InformHeadlineStatusId == KEPT_FOR_REFERENCE_HEADLINE_ID) {
+            return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
+        }
+
+        return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue);
+    }
+
+    function renderStatusDropdownCell(columnModel) {
+        return renderDropdownCell(columnModel, selfScope.$parent.informStatuses,
+            "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
+    }
+
+    function renderExtensionDropdownCell(columnModel) {
+        return renderDropdownCell(columnModel, selfScope.$parent.stations,
+            "Extension", "StationId", "Name", columnModel.Value.Extension);
+    }
+
+    function renderProductStatusDropdownCell(columnModel) {
+        return renderDropdownCell(columnModel, selfScope.$parent.productStatuses,
+            "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
+    }
+
     function generateBodyRows(scope, pageIndex, pageSize) {
         var bodyData = [];
         var rowsCount = scope.dataSource.length;
@@ -43,12 +72,21 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                 var item = scope.dataSource[i];
 
                 var userName = item.UserName || item.NewUserName || item.OldUserName;
-
+                var headlineId = item.HeadlineId || item.NewCustId || item.OldCustId;
                 bodyData.push({
                     Columns: [
                             { Name: "DirectAccount", Value: item.Case == 0 ? userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>' },
                             { Name: "Status", Value: item, CustomCellRender: function (columnModel) {
-                                return generateDropdown(scope.$parent.informStatuses, "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
+                                var html = "";
+                                if (columnModel.Value.InformHeadlineStatusId == KEPT_FOR_REFERENCE_HEADLINE_ID) {
+                                    return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
+                                }
+                                else if (hasKeepThisAccountOption(columnModel.Value.Case)) {
+                                    html = '<div class="checkbox display-inline-block"><label><input class="iskeep" value="true" type="checkbox" data-binding-name="IsKeep" />' +
+                                            viewResources.KeepThisAccount + '</label></div>';
+                                }
+
+                                return html + generateDropdown(scope.$parent.informStatuses, "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
                             }
                             },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
@@ -57,17 +95,11 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                             }
                             },
                             { Name: "Handler", Value: item.Handler },
-                            { Name: "Extension", Value: item, CustomCellRender: function (columnModel) {
-                                return generateDropdown(scope.$parent.stations, "Extension", "StationId", "Name", columnModel.Value.Extension);
-                            }
-                            },
-                            { Name: "ProductStatus", Value: item, CustomCellRender: function (columnModel) {
-                                return generateDropdown(scope.$parent.productStatuses, "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
-                            }
-                            },
+                            { Name: "Extension", Value: item, CustomCellRender: renderExtensionDropdownCell },
+                            { Name: "ProductStatus", Value: item, CustomCellRender: renderProductStatusDropdownCell },
                         ],
                     CssClass: item.Case > 0 ? 'updated' : (item.GroupId > 0 ? 'headline' : 'direct'),
-                    CustomAttr: 'data-headline-id=' + item.HeadlineId + ' data-rowindex=' + i
+                    CustomAttr: 'data-headline-id=' + headlineId + ' data-rowindex=' + i
                 });
             }
         }
@@ -75,7 +107,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         return bodyData;
     }
     function renderListData(scope, element, attrs) {
-
+        selfScope = scope;
         if (scope.dataSource === null) {
             return;
         }
@@ -86,7 +118,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         var gridOptions = {
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: viewResources.Status, Width: 120, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Status, Width: 150, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "MMM DD, YYYY" },
                     { HeaderText: viewResources.Remark, Width: 200, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "center" },
@@ -124,17 +156,6 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             }
         };
 
-        function updateDataSource($target, useHtmlEncode) {
-            var $tr = $target.closest("tr");
-            var headlineId = $tr.data("headline-id");
-            var rowIndex = parseInt($tr.data("rowindex"));
-            var bindingName = $target.data("binding-name");
-
-            var dataItem = scope.dataSource[rowIndex];
-            dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
-            scope.updatedItems[headlineId] = dataItem;
-        }
-
         function getDescriptionCase(dataItem, caseId) {
             var message = viewResources['ChangedHeadlineCase' + caseId];
 
@@ -164,9 +185,20 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             return message;
         }
 
+        function updateDataSource($target, useHtmlEncode) {
+            var $tr = $target.closest("tr");
+            var headlineId = $tr.data("headline-id");
+            var rowIndex = parseInt($tr.data("rowindex"));
+            var bindingName = $target.data("binding-name");
+
+            var dataItem = scope.dataSource[rowIndex];
+            dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
+            scope.updatedItems[headlineId] = dataItem;
+        }
+
         $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-        $tableSetting.on("change", "select", function (e) {
+        $tableSetting.on("change", "select, input[type=checkbox]", function (e) {
             updateDataSource(angular.element(e.target));
         });
 

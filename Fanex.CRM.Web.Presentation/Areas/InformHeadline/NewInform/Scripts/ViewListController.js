@@ -19,6 +19,13 @@ newInformApplication.controller('NewInformController',
         $scope.informStatuses = [];
         $scope.productStatuses = [];
         $scope.stations = [];
+        $scope.currencyDropdownSettings = {};
+        $scope.positionDropdownSettings = {};
+        $scope.siteDropdownSettings = {
+            width: 220
+        };
+        $scope.headlineChecked = true;
+        $scope.directChecked = true;
 
         var _searchCriteria = {};
 
@@ -45,9 +52,13 @@ newInformApplication.controller('NewInformController',
             });
         }
 
-        $scope.getInforms = function () {
+        function isFilterValid() {
+            return $scope.selectedCurrencies.length > 0 &&
+                $scope.selectedSites.length > 0 &&
+                $scope.selectedPositions.length > 0;
+        }
 
-            $uiBlockerService.blockUI();
+        $scope.getInforms = function () {
             var accountType = 0;
             // 1: headline, 2: direct, 3: Both
             if ($scope.headlineChecked) {
@@ -58,25 +69,35 @@ newInformApplication.controller('NewInformController',
                 accountType += 2;
             }
 
+            if (accountType == 0 || isFilterValid() == false) {
+                $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
+                return;
+            } else {
+                $scope.messageResultOptions = new MessageResult("", false, false);
+            }
+
+            $uiBlockerService.blockUI();
             _searchCriteria = {
                 Currency: $scope.selectedCurrencies.toString(),
                 Site: $scope.selectedSites.toString(),
                 Level: $scope.selectedPositions.toString(),
                 TypeAccount: accountType,
                 PageIndex: 1,
-                ItemsPerPage: 1000
+                ItemsPerPage: 10000
             };
+
             newInformService.getInforms(_searchCriteria)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
-                    $scope.showSaveButton = data.Result.Items.length > 0;
+                    $scope.showSaveButton = data.Result.Items.length > 0;                    
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
                     $scope.listData = null;
-                    $scope.showSaveButton = false;
+                    $scope.showSaveButton = false;                    
                     $uiBlockerService.unblockUI();
                 });
+
         };
         $scope.insertInforms = function () {
             $uiBlockerService.blockUI();
@@ -91,9 +112,14 @@ newInformApplication.controller('NewInformController',
 
             newInformService.insertInforms(_searchCriteria)
                 .then(function (data) {
+                    $scope.messageResultOptions = new MessageResult("Add new case successfully!", true, true);
+                    setTimeout(function () {
+                        parent.ClosePopup();
+                    }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
+                    $scope.messageResultOptions = new MessageResult("Add new case failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -130,37 +156,6 @@ newInformApplication.controller('NewInformController',
                     }
                 },
                 handleUpdateFailed);
-        };
-
-        $scope.currencyDropdownSettings = {
-            checkedAll: true,
-            hasFilter: false,
-            idMember: "Id",
-            nameMember: "Name",
-            selectedMember: "Id",
-            sourceData: null,
-            width: 150,
-            templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
-        };
-        $scope.positionDropdownSettings = {
-            checkedAll: true,
-            hasFilter: false,
-            idMember: "Id",
-            nameMember: "Name",
-            selectedMember: "Id",
-            sourceData: null,
-            width: 150,
-            templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
-        };
-        $scope.siteDropdownSettings = {
-            checkedAll: true,
-            hasFilter: false,
-            idMember: "Id",
-            nameMember: "Name",
-            selectedMember: "Name",
-            sourceData: null,
-            width: 220,
-            templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
         };
 
         angular.element(document).ready(function () {

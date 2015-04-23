@@ -39,6 +39,8 @@ namespace Fanex.CRM.InformHeadline.Models
 
         public int ProductStatus { get; set; }
 
+        public bool IsKeep { get; set; }
+
         public int Case { get; set; }
     }
 }

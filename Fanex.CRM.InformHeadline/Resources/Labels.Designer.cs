@@ -214,6 +214,24 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep This Account.
+        /// </summary>
+        public static string KeepThisAccount {
+            get {
+                return ResourceManager.GetString("KeepThisAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kept For Reference.
+        /// </summary>
+        public static string KeptForReference {
+            get {
+                return ResourceManager.GetString("KeptForReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to N/A.
         /// </summary>
         public static string NA {

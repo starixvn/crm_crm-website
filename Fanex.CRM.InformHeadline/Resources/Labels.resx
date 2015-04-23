@@ -231,4 +231,10 @@
   <data name="ChangedHeadlineCase5" xml:space="preserve">
     <value>This direct account (A) is now below a group.</value>
   </data>
+  <data name="KeptForReference" xml:space="preserve">
+    <value>Kept For Reference</value>
+  </data>
+  <data name="KeepThisAccount" xml:space="preserve">
+    <value>Keep This Account</value>
+  </data>
 </root>

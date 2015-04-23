@@ -14,8 +14,14 @@
 }
 <div data-ng-app="contactInformApplication">
     <div data-ng-controller="ContactInformController" data-ng-init="titleId = @ViewBag.TitleId">
-        <div class="row download-file-container" data-ng-model="downloadFileOptions">
-            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="container main">
             <div class="row panel-group">
@@ -91,7 +97,8 @@
                     Extension: '@Labels.Extension',
                     ProductStatus: '@Labels.ProductStatus',
                     Save: '@Labels.Save',
-                    NewInformHeadlines: '@Labels.NewInformHeadlines'
+                    NewInformHeadlines: '@Labels.NewInformHeadlines',
+                    KeptForReference: '@Labels.KeptForReference'
                 };
             </script>
         }

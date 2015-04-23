@@ -14,8 +14,14 @@
 }
 <div data-ng-app="updateInformApplication">
     <div data-ng-controller="UpdateInformController" data-ng-init="titleId = @ViewBag.TitleId">
-        <div class="row download-file-container" data-ng-model="downloadFileOptions">
-            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="container main">
             <div class="row filter-frm one-row deletedFeedback">
@@ -108,6 +114,8 @@
                     ProductStatus: '@Labels.ProductStatus',
                     Save: '@Labels.Save',
                     NewInformHeadlines: '@Labels.NewInformHeadlines',
+                    KeepThisAccount: '@Labels.KeepThisAccount',
+                    KeptForReference: '@Labels.KeptForReference',
                     ChangedHeadlineCase1: "@Html.Raw(Labels.ChangedHeadlineCase1)",
                     ChangedHeadlineCase2: "@Html.Raw(Labels.ChangedHeadlineCase2)",
                     ChangedHeadlineCase3: "@Html.Raw(Labels.ChangedHeadlineCase3)",

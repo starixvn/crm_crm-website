@@ -110,7 +110,7 @@ contactInformApplication.controller('ContactInformController',
                 TitleId: $scope.titleId,
                 StatusId: $scope.selectedStatuses.toString(),
                 PageIndex: 1,
-                ItemsPerPage: 1000
+                ItemsPerPage: 10000
             };
 
             updateInformService.getInforms(_searchCriteria)
@@ -138,9 +138,14 @@ contactInformApplication.controller('ContactInformController',
                         
             updateInformService.updateInforms(_searchCriteria)
                 .then(function (data) {
+                    $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
+                    setTimeout(function () {                        
+                        parent.ClosePopup();
+                    }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
+                    $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });
         };

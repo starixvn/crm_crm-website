@@ -5,6 +5,8 @@ viewResources */
 /* jshint camelcase: false,
 unused: vars */
 newInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
+    var MIN_PAGE_SIZE = 100;
+    var MAX_PAGE_SIZE = 500;
     var selfScope;
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
@@ -91,12 +93,12 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
             gridExpandHeight: 230,
             showPager: true,
             pagerOption: {
-                itemsPerPage: 10,
-                maxItemsPerPage: 100,
+                itemsPerPage: MIN_PAGE_SIZE,
+                maxItemsPerPage: MAX_PAGE_SIZE,
                 currentPage: 0,
                 totalItem: scope.dataSource.length,
-                startPerPage: 10,
-                pageStep: 10
+                startPerPage: MIN_PAGE_SIZE,
+                pageStep: MIN_PAGE_SIZE
             }
         };
 

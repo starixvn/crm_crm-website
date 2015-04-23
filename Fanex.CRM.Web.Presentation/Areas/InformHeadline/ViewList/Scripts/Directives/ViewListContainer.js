@@ -50,7 +50,7 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
         var gridOptions = {
             columns: [
                     { HeaderText: viewResources.Edit, Width: 50, Name: "Edit", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Title, Width: 200, Name: "Title", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
+                    { HeaderText: viewResources.Title, Width: 250, Name: "Title", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
                     { HeaderText: viewResources.CreatedDate, Width: 100, Name: "CreatedDate", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY" },
                     { HeaderText: viewResources.NoDirectAccounts, Width: 100, Name: "NoDirectAccounts", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Status, Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "center" },

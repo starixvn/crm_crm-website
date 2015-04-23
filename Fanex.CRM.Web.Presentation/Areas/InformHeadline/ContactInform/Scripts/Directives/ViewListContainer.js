@@ -5,6 +5,9 @@ viewResources */
 /* jshint camelcase: false,
 unused: vars */
 contactInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
+    var KEPT_FOR_REFERENCE_HEADLINE_ID = 45007;
+    var MIN_PAGE_SIZE = 100;
+    var MAX_PAGE_SIZE = 500;
     var selfScope;
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
@@ -27,6 +30,30 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
     function htmlDecode(value) {
         return $('<div/>').html(value).text();
     }
+
+    function renderDropdownCell(columnModel, data, bindingName, valueProperty, textProperty, selectedValue) {
+        if (columnModel.Value.InformHeadlineStatusId == KEPT_FOR_REFERENCE_HEADLINE_ID) {
+            return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
+        }
+
+        return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue);
+    }
+
+    function renderStatusDropdownCell(columnModel) {
+        return renderDropdownCell(columnModel, selfScope.$parent.informStatuses, 
+            "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
+    }
+
+    function renderExtensionDropdownCell(columnModel) {
+        return renderDropdownCell(columnModel, selfScope.$parent.stations, 
+            "Extension", "StationId", "Name", columnModel.Value.Extension);
+    }
+
+    function renderProductStatusDropdownCell(columnModel) {
+        return renderDropdownCell(columnModel, selfScope.$parent.productStatuses, 
+            "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
+    }
+
     function renderListData(scope, element, attrs) {
         selfScope = scope;
 
@@ -41,28 +68,19 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
         if (rowsCount > 0) {
             for (var i = 0; i < rowsCount; i++) {
                 var item = scope.dataSource[i];
-                
+
                 bodyData.push({
                     Columns: [
                             { Name: "DirectAccount", Value: item.UserName },
-                            { Name: "Status", Value: item, CustomCellRender: function (columnModel) {
-                                return generateDropdown(scope.$parent.informStatuses, "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
-                            }
-                            },
+                            { Name: "Status", Value: item, CustomCellRender: renderStatusDropdownCell },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
                             { Name: "Remark", Value: item, CustomCellRender: function (columnModel) {
                                 return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
                             }
                             },
                             { Name: "Handler", Value: item.Handler },
-                            { Name: "Extension", Value: item, CustomCellRender: function (columnModel) {
-                                return generateDropdown(scope.$parent.stations, "Extension", "StationId", "Name", columnModel.Value.Extension);
-                            }
-                            },
-                            { Name: "ProductStatus", Value: item, CustomCellRender: function (columnModel) {
-                                return generateDropdown(scope.$parent.productStatuses, "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
-                            }
-                            },
+                            { Name: "Extension", Value: item, CustomCellRender: renderExtensionDropdownCell },
+                            { Name: "ProductStatus", Value: item, CustomCellRender: renderProductStatusDropdownCell },
                         ],
                     CssClass: item.GroupId > 0 ? 'headline' : 'direct',
                     CustomAttr: 'data-headline-id=' + item.HeadlineId + ' data-rowindex=' + i
@@ -92,12 +110,12 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             gridExpandHeight: 230,
             showPager: true,
             pagerOption: {
-                itemsPerPage: 10,
-                maxItemsPerPage: 100,
+                itemsPerPage: MIN_PAGE_SIZE,
+                maxItemsPerPage: MAX_PAGE_SIZE,
                 currentPage: 0,
                 totalItem: scope.dataSource.length,
-                startPerPage: 10,
-                pageStep: 10
+                startPerPage: MIN_PAGE_SIZE,
+                pageStep: MIN_PAGE_SIZE
             }
         };
 
@@ -106,7 +124,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             var headlineId = $tr.data("headline-id");
             var rowIndex = parseInt($tr.data("rowindex"));
             var bindingName = $target.data("binding-name");
-            
+
             var dataItem = scope.dataSource[rowIndex];
             dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
             scope.updatedItems[headlineId] = dataItem;

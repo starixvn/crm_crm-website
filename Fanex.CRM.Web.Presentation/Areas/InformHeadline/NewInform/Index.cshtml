@@ -14,12 +14,18 @@
 }
 <div data-ng-app="newInformApplication">
     <div data-ng-controller="NewInformController">
-        <div class="row download-file-container" data-ng-model="downloadFileOptions">
-            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="container main">
             <div class="row filter-frm one-row deletedFeedback">
-                <form novalidate data-ng-submit="searchDeletedFeedback();">
+                <form novalidate data-ng-submit="searchDeletedFeedback();" name="mainForm">
                 <div class="row row-item">
                     <div class="">
                         <input type="text" id="txtTitle" placeholder="@Labels.Title" class="textbox" data-ng-model="titleDetail.Title" />
