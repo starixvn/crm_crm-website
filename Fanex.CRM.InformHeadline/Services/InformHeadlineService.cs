@@ -8,6 +8,7 @@ namespace Fanex.CRM.InformHeadline.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Excel;
@@ -31,7 +32,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         public InformHeadlineService()
             : this(null, null)
-        {
+        {        
         }
 
         public InformHeadlineService(IInformHeadlineRepository informHeadlineRepository, ISettingService settingServices)
@@ -59,7 +60,7 @@ namespace Fanex.CRM.InformHeadline.Services
         }
 
         /// <summary>
-        /// Exports the get casino daily summaries.
+        /// Exports the get inform headlines.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <param name="fileName">File name.</param>
@@ -69,6 +70,64 @@ namespace Fanex.CRM.InformHeadline.Services
             var data = _informHeadlineRepository.GetInforms(criteria);
 
             return new InformHeadlineExcel(data, fileName);
+        }
+
+        /// <summary>
+        /// Exports the get inform headlines.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="fileName">File name.</param>
+        /// <returns>Inform headline excel.</returns>
+        public NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName)
+        {
+            var data = _informHeadlineRepository.GetNewInforms(criteria);
+
+            return new NewInformHeadlineExcel(criteria.Title, data, fileName);
+        }
+
+        /// <summary>
+        /// Exports the get inform headlines.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="fileName">File name.</param>
+        /// <returns>Inform headline excel.</returns>
+        public InformHeadlineExcel GetUpdateInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName)
+        {
+            var data = _informHeadlineRepository.GetInforms(criteria);
+
+            return new InformHeadlineExcel(data, fileName);
+        }
+
+        /// <summary>
+        /// Exports the get inform headlines.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="fileName">File name.</param>
+        /// <returns>Inform headline excel.</returns>
+        public UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName)
+        {
+            var data = _informHeadlineRepository.GetContactInforms(criteria);
+            var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
+            {
+                TitleId = criteria.TitleId
+            });
+            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
+        }
+
+        /// <summary>
+        /// Exports the get inform headlines.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="fileName">File name.</param>
+        /// <returns>Inform headline excel.</returns>
+        public UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName)
+        {
+            var data = _informHeadlineRepository.GetUpdateInforms(criteria);
+            var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
+            {
+                TitleId = criteria.TitleId
+            });
+            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
         }
 
         /// <summary>
@@ -113,16 +172,6 @@ namespace Fanex.CRM.InformHeadline.Services
         /// <returns>The object with all settings.</returns>
         public dynamic GetNewInformSettings()
         {
-            var productStatuses = _settingServices.GetStatuses(ViewTypeConstants.InformHeadline);
-            productStatuses.Insert(
-                0,
-                new Status()
-            {
-                StatusId = 0,
-                Name = Labels.NA,
-                DisplayOrder = 0
-            });
-
             return new
             {
                 Sites = _settingServices.AllSite(new GetAllSiteCriteria()
@@ -133,9 +182,9 @@ namespace Fanex.CRM.InformHeadline.Services
                 {
                     IsTest = 0
                 }),
-                Statuses = _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()),
-                ProductStatuses = productStatuses,
-                Stations = _settingServices.GetStations()
+                Statuses = GetInformStatuses(),
+                ProductStatuses = GetProductStatuses(),
+                Stations = GetStations()
             };
         }
 
@@ -145,21 +194,11 @@ namespace Fanex.CRM.InformHeadline.Services
         /// <returns>The object with all settings.</returns>
         public dynamic GetContactInformSettings()
         {
-            var productStatuses = _settingServices.GetStatuses(ViewTypeConstants.InformHeadline);
-            productStatuses.Insert(
-                0,
-                new Status()
-                {
-                    StatusId = 0,
-                    Name = Labels.NA,
-                    DisplayOrder = 0
-                });
-
             return new
             {
-                Statuses = _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()),
-                ProductStatuses = productStatuses,
-                Stations = _settingServices.GetStations()
+                Statuses = GetInformStatuses(),
+                ProductStatuses = GetProductStatuses(),
+                Stations = GetStations()
             };
         }
 
@@ -190,7 +229,6 @@ namespace Fanex.CRM.InformHeadline.Services
         {
             try
             {
-                criteria.UserName = criteria.UserName ?? string.Empty;
                 return _informHeadlineRepository.GetContactInforms(criteria);
             }
             catch (Exception ex)
@@ -285,6 +323,34 @@ namespace Fanex.CRM.InformHeadline.Services
             }
         }
 
+        public IList<InformStatus> GetInformStatuses()
+        {
+            return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria());                    
+        }
+
+        /// <summary>
+        /// Get product statuses.
+        /// </summary>
+        /// <returns>List of product status.</returns>
+        public IList<Status> GetProductStatuses()
+        {
+            var productStatuses = _settingServices.GetStatuses(ViewTypeConstants.InformHeadline);
+            productStatuses.Insert(
+                0,
+                new Status()
+                {
+                    StatusId = 0,
+                    Name = Labels.NA,
+                    DisplayOrder = 0
+                });
+            return productStatuses;
+        }
+
+        public IList<Station> GetStations()
+        {
+            return _settingServices.GetStations();
+        }
+
         /// <summary>
         /// Build update inform XML.
         /// </summary>
@@ -302,7 +368,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 builder.AppendFormat(
                     "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' IsKeep='{5}' />",
-                    item.HeadlineId == 0 ? (item.NewCustId == 0 ? item.OldCustId : item.NewCustId) : item.HeadlineId,
+                    item.Case == 1 || item.Case == 5 ? item.OldUserName : item.NewUserName, 
                     item.InformHeadlineStatusId,
                     item.Remark,
                     item.Extension,

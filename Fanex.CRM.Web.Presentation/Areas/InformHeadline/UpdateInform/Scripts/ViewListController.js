@@ -55,6 +55,8 @@ updateInformApplication.controller('UpdateInformController',
         }
         function isFilterChanged() {
             var titleDetail = $scope.titleDetail;
+            console.log(_searchCriteria);
+            console.log(titleDetail);
             return _searchCriteria.Currency != titleDetail.Currencies ||
                     _searchCriteria.Site != titleDetail.Sites ||
                     _searchCriteria.TypeAccount != titleDetail.TypeAccount ||
@@ -115,26 +117,54 @@ updateInformApplication.controller('UpdateInformController',
                 $scope.directChecked = $scope.titleDetail.TypeAccount == DIRECT_ACCOUNT_TYPE ||
                                         $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
 
-                $timeout($scope.getInforms, 1000);
+                $timeout($scope.getInforms, 2000);
             },
             function (data) {
                 $uiBlockerService.unblockUI();
             });
         }
 
-        $scope.getInforms = function () {
-
+        function refreshSearchCriteria() {
             var accountType = 0;
             // 1: headline, 2: direct, 3: Both
             if ($scope.headlineChecked) {
-                accountType = HEADLINE_ACCOUNT_TYPE;
+                accountType = 1;
             }
 
             if ($scope.directChecked) {
-                accountType += DIRECT_ACCOUNT_TYPE;
+                accountType += 2;
             }
 
-            if (accountType == 0 || isFilterValid() == false) {
+            _searchCriteria = {
+                TitleId: $scope.titleId,
+                Currency: $scope.selectedCurrencies.toString(),
+                Site: $scope.selectedSites.toString(),
+                Level: $scope.selectedPositions.toString(),
+                TypeAccount: accountType,
+                ChangeFilter: isFilterChanged(),
+                PageIndex: 1,
+                ItemsPerPage: 10000
+            };
+        }
+        $scope.exportInformHeadlines = function () {
+            refreshSearchCriteria();
+
+            if (_searchCriteria.TypeAccount == 0 || isFilterValid() == false) {
+                $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
+                return;
+            } else {
+                $scope.messageResultOptions = new MessageResult("", false, false);
+            }
+
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + 'InformHeadline/ExportUpdateInforms',
+                Params: _searchCriteria
+            };
+        };
+        $scope.getInforms = function () {
+            refreshSearchCriteria();
+
+            if (_searchCriteria.TypeAccount == 0 || isFilterValid() == false) {
                 $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
                 $uiBlockerService.unblockUI();
                 return;
@@ -143,18 +173,6 @@ updateInformApplication.controller('UpdateInformController',
             }
 
             $uiBlockerService.blockUI();
-
-            _searchCriteria = {
-                TitleId: $scope.titleId,
-                Currency: $scope.selectedCurrencies.toString(),
-                Site: $scope.selectedSites.toString(),
-                Level: $scope.selectedPositions.toString(),
-                TypeAccount: accountType,
-                PageIndex: 1,
-                ItemsPerPage: 10000
-            };
-
-            _searchCriteria.ChangeFilter = isFilterChanged();
 
             updateInformService.getInforms(_searchCriteria)
                 .then(function (data) {
@@ -169,6 +187,12 @@ updateInformApplication.controller('UpdateInformController',
                 });
         };
         $scope.updateInforms = function () {
+            if ($scope.titleDetail.Title.trim() === "") {
+                $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
+                $uiBlockerService.unblockUI();
+                return;
+            }
+
             $uiBlockerService.blockUI();
             var items = [];
             for (var key in $scope.updatedItems) {
@@ -176,6 +200,7 @@ updateInformApplication.controller('UpdateInformController',
                     items.push($scope.updatedItems[key]);
                 }
             }
+
             _searchCriteria.Title = $scope.titleDetail.Title;
             _searchCriteria.Informs = items;
             _searchCriteria.ChangeFilter = isFilterChanged();

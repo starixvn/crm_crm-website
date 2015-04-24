@@ -409,14 +409,17 @@
     <Content Include="Areas\InformHeadline\ContactInform\Scripts\ViewListService.js" />
     <Content Include="Areas\InformHeadline\ContactInform\Styles\Images\close-case.png" />
     <Content Include="Areas\InformHeadline\ContactInform\Styles\Images\edit.png" />
+    <Content Include="Areas\InformHeadline\ContactInform\Styles\Images\excel.png" />
     <Content Include="Areas\InformHeadline\ContactInform\Styles\Images\list.png" />
     <Content Include="Areas\InformHeadline\ContactInform\Styles\Images\open-case.png" />
+    <Content Include="Areas\InformHeadline\NewInform\Styles\Images\excel.png" />
     <Content Include="Areas\InformHeadline\UpdateInform\Scripts\Directives\ViewListContainer.js" />
     <Content Include="Areas\InformHeadline\UpdateInform\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\UpdateInform\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\UpdateInform\Scripts\ViewListService.js" />
     <Content Include="Areas\InformHeadline\UpdateInform\Styles\Images\close-case.png" />
     <Content Include="Areas\InformHeadline\UpdateInform\Styles\Images\edit.png" />
+    <Content Include="Areas\InformHeadline\UpdateInform\Styles\Images\excel.png" />
     <Content Include="Areas\InformHeadline\UpdateInform\Styles\Images\list.png" />
     <Content Include="Areas\InformHeadline\UpdateInform\Styles\Images\open-case.png" />
     <Content Include="Areas\InformHeadline\NewInform\Scripts\Directives\ViewListContainer.js" />

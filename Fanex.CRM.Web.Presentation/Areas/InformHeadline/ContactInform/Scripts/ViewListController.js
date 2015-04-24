@@ -91,20 +91,26 @@ contactInformApplication.controller('ContactInformController',
                 $uiBlockerService.unblockUI();
             });
         }
+        $scope.exportInformHeadlines = function () {
 
+            _searchCriteria = {
+                UserName: $scope.username,
+                TitleId: $scope.titleId,
+                StatusId: $scope.selectedStatuses.toString(),
+                PageIndex: 1,
+                ItemsPerPage: 10000
+            };
+
+
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + 'InformHeadline/ExportContactInforms',
+                Params: _searchCriteria
+            };
+        };
         $scope.getInforms = function () {
 
             $uiBlockerService.blockUI();
-            var accountType = 0;
-            // 1: headline, 2: direct, 3: Both
-            if ($scope.headlineChecked) {
-                accountType = HEADLINE_ACCOUNT_TYPE;
-            }
-
-            if ($scope.directChecked) {
-                accountType += DIRECT_ACCOUNT_TYPE;
-            }
-
+            
             _searchCriteria = {
                 UserName: $scope.username,
                 TitleId: $scope.titleId,

@@ -164,6 +164,7 @@ namespace Fanex.CRM.InformHeadline.Repositories
 
         public IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
         {
+            criteria.UserName = criteria.UserName ?? string.Empty;
             using (ObjectDb db = new ObjectDb(criteria.GetSettingKey()))
             {
                 return db.Query<UpdateInform>(criteria.GetSpParams()).ToList();

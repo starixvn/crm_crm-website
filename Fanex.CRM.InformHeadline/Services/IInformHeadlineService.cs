@@ -12,6 +12,7 @@ namespace Fanex.CRM.InformHeadline.Services
     using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.Infrastructure.Models;
+    using Fanex.CRM.Setting.Models;
 
     /// <summary>
     /// TODO: Update summary.
@@ -21,6 +22,12 @@ namespace Fanex.CRM.InformHeadline.Services
         IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
 
         InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName);
+
+        NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName);
+
+        UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName);
+
+        UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName);
 
         Result UpdateInformStatus(UpdateInformStatusCriteria criteria);
 
@@ -43,5 +50,14 @@ namespace Fanex.CRM.InformHeadline.Services
         Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria);
 
         IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria);
+
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        IList<InformStatus> GetInformStatuses();
+
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        IList<Status> GetProductStatuses();
+
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
+        IList<Station> GetStations();
     }
 }

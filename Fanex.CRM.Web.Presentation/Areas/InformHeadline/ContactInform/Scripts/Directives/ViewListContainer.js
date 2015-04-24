@@ -107,7 +107,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             treeParentPaddingLeft: 5,
             headerColumnHeight: 29,
             bodyRowHeight: 20,
-            gridExpandHeight: 230,
+            gridExpandHeight: 180,
             showPager: true,
             pagerOption: {
                 itemsPerPage: MIN_PAGE_SIZE,

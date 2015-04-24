@@ -28,7 +28,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
         }
 
         public InformHeadlineController(IInformHeadlineService informHeadlineService)
-        {
+        {            
             _informHeadlineService = informHeadlineService ?? new InformHeadlineService();
         }
 
@@ -62,11 +62,38 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadline, Policy = Constant.Policy.Read)]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
         public void ExportInforms(GetInformHeadlinesCriteria criteria)
         {
             const string FILENAME = "InformHeadlines";
             var excel = _informHeadlineService.GetInformHeadlineExcel(criteria, FILENAME);
+            excel.BuildWorkBook();
+            excel.ResponseStreamExcel();
+        }
+
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        public void ExportNewInforms(GetNewInformsCriteria criteria)
+        {
+            const string FILENAME = "NewInformHeadlines";
+            var excel = _informHeadlineService.GetNewInformHeadlineExcel(criteria, FILENAME);
+            excel.BuildWorkBook();
+            excel.ResponseStreamExcel();
+        }
+
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        public void ExportContactInforms(GetContactInformsCriteria criteria)
+        {
+            const string FILENAME = "ContactInformHeadlines";
+            var excel = _informHeadlineService.GetContactInformHeadlineExcel(criteria, FILENAME);
+            excel.BuildWorkBook();
+            excel.ResponseStreamExcel();
+        }
+
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        public void ExportUpdateInforms(GetUpdateInformsCriteria criteria)
+        {
+            const string FILENAME = "UpdateInformHeadlines";
+            var excel = _informHeadlineService.GetUpdateInformHeadlineExcel(criteria, FILENAME);
             excel.BuildWorkBook();
             excel.ResponseStreamExcel();
         }

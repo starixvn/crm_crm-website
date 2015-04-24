@@ -58,7 +58,7 @@ newInformApplication.controller('NewInformController',
                 $scope.selectedPositions.length > 0;
         }
 
-        $scope.getInforms = function () {
+        function refreshSearchCriteria() {
             var accountType = 0;
             // 1: headline, 2: direct, 3: Both
             if ($scope.headlineChecked) {
@@ -69,15 +69,8 @@ newInformApplication.controller('NewInformController',
                 accountType += 2;
             }
 
-            if (accountType == 0 || isFilterValid() == false) {
-                $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
-                return;
-            } else {
-                $scope.messageResultOptions = new MessageResult("", false, false);
-            }
-
-            $uiBlockerService.blockUI();
             _searchCriteria = {
+                Title: $scope.titleDetail.Title,
                 Currency: $scope.selectedCurrencies.toString(),
                 Site: $scope.selectedSites.toString(),
                 Level: $scope.selectedPositions.toString(),
@@ -85,21 +78,56 @@ newInformApplication.controller('NewInformController',
                 PageIndex: 1,
                 ItemsPerPage: 10000
             };
+        }
+
+        $scope.exportInformHeadlines = function () {
+            refreshSearchCriteria();
+
+            if (_searchCriteria.TypeAccount == 0 || isFilterValid() == false) {
+                $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
+                return;
+            } else {
+                $scope.messageResultOptions = new MessageResult("", false, false);
+            }
+
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + 'InformHeadline/ExportNewInforms',
+                Params: _searchCriteria
+            };
+        };
+        $scope.getInforms = function () {
+            refreshSearchCriteria()
+
+            if (_searchCriteria.TypeAccount == 0 || isFilterValid() == false) {
+                $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
+                return;
+            } else {
+                $scope.messageResultOptions = new MessageResult("", false, false);
+            }
+
+            $uiBlockerService.blockUI();
 
             newInformService.getInforms(_searchCriteria)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
-                    $scope.showSaveButton = data.Result.Items.length > 0;                    
+                    $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
                     $scope.listData = null;
-                    $scope.showSaveButton = false;                    
+                    $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
                 });
 
         };
         $scope.insertInforms = function () {
+            
+            if ($scope.titleDetail.Title.trim() === "") {
+                $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
+                $uiBlockerService.unblockUI();
+                return;
+            }
+
             $uiBlockerService.blockUI();
             var items = [];
             for (var key in $scope.updatedItems) {

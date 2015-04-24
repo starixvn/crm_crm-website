@@ -23,12 +23,16 @@
                 </div>
             </div>
         </div>
+        <div class="row download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
         <div class="container main">
             <div class="row panel-group">
                 <div class="row title hand identify hand">
                     <strong>
                         {{ titleDetail.Title }}
                     </strong>
+                    <i style="padding: 0px;float:right" class="btnExcel" data-ng-show="listData.length > 0" data-ng-click="exportInformHeadlines()"></i>
                 </div>
             </div>
             <div class="row filter-frm one-row">

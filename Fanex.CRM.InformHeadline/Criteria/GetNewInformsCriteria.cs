@@ -13,6 +13,9 @@ namespace Fanex.CRM.InformHeadline.Criteria
     /// </summary>
     public class GetNewInformsCriteria : CriteriaBase
     {
+        [SpParam(Ignored = true)]
+        public string Title { get; set; }
+
         public int TypeAccount { get; set; }
 
         public string Currency { get; set; }

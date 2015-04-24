@@ -23,12 +23,16 @@
                 </div>
             </div>
         </div>
+        <div class="row download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
         <div class="container main">
-            <div class="row filter-frm one-row deletedFeedback">
-                <form novalidate data-ng-submit="searchDeletedFeedback();">
+            <div class="row filter-frm one-row ">
+                <form>
                 <div class="row row-item">
-                    <div class="">
+                    <div class="input-group" style="width: 100%">
                         <input type="text" id="txtTitle" placeholder="@Labels.Title" class="textbox" data-ng-model="titleDetail.Title" />
+                        <i style="padding: 0px" class="input-group-addon btnExcel" data-ng-show="listData.length > 0" data-ng-click="exportInformHeadlines()"></i>
                     </div>
                 </div>
                 <div class="row row-item">

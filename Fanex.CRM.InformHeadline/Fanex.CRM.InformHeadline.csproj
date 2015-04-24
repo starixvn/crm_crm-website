@@ -113,6 +113,8 @@
     <Compile Include="Criteria\GetNewInformsCriteria.cs" />
     <Compile Include="Criteria\UpdateInformStatusCriteria.cs" />
     <Compile Include="Criteria\GetInformHeadlinesCriteria.cs" />
+    <Compile Include="Excel\UpdateInformHeadlineExcel.cs" />
+    <Compile Include="Excel\NewInformHeadlineExcel.cs" />
     <Compile Include="Excel\InformHeadlineExcel.cs" />
     <Compile Include="Models\TitleDetail.cs" />
     <Compile Include="Models\UpdateInform.cs" />

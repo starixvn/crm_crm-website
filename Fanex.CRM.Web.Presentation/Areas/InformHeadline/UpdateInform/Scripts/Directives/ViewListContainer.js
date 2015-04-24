@@ -10,8 +10,8 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
     var MAX_PAGE_SIZE = 500;
     var selfScope;
 
-    function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
-        var html = '<select data-binding-name="' + bindingName + '" style="width: 100px">';
+    function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, disabled) {
+        var html = '<select ' + (disabled ? 'disabled' : '') + '  data-binding-name="' + bindingName + '" style="width: 100px">';
 
         for (var i = 0; i < data.length; i++) {
             var item = data[i];
@@ -39,7 +39,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
         }
 
-        return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue);
+        return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, columnModel.Value.Case > 0);
     }
 
     function renderStatusDropdownCell(columnModel) {
@@ -71,8 +71,10 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             for (var i = firstRowIndex; i < lastRowIndex; i++) {
                 var item = scope.dataSource[i];
 
-                var userName = item.UserName || item.NewUserName || item.OldUserName;
-                var headlineId = item.HeadlineId || item.NewCustId || item.OldCustId;
+                var isUseOld = item.Case == 1 || item.Case == 5;
+                var userName = isUseOld ? item.OldUserName : item.NewUserName;
+                var headlineId = isUseOld ? item.OldCustId : item.NewCustId;
+
                 bodyData.push({
                     Columns: [
                             { Name: "DirectAccount", Value: item.Case == 0 ? userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>' },
@@ -86,7 +88,9 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                                             viewResources.KeepThisAccount + '</label></div>';
                                 }
 
-                                return html + generateDropdown(scope.$parent.informStatuses, "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
+                                return html + generateDropdown(scope.$parent.informStatuses,
+                                    "InformHeadlineStatusId", "SettingId", "SettingValue",
+                                    columnModel.Value.InformHeadlineStatusId, columnModel.Value.Case > 0);
                             }
                             },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
@@ -119,7 +123,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Status, Width: 150, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "MMM DD, YYYY" },
+                    { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY" },
                     { HeaderText: viewResources.Remark, Width: 200, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Extension, Width: 120, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
@@ -145,7 +149,6 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                 startPerPage: MIN_PAGE_SIZE,
                 pageStep: MIN_PAGE_SIZE,
                 pagerSelectCallBack: function (pageIndex, pageSize) {
-                    console.log(pageIndex, pageSize);
                     gridOptions.pagerOption.pageSize = pageSize;
                     gridOptions.pagerOption.currentPage = pageIndex;
                     gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
