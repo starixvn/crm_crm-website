@@ -15,8 +15,8 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
         if (listData === null) {
             return;
         }
-        
-        var canContact = scope.permissionType === "Contact";
+
+        var canContact = scope.contactPolicy !== "None";
         var $tableSetting = element.find("#inform-headline-list");
         var bodyData = [];
         $tableSetting.empty();
@@ -83,7 +83,7 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
             headerColumnHeight: 29,
             bodyRowHeight: 25,
             showColumnsShowHide: false,
-            columnsNeedHide: scope.permissionType === "Search" ? null : [0]
+            columnsNeedHide: scope.searchPolicy === "Host" ? null : [0]
         };
 
         $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);

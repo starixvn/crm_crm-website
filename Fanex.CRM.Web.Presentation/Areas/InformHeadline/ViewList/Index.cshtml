@@ -14,9 +14,9 @@
 }
 <div data-ng-app="informHeadlineApplication">
 <div data-ng-controller="ViewListController" 
-    data-ng-init="permissionType='@ViewBag.PermissionType';policy='@ViewBag.Policy';">
+    data-ng-init="contactPolicy='@ViewBag.ContactPolicy';searchPolicy='@ViewBag.SearchPolicy';">
 
-    @if (ViewBag.PermissionType != null)
+    @if (ViewBag.ContactPolicy != "None" || ViewBag.SearchPolicy != "None")
     {
      <div class="row download-file-container" data-ng-model="downloadFileOptions">
             <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
@@ -45,13 +45,13 @@
                 </div>
             </div>
         </div>
-        @if (ViewBag.PermissionType == "Search" && ViewBag.Policy == "Host")
+        @if (ViewBag.SearchPolicy == "Host")
         {
             <div class="row btn-group">
                 <button id="buttoninsert" class="btn" data-ng-click="showAddCaseDialog()">
                     <span class="hotkey">N</span>ew Case</button>
             </div>        
-        }       
+        }
     </div>
        
     @section Scripts {

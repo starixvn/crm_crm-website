@@ -46,6 +46,7 @@ updateInformApplication.controller('UpdateInformController',
             updateInformService.getTitleDetail(params)
                 .then(function (data) {
                     $scope.titleDetail = data.Result;
+                    $scope.titleDetail.Title = decodeHtml($scope.titleDetail.Title);
                     getAllSettings();
                 },
                 function (data) {
@@ -55,8 +56,7 @@ updateInformApplication.controller('UpdateInformController',
         }
         function isFilterChanged() {
             var titleDetail = $scope.titleDetail;
-            console.log(_searchCriteria);
-            console.log(titleDetail);
+
             return _searchCriteria.Currency != titleDetail.Currencies ||
                     _searchCriteria.Site != titleDetail.Sites ||
                     _searchCriteria.TypeAccount != titleDetail.TypeAccount ||
@@ -141,11 +141,17 @@ updateInformApplication.controller('UpdateInformController',
                 Site: $scope.selectedSites.toString(),
                 Level: $scope.selectedPositions.toString(),
                 TypeAccount: accountType,
-                ChangeFilter: isFilterChanged(),
                 PageIndex: 1,
                 ItemsPerPage: 10000
             };
+
+            _searchCriteria.ChangeFilter = isFilterChanged();
         }
+
+        function decodeHtml(text) {
+            return angular.element('<div/>').html(text).text();
+        };
+
         $scope.exportInformHeadlines = function () {
             refreshSearchCriteria();
 

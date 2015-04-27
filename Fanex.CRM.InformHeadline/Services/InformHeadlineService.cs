@@ -6,9 +6,7 @@
 
 namespace Fanex.CRM.InformHeadline.Services
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Excel;
@@ -21,6 +19,7 @@ namespace Fanex.CRM.InformHeadline.Services
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Models;
     using Fanex.CRM.Setting.Services;
+    using Fanex.Data;
 
     /// <summary>
     /// TODO: Update summary.
@@ -32,7 +31,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         public InformHeadlineService()
             : this(null, null)
-        {        
+        {
         }
 
         public InformHeadlineService(IInformHeadlineRepository informHeadlineRepository, ISettingService settingServices)
@@ -52,7 +51,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 return _informHeadlineRepository.GetInforms(criteria);
             }
-            catch (Exception ex)
+            catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
@@ -141,7 +140,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 return _informHeadlineRepository.UpdateInformStatus(criteria);
             }
-            catch (Exception ex)
+            catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
@@ -159,7 +158,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 return _informHeadlineRepository.GetNewInforms(criteria);
             }
-            catch (Exception ex)
+            catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
@@ -213,7 +212,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 return _informHeadlineRepository.GetUpdateInforms(criteria);
             }
-            catch (Exception ex)
+            catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
@@ -231,7 +230,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 return _informHeadlineRepository.GetContactInforms(criteria);
             }
-            catch (Exception ex)
+            catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
@@ -249,7 +248,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 return _informHeadlineRepository.GetTileDetail(criteria);
             }
-            catch (Exception ex)
+            catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
@@ -268,7 +267,7 @@ namespace Fanex.CRM.InformHeadline.Services
                 criteria.Content = BuildUpdateInformsXml(criteria.Informs);
                 return _informHeadlineRepository.UpdateContentInformHeadline(criteria);
             }
-            catch (Exception ex)
+            catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
@@ -297,7 +296,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
                 return UpdateContentInformHeadline(updateContentCriteria);
             }
-            catch (Exception ex)
+            catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
@@ -316,16 +315,28 @@ namespace Fanex.CRM.InformHeadline.Services
                 criteria.Content = BuildUpdateInformsXml(criteria.Informs);
                 return _informHeadlineRepository.UpdateInformHeadline(criteria);
             }
-            catch (Exception ex)
+            catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
         }
 
+        /// <summary>
+        /// Get inform statuses.
+        /// </summary>
+        /// <returns>List of status.</returns>
         public IList<InformStatus> GetInformStatuses()
         {
-            return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria());                    
+            try
+            {
+                return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria());
+            }
+            catch (ObjectDbException ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -334,21 +345,41 @@ namespace Fanex.CRM.InformHeadline.Services
         /// <returns>List of product status.</returns>
         public IList<Status> GetProductStatuses()
         {
-            var productStatuses = _settingServices.GetStatuses(ViewTypeConstants.InformHeadline);
-            productStatuses.Insert(
-                0,
-                new Status()
-                {
-                    StatusId = 0,
-                    Name = Labels.NA,
-                    DisplayOrder = 0
-                });
-            return productStatuses;
+            try
+            {
+                var productStatuses = _settingServices.GetStatuses(ViewTypeConstants.InformHeadline);
+                productStatuses.Insert(
+                    0,
+                    new Status()
+                    {
+                        StatusId = 0,
+                        Name = Labels.NA,
+                        DisplayOrder = 0
+                    });
+                return productStatuses;
+            }
+            catch (ObjectDbException ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
         }
 
+        /// <summary>
+        /// Get stations.
+        /// </summary>
+        /// <returns>List of stations.</returns>
         public IList<Station> GetStations()
         {
-            return _settingServices.GetStations();
+            try
+            {
+                return _settingServices.GetStations();
+            }
+            catch (ObjectDbException ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -368,7 +399,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 builder.AppendFormat(
                     "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' IsKeep='{5}' />",
-                    item.Case == 0 ? item.UserName : (item.Case == 1 || item.Case == 5 ? item.OldUserName : item.NewUserName), 
+                    item.HeadlineId != 0 ? item.HeadlineId : (item.Case == 1 || item.Case == 5 ? item.OldCustId : item.NewCustId),
                     item.InformHeadlineStatusId,
                     item.Remark,
                     item.Extension,

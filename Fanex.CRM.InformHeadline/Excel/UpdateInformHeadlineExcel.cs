@@ -225,7 +225,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 centerAlignStyle = _normalCenterAlignStyle;
             }
 
-            var username = inform.Case == 0 ? inform.UserName :
+            var username = string.IsNullOrEmpty(inform.UserName) == false ? inform.UserName :
                     (inform.Case == 1 || inform.Case == 5 ? inform.OldUserName : inform.NewUserName);
 
             var isKeepForReference = inform.InformHeadlineStatusId == KeptForReferenceHeadlineId;
