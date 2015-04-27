@@ -17,6 +17,8 @@ informHeadlineApplication.controller('ViewListController',
             $uiBlockerService.unblockUI();
         }
 
+        $scope.permissionType = null;
+        $scope.policy = null;
         $scope.listData = null;
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);

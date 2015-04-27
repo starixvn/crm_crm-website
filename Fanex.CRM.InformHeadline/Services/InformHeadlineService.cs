@@ -368,7 +368,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 builder.AppendFormat(
                     "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' IsKeep='{5}' />",
-                    item.Case == 1 || item.Case == 5 ? item.OldUserName : item.NewUserName, 
+                    item.Case == 0 ? item.UserName : (item.Case == 1 || item.Case == 5 ? item.OldUserName : item.NewUserName), 
                     item.InformHeadlineStatusId,
                     item.Remark,
                     item.Extension,

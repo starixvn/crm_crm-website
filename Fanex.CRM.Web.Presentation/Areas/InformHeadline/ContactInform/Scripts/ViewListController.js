@@ -18,9 +18,9 @@ contactInformApplication.controller('ContactInformController',
             $uiBlockerService.unblockUI();
         }
 
+        $scope.hasHostPermission = false;
         $scope.titleId = 0;
         $scope.titleDetail = null;
-        $scope.showSaveButton = false;
         $scope.listData = null;
         $scope.updatedItems = {};
         $scope.informStatuses = [];
@@ -110,7 +110,7 @@ contactInformApplication.controller('ContactInformController',
         $scope.getInforms = function () {
 
             $uiBlockerService.blockUI();
-            
+
             _searchCriteria = {
                 UserName: $scope.username,
                 TitleId: $scope.titleId,
@@ -122,16 +122,18 @@ contactInformApplication.controller('ContactInformController',
             updateInformService.getInforms(_searchCriteria)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
-                    $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
                     $scope.listData = null;
-                    $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
                 });
         };
         $scope.updateInforms = function () {
+            if ($scope.hasHostPermission !== true) {
+                return;
+            }
+
             $uiBlockerService.blockUI();
             var items = [];
             for (var key in $scope.updatedItems) {
@@ -141,11 +143,11 @@ contactInformApplication.controller('ContactInformController',
             }
 
             _searchCriteria.Informs = items;
-                        
+
             updateInformService.updateInforms(_searchCriteria)
                 .then(function (data) {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
-                    setTimeout(function () {                        
+                    setTimeout(function () {
                         parent.ClosePopup();
                     }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();

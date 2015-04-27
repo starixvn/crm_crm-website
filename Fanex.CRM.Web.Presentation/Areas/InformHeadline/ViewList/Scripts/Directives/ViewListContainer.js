@@ -15,7 +15,8 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
         if (listData === null) {
             return;
         }
-
+        
+        var canContact = scope.permissionType === "Contact";
         var $tableSetting = element.find("#inform-headline-list");
         var bodyData = [];
         $tableSetting.empty();
@@ -29,7 +30,7 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
                             {
                                 Name: "Edit", Value: '<button type="button" class="actionButton">&nbsp;</button>'
                             },
-                            { Name: "Title", Value: '<a class="title" href="javascript:void(0)">' + item.Title + '</a>' },
+                            { Name: "Title", Value: canContact ? '<a class="title" href="javascript:void(0)">' + item.Title + '</a>' : item.Title },
                             { Name: "CreatedDate", Value: item.CreatedDate },
                             { Name: "NoDirectAccounts", Value: item.Total },
                             { Name: "Status", Value: item.Status },

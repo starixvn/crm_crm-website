@@ -225,7 +225,8 @@ namespace Fanex.CRM.InformHeadline.Excel
                 centerAlignStyle = _normalCenterAlignStyle;
             }
 
-            var username = inform.Case == 1 || inform.Case == 5 ? inform.OldUserName : inform.NewUserName;
+            var username = inform.Case == 0 ? inform.UserName :
+                    (inform.Case == 1 || inform.Case == 5 ? inform.OldUserName : inform.NewUserName);
 
             var isKeepForReference = inform.InformHeadlineStatusId == KeptForReferenceHeadlineId;
 
@@ -237,7 +238,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             NpoiExcelExtensions.RenderCell(row, currentColumn++, informStatusName, centerAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.UpdatedTime), leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Remark, leftAlignStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Handler, centerAlignStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Handler, leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, stationName, centerAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, productStatusName, centerAlignStyle);
         }

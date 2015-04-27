@@ -13,7 +13,8 @@
         "~/Areas/InformHeadline/ContactInformStyles")
 }
 <div data-ng-app="contactInformApplication">
-    <div data-ng-controller="ContactInformController" data-ng-init="titleId = @ViewBag.TitleId">
+    <div data-ng-controller="ContactInformController" 
+        data-ng-init="titleId = @ViewBag.TitleId; hasHostPermission = @(ViewBag.HasHostPermission ? "true" : "false")">
         <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
@@ -65,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row btn-group" data-ng-show="showSaveButton">
+            <div class="row btn-group" data-ng-show="hasHostPermission === true && listData.length > 0">
                 <button id="buttoninsert" class="btn" data-ng-click="updateInforms()">
                     @Labels.Save</button>
             </div>

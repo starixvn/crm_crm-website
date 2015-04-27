@@ -80,7 +80,7 @@ namespace Fanex.CRM.InformHeadline.Controllers
             excel.ResponseStreamExcel();
         }
 
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
         public void ExportContactInforms(GetContactInformsCriteria criteria)
         {
             const string FILENAME = "ContactInformHeadlines";
@@ -147,15 +147,16 @@ namespace Fanex.CRM.InformHeadline.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult ContactInform(int titleId)
         {
+            ViewBag.HasHostPermission = HasHostPermission(FunctionPermissions.InformHeadlineContact);
             ViewBag.TitleId = titleId;
             return View("~/Areas/InformHeadline/ContactInform/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult GetContactInforms(GetContactInformsCriteria criteria)
         {
@@ -188,21 +189,21 @@ namespace Fanex.CRM.InformHeadline.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
         public ActionResult AllSettings()
         {
             return Json(_informHeadlineService.GetNewInformSettings(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
         public ActionResult ContactInformSettings()
         {
             return Json(_informHeadlineService.GetContactInformSettings(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineSearch, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
         public ActionResult GetTitleDetail(int titleId)
         {
             var title = _informHeadlineService.GetTitleDetail(

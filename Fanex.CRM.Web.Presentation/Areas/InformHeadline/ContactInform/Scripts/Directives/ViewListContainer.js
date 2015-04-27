@@ -10,8 +10,8 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
     var MAX_PAGE_SIZE = 500;
     var selfScope;
 
-    function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
-        var html = '<select data-binding-name="' + bindingName + '" style="width: 100px">';
+    function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, disabled) {
+        var html = '<select ' + (disabled ? 'disabled' : '') + ' data-binding-name="' + bindingName + '" style="width: 100px">';
 
         for (var i = 0; i < data.length; i++) {
             var item = data[i];
@@ -36,21 +36,21 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
         }
 
-        return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue);
+        return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, selfScope.$parent.hasHostPermission === false);
     }
 
     function renderStatusDropdownCell(columnModel) {
-        return renderDropdownCell(columnModel, selfScope.$parent.informStatuses, 
+        return renderDropdownCell(columnModel, selfScope.$parent.informStatuses,
             "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
     }
 
     function renderExtensionDropdownCell(columnModel) {
-        return renderDropdownCell(columnModel, selfScope.$parent.stations, 
+        return renderDropdownCell(columnModel, selfScope.$parent.stations,
             "Extension", "StationId", "Name", columnModel.Value.Extension);
     }
 
     function renderProductStatusDropdownCell(columnModel) {
-        return renderDropdownCell(columnModel, selfScope.$parent.productStatuses, 
+        return renderDropdownCell(columnModel, selfScope.$parent.productStatuses,
             "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
     }
 
@@ -75,7 +75,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
                             { Name: "Status", Value: item, CustomCellRender: renderStatusDropdownCell },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
                             { Name: "Remark", Value: item, CustomCellRender: function (columnModel) {
-                                return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
+                                return '<textarea ' + (scope.$parent.hasHostPermission === true ? '' : 'disabled') + ' data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
                             }
                             },
                             { Name: "Handler", Value: item.Handler },
@@ -92,9 +92,9 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Status, Width: 120, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "MMM DD, YYYY" },
+                    { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "left", FormatDateTime: "MMM DD, YYYY" },
                     { HeaderText: viewResources.Remark, Width: 200, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Extension, Width: 120, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.ProductStatus, Width: 120, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
