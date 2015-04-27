@@ -40,6 +40,25 @@ namespace Fanex.CRM.InformHeadline.Services
             _settingServices = settingServices ?? new SettingService();
         }
 
+        #region Inform headline list
+
+        /// <summary>
+        /// Get inform statuses.
+        /// </summary>
+        /// <returns>List of status.</returns>
+        public IList<InformStatus> GetInformStatuses()
+        {
+            try
+            {
+                return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria());
+            }
+            catch (ObjectDbException ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
         /// <summary>
         /// Get informs.
         /// </summary>
@@ -50,6 +69,24 @@ namespace Fanex.CRM.InformHeadline.Services
             try
             {
                 return _informHeadlineRepository.GetInforms(criteria);
+            }
+            catch (ObjectDbException ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Update inform status.
+        /// </summary>
+        /// <param name="criteria">Criteria data.</param>
+        /// <returns>Result object.</returns>
+        public Result UpdateInformStatus(UpdateInformStatusCriteria criteria)
+        {
+            try
+            {
+                return _informHeadlineRepository.UpdateInformStatus(criteria);
             }
             catch (ObjectDbException ex)
             {
@@ -71,74 +108,31 @@ namespace Fanex.CRM.InformHeadline.Services
             return new InformHeadlineExcel(data, fileName);
         }
 
-        /// <summary>
-        /// Exports the get inform headlines.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="fileName">File name.</param>
-        /// <returns>Inform headline excel.</returns>
-        public NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName)
-        {
-            var data = _informHeadlineRepository.GetNewInforms(criteria);
+        #endregion Inform headline list
 
-            return new NewInformHeadlineExcel(criteria.Title, data, fileName);
-        }
+        #region New Inform headline
 
         /// <summary>
-        /// Exports the get inform headlines.
+        /// Insert inform headlines.
         /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="fileName">File name.</param>
-        /// <returns>Inform headline excel.</returns>
-        public InformHeadlineExcel GetUpdateInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName)
-        {
-            var data = _informHeadlineRepository.GetInforms(criteria);
-
-            return new InformHeadlineExcel(data, fileName);
-        }
-
-        /// <summary>
-        /// Exports the get inform headlines.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="fileName">File name.</param>
-        /// <returns>Inform headline excel.</returns>
-        public UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName)
-        {
-            var data = _informHeadlineRepository.GetContactInforms(criteria);
-            var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
-            {
-                TitleId = criteria.TitleId
-            });
-            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
-        }
-
-        /// <summary>
-        /// Exports the get inform headlines.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="fileName">File name.</param>
-        /// <returns>Inform headline excel.</returns>
-        public UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName)
-        {
-            var data = _informHeadlineRepository.GetUpdateInforms(criteria);
-            var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
-            {
-                TitleId = criteria.TitleId
-            });
-            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
-        }
-
-        /// <summary>
-        /// Update inform status.
-        /// </summary>
-        /// <param name="criteria">Criteria data.</param>
+        /// <param name="criteria">Criteria object.</param>
         /// <returns>Result object.</returns>
-        public Result UpdateInformStatus(UpdateInformStatusCriteria criteria)
+        public Result InsertInformHeadline(InsertInformHeadlineCriteria criteria)
         {
             try
             {
-                return _informHeadlineRepository.UpdateInformStatus(criteria);
+                var result = _informHeadlineRepository.InsertInformHeadline(criteria);
+
+                if (result.Code != 0)
+                {
+                    return result;
+                }
+
+                var updateContentCriteria = new UpdateContentInformHeadlineCriteria();
+                updateContentCriteria.Informs = criteria.Informs;
+                updateContentCriteria.TitleId = (int)result.ExtendedData;
+
+                return UpdateContentInformHeadline(updateContentCriteria);
             }
             catch (ObjectDbException ex)
             {
@@ -171,34 +165,64 @@ namespace Fanex.CRM.InformHeadline.Services
         /// <returns>The object with all settings.</returns>
         public dynamic GetNewInformSettings()
         {
-            return new
+            try
             {
-                Sites = _settingServices.AllSite(new GetAllSiteCriteria()
+                return new
                 {
-                    LicenseeType = LicenseeTypeConstants.Credit
-                }),
-                Currencies = _settingServices.GetAllCurrency(new GetAllCurrencyCriteria()
-                {
-                    IsTest = 0
-                }),
-                Statuses = GetInformStatuses(),
-                ProductStatuses = GetProductStatuses(),
-                Stations = GetStations()
-            };
+                    Sites = _settingServices.AllSite(new GetAllSiteCriteria()
+                    {
+                        LicenseeType = LicenseeTypeConstants.Credit
+                    }),
+                    Currencies = _settingServices.GetAllCurrency(new GetAllCurrencyCriteria()
+                    {
+                        IsTest = 0
+                    }),
+                    Statuses = GetInformStatuses(),
+                    ProductStatuses = GetProductStatuses(),
+                    Stations = GetStations()
+                };
+            }
+            catch (ObjectDbException ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
         }
 
         /// <summary>
-        /// Gets all settings.
+        /// Exports the get inform headlines.
         /// </summary>
-        /// <returns>The object with all settings.</returns>
-        public dynamic GetContactInformSettings()
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="fileName">File name.</param>
+        /// <returns>Inform headline excel.</returns>
+        public NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName)
         {
-            return new
+            var data = _informHeadlineRepository.GetNewInforms(criteria);
+
+            return new NewInformHeadlineExcel(criteria.Title, data, fileName);
+        }
+
+        #endregion New Inform headline
+
+        #region Update Inform headline
+
+        /// <summary>
+        /// Update inform headline.
+        /// </summary>
+        /// <param name="criteria">Criteria object.</param>
+        /// <returns>Result object.</returns>
+        public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
+        {
+            try
             {
-                Statuses = GetInformStatuses(),
-                ProductStatuses = GetProductStatuses(),
-                Stations = GetStations()
-            };
+                criteria.Content = BuildUpdateInformsXml(criteria.Informs);
+                return _informHeadlineRepository.UpdateInformHeadline(criteria);
+            }
+            catch (ObjectDbException ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
         }
 
         /// <summary>
@@ -211,42 +235,6 @@ namespace Fanex.CRM.InformHeadline.Services
             try
             {
                 return _informHeadlineRepository.GetUpdateInforms(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get informs for contact page.
-        /// </summary>
-        /// <param name="criteria">Get informs criteria.</param>
-        /// <returns>List of informs.</returns>
-        public IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
-        {
-            try
-            {
-                return _informHeadlineRepository.GetContactInforms(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Get title detail.
-        /// </summary>
-        /// <param name="criteria">Criteria object.</param>
-        /// <returns>Title detail.</returns>
-        public TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria)
-        {
-            try
-            {
-                return _informHeadlineRepository.GetTileDetail(criteria);
             }
             catch (ObjectDbException ex)
             {
@@ -275,26 +263,43 @@ namespace Fanex.CRM.InformHeadline.Services
         }
 
         /// <summary>
-        /// Insert inform headlines.
+        /// Exports the get inform headlines.
         /// </summary>
-        /// <param name="criteria">Criteria object.</param>
-        /// <returns>Result object.</returns>
-        public Result InsertInformHeadline(InsertInformHeadlineCriteria criteria)
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="fileName">File name.</param>
+        /// <returns>Inform headline excel.</returns>
+        public UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName)
         {
             try
             {
-                var result = _informHeadlineRepository.InsertInformHeadline(criteria);
-
-                if (result.Code != 0)
+                var data = _informHeadlineRepository.GetUpdateInforms(criteria);
+                var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
                 {
-                    return result;
-                }
+                    TitleId = criteria.TitleId
+                });
+                return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
+            }
+            catch (ObjectDbException ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
 
-                var updateContentCriteria = new UpdateContentInformHeadlineCriteria();
-                updateContentCriteria.Informs = criteria.Informs;
-                updateContentCriteria.TitleId = (int)result.ExtendedData;
+        #endregion Update Inform headline
 
-                return UpdateContentInformHeadline(updateContentCriteria);
+        #region Contact Inform headline
+
+        /// <summary>
+        /// Get informs for contact page.
+        /// </summary>
+        /// <param name="criteria">Get informs criteria.</param>
+        /// <returns>List of informs.</returns>
+        public IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
+        {
+            try
+            {
+                return _informHeadlineRepository.GetContactInforms(criteria);
             }
             catch (ObjectDbException ex)
             {
@@ -304,40 +309,64 @@ namespace Fanex.CRM.InformHeadline.Services
         }
 
         /// <summary>
-        /// Update inform headline.
+        /// Exports the get inform headlines.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="fileName">File name.</param>
+        /// <returns>Inform headline excel.</returns>
+        public UpdateInformHeadlineExcel GetContactInformHeadlineExcel(GetContactInformsCriteria criteria, string fileName)
+        {
+            var data = _informHeadlineRepository.GetContactInforms(criteria);
+            var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
+            {
+                TitleId = criteria.TitleId
+            });
+            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
+        }
+
+        /// <summary>
+        /// Gets all settings.
+        /// </summary>
+        /// <returns>The object with all settings.</returns>
+        public dynamic GetContactInformSettings()
+        {
+            try
+            {
+                return new
+                {
+                    Statuses = GetInformStatuses(),
+                    ProductStatuses = GetProductStatuses(),
+                    Stations = GetStations()
+                };
+            }
+            catch (ObjectDbException ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        #endregion Contact Inform headline                                        
+
+        #region Common
+
+        /// <summary>
+        /// Get title detail.
         /// </summary>
         /// <param name="criteria">Criteria object.</param>
-        /// <returns>Result object.</returns>
-        public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
+        /// <returns>Title detail.</returns>
+        public TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria)
         {
             try
             {
-                criteria.Content = BuildUpdateInformsXml(criteria.Informs);
-                return _informHeadlineRepository.UpdateInformHeadline(criteria);
+                return _informHeadlineRepository.GetTileDetail(criteria);
             }
             catch (ObjectDbException ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Get inform statuses.
-        /// </summary>
-        /// <returns>List of status.</returns>
-        public IList<InformStatus> GetInformStatuses()
-        {
-            try
-            {
-                return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria());
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
+        }        
 
         /// <summary>
         /// Get product statuses.
@@ -381,6 +410,8 @@ namespace Fanex.CRM.InformHeadline.Services
                 throw;
             }
         }
+
+        #endregion Common
 
         /// <summary>
         /// Build update inform XML.

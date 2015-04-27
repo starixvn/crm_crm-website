@@ -6,9 +6,9 @@
 
 namespace Fanex.CRM.InformHeadline.Excel
 {
-    using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Web;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -103,7 +103,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 exportExcelInfo.CurrentRow + 1, 
                 exportExcelInfo.StartColumn, 
                 exportExcelInfo.MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, HttpUtility.HtmlDecode(title), headerStyle);
             exportExcelInfo.CurrentRow += 2;
         }
 

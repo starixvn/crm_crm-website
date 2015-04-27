@@ -6,10 +6,10 @@
 
 namespace Fanex.CRM.InformHeadline.Excel
 {
-    using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
+    using System.Web;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
@@ -147,7 +147,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 exportExcelInfo.CurrentRow + 1, 
                 exportExcelInfo.StartColumn, 
                 exportExcelInfo.MaxColumnIndex);
-            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
+            NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, HttpUtility.HtmlDecode(title), headerStyle);
             exportExcelInfo.CurrentRow += 2;
         }
 
@@ -237,7 +237,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             NpoiExcelExtensions.RenderCell(row, currentColumn++, username, leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, informStatusName, centerAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.UpdatedTime), leftAlignStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Remark, leftAlignStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn++, HttpUtility.HtmlDecode(inform.Remark), leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Handler, leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, stationName, centerAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, productStatusName, centerAlignStyle);
