@@ -42,11 +42,6 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, columnModel.Value.Case > 0);
     }
 
-    function renderStatusDropdownCell(columnModel) {
-        return renderDropdownCell(columnModel, selfScope.$parent.informStatuses,
-            "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
-    }
-
     function renderExtensionDropdownCell(columnModel) {
         return renderDropdownCell(columnModel, selfScope.$parent.stations,
             "Extension", "StationId", "Name", columnModel.Value.Extension);
@@ -72,8 +67,8 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                 var item = scope.dataSource[i];
 
                 var isUseOld = item.Case == 1 || item.Case == 5;
-                var userName = isUseOld ? item.OldUserName : item.NewUserName;
-                var headlineId = isUseOld ? item.OldCustId : item.NewCustId;
+                var userName = item.HeadlineId > 0 ? item.UserName : (isUseOld ? item.OldUserName : item.NewUserName);
+                var headlineId = item.HeadlineId > 0 ? item.HeadlineId : (isUseOld ? item.OldCustId : item.NewCustId);
 
                 bodyData.push({
                     Columns: [
@@ -124,7 +119,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Status, Width: 150, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY" },
-                    { HeaderText: viewResources.Remark, Width: 200, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Remark, Width: 190, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Extension, Width: 120, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.ProductStatus, Width: 120, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }

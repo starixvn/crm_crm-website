@@ -1,5 +1,6 @@
 ﻿"use strict";
 /* global contactInformApplication,
+MessageResult,
 sharedScriptManager,
 viewResources, Site */
 /* jshint unused: vars,
@@ -9,15 +10,12 @@ contactInformApplication.controller('ContactInformController',
     ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
     function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
 
-        var HEADLINE_ACCOUNT_TYPE = 1;
-        var DIRECT_ACCOUNT_TYPE = 2;
-        var BOTH_ACCOUNT_TYPE = 3;
-
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
         }
 
+        $scope.showSaveButton = false;
         $scope.hasHostPermission = false;
         $scope.titleId = 0;
         $scope.titleDetail = null;
@@ -50,14 +48,6 @@ contactInformApplication.controller('ContactInformController',
                     $scope.titleDetail = null;
                     $uiBlockerService.unblockUI();
                 });
-        }
-
-        function isFilterChanged() {
-            var titleDetail = $scope.titleDetail;
-            return _searchCriteria.Currency != titleDetail.Currencies ||
-                    _searchCriteria.Site != titleDetail.Sites ||
-                    _searchCriteria.TypeAccount != titleDetail.TypeAccount ||
-                    _searchCriteria.Level != titleDetail.Positions;
         }
 
         function createStatusDropdownSettings(sourceData) {
@@ -121,10 +111,12 @@ contactInformApplication.controller('ContactInformController',
             updateInformService.getInforms(_searchCriteria)
                 .then(function (data) {
                     $scope.listData = data.Result.Items;
+                    $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
                 function (data) {
                     $scope.listData = null;
+                    $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -145,6 +137,7 @@ contactInformApplication.controller('ContactInformController',
 
             updateInformService.updateInforms(_searchCriteria)
                 .then(function (data) {
+                    $scope.showSaveButton = false;
                     $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
                     setTimeout(function () {
                         parent.ClosePopup();
