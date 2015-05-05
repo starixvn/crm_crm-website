@@ -535,7 +535,7 @@ namespace Fanex.CRM.Setting.Repositories
             var currencies = new List<BaseModel>();
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = db.ExecuteReader())
+                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
                     while (reader.Read())
                     {

@@ -101,7 +101,6 @@ contactInformApplication.controller('ContactInformController',
                 ItemsPerPage: 10000
             };
 
-
             $scope.downloadFileOptions = {
                 URL: window.rootUrl + 'InformHeadline/ExportContactInforms',
                 Params: _searchCriteria

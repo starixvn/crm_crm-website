@@ -83,10 +83,9 @@ updateInformApplication.controller('UpdateInformController',
         function createSiteDropdownSettings(sourceData, sites) {
             $scope.siteDropdownSettings = {
                 width: 220,
-                selectedMember: "Name",
                 sourceData: sourceData,
                 checkedFilter: function (item) {
-                    return sites.indexOf(item.Name.toString()) > -1;
+                    return sites.indexOf(item.Id.toString()) > -1;
                 }
             };
         }
@@ -213,6 +212,7 @@ updateInformApplication.controller('UpdateInformController',
 
             updateInformService.updateInforms(_searchCriteria)
                 .then(function (data) {
+                    $scope.showSaveButton = false;
                     $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
                     setTimeout(function () {
                         parent.ClosePopup();

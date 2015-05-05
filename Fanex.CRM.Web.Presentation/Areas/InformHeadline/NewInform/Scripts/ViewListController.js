@@ -140,6 +140,7 @@ newInformApplication.controller('NewInformController',
 
             newInformService.insertInforms(_searchCriteria)
                 .then(function (data) {
+                    $scope.showSaveButton = false;
                     $scope.messageResultOptions = new MessageResult("Add new case successfully!", true, true);
                     setTimeout(function () {
                         parent.ClosePopup();
