@@ -58,7 +58,7 @@ namespace Fanex.CRM.Setting.Services
 
         List<BaseModel> AllLicenseeType();
 
-        List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria);
+        List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true);
 
         int NumberOfFeedbackSubjectTemplate();
 

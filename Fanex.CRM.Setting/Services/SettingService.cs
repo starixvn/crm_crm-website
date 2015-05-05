@@ -485,7 +485,7 @@ namespace Fanex.CRM.Setting.Services
             }
             else if (statusType == ViewTypeConstants.Redemption)
             {
-                key = GetAllStatusRedemption; 
+                key = GetAllStatusRedemption;
             }
 
             try
@@ -757,7 +757,7 @@ namespace Fanex.CRM.Setting.Services
 
                 licenseeTypes = _settingRepositoryInstance.GetAllLicenseeType(new GetAllLicenseeTypeCriteria());
                 licenseeTypes.Insert(
-                    0, 
+                    0,
                     new BaseModel
                 {
                     Id = SettingConstants.NotApply,
@@ -778,35 +778,38 @@ namespace Fanex.CRM.Setting.Services
         /// Gets all currency.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
+        /// <param name="hasDefaultOption">Has N/A option or not.</param>
         /// <returns>The currency list.</returns>
-        public List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria)
+        public List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true)
         {
             string key = GetAllCurrencySessionKey;
             try
             {
                 var currencies = CacheService.Get<List<BaseModel>>(key);
-                if (currencies != null)
+                if (currencies == null)
                 {
-                    return currencies;
+                    currencies = _settingRepositoryInstance.GetAllCurrency(criteria);
+                    CacheService.Set(key, currencies);
                 }
 
-                currencies = _settingRepositoryInstance.GetAllCurrency(criteria);
-                currencies.Insert(
-                    0,
-                    new BaseModel
-                    {
-                        Id = SettingConstants.NotApply,
-                        Name = Labels.Symbol_NotApply
-                    });
+                if (hasDefaultOption)
+                {
+                    currencies.Insert(
+                        0,
+                        new BaseModel
+                        {
+                            Id = SettingConstants.NotApply,
+                            Name = Labels.Symbol_NotApply
+                        });
+                }
 
-                CacheService.Set(key, currencies);
                 return currencies;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
-            }    
+            }
         }
 
         /// <summary>

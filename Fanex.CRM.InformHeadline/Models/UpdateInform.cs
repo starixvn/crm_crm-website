@@ -27,7 +27,7 @@ namespace Fanex.CRM.InformHeadline.Models
 
         public string NewUserName { get; set; }
 
-        public DateTime UpdatedTime { get; set; }
+        public DateTime? UpdatedTime { get; set; }
 
         public int InformHeadlineStatusId { get; set; }
 

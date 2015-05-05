@@ -173,10 +173,12 @@ namespace Fanex.CRM.InformHeadline.Services
                     {
                         LicenseeType = LicenseeTypeConstants.Credit
                     }),
-                    Currencies = _settingServices.GetAllCurrency(new GetAllCurrencyCriteria()
-                    {
-                        IsTest = 0
-                    }),
+                    Currencies = _settingServices.GetAllCurrency(
+                        new GetAllCurrencyCriteria()
+                        {
+                            IsTest = 0
+                        }, 
+                        false),
                     Statuses = GetInformStatuses(),
                     ProductStatuses = GetProductStatuses(),
                     Stations = GetStations()
