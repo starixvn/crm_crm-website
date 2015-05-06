@@ -74,7 +74,6 @@ namespace Fanex.CRM.Setting.Services
 
         List<SettingInfo> MainSetting();
 
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         List<Station> GetStations();
     }
 }

@@ -33,10 +33,8 @@ namespace Fanex.CRM.InformHeadline.Services
 
         IList<NewInform> GetNewInforms(GetNewInformsCriteria criteria);
 
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         dynamic GetNewInformSettings();
 
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         dynamic GetContactInformSettings();
 
         IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria);
@@ -51,13 +49,10 @@ namespace Fanex.CRM.InformHeadline.Services
 
         IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria);
 
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         IList<InformStatus> GetInformStatuses();
 
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         IList<Status> GetProductStatuses();
 
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed.")]
         IList<Station> GetStations();
     }
 }
