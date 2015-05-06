@@ -11,12 +11,12 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
         var html = '<select data-binding-name="' + bindingName + '" style="width: 100px">';
-        
+
         for (var i = 0; i < data.length; i++) {
             var item = data[i];
 
             html += '<option value="' + item[valueProperty] + '" ' +
-                    (item[valueProperty] == selectedValue ? 'selected' : '') +
+                    (item[valueProperty].toString() === selectedValue.toString() ? 'selected' : '') +
                      ' >' + item[textProperty] + '</option>';
         }
         html += '</select>';
@@ -29,6 +29,24 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
     function htmlDecode(value) {
         return $('<div/>').html(value).text();
     }
+
+    function renderStatusCell(columnModel) {
+        return generateDropdown(selfScope.$parent.informStatuses, 
+            "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
+    }
+
+    function renderRemarkCell(columnModel) {
+        return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
+    }
+
+    function renderExtensionCell(columnModel) {
+        return generateDropdown(selfScope.$parent.stations, "Extension", "StationId", "Name", columnModel.Value.Extension);
+    }
+
+    function renderProductStatusCell(columnModel) {
+        return generateDropdown(selfScope.$parent.productStatuses, "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
+    }
+
     function renderListData(scope, element, attrs) {
         selfScope = scope;
 
@@ -46,24 +64,12 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
                 bodyData.push({
                     Columns: [
                             { Name: "DirectAccount", Value: item.UserName },
-                            { Name: "Status", Value: item, CustomCellRender: function (columnModel) {
-                                return generateDropdown(scope.$parent.informStatuses, "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
-                            }
-                            },
+                            { Name: "Status", Value: item, CustomCellRender: renderStatusCell },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
-                            { Name: "Remark", Value: item, CustomCellRender: function (columnModel) {
-                                return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
-                            }
-                            },
+                            { Name: "Remark", Value: item, CustomCellRender: renderRemarkCell },
                             { Name: "Handler", Value: '' },
-                            { Name: "Extension", Value: item, CustomCellRender: function (columnModel) {
-                                return generateDropdown(scope.$parent.stations, "Extension", "StationId", "Name", columnModel.Value.Extension);
-                            }
-                            },
-                            { Name: "ProductStatus", Value: item, CustomCellRender: function (columnModel) {
-                                return generateDropdown(scope.$parent.productStatuses, "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
-                            }
-                            },
+                            { Name: "Extension", Value: item, CustomCellRender: renderExtensionCell },
+                            { Name: "ProductStatus", Value: item, CustomCellRender: renderProductStatusCell },
                         ],
                     CssClass: item.GroupId > 0 ? 'headline' : 'direct',
                     CustomAttr: 'data-headline-id=' + item.HeadlineId + ' data-rowindex=' + (item.Id - 1)
@@ -109,7 +115,7 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
             var bindingName = $target.data("binding-name");
 
             var dataItem = scope.dataSource[rowIndex];
-            dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();            
+            dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
             scope.updatedItems[headlineId] = dataItem;
         }
 

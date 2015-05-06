@@ -17,7 +17,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             var item = data[i];
 
             html += '<option value="' + item[valueProperty] + '" ' +
-                    (item[valueProperty] == selectedValue ? 'selected' : '') +
+                    (item[valueProperty].toString() === selectedValue.toString() ? 'selected' : '') +
                      ' >' + item[textProperty] + '</option>';
         }
         html += '</select>';
@@ -31,15 +31,30 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         return $('<div/>').html(value).text();
     }
     function hasKeepThisAccountOption(caseId) {
-        return caseId == 1 || caseId == 5 || caseId == 12;
+        return caseId === 1 || caseId === 5 || caseId === 12;
     }
 
     function renderDropdownCell(columnModel, data, bindingName, valueProperty, textProperty, selectedValue) {
-        if (columnModel.Value.InformHeadlineStatusId == KEPT_FOR_REFERENCE_HEADLINE_ID) {
+        if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_HEADLINE_ID) {
             return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
         }
 
         return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, columnModel.Value.Case > 0);
+    }
+
+    function renderStatusDropdownCell(columnModel) {
+        var html = "";
+        if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_HEADLINE_ID) {
+            return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
+        }
+        else if (hasKeepThisAccountOption(columnModel.Value.Case)) {
+            html = '<div class="checkbox display-inline-block"><label><input class="iskeep" value="true" type="checkbox" data-binding-name="IsKeep" />' +
+                                            viewResources.KeepThisAccount + '</label></div>';
+        }
+
+        return html + generateDropdown(selfScope.$parent.informStatuses,
+                                    "InformHeadlineStatusId", "SettingId", "SettingValue",
+                                    columnModel.Value.InformHeadlineStatusId, columnModel.Value.Case > 0);
     }
 
     function renderExtensionDropdownCell(columnModel) {
@@ -50,6 +65,10 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
     function renderProductStatusDropdownCell(columnModel) {
         return renderDropdownCell(columnModel, selfScope.$parent.productStatuses,
             "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
+    }
+
+    function renderRemarkCell(columnModel) {
+        return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
     }
 
     function generateBodyRows(scope, pageIndex, pageSize) {
@@ -66,33 +85,17 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             for (var i = firstRowIndex; i < lastRowIndex; i++) {
                 var item = scope.dataSource[i];
 
-                var isUseOld = item.Case == 1 || item.Case == 5;
+                var isUseOld = item.Case === 1 || item.Case === 5;
                 var userName = item.HeadlineId > 0 ? item.UserName : (isUseOld ? item.OldUserName : item.NewUserName);
                 var headlineId = item.HeadlineId > 0 ? item.HeadlineId : (isUseOld ? item.OldCustId : item.NewCustId);
 
                 bodyData.push({
                     Columns: [
-                            { Name: "DirectAccount", Value: item.Case == 0 ? userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>' },
-                            { Name: "Status", Value: item, CustomCellRender: function (columnModel) {
-                                var html = "";
-                                if (columnModel.Value.InformHeadlineStatusId == KEPT_FOR_REFERENCE_HEADLINE_ID) {
-                                    return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
-                                }
-                                else if (hasKeepThisAccountOption(columnModel.Value.Case)) {
-                                    html = '<div class="checkbox display-inline-block"><label><input class="iskeep" value="true" type="checkbox" data-binding-name="IsKeep" />' +
-                                            viewResources.KeepThisAccount + '</label></div>';
-                                }
-
-                                return html + generateDropdown(scope.$parent.informStatuses,
-                                    "InformHeadlineStatusId", "SettingId", "SettingValue",
-                                    columnModel.Value.InformHeadlineStatusId, columnModel.Value.Case > 0);
-                            }
-                            },
+                            { Name: "DirectAccount", Value: item.Case === 0 ? 
+                                userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>' },
+                            { Name: "Status", Value: item, CustomCellRender: renderStatusDropdownCell },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
-                            { Name: "Remark", Value: item, CustomCellRender: function (columnModel) {
-                                return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
-                            }
-                            },
+                            { Name: "Remark", Value: item, CustomCellRender: renderRemarkCell },
                             { Name: "Handler", Value: item.Handler },
                             { Name: "Extension", Value: item, CustomCellRender: renderExtensionDropdownCell },
                             { Name: "ProductStatus", Value: item, CustomCellRender: renderProductStatusDropdownCell },

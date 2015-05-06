@@ -1,5 +1,6 @@
 ﻿"use strict";
 /* global updateInformApplication,
+MessageResult,
 sharedScriptManager,
 viewResources, Site */
 /* jshint unused: vars,
@@ -57,10 +58,10 @@ updateInformApplication.controller('UpdateInformController',
         function isFilterChanged() {
             var titleDetail = $scope.titleDetail;
 
-            return _searchCriteria.Currency != titleDetail.Currencies ||
-                    _searchCriteria.Site != titleDetail.Sites ||
-                    _searchCriteria.TypeAccount != titleDetail.TypeAccount ||
-                    _searchCriteria.Level != titleDetail.Positions;
+            return _searchCriteria.Currency !== titleDetail.Currencies ||
+                    _searchCriteria.Site !== titleDetail.Sites ||
+                    _searchCriteria.TypeAccount !== titleDetail.TypeAccount ||
+                    _searchCriteria.Level !== titleDetail.Positions;
         }
         function createCurrencyDropdownSettings(sourceData, currencyIds) {
             $scope.currencyDropdownSettings = {
@@ -111,10 +112,10 @@ updateInformApplication.controller('UpdateInformController',
                 createCurrencyDropdownSettings(allSetting.Currencies, $scope.titleDetail.Currencies.split(','));
                 createSiteDropdownSettings(allSetting.Sites[0].ChildSites, $scope.titleDetail.Sites);
 
-                $scope.headlineChecked = $scope.titleDetail.TypeAccount == HEADLINE_ACCOUNT_TYPE ||
-                                        $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
-                $scope.directChecked = $scope.titleDetail.TypeAccount == DIRECT_ACCOUNT_TYPE ||
-                                        $scope.titleDetail.TypeAccount == BOTH_ACCOUNT_TYPE;
+                $scope.headlineChecked = $scope.titleDetail.TypeAccount === HEADLINE_ACCOUNT_TYPE ||
+                                        $scope.titleDetail.TypeAccount === BOTH_ACCOUNT_TYPE;
+                $scope.directChecked = $scope.titleDetail.TypeAccount === DIRECT_ACCOUNT_TYPE ||
+                                        $scope.titleDetail.TypeAccount === BOTH_ACCOUNT_TYPE;
 
                 $timeout($scope.getInforms, 2000);
             },
@@ -149,12 +150,12 @@ updateInformApplication.controller('UpdateInformController',
 
         function decodeHtml(text) {
             return angular.element('<div/>').html(text).text();
-        };
+        }
 
         $scope.exportInformHeadlines = function () {
             refreshSearchCriteria();
 
-            if (_searchCriteria.TypeAccount == 0 || isFilterValid() == false) {
+            if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
                 $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
                 return;
             } else {
@@ -169,7 +170,7 @@ updateInformApplication.controller('UpdateInformController',
         $scope.getInforms = function () {
             refreshSearchCriteria();
 
-            if (_searchCriteria.TypeAccount == 0 || isFilterValid() == false) {
+            if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
                 $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
                 $uiBlockerService.unblockUI();
                 return;

@@ -1,5 +1,6 @@
 ﻿"use strict";
 /* global newInformApplication,
+MessageResult, 
 sharedScriptManager,
 viewResources, Site */
 /* jshint unused: vars,
@@ -83,7 +84,7 @@ newInformApplication.controller('NewInformController',
         $scope.exportInformHeadlines = function () {
             refreshSearchCriteria();
 
-            if (_searchCriteria.TypeAccount == 0 || isFilterValid() == false) {
+            if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
                 $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
                 return;
             } else {
@@ -96,9 +97,9 @@ newInformApplication.controller('NewInformController',
             };
         };
         $scope.getInforms = function () {
-            refreshSearchCriteria()
+            refreshSearchCriteria();
 
-            if (_searchCriteria.TypeAccount == 0 || isFilterValid() == false) {
+            if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
                 $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
                 return;
             } else {
@@ -121,7 +122,7 @@ newInformApplication.controller('NewInformController',
 
         };
         $scope.insertInforms = function () {
-            
+
             if ($scope.titleDetail.Title.trim() === "") {
                 $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
                 $uiBlockerService.unblockUI();

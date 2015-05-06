@@ -17,7 +17,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             var item = data[i];
 
             html += '<option value="' + item[valueProperty] + '" ' +
-                    (item[valueProperty] == selectedValue ? 'selected' : '') +
+                    (item[valueProperty].toString() === selectedValue.toString() ? 'selected' : '') +
                      ' >' + item[textProperty] + '</option>';
         }
         html += '</select>';
@@ -32,7 +32,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
     }
 
     function renderDropdownCell(columnModel, data, bindingName, valueProperty, textProperty, selectedValue) {
-        if (columnModel.Value.InformHeadlineStatusId == KEPT_FOR_REFERENCE_HEADLINE_ID) {
+        if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_HEADLINE_ID) {
             return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
         }
 
@@ -52,6 +52,11 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
     function renderProductStatusDropdownCell(columnModel) {
         return renderDropdownCell(columnModel, selfScope.$parent.productStatuses,
             "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
+    }
+
+    function renderRemarkCell(columnModel) {
+        return '<textarea ' + (selfScope.$parent.hasHostPermission === true ? '' : 'disabled') + 
+            ' data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
     }
 
     function renderListData(scope, element, attrs) {
@@ -74,10 +79,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
                             { Name: "DirectAccount", Value: item.UserName },
                             { Name: "Status", Value: item, CustomCellRender: renderStatusDropdownCell },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
-                            { Name: "Remark", Value: item, CustomCellRender: function (columnModel) {
-                                return '<textarea ' + (scope.$parent.hasHostPermission === true ? '' : 'disabled') + ' data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
-                            }
-                            },
+                            { Name: "Remark", Value: item, CustomCellRender: renderRemarkCell },
                             { Name: "Handler", Value: item.Handler },
                             { Name: "Extension", Value: item, CustomCellRender: renderExtensionDropdownCell },
                             { Name: "ProductStatus", Value: item, CustomCellRender: renderProductStatusDropdownCell },
@@ -92,7 +94,8 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Status, Width: 120, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "left", FormatDateTime: "MMM DD, YYYY" },
+                    { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "left", 
+                        FormatDateTime: "MMM DD, YYYY" },
                     { HeaderText: viewResources.Remark, Width: 190, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Extension, Width: 120, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },

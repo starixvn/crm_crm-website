@@ -1,5 +1,6 @@
 ﻿/* global sharedScriptManager, RegisterTemplate */
 /* exported newInformApplication */
+"use strict";
 var newInformApplication = angular.module('newInformApplication',
     ['$uiBlockerApplication', '$resultMessageApplication', 'fanex.dropdowntree']);
 sharedScriptManager.setNoCachingHttpRequest(newInformApplication);
@@ -20,5 +21,5 @@ newInformApplication.config(['dropdowntreeConfigProvider', function (dropdowntre
 newInformApplication.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Sat, 01 Jan 2000 00:00:00 GMT';
     $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
-    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache'
-}]);
+    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
+} ]);
