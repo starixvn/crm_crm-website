@@ -15,9 +15,9 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
 
         for (var i = 0; i < data.length; i++) {
             var item = data[i];
-
+            var value = item[valueProperty];
             html += '<option value="' + item[valueProperty] + '" ' +
-                    (item[valueProperty].toString() === selectedValue.toString() ? 'selected' : '') +
+                    (value && selectedValue && value.toString() == selectedValue.toString() ? 'selected' : '') +
                      ' >' + item[textProperty] + '</option>';
         }
         html += '</select>';
@@ -91,8 +91,9 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
 
                 bodyData.push({
                     Columns: [
-                            { Name: "DirectAccount", Value: item.Case === 0 ? 
-                                userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>' },
+                            { Name: "DirectAccount", Value: item.Case === 0 ?
+                                userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>'
+                            },
                             { Name: "Status", Value: item, CustomCellRender: renderStatusDropdownCell },
                             { Name: "UpdatedTime", Value: item.UpdatedTime },
                             { Name: "Remark", Value: item, CustomCellRender: renderRemarkCell },

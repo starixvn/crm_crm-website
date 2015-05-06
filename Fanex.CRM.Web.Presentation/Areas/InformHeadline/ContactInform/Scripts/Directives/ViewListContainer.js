@@ -15,9 +15,9 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
 
         for (var i = 0; i < data.length; i++) {
             var item = data[i];
-
+            var value = item[valueProperty];
             html += '<option value="' + item[valueProperty] + '" ' +
-                    (item[valueProperty].toString() === selectedValue.toString() ? 'selected' : '') +
+                    (value && selectedValue && value.toString() == selectedValue.toString() ? 'selected' : '') +
                      ' >' + item[textProperty] + '</option>';
         }
         html += '</select>';
