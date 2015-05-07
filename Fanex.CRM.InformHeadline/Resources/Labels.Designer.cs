@@ -160,6 +160,15 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Number of Accounts.
+        /// </summary>
+        public static string EditNumberOfAccounts {
+            get {
+                return ResourceManager.GetString("EditNumberOfAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extension.
         /// </summary>
         public static string Extension {

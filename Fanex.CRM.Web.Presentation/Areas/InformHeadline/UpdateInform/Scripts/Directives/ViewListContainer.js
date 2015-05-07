@@ -165,13 +165,13 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                 case 1:
                 case 5:
                     {
-                        message = message.replace('(A)', dataItem.OldUserName);
+                        message = message.replace('(A)', dataItem.OldUserName || dataItem.UserName);
                         break;
                     }
                 case 2:
                 case 4:
                     {
-                        message = message.replace('(A)', dataItem.NewUserName);
+                        message = message.replace('(A)', dataItem.NewUserName || dataItem.UserName);
                         break;
                     }
                 case 3:

@@ -86,7 +86,7 @@ informHeadlineApplication.controller('ViewListController',
                     $.param({
                         titleId: titleId
                     }),
-                viewResources.UpdateInformHeadlines,
+                viewResources.UpdateInformHeadlines + ' - ' + viewResources.EditNumberOfAccounts,
                 1000,
                 800,
                 true,
