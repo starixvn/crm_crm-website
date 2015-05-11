@@ -96,7 +96,7 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
             treeParentPaddingLeft: 5,
             headerColumnHeight: 29,
             bodyRowHeight: 20,
-            gridExpandHeight: 230,
+            gridExpandHeight: 250,
             showPager: true,
             pagerOption: {
                 itemsPerPage: MIN_PAGE_SIZE,

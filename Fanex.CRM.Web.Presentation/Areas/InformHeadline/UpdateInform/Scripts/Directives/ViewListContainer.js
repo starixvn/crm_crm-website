@@ -138,7 +138,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             treeParentPaddingLeft: 5,
             headerColumnHeight: 29,
             bodyRowHeight: 20,
-            gridExpandHeight: 230,
+            gridExpandHeight: 250,
             showPager: true,
             customPager: true,
             pagerOption: {
@@ -161,7 +161,6 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
 
         function getDescriptionCase(dataItem, caseId) {
             var message = viewResources['ChangedHeadlineCase' + caseId];
-
             switch (parseInt(caseId)) {
                 case 1:
                 case 5:
