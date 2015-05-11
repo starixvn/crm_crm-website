@@ -133,21 +133,28 @@ contactInformApplication.controller('ContactInformController',
                 }
             }
 
-            _searchCriteria.Informs = items;
+            function saveSuccessCallback() {
+                $scope.showSaveButton = false;
+                $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
+                setTimeout(function () {
+                    parent.ClosePopup();
+                }, sharedScriptManager.cachedData.alertSuccessTime);
+                $uiBlockerService.unblockUI();
+            }
 
-            updateInformService.updateInforms(_searchCriteria)
-                .then(function (data) {
-                    $scope.showSaveButton = false;
-                    $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
-                    setTimeout(function () {
-                        parent.ClosePopup();
-                    }, sharedScriptManager.cachedData.alertSuccessTime);
-                    $uiBlockerService.unblockUI();
-                },
+            if (items.length == 0) {
+                saveSuccessCallback();
+            } else {
+                updateInformService.updateInforms({
+                    TitleId: $scope.titleId,
+                    Informs: items
+                })
+                .then(saveSuccessCallback,
                 function (data) {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });
+            }
         };
         $scope.updateInformStatus = function (titleId, status) {
             $uiBlockerService.blockUI();

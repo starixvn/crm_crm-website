@@ -26,7 +26,6 @@ D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Enyim.Caching.dll
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Microsoft.Practices.ServiceLocation.dll
-D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\ICSharpCode.SharpZipLib.dll
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\Microsoft.Practices.Unity.dll
 D:\GITLab\CRM\crm-website\Fanex.CRM.InformHeadline\bin\Debug\SPSRemoting.dll

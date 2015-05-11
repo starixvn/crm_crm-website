@@ -37,7 +37,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/content/bootstrap/css/bootstrap.css",
                 "~/Content/site/common.less",
                 "~/Content/site/Message.less",
-                "~/Content/Vendors/jqueryui/jquery-ui.min.css",
+                "~/Content/vendors/jqueryui/jquery-ui.min.css",
                 "~/Content/site/customizeJqueryUI.less");
 
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
@@ -676,6 +676,8 @@ namespace Fanex.CRM.Web.View.AppStart
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Need to review here.")]
     internal static class BundleExtensions
     {
+        private static CssRewriteUrlTransformWrapper _cssRewriteUrlTransformWrapper = new CssRewriteUrlTransformWrapper();
+
         /// <summary>
         /// Creates a bundle, include the virtual paths to the created bundle,
         /// and add it to the bundle collection.
@@ -688,11 +690,18 @@ namespace Fanex.CRM.Web.View.AppStart
             string bundleVirtualPath,
             params string[] virtualPaths)
         {
-            bundles.Add(new Bundle(bundleVirtualPath)
+            var bundle = new Bundle(bundleVirtualPath)
             {
                 Transforms = { new StyleTransformer(), new CssMinify() },
                 Orderer = new NullOrderer()
-            }.Include(virtualPaths));
+            };
+
+            foreach (var path in virtualPaths)
+            {
+                bundle.Include(path, _cssRewriteUrlTransformWrapper);
+            }
+
+            bundles.Add(bundle);
         }
     }
 }

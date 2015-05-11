@@ -223,7 +223,7 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keep This Account.
+        ///   Looks up a localized string similar to Keep this account.
         /// </summary>
         public static string KeepThisAccount {
             get {
@@ -232,7 +232,7 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kept For Reference.
+        ///   Looks up a localized string similar to Kept for reference.
         /// </summary>
         public static string KeptForReference {
             get {

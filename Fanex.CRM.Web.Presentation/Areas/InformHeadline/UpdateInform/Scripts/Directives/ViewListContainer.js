@@ -5,7 +5,8 @@ viewResources */
 /* jshint camelcase: false,
 unused: vars */
 updateInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
-    var KEPT_FOR_REFERENCE_HEADLINE_ID = 45007;
+    var NEVER_TOUCH_STATUS_ID = 45006;
+    var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
     var selfScope;
@@ -35,7 +36,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
     }
 
     function renderDropdownCell(columnModel, data, bindingName, valueProperty, textProperty, selectedValue) {
-        if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_HEADLINE_ID) {
+        if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_STATUS_ID) {
             return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
         }
 
@@ -44,7 +45,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
 
     function renderStatusDropdownCell(columnModel) {
         var html = "";
-        if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_HEADLINE_ID) {
+        if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_STATUS_ID) {
             return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
         }
         else if (hasKeepThisAccountOption(columnModel.Value.Case)) {
@@ -54,7 +55,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
 
         return html + generateDropdown(selfScope.$parent.informStatuses,
                                     "InformHeadlineStatusId", "SettingId", "SettingValue",
-                                    columnModel.Value.InformHeadlineStatusId, columnModel.Value.Case > 0);
+                                    columnModel.Value.InformHeadlineStatusId || NEVER_TOUCH_STATUS_ID, columnModel.Value.Case > 0);
     }
 
     function renderExtensionDropdownCell(columnModel) {
@@ -121,12 +122,12 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         var gridOptions = {
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: viewResources.Status, Width: 150, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Status, Width: 130, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY" },
                     { HeaderText: viewResources.Remark, Width: 190, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: viewResources.Extension, Width: 120, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.ProductStatus, Width: 120, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
+                    { HeaderText: viewResources.Extension, Width: 130, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.ProductStatus, Width: 130, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
             bodyRows: generateBodyRows(scope, 0, MIN_PAGE_SIZE),
             numberOfFrozenColumn: 0,

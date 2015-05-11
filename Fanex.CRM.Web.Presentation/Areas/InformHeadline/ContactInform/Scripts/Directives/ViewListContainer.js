@@ -5,7 +5,7 @@ viewResources */
 /* jshint camelcase: false,
 unused: vars */
 contactInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
-    var KEPT_FOR_REFERENCE_HEADLINE_ID = 45007;
+    var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
     var selfScope;
@@ -32,7 +32,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
     }
 
     function renderDropdownCell(columnModel, data, bindingName, valueProperty, textProperty, selectedValue) {
-        if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_HEADLINE_ID) {
+        if (columnModel.Value.InformHeadlineStatusId === KEPT_FOR_REFERENCE_STATUS_ID) {
             return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
         }
 
@@ -93,13 +93,13 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
         var gridOptions = {
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: viewResources.Status, Width: 120, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Status, Width: 130, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "left", 
                         FormatDateTime: "MMM DD, YYYY" },
                     { HeaderText: viewResources.Remark, Width: 190, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: viewResources.Extension, Width: 120, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.ProductStatus, Width: 120, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
+                    { HeaderText: viewResources.Extension, Width: 130, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.ProductStatus, Width: 130, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
             bodyRows: bodyData,
             numberOfFrozenColumn: 0,
