@@ -12,17 +12,27 @@ informHeadlineApplication.controller('ViewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
 
+        $scope.contactPolicy = null;
+        $scope.searchPolicy = null;
+        $scope.listData = null;
+
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
         }
 
-        $scope.contactPolicy = null;
-        $scope.searchPolicy = null;
-        $scope.listData = null;
+        function registerHotKey() {
+            $scope.registerHotKey = function () {
+                hotKeyManager.CachedData.ActiveDocumentManager.push({
+                    Value: $scope,
+                    Id: "InformHeadline_ViewInform"
+                });
+            };            
+        }
+
         $scope.initController = function () {
+            registerHotKey();
             sharedScriptManager.safeApply($scope);
-            $scope.initDefaultOption();
             $scope.getInforms();
         };
 
@@ -118,10 +128,6 @@ informHeadlineApplication.controller('ViewListController',
                 $scope.beforeCloseEditView);
         };
         angular.element(document).ready(function () {
-            registerOptions($scope);
-            registerUpdateFunctions($scope);
-            registerHotkeyFunctions($scope);
             $scope.initController();
-            $scope.registerHotKey();
         });
     } ]);

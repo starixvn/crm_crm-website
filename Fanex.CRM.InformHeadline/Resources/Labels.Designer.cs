@@ -259,6 +259,15 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Case.
+        /// </summary>
+        public static string NewCase {
+            get {
+                return ResourceManager.GetString("NewCase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Inform Headlines.
         /// </summary>
         public static string NewInformHeadlines {

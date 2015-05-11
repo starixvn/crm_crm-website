@@ -43,10 +43,7 @@ namespace Fanex.CRM.InformHeadline
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Areas/InformHeadline/ViewList/Scripts/ViewListApplication.js",
                 "~/Areas/InformHeadline/ViewList/Scripts/ViewListService.js",
-                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController.js",
-                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController_Options.js",
-                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController_Update.js",
-                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController_HotKey.js",
+                "~/Areas/InformHeadline/ViewList/Scripts/ViewListController.js",                
                 "~/Areas/InformHeadline/ViewList/Scripts/Directives/*.js"));
 
             AddAndInclude(

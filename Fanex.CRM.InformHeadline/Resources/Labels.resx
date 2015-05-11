@@ -240,4 +240,7 @@
   <data name="EditNumberOfAccounts" xml:space="preserve">
     <value>Edit Number of Accounts</value>
   </data>
+  <data name="NewCase" xml:space="preserve">
+    <value>New Case</value>
+  </data>
 </root>

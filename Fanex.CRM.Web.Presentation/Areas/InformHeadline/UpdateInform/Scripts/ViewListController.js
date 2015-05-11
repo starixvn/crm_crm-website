@@ -34,6 +34,10 @@ updateInformApplication.controller('UpdateInformController',
         var _searchCriteria = {};
 
         function initController() {
+            hotKeyManager.CachedData.ActiveDocumentManager.push({
+                Value: $scope,
+                Id: "InformHeadline_UpdateInform"
+            });
             sharedScriptManager.safeApply($scope);
             getTitleDetail();
         }

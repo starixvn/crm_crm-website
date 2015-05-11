@@ -29,6 +29,10 @@ contactInformApplication.controller('ContactInformController',
         var _searchCriteria = {};
 
         function initController() {
+            hotKeyManager.CachedData.ActiveDocumentManager.push({
+                Value: $scope,
+                Id: "InformHeadline_ContactInform"
+            });
             sharedScriptManager.safeApply($scope);
             getTitleDetail();
         }

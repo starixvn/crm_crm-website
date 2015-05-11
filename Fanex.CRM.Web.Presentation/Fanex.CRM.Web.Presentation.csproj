@@ -566,9 +566,6 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\Directives\ViewListContainer.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
-    <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController_HotKey.js" />
-    <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController_Options.js" />
-    <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController_Update.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
     <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
