@@ -13,6 +13,9 @@ namespace Fanex.CRM.InformHeadline.Criteria
     /// </summary>
     public class GetInformStatusesCriteria : CriteriaBase
     {
+        [SpParam(SqlParamName = "Mode")]
+        public bool IsIncludeKeptForRefence { get; set; }
+
         public override string GetSettingKey()
         {
             return "Acc_CRM_InformHeadlineStatusSel";

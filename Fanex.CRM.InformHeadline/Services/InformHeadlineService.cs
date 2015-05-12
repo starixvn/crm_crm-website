@@ -50,7 +50,10 @@ namespace Fanex.CRM.InformHeadline.Services
         {
             try
             {
-                return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria());
+                return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()
+                {
+                    IsIncludeKeptForRefence = true
+                });
             }
             catch (ObjectDbException ex)
             {
