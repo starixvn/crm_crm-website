@@ -18,7 +18,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             var item = data[i];
             var value = item[valueProperty];
             html += '<option value="' + item[valueProperty] + '" ' +
-                    (value && selectedValue && value.toString() == selectedValue.toString() ? 'selected' : '') +
+                    (value && selectedValue && value.toString() === selectedValue.toString() ? 'selected' : '') +
                      ' >' + item[textProperty] + '</option>';
         }
         html += '</select>';
@@ -26,7 +26,12 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         return html;
     }
     function htmlEncode(value) {
-        return $('<div/>').text(value).html();
+        return String(value)
+            .replace(/&/g, '&amp;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
     }
     function htmlDecode(value) {
         return $('<div/>').html(value).text();
