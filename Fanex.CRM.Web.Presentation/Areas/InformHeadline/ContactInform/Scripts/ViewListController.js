@@ -10,6 +10,8 @@ contactInformApplication.controller('ContactInformController',
     ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
     function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
 
+        var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
+
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
@@ -73,11 +75,12 @@ contactInformApplication.controller('ContactInformController',
             .then(function (data) {
                 var allSetting = data.Result;
 
-                $scope.informStatuses = allSetting.Statuses;
+                $scope.informStatusesForFilter = allSetting.FilterStatuses;
+                $scope.informStatuses = allSetting.Statuses;                
                 $scope.productStatuses = allSetting.ProductStatuses;
                 $scope.stations = allSetting.Stations;
 
-                createStatusDropdownSettings($scope.informStatuses);
+                createStatusDropdownSettings($scope.informStatusesForFilter);
 
                 $timeout($scope.getInforms, 1000);
             },

@@ -1222,16 +1222,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.eot">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\site\variables.less" />
     <Content Include="Areas\AdminTool\Web.config" />

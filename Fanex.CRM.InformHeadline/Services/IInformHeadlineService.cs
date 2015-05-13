@@ -49,7 +49,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria);
 
-        IList<InformStatus> GetInformStatuses();
+        IList<InformStatus> GetInformStatuses(bool isIncludeKeptForRefence = false);
 
         IList<Status> GetProductStatuses();
 

@@ -46,13 +46,13 @@ namespace Fanex.CRM.InformHeadline.Services
         /// Get inform statuses.
         /// </summary>
         /// <returns>List of status.</returns>
-        public IList<InformStatus> GetInformStatuses()
+        public IList<InformStatus> GetInformStatuses(bool isIncludeKeptForRefence = false)
         {
             try
             {
                 return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()
                 {
-                    IsIncludeKeptForRefence = true
+                    IsIncludeKeptForRefence = isIncludeKeptForRefence
                 });
             }
             catch (ObjectDbException ex)
@@ -339,6 +339,7 @@ namespace Fanex.CRM.InformHeadline.Services
             {
                 return new
                 {
+                    FilterStatuses = GetInformStatuses(true),
                     Statuses = GetInformStatuses(),
                     ProductStatuses = GetProductStatuses(),
                     Stations = GetStations()
