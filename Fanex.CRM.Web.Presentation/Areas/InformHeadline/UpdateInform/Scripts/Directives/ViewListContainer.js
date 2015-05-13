@@ -101,7 +101,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                                 userName : '<span class="description-tooltip" data-case=' + item.Case + '>' + userName + '</span>'
                             },
                             { Name: "Status", Value: item, CustomCellRender: renderStatusDropdownCell },
-                            { Name: "UpdatedTime", Value: item.UpdatedTime },
+                            { Name: "UpdatedTime", Value: item.ClientUpdatedTime },
                             { Name: "Remark", Value: item, CustomCellRender: renderRemarkCell },
                             { Name: "Handler", Value: item.Handler },
                             { Name: "Extension", Value: item, CustomCellRender: renderExtensionDropdownCell },

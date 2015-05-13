@@ -31,7 +31,7 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
                                 Name: "Edit", Value: '<button type="button" class="actionButton">&nbsp;</button>'
                             },
                             { Name: "Title", Value: canContact ? '<a class="title" href="javascript:void(0)">' + item.Title + '</a>' : item.Title },
-                            { Name: "CreatedDate", Value: item.CreatedDate },
+                            { Name: "CreatedDate", Value: item.ClientCreatedDate },
                             { Name: "NoDirectAccounts", Value: item.Total },
                             { Name: "Status", Value: item.Status },
                             { Name: "Done", Value: item.Done },

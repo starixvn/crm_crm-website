@@ -159,7 +159,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 }
 
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, HttpUtility.HtmlDecode(inform.Title), leftAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.CreatedDate), leftAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.ClientCreatedDate), leftAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Total, centerAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Status, centerAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Done, centerAlignStyle);

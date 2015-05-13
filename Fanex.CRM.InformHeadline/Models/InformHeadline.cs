@@ -7,9 +7,7 @@
 namespace Fanex.CRM.InformHeadline.Models
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using Fanex.CRM.Common.Helpers;
 
     /// <summary>
     /// TODO: Update summary.
@@ -21,6 +19,14 @@ namespace Fanex.CRM.InformHeadline.Models
         public string Title { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public DateTime ClientCreatedDate
+        {
+            get
+            {
+                return DateTimeUtilize.ChangeTimeZoneToClientDateTime(CreatedDate);
+            }
+        }
 
         public int Total { get; set; }
 

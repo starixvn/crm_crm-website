@@ -236,7 +236,7 @@ namespace Fanex.CRM.InformHeadline.Excel
 
             NpoiExcelExtensions.RenderCell(row, currentColumn++, username, leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, informStatusName, centerAlignStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.UpdatedTime), leftAlignStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.ClientUpdatedTime), leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, HttpUtility.HtmlDecode(inform.Remark), leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Handler, leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, stationName, centerAlignStyle);

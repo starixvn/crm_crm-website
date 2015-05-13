@@ -7,6 +7,7 @@
 namespace Fanex.CRM.InformHeadline.Models
 {
     using System;
+    using Fanex.CRM.Common.Helpers;
 
     /// <summary>
     /// TODO: Update summary.
@@ -28,6 +29,14 @@ namespace Fanex.CRM.InformHeadline.Models
         public string NewUserName { get; set; }
 
         public DateTime? UpdatedTime { get; set; }
+
+        public DateTime? ClientUpdatedTime
+        {
+            get
+            {
+                return UpdatedTime.HasValue ? (DateTime?)DateTimeUtilize.ChangeTimeZoneToClientDateTime(UpdatedTime.Value) : null;
+            }
+        }
 
         public int InformHeadlineStatusId { get; set; }
 
