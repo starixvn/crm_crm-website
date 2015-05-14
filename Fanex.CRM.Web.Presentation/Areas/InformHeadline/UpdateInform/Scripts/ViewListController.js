@@ -196,8 +196,9 @@ updateInformApplication.controller('UpdateInformController',
                     $uiBlockerService.unblockUI();
                 });
         };
-        $scope.updateInforms = function () {
-            if ($scope.titleDetail.Title.trim() === "") {
+            $scope.updateInforms = function () {
+            var title = $scope.titleDetail.Title;
+            if (!title || title.trim() === "") {
                 $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
                 $uiBlockerService.unblockUI();
                 return;
@@ -211,7 +212,7 @@ updateInformApplication.controller('UpdateInformController',
                 }
             }
 
-            _searchCriteria.Title = $scope.titleDetail.Title;
+            _searchCriteria.Title = title.trim();
             _searchCriteria.Informs = items;
             _searchCriteria.ChangeFilter = isFilterChanged();
 

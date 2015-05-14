@@ -36,7 +36,7 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
     }
 
     function renderStatusCell(columnModel) {
-        return generateDropdown(selfScope.$parent.informStatuses, 
+        return generateDropdown(selfScope.$parent.informStatuses,
             "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
     }
 
@@ -145,6 +145,7 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
         link: function (scope, element, attrs) {
             scope.updatedItems = scope.updatedItems || {};
             scope.$watch("dataSource", function (oldval, newval) {
+                scope.updatedItems = {};
                 renderListData(scope, element, attrs);
             });
         }

@@ -126,8 +126,8 @@ newInformApplication.controller('NewInformController',
 
         };
         $scope.insertInforms = function () {
-
-            if ($scope.titleDetail.Title.trim() === "") {
+            var title = $scope.titleDetail.Title;
+            if (!title || title.trim() === "") {
                 $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
                 $uiBlockerService.unblockUI();
                 return;
@@ -140,7 +140,8 @@ newInformApplication.controller('NewInformController',
                     items.push($scope.updatedItems[key]);
                 }
             }
-            _searchCriteria.Title = $scope.titleDetail.Title;
+
+            _searchCriteria.Title = title.trim();
             _searchCriteria.Informs = items;
 
             newInformService.insertInforms(_searchCriteria)

@@ -236,6 +236,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         link: function (scope, element, attrs) {
             scope.updatedItems = scope.updatedItems || {};
             scope.$watch("dataSource", function (oldval, newval) {
+                scope.updatedItems = {};
                 renderListData(scope, element, attrs);
             });
         }
