@@ -257,7 +257,7 @@ namespace Fanex.CRM.InformHeadline.Services
         {
             try
             {
-                criteria.Content = BuildUpdateInformsXml(criteria.Informs);
+                criteria.Content = BuildContentInformsXml(criteria.Informs);
                 return _informHeadlineRepository.UpdateContentInformHeadline(criteria);
             }
             catch (ObjectDbException ex)
@@ -435,13 +435,41 @@ namespace Fanex.CRM.InformHeadline.Services
             foreach (var item in informs)
             {
                 builder.AppendFormat(
-                    "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' IsKeep='{5}' />",
+                    "<Headline HeadlineID = '{0}' GroupID = '{1}' StatusID = '{2}' Remark = '{3}' Extension = '{4}' ProductStatus = '{5}' IsKeep='{6}' />",
                     item.HeadlineId != 0 ? item.HeadlineId : (item.Case == 1 || item.Case == 5 ? item.OldCustId : item.NewCustId),
                     item.InformHeadlineStatusId,
+                    item.GroupId,
                     item.Remark,
                     item.Extension,
                     item.ProductStatus,
                     item.IsKeep ? 1 : 0);
+            }
+
+            return builder.Append("</Content>").ToString();
+        }
+
+        /// <summary>
+        /// Build update inform XML.
+        /// </summary>
+        /// <param name="informs">List of inform.</param>
+        /// <returns>XML string.</returns>
+        private static string BuildContentInformsXml(IList<UpdateInform> informs)
+        {
+            if (informs == null)
+            {
+                return string.Empty;
+            }
+
+            var builder = new StringBuilder("<Content>");
+            foreach (var item in informs)
+            {
+                builder.AppendFormat(
+                    "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' />",
+                    item.HeadlineId != 0 ? item.HeadlineId : (item.Case == 1 || item.Case == 5 ? item.OldCustId : item.NewCustId),
+                    item.InformHeadlineStatusId,
+                    item.Remark,
+                    item.Extension,
+                    item.ProductStatus);
             }
 
             return builder.Append("</Content>").ToString();
