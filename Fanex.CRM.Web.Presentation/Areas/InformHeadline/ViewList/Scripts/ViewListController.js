@@ -27,7 +27,7 @@ informHeadlineApplication.controller('ViewListController',
                     Value: $scope,
                     Id: "InformHeadline_ViewInform"
                 });
-            };            
+            };
         }
 
         $scope.initController = function () {
@@ -108,12 +108,13 @@ informHeadlineApplication.controller('ViewListController',
                 { my: "center", at: "center" },
                 $scope.beforeCloseEditView);
         };
-        $scope.showContactDialog = function (titleId) {
+        $scope.showContactDialog = function (titleId, isClosed) {
             parent.homeManager.CachedData.shouldReloadView = false;
             parent.OpenPopup(
                 window.rootUrl + "InformHeadline/ContactInform?" +
                     $.param({
-                        titleId: titleId
+                        titleId: titleId,
+                        isClosed: isClosed
                     }),
                 viewResources.UpdateInformHeadlines,
                 1000,

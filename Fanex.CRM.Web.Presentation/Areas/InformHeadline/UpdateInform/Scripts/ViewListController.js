@@ -177,6 +177,7 @@ updateInformApplication.controller('UpdateInformController',
             if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
                 $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
                 $uiBlockerService.unblockUI();
+                $scope.showSaveButton = false;
                 return;
             } else {
                 $scope.messageResultOptions = new MessageResult("", false, false);

@@ -562,7 +562,6 @@
     <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportController_Update.js" />
     <Content Include="Areas\Report\WeeklyStatisticsReport\Scripts\WeeklyStatisticsReportService.js" />
     <Content Include="Areas\Report\WeeklyStatisticsReport\Styles\Images\ico_warning.png" />
-    <Content Include="Areas\InformHeadline\ViewList\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\Directives\ViewListContainer.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />

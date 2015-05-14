@@ -166,10 +166,11 @@ namespace Fanex.CRM.InformHeadline.Controllers
 
         [NapAuth(FunctionKey = FunctionPermissions.InformHeadlineContact, Policy = Constant.Policy.Read)]
         [HttpGet]
-        public ActionResult ContactInform(int titleId)
+        public ActionResult ContactInform(int titleId, bool isClosed)
         {
             ViewBag.HasHostPermission = HasHostPermission(FunctionPermissions.InformHeadlineContact);
             ViewBag.TitleId = titleId;
+            ViewBag.IsClosed = isClosed;
             return View("~/Areas/InformHeadline/ContactInform/Index.cshtml");
         }
 

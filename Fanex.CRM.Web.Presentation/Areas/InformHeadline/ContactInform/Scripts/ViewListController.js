@@ -2,6 +2,7 @@
 /* global contactInformApplication,
 MessageResult,
 sharedScriptManager,
+hotKeyManager,
 viewResources, Site */
 /* jshint unused: vars,
 camelcase: false */
@@ -10,13 +11,12 @@ contactInformApplication.controller('ContactInformController',
     ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
     function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
 
-        var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
-
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
         }
 
+        $scope.isClosed = false;
         $scope.showSaveButton = false;
         $scope.hasHostPermission = false;
         $scope.titleId = 0;
@@ -76,7 +76,7 @@ contactInformApplication.controller('ContactInformController',
                 var allSetting = data.Result;
 
                 $scope.informStatusesForFilter = allSetting.FilterStatuses;
-                $scope.informStatuses = allSetting.Statuses;                
+                $scope.informStatuses = allSetting.Statuses;
                 $scope.productStatuses = allSetting.ProductStatuses;
                 $scope.stations = allSetting.Stations;
 
@@ -149,7 +149,7 @@ contactInformApplication.controller('ContactInformController',
                 $uiBlockerService.unblockUI();
             }
 
-            if (items.length == 0) {
+            if (items.length === 0) {
                 saveSuccessCallback();
             } else {
                 updateInformService.updateInforms({

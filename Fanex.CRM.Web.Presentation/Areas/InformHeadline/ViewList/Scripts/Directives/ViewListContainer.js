@@ -129,7 +129,8 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
         $tableSetting.on("click", ".title", function (e) {
             var $target = angular.element(e.target);
             var titleId = $target.closest("tr").data("title-id");
-            scope.showContactDialog(titleId);
+            var isClosed = $target.closest("tr").hasClass("status-closed");
+            scope.showContactDialog(titleId, isClosed);
         });
     }
 

@@ -105,6 +105,7 @@ newInformApplication.controller('NewInformController',
 
             if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
                 $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
+                $scope.showSaveButton = false;
                 return;
             } else {
                 $scope.messageResultOptions = new MessageResult("", false, false);

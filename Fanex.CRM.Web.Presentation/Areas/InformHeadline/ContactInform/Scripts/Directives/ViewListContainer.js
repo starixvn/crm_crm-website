@@ -8,9 +8,15 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
     var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
+    var _isClosed = false;
     var selfScope;
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, disabled) {
+
+        if (_isClosed) {
+            disabled = true;
+        }
+
         var html = '<select ' + (disabled ? 'disabled' : '') + ' data-binding-name="' + bindingName + '" style="width: 100px">';
 
         for (var i = 0; i < data.length; i++) {
@@ -60,7 +66,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
     }
 
     function renderRemarkCell(columnModel) {
-        return '<textarea ' + (selfScope.$parent.hasHostPermission === true ? '' : 'disabled') + 
+        return '<textarea ' + (!_isClosed && selfScope.$parent.hasHostPermission === true ? '' : 'disabled') +
             ' data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
     }
 
@@ -99,8 +105,9 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Status, Width: 130, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "left", 
-                        FormatDateTime: "MMM DD, YYYY" },
+                    { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "left",
+                        FormatDateTime: "MMM DD, YYYY"
+                    },
                     { HeaderText: viewResources.Remark, Width: 190, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Extension, Width: 130, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
@@ -157,6 +164,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             updatedItems: '='
         },
         link: function (scope, element, attrs) {
+            _isClosed = scope.$parent.isClosed;
             scope.updatedItems = scope.updatedItems || {};
             scope.$watch("dataSource", function (oldval, newval) {
                 scope.updatedItems = {};

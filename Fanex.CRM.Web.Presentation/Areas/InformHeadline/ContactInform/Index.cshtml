@@ -14,7 +14,7 @@
 }
 <div data-ng-app="contactInformApplication">
     <div data-ng-controller="ContactInformController" 
-        data-ng-init="titleId = @ViewBag.TitleId; hasHostPermission = @(ViewBag.HasHostPermission ? "true" : "false")">
+        data-ng-init="isClosed = @(ViewBag.IsClosed ? "true" : "false"); titleId = @ViewBag.TitleId; hasHostPermission = @(ViewBag.HasHostPermission ? "true" : "false")">
         <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row btn-group" data-ng-show="hasHostPermission === true && showSaveButton">
+            <div class="row btn-group" data-ng-show="!isClosed && hasHostPermission === true && showSaveButton">
                 <button id="buttoninsert" class="btn" data-ng-click="updateInforms()">
                     @Labels.Save</button>
             </div>
