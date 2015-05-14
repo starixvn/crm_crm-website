@@ -8,12 +8,14 @@ namespace Fanex.CRM.InformHeadline.Excel
 {
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using System.Web;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.InformHeadline.Models;
     using Fanex.CRM.InformHeadline.Resources;
+    using Fanex.CRM.InformHeadline.Services;
     using Fanex.CRM.Infrastructure.Models;
     using NPOI.HSSF.UserModel;
     using NPOI.HSSF.Util;
@@ -38,6 +40,10 @@ namespace Fanex.CRM.InformHeadline.Excel
 
         private readonly Color _headlineStatusColor = Color.FromArgb(208, 230, 244);
         private readonly Color _normalStatusColor = Color.FromArgb(241, 241, 241);
+
+        private readonly IInformHeadlineService _informService;
+
+        private IList<InformStatus> _informStatuses;
         private string _informHeadlineTitle;
         private IList<NewInform> _data;
 
@@ -46,6 +52,8 @@ namespace Fanex.CRM.InformHeadline.Excel
         {
             _informHeadlineTitle = informHeadlineTitle;
             _data = data;
+            _informService = new InformHeadlineService();
+            _informStatuses = _informService.GetInformStatuses();
         }
 
         /// <summary>
@@ -169,7 +177,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 }
 
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.UserName, leftAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.InformHeadlineStatusId, leftAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, GetInformStatusName(inform.InformHeadlineStatusId), centerAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Empty, centerAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Empty, centerAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Empty, centerAlignStyle);
@@ -190,6 +198,12 @@ namespace Fanex.CRM.InformHeadline.Excel
                 color < 0 ? NpoiExcelExtensions.BackgroundColorIndex : color,
                 false,
                 align);
+        }
+
+        private string GetInformStatusName(int id)
+        {
+            var item = _informStatuses.Where(x => x.SettingId == id).FirstOrDefault();
+            return item == null ? string.Empty : item.SettingValue;
         }
     }
 }

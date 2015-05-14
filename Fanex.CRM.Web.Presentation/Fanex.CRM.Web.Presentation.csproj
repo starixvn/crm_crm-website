@@ -877,7 +877,9 @@
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Styles.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.Setting.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Local.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\Master.ConnectionStrings.config" />
