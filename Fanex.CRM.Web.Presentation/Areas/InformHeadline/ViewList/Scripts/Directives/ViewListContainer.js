@@ -40,7 +40,8 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
                             { Name: "NoReply", Value: item.NoReply },
                             { Name: "Uncontactable", Value: item.Uncontactable },
                             { Name: "InternalAccount", Value: item.InternalAccount },
-                            { Name: "NeverTouch", Value: item.NeverTouch }
+                            { Name: "NeverTouch", Value: item.NeverTouch },
+                            { Name: "KeptForReference", Value: item.KeptForReference }
                         ],
                     CssClass: 'status-' + item.Status.toLowerCase(),
                     CustomAttr: 'data-title-id=' + item.TitleId
@@ -61,7 +62,8 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
                     { HeaderText: viewResources.NoReply, Width: 100, Name: "NoReply", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Uncontactable, Width: 100, Name: "Uncontactable", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.InternalAccount, Width: 100, Name: "InternalAccount", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NeverTouch, Width: 100, Name: "NeverTouch", HeaderAlign: "center", CellAlign: "center" }
+                    { HeaderText: viewResources.NeverTouch, Width: 100, Name: "NeverTouch", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.KeptForReference, Width: 100, Name: "KeptForReference", HeaderAlign: "center", CellAlign: "center" }
                 ],
             showTitle: true,
             titleInfo: {

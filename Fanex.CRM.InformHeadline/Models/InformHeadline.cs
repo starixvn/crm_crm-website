@@ -45,5 +45,7 @@ namespace Fanex.CRM.InformHeadline.Models
         public int InternalAccount { get; set; }
 
         public int NeverTouch { get; set; }
+
+        public int KeptForReference { get; set; }
     }
 }
