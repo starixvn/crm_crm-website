@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 /* global updateInformApplication,
 MessageResult,
 sharedScriptManager,
@@ -96,9 +96,17 @@ updateInformApplication.controller('UpdateInformController',
         }
 
         function isFilterValid() {
-            return $scope.selectedCurrencies.length > 0 &&
-                $scope.selectedSites.length > 0 &&
-                $scope.selectedPositions.length > 0;
+            if($scope.selectedCurrencies.length <= 0) {
+                $scope.messageResultOptions = new MessageResult("Currency is required.", true, false);
+                return false;
+            } else if($scope.selectedSites.length <= 0) {
+                $scope.messageResultOptions = new MessageResult("Site is required.", true, false);
+                return false;
+            } else if($scope.selectedPositions.length <= 0) {
+                $scope.messageResultOptions = new MessageResult("Position is required.", true, false);
+                return false;
+            }
+            return true;
         }
 
         function getAllSettings() {
@@ -160,7 +168,6 @@ updateInformApplication.controller('UpdateInformController',
             refreshSearchCriteria();
 
             if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
-                $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
                 return;
             } else {
                 $scope.messageResultOptions = new MessageResult("", false, false);
@@ -173,9 +180,8 @@ updateInformApplication.controller('UpdateInformController',
         };
         $scope.getInforms = function () {
             refreshSearchCriteria();
-
+            
             if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
-                $scope.messageResultOptions = new MessageResult("Please fill out all fields.", true, false);
                 $uiBlockerService.unblockUI();
                 $scope.showSaveButton = false;
                 return;
