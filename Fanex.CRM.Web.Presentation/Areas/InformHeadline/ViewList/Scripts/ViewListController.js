@@ -124,7 +124,7 @@ informHeadlineApplication.controller('ViewListController',
                 parent.window,
                 3000,
                 null,
-                $scope.closeEditView,
+                $scope.getInforms,
                 { my: "center", at: "center" },
                 $scope.beforeCloseEditView);
         };

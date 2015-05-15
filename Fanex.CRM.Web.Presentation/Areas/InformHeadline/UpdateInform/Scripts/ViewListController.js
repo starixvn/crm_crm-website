@@ -99,11 +99,14 @@ updateInformApplication.controller('UpdateInformController',
             if ($scope.selectedCurrencies.length <= 0) {
                 $scope.messageResultOptions = new MessageResult("Currency is required.", true, false);
                 return false;
+            } else if ($scope.selectedPositions.length <= 0) {
+                $scope.messageResultOptions = new MessageResult("Position is required.", true, false);
+                return false;
             } else if ($scope.selectedSites.length <= 0) {
                 $scope.messageResultOptions = new MessageResult("Site is required.", true, false);
                 return false;
-            } else if ($scope.selectedPositions.length <= 0) {
-                $scope.messageResultOptions = new MessageResult("Position is required.", true, false);
+            } else if (getAccountType() === 0) {
+                $scope.messageResultOptions = new MessageResult("Direct Account is required.", true, false);
                 return false;
             }
             return true;
@@ -137,6 +140,20 @@ updateInformApplication.controller('UpdateInformController',
         }
 
         function refreshSearchCriteria() {
+                _searchCriteria = {
+                TitleId: $scope.titleId,
+                Currency: $scope.selectedCurrencies.toString(),
+                Site: $scope.selectedSites.toString(),
+                Level: $scope.selectedPositions.toString(),
+                TypeAccount: getAccountType(),
+                PageIndex: 1,
+                ItemsPerPage: 10000
+            };
+
+            _searchCriteria.ChangeFilter = isFilterChanged();
+        }
+
+        function getAccountType() {
             var accountType = 0;
             // 1: headline, 2: direct, 3: Both
             if ($scope.headlineChecked) {
@@ -146,18 +163,7 @@ updateInformApplication.controller('UpdateInformController',
             if ($scope.directChecked) {
                 accountType += 2;
             }
-
-            _searchCriteria = {
-                TitleId: $scope.titleId,
-                Currency: $scope.selectedCurrencies.toString(),
-                Site: $scope.selectedSites.toString(),
-                Level: $scope.selectedPositions.toString(),
-                TypeAccount: accountType,
-                PageIndex: 1,
-                ItemsPerPage: 10000
-            };
-
-            _searchCriteria.ChangeFilter = isFilterChanged();
+            return accountType;
         }
 
         function decodeHtml(text) {
@@ -167,7 +173,7 @@ updateInformApplication.controller('UpdateInformController',
         $scope.exportInformHeadlines = function () {
             refreshSearchCriteria();
 
-            if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
+            if (isFilterValid() === false) {
                 return;
             } else {
                 $scope.messageResultOptions = new MessageResult("", false, false);
@@ -181,7 +187,7 @@ updateInformApplication.controller('UpdateInformController',
         $scope.getInforms = function () {
             refreshSearchCriteria();
 
-            if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
+            if (isFilterValid() === false) {
                 $uiBlockerService.unblockUI();
                 $scope.showSaveButton = false;
                 return;
