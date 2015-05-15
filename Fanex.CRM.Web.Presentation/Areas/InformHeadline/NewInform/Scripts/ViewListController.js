@@ -139,6 +139,10 @@ newInformApplication.controller('NewInformController',
                 return;
             }
 
+            if (isFilterValid() === false) {
+                return;
+            }
+
             $uiBlockerService.blockUI();
             var items = [];
             for (var key in $scope.updatedItems) {

@@ -96,13 +96,13 @@ updateInformApplication.controller('UpdateInformController',
         }
 
         function isFilterValid() {
-            if($scope.selectedCurrencies.length <= 0) {
+            if ($scope.selectedCurrencies.length <= 0) {
                 $scope.messageResultOptions = new MessageResult("Currency is required.", true, false);
                 return false;
-            } else if($scope.selectedSites.length <= 0) {
+            } else if ($scope.selectedSites.length <= 0) {
                 $scope.messageResultOptions = new MessageResult("Site is required.", true, false);
                 return false;
-            } else if($scope.selectedPositions.length <= 0) {
+            } else if ($scope.selectedPositions.length <= 0) {
                 $scope.messageResultOptions = new MessageResult("Position is required.", true, false);
                 return false;
             }
@@ -180,7 +180,7 @@ updateInformApplication.controller('UpdateInformController',
         };
         $scope.getInforms = function () {
             refreshSearchCriteria();
-            
+
             if (_searchCriteria.TypeAccount === 0 || isFilterValid() === false) {
                 $uiBlockerService.unblockUI();
                 $scope.showSaveButton = false;
@@ -203,11 +203,15 @@ updateInformApplication.controller('UpdateInformController',
                     $uiBlockerService.unblockUI();
                 });
         };
-            $scope.updateInforms = function () {
+        $scope.updateInforms = function () {
             var title = $scope.titleDetail.Title;
             if (!title || title.trim() === "") {
                 $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
                 $uiBlockerService.unblockUI();
+                return;
+            }
+
+            if (isFilterValid() === false) {
                 return;
             }
 
