@@ -37,7 +37,8 @@ namespace Fanex.CRM.InformHeadline.Excel
                 Labels.NoReply,
                 Labels.Uncontactable,
                 Labels.InternalAccount,
-                Labels.NeverTouch
+                Labels.NeverTouch,
+                Labels.KeptForReference
             };
         
         private readonly Color _openedStatusColor = Color.FromArgb(240, 237, 196);
@@ -169,6 +170,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Uncontactable, centerAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.InternalAccount, centerAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NeverTouch, centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.KeptForReference, centerAlignStyle);
 
                 currentRow++;
                 currentColumn = exportExcelInfo.StartColumn;
