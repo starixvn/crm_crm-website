@@ -28,13 +28,13 @@ namespace Fanex.CRM.InformHeadline.Models
 
         public string NewUserName { get; set; }
 
-        public string UpdatedTime { get; set; }
+        public DateTime? UpdatedTime { get; set; }
 
         public string ClientUpdatedTime
         {
             get
             {
-                return UpdatedTime == null ? DateTimeUtilize.ChangeTimeZoneToClientDateTime(Convert.ToDateTime(UpdatedTime)).ToString("MMM dd, yyyy") : string.Empty;
+                return UpdatedTime.HasValue ? DateTimeUtilize.ChangeTimeZoneToClientDateTime(UpdatedTime.Value).ToString("MMM dd, yyyy") : null;
             }
         }
 

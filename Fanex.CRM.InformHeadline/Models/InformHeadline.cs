@@ -18,13 +18,13 @@ namespace Fanex.CRM.InformHeadline.Models
 
         public string Title { get; set; }
 
-        public string CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public string ClientCreatedDate
         {
             get
             {
-                return DateTimeUtilize.ChangeTimeZoneToClientDateTime(Convert.ToDateTime(CreatedDate)).ToString("MMM dd, yyyy");
+                return DateTimeUtilize.ChangeTimeZoneToClientDateTime(CreatedDate).ToString("MMM dd, yyyy");
             }
         }
 
