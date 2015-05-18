@@ -28,7 +28,8 @@ namespace Fanex.CRM.InformHeadline.Excel
     /// </summary>
     public class UpdateInformHeadlineExcel : BaseExcel
     {
-        private const int KeptForReferenceHeadlineId = 45007;
+        private const int NeverTouchStatusId = 45006;
+        private const int KeptForReferenceStatusId = 45007;
 
         private readonly string[] _columnHeaders = new string[]
             {
@@ -228,7 +229,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             var username = string.IsNullOrEmpty(inform.UserName) == false ? inform.UserName :
                     (inform.Case == 1 || inform.Case == 5 ? inform.OldUserName : inform.NewUserName);
 
-            var isKeepForReference = inform.InformHeadlineStatusId == KeptForReferenceHeadlineId;
+            var isKeepForReference = inform.InformHeadlineStatusId == KeptForReferenceStatusId;
 
             var informStatusName = isKeepForReference ? Labels.KeptForReference : GetInformStatusName(inform.InformHeadlineStatusId);
             var stationName = isKeepForReference ? Labels.KeptForReference : GetStationName(inform.Extension);
@@ -254,6 +255,11 @@ namespace Fanex.CRM.InformHeadline.Excel
 
         private string GetInformStatusName(int id)
         {
+            if (id == 0)
+            {
+                id = NeverTouchStatusId;
+            }
+
             var item = _informStatuses.Where(x => x.SettingId == id).FirstOrDefault();
             return item == null ? string.Empty : item.SettingValue;
         }
