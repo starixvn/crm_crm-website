@@ -14,6 +14,10 @@ namespace Fanex.CRM.InformHeadline.Models
     /// </summary>
     public class UpdateInform
     {
+        private const int NeverTouchStatusId = 45006;
+
+        private int _informHeadlineStatusId;
+
         public int OldCustId { get; set; }
 
         public int NewCustId { get; set; }
@@ -38,7 +42,18 @@ namespace Fanex.CRM.InformHeadline.Models
             }
         }
 
-        public int InformHeadlineStatusId { get; set; }
+        public int InformHeadlineStatusId
+        {
+            get
+            {
+                return _informHeadlineStatusId == 0 ? NeverTouchStatusId : _informHeadlineStatusId;
+            }
+
+            set
+            {
+                _informHeadlineStatusId = value;
+            }
+        }
 
         public string Remark { get; set; }
 

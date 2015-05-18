@@ -5,7 +5,6 @@ viewResources */
 /* jshint camelcase: false,
 unused: vars */
 updateInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
-    var NEVER_TOUCH_STATUS_ID = 45006;
     var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
@@ -60,7 +59,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
 
         return html + generateDropdown(selfScope.$parent.informStatuses,
                                     "InformHeadlineStatusId", "SettingId", "SettingValue",
-                                    columnModel.Value.InformHeadlineStatusId || NEVER_TOUCH_STATUS_ID, columnModel.Value.Case > 0);
+                                    columnModel.Value.InformHeadlineStatusId, columnModel.Value.Case > 0);
     }
 
     function renderExtensionDropdownCell(columnModel) {
