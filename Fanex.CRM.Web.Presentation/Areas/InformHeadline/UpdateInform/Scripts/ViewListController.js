@@ -2,6 +2,7 @@
 /* global updateInformApplication,
 MessageResult,
 sharedScriptManager,
+hotKeyManager,
 viewResources, Site */
 /* jshint unused: vars,
 camelcase: false */
@@ -19,6 +20,7 @@ updateInformApplication.controller('UpdateInformController',
             $uiBlockerService.unblockUI();
         }
 
+        var _originalTitle;
         $scope.titleId = 0;
         $scope.titleDetail = null;
         $scope.showSaveButton = false;
@@ -51,7 +53,8 @@ updateInformApplication.controller('UpdateInformController',
             updateInformService.getTitleDetail(params)
                 .then(function (data) {
                     $scope.titleDetail = data.Result;
-                    $scope.titleDetail.Title = decodeHtml($scope.titleDetail.Title);
+                    _originalTitle = decodeHtml($scope.titleDetail.Title);
+                    $scope.titleDetail.Title = _originalTitle;
                     getAllSettings();
                 },
                 function (data) {
@@ -140,7 +143,7 @@ updateInformApplication.controller('UpdateInformController',
         }
 
         function refreshSearchCriteria() {
-                _searchCriteria = {
+            _searchCriteria = {
                 TitleId: $scope.titleId,
                 Currency: $scope.selectedCurrencies.toString(),
                 Site: $scope.selectedSites.toString(),
@@ -210,6 +213,7 @@ updateInformApplication.controller('UpdateInformController',
                 });
         };
         $scope.updateInforms = function () {
+
             var title = $scope.titleDetail.Title;
             if (!title || title.trim() === "") {
                 $scope.messageResultOptions = new MessageResult("Title is required.", true, false);
@@ -229,23 +233,31 @@ updateInformApplication.controller('UpdateInformController',
                 }
             }
 
+            function saveSuccessCallback() {
+                $scope.showSaveButton = false;
+                $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
+                setTimeout(function () {
+                    parent.ClosePopup();
+                }, sharedScriptManager.cachedData.alertSuccessTime);
+                $uiBlockerService.unblockUI();
+            }
+
             _searchCriteria.Title = title.trim();
             _searchCriteria.Informs = items;
             _searchCriteria.ChangeFilter = isFilterChanged();
 
-            updateInformService.updateInforms(_searchCriteria)
+            if (_searchCriteria.ChangeFilter === false && _searchCriteria.Informs.length === 0 && _searchCriteria.Title === _originalTitle) {
+                saveSuccessCallback();
+            } else {
+                updateInformService.updateInforms(_searchCriteria)
                 .then(function (data) {
-                    $scope.showSaveButton = false;
-                    $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
-                    setTimeout(function () {
-                        parent.ClosePopup();
-                    }, sharedScriptManager.cachedData.alertSuccessTime);
-                    $uiBlockerService.unblockUI();
+                    saveSuccessCallback();
                 },
                 function (data) {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });
+            }
         };
         $scope.updateInformStatus = function (titleId, status) {
             $uiBlockerService.blockUI();
