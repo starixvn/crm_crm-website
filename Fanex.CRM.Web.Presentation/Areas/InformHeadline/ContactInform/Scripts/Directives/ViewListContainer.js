@@ -77,8 +77,8 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             return;
         }
 
-        var $tableSetting = element.find("#inform-headline-list");
-        $tableSetting.empty();
+        var $table = element.find("#inform-headline-list");
+        $table.empty();
         var bodyData = [];
         var rowsCount = scope.dataSource.length;
         if (rowsCount > 0) {
@@ -134,26 +134,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             }
         };
 
-        function updateDataSource($target, useHtmlEncode) {
-            var $tr = $target.closest("tr");
-            var headlineId = $tr.data("headline-id");
-            var rowIndex = parseInt($tr.data("rowindex"));
-            var bindingName = $target.data("binding-name");
-
-            var dataItem = scope.dataSource[rowIndex];
-            dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
-            scope.updatedItems[headlineId] = dataItem;
-        }
-
-        $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-
-        $tableSetting.on("change", "select", function (e) {
-            updateDataSource(angular.element(e.target));
-        });
-
-        $tableSetting.on("change", "textarea", function (e) {
-            updateDataSource(angular.element(e.target), true);
-        });
+        $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
     }
 
     return {
@@ -169,6 +150,27 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             scope.$watch("dataSource", function (oldval, newval) {
                 scope.updatedItems = {};
                 renderListData(scope, element, attrs);
+            });
+
+            var $table = element.find("#inform-headline-list");
+
+            function updateDataSource($target, useHtmlEncode) {
+                var $tr = $target.closest("tr");
+                var headlineId = $tr.data("headline-id");
+                var rowIndex = parseInt($tr.data("rowindex"));
+                var bindingName = $target.data("binding-name");
+
+                var dataItem = scope.dataSource[rowIndex];
+                dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
+                scope.updatedItems[headlineId] = dataItem;
+            }
+
+            $table.on("change", "select", function (e) {
+                updateDataSource(angular.element(e.target));
+            });
+
+            $table.on("change", "textarea", function (e) {
+                updateDataSource(angular.element(e.target), true);
             });
         }
     };

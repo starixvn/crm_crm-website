@@ -59,8 +59,8 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
             return;
         }
 
-        var $tableSetting = element.find("#inform-headline-list");
-        $tableSetting.empty();
+        var $table = element.find("#inform-headline-list");
+        $table.empty();
         var bodyData = [];
         var rowsCount = scope.dataSource.length;
         if (rowsCount > 0) {
@@ -124,13 +124,13 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
             scope.updatedItems[headlineId] = dataItem;
         }
 
-        $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+        $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-        $tableSetting.on("change", "select", function (e) {
+        $table.on("change", "select", function (e) {
             updateDataSource(angular.element(e.target));
         });
 
-        $tableSetting.on("change", "textarea", function (e) {
+        $table.on("change", "textarea", function (e) {
             updateDataSource(angular.element(e.target), true);
         });
     }

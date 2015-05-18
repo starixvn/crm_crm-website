@@ -121,8 +121,8 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             return;
         }
 
-        var $tableSetting = element.find("#inform-headline-list");
-        $tableSetting.empty();
+        var $table = element.find("#inform-headline-list");
+        $table.empty();
 
         var gridOptions = {
             columns: [
@@ -157,9 +157,9 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                     gridOptions.pagerOption.pageSize = pageSize;
                     gridOptions.pagerOption.currentPage = pageIndex;
                     gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
-                    $tableSetting.fanexGrid(gridOptions);
+                    $table.fanexGrid(gridOptions);
 
-                    $tableSetting.find(".description-tooltip").hover(addTooltip);
+                    $table.find(".description-tooltip").hover(addTooltip);
                 }
             }
         };
@@ -192,26 +192,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             return message;
         }
 
-        function updateDataSource($target, useHtmlEncode) {
-            var $tr = $target.closest("tr");
-            var headlineId = $tr.data("headline-id");
-            var rowIndex = parseInt($tr.data("rowindex"));
-            var bindingName = $target.data("binding-name");
-
-            var dataItem = scope.dataSource[rowIndex];
-            dataItem[bindingName] = useHtmlEncode ? htmlEncode($target.val()) : $target.val();
-            scope.updatedItems[headlineId] = dataItem;
-        }
-
-        $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-
-        $tableSetting.on("change", "select, input[type=checkbox]", function (e) {
-            updateDataSource(angular.element(e.target));
-        });
-
-        $tableSetting.on("change", "textarea", function (e) {
-            updateDataSource(angular.element(e.target), true);
-        });
+        $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
         function addTooltip(e) {
             var $target = angular.element(e.target);
@@ -223,7 +204,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             $target.unbind("hover", addTooltip);
         }
 
-        $tableSetting.find(".description-tooltip").hover(addTooltip);
+        $table.find(".description-tooltip").hover(addTooltip);
     }
 
     return {
@@ -238,6 +219,27 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
             scope.$watch("dataSource", function (oldval, newval) {
                 scope.updatedItems = {};
                 renderListData(scope, element, attrs);
+            });
+
+            var $table = element.find("#inform-headline-list");
+
+            function updateDataSource($target, useHtmlEncode) {
+                var $tr = $target.closest("tr");
+                var headlineId = $tr.data("headline-id");
+                var rowIndex = parseInt($tr.data("rowindex"));
+                var bindingName = $target.data("binding-name");
+
+                var dataItem = scope.dataSource[rowIndex];
+                dataItem[bindingName] = $target.is(":checkbox") ? $target.is(":checked") : (useHtmlEncode ? htmlEncode($target.val()) : $target.val());
+                scope.updatedItems[headlineId] = dataItem;
+            }
+
+            $table.on("change", "select, input[type=checkbox]", function (e) {
+                updateDataSource(angular.element(e.target));
+            });
+
+            $table.on("change", "textarea", function (e) {
+                updateDataSource(angular.element(e.target), true);
             });
         }
     };
