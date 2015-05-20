@@ -9,6 +9,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
     var selfScope;
+    var INFORM_SPECIAL_CASE = [1, 5, 12];
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, disabled) {
         var html = '<select ' + (disabled ? 'disabled' : '') + '  data-binding-name="' + bindingName + '" style="width: 100px">';
@@ -36,7 +37,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         return $('<div/>').html(value).text();
     }
     function hasKeepThisAccountOption(caseId) {
-        return caseId === 1 || caseId === 5 || caseId === 12;
+        return INFORM_SPECIAL_CASE.indexOf(parseInt(caseId)) > -1;
     }
 
     function renderDropdownCell(columnModel, data, bindingName, valueProperty, textProperty, selectedValue) {

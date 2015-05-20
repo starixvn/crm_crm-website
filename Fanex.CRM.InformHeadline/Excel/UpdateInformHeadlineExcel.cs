@@ -41,6 +41,8 @@ namespace Fanex.CRM.InformHeadline.Excel
                 Labels.ProductStatus
             };
 
+        private readonly int[] _informSpecialCases = new int[] { 1, 5, 12 };
+
         private readonly Color _updatedBackColor = Color.FromArgb(246, 211, 207);
         private readonly Color _headlineBackColor = Color.FromArgb(208, 230, 244);
         private readonly Color _normalBackColor = Color.FromArgb(241, 241, 241);
@@ -226,11 +228,17 @@ namespace Fanex.CRM.InformHeadline.Excel
             }
 
             var username = string.IsNullOrEmpty(inform.UserName) == false ? inform.UserName :
-                    (inform.Case == 1 || inform.Case == 5 ? inform.OldUserName : inform.NewUserName);
+                    (_informSpecialCases.Contains(inform.Case) ? inform.OldUserName : inform.NewUserName);
 
             var isKeepForReference = inform.InformHeadlineStatusId == KeptForReferenceStatusId;
 
-            var informStatusName = isKeepForReference ? Labels.KeptForReference : GetInformStatusName(inform.InformHeadlineStatusId);
+            var informStatusName = string.Empty;
+            if (isKeepForReference)
+                informStatusName = Labels.KeptForReference;
+            else if (_informSpecialCases.Contains(inform.Case))
+                informStatusName = Labels.KeepThisAccount;
+            else GetInformStatusName(inform.InformHeadlineStatusId);
+
             var stationName = isKeepForReference ? Labels.KeptForReference : GetStationName(inform.Extension);
             var productStatusName = isKeepForReference ? Labels.KeptForReference : GetProductStatusName(inform.ProductStatus);
 
