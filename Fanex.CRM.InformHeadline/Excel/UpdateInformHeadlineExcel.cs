@@ -234,10 +234,17 @@ namespace Fanex.CRM.InformHeadline.Excel
 
             var informStatusName = string.Empty;
             if (isKeepForReference)
+            {
                 informStatusName = Labels.KeptForReference;
+            }
             else if (_informSpecialCases.Contains(inform.Case))
+            {
                 informStatusName = Labels.KeepThisAccount;
-            else GetInformStatusName(inform.InformHeadlineStatusId);
+            }
+            else
+            {
+                GetInformStatusName(inform.InformHeadlineStatusId);
+            }
 
             var stationName = isKeepForReference ? Labels.KeptForReference : GetStationName(inform.Extension);
             var productStatusName = isKeepForReference ? Labels.KeptForReference : GetProductStatusName(inform.ProductStatus);
