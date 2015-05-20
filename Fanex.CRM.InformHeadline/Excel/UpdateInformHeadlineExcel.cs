@@ -243,7 +243,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             }
             else
             {
-                GetInformStatusName(inform.InformHeadlineStatusId);
+                informStatusName = GetInformStatusName(inform.InformHeadlineStatusId);
             }
 
             var stationName = isKeepForReference ? Labels.KeptForReference : GetStationName(inform.Extension);
