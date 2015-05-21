@@ -135,7 +135,17 @@
     <Setting Key="Acc_CRM_InformHeadlineSel" SpName="Acc_CRM_InformHeadlineSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineDetail" SpName="Acc_CRM_InformHeadlineDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_InformHeadlineUpd" SpName="Acc_CRM_InformHeadlineUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformTitleDetail" SpName="Acc_CRM_InformTitleDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
+    <Setting Key="Acc_CRM_InformTitleDetail" SpName="Acc_CRM_InformTitleDetail_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="Currency" ObjectProperty="Currencies" />
+      <Mapping DataField="Site" ObjectProperty="Sites" />
+      <Mapping DataField="Position" ObjectProperty="Positions" />
+    </Setting>
+    <Setting Key="Acc_CRM_InformHeadlineSearchSel" SpName="Acc_CRM_InformHeadlineSearchSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+      <Mapping DataField="CustID_Old" ObjectProperty="OldCustId" />
+      <Mapping DataField="CustID_New" ObjectProperty="NewCustId" />
+      <Mapping DataField="Username_Old" ObjectProperty="OldUserName" />
+      <Mapping DataField="Username_New" ObjectProperty="NewUserName" />
+      <Mapping DataField="Cases" ObjectProperty="Case" />
+    </Setting>
   </Function>
 </Functions>
