@@ -179,7 +179,7 @@ namespace Fanex.CRM.InformHeadline.Services
                     Currencies = _settingServices.GetAllCurrency(
                         new GetAllCurrencyCriteria()
                         {
-                            IsTest = 0
+                            IsTest = 1
                         }, 
                         false),
                     Statuses = GetInformStatuses(),
