@@ -18,14 +18,14 @@ namespace Fanex.CRM.Setting.Criteria
     {
         public GetAllCurrencyCriteria()
         {
-            IsTest = 1;
+            IsTest = true;
         }
 
         /// <summary>
         /// Gets or sets the value indicating whether data will remove test currencies or not.
         /// </summary>
         /// <value>Default is 1, value = 0 will remove test currencies.</value>
-        public int IsTest { get; set; }
+        public bool IsTest { get; set; }
 
         public override string GetSettingKey()
         {
