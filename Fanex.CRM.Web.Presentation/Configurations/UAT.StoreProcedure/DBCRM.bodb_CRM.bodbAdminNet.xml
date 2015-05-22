@@ -83,7 +83,7 @@
     <Setting Key="SettingRelationDel" SpName="Acc_CRM_SettingRelationDel" DbName="DBCRM.bodb_CRM.bodbAdminNet"/>
     <Setting Key="SettingRelationUpd" SpName="Acc_CRM_SettingRelationUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
     <Setting Key="Acc_CRM_SettingUpd" SpName="Acc_CRM_SettingUpd" DbName="DBCRM.bodb_CRM.bodbAdminNet" />
-    <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
+    <Setting Key="Setting_SettingInfo_GetAllSite" SpName="Acc_CRM_SiteSel_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" >
       <Mapping DataField="SiteID" ObjectProperty="Id" />
       <Mapping DataField="SiteName" ObjectProperty="Name" />
     </Setting>
@@ -147,5 +147,6 @@
       <Mapping DataField="Username_New" ObjectProperty="NewUserName" />
       <Mapping DataField="Cases" ObjectProperty="Case" />
     </Setting>
+    <Setting Key="Acc_CRM_InformHeadlineSearchUpd" SpName="Acc_CRM_InformHeadlineSearchUpd_xtest" DbName="DBCRM.bodb_CRM.bodbAdminNet" />    
   </Function>
 </Functions>
