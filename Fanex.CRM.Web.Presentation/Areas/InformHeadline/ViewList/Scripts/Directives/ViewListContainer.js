@@ -17,9 +17,9 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
         }
 
         var canContact = scope.contactPolicy !== "None";
-        var $tableSetting = element.find("#inform-headline-list");
+        var $table = element.find("#inform-headline-list");
         var bodyData = [];
-        $tableSetting.empty();
+        $table.empty();
         var rowsCount = listData.length;
         if (rowsCount > 0) {
             for (var i = 0; i < rowsCount; i++) {
@@ -85,55 +85,10 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
             headerColumnHeight: 29,
             bodyRowHeight: 25,
             showColumnsShowHide: false,
-            columnsNeedHide: scope.searchPolicy === "Host" ? null : [0]
+            columnsNeedHide: rowsCount === 0 || scope.searchPolicy === "Host" ? null : [0]
         };
 
-        $tableSetting.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var $contextMenu = angular.element("#contextMenu");
-        $document.click(function () {
-            $contextMenu.hide();
-        });
-        angular.element(".grid-container").scroll(function () {
-            $contextMenu.hide();
-        });
-        $contextMenu.on("click", "a", function (e) {
-            var $element = angular.element(e.target);
-            var titleId = $contextMenu.data("title-id");
-            if ($element.hasClass("edit-menu-item")) {
-                scope.showUpdateCaseDialog(titleId);
-            }
-            else {
-
-                var status = $element.data("status");
-                scope.updateInformStatus(titleId, status);
-            }
-        });
-        $tableSetting.on("click", ".actionButton", function (e) {
-            var $target = angular.element(e.target);
-            var titleId = $target.closest("tr").data("title-id");
-            $contextMenu.data("title-id", titleId);
-            $contextMenu.find("li").hide();
-            if ($target.closest("tr").hasClass("status-closed")) {
-                $contextMenu.find(".status-closed").show();
-            } else {
-                $contextMenu.find(":not(.status-closed)").show();
-            }
-
-            var offset = $target.offset();
-            $contextMenu.show().css({
-                display: "block",
-                left: offset.left,
-                top: offset.top + $target.height()
-            });
-            return false;
-        });
-
-        $tableSetting.on("click", ".title", function (e) {
-            var $target = angular.element(e.target);
-            var titleId = $target.closest("tr").data("title-id");
-            var isClosed = $target.closest("tr").hasClass("status-closed");
-            scope.showContactDialog(titleId, isClosed);
-        });
+        $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);            
     }
 
     return {
@@ -142,6 +97,53 @@ informHeadlineApplication.directive('informHeadlineListContainer', ['$document',
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (oldval, newval) {
                 renderListData(scope, element, attrs);
+            });
+
+            var $table = element.find("#inform-headline-list");
+            var $contextMenu = angular.element("#contextMenu");
+            $document.click(function () {
+                $contextMenu.hide();
+            });
+            angular.element(".grid-container").scroll(function () {
+                $contextMenu.hide();
+            });
+            $contextMenu.on("click", "a", function (e) {
+                var $element = angular.element(e.target);
+                var titleId = $contextMenu.data("title-id");
+                if ($element.hasClass("edit-menu-item")) {
+                    scope.showUpdateCaseDialog(titleId);
+                }
+                else {
+
+                    var status = $element.data("status");
+                    scope.updateInformStatus(titleId, status);
+                }
+            });
+            $table.on("click", ".actionButton", function (e) {
+                var $target = angular.element(e.target);
+                var titleId = $target.closest("tr").data("title-id");
+                $contextMenu.data("title-id", titleId);
+                $contextMenu.find("li").hide();
+                if ($target.closest("tr").hasClass("status-closed")) {
+                    $contextMenu.find(".status-closed").show();
+                } else {
+                    $contextMenu.find(":not(.status-closed)").show();
+                }
+
+                var offset = $target.offset();
+                $contextMenu.show().css({
+                    display: "block",
+                    left: offset.left,
+                    top: offset.top + $target.height()
+                });
+                return false;
+            });
+
+            $table.on("click", ".title", function (e) {
+                var $target = angular.element(e.target);
+                var titleId = $target.closest("tr").data("title-id");
+                var isClosed = $target.closest("tr").hasClass("status-closed");
+                scope.showContactDialog(titleId, isClosed);
             });
         }
     };

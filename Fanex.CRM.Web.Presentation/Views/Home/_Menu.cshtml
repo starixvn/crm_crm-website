@@ -42,11 +42,6 @@
 }
 @helper RenderLeafMenu(MenuItem menuItem, int menuLevel, List<MenuItem> parentMenuList)
     {
-        if(menuItem.Url.Equals("/InformHeadlines/ViewInforms", StringComparison.OrdinalIgnoreCase))
-        {
-            menuItem.Url = "/InformHeadline";
-        }
-        
         var onclickEvent = "menuManager.goToURL('centerFr','" + Url.Content("~" + menuItem.Url) + "');"; 
        
         var breadscrumbMenuName = string.Join(",", parentMenuList.Select(menu => "'" + menu.Name + "'"));
