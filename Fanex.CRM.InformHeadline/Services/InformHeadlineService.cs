@@ -382,7 +382,7 @@ namespace Fanex.CRM.InformHeadline.Services
         {
             try
             {
-                var productStatuses = _settingServices.GetStatuses(ViewTypeConstants.InformHeadline);
+                var productStatuses = _settingServices.GetInformHeadlineStatuses();
                 productStatuses.Insert(
                     0,
                     new Status()

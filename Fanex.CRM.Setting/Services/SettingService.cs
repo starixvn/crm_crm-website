@@ -33,6 +33,7 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllTitleSessionKey = "Fanex.CRM.Setting.GetAllTitleSessionKey";
         public const string GetAllFeedbackTemplateSubjectSessionKey = "Fanex.CRM.Setting.GetAllFeedbackTemplateSubjectSessionKey";
 
+        public const string GetInformHeadlineStatusesSessionKey = "Fanex.CRM.Setting.GetInformHeadlineStatusesSessionKey";
         public const string GetAllSiteSessionKey = "Fanex.CRM.Setting.GetAllSiteSessionKey";
         public const string GetAllSiteWithGroupSessionKey = "Fanex.CRM.Setting.GetAllSiteWithGroupSessionKey";
         public const string GetAllLanguageSessionKey = "Fanex.CRM.Setting.GetAllLanguageSessionKey";
@@ -517,17 +518,9 @@ namespace Fanex.CRM.Setting.Services
         /// <returns>
         /// All status.
         /// </returns>
-        public IList<Status> GetStatuses(int statusType)
+        public IList<Status> GetInformHeadlineStatuses()
         {
-            string key = GetAllStatusSessionKey;
-            if (statusType == ViewTypeConstants.CommunicationTool)
-            {
-                key = GetAllStatusCommunicationTool;
-            }
-            else if (statusType == ViewTypeConstants.Redemption)
-            {
-                key = GetAllStatusRedemption;
-            }
+            string key = GetInformHeadlineStatusesSessionKey;
 
             try
             {
@@ -537,7 +530,7 @@ namespace Fanex.CRM.Setting.Services
                     return allStatus;
                 }
 
-                allStatus = _settingRepositoryInstance.GetStatuses(new GetAllStatusCriteria(statusType))
+                allStatus = _settingRepositoryInstance.GetStatuses(new GetAllStatusCriteria(ViewTypeConstants.InformHeadline))
                     .OrderBy(s => s.DisplayOrder)
                     .ToList();
                 CacheService.Set(key, allStatus);

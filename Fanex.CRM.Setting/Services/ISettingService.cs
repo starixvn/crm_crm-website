@@ -42,7 +42,7 @@ namespace Fanex.CRM.Setting.Services
 
         List<SettingInfo> AllStatus(int statusType);
 
-        IList<Status> GetStatuses(int statusType);
+        IList<Status> GetInformHeadlineStatuses();
 
         List<BaseModel> AllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria);
 
