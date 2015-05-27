@@ -18,7 +18,7 @@ namespace Fanex.CRM.Common.Services
     /// </summary>
     public static class CacheService
     {
-        private static readonly ICache Cache = Caching.CacheService.CreateInstance(CacheType.MemCache);
+        private static readonly ICache Cache = Caching.CacheService.CreateInstance(CacheType.MemoryCache);
 
         /// <summary>
         /// Getting cache value.
