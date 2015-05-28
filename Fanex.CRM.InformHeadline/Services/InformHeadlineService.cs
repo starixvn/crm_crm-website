@@ -383,14 +383,18 @@ namespace Fanex.CRM.InformHeadline.Services
             try
             {
                 var productStatuses = _settingServices.GetInformHeadlineStatuses();
-                productStatuses.Insert(
-                    0,
-                    new Status()
-                    {
-                        StatusId = 0,
-                        Name = Labels.NA,
-                        DisplayOrder = 0
-                    });
+                if (productStatuses.Count > 0 && productStatuses[0].StatusId != 0)
+                {
+                    productStatuses.Insert(
+                        0,
+                        new Status()
+                        {
+                            StatusId = 0,
+                            Name = Labels.NA,
+                            DisplayOrder = 0
+                        });
+                }
+
                 return productStatuses;
             }
             catch (ObjectDbException ex)
