@@ -9,7 +9,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
     var _isClosed = false;
-    var selfScope;
+    var _selfScope;
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, disabled) {
 
@@ -47,31 +47,31 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             return '<span class="disabled-box">' + viewResources.KeptForReference + '</span>';
         }
 
-        return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, selfScope.$parent.hasHostPermission === false);
+        return generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, _selfScope.$parent.hasHostPermission === false);
     }
 
     function renderStatusDropdownCell(columnModel) {
-        return renderDropdownCell(columnModel, selfScope.$parent.informStatuses,
+        return renderDropdownCell(columnModel, _selfScope.$parent.informStatuses,
             "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
     }
 
     function renderExtensionDropdownCell(columnModel) {
-        return renderDropdownCell(columnModel, selfScope.$parent.stations,
+        return renderDropdownCell(columnModel, _selfScope.$parent.stations,
             "Extension", "StationId", "Name", columnModel.Value.Extension);
     }
 
     function renderProductStatusDropdownCell(columnModel) {
-        return renderDropdownCell(columnModel, selfScope.$parent.productStatuses,
+        return renderDropdownCell(columnModel, _selfScope.$parent.productStatuses,
             "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
     }
 
     function renderRemarkCell(columnModel) {
-        return '<textarea ' + (!_isClosed && selfScope.$parent.hasHostPermission === true ? '' : 'disabled') +
+        return '<textarea ' + (!_isClosed && _selfScope.$parent.hasHostPermission === true ? '' : 'disabled') +
             ' data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
     }
 
     function renderListData(scope, element, attrs) {
-        selfScope = scope;
+        _selfScope = scope;
 
         if (scope.dataSource === null) {
             return;

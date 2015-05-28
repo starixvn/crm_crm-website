@@ -752,10 +752,10 @@ namespace Fanex.CRM.Setting.Services
                 licenseeTypes.Insert(
                     0,
                     new BaseModel
-                {
-                    Id = SettingConstants.NotApply,
-                    Name = Labels.Symbol_NotApply
-                });
+                    {
+                        Id = SettingConstants.NotApply,
+                        Name = Labels.Symbol_NotApply
+                    });
 
                 CacheService.Set(key, licenseeTypes);
                 return licenseeTypes;
@@ -866,14 +866,8 @@ namespace Fanex.CRM.Setting.Services
         {
             try
             {
-                List<FeedbackTemplate> listFeedbackTemplate = new List<FeedbackTemplate>();
-                listFeedbackTemplate = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
-                {
-                    TemplateId = 0
-                });
-
-                CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, listFeedbackTemplate);
-                return listFeedbackTemplate.Count;
+                var feedbackTemplates = GetFeedbackSubjectTemplates();
+                return feedbackTemplates.Count;
             }
             catch (Exception ex)
             {
@@ -893,10 +887,16 @@ namespace Fanex.CRM.Setting.Services
             {
                 var result = new List<FeedbackTemplate>();
                 int multipleNum = SettingConstants.MaxFeedbackSubjectTemplateNumberOnLoad;
-                List<FeedbackTemplate> listFeedbackTemplate = CacheService.Get<List<FeedbackTemplate>>(GetAllFeedbackTemplateSubjectSessionKey);
-                if (listFeedbackTemplate != null && listFeedbackTemplate.Count > 0)
+                var feedbackTemplates = CacheService.Get<List<FeedbackTemplate>>(GetAllFeedbackTemplateSubjectSessionKey);
+
+                if (feedbackTemplates == null)
                 {
-                    result = listFeedbackTemplate
+                    feedbackTemplates = GetFeedbackSubjectTemplates();
+                }
+
+                if (feedbackTemplates != null && feedbackTemplates.Count > 0)
+                {
+                    result = feedbackTemplates
                         .Skip((criteria.PagingIndex - 1) * multipleNum)
                         .Take(criteria.PagingIndex * multipleNum).ToList();
                 }
@@ -1105,6 +1105,25 @@ namespace Fanex.CRM.Setting.Services
                 }
 
                 return settingRelations;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        private List<FeedbackTemplate> GetFeedbackSubjectTemplates()
+        {
+            try
+            {
+                var feedbackTemplates = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
+                {
+                    TemplateId = 0
+                });
+
+                CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
+                return feedbackTemplates;
             }
             catch (Exception ex)
             {

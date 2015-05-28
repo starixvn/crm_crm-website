@@ -7,7 +7,7 @@ unused: vars */
 newInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
-    var selfScope;
+    var _selfScope;
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
         var html = '<select data-binding-name="' + bindingName + '" style="width: 100px">';
@@ -36,7 +36,7 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
     }
 
     function renderStatusCell(columnModel) {
-        return generateDropdown(selfScope.$parent.informStatuses,
+        return generateDropdown(_selfScope.$parent.informStatuses,
             "InformHeadlineStatusId", "SettingId", "SettingValue", columnModel.Value.InformHeadlineStatusId);
     }
 
@@ -45,15 +45,15 @@ newInformApplication.directive('informHeadlineListContainer', ['$document', func
     }
 
     function renderExtensionCell(columnModel) {
-        return generateDropdown(selfScope.$parent.stations, "Extension", "StationId", "Name", columnModel.Value.Extension);
+        return generateDropdown(_selfScope.$parent.stations, "Extension", "StationId", "Name", columnModel.Value.Extension);
     }
 
     function renderProductStatusCell(columnModel) {
-        return generateDropdown(selfScope.$parent.productStatuses, "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
+        return generateDropdown(_selfScope.$parent.productStatuses, "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
     }
 
     function renderListData(scope, element, attrs) {
-        selfScope = scope;
+        _selfScope = scope;
 
         if (scope.dataSource === null) {
             return;

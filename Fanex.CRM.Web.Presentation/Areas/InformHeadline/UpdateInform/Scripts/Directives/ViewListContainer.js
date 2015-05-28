@@ -8,8 +8,8 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
     var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
-    var selfScope;
     var INFORM_SPECIAL_CASE = [1, 5, 12];
+    var _selfScope;    
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, disabled) {
         var html = '<select ' + (disabled ? 'disabled' : '') + '  data-binding-name="' + bindingName + '" style="width: 100px">';
@@ -58,18 +58,18 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                                             viewResources.KeepThisAccount + '</label></div>';
         }
 
-        return html + generateDropdown(selfScope.$parent.informStatuses,
+        return html + generateDropdown(_selfScope.$parent.informStatuses,
                                     "InformHeadlineStatusId", "SettingId", "SettingValue",
                                     columnModel.Value.InformHeadlineStatusId, columnModel.Value.Case > 0);
     }
 
     function renderExtensionDropdownCell(columnModel) {
-        return renderDropdownCell(columnModel, selfScope.$parent.stations,
+        return renderDropdownCell(columnModel, _selfScope.$parent.stations,
             "Extension", "StationId", "Name", columnModel.Value.Extension);
     }
 
     function renderProductStatusDropdownCell(columnModel) {
-        return renderDropdownCell(columnModel, selfScope.$parent.productStatuses,
+        return renderDropdownCell(columnModel, _selfScope.$parent.productStatuses,
             "ProductStatus", "StatusId", "Name", columnModel.Value.ProductStatus);
     }
 
@@ -116,7 +116,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         return bodyData;
     }
     function renderListData(scope, element, attrs) {
-        selfScope = scope;
+        _selfScope = scope;
         if (scope.dataSource === null) {
             return;
         }
@@ -153,7 +153,8 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                 totalItem: scope.dataSource.length,
                 startPerPage: MIN_PAGE_SIZE,
                 pageStep: MIN_PAGE_SIZE,
-                pagerSelectCallBack: function (pageIndex, pageSize) {
+                pagerSelectCallBack: function (pageIndex, pageSize) {                    
+                    gridOptions.pagerOption.itemsPerPage = pageSize;
                     gridOptions.pagerOption.pageSize = pageSize;
                     gridOptions.pagerOption.currentPage = pageIndex;
                     gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
