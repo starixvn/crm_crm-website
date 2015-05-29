@@ -10,7 +10,7 @@ namespace Fanex.CRM.InformHeadline.Criteria
     using System.Collections.Generic;
     using Fanex.CRM.Common.Criteria;
     using Fanex.CRM.InformHeadline.Models;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// TODO: Update summary.

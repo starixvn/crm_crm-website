@@ -9,8 +9,7 @@
 
 namespace Fanex.CRM.Report.Criteria.RedemptionStatisticsReport
 {
-    using System;
-    using Fanex.NAP.Framework.Data;
+    using Fanex.Data.Repository;
 
     /// <summary>
     /// Get Redemption Statistics Detail Report.

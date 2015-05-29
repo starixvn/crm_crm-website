@@ -100,7 +100,7 @@ namespace Fanex.CRM.Common.Services
         }
 
         private static T DeepClone<T>(T source)
-        {                       
+        {
             return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source));
         }
     }
