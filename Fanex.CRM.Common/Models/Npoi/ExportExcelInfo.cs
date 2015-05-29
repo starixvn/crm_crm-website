@@ -10,7 +10,6 @@
 namespace Fanex.CRM.Common.Models.Npoi
 {
     using System.Collections.Generic;
-    using ExcelUtil.Spreadsheet;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using NPOI.HSSF.UserModel;

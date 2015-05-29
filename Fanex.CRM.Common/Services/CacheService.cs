@@ -61,7 +61,7 @@ namespace Fanex.CRM.Common.Services
         {
             try
             {
-                Cache.Set(key, value, expire);
+                Cache.Set(key, DeepClone(value), expire);
             }
             catch (Exception exception)
             {
@@ -79,7 +79,7 @@ namespace Fanex.CRM.Common.Services
         /// <param name="expire">Expire time.</param>
         public static void Set<T>(string key, T value, TimeSpan expire)
         {
-            Cache.Set<T>(key, value, expire);
+            Cache.Set<T>(key, DeepClone(value), expire);
         }
 
         /// <summary>
