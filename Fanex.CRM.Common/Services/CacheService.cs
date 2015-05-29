@@ -12,6 +12,7 @@ namespace Fanex.CRM.Common.Services
     using System;
     using Fanex.Caching;
     using Fanex.CRM.Infrastructure.Helpers;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Caching service.
@@ -23,48 +24,12 @@ namespace Fanex.CRM.Common.Services
         /// <summary>
         /// Getting cache value.
         /// </summary>
-        /// <param name="key">Cache key.</param>
-        /// <returns>Return value.</returns>
-        public static object Get(string key)
-        {
-            try
-            {
-                return Cache.Get<object>(key);
-            }
-            catch (Exception exception)
-            {
-                LogExtensions.ExceptionHandler(exception);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Setting cache value.
-        /// </summary>
-        /// <param name="key">Cache key.</param>
-        /// <param name="value">The value that saving to cache.</param>
-        public static void Set(string key, object value)
-        {
-            try
-            {
-                Cache.Set(key, value);
-            }
-            catch (Exception exception)
-            {
-                LogExtensions.ExceptionHandler(exception);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Getting cache value.
-        /// </summary>
         /// <typeparam name="T">Parameter type.</typeparam>
         /// <param name="key">Cache key.</param>
         /// <returns>Return value.</returns>
         public static T Get<T>(string key)
         {
-            return Cache.Get<T>(key);
+            return DeepClone(Cache.Get<T>(key));            
         }
 
         /// <summary>
@@ -76,8 +41,8 @@ namespace Fanex.CRM.Common.Services
         public static void Set<T>(string key, T value)
         {
             try
-            {
-                Cache.Set<T>(key, value);
+            {                
+                Cache.Set(key, DeepClone(value));
             }
             catch (Exception exception)
             {
@@ -132,6 +97,11 @@ namespace Fanex.CRM.Common.Services
         public static void Delete(string key)
         {
             Cache.Remove(key);
+        }
+
+        private static T DeepClone<T>(T source)
+        {                       
+            return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(source));
         }
     }
 }
