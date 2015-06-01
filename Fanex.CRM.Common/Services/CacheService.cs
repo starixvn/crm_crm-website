@@ -19,6 +19,8 @@ namespace Fanex.CRM.Common.Services
     /// </summary>
     public static class CacheService
     {
+        private const int TIMEOUT = 300; // 5 minutes.
+
         private static readonly ICache Cache = Caching.CacheService.CreateInstance(CacheType.MemoryCache);
 
         /// <summary>
@@ -42,44 +44,13 @@ namespace Fanex.CRM.Common.Services
         {
             try
             {                
-                Cache.Set(key, DeepClone(value));
+                Cache.Set(key, DeepClone(value), TIMEOUT);
             }
             catch (Exception exception)
             {
                 LogExtensions.ExceptionHandler(exception);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Setting cache value.
-        /// </summary>
-        /// <param name="key">Cache key.</param>
-        /// <param name="value">The value that saving to cache.</param>
-        /// <param name="expire">Expire time.</param>
-        public static void Set(string key, object value, TimeSpan expire)
-        {
-            try
-            {
-                Cache.Set(key, DeepClone(value), expire);
-            }
-            catch (Exception exception)
-            {
-                LogExtensions.ExceptionHandler(exception);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Setting cache value.
-        /// </summary>
-        /// <typeparam name="T">Parameter type.</typeparam>
-        /// <param name="key">Cache key.</param>
-        /// <param name="value">The value that saving to cache.</param>
-        /// <param name="expire">Expire time.</param>
-        public static void Set<T>(string key, T value, TimeSpan expire)
-        {
-            Cache.Set<T>(key, DeepClone(value), expire);
         }
 
         /// <summary>
