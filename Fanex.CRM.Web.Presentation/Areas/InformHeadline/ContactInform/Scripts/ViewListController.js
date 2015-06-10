@@ -58,13 +58,7 @@ contactInformApplication.controller('ContactInformController',
 
         function createStatusDropdownSettings(sourceData) {
             $scope.statusDropdownSettings = {
-                idMember: "SettingId",
-                nameMember: "SettingValue",
-                selectedMember: "SettingId",
-                sourceData: sourceData,
-                width: 200,
-                checkedAll: true,
-                templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
+                sourceData: sourceData               
             };
         }
 

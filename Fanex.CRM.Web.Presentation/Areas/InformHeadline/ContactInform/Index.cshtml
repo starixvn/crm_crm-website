@@ -30,9 +30,7 @@
         <div class="container main">
             <div class="row panel-group">
                 <div class="row title hand identify hand">
-                    <strong data-ng-bind-html="titleDetail.Title">
-                        
-                    </strong>
+                    <strong data-ng-bind-html="titleDetail.Title"></strong>
                     <i style="padding: 0px;float:right" class="btnExcel" data-ng-show="listData.length > 0" data-ng-click="exportInformHeadlines()"></i>
                 </div>
             </div>
@@ -74,10 +72,7 @@
         @section Scripts {
             @RazorHelper.RenderScripts(
                 "~/Scripts/CommomScripts",
-                "~/Scripts/AngularJSLibrary",
-                "~/Content/bootstrap/js/bootstrap.min.js",
-                "~/Scripts/AngularJS/angular-sanitize.min.js",
-                "~/Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.min.js",
+                "~/Scripts/AngularJSLibrary",                
                 "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
                 "~/Scripts/FanexGridScripts",
                 "~/CRM/DownLoadFile/Scripts",

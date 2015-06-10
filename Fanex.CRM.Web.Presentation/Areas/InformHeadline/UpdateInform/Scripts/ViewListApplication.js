@@ -15,7 +15,7 @@ updateInformApplication.config(['dropdowntreeConfigProvider', function(dropdownt
         selectedMember: "Id",
         sourceData: null,
         width: 150,
-        templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"        
+        templateUrl: window.rootUrl + "Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.template.html"
     });
 } ]);
 updateInformApplication.config(['$httpProvider', function ($httpProvider) {
