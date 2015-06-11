@@ -442,8 +442,8 @@ namespace Fanex.CRM.InformHeadline.Services
                     "<Headline HeadlineID = '{0}' GroupID = '{1}' StatusID = '{2}' Remark = '{3}' Extension = '{4}' ProductStatus = '{5}' IsKeep='{6}' />",
                     item.HeadlineId != 0 ? item.HeadlineId : (item.Case == 1 || item.Case == 5 ? item.OldCustId : item.NewCustId),
                     item.GroupId,
-                    item.InformHeadlineStatusId,                    
-                    item.Remark,
+                    item.InformHeadlineStatusId,
+                    item.Remark.Replace("\n", "\\n"),
                     item.Extension,
                     item.ProductStatus,
                     item.IsKeep ? 1 : 0);
@@ -471,7 +471,7 @@ namespace Fanex.CRM.InformHeadline.Services
                     "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' />",
                     item.HeadlineId != 0 ? item.HeadlineId : (item.Case == 1 || item.Case == 5 ? item.OldCustId : item.NewCustId),
                     item.InformHeadlineStatusId,
-                    item.Remark,
+                    item.Remark.Replace("\n", "\\n"),
                     item.Extension,
                     item.ProductStatus);
             }

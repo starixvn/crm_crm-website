@@ -30,6 +30,14 @@ namespace Fanex.CRM.InformHeadline.Excel
     {
         private const int KeptForReferenceStatusId = 45007;
 
+        private static readonly int[] InformSpecialCases = new int[] { 1, 5, 12 };
+
+        private static readonly int[] ColumnWidths = new int[] { 280, 120, 120, 300, 120, 120, 120 };
+
+        private static readonly Color UpdatedBackColor = Color.FromArgb(246, 211, 207);
+        private static readonly Color HeadlineBackColor = Color.FromArgb(208, 230, 244);
+        private static readonly Color NormalBackColor = Color.FromArgb(241, 241, 241);
+
         private readonly string[] _columnHeaders = new string[]
             {
                 Labels.DirectAccount, 
@@ -40,12 +48,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 Labels.Extension,
                 Labels.ProductStatus
             };
-
-        private readonly int[] _informSpecialCases = new int[] { 1, 5, 12 };
-
-        private readonly Color _updatedBackColor = Color.FromArgb(246, 211, 207);
-        private readonly Color _headlineBackColor = Color.FromArgb(208, 230, 244);
-        private readonly Color _normalBackColor = Color.FromArgb(241, 241, 241);
+        
         private readonly IInformHeadlineService _informService;
 
         private IList<InformStatus> _informStatuses;
@@ -107,9 +110,9 @@ namespace Fanex.CRM.InformHeadline.Excel
         /// <param name="exportExcelInfo">Export Excel Info.</param>
         private void InitializeBodyRowStyles(ExportExcelInfo exportExcelInfo)
         {
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, _updatedBackColor, HSSFColor.Coral.Index);
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, _headlineBackColor, HSSFColor.LightYellow.Index);
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, _normalBackColor, HSSFColor.Grey25Percent.Index);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, UpdatedBackColor, HSSFColor.Coral.Index);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, HeadlineBackColor, HSSFColor.LightYellow.Index);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NormalBackColor, HSSFColor.Grey25Percent.Index);
 
             _updatedLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Coral.Index);
             _updatedCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.Coral.Index, CRMHorizontalAlignment.Center);
@@ -130,10 +133,9 @@ namespace Fanex.CRM.InformHeadline.Excel
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.ResetCurrentColumn();
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 280);
             for (int i = 0; i < exportExcelInfo.MaxColumnIndex; i++)
             {
-                exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
+                exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, ColumnWidths[i]);
             }
 
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
@@ -228,7 +230,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             }
 
             var username = string.IsNullOrEmpty(inform.UserName) == false ? inform.UserName :
-                    (_informSpecialCases.Contains(inform.Case) ? inform.OldUserName : inform.NewUserName);
+                    (InformSpecialCases.Contains(inform.Case) ? inform.OldUserName : inform.NewUserName);
 
             var isKeepForReference = inform.InformHeadlineStatusId == KeptForReferenceStatusId;
 
@@ -237,7 +239,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             {
                 informStatusName = Labels.KeptForReference;
             }
-            else if (_informSpecialCases.Contains(inform.Case))
+            else if (InformSpecialCases.Contains(inform.Case))
             {
                 informStatusName = Labels.KeepThisAccount;
             }

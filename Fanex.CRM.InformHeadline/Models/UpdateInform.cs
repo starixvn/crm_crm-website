@@ -18,6 +18,8 @@ namespace Fanex.CRM.InformHeadline.Models
 
         private int _informHeadlineStatusId;
 
+        private string _remark;
+
         public int OldCustId { get; set; }
 
         public int NewCustId { get; set; }
@@ -55,7 +57,18 @@ namespace Fanex.CRM.InformHeadline.Models
             }
         }
 
-        public string Remark { get; set; }
+        public string Remark
+        {
+            get
+            {
+                return _remark == null ? null : _remark.Replace("\\n", System.Environment.NewLine);
+            }
+
+            set
+            {
+                _remark = value;
+            }
+        }
 
         public string Handler { get; set; }
 

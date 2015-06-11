@@ -27,6 +27,11 @@ namespace Fanex.CRM.InformHeadline.Excel
     /// </summary>
     public class NewInformHeadlineExcel : BaseExcel
     {
+        private static readonly int[] ColumnWidths = new int[] { 280, 120, 120, 300, 120, 120, 120 };
+
+        private static readonly Color HeadlineStatusColor = Color.FromArgb(208, 230, 244);
+        private static readonly Color NormalStatusColor = Color.FromArgb(241, 241, 241);
+
         private readonly string[] _columnHeaders = new string[]
             {
                 Labels.DirectAccount, 
@@ -37,10 +42,7 @@ namespace Fanex.CRM.InformHeadline.Excel
                 Labels.Extension,
                 Labels.ProductStatus
             };
-
-        private readonly Color _headlineStatusColor = Color.FromArgb(208, 230, 244);
-        private readonly Color _normalStatusColor = Color.FromArgb(241, 241, 241);
-
+        
         private readonly IInformHeadlineService _informService;
 
         private IList<InformStatus> _informStatuses;
@@ -92,10 +94,9 @@ namespace Fanex.CRM.InformHeadline.Excel
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.ResetCurrentColumn();
-            exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 280);
             for (int i = 0; i < exportExcelInfo.MaxColumnIndex; i++)
             {
-                exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
+                exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, ColumnWidths[i]);
             }
 
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
@@ -150,8 +151,8 @@ namespace Fanex.CRM.InformHeadline.Excel
             int currentColumn = exportExcelInfo.CurrentColumn;
             ISheet worksheet = exportExcelInfo.Worksheet;
 
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, _headlineStatusColor, HSSFColor.LightYellow.Index);
-            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, _normalStatusColor, HSSFColor.Grey25Percent.Index);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, HeadlineStatusColor, HSSFColor.LightYellow.Index);
+            NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NormalStatusColor, HSSFColor.Grey25Percent.Index);
 
             ICellStyle headlineLeftAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index);
             ICellStyle headlineCenterAlignStyle = GetCellStyle(exportExcelInfo.ExcelFile, HSSFColor.LightYellow.Index, CRMHorizontalAlignment.Center);

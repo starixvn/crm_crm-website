@@ -12,6 +12,8 @@ informHeadlineApplication.controller('ViewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
 
+        var POPUP_WIDTH = 1150, POPUP_HEIGHT = 800;
+
         $scope.contactPolicy = null;
         $scope.searchPolicy = null;
         $scope.listData = null;
@@ -78,8 +80,8 @@ informHeadlineApplication.controller('ViewListController',
             parent.OpenPopup(
                 window.rootUrl + "InformHeadline/NewInform",
                 viewResources.NewInformHeadlines,
-                1000,
-                800,
+                POPUP_WIDTH,
+                POPUP_HEIGHT,
                 true,
                 false,
                 parent.window,
@@ -97,8 +99,8 @@ informHeadlineApplication.controller('ViewListController',
                         titleId: titleId
                     }),
                 viewResources.UpdateInformHeadlines + ' - ' + viewResources.EditNumberOfAccounts,
-                1000,
-                800,
+                POPUP_WIDTH,
+                POPUP_HEIGHT,
                 true,
                 false,
                 parent.window,
@@ -117,8 +119,8 @@ informHeadlineApplication.controller('ViewListController',
                         isClosed: isClosed
                     }),
                 viewResources.UpdateInformHeadlines,
-                1000,
-                800,
+                POPUP_WIDTH,
+                POPUP_HEIGHT,
                 true,
                 false,
                 parent.window,

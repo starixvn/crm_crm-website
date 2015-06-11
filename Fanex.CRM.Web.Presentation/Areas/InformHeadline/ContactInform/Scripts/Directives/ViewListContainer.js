@@ -69,20 +69,18 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
         return '<textarea ' + (!_isClosed && _selfScope.$parent.hasHostPermission === true ? '' : 'disabled') +
             ' data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
     }
-
-    function renderListData(scope, element, attrs) {
-        _selfScope = scope;
-
-        if (scope.dataSource === null) {
-            return;
-        }
-
-        var $table = element.find("#inform-headline-list");
-        $table.empty();
+    function generateBodyRows(scope, pageIndex, pageSize) {
         var bodyData = [];
         var rowsCount = scope.dataSource.length;
-        if (rowsCount > 0) {
-            for (var i = 0; i < rowsCount; i++) {
+        var firstRowIndex = pageIndex * pageSize;
+        if (rowsCount >= firstRowIndex) {
+
+            var lastRowIndex = firstRowIndex + pageSize;
+            if (lastRowIndex > rowsCount) {
+                lastRowIndex = rowsCount;
+            }
+
+            for (var i = firstRowIndex; i < lastRowIndex; i++) {
                 var item = scope.dataSource[i];
 
                 bodyData.push({
@@ -101,6 +99,18 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             }
         }
 
+        return bodyData;
+    }
+    function renderListData(scope, element, attrs) {
+        _selfScope = scope;
+
+        if (scope.dataSource === null) {
+            return;
+        }
+
+        var $table = element.find("#inform-headline-list");
+        $table.empty();
+
         var gridOptions = {
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
@@ -108,12 +118,12 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "left",
                         FormatDateTime: "MMM DD, YYYY"
                     },
-                    { HeaderText: viewResources.Remark, Width: 190, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Remark, Width: 500, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Extension, Width: 130, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.ProductStatus, Width: 130, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
-            bodyRows: bodyData,
+            bodyRows: generateBodyRows(scope, 0, MIN_PAGE_SIZE),
             numberOfFrozenColumn: 0,
             fullWidth: true,
             showDistinctRow: false,
@@ -124,17 +134,33 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
             bodyRowHeight: 20,
             gridExpandHeight: 200,
             showPager: true,
+            customPager: true,
             pagerOption: {
                 itemsPerPage: MIN_PAGE_SIZE,
                 maxItemsPerPage: MAX_PAGE_SIZE,
                 currentPage: 0,
                 totalItem: scope.dataSource.length,
                 startPerPage: MIN_PAGE_SIZE,
-                pageStep: MIN_PAGE_SIZE
+                pageStep: MIN_PAGE_SIZE,
+                pagerSelectCallBack: function (pageIndex, pageSize) {
+                    gridOptions.pagerOption.itemsPerPage = pageSize;
+                    gridOptions.pagerOption.pageSize = pageSize;
+                    gridOptions.pagerOption.currentPage = pageIndex;
+                    gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
+                    $table.fanexGrid(gridOptions);
+
+                    $("textarea").each(function () {
+                        $(this).height(this.scrollHeight);
+                    });
+                }
             }
         };
 
         $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+
+        $("textarea").each(function () {
+            $(this).height(this.scrollHeight);
+        });
     }
 
     return {
