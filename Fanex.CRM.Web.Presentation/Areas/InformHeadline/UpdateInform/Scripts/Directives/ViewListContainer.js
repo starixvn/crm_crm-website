@@ -127,12 +127,12 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         var gridOptions = {
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: viewResources.Status, Width: 130, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Status, Width: 110, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY hh:mm:ss A" },
-                    { HeaderText: viewResources.Remark, Width: 500, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Remark, Width: 420, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: viewResources.Extension, Width: 130, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.ProductStatus, Width: 130, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
+                    { HeaderText: viewResources.Extension, Width: 110, Name: "Extension", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.ProductStatus, Width: 110, Name: "ProductStatus", HeaderAlign: "center", CellAlign: "center" }
                 ],
             bodyRows: generateBodyRows(scope, 0, MIN_PAGE_SIZE),
             numberOfFrozenColumn: 0,

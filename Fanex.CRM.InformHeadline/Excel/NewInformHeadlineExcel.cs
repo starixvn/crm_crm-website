@@ -94,7 +94,7 @@ namespace Fanex.CRM.InformHeadline.Excel
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.ResetCurrentColumn();
-            for (int i = 0; i < exportExcelInfo.MaxColumnIndex; i++)
+            for (int i = 0; i < ColumnWidths.Length; i++)
             {
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, ColumnWidths[i]);
             }

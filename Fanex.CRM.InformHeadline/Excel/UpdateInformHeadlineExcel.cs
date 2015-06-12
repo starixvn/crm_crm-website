@@ -9,6 +9,7 @@ namespace Fanex.CRM.InformHeadline.Excel
     using System.Collections.Generic;
     using System.Drawing;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Web;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
@@ -32,7 +33,7 @@ namespace Fanex.CRM.InformHeadline.Excel
 
         private static readonly int[] InformSpecialCases = new int[] { 1, 5, 12 };
 
-        private static readonly int[] ColumnWidths = new int[] { 280, 120, 150, 300, 120, 120, 120 };
+        private static readonly int[] ColumnWidths = new int[] { 280, 120, 170, 500, 120, 120, 120 };
 
         private static readonly Color UpdatedBackColor = Color.FromArgb(246, 211, 207);
         private static readonly Color HeadlineBackColor = Color.FromArgb(208, 230, 244);
@@ -104,6 +105,16 @@ namespace Fanex.CRM.InformHeadline.Excel
             }
         }
 
+        private static string NormalizeLineBreaks(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return text;
+            }
+
+            return Regex.Replace(text, @"\r\n?|\n", "\r\n");
+        }
+
         /// <summary>
         /// Initialize Body Row Styles.
         /// </summary>
@@ -133,7 +144,7 @@ namespace Fanex.CRM.InformHeadline.Excel
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             exportExcelInfo.ResetCurrentColumn();
-            for (int i = 0; i < exportExcelInfo.MaxColumnIndex; i++)
+            for (int i = 0; i < ColumnWidths.Length; i++)
             {
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, ColumnWidths[i]);
             }
@@ -164,8 +175,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            headerStyle.WrapText = true;
+            var headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());            
             var row = exportExcelInfo.Worksheet.CreateRow(currentRow);
             row.HeightInPoints = 30;
             foreach (var columnHeader in _columnHeaders)
@@ -250,11 +260,10 @@ namespace Fanex.CRM.InformHeadline.Excel
 
             var stationName = isKeepForReference ? Labels.KeptForReference : GetStationName(inform.Extension);
             var productStatusName = isKeepForReference ? Labels.KeptForReference : GetProductStatusName(inform.ProductStatus);
-
             NpoiExcelExtensions.RenderCell(row, currentColumn++, username, leftAlignStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumn++, informStatusName, centerAlignStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn++, informStatusName, leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.ClientUpdatedTime), leftAlignStyle);
-            NpoiExcelExtensions.RenderCell(row, currentColumn++, HttpUtility.HtmlDecode(inform.Remark), leftAlignStyle);
+            NpoiExcelExtensions.RenderCell(row, currentColumn++, NormalizeLineBreaks(HttpUtility.HtmlDecode(inform.Remark)), leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Handler, leftAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, stationName, centerAlignStyle);
             NpoiExcelExtensions.RenderCell(row, currentColumn++, productStatusName, centerAlignStyle);
@@ -262,11 +271,13 @@ namespace Fanex.CRM.InformHeadline.Excel
 
         private ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
         {
-            return NpoiExcelExtensions.TextStyle(
+            var cellStyle = NpoiExcelExtensions.TextStyle(
                 workbook,
                 color < 0 ? NpoiExcelExtensions.BackgroundColorIndex : color,
                 false,
                 align);
+            cellStyle.WrapText = true;
+            return cellStyle;
         }
 
         private string GetInformStatusName(int id)

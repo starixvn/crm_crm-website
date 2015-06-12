@@ -12,7 +12,7 @@ informHeadlineApplication.controller('ViewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
 
-        var POPUP_WIDTH = 1150, POPUP_HEIGHT = 800;
+        var POPUP_WIDTH = 1180, POPUP_HEIGHT = 800;
 
         $scope.contactPolicy = null;
         $scope.searchPolicy = null;

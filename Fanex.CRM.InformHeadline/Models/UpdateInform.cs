@@ -18,8 +18,6 @@ namespace Fanex.CRM.InformHeadline.Models
 
         private int _informHeadlineStatusId;
 
-        private string _remark;
-
         public int OldCustId { get; set; }
 
         public int NewCustId { get; set; }
@@ -40,7 +38,7 @@ namespace Fanex.CRM.InformHeadline.Models
         {
             get
             {
-                return UpdatedTime.HasValue ? DateTimeUtilize.ChangeTimeZoneToClientDateTime(UpdatedTime.Value).ToString("MMM dd, yyyy HH:mm:ss tt") : null;
+                return UpdatedTime.HasValue ? DateTimeUtilize.ChangeTimeZoneToClientDateTime(UpdatedTime.Value).ToString("MMM dd, yyyy hh:mm:ss tt") : null;
             }
         }
 
@@ -57,18 +55,7 @@ namespace Fanex.CRM.InformHeadline.Models
             }
         }
 
-        public string Remark
-        {
-            get
-            {
-                return string.IsNullOrEmpty(_remark) ? _remark : _remark.Replace("\\r\\n", System.Environment.NewLine);
-            }
-
-            set
-            {
-                _remark = value;
-            }
-        }
+        public string Remark { get; set; }
 
         public string Handler { get; set; }
 

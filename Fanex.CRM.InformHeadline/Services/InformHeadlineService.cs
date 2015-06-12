@@ -8,6 +8,7 @@ namespace Fanex.CRM.InformHeadline.Services
 {
     using System.Collections.Generic;
     using System.Text;
+    using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.InformHeadline.Criteria;
     using Fanex.CRM.InformHeadline.Excel;
     using Fanex.CRM.InformHeadline.Models;
@@ -443,7 +444,7 @@ namespace Fanex.CRM.InformHeadline.Services
                     item.HeadlineId != 0 ? item.HeadlineId : (item.Case == 1 || item.Case == 5 ? item.OldCustId : item.NewCustId),
                     item.GroupId,
                     item.InformHeadlineStatusId,
-                    item.Remark.Replace("\n", "\\r\\n"),
+                    HtmlHelper.ReplaceBreaklineXml(item.Remark),
                     item.Extension,
                     item.ProductStatus,
                     item.IsKeep ? 1 : 0);
@@ -471,7 +472,7 @@ namespace Fanex.CRM.InformHeadline.Services
                     "<Headline HeadlineID = '{0}' StatusID = '{1}' Remark = '{2}' Extension = '{3}' ProductStatus = '{4}' />",
                     item.HeadlineId != 0 ? item.HeadlineId : (item.Case == 1 || item.Case == 5 ? item.OldCustId : item.NewCustId),
                     item.InformHeadlineStatusId,
-                    item.Remark.Replace("\n", "\\r\\n"),
+                    HtmlHelper.ReplaceBreaklineXml(item.Remark),
                     item.Extension,
                     item.ProductStatus);
             }
