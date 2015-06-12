@@ -116,7 +116,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: viewResources.Status, Width: 130, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "left",
-                        FormatDateTime: "MMM DD, YYYY"
+                        FormatDateTime: "MMM DD, YYYY hh:mm:ss A"
                     },
                     { HeaderText: viewResources.Remark, Width: 500, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },

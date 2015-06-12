@@ -32,7 +32,7 @@ namespace Fanex.CRM.InformHeadline.Excel
 
         private static readonly int[] InformSpecialCases = new int[] { 1, 5, 12 };
 
-        private static readonly int[] ColumnWidths = new int[] { 280, 120, 120, 300, 120, 120, 120 };
+        private static readonly int[] ColumnWidths = new int[] { 280, 120, 150, 300, 120, 120, 120 };
 
         private static readonly Color UpdatedBackColor = Color.FromArgb(246, 211, 207);
         private static readonly Color HeadlineBackColor = Color.FromArgb(208, 230, 244);

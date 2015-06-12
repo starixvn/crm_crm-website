@@ -40,7 +40,7 @@ namespace Fanex.CRM.InformHeadline.Models
         {
             get
             {
-                return UpdatedTime.HasValue ? DateTimeUtilize.ChangeTimeZoneToClientDateTime(UpdatedTime.Value).ToString("MMM dd, yyyy") : null;
+                return UpdatedTime.HasValue ? DateTimeUtilize.ChangeTimeZoneToClientDateTime(UpdatedTime.Value).ToString("MMM dd, yyyy HH:mm:ss tt") : null;
             }
         }
 
@@ -61,7 +61,7 @@ namespace Fanex.CRM.InformHeadline.Models
         {
             get
             {
-                return _remark == null ? null : _remark.Replace("\\n", System.Environment.NewLine);
+                return string.IsNullOrEmpty(_remark) ? _remark : _remark.Replace("\\r\\n", System.Environment.NewLine);
             }
 
             set
