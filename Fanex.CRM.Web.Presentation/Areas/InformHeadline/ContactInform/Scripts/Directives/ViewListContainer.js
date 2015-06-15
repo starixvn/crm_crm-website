@@ -4,7 +4,7 @@ crmConstants,
 viewResources */
 /* jshint camelcase: false,
 unused: vars */
-contactInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
+contactInformApplication.directive('informHeadlineListContainer', ['$document', '$uiBlockerService', function ($document, $uiBlockerService) {
     var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
@@ -69,6 +69,16 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
         return '<textarea ' + (!_isClosed && _selfScope.$parent.hasHostPermission === true ? '' : 'disabled') +
             ' data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
     }
+
+    function loadCompleted($table) {
+        $("textarea").each(function () {
+            $(this).height(this.scrollHeight);
+        });
+        setTimeout(function () {
+            $table.resize();
+        }, 20);
+    }
+
     function generateBodyRows(scope, pageIndex, pageSize) {
         var bodyData = [];
         var rowsCount = scope.dataSource.length;
@@ -114,7 +124,7 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
         var gridOptions = {
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: viewResources.Status, Width: 110, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Status, Width: 130, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", CellAlign: "left",
                         FormatDateTime: "MMM DD, YYYY hh:mm:ss A"
                     },
@@ -149,18 +159,14 @@ contactInformApplication.directive('informHeadlineListContainer', ['$document', 
                     gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
                     $table.fanexGrid(gridOptions);
 
-                    $("textarea").each(function () {
-                        $(this).height(this.scrollHeight);
-                    });
+                    loadCompleted($table);
                 }
             }
         };
 
         $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-        $("textarea").each(function () {
-            $(this).height(this.scrollHeight);
-        });
+        loadCompleted($table);
     }
 
     return {

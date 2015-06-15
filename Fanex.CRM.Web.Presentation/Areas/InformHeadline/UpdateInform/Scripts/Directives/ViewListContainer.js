@@ -9,7 +9,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
     var MIN_PAGE_SIZE = 100;
     var MAX_PAGE_SIZE = 500;
     var INFORM_SPECIAL_CASE = [1, 5, 12];
-    var _selfScope;    
+    var _selfScope;
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue, disabled) {
         var html = '<select ' + (disabled ? 'disabled' : '') + '  data-binding-name="' + bindingName + '" style="width: 100px">';
@@ -77,6 +77,54 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         return '<textarea data-binding-name="Remark">' + htmlDecode(columnModel.Value.Remark) + '</textarea>';
     }
 
+    function getDescriptionCase(dataItem, caseId) {
+        var message = viewResources['ChangedHeadlineCase' + caseId];
+        switch (parseInt(caseId)) {
+            case 1:
+            case 5:
+                {
+                    message = message.replace('(A)', dataItem.OldUserName || dataItem.UserName);
+                    break;
+                }
+            case 2:
+            case 4:
+                {
+                    message = message.replace('(A)', dataItem.NewUserName || dataItem.UserName);
+                    break;
+                }
+            case 3:
+                {
+                    message = message.replace('(A)', dataItem.OldUserName);
+                    message = message.replace('(B)', dataItem.NewUserName);
+                    break;
+                }
+            default:
+                break;
+        }
+
+        return message;
+    }
+
+    function addTooltip(e) {
+        var $target = angular.element(e.target);
+        var rowIndex = parseInt($target.closest("tr").data("rowindex"));
+        var caseId = $target.data("case");
+        var message = getDescriptionCase(_selfScope.dataSource[rowIndex], caseId);
+
+        $target.attr("data-original-title", message).tooltip({ placement: "right" }).tooltip("show");
+        $target.unbind("hover", addTooltip);
+    }
+
+    function loadCompleted($table) {
+        $table.find(".description-tooltip").hover(addTooltip);
+        $("textarea").each(function () {
+            $(this).height(this.scrollHeight);
+        });
+        setTimeout(function () {
+            $table.resize();
+        }, 20);
+    }
+
     function generateBodyRows(scope, pageIndex, pageSize) {
         var bodyData = [];
         var rowsCount = scope.dataSource.length;
@@ -127,7 +175,7 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
         var gridOptions = {
             columns: [
                     { HeaderText: viewResources.DirectAccount, Width: 120, Name: "DirectAccount", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: viewResources.Status, Width: 110, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.Status, Width: 130, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.UpdatedTime, Width: 100, Name: "UpdatedTime", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY hh:mm:ss A" },
                     { HeaderText: viewResources.Remark, Width: 420, Name: "Remark", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Handler, Width: 100, Name: "Handler", HeaderAlign: "center", CellAlign: "left" },
@@ -153,65 +201,21 @@ updateInformApplication.directive('informHeadlineListContainer', ['$document', f
                 totalItem: scope.dataSource.length,
                 startPerPage: MIN_PAGE_SIZE,
                 pageStep: MIN_PAGE_SIZE,
-                pagerSelectCallBack: function (pageIndex, pageSize) {                    
+                pagerSelectCallBack: function (pageIndex, pageSize) {
                     gridOptions.pagerOption.itemsPerPage = pageSize;
                     gridOptions.pagerOption.pageSize = pageSize;
                     gridOptions.pagerOption.currentPage = pageIndex;
                     gridOptions.bodyRows = generateBodyRows(scope, pageIndex, pageSize);
                     $table.fanexGrid(gridOptions);
 
-                    $table.find(".description-tooltip").hover(addTooltip);
-                    $("textarea").each(function () {
-                        $(this).height(this.scrollHeight);
-                    });
+                    loadCompleted($table);
                 }
             }
         };
 
-        function getDescriptionCase(dataItem, caseId) {
-            var message = viewResources['ChangedHeadlineCase' + caseId];
-            switch (parseInt(caseId)) {
-                case 1:
-                case 5:
-                    {
-                        message = message.replace('(A)', dataItem.OldUserName || dataItem.UserName);
-                        break;
-                    }
-                case 2:
-                case 4:
-                    {
-                        message = message.replace('(A)', dataItem.NewUserName || dataItem.UserName);
-                        break;
-                    }
-                case 3:
-                    {
-                        message = message.replace('(A)', dataItem.OldUserName);
-                        message = message.replace('(B)', dataItem.NewUserName);
-                        break;
-                    }
-                default:
-                    break;
-            }
-
-            return message;
-        }
-
         $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
 
-        function addTooltip(e) {
-            var $target = angular.element(e.target);
-            var rowIndex = parseInt($target.closest("tr").data("rowindex"));
-            var caseId = $target.data("case");
-            var message = getDescriptionCase(scope.dataSource[rowIndex], caseId);
-
-            $target.attr("data-original-title", message).tooltip({ placement: "right" }).tooltip("show");
-            $target.unbind("hover", addTooltip);
-        }
-
-        $table.find(".description-tooltip").hover(addTooltip);
-        $("textarea").each(function () {
-            $(this).height(this.scrollHeight);
-        });
+        loadCompleted($table);
     }
 
     return {

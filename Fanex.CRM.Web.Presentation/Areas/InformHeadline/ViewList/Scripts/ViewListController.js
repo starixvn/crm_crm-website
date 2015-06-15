@@ -1,9 +1,7 @@
-﻿"use strict";
+﻿/*global hotKeyManager*/
+"use strict";
 /* global informHeadlineApplication,
 sharedScriptManager,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
 viewResources, Site */
 /* jshint unused: vars,
 camelcase: false */
@@ -12,7 +10,7 @@ informHeadlineApplication.controller('ViewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
 
-        var POPUP_WIDTH = 1180, POPUP_HEIGHT = 800;
+        var POPUP_WIDTH = 1200, POPUP_HEIGHT = 800;
 
         $scope.contactPolicy = null;
         $scope.searchPolicy = null;
