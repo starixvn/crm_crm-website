@@ -217,10 +217,10 @@
     <value>Username</value>
   </data>
   <data name="ChangedHeadlineCase1" xml:space="preserve">
-    <value>Direct account (A) will be removed.</value>
+    <value>Direct account (A) is now inactive.</value>
   </data>
   <data name="ChangedHeadlineCase2" xml:space="preserve">
-    <value>New direct account (A) found.</value>
+    <value>Direct account (A) is now active.</value>
   </data>
   <data name="ChangedHeadlineCase3" xml:space="preserve">
     <value>This group headline is changed from (A) to (B).</value>

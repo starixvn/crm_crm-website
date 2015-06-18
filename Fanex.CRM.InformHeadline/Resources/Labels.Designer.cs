@@ -61,7 +61,7 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Direct account (A) will be removed..
+        ///   Looks up a localized string similar to Direct account (A) is now inactive..
         /// </summary>
         public static string ChangedHeadlineCase1 {
             get {
@@ -70,7 +70,7 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New direct account (A) found..
+        ///   Looks up a localized string similar to Direct account (A) is now active..
         /// </summary>
         public static string ChangedHeadlineCase2 {
             get {
