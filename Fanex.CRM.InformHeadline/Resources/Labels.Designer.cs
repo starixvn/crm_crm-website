@@ -97,7 +97,7 @@ namespace Fanex.CRM.InformHeadline.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This direct account (A) is now below a group..
+        ///   Looks up a localized string similar to Direct account (A) is now inactive..
         /// </summary>
         public static string ChangedHeadlineCase5 {
             get {

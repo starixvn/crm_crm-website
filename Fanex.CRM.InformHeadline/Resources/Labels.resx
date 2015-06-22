@@ -229,7 +229,7 @@
     <value>This direct account (A) is now headline.</value>
   </data>
   <data name="ChangedHeadlineCase5" xml:space="preserve">
-    <value>This direct account (A) is now below a group.</value>
+    <value>Direct account (A) is now inactive.</value>
   </data>
   <data name="KeptForReference" xml:space="preserve">
     <value>Kept for reference</value>
