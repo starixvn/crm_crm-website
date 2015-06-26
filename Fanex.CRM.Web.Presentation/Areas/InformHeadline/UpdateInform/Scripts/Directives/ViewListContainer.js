@@ -7,7 +7,7 @@ unused: vars */
 updateInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
     var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
     var MIN_PAGE_SIZE = 100;
-    var MAX_PAGE_SIZE = 500;
+    var MAX_PAGE_SIZE = 300;
     var INFORM_SPECIAL_CASE = [1, 5, 12];
     var _selfScope;
 

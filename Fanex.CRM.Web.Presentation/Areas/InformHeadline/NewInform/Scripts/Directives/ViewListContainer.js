@@ -6,7 +6,7 @@ viewResources */
 unused: vars */
 newInformApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
     var MIN_PAGE_SIZE = 100;
-    var MAX_PAGE_SIZE = 500;
+    var MAX_PAGE_SIZE = 300;
     var _selfScope;
 
     function generateDropdown(data, bindingName, valueProperty, textProperty, selectedValue) {
