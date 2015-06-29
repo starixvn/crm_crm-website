@@ -36,6 +36,8 @@ namespace Fanex.CRM.Setting.Repositories
 
         List<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria);
 
+        IList<Status> GetStatuses(GetAllStatusCriteria criteria);
+
         List<FeedbackTemplate> GetFeedbackSubjectTemplateById(GetFeedbackSubjectTemplateByIdCriteria criteria);
 
         List<SettingInfo> GetAllLogAction(ICriteria criteria);
@@ -49,5 +51,7 @@ namespace Fanex.CRM.Setting.Repositories
         List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria);
 
         List<BaseModel> GetAllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria);
+
+        List<Station> GetStations(GetStationsCriteria criteria);
     }
 }

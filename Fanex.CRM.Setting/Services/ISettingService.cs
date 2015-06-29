@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Setting.Services
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
@@ -21,7 +22,7 @@ namespace Fanex.CRM.Setting.Services
 
         SettingInfo SettingById(GetSettingByIdCriteria criteria);
 
-        List<SiteInfo> AllSite();
+        List<SiteInfo> AllSite(GetAllSiteCriteria criteria = null);
 
         IList<BaseModel> AllSiteWithGroup();
 
@@ -41,6 +42,8 @@ namespace Fanex.CRM.Setting.Services
 
         List<SettingInfo> AllStatus(int statusType);
 
+        IList<Status> GetInformHeadlineStatuses();
+
         List<BaseModel> AllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria);
 
         List<SettingInfo> AllRole();
@@ -55,7 +58,7 @@ namespace Fanex.CRM.Setting.Services
 
         List<BaseModel> AllLicenseeType();
 
-        List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria);
+        List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true);
 
         int NumberOfFeedbackSubjectTemplate();
 
@@ -70,5 +73,7 @@ namespace Fanex.CRM.Setting.Services
         void ResetAllCache();
 
         List<SettingInfo> MainSetting();
+
+        List<Station> GetStations();
     }
 }

@@ -9,12 +9,14 @@
 
 namespace Fanex.CRM.Setting.Models
 {
+    using System;
     using System.Collections.Generic;
     using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
     /// Site Information.
     /// </summary>
+    [Serializable]
     public class SiteInfo : BaseModel
     {
         public bool IsLicensee { get; set; }

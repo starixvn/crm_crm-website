@@ -33,6 +33,7 @@ namespace Fanex.CRM.Setting.Services
         public const string GetAllTitleSessionKey = "Fanex.CRM.Setting.GetAllTitleSessionKey";
         public const string GetAllFeedbackTemplateSubjectSessionKey = "Fanex.CRM.Setting.GetAllFeedbackTemplateSubjectSessionKey";
 
+        public const string GetInformHeadlineStatusesSessionKey = "Fanex.CRM.Setting.GetInformHeadlineStatusesSessionKey";
         public const string GetAllSiteSessionKey = "Fanex.CRM.Setting.GetAllSiteSessionKey";
         public const string GetAllSiteWithGroupSessionKey = "Fanex.CRM.Setting.GetAllSiteWithGroupSessionKey";
         public const string GetAllLanguageSessionKey = "Fanex.CRM.Setting.GetAllLanguageSessionKey";
@@ -142,11 +143,12 @@ namespace Fanex.CRM.Setting.Services
         /// <summary>
         /// Gets all site.
         /// </summary>
+        /// <param name="criteria">Get all site criteria.</param>
         /// <returns>All site value.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public List<SiteInfo> AllSite()
+        public List<SiteInfo> AllSite(GetAllSiteCriteria criteria = null)
         {
             try
             {
@@ -158,7 +160,7 @@ namespace Fanex.CRM.Setting.Services
                 }
 
                 allSite = new List<SiteInfo>();
-                var crmSite = GetDynamicData<SiteInfo>(new GetAllSiteCriteria());
+                var crmSite = GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
                 var rawDataGroups = crmSite.GroupBy(setting => setting.IsLicensee);
                 foreach (var rawDataGroup in rawDataGroups)
                 {
@@ -484,7 +486,7 @@ namespace Fanex.CRM.Setting.Services
             }
             else if (statusType == ViewTypeConstants.Redemption)
             {
-                key = GetAllStatusRedemption; 
+                key = GetAllStatusRedemption;
             }
 
             try
@@ -496,6 +498,39 @@ namespace Fanex.CRM.Setting.Services
                 }
 
                 allStatus = _settingRepositoryInstance.GetAllStatus(new GetAllStatusCriteria(statusType))
+                    .OrderBy(s => s.DisplayOrder)
+                    .ToList();
+                CacheService.Set(key, allStatus);
+
+                return allStatus;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Gets all status.
+        /// </summary>
+        /// <param name="statusType">Type of the status.</param>
+        /// <returns>
+        /// All status.
+        /// </returns>
+        public IList<Status> GetInformHeadlineStatuses()
+        {
+            string key = GetInformHeadlineStatusesSessionKey;
+
+            try
+            {
+                var allStatus = CacheService.Get<IList<Status>>(key);
+                if (allStatus != null)
+                {
+                    return allStatus;
+                }
+
+                allStatus = _settingRepositoryInstance.GetStatuses(new GetAllStatusCriteria(ViewTypeConstants.InformHeadline))
                     .OrderBy(s => s.DisplayOrder)
                     .ToList();
                 CacheService.Set(key, allStatus);
@@ -715,12 +750,12 @@ namespace Fanex.CRM.Setting.Services
 
                 licenseeTypes = _settingRepositoryInstance.GetAllLicenseeType(new GetAllLicenseeTypeCriteria());
                 licenseeTypes.Insert(
-                    0, 
+                    0,
                     new BaseModel
-                {
-                    Id = SettingConstants.NotApply,
-                    Name = Labels.Symbol_NotApply
-                });
+                    {
+                        Id = SettingConstants.NotApply,
+                        Name = Labels.Symbol_NotApply
+                    });
 
                 CacheService.Set(key, licenseeTypes);
                 return licenseeTypes;
@@ -736,35 +771,38 @@ namespace Fanex.CRM.Setting.Services
         /// Gets all currency.
         /// </summary>
         /// <param name="criteria">The criteria.</param>
+        /// <param name="hasDefaultOption">Has N/A option or not.</param>
         /// <returns>The currency list.</returns>
-        public List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria)
+        public List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true)
         {
             string key = GetAllCurrencySessionKey;
             try
             {
                 var currencies = CacheService.Get<List<BaseModel>>(key);
-                if (currencies != null)
+                if (currencies == null)
                 {
-                    return currencies;
+                    currencies = _settingRepositoryInstance.GetAllCurrency(criteria);
+                    CacheService.Set(key, currencies);
                 }
 
-                currencies = _settingRepositoryInstance.GetAllCurrency(criteria);
-                currencies.Insert(
-                    0,
-                    new BaseModel
-                    {
-                        Id = SettingConstants.NotApply,
-                        Name = Labels.Symbol_NotApply
-                    });
+                if (hasDefaultOption)
+                {
+                    currencies.Insert(
+                        0,
+                        new BaseModel
+                        {
+                            Id = SettingConstants.NotApply,
+                            Name = Labels.Symbol_NotApply
+                        });
+                }
 
-                CacheService.Set(key, currencies);
                 return currencies;
             }
             catch (Exception ex)
             {
                 LogExtensions.ExceptionHandler(ex);
                 throw;
-            }    
+            }
         }
 
         /// <summary>
@@ -828,14 +866,8 @@ namespace Fanex.CRM.Setting.Services
         {
             try
             {
-                List<FeedbackTemplate> listFeedbackTemplate = new List<FeedbackTemplate>();
-                listFeedbackTemplate = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
-                {
-                    TemplateId = 0
-                });
-
-                CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, listFeedbackTemplate);
-                return listFeedbackTemplate.Count;
+                var feedbackTemplates = GetFeedbackSubjectTemplates();
+                return feedbackTemplates.Count;
             }
             catch (Exception ex)
             {
@@ -855,10 +887,16 @@ namespace Fanex.CRM.Setting.Services
             {
                 var result = new List<FeedbackTemplate>();
                 int multipleNum = SettingConstants.MaxFeedbackSubjectTemplateNumberOnLoad;
-                List<FeedbackTemplate> listFeedbackTemplate = CacheService.Get<List<FeedbackTemplate>>(GetAllFeedbackTemplateSubjectSessionKey);
-                if (listFeedbackTemplate != null && listFeedbackTemplate.Count > 0)
+                var feedbackTemplates = CacheService.Get<List<FeedbackTemplate>>(GetAllFeedbackTemplateSubjectSessionKey);
+
+                if (feedbackTemplates == null)
                 {
-                    result = listFeedbackTemplate
+                    feedbackTemplates = GetFeedbackSubjectTemplates();
+                }
+
+                if (feedbackTemplates != null && feedbackTemplates.Count > 0)
+                {
+                    result = feedbackTemplates
                         .Skip((criteria.PagingIndex - 1) * multipleNum)
                         .Take(criteria.PagingIndex * multipleNum).ToList();
                 }
@@ -1026,6 +1064,23 @@ namespace Fanex.CRM.Setting.Services
             }
         }
 
+        /// <summary>
+        /// Get stations.
+        /// </summary>
+        /// <returns>List of stations.</returns>
+        public List<Station> GetStations()
+        {
+            try
+            {
+                return _settingRepositoryInstance.GetStations(new GetStationsCriteria());
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
         private void GetSubSetting(string key, List<SettingInfo> settingList, IEnumerable<SettingInfo> allSetting)
         {
             var subList = allSetting.Where(s => s.SettingType == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
@@ -1050,6 +1105,25 @@ namespace Fanex.CRM.Setting.Services
                 }
 
                 return settingRelations;
+            }
+            catch (Exception ex)
+            {
+                LogExtensions.ExceptionHandler(ex);
+                throw;
+            }
+        }
+
+        private List<FeedbackTemplate> GetFeedbackSubjectTemplates()
+        {
+            try
+            {
+                var feedbackTemplates = _settingRepositoryInstance.GetFeedbackSubjectTemplateById(new GetFeedbackSubjectTemplateByIdCriteria
+                {
+                    TemplateId = 0
+                });
+
+                CacheService.Set(GetAllFeedbackTemplateSubjectSessionKey, feedbackTemplates);
+                return feedbackTemplates;
             }
             catch (Exception ex)
             {

@@ -10,13 +10,13 @@
 namespace Fanex.CRM.Web.View.AppStart
 {
     using System.Diagnostics.CodeAnalysis;
-    using System.Web;
     using System.Web.Optimization;
     using BundleTransformer.Core.Orderers;
     using BundleTransformer.Core.Transformers;
     using Fanex.CRM.AdminTool;
     using Fanex.CRM.Customer.BundleConfigs;
     using Fanex.CRM.Feedback.Bundles;
+    using Fanex.CRM.InformHeadline;
     using Fanex.CRM.Report;
 
     /// <summary>
@@ -38,7 +38,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/content/bootstrap/css/bootstrap.css",
                 "~/Content/site/common.less",
                 "~/Content/site/Message.less",
-                "~/Content/Vendors/jqueryui/jquery-ui.min.css",
+                "~/Content/vendors/jqueryui/jquery-ui.min.css",
                 "~/Content/site/customizeJqueryUI.less");
 
             bundles.Add(new ScriptBundle("~/scripts/headload").Include(
@@ -129,8 +129,9 @@ namespace Fanex.CRM.Web.View.AppStart
             ReportBundles.RegisterBundles(bundles);
             ReportBundles.RegisterBundles(bundles);
 
-            InformHeadlinesBundles.RegisterAll(bundles);
             AdminToolBundles.RegisterBundles(bundles);
+            InformHeadlineBundles.RegisterBundles(bundles);
+            InformHeadlinesBundles.RegisterAll(bundles);
 
             RegisterBundles_FanexGrid(bundles);
         }
@@ -677,6 +678,8 @@ namespace Fanex.CRM.Web.View.AppStart
     [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Need to review here.")]
     internal static class BundleExtensions
     {
+        private static CssRewriteUrlTransformWrapper _cssRewriteUrlTransformWrapper = new CssRewriteUrlTransformWrapper();
+
         /// <summary>
         /// Creates a bundle, include the virtual paths to the created bundle,
         /// and add it to the bundle collection.
@@ -689,11 +692,18 @@ namespace Fanex.CRM.Web.View.AppStart
             string bundleVirtualPath,
             params string[] virtualPaths)
         {
-            bundles.Add(new Bundle(bundleVirtualPath)
+            var bundle = new Bundle(bundleVirtualPath)
             {
-                Transforms = { new CssTransformer(), new CssMinify() },
+                Transforms = { new StyleTransformer(), new CssMinify() },
                 Orderer = new NullOrderer()
-            }.Include(virtualPaths));
+            };
+
+            foreach (var path in virtualPaths)
+            {
+                bundle.Include(path, _cssRewriteUrlTransformWrapper);
+            }
+
+            bundles.Add(bundle);
         }
     }
 }

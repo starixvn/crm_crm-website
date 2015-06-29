@@ -1,0 +1,106 @@
+﻿﻿@using Fanex.CRM.InformHeadline.Resources;
+@using Fanex.CRM.Infrastructure.Extensions;
+@{    
+    Layout = "~/Views/Shared/_BaseLayout.cshtml";
+}
+@{
+    ViewBag.Title = Labels.InformHeadlines;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css",
+        "~/Content/site/customizeFanexGridV2.less",
+        "~/Scripts/Directives/dropdowntree/fanex.directive.dropdowntree.css",
+        "~/Areas/InformHeadline/ContactInformStyles")
+}
+<div data-ng-app="contactInformApplication">
+    <div data-ng-controller="ContactInformController" 
+        data-ng-init="isClosed = @(ViewBag.IsClosed ? "true" : "false"); titleId = @ViewBag.TitleId; hasHostPermission = @(ViewBag.HasHostPermission ? "true" : "false")">
+        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                    <div data-ng-bind="messageResultOptions.Message">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
+        <div class="container main">
+            <div class="row panel-group">
+                <div class="row title hand identify hand">
+                    <strong data-ng-bind-html="titleDetail.Title"></strong>
+                    <i style="padding: 0px;float:right" class="btnExcel" data-ng-show="listData.length > 0" data-ng-click="exportInformHeadlines()"></i>
+                </div>
+            </div>
+            <div class="row filter-frm one-row">
+                <form novalidate>
+                <div class="row row-item">
+                    <div class="item">
+                        <label for="username" class="width-70">
+                            @Labels.Username</label>
+                        <div class="display-inline-block">
+                            <input type="text" id="username" class="textbox" data-ng-model="username" />
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label class="width-70">
+                            @Labels.Status</label>
+                        <div class="display-inline-block">
+                            <dropdowntree ng-model="selectedStatuses" data-settings="statusDropdownSettings"></dropdowntree>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <button class="btn" data-ng-click="getInforms()">@Labels.Search</button>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <div class="row">
+                <div id="inform-headline-list-container" inform-headline-list-container data-ng-model="listData"
+                    updated-items="updatedItems">
+                    <div id="inform-headline-list" class="freegrid display-none">
+                    </div>
+                </div>
+            </div>
+            <div class="row btn-group" data-ng-show="!isClosed && hasHostPermission === true && showSaveButton">
+                <button id="buttoninsert" class="btn" data-ng-click="updateInforms()">
+                    @Labels.Save</button>
+            </div>
+        </div>
+        @section Scripts {
+            @RazorHelper.RenderScripts(
+                "~/Scripts/CommomScripts",
+                "~/Scripts/AngularJSLibrary",                
+                "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
+                "~/Scripts/FanexGridScripts",
+                "~/CRM/DownLoadFile/Scripts",
+                "~/Bundles/InformHeadline/ContactInformScripts")
+            <script type="text/javascript">
+                parent.document.title = '@Labels.InformHeadlines';
+                var viewResources = {
+                    Status: '@Labels.Status',
+                    Title: '@Labels.Title',
+                    Status: '@Labels.Status',
+                    Search: '@Labels.Search',
+                    Currency: '@Labels.Currency',
+                    Position: '@Labels.Position',
+                    Site: '@Labels.Site',
+                    DirectAccounts: '@Labels.DirectAccounts',
+                    DirectAccount: '@Labels.DirectAccount',
+                    Headline: '@Labels.Headline',
+                    WithoutAnyGroup: '@Labels.WithoutAnyGroup',
+                    UpdatedTime: '@Labels.UpdatedTime',
+                    Remark: '@Labels.Remark',
+                    Handler: '@Labels.Handler',
+                    Extension: '@Labels.Extension',
+                    ProductStatus: '@Labels.ProductStatus',
+                    Save: '@Labels.Save',
+                    NewInformHeadlines: '@Labels.NewInformHeadlines',
+                    KeptForReference: '@Labels.KeptForReference'
+                };
+            </script>
+        }
+    </div>
+</div>

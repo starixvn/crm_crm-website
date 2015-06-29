@@ -34,7 +34,6 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
                 var reader = objectDB.ExecuteReader();
                 while (reader.Read())
                 {

@@ -192,7 +192,7 @@ namespace Fanex.CRM.Report
         {
             bundles.Add(new Bundle(bundleVirtualPath)
             {
-                Transforms = { new CssTransformer(), new CssMinify() },
+                Transforms = { new StyleTransformer(), new CssMinify() },
                 Orderer = new NullOrderer()
             }.Include(virtualPaths));
         }

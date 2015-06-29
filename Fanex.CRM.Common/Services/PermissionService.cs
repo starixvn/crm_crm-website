@@ -74,5 +74,13 @@ namespace Fanex.CRM.Common.Services
                    roles.ContainsKey(functionName) &&
                    roles[functionName] >= (int)policy;
         }
+
+        public Constant.Policy GetPolicy(string functionName)
+        {
+            var roles = AppSession.RoleAccess;
+            return (roles == null || roles.ContainsKey(functionName) == false) ?
+                    Constant.Policy.None : 
+                    (Constant.Policy)roles[functionName];
+        }
     }
 }
