@@ -632,6 +632,11 @@
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListApplication.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListController.js" />
     <Content Include="Areas\InformHeadline\ViewList\Scripts\ViewListService.js" />
+    <Content Include="Configurations\BackupMNL.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
+    <Content Include="Configurations\BackupMNL.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml" />
+    <Content Include="Configurations\BackupMNL.StoreProcedure\DBNAP.bodb_NAP.bodbAdminNet.xml" />
+    <Content Include="Configurations\BackupMNL.StoreProcedure\DBONUSER.ON_USER.bodbAdminNet.xml" />
+    <Content Include="Configurations\BackupMNL.StoreProcedure\DBPOLICY.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBACC.bodb02.bodbAdminNet.xml" />
     <Content Include="Configurations\Dev.StoreProcedure\DBCRM.bodb_CRM.bodbAdminNet.xml">
       <SubType>Designer</SubType>
@@ -942,7 +947,9 @@
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Index.cshtml" />
     <Content Include="Areas\Feedbacks\UpdateCustomerFeedback\Styles\Styles.less" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Styles\casinodaily.less" />
-    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\dev.ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\dev.Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1264,7 +1271,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ConnectionStrings.config" />
+    <Content Include="ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Common\AccessDenied.cshtml" />
@@ -1363,6 +1372,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\InformHeadline\ContactInform\Styles\ViewList.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\WebDeployment.ConfigTransform\backupMNL.ConnectionStrings.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\backupMNL.Web.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\backupMNL.Web.Setting.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
