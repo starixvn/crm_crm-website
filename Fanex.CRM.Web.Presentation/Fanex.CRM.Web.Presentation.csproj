@@ -962,7 +962,9 @@
     <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config" />
+    <Content Include="Configurations\WebDeployment.ConfigTransform\PRO.Web.Setting.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.ConnectionStrings.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.config" />
     <Content Include="Configurations\WebDeployment.ConfigTransform\UAT.Web.Setting.config" />
