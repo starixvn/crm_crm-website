@@ -17,11 +17,11 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
 
     public interface ISettingManagementService
     {
-        List<SettingInfo> MainSetting { get; }
+        IEnumerable<SettingInfo> MainSetting { get; }
 
-        List<SettingInfo> ParentSetting { get; }
+        IEnumerable<SettingInfo> ParentSetting { get; }
 
-        List<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria);
+        IEnumerable<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria);
 
         Result InsertSetting(InsertSettingCriteria criteria);
 

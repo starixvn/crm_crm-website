@@ -39,120 +39,55 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
             _feedbackSubjectManagementRepository = feedbackSubjectManagementRepository ?? new FeedbackSubjectManagementRepository();
         }
 
-        /// <summary>
-        /// Searches the feedback subject template.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback subject template view.</returns>
         public FeedbackSubjectTemplateView SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
         {
-            try
+            var repositoryResult = _feedbackSubjectManagementRepository.SearchFeedbackSubjectTemplate(criteria);
+            return new FeedbackSubjectTemplateView
             {
-                var repositoryResult = _feedbackSubjectManagementRepository.SearchFeedbackSubjectTemplate(criteria);
-                return new FeedbackSubjectTemplateView
-                {
-                    TotalTemplates = repositoryResult.Count(),
-                    Templates = repositoryResult.Skip(criteria.StartIndex).Take(criteria.PageSize).ToList()
-                };
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                TotalTemplates = repositoryResult.Count(),
+                Templates = repositoryResult.Skip(criteria.StartIndex).Take(criteria.PageSize).ToList()
+            };
         }
 
-        /// <summary>
-        /// Deletes the template.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Delete result.</returns>
         public Result DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria)
         {
-            try
+            var result = _feedbackSubjectManagementRepository.DeleteTemplate(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                Result result = _feedbackSubjectManagementRepository.DeleteTemplate(criteria);
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
-                {
-                    result.Message = Labels.Feedback_FeedbackSubjectManagement_DeleteSuccess;
-                    CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
-                }
+                result.Message = Labels.Feedback_FeedbackSubjectManagement_DeleteSuccess;
+                CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
+            }
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return result;
         }
 
-        /// <summary>
-        /// Edits the template.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Edit result.</returns>
         public Result EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
         {
-            try
+            var result = _feedbackSubjectManagementRepository.EditTemplate(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                Result result = _feedbackSubjectManagementRepository.EditTemplate(criteria);
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
-                {
-                    result.Message = Labels.Feedback_FeedbackSubjectManagement_EditSuccess;
-                    CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
-                }
+                result.Message = Labels.Feedback_FeedbackSubjectManagement_EditSuccess;
+                CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
+            }
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return result;
         }
 
-        /// <summary>
-        /// Inserts the template.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Insert result.</returns>
         public Result InsertTemplate(InsertFeedbackSubjectTemplateCriteria criteria)
         {
-            try
+            var result = _feedbackSubjectManagementRepository.InsertTemplate(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                Result result = _feedbackSubjectManagementRepository.InsertTemplate(criteria);
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
-                {
-                    result.Message = Labels.Feedback_FeedbackSubjectManagement_InsertSuccess;
-                    CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
-                }
+                result.Message = Labels.Feedback_FeedbackSubjectManagement_InsertSuccess;
+                CacheService.Delete(SettingService.GetAllFeedbackTemplateSubjectSessionKey);
+            }
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return result;
         }
 
-        /// <summary>
-        /// Gets the feedback subject template by identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback subject template by identifier.</returns>
-        public FeedbackSubjectTemplateInfo FeedbackSubjectTemplateById(FeedbackSubjectTemplateByIdCriteria criteria)
+        public FeedbackSubjectTemplate GetFeedbackSubjectTemplate(FeedbackSubjectTemplateByIdCriteria criteria)
         {
-            try
-            {
-                return _feedbackSubjectManagementRepository.FeedbackSubjectTemplateById(criteria);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _feedbackSubjectManagementRepository.GetFeedbackSubjectTemplate(criteria);
         }
     }
 }

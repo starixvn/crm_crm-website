@@ -44,13 +44,13 @@ namespace Fanex.CRM.ActionLog.Services
         {
             var settingService = new SettingService();
 
-            var countries = settingService.AllCountry()
+            var countries = settingService.GetAllCountries()
                 .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Country" });
 
-            var currencies = settingService.GetAllCurrency(new GetAllCurrencyCriteria())
+            var currencies = settingService.GetAllCurrencies(new GetAllCurrencyCriteria())
                 .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Currency" });
 
-            var settings = settingService.AllSetting();
+            var settings = settingService.GetAllSettings().ToList();
             settings.AddRange(countries);
             settings.AddRange(currencies);
 

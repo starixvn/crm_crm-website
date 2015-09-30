@@ -160,7 +160,7 @@ namespace Fanex.CRM.Feedback.Services
         {
             var categoryHash = new Dictionary<int, string>();
             var subcategoryHash = new Dictionary<int, string>();
-            var categoies = _serviceSetting.AllMainCategory();
+            var categoies = _serviceSetting.GetAllMainCategories();
             foreach (var category in categoies)
             {
                 if (!categoryHash.ContainsKey(category.Id))
@@ -177,7 +177,7 @@ namespace Fanex.CRM.Feedback.Services
                 }
             }
 
-            var statusList = _serviceSetting.AllStatus(ViewTypeConstants.All);
+            var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.All);
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NA);
 
@@ -222,7 +222,7 @@ namespace Fanex.CRM.Feedback.Services
         /// <returns>The list of SettingInfo object.</returns>
         private IList<SettingInfo> GetCustomerResponse()
         {
-            var response = _serviceSetting.AllResponse();
+            var response = _serviceSetting.GetAllResponses().ToList();
             response.Insert(
                 0,
                 new SettingInfo 
@@ -259,7 +259,7 @@ namespace Fanex.CRM.Feedback.Services
                 }
             };
 
-            var rawData = _serviceSetting.AllMainCategory();
+            var rawData = _serviceSetting.GetAllMainCategories();
             foreach (var rawMainCategory in rawData)
             {
                 rawMainCategory.ChildSettings.Insert(0, allSubSettingOption);
@@ -275,7 +275,7 @@ namespace Fanex.CRM.Feedback.Services
         /// <returns>The list of SettingInfo object.</returns>
         private IList<SettingInfo> GetCommunication()
         {
-            var communication = _serviceSetting.AllCommunicationTool()
+            var communication = _serviceSetting.GetAllCommunicationTools()
                 .Where(r => r.Id != CommunicationToolConstants.NotApply)
                 .ToList();
             communication.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
@@ -289,7 +289,7 @@ namespace Fanex.CRM.Feedback.Services
         /// <returns>The list of SettingInfo object.</returns>
         private IList<SettingInfo> GetStatus()
         {
-            var status = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+            var status = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                 .Where(r => !string.Equals(r.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 

@@ -20,16 +20,16 @@ namespace Fanex.CRM.Setting.Models
     [Serializable]
     public class InformHeadlineSetting
     {
-        public List<BaseModel> Status { get; set; }
+        public IEnumerable<BaseModel> Status { get; set; }
 
-        public List<BaseModel> Position { get; set; }
+        public IEnumerable<BaseModel> Position { get; set; }
 
-        public List<BaseModel> Currency { get; set; }
+        public IEnumerable<BaseModel> Currency { get; set; }
 
-        public List<BaseModel> Site { get; set; }
+        public IEnumerable<BaseModel> Site { get; set; }
 
-        public List<BaseModel> ProductStatus { get; set; }
+        public IEnumerable<BaseModel> ProductStatus { get; set; }
 
-        public List<SettingInfo> Extensions { get; set; }
+        public IEnumerable<SettingInfo> Extensions { get; set; }
     }
 }

@@ -58,7 +58,7 @@ namespace Fanex.CRM.Customer.Services
                 if (customerInfo != null)
                 {
                     customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
-                    var siteSetting = _settingService.SettingById(new GetSettingByIdCriteria
+                    var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
                     {
                         SettingId = customerInfo.SiteSetting.Id
                     });
@@ -104,11 +104,11 @@ namespace Fanex.CRM.Customer.Services
         {
             return new
             {
-                Titles = _settingService.AllTitle(),
-                Languages = _settingService.AllLanguage(),
-                Sites = _settingService.AllSite(),
-                LicenseeTypes = _settingService.AllLicenseeType(),
-                Countries = _settingService.AllCountry()
+                Titles = _settingService.GetAllTitles(),
+                Languages = _settingService.GetAllLanguages(),
+                Sites = _settingService.GetAllSites(),
+                LicenseeTypes = _settingService.GetAllLicenseeTypes(),
+                Countries = _settingService.GetAllCountries()
             };
         }
     }

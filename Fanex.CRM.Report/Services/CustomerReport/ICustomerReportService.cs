@@ -19,17 +19,17 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
     {
         CustomerReportInfo CustomerReport(GetCustomerReportCriteria criteria);
 
-        List<SiteInfo> AllSite();
+        IEnumerable<SiteInfo> GetAllSites();
 
-        List<SettingInfo> AllTitle();
+        IEnumerable<SettingInfo> GetAllTitles();
 
-        List<CountryInfo> AllCountry();
+        IEnumerable<CountryInfo> GetAllCountries();
 
-        List<SettingInfo> AllLanguage();
+        IEnumerable<SettingInfo> GetAllLanguages();
 
-        List<SettingInfo> AllCustomerType();
+        IEnumerable<SettingInfo> GetAllCustomerTypes();
 
-        List<SettingInfo> AllVIPType();
+        IEnumerable<SettingInfo> GetAllVIPTypes();
 
         void ExportCustomerReport(GetCustomerReportCriteria criteria);
     }

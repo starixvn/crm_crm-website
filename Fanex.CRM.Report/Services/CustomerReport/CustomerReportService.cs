@@ -56,201 +56,102 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets the customer report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer report.</returns>
         public CustomerReportInfo CustomerReport(GetCustomerReportCriteria criteria)
         {
-            try
+            CustomerReportInfo customerReport = null;
+            if (criteria.IsGetFromCached)
             {
-                CustomerReportInfo customerReport = null;
-                if (criteria.IsGetFromCached)
-                {
-                    customerReport = (CustomerReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, _customerReportSessionKey);
-                }
-
-                if (customerReport == null)
-                {
-                    customerReport = new CustomerReportInfo();
-                    customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria);
-                    customerReport.TotalCustomer = customerReport.CustomerList.Count;
-                }
-
-                if (criteria.IsSortReport &&
-                    !string.IsNullOrEmpty(criteria.SortField) &&
-                    !string.IsNullOrEmpty(criteria.SortDirection))
-                {
-                    customerReport.CustomerList = SortCustomerList(customerReport.CustomerList, criteria);
-                }
-
-                if (customerReport != null)
-                {
-                    SessionExtension.AddSession(HttpContext.Current.Session, _customerReportSessionKey, customerReport);
-                }
-
-                return new CustomerReportInfo
-                {
-                    CustomerList = criteria.IsGetFullReport ?
-                        customerReport.CustomerList :
-                        customerReport.CustomerList.Skip(criteria.PageSize * criteria.PageIndex)
-                           .Take(criteria.PageSize)
-                           .ToList(),
-                    TotalCustomer = customerReport.TotalCustomer
-                };
+                customerReport = (CustomerReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, _customerReportSessionKey);
             }
-            catch (Exception ex)
+
+            if (customerReport == null)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                customerReport = new CustomerReportInfo();
+                customerReport.CustomerList = _customerReportRepository.GetCustomerReport(criteria);
+                customerReport.TotalCustomer = customerReport.CustomerList.Count;
             }
+
+            if (criteria.IsSortReport &&
+                !string.IsNullOrEmpty(criteria.SortField) &&
+                !string.IsNullOrEmpty(criteria.SortDirection))
+            {
+                customerReport.CustomerList = SortCustomerList(customerReport.CustomerList, criteria);
+            }
+
+            if (customerReport != null)
+            {
+                SessionExtension.AddSession(HttpContext.Current.Session, _customerReportSessionKey, customerReport);
+            }
+
+            return new CustomerReportInfo
+            {
+                CustomerList = criteria.IsGetFullReport ?
+                    customerReport.CustomerList :
+                    customerReport.CustomerList.Skip(criteria.PageSize * criteria.PageIndex)
+                       .Take(criteria.PageSize)
+                       .ToList(),
+                TotalCustomer = customerReport.TotalCustomer
+            };
         }
 
-        /// <summary>
-        /// Exports the customer report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportCustomerReport(GetCustomerReportCriteria criteria)
         {
-            try
+            criteria.IsGetFullReport = true;
+            CustomerReportInfo customerReport = CacheService.Get<CustomerReportInfo>(_customerReportSessionKey);
+            if (customerReport == null)
             {
-                criteria.IsGetFullReport = true;
-                CustomerReportInfo customerReport = CacheService.Get<CustomerReportInfo>(_customerReportSessionKey);
-                if (customerReport == null)
+                customerReport = CustomerReport(criteria);
+            }
+
+            ExportExcelInfo exportExcelInfo = new ExportExcelInfo
+            {
+                ExcelFile = new HSSFWorkbook(),
+                MaxColumnIndex = 11
+            };
+
+            ExportCustomerReportBody(ref exportExcelInfo, customerReport);
+            string reportName = Labels.CustomerReport_Title;
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExcelExtensions.StandardizeExcelReportName(reportName));
+        }
+
+        public IEnumerable<SiteInfo> GetAllSites()
+        {
+            return _serviceSetting.GetAllSites();
+        }
+
+        public IEnumerable<SettingInfo> GetAllTitles()
+        {
+            var allTitle = _serviceSetting.GetAllTitles().ToList();
+            allTitle.Insert(
+                0,
+                new SettingInfo
                 {
-                    customerReport = CustomerReport(criteria);
-                }
+                    Value = Labels.All,
+                    Id = TitleConstants.All,
+                    DisplayOrder = 0
+                });
 
-                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = new HSSFWorkbook(),
-                    MaxColumnIndex = 11
-                };
-
-                ExportCustomerReportBody(ref exportExcelInfo, customerReport);
-                string reportName = Labels.CustomerReport_Title;
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExcelExtensions.StandardizeExcelReportName(reportName));
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return allTitle;
         }
 
-        /// <summary>
-        /// Gets all site.
-        /// </summary>
-        /// <returns>All site value.</returns>
-        public List<SiteInfo> AllSite()
+        public IEnumerable<CountryInfo> GetAllCountries()
         {
-            try
-            {
-                return _serviceSetting.AllSite();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _serviceSetting.GetAllCountries();
         }
 
-        /// <summary>
-        /// Gets all title.
-        /// </summary>
-        /// <returns>All title.</returns>
-        public List<SettingInfo> AllTitle()
+        public IEnumerable<SettingInfo> GetAllLanguages()
         {
-            try
-            {
-                var allTitle = _serviceSetting.AllTitle();
-                allTitle.Insert(
-                    0,
-                    new SettingInfo
-                    {
-                        Value = Labels.All,
-                        Id = TitleConstants.All,
-                        DisplayOrder = 0
-                    });
-
-                return allTitle;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _serviceSetting.GetAllLanguages();
         }
 
-        /// <summary>
-        /// Gets all country.
-        /// </summary>
-        /// <returns>All country.</returns>
-        public List<CountryInfo> AllCountry()
+        public IEnumerable<SettingInfo> GetAllCustomerTypes()
         {
-            try
-            {
-                var allCountry = _serviceSetting.AllCountry();
-                return allCountry;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _serviceSetting.GetAllCustomerTypes();
         }
 
-        /// <summary>
-        /// Gets all language.
-        /// </summary>
-        /// <returns>All language.</returns>
-        public List<SettingInfo> AllLanguage()
+        public IEnumerable<SettingInfo> GetAllVIPTypes()
         {
-            try
-            {
-                return _serviceSetting.AllLanguage();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all customer type.
-        /// </summary>
-        /// <returns>All customer type.</returns>
-        public List<SettingInfo> AllCustomerType()
-        {
-            try
-            {
-                return _serviceSetting.AllCustomerType();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Gets all VIP type.
-        /// </summary>
-        /// <returns>All VIP type.</returns>
-        public List<SettingInfo> AllVIPType()
-        {
-            try
-            {
-                var allVIPType = _serviceSetting.AllVIPType();
-                return allVIPType;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _serviceSetting.GetAllVIPTypes();
         }
 
         /// <summary>

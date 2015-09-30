@@ -49,11 +49,11 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             _settingService = settingService ?? new SettingService();
         }
 
-        public List<SettingInfo> MainSetting
+        public IEnumerable<SettingInfo> MainSetting
         {
             get
             {
-            return _settingService.MainSetting();
+                return _settingService.GetMainSettings();
             }
         }
 
@@ -62,24 +62,16 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The setting by type.</returns>
-        public List<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria)
+        public IEnumerable<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria)
         {
-            try
-            {
-                var allSettings = _settingService.AllSetting();
+                var allSettings = _settingService.GetAllSettings();
                 var result = allSettings
                     .Where(s => s.SettingType == criteria.MainSetting.SettingType)
                     .Select(s => s)
                     .ToList();
 
-                result.ForEach(s => s.ChildSettings = GetSettingByParentId(s.Id));
+                result.ForEach(s => s.ChildSettings = GetSettingByParentId(s.Id).ToList());
                 return result.OrderBy(s => s.DisplayOrder).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
         }
 
         /// <summary>
@@ -87,21 +79,13 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The main setting for add relation.</returns>
-        public List<SettingInfo> GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria)
+        public IEnumerable<SettingInfo> GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria)
         {
-            try
-            {
                 var mainSetting = MainSetting;
                 return mainSetting
                     .Where(s => !string.Equals(s.SettingType, criteria.MainSetting.SettingType, StringComparison.Ordinal))
                     .Select(s => s)
                     .ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
         }
 
         /// <summary>
@@ -109,7 +93,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The main setting relations.</returns>
-        public List<SettingInfo> MainSettingRelations(GetMainSettingRelationsCriteria criteria)
+        public IEnumerable<SettingInfo> MainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
             try
             {
@@ -137,7 +121,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
                     addResult.Message = Labels.SettingRelation_AddRelation_UpdateSuccess;
                     CacheService.Delete(AllSettingSessionKey);
                     CacheService.Delete(AllSettingRelationSessionKey);
-                    _settingService.ResetAllCache();
+                    _settingService.ClearCache();
                 }
 
                 return addResult;
@@ -149,7 +133,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             }
         }
 
-        private List<SettingInfo> AllSettingRelation()
+        private IEnumerable<SettingInfo> AllSettingRelation()
         {
             var allSettingRelation = CacheService.Get<List<SettingInfo>>(AllSettingRelationSessionKey);
             if (allSettingRelation == null)
@@ -166,10 +150,10 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
         /// </summary>
         /// <param name="parentId">The parent identifier.</param>
         /// <returns>The setting by parent identifier.</returns>
-        private List<SettingInfo> GetSettingByParentId(int parentId)
+        private IEnumerable<SettingInfo> GetSettingByParentId(int parentId)
         {
             var allSettingRelation = AllSettingRelation();
-            var allSettings = _settingService.AllSetting();
+            var allSettings = _settingService.GetAllSettings();
 
             var settingIds = allSettingRelation
                 .Where(r => r.ParentId == parentId)

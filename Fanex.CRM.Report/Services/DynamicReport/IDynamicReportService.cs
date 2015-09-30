@@ -17,23 +17,23 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
     public interface IDynamicReportService
     {
-        List<SettingInfo> AllPeriodType();
+        IEnumerable<SettingInfo> AllPeriodType();
 
-        List<SettingInfo> AllProduct();
+        IEnumerable<SettingInfo> AllProduct();
 
-        List<SiteInfo> AllSite();
+        IEnumerable<SiteInfo> AllSite();
 
-        List<SettingInfo> AllStatus();
+        IEnumerable<SettingInfo> AllStatus();
 
-        List<SettingInfo> AllResponse();
+        IEnumerable<SettingInfo> AllResponse();
 
-        List<SettingInfo> AllRole();
+        IEnumerable<SettingInfo> AllRole();
 
-        List<SettingInfo> AllCommunicationTool();
+        IEnumerable<SettingInfo> AllCommunicationTool();
 
-        List<SettingInfo> AllMainCategory();
+        IEnumerable<SettingInfo> AllMainCategory();
 
-        List<SettingInfo> AllExtension();
+        IEnumerable<SettingInfo> AllExtension();
 
         DynamicReportInfo GetDynamicReport(GetDynamicReportCriteria criteria);
 

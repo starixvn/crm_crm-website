@@ -57,7 +57,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         public BaseModel[] GetFeedbackStatisticFilterType()
         {
-            return _settingService.FeedbackStatisticFilterTypeList();
+            return _settingService.GetFeedbackStatisticFilterTypes();
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         {
             var categoryHash = new Dictionary<int, string>();
             var subcategoryHash = new Dictionary<int, string>();
-            var categoies = _settingService.AllMainCategory();
+            var categoies = _settingService.GetAllMainCategories();
             foreach (var category in categoies)
             {
                 if (!categoryHash.ContainsKey(category.Id))
@@ -264,7 +264,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                 }
             }
 
-            var statusList = _settingService.AllStatus(ViewTypeConstants.All);
+            var statusList = _settingService.GetAllStatuses(ViewTypeConstants.All);
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NotApply);
 

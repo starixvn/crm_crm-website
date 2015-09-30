@@ -97,7 +97,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             try
             {
                 var allMainCategory = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllMainCategory();
+                var rawData = _serviceSetting.GetAllMainCategories();
                 var allSubSettingOption = new SettingInfo
                 {
                     Id = SettingConstants.AllSetting,

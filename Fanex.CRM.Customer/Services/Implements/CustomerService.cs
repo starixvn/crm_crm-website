@@ -75,7 +75,7 @@ namespace Fanex.CRM.Customer.Services
                 if (customerInfo != null)
                 {
                     customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
-                    var siteSetting = _settingService.SettingById(new GetSettingByIdCriteria
+                    var siteSetting = _settingService.GetSettingById(new GetSettingByIdCriteria
                     {
                         SettingId = customerInfo.SiteSetting.Id
                     });

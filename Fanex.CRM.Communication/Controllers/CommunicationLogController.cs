@@ -80,17 +80,17 @@ namespace Fanex.CRM.Communication.Controllers
 
             var allSetting = new
             {
-                ExtensionList = _serviceSetting.AllExtension(),
-                CountryList = _serviceSetting.AllCountry(),
-                CommunicationToolList = _serviceSetting.AllCommunicationTool(),
-                LanguageList = _serviceSetting.AllLanguage(),
-                MainCategoryList = _serviceSetting.AllMainCategory(),
-                ProductList = _serviceSetting.AllProduct(),
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                CountryList = _serviceSetting.GetAllCountries(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                LanguageList = _serviceSetting.GetAllLanguages(),
+                MainCategoryList = _serviceSetting.GetAllMainCategories(),
+                ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = statusList,
-                SiteList = _serviceSetting.AllSite(),
-                RoleList = _serviceSetting.AllRole(),
-                ResponseList = _serviceSetting.AllResponse(),
-                LicenseeType = _serviceSetting.AllLicenseeType()
+                SiteList = _serviceSetting.GetAllSites(),
+                RoleList = _serviceSetting.GetAllRoles(),
+                ResponseList = _serviceSetting.GetAllResponses(),
+                LicenseeType = _serviceSetting.GetAllLicenseeTypes()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);
@@ -109,17 +109,17 @@ namespace Fanex.CRM.Communication.Controllers
         {
             var allSetting = new
             {
-                ExtensionList = _serviceSetting.AllExtension(),
-                CountryList = _serviceSetting.AllCountry(),
-                CommunicationToolList = _serviceSetting.AllCommunicationTool(),
-                LanguageList = _serviceSetting.AllLanguage(),
-                MainCategoryList = _serviceSetting.AllMainCategory(),
-                ProductList = _serviceSetting.AllProduct(),
+                ExtensionList = _serviceSetting.GetAllExtensions(),
+                CountryList = _serviceSetting.GetAllCountries(),
+                CommunicationToolList = _serviceSetting.GetAllCommunicationTools(),
+                LanguageList = _serviceSetting.GetAllLanguages(),
+                MainCategoryList = _serviceSetting.GetAllMainCategories(),
+                ProductList = _serviceSetting.GetAllProducts(),
                 StatusList = _communicationServiceLog.AllStatusForInsert,
-                SiteList = _serviceSetting.AllSite(),
-                RoleList = _serviceSetting.AllRole(),
-                ResponseList = _serviceSetting.AllResponse(),
-                LicenseeType = _serviceSetting.AllLicenseeType(),
+                SiteList = _serviceSetting.GetAllSites(),
+                RoleList = _serviceSetting.GetAllRoles(),
+                ResponseList = _serviceSetting.GetAllResponses(),
+                LicenseeType = _serviceSetting.GetAllLicenseeTypes(),
                 DefaultSettings = _communicationServiceLog.GetCustomerDefaultSetting(new GetDefaultSettingsCriteria { CustId = custId })
             };
 

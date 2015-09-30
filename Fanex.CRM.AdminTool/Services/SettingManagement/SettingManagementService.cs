@@ -46,11 +46,11 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             _settingService = settingService ?? new SettingService();
         }
 
-        public List<SettingInfo> MainSetting
+        public IEnumerable<SettingInfo> MainSetting
         {
             get
             {
-            return _settingService.MainSetting();
+                return _settingService.GetMainSettings();
             }
         }
 
@@ -60,20 +60,12 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         /// <value>
         /// The parent setting.
         /// </value>
-        public List<SettingInfo> ParentSetting
+        public IEnumerable<SettingInfo> ParentSetting
         {
             get
             {
-                try
-                {
-                var allSettings = _settingService.AllSetting();
-                    return allSettings.OrderBy(s => s.SettingType).ToList();
-                }
-                catch (Exception ex)
-                {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
-                }
+                var allSettings = _settingService.GetAllSettings();
+                return allSettings.OrderBy(s => s.SettingType).ToList();
             }
         }
 
@@ -84,48 +76,27 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         /// <returns>Insert result.</returns>
         public Result InsertSetting(InsertSettingCriteria criteria)
         {
-            try
-            {
-                Result result = IsExistedSetting(criteria.NewSetting) ?
-                    new Result(ErrorCodeConstants.ServerError, Labels.SettingManagement_Error_ExistedSetting) :
-                    _settingManagementRepository.InsertSetting(criteria);
+            Result result = IsExistedSetting(criteria.NewSetting) ?
+                new Result(ErrorCodeConstants.ServerError, Labels.SettingManagement_Error_ExistedSetting) :
+                _settingManagementRepository.InsertSetting(criteria);
 
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
-                {
-                    result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
-                    _settingService.ResetAllCache();
-                }
-
-                return result;
-            }
-            catch (Exception ex)
+            if (result != null && result.Code == ErrorCodeConstants.NoneError)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                result.Message = Labels.SettingManagement_InsertSetting_InsertSuccess;
+                _settingService.ClearCache();
             }
+
+            return result;
         }
 
-        /// <summary>
-        /// Gets the setting by type.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The setting by type.</returns>
-        public List<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria)
+        public IEnumerable<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria)
         {
-            try
-            {
-                var allSettings = _settingService.AllSetting();
-                var result = allSettings
-                    .Where(s => s.SettingType == criteria.MainSetting.SettingType)
-                    .Select(s => s)
-                    .ToList();
-                return result.OrderBy(s => s.DisplayOrder).ToList();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            var allSettings = _settingService.GetAllSettings();
+            var result = allSettings
+                .Where(s => s.SettingType == criteria.MainSetting.SettingType)
+                .Select(s => s)
+                .ToList();
+            return result.OrderBy(s => s.DisplayOrder).ToList();
         }
 
         /// <summary>
@@ -142,7 +113,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
                 return false;
             }
 
-            var firstElement = _settingService.AllSetting().Where(
+            var firstElement = _settingService.GetAllSettings().Where(
                 s => string.Equals(s.Value, setting.Value, StringComparison.OrdinalIgnoreCase) &&
                     string.Equals(s.SettingType, setting.SettingType, StringComparison.OrdinalIgnoreCase));
             return firstElement.Any();
@@ -155,27 +126,19 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         /// <returns>Delete result.</returns>
         public Result DeleteSetting(DeleteSettingCriteria criteria)
         {
-            try
+            Result result = new Result();
+            if (IsExistedSetting(criteria.OldSetting))
             {
-                Result result = new Result();
-                if (IsExistedSetting(criteria.OldSetting))
-                {
-                    result = _settingManagementRepository.DeleteSetting(criteria);
-                }
-
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
-                {
-                    result.Message = Labels.SettingManagement_DeleteSettingSuccess;
-                    _settingService.ResetAllCache();
-                }
-
-                return result;
+                result = _settingManagementRepository.DeleteSetting(criteria);
             }
-            catch (Exception ex)
+
+            if (result != null && result.Code == ErrorCodeConstants.NoneError)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                result.Message = Labels.SettingManagement_DeleteSettingSuccess;
+                _settingService.ClearCache();
             }
+
+            return result;
         }
 
         /// <summary>
@@ -185,26 +148,18 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         /// <returns>Edit result.</returns>
         public Result EditSetting(EditSettingCriteria criteria)
         {
-            try
-            {
-                Result result = !string.Equals(criteria.OldSetting.Value, criteria.UpdatedSetting.Value, StringComparison.OrdinalIgnoreCase) &&
-                    IsExistedSetting(criteria.UpdatedSetting) ?
-                    new Result(ErrorCodeConstants.ServerError, Labels.SettingManagement_Error_ExistedSetting) :
-                    _settingManagementRepository.EditSetting(criteria);
+            Result result = !string.Equals(criteria.OldSetting.Value, criteria.UpdatedSetting.Value, StringComparison.OrdinalIgnoreCase) &&
+                IsExistedSetting(criteria.UpdatedSetting) ?
+                new Result(ErrorCodeConstants.ServerError, Labels.SettingManagement_Error_ExistedSetting) :
+                _settingManagementRepository.EditSetting(criteria);
 
-                if (result != null && result.Code == ErrorCodeConstants.NoneError)
-                {
-                    result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
-                    _settingService.ResetAllCache();
-                }
-
-                return result;
-            }
-            catch (Exception ex)
+            if (result != null && result.Code == ErrorCodeConstants.NoneError)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                result.Message = Labels.SettingManagement_EditSetting_EditSuccess;
+                _settingService.ClearCache();
             }
+
+            return result;
         }
 
         /// <summary>
@@ -214,18 +169,10 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
         /// <returns>The setting by identifier.</returns>
         public SettingInfo GetSettingById(GetSettingByIdCriteria criteria)
         {
-            try
-            {
-                return _settingService.AllSetting()
-                    .Where(s => s.Id == criteria.SettingId)
-                    .ToList()
-                    .FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _settingService.GetAllSettings()
+                .Where(s => s.Id == criteria.SettingId)
+                .ToList()
+                .FirstOrDefault();
         }
     }
 }

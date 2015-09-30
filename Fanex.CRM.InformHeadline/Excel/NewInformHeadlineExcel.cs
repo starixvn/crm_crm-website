@@ -45,11 +45,11 @@ namespace Fanex.CRM.InformHeadline.Excel
         
         private readonly IInformHeadlineService _informService;
 
-        private IList<InformStatus> _informStatuses;
+        private IEnumerable<InformStatus> _informStatuses;
         private string _informHeadlineTitle;
-        private IList<NewInform> _data;
+        private IEnumerable<NewInform> _data;
 
-        public NewInformHeadlineExcel(string informHeadlineTitle, IList<NewInform> data, string excelFileName)
+        public NewInformHeadlineExcel(string informHeadlineTitle, IEnumerable<NewInform> data, string excelFileName)
             : base(excelFileName)
         {
             _informHeadlineTitle = informHeadlineTitle;
@@ -75,7 +75,7 @@ namespace Fanex.CRM.InformHeadline.Excel
 
             GenerateTitle(exportExcelInfo, Labels.InformHeadlinesCases);
             GenerateHeader(exportExcelInfo);
-            if (_data == null || _data.Count == 0)
+            if (_data == null || _data.Count() == 0)
             {
                 NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
@@ -144,7 +144,7 @@ namespace Fanex.CRM.InformHeadline.Excel
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="informs">The weekly categories.</param>
-        private void GenerateBody(ExportExcelInfo exportExcelInfo, IList<NewInform> informs)
+        private void GenerateBody(ExportExcelInfo exportExcelInfo, IEnumerable<NewInform> informs)
         {
             exportExcelInfo.ResetCurrentColumn();
             int currentRow = exportExcelInfo.CurrentRow;

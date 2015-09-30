@@ -7,6 +7,7 @@
 namespace Fanex.CRM.InformHeadline.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.InformHeadline.Criteria;
@@ -43,11 +44,7 @@ namespace Fanex.CRM.InformHeadline.Services
 
         #region Inform headline list
 
-        /// <summary>
-        /// Get inform statuses.
-        /// </summary>
-        /// <returns>List of status.</returns>
-        public IList<InformStatus> GetInformStatuses(bool isIncludeKeptForRefence = false)
+        public IEnumerable<InformStatus> GetInformStatuses(bool isIncludeKeptForRefence = false)
         {
             try
             {
@@ -63,48 +60,16 @@ namespace Fanex.CRM.InformHeadline.Services
             }
         }
 
-        /// <summary>
-        /// Get informs.
-        /// </summary>
-        /// <param name="criteria">Criteria data.</param>
-        /// <returns>List of informs.</returns>
-        public IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria)
+        public IEnumerable<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria)
         {
-            try
-            {
-                return _informHeadlineRepository.GetInforms(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _informHeadlineRepository.GetInforms(criteria);
         }
 
-        /// <summary>
-        /// Update inform status.
-        /// </summary>
-        /// <param name="criteria">Criteria data.</param>
-        /// <returns>Result object.</returns>
         public Result UpdateInformStatus(UpdateInformStatusCriteria criteria)
         {
-            try
-            {
-                return _informHeadlineRepository.UpdateInformStatus(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _informHeadlineRepository.UpdateInformStatus(criteria);
         }
 
-        /// <summary>
-        /// Exports the get inform headlines.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="fileName">File name.</param>
-        /// <returns>Inform headline excel.</returns>
         public InformHeadlineExcel GetInformHeadlineExcel(GetInformHeadlinesCriteria criteria, string fileName)
         {
             var data = _informHeadlineRepository.GetInforms(criteria);
@@ -116,91 +81,47 @@ namespace Fanex.CRM.InformHeadline.Services
 
         #region New Inform headline
 
-        /// <summary>
-        /// Insert inform headlines.
-        /// </summary>
-        /// <param name="criteria">Criteria object.</param>
-        /// <returns>Result object.</returns>
         public Result InsertInformHeadline(InsertInformHeadlineCriteria criteria)
         {
-            try
+            var result = _informHeadlineRepository.InsertInformHeadline(criteria);
+
+            if (result.Code != 0)
             {
-                var result = _informHeadlineRepository.InsertInformHeadline(criteria);
-
-                if (result.Code != 0)
-                {
-                    return result;
-                }
-
-                var updateContentCriteria = new UpdateContentInformHeadlineCriteria();
-                updateContentCriteria.Informs = criteria.Informs;
-                updateContentCriteria.TitleId = (int)result.ExtendedData;
-
-                return UpdateContentInformHeadline(updateContentCriteria);
+                return result;
             }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+
+            var updateContentCriteria = new UpdateContentInformHeadlineCriteria();
+            updateContentCriteria.Informs = criteria.Informs;
+            updateContentCriteria.TitleId = (int)result.ExtendedData;
+
+            return UpdateContentInformHeadline(updateContentCriteria);
         }
 
-        /// <summary>
-        /// Get informs for new case.
-        /// </summary>
-        /// <param name="criteria">Get informs criteria.</param>
-        /// <returns>List of informs.</returns>
-        public IList<NewInform> GetNewInforms(GetNewInformsCriteria criteria)
+        public IEnumerable<NewInform> GetNewInforms(GetNewInformsCriteria criteria)
         {
-            try
-            {
-                return _informHeadlineRepository.GetNewInforms(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _informHeadlineRepository.GetNewInforms(criteria);
         }
 
-        /// <summary>
-        /// Gets all settings.
-        /// </summary>
-        /// <returns>The object with all settings.</returns>
         public dynamic GetNewInformSettings()
         {
-            try
+            return new
             {
-                return new
+                Sites = _settingServices.GetAllSites(new GetAllSiteCriteria()
                 {
-                    Sites = _settingServices.AllSite(new GetAllSiteCriteria()
+                    LicenseeType = LicenseeTypeConstants.Credit
+                }),
+                Currencies = _settingServices.GetAllCurrencies(
+                    new GetAllCurrencyCriteria()
                     {
-                        LicenseeType = LicenseeTypeConstants.Credit
-                    }),
-                    Currencies = _settingServices.GetAllCurrency(
-                        new GetAllCurrencyCriteria()
-                        {
-                            IsTest = true
-                        }, 
-                        false),
-                    Statuses = GetInformStatuses(),
-                    ProductStatuses = GetProductStatuses(),
-                    Stations = GetStations()
-                };
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                        IsTest = true
+                    },
+                    false),
+                Statuses = GetInformStatuses(),
+                ProductStatuses = GetProductStatuses(),
+                Stations = GetStations()
+            };
         }
 
-        /// <summary>
-        /// Exports the get inform headlines.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="fileName">File name.</param>
-        /// <returns>Inform headline excel.</returns>
         public NewInformHeadlineExcel GetNewInformHeadlineExcel(GetNewInformsCriteria criteria, string fileName)
         {
             var data = _informHeadlineRepository.GetNewInforms(criteria);
@@ -212,84 +133,31 @@ namespace Fanex.CRM.InformHeadline.Services
 
         #region Update Inform headline
 
-        /// <summary>
-        /// Update inform headline.
-        /// </summary>
-        /// <param name="criteria">Criteria object.</param>
-        /// <returns>Result object.</returns>
         public Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria)
         {
-            try
-            {
-                criteria.Content = BuildUpdateInformsXml(criteria.Informs);
-                return _informHeadlineRepository.UpdateInformHeadline(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            criteria.Content = BuildUpdateInformsXml(criteria.Informs);
+            return _informHeadlineRepository.UpdateInformHeadline(criteria);
         }
 
-        /// <summary>
-        /// Get informs for new case.
-        /// </summary>
-        /// <param name="criteria">Get informs criteria.</param>
-        /// <returns>List of informs.</returns>
-        public IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria)
+        public IEnumerable<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria)
         {
-            try
-            {
-                return _informHeadlineRepository.GetUpdateInforms(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _informHeadlineRepository.GetUpdateInforms(criteria);
         }
 
-        /// <summary>
-        /// Update content of inform headlines.
-        /// </summary>
-        /// <param name="criteria">Criteria object.</param>
-        /// <returns>Result object.</returns>
         public Result UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria)
         {
-            try
-            {
-                criteria.Content = BuildContentInformsXml(criteria.Informs);
-                return _informHeadlineRepository.UpdateContentInformHeadline(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            criteria.Content = BuildContentInformsXml(criteria.Informs);
+            return _informHeadlineRepository.UpdateContentInformHeadline(criteria);
         }
 
-        /// <summary>
-        /// Exports the get inform headlines.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="fileName">File name.</param>
-        /// <returns>Inform headline excel.</returns>
         public UpdateInformHeadlineExcel GetUpdateInformHeadlineExcel(GetUpdateInformsCriteria criteria, string fileName)
         {
-            try
+            var data = _informHeadlineRepository.GetUpdateInforms(criteria);
+            var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
             {
-                var data = _informHeadlineRepository.GetUpdateInforms(criteria);
-                var titleDetail = _informHeadlineRepository.GetTileDetail(new GetTitleDetailCriteria()
-                {
-                    TitleId = criteria.TitleId
-                });
-                return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                TitleId = criteria.TitleId
+            });
+            return new UpdateInformHeadlineExcel(titleDetail.Title, data, fileName);
         }
 
         #endregion Update Inform headline
@@ -301,17 +169,9 @@ namespace Fanex.CRM.InformHeadline.Services
         /// </summary>
         /// <param name="criteria">Get informs criteria.</param>
         /// <returns>List of informs.</returns>
-        public IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
+        public IEnumerable<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria)
         {
-            try
-            {
-                return _informHeadlineRepository.GetContactInforms(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _informHeadlineRepository.GetContactInforms(criteria);
         }
 
         /// <summary>
@@ -353,73 +213,40 @@ namespace Fanex.CRM.InformHeadline.Services
             }
         }
 
-        #endregion Contact Inform headline                                        
+        #endregion Contact Inform headline
 
         #region Common
 
-        /// <summary>
-        /// Get title detail.
-        /// </summary>
-        /// <param name="criteria">Criteria object.</param>
-        /// <returns>Title detail.</returns>
         public TitleDetail GetTitleDetail(GetTitleDetailCriteria criteria)
         {
-            try
-            {
-                return _informHeadlineRepository.GetTileDetail(criteria);
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-        }        
+            return _informHeadlineRepository.GetTileDetail(criteria);
+        }
 
-        /// <summary>
-        /// Get product statuses.
-        /// </summary>
-        /// <returns>List of product status.</returns>
-        public IList<Status> GetProductStatuses()
+        public IEnumerable<Status> GetProductStatuses()
         {
-            try
+            var productStatuses = _settingServices.GetInformHeadlineStatuses().ToList();
+            if (productStatuses.Count > 0 && productStatuses[0].StatusId != 0)
             {
-                var productStatuses = _settingServices.GetInformHeadlineStatuses();
-                if (productStatuses.Count > 0 && productStatuses[0].StatusId != 0)
-                {
-                    productStatuses.Insert(
-                        0,
-                        new Status()
-                        {
-                            StatusId = 0,
-                            Name = Labels.NA,
-                            DisplayOrder = 0
-                        });
-                }
+                productStatuses.Insert(
+                    0,
+                    new Status()
+                    {
+                        StatusId = 0,
+                        Name = Labels.NA,
+                        DisplayOrder = 0
+                    });
+            }
 
-                return productStatuses;
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return productStatuses;
         }
 
         /// <summary>
         /// Get stations.
         /// </summary>
         /// <returns>List of stations.</returns>
-        public IList<Station> GetStations()
+        public IEnumerable<Station> GetStations()
         {
-            try
-            {
-                return _settingServices.GetStations();
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _settingServices.GetStations();
         }
 
         #endregion Common

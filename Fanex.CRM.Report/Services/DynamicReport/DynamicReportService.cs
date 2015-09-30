@@ -67,11 +67,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets all period type.
-        /// </summary>
-        /// <returns>All period type.</returns>
-        public List<SettingInfo> AllPeriodType()
+        public IEnumerable<SettingInfo> AllPeriodType()
         {
             try
             {
@@ -110,12 +106,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// Gets all product.
         /// </summary>
         /// <returns>All product.</returns>      
-        public List<SettingInfo> AllProduct()
+        public IEnumerable<SettingInfo> AllProduct()
         {
             try
             {
                 var allProduct = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllProduct();
+                var rawData = _serviceSetting.GetAllProducts();
                 allProduct.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
@@ -142,38 +138,25 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             }
         }
 
-        /// <summary>
-        /// Gets all site.
-        /// </summary>
-        /// <returns>All site value.</returns>
-        public List<SiteInfo> AllSite()
+        public IEnumerable<SiteInfo> AllSite()
         {
-            try
-            {
-                var allSite = _serviceSetting.AllSite();
-                return allSite;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _serviceSetting.GetAllSites();
         }
 
         /// <summary>
         /// Gets all status.
         /// </summary>
         /// <returns>All status.</returns>
-        public List<SettingInfo> AllStatus()
+        public IEnumerable<SettingInfo> AllStatus()
         {
             try
             {
-                var rawData = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+                var rawData = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                     .Where(s => !string.Equals(s.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
                 rawData.Insert(
-                    0, 
+                    0,
                     new SettingInfo
                     {
                         Id = SettingConstants.NotApply,
@@ -193,12 +176,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// Gets all response.
         /// </summary>
         /// <returns>All response.</returns>
-        public List<SettingInfo> AllResponse()
+        public IEnumerable<SettingInfo> AllResponse()
         {
             try
             {
                 var allResponse = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllResponse();
+                var rawData = _serviceSetting.GetAllResponses();
                 allResponse.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
@@ -223,12 +206,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// Gets all role.
         /// </summary>
         /// <returns>All role value.</returns>
-        public List<SettingInfo> AllRole()
+        public IEnumerable<SettingInfo> AllRole()
         {
             try
             {
                 var allRole = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllRole();
+                var rawData = _serviceSetting.GetAllRoles();
                 allRole.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
@@ -253,12 +236,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// Gets all communication tool.
         /// </summary>
         /// <returns>All communication tool.</returns>
-        public List<SettingInfo> AllCommunicationTool()
+        public IEnumerable<SettingInfo> AllCommunicationTool()
         {
             try
             {
                 var allCommunicationTool = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllCommunicationTool();
+                var rawData = _serviceSetting.GetAllCommunicationTools();
                 allCommunicationTool.Add(new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
@@ -288,12 +271,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// Gets all main category.
         /// </summary>
         /// <returns>All main category.</returns>
-        public List<SettingInfo> AllMainCategory()
+        public IEnumerable<SettingInfo> AllMainCategory()
         {
             try
             {
                 var allMainCategory = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllMainCategory();
+                var rawData = _serviceSetting.GetAllMainCategories();
                 var allSubSettingOption = new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
@@ -329,12 +312,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// Gets all extension.
         /// </summary>
         /// <returns>All extension.</returns>
-        public List<SettingInfo> AllExtension()
+        public IEnumerable<SettingInfo> AllExtension()
         {
             try
             {
                 var allExtension = new List<SettingInfo>();
-                var rawData = _serviceSetting.AllExtension();
+                var rawData = _serviceSetting.GetAllExtensions();
                 allExtension.Add(new SettingInfo
                 {
                     Id = ExtensionConstants.NotApply,

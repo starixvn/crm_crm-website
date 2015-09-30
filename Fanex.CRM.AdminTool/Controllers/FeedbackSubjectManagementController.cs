@@ -90,7 +90,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult FeedbackSubjectTemplateById(FeedbackSubjectTemplateByIdCriteria criteria)
         {
-            var result = _feedbackSubjectManagementService.FeedbackSubjectTemplateById(criteria);
+            var result = _feedbackSubjectManagementService.GetFeedbackSubjectTemplate(criteria);
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

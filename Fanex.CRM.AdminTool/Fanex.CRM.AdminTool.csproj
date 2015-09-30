@@ -164,7 +164,7 @@
     <Compile Include="Criteria\SettingRelation\GetMainSettingForAddRelationCriteria.cs" />
     <Compile Include="Criteria\SettingRelation\GetMainSettingRelationsCriteria.cs" />
     <Compile Include="Criteria\SettingRelation\GetSettingByTypeCriteria.cs" />
-    <Compile Include="Models\FeedbackSubjectManagement\FeedbackSubjectTemplateInfo.cs" />
+    <Compile Include="Models\FeedbackSubjectManagement\FeedbackSubjectTemplate.cs" />
     <Compile Include="Models\FeedbackSubjectManagement\FeedbackSubjectTemplateView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FeedbackSubjectManagement\FeedbackSubjectManagementRepository.cs" />

@@ -49,12 +49,12 @@ namespace Fanex.CRM.Report.Controllers
         {
             var allSetting = new
             {
-                SiteList = _customerReportService.AllSite(),
-                TitleList = _customerReportService.AllTitle(),
-                CountryList = _customerReportService.AllCountry(),
-                LanguageList = _customerReportService.AllLanguage(),
-                CustomerTypeList = _customerReportService.AllCustomerType(),
-                VIPTypeList = _customerReportService.AllVIPType()
+                SiteList = _customerReportService.GetAllSites(),
+                TitleList = _customerReportService.GetAllTitles(),
+                CountryList = _customerReportService.GetAllCountries(),
+                LanguageList = _customerReportService.GetAllLanguages(),
+                CustomerTypeList = _customerReportService.GetAllCustomerTypes(),
+                VIPTypeList = _customerReportService.GetAllVIPTypes()
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

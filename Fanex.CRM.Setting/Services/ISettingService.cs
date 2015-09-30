@@ -18,62 +18,62 @@ namespace Fanex.CRM.Setting.Services
 
     public interface ISettingService
     {
-        List<SettingInfo> AllSetting();
+        IEnumerable<SettingInfo> GetAllSettings();
 
-        SettingInfo SettingById(GetSettingByIdCriteria criteria);
+        SettingInfo GetSettingById(GetSettingByIdCriteria criteria);
 
-        List<SiteInfo> AllSite(GetAllSiteCriteria criteria = null);
+        IEnumerable<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null);
 
-        IList<BaseModel> AllSiteWithGroup();
+        IEnumerable<BaseModel> GetAllSiteWithGroup();
 
-        List<SettingInfo> AllTitle();
+        IEnumerable<SettingInfo> GetAllTitles();
 
-        List<CountryInfo> AllCountry();
+        IEnumerable<CountryInfo> GetAllCountries();
 
-        List<SettingInfo> AllLanguage();
+        IEnumerable<SettingInfo> GetAllLanguages();
 
-        List<SettingInfo> AllExtension();
+        IEnumerable<SettingInfo> GetAllExtensions();
 
-        List<SettingInfo> AllCommunicationTool();
+        IEnumerable<SettingInfo> GetAllCommunicationTools();
 
-        List<SettingInfo> AllMainCategory();
+        IEnumerable<SettingInfo> GetAllMainCategories();
 
-        List<SettingInfo> AllProduct();
+        IEnumerable<SettingInfo> GetAllProducts();
 
-        List<SettingInfo> AllStatus(int statusType);
+        IEnumerable<SettingInfo> GetAllStatuses(int statusType);
 
-        IList<Status> GetInformHeadlineStatuses();
+        IEnumerable<Status> GetInformHeadlineStatuses();
 
-        List<BaseModel> AllCurrencyRedemption(GetAllCurrencyRedemptionCriteria criteria);
+        IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
 
-        List<SettingInfo> AllRole();
+        IEnumerable<SettingInfo> GetAllRoles();
 
-        List<SettingInfo> AllResponse();
+        IEnumerable<SettingInfo> GetAllResponses();
 
-        List<SettingInfo> AllCustomerType();
+        IEnumerable<SettingInfo> GetAllCustomerTypes();
 
-        List<SettingInfo> AllVIPType();
+        IEnumerable<SettingInfo> GetAllVIPTypes();
 
-        List<SettingInfo> AllSiteType();
+        IEnumerable<SettingInfo> GetAllSiteTypes();
 
-        List<BaseModel> AllLicenseeType();
+        IEnumerable<BaseModel> GetAllLicenseeTypes();
 
-        List<BaseModel> GetAllCurrency(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true);
+        IEnumerable<BaseModel> GetAllCurrencies(GetAllCurrencyCriteria criteria, bool hasDefaultOption = true);
 
         int NumberOfFeedbackSubjectTemplate();
 
-        List<FeedbackTemplate> FeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria);
+        IEnumerable<FeedbackTemplate> GetFeedbackSubjectTemplateByPagingIndex(GetFeedbackSubjectTemplateByPagingIndexCriteria criteria);
 
-        List<SettingInfo> AllLogAction(GetActionCriteria criteria);
+        IEnumerable<BaseModel> GetAllLogActions(GetActionCriteria criteria);
 
-        InformHeadlineSetting AllInformHeadlineSettings();
+        InformHeadlineSetting GetAllInformHeadlineSettings();
 
-        BaseModel[] FeedbackStatisticFilterTypeList();
+        BaseModel[] GetFeedbackStatisticFilterTypes();
 
-        void ResetAllCache();
+        void ClearCache();
 
-        List<SettingInfo> MainSetting();
+        IEnumerable<SettingInfo> GetMainSettings();
 
-        List<Station> GetStations();
+        IEnumerable<Station> GetStations();
     }
 }

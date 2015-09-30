@@ -52,11 +52,11 @@ namespace Fanex.CRM.InformHeadline.Excel
         
         private readonly IInformHeadlineService _informService;
 
-        private IList<InformStatus> _informStatuses;
-        private IList<Status> _productStatuses;
-        private IList<Station> _stations;
+        private IEnumerable<InformStatus> _informStatuses;
+        private IEnumerable<Status> _productStatuses;
+        private IEnumerable<Station> _stations;
         private string _informHeadlineTitle;
-        private IList<UpdateInform> _data;
+        private IEnumerable<UpdateInform> _data;
 
         private ICellStyle _updatedLeftAlignStyle;
         private ICellStyle _updatedCenterAlignStyle;
@@ -67,7 +67,7 @@ namespace Fanex.CRM.InformHeadline.Excel
         private ICellStyle _normalLeftAlignStyle;
         private ICellStyle _normalCenterAlignStyle;
 
-        public UpdateInformHeadlineExcel(string informHeadlineTitle, IList<UpdateInform> data, string excelFileName)
+        public UpdateInformHeadlineExcel(string informHeadlineTitle, IEnumerable<UpdateInform> data, string excelFileName)
             : base(excelFileName)
         {
             _informHeadlineTitle = informHeadlineTitle;
@@ -95,7 +95,7 @@ namespace Fanex.CRM.InformHeadline.Excel
 
             GenerateTitle(exportExcelInfo, Labels.InformHeadlinesCases);
             GenerateHeader(exportExcelInfo);
-            if (_data == null || _data.Count == 0)
+            if (_data == null || _data.Count() == 0)
             {
                 NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
@@ -193,7 +193,7 @@ namespace Fanex.CRM.InformHeadline.Excel
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="informs">The weekly categories.</param>
-        private void GenerateBody(ExportExcelInfo exportExcelInfo, IList<UpdateInform> informs)
+        private void GenerateBody(ExportExcelInfo exportExcelInfo, IEnumerable<UpdateInform> informs)
         {
             exportExcelInfo.ResetCurrentColumn();
             int currentRow = exportExcelInfo.CurrentRow;

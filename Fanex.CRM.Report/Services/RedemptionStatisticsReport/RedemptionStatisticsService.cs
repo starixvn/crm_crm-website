@@ -60,15 +60,11 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             _redemptionRepository = redemptionRepository ?? new RedemptionStatisticsRepository();
         }
 
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <returns>All status.</returns>
         public List<SettingInfo> AllStatus()
         {
             try
             {
-                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption);
+                var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.Redemption).ToList();
 
                 int deleteIndex = -1;
                 for (int i = 0; i < statusList.Count; i++)
@@ -111,7 +107,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             try
             {
-                var currencies = _serviceSetting.AllCurrencyRedemption(new GetAllCurrencyRedemptionCriteria());
+                var currencies = _serviceSetting.GetAllCurrencyRedemptions(new GetAllCurrencyRedemptionCriteria()).ToList();
                 currencies.Insert(0, new BaseModel { Id = SettingConstants.NotApply, Name = Labels.All });
 
                 return currencies;

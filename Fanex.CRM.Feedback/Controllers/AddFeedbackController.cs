@@ -64,7 +64,7 @@ namespace Fanex.CRM.Feedback.Controllers
         /// <returns>All setting to add feedback.</returns>
         public AllSettingToAddFeedback AllSettingToAddFeedback()
         {
-            var languageList = ServiceSetting.AllLanguage();
+            var languageList = ServiceSetting.GetAllLanguages().ToList();
             languageList.Insert(
                 0,
                 new SettingInfo
@@ -73,7 +73,7 @@ namespace Fanex.CRM.Feedback.Controllers
                     Name = Labels.Symbol_NA
                 });
 
-            var countryList = ServiceSetting.AllCountry();
+            var countryList = ServiceSetting.GetAllCountries().ToList();
             countryList.Insert(
                 0,
                 new CountryInfo
@@ -86,17 +86,17 @@ namespace Fanex.CRM.Feedback.Controllers
                                         .Where(s => s.Id != (int)CRMStatus.Deleted).ToList();
             var allSetting = new AllSettingToAddFeedback
             {
-                ExtensionList = ServiceSetting.AllExtension(),
+                ExtensionList = ServiceSetting.GetAllExtensions(),
                 CountryList = countryList,
-                CommunicationToolList = ServiceSetting.AllCommunicationTool(),
+                CommunicationToolList = ServiceSetting.GetAllCommunicationTools(),
                 LanguageList = languageList,
-                MainCategoryList = ServiceSetting.AllMainCategory(),
-                ProductList = ServiceSetting.AllProduct(),
-                SiteList = ServiceSetting.AllSite(),
-                ResponseList = ServiceSetting.AllResponse(),
+                MainCategoryList = ServiceSetting.GetAllMainCategories(),
+                ProductList = ServiceSetting.GetAllProducts(),
+                SiteList = ServiceSetting.GetAllSites(),
+                ResponseList = ServiceSetting.GetAllResponses(),
                 StatusList = statusList,
-                TitleList = ServiceSetting.AllTitle(),
-                LicenseeType = ServiceSetting.AllLicenseeType()
+                TitleList = ServiceSetting.GetAllTitles(),
+                LicenseeType = ServiceSetting.GetAllLicenseeTypes()
             };
 
             return allSetting;

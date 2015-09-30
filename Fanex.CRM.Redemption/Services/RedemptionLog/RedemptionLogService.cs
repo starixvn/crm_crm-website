@@ -50,7 +50,7 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
         {
             get
             {
-                var currencies = _serviceSetting.AllCurrencyRedemption(new GetAllCurrencyRedemptionCriteria());
+                var currencies = _serviceSetting.GetAllCurrencyRedemptions(new GetAllCurrencyRedemptionCriteria()).ToList();
                 currencies.Insert(0, new BaseModel { Id = SettingConstants.NotApply, Name = Labels.Symbol_NotApply });
 
                 return currencies;
@@ -163,7 +163,7 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
         {
             try
             {
-                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption)
+                var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.Redemption)
                     .Where(s => !string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase))
                     .ToList();
                 return new
@@ -187,7 +187,7 @@ namespace Fanex.CRM.Redemption.Services.RedemptionLog
         {
             try
             {
-                var statusList = _serviceSetting.AllStatus(ViewTypeConstants.Redemption);
+                var statusList = _serviceSetting.GetAllStatuses(ViewTypeConstants.Redemption);
 
                 return new
                 {

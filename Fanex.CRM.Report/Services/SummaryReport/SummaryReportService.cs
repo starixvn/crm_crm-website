@@ -65,8 +65,8 @@ namespace Fanex.CRM.Report.Services.SummaryReport
                 yearRange.Add(new SettingInfo { Id = i, Value = i.ToString() });
             }
 
-            var siteTypes = _settingServices.AllSiteType();
-            var categories = _settingServices.AllMainCategory();
+            var siteTypes = _settingServices.GetAllSiteTypes();
+            var categories = _settingServices.GetAllMainCategories();
             return new
             {
                 YearRange = yearRange,
