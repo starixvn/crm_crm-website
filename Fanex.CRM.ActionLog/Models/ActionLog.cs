@@ -17,7 +17,7 @@ namespace Fanex.CRM.ActionLog.Models
     /// Action Log class.
     /// </summary>
     [Serializable]
-    public abstract class ActionLog
+    public class ActionLog
     {
         protected ActionLog()
         {

@@ -24,16 +24,7 @@ namespace Fanex.CRM.Infrastructure.Models
 
             this.ItemsPerPage = itemsPerPage;
             this.PageIndex = pageIndex;
-            this.AddRange(source.Skip(pageIndex * itemsPerPage).Take(itemsPerPage).ToList());
-        }
-
-        public PagedList(IList<T> source, int pageIndex, int itemsPerPage)
-        {
-            this.TotalItems = source.Count;
-
-            this.ItemsPerPage = itemsPerPage;
-            this.PageIndex = pageIndex;
-            this.AddRange(source.Skip(pageIndex * itemsPerPage).Take(itemsPerPage).ToList());
+            this.AddRange(source.Skip(pageIndex * itemsPerPage).Take(itemsPerPage));
         }
 
         public int PageIndex { get; set; }

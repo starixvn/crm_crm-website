@@ -21,90 +21,43 @@ namespace Fanex.CRM.ActionLog.Services
     /// <summary>
     /// CacheManager class.
     /// </summary>
-    public static class CacheManager
+    internal static class CacheManager
     {
         private const string GetAllSettingSessionKey = "Fanex.CRM.ActionLog.GetAllSettingSessionKey";
 
-        private static readonly ISettingService SettingServiceInstance = new SettingService();
-
-        /// <summary>
-        /// Gets all settings.
-        /// </summary>
-        /// <value>
-        /// All settings.
-        /// </value>
         public static IDictionary<string, string> AllSettings
         {
             get
             {
-                string key = GetAllSettingSessionKey;
-                return Get<IDictionary<string, string>>(
-                    key,
-                    () =>
-                    {
-                        var countries = SettingServiceInstance.AllCountry()
-                            .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Country" });
+                var result = CacheService.Get<IDictionary<string, string>>(GetAllSettingSessionKey);
+                if (result == null)
+                {
+                    result = GetAllSettings();
+                    CacheService.Set(GetAllSettingSessionKey, result);
+                }
 
-                        var currencies = SettingServiceInstance.GetAllCurrency(new GetAllCurrencyCriteria())
-                            .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Currency" });
-
-                        var settings = SettingServiceInstance.AllSetting();
-                        settings.AddRange(countries);
-                        settings.AddRange(currencies);
-
-                        // Add default N/A
-                        settings.Add(new SettingInfo { Id = 0, Value = Labels.NA, SettingType = string.Empty });
-
-                        return ListToHash(settings);
-                    });
-            }
-        }
-
-        /// <summary>
-        /// Gets the specified key.
-        /// </summary>
-        /// <typeparam name="T">T template.</typeparam>
-        /// <param name="key">The key string.</param>
-        /// <param name="acquire">The acquire.</param>
-        /// <returns>The T result.</returns>
-        private static T Get<T>(string key, Func<T> acquire)
-        {
-            T result = CacheService.Get<T>(key);
-            if (result != null)
-            {
                 return result;
             }
-
-            result = acquire();
-            if (result != null)
-            {
-                CacheService.Set<T>(key, result);
-            }
-
-            return result;
         }
 
-        /// <summary>
-        /// Convert list to hash table.
-        /// </summary>
-        /// <param name="settingInfos">The setting list.</param>
-        /// <returns>
-        /// The hash table.
-        /// </returns>
-        private static IDictionary<string, string> ListToHash(IList<SettingInfo> settingInfos)
+        private static IDictionary<string, string> GetAllSettings()
         {
-            if (settingInfos == null)
-            {
-                return null;
-            }
+            var settingService = new SettingService();
 
-            IDictionary<string, string> settingHash = new Dictionary<string, string>(128);
-            foreach (SettingInfo setting in settingInfos)
-            {
-                settingHash.Add(setting.Id.ToString() + setting.SettingType.ToUpperInvariant(), setting.Value);
-            }
+            var countries = settingService.AllCountry()
+                .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Country" });
 
-            return settingHash;
+            var currencies = settingService.GetAllCurrency(new GetAllCurrencyCriteria())
+                .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Currency" });
+
+            var settings = settingService.AllSetting();
+            settings.AddRange(countries);
+            settings.AddRange(currencies);
+
+            // Add default N/A
+            settings.Add(new SettingInfo { Id = 0, Value = Labels.NA, SettingType = string.Empty });
+
+            return settings.ToDictionary(x => x.Id + x.SettingType.ToUpperInvariant(), x => x.Value);            
         }
     }
 }

@@ -134,7 +134,6 @@
     <Compile Include="Criteria\GetActionLogCriteria.cs" />
     <Compile Include="Criteria\GetActivityLogCriteria.cs" />
     <Compile Include="Criteria\GetSettingLogCriteria.cs" />
-    <Compile Include="Models\ActivityLog.cs" />
     <Compile Include="Models\NameValue.cs" />
     <Compile Include="Models\SettingLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
