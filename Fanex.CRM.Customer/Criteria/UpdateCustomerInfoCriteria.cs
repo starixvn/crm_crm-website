@@ -80,7 +80,7 @@ namespace Fanex.CRM.Customer.Criteria
         {
             get
             {
-                return IPHelper.ClientIP();
+                return IPHelper.ClientIP;
             }
         }
 

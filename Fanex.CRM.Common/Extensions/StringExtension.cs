@@ -213,12 +213,6 @@ namespace Fanex.CRM.Common.Extensions
             return value == null || value.Trim().Length == 0;
         }
 
-        [DebuggerStepThrough]
-        public static int TrimLength(this string value)
-        {
-            return value.Trim().Length;
-        }
-
         /// <summary>
         /// Regexes the match.
         /// </summary>

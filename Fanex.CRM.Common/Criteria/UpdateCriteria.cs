@@ -32,7 +32,7 @@ namespace Fanex.CRM.Common.Criteria
         {
             get
             {
-                return IPHelper.ClientIP();
+                return IPHelper.ClientIP;
             }
         }
 

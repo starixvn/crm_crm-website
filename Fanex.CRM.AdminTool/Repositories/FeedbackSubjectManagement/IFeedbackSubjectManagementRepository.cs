@@ -17,7 +17,7 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
 
     public interface IFeedbackSubjectManagementRepository
     {
-        List<FeedbackSubjectTemplateInfo> SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria);
+        IEnumerable<FeedbackSubjectTemplateInfo> SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria);
 
         Result DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria);
 

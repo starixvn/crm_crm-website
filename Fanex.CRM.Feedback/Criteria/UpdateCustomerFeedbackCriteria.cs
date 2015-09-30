@@ -115,7 +115,7 @@ namespace Fanex.CRM.Feedback.Criteria
                 { "description", Description },
                 { "solution", Solution },
                 { "isreviewed", IsReviewed },
-                { "ip", IPHelper.ClientIP() },
+                { "ip", IPHelper.ClientIP },
                 { "errcode", ErrorCode },
                 { "errmsg", ErrorMessage }
             };

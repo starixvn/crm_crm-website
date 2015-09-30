@@ -70,8 +70,7 @@ namespace Fanex.CRM.Common.Controllers
         /// <returns>Return result.</returns>
         public ActionResult Offline()
         {
-            var isCheckUM = NapSettings.Settings.EnableCheckUM;
-            if (!isCheckUM)
+            if (!NapSettings.Settings.EnableCheckUM)
             {
                 FormsAuthentication.RedirectToLoginPage();
             }

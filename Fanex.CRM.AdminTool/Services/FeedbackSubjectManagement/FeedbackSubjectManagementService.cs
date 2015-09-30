@@ -51,7 +51,7 @@ namespace Fanex.CRM.AdminTool.Services.FeedbackSubjectManagement
                 var repositoryResult = _feedbackSubjectManagementRepository.SearchFeedbackSubjectTemplate(criteria);
                 return new FeedbackSubjectTemplateView
                 {
-                    TotalTemplates = repositoryResult.Count,
+                    TotalTemplates = repositoryResult.Count(),
                     Templates = repositoryResult.Skip(criteria.StartIndex).Take(criteria.PageSize).ToList()
                 };
             }

@@ -31,7 +31,7 @@ namespace Fanex.CRM.Common.Services
         /// <returns>Return value.</returns>
         public static T Get<T>(string key)
         {
-            return DeepClone(Cache.Get<T>(key));            
+            return DeepClone(Cache.Get<T>(key));
         }
 
         /// <summary>
@@ -42,15 +42,7 @@ namespace Fanex.CRM.Common.Services
         /// <param name="value">Return value.</param>
         public static void Set<T>(string key, T value)
         {
-            try
-            {                
-                Cache.Set(key, DeepClone(value), TIMEOUT);
-            }
-            catch (Exception exception)
-            {
-                LogExtensions.ExceptionHandler(exception);
-                throw;
-            }
+            Cache.Set(key, DeepClone(value), TIMEOUT);
         }
 
         /// <summary>

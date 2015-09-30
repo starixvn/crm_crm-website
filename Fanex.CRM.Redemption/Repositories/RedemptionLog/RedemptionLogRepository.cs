@@ -90,7 +90,7 @@ namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
         /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
-            return RunSP(criteria);
+            return ExecuteNonQuery(criteria);
         }
 
         /// <summary>

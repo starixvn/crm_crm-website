@@ -81,7 +81,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 var repositoryResult = StatisticByDateReportRepository.MainReport(criteria);
                 var reportTitle = string.Format(
                     MainReportTitle(),
-                    SiteHelper.SiteTypeName(criteria.SiteType),
+                    SiteHelper.GetSiteTypeName(criteria.SiteType),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
                 var communicationToolLength = repositoryResult.CommunicationTools.Count;
@@ -152,7 +152,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 ExportMainReportBody(report, exportExcelInfo);
                 string reportName = string.Format(
                      MainReportTitle(),
-                     SiteHelper.SiteTypeName(criteria.SiteType),
+                     SiteHelper.GetSiteTypeName(criteria.SiteType),
                      DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
                      DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
                 NpoiExcelExtensions.ResponseStreamExcel(
@@ -189,7 +189,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
                 ExportDetailReportBody(report, exportExcelInfo);
                 string reportName = string.Format(
                     MainReportTitle(),
-                    SiteHelper.SiteTypeName(criteria.SiteType),
+                    SiteHelper.GetSiteTypeName(criteria.SiteType),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
                 NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExcelExtensions.StandardizeExcelReportName(reportName));
@@ -228,7 +228,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
 
                 var reportTitle = string.Format(
                     DetailReportTitle(),
-                    SiteHelper.SiteTypeName(criteria.SiteType),
+                    SiteHelper.GetSiteTypeName(criteria.SiteType),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
                 var result = new StatisticsDetailReportByDateModel

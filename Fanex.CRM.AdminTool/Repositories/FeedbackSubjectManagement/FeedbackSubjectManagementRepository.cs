@@ -23,14 +23,9 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
     /// </summary>
     public class FeedbackSubjectManagementRepository : IFeedbackSubjectManagementRepository
     {
-        /// <summary>
-        /// Searches the feedback subject template.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback subject templates.</returns>
-        public List<FeedbackSubjectTemplateInfo> SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
+        public IEnumerable<FeedbackSubjectTemplateInfo> SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
         {
-            List<FeedbackSubjectTemplateInfo> result = new List<FeedbackSubjectTemplateInfo>();
+            var result = new List<FeedbackSubjectTemplateInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());

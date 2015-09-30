@@ -33,26 +33,6 @@ namespace Fanex.CRM.Common.Services
         }
 
         /// <summary>
-        /// Gets the repository.
-        /// </summary>
-        /// <value>
-        /// The repository.
-        /// </value>
-        protected IDynamicRepository Repository
-        {
-            get { return _dynamicRepository; }
-        }
-
-        /// <summary>
-        /// Handler Exception.
-        /// </summary>
-        /// <param name="ex">The exception.</param>
-        public void HandleException(Exception ex)
-        {
-            LogExtensions.ExceptionHandler(ex);
-        }
-
-        /// <summary>
         /// Get Report Data with Criteria.
         /// </summary>
         /// <typeparam name="T">Type of Object return.</typeparam>
@@ -62,20 +42,12 @@ namespace Fanex.CRM.Common.Services
         {
             ArgumentChecker.IsNotNull(criteria, "criteria");
 
-            try
+            if (criteria.IsValid())
             {
-                if (criteria.IsValid())
-                {
-                    return _dynamicRepository.Fetch<T>(criteria);
-                }
+                return _dynamicRepository.Fetch<T>(criteria);
+            }
 
-                return new List<T>();
-            }
-            catch (Exception ex)
-            {
-                HandleException(ex);
-                throw;
-            }
+            return new List<T>();
         }
 
         /// <summary>
@@ -90,7 +62,7 @@ namespace Fanex.CRM.Common.Services
             string reportTitle,
             ICellStyle headerStyle)
         {
-            CellRangeAddress cellRangeAddress = exportExcelInfo.GetCellRangeBySpanning(1);
+            var cellRangeAddress = exportExcelInfo.GetCellRangeBySpanning(1);
             NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, reportTitle, headerStyle);
             exportExcelInfo.CurrentRow += 2;
 
