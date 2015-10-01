@@ -94,60 +94,31 @@ namespace Fanex.CRM.Setting.Services
         /// <returns>The setting by identifier.</returns>
         public SettingInfo GetSettingById(GetSettingByIdCriteria criteria)
         {
-            try
+            var allSettings = GetAllSettings();
+            var setting = allSettings.Where(s => s.Id == criteria.SettingId).FirstOrDefault();
+            if (setting == null)
             {
-                SettingInfo setting = null;
-                var settings = GetAllSettings();
-                setting = settings.Where(s => s.Id == criteria.SettingId).FirstOrDefault();
-                if (setting == null)
+                setting = new SettingInfo()
                 {
-                    setting = new SettingInfo()
-                    {
-                        Value = Labels.Symbol_NotApply
-                    };
-                }
+                    Value = Labels.Symbol_NotApply
+                };
+            }
 
-                return setting;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return setting;
         }
 
-        /// <summary>
-        /// Gets all setting.
-        /// </summary>
-        /// <returns>All setting.</returns>
         public IEnumerable<SettingInfo> GetAllSettings()
         {
-            try
+            var allSettings = CacheService.Get<IEnumerable<SettingInfo>>(GetAllSettingSessionKey);
+            if (allSettings == null)
             {
-                IEnumerable<SettingInfo> allSetting = CacheService.Get<IEnumerable<SettingInfo>>(GetAllSettingSessionKey);
-                if (allSetting == null)
-                {
-                    allSetting = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
-                    CacheService.Set(GetAllSettingSessionKey, allSetting);
-                }
+                allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
+                CacheService.Set(GetAllSettingSessionKey, allSettings);
+            }
 
-                return allSetting;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return allSettings;
         }
 
-        /// <summary>
-        /// Gets all site.
-        /// </summary>
-        /// <param name="criteria">Get all site criteria.</param>
-        /// <returns>All site value.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public IEnumerable<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null)
         {
             var cache = CacheService.Get<IEnumerable<SiteInfo>>(GetAllSiteSessionKey);
@@ -206,10 +177,6 @@ namespace Fanex.CRM.Setting.Services
             return sites;
         }
 
-        /// <summary>
-        /// Gets all title.
-        /// </summary>
-        /// <returns>All title.</returns>
         public IEnumerable<SettingInfo> GetAllTitles()
         {
             var cache = CacheService.Get<IEnumerable<SettingInfo>>(GetAllTitleSessionKey);
@@ -228,10 +195,6 @@ namespace Fanex.CRM.Setting.Services
             return allTitles;
         }
 
-        /// <summary>
-        /// Gets all country.
-        /// </summary>
-        /// <returns>All country.</returns>
         public IEnumerable<CountryInfo> GetAllCountries()
         {
             var allCountry = CacheService.Get<IEnumerable<CountryInfo>>(GetAllCountrySessionKey);
@@ -245,68 +208,52 @@ namespace Fanex.CRM.Setting.Services
             return allCountry;
         }
 
-        /// <summary>
-        /// Gets all language.
-        /// </summary>
-        /// <returns>All language.</returns>
         public IEnumerable<SettingInfo> GetAllLanguages()
         {
-            var allLanguage = CacheService.Get<IEnumerable<SettingInfo>>(GetAllLanguageSessionKey);
-            if (allLanguage != null)
+            var allLanguages = CacheService.Get<IEnumerable<SettingInfo>>(GetAllLanguageSessionKey);
+            if (allLanguages != null)
             {
-                return allLanguage;
+                return allLanguages;
             }
 
-            allLanguage = _settingRepositoryInstance.GetAllLanguage(new GetAllLanguageCriteria());
-            CacheService.Set(GetAllLanguageSessionKey, allLanguage);
-            return allLanguage;
+            allLanguages = _settingRepositoryInstance.GetAllLanguages(new GetAllLanguageCriteria());
+            CacheService.Set(GetAllLanguageSessionKey, allLanguages);
+            return allLanguages;
         }
 
-        /// <summary>
-        /// Gets all extension.
-        /// </summary>
-        /// <returns>All extension.</returns>
         public IEnumerable<SettingInfo> GetAllExtensions()
         {
-            var allExtension = CacheService.Get<IEnumerable<SettingInfo>>(GetAllExtensionSessionKey);
-            if (allExtension != null)
+            var allExtensions = CacheService.Get<IEnumerable<SettingInfo>>(GetAllExtensionSessionKey);
+            if (allExtensions != null)
             {
-                return allExtension;
+                return allExtensions;
             }
 
-            allExtension = GetSettingRelationByName(new GetSettingRelationByNameCriteria
+            allExtensions = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Extension,
                 ParentId = 0
             });
 
-            CacheService.Set(GetAllExtensionSessionKey, allExtension);
-            return allExtension;
+            CacheService.Set(GetAllExtensionSessionKey, allExtensions);
+            return allExtensions;
         }
 
-        /// <summary>
-        /// Gets all communication tool.
-        /// </summary>
-        /// <returns>All communication tool.</returns>
         public IEnumerable<SettingInfo> GetAllCommunicationTools()
         {
-            var allCommunicationTool = CacheService.Get<IEnumerable<SettingInfo>>(GetAllCommunicationToolSessionKey);
-            if (allCommunicationTool != null)
+            var tools = CacheService.Get<IEnumerable<SettingInfo>>(GetAllCommunicationToolSessionKey);
+            if (tools != null)
             {
-                return allCommunicationTool;
+                return tools;
             }
 
-            allCommunicationTool = _settingRepositoryInstance.GetAllCommunicationTool(new GetAllCommunicationToolCriteria());
-            allCommunicationTool = allCommunicationTool.OrderBy(s => s.DisplayOrder).ToList();
-            CacheService.Set(GetAllCommunicationToolSessionKey, allCommunicationTool);
+            tools = _settingRepositoryInstance.GetAllCommunicationTools(new GetAllCommunicationToolCriteria());
+            tools = tools.OrderBy(s => s.DisplayOrder).ToList();
+            CacheService.Set(GetAllCommunicationToolSessionKey, tools);
 
-            return allCommunicationTool;
+            return tools;
         }
 
-        /// <summary>
-        /// Gets all main category.
-        /// </summary>
-        /// <returns>All main category.</returns>
         public IEnumerable<SettingInfo> GetAllMainCategories()
         {
             var cache = CacheService.Get<IEnumerable<SettingInfo>>(GetAllMainCategorySessionKey);
@@ -314,22 +261,17 @@ namespace Fanex.CRM.Setting.Services
             {
                 return cache;
             }
+            
+            var mainCategories = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
+            var subCategories = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria());
 
-            var allMainCategory = new List<SettingInfo>();
-            var rawData = _settingRepositoryInstance.GetAllMainCategory(new GetAllMainCategoryCriteria());
-            foreach (var data in rawData)
+            foreach (var category in mainCategories)
             {
-                var childSettings = _settingRepositoryInstance.GetAllSubCategory(new GetAllSubCategoryCriteria
-                {
-                    ParentId = data.Id
-                });
-
-                data.ChildSettings = childSettings.OrderBy(s => s.DisplayOrder).ToList();
-                allMainCategory.Add(data);
+                category.ChildSettings = subCategories.Where(x => x.ParentId == category.Id).OrderBy(s => s.DisplayOrder).ToList();
             }
 
-            CacheService.Set(GetAllMainCategorySessionKey, allMainCategory);
-            return allMainCategory;
+            CacheService.Set(GetAllMainCategorySessionKey, mainCategories);
+            return mainCategories;
         }
 
         /// <summary>

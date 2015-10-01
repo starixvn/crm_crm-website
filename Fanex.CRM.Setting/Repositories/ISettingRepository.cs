@@ -24,11 +24,11 @@ namespace Fanex.CRM.Setting.Repositories
 
         IEnumerable<CountryInfo> GetAllCountries(GetAllCountryCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllSettingRelation(GetAllSettingRelationCriteria criteria);
+        IEnumerable<SettingInfo> GetAllSettingRelations(GetAllSettingRelationCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllLanguage(GetAllLanguageCriteria criteria);
+        IEnumerable<SettingInfo> GetAllLanguages(GetAllLanguageCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllCommunicationTool(GetAllCommunicationToolCriteria criteria);
+        IEnumerable<SettingInfo> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria);
 
         IEnumerable<SettingInfo> GetAllMainCategory(GetAllMainCategoryCriteria criteria);
 
