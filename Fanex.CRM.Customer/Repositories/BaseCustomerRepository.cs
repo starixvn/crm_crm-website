@@ -13,6 +13,7 @@ namespace Fanex.CRM.Customer.Repositories
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
@@ -20,17 +21,12 @@ namespace Fanex.CRM.Customer.Repositories
     /// <summary>
     /// Base Customer Repository.
     /// </summary>
-    public class BaseCustomerRepository
+    public class BaseCustomerRepository : BaseRepository
     {
-        /// <summary>
-        /// Mappings the information when get customer information by username.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Customer information.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
-        public CustomerInfo MappingDataFromSqlToCustomerInfoObject(IDataReader reader)
+        public CustomerInfo ReadCustomerBasicInformation(IDataReader reader)
         {
             var customer = new CustomerInfo
             {
@@ -49,7 +45,7 @@ namespace Fanex.CRM.Customer.Repositories
                     AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
                     FaxNumber = Converter.ToString2(reader["Fax"])
                 },
-                MobilePhone = PhoneInfo(reader, "MobilePhone"),
+                MobilePhone = ReadPhoneInfo(reader, "MobilePhone"),
                 Skype = Converter.ToString2(reader["Skype"]),
                 MSN = Converter.ToString2(reader["msn"]),
                 Id = Converter.ToInt(reader["CustId"]),
@@ -147,7 +143,7 @@ namespace Fanex.CRM.Customer.Repositories
             return customer;
         }
 
-        private PhoneInfo PhoneInfo(IDataReader reader, string fieldName)
+        private PhoneInfo ReadPhoneInfo(IDataReader reader, string fieldName)
         {
             return new PhoneInfo
             {

@@ -17,6 +17,6 @@ namespace Fanex.CRM.Customer.Repositories
     {
         CustomerInfo GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria);
 
-        BaseModel UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria);
+        Result UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria);
     }
 }

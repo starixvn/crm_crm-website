@@ -55,22 +55,20 @@ namespace Fanex.CRM.Customer.Controllers
         public JsonResult GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
             var customerInfo = _customerServiceInstance.GetCustomerInfoDetailById(criteria);
-            var jsonResult = Json(customerInfo, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(customerInfo, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
-            var customerInfoDetail = _customerServiceInstance.UpdateCustomerInfoDetail(criteria);
-            var jsonResult = Json(customerInfoDetail, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            var result = _customerServiceInstance.UpdateCustomerInfoDetail(criteria);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult AllSettings() 
         {
-            return Json(_customerServiceInstance.AllSettings(), JsonRequestBehavior.AllowGet);
+            return Json(_customerServiceInstance.GetAllSettings(), JsonRequestBehavior.AllowGet);
         }
     }
 }

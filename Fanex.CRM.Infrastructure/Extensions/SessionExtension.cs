@@ -42,5 +42,10 @@ namespace Fanex.CRM.Infrastructure.Extensions
         {
             sessionState[key] = value;
         }
+
+        public static void DeleteSession(HttpSessionState sessionState, string key)
+        {
+            sessionState[key] = null;
+        }
     }
 }

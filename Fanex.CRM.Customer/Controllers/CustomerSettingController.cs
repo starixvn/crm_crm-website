@@ -47,16 +47,14 @@ namespace Fanex.CRM.Customer.Controllers
         public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
             var customerInfo = _customerServiceInstance.GetCustomerInfoByUsername(criteria);
-            var jsonResult = Json(customerInfo, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(customerInfo, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
             var uplineInfo = _customerServiceInstance.GetUplineInfoOfUser(criteria);
-            var jsonResult = Json(uplineInfo, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(uplineInfo, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -64,8 +62,7 @@ namespace Fanex.CRM.Customer.Controllers
         public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
             var updateResult = _customerServiceInstance.UpdateCustomerInfo(criteria);
-            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -88,11 +85,6 @@ namespace Fanex.CRM.Customer.Controllers
             return jsonResult;
         }
 
-        /// <summary>
-        /// The related customer automatic suggestion.
-        /// </summary>
-        /// <param name="tag">The tag value.</param>
-        /// <returns>Suggestion result.</returns>
         [HttpGet]
         public JsonResult RelatedCustomerAutoSuggestion(string tag)
         {

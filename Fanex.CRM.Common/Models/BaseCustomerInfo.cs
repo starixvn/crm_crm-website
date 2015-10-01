@@ -34,7 +34,7 @@ namespace Fanex.CRM.Common.Models
 
         #region Customer Info
 
-        public List<BaseCustomerInfo> UplineInfo { get; set; }
+        public IEnumerable<BaseCustomerInfo> UplineInfo { get; set; }
 
         public SettingInfo Title { get; set; }
 

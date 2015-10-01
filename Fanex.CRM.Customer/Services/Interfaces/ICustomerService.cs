@@ -19,16 +19,16 @@ namespace Fanex.CRM.Customer.Services
     {
         CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria);
 
-        List<BaseCustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
+        IEnumerable<BaseCustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
 
         bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria);
 
-        BaseModel UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria);
+        Result UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria);
 
-        List<dynamic> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria);
-        
-        IList<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria);
+        IEnumerable<dynamic> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria);
 
-        List<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
+        IEnumerable<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria);
+
+        IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria);
     }
 }

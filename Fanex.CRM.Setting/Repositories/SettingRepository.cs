@@ -263,7 +263,7 @@ namespace Fanex.CRM.Setting.Repositories
 
         public IEnumerable<BaseModel> GetAllLogActions(GetActionCriteria criteria)
         {
-            return ReadBaseModels(criteria, "ActionID", "ActionName");
+            return ReadBaseModels(criteria, "ActionID", "ActionName", false);
         }
 
         public IEnumerable<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria)
@@ -320,11 +320,11 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        private static IEnumerable<BaseModel> ReadBaseModels(ICriteria criteria, string keyColumn, string nameColumn)
+        private static IEnumerable<BaseModel> ReadBaseModels(ICriteria criteria, string keyColumn, string nameColumn, bool hasParams = true)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
+                using (var reader = db.ExecuteReader(hasParams ? criteria.GetSpParams() : null))
                 {
                     var list = new List<BaseModel>();
                     while (reader.Read())
