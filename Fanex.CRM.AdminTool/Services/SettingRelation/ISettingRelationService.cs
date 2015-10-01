@@ -17,14 +17,14 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
 
     public interface ISettingRelationService
     {
-        IEnumerable<SettingInfo> MainSetting { get; }
+        IEnumerable<SettingInfo> GetMainSettings();
 
-        IEnumerable<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria);
+        IEnumerable<SettingInfo> GetSettingByTypes(GetSettingByTypeCriteria criteria);
 
-        IEnumerable<SettingInfo> GetMainSettingForAddRelation(GetMainSettingForAddRelationCriteria criteria);
+        IEnumerable<SettingInfo> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria);
 
         IEnumerable<SettingInfo> MainSettingRelations(GetMainSettingRelationsCriteria criteria);
 
-        Result AddSettingRelations(AddSettingRelationsCriteria criteria);
+        Result GetAddSettingRelations(AddSettingRelationsCriteria criteria);
     }
 }

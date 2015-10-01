@@ -26,22 +26,27 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
     {
         public IEnumerable<FeedbackSubjectTemplate> SearchFeedbackSubjectTemplate(SearchFeedbackSubjectTemplateCriteria criteria)
         {
-            var result = new List<FeedbackSubjectTemplate>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                var reader = objectDB.ExecuteReader();
-                while (reader.Read())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    result.Add(new FeedbackSubjectTemplate
+                    var result = new List<FeedbackSubjectTemplate>();
+                    while (reader.Read())
                     {
-                        Id = Converter.ToInt(reader["templateID"]),
-                        TemplateContent = Converter.ToString2(reader["subject"])
-                    });
+                        var templateContent = Converter.ToString2(reader["subject"]);
+                        if (IsCorrectTemplate(templateContent, criteria.Subject))
+                        {
+                            result.Add(new FeedbackSubjectTemplate
+                            {
+                                Id = Converter.ToInt(reader["templateID"]),
+                                TemplateContent = templateContent
+                            });
+                        }
+                    }
+
+                    return result;
                 }
             }
-
-            return result.Where(template => IsCorrectTemplate(template, criteria)).ToList();
         }
 
         public Result DeleteTemplate(DeleteFeedbackSubjectTemplateCriteria criteria)
@@ -49,30 +54,24 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
             return ExecuteNonQuery(criteria);
         }
 
-        /// <summary>
-        /// Gets the feedback subject template by identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The feedback subject template by identifier.</returns>
         public FeedbackSubjectTemplate GetFeedbackSubjectTemplate(FeedbackSubjectTemplateByIdCriteria criteria)
         {
-            var result = new List<FeedbackSubjectTemplate>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var reader = objectDB.ExecuteReader();
-                while (reader.Read())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    result.Add(new FeedbackSubjectTemplate
+                    if (reader.Read())
                     {
-                        Id = Converter.ToInt(reader["templateID"]),
-                        TemplateContent = Converter.ToString2(reader["subject"])
-                    });
+                        return new FeedbackSubjectTemplate
+                        {
+                            Id = Converter.ToInt(reader["templateID"]),
+                            TemplateContent = Converter.ToString2(reader["subject"])
+                        };
+                    }
+
+                    return null;
                 }
             }
-
-            return result.FirstOrDefault();
         }
 
         public Result EditTemplate(EditFeedbackSubjectTemplateCriteria criteria)
@@ -85,10 +84,10 @@ namespace Fanex.CRM.AdminTool.Repositories.FeedbackSubjectManagement
             return ExecuteNonQuery(criteria);
         }
 
-        private bool IsCorrectTemplate(FeedbackSubjectTemplate template, SearchFeedbackSubjectTemplateCriteria criteria)
+        private bool IsCorrectTemplate(string templateContent, string subject)
         {
-            return string.IsNullOrEmpty(criteria.Subject) ||
-                 template.TemplateContent.ToLower().Contains(criteria.Subject.Trim().ToLower());
+            return string.IsNullOrEmpty(subject) ||
+                 templateContent.ToLower().Contains(subject.Trim().ToLower());
         }
     }
 }

@@ -19,11 +19,6 @@ namespace Fanex.CRM.Common.Repositories
     /// </summary>
     public class BaseRepository
     {
-        /// <summary>
-        /// Runs the store procedure.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Run SP result.</returns>
         public Result ExecuteNonQuery(CriteriaBase criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))

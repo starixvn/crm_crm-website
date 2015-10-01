@@ -92,7 +92,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult MainSetting()
         {
-            var result = _settingManagementService.MainSetting;
+            var result = _settingManagementService.GetMainSettings();
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -101,7 +101,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult ParentSetting()
         {
-            var result = _settingManagementService.ParentSetting;
+            var result = _settingManagementService.GetParentSettings();
             var jsonResult = Json(result, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
