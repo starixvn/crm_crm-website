@@ -12,7 +12,7 @@ namespace Fanex.CRM.Communication.Repositories
     using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
+    using System.Text;
     using Fanex.Common;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
@@ -28,125 +28,74 @@ namespace Fanex.CRM.Communication.Repositories
     /// </summary>
     public class CommunicationLogRepository : BaseRepository, ICommunicationLogRepository
     {
-        /// <summary>
-        /// Gets the logs by customer identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The logs by customer identifier.</returns>
-        public List<BaseCommunicationLogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
+        public IEnumerable<BaseCommunicationLogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            List<BaseCommunicationLogInfo> logs = new List<BaseCommunicationLogInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader != null)
+                    var logs = new List<BaseCommunicationLogInfo>();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            var log = MappingDataFromSqlToLogInfoObject(reader);
-                            log.CustomerId = criteria.CustomerId;
-                            logs.Add(log);
-                        }
+                        var log = MappingDataFromSqlToLogInfoObject(reader);
+                        log.CustomerId = criteria.CustomerId;
+                        logs.Add(log);
                     }
+
+                    return logs;
                 }
             }
-
-            return logs;
         }
 
-        /// <summary>
-        /// Gets the logs by running number.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The logs by running number.</returns>
         public BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
         {
-            BaseCommunicationLogInfo log = new BaseCommunicationLogInfo();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader != null)
+                    var log = new BaseCommunicationLogInfo();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            log = MappingDataFromSqlToLogInfoObject_ById(reader);
-                        }
+                        log = MappingDataFromSqlToLogInfoObjectById(reader);
                     }
 
                     if (reader.NextResult())
                     {
-                        List<string> relatedCustomers = new List<string>();
-                        List<int> relatedCustomerIds = new List<int>();
+                        var customerNames = new StringBuilder();
+                        var customerIds = new StringBuilder();
                         while (reader.Read())
                         {
-                            var relatedCustomer = GetRelatedUserNameFromDataReader(reader);
-                            relatedCustomers.Add(relatedCustomer.Name);
-                            relatedCustomerIds.Add(relatedCustomer.Id);
+                            var name = Converter.ToString2(reader["UserName"]);
+                            var id = Converter.ToInt(reader["CustID"]);
+                            customerNames.Append(name + ",");
+                            customerIds.Append(id + ",");
                         }
 
-                        log.RelatedCustomers = string.Join(",", relatedCustomers);
-                        log.RelatedCustomerIds = string.Join(",", relatedCustomerIds);
+                        log.RelatedCustomers = customerNames.ToString().TrimEnd(',');
+                        log.RelatedCustomerIds = customerIds.ToString().TrimEnd(',');
                     }
+
+                    return log;
                 }
             }
-
-            return log;
         }
 
-        /// <summary>
-        /// Updates the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
             return ExecuteNonQuery(criteria);
         }
 
-        /// <summary>
-        /// Inserts the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Insert result.</returns>
         public Result InsertLog(InsertLogCriteria criteria)
         {
-            Result updateResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                updateResult = new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return updateResult;
+            return ExecuteNonQuery(criteria);
         }
 
-        /// <summary>
-        /// Gets the customer default setting.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The default setting object.</returns>
         public CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                var setting = objectDB.Query<CustomerDefaultSetting>(criteria.GetSpParams()).ToList();
-                if (setting.Count > 0)
-                {
-                    return setting[0];
-                }
+                return objectDB.QueryEntity<CustomerDefaultSetting>(criteria.GetSpParams());
             }
-
-            return null;
         }
 
         /// <summary>
@@ -197,7 +146,7 @@ namespace Fanex.CRM.Communication.Repositories
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
-        private BaseCommunicationLogInfo MappingDataFromSqlToLogInfoObject_ById(IDataReader reader)
+        private BaseCommunicationLogInfo MappingDataFromSqlToLogInfoObjectById(IDataReader reader)
         {
             var logInfo = new BaseCommunicationLogInfo
             {
@@ -265,15 +214,6 @@ namespace Fanex.CRM.Communication.Repositories
             };
 
             return logInfo;
-        }
-
-        private BaseModel GetRelatedUserNameFromDataReader(IDataReader reader)
-        {
-            return new BaseModel
-            {
-                Name = Converter.ToString2(reader["UserName"]),
-                Id = Converter.ToInt(reader["CustID"])
-            };
         }
     }
 }

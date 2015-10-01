@@ -17,7 +17,7 @@ namespace Fanex.CRM.Communication.Repositories
 
     public interface ICommunicationLogRepository
     {
-        List<BaseCommunicationLogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
+        IEnumerable<BaseCommunicationLogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 
         Result UpdateLog(UpdateLogCriteria criteria);
 

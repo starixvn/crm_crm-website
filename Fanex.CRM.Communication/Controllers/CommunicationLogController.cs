@@ -136,8 +136,7 @@ namespace Fanex.CRM.Communication.Controllers
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
-            var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(logs, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
@@ -182,11 +181,6 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/ViewDetailById/Index.cshtml", logInfo);
         }
 
-        /// <summary>
-        /// Updates the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update Result.</returns>
         [HttpPost]
         [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria, bool isDeletedStatus)
@@ -197,8 +191,7 @@ namespace Fanex.CRM.Communication.Controllers
                 updateResult = _communicationServiceLog.UpdateLog(criteria);
             }
 
-            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
 
         private Result CheckUpdateCustomerFeedbackPermission(UpdateLogCriteria criteria, bool isDeletedStatus)
@@ -234,8 +227,7 @@ namespace Fanex.CRM.Communication.Controllers
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
             Result insertResult = _communicationServiceLog.InsertLog(criteria);
-            var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(insertResult, JsonRequestBehavior.AllowGet);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]

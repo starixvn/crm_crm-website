@@ -46,29 +46,10 @@ namespace Fanex.CRM.Communication.Services
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        /// <summary>
-        /// Gets all status for edit.
-        /// </summary>
-        /// <value>
-        /// All status for edit.
-        /// </value>
         public List<SettingInfo> AllStatusForEdit
         {
-            get
-            {
-                try
-                {
-                    var allStatusSetting = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool);
-
-                    return allStatusSetting.ToList();
-                }
-                catch (Exception ex)
-                {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
-                }
-            }           
-        }
+            return _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool).ToList();
+		}
 
         /// <summary>
         /// Gets all status for insert.
@@ -84,133 +65,72 @@ namespace Fanex.CRM.Communication.Services
             }
         }
 
-        /// <summary>
-        /// Gets the logs by customer identifier.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The logs by customer identifier.</returns>
         public CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            CustomerLogInfo logs = null;
-            try
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            var rawData = _communicationRepositoryLog.GetLogsByCustomerId(criteria);
+            return new CustomerLogInfo
             {
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                var rawData = _communicationRepositoryLog.GetLogsByCustomerId(criteria);
-                logs = new CustomerLogInfo
-                {
-                    CustomerId = criteria.CustomerId,
-                    Logs = rawData
-                };
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-
-            return logs;
+                CustomerId = criteria.CustomerId,
+                Logs = rawData
+            };
         }
 
-        /// <summary>
-        /// Gets the logs by running number.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The logs by running number.</returns>
         public BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
         {
-            BaseCommunicationLogInfo log = null;
-            try
-            {
-                var rawData = _communicationRepositoryLog.GetLogsByRunningNumber(criteria);
-                log = rawData;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-
-            return log;
+            return _communicationRepositoryLog.GetLogsByRunningNumber(criteria);
         }
 
-        /// <summary>
-        /// Updates the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
         public Result UpdateLog(UpdateLogCriteria criteria)
         {
-            Result updateResult = null;
-            try
+            criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
+            criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
+
+            if (!criteria.IsReviewed)
             {
-                criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
-                criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
-
-                if (!criteria.IsReviewed)
-                {
-                    criteria.Review = string.Empty;
-                }
-
-                if (DateTime.Now < criteria.StartTime)
-                {
-                    return new Result
-                    {
-                        Code = ErrorCodeConstants.ServerError,
-                        Message = Labels.Communication_Log_ExcessCurrentTime
-                    };
-                }
-
-                updateResult = _communicationRepositoryLog.UpdateLog(criteria);
-
-                if (updateResult != null && updateResult.Code == ErrorCodeConstants.NoneError)
-                {
-                    updateResult.Message = Labels.Communication_Logs_UpdateSuccess;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                criteria.Review = string.Empty;
             }
 
-            return updateResult;
+            if (DateTime.Now < criteria.StartTime)
+            {
+                return new Result
+                {
+                    Code = ErrorCodeConstants.ServerError,
+                    Message = Labels.Communication_Log_ExcessCurrentTime
+                };
+            }
+
+            var result = _communicationRepositoryLog.UpdateLog(criteria);
+
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.Communication_Logs_UpdateSuccess;
+            }
+
+            return result;
         }
 
-        /// <summary>
-        /// Inserts the log.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Insert result.</returns>
         public Result InsertLog(InsertLogCriteria criteria)
         {
-            Result insertResult = null;
-            try
+            criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
+            criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
+            if (DateTime.Now < criteria.StartTime)
             {
-                criteria.StartTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.StartTime);
-                criteria.EndTime = DateTimeUtilize.ChangeTimeZoneToServerDateTime(criteria.EndTime);
-                if (DateTime.Now < criteria.StartTime)
+                return new Result
                 {
-                    return new Result
-                    {
-                        Code = ErrorCodeConstants.ServerError,
-                        Message = Labels.Communication_Log_ExcessCurrentTime
-                    };
-                }
-
-                insertResult = _communicationRepositoryLog.InsertLog(criteria);
-                if (insertResult != null && insertResult.Code == ErrorCodeConstants.NoneError)
-                {
-                    insertResult.Message = Labels.Communication_Logs_InsertSuccess;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                    Code = ErrorCodeConstants.ServerError,
+                    Message = Labels.Communication_Log_ExcessCurrentTime
+                };
             }
 
-            return insertResult;
+            var result = _communicationRepositoryLog.InsertLog(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.Communication_Logs_InsertSuccess;
+            }
+
+            return result;
         }
 
         public CustomerDefaultSetting GetCustomerDefaultSetting(GetDefaultSettingsCriteria criteria)

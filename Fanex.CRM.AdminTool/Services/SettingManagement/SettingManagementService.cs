@@ -97,11 +97,12 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             if (IsExistedSetting(criteria.OldSetting))
             {
                 result = _settingManagementRepository.DeleteSetting(criteria);
-                if (result.Code == ErrorCodeConstants.NoneError)
-                {
-                    result.Message = Labels.SettingManagement_DeleteSettingSuccess;
-                    _settingService.ClearCache();
-                }
+            }
+
+            if (result.Code == ErrorCodeConstants.NoneError)
+            {
+                result.Message = Labels.SettingManagement_DeleteSettingSuccess;
+                _settingService.ClearCache();
             }
 
             return result;
