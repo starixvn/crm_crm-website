@@ -46,18 +46,10 @@ namespace Fanex.CRM.InformHeadline.Services
 
         public IEnumerable<InformStatus> GetInformStatuses(bool isIncludeKeptForRefence = false)
         {
-            try
+            return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()
             {
-                return _informHeadlineRepository.GetInformStatuses(new GetInformStatusesCriteria()
-                {
-                    IsIncludeKeptForRefence = isIncludeKeptForRefence
-                });
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                IsIncludeKeptForRefence = isIncludeKeptForRefence
+            });
         }
 
         public IEnumerable<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria)
@@ -196,21 +188,13 @@ namespace Fanex.CRM.InformHeadline.Services
         /// <returns>The object with all settings.</returns>
         public dynamic GetContactInformSettings()
         {
-            try
+            return new
             {
-                return new
-                {
-                    FilterStatuses = GetInformStatuses(true),
-                    Statuses = GetInformStatuses(),
-                    ProductStatuses = GetProductStatuses(),
-                    Stations = GetStations()
-                };
-            }
-            catch (ObjectDbException ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                FilterStatuses = GetInformStatuses(true),
+                Statuses = GetInformStatuses(),
+                ProductStatuses = GetProductStatuses(),
+                Stations = GetStations()
+            };
         }
 
         #endregion Contact Inform headline

@@ -19,13 +19,13 @@ namespace Fanex.CRM.InformHeadline.Repositories
     /// </summary>
     public interface IInformHeadlineRepository
     {
-        IList<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
+        IEnumerable<InformHeadline> GetInforms(GetInformHeadlinesCriteria criteria);
 
         Result UpdateInformStatus(UpdateInformStatusCriteria criteria);
 
-        IList<NewInform> GetNewInforms(GetNewInformsCriteria criteria);
+        IEnumerable<NewInform> GetNewInforms(GetNewInformsCriteria criteria);
 
-        IList<InformStatus> GetInformStatuses(GetInformStatusesCriteria criteria);
+        IEnumerable<InformStatus> GetInformStatuses(GetInformStatusesCriteria criteria);
 
         Result UpdateContentInformHeadline(UpdateContentInformHeadlineCriteria criteria);
 
@@ -33,10 +33,10 @@ namespace Fanex.CRM.InformHeadline.Repositories
 
         Result UpdateInformHeadline(UpdateInformHeadlineCriteria criteria);
 
-        IList<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria);
+        IEnumerable<UpdateInform> GetUpdateInforms(GetUpdateInformsCriteria criteria);
 
         TitleDetail GetTileDetail(GetTitleDetailCriteria criteria);
 
-        IList<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria);
+        IEnumerable<UpdateInform> GetContactInforms(GetContactInformsCriteria criteria);
     }
 }

@@ -9,6 +9,7 @@ namespace Fanex.CRM.InformHeadline.Excel
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Linq;
     using System.Web;
     using Fanex.CRM.Common.Excel;
     using Fanex.CRM.Common.Extensions;
@@ -44,9 +45,9 @@ namespace Fanex.CRM.InformHeadline.Excel
         private readonly Color _openedStatusColor = Color.FromArgb(240, 237, 196);
         private readonly Color _closedStatusColor = Color.FromArgb(242, 242, 242);
 
-        private IList<InformHeadline> _data;
+        private IEnumerable<InformHeadline> _data;
 
-        public InformHeadlineExcel(IList<InformHeadline> data, string excelFileName)
+        public InformHeadlineExcel(IEnumerable<InformHeadline> data, string excelFileName)
             : base(excelFileName)
         {
             _data = data;
@@ -69,7 +70,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             
             GenerateTitle(exportExcelInfo, Labels.InformHeadlinesCases);
             GenerateHeader(exportExcelInfo);
-            if (_data == null || _data.Count == 0)
+            if (_data.Count() == 0)
             {
                 NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
@@ -126,7 +127,7 @@ namespace Fanex.CRM.InformHeadline.Excel
         /// </summary>
         /// <param name="exportExcelInfo">The export excel info.</param>
         /// <param name="informs">The weekly categories.</param>
-        private void GenerateBody(ExportExcelInfo exportExcelInfo, IList<InformHeadline> informs)
+        private void GenerateBody(ExportExcelInfo exportExcelInfo, IEnumerable<InformHeadline> informs)
         {
             exportExcelInfo.ResetCurrentColumn();
             int currentRow = exportExcelInfo.CurrentRow;
