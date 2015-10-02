@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Feedback.Repositories.AddCustomerFeedback
 {
     using Fanex.Common;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.Data;
@@ -17,29 +18,11 @@ namespace Fanex.CRM.Feedback.Repositories.AddCustomerFeedback
     /// <summary>
     /// Add Customer Feedback Repository.
     /// </summary>
-    public class AddCustomerFeedbackRepository : IAddCustomerFeedbackRepository
+    public class AddCustomerFeedbackRepository : BaseRepository, IAddCustomerFeedbackRepository
     {
-        /// <summary>
-        /// Adds the customer feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Add result.</returns>
         public Result AddCustomerFeedback(AddCustomerFeedbackCriteria criteria)
         {
-            Result addResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                addResult = new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return addResult;
+            return ExecuteNonQuery(criteria);
         }
     }
 }

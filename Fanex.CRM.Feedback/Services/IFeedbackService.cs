@@ -21,14 +21,14 @@ namespace Fanex.CRM.Feedback.Services
     /// </summary>
     public interface IFeedbackService
     {
-        IList<BaseModel> GetTop { get; }
+        IEnumerable<BaseModel> GetTop { get; }
 
-        dynamic AllSetting();
+        dynamic GetAllSettings();
 
-        IList<FeedbackDetail> GetManageFeedback(ManageFeedbackCriteria criteria);
+        IEnumerable<FeedbackDetail> GetManageFeedbacks(ManageFeedbackCriteria criteria);
 
-        IList<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria);
+        IEnumerable<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria);
 
-        IList<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria);
+        IEnumerable<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria);
     }
 }

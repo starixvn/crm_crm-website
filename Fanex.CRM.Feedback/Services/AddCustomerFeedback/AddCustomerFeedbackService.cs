@@ -17,7 +17,6 @@ namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Setting.Services;
 
     /// <summary>
     /// Add Customer Feedback Service.
@@ -44,21 +43,13 @@ namespace Fanex.CRM.Feedback.Services.AddCustomerFeedback
         /// <returns>Add result.</returns>
         public Result AddCustomerFeedback(AddCustomerFeedbackCriteria criteria)
         {
-            try
+            var result = _addCustomerFeedbackRepository.AddCustomerFeedback(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                var addResult = _addCustomerFeedbackRepository.AddCustomerFeedback(criteria);
-                if (addResult != null && addResult.Code == ErrorCodeConstants.NoneError)
-                {
-                    addResult.Message = Labels.Feedback_AddCustomerFeedback_AddSuccess;
-                }
+                result.Message = Labels.Feedback_AddCustomerFeedback_AddSuccess;
+            }
 
-                return addResult;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return result;
         }
     }
 }

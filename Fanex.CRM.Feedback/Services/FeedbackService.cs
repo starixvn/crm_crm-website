@@ -21,10 +21,8 @@ namespace Fanex.CRM.Feedback.Services
     using Fanex.CRM.Feedback.Repositories;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
-    using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
     using Fanex.Data.Repository;
 
@@ -50,7 +48,7 @@ namespace Fanex.CRM.Feedback.Services
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        public IList<BaseModel> GetTop
+        public IEnumerable<BaseModel> GetTop
         {
             get
             {
@@ -69,43 +67,27 @@ namespace Fanex.CRM.Feedback.Services
         /// Gets all setting.
         /// </summary>
         /// <returns>The all setting object.</returns>
-        public dynamic AllSetting()
+        public dynamic GetAllSettings()
         {
             return new
             {
-                CustomerType = GetCustomerType(),
-                Review = GetReview(),
+                CustomerType = GetCustomerTypes(),
+                Review = GetReviews(),
                 CustomerResponse = GetCustomerResponse(),
-                MainCategory = GetMainCategory(),
-                Communication = GetCommunication(),
+                MainCategory = GetMainCategories(),
+                Communication = GetCommunicationTools(),
                 Status = GetStatus()
             };
         }
 
-        /// <summary>
-        /// Gets the manager feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of ManagerFeedback object.</returns>
-        public IList<FeedbackDetail> GetManageFeedback(ManageFeedbackCriteria criteria)
+        public IEnumerable<FeedbackDetail> GetManageFeedbacks(ManageFeedbackCriteria criteria)
         {
-            IList<FeedbackDetail> feebacks = null;
-            try
-            {
-                feebacks = _feedbackRepository.GetManagerFeedback(criteria);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-
-            return feebacks;
+            return _feedbackRepository.GetManagerFeedbacks(criteria);
         }
 
-        public IList<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria)
+        public IEnumerable<DeletedFeedback> GetLatestFeedbackReport(LatestFeedbackCriteria criteria)
         {
-            return GetDeletedFeedback(criteria);
+            return GetDeletedFeedbacks(criteria);
         }
 
         /// <summary>
@@ -113,11 +95,11 @@ namespace Fanex.CRM.Feedback.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The list of deleted feedback.</returns>
-        public IList<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria)
+        public IEnumerable<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria)
         {
             string key = DeletedFeedbackSessionKey;
-            
-            IList<DeletedFeedback> feedbacks = null;
+
+            IEnumerable<DeletedFeedback> feedbacks = null;
             if (criteria.FromCache)
             {
                 feedbacks = (IList<DeletedFeedback>)SessionExtension.GetSession(HttpContext.Current.Session, key);
@@ -128,20 +110,12 @@ namespace Fanex.CRM.Feedback.Services
                 // Get data from DB.
                 criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
                 criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                try
-                {
-                    feedbacks = GetDeletedFeedback(criteria);
-                    SessionExtension.AddSession(HttpContext.Current.Session, key, feedbacks);
-                }
-                catch (Exception ex)
-                {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
-                }
+                feedbacks = GetDeletedFeedbacks(criteria);
+                SessionExtension.AddSession(HttpContext.Current.Session, key, feedbacks);
             }
 
             // pagination.
-            int totalItems = feedbacks.Count;
+            int totalItems = feedbacks.Count();
             if (totalItems > 0)
             {
                 feedbacks = feedbacks.Skip(criteria.PageSize * (criteria.PageIndex - 1)).Take(criteria.PageSize).ToList();
@@ -151,12 +125,7 @@ namespace Fanex.CRM.Feedback.Services
             return feedbacks;
         }
 
-        /// <summary>
-        /// Gets the deleted feedback.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of deleted feedback.</returns>
-        private IList<DeletedFeedback> GetDeletedFeedback(ICriteria criteria)
+        private IEnumerable<DeletedFeedback> GetDeletedFeedbacks(ICriteria criteria)
         {
             var categoryHash = new Dictionary<int, string>();
             var subcategoryHash = new Dictionary<int, string>();
@@ -181,14 +150,12 @@ namespace Fanex.CRM.Feedback.Services
             var statusHash = statusList.ToDictionary(k => k.Id, v => v.Name);
             statusHash.Add(1, Labels.Symbol_NA);
 
-            IList<DeletedFeedback> feedbacks = new List<DeletedFeedback>();
-            var rawdata = _feedbackRepository.GetDeletedFeedback(criteria);
-            foreach (var feedback in rawdata)
+            var feedbacks = _feedbackRepository.GetDeletedFeedbacks(criteria);
+            foreach (var feedback in feedbacks)
             {
                 feedback.MainCategory = categoryHash[feedback.MainCategoryId];
                 feedback.SubCategory = subcategoryHash.ContainsKey(feedback.SubCategoryId) ? subcategoryHash[feedback.SubCategoryId] : Labels.Symbol_NA;
                 feedback.Status = statusHash.ContainsKey(feedback.StatusId) ? statusHash[feedback.StatusId] : string.Empty;
-                feedbacks.Add(feedback);
             }
 
             return feedbacks;
@@ -196,7 +163,7 @@ namespace Fanex.CRM.Feedback.Services
 
         #region Setting helper methods
 
-        private IList<SettingInfo> GetCustomerType()
+        private IEnumerable<SettingInfo> GetCustomerTypes()
         {
             return new List<SettingInfo>
             {
@@ -206,7 +173,7 @@ namespace Fanex.CRM.Feedback.Services
             };
         }
 
-        private IList<SettingInfo> GetReview()
+        private IEnumerable<SettingInfo> GetReviews()
         {
             return new List<SettingInfo>
             {
@@ -216,16 +183,12 @@ namespace Fanex.CRM.Feedback.Services
             };
         }
 
-        /// <summary>
-        /// Gets the customer response.
-        /// </summary>
-        /// <returns>The list of SettingInfo object.</returns>
-        private IList<SettingInfo> GetCustomerResponse()
+        private IEnumerable<SettingInfo> GetCustomerResponse()
         {
             var response = _serviceSetting.GetAllResponses().ToList();
             response.Insert(
                 0,
-                new SettingInfo 
+                new SettingInfo
                 {
                     Id = SettingConstants.NotApply,
                     Value = Labels.All
@@ -234,11 +197,7 @@ namespace Fanex.CRM.Feedback.Services
             return response;
         }
 
-        /// <summary>
-        /// Gets the main category.
-        /// </summary>
-        /// <returns>The list of SettingInfo object.</returns>
-        private IList<SettingInfo> GetMainCategory()
+        private IEnumerable<SettingInfo> GetMainCategories()
         {
             var allSubSettingOption = new SettingInfo
             {
@@ -246,7 +205,7 @@ namespace Fanex.CRM.Feedback.Services
                 Name = Labels.All,
             };
 
-            var mainCategory = new List<SettingInfo>() 
+            var mainCategories = new List<SettingInfo>() 
             {
                 new SettingInfo
                 {
@@ -263,31 +222,23 @@ namespace Fanex.CRM.Feedback.Services
             foreach (var rawMainCategory in rawData)
             {
                 rawMainCategory.ChildSettings.Insert(0, allSubSettingOption);
-                mainCategory.Add(rawMainCategory);
+                mainCategories.Add(rawMainCategory);
             }
 
-            return mainCategory;
+            return mainCategories;
         }
 
-        /// <summary>
-        /// Gets the communication.
-        /// </summary>
-        /// <returns>The list of SettingInfo object.</returns>
-        private IList<SettingInfo> GetCommunication()
+        private IEnumerable<SettingInfo> GetCommunicationTools()
         {
-            var communication = _serviceSetting.GetAllCommunicationTools()
+            var tools = _serviceSetting.GetAllCommunicationTools()
                 .Where(r => r.Id != CommunicationToolConstants.NotApply)
                 .ToList();
-            communication.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
+            tools.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
 
-            return communication;
+            return tools;
         }
 
-        /// <summary>
-        /// Gets all status.
-        /// </summary>
-        /// <returns>The list of SettingInfo object.</returns>
-        private IList<SettingInfo> GetStatus()
+        private IEnumerable<SettingInfo> GetStatus()
         {
             var status = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                 .Where(r => !string.Equals(r.Name, "Deleted", StringComparison.OrdinalIgnoreCase))

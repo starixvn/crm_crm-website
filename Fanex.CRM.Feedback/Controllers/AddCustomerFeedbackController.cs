@@ -73,14 +73,13 @@ namespace Fanex.CRM.Feedback.Controllers
         [HttpPost]
         public JsonResult AddCustomerFeedback(AddCustomerFeedbackCriteria criteria)
         {
-            Result insertResult = CheckAddCustomerFeedbackPermission();
+            var insertResult = CheckAddCustomerFeedbackPermission();
             if (insertResult.Code == ErrorCodeConstants.NoneError)
             {
                 insertResult = _feedbackService.AddCustomerFeedback(criteria);
             }
 
-            var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(insertResult, JsonRequestBehavior.AllowGet);
         }
 
         private Result CheckAddCustomerFeedbackPermission()

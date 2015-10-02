@@ -45,7 +45,7 @@ namespace Fanex.CRM.Feedback.Controllers
             dynamic settings = null;
             if (hasPermission)
             {
-                settings = _feedbackService.AllSetting();
+                settings = _feedbackService.GetAllSettings();
             }
 
             return Json(settings, JsonRequestBehavior.AllowGet);
@@ -62,7 +62,7 @@ namespace Fanex.CRM.Feedback.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult SearchManageFeedback(ManageFeedbackCriteria criteria)
         {
-            var feedbacks = _feedbackService.GetManageFeedback(criteria);
+            var feedbacks = _feedbackService.GetManageFeedbacks(criteria);
             var report = new { Feedbacks = feedbacks, TotalItems = criteria.TotalRows };
             return Json(report, JsonRequestBehavior.DenyGet);
         }
