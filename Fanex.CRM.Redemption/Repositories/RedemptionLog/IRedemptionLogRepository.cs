@@ -16,7 +16,7 @@ namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
 
     public interface IRedemptionLogRepository
     {
-        List<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
+        IEnumerable<LogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 
         Result UpdateLog(UpdateLogCriteria criteria);
 

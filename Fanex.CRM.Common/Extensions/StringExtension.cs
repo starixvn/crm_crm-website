@@ -196,7 +196,11 @@ namespace Fanex.CRM.Common.Extensions
 
         public static string Replace(this string target, ICollection<string> oldValues, string newValue)
         {
-            oldValues.ForEach(oldValue => target = target.Replace(oldValue, newValue));
+            foreach (var oldValue in oldValues)
+            {
+                target = target.Replace(oldValue, newValue);
+            }
+
             return target;
         }
 

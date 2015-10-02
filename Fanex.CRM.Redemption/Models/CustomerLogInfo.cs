@@ -20,6 +20,6 @@ namespace Fanex.CRM.Redemption.Models
     {
         public int CustomerId { get; set; }
 
-        public List<LogInfo> Logs { get; set; }
+        public IEnumerable<LogInfo> Logs { get; set; }
     }
 }

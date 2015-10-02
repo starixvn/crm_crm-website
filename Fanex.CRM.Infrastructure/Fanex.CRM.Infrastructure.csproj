@@ -81,7 +81,6 @@
     <Compile Include="Constants\RequestHeaderTypeConstants.cs" />
     <Compile Include="Constants\SortDirectionConstants.cs" />
     <Compile Include="Extensions\DateTimeExtension.cs" />
-    <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Extensions\SessionExtension.cs" />
     <Compile Include="Helpers\LogExtensions.cs" />
     <Compile Include="Helpers\SystemTime.cs" />

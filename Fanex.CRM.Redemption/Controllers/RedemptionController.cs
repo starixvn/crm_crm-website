@@ -23,16 +23,16 @@ namespace Fanex.CRM.Redemption.Controllers
     /// </summary>
     public class RedemptionController : BaseController
     {
-        private IRedemptionLogService _logServiceInstance;
+        private IRedemptionLogService _logService;
 
         public RedemptionController()
             : this(null)
         {
         }
 
-        public RedemptionController(IRedemptionLogService logServiceInstance)
+        public RedemptionController(IRedemptionLogService logService)
         {
-            _logServiceInstance = logServiceInstance ?? new RedemptionLogService();
+            _logService = logService ?? new RedemptionLogService();
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
@@ -47,7 +47,7 @@ namespace Fanex.CRM.Redemption.Controllers
         {
             ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             ViewBag.HasHostCreateUpdatePermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
-            var logInfo = _logServiceInstance.GetLogById(new GetLogByIdCriteria
+            var logInfo = _logService.GetLogById(new GetLogByIdCriteria
             {
                 Id = logId
             });
@@ -65,45 +65,40 @@ namespace Fanex.CRM.Redemption.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            var log = _logServiceInstance.GetLogsByCustomerId(criteria);
-            var jsonResult = Json(log, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            var log = _logService.GetLogsByCustomerId(criteria);
+            return Json(log, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
-            var updateResult = _logServiceInstance.UpdateLog(criteria);
-            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            var updateResult = _logService.UpdateLog(criteria);
+            return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
-            var insertResult = _logServiceInstance.InsertLog(criteria);
-            var jsonResult = Json(insertResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            var insertResult = _logService.InsertLog(criteria);
+            return Json(insertResult, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult AllStatusInsert()
         {
-            var settings = _logServiceInstance.AllSettingsInsert();
-            var jsonResult = Json(settings, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            var settings = _logService.GetAllSettingsInsert();
+            return Json(settings, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult AllStatusEdit()
         {
-            var allStatus = _logServiceInstance.AllSettingsEdit();
-            var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            var allStatus = _logService.GetAllSettingsEdit();
+            return Json(allStatus, JsonRequestBehavior.AllowGet);
         }
     }
 }
