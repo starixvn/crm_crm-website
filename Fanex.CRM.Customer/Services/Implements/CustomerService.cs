@@ -11,14 +11,13 @@ namespace Fanex.CRM.Customer.Services
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories;
     using Fanex.CRM.Customer.Resources;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Criteria;
     using Fanex.CRM.Setting.Services;
@@ -28,9 +27,6 @@ namespace Fanex.CRM.Customer.Services
     /// </summary>
     public class CustomerService : ICustomerService
     {
-        private const string GetCustomerInfoByUsernameSessionKey =
-            "Fanex.CRM.Customer.Services.Implements.CustomerService.GetCustomerInfoByUsernameSessionKey";
-
         private readonly ICustomerRepository _customerRepositoryInstance;
 
         private readonly ISettingService _settingService;
@@ -46,16 +42,6 @@ namespace Fanex.CRM.Customer.Services
         {
             _customerRepositoryInstance = customerRepositoryInstance ?? new CustomerRepository();
             _settingService = settingService ?? new SettingService();
-        }
-
-        public GetCustomerInfoByUsernameCriteria GetCustomerInfoByUsernameCriteria
-        {
-            get
-            {
-                return (GetCustomerInfoByUsernameCriteria)SessionExtension.GetSession(
-                    HttpContext.Current.Session,
-                    GetCustomerInfoByUsernameSessionKey);
-            }
         }
 
         public CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
@@ -77,11 +63,15 @@ namespace Fanex.CRM.Customer.Services
                     });
                 }
 
-                SessionExtension.AddSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey, criteria);
+                AppSession.CurrentCustomer = new SearchedCustomer
+                {
+                    Name = criteria.Username,
+                    IsGuest = criteria.IsGuest
+                };                
             }
             else
             {
-                SessionExtension.DeleteSession(HttpContext.Current.Session, GetCustomerInfoByUsernameSessionKey);
+                AppSession.CurrentCustomer = null;
             }
 
             return customerInfo;

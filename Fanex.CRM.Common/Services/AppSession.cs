@@ -9,6 +9,7 @@ namespace Fanex.CRM.Common.Services
     using System.Collections.Generic;
     using System.Web;
     using System.Web.SessionState;
+    using Fanex.CRM.Common.Models;
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.NAP.Core.Model;
 
@@ -24,6 +25,19 @@ namespace Fanex.CRM.Common.Services
         private const string CurrentActionNameKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentActionName";
         private const string CurrentHttpMethodKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.CurrentHttpMethod";
         private const string RedirectUrlKey = "Fanex.CRM.Infrastructure.Helper.Contants.AppSession.RedirectUrl";
+
+        public static SearchedCustomer CurrentCustomer
+        {
+            get
+            {
+                return SessionExtension.GetSession(CurrentSession, "SearchedCustomer") as SearchedCustomer;
+            }
+
+            set
+            {
+                SessionExtension.AddSession(CurrentSession, "SearchedCustomer", value);
+            }
+        }
 
         /// <summary>
         /// Gets or sets current login user.

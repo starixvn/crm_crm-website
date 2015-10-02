@@ -85,32 +85,28 @@ namespace Fanex.CRM.Dashboard.Controllers
         public ActionResult GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {
             var remarks = _dashboardServiceInstance.GetCustomerRemarks(criteria);
-            var jsonResult = Json(remarks, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(remarks, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult GetCustomerInfo(GetCustomerInfoCriteria criteria)
         {
             var customerInfo = _dashboardServiceInstance.GetCustomerInfo(criteria);
-            var jsonResult = Json(customerInfo, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(customerInfo, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
         {
             var redemptionLogs = _dashboardServiceInstance.GetRedemptionLogs(criteria);
-            var jsonResult = Json(redemptionLogs, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(redemptionLogs, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
         {
             var communicationLogs = _dashboardServiceInstance.GetCommunicationLogs(criteria);
-            var jsonResult = Json(communicationLogs, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(communicationLogs, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -119,8 +115,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         public ActionResult UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
             var updateResult = _dashboardServiceInstance.UpdateCustomerVerifyFlag(criteria);
-            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
     }
 }

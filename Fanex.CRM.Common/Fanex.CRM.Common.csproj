@@ -175,6 +175,7 @@
     <Compile Include="Models\Npoi\ExportExcelInfo.cs" />
     <Compile Include="Models\PersonalInfoContact.cs" />
     <Compile Include="Models\PhoneInfo.cs" />
+    <Compile Include="Models\SearchedCustomer.cs" />
     <Compile Include="Models\SettingInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

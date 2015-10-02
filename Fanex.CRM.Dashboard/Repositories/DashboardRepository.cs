@@ -14,9 +14,9 @@ namespace Fanex.CRM.Dashboard.Repositories
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
-    using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models;
+    using Fanex.CRM.Common.Repositories;
     using Fanex.CRM.Dashboard.Criteria;
     using Fanex.CRM.Dashboard.Models;
     using Fanex.CRM.Infrastructure.Extensions;
@@ -26,149 +26,77 @@ namespace Fanex.CRM.Dashboard.Repositories
     /// <summary>
     /// Dashboard Repository.
     /// </summary>
-    public class DashboardRepository : IDashboardRepository
+    public class DashboardRepository : BaseRepository, IDashboardRepository
     {
-        /// <summary>
-        /// Gets the customer remarks.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer remarks.</returns>
-        public List<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
+        public IEnumerable<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {
-            List<string> remarks = new List<string>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
-                {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            remarks.Add(MappingDataFromSqlToRemarkObject(reader));
-                        }
-                    }
-                }
+                return objectDB.Query<string>(criteria.GetSpParams());
             }
-
-            return remarks;
         }
 
-        /// <summary>
-        /// Gets the customer information.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer information.</returns>
         public CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria)
         {
-            CustomerInfo customerInfo = new CustomerInfo();
-
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader != null)
-                    {
-                        while (reader.Read())
-                        {
-                            customerInfo = MappingDataFromSqlToCustomerInfoObject(reader);
-                        }
+                    CustomerInfo customerInfo = reader.Read() ?
+                        ReadCustomerInfo(reader) :
+                        new CustomerInfo();
 
-                        customerInfo.Id = criteria.CustomerId;
-                    }
+                    customerInfo.Id = criteria.CustomerId;
+                    return customerInfo;
                 }
             }
-
-            return customerInfo;
         }
 
-        /// <summary>
-        /// Gets the redemption logs.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The redemption logs.</returns>
-        public List<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
+        public IEnumerable<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
         {
-            List<RedemptionLogInfo> redemptionLogs = new List<RedemptionLogInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader != null)
+                    var redemptionLogs = new List<RedemptionLogInfo>();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            redemptionLogs.Add(MappingDataFromSqlToRedemptionLogObject(reader));
-                        }
+                        redemptionLogs.Add(ReadRedemptionLog(reader));
                     }
+
+                    return redemptionLogs;
                 }
             }
-
-            return redemptionLogs;
         }
 
-        /// <summary>
-        /// Gets the communication logs.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The communication logs.</returns>
-        public List<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
+        public IEnumerable<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
         {
-            List<CommunicationLogInfo> communicationLogs = new List<CommunicationLogInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader != null)
+                    var communicationLogs = new List<CommunicationLogInfo>();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            communicationLogs.Add(MappingDataFromSqlToCommunicationLogObject(reader));
-                        }
+                        communicationLogs.Add(ReadCommunicationLog(reader));
                     }
+
+                    return communicationLogs;
                 }
             }
-
-            return communicationLogs;
         }
 
-        /// <summary>
-        /// Updates the customer verify flag.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
         public Result UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
-            Result updateResult = null;
-            using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                objectDB.ExecuteNonQuery();
-                var outputParams = objectDB.GetOuputParams();
-                updateResult = new Result
-                {
-                    Code = Converter.ToInt(outputParams["errcode"]),
-                    Message = Converter.ToString2(outputParams["errmsg"])
-                };
-            }
-
-            return updateResult;
+            return ExecuteNonQuery(criteria);
         }
 
-        /// <summary>
-        /// Mappings the data from SQL to customer information object.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Customer information object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private CustomerInfo MappingDataFromSqlToCustomerInfoObject(IDataReader reader)
+        private CustomerInfo ReadCustomerInfo(IDataReader reader)
         {
-            CustomerInfo customerInfo = new CustomerInfo
+            var customerInfo = new CustomerInfo
             {
                 Email = Converter.ToString2(reader["email"]),
                 Passport = Converter.ToString2(reader["Passport"]),
@@ -193,28 +121,10 @@ namespace Fanex.CRM.Dashboard.Repositories
             return customerInfo;
         }
 
-        /// <summary>
-        /// Mappings the data from SQL to remark object.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Remark object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private string MappingDataFromSqlToRemarkObject(IDataReader reader)
-        {
-            return Converter.ToString2(reader["Remark"]);
-        }
-
-        /// <summary>
-        /// Mappings the data from SQL to redemption log object.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Redemption log object.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private RedemptionLogInfo MappingDataFromSqlToRedemptionLogObject(IDataReader reader)
+        private RedemptionLogInfo ReadRedemptionLog(IDataReader reader)
         {
             var redemptionLog = new RedemptionLogInfo
             {
@@ -233,15 +143,10 @@ namespace Fanex.CRM.Dashboard.Repositories
             return redemptionLog;
         }
 
-        /// <summary>
-        /// Mappings the data from SQL to communication log object.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>Communication log object.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private CommunicationLogInfo MappingDataFromSqlToCommunicationLogObject(IDataReader reader)
+        private CommunicationLogInfo ReadCommunicationLog(IDataReader reader)
         {
             var durationTime = Converter.ToString2(reader["Duration"]);
             var durationTimeArray = durationTime.Split(':');

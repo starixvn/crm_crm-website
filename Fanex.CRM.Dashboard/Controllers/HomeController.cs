@@ -9,10 +9,12 @@
 
 namespace Fanex.CRM.Dashboard.Controllers
 {
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
+    using Fanex.NAP.Core.Model;
 
     /// <summary>
     /// Home Controller.
@@ -63,6 +65,8 @@ namespace Fanex.CRM.Dashboard.Controllers
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
             ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
 
+            ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
+
             if (AppSession.RedirectLink != null && 
                 !string.IsNullOrEmpty(AppSession.RedirectLink))
             {
@@ -76,8 +80,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         [ChildActionOnly]
         public PartialViewResult GettingUserMenu()
         {
-            ViewBag.MenuItemList = CurrentSession.MenuItemList;
-            return PartialView("~/Views/Home/_Menu.cshtml");
+            return PartialView("~/Views/Home/_Menu.cshtml", CurrentSession.MenuItemList);
         }
 
         public PartialViewResult GettingDashboardMenu()

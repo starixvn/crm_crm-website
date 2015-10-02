@@ -3,21 +3,12 @@
 }
 @using Fanex.CRM.Infrastructure.Extensions
 @using Fanex.CRM.Infrastructure.Resources
-@using Fanex.CRM.Customer.Criteria
-@using Fanex.CRM.Customer.Services
 @using Fanex.CRM.Common.Helpers;
-@using Fanex.CRM.Common.Services;
+@using Fanex.CRM.Common.Models;
 @using Fanex.NAP.Core.Business;
 @{
-    string userSearched = string.Empty;
-    bool isGuest = false;
-
-    GetCustomerInfoByUsernameCriteria getCustomerInfoByUsernameCriteria = new CustomerService().GetCustomerInfoByUsernameCriteria;
-    if (getCustomerInfoByUsernameCriteria != null)
-    {
-        userSearched = getCustomerInfoByUsernameCriteria.Username;
-        isGuest = getCustomerInfoByUsernameCriteria.IsGuest;
-    }
+    var customer = (ViewBag.CurrentCustomer as SearchedCustomer) ?? new SearchedCustomer();
+    
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
     string redirectUrl = ViewBag.RedirectUrl;
     var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
@@ -130,8 +121,8 @@
     @RazorHelper.RenderScripts("~/Views/Home/Dashboard/Scripts")
     <script type="text/javascript">
         window.rootUrl = '@Url.Content("~")';
-        var userSearch = '@userSearched';
-        var isGuestSearch = '@isGuest';
+        var userSearch = '@customer.Name';
+        var isGuestSearch = '@customer.IsGuest';
         var accUrlDefault = '@Fanex.CRM.Common.Services.AppSetting.LoginLink';
         var userId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";

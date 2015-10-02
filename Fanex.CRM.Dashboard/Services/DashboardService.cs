@@ -36,118 +36,35 @@ namespace Fanex.CRM.Dashboard.Services
             _dashboardRepositoryInstance = dashboardRepositoryInstance ?? new DashboardRepository();
         }
 
-        /// <summary>
-        /// Gets the customer remarks.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer remarks.</returns>
-        public List<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
+        public IEnumerable<string> GetCustomerRemarks(GetCustomerRemarksCriteria criteria)
         {
-            List<string> remarks = null;
-            try
-            {
-                remarks = _dashboardRepositoryInstance.GetCustomerRemarks(criteria);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-
-            return remarks;
+            return _dashboardRepositoryInstance.GetCustomerRemarks(criteria);
         }
 
-        /// <summary>
-        /// Gets the customer information.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer information.</returns>
         public CustomerInfo GetCustomerInfo(GetCustomerInfoCriteria criteria)
         {
-            CustomerInfo customerInfo = null;
-            try
-            {
-                var rawData = _dashboardRepositoryInstance.GetCustomerInfo(criteria);
-                customerInfo = rawData;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-
-            return customerInfo;
+            return _dashboardRepositoryInstance.GetCustomerInfo(criteria);
         }
 
-        /// <summary>
-        /// Gets the redemption logs.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The redemption logs.</returns>
-        public List<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
+        public IEnumerable<RedemptionLogInfo> GetRedemptionLogs(GetRedemptionLogsCriteria criteria)
         {
-            List<RedemptionLogInfo> redemptionLogs = null;
-            try
-            {
-                var rawData = _dashboardRepositoryInstance.GetRedemptionLogs(criteria);
-                redemptionLogs = rawData;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-
-            return redemptionLogs;
+            return _dashboardRepositoryInstance.GetRedemptionLogs(criteria);
         }
 
-        /// <summary>
-        /// Gets the communication logs.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The communication logs.</returns>
-        public List<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
+        public IEnumerable<CommunicationLogInfo> GetCommunicationLogs(GetCommunicationLogsCriteria criteria)
         {
-            List<CommunicationLogInfo> communicationLogs = null;
-            try
-            {
-                var rawData = _dashboardRepositoryInstance.GetCommunicationLogs(criteria);
-                communicationLogs = rawData;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
-
-            return communicationLogs;
+            return _dashboardRepositoryInstance.GetCommunicationLogs(criteria);
         }
 
-        /// <summary>
-        /// Updates the customer verify flag.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>Update result.</returns>
         public Result UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
-            Result updateResult = null;
-            try
+            var result = _dashboardRepositoryInstance.UpdateCustomerVerifyFlag(criteria);
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                var rawData = _dashboardRepositoryInstance.UpdateCustomerVerifyFlag(criteria);
-                updateResult = rawData;
-                if (updateResult != null &&
-                    updateResult.Code == ErrorCodeConstants.NoneError)
-                {
-                    updateResult.Message = Labels.Dashboard_VerifyFlag_UpdateSuccess;
-                }
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                result.Message = Labels.Dashboard_VerifyFlag_UpdateSuccess;
             }
 
-            return updateResult;
+            return result;
         }
     }
 }
