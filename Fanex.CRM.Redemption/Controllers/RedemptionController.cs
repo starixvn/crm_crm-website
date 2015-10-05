@@ -12,6 +12,7 @@ namespace Fanex.CRM.Redemption.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Redemption.Criteria;
     using Fanex.CRM.Redemption.Services.RedemptionLog;
     using Fanex.NAP.Core.Business;
@@ -20,6 +21,7 @@ namespace Fanex.CRM.Redemption.Controllers
     /// <summary>
     /// Redemption Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class RedemptionController : BaseController
     {
         private IRedemptionLogService _logServiceInstance;
@@ -33,16 +35,17 @@ namespace Fanex.CRM.Redemption.Controllers
         {
             _logServiceInstance = logServiceInstance ?? new RedemptionLogService();
         }
-
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
+        
         public ActionResult Index(int customerId)
         {
+            ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             return View("~/Areas/Redemption/ViewLog/Index.cshtml", customerId);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult OpenEditView(int logId)
         {
+            ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
             var logInfo = _logServiceInstance.GetLogById(new GetLogByIdCriteria
             {
                 Id = logId
@@ -51,14 +54,13 @@ namespace Fanex.CRM.Redemption.Controllers
             return View("~/Areas/Redemption/EditLog/Index.cshtml", logInfo);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult OpenInsertView(int customerId)
         {
             return View("~/Areas/Redemption/InsertLog/Index.cshtml", customerId);
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             var log = _logServiceInstance.GetLogsByCustomerId(criteria);
@@ -67,7 +69,7 @@ namespace Fanex.CRM.Redemption.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
             var updateResult = _logServiceInstance.UpdateLog(criteria);
@@ -76,7 +78,7 @@ namespace Fanex.CRM.Redemption.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
             var insertResult = _logServiceInstance.InsertLog(criteria);

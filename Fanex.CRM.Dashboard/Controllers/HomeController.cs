@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Dashboard.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
 
@@ -18,6 +19,18 @@ namespace Fanex.CRM.Dashboard.Controllers
     /// </summary>
     public class HomeController : BaseController
     {
+        private readonly IPermissionService _permissionService;
+
+        public HomeController()
+            : this(null)
+        {
+        }
+
+        public HomeController(IPermissionService permissionService)
+        {
+            _permissionService = permissionService ?? new PermissionService();
+        }
+
         public RedirectResult Index()
         {
             if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
@@ -48,6 +61,8 @@ namespace Fanex.CRM.Dashboard.Controllers
 
             ViewBag.RedirectUrl = string.Empty;
             ViewBag.AccUsername = AppSession.CurrentUser.Username;
+            ViewBag.CreateCustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
+
             if (AppSession.RedirectLink != null && 
                 !string.IsNullOrEmpty(AppSession.RedirectLink))
             {

@@ -1,9 +1,11 @@
 ﻿@using Newtonsoft.Json;
 @using Fanex.CRM.Remark.Models;
 @using Fanex.CRM.Remark.Resources;
+@using Fanex.NAP.Core.Business;
 @model int
 @{
     var serverModel = JsonConvert.SerializeObject(Model);
+    var canUpdate = (Constant.Policy)ViewBag.CustomerInfoPolicy == Constant.Policy.Host;
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="remark-application">
@@ -16,7 +18,8 @@
 </head>
 <body>
     <div class="container main" data-ng-controller="remarkController">
-        <div alert-box-container></div>
+        <div alert-box-container>
+        </div>
         <div class="row panel-group last">
             <div class="row title group-header" data-ng-click="isShowSpecialRemark = !isShowSpecialRemark"
                 data-ng-class="isShowSpecialRemark ? '' : 'border-bottom-none'">@Labels.SpecialRemark</div>
@@ -29,7 +32,11 @@
                             <div class="textarea-remark raw-html-directive" rows="4" data-ng-model="remarks.SpecialRemarks[$index]">
                             </div>
                         </div>
-                        <span class="icon-del" data-ng-click="deleteRemark(true, $index)"></span></li>
+                        @if (canUpdate)
+                        {
+                            <span class="icon-del" data-ng-click="deleteRemark(true, $index)"></span>
+                        }
+                    </li>
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="1"
                             data-remarkindex="{{remarks.SpecialRemarks.length}}">
@@ -37,7 +44,11 @@
                             <div class="textarea-remark" rows="4">@Labels.SpecialRemarkPlaceHolder
                             </div>
                         </div>
-                        <span class="icon-add" data-ng-click="insertSpecialRemark();"></span></li>
+                        @if (canUpdate)
+                        {
+                            <span class="icon-add" data-ng-click="insertSpecialRemark();"></span>
+                        }
+                    </li>
                 </ul>
             </div>
         </div>
@@ -53,7 +64,10 @@
                             <div class="textarea-remark raw-html-directive" rows="4" data-ng-model="remarks.NormalRemarks[$index]">
                             </div>
                         </div>
-                        <span class="icon-del" data-ng-click="deleteRemark(false, $index)"></span>
+                        @if (canUpdate)
+                        {
+                            <span class="icon-del" data-ng-click="deleteRemark(false, $index)"></span>
+                        }
                     </li>
                     <li class="last-remark">
                         <div class="col-xs-11 col-sm-11 col-md-11 remark-editor-directive" data-isspecialremark="0"
@@ -62,15 +76,21 @@
                             <div class="textarea-remark" rows="4">@Labels.RemarkPlaceHolder>
                             </div>
                         </div>
-                        <span class="icon-add" data-ng-click="insertRemark();"></span>
+                        @if (canUpdate)
+                        {
+                            <span class="icon-add" data-ng-click="insertRemark();"></span>
+                        }
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="row">
-            <button class="btn btn-save" data-ng-click="updateRemarks()">
-                <span class="hotkey">S</span>ave</button>
-        </div>
+        @if (canUpdate)
+        {
+            <div class="row">
+                <button class="btn btn-save" data-ng-click="updateRemarks()">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        }
     </div>
     <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/Remark/RemarkScripts")
@@ -83,7 +103,6 @@
     @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/Directives/RemarkEditorDirective.js")
     @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/Directives/RichRemarkEditorDirective.js")
     @RazorHelper.RenderScripts("~/Areas/Remark/Scripts/Directives/RegisterSharedDirectives.js")
-
     <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';

@@ -26,8 +26,9 @@ namespace Fanex.CRM.Communication.Controllers
     /// <summary>
     /// Communication Log Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class CommunicationLogController : BaseController
-    {
+    {        
         private ICommunicationLogService _communicationServiceLog;
 
         private ISettingService _serviceSetting;
@@ -44,16 +45,11 @@ namespace Fanex.CRM.Communication.Controllers
             _communicationServiceLog = communicationServiceLog ?? new CommunicationLogService();
             _serviceSetting = serviceSetting ?? new SettingService();
         }
-
+        
         public ActionResult Index(int customerId)
         {
-            if (HasPermission(FunctionPermissions.EditFeedback, Constant.Policy.Read) ||
-                HasPermission(FunctionPermissions.CreateFeedback, Constant.Policy.Read))
-            {
-                return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", customerId);
-            }
-
-            return Redirect("~/Common/AccessDenied");
+            ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
+            return View("~/Areas/Communication/ViewLog/CommunicationLog.cshtml", customerId);
         }
 
         /// <summary>
@@ -61,7 +57,6 @@ namespace Fanex.CRM.Communication.Controllers
         /// </summary>
         /// <returns>All setting for edit.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSettingForEdit()
         {
             var allSetting = new
@@ -90,7 +85,6 @@ namespace Fanex.CRM.Communication.Controllers
         /// All setting for edit.
         /// </returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CreateFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSettingForInsert(int custId)
         {
             var allSetting = new
@@ -120,18 +114,11 @@ namespace Fanex.CRM.Communication.Controllers
         [HttpPost]
         public ActionResult GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
-            if (!HasPermission(FunctionPermissions.EditFeedback, Constant.Policy.Read) &&
-                !HasPermission(FunctionPermissions.CreateFeedback, Constant.Policy.Read))
-            {
-                return null;
-            }
-
             var logs = _communicationServiceLog.GetLogsByCustomerId(criteria);
             var jsonResult = Json(logs, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult OpenEditView(int logRunningNumber)
         {
             var logInfo = _communicationServiceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
@@ -142,13 +129,12 @@ namespace Fanex.CRM.Communication.Controllers
             return View("~/Areas/Communication/EditLog/Index.cshtml", logInfo);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult OpenInsertView(int customerId)
         {
             return View("~/Areas/Communication/InsertLog/Index.cshtml", customerId);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult ViewDetailById(int logId)
         {
             var logInfo = _communicationServiceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
@@ -165,7 +151,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>Update Result.</returns>
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Host)]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateLog(UpdateLogCriteria criteria)
         {
             Result updateResult;
@@ -192,7 +178,7 @@ namespace Fanex.CRM.Communication.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>Insert result.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CreateFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult InsertLog(InsertLogCriteria criteria)
         {
             Result insertResult = _communicationServiceLog.InsertLog(criteria);

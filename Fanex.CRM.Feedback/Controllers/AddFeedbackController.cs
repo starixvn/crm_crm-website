@@ -14,16 +14,17 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Add Feedback Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class AddFeedbackController : BaseController
     {
         public AddFeedbackController()
@@ -39,7 +40,6 @@ namespace Fanex.CRM.Feedback.Controllers
         public ISettingService ServiceSetting { get; set; }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSetting()
         {
             return Json(AllSettingToAddFeedback(), JsonRequestBehavior.AllowGet);

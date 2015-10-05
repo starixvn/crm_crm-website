@@ -7,6 +7,7 @@
 @using Fanex.CRM.Customer.Services
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
+@using Fanex.NAP.Core.Business;
 @{
     string userSearched = string.Empty;
     bool isGuest = false;
@@ -19,9 +20,9 @@
     }
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
     string redirectUrl = ViewBag.RedirectUrl;
-    
+    var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
 }
-@section Styles{    
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Views/Home/Styles/default.less")
     @RazorHelper.RenderStyles("~/Views/HomeStyles")
@@ -101,7 +102,6 @@
     </div>
     <div id="div-resultpopup" class="selector display-none">
     </div>
-
     @RazorHelper.RenderScripts("~/Scripts/JQuery/jquery-1.8.2.js",
                             "~/Scripts/json2.js",
                             "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -116,7 +116,6 @@
                             "~/Scripts/jquery.blockUI.1.33.js",
                             "~/Scripts/BlockUI.js",
                             "~/Scripts/common.js")
-
     @RazorHelper.RenderScripts("~/Scripts/PopUp")
     @RazorHelper.RenderScripts("~/CRM/Chart/Scripts")
     @RazorHelper.RenderScripts("~/Views/Home/Scripts/Main.js")

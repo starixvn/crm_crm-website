@@ -22,23 +22,27 @@ namespace Fanex.CRM.Customer.Controllers
     /// <summary>
     /// Customer Setting Detail Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class CustomerSettingDetailController : BaseController
     {
+        private readonly IPermissionService _permissionService;
         private ICustomerDetailService _customerServiceInstance;
 
         public CustomerSettingDetailController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public CustomerSettingDetailController(ICustomerDetailService customerServiceInstance)
+        public CustomerSettingDetailController(IPermissionService permissionService, ICustomerDetailService customerServiceInstance)
         {
+            _permissionService = permissionService ?? new PermissionService();
             _customerServiceInstance = customerServiceInstance ?? new CustomerDetailService();
         }
-
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
+        
         public ActionResult Index(string customerId)
         {
+            ViewBag.CustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
+
             CustomerInfo customerDetail = _customerServiceInstance.GetCustomerInfoDetailById(new GetCustomerInfoDetailByIdCriteria
             {
                 CustomerId = customerId
@@ -48,7 +52,6 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
             var customerInfo = _customerServiceInstance.GetCustomerInfoDetailById(criteria);
@@ -57,7 +60,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
             var customerInfoDetail = _customerServiceInstance.UpdateCustomerInfoDetail(criteria);

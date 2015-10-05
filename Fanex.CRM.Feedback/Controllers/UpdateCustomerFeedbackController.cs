@@ -24,6 +24,7 @@ namespace Fanex.CRM.Feedback.Controllers
     /// <summary>
     /// Update customer feedback controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class UpdateCustomerFeedbackController : BaseController
     {
         private readonly IUpdateCustomerFeedbackService _updateCustomerFeedbackService;
@@ -37,8 +38,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             _updateCustomerFeedbackService = updateCustomerFeedbackService ?? new UpdateCustomerFeedbackService();
         }
-
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
+        
         public ActionResult Index(int id)
         {
             ViewBag.FeedbackId = id;
@@ -46,14 +46,12 @@ namespace Fanex.CRM.Feedback.Controllers
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSettings()
         {
             bool hasDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
             return Json(_updateCustomerFeedbackService.GetAllSettings(hasDeleteFeedbackPermission), JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult GetFeedback(GetFeedbackByIdCriteria criteria)
         {
             return Json(_updateCustomerFeedbackService.GetFeedbackById(criteria), JsonRequestBehavior.AllowGet);
@@ -85,12 +83,12 @@ namespace Fanex.CRM.Feedback.Controllers
         private Result CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria)
         {
             int permissionError = ErrorCodeConstants.NoPermission;
-            if (!HasPermission(FunctionPermissions.EditFeedback, Constant.Policy.Host))
+            if (!HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))
             {
                 return new Result(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);
             }
 
-            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Host))
+            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))
             {
                 return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
             }

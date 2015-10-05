@@ -3,9 +3,11 @@
 @using Newtonsoft.Json;
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
+@using Fanex.NAP.Core.Business;
 @model CustomerInfo
 @{
     var jsonCustomerDetail = JsonConvert.SerializeObject(Model);
+    var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="customerdetail-application">
@@ -13,7 +15,7 @@
     <title>@Resources.Language.Title_DetailTab </title>
     @RazorHelper.RenderStyles("~/site/common")
     @RazorHelper.RenderScripts("~/scripts/respond")
-    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")    
 </head>
 <body>
     <div class="main container" data-ng-controller="customerDetailController">
@@ -489,10 +491,13 @@
                 </div>
             </div>
         </div>
+        @if (customerInfoPolicy == Constant.Policy.Host)
+        {
         <div class="row">
             <button class="btn btn-save" data-ng-click="updateCustomerInfoDetail();">
                 <span id="button-save-customerinfodetail" class="hotkey">S</span>ave</button>
         </div>
+        }
     </div>
     <div id="div-customerinfodetail-resultpopup" class="selector display-none">
     </div>

@@ -21,6 +21,7 @@ namespace Fanex.CRM.Remark.Controllers
     /// <summary>
     /// Remark controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class RemarkController : BaseController
     {
         private readonly IRemarkService _remarkService;
@@ -34,15 +35,15 @@ namespace Fanex.CRM.Remark.Controllers
         {
             _remarkService = remarkService ?? new RemarkService();
         }
-
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
+        
         [HttpGet]
         public ActionResult Index(int customerId)
         {
+            ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
+
             return View("~/Areas/Remark/Index.cshtml", customerId);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult GetRemarks(GetRemarkCriteria criteria)
         {
@@ -52,7 +53,7 @@ namespace Fanex.CRM.Remark.Controllers
             return Json(remarks, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult Update(Remarks model)
         {

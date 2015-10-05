@@ -14,15 +14,11 @@ namespace Fanex.CRM.Common.Constants
     /// </summary>
     public static class FunctionPermissions
     {
-        public const string CreateFeedback = "CreateFeedback";
-
-        public const string EditFeedback = "EditFeedback";
+        public const string CreateUpdateFeedbackAndCustomerInfo = "CreateUpdateFeedback_CustomerInfo";
 
         public const string ReviewFeedback = "ReviewFeedback";
 
         public const string DeleteFeedback = "DeleteFeedback";
-
-        public const string CustomerInfo = "Customer_Guest";
 
         public const string CRMReport = "CRMReport";
 
