@@ -42,7 +42,17 @@ namespace Fanex.CRM.Feedback.Controllers
         [HttpPost]
         public ActionResult AllSetting()
         {
-            return Json(AllSettingToAddFeedback(), JsonRequestBehavior.AllowGet);
+            var settings = AllSettingToAddFeedback();
+            bool hasCreateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            if (hasCreateFeedbackPermission)
+            {
+                var deleteStatus = settings.StatusList.Find(s => s.Name == "Deleted");
+                if (deleteStatus != null)
+                {
+                    settings.StatusList.Remove(deleteStatus);
+                }
+            }
+            return Json(settings, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

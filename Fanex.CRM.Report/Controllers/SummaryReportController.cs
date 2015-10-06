@@ -16,10 +16,14 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.SummaryReport;
     using Fanex.CRM.Report.Services.SummaryReport;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// SummaryReportController controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CategoriesSummaryReport, Policy = Constant.Policy.Read)]
     public class SummaryReportController : BaseController
     {
         private readonly ISummaryReportService _summaryService;

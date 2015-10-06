@@ -16,10 +16,14 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.WagerReport;
     using Fanex.CRM.Report.Services.WagerReport;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// WagerReportController controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.Wagers_RelatedReport, Policy = Constant.Policy.Read)]
     public class WagerReportController : BaseController
     {
         private readonly IWagerReportService _wagerService;

@@ -20,6 +20,7 @@ namespace Fanex.CRM.Report.Controllers
     /// <summary>
     /// Feedback statistic report controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.FeedbackStatistics, Policy = Constant.Policy.Read)]
     public class FeedbackStatisticReportController : BaseController
     {
         private readonly IFeedbackStatisticReportService _feedbackStatisticService;
@@ -34,41 +35,35 @@ namespace Fanex.CRM.Report.Controllers
             _feedbackStatisticService = feedbackStatisticService ?? new FeedbackStatisticReportService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             var settings = _feedbackStatisticService.GetFeedbackStatisticFilterType();
             return View("~/Areas/Report/FeedbackStatistics/Index.cshtml", settings);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult SearchFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             var report = _feedbackStatisticService.GetFeedbackStatistic(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult ExportFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
             _feedbackStatisticService.ExportFeedbackStatistic(criteria);
             return new EmptyResult();
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult FeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             return View("~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Index.cshtml", criteria);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult GetFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             var report = _feedbackStatisticService.FeedbackStatisticDetail(criteria);
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult ExportFeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
             _feedbackStatisticService.ExportFeedbackStatisticDetail(criteria);

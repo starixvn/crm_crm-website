@@ -555,7 +555,7 @@
                 </div>
             </div>
         </div>
-        <div class="row btn-group">
+        <div class="row btn-group" data-ng-show="@hasReviewFeedbackPermission.ToString().ToLower()">
             <button class="btn" data-ng-click="updateFeedback();">
                 <span class="hotkey">S</span>ave</button>
         </div>

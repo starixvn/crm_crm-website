@@ -170,7 +170,9 @@
     <Compile Include="Controllers\DailyStatisticsReportController.cs" />
     <Compile Include="Controllers\DynamicReportController.cs" />
     <Compile Include="Controllers\FeedbackStatisticReportController.cs" />
-    <Compile Include="Controllers\StatisticReportController.cs" />
+    <Compile Include="Controllers\StatisticReportController.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Controllers\SettlementReportController.cs" />
     <Compile Include="Controllers\SummaryReportController.cs" />
     <Compile Include="Controllers\WagerReportController.cs" />

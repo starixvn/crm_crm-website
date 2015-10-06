@@ -16,10 +16,14 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.SettlementReport;
     using Fanex.CRM.Report.Services.SettlementReport;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// Settlement Report Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.SettlementIssuesReport, Policy = Constant.Policy.Read)]
     public class SettlementReportController : BaseController
     {
         private ISettlementReportService _settlementReportService;

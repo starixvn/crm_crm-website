@@ -16,10 +16,14 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Infrastructure.Services;
     using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Services.StatisticReport;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.CRM.Common.Constants;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// Statistic Report Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.IssueStatistics, Policy = Constant.Policy.Read)]
     public class StatisticReportController : BaseController
     {
         private IStatisticReportService _statisticReportService;

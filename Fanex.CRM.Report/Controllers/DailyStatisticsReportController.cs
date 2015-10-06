@@ -22,6 +22,7 @@ namespace Fanex.CRM.Report.Controllers
     /// <summary>
     /// Daily Statistics Report Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.DailyStatistics, Policy = Constant.Policy.Read)]
     public class DailyStatisticsReportController : BaseController
     {
         private IStatisticByDateReportService _dailyStatisticsReportService;
@@ -36,7 +37,6 @@ namespace Fanex.CRM.Report.Controllers
             _dailyStatisticsReportService = dailyStatisticsReportService ?? new DailyStatisticsReportService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View("~/Areas/Report/DailyStatisticsReport/Index.cshtml");
@@ -48,7 +48,6 @@ namespace Fanex.CRM.Report.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>The main report.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult MainReport(GetMainReportCriteria criteria)
         {
             var jsonResult = Json(new
@@ -70,14 +69,12 @@ namespace Fanex.CRM.Report.Controllers
             return jsonResult;
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public void ExportIbcReport(GetMainReportCriteria criteria)
         {
             criteria.SiteType = (int)ReportType.CreditSite;
             _dailyStatisticsReportService.ExportMainReport(criteria);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public void ExportLicenseeReport(GetMainReportCriteria criteria)
         {
             criteria.SiteType = (int)ReportType.Licensee;
@@ -85,7 +82,6 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult DetailReport(GetDetailReportCriteria criteria)
         {
             var result = _dailyStatisticsReportService.DetailReport(criteria);
@@ -94,7 +90,6 @@ namespace Fanex.CRM.Report.Controllers
             return jsonResult;
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public void ExportDetailReport(GetDetailReportCriteria criteria)
         {
             _dailyStatisticsReportService.ExportDetailReport(criteria);
