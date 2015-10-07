@@ -38,10 +38,15 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpGet]
-        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult AllSetting()
         {
-            var settings = _feedbackService.AllSetting();
+            var hasPermission = HasReadPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo) ||
+                                HasReadPermission(FunctionPermissions.DeleteFeedback);
+            dynamic settings = null;
+            if (hasPermission)
+            {
+                settings = _feedbackService.AllSetting();                
+            }
             return Json(settings, JsonRequestBehavior.AllowGet);
         }
 

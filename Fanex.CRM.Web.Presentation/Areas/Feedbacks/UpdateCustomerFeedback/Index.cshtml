@@ -2,7 +2,10 @@
 @using Fanex.CRM.Feedback.Resources;
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
-@{ var hasReviewFeedbackPermission = (bool)ViewBag.HasReviewFeedbackPermission; }
+@{ 
+    var hasReviewFeedbackPermission = (bool)ViewBag.HasReviewFeedbackPermission;
+    var hasUpdateFeedbackPermission = (bool)ViewBag.HasUpdateFeedbackPermission;
+}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedbacks-updatecustomerfeedback-application">
 <head>
@@ -555,7 +558,7 @@
                 </div>
             </div>
         </div>
-        <div class="row btn-group" data-ng-show="@hasReviewFeedbackPermission.ToString().ToLower()">
+        <div class="row btn-group" data-ng-show="@hasUpdateFeedbackPermission.ToString().ToLower()">
             <button class="btn" data-ng-click="updateFeedback();">
                 <span class="hotkey">S</span>ave</button>
         </div>

@@ -77,7 +77,7 @@ deletedFBApplication.controller('deletedFeedbackController', ['$scope', 'deleted
     };
 
     $scope.updateSelectedMainCategory = function (mainCategory) {
-        $scope.searchCriteria.MainCategory = mainCategory;
+        $scope.searchCriteria.MainCategory = mainCategory;        
         $scope.subCategoryOptions.DataList = mainCategory.ChildSettings;
         $scope.searchCriteria.SubCategory = mainCategory.ChildSettings[0];
         $scope.$apply();
@@ -107,6 +107,7 @@ deletedFBApplication.controller('deletedFeedbackController', ['$scope', 'deleted
                 };
 
                 $scope.mainCategoryOptions.DataList = settings.MainCategory;
+                console.log($scope.mainCategoryOptions);
                 $scope.subCategoryOptions.DataList = $scope.mainCategoryOptions.DataList[0].ChildSettings;
 
                 // Set default item of <select>.

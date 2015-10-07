@@ -21,6 +21,7 @@
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
     string redirectUrl = ViewBag.RedirectUrl;
     var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
+    var hasCreateOrUpdateFeedbackPermission = createCustomerInfoPolicy != Constant.Policy.None;
 }
 @section Styles{
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
@@ -64,8 +65,10 @@
                     <input id="txtuserName" type="text" class="inputSearch font-style-italic" 
                         value="@Resources.Language.Default_SearchTextbox" 
                         name="txtuserName"
-                        autocomplete="off" tabindex="2" />
-                    <input id="buttonsearch" type="button" class="searchSubmit" value=" " tabindex="1" />
+                        autocomplete="off" tabindex="2"
+                        @(hasCreateOrUpdateFeedbackPermission == false ? "disabled" : string.Empty)/>
+                    <input id="buttonsearch" type="button" class="searchSubmit" value=" " tabindex="1"
+                        @(hasCreateOrUpdateFeedbackPermission == false ? "disabled" : string.Empty)/>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
                     <label>
