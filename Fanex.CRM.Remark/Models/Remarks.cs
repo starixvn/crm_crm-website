@@ -20,8 +20,8 @@ namespace Fanex.CRM.Remark.Models
     {
         public int CustId { get; set; }
 
-        public IList<string> SpecialRemarks { get; set; }
+        public IEnumerable<string> SpecialRemarks { get; set; }
 
-        public IList<string> NormalRemarks { get; set; }
+        public IEnumerable<string> NormalRemarks { get; set; }
     }
 }

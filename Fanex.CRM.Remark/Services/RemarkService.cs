@@ -9,17 +9,13 @@
 
 namespace Fanex.CRM.Remark.Services
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Collections.Generic;
     using System.Text;
-    using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Helpers;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Remark.Criteria;
     using Fanex.CRM.Remark.Models;
     using Fanex.CRM.Remark.Repositories;
-    using Fanex.CRM.Remark.Resources;
     using Fanex.Data.Repository;
 
     /// <summary>
@@ -41,79 +37,46 @@ namespace Fanex.CRM.Remark.Services
 
         #region IRemarkService Members
 
-        /// <summary>
-        /// Gets the remarks.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The remark detail object.</returns>
         public Remarks GetRemarks(ICriteria criteria)
         {
-            try
-            {
-                Remarks customerRemarks = null;
-                customerRemarks = _remarkRepository.GetRemarks(criteria);
-                return customerRemarks;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return _remarkRepository.GetRemarks(criteria);
         }
 
-        /// <summary>
-        /// Updates the remarks.
-        /// </summary>
-        /// <param name="criteria">The model.</param>
-        /// <returns>The result object.</returns>
         public Result UpdateRemarks(Remarks criteria)
         {
-            try
+            var xmlContent = new StringBuilder(1024);
+            xmlContent.Append("<Remarks>");
+            if (criteria.SpecialRemarks != null)
             {
-                StringBuilder remarkBuilder = new StringBuilder(1024);
-                remarkBuilder.Append("<Remarks>");
-                if (criteria.SpecialRemarks != null)
-                {
-                    foreach (var remark in criteria.SpecialRemarks)
-                    {
-                        if (string.IsNullOrWhiteSpace(remark))
-                        {
-                            continue;
-                        }
-
-                        remarkBuilder.Append("<Remark Content=\"").Append(HtmlHelper.EncodeXml(remark)).Append("\"")
-                            .Append(" IsSpecial=\"1\" />");
-                    }
-                }
-
-                if (criteria.NormalRemarks != null)
-                {
-                    foreach (var remark in criteria.NormalRemarks)
-                    {
-                        if (string.IsNullOrWhiteSpace(remark))
-                        {
-                            continue;
-                        }
-
-                        remarkBuilder.Append("<Remark Content=\"").Append(HtmlHelper.EncodeXml(remark)).Append("\"")
-                            .Append(" IsSpecial=\"0\" />");
-                    }
-                }
-
-                remarkBuilder.Append("</Remarks>");
-
-                UpdateRemarkCriteria updateCriteria = new UpdateRemarkCriteria
-                {
-                    CustId = criteria.CustId,
-                    Remarks = remarkBuilder.ToString()
-                };
-
-                return _remarkRepository.UpdateRemarks(updateCriteria);
+                BuildRemarksXml(xmlContent, criteria.SpecialRemarks, true);
             }
-            catch (Exception ex)
+
+            if (criteria.NormalRemarks != null)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                BuildRemarksXml(xmlContent, criteria.NormalRemarks, false);
+            }
+
+            xmlContent.Append("</Remarks>");
+
+            UpdateRemarkCriteria updateCriteria = new UpdateRemarkCriteria
+            {
+                CustId = criteria.CustId,
+                Remarks = xmlContent.ToString()
+            };
+
+            return _remarkRepository.UpdateRemarks(updateCriteria);
+        }
+
+        private static void BuildRemarksXml(StringBuilder xmlContent, IEnumerable<string> remarks, bool isSpecial)
+        {
+            var isSpecialText = isSpecial ? " IsSpecial=\"1\" />" : " IsSpecial=\"0\" />";
+            foreach (var remark in remarks)
+            {
+                if (!string.IsNullOrWhiteSpace(remark))
+                {
+                    xmlContent.Append("<Remark Content=\"").Append(HtmlHelper.EncodeXml(remark)).Append("\"")
+                        .Append(isSpecialText);
+                }
             }
         }
 
