@@ -54,6 +54,8 @@ namespace Fanex.CRM.Dashboard.Controllers
         [ChildActionOnly]
         public PartialViewResult CustomerInfoView()
         {
+            IPermissionService permission = new PermissionService();
+            ViewBag.HasCreateUpdateFeedbackPermission = permission.HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             return PartialView("~/Areas/Dashboard/ViewInfo/CustomerInfo.cshtml");
         }
 

@@ -2,10 +2,7 @@
 @using Fanex.NAP.Core.Business
 @using Fanex.CRM.Common.Constants;
 @using Fanex.CRM.Common.Services;
-@{ 
-    IPermissionService permission = new PermissionService();
-    bool hasCreateUpdateFeedbackPermission = permission.HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
-}
+@{ var hasCreateUpdateFeedbackPermission = (bool)ViewBag.HasCreateUpdateFeedbackPermission; }
 <div class="row panel-group last progressBar">
     <div class="custInfo row content text-right verifiedinfo">
         <div class="row item bar">

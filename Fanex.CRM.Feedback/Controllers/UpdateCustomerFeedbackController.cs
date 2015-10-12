@@ -41,11 +41,14 @@ namespace Fanex.CRM.Feedback.Controllers
                                             HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
         }
 
-        public ActionResult Index(int id)
+        public ActionResult Index(int id, bool isDeletedFeedbackView = false)
         {
             ViewBag.FeedbackId = id;
             ViewBag.HasReviewFeedbackPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
             ViewBag.HasUpdateFeedbackPermission = hasUpdateFeedbackPermission;
+
+            var hasHostDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+            ViewBag.IsShowDeletedStatus = isDeletedFeedbackView || hasHostDeleteFeedbackPermission;
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
         }
 

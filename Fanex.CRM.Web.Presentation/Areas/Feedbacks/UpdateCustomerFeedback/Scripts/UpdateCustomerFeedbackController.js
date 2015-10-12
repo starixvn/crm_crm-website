@@ -159,6 +159,10 @@ function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
             .then(function (data) {
                 $scope.settings = data.Result;
 
+                if (!isShowDeletedStatus) {
+                    feedbackService.removeDeletedStatus($scope.settings.StatusList);
+                }
+
                 feedbackService.getFeedback(feedbackId)
                     .then(function (dataFeedback) {
                         $scope.feedback = dataFeedback.Result;
@@ -392,7 +396,7 @@ function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
             orgLengt = arrayTemp.length;
         }
     };
-    
+
     angular.element(document).ready(function () {
         sharedScriptManager.safeApply($scope);
         $scope.initController();

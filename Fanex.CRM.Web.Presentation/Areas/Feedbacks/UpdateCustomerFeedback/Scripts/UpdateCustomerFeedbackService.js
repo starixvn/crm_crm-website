@@ -67,5 +67,15 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
         return sharedScriptManager.registerAngularService($http, $q, url, criteria);
     };
 
+    serviceInstance.removeDeletedStatus = function (statusList) {
+        for (var i = 0; i < statusList.length; i++) {
+            if (statusList[i].Name === 'Deleted') {
+                statusList.splice(i, 1);
+                break;
+            }
+        }
+        return statusList;
+    };
+
     return serviceInstance;
 } ]);
