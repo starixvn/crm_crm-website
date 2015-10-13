@@ -52,13 +52,13 @@ namespace Fanex.CRM.Report.Controllers
         {
             var jsonResult = Json(new
             {
-                IBCReport = _dailyStatisticsReportService.MainReport(new GetMainReportCriteria
+                IBCReport = _dailyStatisticsReportService.GetMainReport(new GetMainReportCriteria
                 {
                     FromDate = criteria.FromDate,
                     ToDate = criteria.ToDate,
                     SiteType = (int)ReportType.CreditSite
                 }),
-                LicenseeReport = _dailyStatisticsReportService.MainReport(new GetMainReportCriteria
+                LicenseeReport = _dailyStatisticsReportService.GetMainReport(new GetMainReportCriteria
                 {
                     FromDate = criteria.FromDate,
                     ToDate = criteria.ToDate,

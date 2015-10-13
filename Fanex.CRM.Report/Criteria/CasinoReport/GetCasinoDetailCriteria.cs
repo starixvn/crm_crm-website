@@ -28,9 +28,6 @@ namespace Fanex.CRM.Report.Criteria.CasinoReport
         public int ItemsPerPage { get; set; }
 
         [SpParam(Ignored = true)]
-        public bool FromCache { get; set; }
-
-        [SpParam(Ignored = true)]
         public bool FullReport { get; set; }
 
         [SpParam(Ignored = true)]

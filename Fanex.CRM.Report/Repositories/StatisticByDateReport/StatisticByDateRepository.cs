@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
 {
     using System.Collections.Generic;
+    using System.Data;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.Common;
     using Fanex.CRM.Common.Models;
@@ -25,159 +26,135 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
     /// </summary>
     public class StatisticByDateRepository : IStatisticByDateRepository
     {
-        /// <summary>
-        /// Gets the main report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The main report.</returns>
-        public StatisticsInfoByDateRepositoryResultModel MainReport(GetMainReportCriteria criteria)
+        public StatisticsInfoByDateRepositoryResultModel GetMainReport(GetMainReportCriteria criteria)
         {
-            var result = new StatisticsInfoByDateRepositoryResultModel
+            using (var objectDb = new ObjectDb(criteria.GetSettingKey()))
             {
-                RawData = new List<StatisticByDateEntity>(),
-                CommunicationTools = CommunicationToolList()
-            };
-
-            var communicationToolLength = result.CommunicationTools.Count;
-            using (var objDb = new ObjectDb(criteria.GetSettingKey()))
-            {
-                objDb.AssignParamValues(criteria.GetSpParams());
-                var reader = objDb.ExecuteReader();
-                while (reader.Read())
+                using (var reader = objectDb.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var customerInfo = new StatisticByDateEntity
+                    var result = new StatisticsInfoByDateRepositoryResultModel
                     {
-                        MainCategoryId = Converter.ToInt(reader["MainCategoryId"]),
-                        MainCategoryName = Converter.ToString2(reader["MainCategory"]),
-                        SubCategoryId = Converter.ToInt(reader["SubCategoryId"]),
-                        SubCategoryName = Converter.ToString2(reader["SubCategory"]),
-                        NumberOfIssues = new List<int>()
+                        RawData = new List<StatisticByDateEntity>(),
+                        CommunicationTools = GetCommunicationTools()
                     };
 
-                    for (var i = 0; i < communicationToolLength; i++)
+                    var communicationToolLength = result.CommunicationTools.Count;
+                    while (reader.Read())
                     {
-                        var numberOfIssue = Converter.ToInt(reader[result.CommunicationTools[i].Name]);
-                        customerInfo.NumberOfIssues.Add(numberOfIssue);
+                        var customerInfo = new StatisticByDateEntity
+                        {
+                            MainCategoryId = Converter.ToInt(reader["MainCategoryId"]),
+                            MainCategoryName = Converter.ToString2(reader["MainCategory"]),
+                            SubCategoryId = Converter.ToInt(reader["SubCategoryId"]),
+                            SubCategoryName = Converter.ToString2(reader["SubCategory"]),
+                            NumberOfIssues = new List<int>()
+                        };
+
+                        for (var i = 0; i < communicationToolLength; i++)
+                        {
+                            var numberOfIssue = Converter.ToInt(reader[result.CommunicationTools[i].Name]);
+                            customerInfo.NumberOfIssues.Add(numberOfIssue);
+                        }
+
+                        result.RawData.Add(customerInfo);
                     }
 
-                    result.RawData.Add(customerInfo);
+                    return result;
                 }
             }
-
-            return result;
         }
 
-        /// <summary>
-        /// Gets the detail report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The detail report.</returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
-        public List<StatisticsDetailbyDateModel> DetailReport(GetDetailReportCriteria criteria)
-        {
-            var result = new List<StatisticsDetailbyDateModel>();
-            using (var objDb = new ObjectDb(criteria.GetSettingKey()))
+        public IList<StatisticsDetailbyDateModel> GetDetailReport(GetDetailReportCriteria criteria)
+        {            
+            using (var objectDb = new ObjectDb(criteria.GetSettingKey()))
             {
-                objDb.AssignParamValues(criteria.GetSpParams());
-                var reader = objDb.ExecuteReader();
-                while (reader.Read())
+                using (var reader = objectDb.ExecuteReader(criteria.GetSpParams()))
                 {
-                    StatisticsDetailbyDateModel statisticsDetail = new StatisticsDetailbyDateModel
+                    var result = new List<StatisticsDetailbyDateModel>();
+                    while (reader.Read())
                     {
-                        StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
-                        ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
-                        Remark = Converter.ToString2(reader["Description"]),
-                        Solution = Converter.ToString2(reader["Solution"]),
-                        Username = Converter.ToString2(reader["UserName"]),
-                        SiteInfo = new SettingInfo { Name = Converter.ToString2(reader["SiteName"]) },
-                        Product = new SettingInfo { Name = Converter.ToString2(reader["Product"]) },
-                        Extension = new SettingInfo { Name = Converter.ToString2(reader["Station"]) },
-                        Country = new CountryInfo { Name = Converter.ToString2(reader["CountryName"]) },
-                        MainCategory = new SettingInfo { Name = Converter.ToString2(reader["MainCategory"]) },
-                        SubCategory = new SettingInfo { Name = Converter.ToString2(reader["SubCategory"]) },
-                        StatusName = Converter.ToString2(reader["Status"]),
-                        Response = new SettingInfo { Name = Converter.ToString2(reader["Response"]) },
-                        Handler = Converter.ToString2(reader["CreatorName"]),
-                        CreationTime = Converter.ToDateTime(reader["CreateDate"]),
-                        Role = Converter.ToString2(reader["Role"]),
-                        CommunicationTool = new SettingInfo { Name = Converter.ToString2(reader["Communication"]) },
-                        Fax = new FaxInfo 
-                        { 
-                            CountryCode = Converter.ToString2(reader["FaxCountryCode"]), 
-                            AreaCode = Converter.ToString2(reader["FaxAreaCode"]), 
-                            FaxNumber = Converter.ToString2(reader["Fax"])
-                        },
-                        MobilePhone = new PhoneInfo
+                        var statisticsDetail = new StatisticsDetailbyDateModel
                         {
-                            CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
-                            AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"]),
-                            PhoneNumber = Converter.ToString2(reader["MobilePhone"])
-                        },
-                        MSN = Converter.ToString2(reader["MSN"]),
-                        Skype = Converter.ToString2(reader["Skype"]),
-                        Email = Converter.ToString2(reader["Email"]),
-                        WhatsApp = Converter.ToString2(reader["WhatsApp"]),
-                        Line = Converter.ToString2(reader["Line"]),
-                        WEChat = Converter.ToString2(reader["WeChat"]),
-                        Yahoo = Converter.ToString2(reader["Yahoo"]),
-                        QQ = Converter.ToString2(reader["QQ"]),
-                        Bbm = Converter.ToString2(reader["BBM"])
-                    };
+                            StartDate = Converter.ToDateTime(reader["FeedbackDate"]),
+                            ResolutionTime = Converter.ToDateTime(reader["ResolutionDate"]),
+                            Remark = Converter.ToString2(reader["Description"]),
+                            Solution = Converter.ToString2(reader["Solution"]),
+                            Username = Converter.ToString2(reader["UserName"]),
+                            SiteInfo = new SettingInfo { Name = Converter.ToString2(reader["SiteName"]) },
+                            Product = new SettingInfo { Name = Converter.ToString2(reader["Product"]) },
+                            Extension = new SettingInfo { Name = Converter.ToString2(reader["Station"]) },
+                            Country = new CountryInfo { Name = Converter.ToString2(reader["CountryName"]) },
+                            MainCategory = new SettingInfo { Name = Converter.ToString2(reader["MainCategory"]) },
+                            SubCategory = new SettingInfo { Name = Converter.ToString2(reader["SubCategory"]) },
+                            StatusName = Converter.ToString2(reader["Status"]),
+                            Response = new SettingInfo { Name = Converter.ToString2(reader["Response"]) },
+                            Handler = Converter.ToString2(reader["CreatorName"]),
+                            CreationTime = Converter.ToDateTime(reader["CreateDate"]),
+                            Role = Converter.ToString2(reader["Role"]),
+                            CommunicationTool = new SettingInfo { Name = Converter.ToString2(reader["Communication"]) },
+                            Fax = new FaxInfo
+                            {
+                                CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
+                                AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
+                                FaxNumber = Converter.ToString2(reader["Fax"])
+                            },
+                            MobilePhone = new PhoneInfo
+                            {
+                                CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
+                                AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"]),
+                                PhoneNumber = Converter.ToString2(reader["MobilePhone"])
+                            },
+                            MSN = Converter.ToString2(reader["MSN"]),
+                            Skype = Converter.ToString2(reader["Skype"]),
+                            Email = Converter.ToString2(reader["Email"]),
+                            WhatsApp = Converter.ToString2(reader["WhatsApp"]),
+                            Line = Converter.ToString2(reader["Line"]),
+                            WEChat = Converter.ToString2(reader["WeChat"]),
+                            Yahoo = Converter.ToString2(reader["Yahoo"]),
+                            QQ = Converter.ToString2(reader["QQ"]),
+                            Bbm = Converter.ToString2(reader["BBM"])
+                        };
 
-                    statisticsDetail.Phones.Add(new PhoneInfo 
-                    {
-                        CountryCode = Converter.ToString2(reader["PhoneCountryCode"]),
-                        AreaCode = Converter.ToString2(reader["PhoneAreaCode"]),
-                        PhoneNumber = Converter.ToString2(reader["Phone"])
-                    });
-                    statisticsDetail.Phones.Add(new PhoneInfo
-                    {
-                        CountryCode = Converter.ToString2(reader["Phone2CountryCode"]),
-                        AreaCode = Converter.ToString2(reader["Phone2AreaCode"]),
-                        PhoneNumber = Converter.ToString2(reader["Phone2"])
-                    });
-                    statisticsDetail.Phones.Add(new PhoneInfo
-                    {
-                        CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
-                        AreaCode = Converter.ToString2(reader["Phone3AreaCode"]),
-                        PhoneNumber = Converter.ToString2(reader["Phone3"])
-                    });
+                        statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone"));
+                        statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone2"));
+                        statisticsDetail.Phones.Add(ReadPhoneInfo(reader, "Phone3"));
 
-                    statisticsDetail.PICs.Add(new PersonalInfoContact 
-                    {
-                        Name = Converter.ToString2(reader["PIC1Name"]),
-                        Phone = Converter.ToString2(reader["PIC1"])
-                    });
-                    statisticsDetail.PICs.Add(new PersonalInfoContact
-                    {
-                        Name = Converter.ToString2(reader["PIC2Name"]),
-                        Phone = Converter.ToString2(reader["PIC2"])
-                    });
-                    statisticsDetail.PICs.Add(new PersonalInfoContact
-                    {
-                        Name = Converter.ToString2(reader["PIC3Name"]),
-                        Phone = Converter.ToString2(reader["PIC3"])
-                    });
-                    statisticsDetail.PICs.Add(new PersonalInfoContact
-                    {
-                        Name = Converter.ToString2(reader["PIC4Name"]),
-                        Phone = Converter.ToString2(reader["PIC4"])
-                    });
+                        statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC1"));
+                        statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC2"));
+                        statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC3"));
+                        statisticsDetail.PICs.Add(ReadPersonalInfoContact(reader, "PIC4"));
+                        
+                        result.Add(statisticsDetail);
+                    }
 
-                    result.Add(statisticsDetail);
+                    return result;
                 }
             }
-
-            return result;
         }
 
-        /// <summary>
-        ///  Gets the communication tool list.
-        /// </summary>
-        /// <returns>The communication tool list.</returns>
-        private List<BaseModel> CommunicationToolList()
+        private static PersonalInfoContact ReadPersonalInfoContact(IDataReader reader, string prefix)
+        {
+            return new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader[prefix + "Name"]),
+                Phone = Converter.ToString2(reader[prefix])
+            };
+        }
+
+        private static PhoneInfo ReadPhoneInfo(IDataReader reader, string prefix)
+        {
+            return new PhoneInfo
+            {
+                CountryCode = Converter.ToString2(reader[prefix + "CountryCode"]),
+                AreaCode = Converter.ToString2(reader[prefix + "AreaCode"]),
+                PhoneNumber = Converter.ToString2(reader[prefix])
+            };
+        }
+        
+        private static IList<BaseModel> GetCommunicationTools()
         {
             var result = new List<BaseModel>();
             result.Add(new BaseModel { Name = Labels.Call });

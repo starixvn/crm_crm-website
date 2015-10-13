@@ -26,43 +26,24 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
     /// </summary>
     public class CustomerReportRepository : ICustomerReportRepository
     {
-        /// <summary>
-        /// Gets the customer report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The customer report.</returns>
-        public List<CustomerInfo> GetCustomerReport(GetCustomerReportCriteria criteria)
+        public IEnumerable<CustomerInfo> GetCustomerReport(GetCustomerReportCriteria criteria)
         {
-            List<CustomerInfo> customerReport = new List<CustomerInfo>();
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
-                objectDB.AssignParamValues(criteria.GetSpParams());
-                using (var reader = objectDB.ExecuteReader())
+                using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader != null)
+                    var customerReport = new List<CustomerInfo>();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            customerReport.Add(MappingDataFromSqlToCustomerInfoObject(reader));
-                        }
+                        customerReport.Add(ReadCustomerInfo(reader));
                     }
-                }
-            }
 
-            return customerReport;
+                    return customerReport;
+                }
+            }            
         }
 
-        /// <summary>
-        /// Mappings the data from SQL to log information object.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>
-        /// Log Info Object.
-        /// </returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private CustomerInfo MappingDataFromSqlToCustomerInfoObject(IDataReader reader)
+        private static CustomerInfo ReadCustomerInfo(IDataReader reader)
         {
             var customerInfo = new CustomerInfo
              {
@@ -86,30 +67,13 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
                  Email = Converter.ToString2(reader["Email"])
              };
 
-            customerInfo.PersonalInfoContacts.Add(new PersonalInfoContact 
-            { 
-                Name = Converter.ToString2(reader["Pic1Name"]),
-                Phone = Converter.ToString2(reader["Pic1"])
-            });
-            customerInfo.PersonalInfoContacts.Add(new PersonalInfoContact
-            {
-                Name = Converter.ToString2(reader["Pic2Name"]),
-                Phone = Converter.ToString2(reader["Pic2"])
-            });
-            customerInfo.PersonalInfoContacts.Add(new PersonalInfoContact
-            {
-                Name = Converter.ToString2(reader["Pic3Name"]),
-                Phone = Converter.ToString2(reader["Pic3"])
-            });
-            customerInfo.PersonalInfoContacts.Add(new PersonalInfoContact
-            {
-                Name = Converter.ToString2(reader["Pic4Name"]),
-                Phone = Converter.ToString2(reader["Pic4"])
-            });
+            customerInfo.PersonalInfoContacts.Add(ReadPersonalInfoContact(reader, 1));
+            customerInfo.PersonalInfoContacts.Add(ReadPersonalInfoContact(reader, 2));
+            customerInfo.PersonalInfoContacts.Add(ReadPersonalInfoContact(reader, 3));
+            customerInfo.PersonalInfoContacts.Add(ReadPersonalInfoContact(reader, 4));            
 
-            var languages = Converter.ToString2(reader["Language"]);
-            var languageArray = languages.Split(',');
-            foreach (var language in languageArray)
+            var languages = Converter.ToString2(reader["Language"]).Split(',');
+            foreach (var language in languages)
             {
                 customerInfo.Languages.Add(new BaseModel
                 {
@@ -118,6 +82,15 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             }
 
             return customerInfo;
+        }
+
+        private static PersonalInfoContact ReadPersonalInfoContact(IDataReader reader, int index)
+        {
+            return new PersonalInfoContact
+            {
+                Name = Converter.ToString2(reader["Pic" + index + "Name"]),
+                Phone = Converter.ToString2(reader["Pic" + index])
+            };
         }
     }
 }

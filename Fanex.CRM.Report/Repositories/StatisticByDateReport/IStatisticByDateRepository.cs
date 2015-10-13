@@ -15,8 +15,8 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
 
     public interface IStatisticByDateRepository
     {
-        StatisticsInfoByDateRepositoryResultModel MainReport(GetMainReportCriteria criteria);
+        StatisticsInfoByDateRepositoryResultModel GetMainReport(GetMainReportCriteria criteria);
 
-        List<StatisticsDetailbyDateModel> DetailReport(GetDetailReportCriteria criteria);
+        IList<StatisticsDetailbyDateModel> GetDetailReport(GetDetailReportCriteria criteria);
     }
 }

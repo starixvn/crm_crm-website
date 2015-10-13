@@ -286,9 +286,9 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByMonthly(
-            List<StatisticReportEntity> rawData,
-            List<CountryInfo> countryList,
-            Dictionary<int, int> countryDictionary,
+            IList<StatisticReportEntity> rawData,
+            IList<CountryInfo> countryList,
+            IDictionary<int, int> countryDictionary,
             GetStatisticReportCriteria criteria)
         {
             var countryLength = countryDictionary.Count;
@@ -376,9 +376,9 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByDaily(
-            List<StatisticReportEntity> rawData,
-            List<CountryInfo> countryList,
-            Dictionary<int, int> countryDictionary,
+            IList<StatisticReportEntity> rawData,
+            IList<CountryInfo> countryList,
+            IDictionary<int, int> countryDictionary,
             GetStatisticReportCriteria criteria)
         {
             var countryLength = countryDictionary.Count;
@@ -450,23 +450,18 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private List<StatisticReportInfo> GetPagingLogList(
+        private IList<StatisticReportInfo> GetPagingLogList(
             GetStatisticReportCriteria criteria,
-            List<StatisticReportInfo> statisticReportList)
+            IList<StatisticReportInfo> statisticReportList)
         {
             return statisticReportList.Skip(criteria.PageSize * criteria.PageIndex)
                 .Take(criteria.PageSize)
                 .ToList();
         }
 
-        /// <summary>
-        /// Gets the country dictionary.
-        /// </summary>
-        /// <param name="countryList">The country list.</param>
-        /// <returns>The country dictionary.</returns>
-        private Dictionary<int, int> GetCountryDictionary(List<CountryInfo> countryList)
+        private IDictionary<int, int> GetCountryDictionary(IList<CountryInfo> countryList)
         {
-            Dictionary<int, int> countryDictionary = new Dictionary<int, int>();
+            var countryDictionary = new Dictionary<int, int>();
             var countryLength = countryList.Count;
             var currentCountryIndex = 0;
             for (var i = 0; i < countryLength; i++)
@@ -493,12 +488,12 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// <returns>
         /// The dummy country list.
         /// </returns>
-        private List<StatisticReportInfo> GetDummyCountryList(
+        private IList<StatisticReportInfo> GetDummyCountryList(
             int countryLength,
-            List<CountryInfo> countryList,
+            IList<CountryInfo> countryList,
             bool isGrandTotal)
         {
-            List<StatisticReportInfo> dummyCountries = new List<StatisticReportInfo>();
+            var dummyCountries = new List<StatisticReportInfo>();
             for (var i = 0; i < countryLength; i++)
             {
                 dummyCountries.Add(new StatisticReportInfo
@@ -510,18 +505,10 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             return dummyCountries;
         }
 
-        /// <summary>
-        /// Gets the chart information.
-        /// </summary>
-        /// <param name="statisticReport">The statistic report.</param>
-        /// <param name="countryDictionary">The country dictionary.</param>
-        /// <returns>
-        /// The chart information.
-        /// </returns>
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        private StatisticReportInfo GetChartInfo(StatisticReportInfo statisticReport, Dictionary<int, int> countryDictionary)
+        private StatisticReportInfo GetChartInfo(StatisticReportInfo statisticReport, IDictionary<int, int> countryDictionary)
         {
             var chartInfo = new StatisticReportInfo
             {
@@ -656,7 +643,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             ref ExportExcelInfo exportExcelInfo,
             GetStatisticReportCriteria criteria,
             StatisticReportInfo statisticReport,
-            List<CountryInfo> countryList)
+            IList<CountryInfo> countryList)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
             ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
@@ -717,8 +704,8 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// <param name="statisticReport">The statistic report.</param>
         /// <param name="dateReport">The date report.</param>
         private void GetTimeReport(
-            List<StatisticReportEntity> timeGroup,
-            Dictionary<int, int> countryDictionary,
+            IList<StatisticReportEntity> timeGroup,
+            IDictionary<int, int> countryDictionary,
             ref StatisticReportInfo timeReport,
             ref StatisticReportInfo statisticReport,
             ref StatisticReportInfo dateReport)

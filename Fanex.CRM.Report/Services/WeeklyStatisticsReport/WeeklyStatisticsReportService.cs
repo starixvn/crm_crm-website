@@ -18,35 +18,17 @@ namespace Fanex.CRM.Report.Services.WeeklyStatisticsReport
     /// </summary>
     public class WeeklyStatisticsReportService : StatisticByDateReportService
     {
-        public override string MainReportSessionKey
-        {
-            get
-            {
-                return "Fanex.CRM.Report.WeeklyStatisticsReport.MainReportSessionKey_" +
-                    (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
-            }
-        }
-
-        public override string RawDetailReportSessionKey
-        {
-            get
-            {
-                return "Fanex.CRM.Report.WeeklyStatisticsReport.RawDetailReportSessionKey_" +
-                    (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
-            }
-        }
-
-        public override string MainReportTitle()
+        public override string GetMainReportTitle()
         {
             return Labels.WeeklyStatisticsReport_Title;
         }
 
-        public override string MainReportSheetName()
+        public override string GetMainReportSheetName()
         {
             return Labels.Weekly_Statistics;
         }
 
-        public override string DetailReportTitle()
+        public override string GetDetailReportTitle()
         {
             return Labels.WeeklyStatisticsReport_DetailTitle;
         }

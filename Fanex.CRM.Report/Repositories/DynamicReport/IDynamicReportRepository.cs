@@ -15,6 +15,6 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
 
     public interface IDynamicReportRepository
     {
-        List<DynamicReportInfo> GetDynamicReport(GetDynamicReportCriteria criteria);
+        IEnumerable<DynamicReportInfo> GetDynamicReport(GetDynamicReportCriteria criteria);
     }
 }

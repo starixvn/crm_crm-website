@@ -22,37 +22,28 @@ namespace Fanex.CRM.Report.Repositories.StatisticReport
     /// </summary>
     public class StatisticReportRepository : IStatisticReportRepository
     {
-        /// <summary>
-        /// Gets the statistic report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The statistic report list.</returns>
-        public List<StatisticReportEntity> GetStatisticReport(ICriteria criteria)
+        public IList<StatisticReportEntity> GetStatisticReport(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
-                    List<StatisticReportEntity> statistics = new List<StatisticReportEntity>(256);
+                    var statistics = new List<StatisticReportEntity>(256);
                     while (reader.Read())
                     {
-                        statistics.Add(ParseStatisticReportEntity(reader));    
+                        var entity = new StatisticReportEntity
+                        {
+                            DateTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])),
+                            CountryId = Converter.ToInt(reader["CountryId"]),
+                            CountryName = Converter.ToString2(reader["CountryName"]),
+                            NumberOfIssues = Converter.ToInt(reader["NoOfIssues"])
+                        };
+                        statistics.Add(entity);    
                     }
 
                     return statistics;
                 }
             }
-        }
-
-        private StatisticReportEntity ParseStatisticReportEntity(IDataReader reader)
-        {
-            return new StatisticReportEntity 
-            {
-                DateTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])),
-                CountryId = Converter.ToInt(reader["CountryId"]),
-                CountryName = Converter.ToString2(reader["CountryName"]),
-                NumberOfIssues = Converter.ToInt(reader["NoOfIssues"])
-            };
         }
     }
 }

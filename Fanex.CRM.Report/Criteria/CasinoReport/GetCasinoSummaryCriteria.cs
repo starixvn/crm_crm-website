@@ -24,9 +24,6 @@ namespace Fanex.CRM.Report.Criteria.CasinoReport
         [SpParam(SqlParamName = "type")]
         public int ReportType { get; set; }
 
-        [SpParam(Ignored = true)]
-        public bool FromCache { get; set; }
-
         public override string GetSettingKey()
         {
             return "casinodailysummary";

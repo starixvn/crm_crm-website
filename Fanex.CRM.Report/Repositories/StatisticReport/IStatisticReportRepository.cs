@@ -15,6 +15,6 @@ namespace Fanex.CRM.Report.Repositories.StatisticReport
 
     public interface IStatisticReportRepository
     {
-        List<StatisticReportEntity> GetStatisticReport(ICriteria criteria);
+        IList<StatisticReportEntity> GetStatisticReport(ICriteria criteria);
     }
 }

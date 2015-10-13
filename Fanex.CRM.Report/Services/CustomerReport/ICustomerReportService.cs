@@ -17,19 +17,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
 
     public interface ICustomerReportService
     {
-        CustomerReportInfo CustomerReport(GetCustomerReportCriteria criteria);
-
-        IEnumerable<SiteInfo> GetAllSites();
-
-        IEnumerable<SettingInfo> GetAllTitles();
-
-        IEnumerable<CountryInfo> GetAllCountries();
-
-        IEnumerable<SettingInfo> GetAllLanguages();
-
-        IEnumerable<SettingInfo> GetAllCustomerTypes();
-
-        IEnumerable<SettingInfo> GetAllVIPTypes();
+        CustomerReportInfo GetCustomerReport(GetCustomerReportCriteria criteria);
 
         void ExportCustomerReport(GetCustomerReportCriteria criteria);
     }

@@ -10,16 +10,17 @@
 namespace Fanex.CRM.Report.Repositories.CasinoReport
 {
     using System.Collections.Generic;
+    using Fanex.CRM.Report.Criteria.CasinoReport;
     using Fanex.CRM.Report.Entities.CasinoReport;
     using Fanex.CRM.Report.Models.CasinoReport;
     using Fanex.Data.Repository;
 
     public interface ICasinoReportRepository
     {
-        CasinoDailySummary GetCasinoDailySummary(ICriteria criteria);
+        CasinoDailySummary GetCasinoDailySummary(GetCasinoSummaryCriteria criteria);
 
-        CasinoWeeklySummary GetCasinoWeeklySummary(ICriteria criteria);
+        CasinoWeeklySummary GetCasinoWeeklySummary(GetCasinoSummaryCriteria criteria);
 
-        IList<CasinoDetailEntity> GetCasinoDetails(ICriteria criteria);
+        IEnumerable<CasinoDetailEntity> GetCasinoDetails(GetCasinoDetailCriteria criteria);
     }
 }

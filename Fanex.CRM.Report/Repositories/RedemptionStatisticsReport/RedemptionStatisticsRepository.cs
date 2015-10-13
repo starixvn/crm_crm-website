@@ -24,22 +24,16 @@ namespace Fanex.CRM.Report.Repositories.RedemptionStatisticsReport
     {
         private const int SummaryByYear = 2;
 
-        /// <summary>
-        /// Gets the redemption detail.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of Redemption statistics.</returns>
-        public IList<RedemptionStatisticsEntity> GetRedemptionSummary(GetRedemptionStatisticsSummaryCriteria criteria)
+        public IEnumerable<RedemptionStatisticsEntity> GetRedemptionSummary(GetRedemptionStatisticsSummaryCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
-                    RedemptionStatisticsEntity entity;
-                    IList<RedemptionStatisticsEntity> redemptions = new List<RedemptionStatisticsEntity>();
+                    var redemptions = new List<RedemptionStatisticsEntity>();
                     while (reader.Read())
                     {
-                        entity = new RedemptionStatisticsEntity
+                        var entity = new RedemptionStatisticsEntity
                         {
                             ClaimTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ClaimTime"])),
                             Subject = Converter.ToString2(reader["Subject"]),
@@ -62,23 +56,18 @@ namespace Fanex.CRM.Report.Repositories.RedemptionStatisticsReport
             }
         }
 
-        /// <summary>
-        /// Gets the redemption detail report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of redemption detail.</returns>
-        public IList<RedemptionStatisticsDetailEntity> GetRedemptionDetail(GetRedemptionStatisticsDetailCriteria criteria)
+        public IEnumerable<RedemptionStatisticsDetailEntity> GetRedemptionDetail(GetRedemptionStatisticsDetailCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
-                var rawdata = db.Query<RedemptionStatisticsDetailEntity>(criteria.GetSpParams()).ToList();
+                var data = db.Query<RedemptionStatisticsDetailEntity>(criteria.GetSpParams());
                 var outputParams = db.GetOuputParams();
-                if (outputParams != null && outputParams.Count != 0)
+                if (outputParams.Count != 0)
                 {
                     criteria.TotalRows = Converter.ToInt(outputParams["totalrows"]);
                 }
 
-                return rawdata;
+                return data;
             }
         }
     }

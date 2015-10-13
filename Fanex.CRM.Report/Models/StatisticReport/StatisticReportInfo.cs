@@ -36,7 +36,7 @@ namespace Fanex.CRM.Report.Models.StatisticReport
 
         public int NumberOfIssues { get; set; }
 
-        public List<StatisticReportInfo> ChildReports { get; set; }
+        public IList<StatisticReportInfo> ChildReports { get; set; }
 
         public StatisticReportInfo Total { get; set; }
 

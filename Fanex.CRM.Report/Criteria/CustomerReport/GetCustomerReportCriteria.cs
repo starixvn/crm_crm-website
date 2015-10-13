@@ -48,9 +48,6 @@ namespace Fanex.CRM.Report.Criteria.CustomerReport
         public bool IsGetFullReport { get; set; }
 
         [SpParam(Ignored = true)]
-        public bool IsGetFromCached { get; set; }
-
-        [SpParam(Ignored = true)]
         public string SortField { get; set; }
 
         [SpParam(Ignored = true)]

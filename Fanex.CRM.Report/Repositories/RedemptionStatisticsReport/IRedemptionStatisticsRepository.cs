@@ -15,8 +15,8 @@ namespace Fanex.CRM.Report.Repositories.RedemptionStatisticsReport
 
     public interface IRedemptionStatisticsRepository
     {
-        IList<RedemptionStatisticsEntity> GetRedemptionSummary(GetRedemptionStatisticsSummaryCriteria criteria);
+        IEnumerable<RedemptionStatisticsEntity> GetRedemptionSummary(GetRedemptionStatisticsSummaryCriteria criteria);
 
-        IList<RedemptionStatisticsDetailEntity> GetRedemptionDetail(GetRedemptionStatisticsDetailCriteria criteria);
+        IEnumerable<RedemptionStatisticsDetailEntity> GetRedemptionDetail(GetRedemptionStatisticsDetailCriteria criteria);
     }
 }

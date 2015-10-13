@@ -14,7 +14,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
 
     public interface IStatisticByDateReportService
     {
-        StatisticsReportByDateModel MainReport(GetMainReportCriteria criteria);
+        StatisticsReportByDateModel GetMainReport(GetMainReportCriteria criteria);
 
         void ExportMainReport(GetMainReportCriteria criteria);
 

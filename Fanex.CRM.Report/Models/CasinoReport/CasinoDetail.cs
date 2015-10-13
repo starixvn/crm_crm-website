@@ -19,7 +19,7 @@ namespace Fanex.CRM.Report.Models.CasinoReport
     {
         public string Title { get; set; }
 
-        public IList<CasinoDetailEntity> CasinoDetails { get; set; }
+        public IEnumerable<CasinoDetailEntity> CasinoDetails { get; set; }
 
         public int TotalItems { get; set; }
 

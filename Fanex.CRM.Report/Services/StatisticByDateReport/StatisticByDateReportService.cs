@@ -19,7 +19,6 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
     using Fanex.CRM.Common.Models.Npoi;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Extensions;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.StatisticByDateReport;
     using Fanex.CRM.Report.Entities.StatisticsReportByDate;
@@ -46,84 +45,52 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             StatisticByDateReportRepository = statisticByDateReportRepository ?? new StatisticByDateRepository();
         }
 
-        public virtual string MainReportSessionKey
-        {
-            get
-            {
-                return "Fanex.CRM.Report.StatisticByDateReport.MainReportSessionKey_" +
-                    (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
-            }
-        }
-
-        public virtual string RawDetailReportSessionKey
-        {
-            get
-            {
-                return "Fanex.CRM.Report.StatisticByDateReport.RawDetailReportSessionKey_" +
-                    (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
-            }
-        }
-
         public IStatisticByDateRepository StatisticByDateReportRepository { get; set; }
 
-        /// <summary>
-        /// Gets the main report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The main report.</returns>
-        public StatisticsReportByDateModel MainReport(GetMainReportCriteria criteria)
+        public StatisticsReportByDateModel GetMainReport(GetMainReportCriteria criteria)
         {
-            try
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+
+            var repositoryResult = StatisticByDateReportRepository.GetMainReport(criteria);
+            var reportTitle = string.Format(
+                GetMainReportTitle(),
+                SiteHelper.GetSiteTypeName(criteria.SiteType),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
+            var communicationToolLength = repositoryResult.CommunicationTools.Count;
+            var result = new StatisticsReportByDateModel
             {
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+                Id = criteria.SiteType,
+                Name = reportTitle,
+                AliasName = ChartHelper.ViewChartFromToDateTitle(
+                   DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                   DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
+                CommunicationTools = repositoryResult.CommunicationTools,
+                ChildReports = new List<CategoryIssuesInfo>(),
+                NumberOfIssueList = Enumerable.Repeat(0, communicationToolLength).ToList()
+            };
 
-                var repositoryResult = StatisticByDateReportRepository.MainReport(criteria);
-                var reportTitle = string.Format(
-                    MainReportTitle(),
-                    SiteHelper.GetSiteTypeName(criteria.SiteType),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
-                var communicationToolLength = repositoryResult.CommunicationTools.Count;
-                var result = new StatisticsReportByDateModel
-                {
-                    Id = criteria.SiteType,
-                    Name = reportTitle,
-                    AliasName = ChartHelper.ViewChartFromToDateTitle(
-                       DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                       DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
-                    CommunicationTools = repositoryResult.CommunicationTools,
-                    ChildReports = new List<CategoryIssuesInfo>(),
-                    NumberOfIssueList = Enumerable.Repeat(0, communicationToolLength).ToList()
-                };
+            var mainCategoryGroups = repositoryResult.RawData.GroupBy(data =>
+                 new
+                 {
+                     Id = data.MainCategoryId,
+                     Name = data.MainCategoryName
+                 });
 
-                var mainCategoryGroups = repositoryResult.RawData.GroupBy(data =>
-                     new
-                     {
-                         Id = data.MainCategoryId,
-                         Name = data.MainCategoryName
-                     });
-
-                foreach (var mainCategoryGroup in mainCategoryGroups)
-                {
-                    var categoryIssuesInfo = new CategoryIssuesInfo(mainCategoryGroup.Key.Id, mainCategoryGroup.Key.Name);
-                    categoryIssuesInfo.NumberOfIssueList = Enumerable.Repeat(0, communicationToolLength).ToList();
-                    categoryIssuesInfo.ChildReports = MainReportByMainCategoryGroup(mainCategoryGroup, categoryIssuesInfo);
-                    CategoryIssuesInfo.SumNumberOfIssueList(categoryIssuesInfo, result);
-                    result.ChildReports.Add(categoryIssuesInfo);
-                }
-
-                SessionExtension.AddSession(HttpContext.Current.Session, MainReportSessionKey + "_" + criteria.SiteType, result);
-                return result;
-            }
-            catch (Exception ex)
+            foreach (var mainCategoryGroup in mainCategoryGroups)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                var categoryIssuesInfo = new CategoryIssuesInfo(mainCategoryGroup.Key.Id, mainCategoryGroup.Key.Name);
+                categoryIssuesInfo.NumberOfIssueList = Enumerable.Repeat(0, communicationToolLength).ToList();
+                categoryIssuesInfo.ChildReports = MainReportByMainCategoryGroup(mainCategoryGroup, categoryIssuesInfo);
+                CategoryIssuesInfo.SumNumberOfIssueList(categoryIssuesInfo, result);
+                result.ChildReports.Add(categoryIssuesInfo);
             }
+
+            return result;
         }
 
-        public virtual string MainReportTitle()
+        public virtual string GetMainReportTitle()
         {
             return string.Empty;
         }
@@ -134,188 +101,100 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
         /// <param name="criteria">The criteria.</param>
         public void ExportMainReport(GetMainReportCriteria criteria)
         {
-            try
+            var report = GetMainReport(criteria);
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            var exportExcelInfo = new ExportExcelInfo
             {
-                var report = (StatisticsReportByDateModel)SessionExtension.GetSession(HttpContext.Current.Session, MainReportSessionKey + "_" + criteria.SiteType) ??
-                    MainReport(criteria);
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                var communicationToolLength = report != null ? report.CommunicationTools.Count : 0;
-                var exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = new HSSFWorkbook(),
-                    MaxColumnIndex = communicationToolLength + 1
-                };
+                ExcelFile = new HSSFWorkbook(),
+                MaxColumnIndex = report.CommunicationTools.Count + 1
+            };
 
-                exportExcelInfo.CreateSheet(MainReportSheetName());
-                ExportMainReportHeader(report, exportExcelInfo);
-                ExportMainReportBody(report, exportExcelInfo);
-                string reportName = string.Format(
-                     MainReportTitle(),
-                     SiteHelper.GetSiteTypeName(criteria.SiteType),
-                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
-                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
-                NpoiExcelExtensions.ResponseStreamExcel(
-                    exportExcelInfo.ExcelFile,
-                    NpoiExcelExtensions.StandardizeExcelReportName(reportName));
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            exportExcelInfo.CreateSheet(GetMainReportSheetName());
+            ExportMainReportHeader(report, exportExcelInfo);
+            ExportMainReportBody(report, exportExcelInfo);
+            string reportName = string.Format(
+                 GetMainReportTitle(),
+                 SiteHelper.GetSiteTypeName(criteria.SiteType),
+                 DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
+                 DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
+            NpoiExcelExtensions.ResponseStreamExcel(
+                exportExcelInfo.ExcelFile,
+                NpoiExcelExtensions.StandardizeExcelReportName(reportName));
         }
 
-        public virtual string MainReportSheetName()
+        public virtual string GetMainReportSheetName()
         {
             return string.Empty;
         }
 
-        /// <summary>
-        /// Exports the detail report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportDetailReport(GetDetailReportCriteria criteria)
         {
-            try
+            var report = DetailReport(criteria);
+            var exportExcelInfo = new ExportExcelInfo
             {
-                var report = DetailReport(criteria);
-                var exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = new HSSFWorkbook(),
-                    MaxColumnIndex = 19
-                };
+                ExcelFile = new HSSFWorkbook(),
+                MaxColumnIndex = 19
+            };
 
-                ExportDetailReportBody(report, exportExcelInfo);
-                string reportName = string.Format(
-                    MainReportTitle(),
-                    SiteHelper.GetSiteTypeName(criteria.SiteType),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExcelExtensions.StandardizeExcelReportName(reportName));
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            ExportDetailReportBody(report, exportExcelInfo);
+            string reportName = string.Format(
+                GetMainReportTitle(),
+                SiteHelper.GetSiteTypeName(criteria.SiteType),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDateWithSlash(),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDateWithSlash());
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, NpoiExcelExtensions.StandardizeExcelReportName(reportName));
         }
 
-        /// <summary>
-        /// Get the detail report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The detail report.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
         public StatisticsDetailReportByDateModel DetailReport(GetDetailReportCriteria criteria)
         {
-            try
-            {
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                List<StatisticsDetailbyDateModel> rawData;
-                if (!criteria.IsPagingCallBack || criteria.IsGetFullReport)
-                {
-                    rawData = StatisticByDateReportRepository.DetailReport(criteria);
-                    SessionExtension.AddSession(HttpContext.Current.Session, RawDetailReportSessionKey, rawData);
-                }
-                else
-                {
-                    rawData = (List<StatisticsDetailbyDateModel>)SessionExtension.GetSession(HttpContext.Current.Session, RawDetailReportSessionKey);
-                }
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            var reportData = StatisticByDateReportRepository.GetDetailReport(criteria);
 
-                var reportTitle = string.Format(
-                    DetailReportTitle(),
-                    SiteHelper.GetSiteTypeName(criteria.SiteType),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
-                var result = new StatisticsDetailReportByDateModel
+            var reportTitle = string.Format(
+                GetDetailReportTitle(),
+                SiteHelper.GetSiteTypeName(criteria.SiteType),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
+                DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
+            var result = new StatisticsDetailReportByDateModel
+            {
+                Name = reportTitle,
+                ChildReports = new List<StatisticsDetailbyDateModel>(),
+                StartChildIndex = criteria.StartIndex,
+                TotalChildReports = reportData.Count
+            };
+
+            var pagedData = criteria.IsGetFullReport ?
+                reportData :
+                reportData.Skip(criteria.StartIndex).Take(criteria.PageSize).ToList();
+            foreach (var item in pagedData)
+            {
+                var feedbackDate = (DateTime)DateTimeUtilize.ChangeTimeZoneToClientDateTime(item.StartDate);
+                var resolutionDate = (DateTime)DateTimeUtilize.ChangeTimeZoneToClientDateTime(item.ResolutionTime);
+                var timeSpan = resolutionDate - feedbackDate;
+
+                item.StartDateString = feedbackDate.ToShortFormatedDate();
+                item.StartTime = feedbackDate.ToHourMinuteMiddayTypeFormated();
+                item.Duration = new TimeInfo
                 {
-                    Name = reportTitle,
-                    ChildReports = new List<StatisticsDetailbyDateModel>(),
-                    StartChildIndex = criteria.StartIndex,
-                    TotalChildReports = rawData.Count
+                    Days = timeSpan.Days,
+                    Hours = timeSpan.Hours,
+                    Minutes = timeSpan.Minutes
                 };
-
-                List<StatisticsDetailbyDateModel> pagingData = criteria.IsGetFullReport ?
-                    rawData :
-                    rawData.Skip(criteria.StartIndex).Take(criteria.PageSize).ToList();
-                foreach (var data in pagingData)
-                {
-                    var feedbackDate = (DateTime)DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.StartDate);
-                    var resolutionDate = (DateTime)DateTimeUtilize.ChangeTimeZoneToClientDateTime(data.ResolutionTime);
-                    var timeSpan = resolutionDate - feedbackDate;
-
-                    var detailInfo = new StatisticsDetailbyDateModel
-                    {
-                        Remark = data.Remark,
-                        Solution = data.Solution,
-                        StartDateString = feedbackDate.ToShortFormatedDate(),
-                        StartTime = feedbackDate.ToHourMinuteMiddayTypeFormated(),
-                        Duration = new TimeInfo
-                        {
-                            Days = timeSpan.Days,
-                            Hours = timeSpan.Hours,
-                            Minutes = timeSpan.Minutes
-                        },
-                        Username = data.Username,
-                        SiteInfo = data.SiteInfo,
-                        Product = data.Product,
-                        Extension = data.Extension,
-                        Country = data.Country,
-                        MainCategory = data.MainCategory,
-                        SubCategory = data.SubCategory,
-                        StatusName = data.StatusName,
-                        Response = data.Response,
-                        Handler = data.Handler,
-                        CreationTime = data.CreationTime,
-                        CreationTimeString = DateTimeUtilize.ChangeTimeZoneToClient(data.CreationTime),
-                        ResolutionTimeString = resolutionDate.ToHourMinuteMiddayTypeFormated(),
-
-                        Role = data.Role,
-                        CommunicationTool = data.CommunicationTool,
-                        Phones = data.Phones,
-                        PICs = data.PICs,
-                        Fax = data.Fax,
-                        MobilePhone = data.MobilePhone,
-                        MSN = data.MSN,
-                        Skype = data.Skype,
-                        Email = data.Email,
-                        Bbm = data.Bbm,
-                        WhatsApp = data.WhatsApp,
-                        Line = data.Line,
-                        WEChat = data.WEChat,
-                        Yahoo = data.Yahoo,
-                        QQ = data.QQ
-                    };
-
-                    result.ChildReports.Add(detailInfo);
-                }
-
-                return result;
+                item.CreationTimeString = DateTimeUtilize.ChangeTimeZoneToClient(item.CreationTime);
+                item.ResolutionTimeString = resolutionDate.ToHourMinuteMiddayTypeFormated();
+                result.ChildReports.Add(item);
             }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+
+            return result;
         }
 
-        public virtual string DetailReportTitle()
+        public virtual string GetDetailReportTitle()
         {
             return string.Empty;
         }
 
-        /// <summary>
-        /// Gets the main report by main category group.
-        /// </summary>
-        /// <param name="mainCategoryGroup">The main category group.</param>
-        /// <param name="mainCategoryInfo">The main category information.</param>
-        /// <returns>
-        /// The main report.
-        /// </returns>
         public List<CategoryIssuesInfo> MainReportByMainCategoryGroup(
             IGrouping<dynamic, StatisticByDateEntity> mainCategoryGroup,
             CategoryIssuesInfo mainCategoryInfo)
@@ -536,7 +415,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
         /// <param name="exportExcelInfo">The export excel information.</param>
         private void ExportDetailReportBody(StatisticsDetailReportByDateModel report, ExportExcelInfo exportExcelInfo)
         {
-            var reportSheetName = MainReportSheetName();
+            var reportSheetName = GetMainReportSheetName();
             if (report == null || report.TotalChildReports == 0)
             {
                 exportExcelInfo.CreateSheet(reportSheetName);

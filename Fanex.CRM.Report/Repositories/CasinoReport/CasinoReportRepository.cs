@@ -11,9 +11,9 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
 {
     using System.Collections.Generic;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Fanex.Common;
+    using Fanex.CRM.Report.Criteria.CasinoReport;
     using Fanex.CRM.Report.Entities.CasinoReport;
     using Fanex.CRM.Report.Models.CasinoReport;
     using Fanex.CRM.Report.Resources;
@@ -25,40 +25,33 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
     /// </summary>
     public class CasinoReportRepository : ICasinoReportRepository
     {
-        /// <summary>
-        /// Gets the casino daily summaries.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The list of Category Casino Group object.</returns>
-        public CasinoDailySummary GetCasinoDailySummary(ICriteria criteria)
+        public CasinoDailySummary GetCasinoDailySummary(GetCasinoSummaryCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var categoryCasinoGroups = new List<CategoryCasinoGroup>();
-                    var casinoGroups = new List<CasinoGroup>();
-                    int fieldCount = 0, value = 0;
-                    CategoryCasinoGroup categoryCasinoGroup;
-                    CasinoGroup casinoGroup;
+                    IList<CategoryCasinoGroup> categoryCasinoGroups = new List<CategoryCasinoGroup>();
+                    IEnumerable<CasinoGroup> casinoGroups = null;
+                    int fieldCount = 0;
 
                     while (reader.Read())
                     {
                         if (fieldCount == 0)
                         {
                             fieldCount = reader.FieldCount;
-                            casinoGroups = ParseCasinoGroups(reader, fieldCount);
+                            casinoGroups = ReadCasinoGroups(reader, fieldCount);
                         }
 
-                        categoryCasinoGroup = new CategoryCasinoGroup(Converter.ToString2(reader["Maincategory"]));
+                        var categoryCasinoGroup = new CategoryCasinoGroup(Converter.ToString2(reader["Maincategory"]));
                         categoryCasinoGroups.Add(categoryCasinoGroup);
                         foreach (var casino in casinoGroups)
                         {
-                            casinoGroup = new CasinoGroup(casino.Name);
+                            var casinoGroup = new CasinoGroup(casino.Name);
                             categoryCasinoGroup.CasinoGroups.Add(casinoGroup);
                             foreach (var comm in casino.Communications)
                             {
-                                value = Converter.ToInt(reader[casino.Name + "_" + comm.Name]);
+                                var value = Converter.ToInt(reader[casino.Name + "_" + comm.Name]);
                                 casinoGroup.Communications.Add(new CommunicationValue(comm.Name, value));
 
                                 // Calculate total.
@@ -67,20 +60,19 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
                         }
                     }
 
-
                     return new CasinoDailySummary
                     {
                         CategoryCasinoGroups = categoryCasinoGroups,
                         Total = new CategoryCasinoGroup(Labels.Grand_Total)
                         {
-                            CasinoGroups = casinoGroups
+                            CasinoGroups = casinoGroups.ToList() ?? new List<CasinoGroup>()
                         }
                     };
                 }
             }
         }
 
-        public IList<CasinoDetailEntity> GetCasinoDetails(ICriteria criteria)
+        public IEnumerable<CasinoDetailEntity> GetCasinoDetails(GetCasinoDetailCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -88,68 +80,44 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
             }
         }
 
-        /// <summary>
-        /// Gets the casino weekly summary.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Casino Weekly Summary object.</returns>
-        public CasinoWeeklySummary GetCasinoWeeklySummary(ICriteria criteria)
+        public CasinoWeeklySummary GetCasinoWeeklySummary(GetCasinoSummaryCriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = db.ExecuteReader(criteria.GetSpParams()))
                 {
-                    if (reader == null)
-                    {
-                        return null;
-                    }
-
-                    return ParseCasinoWeeklySummary(reader);
+                    return ReadCasinoWeeklySummary(reader);
                 }
             }
         }
 
-        /// <summary>
-        /// Parses the casino groups.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <param name="fieldCount">The field count.</param>
-        /// <returns>The list of Casino Group.</returns>
-        private IList<CasinoGroup> ParseCasinoGroups(IDataReader reader, int fieldCount)
+        private static IEnumerable<CasinoGroup> ReadCasinoGroups(IDataReader reader, int fieldCount)
         {
             var casinoGroupHash = new Dictionary<string, CasinoGroup>();
             for (int i = 0; i < fieldCount; i++)
             {
-                string[] columnArray = reader.GetName(i).Split('_');
-                if (columnArray.Length != 2)
+                var columns = reader.GetName(i).Split('_');
+                if (columns.Length != 2)
                 {
                     continue;
                 }
 
                 CasinoGroup casinoGroup;
-                if (!casinoGroupHash.TryGetValue(columnArray[0], out casinoGroup))
+                if (!casinoGroupHash.TryGetValue(columns[0], out casinoGroup))
                 {
-                    casinoGroup = new CasinoGroup(columnArray[0]);
-                    casinoGroupHash.Add(columnArray[0], casinoGroup);
+                    casinoGroup = new CasinoGroup(columns[0]);
+                    casinoGroupHash.Add(columns[0], casinoGroup);
                 }
 
-                casinoGroup.Communications.Add(new CommunicationValue(columnArray[1], 0));
+                casinoGroup.Communications.Add(new CommunicationValue(columns[1], 0));
             }
 
             return casinoGroupHash.Values.ToList();
         }
 
-        /// <summary>
-        /// Parses the casino weekly summary.
-        /// </summary>
-        /// <param name="reader">The reader.</param>
-        /// <returns>The Casino Weekly Summary object.</returns>
-        [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        private CasinoWeeklySummary ParseCasinoWeeklySummary(IDataReader reader)
+        private static CasinoWeeklySummary ReadCasinoWeeklySummary(IDataReader reader)
         {
-            CasinoWeeklySummary weeklySummary = new CasinoWeeklySummary
+            var weeklySummary = new CasinoWeeklySummary
             {
                 GameTypes = new List<string>(),
                 WeeklyCategories = new List<CasinoWeeklyCategory>(),
@@ -160,32 +128,25 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
                 }
             };
 
-            int fieldCount = reader.FieldCount;
-            for (int i = 2; i < fieldCount; i++)
+            for (int i = 2; i < reader.FieldCount; i++)
             {
                 weeklySummary.GameTypes.Add(reader.GetName(i));
             }
 
-            int value = 0,
-                gameTypeCount = weeklySummary.GameTypes.Count;
-            bool firstRow = true;
-            CasinoWeeklyCategory weeklyCategory;
+            var gameTypeCount = weeklySummary.GameTypes.Count;
+            var firstRow = true;
             while (reader.Read())
-            {
-                weeklyCategory = new CasinoWeeklyCategory
-                {
-                    Name = Converter.ToString2(reader["MainCategory"]),
-                    GameTypeValues = new List<int>()
-                };
-
+            {                
+                var gameTypeValues = new List<int>();
                 for (int i = 0; i < gameTypeCount; i++)
                 {
-                    value = Converter.ToInt(reader[weeklySummary.GameTypes[i]]);
-                    weeklyCategory.GameTypeValues.Add(value);
+                    var value = Converter.ToInt(reader[weeklySummary.GameTypes[i]]);
+                    gameTypeValues.Add(value);
 
                     // Grand Total.
                     if (firstRow)
                     {
+                        firstRow = false;
                         weeklySummary.GrandTotal.GameTypeValues.Add(value);
                     }
                     else
@@ -194,8 +155,11 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
                     }
                 }
 
-                firstRow = false;
-                weeklySummary.WeeklyCategories.Add(weeklyCategory);
+                weeklySummary.WeeklyCategories.Add(new CasinoWeeklyCategory
+                {
+                    Name = Converter.ToString2(reader["MainCategory"]),
+                    GameTypeValues = gameTypeValues
+                });
             }
 
             return weeklySummary;
