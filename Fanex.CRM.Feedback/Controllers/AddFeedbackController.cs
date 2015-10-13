@@ -52,6 +52,7 @@ namespace Fanex.CRM.Feedback.Controllers
                     settings.StatusList.Remove(deleteStatus);
                 }
             }
+
             return Json(settings, JsonRequestBehavior.AllowGet);
         }
 

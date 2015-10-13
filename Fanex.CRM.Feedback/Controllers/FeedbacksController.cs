@@ -45,8 +45,9 @@ namespace Fanex.CRM.Feedback.Controllers
             dynamic settings = null;
             if (hasPermission)
             {
-                settings = _feedbackService.AllSetting();                
+                settings = _feedbackService.AllSetting();
             }
+
             return Json(settings, JsonRequestBehavior.AllowGet);
         }
 

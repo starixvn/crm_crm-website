@@ -13,6 +13,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
@@ -20,7 +21,6 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.CRM.Common.Services;
 
     /// <summary>
     /// Update customer feedback controller.
@@ -77,6 +77,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 bool hasDeleteFeedbackPermission = HasReadPermission(FunctionPermissions.DeleteFeedback);
                 settings = _updateCustomerFeedbackService.GetAllSettings(hasDeleteFeedbackPermission);
             }
+
             return Json(settings, JsonRequestBehavior.AllowGet);
         }
 

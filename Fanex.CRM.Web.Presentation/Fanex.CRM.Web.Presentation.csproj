@@ -20,7 +20,7 @@
     <SccAuxPath>http://10.18.200.210:8080</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
-    <JSLintSkip>\Scripts\Chart\|\Scripts\Directives\|\Scripts\AngularJS\|\Scripts\autocomplete\|\Scripts\FanexGridV2\|\Scripts\Vendors\|\Scripts\Tipsy-Tooltip\|\Scripts\ShareScripts\|\Scripts\Paging\|\Scripts\MultipleSelect\|\Scripts\MonthDayPicker\|\Scripts\JQuery\|\Scripts\Jlinq\|\Scripts\jHtmlArea\|\Scripts\WeekPicker\|\Scripts\InputBox\|\Scripts\BlockUI.js|\Scripts\common.js|\Scripts\CryptoJS.js|\Scripts\ForceNumberic.js|\Scripts\dialogbox.js|\Areas\|\Scripts\</JSLintSkip>
+    <JSLintSkip>\Scripts\Chart\|\Scripts\Directives\|\Scripts\AngularJS\|\Scripts\autocomplete\|\Scripts\FanexGridV2\|\Scripts\Vendors\|\Scripts\Tipsy-Tooltip\|\Scripts\ShareScripts\|\Scripts\Paging\|\Scripts\MultipleSelect\|\Scripts\MonthDayPicker\|\Scripts\JQuery\|\Scripts\Jlinq\|\Scripts\jHtmlArea\|\Scripts\WeekPicker\|\Scripts\InputBox\|\Scripts\BlockUI.js|\Scripts\common.js|\Scripts\CryptoJS.js|\Scripts\ForceNumberic.js|\Scripts\dialogbox.js|\Areas\|\Scripts\|\Views\</JSLintSkip>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>

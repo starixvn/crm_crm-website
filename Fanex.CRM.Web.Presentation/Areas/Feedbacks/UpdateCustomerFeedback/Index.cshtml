@@ -548,7 +548,7 @@
                     <span class="errormsg" data-ng-hide="requiredManager.description">@Labels.RequiredInformation</span>
                 </div>
                 <div class="pull-right">
-                    <input type="button" 
+                    <input type="button" data-ng-hide="@isDisabled"
                         data-ng-value="panelManager.showDescriptionPreview ? '@Labels.Edit' : '@Labels.Preview'"
                         data-ng-class="panelManager.showDescriptionPreview ? 'btnedit' : 'btnreview'"
                         data-ng-click="panelManager.showDescriptionPreview = !panelManager.showDescriptionPreview"/>
@@ -572,7 +572,7 @@
                     <span class="errormsg" data-ng-hide="requiredManager.solution">@Labels.RequiredInformation</span>
                 </div>
                 <div class="pull-right">
-                    <input type="button" 
+                    <input type="button" data-ng-hide="@isDisabled"
                         data-ng-value="panelManager.showSolutionPreview ? '@Labels.Edit' : '@Labels.Preview'"
                         data-ng-class="panelManager.showSolutionPreview ? 'btnedit' : 'btnreview'"
                         data-ng-click="panelManager.showSolutionPreview = !panelManager.showSolutionPreview" />

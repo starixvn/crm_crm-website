@@ -44,7 +44,7 @@ namespace Fanex.CRM.Common.Constants
 
         public const string SettlementIssuesReport = "SettlementIssuesReport";
 
-        public const string Wagers_RelatedReport = "Wagers_RelatedReport";
+        public const string WagersRelatedReport = "Wagers_RelatedReport";
 
         public const string InformHeadline = "InformHeadline";
 
