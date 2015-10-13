@@ -24,15 +24,17 @@ namespace Fanex.CRM.Dashboard.Controllers
     public class DashboardController : BaseController
     {
         private IDashboardService _dashboardServiceInstance;
+        private IPermissionService _permissionServiceInstance;
 
         public DashboardController()
-            : this(null)
+            : this(null, null)
         {
         }
 
-        public DashboardController(IDashboardService dashboardServiceInstance)
+        public DashboardController(IDashboardService dashboardServiceInstance, IPermissionService permissionServiceInstance)
         {
             _dashboardServiceInstance = dashboardServiceInstance ?? new DashboardService();
+            _permissionServiceInstance = permissionServiceInstance ?? new PermissionService();
         }
                 
         public ActionResult Index(int customerId = 0)
@@ -54,8 +56,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         [ChildActionOnly]
         public PartialViewResult CustomerInfoView()
         {
-            IPermissionService permission = new PermissionService();
-            ViewBag.HasCreateUpdateFeedbackPermission = permission.HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            ViewBag.HasCreateUpdateFeedbackPermission = _permissionServiceInstance.HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             return PartialView("~/Areas/Dashboard/ViewInfo/CustomerInfo.cshtml");
         }
 

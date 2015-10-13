@@ -20,6 +20,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.CRM.Common.Services;
 
     /// <summary>
     /// Update customer feedback controller.
@@ -27,7 +28,8 @@ namespace Fanex.CRM.Feedback.Controllers
     public class UpdateCustomerFeedbackController : BaseController
     {
         private readonly IUpdateCustomerFeedbackService _updateCustomerFeedbackService;
-        private bool hasUpdateFeedbackPermission;
+        private readonly bool hasHostCreateUpdateFeedbackPermission;
+        private readonly bool hasHostDeleteFeedbackPermission;
 
         public UpdateCustomerFeedbackController()
             : this(null)
@@ -37,19 +39,32 @@ namespace Fanex.CRM.Feedback.Controllers
         public UpdateCustomerFeedbackController(IUpdateCustomerFeedbackService updateCustomerFeedbackService)
         {
             _updateCustomerFeedbackService = updateCustomerFeedbackService ?? new UpdateCustomerFeedbackService();
-            hasUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host) ||
-                                            HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+            hasHostCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            hasHostDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
         }
 
         public ActionResult Index(int id, bool isDeletedFeedbackView = false)
         {
             ViewBag.FeedbackId = id;
             ViewBag.HasReviewFeedbackPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
-            ViewBag.HasUpdateFeedbackPermission = hasUpdateFeedbackPermission;
 
-            var hasHostDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+            ViewBag.HasUpdateFeedbackPermission = HasUpdateFeedbackPermission(isDeletedFeedbackView);
             ViewBag.IsShowDeletedStatus = isDeletedFeedbackView || hasHostDeleteFeedbackPermission;
+            ViewBag.IsDisabled = !hasHostCreateUpdateFeedbackPermission;
+
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
+        }
+
+        private bool HasUpdateFeedbackPermission(bool isDeletedFeedbackView)
+        {
+            if (isDeletedFeedbackView)
+            {
+                return hasHostDeleteFeedbackPermission;
+            }
+            else
+            {
+                return hasHostCreateUpdateFeedbackPermission || hasHostDeleteFeedbackPermission;
+            }
         }
 
         public ActionResult AllSettings()
@@ -79,13 +94,10 @@ namespace Fanex.CRM.Feedback.Controllers
         public ActionResult UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)
         {
             Result result = CheckUpdateCustomerFeedbackPermission(criteria);
-            if (hasUpdateFeedbackPermission)
+            if (result.Code == ErrorCodeConstants.NoneError)
             {
-                if (result.Code == ErrorCodeConstants.NoneError)
-                {
-                    _updateCustomerFeedbackService.UpdateFeedback(criteria);
-                    result = new Result(criteria.ErrorCode, criteria.ErrorMessage);
-                }
+                _updateCustomerFeedbackService.UpdateFeedback(criteria);
+                result = new Result(criteria.ErrorCode, criteria.ErrorMessage);
             }
 
             return Json(result, JsonRequestBehavior.DenyGet);
@@ -99,12 +111,12 @@ namespace Fanex.CRM.Feedback.Controllers
         private Result CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria)
         {
             int permissionError = ErrorCodeConstants.NoPermission;
-            if (!hasUpdateFeedbackPermission)
+            if (!hasHostCreateUpdateFeedbackPermission && !hasHostDeleteFeedbackPermission)
             {
                 return new Result(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);
             }
 
-            if (criteria.OverrideCRMInfo && !hasUpdateFeedbackPermission)
+            if (criteria.OverrideCRMInfo && !hasHostCreateUpdateFeedbackPermission)
             {
                 return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
             }
@@ -113,12 +125,6 @@ namespace Fanex.CRM.Feedback.Controllers
                 !HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host))
             {
                 return new Result(permissionError, Labels.NoPermissionOnReviewFunction);
-            }
-
-            if (criteria.Status.Id == (int)CRMStatus.Deleted &&
-                    !HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host))
-            {
-                return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }
 
             return new Result();
