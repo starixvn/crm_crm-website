@@ -635,6 +635,7 @@
         var feedbackId = @ViewBag.FeedbackId;
         var hasReviewFeedbackPermission = '@hasReviewFeedbackPermission.ToString()';
         var isShowDeletedStatus = '@isShowDeletedStatus' === 'True';
+        var isShowOtherStatus = '@isDisabled' !== 'true';
         var currentTime = '@currentTime';
         var currentDate = '@currentTime.ToShortFormatedDate()';
         var currentUsername = '@AppSession.CurrentUser.Username';

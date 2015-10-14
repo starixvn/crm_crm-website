@@ -1,6 +1,8 @@
 ﻿'use strict';
 /* global updateCustomerFeedbackApplication, sharedScriptManager */
 updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$http', '$q', function ($http, $q) {
+    var DELETED_STATUS_ID = 11004;
+
     var serviceInstance = {};
 
     serviceInstance.getSettings = function () {
@@ -69,12 +71,23 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
 
     serviceInstance.removeDeletedStatus = function (statusList) {
         for (var i = 0; i < statusList.length; i++) {
-            if (statusList[i].Name === 'Deleted') {
+            if (statusList[i].Id === DELETED_STATUS_ID) {
                 statusList.splice(i, 1);
                 break;
             }
         }
-        return statusList;
+    };
+
+    serviceInstance.removeOtherStatus = function (statusList, statusId) {
+        var i = 0;
+        while (i < statusList.length) {
+            if (statusList[i].Id !== DELETED_STATUS_ID && statusList[i].Id !== statusId) {
+                statusList.splice(i, 1);
+            }
+            else {
+                i++;
+            }
+        }
     };
 
     return serviceInstance;

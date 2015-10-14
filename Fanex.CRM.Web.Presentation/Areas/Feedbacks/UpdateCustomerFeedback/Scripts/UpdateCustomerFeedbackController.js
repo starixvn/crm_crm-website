@@ -166,6 +166,11 @@ function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
                 feedbackService.getFeedback(feedbackId)
                     .then(function (dataFeedback) {
                         $scope.feedback = dataFeedback.Result;
+
+                        if (!isShowOtherStatus) {
+                            feedbackService.removeOtherStatus($scope.settings.StatusList, $scope.feedback.Status.Id);
+                        }
+
                         if ($scope.feedback.CustomerInfo.Title.Id === 0) {
                             $scope.feedback.CustomerInfo.Title = $scope.settings.Titles[0];
                         }
