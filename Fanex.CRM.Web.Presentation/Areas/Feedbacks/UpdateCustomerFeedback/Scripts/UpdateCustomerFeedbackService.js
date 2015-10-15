@@ -79,13 +79,15 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
     };
 
     serviceInstance.removeOtherStatus = function (statusList, statusId) {
-        var i = 0;
-        while (i < statusList.length) {
-            if (statusList[i].Id !== DELETED_STATUS_ID && statusList[i].Id !== statusId) {
-                statusList.splice(i, 1);
-            }
-            else {
-                i++;
+        if (statusId !== DELETED_STATUS_ID) {
+            var i = 0;
+            while (i < statusList.length) {
+                if (statusList[i].Id !== DELETED_STATUS_ID && statusList[i].Id !== statusId) {
+                    statusList.splice(i, 1);
+                }
+                else {
+                    i++;
+                }
             }
         }
     };
