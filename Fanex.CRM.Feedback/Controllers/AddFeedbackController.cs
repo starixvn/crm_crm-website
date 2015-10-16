@@ -10,9 +10,11 @@
 
 namespace Fanex.CRM.Feedback.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
@@ -80,6 +82,8 @@ namespace Fanex.CRM.Feedback.Controllers
                     Name = Labels.Symbol_NA
                 });
 
+            var statusList = ServiceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+                                        .Where(s => s.Id != (int)CRMStatus.Deleted).ToList();
             var allSetting = new AllSettingToAddFeedback
             {
                 ExtensionList = ServiceSetting.AllExtension(),
@@ -90,7 +94,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 ProductList = ServiceSetting.AllProduct(),
                 SiteList = ServiceSetting.AllSite(),
                 ResponseList = ServiceSetting.AllResponse(),
-                StatusList = ServiceSetting.AllStatus(ViewTypeConstants.CommunicationTool),
+                StatusList = statusList,
                 TitleList = ServiceSetting.AllTitle(),
                 LicenseeType = ServiceSetting.AllLicenseeType()
             };

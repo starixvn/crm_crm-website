@@ -6,7 +6,8 @@
     var hasReviewFeedbackPermission = (bool)ViewBag.HasReviewFeedbackPermission;
     var hasUpdateFeedbackPermission = (bool)ViewBag.HasUpdateFeedbackPermission;
     var isShowDeletedStatus = (bool)ViewBag.IsShowDeletedStatus;
-    var isDisabled = ((bool)ViewBag.IsDisabled).ToString().ToLower();
+    var isDisabled = ((bool)ViewBag.IsDisabled && hasUpdateFeedbackPermission).ToString().ToLower();
+    var isShowOtherStatus = (!(bool)ViewBag.IsDisabled).ToString().ToLower();
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedbacks-updatecustomerfeedback-application">
@@ -638,7 +639,7 @@
         var feedbackId = @ViewBag.FeedbackId;
         var hasReviewFeedbackPermission = '@hasReviewFeedbackPermission.ToString()';
         var isShowDeletedStatus = '@isShowDeletedStatus' === 'True';
-        var isShowOtherStatus = '@isDisabled' !== 'true';
+        var isShowOtherStatus = '@isShowOtherStatus' === 'true';
         var currentTime = '@currentTime';
         var currentDate = '@currentTime.ToShortFormatedDate()';
         var currentUsername = '@AppSession.CurrentUser.Username';
