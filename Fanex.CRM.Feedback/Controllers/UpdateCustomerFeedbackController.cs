@@ -52,6 +52,9 @@ namespace Fanex.CRM.Feedback.Controllers
             ViewBag.IsShowDeletedStatus = isDeletedFeedbackView || hasHostDeleteFeedbackPermission;
             ViewBag.IsDisabled = !hasHostCreateUpdateFeedbackPermission;
 
+            var hasReadCreateUpdatePermission = HasReadPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
+            ViewBag.IsShowOtherStatus = hasReadCreateUpdatePermission && !hasHostDeleteFeedbackPermission;
+
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
         }
 

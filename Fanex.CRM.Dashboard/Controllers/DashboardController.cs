@@ -54,7 +54,6 @@ namespace Fanex.CRM.Dashboard.Controllers
         [ChildActionOnly]
         public PartialViewResult CustomerInfoView()
         {
-            ViewBag.HasCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             return PartialView("~/Areas/Dashboard/ViewInfo/CustomerInfo.cshtml");
         }
 
@@ -73,6 +72,7 @@ namespace Fanex.CRM.Dashboard.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult OpenEditVerifyFlagView(int customerId)
         {
+            ViewBag.HasCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             var customerInfo = _dashboardServiceInstance.GetCustomerInfo(new GetCustomerInfoCriteria
             {
                 CustomerId = customerId

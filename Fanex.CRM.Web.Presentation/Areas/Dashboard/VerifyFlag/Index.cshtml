@@ -4,6 +4,7 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @{
     var jsonCustomerInfo = JsonConvert.SerializeObject(Model);
+    var hasCreateUpdateFeedbackPermission = (bool)ViewBag.HasCreateUpdateFeedbackPermission;
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="dashboard-verifyflag-application">
@@ -81,10 +82,13 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <button class="btn" data-ng-click="updateCustomerVerifyFlag();">
-                <span class="hotkey">S</span>ave</button>
-        </div>
+        @if (hasCreateUpdateFeedbackPermission)
+        {
+            <div class="row">
+                <button class="btn" data-ng-click="updateCustomerVerifyFlag();">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        }
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts")

@@ -2,7 +2,6 @@
 @using Fanex.NAP.Core.Business
 @using Fanex.CRM.Common.Constants;
 @using Fanex.CRM.Common.Services;
-@{ var hasCreateUpdateFeedbackPermission = (bool)ViewBag.HasCreateUpdateFeedbackPermission; }
 <div class="row panel-group last progressBar">
     <div class="custInfo row content text-right verifiedinfo">
         <div class="row item bar">
@@ -11,7 +10,7 @@
         </div>
         <div class="row item" data-ng-bind="getNumberOfVerifiedInfo() + '/' + getNumberOfNeededVerifiedInfo() + ' @Labels.Information_Verified'">
         </div>
-        <div class="row item" data-ng-show="@hasCreateUpdateFeedbackPermission.ToString().ToLower()">
+        <div class="row item">
             <button class="btn" data-ng-click="editVerifyFlag();">
                 V<span class="hotkey">e</span>rify</button>
         </div>

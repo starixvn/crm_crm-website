@@ -7,7 +7,7 @@
     var hasUpdateFeedbackPermission = (bool)ViewBag.HasUpdateFeedbackPermission;
     var isShowDeletedStatus = (bool)ViewBag.IsShowDeletedStatus;
     var isDisabled = ((bool)ViewBag.IsDisabled && hasUpdateFeedbackPermission).ToString().ToLower();
-    var isShowOtherStatus = (!(bool)ViewBag.IsDisabled).ToString().ToLower();
+    var isShowOtherStatus = ((bool)ViewBag.IsShowOtherStatus).ToString().ToLower();
 }
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedbacks-updatecustomerfeedback-application">
