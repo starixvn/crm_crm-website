@@ -53,7 +53,7 @@ namespace Fanex.CRM.Feedback.Controllers
             ViewBag.IsDisabled = !hasHostCreateUpdateFeedbackPermission;
 
             var hasReadCreateUpdatePermission = HasReadPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
-            ViewBag.IsShowOtherStatus = hasReadCreateUpdatePermission && !hasHostDeleteFeedbackPermission;
+            ViewBag.IsShowOtherStatus = (hasReadCreateUpdatePermission && !hasHostDeleteFeedbackPermission) || hasHostCreateUpdateFeedbackPermission;
 
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
         }
