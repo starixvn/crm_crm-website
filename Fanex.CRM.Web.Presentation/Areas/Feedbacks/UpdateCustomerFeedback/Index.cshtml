@@ -610,10 +610,13 @@
                 </div>
             </div>
         </div>
-        <div class="row btn-group" data-ng-show="@hasUpdateFeedbackPermission.ToString().ToLower()">
-            <button class="btn" data-ng-click="updateFeedback();">
-                <span class="hotkey">S</span>ave</button>
-        </div>
+        @if (hasUpdateFeedbackPermission)
+        {
+            <div class="row btn-group">
+                <button class="btn" data-ng-click="updateFeedback();">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        }
         <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
     </div>
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts")

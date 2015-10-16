@@ -7,6 +7,8 @@
 @using Fanex.CRM.Common.Services;
 @{
     var jsonLogInfo = JsonConvert.SerializeObject(Model);
+    var hasHostCreateUpdatePermission = (bool)ViewBag.HasHostCreateUpdatePermission;
+    var hasReviewPermission = ((bool)ViewBag.HasReviewPermission).ToString().ToLower();
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communicationlog-edit-application">
@@ -251,16 +253,16 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <button class="btn btn-save" data-ng-click="preupdateLog();">
-                <span class="hotkey">S</span>ave</button>
-        </div>
+        @if (hasHostCreateUpdatePermission)
+        {
+            <div class="row">
+                <button class="btn btn-save" data-ng-click="preupdateLog();">
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        }
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
-    @{
-        IPermissionService permission = new PermissionService();
-        var hasReviewPermission = permission.HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
-    }
+
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
     @RazorHelper.RenderScripts("~/Scripts/TimePicker")
     @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
