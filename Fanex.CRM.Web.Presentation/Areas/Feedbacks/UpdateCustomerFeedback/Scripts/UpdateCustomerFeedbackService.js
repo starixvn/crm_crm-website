@@ -64,32 +64,13 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
         return sharedScriptManager.registerAngularService($http, $q, url, username);
     };
 
-    serviceInstance.updateFeedback = function (criteria) {
+    serviceInstance.updateFeedback = function (criteria, isDeletedFeedbackView) {
         var url = window.rootUrl + 'UpdateCustomerFeedback/UpdateFeedback';
-        return sharedScriptManager.registerAngularService($http, $q, url, criteria);
-    };
-
-    serviceInstance.removeDeletedStatus = function (statusList) {
-        for (var i = 0; i < statusList.length; i++) {
-            if (statusList[i].Id === DELETED_STATUS_ID) {
-                statusList.splice(i, 1);
-                break;
-            }
-        }
-    };
-
-    serviceInstance.removeOtherStatus = function (statusList, statusId) {
-        if (statusId !== DELETED_STATUS_ID) {
-            var i = 0;
-            while (i < statusList.length) {
-                if (statusList[i].Id !== DELETED_STATUS_ID && statusList[i].Id !== statusId) {
-                    statusList.splice(i, 1);
-                }
-                else {
-                    i++;
-                }
-            }
-        }
+        var params = {
+            criteria: criteria,
+            isDeletedStatus: isDeletedFeedbackView 
+        };
+        return sharedScriptManager.registerAngularService($http, $q, url, params);
     };
 
     return serviceInstance;
