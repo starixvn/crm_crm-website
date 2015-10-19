@@ -45,10 +45,20 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             ViewBag.FeedbackId = id;
             ViewBag.HasReviewFeedbackPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
-            ViewBag.HasUpdateFeedbackPermission = hasHostCreateUpdateFeedbackPermission;
+            ViewBag.HasUpdateFeedbackPermission = HasUpdateFeedbackPermission(isDeletedFeedbackView);
             ViewBag.IsDeletedFeedbackView = isDeletedFeedbackView.ToString().ToLower();
 
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
+        }
+
+        private bool HasUpdateFeedbackPermission(bool isDeletedFeedbackView)
+        {
+            if (isDeletedFeedbackView)
+            {
+                return hasHostCreateUpdateFeedbackPermission && HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+            }
+
+            return hasHostCreateUpdateFeedbackPermission;
         }
 
         public ActionResult AllSettings()
