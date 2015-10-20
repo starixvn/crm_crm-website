@@ -29,6 +29,7 @@ namespace Fanex.CRM.Feedback.Controllers
     {
         private readonly IUpdateCustomerFeedbackService _updateCustomerFeedbackService;
         private readonly bool hasHostCreateUpdateFeedbackPermission;
+        private readonly bool hasHostDeleteFeedbackPermission;
 
         public UpdateCustomerFeedbackController()
             : this(null)
@@ -39,6 +40,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             _updateCustomerFeedbackService = updateCustomerFeedbackService ?? new UpdateCustomerFeedbackService();
             hasHostCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            hasHostDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
         }
 
         public ActionResult Index(int id, bool isDeletedFeedbackView = false)
@@ -47,6 +49,7 @@ namespace Fanex.CRM.Feedback.Controllers
             ViewBag.HasReviewFeedbackPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
             ViewBag.HasUpdateFeedbackPermission = HasUpdateFeedbackPermission(isDeletedFeedbackView);
             ViewBag.IsDeletedFeedbackView = isDeletedFeedbackView.ToString().ToLower();
+            ViewBag.IsShowDeletedStatus = (isDeletedFeedbackView || hasHostDeleteFeedbackPermission).ToString().ToLower();
 
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
         }
@@ -55,7 +58,7 @@ namespace Fanex.CRM.Feedback.Controllers
         {
             if (isDeletedFeedbackView)
             {
-                return hasHostCreateUpdateFeedbackPermission && HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+                return hasHostCreateUpdateFeedbackPermission && hasHostDeleteFeedbackPermission;
             }
 
             return hasHostCreateUpdateFeedbackPermission;
@@ -112,8 +115,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
             }
 
-            if (IsRelatedDeletedStatus(criteria.Status.Id, isDeletedStatus) &&
-                !HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host))
+            if (IsRelatedDeletedStatus(criteria.Status.Id, isDeletedStatus) && !hasHostDeleteFeedbackPermission)
             {
                 return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }
