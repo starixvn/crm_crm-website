@@ -64,7 +64,7 @@ namespace Fanex.CRM.Feedback.Controllers
         public ActionResult AllSettings()
         {
             dynamic settings = null;
-            bool hasDeleteFeedbackPermission = HasReadPermission(FunctionPermissions.DeleteFeedback);
+            var hasDeleteFeedbackPermission = HasReadPermission(FunctionPermissions.DeleteFeedback);
             settings = _updateCustomerFeedbackService.GetAllSettings(hasDeleteFeedbackPermission);
 
             return Json(settings, JsonRequestBehavior.AllowGet);

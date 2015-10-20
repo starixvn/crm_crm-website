@@ -9,6 +9,7 @@
     var jsonLogInfo = JsonConvert.SerializeObject(Model);
     var hasHostCreateUpdatePermission = (bool)ViewBag.HasHostCreateUpdatePermission;
     var hasReviewPermission = ((bool)ViewBag.HasReviewPermission).ToString().ToLower();
+    var isDeletedStatus = ViewBag.IsDeletedFeedbackView as string;
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communicationlog-edit-application">
@@ -282,6 +283,7 @@
         var communicationLog = @Html.Raw(jsonLogInfo); 
         var hasReviewPermission = @hasReviewPermission;
         var currentUsername = "@AppSession.CurrentUser.Username";
+        var isDeletedStatus = '@isDeletedStatus' === 'true';
         var viewResources = {
             Symbol_NotApply: '@Labels.Symbol_NotApply', 
             Select:'@Labels.Select', 

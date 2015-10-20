@@ -56,8 +56,19 @@ namespace Fanex.CRM.Communication.Services
         {
             get
             {
-                return AllStatusForInsert;
+                try
+                {
+                    var allStatusSetting = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool);
+
+                    return allStatusSetting.ToList();
+                }
+                catch (Exception ex)
+                {
+                    LogExtensions.ExceptionHandler(ex);
+                    throw;
+                }
             }
+            
         }
 
         /// <summary>
@@ -70,18 +81,7 @@ namespace Fanex.CRM.Communication.Services
         {
             get
             {
-                try
-                {
-                    var allStatusSetting = _serviceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
-                        .Where(s => !string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase));
-
-                    return allStatusSetting.ToList();
-                }
-                catch (Exception ex)
-                {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
-                }
+                return AllStatusForEdit.Where(s => !string.Equals(s.Name, Labels.Deleted, StringComparison.OrdinalIgnoreCase)).ToList();
             }
         }
 

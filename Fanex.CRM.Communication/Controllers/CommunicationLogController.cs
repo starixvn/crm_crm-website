@@ -9,6 +9,7 @@
 
 namespace Fanex.CRM.Communication.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -29,6 +30,7 @@ namespace Fanex.CRM.Communication.Controllers
     public class CommunicationLogController : BaseController
     {        
         private ICommunicationLogService _communicationServiceLog;
+        private readonly bool hasHostCreateUpdateFeedbackPermission;
 
         private ISettingService _serviceSetting;
 
@@ -43,6 +45,7 @@ namespace Fanex.CRM.Communication.Controllers
         {
             _communicationServiceLog = communicationServiceLog ?? new CommunicationLogService();
             _serviceSetting = serviceSetting ?? new SettingService();
+            hasHostCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
@@ -60,6 +63,13 @@ namespace Fanex.CRM.Communication.Controllers
         [HttpPost]
         public ActionResult AllSettingForEdit()
         {
+            var statusList = _communicationServiceLog.AllStatusForEdit;
+            var hasDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+            if (!hasDeleteFeedbackPermission)
+            {
+                statusList = statusList.Where(s=> s.Id != (int)CRMStatus.Deleted).ToList();
+            }
+
             var allSetting = new
             {
                 ExtensionList = _serviceSetting.AllExtension(),
@@ -68,7 +78,7 @@ namespace Fanex.CRM.Communication.Controllers
                 LanguageList = _serviceSetting.AllLanguage(),
                 MainCategoryList = _serviceSetting.AllMainCategory(),
                 ProductList = _serviceSetting.AllProduct(),
-                StatusList = _communicationServiceLog.AllStatusForEdit,
+                StatusList = statusList,
                 SiteList = _serviceSetting.AllSite(),
                 RoleList = _serviceSetting.AllRole(),
                 ResponseList = _serviceSetting.AllResponse(),
@@ -124,15 +134,28 @@ namespace Fanex.CRM.Communication.Controllers
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult OpenEditView(int logRunningNumber)
-        {
-            ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
-            ViewBag.HasHostCreateUpdatePermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+        {                  
             var logInfo = _communicationServiceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
             {
                 RunningNumber = logRunningNumber
             });
 
+            ViewBag.HasHostCreateUpdatePermission = HasUpdateFeedbackPermission(logInfo.Status.Id);
+            ViewBag.HasReviewPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
+            ViewBag.IsDeletedFeedbackView = (logInfo.Status.Id == (int)CRMStatus.Deleted).ToString().ToLower();
+
             return View("~/Areas/Communication/EditLog/Index.cshtml", logInfo);
+        }
+
+        private bool HasUpdateFeedbackPermission(int currentStatus)
+        {
+            var isDeletedStatus = currentStatus == (int)CRMStatus.Deleted;
+            if (isDeletedStatus)
+            {
+                return hasHostCreateUpdateFeedbackPermission && HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
+            }
+
+            return hasHostCreateUpdateFeedbackPermission;
         }
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
@@ -158,24 +181,46 @@ namespace Fanex.CRM.Communication.Controllers
         /// <returns>Update Result.</returns>
         [HttpPost]
         [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
-        public JsonResult UpdateLog(UpdateLogCriteria criteria)
+        public JsonResult UpdateLog(UpdateLogCriteria criteria, bool isDeletedStatus)
         {
-            Result updateResult;
+            Result updateResult = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
+            if (updateResult.Code == ErrorCodeConstants.NoneError)
+            {
+                updateResult = _communicationServiceLog.UpdateLog(criteria);
+            }
+            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
+            return jsonResult;
+        }
+
+        private Result CheckUpdateCustomerFeedbackPermission(UpdateLogCriteria criteria, bool isDeletedStatus)
+        {
+            int permissionError = ErrorCodeConstants.NoPermission;
+            if (!hasHostCreateUpdateFeedbackPermission)
+            {
+                return new Result(permissionError, Labels.Communication_Logs_NoUpdatePermission);
+            }
+
+            if (IsRelatedDeletedStatus(criteria.StatusId, isDeletedStatus) &&
+                !HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host))
+            {
+                return new Result(permissionError, Labels.Communication_Logs_NoDeletePermission);
+            }
+
             if (criteria.UpdateReviewedMode != UpdateReviewedModeConstants.NotChange &&
                 !HasHostPermission(FunctionPermissions.ReviewFeedback))
             {
-                updateResult = new Result
-                {
-                    Code = ErrorCodeConstants.NoPermission,
-                    Message = Labels.Communication_Logs_NoReviewPermission
-                };
-
-                return Json(updateResult, JsonRequestBehavior.AllowGet);
+                return new Result(permissionError, Labels.Communication_Logs_NoReviewPermission);
             }
 
-            updateResult = _communicationServiceLog.UpdateLog(criteria);
-            var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
-            return jsonResult;
+            return new Result();
+        }
+
+        private bool IsRelatedDeletedStatus(int currentStatus, bool isDeletedStatus)
+        {
+            bool isChangedStatusFromDeleted = isDeletedStatus && currentStatus != (int)CRMStatus.Deleted;
+            bool isChangedStatusToDeleted = !isDeletedStatus && currentStatus == (int)CRMStatus.Deleted;
+
+            return isChangedStatusFromDeleted || isChangedStatusToDeleted;
         }
 
         /// <summary>
@@ -196,7 +241,7 @@ namespace Fanex.CRM.Communication.Controllers
         [HttpPost]
         public JsonResult AllStatus()
         {
-            var allStatus = _communicationServiceLog.AllStatusForEdit;
+            var allStatus = _communicationServiceLog.AllStatusForInsert;
             var jsonResult = Json(allStatus, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
