@@ -29,7 +29,7 @@ namespace Fanex.CRM.Communication.Controllers
     /// </summary>
     public class CommunicationLogController : BaseController
     {        
-        private ICommunicationLogService _communicationServiceLog;
+        private readonly ICommunicationLogService _communicationServiceLog;
         private readonly bool hasHostCreateUpdateFeedbackPermission;
 
         private ISettingService _serviceSetting;
@@ -67,7 +67,7 @@ namespace Fanex.CRM.Communication.Controllers
             var hasDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
             if (!hasDeleteFeedbackPermission)
             {
-                statusList = statusList.Where(s=> s.Id != (int)CRMStatus.Deleted).ToList();
+                statusList = statusList.Where(s => s.Id != (int)CRMStatus.Deleted).ToList();
             }
 
             var allSetting = new
@@ -188,6 +188,7 @@ namespace Fanex.CRM.Communication.Controllers
             {
                 updateResult = _communicationServiceLog.UpdateLog(criteria);
             }
+
             var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }

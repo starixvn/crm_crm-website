@@ -67,8 +67,7 @@ namespace Fanex.CRM.Communication.Services
                     LogExtensions.ExceptionHandler(ex);
                     throw;
                 }
-            }
-            
+            }           
         }
 
         /// <summary>
