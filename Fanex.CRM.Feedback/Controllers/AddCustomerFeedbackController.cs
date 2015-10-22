@@ -97,22 +97,6 @@ namespace Fanex.CRM.Feedback.Controllers
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }
 
-            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))
-            {
-                return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
-            }
-
-            if (criteria.Status.Id == (int)CRMStatus.Deleted &&
-                !HasPermission(FunctionPermissions.DeleteFeedback.ToString(), Constant.Policy.Host))
-            {
-                return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
-            }
-
-            if (!HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))
-            {
-                return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoUpdateCustomerPermission);
-            }
-
             return new Result();
         }
     }

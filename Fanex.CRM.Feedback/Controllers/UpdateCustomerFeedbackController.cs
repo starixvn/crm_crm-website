@@ -43,6 +43,14 @@ namespace Fanex.CRM.Feedback.Controllers
             hasHostDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
         }
 
+        private static bool IsRelatedDeletedStatus(int currentStatus, bool isDeletedStatus)
+        {
+            bool isChangedStatusFromDeleted = isDeletedStatus && currentStatus != (int)CRMStatus.Deleted;
+            bool isChangedStatusToDeleted = !isDeletedStatus && currentStatus == (int)CRMStatus.Deleted;
+
+            return isChangedStatusFromDeleted || isChangedStatusToDeleted;
+        }
+
         public ActionResult Index(int id, bool isDeletedFeedbackView = false)
         {
             ViewBag.FeedbackId = id;
@@ -110,31 +118,18 @@ namespace Fanex.CRM.Feedback.Controllers
                 return new Result(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);
             }
 
-            if (criteria.OverrideCRMInfo && !hasHostCreateUpdateFeedbackPermission)
-            {
-                return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
-            }
-
-            if (IsRelatedDeletedStatus(criteria.Status.Id, isDeletedStatus) && !hasHostDeleteFeedbackPermission)
+            if (!hasHostDeleteFeedbackPermission && IsRelatedDeletedStatus(criteria.Status.Id, isDeletedStatus))
             {
                 return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }
 
-            if (criteria.UpdateReviewMode != (int)RevewMode.NotUpdate &&
-                !HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host))
+            if (!HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host) &&
+                criteria.UpdateReviewMode != (int)RevewMode.NotUpdate)
             {
                 return new Result(permissionError, Labels.NoPermissionOnReviewFunction);
             }
 
             return new Result();
-        }
-
-        private bool IsRelatedDeletedStatus(int currentStatus, bool isDeletedStatus)
-        {
-            bool isChangedStatusFromDeleted = isDeletedStatus && currentStatus != (int)CRMStatus.Deleted;
-            bool isChangedStatusToDeleted = !isDeletedStatus && currentStatus == (int)CRMStatus.Deleted;
-            
-            return isChangedStatusFromDeleted || isChangedStatusToDeleted;
         }
     }
 }

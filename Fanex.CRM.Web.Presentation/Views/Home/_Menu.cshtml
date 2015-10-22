@@ -55,11 +55,10 @@
     MenuItem menuItem,
     List<MenuItem> allMenuItemList,
     List<MenuItem> subMenuItemList,
-    string menuClassName,
     List<MenuItem> parentMenuList,
     int menuLevel)
     {
-        var className = menuClassName + " list-unstyled sub-menu-container sub-menu-" + (menuLevel + 1);
+        var className = "list-unstyled sub-menu-container sub-menu-" + (menuLevel + 1);
         var showSubMenuIconClass = GetShowSubMenuIconClass(menuLevel);
 
         var nestedParentMenuList = parentMenuList.Select(menu => menu).ToList();
@@ -75,7 +74,6 @@
 @helper RenderMenu(
     MenuItem menuItem,
     List<MenuItem> allMenuItemList,
-    string menuClassName,
     List<MenuItem> parentMenuList,
     int menuLevel)
     {  
@@ -99,7 +97,6 @@
         menuItem,
         allMenuItemList,
         subMenuItemList,
-        menuClassName,
         parentMenuList,
         menuLevel);
 }
@@ -112,9 +109,8 @@
         for (int i = 0; i < menuItemList.Count; i++)
         {
             var menuItem = menuItemList[i];
-            var menuClassName = (menuLevel == 0 && i == menuItemList.Count - 1) ? "last-menu" : "";
    
-    @RenderMenu(menuItem, allMenuItemList, menuClassName, parentMenuList, menuLevel);
+    @RenderMenu(menuItem, allMenuItemList, parentMenuList, menuLevel);
         }
 }
 <ul class="menu list-unstyle list-inline">
