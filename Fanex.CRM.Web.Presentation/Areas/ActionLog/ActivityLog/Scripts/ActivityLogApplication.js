@@ -1,2 +1,4 @@
-﻿/* exported activityLogApplication */
-var activityLogApplication = angular.module('activitylog-application', []);
+﻿(function () {
+    "use strict";
+    angular.module('activitylog-application', []);
+})();

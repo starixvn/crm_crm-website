@@ -1,2 +1,3 @@
-﻿/* exported settingLogApplication */
-var settingLogApplication = angular.module('settinglog-application', []);
+﻿(function () {
+    angular.module('settinglog-application', []);
+})();
