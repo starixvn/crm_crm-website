@@ -19,7 +19,6 @@ namespace Fanex.CRM.User.Controllers
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Helpers;
-    using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.User.Resources;
     using Fanex.NAP.Core.Configuration;
     using Fanex.NAP.Core.Criteria.User;
@@ -142,118 +141,106 @@ namespace Fanex.CRM.User.Controllers
             Justification = "Reviewed. Suppression is OK here."),
         SuppressMessage("Microsoft.Maintainability",
             "CA1506:AvoidExcessiveComplexity",
-            Justification = "Reviewed. Suppression is OK here."), 
-        SuppressMessage("Microsoft.Maintainability",
-            "CA1502:AvoidExcessiveComplexity",
             Justification = "Reviewed. Suppression is OK here.")]
         public ActionResult Index(string username, string password, string loginToken)
         {
-            try
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-                {
-                    ViewBag.Message = Labels.LogIn_InvalidInput;
-                    CreateNewToken();
-                    return View(LogInViewURL);
-                }
-
-                var user = _userNapService.GetByUsername(username.Trim()) as Fanex.NAP.Core.Model.User;
-                if (user == null)
-                {
-                    ViewBag.Message = ViewResources.Invalid_Username_or_Password;
-                    CreateNewToken();
-                    return View(LogInViewURL);
-                }
-
-                if (!CheckValidToken(loginToken))
-                {
-                    ViewBag.Message = Labels.Login_SessionTimeout;
-                    CreateNewToken();
-                    return View(LogInViewURL);
-                }
-
-                // use exactly the same way we create hash value at client side
-                string hashPassword = SHA256(user.Password + loginToken);
-                //// password = Cryptography.CfsEnCode(password);
-                if (password != hashPassword)
-                {
-                    ViewBag.Message = ViewResources.Invalid_Username_or_Password;
-                    CreateNewToken();
-                    return View(LogInViewURL);
-                }
-                else
-                {
-                    //// Form token can be used only one time                
-                    ClearToken();
-
-                    var group = user.Group == null ? null : _napGroupService.GetById(user.Group.Id);
-
-                    //// gets all sites of logging-in user
-                    var siteLevelList = _napSiteService.GetSiteLevelByUser(user.Id, Environment);
-                    if ((group != null && !group.IsActive) ||
-                        !siteLevelList.Where(x => x.IsActive).Any())
-                    {
-                        //// user account was suspended on all sites
-                        if (siteLevelList.Count() > 0)
-                        {
-                            ViewBag.Message = ViewResources.Your_account_was_suspended;
-                        }
-                        else
-                        {
-                            //// logging-in user belongs to no site
-                            ViewBag.Message = ViewResources.You_have_no_authorization;
-                        }
-
-                        return View(LogInViewURL);
-                    }
-
-                    AssignUserPermissionToSession(username, user);
-
-                    if (AppSession.CurrentUserMenu == null ||
-                        !AppSession.CurrentUserMenu.Where(m => m.Parent == null).Any())
-                    {
-                        //// user has no menu permission
-                        DoSignOut();
-                        ViewBag.Message = Labels.You_have_no_menu_permission;
-                        return View(LogInViewURL);
-                    }
-
-                    if (!this.IsSiteLogin)
-                    {
-                        //// user has access to multiple sites
-                        if (siteLevelList.Count() > 1)
-                        {
-                            return RedirectToAction("Site", "UserSite");
-                        }
-
-                        return RedirectToAction("GoToSite", "UserSite", new { id = siteLevelList.First().Site.Id });
-                    }
-
-                    //// checks if logging-in user is active on this site
-                    bool userIsActiveOnThisSite = false;
-                    foreach (var siteLevel in siteLevelList)
-                    {
-                        if (siteLevel.Site.Id == this.SiteId && siteLevel.IsActive)
-                        {
-                            userIsActiveOnThisSite = true;
-                            break;
-                        }
-                    }
-
-                    if (!userIsActiveOnThisSite)
-                    {
-                        DoSignOut();
-                        ViewBag.Message = ViewResources.Your_account_was_suspended;
-                        return View(LogInViewURL);
-                    }
-
-                    return Redirect(FormsAuthentication.DefaultUrl);
-                }
+                ViewBag.Message = Labels.LogIn_InvalidInput;
+                CreateNewToken();
+                return View(LogInViewURL);
             }
-            catch (Exception ex)
+
+            var user = _userNapService.GetByUsername(username.Trim()) as Fanex.NAP.Core.Model.User;
+            if (user == null)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                ViewBag.Message = ViewResources.Invalid_Username_or_Password;
+                CreateNewToken();
+                return View(LogInViewURL);
+            }
+
+            if (!CheckValidToken(loginToken))
+            {
+                ViewBag.Message = Labels.Login_SessionTimeout;
+                CreateNewToken();
+                return View(LogInViewURL);
+            }
+
+            // use exactly the same way we create hash value at client side
+            string hashPassword = SHA256(user.Password + loginToken);
+            if (password != hashPassword)
+            {
+                ViewBag.Message = ViewResources.Invalid_Username_or_Password;
+                CreateNewToken();
+                return View(LogInViewURL);
+            }
+            else
+            {
+                // Form token can be used only one time                
+                ClearToken();
+
+                var group = user.Group == null ? null : _napGroupService.GetById(user.Group.Id);
+
+                // gets all sites of logging-in user
+                var siteLevelList = _napSiteService.GetSiteLevelByUser(user.Id, Environment);
+                if ((group != null && !group.IsActive) ||
+                    !siteLevelList.Any(x => x.IsActive))
+                {
+                    // user account was suspended on all sites
+                    if (siteLevelList.Count() > 0)
+                    {
+                        ViewBag.Message = ViewResources.Your_account_was_suspended;
+                    }
+                    else
+                    {
+                        // logging-in user belongs to no site
+                        ViewBag.Message = ViewResources.You_have_no_authorization;
+                    }
+
+                    return View(LogInViewURL);
+                }
+
+                AssignUserPermissionToSession(username, user);
+
+                if (AppSession.CurrentUserMenu == null ||
+                    !AppSession.CurrentUserMenu.Any(m => m.Parent == null))
+                {
+                    // user has no menu permission
+                    DoSignOut();
+                    ViewBag.Message = Labels.You_have_no_menu_permission;
+                    return View(LogInViewURL);
+                }
+
+                if (!this.IsSiteLogin)
+                {
+                    // user has access to multiple sites
+                    if (siteLevelList.Count() > 1)
+                    {
+                        return RedirectToAction("Site", "UserSite");
+                    }
+
+                    return RedirectToAction("GoToSite", "UserSite", new { id = siteLevelList.First().Site.Id });
+                }
+
+                // checks if logging-in user is active on this site
+                bool userIsActiveOnThisSite = false;
+                foreach (var siteLevel in siteLevelList)
+                {
+                    if (siteLevel.Site.Id == this.SiteId && siteLevel.IsActive)
+                    {
+                        userIsActiveOnThisSite = true;
+                        break;
+                    }
+                }
+
+                if (!userIsActiveOnThisSite)
+                {
+                    DoSignOut();
+                    ViewBag.Message = ViewResources.Your_account_was_suspended;
+                    return View(LogInViewURL);
+                }
+
+                return Redirect(FormsAuthentication.DefaultUrl);
             }
         }
 
@@ -284,7 +271,7 @@ namespace Fanex.CRM.User.Controllers
 
             if (expiration.TotalSeconds <= this._timeExipration)
             {
-                //// do SSO check-in
+                // do SSO check-in
                 var criteria = new UserSSOCheckInUserCriteria
                 {
                     UserId = Convert.ToInt32(userId),
@@ -302,12 +289,12 @@ namespace Fanex.CRM.User.Controllers
 
                 this._userNapService.UserSSOCheckIn(ref criteria);
 
-                //// do SSO check-in
+                // do SSO check-in
                 if (criteria.OnUserId != 0)
                 {
                     var user = _userNapService.GetById(criteria.UserId) as User;
 
-                    //// saves user session & auth info
+                    // saves user session & auth info
                     this._napCurrentSession.UserId = user.Id;
                     this._napCurrentSession.Username = user.Username;
                     this._napCurrentSession.OnUserId = criteria.OnUserId;
@@ -336,7 +323,8 @@ namespace Fanex.CRM.User.Controllers
                     {
                         AppSession.RedirectLink = redirectUrl.ToString();
                     }
-                    //// saves user session & auth info
+
+                    // saves user session & auth info
                     return this.Redirect(FormsAuthentication.DefaultUrl);
                 }
             }
@@ -377,44 +365,36 @@ namespace Fanex.CRM.User.Controllers
         [HttpPost]
         public ActionResult CheckUserOnlineStatus()
         {
-            try
+            var settings = NapSettings.Settings;
+            if (!settings.EnableReCheckIn)
             {
-                var settings = NapSettings.Settings;
-                if (!settings.EnableReCheckIn)
-                {
-                    return Json(new { ErrCode = 0 });
-                }
+                return Json(new { ErrCode = 0 });
+            }
 
-                if (settings.EnableCheckUM)
-                {
-                    if (_maintenanceService.GetDowntimeInfo().IsDowntime)
-                    {
-                        ClearingLoginCookie();
-                        return Json(new { ErrCode = 3, ErrMsg = "UM" });
-                    }
-                }
-
-                var siteStatus = _napSiteService.GetStatusById(this.SiteId);
-                if (!siteStatus)
+            if (settings.EnableCheckUM)
+            {
+                if (_maintenanceService.GetDowntimeInfo().IsDowntime)
                 {
                     ClearingLoginCookie();
-                    return Json(new { ErrCode = 2, ErrMsg = "Site is invalid" });
+                    return Json(new { ErrCode = 3, ErrMsg = "UM" });
                 }
-
-                UserReCheckInUserCriteria criteria = new UserReCheckInUserCriteria { OnUserId = _napCurrentSession.OnUserId };
-                _userNapService.ReUserCheckIn(ref criteria);
-                if (criteria.IsKickedOut)
-                {
-                    return Json(new { ErrCode = 1, ErrMsg = "Is kickout" });
-                }
-
-                return Json(new { OnUserId = _napCurrentSession.OnUserId, ErrCode = 0 });
             }
-            catch (Exception ex)
+
+            var siteStatus = _napSiteService.GetStatusById(this.SiteId);
+            if (!siteStatus)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                ClearingLoginCookie();
+                return Json(new { ErrCode = 2, ErrMsg = "Site is invalid" });
             }
+
+            UserReCheckInUserCriteria criteria = new UserReCheckInUserCriteria { OnUserId = _napCurrentSession.OnUserId };
+            _userNapService.ReUserCheckIn(ref criteria);
+            if (criteria.IsKickedOut)
+            {
+                return Json(new { ErrCode = 1, ErrMsg = "Is kickout" });
+            }
+
+            return Json(new { OnUserId = _napCurrentSession.OnUserId, ErrCode = 0 });
         }
 
         private void CreateUserMenu(User user)
@@ -487,25 +467,25 @@ namespace Fanex.CRM.User.Controllers
         /// <param name="loginToken">The login Token.</param>
         private void AddTokenToCookie(string loginToken)
         {
-            //// Create the non-persistent secure form token cookie
+            // Create the non-persistent secure form token cookie
             var responseCookie = new HttpCookie(FormTokenName)
             {
-                //// Set the HttpOnly property to prevent the cookie from
-                //// being accessed by client side script
+                // Set the HttpOnly property to prevent the cookie from
+                // being accessed by client side script
                 HttpOnly = true,
 
-                //// Add login token to the cookie value
+                // Add login token to the cookie value
                 Value = loginToken
             };
 
-            //// If we are using SSL, the cookie should be set to secure to
-            //// prevent it from being sent over HTTP connections
+            // If we are using SSL, the cookie should be set to secure to
+            // prevent it from being sent over HTTP connections
             if (FormsAuthentication.RequireSSL && Request.IsSecureConnection)
             {
                 responseCookie.Secure = true;
             }
 
-            //// Add the cookie to the response
+            // Add the cookie to the response
             Response.Cookies.Set(responseCookie);
         }
 
@@ -527,15 +507,16 @@ namespace Fanex.CRM.User.Controllers
         /// </summary>
         private void ClearToken()
         {
-            //// delete token session
+            // delete token session
             Session.Remove(FormTokenName);
 
-            //// delete token cookie 
+            // delete token cookie 
             if (Request.Cookies[FormTokenName] != null)
             {
                 HttpCookie tokenCookie = new HttpCookie(FormTokenName);
-                //// Here, we are setting the time to a previous time.
-                //// When the browser detect it next time, it will be deleted automatically.
+
+                // Here, we are setting the time to a previous time.
+                // When the browser detect it next time, it will be deleted automatically.
                 tokenCookie.Expires = DateTime.Now.AddDays(-1d);
                 Response.Cookies.Add(tokenCookie);
             }
