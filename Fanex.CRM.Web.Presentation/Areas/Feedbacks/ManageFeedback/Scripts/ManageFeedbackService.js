@@ -1,11 +1,11 @@
-﻿'use strict';
-/* global manageFBApplication */
-manageFBApplication.factory('manageFeedbackService', ['$http', '$q', function ($http, $q) {
-    var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    angular.module('feedback-manage-application').factory('manageFeedbackService', ['$http', '$q', function ($http, $q) {
+        var serviceInstance = {};
 
-    serviceInstance.searchManageFeedback = function (criteria) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + 'Feedbacks/SearchManageFeedback', criteria)
+        serviceInstance.searchManageFeedback = function (criteria) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + 'Feedbacks/SearchManageFeedback', criteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -22,12 +22,12 @@ manageFBApplication.factory('manageFeedbackService', ['$http', '$q', function ($
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    serviceInstance.getAllSetting = function () {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + "Feedbacks/AllSetting", null)
+        serviceInstance.getAllSetting = function () {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + "Feedbacks/AllSetting", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -44,8 +44,9 @@ manageFBApplication.factory('manageFeedbackService', ['$http', '$q', function ($
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    return serviceInstance;
-}]);
+        return serviceInstance;
+    } ]);
+})();

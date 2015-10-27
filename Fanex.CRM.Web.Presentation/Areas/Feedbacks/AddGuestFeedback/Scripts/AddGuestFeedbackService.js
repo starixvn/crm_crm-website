@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global addGuestFeedbackApplication,
-sharedScriptManager */
-addGuestFeedbackApplication.factory('addGuestFeedbackService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('feedbacks-addguestfeedback-application').factory('addGuestFeedbackService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -28,3 +28,4 @@ addGuestFeedbackApplication.factory('addGuestFeedbackService',
 
         return serviceInstance;
     } ]);
+})();

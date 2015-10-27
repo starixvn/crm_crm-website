@@ -1,8 +1,10 @@
-﻿/* exported manageFBApplication */
-/* global RegisterTemplate */
-var manageFBApplication = angular.module('feedback-manage-application', ['$uiBlockerApplication']);
+﻿/* global RegisterTemplate */
+(function () {
+    "use strict";
+    angular.module('feedback-manage-application', ['$uiBlockerApplication']);
 
-var manageFBRegister = new RegisterTemplate(manageFBApplication);
-manageFBRegister.registerDatePicker();
-manageFBRegister.registerMainCategoryPicker();
-manageFBRegister.registerSubCategoryPicker();
+    var manageFBRegister = new RegisterTemplate(angular.module('feedback-manage-application'));
+    manageFBRegister.registerDatePicker();
+    manageFBRegister.registerMainCategoryPicker();
+    manageFBRegister.registerSubCategoryPicker();
+})();

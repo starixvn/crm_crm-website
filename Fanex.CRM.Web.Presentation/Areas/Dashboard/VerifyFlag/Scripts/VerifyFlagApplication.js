@@ -1,2 +1,4 @@
-﻿/* exported verifyFlagApplication */
-var verifyFlagApplication = angular.module('dashboard-verifyflag-application', []);
+﻿(function () {
+    "use strict";
+    angular.module('dashboard-verifyflag-application', []);
+})();

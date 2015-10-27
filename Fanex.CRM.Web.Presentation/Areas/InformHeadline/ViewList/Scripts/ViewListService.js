@@ -1,7 +1,6 @@
 ﻿'use strict';
-/* global informHeadlineApplication,
-sharedScriptManager */
-informHeadlineApplication.factory('viewListService',
+/* global sharedScriptManager */
+angular.module('informHeadlineApplication').factory('viewListService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};

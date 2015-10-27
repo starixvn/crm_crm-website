@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global insertTemplateApplication,
-sharedScriptManager */
-insertTemplateApplication.factory('insertTemplateService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('addmintool-feedbacksubjectmanagement-inserttemplate').factory('insertTemplateService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -12,3 +12,4 @@ insertTemplateApplication.factory('insertTemplateService',
 
         return serviceInstance;
     } ]);
+})();

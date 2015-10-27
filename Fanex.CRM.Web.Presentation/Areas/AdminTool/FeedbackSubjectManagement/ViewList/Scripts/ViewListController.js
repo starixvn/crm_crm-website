@@ -1,13 +1,13 @@
-﻿"use strict";
-/* global registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-feedbackSubjectManagementApplication,
-sharedScriptManager,
-viewResources */
-/* jshint unused: vars,
-camelcase: false */
-feedbackSubjectManagementApplication.controller('feedbackSubjectManagementController',
+﻿(function () {
+    "use strict";
+    /* global registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    sharedScriptManager,
+    viewResources */
+    /* jshint unused: vars,
+    camelcase: false */
+    angular.module('addmintool-feedbacksubjectmanagement-application').controller('feedbackSubjectManagementController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'feedbackSubjectManagementService',
     function ($scope, $uiBlockerService, $resultMessageService, feedbackSubjectManagementService) {
         $scope.feedbackSubjectTemplateList = [];
@@ -241,3 +241,4 @@ feedbackSubjectManagementApplication.controller('feedbackSubjectManagementContro
             $scope.setFocus();
         });
     } ]);
+})();

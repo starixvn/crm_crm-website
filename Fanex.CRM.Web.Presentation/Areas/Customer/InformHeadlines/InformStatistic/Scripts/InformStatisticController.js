@@ -1,11 +1,11 @@
-﻿'use strict';
-/* jshint unused: vars */
-/* jshint camelcase: false */
-/* global informHeadlineStatisticApplication,
-hotKeyManager,
-crmConstants,
-informStatisticResourceView */
-informHeadlineStatisticApplication.controller('informHeadlineStatisticController',
+﻿(function () {
+    "use strict";
+    /* jshint unused: vars */
+    /* jshint camelcase: false */
+    /* global hotKeyManager,
+    crmConstants,
+    informStatisticResourceView */
+    angular.module('customer-informheadline-statistic').controller('informHeadlineStatisticController',
     ['$scope',
     'informHeadlineStatisticService',
     '$uiBlockerService',
@@ -138,3 +138,4 @@ informHeadlineStatisticApplication.controller('informHeadlineStatisticController
             $scope.$apply();
         });
     } ]);
+})();

@@ -1,12 +1,12 @@
-"use strict";
-/* global newInformApplication,
-MessageResult, 
-sharedScriptManager,
-viewResources, Site */
-/* jshint unused: vars,
-camelcase: false */
+(function () {
+    "use strict";
+    /* global MessageResult, 
+    sharedScriptManager,
+    viewResources, Site */
+    /* jshint unused: vars,
+    camelcase: false */
 
-newInformApplication.controller('NewInformController',
+    angular.module('newInformApplication').controller('NewInformController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'newInformService',
     function ($scope, $uiBlockerService, $resultMessageService, newInformService) {
         function handleUpdateFailed() {
@@ -213,3 +213,4 @@ newInformApplication.controller('NewInformController',
             initController();
         });
     } ]);
+})();

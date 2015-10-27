@@ -1,13 +1,13 @@
-"use strict";
-/* global updateInformApplication,
-MessageResult,
-sharedScriptManager,
-hotKeyManager,
-viewResources, Site */
-/* jshint unused: vars,
-camelcase: false */
+(function () {
+    "use strict";
+    /* global MessageResult,
+    sharedScriptManager,
+    hotKeyManager,
+    viewResources, Site */
+    /* jshint unused: vars,
+    camelcase: false */
 
-updateInformApplication.controller('UpdateInformController',
+    angular.module('updateInformApplication').controller('UpdateInformController',
     ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
     function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
 
@@ -141,7 +141,7 @@ updateInformApplication.controller('UpdateInformController',
         }
 
         function refreshSearchCriteria() {
-                _searchCriteria = {
+            _searchCriteria = {
                 TitleId: $scope.titleId,
                 Currency: $scope.selectedCurrencies.toString(),
                 Site: $scope.selectedSites.toString(),
@@ -287,3 +287,4 @@ updateInformApplication.controller('UpdateInformController',
             initController();
         });
     } ]);
+})();

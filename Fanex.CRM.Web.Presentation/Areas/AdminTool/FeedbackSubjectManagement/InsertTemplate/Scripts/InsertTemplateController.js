@@ -1,13 +1,13 @@
-﻿"use strict";
-/* global insertTemplateApplication,
-sharedScriptManager,
-MessageResult,
-viewResources,
-hotKeyManager */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    MessageResult,
+    viewResources,
+    hotKeyManager */
+    /* jshint unused: vars,
+    camelcase: false */
 
-insertTemplateApplication.controller('insertTemplateController',
+    angular.module('addmintool-feedbacksubjectmanagement-inserttemplate').controller('insertTemplateController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'insertTemplateService',
     function ($scope, $uiBlockerService, $resultMessageService, insertTemplateService) {
         $scope.messageResultOptions = null;
@@ -107,3 +107,4 @@ insertTemplateApplication.controller('insertTemplateController',
             });
         });
     } ]);
+})();

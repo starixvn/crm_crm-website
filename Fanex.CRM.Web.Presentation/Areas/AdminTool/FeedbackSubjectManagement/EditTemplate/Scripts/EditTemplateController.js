@@ -1,14 +1,14 @@
-﻿"use strict";
-/* global editTemplateApplication,
-sharedScriptManager,
-MessageResult,
-templateId,
-viewResources,
-hotKeyManager */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    MessageResult,
+    templateId,
+    viewResources,
+    hotKeyManager */
+    /* jshint unused: vars,
+    camelcase: false */
 
-editTemplateApplication.controller('editTemplateController',
+    angular.module('addmintool-feedbacksubjectmanagement-edittemplate').controller('editTemplateController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'editTemplateService',
     function ($scope, $uiBlockerService, $resultMessageService, editTemplateService) {
         $scope.messageResultOptions = null;
@@ -124,3 +124,4 @@ editTemplateApplication.controller('editTemplateController',
             });
         });
     } ]);
+})();

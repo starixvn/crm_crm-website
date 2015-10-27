@@ -1,45 +1,45 @@
-﻿"use strict";
-/* global insertLogApplication, 
-viewResources,
-hotKeyManager,
-sharedScriptManager,
-currentUsername */
-insertLogApplication.directive('remarkEditorContainer', function () {
-    var editorId = "remarkeditorbox";
-    function renderRemarkEditor(scope, element, attrs) {
-        /* jshint unused: vars */
-        var remark = scope.redemptionLog.Remark;
-        var editorHTML =
+﻿(function () {
+    "use strict";
+    /* global viewResources,
+    hotKeyManager,
+    sharedScriptManager,
+    currentUsername */
+    angular.module('redemption-insertlog-application').directive('remarkEditorContainer', function () {
+        var editorId = "remarkeditorbox";
+        function renderRemarkEditor(scope, element, attrs) {
+            /* jshint unused: vars */
+            var remark = scope.redemptionLog.Remark;
+            var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
             sharedScriptManager.encodeHtml(remark) +
         '</textarea>';
 
-        element.html(editorHTML);
-        var editor = element.find("#" + editorId);
-        /* jshint camelcase: false */
-        editor.htmlarea({
-            changeEvent: function () {
-                scope.updateRemark(editor.htmlarea("toHtmlString"));
-            },
-            keyUpEvent: function (eventObject) {
-                hotKeyManager.keyUp(eventObject);
-            },
-            keyDownEvent: function (eventObject) {
-                var isBubble = hotKeyManager.documentKeyDown(eventObject);
-                if (isBubble) {
-                    parent.hotKeyManager.CachedData.KeyPress = hotKeyManager.CachedData.KeyPress;
-                    isBubble = parent.hotKeyManager.documentKeyDown(eventObject);
-                }
+            element.html(editorHTML);
+            var editor = element.find("#" + editorId);
+            /* jshint camelcase: false */
+            editor.htmlarea({
+                changeEvent: function () {
+                    scope.updateRemark(editor.htmlarea("toHtmlString"));
+                },
+                keyUpEvent: function (eventObject) {
+                    hotKeyManager.keyUp(eventObject);
+                },
+                keyDownEvent: function (eventObject) {
+                    var isBubble = hotKeyManager.documentKeyDown(eventObject);
+                    if (isBubble) {
+                        parent.hotKeyManager.CachedData.KeyPress = hotKeyManager.CachedData.KeyPress;
+                        isBubble = parent.hotKeyManager.documentKeyDown(eventObject);
+                    }
 
-                return isBubble;
-            },
-            blurEvent: function () {
-                return hotKeyManager.documentBlur();
-            },
-            clickEvent: function () {
-                $("#claimTime").datepicker("hide");
-            },
-            toolbar: [
+                    return isBubble;
+                },
+                blurEvent: function () {
+                    return hotKeyManager.documentBlur();
+                },
+                clickEvent: function () {
+                    $("#claimTime").datepicker("hide");
+                },
+                toolbar: [
                 ["html"], ["bold", "forecolor", "italic", "underline", "strikethrough", "|", "subscript", "superscript"],
                 ["increasefontsize", "decreasefontsize"],
                 ["orderedlist", "unorderedlist"],
@@ -60,20 +60,21 @@ insertLogApplication.directive('remarkEditorContainer', function () {
                     }
                 }]
            ]
-        });
-
-        $('.jHtmlArea').find('iframe').css('height', '170px');
-        $('#remarkeditorbox').css('height', '194px');
-    }
-
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (newval, oldval) {
-                /* jshint unused: vars */
-                renderRemarkEditor(scope, element, attrs);
             });
+
+            $('.jHtmlArea').find('iframe').css('height', '170px');
+            $('#remarkeditorbox').css('height', '194px');
         }
-    };
-});
+
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    /* jshint unused: vars */
+                    renderRemarkEditor(scope, element, attrs);
+                });
+            }
+        };
+    });
+})();

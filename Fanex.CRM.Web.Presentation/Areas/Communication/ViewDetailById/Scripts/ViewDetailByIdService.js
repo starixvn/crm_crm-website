@@ -1,6 +1,6 @@
-"use strict";
-/* global viewDetailByIdApplication */
-viewDetailByIdApplication.factory('$viewDetailByIdService', ['$http', '$q',
+(function () {
+    "use strict";
+    angular.module('communicationlog-viewdetailbyid-application').factory('$viewDetailByIdService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
 
@@ -69,3 +69,4 @@ viewDetailByIdApplication.factory('$viewDetailByIdService', ['$http', '$q',
         };
         return serviceInstance;
     } ]);
+})();

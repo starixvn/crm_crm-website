@@ -1,16 +1,16 @@
-﻿"use strict";
-/* global editSettingApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-MessageResult,
-settingInfo */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    MessageResult,
+    settingInfo */
+    /* jshint unused: vars,
+    camelcase: false */
 
-editSettingApplication.controller('editSettingController',
+    angular.module('addmintool-settingmanagement-editsetting-application').controller('editSettingController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'editSettingService',
     function ($scope, $uiBlockerService, $resultMessageService, editSettingService) {
         $scope.sharedScriptManager = sharedScriptManager;
@@ -119,3 +119,4 @@ editSettingApplication.controller('editSettingController',
             });
         });
     } ]);
+})();

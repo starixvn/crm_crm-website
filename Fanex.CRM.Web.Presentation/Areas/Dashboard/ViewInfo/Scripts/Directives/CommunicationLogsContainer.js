@@ -1,29 +1,29 @@
-﻿"use strict";
-/* global dashboardApplication,
-moment,
-crmConstants,
-sharedScriptManager,
-viewResources */
-/* jshint camelcase: false */
-dashboardApplication.directive('tableCommunicationLogsContainer', function () {
-    function renderCommunicationLogs(scope, element, attrs) {
-        if (scope.communicationLogs == null) {
-            return;
-        }
+﻿(function () {
+    "use strict";
+    /* global moment,
+    crmConstants,
+    sharedScriptManager,
+    viewResources */
+    /* jshint camelcase: false */
+    angular.module('dashboard-application').directive('tableCommunicationLogsContainer', function () {
+        function renderCommunicationLogs(scope, element, attrs) {
+            if (scope.communicationLogs == null) {
+                return;
+            }
 
-        /* jshint unused: vars */
-        var tableCommunicationLogs = element.find("#table-communication-logs");
-        var logList = scope.communicationLogs;
-        var bodyData = [];
-        var footerData = [];
+            /* jshint unused: vars */
+            var tableCommunicationLogs = element.find("#table-communication-logs");
+            var logList = scope.communicationLogs;
+            var bodyData = [];
+            var footerData = [];
 
-        tableCommunicationLogs.empty();
-        if (logList && logList.length > 0) {
-            var logLength = logList.length;
-            for (var i = 0; i < logLength; i++) {
-                var info = logList[i];
-                bodyData.push({
-                    Columns: [
+            tableCommunicationLogs.empty();
+            if (logList && logList.length > 0) {
+                var logLength = logList.length;
+                for (var i = 0; i < logLength; i++) {
+                    var info = logList[i];
+                    bodyData.push({
+                        Columns: [
                         {
                             Name: "ColRunningNumber",
                             Value: '<span class="link editlog-link" data-logid="' + info.RunningNumber + '">' + info.RunningNumber + '</span>',
@@ -47,13 +47,13 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
                         },
                         { Name: "ColHandler", Value: info.Handler },
                         { Name: "ColReviewer", Value: info.Reviewer}],
-                    CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
-                });
+                        CssClass: 'editlog-link-row row-' + info.StatusName.toLowerCase()
+                    });
+                }
             }
-        }
 
-        var gridOptions = {
-            columns: [{ HeaderText: viewResources.Running_No, Width: 80, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
+            var gridOptions = {
+                columns: [{ HeaderText: viewResources.Running_No, Width: 80, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Feedback_Date, Width: 90, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
                 {
                     HeaderText: sharedScriptManager.stringFormat("{0}/{1}", [viewResources.Main_Category, viewResources.Sub_Category]),
@@ -67,46 +67,47 @@ dashboardApplication.directive('tableCommunicationLogsContainer', function () {
                 { HeaderText: viewResources.Duration, Width: 60, Name: "ColDuration", HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
-            showTitle: true,
-            titleInfo: {
-                text: viewResources.Last_10_Communication_Log
-            },
-            bodyRows: bodyData,
-            footerRows: footerData,
-            numberOfFrozenColumn: 0,
-            fullWidth: true,
-            fullHeight: false,
+                showTitle: true,
+                titleInfo: {
+                    text: viewResources.Last_10_Communication_Log
+                },
+                bodyRows: bodyData,
+                footerRows: footerData,
+                numberOfFrozenColumn: 0,
+                fullWidth: true,
+                fullHeight: false,
 
-            gridHeight: $(window).height() - $("#table-redemption-logs").height() -
+                gridHeight: $(window).height() - $("#table-redemption-logs").height() -
                 $(".specialRemark").height() - 120,
-            showDistinctRow: false,
-            showHighlightRow: true,
-            headerColumnHeight: 29,
-            bodyRowHeight: 25,
-            showPager: false
-        };
+                showDistinctRow: false,
+                showHighlightRow: true,
+                headerColumnHeight: 29,
+                bodyRowHeight: 25,
+                showPager: false
+            };
 
-        tableCommunicationLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        var editLogLinks = tableCommunicationLogs.find(".editlog-link-td .editlog-link");
-        editLogLinks.unbind("click");
-        editLogLinks.click(function () {
-            scope.editCommunicationLog($(this).attr("data-logid"));
-        });
+            tableCommunicationLogs.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+            var editLogLinks = tableCommunicationLogs.find(".editlog-link-td .editlog-link");
+            editLogLinks.unbind("click");
+            editLogLinks.click(function () {
+                scope.editCommunicationLog($(this).attr("data-logid"));
+            });
 
-        var editLogRows = tableCommunicationLogs.find(".editlog-link-row");
-        editLogRows.dblclick(function () {
-            scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logid"));
-        });
-    }
-
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (oldval, newval) {
-                /* jshint unused: vars */
-                renderCommunicationLogs(scope, element, attrs);
+            var editLogRows = tableCommunicationLogs.find(".editlog-link-row");
+            editLogRows.dblclick(function () {
+                scope.editCommunicationLog($(this).find('.editlog-link').attr("data-logid"));
             });
         }
-    };
-});
+
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    /* jshint unused: vars */
+                    renderCommunicationLogs(scope, element, attrs);
+                });
+            }
+        };
+    });
+})();

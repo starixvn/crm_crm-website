@@ -1,12 +1,12 @@
-﻿'use strict';
-/* global informHeadlineStatisticApplication */
-informHeadlineStatisticApplication.factory('informHeadlineStatisticService', ['$http', '$q',
- function ($http, $q) {
-     var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    angular.module('customer-informheadline-statistic').factory('informHeadlineStatisticService', ['$http', '$q',
+    function ($http, $q) {
+        var serviceInstance = {};
 
-     serviceInstance.getInformStatistic = function () {
-         var deferred = $q.defer();
-         $http.get(window.rootUrl + 'InformHeadlines/GetInformStatistic')
+        serviceInstance.getInformStatistic = function () {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + 'InformHeadlines/GetInformStatistic')
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -23,8 +23,9 @@ informHeadlineStatisticApplication.factory('informHeadlineStatisticService', ['$
                  });
              });
 
-         return deferred.promise;
-     };
+            return deferred.promise;
+        };
 
-     return serviceInstance;
- } ]);
+        return serviceInstance;
+    } ]);
+})();

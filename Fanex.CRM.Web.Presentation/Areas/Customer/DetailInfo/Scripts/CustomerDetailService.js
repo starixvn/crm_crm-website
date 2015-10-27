@@ -1,12 +1,13 @@
-﻿"use strict";
-/* global customerDetailApplication */
-customerDetailApplication.factory('$customerDetailService', ['$http', '$q',
- function ($http, $q) {
-     var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    /* global customerDetailApplication */
+    angular.module('customerdetail-application').factory('$customerDetailService', ['$http', '$q',
+    function ($http, $q) {
+        var serviceInstance = {};
 
-     serviceInstance.getCustomerInfoDetailById = function (getCustomerInfoDetailById) {
-         var deferred = $q.defer();
-         $http.post(window.rootUrl + "CustomerSettingDetail/GetCustomerInfoDetailById", getCustomerInfoDetailById)
+        serviceInstance.getCustomerInfoDetailById = function (getCustomerInfoDetailById) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "CustomerSettingDetail/GetCustomerInfoDetailById", getCustomerInfoDetailById)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -23,12 +24,12 @@ customerDetailApplication.factory('$customerDetailService', ['$http', '$q',
                  });
              });
 
-         return deferred.promise;
-     };
+            return deferred.promise;
+        };
 
-     serviceInstance.updateCustomerInfoDetail = function (updatedCustomerInfoDetailParams) {
-         var deferred = $q.defer();
-         $http.post(window.rootUrl + "CustomerSettingDetail/UpdateCustomerInfoDetail", updatedCustomerInfoDetailParams)
+        serviceInstance.updateCustomerInfoDetail = function (updatedCustomerInfoDetailParams) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + "CustomerSettingDetail/UpdateCustomerInfoDetail", updatedCustomerInfoDetailParams)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -45,11 +46,11 @@ customerDetailApplication.factory('$customerDetailService', ['$http', '$q',
                  });
              });
 
-         return deferred.promise;
-     };
-     serviceInstance.getAllSettings = function () {
-         var deferred = $q.defer();
-         $http.get(window.rootUrl + "CustomerSettingDetail/AllSettings")
+            return deferred.promise;
+        };
+        serviceInstance.getAllSettings = function () {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + "CustomerSettingDetail/AllSettings")
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -66,8 +67,9 @@ customerDetailApplication.factory('$customerDetailService', ['$http', '$q',
                  });
              });
 
-         return deferred.promise;
-     };
+            return deferred.promise;
+        };
 
-     return serviceInstance;
- } ]);
+        return serviceInstance;
+    } ]);
+})();

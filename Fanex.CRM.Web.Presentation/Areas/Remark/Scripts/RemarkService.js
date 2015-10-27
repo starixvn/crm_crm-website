@@ -1,11 +1,11 @@
-﻿"use strict";
-/* global remarkApplication */
-remarkApplication.factory('$remarkService', ['$http', '$q', function ($http, $q) {
-    var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    angular.module('remark-application').factory('$remarkService', ['$http', '$q', function ($http, $q) {
+        var serviceInstance = {};
 
-    serviceInstance.getRemarks = function (customerId) {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + 'Remark/GetRemarks?' + $.param({customerId: customerId }))
+        serviceInstance.getRemarks = function (customerId) {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + 'Remark/GetRemarks?' + $.param({ customerId: customerId }))
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -22,12 +22,12 @@ remarkApplication.factory('$remarkService', ['$http', '$q', function ($http, $q)
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    serviceInstance.updateRemarks = function (model) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + 'Remark/Update', model)
+        serviceInstance.updateRemarks = function (model) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + 'Remark/Update', model)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -44,8 +44,9 @@ remarkApplication.factory('$remarkService', ['$http', '$q', function ($http, $q)
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    return serviceInstance;
-}]);
+        return serviceInstance;
+    } ]);
+})();

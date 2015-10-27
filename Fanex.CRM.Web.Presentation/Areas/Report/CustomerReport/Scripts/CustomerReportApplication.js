@@ -1,4 +1,5 @@
 ﻿/* global sharedScriptManager */
-/* exported customerReportApplication */
-var customerReportApplication = angular.module('report-customerreport-application', []);
-sharedScriptManager.setNoCachingHttpRequest(customerReportApplication);
+(function () {
+    "use strict";
+    angular.module('report-customerreport-application', []);
+})();

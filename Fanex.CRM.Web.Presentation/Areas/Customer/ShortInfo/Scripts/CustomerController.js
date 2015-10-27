@@ -1,10 +1,10 @@
-"use strict";
-/* global customerApplication,
-customerManager, 
-hotKeyManager,
-keyboardManager,
-viewResources */
-customerApplication.controller('customerController', ['$scope', '$http', '$customerService',
+(function () {
+    "use strict";
+    /* global customerManager, 
+    hotKeyManager,
+    keyboardManager,
+    viewResources */
+    angular.module('customer-application').controller('customerController', ['$scope', '$http', '$customerService',
     function ($scope,
         $http,
         $customerService) {
@@ -159,7 +159,7 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
                 return;
             }
 
-            $scope.manageFeedbackAfterCheckChanging();    
+            $scope.manageFeedbackAfterCheckChanging();
         };
         $scope.manageFeedbackAfterCheckChanging = function () {
             var url = '../Feedbacks/ManageFeedback?' + $.param({
@@ -303,3 +303,4 @@ customerApplication.controller('customerController', ['$scope', '$http', '$custo
             });
         });
     } ]);
+})();

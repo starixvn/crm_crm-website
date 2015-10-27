@@ -1,21 +1,21 @@
-"use strict";
-/* global registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-addCustomerFeedbackApplication,
-crmConstants,
-sharedScriptManager,
-viewResources,
-moment */
-/* jshint unused: vars,
-camelcase: false */
-function MessageResult(message, isShowMessage, isSuccess) {
-    this.Message = message;
-    this.IsShowMessage = isShowMessage;
-    this.IsSuccess = isSuccess;
-}
+(function () {
+    "use strict";
+    /* global registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    crmConstants,
+    sharedScriptManager,
+    viewResources,
+    moment */
+    /* jshint unused: vars,
+    camelcase: false */
+    function MessageResult(message, isShowMessage, isSuccess) {
+        this.Message = message;
+        this.IsShowMessage = isShowMessage;
+        this.IsSuccess = isSuccess;
+    }
 
-addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
+    angular.module('feedbacks-addcustomerfeedback-application').controller('addCustomerFeedbackController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'addCustomerFeedbackService',
     function ($scope, $uiBlockerService, $resultMessageService, addCustomerFeedbackService) {
         $scope.customerInfo = {
@@ -409,4 +409,5 @@ addCustomerFeedbackApplication.controller('addCustomerFeedbackController',
             $scope.registerHotKey();
         });
     } ]);
+})();
 

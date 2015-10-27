@@ -1,9 +1,10 @@
-﻿"use strict";
-/* global editTemplateApplication,
-RegisterTemplate */
-function editTemplateRegisterPicker() {
-    var editTemplateRegister = new RegisterTemplate(editTemplateApplication);
-    editTemplateRegister.registerDefaultFocus();
-}
+﻿(function () {
+    "use strict";
+    /* global RegisterTemplate */
+    function editTemplateRegisterPicker() {
+        var editTemplateRegister = new RegisterTemplate(angular.module('addmintool-feedbacksubjectmanagement-edittemplate'));
+        editTemplateRegister.registerDefaultFocus();
+    }
 
-editTemplateRegisterPicker();
+    editTemplateRegisterPicker();
+})();

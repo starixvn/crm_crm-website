@@ -1,18 +1,18 @@
-﻿
-"use strict";
-/* global customerApplication */
-customerApplication.factory('$customerService', ['$http', '$q', function ($http, $q) {
-    var self = {};
-    self.CacheData = {
-        getCustomerInfoParams: {
-            Username: null,
-            IsGuest: null
-        }
-    };
+﻿(function () {
+    "use strict";
+    angular.module('customer-application')
+        .factory('$customerService', ['$http', '$q', function ($http, $q) {
+            var self = {};
+            self.CacheData = {
+                getCustomerInfoParams: {
+                    Username: null,
+                    IsGuest: null
+                }
+            };
 
-    self.getCustomerInfoByUsername = function (getCustomerInfoParams) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + "CustomerSetting/GetCustomerInfoByUsername", getCustomerInfoParams)
+            self.getCustomerInfoByUsername = function (getCustomerInfoParams) {
+                var deferred = $q.defer();
+                $http.post(window.rootUrl + "CustomerSetting/GetCustomerInfoByUsername", getCustomerInfoParams)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -29,12 +29,12 @@ customerApplication.factory('$customerService', ['$http', '$q', function ($http,
                  });
              });
 
-        return deferred.promise;
-    };
+                return deferred.promise;
+            };
 
-    self.updateCustomerInfo = function (updatedCustomerInfoParams) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + "CustomerSetting/UpdateCustomerInfo", updatedCustomerInfoParams)
+            self.updateCustomerInfo = function (updatedCustomerInfoParams) {
+                var deferred = $q.defer();
+                $http.post(window.rootUrl + "CustomerSetting/UpdateCustomerInfo", updatedCustomerInfoParams)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -51,8 +51,9 @@ customerApplication.factory('$customerService', ['$http', '$q', function ($http,
                  });
              });
 
-        return deferred.promise;
-    };
+                return deferred.promise;
+            };
 
-    return self;
-}]);
+            return self;
+        } ]);
+})();

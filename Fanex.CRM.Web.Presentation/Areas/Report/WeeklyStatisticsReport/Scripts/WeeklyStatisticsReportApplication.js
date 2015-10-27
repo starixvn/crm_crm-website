@@ -1,5 +1,4 @@
-﻿/* global sharedScriptManager */
-/* exported weeklyStatisticsReportApplication */
-var weeklyStatisticsReportApplication = angular.module('report-weeklystatistics-application',
-    ['$uiBlockerApplication', '$resultMessageApplication']);
-sharedScriptManager.setNoCachingHttpRequest(weeklyStatisticsReportApplication);
+﻿(function () {
+    "use strict";
+    angular.module('report-weeklystatistics-application', ['$uiBlockerApplication', '$resultMessageApplication']);
+})();

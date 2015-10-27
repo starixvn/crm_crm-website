@@ -1,10 +1,9 @@
 ﻿"use strict";
-/* global informHeadlineApplication,
-crmConstants,
+/* global crmConstants,
 viewResources */
 /* jshint camelcase: false,
 unused: vars */
-informHeadlineApplication.directive('informHeadlineListContainer', ['$document', function ($document) {
+angular.module('informHeadlineApplication').directive('informHeadlineListContainer', ['$document', function ($document) {
     var selfScope;
     var listData;
 

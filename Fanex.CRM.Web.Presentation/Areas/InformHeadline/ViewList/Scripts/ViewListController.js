@@ -1,12 +1,11 @@
 ﻿/*global hotKeyManager*/
 "use strict";
-/* global informHeadlineApplication,
-sharedScriptManager,
+/* global sharedScriptManager,
 viewResources, Site */
 /* jshint unused: vars,
 camelcase: false */
 
-informHeadlineApplication.controller('ViewListController',
+angular.module('informHeadlineApplication').controller('ViewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
 

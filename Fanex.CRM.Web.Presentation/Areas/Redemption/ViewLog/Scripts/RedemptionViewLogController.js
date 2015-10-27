@@ -1,57 +1,54 @@
-﻿"use strict";
-/* global redemptionViewLogApplication, 
-customerId, 
-hotKeyManager,
-viewResources,
-currentDate,
-crmConstants,
-initFromDate,
-moment */
-/* jshint camelcase: false */
-redemptionViewLogApplication.controller('redemptionViewLogController', ['$scope', '$http', '$redemptionViewLogService',
-function (
-    $scope,
-    $http,
-    $redemptionViewLogService) {
-    $scope.customerId = customerId;
-    $scope.isSearched = false;
-    $scope.isSetFocus = false;
-    $scope.searchCriteria = {
-        CustomerId: customerId,
-        FromDate: initFromDate,
-        ToDate: new Date(currentDate),
-        Status: null,
-        MinToDate: new Date(initFromDate),
-        MaxFromDate: new Date(currentDate)
-    };
-
-    $scope.isSuccess = false;
-    $scope.isShowResultMessage = false;
-    $scope.resultMessage = '';
-
-    $scope.logs = [];
-    $scope.statusList = [];
-    $scope.isUpdatingDate = false;
-
-    $scope.initController = function () {
-        $scope.getAllStatus();
-        hotKeyManager.CachedData.ActiveDocumentManager.push({
-            Value: $scope,
-            Id: "CustomerCommunicationLogs"
-        });
-    };
+﻿(function () {
+    "use strict";
+    /* global customerId, 
+    hotKeyManager,
+    viewResources,
+    currentDate,
+    crmConstants,
+    initFromDate,
+    moment */
     /* jshint camelcase: false */
-    $scope.invokeHotKey_CtrlI = function () {
-        $scope.insertLog();
-    };
-    /* jshint camelcase: false */
-    $scope.invokeHotKey_CtrlS = function () {
-        $scope.searchLogs();
-    };
+    angular.module('redemption-viewlog-application').controller('redemptionViewLogController', ['$scope', '$http', '$redemptionViewLogService',
+    function ($scope, $http, $redemptionViewLogService) {
+        $scope.customerId = customerId;
+        $scope.isSearched = false;
+        $scope.isSetFocus = false;
+        $scope.searchCriteria = {
+            CustomerId: customerId,
+            FromDate: initFromDate,
+            ToDate: new Date(currentDate),
+            Status: null,
+            MinToDate: new Date(initFromDate),
+            MaxFromDate: new Date(currentDate)
+        };
 
-    $scope.getAllStatus = function () {
-        $scope.BlockUI();
-        $redemptionViewLogService.getAllStatus()
+        $scope.isSuccess = false;
+        $scope.isShowResultMessage = false;
+        $scope.resultMessage = '';
+
+        $scope.logs = [];
+        $scope.statusList = [];
+        $scope.isUpdatingDate = false;
+
+        $scope.initController = function () {
+            $scope.getAllStatus();
+            hotKeyManager.CachedData.ActiveDocumentManager.push({
+                Value: $scope,
+                Id: "CustomerCommunicationLogs"
+            });
+        };
+        /* jshint camelcase: false */
+        $scope.invokeHotKey_CtrlI = function () {
+            $scope.insertLog();
+        };
+        /* jshint camelcase: false */
+        $scope.invokeHotKey_CtrlS = function () {
+            $scope.searchLogs();
+        };
+
+        $scope.getAllStatus = function () {
+            $scope.BlockUI();
+            $redemptionViewLogService.getAllStatus()
             .then(function (data) {
                 $scope.statusList = data.Result.StatusList;
                 $scope.completedLoadFilterInfo();
@@ -60,56 +57,56 @@ function (
                 /* jshint unused: vars */
                 $scope.completedLoadFilterInfo();
             });
-    };
-    $scope.completedLoadFilterInfo = function () {
-        $scope.searchCriteria.Status = {
-            Id: crmConstants.Enums.Status.All
         };
-        $scope.unblockUI();
-        $scope.searchLogs();
-    };
-    $scope.updateSelectedStatus = function (statusId) {
-        statusId = parseInt(statusId);
-        var statusLength = $scope.statusList.length;
-        var selectedStatus = null;
-        for (var i = 0; i < statusLength; i++) {
-            var status = $scope.statusList[i];
-            if (status.Id === statusId) {
-                selectedStatus = status;
-                break;
-            }
-        }
-
-        if (selectedStatus) {
-            $scope.searchCriteria.Status = selectedStatus;
-        }
-        else {
+        $scope.completedLoadFilterInfo = function () {
             $scope.searchCriteria.Status = {
                 Id: crmConstants.Enums.Status.All
             };
-        }
-    };
-    $scope.updateFromDate = function (selectedDate) {
-        $scope.searchCriteria.FromDate = selectedDate;
-        $scope.searchCriteria.MinToDate = selectedDate;
-    };
-    $scope.updateToDate = function (selectedDate) {
-        $scope.searchCriteria.ToDate = selectedDate;
-        $scope.searchCriteria.MaxFromDate = selectedDate;
-    };
-    $scope.searchLogs = function () {
-        $scope.BlockUI();
-        var searchLogsCriteria = {
-            CustomerId: $scope.searchCriteria.CustomerId,
-            FromDate: $scope.searchCriteria.FromDate ?
+            $scope.unblockUI();
+            $scope.searchLogs();
+        };
+        $scope.updateSelectedStatus = function (statusId) {
+            statusId = parseInt(statusId);
+            var statusLength = $scope.statusList.length;
+            var selectedStatus = null;
+            for (var i = 0; i < statusLength; i++) {
+                var status = $scope.statusList[i];
+                if (status.Id === statusId) {
+                    selectedStatus = status;
+                    break;
+                }
+            }
+
+            if (selectedStatus) {
+                $scope.searchCriteria.Status = selectedStatus;
+            }
+            else {
+                $scope.searchCriteria.Status = {
+                    Id: crmConstants.Enums.Status.All
+                };
+            }
+        };
+        $scope.updateFromDate = function (selectedDate) {
+            $scope.searchCriteria.FromDate = selectedDate;
+            $scope.searchCriteria.MinToDate = selectedDate;
+        };
+        $scope.updateToDate = function (selectedDate) {
+            $scope.searchCriteria.ToDate = selectedDate;
+            $scope.searchCriteria.MaxFromDate = selectedDate;
+        };
+        $scope.searchLogs = function () {
+            $scope.BlockUI();
+            var searchLogsCriteria = {
+                CustomerId: $scope.searchCriteria.CustomerId,
+                FromDate: $scope.searchCriteria.FromDate ?
                     moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
                     '',
-            ToDate: $scope.searchCriteria.ToDate ?
+                ToDate: $scope.searchCriteria.ToDate ?
                     moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment) :
                     '',
-            StatusId: $scope.searchCriteria.Status.Id
-        };
-        $redemptionViewLogService.searchLogs(searchLogsCriteria)
+                StatusId: $scope.searchCriteria.Status.Id
+            };
+            $redemptionViewLogService.searchLogs(searchLogsCriteria)
             .then(function (data) {
                 $scope.logs = data.Result.Logs;
                 $scope.isSearched = true;
@@ -120,83 +117,83 @@ function (
                 $scope.isSearched = true;
                 $scope.unblockUI();
             });
-    };
-    $scope.closeInsertView = function () {
-        $scope.$apply(function () {
-            $scope.isSetFocus = true;
-        });
-        if (!parent.homeManager.CachedData.shouldReloadView) {
-            return;
-        }
+        };
+        $scope.closeInsertView = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
+            if (!parent.homeManager.CachedData.shouldReloadView) {
+                return;
+            }
 
-        var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
-        $scope.isShowResultMessage = true;
-        $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
-        $scope.resultMessage = popUpResult.Message;
-        window.scroll(1, 1);
-        if ($scope.isSuccess) {
-            setTimeout(function () {
-                $scope.isShowResultMessage = false;
-                $scope.$apply();
-            }, 3000);
-        }
+            var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
+            $scope.resultMessage = popUpResult.Message;
+            window.scroll(1, 1);
+            if ($scope.isSuccess) {
+                setTimeout(function () {
+                    $scope.isShowResultMessage = false;
+                    $scope.$apply();
+                }, 3000);
+            }
 
-        $scope.$apply();
-        if ($scope.isSearched) {
-            $scope.searchLogs();
-        }
-    };
-    $scope.beforeCloseInsertView = function () {
-        if (parent.homeManager.CachedData.isChangingDataPopUp &&
+            $scope.$apply();
+            if ($scope.isSearched) {
+                $scope.searchLogs();
+            }
+        };
+        $scope.beforeCloseInsertView = function () {
+            if (parent.homeManager.CachedData.isChangingDataPopUp &&
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
-            var insertLogController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
-            parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-            parent.homeManager.showConfirmIgnoreChangePopUp(insertLogController.ignoreChanges,
+                var insertLogController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+                parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+                parent.homeManager.showConfirmIgnoreChangePopUp(insertLogController.ignoreChanges,
                 insertLogController.setFocus);
-            return false;
-        }
+                return false;
+            }
 
-        return true;
-    };
-    $scope.beforeCloseEditView = function () {
-        if (parent.homeManager.CachedData.isChangingDataPopUp &&
+            return true;
+        };
+        $scope.beforeCloseEditView = function () {
+            if (parent.homeManager.CachedData.isChangingDataPopUp &&
             parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController) {
-            var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
-            parent.homeManager.CachedData.isIgnoreChangePopUp = false;
-            parent.homeManager.showConfirmIgnoreChangePopUp(function () { parent.homeManager.CachedData.isChangingDataPopUp = false; parent.ClosePopup(); },
+                var popUpController = parent.homeManager.CachedData.shareInfoBetweenPopup.PopupController;
+                parent.homeManager.CachedData.isIgnoreChangePopUp = false;
+                parent.homeManager.showConfirmIgnoreChangePopUp(function () { parent.homeManager.CachedData.isChangingDataPopUp = false; parent.ClosePopup(); },
                 popUpController.setFocus);
-            return false;
-        }
+                return false;
+            }
 
-        return true;
-    };
+            return true;
+        };
 
-    $scope.closeEditView = function () {
-        $scope.$apply(function () {
-            $scope.isSetFocus = true;
-        });
-        if (!parent.homeManager.CachedData.shouldReloadView) {
-            return;
-        }
+        $scope.closeEditView = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
+            if (!parent.homeManager.CachedData.shouldReloadView) {
+                return;
+            }
 
-        var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
-        $scope.isShowResultMessage = true;
-        $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
-        $scope.resultMessage = popUpResult.Message;
-        window.scroll(1, 1);
-        if ($scope.isSuccess) {
-            setTimeout(function () {
-                $scope.isShowResultMessage = false;
-                $scope.$apply();
-            }, 3000);
-        }
+            var popUpResult = parent.homeManager.CachedData.shareInfoBetweenPopup;
+            $scope.isShowResultMessage = true;
+            $scope.isSuccess = popUpResult.Code === crmConstants.Enums.Error.None;
+            $scope.resultMessage = popUpResult.Message;
+            window.scroll(1, 1);
+            if ($scope.isSuccess) {
+                setTimeout(function () {
+                    $scope.isShowResultMessage = false;
+                    $scope.$apply();
+                }, 3000);
+            }
 
-        $scope.$apply();
-        $scope.searchLogs();
-    };
-    $scope.insertLog = function () {
-        parent.homeManager.CachedData.shouldReloadView = false;
-        parent.OpenPopup(
+            $scope.$apply();
+            $scope.searchLogs();
+        };
+        $scope.insertLog = function () {
+            parent.homeManager.CachedData.shouldReloadView = false;
+            parent.OpenPopup(
             window.rootUrl + "Redemption/OpenInsertView?" + $.param({ customerId: $scope.customerId }),
             viewResources.Insert_Redemption_Log,
             $(parent.document).width() - 600,
@@ -209,10 +206,10 @@ function (
             $scope.closeInsertView,
             { my: "center top+120", at: "center top" },
             $scope.beforeCloseInsertView);
-    };
-    $scope.editLog = function (logId) {
-        parent.homeManager.CachedData.shouldReloadView = false;
-        parent.OpenPopup(
+        };
+        $scope.editLog = function (logId) {
+            parent.homeManager.CachedData.shouldReloadView = false;
+            parent.OpenPopup(
             window.rootUrl + "Redemption/OpenEditView?" + $.param({
                 logId: logId
             }),
@@ -227,33 +224,34 @@ function (
             $scope.closeEditView,
             { my: "center top+120", at: "center top" },
             $scope.beforeCloseEditView);
-    };
-    $scope.unblockUI = function () {
-        try {
-            parent.$.unblockUI();
-        } catch (e) {
-        }
+        };
+        $scope.unblockUI = function () {
+            try {
+                parent.$.unblockUI();
+            } catch (e) {
+            }
 
-        hotKeyManager.CachedData.isBlockingUI = false;
-    };
-    $scope.BlockUI = function () {
-        hotKeyManager.CachedData.isBlockingUI = true;
-        try {
-            parent.BlockUI();
-        } catch (e) {
-        }
-    };
-    $scope.completeSetFocus = function () {
-        $scope.isSetFocus = false;
-    };
+            hotKeyManager.CachedData.isBlockingUI = false;
+        };
+        $scope.BlockUI = function () {
+            hotKeyManager.CachedData.isBlockingUI = true;
+            try {
+                parent.BlockUI();
+            } catch (e) {
+            }
+        };
+        $scope.completeSetFocus = function () {
+            $scope.isSetFocus = false;
+        };
 
-    $scope.setFocus = function () {
-        $scope.$apply(function () {
-            $scope.isSetFocus = true;
+        $scope.setFocus = function () {
+            $scope.$apply(function () {
+                $scope.isSetFocus = true;
+            });
+        };
+        angular.element(document).ready(function () {
+            $scope.initController();
+            $scope.setFocus();
         });
-    };
-    angular.element(document).ready(function () {
-        $scope.initController();
-        $scope.setFocus();
-    });
-} ]);
+    } ]);
+})();

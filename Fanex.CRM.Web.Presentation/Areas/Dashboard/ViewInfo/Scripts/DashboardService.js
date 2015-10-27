@@ -1,6 +1,6 @@
-﻿"use strict";
-/* global dashboardApplication */
-dashboardApplication.factory('$dashboardService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    angular.module('dashboard-application').factory('$dashboardService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
 
@@ -112,3 +112,4 @@ dashboardApplication.factory('$dashboardService', ['$http', '$q',
 
         return serviceInstance;
     } ]);
+})();

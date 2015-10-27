@@ -1,17 +1,17 @@
-﻿"use strict";
-/* global insertSubSettingApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-MessageResult,
-crmConstants,
-settingInfo */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    MessageResult,
+    crmConstants,
+    settingInfo */
+    /* jshint unused: vars,
+    camelcase: false */
 
-insertSubSettingApplication.controller('insertSubSettingController',
+    angular.module('addmintool-settingmanagement-insertsubsetting-application').controller('insertSubSettingController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'insertSubSettingService',
     function ($scope, $uiBlockerService, $resultMessageService, insertSubSettingService) {
         $scope.sharedScriptManager = sharedScriptManager;
@@ -149,3 +149,4 @@ insertSubSettingApplication.controller('insertSubSettingController',
             });
         });
     } ]);
+})();

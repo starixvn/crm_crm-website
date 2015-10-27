@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global deleteSettingApplication,
-sharedScriptManager */
-deleteSettingApplication.factory('deleteSettingService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('addmintool-settingmanagement-deletesetting').factory('deleteSettingService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -12,3 +12,4 @@ deleteSettingApplication.factory('deleteSettingService',
 
         return serviceInstance;
     } ]);
+})();

@@ -1,6 +1,6 @@
-﻿"use strict";
-/* global editLogApplication */
-editLogApplication.factory('$editLogService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    angular.module('communicationlog-edit-application').factory('$editLogService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
 
@@ -94,3 +94,4 @@ editLogApplication.factory('$editLogService', ['$http', '$q',
         };
         return serviceInstance;
     } ]);
+})();

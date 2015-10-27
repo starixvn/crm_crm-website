@@ -1,16 +1,16 @@
-﻿"use strict";
-/* global addRelationApplication,
-sharedScriptManager,
-MessageResult,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-mainSetting */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    MessageResult,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    mainSetting */
+    /* jshint unused: vars,
+    camelcase: false */
 
-addRelationApplication.controller('addRelationController',
+    angular.module('addmintool-settingrelation-addrelation-application').controller('addRelationController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'addRelationService',
     function ($scope, $uiBlockerService, $resultMessageService, addRelationService) {
         $scope.getMainSettingRelationsParams = {
@@ -150,3 +150,4 @@ addRelationApplication.controller('addRelationController',
             $scope.setFocus();
         });
     } ]);
+})();

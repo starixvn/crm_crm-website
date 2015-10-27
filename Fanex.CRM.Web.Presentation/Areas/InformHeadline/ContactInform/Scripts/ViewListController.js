@@ -1,13 +1,13 @@
-﻿"use strict";
-/* global contactInformApplication,
-MessageResult,
-sharedScriptManager,
-hotKeyManager,
-viewResources, Site */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global MessageResult,
+    sharedScriptManager,
+    hotKeyManager,
+    viewResources, Site */
+    /* jshint unused: vars,
+    camelcase: false */
 
-contactInformApplication.controller('ContactInformController',
+    angular.module('contactInformApplication').controller('ContactInformController',
     ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
     function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
 
@@ -58,7 +58,7 @@ contactInformApplication.controller('ContactInformController',
 
         function createStatusDropdownSettings(sourceData) {
             $scope.statusDropdownSettings = {
-                sourceData: sourceData               
+                sourceData: sourceData
             };
         }
 
@@ -196,3 +196,4 @@ contactInformApplication.controller('ContactInformController',
             initController();
         });
     } ]);
+})();

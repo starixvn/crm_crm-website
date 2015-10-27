@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global addRelationApplication,
-sharedScriptManager */
-addRelationApplication.factory('addRelationService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('addmintool-settingrelation-addrelation-application').factory('addRelationService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -20,3 +20,4 @@ addRelationApplication.factory('addRelationService',
 
         return serviceInstance;
     } ]);
+})();

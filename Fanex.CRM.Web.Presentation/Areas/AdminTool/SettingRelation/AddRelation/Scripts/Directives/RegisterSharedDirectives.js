@@ -1,24 +1,25 @@
-﻿"use strict";
-/* global addRelationApplication,
-RegisterTemplate,
-directiveManager */
-function addRelationRegisterPicker() {
-    var addRelationRegister = new RegisterTemplate(addRelationApplication);
-    addRelationRegister.registerDefaultFocus();
+﻿(function () {
+    "use strict";
+    /* global RegisterTemplate,
+    directiveManager */
+    function addRelationRegisterPicker() {
+        var addRelationRegister = new RegisterTemplate(angular.module('addmintool-settingrelation-addrelation-application'));
+        addRelationRegister.registerDefaultFocus();
 
-    var mainSettingRegisterParams = {
-        PlugInName: 'mainSettingContainer',
-        OptionName: 'mainSettingOptions',
-        PickerId: 'mainsetting',
-        RestrictType: 'C',
+        var mainSettingRegisterParams = {
+            PlugInName: 'mainSettingContainer',
+            OptionName: 'mainSettingOptions',
+            PickerId: 'mainsetting',
+            RestrictType: 'C',
 
-        DataPropertyName: {
-            Id: "SettingType",
-            Name: "SettingType"
-        }
-    };
+            DataPropertyName: {
+                Id: "SettingType",
+                Name: "SettingType"
+            }
+        };
 
-    directiveManager.registerDropdownContainer(addRelationApplication, mainSettingRegisterParams);
-}
+        directiveManager.registerDropdownContainer(angular.module('addmintool-settingrelation-addrelation-application'), mainSettingRegisterParams);
+    }
 
-addRelationRegisterPicker();
+    addRelationRegisterPicker();
+})();

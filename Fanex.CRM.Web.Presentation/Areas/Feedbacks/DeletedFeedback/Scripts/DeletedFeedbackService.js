@@ -1,11 +1,11 @@
-﻿'use strict';
-/* global deletedFBApplication */
-deletedFBApplication.factory('deletedFeedbackService', ['$http', '$q', function ($http, $q) {
-    var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    angular.module('deleted-feedback-application').factory('deletedFeedbackService', ['$http', '$q', function ($http, $q) {
+        var serviceInstance = {};
 
-    serviceInstance.searchDeletedFeedback = function (criteria) {
-        var deferred = $q.defer();
-        $http.post(window.rootUrl + 'Feedbacks/SearchDeletedFeedback', criteria)
+        serviceInstance.searchDeletedFeedback = function (criteria) {
+            var deferred = $q.defer();
+            $http.post(window.rootUrl + 'Feedbacks/SearchDeletedFeedback', criteria)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -22,12 +22,12 @@ deletedFBApplication.factory('deletedFeedbackService', ['$http', '$q', function 
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    serviceInstance.getAllSetting = function () {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + "Feedbacks/AllSetting", null)
+        serviceInstance.getAllSetting = function () {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + "Feedbacks/AllSetting", null)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -44,8 +44,9 @@ deletedFBApplication.factory('deletedFeedbackService', ['$http', '$q', function 
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    return serviceInstance;
-}]);
+        return serviceInstance;
+    } ]);
+})();

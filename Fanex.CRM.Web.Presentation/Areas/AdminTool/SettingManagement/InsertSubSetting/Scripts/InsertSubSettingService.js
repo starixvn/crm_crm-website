@@ -1,7 +1,7 @@
-﻿'use strict';
-/* global insertSubSettingApplication,
-sharedScriptManager */
-insertSubSettingApplication.factory('insertSubSettingService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('addmintool-settingmanagement-insertsubsetting-application').factory('insertSubSettingService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
@@ -16,3 +16,4 @@ insertSubSettingApplication.factory('insertSubSettingService',
 
         return serviceInstance;
     } ]);
+})();

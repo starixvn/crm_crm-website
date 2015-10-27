@@ -1,13 +1,13 @@
-﻿'use strict';
-/* jshint unused: vars */
-/* jshint camelcase: false */
-/* global updateInformHeadlineApplication,
-updateInformResources,
-sharedScriptManager,
-hotKeyManager,
-crmConstants,
-titleId */
-updateInformHeadlineApplication.controller('updateInformHeadlineController',
+﻿(function () {
+    "use strict";
+    /* jshint unused: vars */
+    /* jshint camelcase: false */
+    /* global updateInformResources,
+    sharedScriptManager,
+    hotKeyManager,
+    crmConstants,
+    titleId */
+    angular.module('customer-informheadline-update').controller('updateInformHeadlineController',
     ['$scope',
     'updateInformHeadlineService',
     '$uiBlockerService',
@@ -274,7 +274,7 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
         };
 
         $scope.exportInformsExcel = function () {
-            var params = { 
+            var params = {
                 TitleId: $scope.titleId,
                 Status: $scope.selectedStatusIds,
                 Position: $scope.selectedPositionIds,
@@ -350,3 +350,4 @@ updateInformHeadlineApplication.controller('updateInformHeadlineController',
             });
         });
     } ]);
+})();

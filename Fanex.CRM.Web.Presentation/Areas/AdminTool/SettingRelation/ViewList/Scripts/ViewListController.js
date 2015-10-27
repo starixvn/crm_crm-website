@@ -1,14 +1,14 @@
-﻿"use strict";
-/* global viewListApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions */
+    /* jshint unused: vars,
+    camelcase: false */
 
-viewListApplication.controller('viewListController',
+    angular.module('addmintool-settingrelation-application').controller('viewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
         $scope.getSettingRelationsParams = {
@@ -107,3 +107,4 @@ viewListApplication.controller('viewListController',
             $scope.setFocus();
         });
     } ]);
+})();

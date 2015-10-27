@@ -1,9 +1,10 @@
-﻿"use strict";
-/* global editSettingApplication,
-RegisterTemplate */
-function editSettingRegisterPicker() {
-    var editSettingRegister = new RegisterTemplate(editSettingApplication);
-    editSettingRegister.registerDefaultFocus();
-}
+﻿(function () {
+    "use strict";
+    /* global RegisterTemplate */
+    function editSettingRegisterPicker() {
+        var editSettingRegister = new RegisterTemplate(angular.module('addmintool-settingmanagement-editsetting-application'));
+        editSettingRegister.registerDefaultFocus();
+    }
 
-editSettingRegisterPicker();
+    editSettingRegisterPicker();
+})();

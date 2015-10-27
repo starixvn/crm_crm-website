@@ -1,17 +1,18 @@
-﻿"use strict";
-/* global editLogApplication */
-editLogApplication.directive('defaultFocus', function () {
-    return {
-        restrict: 'A',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (newval, oldval) {
-                if (newval && !oldval) {
-                    /* jshint unused: vars */
-                    element.focus();
-                    scope.completeSetFocus();
-                }
-            });
-        }
-    };
-});
+﻿(function () {
+    "use strict";
+    angular.module('communicationlog-edit-application').directive('defaultFocus', function () {
+        return {
+            restrict: 'A',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (newval, oldval) {
+                    if (newval && !oldval) {
+                        /* jshint unused: vars */
+                        element.focus();
+                        scope.completeSetFocus();
+                    }
+                });
+            }
+        };
+    });
+})();

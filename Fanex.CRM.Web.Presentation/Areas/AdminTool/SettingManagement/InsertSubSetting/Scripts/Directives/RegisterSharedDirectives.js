@@ -1,25 +1,26 @@
-﻿"use strict";
-/* global insertSubSettingApplication,
-RegisterTemplate,
-directiveManager */
-function insertSubSettingRegisterPicker() {
-    var insertSubSettingRegister = new RegisterTemplate(insertSubSettingApplication);
-    insertSubSettingRegister.registerDefaultFocus();
+﻿(function () {
+    "use strict";
+    /* global RegisterTemplate,
+    directiveManager */
+    function insertSubSettingRegisterPicker() {
+        var insertSubSettingRegister = new RegisterTemplate(angular.module('addmintool-settingmanagement-insertsubsetting-application'));
+        insertSubSettingRegister.registerDefaultFocus();
 
-    var parentSettingRegisterParams = {
-        PlugInName: 'parentSettingContainer',
-        OptionName: 'parentSettingOptions',
-        PickerId: 'parentsetting',
-        RestrictType: 'C',
+        var parentSettingRegisterParams = {
+            PlugInName: 'parentSettingContainer',
+            OptionName: 'parentSettingOptions',
+            PickerId: 'parentsetting',
+            RestrictType: 'C',
 
-        DataPropertyName: {
-            Id: "Id",
-            Type: "SettingType",
-            Value: "Value"
-        }
-    };
+            DataPropertyName: {
+                Id: "Id",
+                Type: "SettingType",
+                Value: "Value"
+            }
+        };
 
-    directiveManager.registerParentSettingContainer(insertSubSettingApplication, parentSettingRegisterParams);
-}
+        directiveManager.registerParentSettingContainer(angular.module('addmintool-settingmanagement-insertsubsetting-application'), parentSettingRegisterParams);
+    }
 
-insertSubSettingRegisterPicker();
+    insertSubSettingRegisterPicker();
+})();

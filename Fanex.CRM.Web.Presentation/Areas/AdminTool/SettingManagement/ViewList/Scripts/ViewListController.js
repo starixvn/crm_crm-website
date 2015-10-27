@@ -1,14 +1,14 @@
-﻿"use strict";
-/* global viewListApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions */
+    /* jshint unused: vars,
+    camelcase: false */
 
-viewListApplication.controller('viewListController',
+    angular.module('addmintool-settingmanagement-application').controller('viewListController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
     function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
         $scope.sharedScriptManager = sharedScriptManager;
@@ -77,7 +77,7 @@ viewListApplication.controller('viewListController',
             parent.homeManager.CachedData.shouldReloadView = false;
             parent.OpenPopup(
                 window.rootUrl + "SettingManagement/OpenInsertSubSettingView?" + $.param({
-                    settingType: $scope.getSettingRelationsParams.MainSetting.SettingType 
+                    settingType: $scope.getSettingRelationsParams.MainSetting.SettingType
                 }),
                 viewResources.Insert_New_Setting,
                 480,
@@ -207,3 +207,4 @@ viewListApplication.controller('viewListController',
             $scope.setFocus();
         });
     } ]);
+})();

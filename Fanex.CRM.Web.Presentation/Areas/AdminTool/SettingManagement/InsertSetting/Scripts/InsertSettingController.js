@@ -1,16 +1,16 @@
-﻿"use strict";
-/* global insertSettingApplication,
-sharedScriptManager,
-viewResources,
-registerOptions,
-registerUpdateFunctions,
-registerHotkeyFunctions,
-MessageResult,
-crmConstants */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    viewResources,
+    registerOptions,
+    registerUpdateFunctions,
+    registerHotkeyFunctions,
+    MessageResult,
+    crmConstants */
+    /* jshint unused: vars,
+    camelcase: false */
 
-insertSettingApplication.controller('insertSettingController',
+    angular.module('addmintool-settingmanagement-insertnewsetting-application').controller('insertSettingController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'insertSettingService',
     function ($scope, $uiBlockerService, $resultMessageService, insertSettingService) {
         $scope.sharedScriptManager = sharedScriptManager;
@@ -149,3 +149,4 @@ insertSettingApplication.controller('insertSettingController',
             });
         });
     } ]);
+})();

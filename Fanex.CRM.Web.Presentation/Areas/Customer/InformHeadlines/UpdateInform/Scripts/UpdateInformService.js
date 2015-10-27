@@ -1,6 +1,6 @@
-﻿'use strict';
-/* global updateInformHeadlineApplication */
-updateInformHeadlineApplication.factory('updateInformHeadlineService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    angular.module('customer-informheadline-update').factory('updateInformHeadlineService', ['$http', '$q',
  function ($http, $q) {
      var serviceInstance = {};
 
@@ -76,3 +76,4 @@ updateInformHeadlineApplication.factory('updateInformHeadlineService', ['$http',
 
      return serviceInstance;
  } ]);
+})();

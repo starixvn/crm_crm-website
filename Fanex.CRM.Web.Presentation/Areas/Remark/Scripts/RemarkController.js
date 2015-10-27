@@ -1,11 +1,11 @@
-﻿"use strict";
-/* global remarkApplication,
-hotKeyManager,
-remarkResources,
-crmConstants,
-customerId,
-sharedScriptManager */
-remarkApplication.controller('remarkController',
+﻿(function () {
+    "use strict";
+    /* global hotKeyManager,
+    remarkResources,
+    crmConstants,
+    customerId,
+    sharedScriptManager */
+    angular.module('remark-application').controller('remarkController',
     ['$scope',
     '$remarkService',
     '$uiBlockerService',
@@ -238,3 +238,4 @@ remarkApplication.controller('remarkController',
             $scope.setFocus();
         });
     } ]);
+})();

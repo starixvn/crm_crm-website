@@ -1,12 +1,12 @@
-﻿"use strict";
-/* global deleteSettingApplication,
-sharedScriptManager,
-MessageResult,
-settingInfo */
-/* jshint unused: vars,
-camelcase: false */
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    MessageResult,
+    settingInfo */
+    /* jshint unused: vars,
+    camelcase: false */
 
-deleteSettingApplication.controller('deleteSettingController',
+    angular.module('addmintool-settingmanagement-deletesetting').controller('deleteSettingController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'deleteSettingService',
     function ($scope, $uiBlockerService, $resultMessageService, deleteSettingService) {
         $scope.deleteParams = {
@@ -48,3 +48,4 @@ deleteSettingApplication.controller('deleteSettingController',
             $scope.initController();
         });
     } ]);
+})();

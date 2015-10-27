@@ -1,5 +1,5 @@
-﻿/* global sharedScriptManager */
-/* exported viewListApplication */
-var viewListApplication = angular.module('addmintool-settingrelation-application',
-    ['$uiBlockerApplication', '$resultMessageApplication']);
-sharedScriptManager.setNoCachingHttpRequest(viewListApplication);
+﻿(function () {
+    "use strict";
+    angular.module('addmintool-settingrelation-application',
+        ['$uiBlockerApplication', '$resultMessageApplication']);
+})();

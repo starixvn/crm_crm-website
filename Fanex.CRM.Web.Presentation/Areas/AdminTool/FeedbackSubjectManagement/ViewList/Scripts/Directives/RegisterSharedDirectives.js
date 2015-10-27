@@ -1,10 +1,11 @@
-﻿"use strict";
-/* global feedbackSubjectManagementApplication,
-RegisterTemplate */
-function feedbackSubjectManagementRegisterPicker() {
-    var feedbackSubjectManagementRegister = new RegisterTemplate(feedbackSubjectManagementApplication);
-    feedbackSubjectManagementRegister.registerSubjectAutoComplete();
-    feedbackSubjectManagementRegister.registerDefaultFocus();
-}
+﻿(function () {
+    "use strict";
+    /* global RegisterTemplate */
+    function feedbackSubjectManagementRegisterPicker() {
+        var feedbackSubjectManagementRegister = new RegisterTemplate(angular.module('addmintool-feedbacksubjectmanagement-application'));
+        feedbackSubjectManagementRegister.registerSubjectAutoComplete();
+        feedbackSubjectManagementRegister.registerDefaultFocus();
+    }
 
-feedbackSubjectManagementRegisterPicker();
+    feedbackSubjectManagementRegisterPicker();
+})();

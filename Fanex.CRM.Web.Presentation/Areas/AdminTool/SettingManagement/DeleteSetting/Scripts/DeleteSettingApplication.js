@@ -1,5 +1,5 @@
-﻿/* global sharedScriptManager */
-/* exported deleteSettingApplication */
-var deleteSettingApplication = angular.module('addmintool-settingmanagement-deletesetting',
-    ['$uiBlockerApplication', '$resultMessageApplication']);
-sharedScriptManager.setNoCachingHttpRequest(deleteSettingApplication);
+﻿(function () {
+    "use strict";
+    angular.module('addmintool-settingmanagement-deletesetting',
+        ['$uiBlockerApplication', '$resultMessageApplication']);
+})();
