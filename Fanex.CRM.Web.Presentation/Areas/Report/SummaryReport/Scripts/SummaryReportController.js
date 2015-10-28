@@ -1,48 +1,48 @@
-﻿'use strict';
-/* global summaryReportApplication,
-sharedScriptManager,
-hotKeyManager,
-summaryReportResources */
-/* jshint camelcase: false */
-summaryReportApplication.controller('summaryReportController', ['$scope', 'SummaryReportService', '$uiBlockerService', '$resultMessageService',
-function ($scope, summaryReportService, $uiBlockerService, $resultMessageService) {
-    $scope.years = [];
-    $scope.year = 0;
-    $scope.siteTypes = [];
-    $scope.site = undefined;
-    $scope.categoryOptions = {};
-    $scope.selectedCategoryIds = '';
-    $scope.defaultFocusOptions = null;
-    $scope.summaryReport;
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    hotKeyManager,
+    summaryReportResources */
+    /* jshint camelcase: false */
+    angular.module('report-summaryreport-application').controller('summaryReportController', ['$scope', 'SummaryReportService', '$uiBlockerService', '$resultMessageService',
+    function ($scope, summaryReportService, $uiBlockerService, $resultMessageService) {
+        $scope.years = [];
+        $scope.year = 0;
+        $scope.siteTypes = [];
+        $scope.site = undefined;
+        $scope.categoryOptions = {};
+        $scope.selectedCategoryIds = '';
+        $scope.defaultFocusOptions = null;
+        $scope.summaryReport;
 
-    $scope.initController = function () {
-        $uiBlockerService.blockUI();
+        $scope.initController = function () {
+            $uiBlockerService.blockUI();
 
-        $scope.getAllSettings();
-        hotKeyManager.CachedData.ActiveDocumentManager.push({
-            Value: $scope,
-            Id: 'SummaryReport'
-        });
+            $scope.getAllSettings();
+            hotKeyManager.CachedData.ActiveDocumentManager.push({
+                Value: $scope,
+                Id: 'SummaryReport'
+            });
 
-        $scope.defaultFocusOptions = {
-            IsSetFocus: false,
-            OnChangeEvent: $scope.completeSetFocus
-        };
-        $scope.setFocus();
-    };
-
-    $scope.getAllSettings = function () {
-        $scope.categoryOptions = {
-            DataList: [],
-            OnChangeEvent: $scope.updateSelectedCategory,
-            AllText: summaryReportResources.AllCategories,
-            MaxHeight: 450,
-            NoItemText: summaryReportResources.Symbol_NotApply,
-            NoneSelectedText: summaryReportResources.No_category_found,
-            NumberOfItemShowShortText: 0
+            $scope.defaultFocusOptions = {
+                IsSetFocus: false,
+                OnChangeEvent: $scope.completeSetFocus
+            };
+            $scope.setFocus();
         };
 
-        summaryReportService.getAllSettings()
+        $scope.getAllSettings = function () {
+            $scope.categoryOptions = {
+                DataList: [],
+                OnChangeEvent: $scope.updateSelectedCategory,
+                AllText: summaryReportResources.AllCategories,
+                MaxHeight: 450,
+                NoItemText: summaryReportResources.Symbol_NotApply,
+                NoneSelectedText: summaryReportResources.No_category_found,
+                NumberOfItemShowShortText: 0
+            };
+
+            summaryReportService.getAllSettings()
 .then(function (data) {
     $scope.years = data.Result.YearRange;
     if ($scope.years.length > 0) {
@@ -59,29 +59,29 @@ function (data) {
     /* jshint unused: vars */
     $uiBlockerService.unblockUI();
 });
-    };
+        };
 
-    $scope.updateSelectedCategory = function (categoryIdList) {
-        $scope.selectedCategoryIds = categoryIdList;
-    };
+        $scope.updateSelectedCategory = function (categoryIdList) {
+            $scope.selectedCategoryIds = categoryIdList;
+        };
 
-    $scope.invokeHotKey_CtrlS = function () {
-        $scope.getSummaryReport();
-    };
+        $scope.invokeHotKey_CtrlS = function () {
+            $scope.getSummaryReport();
+        };
 
-    $scope.setFocus = function () {
-        $scope.$apply(function () {
-            $scope.defaultFocusOptions.IsSetFocus = true;
-        });
-    };
+        $scope.setFocus = function () {
+            $scope.$apply(function () {
+                $scope.defaultFocusOptions.IsSetFocus = true;
+            });
+        };
 
-    $scope.completeSetFocus = function () {
-        $scope.defaultFocusOptions.IsSetFocus = false;
-    };
+        $scope.completeSetFocus = function () {
+            $scope.defaultFocusOptions.IsSetFocus = false;
+        };
 
-    $scope.getSummaryReport = function () {
-        $uiBlockerService.blockUI();
-        summaryReportService.getSummaryReport($scope.year.Id, $scope.site.Id, $scope.selectedCategoryIds)
+        $scope.getSummaryReport = function () {
+            $uiBlockerService.blockUI();
+            summaryReportService.getSummaryReport($scope.year.Id, $scope.site.Id, $scope.selectedCategoryIds)
 .then(function (data) {
     $scope.summaryReport = data.Result;
     $uiBlockerService.unblockUI();
@@ -91,18 +91,19 @@ function (data) {
     sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
     $uiBlockerService.unblockUI();
 });
-    };
-
-    $scope.exportSummaryReportExcel = function () {
-        $scope.downloadFileOptions = {
-            URL: window.rootUrl + 'SummaryReport/ExportSummaryReportExcel',
-            Params: { year: $scope.year.Id, site: $scope.site.Id, categories: $scope.selectedCategoryIds }
         };
 
-        $scope.$apply();
-    };
+        $scope.exportSummaryReportExcel = function () {
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + 'SummaryReport/ExportSummaryReportExcel',
+                Params: { year: $scope.year.Id, site: $scope.site.Id, categories: $scope.selectedCategoryIds }
+            };
 
-    angular.element(document).ready(function () {
-        $scope.initController();
-    });
-} ]); 
+            $scope.$apply();
+        };
+
+        angular.element(document).ready(function () {
+            $scope.initController();
+        });
+    } ]);
+})();

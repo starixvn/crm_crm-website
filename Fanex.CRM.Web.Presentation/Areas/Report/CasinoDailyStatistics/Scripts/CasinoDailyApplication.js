@@ -1,9 +1,9 @@
 ﻿/* global RegisterTemplate */
 (function () {
     "use strict";
-    var casinoDailyApplication = angular.module('report-casinodaily-application', ['$uiBlockerApplication']);
+    angular.module('report-casinodaily-application', ['$uiBlockerApplication']);
 
-    var casinoDailyRegister = new RegisterTemplate(casinoDailyApplication);
+    var casinoDailyRegister = new RegisterTemplate(angular.module('report-casinodaily-application'));
     casinoDailyRegister.registerDatePicker();
     casinoDailyRegister.registerDownloadFile();
 })();

@@ -1,7 +1,7 @@
-﻿"use strict";
-/* global weeklyStatisticsReportApplication,
-sharedScriptManager */
-weeklyStatisticsReportApplication.factory('weeklyStatisticsReportService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager */
+    angular.module('report-weeklystatistics-application').factory('weeklyStatisticsReportService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getWeeklyStatisticsReport = function (params) {
@@ -15,3 +15,4 @@ weeklyStatisticsReportApplication.factory('weeklyStatisticsReportService', ['$ht
 
         return serviceInstance;
     } ]);
+})();

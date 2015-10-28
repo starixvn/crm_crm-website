@@ -1,6 +1,6 @@
-﻿"use strict";
-/* global dynamicReportApplication */
-dynamicReportApplication.factory('$dynamicReportService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    angular.module('report-dynamicreport-application').factory('$dynamicReportService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getNumberOfFeedbackSubjectTemplate = function () {
@@ -91,3 +91,4 @@ dynamicReportApplication.factory('$dynamicReportService', ['$http', '$q',
 
         return serviceInstance;
     } ]);
+})();

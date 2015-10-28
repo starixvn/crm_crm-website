@@ -1,31 +1,31 @@
-﻿"use strict";
-/* global dynamicReportApplication,
-crmConstants,
-sharedScriptManager,
-viewResources,
-moment */
-/* jshint unused: vars */
-/* jshint camelcase: false */
-dynamicReportApplication.directive('tableDynamicReportContainer', function () {
-    var cachedDynamicReport;
-    var cachedGridOptions;
-    var selfScope;
-    var cachedTable;
+﻿(function () {
+    "use strict";
+    /* global crmConstants,
+    sharedScriptManager,
+    viewResources,
+    moment */
+    /* jshint unused: vars */
+    /* jshint camelcase: false */
+    angular.module('report-dynamicreport-application').directive('tableDynamicReportContainer', function () {
+        var cachedDynamicReport;
+        var cachedGridOptions;
+        var selfScope;
+        var cachedTable;
 
-    function getGridHeight() {
-        return selfScope.isShowFilter ?
+        function getGridHeight() {
+            return selfScope.isShowFilter ?
             245 + crmConstants.MarginBottomPage :
             65 + crmConstants.MarginBottomPage;
-    }
+        }
 
-    function getGripOtions(dynamicReport) {
-        var bodyData = [];
-        var footerData = [];
-        var childReportLength = dynamicReport ? dynamicReport.ChildReports.length : 0;
-        if (childReportLength > 0) {
-            for (var i = 0; i < childReportLength; i++) {
-                var periodReport = dynamicReport.ChildReports[i];
-                var currentRow =
+        function getGripOtions(dynamicReport) {
+            var bodyData = [];
+            var footerData = [];
+            var childReportLength = dynamicReport ? dynamicReport.ChildReports.length : 0;
+            if (childReportLength > 0) {
+                for (var i = 0; i < childReportLength; i++) {
+                    var periodReport = dynamicReport.ChildReports[i];
+                    var currentRow =
                 {
                     Columns: [{
                         Name: "ColNo",
@@ -36,14 +36,14 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                     SubRows: []
                 };
 
-                var childsLength = periodReport.ChildReports.length;
-                var startSplittingIndex = (i !== 0 || childsLength === periodReport.TotalChildReports) ?
+                    var childsLength = periodReport.ChildReports.length;
+                    var startSplittingIndex = (i !== 0 || childsLength === periodReport.TotalChildReports) ?
                     0 :
                     periodReport.StartChildIndex;
 
-                for (var j = 0; j < childsLength; j++) {
-                    var info = periodReport.ChildReports[j];
-                    var currentSubRow =
+                    for (var j = 0; j < childsLength; j++) {
+                        var info = periodReport.ChildReports[j];
+                        var currentSubRow =
                     {
                         Columns: [
                             {
@@ -80,16 +80,16 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                         CssClass: 'viewcommunicationlog-link-row row-' + info.StatusName.toLowerCase()
                     };
 
-                    currentRow.SubRows.push(currentSubRow);
+                        currentRow.SubRows.push(currentSubRow);
+                    }
+
+                    bodyData.push(currentRow);
                 }
-
-                bodyData.push(currentRow);
             }
-        }
 
-        var viewChartIcon = '<input id="button-viewchart" class="btnCharting" type="button" value="">';
-        var gridOptions = {
-            columns: [{ HeaderText: viewResources.Symbol_No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
+            var viewChartIcon = '<input id="button-viewchart" class="btnCharting" type="button" value="">';
+            var gridOptions = {
+                columns: [{ HeaderText: viewResources.Symbol_No, Width: 50, Name: "ColNo", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
                 { HeaderText: viewResources.Running_No, Width: 80, Name: "ColRunningNumber", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Feedback_Date, Width: 90, Name: "ColFeedbackDate", HeaderAlign: "center", CellAlign: "center" },
                 {
@@ -105,152 +105,153 @@ dynamicReportApplication.directive('tableDynamicReportContainer', function () {
                 { HeaderText: viewResources.Username, Width: 100, Name: "ColUsername", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Handler, Width: 100, Name: "ColHandler", HeaderAlign: "center", CellAlign: "left" },
                 { HeaderText: viewResources.Reviewer, Width: 100, Name: "ColReviewer", HeaderAlign: "center", CellAlign: "left"}],
-            showTitle: true,
-            titleInfo: {
-                text: dynamicReport ?
+                showTitle: true,
+                titleInfo: {
+                    text: dynamicReport ?
                         sharedScriptManager.stringFormat("{0} [{1}]",
                             [dynamicReport.Name, dynamicReport.TotalChildReports]) :
                         "",
-                showExcelButton: true,
-                exportExcelFunction: function () {
-                    selfScope.exportReport();
+                    showExcelButton: true,
+                    exportExcelFunction: function () {
+                        selfScope.exportReport();
+                    },
+                    showCollapseExpandButton: true,
+                    customButtons: viewChartIcon
                 },
-                showCollapseExpandButton: true,
-                customButtons: viewChartIcon
-            },
-            bodyRows: bodyData,
-            footerRows: footerData,
-            numberOfFrozenColumn: 0,
-            fullWidth: true,
-            fullHeight: true,
-            gridExpandHeight: getGridHeight(),
-            showDistinctRow: false,
-            showHighlightRow: true,
-            headerColumnHeight: 29,
-            bodyRowHeight: 29,
-            showPager: true,
-            showTree: true,
-            treeParentPaddingLeft: 5,
-            customPager: true,
-            pagerOption: {
-                itemsPerPage: selfScope.lastSelectedParams.PageSize,
-                currentPage: selfScope.lastSelectedParams.PageIndex,
-                itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: dynamicReport ? dynamicReport.TotalChildReports : 0,
-                pagerSelectCallBack: ReRenderAfterPaged
-            }
-        };
-
-        return gridOptions;
-    }
-    function bindLogLink(tableDynamicReport, scope) {
-        var viewLogLinks = tableDynamicReport.find(".viewcommunicationlog-link-td .viewcommunicationlog-link");
-        viewLogLinks.unbind("click");
-        viewLogLinks.click(function () {
-            var subReportIndex = parseInt($(this).attr("data-subreportindex"));
-            var logIndex = parseInt($(this).attr("data-logindex"));
-            scope.viewCommunicationLog(cachedDynamicReport.ChildReports[subReportIndex].ChildReports[logIndex]);
-        });
-
-        var viewLogRows = tableDynamicReport.find(".viewcommunicationlog-link-row");
-        viewLogRows.dblclick(function () {
-            var subReportIndex = parseInt($(this).find('.viewcommunicationlog-link').attr("data-subreportindex"));
-            var logIndex = parseInt($(this).find('.viewcommunicationlog-link').attr("data-logindex"));
-            scope.viewCommunicationLog(cachedDynamicReport.ChildReports[subReportIndex].ChildReports[logIndex]);
-        });
-    }
-
-    function renderDynamicReport(scope, element, attrs) {
-        if (scope.dynamicReportOptions.DataList === null) {
-            return;
-        }
-
-        selfScope = scope;
-        var tableDynamicReport = element.find("#table-dynamic-report");
-        cachedTable = tableDynamicReport;
-        var dynamicReport = scope.dynamicReportOptions.DataList;
-        cachedDynamicReport = dynamicReport;
-        var gridOptions = getGripOtions(dynamicReport);
-        cachedGridOptions = gridOptions;
-        tableDynamicReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
-        bindLogLink(tableDynamicReport, scope);
-        element.find("#button-viewchart").click(function () {
-            viewChart(scope, element, attrs);
-        });
-    }
-
-    function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
-        selfScope.pagingDynamicReport(page_index, itemsPerPage);
-        return false;
-    }
-
-    function viewChart(scope, element, attrs) {
-        var crmChart = parent.crmChart;
-        var chartInfo = cachedDynamicReport ? cachedDynamicReport.ChartInfo : null;
-        crmChart.title = chartInfo.Name;
-
-        var chartData = {
-            labels: getChartLabels(chartInfo, crmChart),
-            datasets: getChartDatasets(chartInfo, crmChart)
-        };
-
-        var chartOption = angular.copy(crmChart.newopts);
-        chartOption = $.extend(chartOption, {
-            chartType: crmChart.chartType.bar,
-            xAxisLabel: "",
-            yAxisLabel: "",
-            yAxisUnit: viewResources.DynamicReport_ChartSuffix
-        });
-
-        crmChart.viewChart(chartData, chartOption);
-        parent.$(".ui-dialog-titlebar-close").click(function () {
-            scope.setFocus();
-        });
-    }
-
-    function getChartLabels(chartInfo, crmChart) {
-        var xAxisCategories = [];
-        xAxisCategories.push(chartInfo ? chartInfo.ShortName : "");
-        return xAxisCategories;
-    }
-
-    function getChartDatasets(chartInfo, crmChart) {
-        var chartSeries = [];
-        var chartSerie = null;
-        var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
-        for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
-            var periodReport = chartInfo.ChildReports[xIndex];
-            var backgroundColor = crmChart.getBackGroundColor(xIndex);
-            chartSerie = {
-                fillColor: backgroundColor,
-                strokeColor: backgroundColor,
-                data: [periodReport.TotalChildReports],
-                title: periodReport.ShortName
+                bodyRows: bodyData,
+                footerRows: footerData,
+                numberOfFrozenColumn: 0,
+                fullWidth: true,
+                fullHeight: true,
+                gridExpandHeight: getGridHeight(),
+                showDistinctRow: false,
+                showHighlightRow: true,
+                headerColumnHeight: 29,
+                bodyRowHeight: 29,
+                showPager: true,
+                showTree: true,
+                treeParentPaddingLeft: 5,
+                customPager: true,
+                pagerOption: {
+                    itemsPerPage: selfScope.lastSelectedParams.PageSize,
+                    currentPage: selfScope.lastSelectedParams.PageIndex,
+                    itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
+                    totalItem: dynamicReport ? dynamicReport.TotalChildReports : 0,
+                    pagerSelectCallBack: ReRenderAfterPaged
+                }
             };
-            chartSeries.push(chartSerie);
+
+            return gridOptions;
         }
+        function bindLogLink(tableDynamicReport, scope) {
+            var viewLogLinks = tableDynamicReport.find(".viewcommunicationlog-link-td .viewcommunicationlog-link");
+            viewLogLinks.unbind("click");
+            viewLogLinks.click(function () {
+                var subReportIndex = parseInt($(this).attr("data-subreportindex"));
+                var logIndex = parseInt($(this).attr("data-logindex"));
+                scope.viewCommunicationLog(cachedDynamicReport.ChildReports[subReportIndex].ChildReports[logIndex]);
+            });
 
-        return chartSeries;
-    }
-
-    return {
-        restrict: 'C',
-        scope: true,
-        link: function (scope, element, attrs) {
-            scope.$watch(attrs.ngModel, function (oldval, newval) {
-                if (!scope.dynamicReportOptions.IsUpdateGrid) {
-                    return;
-                }
-
-                if (scope.dynamicReportOptions.IsResize && cachedTable) {
-                    cachedTable.fanexGrid("resizeHeight", getGridHeight());
-                    scope.dynamicReportOptions.IsResize = false;
-                } else {
-                    renderDynamicReport(scope, element, attrs);
-                }
-
-                scope.dynamicReportOptions.IsUpdateGrid = false;
+            var viewLogRows = tableDynamicReport.find(".viewcommunicationlog-link-row");
+            viewLogRows.dblclick(function () {
+                var subReportIndex = parseInt($(this).find('.viewcommunicationlog-link').attr("data-subreportindex"));
+                var logIndex = parseInt($(this).find('.viewcommunicationlog-link').attr("data-logindex"));
+                scope.viewCommunicationLog(cachedDynamicReport.ChildReports[subReportIndex].ChildReports[logIndex]);
             });
         }
-    };
-});
+
+        function renderDynamicReport(scope, element, attrs) {
+            if (scope.dynamicReportOptions.DataList === null) {
+                return;
+            }
+
+            selfScope = scope;
+            var tableDynamicReport = element.find("#table-dynamic-report");
+            cachedTable = tableDynamicReport;
+            var dynamicReport = scope.dynamicReportOptions.DataList;
+            cachedDynamicReport = dynamicReport;
+            var gridOptions = getGripOtions(dynamicReport);
+            cachedGridOptions = gridOptions;
+            tableDynamicReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
+            bindLogLink(tableDynamicReport, scope);
+            element.find("#button-viewchart").click(function () {
+                viewChart(scope, element, attrs);
+            });
+        }
+
+        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+            selfScope.pagingDynamicReport(page_index, itemsPerPage);
+            return false;
+        }
+
+        function viewChart(scope, element, attrs) {
+            var crmChart = parent.crmChart;
+            var chartInfo = cachedDynamicReport ? cachedDynamicReport.ChartInfo : null;
+            crmChart.title = chartInfo.Name;
+
+            var chartData = {
+                labels: getChartLabels(chartInfo, crmChart),
+                datasets: getChartDatasets(chartInfo, crmChart)
+            };
+
+            var chartOption = angular.copy(crmChart.newopts);
+            chartOption = $.extend(chartOption, {
+                chartType: crmChart.chartType.bar,
+                xAxisLabel: "",
+                yAxisLabel: "",
+                yAxisUnit: viewResources.DynamicReport_ChartSuffix
+            });
+
+            crmChart.viewChart(chartData, chartOption);
+            parent.$(".ui-dialog-titlebar-close").click(function () {
+                scope.setFocus();
+            });
+        }
+
+        function getChartLabels(chartInfo, crmChart) {
+            var xAxisCategories = [];
+            xAxisCategories.push(chartInfo ? chartInfo.ShortName : "");
+            return xAxisCategories;
+        }
+
+        function getChartDatasets(chartInfo, crmChart) {
+            var chartSeries = [];
+            var chartSerie = null;
+            var childReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
+            for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
+                var periodReport = chartInfo.ChildReports[xIndex];
+                var backgroundColor = crmChart.getBackGroundColor(xIndex);
+                chartSerie = {
+                    fillColor: backgroundColor,
+                    strokeColor: backgroundColor,
+                    data: [periodReport.TotalChildReports],
+                    title: periodReport.ShortName
+                };
+                chartSeries.push(chartSerie);
+            }
+
+            return chartSeries;
+        }
+
+        return {
+            restrict: 'C',
+            scope: true,
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    if (!scope.dynamicReportOptions.IsUpdateGrid) {
+                        return;
+                    }
+
+                    if (scope.dynamicReportOptions.IsResize && cachedTable) {
+                        cachedTable.fanexGrid("resizeHeight", getGridHeight());
+                        scope.dynamicReportOptions.IsResize = false;
+                    } else {
+                        renderDynamicReport(scope, element, attrs);
+                    }
+
+                    scope.dynamicReportOptions.IsUpdateGrid = false;
+                });
+            }
+        };
+    });
+})();

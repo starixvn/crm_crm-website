@@ -1,16 +1,16 @@
-﻿"use strict";
-/* global statisticReportApplication,
-initFromDate: true,
-currentDate: true,
-sharedScriptManager,
-hotKeyManager,
-crmConstants,
-minReportDate,
-moment,
-viewResources */
-/* jshint unused: vars */
-/* jshint camelcase: false */
-statisticReportApplication.controller('statisticReportController', [
+﻿(function () {
+    "use strict";
+    /* global initFromDate: true,
+    currentDate: true,
+    sharedScriptManager,
+    hotKeyManager,
+    crmConstants,
+    minReportDate,
+    moment,
+    viewResources */
+    /* jshint unused: vars */
+    /* jshint camelcase: false */
+    angular.module('report-statisticreport-application').controller('statisticReportController', [
     '$scope',
     '$http',
     'statisticReportService',
@@ -232,12 +232,12 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.searchCriteria.FromDate = new Date(initFromDate);
             $scope.searchCriteria.ToDate = new Date(currentDate);
 
-            var defaultPagingSize =  sharedScriptManager.cachedData.smallPagingDefaultItemsPerPage;
+            var defaultPagingSize = sharedScriptManager.cachedData.smallPagingDefaultItemsPerPage;
             switch (reportTypeId) {
                 case crmConstants.Enums.PeriodType.Daily:
                     $scope.fromDateOptions.IsRerenderPicker = true;
                     $scope.toDateOptions.IsRerenderPicker = true;
-                    defaultPagingSize =  7;
+                    defaultPagingSize = 7;
                     break;
                 case crmConstants.Enums.PeriodType.Monthly:
                     $scope.fromMonthOptions.IsRerenderPicker = true;
@@ -476,3 +476,4 @@ statisticReportApplication.controller('statisticReportController', [
             $scope.initController();
         });
     } ]);
+})();

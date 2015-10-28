@@ -1,4 +1,6 @@
-﻿(function () {
+﻿/* global sharedScriptManager */
+(function () {
     "use strict";
     angular.module('customer-informheadline-update', ['$uiBlockerApplication', 'alertBoxApplication']);
+    sharedScriptManager.setNoCachingHttpRequest(angular.module('customer-informheadline-update'));
 })();

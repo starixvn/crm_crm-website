@@ -1,11 +1,11 @@
-﻿'use strict';
-/* global wagerReportApplication */
-wagerReportApplication.factory('WagerReportService', ['$http', '$q', function ($http, $q) {
-    var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    angular.module('report-wagerreport-application').factory('WagerReportService', ['$http', '$q', function ($http, $q) {
+        var serviceInstance = {};
 
-    serviceInstance.getWagerReport = function (year) {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + 'WagerReport/GetWagerReport?year=' + year)
+        serviceInstance.getWagerReport = function (year) {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + 'WagerReport/GetWagerReport?year=' + year)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -22,8 +22,9 @@ wagerReportApplication.factory('WagerReportService', ['$http', '$q', function ($
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    return serviceInstance;
-} ]);
+        return serviceInstance;
+    } ]);
+})();

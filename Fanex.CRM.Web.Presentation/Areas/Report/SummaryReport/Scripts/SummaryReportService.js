@@ -1,11 +1,11 @@
-﻿'use strict';
-/* global summaryReportApplication */
-summaryReportApplication.factory('SummaryReportService', ['$http', '$q', function ($http, $q) {
-    var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    angular.module('report-summaryreport-application').factory('SummaryReportService', ['$http', '$q', function ($http, $q) {
+        var serviceInstance = {};
 
-    serviceInstance.getSummaryReport = function (year, site, categories) {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + 'SummaryReport/GetSummaryReport?year=' + year + '&siteType=' + site + '&categories=' + categories)
+        serviceInstance.getSummaryReport = function (year, site, categories) {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + 'SummaryReport/GetSummaryReport?year=' + year + '&siteType=' + site + '&categories=' + categories)
 .success(function (data, status, headers, config) {
     deferred.resolve({
         Result: data,
@@ -22,12 +22,12 @@ summaryReportApplication.factory('SummaryReportService', ['$http', '$q', functio
     });
 });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    serviceInstance.getAllSettings = function () {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + 'SummaryReport/AllSettings')
+        serviceInstance.getAllSettings = function () {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + 'SummaryReport/AllSettings')
 .success(function (data, status, headers, config) {
     deferred.resolve({
         Result: data,
@@ -44,8 +44,9 @@ summaryReportApplication.factory('SummaryReportService', ['$http', '$q', functio
     });
 });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    return serviceInstance;
-} ]);
+        return serviceInstance;
+    } ]);
+})();

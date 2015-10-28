@@ -1,15 +1,15 @@
-﻿"use strict";
-/* global dailyStatisticsReportApplication,
-crmConstants,
-currentDate,
-moment,
-sharedScriptManager,
-registerUpdateFunctions,
-registerOptions,
-registerHotkeyFunctions */
-/* jshint camelcase: false,
-unused: vars */
-dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
+﻿(function () {
+    "use strict";
+    /* global crmConstants,
+    currentDate,
+    moment,
+    sharedScriptManager,
+    registerUpdateFunctions,
+    registerOptions,
+    registerHotkeyFunctions */
+    /* jshint camelcase: false,
+    unused: vars */
+    angular.module('report-dailystatistics-application').controller('dailyStatisticsReportController',
     ['$scope', '$http', '$uiBlockerService', '$resultMessageService', 'dailyStatisticsReportService',
     function (
         $scope,
@@ -151,3 +151,4 @@ dailyStatisticsReportApplication.controller('dailyStatisticsReportController',
             $uiBlockerService.unblockUI();
         });
     } ]);
+})();

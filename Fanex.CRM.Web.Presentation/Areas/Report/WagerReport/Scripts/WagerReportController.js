@@ -1,11 +1,11 @@
-﻿'use strict';
-/* global wagerReportApplication,
-sharedScriptManager,
-hotKeyManager,
-minReportDate,
-currentDate */
-/* jshint camelcase: false */
-wagerReportApplication.controller('wagerReportController', ['$scope', 'WagerReportService', '$uiBlockerService', '$resultMessageService',
+﻿(function () {
+    "use strict";
+    /* global sharedScriptManager,
+    hotKeyManager,
+    minReportDate,
+    currentDate */
+    /* jshint camelcase: false */
+    angular.module('report-wagerreport-application').controller('wagerReportController', ['$scope', 'WagerReportService', '$uiBlockerService', '$resultMessageService',
 function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) {
     $scope.years = [];
     $scope.year = 0;
@@ -77,7 +77,7 @@ function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) 
             URL: window.rootUrl + 'WagerReport/ExportWagerReportExcel',
             Params: { year: $scope.year.id }
         };
-        
+
         $scope.$apply();
     };
 
@@ -86,4 +86,5 @@ function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) 
         $uiBlockerService.unblockUI();
         $scope.initController();
     });
-} ]);    
+} ]);
+})();

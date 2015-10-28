@@ -1,12 +1,12 @@
-﻿"use strict";
-/* global settlementReportApplication,
-currentDate: true,
-sharedScriptManager,
-hotKeyManager,
-minReportDate */
-/* jshint unused: vars */
-/* jshint camelcase: false */
-settlementReportApplication.controller('settlementReportController', [
+﻿(function () {
+    "use strict";
+    /* global currentDate: true,
+    sharedScriptManager,
+    hotKeyManager,
+    minReportDate */
+    /* jshint unused: vars */
+    /* jshint camelcase: false */
+    angular.module('report-settlementreport-application').controller('settlementReportController', [
     '$scope',
     '$http',
     'settlementReportService',
@@ -161,3 +161,4 @@ settlementReportApplication.controller('settlementReportController', [
             $scope.initController();
         });
     } ]);
+})();

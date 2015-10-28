@@ -1,11 +1,11 @@
-﻿'use strict';
-/* global fbStatisticApplication */
-fbStatisticApplication.factory('FeedbackStatisticService', ['$http', '$q', function ($http, $q) {
-    var serviceInstance = {};
+﻿(function () {
+    "use strict";
+    angular.module('feedback-statistic-application').factory('FeedbackStatisticService', ['$http', '$q', function ($http, $q) {
+        var serviceInstance = {};
 
-    serviceInstance.getFeedbackStatistic = function (criteria) {
-        var deferred = $q.defer();
-        $http.get(window.rootUrl + 'FeedbackStatisticReport/SearchFeedbackStatistic?' + $.param(criteria))
+        serviceInstance.getFeedbackStatistic = function (criteria) {
+            var deferred = $q.defer();
+            $http.get(window.rootUrl + 'FeedbackStatisticReport/SearchFeedbackStatistic?' + $.param(criteria))
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,
@@ -22,8 +22,9 @@ fbStatisticApplication.factory('FeedbackStatisticService', ['$http', '$q', funct
                  });
              });
 
-        return deferred.promise;
-    };
+            return deferred.promise;
+        };
 
-    return serviceInstance;
-} ]);
+        return serviceInstance;
+    } ]);
+})();

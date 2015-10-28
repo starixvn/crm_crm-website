@@ -1,13 +1,13 @@
-﻿'use strict';
-/* global casinoWeeklyApplication,
-casinoWeeklyResources,
-sharedScriptManager */
-/* jshint camelcase: false */
-/* jshint unused: vars */
-casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
-    var tableWeeklyDetail, gridOptions;
-    function getGridOptions(scope, report, bodyData) {
-        var columns = [
+﻿(function () {
+    "use strict";
+    /* global casinoWeeklyResources,
+    sharedScriptManager */
+    /* jshint camelcase: false */
+    /* jshint unused: vars */
+    angular.module('report-casinoweekly-application').directive('tableWeeklyDetailContainer', function () {
+        var tableWeeklyDetail, gridOptions;
+        function getGridOptions(scope, report, bodyData) {
+            var columns = [
             { HeaderText: casinoWeeklyResources.Date, Width: 80, Name: 'ColDate', HeaderAlign: 'center', CellAlign: 'center' },
             { HeaderText: casinoWeeklyResources.StartTime, Width: 60, Name: 'ColStartTime', HeaderAlign: 'center', CellAlign: 'center' },
             { HeaderText: casinoWeeklyResources.EndTime, Width: 60, Name: 'ColEndTime', HeaderAlign: 'center', CellAlign: 'center' },
@@ -30,55 +30,55 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
             { HeaderText: casinoWeeklyResources.CreationTime, Width: 80, Name: 'ColCreationTime', HeaderAlign: 'center', CellAlign: 'center' }
         ];
 
-        return {
-            columns: columns,
-            showTitle: true,
-            titleInfo: {
-                text: report.Title,
-                showExcelButton: true,
-                exportExcelFunction: function () {
-                    scope.exportCasinoWeeklyDetail();
+            return {
+                columns: columns,
+                showTitle: true,
+                titleInfo: {
+                    text: report.Title,
+                    showExcelButton: true,
+                    exportExcelFunction: function () {
+                        scope.exportCasinoWeeklyDetail();
+                    },
+                    customButtons: '<input id="button-back" class="btnGoBack" type="button" title="' + casinoWeeklyResources.GoBack + '"/>',
+                    showButtonsWhenNoData: true
                 },
-                customButtons: '<input id="button-back" class="btnGoBack" type="button" title="' + casinoWeeklyResources.GoBack + '"/>',
-                showButtonsWhenNoData: true
-            },
-            bodyRows: bodyData,
-            showFooter: false,
-            numberOfFrozenColumn: 5,
-            autoFixFrozenRowHeight: true,
-            fullWidth: true,
-            fullHeight: true,
-            gridExpandHeight: 140,
-            showDistinctRow: false,
-            showHighlightRow: false,
-            headerColumnHeight: 29,
-            showPager: true,
-            customPager: true,
-            pagerOption: {
-                itemsPerPage: report.ItemsPerPage,
-                currentPage: report.CurrentPage,
-                itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
-                totalItem: report.TotalItems,
-                pagerSelectCallBack: function (page_index, itemsPerPage) {
-                    gridOptions.pagerOption.currentPage = page_index;
-                    gridOptions.pagerOption.itemsPerPage = itemsPerPage;
-                    tableWeeklyDetail.fanexGrid(gridOptions);
+                bodyRows: bodyData,
+                showFooter: false,
+                numberOfFrozenColumn: 5,
+                autoFixFrozenRowHeight: true,
+                fullWidth: true,
+                fullHeight: true,
+                gridExpandHeight: 140,
+                showDistinctRow: false,
+                showHighlightRow: false,
+                headerColumnHeight: 29,
+                showPager: true,
+                customPager: true,
+                pagerOption: {
+                    itemsPerPage: report.ItemsPerPage,
+                    currentPage: report.CurrentPage,
+                    itemsPerPageArray: sharedScriptManager.cachedData.pagingOptions,
+                    totalItem: report.TotalItems,
+                    pagerSelectCallBack: function (page_index, itemsPerPage) {
+                        gridOptions.pagerOption.currentPage = page_index;
+                        gridOptions.pagerOption.itemsPerPage = itemsPerPage;
+                        tableWeeklyDetail.fanexGrid(gridOptions);
 
-                    scope.getCasinoWeeklyDetail(page_index, itemsPerPage);
-                    return false;
+                        scope.getCasinoWeeklyDetail(page_index, itemsPerPage);
+                        return false;
+                    }
                 }
-            }
-        };
-    }
+            };
+        }
 
-    function getGridBody(casinoDetails) {
-        var bodyData = [];
+        function getGridBody(casinoDetails) {
+            var bodyData = [];
 
-        var detail, currentColumn;
-        var reportLen = casinoDetails.length;
-        for (var i = 0; i < reportLen; i++) {
-            detail = casinoDetails[i];
-            currentColumn = [
+            var detail, currentColumn;
+            var reportLen = casinoDetails.length;
+            for (var i = 0; i < reportLen; i++) {
+                detail = casinoDetails[i];
+                currentColumn = [
                 { Name: 'ColDate', Value: detail.FeedbackDateString },
                 { Name: 'ColStartTime', Value: detail.FeedbackTimeString },
                 { Name: 'ColEndTime', Value: detail.ResolutionTimeString },
@@ -101,37 +101,38 @@ casinoWeeklyApplication.directive('tableWeeklyDetailContainer', function () {
                 { Name: 'ColCreationTime', Value: detail.CreateDateString }
             ];
 
-            bodyData.push({ Columns: currentColumn });
+                bodyData.push({ Columns: currentColumn });
+            }
+
+            return bodyData;
         }
 
-        return bodyData;
-    }
+        function renderCasinoWeeklyDetail(scope, element, attrs) {
+            var report = scope.weeklyDetail;
 
-    function renderCasinoWeeklyDetail(scope, element, attrs) {
-        var report = scope.weeklyDetail;
-        
-        var casinoDetails = report.CasinoDetails;
-        var bodyData = casinoDetails ? getGridBody(casinoDetails) : [];
-        gridOptions = getGridOptions(scope, report, bodyData);
+            var casinoDetails = report.CasinoDetails;
+            var bodyData = casinoDetails ? getGridBody(casinoDetails) : [];
+            gridOptions = getGridOptions(scope, report, bodyData);
 
-        tableWeeklyDetail = element.find('#table-weekly-detail');
-        tableWeeklyDetail.empty().removeClass('hide').fanexGrid(gridOptions);
-        element.find('#button-back').click(function () {
-            scope.showSummary = true;
-            scope.$apply();
-        });
-    }
-
-    return {
-        restrict: 'A',
-        link: function (scope, element, attrs) {
-            scope.$watch('weeklyDetail', function (newValue, oldValue) {
-                if (!newValue) {
-                    return;
-                }
-
-                renderCasinoWeeklyDetail(scope, element, attrs);
+            tableWeeklyDetail = element.find('#table-weekly-detail');
+            tableWeeklyDetail.empty().removeClass('hide').fanexGrid(gridOptions);
+            element.find('#button-back').click(function () {
+                scope.showSummary = true;
+                scope.$apply();
             });
         }
-    };
-});
+
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                scope.$watch('weeklyDetail', function (newValue, oldValue) {
+                    if (!newValue) {
+                        return;
+                    }
+
+                    renderCasinoWeeklyDetail(scope, element, attrs);
+                });
+            }
+        };
+    });
+})();

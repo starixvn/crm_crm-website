@@ -1,6 +1,6 @@
-﻿"use strict";
-/* global redemptionStatisticsApplication */
-redemptionStatisticsApplication.factory('$redemptionStatisticsService', ['$http', '$q',
+﻿(function () {
+    "use strict";
+    angular.module('report-redemption-statistics-application').factory('$redemptionStatisticsService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
         serviceInstance.getAllSetting = function () {
@@ -71,3 +71,4 @@ redemptionStatisticsApplication.factory('$redemptionStatisticsService', ['$http'
 
         return serviceInstance;
     } ]);
+})();
