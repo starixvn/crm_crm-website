@@ -8,7 +8,7 @@
     viewResources,
     MessageResult */
     /* exported registerUpdateFunctions */
-    function registerUpdateFunctions($scope) {
+    window.registerUpdateFunctions = function ($scope) {
         $scope.updateSelectedSubject = function (subject) {
             $scope.addCustomerFeedbackParams.Subject = subject;
             $scope.safeApply();

@@ -4,7 +4,7 @@
     camelcase: false */
     /* global hotKeyManager */
     /* exported registerHotkeyFunctions */
-    function registerHotkeyFunctions($scope) {
+    window.registerHotkeyFunctions = function ($scope) {
         $scope.registerHotKey = function () {
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,

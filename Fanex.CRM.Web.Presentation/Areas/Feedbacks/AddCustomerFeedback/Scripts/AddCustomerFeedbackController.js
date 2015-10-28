@@ -9,7 +9,7 @@
     moment */
     /* jshint unused: vars,
     camelcase: false */
-    function MessageResult(message, isShowMessage, isSuccess) {
+    window.MessageResult = function (message, isShowMessage, isSuccess) {
         this.Message = message;
         this.IsShowMessage = isShowMessage;
         this.IsSuccess = isSuccess;

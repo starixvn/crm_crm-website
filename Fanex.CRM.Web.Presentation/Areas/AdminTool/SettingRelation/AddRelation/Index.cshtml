@@ -3,53 +3,58 @@
 @using Fanex.CRM.Common.Models;
 @using Fanex.CRM.Setting.Models;
 @model SettingInfo
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="addmintool-settingrelation-addrelation-application">
-<head>
-    <title>@Labels.Title_AdminTool_SettingRelation </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Title_AdminTool_SettingRelation;
+}
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Areas/Admin/SettingRelation/AddRelationStyles")
-</head>
-<body class="addRelationController" data-ng-controller="addRelationController">
-    <div class="container main popup">
-        <div class="row subTitle">@Html.Raw(string.Format(Labels.SettingRelation_AddRelationMessage, Model.Value))</div>
-        <div class="row filter-frm one-row">
-            <div class="item afterButton main-setting-container" data-ng-model="mainSettingOptions.DataList">
-                @Labels.Sub_setting
-                <select id="mainsetting">
-                </select>
+}
+<div data-ng-app="addmintool-settingrelation-addrelation-application">
+    <div class="addRelationController" data-ng-controller="addRelationController">
+        <div class="container main popup">
+            <div class="row subTitle">@Html.Raw(string.Format(Labels.SettingRelation_AddRelationMessage, Model.Value))</div>
+            <div class="row filter-frm one-row">
+                <div class="item afterButton main-setting-container" data-ng-model="mainSettingOptions.DataList">
+                    @Labels.Sub_setting
+                    <select id="mainsetting">
+                    </select>
+                </div>
+                <div class="item afterButton">
+                    <button id="btn-search" class="btn pull-left" data-ng-click="getMainSettingRelations();">
+                        <span class="hotkey">S</span>earch
+                    </button>
+                </div>
             </div>
-            <div class="item afterButton">
-                <button id="btn-search" class="btn pull-left" data-ng-click="getMainSettingRelations();">
-                    <span class="hotkey">S</span>earch
-                </button>
-            </div>
-        </div>
-        <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
-                    class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
-                    <div data-ng-bind="messageResultOptions.Message">
+            <div class="row row-item" data-ng-show="messageResultOptions.IsShowMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}"
+                        class="alertbox{{ messageResultOptions.IsSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="messageResultOptions.Message">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div id="main-setting-relation-list-container" class="main-setting-relation-list-container"
-                data-ng-model="mainSettingRelationView">
-                <div id="main-settingrelation-list" class="freegrid display-none">
+            <div class="row">
+                <div id="main-setting-relation-list-container" class="main-setting-relation-list-container"
+                    data-ng-model="mainSettingRelationView">
+                    <div id="main-settingrelation-list" class="freegrid display-none">
+                    </div>
                 </div>
             </div>
+            <div class="row">
+                <button id="btn-update" class="btn pull-left" data-ng-click="addSettingRelations();">
+                    <span class="hotkey">U</span>pdate
+                </button>
+            </div>
+            <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
         </div>
-        <div class="row">
-            <button id="btn-update" class="btn pull-left" data-ng-click="addSettingRelations();">
-                <span class="hotkey">U</span>pdate
-            </button>
-        </div>
-        <input type="text" class="textbox default-focus-element default-focus" data-ng-model="isSetFocus" />
     </div>
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
     @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
     @RazorHelper.RenderScripts(
@@ -74,5 +79,4 @@
             Confirm_Ignore_AddRelation_Changes: '@Html.Raw(Labels.Confirm_Ignore_AddRelation_Changes)'
         };
     </script>
-</body>
-</html>
+}

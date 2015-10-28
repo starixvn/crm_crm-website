@@ -3,7 +3,7 @@
     /* jshint unused: vars,
     camelcase: false */
     /* exported registerUpdateFunctions */
-    function registerUpdateFunctions($scope) {
+    window.registerUpdateFunctions = function ($scope) {
         $scope.updateSelectedMainSetting = function (mainSetting) {
             var isChange = !$scope.getSettingRelationsParams.MainSetting ||
             $scope.getSettingRelationsParams.MainSetting.SettingType !== mainSetting.SettingType;

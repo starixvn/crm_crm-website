@@ -6,20 +6,23 @@
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Edit_Communication_Log;
+
     var jsonLogInfo = JsonConvert.SerializeObject(Model);
+
+    IPermissionService permission = new PermissionService();
+    var hasReviewPermission = permission.HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communicationlog-viewdetailbyid-application">
-<head>
-    <title>@Labels.Edit_Communication_Log </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
     @RazorHelper.RenderStyles("~/Areas/Communication/ViewDetailByIdStyles")
-</head>
-<body>
+}
+<div data-ng-app="communicationlog-viewdetailbyid-application">
     <div class="main popup container editlogcontroller" data-ng-controller="viewDetailByIdController">
         <div class="row panel-group">
             <div class="row title">
@@ -217,11 +220,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    @{
-        IPermissionService permission = new PermissionService();
-        var hasReviewPermission = permission.HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host).ToString().ToLower();
-    }
+    </div>    
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
     @RazorHelper.RenderScripts("~/Scripts/TimePicker")
     @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
@@ -248,5 +249,4 @@
             ReviewedInformation: '@Labels.ReviewedInformation'
         }; 
     </script>
-</body>
-</html>
+}

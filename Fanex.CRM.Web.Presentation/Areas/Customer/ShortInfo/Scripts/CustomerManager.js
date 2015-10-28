@@ -1,7 +1,6 @@
 ﻿(function () {
     "use strict";
     /* global sharedScriptManager, accId, crmConstants, hotKeyManager */
-    var customerManager;
     var CustomerManager = function () {
         var self = this;
         self.DOMElements = {
@@ -522,8 +521,8 @@
         };
     };
 
-    customerManager = new CustomerManager();
+    window.customerManager = new CustomerManager();
     angular.element(document).ready(function () {
-        customerManager.initPage();
+        window.customerManager.initPage();
     });
 })();

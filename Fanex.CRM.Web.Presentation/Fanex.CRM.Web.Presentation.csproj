@@ -1355,9 +1355,6 @@
     <Content Include="Areas\InformHeadline\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_BaseLayout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Areas\InformHeadline\NewInform\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

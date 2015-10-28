@@ -4,7 +4,7 @@
     camelcase: false */
     /* global viewResources */
     /* exported registerOptions */
-    function registerOptions($scope) {
+    window.registerOptions = function ($scope) {
         $scope.messageResultOptions = null;
         $scope.mainSettingOptions = null;
         $scope.isSetFocus = false;

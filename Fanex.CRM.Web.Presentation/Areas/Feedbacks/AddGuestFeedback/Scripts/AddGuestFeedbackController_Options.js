@@ -8,7 +8,7 @@
     sharedScriptManager,
     viewResources */
     /* exported registerOptions */
-    function registerOptions($scope) {
+    window.registerOptions = function ($scope) {
         $scope.titleOptions = null;
         $scope.birthdayOptions = null;
         $scope.communicationToolOptions = null;
