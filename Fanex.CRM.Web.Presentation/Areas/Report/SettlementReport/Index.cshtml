@@ -3,50 +3,53 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Services;
 @using Fanex.CRM.Common.Helpers;
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-settlementreport-application">
-<head>
-    <title>@Labels.Settlement_Report </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Settlement_Report;
+}
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Content/site/ResultMessageStyles")
     @RazorHelper.RenderStyles("~/Areas/Report/SettlementReportStyles")
-</head>
-<body class="settlementReportController" data-ng-controller="settlementReportController">
-    <div class="result-message-container display-none">
-    </div>
-    <div class="main container">
-        <div>
-            <div class="row filter-frm one-row">
-                <div class="pull-left">
-                    <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions">
-                        <label for="fromdate_year" class="width-80">
-                            @Labels.Year</label>
-                        <select id="fromdate_year" class="selYear">
-                        </select>
+}
+<div data-ng-app="report-settlementreport-application">
+    <div class="settlementReportController" data-ng-controller="settlementReportController">
+        <div class="result-message-container display-none">
+        </div>
+        <div class="main container">
+            <div>
+                <div class="row filter-frm one-row">
+                    <div class="pull-left">
+                        <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions">
+                            <label for="fromdate_year" class="width-80">
+                                @Labels.Year</label>
+                            <select id="fromdate_year" class="selYear">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <button id="button-submit" class="btn" data-ng-click="getSettlementReport()">
+                            <span class="hotkey">S</span>ubmit</button>
                     </div>
                 </div>
-                <div class="item">
-                    <button id="button-submit" class="btn" data-ng-click="getSettlementReport()">
-                        <span class="hotkey">S</span>ubmit</button>
-                </div>
-            </div>
-            <div data-ng-model="settlementReportOptions.IsUpdateGrid" class="table-settlement-report-container">
-                <div id="table-settlement-report" class="freegrid display-none table-settlement-report">
+                <div data-ng-model="settlementReportOptions.IsUpdateGrid" class="table-settlement-report-container">
+                    <div id="table-settlement-report" class="freegrid display-none table-settlement-report">
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
+        <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
     </div>
-    <div class="download-file-container" data-ng-model="downloadFileOptions">
-        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
-    </div>
-    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
     @RazorHelper.RenderScripts("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
     @RazorHelper.RenderScripts("~/Areas/Report/SettlementReportScripts")
@@ -63,5 +66,4 @@
             SettlementReport_ChartSuffix: '@Labels.SettlementReport_ChartSuffix'
         };
     </script>
-</body>
-</html>
+}

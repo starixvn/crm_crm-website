@@ -3,69 +3,72 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Infrastructure.Helpers;
 @using Fanex.CRM.Common.Helpers;
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-weeklystatistics-application">
-<head>
-    <title>@Labels.Weekly_Statistics_Report </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Weekly_Statistics_Report;
+}
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/FanexGridStyles")
     @RazorHelper.RenderStyles("~/Areas/Report/WeeklyStatisticsReportStyles")
-</head>
-<body data-ng-controller="weeklyStatisticsReportController">
-    <div class="main container">
-        <div class="row filter-frm one-row">
-            <div class="row row-item">
-                <div class="pull-left">
-                    <div class="item">
-                        <label for="fromDate" class="width-80">
-                            @Labels.From_Date</label>
-                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                            <input id="fromDate" type="text" class="textbox txtcalendar disabled" autocomplete="off"
-                                disabled="disabled" />
+}
+<div data-ng-app="report-weeklystatistics-application">
+    <div data-ng-controller="weeklyStatisticsReportController">
+        <div class="main container">
+            <div class="row filter-frm one-row">
+                <div class="row row-item">
+                    <div class="pull-left">
+                        <div class="item">
+                            <label for="fromDate" class="width-80">
+                                @Labels.From_Date</label>
+                            <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                                <input id="fromDate" type="text" class="textbox txtcalendar disabled" autocomplete="off"
+                                    disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="toDate" class="width-50">
+                                @Labels.To_Date</label>
+                            <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                                <input id="toDate" type="text" class="textbox txtcalendar disabled" autocomplete="off"
+                                    disabled="disabled" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <button id="button-submit" class="btn" data-ng-click="getWeeklyStatisticsReport();">
+                                <span class="hotkey">S</span>ubmit</button>
                         </div>
                     </div>
-                    <div class="item">
-                        <label for="toDate" class="width-50">
-                            @Labels.To_Date</label>
-                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                            <input id="toDate" type="text" class="textbox txtcalendar disabled" autocomplete="off"
-                                disabled="disabled" />
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="icon-filter">
                     </div>
-                    <div class="item">
-                        <button id="button-submit" class="btn" data-ng-click="getWeeklyStatisticsReport();">
-                            <span class="hotkey">S</span>ubmit</button>
+                    <span class="warning">@Labels.Filtering_by_Feedback_date</span>
+                </div>
+            </div>
+            <div>
+                <div data-ng-model="ibcReportOptions.IsUpdateGrid" class="display-none table-ibc-report-container">
+                    <div id="table-ibc-report" class="freegrid  table-ibc-report">
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="icon-filter">
+                <div data-ng-model="licenseeReportOptions.IsUpdateGrid" class="display-none table-licensee-report-container">
+                    <div id="table-licensee-report" class="freegrid table-licensee-report">
+                    </div>
                 </div>
-                <span class="warning">@Labels.Filtering_by_Feedback_date</span>
-            </div>
-        </div>
-        <div>
-            <div data-ng-model="ibcReportOptions.IsUpdateGrid" class="display-none table-ibc-report-container">
-                <div id="table-ibc-report" class="freegrid  table-ibc-report">
-                </div>
-            </div>
-            <div data-ng-model="licenseeReportOptions.IsUpdateGrid" class="display-none table-licensee-report-container">
-                <div id="table-licensee-report" class="freegrid table-licensee-report">
-                </div>
-            </div>
-            <div data-ng-model="detailReportOptions.IsUpdateGrid" class="display-none table-detail-report-container">
-                <div id="table-detail-report" class="freegrid table-detail-report">
+                <div data-ng-model="detailReportOptions.IsUpdateGrid" class="display-none table-detail-report-container">
+                    <div id="table-detail-report" class="freegrid table-detail-report">
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
+        <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
     </div>
-    <div class="download-file-container" data-ng-model="downloadFileOptions">
-        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
-    </div>
-    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/FanexGridScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
     @RazorHelper.RenderScripts(
         "~/Scripts/ShareScripts/Applications/ResultMessageScripts",
@@ -113,5 +116,4 @@
             GoBack: '@Labels.GoBack'
         };
     </script>
-</body>
-</html>
+}

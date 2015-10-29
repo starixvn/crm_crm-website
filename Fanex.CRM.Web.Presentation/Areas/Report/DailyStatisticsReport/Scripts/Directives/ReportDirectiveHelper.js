@@ -172,5 +172,5 @@
         };
     };
 
-    var reportDirectiveHelper = new ReportDirectiveHelper();
+    window.reportDirectiveHelper = new ReportDirectiveHelper();
 })();

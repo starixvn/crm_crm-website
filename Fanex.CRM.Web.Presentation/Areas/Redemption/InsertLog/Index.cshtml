@@ -6,19 +6,19 @@
 @using Fanex.CRM.Common.Services;
 @model int
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Insert_Redemption_Log;
+
     var customerId = JsonConvert.SerializeObject(Model);
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="redemption-insertlog-application">
-<head>
-    <title>@Labels.Insert_Redemption_Log </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.css")
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Areas/Redemption/InsertLogStyles")
-</head>
-<body>
+}
+<div data-ng-app="redemption-insertlog-application">
     <div class="main popup container" data-ng-controller="insertLogController">
         <div class="row row-item" data-ng-show="isShowResultMessage">
             <div class="col-xs-11 col-sm-11 col-md-11">
@@ -43,7 +43,8 @@
                         @Labels.Currency</label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <select id="currency" data-ng-model="redemptionLog.Currency" data-ng-options="c.Name for c in currencies"></select>
+                    <select id="currency" data-ng-model="redemptionLog.Currency" data-ng-options="c.Name for c in currencies">
+                    </select>
                 </div>
             </div>
             <div class="row row-item">
@@ -59,7 +60,8 @@
                         @Labels.Amount</label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                    <div number-only-input input-Id="amount" input-class="textbox" input-value="amountString"></div>
+                    <div number-only-input input-id="amount" input-class="textbox" input-value="amountString">
+                    </div>
                 </div>
             </div>
             <div class="row row-item">
@@ -77,7 +79,8 @@
                         @Labels.Status</label>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3" data-ng-model="statusList" dropdown-status-container>
-                    <select id="status"></select>
+                    <select id="status">
+                    </select>
                 </div>
             </div>
         </div>
@@ -97,9 +100,9 @@
         </div>
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/TimePicker")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
     @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea-0.7.0.js")
     @RazorHelper.RenderScripts("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu-0.7.0.js")
     @RazorHelper.RenderScripts("~/Scripts/Jlinq/jlinq/jlinq.jquery.js")
@@ -120,5 +123,4 @@
             Confirm_Ignore_InsertRedemption_Changes: '@Html.Raw(Labels.Confirm_Ignore_InsertRedemption_Changes)'
         };
     </script>
-</body>
-</html>
+}

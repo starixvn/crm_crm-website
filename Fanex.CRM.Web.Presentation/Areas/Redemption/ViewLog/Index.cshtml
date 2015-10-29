@@ -6,19 +6,19 @@
 @using Fanex.NAP.Core.Business;
 @model int
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_RedemptionTab;
+
     var customerId = JsonConvert.SerializeObject(Model);
     var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="redemption-viewlog-application">
-<head>
-    <title>@Resources.Language.Title_RedemptionTab </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Areas/Redemption/ViewLogStyles")
-</head>
-<body>
+}
+<div data-ng-app="redemption-viewlog-application">
     <div class="container main" data-ng-controller="redemptionViewLogController">
         <div class="row filter-frm one-row redemption-filter">
             <div class="item">
@@ -69,18 +69,18 @@
         }
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts", "~/Areas/Redemption/ViewLogScripts")
     <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
-        var customerId = @customerId; 
+        var customerId = @customerId;
         var currentDate = '@DateTimeUtilize.CurrentClientTime().Date.ToShortFormatedDate()';
         var initFromDate = '@DateTimeUtilize.CurrentClientTime().Date.FirstDayOfMonth().ToShortFormatedDate()';
-        var viewResources = { 
+        var viewResources = {
             Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
             Insert_Redemption_Log: '@Labels.Insert_Redemption_Log',
             Subject:'@Labels.Subject',
@@ -91,7 +91,6 @@
             Currency: '@Labels.Currency',
             DoneBy: '@Labels.DoneBy',
             Amount: '@Labels.Amount'
-        }; 
+        };
     </script>
-</body>
-</html>
+}

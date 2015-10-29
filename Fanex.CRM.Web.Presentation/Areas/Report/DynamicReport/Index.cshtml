@@ -2,11 +2,12 @@
 @using Fanex.CRM.Report.Models;
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-dynamicreport-application">
-<head>
-    <title>@Labels.DocumentTitle_DynamicReport </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.DocumentTitle_DynamicReport;
+}
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
@@ -14,195 +15,197 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Areas/Report/DynamicReportStyles")
-</head>
-<body class="dynamicReportController" data-ng-controller="dynamicReportController">
-    <div class="main container">
-        <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
-            <div class="row row-item">
-                <div class="item">
-                    <label for="reporttype" class="width-70 pull-left">
-                        @Labels.Group_By</label>
-                    <div class="report-type-container pull-left" data-ng-model="reportTypeOptions.DataList">
-                        <select id="reporttype" class="selReportType">
-                        </select>
-                    </div>
-                </div>
-                <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Daily}">
+}
+<div data-ng-app="report-dynamicreport-application">
+    <div class="dynamicReportController" data-ng-controller="dynamicReportController">
+        <div class="main container">
+            <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
+                <div class="row row-item">
                     <div class="item">
-                        <label for="fromDate" class="width-80">
-                            @Labels.From_Date</label>
-                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                            <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        <label for="reporttype" class="width-70 pull-left">
+                            @Labels.Group_By</label>
+                        <div class="report-type-container pull-left" data-ng-model="reportTypeOptions.DataList">
+                            <select id="reporttype" class="selReportType">
+                            </select>
                         </div>
                     </div>
-                    <div class="item">
-                        <label for="toDate" class="width-50">
-                            @Labels.To_Date</label>
-                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                            <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                    <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Daily}">
+                        <div class="item">
+                            <label for="fromDate" class="width-80">
+                                @Labels.From_Date</label>
+                            <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                                <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="toDate" class="width-50">
+                                @Labels.To_Date</label>
+                            <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                                <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Weekly}">
-                    <div class="item" data-ng-model="fromWeekOptions.IsRerenderPicker">
-                        <label for="fromweek" class="width-80">
-                            @Labels.From_Week</label>
-                        <div class="display-inline-block week-picker-from-week-container">
-                            <input id="fromweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
+                    <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Weekly}">
+                        <div class="item" data-ng-model="fromWeekOptions.IsRerenderPicker">
+                            <label for="fromweek" class="width-80">
+                                @Labels.From_Week</label>
+                            <div class="display-inline-block week-picker-from-week-container">
+                                <input id="fromweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
                                 data-maxdate="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
                                 data-value="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
                                 data-isendweek="false" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="item" data-ng-model="toWeekOptions.IsRerenderPicker">
-                        <label for="toDate">
-                            @Labels.To_Week</label>
-                        <div class="display-inline-block week-picker-to-week-container">
-                            <input id="toweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
+                        <div class="item" data-ng-model="toWeekOptions.IsRerenderPicker">
+                            <label for="toDate">
+                                @Labels.To_Week</label>
+                            <div class="display-inline-block week-picker-to-week-container">
+                                <input id="toweek" type="text" readonly="readonly" class="textbox txtcalendar weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker"
                                  data-maxdate="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
                                  data-value="@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()"
                                  data-isendweek="true" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Monthly}">
+                        <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions">
+                            <label for="frommonth" class="width-80">
+                                @Labels.From_Month</label>
+                            <select id="frommonth_month">
+                            </select>
+                            <select id="frommonth_year">
+                            </select>
+                        </div>
+                        <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions">
+                            <label for="tomonth">
+                                @Labels.To_Month</label>
+                            <select id="tomonth_month">
+                            </select>
+                            <select id="tomonth_year">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Yearly}">
+                        <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions">
+                            <label for="frommonth" class="width-80">
+                                @Labels.From_Year</label>
+                            <select id="fromdate_year" class="selYear">
+                            </select>
+                        </div>
+                        <div class="item year-picker-to-date-container" data-ng-model="toYearOptions">
+                            <label for="tomonth" class="width-50">
+                                @Labels.To_Year</label>
+                            <select id="todate_year" class="selYear toYear">
+                            </select>
                         </div>
                     </div>
                 </div>
-                <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Monthly}">
-                    <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions">
-                        <label for="frommonth" class="width-80">
-                            @Labels.From_Month</label>
-                        <select id="frommonth_month">
-                        </select>
-                        <select id="frommonth_year">
+                <div class="row row-item">
+                    <div class="item status-picker-container" data-ng-model="statusOptions.DataList">
+                        <label for="status" class="width-70">
+                            @Labels.Status</label>
+                        <select id="status" class="selStatus">
                         </select>
                     </div>
-                    <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions">
-                        <label for="tomonth">
-                            @Labels.To_Month</label>
-                        <select id="tomonth_month">
-                        </select>
-                        <select id="tomonth_year">
+                    <div class="item response-picker-container" data-ng-model="responseOptions.DataList">
+                        <label for="response" class="width-80">
+                            @Labels.Response</label>
+                        <select id="response" class="selReponse">
                         </select>
                     </div>
-                </div>
-                <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Yearly}">
-                    <div class="item year-picker-from-date-container" data-ng-model="fromYearOptions">
-                        <label for="frommonth" class="width-80">
-                            @Labels.From_Year</label>
-                        <select id="fromdate_year" class="selYear">
+                    <div class="item product-picker-container" data-ng-model="productOptions.DataList">
+                        <label for="product" class="width-50">
+                            @Labels.Product</label>
+                        <select id="product" class="selProduct">
                         </select>
                     </div>
-                    <div class="item year-picker-to-date-container" data-ng-model="toYearOptions">
-                        <label for="tomonth" class="width-50">
-                            @Labels.To_Year</label>
-                        <select id="todate_year" class="selYear toYear">
+                    <div class="item site-picker-container" data-ng-model="siteOptions.DataList">
+                        <label for="site" class="width-110">
+                            @Labels.Site</label>
+                        <select id="site" class="selSite">
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="row row-item">
-                <div class="item status-picker-container" data-ng-model="statusOptions.DataList">
-                    <label for="status" class="width-70">
-                        @Labels.Status</label>
-                    <select id="status" class="selStatus">
-                    </select>
+                <div class="row row-item">
+                    <div class="item">
+                        <label for="handler" class="width-70">
+                            @Labels.Handler</label>
+                        <input type="text" class="textbox search-by-enter txtHandle" id="handler" data-ng-model="searchCriteria.Handler" />
+                    </div>
+                    <div class="item">
+                        <label for="reviewer" class="width-80">
+                            @Labels.Reviewer</label>
+                        <input type="text" class="textbox search-by-enter txtReview" id="reviewer" data-ng-model="searchCriteria.Reviewer" />
+                    </div>
+                    <div class="item role-picker-container" data-ng-model="roleOptions.DataList">
+                        <label for="role" class="width-50">
+                            @Labels.Role</label>
+                        <select id="role" class="selRole">
+                        </select>
+                    </div>
+                    <div class="item communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
+                        <label for="communication-tool" class="width-110">
+                            @Labels.Communication_Tool</label>
+                        <select id="communication-tool" class="selCommunication">
+                        </select>
+                    </div>
                 </div>
-                <div class="item response-picker-container" data-ng-model="responseOptions.DataList">
-                    <label for="response" class="width-80">
-                        @Labels.Response</label>
-                    <select id="response" class="selReponse">
-                    </select>
+                <div class="row row-item">
+                    <div class="item extension-picker-container" data-ng-model="extensionOptions.DataList">
+                        <label for="extension" class="lblExtension width-70">
+                            @Labels.Extension</label>
+                        <select id="extension" class="selExtension">
+                        </select>
+                    </div>
+                    <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
+                        <label for="main-category">
+                            @Labels.Main_Category</label>
+                        <select id="main-category" class="selCategory">
+                        </select>
+                    </div>
+                    <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
+                        <label for="sub-category" class="width-110">
+                            @Labels.Sub_Category</label>
+                        <select id="sub-category" class="selSubCategory">
+                        </select>
+                    </div>
                 </div>
-                <div class="item product-picker-container" data-ng-model="productOptions.DataList">
-                    <label for="product" class="width-50">
-                        @Labels.Product</label>
-                    <select id="product" class="selProduct">
-                    </select>
+                <div class="row row-item">
+                    <div>
+                        <label for="subject" class="lblSubject width-70">
+                            @Labels.Subject</label>
+                    </div>
+                    <div class="item subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
+                        <input id="subject" type="text" class="textbox subject-auto-complete txtSubject"
+                            data-ng-model="subjectOptions.Subject" />
+                    </div>
+                    <div class="item">
+                        <button id="button-submit" class="btn" data-ng-click="getDynamicReport()">
+                            <span class="hotkey">S</span>ubmit</button>
+                        <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
+                    </div>
                 </div>
-                <div class="item site-picker-container" data-ng-model="siteOptions.DataList">
-                    <label for="site" class="width-110">
-                        @Labels.Site</label>
-                    <select id="site" class="selSite">
-                    </select>
-                </div>
-            </div>
-            <div class="row row-item">
-                <div class="item">
-                    <label for="handler" class="width-70">
-                        @Labels.Handler</label>
-                    <input type="text" class="textbox search-by-enter txtHandle" id="handler" data-ng-model="searchCriteria.Handler" />
-                </div>
-                <div class="item">
-                    <label for="reviewer" class="width-80">
-                        @Labels.Reviewer</label>
-                    <input type="text" class="textbox search-by-enter txtReview" id="reviewer" data-ng-model="searchCriteria.Reviewer" />
-                </div>
-                <div class="item role-picker-container" data-ng-model="roleOptions.DataList">
-                    <label for="role" class="width-50">
-                        @Labels.Role</label>
-                    <select id="role" class="selRole">
-                    </select>
-                </div>
-                <div class="item communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
-                    <label for="communication-tool" class="width-110">
-                        @Labels.Communication_Tool</label>
-                    <select id="communication-tool" class="selCommunication">
-                    </select>
-                </div>
-            </div>
-            <div class="row row-item">
-                <div class="item extension-picker-container" data-ng-model="extensionOptions.DataList">
-                    <label for="extension" class="lblExtension width-70">
-                        @Labels.Extension</label>
-                    <select id="extension" class="selExtension">
-                    </select>
-                </div>
-                <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
-                    <label for="main-category">
-                        @Labels.Main_Category</label>
-                    <select id="main-category" class="selCategory">
-                    </select>
-                </div>
-                <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
-                    <label for="sub-category" class="width-110">
-                        @Labels.Sub_Category</label>
-                    <select id="sub-category" class="selSubCategory">
-                    </select>
+                <div class="icon-collapse" data-ng-click="showHideFilterBox();">
                 </div>
             </div>
-            <div class="row row-item">
-                <div>
-                    <label for="subject" class="lblSubject width-70">
-                        @Labels.Subject</label>
-                </div>
-                <div class="item subject-auto-complete-container" data-ng-model="subjectOptions.IsUpdate">
-                    <input id="subject" type="text" class="textbox subject-auto-complete txtSubject"
-                        data-ng-model="subjectOptions.Subject" />
-                </div>
-                <div class="item">
-                    <button id="button-submit" class="btn" data-ng-click="getDynamicReport()">
-                        <span class="hotkey">S</span>ubmit</button>
-                    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
+            <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
+                <div class="icon-expand" data-ng-click="showHideFilterBox();">
                 </div>
             </div>
-            <div class="icon-collapse" data-ng-click="showHideFilterBox();">
-            </div>
-        </div>
-        <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
-            <div class="icon-expand" data-ng-click="showHideFilterBox();">
-            </div>
-        </div>
-        <div>
-            <div data-ng-model="dynamicReportOptions.IsUpdateGrid" class="table-dynamic-report-container">
-                <div id="table-dynamic-report" class="freegrid display-none table-dynamic-report">
+            <div>
+                <div data-ng-model="dynamicReportOptions.IsUpdateGrid" class="table-dynamic-report-container">
+                    <div id="table-dynamic-report" class="freegrid display-none table-dynamic-report">
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
+        </div>
+        <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
     </div>
-    <div class="download-file-container" data-ng-model="downloadFileOptions">
-        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
-    </div>
-    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
@@ -233,7 +236,6 @@
             Reviewer: '@Labels.Reviewer',
             Symbol_No: '@Labels.Symbol_No',
             DynamicReport_ChartSuffix: '@Labels.DynamicReport_ChartSuffix'
-        }; 
+        };
     </script>
-</body>
-</html>
+}

@@ -1,18 +1,18 @@
 ﻿@using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
 @model Fanex.CRM.Feedback.ViewModels.ManageFeedbackViewModel
-@{ 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_ManageFeedback;
+
     bool disableUsernameTextbox = !string.IsNullOrWhiteSpace(Model.CustName);
     int isGuest = Model.IsGuest.HasValue ? Model.IsGuest.Value : -1;
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedback-manage-application">
-<head>
-    <title>@Resources.Language.Title_ManageFeedback</title>
-    @RazorHelper.RenderStyles("~/site/common",
-        "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackStyles")
-</head>
-<body>
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/Feedbacks/ManageFeedback/ManageFeedbackStyles")
+}
+<div data-ng-app="feedback-manage-application">
     <div class="main container" data-ng-controller="manageFeedbackController">
         <div class="row filter-frm one-row manage-feedback-filter">
             <form novalidate data-ng-submit="filterManageFeedback();">
@@ -20,9 +20,7 @@
                 <div class="item">
                     <label for="runningnumber" class="width-95">
                         @Labels.RunningNumer</label>
-                    <div style="float:left;" number-only-input 
-                        input-Id="runningnumber"
-                        input-class="textbox runningNumber"
+                    <div style="float: left;" number-only-input input-id="runningnumber" input-class="textbox runningNumber"
                         input-value="searchCriteria.FeedbackId">
                     </div>
                 </div>
@@ -55,15 +53,15 @@
                 <div class="item">
                     <label for="ddlIsReviewed" class="width-80">
                         @Labels.IsReviewed</label>
-                    <select id="ddlIsReviewed" class="selReviewed"
-                        data-ng-model="searchCriteria.IsReviewed" data-ng-options="r.Name for r in reviews">
+                    <select id="ddlIsReviewed" class="selReviewed" data-ng-model="searchCriteria.IsReviewed"
+                        data-ng-options="r.Name for r in reviews">
                     </select>
                 </div>
                 <div class="item">
                     <label for="ddlCustomerReponse" class="lblReponse">
                         @Labels.CustomerResponse</label>
-                    <select id="ddlCustomerReponse" class="selResponse"
-                        data-ng-model="searchCriteria.Response" data-ng-options="r.Value for r in responses">
+                    <select id="ddlCustomerReponse" class="selResponse" data-ng-model="searchCriteria.Response"
+                        data-ng-options="r.Value for r in responses">
                     </select>
                 </div>
             </div>
@@ -85,21 +83,20 @@
                 <div class="item">
                     <label for="ddlcommunication" class="width-95">
                         @Labels.Communication</label>
-                    <select id="ddlcommunication" class="selCommunication"
-                        data-ng-model="searchCriteria.Communication" data-ng-options="c.Name for c in communications">
+                    <select id="ddlcommunication" class="selCommunication" data-ng-model="searchCriteria.Communication"
+                        data-ng-options="c.Name for c in communications">
                     </select>
                 </div>
                 <div class="item">
                     <label for="ddlstatus" class="txtStatus">
                         @Labels.Status</label>
-                    <select id="ddlstatus" class="selStatus"
-                        data-ng-model="searchCriteria.Status" data-ng-options="s.Name for s in statusList">
+                    <select id="ddlstatus" class="selStatus" data-ng-model="searchCriteria.Status" data-ng-options="s.Name for s in statusList">
                     </select>
                 </div>
                 <div class="item">
-                   <label for="handler" class="width-80">
-                       @Labels.Handler</label>
-                    <input id="handler" type="text" class="textbox txtHandler" data-ng-model="searchCriteria.Handler"/>
+                    <label for="handler" class="width-80">
+                        @Labels.Handler</label>
+                    <input id="handler" type="text" class="textbox txtHandler" data-ng-model="searchCriteria.Handler" />
                 </div>
                 <div class="item">
                     <button class="btn">@Labels.Submit</button>
@@ -109,18 +106,19 @@
         </div>
         <div class="row">
             <div table-manage-feedback-container data-ng-model="report">
-                <div id="table-manage-feedback" class="freegrid display-none"></div>
+                <div id="table-manage-feedback" class="freegrid display-none">
+                </div>
             </div>
         </div>
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
-        "~/Scripts/AngularJSLibrary",
-        "~/Scripts/FanexGridScripts",
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
         "~/Areas/Feedbacks/ManageFeedback/ManageFeedbackScripts")
     <script language="javascript" type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
-        
+
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var currentTime = new Date(currentDate);
         var yesterday = new Date(currentDate);
@@ -128,7 +126,7 @@
 
         var username = '@Model.CustName';
         var isGuest = @isGuest;
-        
+
         var manageFeedbackResources = {
             All: '@Labels.All',
             Guest: '@Labels.Guest',
@@ -142,6 +140,4 @@
             UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle'
         };
     </script>
-</body>
-</html>
-
+}

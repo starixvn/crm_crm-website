@@ -2,75 +2,76 @@
 @using Newtonsoft.Json;
 @model int
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_MainTab;
+
     var customerId = JsonConvert.SerializeObject(Model);
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="dashboard-application">
-<head>
-    <title>@Resources.Language.Title_MainTab </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Areas/Dashboard/ViewInfoStyles")
-</head>
-<body class="leftPanel" data-ng-controller="dashboardController">
-    <div class="container main">
-        <div class="row" data-ng-show="isShowResultMessage">
-            <div class="col-xs-11 col-sm-11 col-md-11">
-                <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
-                    <div data-ng-bind="resultMessage">
+}
+<div data-ng-app="dashboard-application">
+    <div class="leftPanel" data-ng-controller="dashboardController">
+        <div class="container main">
+            <div class="row" data-ng-show="isShowResultMessage">
+                <div class="col-xs-11 col-sm-11 col-md-11">
+                    <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="resultMessage">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-8 col-sm-8 col-md-8">
-                @Html.Action("CustomerRemarksView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+            <div class="row">
+                <div class="col-xs-8 col-sm-8 col-md-8">
+                    @Html.Action("CustomerRemarksView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+                </div>
+                <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
+                    @Html.Action("CustomerInfoView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+                </div>
             </div>
-            <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-xs-3 col-sm-3 col-md-3">
-                @Html.Action("CustomerInfoView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+            <div class="row row-item">
+                @Html.Action("RedemptionLogsView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
             </div>
+            <div class="row row-item">
+                @Html.Action("CommunicationLogsView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
+            </div>
+            <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
         </div>
-        <div class="row row-item">
-            @Html.Action("RedemptionLogsView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
-        </div>
-        <div class="row row-item">
-            @Html.Action("CommunicationLogsView", new RouteValueDictionary(new { controller = "Dashboard", area = "" }))
-        </div>
-        <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/Paging/jpager.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts", "~/Areas/Dashboard/ViewInfoScripts")
-    <script type="text/javascript"> 
+    <script type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
-        var customerId    = @customerId; 
-        var viewResources = { 
+        var customerId    = @customerId;
+        var viewResources = {
             Last_5_Redemption_Log: '@Labels.Last_5_Redemption_Log',
-            Edit_Redemption_Log: '@Labels.Edit_Redemption_Log', 
-            Subject:'@Labels.Subject', 
-            Claimed_Time:    '@Labels.Claimed_Time', 
-            Status: '@Labels.Status', 
+            Edit_Redemption_Log: '@Labels.Edit_Redemption_Log',
+            Subject:'@Labels.Subject',
+            Claimed_Time:    '@Labels.Claimed_Time',
+            Status: '@Labels.Status',
             Last_10_Communication_Log:'@Labels.Last_10_Communication_Log',
             Running_No: '@Labels.Running_No',
-            Feedback_Date: '@Labels.Feedback_Date', 
-            Main_Category:    '@Labels.Main_Category', 
-            Sub_Category: '@Labels.Sub_Category', 
+            Feedback_Date: '@Labels.Feedback_Date',
+            Main_Category:    '@Labels.Main_Category',
+            Sub_Category: '@Labels.Sub_Category',
             Duration: '@Labels.Duration',
-            Handler: '@Labels.Handler', 
+            Handler: '@Labels.Handler',
             Reviewer: '@Labels.Reviewer',
             Edit_Communication_Log: '@Labels.Edit_Communication_Log',
             Verify_Customer_Info: '@Labels.Verify_Customer_Info',
             Currency: '@Labels.Currency',
             Amount: '@Labels.Amount',
             DoneBy: '@Labels.DoneBy'
-        }; 
+        };
     </script>
-</body>
-</html>
+}

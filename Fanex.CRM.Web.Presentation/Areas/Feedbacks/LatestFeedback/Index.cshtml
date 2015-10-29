@@ -1,35 +1,37 @@
 ﻿@using Fanex.CRM.Infrastructure.Extensions;
 @model IList<Fanex.CRM.Infrastructure.Models.BaseModel>
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.LatestFeedbackDocumentTitle;
+
     var custId = (int)ViewBag.CustId;
     var username = ViewBag.Username;
-    var model = Newtonsoft.Json.JsonConvert.SerializeObject(Model); 
+    var model = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedback-latest-application">
-<head>
-    <title>@Labels.LatestFeedbackDocumentTitle</title>
-    @RazorHelper.RenderStyles("~/site/common",
-        "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackStyles")
-</head>
-<body>
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/Feedbacks/LatestFeedback/LatestFeedbackStyles")
+}
+<div data-ng-app="feedback-latest-application">
     <div class="main container" data-ng-controller="latestFeedbackController">
         <div class="row filter-frm">
             <div class="row">
                 <label for="top">@Labels.Top</label>
-                <select id="top" class="sel-top" data-ng-model="top" data-ng-options="a.Name for a in tops" data-ng-change="getLatestFeedback()">
+                <select id="top" class="sel-top" data-ng-model="top" data-ng-options="a.Name for a in tops"
+                    data-ng-change="getLatestFeedback()">
                 </select>
             </div>
         </div>
         <div class="row">
             <div table-latest-feedback-container data-ng-model="report">
-                <div id="table-latest-feedback" class="freegrid hide"></div>
+                <div id="table-latest-feedback" class="freegrid hide">
+                </div>
             </div>
         </div>
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
-        "~/Scripts/AngularJSLibrary",
-        "~/Scripts/FanexGridScripts",
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
         "~/Areas/Feedbacks/LatestFeedback/LatestFeedbackScripts")
     <script language="javascript" type="text/javascript">
         parent.document.title = document.title;
@@ -37,7 +39,7 @@
 
         var custId = @custId;
         var username = '@username';
-        var tops = @Html.Raw(model); 
+        var tops = @Html.Raw(model);
         var latestFeedbackResources = {
             Feedback: '@Labels.Feedback',
             Category: '@Labels.Category',
@@ -46,6 +48,4 @@
             UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle'
         };
     </script>
-</body>
-</html>
-
+}

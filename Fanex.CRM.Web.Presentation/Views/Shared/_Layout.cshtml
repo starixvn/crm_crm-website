@@ -13,8 +13,11 @@
         window.rootUrl = '@Url.Content("~")';
     </script>
 </head>
+<body>
 @RenderBody()
+@RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary");
 @RenderSection("Scripts", required: false)
 <script src="~/Scripts/Global/site.js" type="text/javascript"></script>
 @RazorHelper.RenderScripts("~/scripts/respond")
+</body>
 </html>

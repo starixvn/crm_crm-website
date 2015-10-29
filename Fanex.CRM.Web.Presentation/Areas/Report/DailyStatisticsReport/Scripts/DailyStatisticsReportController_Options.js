@@ -4,7 +4,7 @@
     camelcase: false */
     /* global currentDate */
     /* exported registerOptions */
-    function registerOptions($scope) {
+    window.registerOptions = function ($scope) {
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;
         $scope.defaultFocusOptions = null;

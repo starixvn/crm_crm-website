@@ -3,114 +3,117 @@
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Services;
 @using Fanex.CRM.Common.Helpers;
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-statisticreport-application">
-<head>
-    <title>@Labels.Statistic_Report </title>
-    @RazorHelper.RenderStyles("~/site/common")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.Statistic_Report;
+}
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
     @RazorHelper.RenderStyles("~/Content/site/ResultMessageStyles")
     @RazorHelper.RenderStyles("~/Areas/Report/StatisticReportStyles")
-</head>
-<body class="statisticReportController" data-ng-controller="statisticReportController">
-    <div class="result-message-container display-none">
-    </div>
-    <div class="main container">
-        <div class="row" data-ng-show="isShowResultMessage">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
-                    <div data-ng-bind="resultMessage">
-                    </div>
-                </div>
-            </div>
+}
+<div data-ng-app="report-statisticreport-application">
+    <div class="statisticReportController" data-ng-controller="statisticReportController">
+        <div class="result-message-container display-none">
         </div>
-        <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
-            <div class="row row-item">
-                <div class="item">
-                    <label for="reporttype" class="label-1st pull-left">
-                        @Labels.Group_By</label>
-                    <div class="report-type-container pull-left" data-ng-model="reportTypeOptions.DataList">
-                        <select id="reporttype" class="selReportType">
-                        </select>
-                    </div>
-                </div>
-                <div class="pull-left" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Daily}">
-                    <div class="item">
-                        <label for="fromDate" class="label-2nd">
-                            @Labels.From_Date</label>
-                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                            <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
-                        </div>
-                    </div>
-                    <div class="item">
-                        <label for="toDate" class="label-3rd">
-                            @Labels.To_Date</label>
-                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                            <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+        <div class="main container">
+            <div class="row" data-ng-show="isShowResultMessage">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div data-ng-class="alertbox{{ isSuccess ? 'scc' : 'err' }}" class="alertbox{{ isSuccess ? 'scc' : 'err' }}">
+                        <div data-ng-bind="resultMessage">
                         </div>
                     </div>
                 </div>
-                <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Monthly}">
-                    <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions">
-                        <label for="frommonth" class="label-2nd">
-                            @Labels.From_Month</label>
-                        <select id="frommonth_month">
+            </div>
+            <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
+                <div class="row row-item">
+                    <div class="item">
+                        <label for="reporttype" class="label-1st pull-left">
+                            @Labels.Group_By</label>
+                        <div class="report-type-container pull-left" data-ng-model="reportTypeOptions.DataList">
+                            <select id="reporttype" class="selReportType">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pull-left" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Daily}">
+                        <div class="item">
+                            <label for="fromDate" class="label-2nd">
+                                @Labels.From_Date</label>
+                            <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                                <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="item">
+                            <label for="toDate" class="label-3rd">
+                                @Labels.To_Date</label>
+                            <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                                <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-left display-none" data-ng-class="{'display-none': searchCriteria.ReportType.Id !== crmConstants.Enums.PeriodType.Monthly}">
+                        <div class="item month-picker-from-month-container" data-ng-model="fromMonthOptions">
+                            <label for="frommonth" class="label-2nd">
+                                @Labels.From_Month</label>
+                            <select id="frommonth_month">
+                            </select>
+                        </div>
+                        <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions">
+                            <label for="tomonth">
+                                @Labels.To_Month</label>
+                            <select id="tomonth_month">
+                            </select>
+                            <select id="frommonth_year">
+                            </select>
+                            <select id="tomonth_year" class="display-none">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-item">
+                    <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
+                        <label for="main-category">
+                            @Labels.Main_Category</label>
+                        <select id="main-category" class="selCategory">
                         </select>
                     </div>
-                    <div class="item month-picker-to-month-container" data-ng-model="toMonthOptions">
-                        <label for="tomonth">
-                            @Labels.To_Month</label>
-                        <select id="tomonth_month">
+                    <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
+                        <label for="sub-category" class="width-110">
+                            @Labels.Sub_Category</label>
+                        <select id="sub-category" class="selSubCategory">
                         </select>
-                        <select id="frommonth_year">
-                        </select>
-                        <select id="tomonth_year" class="display-none">
-                        </select>
+                    </div>
+                    <div class="item">
+                        <button id="button-submit" class="btn" data-ng-click="getStatisticReport()">
+                            <span class="hotkey">S</span>ubmit</button>
+                    </div>
+                </div>
+                <div class="icon-collapse" data-ng-click="showHideFilterBox();">
+                </div>
+            </div>
+            <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
+                <div class="icon-expand" data-ng-click="showHideFilterBox();">
+                </div>
+            </div>
+            <div>
+                <div data-ng-model="statisticReportOptions.IsUpdateGrid" class="table-statistic-report-container">
+                    <div id="table-statistic-report" class="freegrid display-none table-statistic-report">
                     </div>
                 </div>
             </div>
-            <div class="row row-item">
-                <div class="item main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
-                    <label for="main-category">
-                        @Labels.Main_Category</label>
-                    <select id="main-category" class="selCategory">
-                    </select>
-                </div>
-                <div class="item sub-category-picker-container" data-ng-model="subCategoryOptions.DataList">
-                    <label for="sub-category" class="width-110">
-                        @Labels.Sub_Category</label>
-                    <select id="sub-category" class="selSubCategory">
-                    </select>
-                </div>
-                <div class="item">
-                    <button id="button-submit" class="btn" data-ng-click="getStatisticReport()">
-                        <span class="hotkey">S</span>ubmit</button>
-                </div>
-            </div>
-            <div class="icon-collapse" data-ng-click="showHideFilterBox();">
-            </div>
         </div>
-        <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
-            <div class="icon-expand" data-ng-click="showHideFilterBox();">
-            </div>
+        <div class="download-file-container" data-ng-model="downloadFileOptions">
+            <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
         </div>
-        <div>
-            <div data-ng-model="statisticReportOptions.IsUpdateGrid" class="table-statistic-report-container">
-                <div id="table-statistic-report" class="freegrid display-none table-statistic-report">
-                </div>
-            </div>
-        </div>
+        <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
     </div>
-    <div class="download-file-container" data-ng-model="downloadFileOptions">
-        <iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>
-    </div>
-    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
     @RazorHelper.RenderScripts("~/Scripts/ShareScripts/Applications/ResultMessageScripts")
     @RazorHelper.RenderScripts("~/CRM/DownLoadFile/Scripts")
     @RazorHelper.RenderScripts("~/Areas/Report/StatisticReportScripts")
@@ -129,5 +132,4 @@
             StatisticReport_Error_EmptySubCategory: '@Labels.StatisticReport_Error_EmptySubCategory'
         };
     </script>
-</body>
-</html>
+}

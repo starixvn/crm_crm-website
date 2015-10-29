@@ -3,7 +3,7 @@
     /* jshint unused: vars,
     camelcase: false */
     /* exported registerUpdateFunctions */
-    function registerUpdateFunctions($scope) {
+    window.registerUpdateFunctions = function ($scope) {
         $scope.updateFromDatePicker = function () {
             $scope.fromDateOptions.IsRerenderPicker = true;
             $scope.safeApply();

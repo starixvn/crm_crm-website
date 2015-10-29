@@ -1,13 +1,14 @@
 ﻿@using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="deleted-feedback-application">
-<head>
-    <title>@Resources.Language.Title_DeletedFeedback</title>
-    @RazorHelper.RenderStyles("~/site/common",
-        "~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackStyles")
-</head>
-<body>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_DeletedFeedback;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackStyles")
+}
+<div data-ng-app="deleted-feedback-application">
     <div class="main container" data-ng-controller="deletedFeedbackController">
         <div class="row filter-frm one-row deletedFeedback">
             <form novalidate data-ng-submit="searchDeletedFeedback();">
@@ -15,11 +16,9 @@
                 <div class="item">
                     <label for="txtusername" class="width-80">
                         @Labels.Username</label>
-                    <input type="text" id="txtusername" class="textbox txtUsername"
-                        data-ng-model="searchCriteria.Username" />
+                    <input type="text" id="txtusername" class="textbox txtUsername" data-ng-model="searchCriteria.Username" />
                     &nbsp;
-                    <select id="ddlguest" class="selGuest"
-                        data-ng-model="searchCriteria.IsGuest" data-ng-options="c.Name for c in customerTypes">
+                    <select id="ddlguest" class="selGuest" data-ng-model="searchCriteria.IsGuest" data-ng-options="c.Name for c in customerTypes">
                     </select>
                 </div>
                 <div class="item">
@@ -55,22 +54,22 @@
                 <div class="item">
                     <label for="ddlcommunication" class="width-80">
                         @Labels.Communication</label>
-                    <select id="ddlcommunication" class="selCommunication"
-                        data-ng-model="searchCriteria.Communication" data-ng-options="c.Name for c in communications">
+                    <select id="ddlcommunication" class="selCommunication" data-ng-model="searchCriteria.Communication"
+                        data-ng-options="c.Name for c in communications">
                     </select>
                 </div>
                 <div class="item">
                     <label for="ddlCustomerReponse" class="lblReponse">
                         @Labels.CustomerResponse</label>
-                    <select id="ddlCustomerReponse" class="selResponse"
-                        data-ng-model="searchCriteria.Response" data-ng-options="r.Value for r in responses">
+                    <select id="ddlCustomerReponse" class="selResponse" data-ng-model="searchCriteria.Response"
+                        data-ng-options="r.Value for r in responses">
                     </select>
                 </div>
                 <div class="item">
                     <label for="ddlIsReviewed" class="width-70">
                         @Labels.IsReviewed</label>
-                    <select id="ddlIsReviewed" class="selReviewed"
-                        data-ng-model="searchCriteria.IsReviewed" data-ng-options="r.Name for r in reviews">
+                    <select id="ddlIsReviewed" class="selReviewed" data-ng-model="searchCriteria.IsReviewed"
+                        data-ng-options="r.Name for r in reviews">
                     </select>
                 </div>
                 <div class="item">
@@ -81,18 +80,19 @@
         </div>
         <div class="row">
             <div table-deleted-feedback-container data-ng-model="report">
-                <div id="table-deleted-feedback" class="freegrid hide"></div>
+                <div id="table-deleted-feedback" class="freegrid hide">
+                </div>
             </div>
         </div>
     </div>
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
-        "~/Scripts/AngularJSLibrary",
-        "~/Scripts/FanexGridScripts",
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
         "~/Areas/Feedbacks/DeletedFeedback/DeletedFeedbackScripts")
     <script language="javascript" type="text/javascript">
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
-        
+
         var currentDate = '@DateTimeUtilize.CurrentClientTime().ToShortFormatedDate()';
         var currentTime = new Date(currentDate);
         var yesterday = new Date(currentDate);
@@ -111,6 +111,4 @@
             UpdateFeedbackTitle: '@Labels.UpdateFeedbackTitle'
         };
     </script>
-</body>
-</html>
-
+}

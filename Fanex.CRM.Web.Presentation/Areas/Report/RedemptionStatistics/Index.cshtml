@@ -2,11 +2,13 @@
 @using Fanex.CRM.Report.Models;
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-redemption-statistics-application">
-<head>
-    <title>@Labels.DocumentTitle_DynamicReport </title>
-    @RazorHelper.RenderStyles("~/site/common", "~/Styles/FanexMultipleSelect")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Labels.DocumentTitle_DynamicReport;
+}
+@section Styles{
+    @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
     @RazorHelper.RenderStyles("~/Content/site/customizeFanexGridV2.less")
@@ -14,88 +16,93 @@
     @RazorHelper.RenderStyles("~/Scripts/jHtmlArea/jHtmlArea.ColorPickerMenu.css")
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Areas/Report/RedemptionStatisticsStyles")
-</head>
-<body class="dynamicReportController" data-ng-controller="redemptionStatisticsController">
-    <div class="main container">
-        <div class="row" alert-box-container></div>
-        <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
-            <div class="row row-item">
-                <div class="pull-left">
-                    <div class="item">
-                        <label for="fromDate" class="width-80">
-                            @Labels.From_Date</label>
-                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
-                            <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+}
+<div data-ng-app="report-redemption-statistics-application">
+    <div class="dynamicReportController" data-ng-controller="redemptionStatisticsController">
+        <div class="main container">
+            <div class="row" alert-box-container>
+            </div>
+            <div class="row filter-frm one-row expand-filter" data-ng-class="{ 'display-none': !isShowFilter }">
+                <div class="row row-item">
+                    <div class="pull-left">
+                        <div class="item">
+                            <label for="fromDate" class="width-80">
+                                @Labels.From_Date</label>
+                            <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                                <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <label for="toDate" class="width-70">
-                            @Labels.To_Date</label>
-                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
-                            <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        <div class="item">
+                            <label for="toDate" class="width-70">
+                                @Labels.To_Date</label>
+                            <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                                <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row row-item">
-                <div class="item" status-multi-container data-ng-model="statusOptions.DataList">
-                    <label for="status" class="width-80">
-                        @Labels.Status</label>
-                    <div class="selStatus">
-                        <select id="status" class="selStatus">
+                <div class="row row-item">
+                    <div class="item" status-multi-container data-ng-model="statusOptions.DataList">
+                        <label for="status" class="width-80">
+                            @Labels.Status</label>
+                        <div class="selStatus">
+                            <select id="status" class="selStatus">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item currency-picker-container" data-ng-model="currencyOptions.DataList">
+                        <label for="currency" class="width-70">
+                            @Labels.Currency</label>
+                        <select id="currency" class="selCurrency">
+                        </select>
+                    </div>
+                    <div class="item report-by-picker-container" data-ng-model="reportByOptions.DataList">
+                        <label for="reportby" class="width-70">
+                            @Labels.Report_by</label>
+                        <select id="reportby" class="selReportBy">
                         </select>
                     </div>
                 </div>
-                <div class="item currency-picker-container" data-ng-model="currencyOptions.DataList">
-                    <label for="currency" class="width-70">
-                        @Labels.Currency</label>
-                    <select id="currency" class="selCurrency">
-                    </select>
+                <div class="row row-item">
+                    <div class="item">
+                        <label for="subject" class="width-80">
+                            @Labels.Subject</label>
+                        <input type="text" class="textbox search-by-enter txtSubject" id="subject" data-ng-model="searchCriteria.Subject" />
+                    </div>
+                    <div class="item">
+                        <button id="button-submit" class="btn" data-ng-click="getRedemptionStatisticsReport()">
+                            <span class="hotkey">S</span>ubmit</button>
+                        <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
+                    </div>
                 </div>
-                <div class="item report-by-picker-container" data-ng-model="reportByOptions.DataList">
-                    <label for="reportby" class="width-70">
-                        @Labels.Report_by</label>
-                    <select id="reportby" class="selReportBy">
-                    </select>
-                </div>
-            </div>
-            <div class="row row-item">
-                <div class="item">
-                    <label for="subject" class="width-80">
-                        @Labels.Subject</label>
-                    <input type="text" class="textbox search-by-enter txtSubject" id="subject" data-ng-model="searchCriteria.Subject" />
-                </div>
-                <div class="item">
-                    <button id="button-submit" class="btn" data-ng-click="getRedemptionStatisticsReport()">
-                        <span class="hotkey">S</span>ubmit</button>
-                    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
+                <div class="icon-collapse" data-ng-click="showHideFilterBox();">
                 </div>
             </div>
-            <div class="icon-collapse" data-ng-click="showHideFilterBox();">
-            </div>
-        </div>
-        <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
-            <div class="icon-expand" data-ng-click="showHideFilterBox();">
-            </div>
-        </div>
-        <div>
-            <div data-ng-model="redemptionStatisticsOptions.SummaryDataList" class="table-redemption-statistics-container" id="summary-container" data-ng-class="{ 'display-none': !isShowSummary, '': isShowSummary }">
-                <div id="table-redemption-statistics-report" class="freegrid hide">
+            <div class="row filter-frm one-row collapse-filter display-none" data-ng-class="{ 'display-none': isShowFilter }">
+                <div class="icon-expand" data-ng-click="showHideFilterBox();">
                 </div>
             </div>
-            <div data-ng-model="redemptionStatisticsOptions.DetailDataList" class="table-redemption-statistics-detail-container" id="summary-detail" data-ng-class="{ 'display-none': isShowSummary, '': !isShowSummary }">
-                <div id="table-redemption-statistics-detail-report" class="freegrid hide">
+            <div>
+                <div data-ng-model="redemptionStatisticsOptions.SummaryDataList" class="table-redemption-statistics-container"
+                    id="summary-container" data-ng-class="{ 'display-none': !isShowSummary, '': isShowSummary }">
+                    <div id="table-redemption-statistics-report" class="freegrid hide">
+                    </div>
+                </div>
+                <div data-ng-model="redemptionStatisticsOptions.DetailDataList" class="table-redemption-statistics-detail-container"
+                    id="summary-detail" data-ng-class="{ 'display-none': isShowSummary, '': !isShowSummary }">
+                    <div id="table-redemption-statistics-detail-report" class="freegrid hide">
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="download-file-container" data-ng-model="downloadFileOptions">
+            @*<iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>*@
+        </div>
+        <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
     </div>
-    <div class="download-file-container" data-ng-model="downloadFileOptions">
-        @*<iframe id="downloadFileContainer" width="0" height="0" class="display-none"></iframe>*@
-    </div>
-    <input type="text" class="textbox default-focus default-focus-element" data-ng-model="defaultFocusOptions.IsSetFocus" />
-    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
-                    "~/Scripts/FanexGridV2/NumeralScripts")
-    @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/NumeralScripts")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Pagination.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/Fanex.Grid.js")
     @RazorHelper.RenderScripts("~/Scripts/FanexGridV2/moment.js")
@@ -118,7 +125,6 @@
             AllStatus: 'All',
             Symbol_NotApply: '@Labels.No_status',
             No_status_found: '@Labels.No_status_found',
-        }; 
+        };
     </script>
-</body>
-</html>
+}

@@ -3,7 +3,7 @@
     /* jshint unused: vars,
     camelcase: false */
     /* exported registerOptions */
-    function registerOptions($scope) {
+    window.registerOptions = function ($scope) {
         $scope.messageResultOptions = null;
         $scope.isSetFocus = false;
 

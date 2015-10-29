@@ -51,7 +51,7 @@
         </div>
     </div>
     @section Scripts {
-        @RazorHelper.RenderScripts("~/Scripts/CommomScripts", "~/Scripts/AngularJSLibrary", "~/Areas/ActionLog/SettingLogScripts")
+        @RazorHelper.RenderScripts("~/Areas/ActionLog/SettingLogScripts")
         <script type="text/javascript">
             parent.document.title = '@Resources.Language.Title_AdminTool_SettingLog';
             window.rootUrl = '@Url.Content("~")';

@@ -3,18 +3,19 @@
 @using Fanex.CRM.Common.Helpers;
 @model Fanex.CRM.Infrastructure.Models.BaseModel[]
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.Title = Resources.Language.Title_Report_FeedbackStatistics;
+
     DateTime currentClientTime = DateTimeUtilize.CurrentClientTime();
     string currentClientTimeString = currentClientTime.ToShortFormatedDate();
     string previousWeekTimeString = currentClientTime.AddDays(-7).ToShortFormatedDate();
     var settings = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
-<!DOCTYPE>
-<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="feedback-statistic-application">
-<head>
-    <title>@Resources.Language.Title_Report_FeedbackStatistics</title>
-    @RazorHelper.RenderStyles("~/site/common", "~/bundles/Report/FeedbackStatisticStyles")
-</head>
-<body>
+@section Styles{
+    @RazorHelper.RenderStyles("~/bundles/Report/FeedbackStatisticStyles")
+}
+<div data-ng-app="feedback-statistic-application">
     <div class="main container" data-ng-controller="feedbackStatisticController">
         <div class="row filter-frm one-row">
             <form data-ng-submit="getFeedbackStatistic()" novalidate>
@@ -36,27 +37,28 @@
                     </div>
                 </div>
                 <div class="item">
-                    <button class="btn"><span class="hotkey">S</span>ubmit</button>
+                    <button class="btn">
+                        <span class="hotkey">S</span>ubmit</button>
                 </div>
             </div>
             <div class="row row-item">
                 <div class="item width-78">@Labels.FromDuration</div>
-                <div class="item day" number-only-input 
+                <div class="item day" number-only-input
                     input-class="textbox"
                     input-value="fromDuration.Day"
                     input-label="@Labels.Day">
                 </div>
-                <div class="item day" number-only-input 
+                <div class="item day" number-only-input
                     input-class="textbox"
                     input-value="fromDuration.Hour"
                     input-label="@Labels.Hour">
                 </div>
-                <div class="item day" number-only-input 
+                <div class="item day" number-only-input
                     input-class="textbox"
                     input-value="fromDuration.Minute"
                     input-label="@Labels.Minute">
                 </div>
-                <div class="item day" number-only-input 
+                <div class="item day" number-only-input
                     input-class="textbox"
                     input-value="fromDuration.Second"
                     input-label="@Labels.Second">
@@ -64,22 +66,22 @@
             </div>
             <div class="row">
                 <div class="item width-78">@Labels.ToDuration</div>
-                <div class="item day" number-only-input 
+                <div class="item day" number-only-input
                     input-class="textbox"
                     input-value="toDuration.Day"
                     input-label="@Labels.Day">
                 </div>
-                <div class="item day" number-only-input 
+                <div class="item day" number-only-input
                     input-class="textbox"
                     input-value="toDuration.Hour"
                     input-label="@Labels.Hour">
                 </div>
-                <div class="item day" number-only-input 
+                <div class="item day" number-only-input
                     input-class="textbox"
                     input-value="toDuration.Minute"
                     input-label="@Labels.Minute">
                 </div>
-                <div class="item day" number-only-input 
+                <div class="item day" number-only-input
                     input-class="textbox"
                     input-value="toDuration.Second"
                     input-label="@Labels.Second">
@@ -87,18 +89,25 @@
             </div>
             </form>
         </div>
-        <div class="row" alert-box-container></div>
+        <div class="row" alert-box-container>
+        </div>
         <div class="row">
             <div table-feedback-statistic-container data-ng-model="feedbackStatistic">
-                <div id="table-feedback-statistic" class="freegrid hide"></div>
+                <div id="table-feedback-statistic" class="freegrid hide">
+                </div>
             </div>
         </div>
         <div class="download-file-container hide" data-ng-model="downloadFileOptions">
             <iframe id="downloadFileContainer" width="0" height="0"></iframe>
         </div>
     </div>
-   
-   <script type="text/javascript">
+</div>
+@section Scripts {
+    @RazorHelper.RenderScripts("~/Scripts/FanexGridScripts",
+        "~/Scripts/FanexGridV2/NumeralScripts",
+        "~/CRM/DownLoadFile/Scripts",
+        "~/bundles/Report/FeedbackStatisticScripts")
+    <script type="text/javascript">
        parent.document.title = '@Resources.Language.Title_Report_FeedbackStatistics';
        window.rootUrl = '@Url.Content("~")';
        var currentDate = new Date('@currentClientTimeString');
@@ -117,12 +126,5 @@
            NoDataFound: '@Labels.NoDataFound',
            FeedbackStatisticDetailReport: '@Labels.FeedbackStatisticDetailReport'
        };
-   </script>
-   @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
-        "~/Scripts/FanexGridScripts",
-        "~/Scripts/FanexGridV2/NumeralScripts",
-        "~/Scripts/AngularJSLibrary",
-        "~/CRM/DownLoadFile/Scripts",
-        "~/bundles/Report/FeedbackStatisticScripts")
-</body>
-</html>
+    </script>
+}

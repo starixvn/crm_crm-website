@@ -3,7 +3,7 @@
     /* jshint unused: vars,
     camelcase: false */
     /* exported registerUpdateFunctions */
-    function registerUpdateFunctions($scope) {
+    window.registerUpdateFunctions = function ($scope) {
         $scope.updateSelectedParentSetting = function (parentSetting) {
             $scope.insertSettingParams.NewSetting.ParentId = parentSetting.Id;
             $scope.safeApply();
