@@ -8,7 +8,7 @@
 @using Fanex.NAP.Core.Business;
 @{
     var customer = (ViewBag.CurrentCustomer as SearchedCustomer) ?? new SearchedCustomer();
-    
+
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
     string redirectUrl = ViewBag.RedirectUrl;
     var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
@@ -22,30 +22,28 @@
 		 @RazorHelper.RenderScripts("~/Scripts/Chart/ChartJs/excanvas.js")
 	<![endif]-->
 }
-<body>
-    @*<div id="fullsize" class="fullsize">
+@*<div id="fullsize" class="fullsize">
     </div>*@
-    <div class="container crm-container">
-        <div class="row header">
-            <div class="col-xs-3 col-sm-3 col-md-3 leftHeader">
-                <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo touchable-element"
+<div class="container crm-container">
+    <div class="row header">
+        <div class="col-xs-3 col-sm-3 col-md-3 leftHeader">
+            <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo touchable-element"
                     title="@Resources.Language.Home"
                     onclick="javascript:menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);"
                     href="javascript:;" />
-                <span id="icon-collapse-expand-leftpanel" class="icon-expand" title="@Labels.Home_Index_CollapseExpandLeftPanel">
-                </span>
-            </div>
-            <div class="col-xs-9 col-sm-9 col-md-9 rightHeader">
-                <div class="row">
-                    <div class="col-xs-8 col-sm-8 col-md-8">
-                        @Html.Action("GettingUserMenu", new RouteValueDictionary(new { controller = "Home", area = "" }))
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4">
-                        @Html.ActionLink(Resources.Language.Sign_out, "LogOut", "UserLogin", routeValues: null, htmlAttributes: new { @class = "pull-right logout" })
-                        <div class="login-info pull-right">
-                            @Labels.Welcome
-                            <span class="txt-username">@ViewBag.AccUsername</span>
-                        </div>
+            <span id="icon-collapse-expand-leftpanel" class="icon-expand" title="@Labels.Home_Index_CollapseExpandLeftPanel">
+            </span>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 rightHeader">
+            <div class="row">
+                <div class="col-xs-8 col-sm-8 col-md-8">
+                    @Html.Action("GettingUserMenu", new RouteValueDictionary(new { controller = "Home", area = "" }))
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    @Html.ActionLink(Resources.Language.Sign_out, "LogOut", "UserLogin", routeValues: null, htmlAttributes: new { @class = "pull-right logout" })
+                    <div class="login-info pull-right">
+                        @Labels.Welcome
+                        <span class="txt-username">@ViewBag.AccUsername</span>
                     </div>
                 </div>
             </div>
@@ -72,34 +70,42 @@
                     }
                 </div>
             </div>
-            <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb">
-                <div class="col-xs-9 col-sm-9 col-md-9" id="divSubMenu">
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                    <div class="pull-right timezone">
-                        <span id="span-timezoneContainer">@getClientTime</span>
-                        @Resources.Language.TimeZoneGMT
-                    </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
+                <label>
+                    <input id="isGuest" type="checkbox" tabindex="3" />
+                    @Labels.Guest
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb">
+            <div class="col-xs-9 col-sm-9 col-md-9" id="divSubMenu">
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                <div class="pull-right timezone">
+                    <span id="span-timezoneContainer">@getClientTime</span>
+                    @Resources.Language.TimeZoneGMT
                 </div>
             </div>
         </div>
-        <div class="row contentbox">
-            <div class="col-xs-3 col-sm-3 col-md-3 leftcontent">
-                <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="BlankPage"
-                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
-                    allowtransparency="true"></iframe>
-            </div>
-            <div id="rightcontent" class="col-xs-9 col-sm-9 col-md-9 rightcontent">
-                <iframe id="centerFr" name="centerFr" src="BlankPage" scrolling="auto" marginwidth="0"
-                    marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
-                    allowtransparency="true"></iframe>
-            </div>
+    </div>
+    <div class="row contentbox">
+        <div class="col-xs-3 col-sm-3 col-md-3 leftcontent">
+            <iframe id="leftPanel" name="leftPanel" marginwidth="0" scrolling="auto" src="BlankPage"
+                marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
+                allowtransparency="true"></iframe>
+        </div>
+        <div id="rightcontent" class="col-xs-9 col-sm-9 col-md-9 rightcontent">
+            <iframe id="centerFr" name="centerFr" src="BlankPage" scrolling="auto" marginwidth="0"
+                marginheight="0" frameborder="0" vspace="0" hspace="0" style="width: 100%; height: 100%;"
+                allowtransparency="true"></iframe>
         </div>
     </div>
-    <div id="divErrorPoup" class="selector" style="display: none;">
-    </div>
-    <div id="div-resultpopup" class="selector display-none">
-    </div>
+</div>
+<div id="divErrorPoup" class="selector" style="display: none;">
+</div>
+<div id="div-resultpopup" class="selector display-none">
+</div>
+@section Scripts {
     @RazorHelper.RenderScripts("~/Scripts/JQuery/jquery-1.8.2.js",
                             "~/Scripts/json2.js",
                             "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -130,4 +136,4 @@
 
         setInterval('udpateOnlineStatus()', 20000);
     </script>
-</body>
+}

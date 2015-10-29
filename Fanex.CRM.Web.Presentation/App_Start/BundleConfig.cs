@@ -51,7 +51,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/showhidepopup.js",
                 "~/Scripts/dialogbox.js"));
 
-            bundles.Add(new ScriptBundle("~/Scripts/CommomScripts").Include(
+            bundles.Add(new ScriptBundle("~/Scripts/CommonScripts").Include(
                 "~/Scripts/JQuery/jquery-1.8.2.js",
                 "~/Scripts/json2.js",
                 "~/Scripts/jquery-ui-1.8.14.custom.js",
