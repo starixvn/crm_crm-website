@@ -145,8 +145,7 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
 
                     // Grand Total.
                     if (firstRow)
-                    {
-                        firstRow = false;
+                    {                      
                         weeklySummary.GrandTotal.GameTypeValues.Add(value);
                     }
                     else
@@ -155,6 +154,7 @@ namespace Fanex.CRM.Report.Repositories.CasinoReport
                     }
                 }
 
+                firstRow = false;
                 weeklySummary.WeeklyCategories.Add(new CasinoWeeklyCategory
                 {
                     Name = Converter.ToString2(reader["MainCategory"]),
