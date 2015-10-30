@@ -120,5 +120,15 @@ namespace Fanex.CRM.Common.Services
                 return actionLogBoolValueHash;
             }
         }
+
+        public static string PiwikSiteId
+        {
+            get { return ConfigurationManager.AppSettings["PiwikSiteId"]; }
+        }
+
+        public static string Environment
+        {
+            get { return ConfigurationManager.AppSettings["Environment"]; }
+        }
     }
 }

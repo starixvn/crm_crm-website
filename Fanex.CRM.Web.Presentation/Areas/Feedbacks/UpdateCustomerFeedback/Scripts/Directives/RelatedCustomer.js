@@ -1,12 +1,8 @@
-﻿(function () {
-    "use strict";
-    /* exported orgLengt, trim */
-    /* jshint unused: vars */
-    /* jshint camelcase: false */
-    var orgLengt = 0;
-    function trim(str) {
-        return str.replace(/(^\s*)|(\s*$)/g, "");
-    }
+﻿"use strict";
+/* exported orgLengt, trim */
+/* jshint unused: vars */
+/* jshint camelcase: false */
+(function () {
     angular.module('feedbacks-updatecustomerfeedback-application').directive('relatedcustomer', function () {
         return {
             restrict: 'A',
@@ -34,3 +30,8 @@
         };
     });
 })();
+
+var orgLengt = 0;
+function trim(str) {
+    return str.replace(/(^\s*)|(\s*$)/g, "");
+}

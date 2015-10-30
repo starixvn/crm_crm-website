@@ -67,7 +67,7 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
             }
 
             var selectedDate = selectedDateChange(scope, element, attrs, options);
-            if (oldValue === "" ||
+            if (oldValue === null || oldValue === "" ||
                 isNaN(oldValue.valueOf()) ||
                 !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
                 oldValue = selectedDate;

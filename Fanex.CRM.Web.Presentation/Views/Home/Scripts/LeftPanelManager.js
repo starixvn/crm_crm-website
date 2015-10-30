@@ -61,6 +61,7 @@ var LeftPanelManager = function () {
             isfromurl: isFromURL ? 1 : 0,
             isreloadleftpanel: isReloadLeftPanel ? 1 : 0
         });
+        console.log(sourceURL);
 
         self.DOMElements.leftPanel.attr({
             src: sourceURL
