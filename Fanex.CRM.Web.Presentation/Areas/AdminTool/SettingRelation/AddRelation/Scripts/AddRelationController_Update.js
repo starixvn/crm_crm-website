@@ -23,5 +23,5 @@
             $scope.mainSettingRelationView[rowIndex].IsSubSetting = isCheck;
             $scope.safeApply();
         };
-    }
+    };
 })();

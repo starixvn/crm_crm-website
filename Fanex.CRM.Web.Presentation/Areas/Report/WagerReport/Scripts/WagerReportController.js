@@ -5,7 +5,8 @@
     minReportDate,
     currentDate */
     /* jshint camelcase: false */
-    angular.module('report-wagerreport-application').controller('wagerReportController', ['$scope', 'WagerReportService', '$uiBlockerService', '$resultMessageService',
+    angular.module('report-wagerreport-application')
+        .controller('wagerReportController', ['$scope', 'WagerReportService', '$uiBlockerService', '$resultMessageService',
 function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) {
     $scope.years = [];
     $scope.year = 0;

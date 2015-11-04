@@ -8,7 +8,6 @@
     verifyRelatedCustomer,
     hotKeyManager,
     hasReviewPermission,
-    verifyRelatedCustomerForUpdate,
     isOldRelatedCustomer,
     getRelatedCustomerLength,
     moment */
@@ -637,10 +636,6 @@
             verifyRelatedCustomer($scope);
             $scope.isEditingRelatedCustomer = false;
             $scope.isVerifyRelatedCustomer = true;
-        };
-        $scope.verifyRelatedCustomerForUpdate = function () {
-            verifyRelatedCustomerForUpdate($scope);
-            $scope.isEditingRelatedCustomer = false;
         };
 
         $scope.completeSetFocus = function () {

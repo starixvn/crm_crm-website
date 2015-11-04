@@ -1,6 +1,7 @@
 (function () {
     "use strict";
     /* global MessageResult, 
+    hotKeyManager,
     sharedScriptManager,
     viewResources, Site */
     /* jshint unused: vars,

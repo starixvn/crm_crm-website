@@ -4,7 +4,8 @@
     hotKeyManager,
     summaryReportResources */
     /* jshint camelcase: false */
-    angular.module('report-summaryreport-application').controller('summaryReportController', ['$scope', 'SummaryReportService', '$uiBlockerService', '$resultMessageService',
+    angular.module('report-summaryreport-application')
+        .controller('summaryReportController', ['$scope', 'SummaryReportService', '$uiBlockerService', '$resultMessageService',
     function ($scope, summaryReportService, $uiBlockerService, $resultMessageService) {
         $scope.years = [];
         $scope.year = 0;

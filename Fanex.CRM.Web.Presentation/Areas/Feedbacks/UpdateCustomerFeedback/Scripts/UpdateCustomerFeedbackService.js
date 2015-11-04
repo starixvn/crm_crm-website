@@ -1,4 +1,5 @@
-﻿(function () {
+﻿/*global sharedScriptManager*/
+(function () {
     "use strict";
     angular.module('feedbacks-updatecustomerfeedback-application').factory('UpdateCustomerFeedbackService', ['$http', '$q', function ($http, $q) {
         var DELETED_STATUS_ID = 11004;

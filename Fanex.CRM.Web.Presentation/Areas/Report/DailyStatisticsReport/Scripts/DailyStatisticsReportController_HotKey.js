@@ -15,5 +15,5 @@
             $scope.getDailyStatisticsReport();
             $scope.safeApply();
         };
-    }
+    };
 })();

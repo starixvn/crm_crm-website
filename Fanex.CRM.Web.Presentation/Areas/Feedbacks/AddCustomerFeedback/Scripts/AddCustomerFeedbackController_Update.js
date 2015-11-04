@@ -100,5 +100,5 @@
             $scope.inputRelatedCustomerLength = relatedCustomerLength;
             $scope.isEditingRelatedCustomer = true;
         };
-    }
+    };
 })();

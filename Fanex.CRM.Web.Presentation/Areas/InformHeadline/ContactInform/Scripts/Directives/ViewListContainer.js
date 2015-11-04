@@ -4,7 +4,10 @@
     viewResources */
     /* jshint camelcase: false,
     unused: vars */
-    angular.module('contactInformApplication').directive('informHeadlineListContainer', ['$document', '$uiBlockerService', function ($document, $uiBlockerService) {
+    angular.module('contactInformApplication').directive(
+        'informHeadlineListContainer',
+        ['$document', '$uiBlockerService', 
+        function ($document, $uiBlockerService) {
         var KEPT_FOR_REFERENCE_STATUS_ID = 45007;
         var MIN_PAGE_SIZE = 100;
         var MAX_PAGE_SIZE = 300;

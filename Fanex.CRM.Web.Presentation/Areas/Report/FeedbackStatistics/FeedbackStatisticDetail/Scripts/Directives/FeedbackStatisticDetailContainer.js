@@ -91,7 +91,8 @@
                     }
 
                     currentRow.push({ Name: 'ColStatus', Value: feedback.Status });
-                    currentRow.push({ Name: 'ColRelatedCustomer', Value: feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer, CssClass: 'word-wrap' });
+                    currentRow.push({ Name: 'ColRelatedCustomer', 
+                        Value: feedback.IsRelated ? feedback.Username : feedback.RelatedCustomer, CssClass: 'word-wrap' });
 
                     bodyData.push({ Columns: currentRow, CssClass: cssClass });
                 }

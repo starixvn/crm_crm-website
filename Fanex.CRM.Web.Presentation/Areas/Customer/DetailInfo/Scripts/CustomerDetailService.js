@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    /* global customerDetailApplication */
+    
     angular.module('customerdetail-application').factory('$customerDetailService', ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};

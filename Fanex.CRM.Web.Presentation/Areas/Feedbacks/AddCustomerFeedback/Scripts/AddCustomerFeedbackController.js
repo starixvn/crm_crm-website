@@ -1,6 +1,8 @@
 (function () {
     "use strict";
-    /* global registerOptions,
+    /* global 
+    MessageResult,
+    registerOptions,
     registerUpdateFunctions,
     registerHotkeyFunctions,
     crmConstants,
@@ -13,7 +15,7 @@
         this.Message = message;
         this.IsShowMessage = isShowMessage;
         this.IsSuccess = isSuccess;
-    }
+    };
 
     angular.module('feedbacks-addcustomerfeedback-application').controller('addCustomerFeedbackController',
     ['$scope', '$uiBlockerService', '$resultMessageService', 'addCustomerFeedbackService',

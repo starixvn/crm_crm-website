@@ -220,39 +220,7 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
 
         return html;
     };
-    var checkContainsValue = function (a, e) {
-        for (var j = 0; j < a.length; j++) {
-            if ($.trim(a[j].toLowerCase()) === $.trim(e.toLowerCase())) {
-                return true;
-            }
-        }
-
-        return false;
-    };
-    var checkDuplicateRelated = function () {
-        var arrUser = [];
-        var userName = "";
-        $('#txtrelatedcustomer option').each(function (i, option) {
-            arrUser[i] = $(option).text();
-        });
-
-        userName = arrUser.join(",");
-        var relatedVal = arrUser;
-        var dups = [];
-        var items = [];
-        if (relatedVal) {
-            for (var j = 0; j < relatedVal.length; j++) {
-                if (!checkContainsValue(items, relatedVal[j])) {
-                    items.push(relatedVal[j]);
-                }
-                else {
-                    dups.push(relatedVal[j]);
-                }
-            }
-
-            return dups;
-        }
-    };
+    
     var deleteRelatedCust = function (custId) {
         $("#" + custId).parent().remove();
         userList.splice(userIdList.indexOf(custId), 1);

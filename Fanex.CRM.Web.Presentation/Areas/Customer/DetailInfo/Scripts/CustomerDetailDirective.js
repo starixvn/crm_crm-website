@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    /* global customerDetailApplication,
+    /* global
     crmConstants,
     viewResources */
     angular.module('customerdetail-application').directive('dropdownSiteContainer', function () {

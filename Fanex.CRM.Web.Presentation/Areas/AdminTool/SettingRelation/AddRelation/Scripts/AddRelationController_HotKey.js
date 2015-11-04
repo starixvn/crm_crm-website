@@ -19,5 +19,5 @@
             $scope.addSettingRelations();
             $scope.safeApply();
         };
-    }
+    };
 })();

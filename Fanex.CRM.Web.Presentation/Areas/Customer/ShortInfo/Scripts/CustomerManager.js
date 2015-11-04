@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    /* global sharedScriptManager, accId, crmConstants, hotKeyManager */
+    /* global customerManager, sharedScriptManager, accId, crmConstants, hotKeyManager */
     var CustomerManager = function () {
         var self = this;
         self.DOMElements = {

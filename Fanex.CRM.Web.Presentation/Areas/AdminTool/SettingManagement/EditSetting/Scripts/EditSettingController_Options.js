@@ -9,5 +9,5 @@
 
         $scope.initDefaultOption = function () {
         };
-    }
+    };
 })();

@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-    /* global viewListApplication,
+    /* global
     sharedScriptManager */
     angular.module('addmintool-settingrelation-application').factory('viewListService',
     ['$http', '$q',

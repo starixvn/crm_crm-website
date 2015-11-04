@@ -1,4 +1,4 @@
-﻿﻿/* global sharedScriptManager */
+﻿/*global sharedScriptManager*/
 (function () {
     "use strict";
     angular.module('communicationlog-insert-application', []);

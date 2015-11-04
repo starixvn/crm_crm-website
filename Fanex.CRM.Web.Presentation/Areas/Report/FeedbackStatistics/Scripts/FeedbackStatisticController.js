@@ -10,7 +10,8 @@
     settings */
     /* jshint camelcase: false */
     /* jshint unused: vars */
-    angular.module('feedback-statistic-application').controller('feedbackStatisticController', ['$scope', 'FeedbackStatisticService', '$uiBlockerService', 'alertBoxService',
+    angular.module('feedback-statistic-application')
+        .controller('feedbackStatisticController', ['$scope', 'FeedbackStatisticService', '$uiBlockerService', 'alertBoxService',
     function ($scope, feedbackStatisticService, $uiBlockerService, alertBoxService) {
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;

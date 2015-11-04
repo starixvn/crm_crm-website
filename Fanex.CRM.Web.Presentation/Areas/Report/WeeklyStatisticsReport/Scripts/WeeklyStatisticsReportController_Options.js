@@ -54,5 +54,5 @@
                 OnChangeEvent: $scope.completeSetFocus
             };
         };
-    }
+    };
 })();

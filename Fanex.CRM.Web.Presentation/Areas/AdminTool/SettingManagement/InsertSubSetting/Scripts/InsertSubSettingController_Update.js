@@ -11,5 +11,5 @@
         $scope.completeSetFocus = function () {
             $scope.isSetFocus = false;
         };
-    }
+    };
 })();

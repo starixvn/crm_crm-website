@@ -39,5 +39,5 @@
             $scope.toDateOptions.IsRerenderPicker = false;
             $scope.safeApply();
         };
-    }
+    };
 })();

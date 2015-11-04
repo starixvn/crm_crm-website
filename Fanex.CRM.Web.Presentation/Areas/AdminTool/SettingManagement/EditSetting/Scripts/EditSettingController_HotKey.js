@@ -15,5 +15,5 @@
             $scope.editSetting();
             $scope.safeApply();
         };
-    }
+    };
 })();

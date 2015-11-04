@@ -15,5 +15,5 @@
             $scope.getSettingRelations();
             $scope.safeApply();
         };
-    }
+    };
 })();

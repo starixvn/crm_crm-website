@@ -10,7 +10,8 @@
     /* jshint camelcase: false */
     /* jshint unused: vars */
     /* jshint maxstatements: 412 */
-    angular.module('report-redemption-statistics-application').controller('redemptionStatisticsController', ['$scope', '$http', '$redemptionStatisticsService', 'alertBoxService',
+    angular.module('report-redemption-statistics-application')
+        .controller('redemptionStatisticsController', ['$scope', '$http', '$redemptionStatisticsService', 'alertBoxService',
     function ($scope, $http, $redemptionStatisticsService, alertBoxService) {
         $scope.isSetFocus = false;
         $scope.isShowFilter = true;

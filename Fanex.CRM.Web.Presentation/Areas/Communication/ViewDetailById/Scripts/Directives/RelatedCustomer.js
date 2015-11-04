@@ -1,67 +1,13 @@
 ﻿"use strict";
 /* global sharedScriptManager */
 /* exported orgArrUser,
+orgLengt,
 trim,
 verifyRelatedCustomer,
-checkDuplicateRelated,
 getRelatedCustomer,
 deleteRelatedCust,
 getRelatedCustomerLength,
-isOldRelatedCustomer,
-verifyRelatedCustomerForUpdate */
-(function () {
-    angular.module('communicationlog-viewdetailbyid-application').directive('relatedCustomerContainer', function () {
-        function bindingRelatedCustomerEvent(scope, element, attrs) {
-            /* jshint unused: vars */
-            var relatedTo = element.find("#txtrelatedcustomer");
-            relatedTo.fcbkcomplete({
-                /* jshint camelcase: false */
-                json_url: window.rootUrl + 'CustomerSetting/RelatedCustomerAutoSuggestion',
-                addontab: true,
-                maxitems: parent.crmConstants.Enums.RelatedCustomerSetting.MaxItems,
-                input_min_size: 1,
-                height: 10,
-                cache: false,
-                newel: true
-            });
-
-            relatedTo.attr("disabled", "disabled");
-            if (scope.communicationLog.RelatedCustomers && scope.communicationLog.RelatedCustomers !== '') {
-                var relatedCustomers = [{ "Customer": []}];
-                var arrUserName = scope.communicationLog.RelatedCustomers.split(",");
-                var i;
-                for (i = 0; i < arrUserName.length; i++) {
-                    relatedCustomers[i] = {
-                        title: $.trim(arrUserName[i]),
-                        value: $.trim(arrUserName[i])
-                    };
-                }
-
-                $('#holder li').remove();
-                $('#txtrelatedcustomer option').remove();
-                for (i = 0; i < relatedCustomers.length; i++) {
-                    $("#txtrelatedcustomer").trigger("addItem", relatedCustomers[i]);
-                }
-
-                $("#btnverify").removeAttr("disabled");
-                $("#btnsubmit").removeAttr("disabled");
-                $("#btnsubmitbottom").removeAttr("disabled");
-                orgLengt = relatedCustomers.length;
-            }
-
-            element.find(".bit-box .closebutton").remove();
-            element.find("#typeCust").attr("disabled", "disabled");
-        }
-
-        return {
-            restrict: 'C',
-            scope: true,
-            link: function (scope, element, attrs) {
-                bindingRelatedCustomerEvent(scope, element, attrs);
-            }
-        };
-    });
-})();
+isOldRelatedCustomer */
 
 var orgLengt = 0;
 var orgArrUser = "";
@@ -168,57 +114,7 @@ var verifyRelatedCustomer = function (scope) {
             scope.unblockUI);
     }
 };
-var verifyRelatedCustomerForUpdate = function (scope) {
-    var arrUser = [];
-    var userName = "";
-    $('#txtrelatedcustomer option').each(function (i, option) {
-        arrUser[i] = $(option).text();
-    });
 
-    userName = arrUser.join(",");
-    if (userName !== "") {
-        scope.BlockUI();
-        sharedScriptManager.CallAjax(self,
-            window.rootUrl + "CustomerSetting/VerifyUsername",
-            { UserName: userName },
-            completedVerifyRelatedCustomer,
-            null,
-            scope.updateLog);
-    }
-};
-var checkContainsValue = function (a, e) {
-    for (var j = 0; j < a.length; j++) {
-        if ($.trim(a[j].toLowerCase()) === $.trim(e.toLowerCase())) {
-            return true;
-        }
-    }
-
-    return false;
-};
-var checkDuplicateRelated = function () {
-    var arrUser = [];
-    var userName = "";
-    $('#txtrelatedcustomer option').each(function (i, option) {
-        arrUser[i] = $(option).text();
-    });
-
-    userName = arrUser.join(",");
-    var relatedVal = arrUser;
-    var dups = [];
-    var items = [];
-    if (relatedVal) {
-        for (var j = 0; j < relatedVal.length; j++) {
-            if (!checkContainsValue(items, relatedVal[j])) {
-                items.push(relatedVal[j]);
-            }
-            else {
-                dups.push(relatedVal[j]);
-            }
-        }
-
-        return dups;
-    }
-};
 var getRelatedCustomer = function () {
     var arrUser = [];
     var userName = "";
@@ -271,3 +167,55 @@ var isOldRelatedCustomer = function (oldRelatedCustomer) {
     oldRelatedCustomer.replace(/class="bit-box deleted"/g, 'class="bit-box"');
     return oldRelatedCustomer === newRelatedCustomer;
 };
+
+angular.module('communicationlog-viewdetailbyid-application').directive('relatedCustomerContainer', function () {
+    function bindingRelatedCustomerEvent(scope, element, attrs) {
+        /* jshint unused: vars */
+        var relatedTo = element.find("#txtrelatedcustomer");
+        relatedTo.fcbkcomplete({
+            /* jshint camelcase: false */
+            json_url: window.rootUrl + 'CustomerSetting/RelatedCustomerAutoSuggestion',
+            addontab: true,
+            maxitems: parent.crmConstants.Enums.RelatedCustomerSetting.MaxItems,
+            input_min_size: 1,
+            height: 10,
+            cache: false,
+            newel: true
+        });
+
+        relatedTo.attr("disabled", "disabled");
+        if (scope.communicationLog.RelatedCustomers && scope.communicationLog.RelatedCustomers !== '') {
+            var relatedCustomers = [{ "Customer": []}];
+            var arrUserName = scope.communicationLog.RelatedCustomers.split(",");
+            var i;
+            for (i = 0; i < arrUserName.length; i++) {
+                relatedCustomers[i] = {
+                    title: $.trim(arrUserName[i]),
+                    value: $.trim(arrUserName[i])
+                };
+            }
+
+            $('#holder li').remove();
+            $('#txtrelatedcustomer option').remove();
+            for (i = 0; i < relatedCustomers.length; i++) {
+                $("#txtrelatedcustomer").trigger("addItem", relatedCustomers[i]);
+            }
+
+            $("#btnverify").removeAttr("disabled");
+            $("#btnsubmit").removeAttr("disabled");
+            $("#btnsubmitbottom").removeAttr("disabled");
+            orgLengt = relatedCustomers.length;
+        }
+
+        element.find(".bit-box .closebutton").remove();
+        element.find("#typeCust").attr("disabled", "disabled");
+    }
+
+    return {
+        restrict: 'C',
+        scope: true,
+        link: function (scope, element, attrs) {
+            bindingRelatedCustomerEvent(scope, element, attrs);
+        }
+    };
+});

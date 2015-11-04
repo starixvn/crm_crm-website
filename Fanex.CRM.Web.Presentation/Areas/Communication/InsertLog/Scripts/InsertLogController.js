@@ -209,7 +209,9 @@
         $scope.updateRemarkPrefix = function () {
             var remarkPrefix = $scope.generateRemarkPrefix();
             if ($scope.communicationLog.Remark.indexOf($scope.lastRemarkPrefix) === 0) {
-                $scope.communicationLog.Remark = $scope.communicationLog.Remark.substring($scope.lastRemarkPrefix.length, $scope.communicationLog.Remark.length);
+                $scope.communicationLog.Remark = $scope.communicationLog.Remark.substring(
+                    $scope.lastRemarkPrefix.length, 
+                    $scope.communicationLog.Remark.length);
             }
 
             if ($scope.communicationLog.Remark.indexOf(remarkPrefix) === -1) {

@@ -15,5 +15,5 @@
             $scope.getWeeklyStatisticsReport();
             $scope.safeApply();
         };
-    }
+    };
 })();

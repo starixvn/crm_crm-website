@@ -16,5 +16,5 @@
                 AllText: viewResources.All
             };
         };
-    }
+    };
 })();

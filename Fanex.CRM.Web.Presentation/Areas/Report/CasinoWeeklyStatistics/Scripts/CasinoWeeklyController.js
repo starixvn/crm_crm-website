@@ -66,7 +66,8 @@
         $scope.getCasinoWeeklyDetail = function (page, size) {
             $scope.showSummary = false;
             $uiBlockerService.blockUI();
-            casinoWeeklyService.getCasinoWeeklyDetail($scope.fromDate, $scope.toDate, page = page || 0, size || sharedScriptManager.cachedData.defaultItemsPerPage)
+            casinoWeeklyService.getCasinoWeeklyDetail(
+                $scope.fromDate, $scope.toDate, page = page || 0, size || sharedScriptManager.cachedData.defaultItemsPerPage)
                 .then(function (data) {
                     $scope.weeklyDetail = data.Result;
                     $uiBlockerService.unblockUI();

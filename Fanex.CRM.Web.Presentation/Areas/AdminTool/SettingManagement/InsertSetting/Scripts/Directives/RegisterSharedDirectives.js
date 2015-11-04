@@ -19,7 +19,9 @@
             }
         };
 
-        directiveManager.registerParentSettingContainer(angular.module('addmintool-settingmanagement-insertnewsetting-application'), parentSettingRegisterParams);
+        directiveManager.registerParentSettingContainer(
+            angular.module('addmintool-settingmanagement-insertnewsetting-application'), 
+            parentSettingRegisterParams);
     }
 
     insertSettingRegisterPicker();

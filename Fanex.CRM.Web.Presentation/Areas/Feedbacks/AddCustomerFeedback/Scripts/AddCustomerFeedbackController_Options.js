@@ -139,5 +139,5 @@
                 OnChangeEvent: $scope.updateRelatedCustomer
             };
         };
-    }
+    };
 })();
