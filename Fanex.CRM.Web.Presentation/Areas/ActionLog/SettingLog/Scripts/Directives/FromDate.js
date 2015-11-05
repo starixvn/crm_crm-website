@@ -9,7 +9,7 @@
         var oldValue = null;
         var oldMaxValue = null;
         var isOnSelect = false;
-        function renderDatePicker(scope, element, attrs) {
+        function renderDatePicker(scope, element) {
             /* jshint unused: vars */
             var fromDatePicker = element.find("#fromDate");
             fromDatePicker.datepicker({
@@ -32,7 +32,7 @@
 
             fromDatePicker.datepicker('setDate', new Date(initFromDate));
         }
-        function selectedDateChange(scope, element, attrs) {
+        function selectedDateChange(scope, element) {
             /* jshint unused: vars */
             var fromDatePicker = element.find("#fromDate");
             var selectedDate = fromDatePicker.val();
@@ -51,9 +51,9 @@
             return selectedDate;
         }
 
-        function datePickerOnChange(scope, element, attrs) {
+        function datePickerOnChange(scope, element) {
             var fromDatePicker = element.find("#fromDate");
-            var selectedDate = selectedDateChange(scope, element, attrs);
+            var selectedDate = selectedDateChange(scope, element);
             if (isNaN(oldValue.valueOf()) ||
             !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
                 oldValue = selectedDate;
@@ -76,7 +76,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 var fromDatePicker = element.find("#fromDate");
-                renderDatePicker(scope, element, attrs);
+                renderDatePicker(scope, element);
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
                     oldMaxValue = new Date(newval);
@@ -85,7 +85,7 @@
 
                 oldValue = new Date(initFromDate);
                 element.on('change', function () {
-                    datePickerOnChange(scope, element, attrs);
+                    datePickerOnChange(scope, element);
                 });
             }
         };

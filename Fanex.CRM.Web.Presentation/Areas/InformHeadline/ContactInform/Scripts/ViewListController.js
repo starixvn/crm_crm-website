@@ -50,7 +50,7 @@
                     $scope.titleDetail = data.Result;
                     getSettings();
                 },
-                function (data) {
+                function () {
                     $scope.titleDetail = null;
                     $uiBlockerService.unblockUI();
                 });
@@ -78,7 +78,7 @@
 
                 $timeout($scope.getInforms, 1000);
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
         }
@@ -115,7 +115,7 @@
                     $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.listData = null;
                     $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
@@ -151,7 +151,7 @@
                     Informs: items
                 })
                 .then(saveSuccessCallback,
-                function (data) {
+                function () {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });

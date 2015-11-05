@@ -169,7 +169,7 @@ var isOldRelatedCustomer = function (oldRelatedCustomer) {
 };
 
 angular.module('communicationlog-viewdetailbyid-application').directive('relatedCustomerContainer', function () {
-    function bindingRelatedCustomerEvent(scope, element, attrs) {
+    function bindingRelatedCustomerEvent(scope, element) {
         /* jshint unused: vars */
         var relatedTo = element.find("#txtrelatedcustomer");
         relatedTo.fcbkcomplete({
@@ -214,8 +214,8 @@ angular.module('communicationlog-viewdetailbyid-application').directive('related
     return {
         restrict: 'C',
         scope: true,
-        link: function (scope, element, attrs) {
-            bindingRelatedCustomerEvent(scope, element, attrs);
+        link: function (scope, element) {
+            bindingRelatedCustomerEvent(scope, element);
         }
     };
 });

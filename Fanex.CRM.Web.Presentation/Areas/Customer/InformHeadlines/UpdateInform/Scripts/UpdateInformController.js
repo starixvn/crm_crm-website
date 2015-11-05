@@ -104,7 +104,7 @@
                     $scope.extensions = settings.Result.Extensions;
                     $scope.getInforms(0, $scope.defaultItemPerPage);
                 },
-                function (settings) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -150,7 +150,7 @@
 
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -231,7 +231,7 @@
                     // reload parent form (Inform Statistic)
                     parent.homeManager.CachedData.shouldReloadView = true;
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };

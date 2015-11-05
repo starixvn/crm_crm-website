@@ -6,7 +6,7 @@
     viewResources */
     /* jshint camelcase: false */
     angular.module('dashboard-application').directive('tableCommunicationLogsContainer', function () {
-        function renderCommunicationLogs(scope, element, attrs) {
+        function renderCommunicationLogs(scope, element) {
             if (scope.communicationLogs == null) {
                 return;
             }
@@ -105,7 +105,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
                     /* jshint unused: vars */
-                    renderCommunicationLogs(scope, element, attrs);
+                    renderCommunicationLogs(scope, element);
                 });
             }
         };

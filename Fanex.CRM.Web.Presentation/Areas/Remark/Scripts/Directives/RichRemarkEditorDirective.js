@@ -6,7 +6,7 @@
     /* jshint camelcase: false */
     /* jshint unused: vars */
     angular.module('remark-application').directive('richRemarkEditorDirective', function () {
-        function renderRemarkEditor(scope, element, attrs) {
+        function renderRemarkEditor(scope, element) {
             var textArea = element.find(".textarea-remark");
             var remarkIndex = parseInt(element.attr("data-remarkindex"));
             var isSpecialRemark = parseInt(element.attr("data-isspecialremark")) ? true : false;
@@ -79,8 +79,8 @@
 
         return {
             restrict: 'C',
-            link: function (scope, element, attrs) {
-                renderRemarkEditor(scope, element, attrs);
+            link: function (scope, element) {
+                renderRemarkEditor(scope, element);
                 scope.$watch(function ($scope) {
                     if (!$scope.remarks) {
                         return;

@@ -3,7 +3,7 @@
     /* global viewResources,
     crmConstants */
     angular.module('communicationlog-insert-application').directive('dropdownSite', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.siteList) {
                 var dropdown = element.find("#site");
@@ -47,7 +47,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

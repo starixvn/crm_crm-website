@@ -64,7 +64,7 @@
                 });
                 $scope.completedLoadFilterInfo();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Status'
@@ -85,7 +85,7 @@
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
                 }
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
@@ -165,7 +165,7 @@
             .then(function (data) {
                 $scope.completedInsertLog(data.Result);
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.unblockUI();
             });

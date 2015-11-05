@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     angular.module('customerdetail-application').directive('dropdownTitleContainer', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.titleList) {
                 var dropdown = element.find("#customerinfodetail-titleoptions");
@@ -28,7 +28,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

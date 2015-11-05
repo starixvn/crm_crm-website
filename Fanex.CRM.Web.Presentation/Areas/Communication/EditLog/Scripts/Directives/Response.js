@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     angular.module('communicationlog-edit-application').directive('dropdownResponse', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.responseList) {
                 var dropdown = element.find("#response");
@@ -30,7 +30,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

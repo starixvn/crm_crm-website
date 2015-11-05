@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     angular.module('communicationlog-insert-application').directive('dropdownCommunicationTool', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.communicationToolList) {
                 var dropdown = element.find("#communicationTool");
@@ -26,7 +26,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

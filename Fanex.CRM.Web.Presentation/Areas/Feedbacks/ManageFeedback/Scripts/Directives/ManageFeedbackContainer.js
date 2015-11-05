@@ -8,7 +8,7 @@
     angular.module('feedback-manage-application').directive('tableManageFeedbackContainer', function () {
         var gridOptions, tableManageFeedback;
         function getGridOptions(scope, bodyData, totalItems) {
-            function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+            function ReRenderAfterPaged(page_index, itemsPerPage) {
                 gridOptions.pagerOption.currentPage = page_index;
                 gridOptions.pagerOption.itemsPerPage = itemsPerPage;
                 tableManageFeedback.fanexGrid(gridOptions);

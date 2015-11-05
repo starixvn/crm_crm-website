@@ -7,7 +7,7 @@
         return {
             restrict: 'C',
             scope: true,
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {               
                 element.unbind("keypress");
                 element.keypress(function (e) {
                     return sharedScriptManager.forceNumberInput(e);

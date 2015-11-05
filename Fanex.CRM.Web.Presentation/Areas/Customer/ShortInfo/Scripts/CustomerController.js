@@ -85,7 +85,7 @@
 
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
         },
-        function (data) {
+        function () {
             /* jshint unused: vars */
             $scope.unblockUI();
         });
@@ -106,7 +106,7 @@
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
             $scope.unblockUI();
         },
-        function (data) {
+        function () {
             /* jshint unused: vars */
             $scope.unblockUI();
         });
@@ -194,7 +194,7 @@
                     parent.homeManager.CachedData.isChangingDataLeftPanel = false;
                     $scope.unblockUI();
                 },
-                function (data) {
+                function () {
                     /* jshint unused: vars */
                     $scope.unblockUI();
                 });

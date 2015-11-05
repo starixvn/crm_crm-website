@@ -102,7 +102,7 @@
             return footerData;
         }
 
-        function renderWagerReport(scope, element, attrs) {
+        function renderWagerReport(scope, element) {
             if (!scope.wagerReport) {
                 return;
             }
@@ -127,7 +127,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newValues, oldValues) {
-                    renderWagerReport(scope, element, attrs);
+                    renderWagerReport(scope, element);
                 });
             }
         };

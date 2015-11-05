@@ -3,7 +3,7 @@
     /* global viewResources,
     crmConstants */
     angular.module('communication-application').directive('dropdownStatusContainer', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.statusList) {
                 var dropdown = element.find("#status");
@@ -28,7 +28,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

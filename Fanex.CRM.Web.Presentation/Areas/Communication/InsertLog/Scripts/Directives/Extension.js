@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     angular.module('communicationlog-insert-application').directive('dropdownExtension', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.extensionList) {
                 var dropdown = element.find("#ext");
@@ -26,7 +26,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

@@ -29,7 +29,7 @@
                     $scope.mainSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo();
                 });
         };
@@ -44,7 +44,7 @@
                     $scope.settingManagementView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.settingManagementView = null;
                     $uiBlockerService.unblockUI();
                 });

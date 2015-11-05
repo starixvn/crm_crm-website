@@ -163,7 +163,7 @@
 
             return bodyData;
         }
-        function renderListData(scope, element, attrs) {
+        function renderListData(scope, element) {
             _selfScope = scope;
             if (scope.dataSource === null) {
                 return;
@@ -226,11 +226,11 @@
                 dataSource: '=ngModel',
                 updatedItems: '='
             },
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 scope.updatedItems = scope.updatedItems || {};
                 scope.$watch("dataSource", function (oldval, newval) {
                     scope.updatedItems = {};
-                    renderListData(scope, element, attrs);
+                    renderListData(scope, element);
                 });
 
                 var $table = element.find("#inform-headline-list");

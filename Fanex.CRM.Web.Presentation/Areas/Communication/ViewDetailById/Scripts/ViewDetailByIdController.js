@@ -154,7 +154,7 @@
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
                 }
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
@@ -173,7 +173,7 @@
                     $scope.completedLoadFilterInfo();
                 }
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
@@ -290,7 +290,7 @@
                 $scope.countryOptions.DataList = $scope.countryOptions.DataList.concat(allSetting.CountryList);
                 $scope.completedLoadFilterInfo();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.completedLoadFilterInfo();
             });

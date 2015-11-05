@@ -55,7 +55,7 @@
                     $scope.titleDetail.Title = decodeHtml($scope.titleDetail.Title);
                     getAllSettings();
                 },
-                function (data) {
+                function () {
                     $scope.titleDetail = null;
                     $uiBlockerService.unblockUI();
                 });
@@ -135,7 +135,7 @@
 
                 $timeout($scope.getInforms, 2000);
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
         }
@@ -204,7 +204,7 @@
                     $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.listData = null;
                     $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
@@ -243,7 +243,7 @@
                     }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });

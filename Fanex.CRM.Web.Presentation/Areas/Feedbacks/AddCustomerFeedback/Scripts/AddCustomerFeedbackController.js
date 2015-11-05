@@ -71,7 +71,7 @@
                     $scope.allSettings = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.isLoadedAllSettings = true;
                     $scope.completedLoadFilterInfo();
                 });
@@ -89,7 +89,7 @@
                     $scope.customerInfo = customerInfo;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.isLoadedCustomerInfo = true;
                     $scope.completedLoadFilterInfo();
                 });
@@ -173,7 +173,7 @@
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
                 }
             },
-            function (data) {
+            function () {
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
         };
@@ -191,7 +191,7 @@
                     $scope.completedLoadFilterInfo();
                 }
             },
-            function (data) {
+            function () {
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();
@@ -240,7 +240,7 @@
                     var addResult = data.Result;
                     $scope.showAddResult(addResult);
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };

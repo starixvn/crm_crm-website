@@ -5,7 +5,7 @@
     /* jshint unused: vars */
     /* jshint camelcase: false */
     angular.module('communicationlog-edit-application').directive('dropdownLanguage', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             if (scope.languageList) {
                 var dropdown = element.find("#language");
                 dropdown.empty();
@@ -37,7 +37,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

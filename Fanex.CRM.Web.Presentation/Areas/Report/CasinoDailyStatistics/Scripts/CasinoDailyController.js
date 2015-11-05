@@ -92,7 +92,7 @@
                     $scope.dailySummary = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -106,7 +106,7 @@
             $scope.dailyDetail = data.Result;
             $uiBlockerService.unblockUI();
         },
-        function (data) {
+        function () {
             $uiBlockerService.unblockUI();
         });
         };

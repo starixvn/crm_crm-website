@@ -10,7 +10,7 @@
                 inputId: '@',
                 inputClass: '@'
             },
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 scope.$watch('inputValue', function (newValue, oldValue) {
                     var arr = String(newValue).split('');
                     var length = arr.length;

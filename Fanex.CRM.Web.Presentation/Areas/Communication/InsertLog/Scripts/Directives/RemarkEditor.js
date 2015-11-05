@@ -6,7 +6,7 @@
     currentUsername */
     angular.module('communicationlog-insert-application').directive('remarkEditorContainer', function () {
         var editorId = "remarkeditorbox";
-        function renderRemarkEditor(scope, element, attrs) {
+        function renderRemarkEditor(scope, element) {
             /* jshint unused: vars */
             var remark = scope.communicationLog.Remark.indexOf(" ", scope.communicationLog.Remark.length - 1) !== -1 ?
             scope.communicationLog.Remark.substring(0, scope.communicationLog.Remark.length - 1) + "&nbsp;" :
@@ -62,7 +62,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderRemarkEditor(scope, element, attrs);
+                    renderRemarkEditor(scope, element);
                 });
             }
         };

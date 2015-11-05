@@ -8,7 +8,7 @@
         var oldValue = null;
         var oldMinValue = null;
         var isOnSelect = false;
-        function renderDatePicker(scope, element, attrs) {
+        function renderDatePicker(scope, element) {
             /* jshint unused: vars */
             var toDatePicker = element.find("#toDate");
             toDatePicker.datepicker({
@@ -33,7 +33,7 @@
             toDatePicker.datepicker("option", "minDate", new Date(currentDate));
         }
 
-        function selectedDateChange(scope, element, attrs) {
+        function selectedDateChange(scope, element) {
             /* jshint unused: vars */
             var toDatePicker = element.find("#toDate");
             var selectedDate = toDatePicker.val();
@@ -52,9 +52,9 @@
             return selectedDate;
         }
 
-        function datePickerOnChange(scope, element, attrs) {
+        function datePickerOnChange(scope, element) {
             var toDatePicker = element.find("#toDate");
-            var selectedDate = selectedDateChange(scope, element, attrs);
+            var selectedDate = selectedDateChange(scope, element);
             if (isNaN(oldValue.valueOf()) ||
                     !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
                 oldValue = selectedDate;
@@ -77,7 +77,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 var toDatePicker = element.find("#toDate");
-                renderDatePicker(scope, element, attrs);
+                renderDatePicker(scope, element);
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
                     oldMinValue = new Date(newval);
@@ -86,7 +86,7 @@
 
                 oldValue = new Date(currentDate);
                 element.on('change', function () {
-                    datePickerOnChange(scope, element, attrs);
+                    datePickerOnChange(scope, element);
                 });
             }
         };

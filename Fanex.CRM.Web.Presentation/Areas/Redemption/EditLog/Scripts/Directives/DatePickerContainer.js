@@ -4,7 +4,7 @@
     sharedScriptManager */
     angular.module('redemption-editlog-application').directive('datePickerContainer', function () {
         var oldValue = null;
-        function renderDatePicker(scope, element, attrs) {
+        function renderDatePicker(scope, element) {
             /* jshint unused: vars */
             var txtCalendar = element.find(".txtcalendar");
             txtCalendar.datepicker({
@@ -22,7 +22,7 @@
 
             txtCalendar.datepicker('setDate', new Date(scope.redemptionLog.ClaimedTime));
         }
-        function selectedDateChange(scope, element, attrs) {
+        function selectedDateChange(scope, element) {
             /* jshint unused: vars */
             var fromDatePicker = element.find(".txtcalendar");
             var selectedDate = fromDatePicker.val();
@@ -40,13 +40,13 @@
         return {
             restrict: 'A',
             scope: true,
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 var txtCalendar = element.find(".txtcalendar");
-                renderDatePicker(scope, element, attrs);
+                renderDatePicker(scope, element);
 
                 oldValue = new Date(scope.redemptionLog.ClaimedTime);
                 element.on('change', function () {
-                    var selectedDate = selectedDateChange(scope, element, attrs);
+                    var selectedDate = selectedDateChange(scope, element);
                     if (isNaN(oldValue.valueOf()) ||
                     !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {
                         oldValue = selectedDate;

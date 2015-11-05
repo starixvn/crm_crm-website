@@ -8,7 +8,7 @@
     angular.module('communicationlog-insert-application').directive('timePickerStartTimeContainer', function () {
         var isSettingDate = false;
         var oldValue = null;
-        function renderDatePicker(scope, element, attrs) {
+        function renderDatePicker(scope, element) {
             /* jshint unused: vars */
             var datePicker = element.find(".timepicker");
 
@@ -85,7 +85,7 @@
             [arrayDate[2], arrayDate[0], arrayDate[1], hour, minute, amPM]));
             return newDate;
         }
-        function selectedTimeChange(scope, element, attrs) {
+        function selectedTimeChange(scope, element) {
             /* jshint unused: vars */
             updateCurrentTime();
             var datePicker = element.find(".timepicker");
@@ -125,7 +125,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 var datePicker = element.find(".timepicker");
-                renderDatePicker(scope, element, attrs);
+                renderDatePicker(scope, element);
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
                     if (!sharedScriptManager.datesEqual(new Date(oldValue), new Date(newval))) {
@@ -140,7 +140,7 @@
                 oldValue = currentTime;
                 scope.updateStartTime(currentTime);
                 element.on('change', function () {
-                    var selectedTime = selectedTimeChange(scope, element, attrs);
+                    var selectedTime = selectedTimeChange(scope, element);
 
                     if (!sharedScriptManager.datesEqual(selectedTime, new Date(oldValue))) {
                         oldValue = selectedTime;

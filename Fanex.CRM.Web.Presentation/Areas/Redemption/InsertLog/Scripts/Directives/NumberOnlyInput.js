@@ -10,7 +10,7 @@
                 inputId: '@',
                 inputClass: '@'
             },
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 element.keydown(function (e) {
                     var code = e.keyCode;
                     // Allow: backspace, delete, tab, escape, enter and '.'

@@ -162,7 +162,7 @@ var deleteAllInValidCustomers = function () {
 };
 
 angular.module('communicationlog-insert-application').directive('relatedCustomerContainer', function () {
-    function bindingRelatedCustomerEvent(scope, element, attrs) {
+    function bindingRelatedCustomerEvent(scope, element) {
         /* jshint unused: vars */
         var relatedTo = element.find("#txtrelatedcustomer");
         relatedTo.fcbkcomplete({
@@ -212,8 +212,8 @@ angular.module('communicationlog-insert-application').directive('relatedCustomer
     return {
         restrict: 'A',
         scope: true,
-        link: function (scope, element, attrs) {
-            bindingRelatedCustomerEvent(scope, element, attrs);
+        link: function (scope, element) {
+            bindingRelatedCustomerEvent(scope, element);
         }
     };
 });

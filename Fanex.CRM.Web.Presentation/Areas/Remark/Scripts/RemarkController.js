@@ -38,7 +38,7 @@
                     });
                     $scope.unblockUI();
                 },
-                function (data) {
+                function () {
                     /*jshint unused: vars*/
                     $scope.unblockUI();
                 });
@@ -93,7 +93,7 @@
                     $scope.getRemarks();
                     $scope.unblockUI();
                 },
-                function (data) {
+                function () {
                     /* jshint unused: vars */
                     $scope.unblockUI();
                 });

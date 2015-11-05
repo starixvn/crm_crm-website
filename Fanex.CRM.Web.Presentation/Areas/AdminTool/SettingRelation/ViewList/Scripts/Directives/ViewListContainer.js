@@ -9,7 +9,7 @@
         var selfScope;
         var settingRelationView;
 
-        function renderSettingRelations(scope, element, attrs) {
+        function renderSettingRelations(scope, element) {
             selfScope = scope;
             settingRelationView = scope.settingRelationView;
             if (scope.settingRelationView === null) {
@@ -99,7 +99,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    renderSettingRelations(scope, element, attrs);
+                    renderSettingRelations(scope, element);
                 });
             }
         };

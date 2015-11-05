@@ -6,7 +6,7 @@
     currentUsername */
     angular.module('redemption-insertlog-application').directive('remarkEditorContainer', function () {
         var editorId = "remarkeditorbox";
-        function renderRemarkEditor(scope, element, attrs) {
+        function renderRemarkEditor(scope, element) {
             /* jshint unused: vars */
             var remark = scope.redemptionLog.Remark;
             var editorHTML =
@@ -72,7 +72,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderRemarkEditor(scope, element, attrs);
+                    renderRemarkEditor(scope, element);
                 });
             }
         };

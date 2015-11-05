@@ -7,9 +7,10 @@
     /* jshint unused: vars */
     angular.module('settinglog-application').directive('tableSettingLogsContainer', function () {
         /* jshint camelcase: false */
-        function renderSettingLogs(scope, element, attrs) {
+        function renderSettingLogs(scope, element) {
             var gridOptions;
-            function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+            function ReRenderAfterPaged(page_index, itemsPerPage) {
+                console.log('test');
                 gridOptions.pagerOption.currentPage = page_index;
                 gridOptions.pagerOption.itemsPerPage = itemsPerPage;
                 tableSettingLogs.fanexGrid(gridOptions);
@@ -118,7 +119,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newValues, oldValues) {
                     /* jshint unused: vars */
-                    renderSettingLogs(scope, element, attrs);
+                    renderSettingLogs(scope, element);
                 });
             }
         };

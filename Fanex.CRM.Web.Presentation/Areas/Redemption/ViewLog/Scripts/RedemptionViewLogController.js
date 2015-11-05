@@ -53,7 +53,7 @@
                 $scope.statusList = data.Result.StatusList;
                 $scope.completedLoadFilterInfo();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.completedLoadFilterInfo();
             });
@@ -112,7 +112,7 @@
                 $scope.isSearched = true;
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.isSearched = true;
                 $scope.unblockUI();

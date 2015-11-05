@@ -270,7 +270,7 @@
                 $scope.isLoadedAllSetting = true;
                 $scope.completedLoadFilterInfo();
             },
-            function (data) {
+            function () {
                 $scope.isLoadedAllSetting = true;
                 $scope.completedLoadFilterInfo();
             });
@@ -560,7 +560,7 @@
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
                 }
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
@@ -579,7 +579,7 @@
                     $scope.completedLoadFilterInfo();
                 }
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
@@ -657,7 +657,7 @@
                 $scope.dynamicReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 $scope.unblockUI();
             });
         };
@@ -672,7 +672,7 @@
                 $scope.dynamicReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 $scope.unblockUI();
             });
         };

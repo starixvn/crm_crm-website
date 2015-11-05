@@ -37,7 +37,7 @@
                     $scope.mainSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo();
                 });
         };
@@ -57,7 +57,7 @@
                     $scope.addSettingRelationsParams.SubSettings = $scope.mainSettingRelationView;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.mainSettingRelationView = null;
                     $scope.oldMainSettingRelationView = angular.copy($scope.mainSettingRelationView);
                     $uiBlockerService.unblockUI();
@@ -88,7 +88,7 @@
                     $scope.showAddResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };

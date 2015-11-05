@@ -6,7 +6,7 @@
     currentUsername */
     angular.module('communicationlog-insert-application').directive('solutionEditorContainer', function () {
         var editorId = "solutioneditorbox";
-        function renderEditor(scope, element, attrs) {
+        function renderEditor(scope, element) {
             /* jshint unused: vars */
             var solution = scope.communicationLog ? scope.communicationLog.Solution : '';
             var editorHTML =
@@ -60,7 +60,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderEditor(scope, element, attrs);
+                    renderEditor(scope, element);
                 });
             }
         };

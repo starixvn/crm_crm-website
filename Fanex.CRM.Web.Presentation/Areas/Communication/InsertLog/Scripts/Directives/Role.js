@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     angular.module('communicationlog-insert-application').directive('dropdownRole', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.roleList) {
                 var dropdown = element.find("#role");
@@ -31,7 +31,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

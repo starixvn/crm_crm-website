@@ -196,7 +196,7 @@
             return bodyData;
         }
 
-        function renderCommunicationLogs(scope, element, attrs) {
+        function renderCommunicationLogs(scope, element) {
             if (scope.logs === null) {
                 return;
             }
@@ -323,7 +323,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
                     /* jshint unused: vars */
-                    renderCommunicationLogs(scope, element, attrs);
+                    renderCommunicationLogs(scope, element);
                 });
             }
         };

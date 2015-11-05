@@ -82,7 +82,7 @@
                     var allSetting = data.Result;
                     $scope.completedLoadFilterInfo(allSetting);
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo(null);
                 });
         };

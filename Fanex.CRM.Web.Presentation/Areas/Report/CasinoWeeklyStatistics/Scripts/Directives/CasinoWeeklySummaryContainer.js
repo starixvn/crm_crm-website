@@ -112,7 +112,7 @@
             return footerData;
         }
 
-        function renderCasinoWeeklySummary(scope, element, attrs) {
+        function renderCasinoWeeklySummary(scope, element) {
             var report = scope.weeklySummary;
             if (!report || !report.WeeklyCategories || report.WeeklyCategories.length === 0) {
                 element.addClass('hide');
@@ -142,13 +142,13 @@
 
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 scope.$watch('weeklySummary', function (newValue, oldValue) {
                     if (!newValue) {
                         return;
                     }
 
-                    renderCasinoWeeklySummary(scope, element, attrs);
+                    renderCasinoWeeklySummary(scope, element);
                 });
             }
         };

@@ -206,7 +206,7 @@
             return countryList;
         }
 
-        function renderStatisticReport(scope, element, attrs) {
+        function renderStatisticReport(scope, element) {
             if (scope.statisticReportOptions.DataList === null) {
                 return;
             }
@@ -220,16 +220,16 @@
             cachedData.gridOptions = gridOptions;
             tableStatisticReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
             element.find("#button-viewchart").click(function () {
-                viewChart(scope, element, attrs);
+                viewChart(scope, element);
             });
         }
 
-        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+        function ReRenderAfterPaged(page_index, itemsPerPage) {
             cachedData.scope.pagingStatisticReport(page_index, itemsPerPage);
             return false;
         }
 
-        function viewChart(scope, element, attrs) {
+        function viewChart(scope, element) {
             var crmChart = parent.crmChart;
             var chartInfo = cachedData.statisticReport ? cachedData.statisticReport.ChartInfo : null;
             crmChart.title = chartInfo.Name;
@@ -318,7 +318,7 @@
                         cachedData.table.fanexGrid("resizeHeight", getGridHeight());
                         scope.statisticReportOptions.IsResize = false;
                     } else {
-                        renderStatisticReport(scope, element, attrs);
+                        renderStatisticReport(scope, element);
                     }
 
                     scope.statisticReportOptions.IsUpdateGrid = false;

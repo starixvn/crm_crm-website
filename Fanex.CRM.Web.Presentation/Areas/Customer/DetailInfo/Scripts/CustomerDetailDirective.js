@@ -4,7 +4,7 @@
     crmConstants,
     viewResources */
     angular.module('customerdetail-application').directive('dropdownSiteContainer', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.siteList) {
                 var dropdown = element.find("#customerinfodetail-siteoptions");
@@ -45,12 +45,12 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };
     }).directive('dropdownCountryContainer', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.countryList) {
                 var dropdown = element.find("#customerinfodetail-countryoptions");
@@ -83,12 +83,12 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };
     }).directive('dropdownCountryBankContainer', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.countryList) {
                 var dropdown = element.find("#customerinfodetail-countryoptions-bank");
@@ -121,12 +121,12 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };
     }).directive('dropdownLanguage', function () {
-        function renderDropdownLanguage(scope, element, attrs) {
+        function renderDropdownLanguage(scope, element) {
             /* jshint unused: vars */
             var dropdown = element.find("#customerinfodetail-languageoptions");
             dropdown.empty();
@@ -182,10 +182,10 @@
             restrict: 'A',
             scope: true,
             link: function (scope, element, attrs) {
-                renderDropdownLanguage(scope, element, attrs);
+                renderDropdownLanguage(scope, element);
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
                     /* jshint unused: vars */
-                    renderDropdownLanguage(scope, element, attrs);
+                    renderDropdownLanguage(scope, element);
                     scope.updateSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
                     scope.updateOldSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
                 });

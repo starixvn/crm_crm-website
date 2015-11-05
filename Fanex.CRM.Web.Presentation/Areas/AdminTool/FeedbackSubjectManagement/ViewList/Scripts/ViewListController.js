@@ -42,7 +42,7 @@
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
                 }
             },
-            function (data) {
+            function () {
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
         };
@@ -60,7 +60,7 @@
                     $scope.completedLoadFilterInfo();
                 }
             },
-            function (data) {
+            function () {
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();
@@ -97,7 +97,7 @@
                     $scope.feedbackSubjectTemplateView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.feedbackSubjectTemplateView = null;
                     $uiBlockerService.unblockUI();
                 });
@@ -115,7 +115,7 @@
                     $scope.feedbackSubjectTemplateView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -190,7 +190,7 @@
                     $scope.feedbackSubjectTemplateView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };

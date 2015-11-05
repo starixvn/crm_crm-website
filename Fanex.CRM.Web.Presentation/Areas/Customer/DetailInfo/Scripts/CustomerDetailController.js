@@ -51,7 +51,7 @@
 
                 $scope.completedLoadDetailInfo();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.isLoadedAllSettings = true;
                 $scope.completedLoadDetailInfo();
@@ -179,7 +179,7 @@
                 $scope.showUpdateResult(updateResult);
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.unblockUI();
             });

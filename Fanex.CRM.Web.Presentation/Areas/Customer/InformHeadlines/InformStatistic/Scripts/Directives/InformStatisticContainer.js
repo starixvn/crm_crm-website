@@ -79,7 +79,7 @@
             return bodyData;
         }
 
-        function renderStatistic(scope, tableStatistic, statistic) {
+        function renderStatistic(tableStatistic, statistic) {
             if (!statistic) {
                 return;
             }
@@ -108,7 +108,7 @@
                 gridOptions = getGridOptions(scope.exportInformStatisticExcel);
 
                 scope.$watch(attrs.ngModel, function (newValue, oldValue) {
-                    renderStatistic(scope, tableStatistic, newValue);
+                    renderStatistic(tableStatistic, newValue);
 
                     if (canUpdateStatus === 1) {
                         var editTitleRows = tableStatistic.find('.edittitle-link-row');

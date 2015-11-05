@@ -158,7 +158,7 @@
                 }
                 $uiBlockerService.unblockUI();
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
         };

@@ -11,7 +11,7 @@
         var cachedReport;
         var cachedGridOptions;
 
-        function renderReport(scope, element, attrs) {
+        function renderReport(scope, element) {
             if (scope.detailReportOptions.DataList === null) {
                 return;
             }
@@ -139,7 +139,7 @@
             $(".table-licensee-report-container").removeClass(crmConstants.Enums.CssClass.DisplayNone);
         }
 
-        function rerenderAfterPaged(page_index, itemsPerPage, jq) {
+        function rerenderAfterPaged(page_index, itemsPerPage) {
             selfScope.pagingDetailReport(page_index, itemsPerPage);
             return false;
         }
@@ -154,7 +154,7 @@
                         return;
                     }
 
-                    renderReport(scope, element, attrs);
+                    renderReport(scope, element);
                     scope.detailReportOptions.IsUpdateGrid = false;
                 });
             }

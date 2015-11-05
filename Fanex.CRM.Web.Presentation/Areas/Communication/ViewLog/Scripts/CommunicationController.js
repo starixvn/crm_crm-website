@@ -51,7 +51,7 @@
                 $scope.logs = data.Result.Logs;
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.isLoadedAllSite = true;
                 $scope.unblockUI();
@@ -193,7 +193,7 @@
                 $scope.statusList = data.Result;
                 $scope.completedLoadFilterInfo();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.completedLoadFilterInfo();
             });
@@ -250,7 +250,7 @@
                 $scope.isSearched = true;
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.isSearched = true;
                 $scope.unblockUI();

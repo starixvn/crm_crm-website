@@ -9,7 +9,7 @@
         var selfScope;
         var settingManagementView;
 
-        function renderSettingManagement(scope, element, attrs) {
+        function renderSettingManagement(scope, element) {
             selfScope = scope;
             settingManagementView = scope.settingManagementView;
             if (scope.settingManagementView === null) {

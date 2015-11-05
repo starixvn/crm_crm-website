@@ -4,7 +4,7 @@
     keyboardManager */
     angular.module('redemption-insertlog-application').directive('subjectAutoComplete', function () {
         var suggestionItemNumber = 15;
-        function bindingAutoSuggestionSubject(scope, element, attrs) {
+        function bindingAutoSuggestionSubject(scope, element) {
             /* jshint unused: vars */
             element.keyup(function (e) {
                 if (isAutoSuggest(e.keyCode)) {
@@ -44,8 +44,8 @@
         return {
             restrict: 'A',
             scope: true,
-            link: function (scope, element, attrs) {
-                bindingAutoSuggestionSubject(scope, element, attrs);
+            link: function (scope, element) {
+                bindingAutoSuggestionSubject(scope, element);
             }
         };
     });

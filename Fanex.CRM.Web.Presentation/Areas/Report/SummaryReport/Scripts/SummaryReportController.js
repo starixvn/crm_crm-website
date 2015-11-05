@@ -56,7 +56,7 @@
     $scope.categoryOptions.DataList = data.Result.Categories;
     $uiBlockerService.unblockUI();
 },
-function (data) {
+function () {
     /* jshint unused: vars */
     $uiBlockerService.unblockUI();
 });

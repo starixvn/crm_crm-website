@@ -37,7 +37,7 @@
                     var updateResult = data.Result;
                     $scope.completedUpdate(updateResult);
                 },
-                function (data) {
+                function () {
                     /* jshint unused: vars */
                     $scope.unblockUI();
                 });

@@ -159,12 +159,12 @@
             return gridOptions;
         }
 
-        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+        function ReRenderAfterPaged(page_index, itemsPerPage) {
             cachedData.scope.pagingSettlementReport(page_index, itemsPerPage);
             return false;
         }
 
-        function renderSettlementReport(scope, element, attrs) {
+        function renderSettlementReport(scope, element) {
             if (scope.settlementReportOptions.DataList === null) {
                 return;
             }
@@ -178,11 +178,11 @@
             cachedData.gridOptions = gridOptions;
             tableSettlementReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
             element.find("#button-viewchart").click(function () {
-                viewChart(scope, element, attrs);
+                viewChart(scope, element);
             });
         }
 
-        function viewChart(scope, element, attrs) {
+        function viewChart(scope, element) {
             var crmChart = parent.crmChart;
             var chartInfo = cachedData.settlementReport ? cachedData.settlementReport.ChartInfo : null;
             crmChart.title = chartInfo.Name;
@@ -272,7 +272,7 @@
                         return;
                     }
 
-                    renderSettlementReport(scope, element, attrs);
+                    renderSettlementReport(scope, element);
                     scope.settlementReportOptions.IsUpdateGrid = false;
                 });
             }

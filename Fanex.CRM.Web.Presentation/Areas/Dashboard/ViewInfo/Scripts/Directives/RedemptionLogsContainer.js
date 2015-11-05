@@ -4,7 +4,7 @@
     crmConstants,
     sharedScriptManager */
     angular.module('dashboard-application').directive('tableRedemptionLogsContainer', function () {
-        function renderRedemptionLogs(scope, element, attrs) {
+        function renderRedemptionLogs(scope, element) {
             if (scope.redemptionLogs == null) {
                 return;
             }
@@ -86,7 +86,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
                     /* jshint unused: vars */
-                    renderRedemptionLogs(scope, element, attrs);
+                    renderRedemptionLogs(scope, element);
                 });
             }
         };

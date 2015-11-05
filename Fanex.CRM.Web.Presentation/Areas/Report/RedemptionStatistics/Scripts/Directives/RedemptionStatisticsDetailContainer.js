@@ -24,7 +24,7 @@
                 autoFixFrozenRowHeight: true
             };
 
-            data.pagerOption.pagerSelectCallBack = function (page_index, itemsPerPage, jq) {
+            data.pagerOption.pagerSelectCallBack = function (page_index, itemsPerPage) {
                 selfScope.getRedemptionStatisticsDetailReportWithPaging(page_index, itemsPerPage);
                 return false;
             };
@@ -32,7 +32,7 @@
             return $.extend({}, data, options);
         }
 
-        function renderRedemptionDetail(scope, element, attrs) {
+        function renderRedemptionDetail(scope, element) {
             selfScope = scope;
 
             var report = scope.redemptionStatisticsOptions.DetailDataList;
@@ -52,7 +52,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
                     if (scope.isSubmitClick) {
-                        renderRedemptionDetail(scope, element, attrs);
+                        renderRedemptionDetail(scope, element);
                     }
                 });
             }

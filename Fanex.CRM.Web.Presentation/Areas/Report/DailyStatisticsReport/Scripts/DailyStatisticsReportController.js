@@ -52,7 +52,7 @@
                     $scope.licenseeReportOptions.IsUpdateGrid = true;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -98,7 +98,7 @@
                     $scope.detailReportOptions.IsUpdateGrid = true;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -119,7 +119,7 @@
                     $scope.detailReportOptions.IsUpdateGrid = true;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };

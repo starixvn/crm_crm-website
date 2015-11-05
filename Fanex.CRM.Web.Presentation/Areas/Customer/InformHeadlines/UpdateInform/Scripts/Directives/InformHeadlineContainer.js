@@ -8,7 +8,7 @@
         var gridOptions, tableInformHeadline;
 
         function getGridOptions(bodyData, scope) {
-            function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+            function ReRenderAfterPaged(page_index, itemsPerPage) {
                 var onPageChanged = function () {
                     gridOptions.pagerOption.currentPage = page_index;
                     gridOptions.pagerOption.itemsPerPage = itemsPerPage;
@@ -79,7 +79,7 @@
             return bodyData;
         }
 
-        function renderInform(informs, scope, element, attrs) {
+        function renderInform(informs, scope, element) {
             var dataLength = !informs ? 0 : informs.length;
             var bodyData = dataLength === 0 ? [] : getGridBody(informs, scope);
             gridOptions = getGridOptions(bodyData, scope);
@@ -149,7 +149,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newValues, oldValues) {
-                    renderInform(newValues, scope, element, attrs);
+                    renderInform(newValues, scope, element);
                     if (newValues && newValues.length > 0) {
                         element.find('.status')
                         .unbind('change')

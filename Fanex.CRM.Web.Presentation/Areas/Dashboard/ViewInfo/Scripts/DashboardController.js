@@ -63,7 +63,7 @@
                     $scope.customerInfo = data.Result;
                     $scope.completedLoadDashboard();
                 },
-                function (data) {
+                function () {
                     /* jshint unused: vars */
                     $scope.isLoadedCustomerInfo = true;
                     $scope.completedLoadDashboard();
@@ -80,7 +80,7 @@
                     $scope.customerRemarks = data.Result;
                     $scope.completedLoadDashboard();
                 },
-                function (data) {
+                function () {
                     /* jshint unused: vars */
                     $scope.isLoadedCustomerRemarks = true;
                     $scope.completedLoadDashboard();
@@ -97,7 +97,7 @@
                     $scope.redemptionLogs = data.Result;
                     $scope.completedLoadDashboard();
                 },
-                function (data) {
+                function () {
                     /* jshint unused: vars */
                     $scope.isLoadedRedemptionLogs = true;
                     $scope.completedLoadDashboard();
@@ -114,7 +114,7 @@
                     $scope.communicationLogs = data.Result;
                     $scope.completedLoadDashboard();
                 },
-                function (data) {
+                function () {
                     /* jshint unused: vars */
                     $scope.isLoadedCommunicationLogs = true;
                     $scope.completedLoadDashboard();

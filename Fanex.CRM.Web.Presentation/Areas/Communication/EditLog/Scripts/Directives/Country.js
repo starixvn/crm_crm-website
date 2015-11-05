@@ -2,7 +2,7 @@
     "use strict";
     /* global crmConstants, viewResources */
     angular.module('communicationlog-edit-application').directive('dropdownCountry', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.countryList) {
                 var dropdown = element.find("#country");
@@ -38,7 +38,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

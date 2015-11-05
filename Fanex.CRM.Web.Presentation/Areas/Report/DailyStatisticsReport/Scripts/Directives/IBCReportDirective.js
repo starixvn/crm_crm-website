@@ -10,7 +10,7 @@
         var cachedReport;
         var cachedGridOptions;
 
-        function renderIBCReport(scope, element, attrs) {
+        function renderIBCReport(scope, element) {
             if (scope.ibcReportOptions.DataList === null) {
                 return;
             }
@@ -53,7 +53,7 @@
                         return;
                     }
 
-                    renderIBCReport(scope, element, attrs);
+                    renderIBCReport(scope, element);
                     scope.ibcReportOptions.IsUpdateGrid = false;
                 });
             }

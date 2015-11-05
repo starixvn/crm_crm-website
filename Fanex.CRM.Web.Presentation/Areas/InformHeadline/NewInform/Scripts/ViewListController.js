@@ -53,7 +53,7 @@
                 $scope.stations = allSetting.Stations;
                 $uiBlockerService.unblockUI();
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
         }
@@ -131,7 +131,7 @@
                     $scope.showSaveButton = data.Result.Items.length > 0;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.listData = null;
                     $scope.showSaveButton = false;
                     $uiBlockerService.unblockUI();
@@ -170,7 +170,7 @@
                     }, sharedScriptManager.cachedData.alertSuccessTime);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.messageResultOptions = new MessageResult("Add new case failed!", true, false);
                     $uiBlockerService.unblockUI();
                 });

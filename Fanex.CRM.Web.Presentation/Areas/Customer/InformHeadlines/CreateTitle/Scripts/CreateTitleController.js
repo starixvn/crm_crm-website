@@ -33,7 +33,7 @@
                         parent.ClosePopup();
                     }
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };

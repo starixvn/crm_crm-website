@@ -29,7 +29,7 @@
                 $scope.feedbackStatisticDetail = data.Result;
                 $uiBlockerService.unblockUI();
             },
-            function (data) {
+            function () {
                 $uiBlockerService.unblockUI();
             });
         };

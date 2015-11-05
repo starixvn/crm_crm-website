@@ -170,12 +170,12 @@ contact.PhoneNumber !== '') {
             }
         }
 
-        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+        function ReRenderAfterPaged(page_index, itemsPerPage) {
             cachedData.scope.pagingCustomerReport(page_index, itemsPerPage);
             return false;
         }
 
-        function renderCustomerReport(scope, element, attrs) {
+        function renderCustomerReport(scope, element) {
             if (scope.customerReportOptions.DataList === null) {
                 return;
             }
@@ -203,7 +203,7 @@ contact.PhoneNumber !== '') {
                         cachedData.reportTable.fanexGrid("resizeHeight", getGridHeight());
                         scope.customerReportOptions.IsResize = false;
                     } else {
-                        renderCustomerReport(scope, element, attrs);
+                        renderCustomerReport(scope, element);
                     }
 
                     scope.customerReportOptions.IsUpdateGrid = false;

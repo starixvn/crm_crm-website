@@ -137,7 +137,7 @@
             $scope.statusOptions.DataList = allSetting.StatusList;
             $scope.completedLoadFilterInfo();
         },
-        function (data) {
+        function () {
             $scope.isLoadedAllSetting = true;
             $scope.completedLoadFilterInfo();
         });
@@ -233,7 +233,7 @@
 
             $scope.unblockUI();
         },
-        function (data) {
+        function () {
             $scope.unblockUI();
         });
         };
@@ -276,7 +276,7 @@
             $scope.isShowSummary = false;
             $scope.unblockUI();
         },
-        function (data) {
+        function () {
             $scope.unblockUI();
         });
         };
@@ -292,7 +292,7 @@
             $scope.isShowSummary = false;
             $scope.unblockUI();
         },
-        function (data) {
+        function () {
             $scope.unblockUI();
         });
         };

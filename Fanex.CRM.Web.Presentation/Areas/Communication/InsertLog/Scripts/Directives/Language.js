@@ -4,7 +4,7 @@
     crmConstants */
     /* jshint camelcase: false */
     angular.module('communicationlog-insert-application').directive('dropdownLanguage', function () {
-        function renderDropdown(scope, element, attrs) {
+        function renderDropdown(scope, element) {
             /* jshint unused: vars */
             if (scope.languageList) {
                 var dropdown = element.find("#language");
@@ -33,7 +33,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     /* jshint unused: vars */
-                    renderDropdown(scope, element, attrs);
+                    renderDropdown(scope, element);
                 });
             }
         };

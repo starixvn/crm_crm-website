@@ -121,7 +121,7 @@
                     $scope.getFeedbackSubjectTemplateByPagingIndex(i);
                 }
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
@@ -140,7 +140,7 @@
                     $scope.completedLoadFilterInfo();
                 }
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
@@ -549,7 +549,7 @@
                 $scope.showInsertResult(insertResult);
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.unblockUI();
             });
@@ -697,7 +697,7 @@
 
                 $scope.completedLoadFilterInfo();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.completedLoadFilterInfo();
             });

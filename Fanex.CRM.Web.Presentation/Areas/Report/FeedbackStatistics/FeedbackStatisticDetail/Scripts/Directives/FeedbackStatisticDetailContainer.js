@@ -9,7 +9,7 @@
         var gridOptions, tableFeedbackStatisticDetail;
 
         function getGridOptions(scope, reportTitle, bodyData) {
-            function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+            function ReRenderAfterPaged(page_index, itemsPerPage) {
                 gridOptions.pagerOption.currentPage = page_index;
                 gridOptions.pagerOption.itemsPerPage = itemsPerPage;
                 tableFeedbackStatisticDetail.fanexGrid(gridOptions);
@@ -123,7 +123,7 @@
             return '<div class="main-category">' + main + '</div><span class="sub-category">' + sub + '</span></div>';
         }
 
-        function renderFeedbackStatisticDetail(scope, element, attrs) {
+        function renderFeedbackStatisticDetail(scope, element) {
             isShowSubCategory = scope.searchCriteria.MainCategoryId === 0 &&
             scope.searchCriteria.SubCategoryId === 0 &&
             scope.searchCriteria.ValueId === 0;
@@ -146,13 +146,13 @@
 
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 scope.$watch('feedbackStatisticDetail', function (newValue, oldValue) {
                     if (!newValue) {
                         return;
                     }
 
-                    renderFeedbackStatisticDetail(scope, element, attrs);
+                    renderFeedbackStatisticDetail(scope, element);
                 });
             }
         };

@@ -11,7 +11,7 @@
     moment */
 
     angular.module('activitylog-application').controller('activityLogController',
-    ['$scope', '$activityLogService', 
+    ['$scope', '$activityLogService',
     function ($scope, $activityLogService) {
         $scope.searchCriteria = {
             CustomerId: customerId,
@@ -61,7 +61,7 @@
                 $scope.searchCriteria.Action = $scope.actions[0];
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.unblockUI();
             });
@@ -88,7 +88,7 @@
                 $scope.isSearched = true;
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 /* jshint unused: vars */
                 $scope.isSearched = true;
                 $scope.unblockUI();

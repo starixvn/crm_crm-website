@@ -146,7 +146,7 @@
                 $scope.languageOptions.DataList = allSetting.LanguageList;
                 $scope.completedLoadFilterInfo();
             },
-            function (data) {
+            function () {
                 $scope.completedLoadFilterInfo();
             });
         };
@@ -214,7 +214,7 @@
                 $scope.customerReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 $scope.unblockUI();
             });
         };
@@ -230,7 +230,7 @@
                 $scope.customerReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 $scope.unblockUI();
             });
         };
@@ -244,7 +244,7 @@
                 $scope.customerReportOptions.IsUpdateGrid = true;
                 $scope.unblockUI();
             },
-            function (data) {
+            function () {
                 $scope.unblockUI();
             });
         };

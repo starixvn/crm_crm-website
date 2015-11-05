@@ -9,7 +9,7 @@
         var selfScope;
         var settingRelationView;
 
-        function renderSettingRelations(scope, element, attrs) {
+        function renderSettingRelations(scope, element) {
             selfScope = scope;
             settingRelationView = scope.mainSettingRelationView;
             if (scope.mainSettingRelationView === null) {
@@ -77,7 +77,7 @@
             });
 
             textboxDisplayOrder.unbind("keyup");
-            textboxDisplayOrder.keyup(function (e) {
+            textboxDisplayOrder.keyup(function () {
                 var rowIndex = parseInt($(this).attr("data-row-index"));
                 selfScope.updateOrder(rowIndex, $(this).val());
             });
@@ -96,7 +96,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    renderSettingRelations(scope, element, attrs);
+                    renderSettingRelations(scope, element);
                 });
             }
         };

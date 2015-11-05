@@ -10,7 +10,7 @@
     angular.module('communicationlog-edit-application').directive('remarkEditorContainer', function () {
         var editorId = "remarkeditorbox";
 
-        function renderRemarkEditor(scope, element, attrs) {
+        function renderRemarkEditor(scope, element) {
             var remark = communicationLog.Remark.indexOf(" ", communicationLog.Remark.length - 1) !== -1 ?
             communicationLog.Remark.substring(0, communicationLog.Remark.length - 1) + "&nbsp;" :
             communicationLog.Remark;
@@ -68,7 +68,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    renderRemarkEditor(scope, element, attrs);
+                    renderRemarkEditor(scope, element);
                 });
             }
         };

@@ -125,7 +125,7 @@
             return [{ Columns: totalRow }, { Columns: grandTotal}];
         }
 
-        function renderCasinoDailySummary(scope, element, attrs) {
+        function renderCasinoDailySummary(scope, element) {
             var report = scope.dailySummary;
             var categoryCasinoGroups = report.CategoryCasinoGroups;
             var total = report.Total;
@@ -147,13 +147,13 @@
 
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 scope.$watch('dailySummary', function (newValue, oldValue) {
                     if (!newValue) {
                         return;
                     }
 
-                    renderCasinoDailySummary(scope, element, attrs);
+                    renderCasinoDailySummary(scope, element);
                 });
             }
         };

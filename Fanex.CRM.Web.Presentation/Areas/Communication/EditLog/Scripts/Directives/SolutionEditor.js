@@ -9,7 +9,7 @@
     /* jshint unused: vars */
     angular.module('communicationlog-edit-application').directive('solutionEditorContainer', function () {
         var editorId = "solutioneditorbox";
-        function renderEditor(scope, element, attrs) {
+        function renderEditor(scope, element) {
             var solution = communicationLog.Solution;
             var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
@@ -63,7 +63,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    renderEditor(scope, element, attrs);
+                    renderEditor(scope, element);
                 });
             }
         };

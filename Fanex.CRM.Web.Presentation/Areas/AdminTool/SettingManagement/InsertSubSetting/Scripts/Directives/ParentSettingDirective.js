@@ -9,7 +9,7 @@
     directiveManager.registerParentSettingContainer = function (angularApplication, registerParams) {
         angularApplication.directive(registerParams.PlugInName, function () {
             var dataList = [];
-            function renderDropdown(scope, element, attrs) {
+            function renderDropdown(scope, element) {
                 var options = scope[registerParams.OptionName];
                 if (options === null ||
                 options === undefined ||
@@ -78,7 +78,7 @@
                 scope: true,
                 link: function (scope, element, attrs) {
                     scope.$watch(attrs.ngModel, function (newval, oldval) {
-                        renderDropdown(scope, element, attrs);
+                        renderDropdown(scope, element);
                     });
                 }
             };

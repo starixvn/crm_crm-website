@@ -10,7 +10,7 @@
         var cachedReport;
         var cachedGridOptions;
 
-        function renderReport(scope, element, attrs) {
+        function renderReport(scope, element) {
             if (scope.licenseeReportOptions.DataList === null) {
                 return;
             }
@@ -54,7 +54,7 @@
                         return;
                     }
 
-                    renderReport(scope, element, attrs);
+                    renderReport(scope, element);
                     scope.licenseeReportOptions.IsUpdateGrid = false;
                 });
             }

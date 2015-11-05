@@ -36,7 +36,7 @@
                     $scope.parentSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo();
                 });
         };
@@ -69,7 +69,7 @@
                     $scope.showInsertResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };

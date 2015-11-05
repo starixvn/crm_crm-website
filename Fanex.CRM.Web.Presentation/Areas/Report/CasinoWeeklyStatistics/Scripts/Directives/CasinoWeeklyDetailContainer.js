@@ -107,7 +107,7 @@
             return bodyData;
         }
 
-        function renderCasinoWeeklyDetail(scope, element, attrs) {
+        function renderCasinoWeeklyDetail(scope, element) {
             var report = scope.weeklyDetail;
 
             var casinoDetails = report.CasinoDetails;
@@ -124,13 +124,13 @@
 
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 scope.$watch('weeklyDetail', function (newValue, oldValue) {
                     if (!newValue) {
                         return;
                     }
 
-                    renderCasinoWeeklyDetail(scope, element, attrs);
+                    renderCasinoWeeklyDetail(scope, element);
                 });
             }
         };

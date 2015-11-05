@@ -8,7 +8,7 @@
         var oldValue = null;
         var isOnSelect = false;
 
-        function renderDatePicker(scope, element, attrs) {
+        function renderDatePicker(scope, element) {
             var txtCalendar = element.find(".txtcalendar");
             txtCalendar.datepicker({
                 dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,
@@ -33,7 +33,7 @@
                 txtCalendar.datepicker('setDate', new Date(scope.customerDetail.BirthDayString));
             }
         }
-        function selectedDateChange(scope, element, attrs) {
+        function selectedDateChange(scope, element) {
             /* jshint unused: vars */
             var fromDatePicker = element.find(".txtcalendar");
             var selectedDate = fromDatePicker.val();
@@ -56,15 +56,15 @@
         return {
             restrict: 'A',
             scope: true,
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 var txtCalendar = element.find(".txtcalendar");
-                renderDatePicker(scope, element, attrs);
+                renderDatePicker(scope, element);
 
                 oldValue = scope.customerDetail && scope.customerDetail.BirthDayString ?
                 new Date(scope.customerDetail.BirthDayString) :
                 new Date(currentDate);
                 element.on('change', function () {
-                    var selectedDate = selectedDateChange(scope, element, attrs);
+                    var selectedDate = selectedDateChange(scope, element);
                     if (oldValue === "" ||
                     isNaN(oldValue.valueOf()) ||
                     !sharedScriptManager.datesEqual(selectedDate, new Date(oldValue))) {

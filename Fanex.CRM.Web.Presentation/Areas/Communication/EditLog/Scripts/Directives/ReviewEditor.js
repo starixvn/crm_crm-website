@@ -9,7 +9,7 @@
     /* jshint camelcase: false */
     angular.module('communicationlog-edit-application').directive('reviewEditorContainer', function () {
         var editorId = "revieweditorbox";
-        function renderEditor(scope, element, attrs) {
+        function renderEditor(scope, element) {
             var review = communicationLog.Review;
             var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
@@ -67,7 +67,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    renderEditor(scope, element, attrs);
+                    renderEditor(scope, element);
                 });
             }
         };

@@ -28,7 +28,7 @@
                     $scope.mainSettingOptions.DataList = data.Result;
                     $scope.completedLoadFilterInfo();
                 },
-                function (data) {
+                function () {
                     $scope.completedLoadFilterInfo();
                 });
         };
@@ -44,7 +44,7 @@
                     $scope.settingRelationView = data.Result;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.settingRelationView = null;
                     $uiBlockerService.unblockUI();
                 });

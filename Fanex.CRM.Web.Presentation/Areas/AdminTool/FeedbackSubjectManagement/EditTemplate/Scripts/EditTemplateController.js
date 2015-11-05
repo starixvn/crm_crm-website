@@ -34,7 +34,7 @@
                     $scope.showEditResult(data.Result);
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };
@@ -47,7 +47,7 @@
                     $scope.updateChangeFlag();
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $uiBlockerService.unblockUI();
                 });
         };

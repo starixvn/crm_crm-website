@@ -9,7 +9,7 @@
         var selfScope;
         var feedbackSubjectTemplateView;
 
-        function renderFeedbackSubjectTemplates(scope, element, attrs) {
+        function renderFeedbackSubjectTemplates(scope, element) {
             selfScope = scope;
             feedbackSubjectTemplateView = scope.feedbackSubjectTemplateView;
             if (scope.feedbackSubjectTemplateView === null) {
@@ -91,7 +91,7 @@
             });
         }
 
-        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+        function ReRenderAfterPaged(page_index, itemsPerPage) {
             selfScope.pagingFeedbackSubjectTemplateView(page_index, itemsPerPage);
             return false;
         }
@@ -101,7 +101,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    renderFeedbackSubjectTemplates(scope, element, attrs);
+                    renderFeedbackSubjectTemplates(scope, element);
                 });
             }
         };

@@ -8,7 +8,7 @@
     /* jshint camelcase: false */
     angular.module('redemption-editlog-application').directive('remarkEditorContainer', function () {
         var editorId = "remarkeditorbox";
-        function renderRemarkEditor(scope, element, attrs) {
+        function renderRemarkEditor(scope, element) {
             var remark = scope.redemptionLog.Remark;
             var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +
@@ -64,7 +64,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    renderRemarkEditor(scope, element, attrs);
+                    renderRemarkEditor(scope, element);
                 });
             }
         };

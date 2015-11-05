@@ -116,7 +116,7 @@
             return footerData;
         }
 
-        function renderSummaryReport(scope, element, attrs) {
+        function renderSummaryReport(scope, element) {
             var grid = element.find('#table-summary-report').empty();
             var report = scope.summaryReport;
             if (!report || !report.Months || report.Months.length === 0) {
@@ -215,13 +215,13 @@
                 summaryReport: '=',
                 exportSummaryReportExcel: '&'
             },
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 scope.$watch('summaryReport', function (newValue, oldValue) {
                     if (!newValue) {
                         return;
                     }
 
-                    renderSummaryReport(scope, element, attrs);
+                    renderSummaryReport(scope, element);
                 });
             }
         };

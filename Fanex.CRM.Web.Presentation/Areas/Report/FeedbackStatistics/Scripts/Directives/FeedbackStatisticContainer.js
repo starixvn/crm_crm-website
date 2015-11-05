@@ -19,7 +19,7 @@
         }
 
         function getGridOptions(scope, reportTitle, bodyData, footerData, usernames) {
-            function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+            function ReRenderAfterPaged(page_index, itemsPerPage) {
                 gridOptions.pagerOption.currentPage = page_index;
                 gridOptions.pagerOption.itemsPerPage = itemsPerPage;
                 tableFeedbackStatistic.fanexGrid(gridOptions);
@@ -180,7 +180,7 @@
             return datasets;
         }
 
-        function renderFeedbackStatistic(scope, element, attrs) {
+        function renderFeedbackStatistic(scope, element) {
             var report = scope.feedbackStatistic;
             if (!report || report.TotalItems === 0) {
                 element.addClass('hide');
@@ -214,13 +214,13 @@
 
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function (scope, element) {
                 scope.$watch('feedbackStatistic', function (newValue, oldValue) {
                     if (!newValue) {
                         return;
                     }
 
-                    renderFeedbackStatistic(scope, element, attrs);
+                    renderFeedbackStatistic(scope, element);
                 });
             }
         };

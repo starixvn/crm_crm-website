@@ -7,7 +7,7 @@ angular.module('informHeadlineApplication').directive('informHeadlineListContain
     var selfScope;
     var listData;
 
-    function renderListData(scope, element, attrs) {
+    function renderListData(scope, element) {
         selfScope = scope;
         listData = scope.listData;
 
@@ -95,7 +95,7 @@ angular.module('informHeadlineApplication').directive('informHeadlineListContain
         scope: true,
         link: function (scope, element, attrs) {
             scope.$watch(attrs.ngModel, function (oldval, newval) {
-                renderListData(scope, element, attrs);
+                renderListData(scope, element);
             });
 
             var $table = element.find("#inform-headline-list");

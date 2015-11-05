@@ -43,7 +43,7 @@ angular.module('informHeadlineApplication').controller('ViewListController',
                     $scope.listData = data.Result.Items;
                     $uiBlockerService.unblockUI();
                 },
-                function (data) {
+                function () {
                     $scope.listData = null;
                     $uiBlockerService.unblockUI();
                 });

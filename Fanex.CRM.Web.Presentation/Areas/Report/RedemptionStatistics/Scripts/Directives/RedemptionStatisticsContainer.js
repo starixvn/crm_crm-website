@@ -25,7 +25,7 @@
             return $.extend({}, data, options);
         }
 
-        function renderRedemptionSummary(scope, element, attrs) {
+        function renderRedemptionSummary(scope, element) {
             selfScope = scope;
 
             var report = scope.redemptionStatisticsOptions.SummaryDataList;
@@ -57,7 +57,7 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
                     if (scope.isSubmitClick) {
-                        renderRedemptionSummary(scope, element, attrs);
+                        renderRedemptionSummary(scope, element);
                         scope.redemptionStatisticsOptions.IsUpdateGrid = false;
                     }
                 });

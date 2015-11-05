@@ -160,7 +160,7 @@
             });
         }
 
-        function renderDynamicReport(scope, element, attrs) {
+        function renderDynamicReport(scope, element) {
             if (scope.dynamicReportOptions.DataList === null) {
                 return;
             }
@@ -175,16 +175,16 @@
             tableDynamicReport.empty().removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
             bindLogLink(tableDynamicReport, scope);
             element.find("#button-viewchart").click(function () {
-                viewChart(scope, element, attrs);
+                viewChart(scope, element);
             });
         }
 
-        function ReRenderAfterPaged(page_index, itemsPerPage, jq) {
+        function ReRenderAfterPaged(page_index, itemsPerPage) {
             selfScope.pagingDynamicReport(page_index, itemsPerPage);
             return false;
         }
 
-        function viewChart(scope, element, attrs) {
+        function viewChart(scope, element) {
             var crmChart = parent.crmChart;
             var chartInfo = cachedDynamicReport ? cachedDynamicReport.ChartInfo : null;
             crmChart.title = chartInfo.Name;
@@ -246,7 +246,7 @@
                         cachedTable.fanexGrid("resizeHeight", getGridHeight());
                         scope.dynamicReportOptions.IsResize = false;
                     } else {
-                        renderDynamicReport(scope, element, attrs);
+                        renderDynamicReport(scope, element);
                     }
 
                     scope.dynamicReportOptions.IsUpdateGrid = false;
