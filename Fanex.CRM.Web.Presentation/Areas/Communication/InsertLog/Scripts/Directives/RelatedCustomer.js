@@ -119,7 +119,7 @@ var getRelatedCustomer = function () {
     var arrUser = [];
     var userName = "";
     $('#related td').each(function (i, td) {
-        //jshint unused:false
+        /* jshint unused: false */
         arrUser[i] = this.id;
     });
     userName = arrUser.join(",");

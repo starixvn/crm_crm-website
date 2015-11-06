@@ -44,7 +44,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     renderDropdown(scope, element);
                 });
             }
@@ -82,7 +82,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     renderDropdown(scope, element);
                 });
             }
@@ -120,7 +120,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     renderDropdown(scope, element);
                 });
             }
@@ -184,7 +184,7 @@
             link: function (scope, element, attrs) {
                 renderDropdownLanguage(scope, element);
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     renderDropdownLanguage(scope, element);
                     scope.updateSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));
                     scope.updateOldSelectedLanguage(element.find("#customerinfodetail-languageoptions").fanexMultiSelect("getItems", true).join(","));

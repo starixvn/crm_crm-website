@@ -10,7 +10,6 @@
         var oldMaxValue = null;
         var isOnSelect = false;
         function renderDatePicker(scope, element) {
-            //jshint unused:false
             var fromDatePicker = element.find("#fromDate");
             fromDatePicker.datepicker({
                 dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,
@@ -78,7 +77,7 @@
                 var fromDatePicker = element.find("#fromDate");
                 renderDatePicker(scope, element);
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     oldMaxValue = new Date(newval);
                     fromDatePicker.datepicker("option", "maxDate", new Date(oldMaxValue));
                 });

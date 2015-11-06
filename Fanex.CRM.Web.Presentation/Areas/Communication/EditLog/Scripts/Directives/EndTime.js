@@ -35,7 +35,7 @@
             }
         }
         function setTimeWithDate(dateInfo, datePicker) {
-            //jshint unused:false          
+            /* jshint unused: false */    
             var arrayDate = dateInfo.split("/");
             var isValidDate = sharedScriptManager.isValidDate(new Date(dateInfo));
             if (arrayDate.length < 3 || !isValidDate) {
@@ -49,7 +49,7 @@
             return newDate;
         }
         function setTimeWithDateAndTime(dateInfo, timeInfo, amPM, datePicker) {
-            //jshint unused:false
+            /* jshint unused: false */
             var arrayDate = dateInfo.split("/");
             var isValidDate = sharedScriptManager.isValidDate(new Date(dateInfo));
             if (arrayDate.length < 3 || !isValidDate) {
@@ -78,7 +78,6 @@
             return newDate;
         }
         function selectedTimeChange(scope, element) {
-            //jshint unused:false
             updateCurrentTime();
             var datePicker = element.find(".timepicker");
             var selectedTime = datePicker.val();
@@ -119,7 +118,7 @@
                 var datePicker = element.find(".timepicker");
                 renderDatePicker(scope, element);
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     if (!sharedScriptManager.datesEqual(new Date(oldValue), new Date(newval))) {
                         oldValue = new Date(newval);
                         scope.isUpdatingTime = true;

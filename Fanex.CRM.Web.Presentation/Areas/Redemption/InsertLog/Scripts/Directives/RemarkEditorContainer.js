@@ -52,7 +52,7 @@
                     css: "edit",
                     text: viewResources.Insert_Edit_Block,
                     action: function (btn) {
-                        //jshint unused:false
+                        /* jshint unused: false */
                         var editText = this.getSelectedHTML();
                         editText = sharedScriptManager.insertEditDescriptionBlock(currentUsername, editText, parent.homeManager.currentTime);
                         this.pasteHTML(editText);
@@ -71,7 +71,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     renderRemarkEditor(scope, element);
                 });
             }

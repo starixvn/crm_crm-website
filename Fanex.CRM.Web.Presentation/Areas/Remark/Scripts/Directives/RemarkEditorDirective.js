@@ -7,7 +7,7 @@
             restrict: 'C',
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     $compile(element.find(".textarea-remark"))(scope);
                     var editor = $(element);
                     if (!editor.hasClass("rich-remark-editor-directive")) {

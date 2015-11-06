@@ -20,7 +20,7 @@
                 selectOtherMonths: true,
                 yearRange: sharedScriptManager.cachedData.yearRangeDatePicker,
                 onSelect: function (dateText, inst) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     isOnSelect = true;
                     $(this).change();
                     isOnSelect = false;
@@ -35,7 +35,7 @@
             }
         }
         function selectedDateChange(scope, element) {
-            //jshint unused:false
+            /* jshint unused: false */
             var fromDatePicker = element.find(".txtcalendar");
             var selectedDate = fromDatePicker.val();
             if (selectedDate === null ||

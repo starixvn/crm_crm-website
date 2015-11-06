@@ -8,7 +8,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngText, function (newVal, oldVal) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     element.html(sharedScriptManager.decodeHtml(newVal));
                 });
             }

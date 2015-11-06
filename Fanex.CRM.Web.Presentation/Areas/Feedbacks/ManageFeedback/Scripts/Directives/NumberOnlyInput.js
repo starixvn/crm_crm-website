@@ -11,7 +11,7 @@
                 inputClass: '@'
             },
             link: function (scope, element) {
-                //jshint unused:false
+                /* jshint unused: false */
                 scope.$watch('inputValue', function (newValue, oldValue) {
                     var arr = String(newValue).split('');
                     var length = arr.length;

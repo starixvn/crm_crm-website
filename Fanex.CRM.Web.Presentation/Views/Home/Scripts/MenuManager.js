@@ -101,12 +101,12 @@ var MenuManager = function () {
                 url: window.rootUrl + "Home/GettingDashboardMenu",
                 type: "GET",
                 success: function (response, status, xhr) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     self.DOMElements.SubMenu.html(response);
                     parent.dashboardManager.dashboardMenuClick(tabId);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                 }
             });
         } else {

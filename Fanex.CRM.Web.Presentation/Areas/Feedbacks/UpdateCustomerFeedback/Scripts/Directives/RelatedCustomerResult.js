@@ -48,7 +48,7 @@
 
             var rows = [];
             angular.forEach(customers, function (customer, index) {
-                //jshint unused:false
+                /* jshint unused: false */
                 rows.push(renderRow(customer));
             });
 
@@ -77,7 +77,7 @@
             restrict: 'A',
             require: 'ngModel',
             link: function (scope, element, attrs) {
-                //jshint unused:false
+                /* jshint unused: false */
                 scope.$watch(attrs.ngModel, function (newVal, oldVal) {
                     renderRelatedCustomers(scope, newVal);
                 });

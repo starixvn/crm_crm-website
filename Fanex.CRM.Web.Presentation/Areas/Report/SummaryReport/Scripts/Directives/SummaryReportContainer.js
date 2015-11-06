@@ -57,7 +57,7 @@
         }
 
         function getGridBody(scope, categorySummaries) {
-            //jshint unused:false
+            /* jshint unused: false */
             var bodyData = [];
             if (categorySummaries) {
                 var category, categoryTotal, subCategory, summary;
@@ -143,7 +143,7 @@
         }
 
         function getChartDatasets(categorySummaries, typeOfChart) {
-            //jshint unused:false
+            /* jshint unused: false */
             var datasets = [];
 
             var bgColor, bgColorIndex = 0;
@@ -219,7 +219,7 @@
             },
             link: function (scope, element) {
                 scope.$watch('summaryReport', function (newValue, oldValue) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     if (!newValue) {
                         return;
                     }

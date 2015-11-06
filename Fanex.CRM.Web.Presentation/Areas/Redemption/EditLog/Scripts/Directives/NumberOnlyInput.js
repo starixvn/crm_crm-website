@@ -29,7 +29,7 @@
                 });
 
                 scope.$watch('inputValue', function (newValue, oldValue) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     scope.inputValue = scope.inputValue.toString().replace(/,/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 });
             }

@@ -230,7 +230,7 @@
         }
 
         function viewChart(scope, element) {
-            //jshint unused:false
+            /* jshint unused: false */
             var crmChart = parent.crmChart;
             var chartInfo = cachedData.statisticReport ? cachedData.statisticReport.ChartInfo : null;
             crmChart.title = chartInfo.Name;
@@ -311,7 +311,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     if (!scope.statisticReportOptions.IsUpdateGrid) {
                         return;
                     }

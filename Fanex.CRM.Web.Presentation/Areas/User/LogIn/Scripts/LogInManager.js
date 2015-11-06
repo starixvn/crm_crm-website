@@ -99,7 +99,7 @@ CRMLoginManager = {
         $('#username').focus();
 
         $('#btnLogin').bind('click', function (evt) {
-            //jshint unused:false
+            /* jshint unused: false */
             return CRMLoginManager.doLogin();
         });
 

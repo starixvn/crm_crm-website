@@ -98,7 +98,7 @@ var LeftPanelManager = function () {
             position: { my: "left+5 top+108", at: "left top" },
             title: 'Alert',
             close: function (event, ui) {
-                //jshint unused:false
+                /* jshint unused: false */
             },
             buttons: [{
                 id: "button-maxlength",

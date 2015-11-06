@@ -71,7 +71,7 @@
         }
 
         function getGridBody(scope, feedbacks) {
-            //jshint unused:false
+            /* jshint unused: false */
             var bodyData = [];
             if (feedbacks) {
                 var feedback, status, currentRow, cssClass;
@@ -149,7 +149,7 @@
             restrict: 'A',
             link: function (scope, element) {
                 scope.$watch('feedbackStatisticDetail', function (newValue, oldValue) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     if (!newValue) {
                         return;
                     }

@@ -48,7 +48,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     if (!scope.ibcReportOptions ||
                     !scope.ibcReportOptions.IsUpdateGrid) {
                         return;

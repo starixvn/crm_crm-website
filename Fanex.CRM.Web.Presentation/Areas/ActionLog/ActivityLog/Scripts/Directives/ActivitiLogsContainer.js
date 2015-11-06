@@ -17,7 +17,6 @@
                 return false;
             }
 
-            /* jshint unused: vars */
             if (!scope.isSearched) {
                 return;
             }
@@ -126,7 +125,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newValues, oldValues) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     renderActivityLogs(scope, element);
                 });
             }

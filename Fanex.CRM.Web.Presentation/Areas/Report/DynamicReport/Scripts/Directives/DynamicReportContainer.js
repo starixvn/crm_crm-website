@@ -185,7 +185,7 @@
         }
 
         function viewChart(scope, element) {
-            //jshint unused:false
+            /* jshint unused: false */
             var crmChart = parent.crmChart;
             var chartInfo = cachedDynamicReport ? cachedDynamicReport.ChartInfo : null;
             crmChart.title = chartInfo.Name;
@@ -239,7 +239,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     if (!scope.dynamicReportOptions.IsUpdateGrid) {
                         return;
                     }

@@ -370,14 +370,14 @@
             $scope.$apply();
         };
         $scope.updateFromWeek = function (fromDate, toDate, picker, isAlreadyApply) {
-            //jshint unused:false
+            /* jshint unused: false */
             $scope.searchCriteria.FromDate = fromDate;
             if (!isAlreadyApply) {
                 $scope.$apply();
             }
         };
         $scope.updateToWeek = function (fromDate, toDate, picker, isAlreadyApply) {
-            //jshint unused:false
+            /* jshint unused: false */
             $scope.searchCriteria.ToDate = toDate;
             if (!isAlreadyApply) {
                 $scope.$apply();

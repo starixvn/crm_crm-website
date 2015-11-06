@@ -130,7 +130,7 @@ var HomeManager = function () {
     };
 
     self.TextboxUsernameKeyPress = function (e) {
-        //jshint unused:false
+        /* jshint unused: false */
         if (self.DOMElements.TextboxUsername.val() !==
             self.CachedData.ViewResources.DefaultSearchCustomer) {
             if (self.DOMElements.TextboxUsername.hasClass("font-style-italic")) {
@@ -172,7 +172,7 @@ var HomeManager = function () {
             modal: true,
             title: self.CachedData.ViewResources.Confirm_Ignore_Changes,
             close: function (event, ui) {
-                //jshint unused:false
+                /* jshint unused: false */
                 self.DOMElements.divResultPopUp.dialog("destroy");
                 parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
@@ -208,7 +208,7 @@ var HomeManager = function () {
             modal: true,
             title: self.CachedData.ViewResources.Confirm_Ignore_Changes,
             close: function (event, ui) {
-                //jshint unused:false
+                /* jshint unused: false */
                 self.DOMElements.divResultPopUp.dialog("destroy");
                 parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
@@ -240,7 +240,7 @@ var HomeManager = function () {
     };
 
     self.showConfirmExportExcelPopUp = function (ignoreFunction, cancelIgnoreFunction) {
-        //jshint unused:false
+        /* jshint unused: false */
         self.DOMElements.divResultPopUp.html(self.CachedData.ignoreConfirmMessagePopUp);
         self.DOMElements.divResultPopUp.removeClass("display-none");
         self.DOMElements.divResultPopUp.dialog({
@@ -252,7 +252,7 @@ var HomeManager = function () {
             modal: true,
             title: self.CachedData.ViewResources.Confirm_Ignore_Changes,
             close: function (event, ui) {
-                //jshint unused:false
+                /* jshint unused: false */
                 self.DOMElements.divResultPopUp.dialog("destroy");
                 parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
@@ -294,7 +294,7 @@ var HomeManager = function () {
             modal: true,
             title: '',
             close: function (event, ui) {
-                //jshint unused:false
+                /* jshint unused: false */
                 self.DOMElements.divResultPopUp.dialog("destroy");
                 parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
@@ -351,7 +351,7 @@ var HomeManager = function () {
                 position: { my: "left+2 top+90", at: "left top" },
                 title: self.CachedData.ViewResources.Alert,
                 close: function (event, ui) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     self.DOMElements.ResultMessage.dialog("destroy");
                     $(document).find(".ui-widget-overlay").remove();
                     $(document).append('<div id="div-resultpopup" class="selector display-none"></div>');

@@ -80,7 +80,7 @@
             $scope.$apply();
         };
         $scope.updateFromYear = function (fromYear, isAlreadyApply) {
-            //jshint unused:false
+            /* jshint unused: false */
             var selectedDate = new Date(fromYear, 0, 1);
             var selectedYear = fromYear;
             var maxFromYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;

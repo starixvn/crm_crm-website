@@ -189,7 +189,7 @@
             if (currency.Id === 0) { // all
                 var currencyIds = [];
                 angular.forEach($scope.currencyOptions.DataList, function (value, key) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     if (value.Id !== 0) { this.push(value.Id); }
                 }, currencyIds);
                 $scope.searchCriteria.Currency = currencyIds.join();

@@ -229,7 +229,7 @@
             link: function (scope, element) {
                 scope.updatedItems = scope.updatedItems || {};
                 scope.$watch("dataSource", function (oldval, newval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     scope.updatedItems = {};
                     renderListData(scope, element);
                 });

@@ -386,7 +386,7 @@
             $scope.$apply();
         };
         $scope.validateParams = function (searchCriteria) {
-            //jshint unused:false
+            /* jshint unused: false */
             if ($scope.searchCriteria.MainCategory.Id === crmConstants.Enums.MainCategory.NotApply) {
                 $scope.isSuccess = false;
                 $scope.isShowResultMessage = true;

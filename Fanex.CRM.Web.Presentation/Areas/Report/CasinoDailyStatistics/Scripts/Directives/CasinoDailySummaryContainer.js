@@ -149,7 +149,7 @@
             restrict: 'A',
             link: function (scope, element) {
                 scope.$watch('dailySummary', function (newValue, oldValue) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     if (!newValue) {
                         return;
                     }

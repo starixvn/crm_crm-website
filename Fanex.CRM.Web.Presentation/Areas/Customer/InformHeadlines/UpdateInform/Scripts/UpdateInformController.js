@@ -192,7 +192,7 @@
             // filter updated informs
             $uiBlockerService.blockUI();
             var updatedInforms = $.grep($scope.informs, function (item, i) {
-                //jshint unused:false
+                /* jshint unused: false */
                 return item.IsChanged;
             });
             var updateCriteria = {
@@ -331,7 +331,7 @@
             });
 
             $scope.$watch('title', function (newValue, oldValue) {
-                //jshint unused:false
+                /* jshint unused: false */
                 $scope.isTitleChanged = newValue !== $scope.oldTitle;
                 parent.homeManager.CachedData.isChangingDataPopUp = $scope.isDataChanged();
             });

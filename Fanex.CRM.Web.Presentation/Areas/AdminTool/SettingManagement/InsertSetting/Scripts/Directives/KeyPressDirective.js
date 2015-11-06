@@ -8,7 +8,7 @@
             restrict: 'C',
             scope: true,
             link: function (scope, element) {
-                //jshint unused:false             
+                /* jshint unused: false */             
                 element.unbind("keypress");
                 element.keypress(function (e) {
                     return sharedScriptManager.forceNumberInput(e);

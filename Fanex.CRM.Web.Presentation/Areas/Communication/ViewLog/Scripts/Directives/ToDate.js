@@ -8,7 +8,6 @@
         var oldMinValue = null;
         var isOnSelect = false;
         function renderDatePicker(scope, element) {
-            //jshint unused:false
             var toDatePicker = element.find("#toDate");
             toDatePicker.datepicker({
                 dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,
@@ -78,7 +77,7 @@
                 var toDatePicker = element.find("#toDate");
                 renderDatePicker(scope, element);
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    //jshint unused:false
+                    /* jshint unused: false */
                     oldMinValue = new Date(newval);
                     toDatePicker.datepicker("option", "minDate", new Date(oldMinValue));
                 });
