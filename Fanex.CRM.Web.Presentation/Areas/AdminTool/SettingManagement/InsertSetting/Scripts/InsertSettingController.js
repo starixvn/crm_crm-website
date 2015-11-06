@@ -11,8 +11,8 @@
     camelcase: false */
 
     angular.module('addmintool-settingmanagement-insertnewsetting-application').controller('insertSettingController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'insertSettingService',
-    function ($scope, $uiBlockerService, $resultMessageService, insertSettingService) {
+    ['$scope', '$uiBlockerService', 'insertSettingService',
+    function ($scope, $uiBlockerService, insertSettingService) {
         $scope.sharedScriptManager = sharedScriptManager;
         $scope.insertSettingParams = {
             NewSetting: {

@@ -126,6 +126,7 @@
             restrict: 'A',
             link: function (scope, element) {
                 scope.$watch('dailyDetail', function (newValue, oldValue) {
+                    //jshint unused:false
                     if (!newValue) {
                         return;
                     }

@@ -149,6 +149,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    //jshint unused:false
                     if (!scope.detailReportOptions ||
                     !scope.detailReportOptions.IsUpdateGrid) {
                         return;

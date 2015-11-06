@@ -108,6 +108,7 @@
                 gridOptions = getGridOptions(scope.exportInformStatisticExcel);
 
                 scope.$watch(attrs.ngModel, function (newValue, oldValue) {
+                    //jshint unused:false
                     renderStatistic(tableStatistic, newValue);
 
                     if (canUpdateStatus === 1) {

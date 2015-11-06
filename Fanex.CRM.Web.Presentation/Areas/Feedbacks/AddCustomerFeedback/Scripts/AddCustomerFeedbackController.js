@@ -18,8 +18,8 @@
     };
 
     angular.module('feedbacks-addcustomerfeedback-application').controller('addCustomerFeedbackController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'addCustomerFeedbackService',
-    function ($scope, $uiBlockerService, $resultMessageService, addCustomerFeedbackService) {
+    ['$scope', '$uiBlockerService', 'addCustomerFeedbackService',
+    function ($scope, $uiBlockerService, addCustomerFeedbackService) {
         $scope.customerInfo = {
             Id: parent.homeManager.CachedData.currentCustomer.Id,
             Name: parent.homeManager.CachedData.currentCustomer.Name

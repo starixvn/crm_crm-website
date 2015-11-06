@@ -6,8 +6,8 @@ viewResources, Site */
 camelcase: false */
 
 angular.module('informHeadlineApplication').controller('ViewListController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
-    function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
+    ['$scope', '$uiBlockerService', 'viewListService',
+    function ($scope, $uiBlockerService, viewListService) {
 
         var POPUP_WIDTH = 1200, POPUP_HEIGHT = 800;
 

@@ -10,12 +10,10 @@
     /* jshint camelcase: false,
     unused: vars */
     angular.module('report-dailystatistics-application').controller('dailyStatisticsReportController',
-    ['$scope', '$http', '$uiBlockerService', '$resultMessageService', 'dailyStatisticsReportService',
+    ['$scope', '$uiBlockerService', 'dailyStatisticsReportService',
     function (
         $scope,
-        $http,
         $uiBlockerService,
-        $resultMessageService,
         dailyStatisticsReportService) {
         $scope.searchCriteria = {
             FromDate: new Date(currentDate),

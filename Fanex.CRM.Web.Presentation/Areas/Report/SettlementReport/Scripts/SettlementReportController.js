@@ -8,13 +8,11 @@
     /* jshint camelcase: false */
     angular.module('report-settlementreport-application').controller('settlementReportController', [
     '$scope',
-    '$http',
     'settlementReportService',
     '$uiBlockerService',
     '$resultMessageService',
     function (
         $scope,
-        $http,
         settlementReportService,
         $uiBlockerService,
         $resultMessageService) {
@@ -82,6 +80,7 @@
             $scope.$apply();
         };
         $scope.updateFromYear = function (fromYear, isAlreadyApply) {
+            //jshint unused:false
             var selectedDate = new Date(fromYear, 0, 1);
             var selectedYear = fromYear;
             var maxFromYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;

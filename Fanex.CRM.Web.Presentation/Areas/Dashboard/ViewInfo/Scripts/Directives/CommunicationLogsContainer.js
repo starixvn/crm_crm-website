@@ -104,7 +104,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    /* jshint unused: vars */
+                    //jshint unused:false
                     renderCommunicationLogs(scope, element);
                 });
             }

@@ -18,8 +18,8 @@
     };
 
     angular.module('feedbacks-addguestfeedback-application').controller('addGuestFeedbackController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'addGuestFeedbackService',
-    function ($scope, $uiBlockerService, $resultMessageService, addGuestFeedbackService) {
+    ['$scope', '$uiBlockerService', 'addGuestFeedbackService',
+    function ($scope, $uiBlockerService, addGuestFeedbackService) {
         $scope.customerInfo = {
             Name: '',
             Title: {

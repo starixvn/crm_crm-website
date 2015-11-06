@@ -6,7 +6,7 @@
     angular.module('redemption-insertlog-application').directive('datePickerContainer', function () {
         var oldValue = null;
         function renderDatePicker(scope, element) {
-            /* jshint unused: vars */
+            //jshint unused:false
             var txtCalendar = element.find(".txtcalendar");
             txtCalendar.datepicker({
                 dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,
@@ -24,7 +24,7 @@
             txtCalendar.datepicker('setDate', new Date(currentDate));
         }
         function selectedDateChange(scope, element) {
-            /* jshint unused: vars */
+            //jshint unused:false
             var fromDatePicker = element.find(".txtcalendar");
             var selectedDate = fromDatePicker.val();
             var date = new Date(selectedDate);

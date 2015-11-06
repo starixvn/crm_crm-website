@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     /* jshint unused: vars */
-    angular.module('redemption-editlog-application').directive('numberOnlyInput', function ($filter) {
+    angular.module('redemption-editlog-application').directive('numberOnlyInput', function () {
         return {
             restrict: 'A',
             template: '<input type="text" id="{{inputId}}" class="{{inputClass}}" ng-model="inputValue" />',
@@ -29,6 +29,7 @@
                 });
 
                 scope.$watch('inputValue', function (newValue, oldValue) {
+                    //jshint unused:false
                     scope.inputValue = scope.inputValue.toString().replace(/,/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 });
             }

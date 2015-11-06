@@ -5,7 +5,7 @@
             restrict: 'A',
             scope: true,
             link: function (scope, element) {
-                /* jshint unused: vars */
+                //jshint unused:false
                 element.on('click', function (e) {
                     scope.insertLog();
                 });

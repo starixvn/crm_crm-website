@@ -8,8 +8,8 @@
     camelcase: false */
 
     angular.module('newInformApplication').controller('NewInformController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'newInformService',
-    function ($scope, $uiBlockerService, $resultMessageService, newInformService) {
+    ['$scope', '$uiBlockerService', 'newInformService',
+    function ($scope, $uiBlockerService, newInformService) {
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);
             $uiBlockerService.unblockUI();
@@ -162,7 +162,7 @@
             _searchCriteria.Informs = items;
 
             newInformService.insertInforms(_searchCriteria)
-                .then(function (data) {
+                .then(function () {
                     $scope.showSaveButton = false;
                     $scope.messageResultOptions = new MessageResult("Add new case successfully!", true, true);
                     setTimeout(function () {

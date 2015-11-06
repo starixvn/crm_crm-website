@@ -11,8 +11,8 @@
     /* jshint unused: vars */
     /* jshint maxstatements: 412 */
     angular.module('report-redemption-statistics-application')
-        .controller('redemptionStatisticsController', ['$scope', '$http', '$redemptionStatisticsService', 'alertBoxService',
-    function ($scope, $http, $redemptionStatisticsService, alertBoxService) {
+        .controller('redemptionStatisticsController', ['$scope', '$redemptionStatisticsService', 'alertBoxService',
+    function ($scope, $redemptionStatisticsService, alertBoxService) {
         $scope.isSetFocus = false;
         $scope.isShowFilter = true;
         $scope.fromDateOptions = null;
@@ -189,6 +189,7 @@
             if (currency.Id === 0) { // all
                 var currencyIds = [];
                 angular.forEach($scope.currencyOptions.DataList, function (value, key) {
+                    //jshint unused:false
                     if (value.Id !== 0) { this.push(value.Id); }
                 }, currencyIds);
                 $scope.searchCriteria.Currency = currencyIds.join();

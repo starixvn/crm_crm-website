@@ -7,8 +7,8 @@
     camelcase: false */
 
     angular.module('addmintool-feedbacksubjectmanagement-deletetemplate')
-    .controller('deleteTemplateController', ['$scope', '$uiBlockerService', '$resultMessageService', 'deleteTemplateService',
-    function ($scope, $uiBlockerService, $resultMessageService, deleteTemplateService) {
+    .controller('deleteTemplateController', ['$scope', '$uiBlockerService', 'deleteTemplateService',
+    function ($scope, $uiBlockerService, deleteTemplateService) {
         $scope.messageResultOptions = null;
         $scope.initController = function () {
             sharedScriptManager.safeApply($scope);

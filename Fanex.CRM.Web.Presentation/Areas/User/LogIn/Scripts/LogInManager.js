@@ -4,7 +4,7 @@
 
 var CRMLoginManager = CRMLoginManager || {};
 
-var CRMLoginManager = {
+CRMLoginManager = {
     checkBrowser: function () {
         var msieVersion = sharedScriptManager.getIeVersion();
         if (msieVersion !== -1 && msieVersion < 8.0) {
@@ -99,6 +99,7 @@ var CRMLoginManager = {
         $('#username').focus();
 
         $('#btnLogin').bind('click', function (evt) {
+            //jshint unused:false
             return CRMLoginManager.doLogin();
         });
 

@@ -9,8 +9,8 @@
     camelcase: false */
 
     angular.module('addmintool-settingmanagement-application').controller('viewListController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'viewListService',
-    function ($scope, $uiBlockerService, $resultMessageService, viewListService) {
+    ['$scope', '$uiBlockerService', 'viewListService',
+    function ($scope, $uiBlockerService, viewListService) {
         $scope.sharedScriptManager = sharedScriptManager;
         $scope.getSettingRelationsParams = {
             MainSetting: null

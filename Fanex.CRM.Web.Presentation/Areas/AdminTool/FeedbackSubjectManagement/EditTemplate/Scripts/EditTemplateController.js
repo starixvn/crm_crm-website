@@ -9,8 +9,8 @@
     camelcase: false */
 
     angular.module('addmintool-feedbacksubjectmanagement-edittemplate').controller('editTemplateController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'editTemplateService',
-    function ($scope, $uiBlockerService, $resultMessageService, editTemplateService) {
+    ['$scope', '$uiBlockerService', 'editTemplateService',
+    function ($scope, $uiBlockerService, editTemplateService) {
         $scope.messageResultOptions = null;
         $scope.isSetFocus = false;
         $scope.feedbackSubjectTemplate = {

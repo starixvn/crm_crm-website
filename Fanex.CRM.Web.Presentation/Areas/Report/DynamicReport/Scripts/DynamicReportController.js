@@ -11,8 +11,8 @@
     /* jshint camelcase: false */
     /* jshint unused: vars */
     /* jshint maxstatements: 412 */
-    angular.module('report-dynamicreport-application').controller('dynamicReportController', ['$scope', '$http', '$dynamicReportService',
-    function ($scope, $http, $dynamicReportService) {
+    angular.module('report-dynamicreport-application').controller('dynamicReportController', ['$scope', '$dynamicReportService',
+    function ($scope, $dynamicReportService) {
         weekPickerManager.registerWeekPicker();
 
         $scope.isSetFocus = false;
@@ -370,12 +370,14 @@
             $scope.$apply();
         };
         $scope.updateFromWeek = function (fromDate, toDate, picker, isAlreadyApply) {
+            //jshint unused:false
             $scope.searchCriteria.FromDate = fromDate;
             if (!isAlreadyApply) {
                 $scope.$apply();
             }
         };
         $scope.updateToWeek = function (fromDate, toDate, picker, isAlreadyApply) {
+            //jshint unused:false
             $scope.searchCriteria.ToDate = toDate;
             if (!isAlreadyApply) {
                 $scope.$apply();

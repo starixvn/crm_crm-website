@@ -9,8 +9,8 @@
     /* jshint camelcase: false */
     /* jshint unused: vars */
     /* jshint maxstatements: 412 */
-    angular.module('report-customerreport-application').controller('customerReportController', ['$scope', '$http', '$customerReportService',
-    function ($scope, $http, $customerReportService) {
+    angular.module('report-customerreport-application').controller('customerReportController', ['$scope', '$customerReportService',
+    function ($scope, $customerReportService) {
         $scope.isShowFilter = true;
         $scope.fromDateOptions = null;
         $scope.toDateOptions = null;

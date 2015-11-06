@@ -8,8 +8,8 @@
     camelcase: false */
 
     angular.module('contactInformApplication').controller('ContactInformController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
-    function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
+    ['$scope', '$uiBlockerService', '$timeout', 'updateInformService',
+    function ($scope, $uiBlockerService, $timeout, updateInformService) {
 
         function handleUpdateFailed() {
             Site.showMessageBox(viewResources.UpdateFailed);

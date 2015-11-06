@@ -8,8 +8,8 @@
     /* jshint unused: vars,
     camelcase: false */
     angular.module('addmintool-feedbacksubjectmanagement-application').controller('feedbackSubjectManagementController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'feedbackSubjectManagementService',
-    function ($scope, $uiBlockerService, $resultMessageService, feedbackSubjectManagementService) {
+    ['$scope', '$uiBlockerService', 'feedbackSubjectManagementService',
+    function ($scope, $uiBlockerService, feedbackSubjectManagementService) {
         $scope.feedbackSubjectTemplateList = [];
         $scope.feedbackSubjectTemplateTotalPage = 0;
         $scope.isLoadedFeedbackSubjectTemplate = false;

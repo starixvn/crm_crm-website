@@ -127,6 +127,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newValues, oldValues) {
+                    //jshint unused:false
                     renderWagerReport(scope, element);
                 });
             }

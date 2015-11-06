@@ -96,6 +96,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    //jshint unused:false
                     renderSettingRelations(scope, element);
                 });
             }

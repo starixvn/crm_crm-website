@@ -21,6 +21,7 @@
                 });
 
                 scope.$watch(attrs.ngModel, function (newVal, oldVal) {
+                    //jshint unused:false
                     var typecust = $('#typeCust').prop('disabled', !newVal);
                     if (!newVal) {
                         typecust.val('');

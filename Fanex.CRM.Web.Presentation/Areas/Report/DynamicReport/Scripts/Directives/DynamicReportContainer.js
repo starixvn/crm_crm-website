@@ -185,12 +185,13 @@
         }
 
         function viewChart(scope, element) {
+            //jshint unused:false
             var crmChart = parent.crmChart;
             var chartInfo = cachedDynamicReport ? cachedDynamicReport.ChartInfo : null;
             crmChart.title = chartInfo.Name;
 
             var chartData = {
-                labels: getChartLabels(chartInfo, crmChart),
+                labels: getChartLabels(chartInfo),
                 datasets: getChartDatasets(chartInfo, crmChart)
             };
 
@@ -208,11 +209,11 @@
             });
         }
 
-        function getChartLabels(chartInfo, crmChart) {
+        function getChartLabels(chartInfo) {
             var xAxisCategories = [];
             xAxisCategories.push(chartInfo ? chartInfo.ShortName : "");
             return xAxisCategories;
-        }
+        }        
 
         function getChartDatasets(chartInfo, crmChart) {
             var chartSeries = [];
@@ -238,6 +239,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    //jshint unused:false
                     if (!scope.dynamicReportOptions.IsUpdateGrid) {
                         return;
                     }

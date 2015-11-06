@@ -23,7 +23,7 @@
             txtCalendar.datepicker('setDate', new Date(scope.redemptionLog.ClaimedTime));
         }
         function selectedDateChange(scope, element) {
-            /* jshint unused: vars */
+            //jshint unused:false
             var fromDatePicker = element.find(".txtcalendar");
             var selectedDate = fromDatePicker.val();
             var date = new Date(selectedDate);

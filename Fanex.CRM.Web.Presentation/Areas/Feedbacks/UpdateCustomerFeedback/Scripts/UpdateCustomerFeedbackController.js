@@ -53,6 +53,7 @@
                 .then(function (data) {
                     var customers = [];
                     angular.forEach(data.Result, function (customer, index) {
+                        //jshint unused:false
                         customers.push({ Id: customer.Id, Name: customer.Name });
                     });
 
@@ -198,12 +199,14 @@
                         };
 
                         angular.forEach($scope.settings.Products, function (product, index) {
+                            //jshint unused:false
                             if (product.Id === $scope.feedback.Product.Id) {
                                 $scope.bettypes = product.ChildSettings;
                             }
                         });
 
                         angular.forEach($scope.settings.Categories, function (category, index) {
+                            //jshint unused:false
                             if (category.Id === $scope.feedback.Category.Id) {
                                 $scope.subcategories = category.ChildSettings;
                             }
@@ -213,7 +216,7 @@
 
                         $uiBlockerService.unblockUI();
                     },
-                    function (dataFeedback) {
+                    function () {
                         $uiBlockerService.unblockUI();
                     });
             },
@@ -326,6 +329,7 @@
                 if ($scope.relatedCustomers.length > 0) {
                     var relatedCustomerIds = [];
                     angular.forEach($scope.relatedCustomers, function (customer, index) {
+                        //jshint unused:false
                         relatedCustomerIds.push(customer.Id);
                     });
 
@@ -391,6 +395,7 @@
                 var control = $('#txtrelatedcustomer');
                 var arrayTemp = $scope.feedback.RelatedCustomer.split(',');
                 angular.forEach(arrayTemp, function (name, index) {
+                    //jshint unused:false
                     control.trigger('addItem', { title: name, value: name });
                 });
 

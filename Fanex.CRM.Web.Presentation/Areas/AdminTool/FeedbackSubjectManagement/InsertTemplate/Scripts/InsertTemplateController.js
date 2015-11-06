@@ -8,8 +8,8 @@
     camelcase: false */
 
     angular.module('addmintool-feedbacksubjectmanagement-inserttemplate').controller('insertTemplateController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'insertTemplateService',
-    function ($scope, $uiBlockerService, $resultMessageService, insertTemplateService) {
+    ['$scope', '$uiBlockerService', 'insertTemplateService',
+    function ($scope, $uiBlockerService, insertTemplateService) {
         $scope.messageResultOptions = null;
         $scope.feedbackSubjectTemplate = {
             TemplateContent: ""

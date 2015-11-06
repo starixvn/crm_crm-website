@@ -11,8 +11,8 @@
     camelcase: false */
 
     angular.module('addmintool-settingrelation-addrelation-application').controller('addRelationController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'addRelationService',
-    function ($scope, $uiBlockerService, $resultMessageService, addRelationService) {
+    ['$scope', '$uiBlockerService', 'addRelationService',
+    function ($scope, $uiBlockerService, addRelationService) {
         $scope.getMainSettingRelationsParams = {
             ParentId: mainSetting.Id,
             MainSetting: mainSetting

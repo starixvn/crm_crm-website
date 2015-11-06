@@ -7,8 +7,8 @@
     camelcase: false */
 
     angular.module('addmintool-settingmanagement-deletesetting').controller('deleteSettingController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'deleteSettingService',
-    function ($scope, $uiBlockerService, $resultMessageService, deleteSettingService) {
+    ['$scope', '$uiBlockerService', 'deleteSettingService',
+    function ($scope, $uiBlockerService, deleteSettingService) {
         $scope.deleteParams = {
             OldSetting: settingInfo
         };

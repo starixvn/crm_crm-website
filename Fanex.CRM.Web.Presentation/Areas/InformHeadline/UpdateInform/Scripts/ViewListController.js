@@ -8,8 +8,8 @@
     camelcase: false */
 
     angular.module('updateInformApplication').controller('UpdateInformController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', '$timeout', 'updateInformService',
-    function ($scope, $uiBlockerService, $resultMessageService, $timeout, updateInformService) {
+    ['$scope', '$uiBlockerService', '$timeout', 'updateInformService',
+    function ($scope, $uiBlockerService, $timeout, updateInformService) {
 
         var HEADLINE_ACCOUNT_TYPE = 1;
         var DIRECT_ACCOUNT_TYPE = 2;
@@ -235,13 +235,13 @@
             _searchCriteria.ChangeFilter = isFilterChanged();
 
             updateInformService.updateInforms(_searchCriteria)
-                .then(function (data) {
+                .then(function () {
                     $scope.showSaveButton = false;
                     $scope.messageResultOptions = new MessageResult("Save inform headlines successfully!", true, true);
                     setTimeout(function () {
                         parent.ClosePopup();
                     }, sharedScriptManager.cachedData.alertSuccessTime);
-                    $uiBlockerService.unblockUI();
+                    $uiBlockerService.unblockUI();                  
                 },
                 function () {
                     $scope.messageResultOptions = new MessageResult("Save inform headlines failed!", true, false);

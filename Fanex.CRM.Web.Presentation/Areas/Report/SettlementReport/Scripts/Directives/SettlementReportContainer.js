@@ -183,12 +183,13 @@
         }
 
         function viewChart(scope, element) {
+            //jshint unused:false
             var crmChart = parent.crmChart;
             var chartInfo = cachedData.settlementReport ? cachedData.settlementReport.ChartInfo : null;
             crmChart.title = chartInfo.Name;
 
             var chartData = {
-                labels: getChartLabels(chartInfo, crmChart),
+                labels: getChartLabels(chartInfo),
                 datasets: getChartDatasets(chartInfo, crmChart)
             };
 
@@ -204,7 +205,7 @@
             });
         }
 
-        function getChartLabels(chartInfo, crmChart) {
+        function getChartLabels(chartInfo) {            
             var xAxisCategories = [];
             var monthReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
             var xIndex;
@@ -268,6 +269,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    //jshint unused:false
                     if (!scope.settlementReportOptions.IsUpdateGrid) {
                         return;
                     }

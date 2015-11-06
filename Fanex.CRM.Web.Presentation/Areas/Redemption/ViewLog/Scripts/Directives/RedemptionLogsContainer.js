@@ -236,12 +236,14 @@
                 sortOption:
             {
                 customGridSort: function (currentBodyRows, columnName, currentDirection) {
+                    //jshint unused:false
                     var sortInfo = getGridOptions_MappingSortInfo(columnName,
                         currentDirection);
                     var bodyRows = getGridOptions_SortedAndPagingData(sortInfo);
                     return bodyRows;
                 },
                 afterGridSorted: function (currentBodyRows, columnName, currentDirection) {
+                    //jshint unused:false
                     var editLogLinks = tableRedemptionLogs.find(".editlog-link-td .editlog-link");
                     editLogLinks.unbind("click");
                     editLogLinks.click(function () {
@@ -276,7 +278,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
-                    /* jshint unused: vars */
+                    //jshint unused:false
                     renderRedemptionLogs(scope, element);
                 });
             }

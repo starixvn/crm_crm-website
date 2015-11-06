@@ -163,7 +163,7 @@
                 position: { my: "left+2 top+80", at: "left top" },
                 title: self.CacheData.ViewResources.Alert,
                 close: function (event, ui) {
-                    /*jshint unused: vars */
+                    //jshint unused:false
                     self.DOMElements.divResultPopUp.dialog("destroy");
                     parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                     self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");
@@ -191,7 +191,7 @@
                 modal: true,
                 title: self.CacheData.ViewResources.SearchByGuest_DialogTitle,
                 close: function (event, ui) {
-                    /*jshint unused: vars */
+                    //jshint unused:false
                     self.DOMElements.divResultPopUp.dialog("destroy");
                     parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
 
@@ -474,7 +474,7 @@
                 position: { my: "left+2 top+80", at: "left top" },
                 title: self.CacheData.ViewResources.Alert,
                 close: function (event, ui) {
-                    /*jshint unused: vars */
+                    //jshint unused:false
                     self.DOMElements.divResultPopUp.dialog("destroy");
                     parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                     self.DOMElements.divResultPopUp = parent.$("#div-resultpopup");

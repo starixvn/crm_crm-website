@@ -93,6 +93,7 @@
             var html = [];
             html.push('<select class="status" data-index="' + index + '">');
             $.each(scope.statusOptions.DataList, function (i, item) {
+                //jshint unused:false
                 html.push('<option value="', item.Id, '"');
                 if (selectedValue === item.Id) {
                     html.push(' selected ');
@@ -109,6 +110,7 @@
             var html = [];
             html.push('<select class="extension" data-index="' + index + '">');
             $.each(scope.extensions, function (i, item) {
+                //jshint unused:false
                 html.push('<option value="', item.Id, '"');
                 if (selectedValue === item.Id) {
                     html.push(' selected ');
@@ -125,6 +127,7 @@
             var html = [];
             html.push('<select class="productStatus" data-index="' + index + '">');
             $.each(scope.productStatus, function (i, item) {
+                //jshint unused:false
                 html.push('<option value="', item.Id, '"');
                 if (selectedValue === item.Id) {
                     html.push(' selected ');
@@ -149,6 +152,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newValues, oldValues) {
+                    //jshint unused:false
                     renderInform(newValues, scope, element);
                     if (newValues && newValues.length > 0) {
                         element.find('.status')

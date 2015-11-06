@@ -4,7 +4,7 @@
     viewResources */
     /* jshint camelcase: false,
     unused: vars */
-    angular.module('newInformApplication').directive('informHeadlineListContainer', ['$document', function ($document) {
+    angular.module('newInformApplication').directive('informHeadlineListContainer', function () {
         var MIN_PAGE_SIZE = 100;
         var MAX_PAGE_SIZE = 300;
         var _selfScope;
@@ -145,10 +145,11 @@
             link: function (scope, element) {
                 scope.updatedItems = scope.updatedItems || {};
                 scope.$watch("dataSource", function (oldval, newval) {
+                    //jshint unused:false
                     scope.updatedItems = {};
                     renderListData(scope, element);
                 });
             }
         };
-    } ]);
+    });
 })();

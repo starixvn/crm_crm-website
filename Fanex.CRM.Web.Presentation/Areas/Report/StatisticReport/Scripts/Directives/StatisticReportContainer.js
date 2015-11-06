@@ -230,12 +230,13 @@
         }
 
         function viewChart(scope, element) {
+            //jshint unused:false
             var crmChart = parent.crmChart;
             var chartInfo = cachedData.statisticReport ? cachedData.statisticReport.ChartInfo : null;
             crmChart.title = chartInfo.Name;
 
             var chartData = {
-                labels: getChartLabels(chartInfo, crmChart),
+                labels: getChartLabels(chartInfo),
                 datasets: getChartDatasets(chartInfo, crmChart, cachedData.statisticReport)
             };
 
@@ -252,7 +253,7 @@
             });
         }
 
-        function getChartLabels(chartInfo, crmChart) {
+        function getChartLabels(chartInfo) {
             var xAxisCategories = [];
             var dateReportLength = chartInfo ? chartInfo.ChildReports.length : 0;
 
@@ -310,6 +311,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (oldval, newval) {
+                    //jshint unused:false
                     if (!scope.statisticReportOptions.IsUpdateGrid) {
                         return;
                     }

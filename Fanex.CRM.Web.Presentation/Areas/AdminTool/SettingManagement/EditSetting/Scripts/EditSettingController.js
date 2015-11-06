@@ -11,8 +11,8 @@
     camelcase: false */
 
     angular.module('addmintool-settingmanagement-editsetting-application').controller('editSettingController',
-    ['$scope', '$uiBlockerService', '$resultMessageService', 'editSettingService',
-    function ($scope, $uiBlockerService, $resultMessageService, editSettingService) {
+    ['$scope', '$uiBlockerService', 'editSettingService',
+    function ($scope, $uiBlockerService, editSettingService) {
         $scope.sharedScriptManager = sharedScriptManager;
         $scope.editSettingParams = {
             OldSetting: angular.copy(settingInfo),

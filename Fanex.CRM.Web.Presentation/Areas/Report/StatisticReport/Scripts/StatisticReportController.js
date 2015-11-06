@@ -12,13 +12,11 @@
     /* jshint camelcase: false */
     angular.module('report-statisticreport-application').controller('statisticReportController', [
     '$scope',
-    '$http',
     'statisticReportService',
     '$uiBlockerService',
     '$resultMessageService',
     function (
         $scope,
-        $http,
         statisticReportService,
         $uiBlockerService,
         $resultMessageService) {
@@ -388,6 +386,7 @@
             $scope.$apply();
         };
         $scope.validateParams = function (searchCriteria) {
+            //jshint unused:false
             if ($scope.searchCriteria.MainCategory.Id === crmConstants.Enums.MainCategory.NotApply) {
                 $scope.isSuccess = false;
                 $scope.isShowResultMessage = true;

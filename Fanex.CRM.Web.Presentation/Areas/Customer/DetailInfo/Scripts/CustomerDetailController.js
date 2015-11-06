@@ -271,7 +271,7 @@
                 // position: 'center',
                 title: viewResources.Alert,
                 close: function (event, ui) {
-                    /*jshint unused: vars */
+                    //jshint unused:false
                     $scope.DOMElements.divResultPopUp.dialog("destroy");
                     parent.$(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                     $scope.DOMElements.divResultPopUp = parent.$("#div-resultpopup");

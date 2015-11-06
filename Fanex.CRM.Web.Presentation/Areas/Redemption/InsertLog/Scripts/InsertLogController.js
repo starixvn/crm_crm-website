@@ -104,8 +104,7 @@
                     $scope.completedLoadFilterInfo();
                 }
             },
-            function (data) {
-                /* jshint unused: vars */
+            function () {
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();

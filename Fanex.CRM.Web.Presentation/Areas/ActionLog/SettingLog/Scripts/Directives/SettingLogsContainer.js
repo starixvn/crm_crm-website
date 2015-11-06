@@ -10,7 +10,6 @@
         function renderSettingLogs(scope, element) {
             var gridOptions;
             function ReRenderAfterPaged(page_index, itemsPerPage) {
-                console.log('test');
                 gridOptions.pagerOption.currentPage = page_index;
                 gridOptions.pagerOption.itemsPerPage = itemsPerPage;
                 tableSettingLogs.fanexGrid(gridOptions);
@@ -118,7 +117,7 @@
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newValues, oldValues) {
-                    /* jshint unused: vars */
+                    //jshint unused:false
                     renderSettingLogs(scope, element);
                 });
             }
