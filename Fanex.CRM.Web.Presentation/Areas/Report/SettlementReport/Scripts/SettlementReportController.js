@@ -78,8 +78,7 @@
             $scope.fromYearOptions.IsRerenderPicker = true;
             $scope.$apply();
         };
-        $scope.updateFromYear = function (fromYear, isAlreadyApply) {
-            /* jshint unused: false */
+        $scope.updateFromYear = function (fromYear) {
             var selectedDate = new Date(fromYear, 0, 1);
             var selectedYear = fromYear;
             var maxFromYear = selectedYear + sharedScriptManager.cachedData.numberOfYearPerSelection;

@@ -83,7 +83,7 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
     }
     function checkIsRelated(scope, element, attrs, options) {
         if (options.HasRelated) {
-            $("#typeCust").removeAttr("disabled");
+            $("#typeCust").removeProp("disabled");
 
             var arrUser;
             $('#txtrelatedcustomer').each(function () {
@@ -91,7 +91,7 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
             });
 
             if (arrUser != null && arrUser.length > 0) {
-                $("#btnverify").removeAttr("disabled");
+                $("#btnverify").removeProp("disabled");
             }
             $("#lblverify").removeClass("hidden");
             if ($("#related").text().trim().length > 0) {
@@ -100,8 +100,8 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
             }
         }
         else {
-            $("#typeCust").attr("disabled", "disabled");
-            $("#btnverify").attr("disabled", "disabled");
+            $("#typeCust").prop("disabled", true);
+            $("#btnverify").prop("disabled", true);
             $("#lblverify").addClass("hidden");
             $("#ColorGuide").addClass("hidden");
             $("#trRelatedInfo").addClass("hidden");
@@ -141,9 +141,7 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
             userId += userIdList.join(",");
         }
 
-        $('#txtrelatedcustomer option').each(function (i, option) {
-            $(option).remove();
-        });
+        $('#txtrelatedcustomer option').remove();
 
         $('#holder li').each(function (i, option) {
             if (this.id !== 'txtrelatedcustomer_annoninput') {
@@ -223,7 +221,7 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
 
         return html;
     };
-    
+
     var deleteRelatedCust = function (custId) {
         $("#" + custId).parent().remove();
         userList.splice(userIdList.indexOf(custId), 1);

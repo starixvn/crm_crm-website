@@ -6,8 +6,7 @@ directiveManager.registerDownloadFile = function (angularApplication, registerPa
     angularApplication.directive(registerParams.PlugInName, function () {
         function downloadFile(scope, element, attrs, newVal, oldVal) {
             var options = scope[registerParams.OptionName];
-            if (options === undefined ||
-                options === null) {
+            if (options == null) {
                 return;
             }
 

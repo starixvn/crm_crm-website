@@ -8,20 +8,9 @@ directiveManager.registerYearPickerContainer = function (angularApplication, reg
 
         function getYearOptions(options) {
             var date = new Date(options.MaxDate);
-            var minYear = options.MinYear;
-            if (minYear == null) {
-                minYear = new Date(options.MinDate).getFullYear();
-            }
-
-            var maxYear = options.MaxYear;
-            if (maxYear == null) {
-                maxYear = date.getFullYear();
-            }
-
-            var currentYear = options.SelectedYear;
-            if (currentYear == null) {
-                currentYear = maxYear;
-            }
+            var minYear = options.MinYear || new Date(options.MinDate).getFullYear();
+            var maxYear = options.MaxYear || date.getFullYear();
+            var currentYear = options.SelectedYear || maxYear;
 
             var yearOptions = '';
             for (var i = minYear; i <= maxYear; i++) {
