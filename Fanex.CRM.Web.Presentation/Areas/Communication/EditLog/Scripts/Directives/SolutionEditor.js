@@ -6,7 +6,6 @@
     sharedScriptManager,
     currentUsername */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('communicationlog-edit-application').directive('solutionEditorContainer', function () {
         var editorId = "solutioneditorbox";
         function renderEditor(scope, element) {

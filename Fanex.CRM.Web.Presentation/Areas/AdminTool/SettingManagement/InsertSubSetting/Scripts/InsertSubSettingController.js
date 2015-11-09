@@ -8,8 +8,7 @@
     MessageResult,
     crmConstants,
     settingInfo */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
 
     angular.module('addmintool-settingmanagement-insertsubsetting-application').controller('insertSubSettingController',
     ['$scope', '$uiBlockerService', 'insertSubSettingService',

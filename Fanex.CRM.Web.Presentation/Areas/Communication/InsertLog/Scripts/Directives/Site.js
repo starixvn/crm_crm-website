@@ -4,7 +4,6 @@
     crmConstants */
     angular.module('communicationlog-insert-application').directive('dropdownSite', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.siteList) {
                 var dropdown = element.find("#site");
                 dropdown.empty();

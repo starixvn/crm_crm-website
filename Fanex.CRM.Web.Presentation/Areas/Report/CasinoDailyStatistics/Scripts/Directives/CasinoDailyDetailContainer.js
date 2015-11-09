@@ -3,7 +3,6 @@
     /* global casinoDailyResources,
     sharedScriptManager */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('report-casinodaily-application').directive('tableDailyDetailContainer', function () {
         var tableDailyDetail, gridOptions;
         function getGridOptions(scope, report, bodyData) {

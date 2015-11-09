@@ -1,7 +1,5 @@
 ﻿(function () {
     "use strict";
-    /* jshint unused: vars,
-    camelcase: false */
     /* global currentDate,
     initFromDate */
     /* exported registerOptions */

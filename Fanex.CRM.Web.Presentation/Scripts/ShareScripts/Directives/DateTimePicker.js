@@ -3,7 +3,7 @@
 crmConstants,
 sharedScriptManager,
 moment */
-/* jshint unused: vars */
+/* jshint unused: false */
 /* jshint camelcase: false */
 directiveManager = directiveManager || {};
 directiveManager.registerDateTimePicker = function (angularApplication, registerParams) {

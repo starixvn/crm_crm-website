@@ -3,8 +3,6 @@
     /* global sharedScriptManager,
     hotKeyManager,
     remarkResources */
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('remark-application').directive('richRemarkEditorDirective', function () {
         function renderRemarkEditor(scope, element) {
             var textArea = element.find(".textarea-remark");

@@ -1,6 +1,4 @@
 ﻿"use strict";
-/* jshint unused: vars,
-camelcase: false */
 /* exported registerUpdateFunctions */
 function registerUpdateFunctions($scope) {
     $scope.updateSelectedSubject = function (subject) {

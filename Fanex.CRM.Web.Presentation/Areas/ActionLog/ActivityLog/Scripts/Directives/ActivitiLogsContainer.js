@@ -3,7 +3,6 @@
     /* global activityLogResources,
     crmConstants,
     sharedScriptManager */
-    /* jshint unused: vars */
     angular.module('activitylog-application').directive('tableActivityLogsContainer', function () {
         /* jshint camelcase: false */
         function renderActivityLogs(scope, element) {

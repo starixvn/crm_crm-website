@@ -4,8 +4,6 @@
     custId,
     username,
     tops */
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('feedback-latest-application').controller('latestFeedbackController', ['$scope', 'latestFeedbackService', '$uiBlockerService', function (
     $scope, latestFeedbackService, $uiBlockerService) {
         $scope.custId = custId;

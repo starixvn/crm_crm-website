@@ -4,7 +4,6 @@
     sharedScriptManager,
     hotKeyManager,
     minReportDate */
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     angular.module('report-settlementreport-application').controller('settlementReportController', [
     '$scope',

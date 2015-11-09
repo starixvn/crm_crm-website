@@ -52,7 +52,6 @@
                 $scope.completedLoadDetailInfo();
             },
             function () {
-                /* jshint unused: vars */
                 $scope.isLoadedAllSettings = true;
                 $scope.completedLoadDetailInfo();
             });
@@ -180,7 +179,6 @@
                 $scope.unblockUI();
             },
             function () {
-                /* jshint unused: vars */
                 $scope.unblockUI();
             });
         };

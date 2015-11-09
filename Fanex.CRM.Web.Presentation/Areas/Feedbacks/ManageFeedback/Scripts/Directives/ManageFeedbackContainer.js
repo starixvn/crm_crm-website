@@ -4,7 +4,6 @@
     crmConstants,
     sharedScriptManager */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('feedback-manage-application').directive('tableManageFeedbackContainer', function () {
         var gridOptions, tableManageFeedback;
         function getGridOptions(scope, bodyData, totalItems) {

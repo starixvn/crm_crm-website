@@ -1,8 +1,6 @@
 ﻿(function () {
     "use strict";
     /* global crmConstants*/
-    /* jshint unused: vars */
-    /* jshint camelcase: false */
     angular.module('report-redemption-statistics-application').directive('tableRedemptionStatisticsContainer', function () {
         var selfScope;
 

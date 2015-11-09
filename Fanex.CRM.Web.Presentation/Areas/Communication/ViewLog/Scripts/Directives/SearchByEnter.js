@@ -1,7 +1,6 @@
 ﻿(function () {
     "use strict";
     /* global keyboardManager */
-    /* jshint unused: vars */
     angular.module('communication-application').directive('searchByEnter', function () {
         return {
             restrict: 'C',

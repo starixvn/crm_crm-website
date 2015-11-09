@@ -1,5 +1,4 @@
 ﻿'use strict';
-/* jshint unused: vars */
 /* global crmConstants */
 angular.module('alertBoxApplication', [])
     .service('alertBoxService', ['$rootScope', function ($rootScope) {
@@ -57,6 +56,7 @@ angular.module('alertBoxApplication', [])
                 scope: true,
                 template: '<div id="alertBox"></div>',
                 link: function (scope, element, attrs) {
+                    /* jshint unused: false */
                     scope.$on('alertResult-show', function () {
                         show(element);
                     });

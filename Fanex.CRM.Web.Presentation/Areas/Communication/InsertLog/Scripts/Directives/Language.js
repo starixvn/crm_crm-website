@@ -5,7 +5,6 @@
     /* jshint camelcase: false */
     angular.module('communicationlog-insert-application').directive('dropdownLanguage', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.languageList) {
                 var dropdown = element.find("#language");
                 dropdown.empty();

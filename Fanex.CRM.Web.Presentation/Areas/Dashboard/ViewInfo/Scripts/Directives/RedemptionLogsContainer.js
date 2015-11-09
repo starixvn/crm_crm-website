@@ -9,7 +9,6 @@
                 return;
             }
 
-            /* jshint unused: vars */
             var tableRedemptionLogs = element.find("#table-redemption-logs");
             var logList = scope.redemptionLogs;
             var bodyData = [];

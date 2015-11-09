@@ -38,7 +38,6 @@
                     $scope.completedUpdate(updateResult);
                 },
                 function () {
-                    /* jshint unused: vars */
                     $scope.unblockUI();
                 });
         };

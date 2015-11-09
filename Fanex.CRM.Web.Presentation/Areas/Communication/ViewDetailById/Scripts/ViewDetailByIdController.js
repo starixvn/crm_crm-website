@@ -155,7 +155,6 @@
                 }
             },
             function () {
-                /* jshint unused: vars */
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
         };
@@ -174,7 +173,6 @@
                 }
             },
             function () {
-                /* jshint unused: vars */
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();
@@ -291,7 +289,6 @@
                 $scope.completedLoadFilterInfo();
             },
             function () {
-                /* jshint unused: vars */
                 $scope.completedLoadFilterInfo();
             });
         };

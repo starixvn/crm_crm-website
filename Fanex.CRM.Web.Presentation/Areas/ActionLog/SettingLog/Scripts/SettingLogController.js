@@ -59,7 +59,6 @@
                 $scope.unblockUI();
             },
             function () {
-                /* jshint unused: vars */
                 $scope.unblockUI();
             });
         };
@@ -85,7 +84,6 @@
                 $scope.unblockUI();
             },
             function () {
-                /* jshint unused: vars */
                 $scope.isSearched = true;
                 $scope.unblockUI();
             });

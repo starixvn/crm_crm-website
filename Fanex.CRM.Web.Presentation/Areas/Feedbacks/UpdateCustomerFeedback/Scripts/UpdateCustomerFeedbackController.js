@@ -8,7 +8,6 @@
     hasReviewFeedbackPermission,
     orgLengt:true */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('feedbacks-updatecustomerfeedback-application').controller('updateCustomerFeedbackController',
 ['$scope', 'UpdateCustomerFeedbackService', '$uiBlockerService', 'alertBoxService',
     function ($scope, feedbackService, $uiBlockerService, alertBoxService) {

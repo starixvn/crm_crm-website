@@ -1,6 +1,5 @@
 ﻿(function () {
     "use strict";
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     /* global hotKeyManager,
     crmConstants,

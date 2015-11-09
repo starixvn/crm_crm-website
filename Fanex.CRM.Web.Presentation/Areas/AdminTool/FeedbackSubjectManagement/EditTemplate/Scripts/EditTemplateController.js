@@ -5,8 +5,7 @@
     templateId,
     viewResources,
     hotKeyManager */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
 
     angular.module('addmintool-feedbacksubjectmanagement-edittemplate').controller('editTemplateController',
     ['$scope', '$uiBlockerService', 'editTemplateService',

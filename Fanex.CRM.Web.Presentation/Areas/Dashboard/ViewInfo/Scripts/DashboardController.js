@@ -64,7 +64,6 @@
                     $scope.completedLoadDashboard();
                 },
                 function () {
-                    /* jshint unused: vars */
                     $scope.isLoadedCustomerInfo = true;
                     $scope.completedLoadDashboard();
                 });
@@ -81,7 +80,6 @@
                     $scope.completedLoadDashboard();
                 },
                 function () {
-                    /* jshint unused: vars */
                     $scope.isLoadedCustomerRemarks = true;
                     $scope.completedLoadDashboard();
                 });
@@ -98,7 +96,6 @@
                     $scope.completedLoadDashboard();
                 },
                 function () {
-                    /* jshint unused: vars */
                     $scope.isLoadedRedemptionLogs = true;
                     $scope.completedLoadDashboard();
                 });
@@ -115,7 +112,6 @@
                     $scope.completedLoadDashboard();
                 },
                 function () {
-                    /* jshint unused: vars */
                     $scope.isLoadedCommunicationLogs = true;
                     $scope.completedLoadDashboard();
                 });

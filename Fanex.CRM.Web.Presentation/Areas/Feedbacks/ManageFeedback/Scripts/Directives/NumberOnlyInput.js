@@ -1,6 +1,5 @@
 ﻿(function () {
     "use strict";
-    /* jshint unused: vars */
     angular.module('feedback-manage-application').directive('numberOnlyInput', function () {
         return {
             restrict: 'A',

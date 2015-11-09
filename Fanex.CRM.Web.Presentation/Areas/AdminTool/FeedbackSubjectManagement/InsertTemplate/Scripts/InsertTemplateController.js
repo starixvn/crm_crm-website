@@ -4,8 +4,7 @@
     MessageResult,
     viewResources,
     hotKeyManager */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
 
     angular.module('addmintool-feedbacksubjectmanagement-inserttemplate').controller('insertTemplateController',
     ['$scope', '$uiBlockerService', 'insertTemplateService',

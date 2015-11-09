@@ -5,8 +5,7 @@
     registerHotkeyFunctions,
     sharedScriptManager,
     viewResources */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
     angular.module('addmintool-feedbacksubjectmanagement-application').controller('feedbackSubjectManagementController',
     ['$scope', '$uiBlockerService', 'feedbackSubjectManagementService',
     function ($scope, $uiBlockerService, feedbackSubjectManagementService) {

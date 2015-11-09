@@ -7,8 +7,7 @@
     registerHotkeyFunctions,
     MessageResult,
     settingInfo */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
 
     angular.module('addmintool-settingmanagement-editsetting-application').controller('editSettingController',
     ['$scope', '$uiBlockerService', 'editSettingService',

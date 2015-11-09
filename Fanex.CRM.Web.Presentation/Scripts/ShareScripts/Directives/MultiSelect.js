@@ -1,20 +1,10 @@
 ﻿"use strict";
 /* global directiveManager: true,
 crmConstants */
-/* jshint unused: vars */
+/* jshint unused: false */
 directiveManager = directiveManager || {};
 directiveManager.registerMultiSelectContainer = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
-
-        //        var defaultOption = {
-        //            DataList: null,
-        //            OnChangeEvent: null
-        //        };
         var cachedData = {
             DataList: [],
             Options: null

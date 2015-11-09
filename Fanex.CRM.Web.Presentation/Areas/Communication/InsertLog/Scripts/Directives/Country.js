@@ -3,7 +3,6 @@
     /* global crmConstants, viewResources */
     angular.module('communicationlog-insert-application').directive('dropdownCountry', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.countryList) {
                 var dropdown = element.find("#country");
                 dropdown.empty();

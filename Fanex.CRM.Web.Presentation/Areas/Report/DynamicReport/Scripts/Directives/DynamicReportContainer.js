@@ -4,7 +4,6 @@
     sharedScriptManager,
     viewResources,
     moment */
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     angular.module('report-dynamicreport-application').directive('tableDynamicReportContainer', function () {
         var cachedDynamicReport;

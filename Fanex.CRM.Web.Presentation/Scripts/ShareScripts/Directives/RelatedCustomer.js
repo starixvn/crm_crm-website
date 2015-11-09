@@ -1,10 +1,13 @@
 ﻿"use strict";
 /* global directiveManager: true,
 sharedScriptManager */
-/* jshint unused: vars */
+/* jshint unused: false,
+camelcase: false,
+newcap: false */
 /* Must refer to: 
 ~/Scripts/common.js
 */
+/*exported orgLengt, orgArrUser, trim */
 var orgLengt = 0;
 var orgArrUser = "";
 var arrCust = [];
@@ -254,7 +257,6 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
         var arrUser = [];
         var userName = "";
         $('#related td').each(function (i, td) {
-            /* jshint unused: vars */
             arrUser[i] = this.id;
         });
         userName = arrUser.join(",");

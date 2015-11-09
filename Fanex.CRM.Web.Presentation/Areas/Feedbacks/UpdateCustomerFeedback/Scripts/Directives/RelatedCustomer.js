@@ -1,6 +1,5 @@
 ﻿"use strict";
 /* exported orgLengt, trim */
-/* jshint unused: vars */
 /* jshint camelcase: false */
 (function () {
     angular.module('feedbacks-updatecustomerfeedback-application').directive('relatedcustomer', function () {

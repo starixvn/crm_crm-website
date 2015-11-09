@@ -11,7 +11,6 @@
                 return;
             }
 
-            /* jshint unused: vars */
             var tableCommunicationLogs = element.find("#table-communication-logs");
             var logList = scope.communicationLogs;
             var bodyData = [];

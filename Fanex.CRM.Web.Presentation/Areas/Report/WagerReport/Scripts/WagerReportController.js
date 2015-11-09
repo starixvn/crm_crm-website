@@ -67,7 +67,6 @@ function ($scope, wagerReportService, $uiBlockerService, $resultMessageService) 
                 $uiBlockerService.unblockUI();
             },
             function (data) {
-                /* jshint unused: vars */
                 sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
                 $uiBlockerService.unblockUI();
             });

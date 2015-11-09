@@ -3,7 +3,6 @@
     /* global crmConstants,
     sharedScriptManager,
     viewResources */
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     /* jshint maxstatements: 1000 */
     angular.module('report-statisticreport-application').directive('tableStatisticReportContainer', function () {

@@ -2,8 +2,6 @@
     "use strict";
     /* global casinoWeeklyResources,
     crmConstants */
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('report-casinoweekly-application').directive('tableWeeklySummaryContainer', function () {
         function getGameTypeColumn(headerText, name) {
             return {

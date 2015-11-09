@@ -5,7 +5,6 @@
     viewResources */
     angular.module('customerdetail-application').directive('dropdownSiteContainer', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.siteList) {
                 var dropdown = element.find("#customerinfodetail-siteoptions");
                 dropdown.empty();
@@ -51,7 +50,6 @@
         };
     }).directive('dropdownCountryContainer', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.countryList) {
                 var dropdown = element.find("#customerinfodetail-countryoptions");
                 dropdown.empty();
@@ -89,7 +87,6 @@
         };
     }).directive('dropdownCountryBankContainer', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.countryList) {
                 var dropdown = element.find("#customerinfodetail-countryoptions-bank");
                 dropdown.empty();
@@ -127,7 +124,6 @@
         };
     }).directive('dropdownLanguage', function () {
         function renderDropdownLanguage(scope, element) {
-            /* jshint unused: vars */
             var dropdown = element.find("#customerinfodetail-languageoptions");
             dropdown.empty();
             var dropdownLanguage = [];

@@ -2,24 +2,10 @@
 /* global directiveManager: true,
 crmConstants,
 sharedScriptManager */
-/* jshint unused: vars */
+/* jshint unused: false */
 directiveManager = directiveManager || {};
 directiveManager.registerDatePickerContainer = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
-
-        //        var defaultOption = {
-        //            MinDate: null,
-        //            MaxDate: null,
-        //            InitDate: null,
-        //            IsRerenderPicker: null,
-        //            OnChangeDateEvent: null
-        //        };
-
         var oldValue = null;
         var isRenderedCalendar = false;
         var isOnSelect = false;

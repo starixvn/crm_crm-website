@@ -3,8 +3,6 @@
     /* global sharedScriptManager,
     MessageResult,
     templateId */
-    /* jshint unused: vars,
-    camelcase: false */
 
     angular.module('addmintool-feedbacksubjectmanagement-deletetemplate')
     .controller('deleteTemplateController', ['$scope', '$uiBlockerService', 'deleteTemplateService',

@@ -1,7 +1,6 @@
 ﻿(function () {
     "use strict";
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
     /* global crmConstants,
     sharedScriptManager,
     moment,

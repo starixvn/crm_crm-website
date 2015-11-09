@@ -2,8 +2,6 @@
     "use strict";
     /* global latestFeedbackResources,
     sharedScriptManager */
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('feedback-latest-application').directive('tableLatestFeedbackContainer', function () {
         var gridOptions, tableLatestFeedback;
         function getGridOptions(title) {

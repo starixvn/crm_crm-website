@@ -3,7 +3,6 @@
     /* global crmConstants,
     currentDate,
     sharedScriptManager */
-    /* jshint unused: vars */
     angular.module('customerdetail-application').directive('datePickerContainer', function () {
         var oldValue = null;
         var isOnSelect = false;

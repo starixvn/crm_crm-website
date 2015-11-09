@@ -3,7 +3,6 @@
     /* global casinoWeeklyResources,
     sharedScriptManager */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('report-casinoweekly-application').directive('tableWeeklyDetailContainer', function () {
         var tableWeeklyDetail, gridOptions;
         function getGridOptions(scope, report, bodyData) {

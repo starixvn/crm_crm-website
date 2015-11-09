@@ -1,6 +1,5 @@
 ﻿"use strict";
 /* global sharedScriptManager, CryptoJS */
-/* jshint unused: vars */
 
 var CRMLoginManager = CRMLoginManager || {};
 

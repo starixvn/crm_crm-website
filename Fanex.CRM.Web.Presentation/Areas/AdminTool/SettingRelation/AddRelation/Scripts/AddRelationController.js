@@ -7,8 +7,7 @@
     registerUpdateFunctions,
     registerHotkeyFunctions,
     mainSetting */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
 
     angular.module('addmintool-settingrelation-addrelation-application').controller('addRelationController',
     ['$scope', '$uiBlockerService', 'addRelationService',

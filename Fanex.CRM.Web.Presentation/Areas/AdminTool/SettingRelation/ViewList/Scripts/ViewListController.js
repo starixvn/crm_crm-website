@@ -5,8 +5,7 @@
     registerOptions,
     registerUpdateFunctions,
     registerHotkeyFunctions */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
 
     angular.module('addmintool-settingrelation-application').controller('viewListController',
     ['$scope', '$uiBlockerService', 'viewListService',

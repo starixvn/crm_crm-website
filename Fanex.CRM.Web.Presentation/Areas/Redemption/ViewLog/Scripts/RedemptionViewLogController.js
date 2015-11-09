@@ -54,7 +54,6 @@
                 $scope.completedLoadFilterInfo();
             },
             function () {
-                /* jshint unused: vars */
                 $scope.completedLoadFilterInfo();
             });
         };
@@ -113,7 +112,6 @@
                 $scope.unblockUI();
             },
             function () {
-                /* jshint unused: vars */
                 $scope.isSearched = true;
                 $scope.unblockUI();
             });

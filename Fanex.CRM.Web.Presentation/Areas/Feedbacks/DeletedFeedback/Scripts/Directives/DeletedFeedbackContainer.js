@@ -3,7 +3,6 @@
     /* global deletedFeedbackResources,
     sharedScriptManager */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('deleted-feedback-application').directive('tableDeletedFeedbackContainer', function () {
         var gridOptions, tableDeletedFeedback;
         function getGridOptions(scope, bodyData, totalItems) {

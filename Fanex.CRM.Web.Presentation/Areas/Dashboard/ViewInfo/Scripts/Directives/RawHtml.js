@@ -1,7 +1,6 @@
 ﻿(function () {
     "use strict";
     /* global sharedScriptManager */
-    /* jshint unused: vars */
     angular.module('dashboard-application').directive("rawHtmlDirective", function () {
         return {
             restrict: "C",

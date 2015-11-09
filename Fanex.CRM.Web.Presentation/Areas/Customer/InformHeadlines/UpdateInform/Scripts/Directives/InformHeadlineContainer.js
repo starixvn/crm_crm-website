@@ -3,7 +3,6 @@
     /* global updateInformResources,
     crmConstants */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('customer-informheadline-update').directive('tableInformHeadlineContainer', function () {
         var gridOptions, tableInformHeadline;
 

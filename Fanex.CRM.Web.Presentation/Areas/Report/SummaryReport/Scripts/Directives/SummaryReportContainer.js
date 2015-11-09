@@ -2,8 +2,6 @@
     "use strict";
     /* global summaryReportResources,
     crmConstants */
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('report-summaryreport-application').directive('tableSummaryReportContainer', function () {
         function getMonthColumnTitle(headerText, name) {
             return {

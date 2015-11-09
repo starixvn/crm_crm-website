@@ -5,7 +5,6 @@
     hotKeyManager,
     sharedScriptManager,
     currentUsername */
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     angular.module('communicationlog-edit-application').directive('remarkEditorContainer', function () {
         var editorId = "remarkeditorbox";

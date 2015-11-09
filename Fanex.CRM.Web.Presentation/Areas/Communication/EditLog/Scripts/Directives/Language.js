@@ -2,7 +2,6 @@
     "use strict";
     /* global viewResources,
     crmConstants */
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     angular.module('communicationlog-edit-application').directive('dropdownLanguage', function () {
         function renderDropdown(scope, element) {

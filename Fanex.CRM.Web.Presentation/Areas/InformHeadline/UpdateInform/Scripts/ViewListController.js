@@ -4,8 +4,6 @@
     sharedScriptManager,
     hotKeyManager,
     viewResources, Site */
-    /* jshint unused: vars,
-    camelcase: false */
 
     angular.module('updateInformApplication').controller('UpdateInformController',
     ['$scope', '$uiBlockerService', '$timeout', 'updateInformService',

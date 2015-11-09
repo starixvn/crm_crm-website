@@ -9,7 +9,6 @@
         var isSettingDate = false;
         var oldValue = null;
         function renderDatePicker(scope, element) {
-            /* jshint unused: vars */
             var datePicker = element.find(".timepicker");
 
             var currentDateTime = new Date(currentTime);

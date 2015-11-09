@@ -1,7 +1,6 @@
 ﻿"use strict";
-/* global directiveManager: true,
-sharedScriptManager */
-/* jshint unused: vars */
+/* global directiveManager: true */
+/* jshint unused: false */
 var directiveManager = directiveManager || {};
 directiveManager.registerDownloadFile = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
@@ -31,5 +30,5 @@ directiveManager.registerDownloadFile = function (angularApplication, registerPa
                 });
             }
         };
-    })
+    });
 };

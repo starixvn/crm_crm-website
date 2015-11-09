@@ -1,23 +1,10 @@
 ﻿"use strict";
 /* global directiveManager: true,
 crmConstants */
-/* jshint unused: vars */
+/* jshint unused: false */
 directiveManager = directiveManager || {};
 directiveManager.registerMonthPickerContainer = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //    var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
-        //    var defaultOption = {
-        //            MinDate: null,
-        //            MaxDate: null,
-        //            InitDate: null,
-        //            IsRerenderPicker: null,
-        //            OnChangeEvent: null
-        //        };
-
         var isRenderedPicker = false;
         var cachedData = {
             yearDropdown: null,

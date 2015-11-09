@@ -4,8 +4,6 @@
     hotKeyManager,
     sharedScriptManager,
     viewResources, Site */
-    /* jshint unused: vars,
-    camelcase: false */
 
     angular.module('newInformApplication').controller('NewInformController',
     ['$scope', '$uiBlockerService', 'newInformService',

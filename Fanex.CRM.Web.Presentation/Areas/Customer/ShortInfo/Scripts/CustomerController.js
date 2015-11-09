@@ -86,7 +86,6 @@
             customerManager.completedGetCustomerInfoByUsername(customer, isHavingData);
         },
         function () {
-            /* jshint unused: vars */
             $scope.unblockUI();
         });
         };
@@ -107,7 +106,6 @@
             $scope.unblockUI();
         },
         function () {
-            /* jshint unused: vars */
             $scope.unblockUI();
         });
         };
@@ -195,7 +193,6 @@
                     $scope.unblockUI();
                 },
                 function () {
-                    /* jshint unused: vars */
                     $scope.unblockUI();
                 });
         };

@@ -6,7 +6,6 @@ menuManager,
 moment,
 clientTime */
 /* exported shouldReloadLogs */
-/* jshint unused: vars */
 var shouldReloadLogs = false;
 var HomeManager = function () {
     var self = this;

@@ -1,6 +1,5 @@
 ﻿(function () {
     "use strict";
-    /* jshint unused: vars */
     angular.module('redemption-insertlog-application').directive('numberOnlyInput', function () {
         return {
             restrict: 'A',

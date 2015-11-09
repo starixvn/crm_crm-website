@@ -57,7 +57,6 @@
     $uiBlockerService.unblockUI();
 },
 function () {
-    /* jshint unused: vars */
     $uiBlockerService.unblockUI();
 });
         };
@@ -88,7 +87,6 @@ function () {
     $uiBlockerService.unblockUI();
 },
 function (data) {
-    /* jshint unused: vars */
     sharedScriptManager.handleErrorMessage(data.Result, $resultMessageService);
     $uiBlockerService.unblockUI();
 });

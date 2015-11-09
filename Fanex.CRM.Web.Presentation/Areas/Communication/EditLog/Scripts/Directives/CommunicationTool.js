@@ -1,7 +1,5 @@
 ﻿(function () {
     "use strict";
-    /* jshint unused: vars */
-    /* jshint camelcase: false */
     angular.module('communicationlog-edit-application').directive('dropdownCommunicationTool', function () {
         function renderDropdown(scope, element) {
             if (scope.communicationToolList) {

@@ -1,7 +1,5 @@
 ﻿(function () {
     "use strict";
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('remark-application').directive('remarkEditorDirective', function ($compile) {
         return {
             restrict: 'C',

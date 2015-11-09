@@ -4,7 +4,6 @@
     hotKeyManager,
     sharedScriptManager,
     currentUsername */
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     angular.module('redemption-editlog-application').directive('remarkEditorContainer', function () {
         var editorId = "remarkeditorbox";

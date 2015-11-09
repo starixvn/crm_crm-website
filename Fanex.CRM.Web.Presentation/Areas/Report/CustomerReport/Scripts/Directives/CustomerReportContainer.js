@@ -3,7 +3,6 @@
     /* global crmConstants,
     viewResources,
     sharedScriptManager */
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     angular.module('report-customerreport-application').directive('tableCustomerReportContainer', function () {
         var cachedData = {

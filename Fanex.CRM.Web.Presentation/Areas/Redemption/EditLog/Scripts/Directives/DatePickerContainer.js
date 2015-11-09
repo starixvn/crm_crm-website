@@ -5,7 +5,6 @@
     angular.module('redemption-editlog-application').directive('datePickerContainer', function () {
         var oldValue = null;
         function renderDatePicker(scope, element) {
-            /* jshint unused: vars */
             var txtCalendar = element.find(".txtcalendar");
             txtCalendar.datepicker({
                 dateFormat: crmConstants.Enums.FormatConstant.M_DD_YY_STRING,

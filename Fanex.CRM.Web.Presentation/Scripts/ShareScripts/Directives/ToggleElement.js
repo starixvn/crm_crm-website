@@ -1,14 +1,9 @@
 ﻿"use strict";
-/* global directiveManager */
-/* jshint unused: vars */
+/* global directiveManager: true */
+/* jshint unused: false */
 directiveManager = directiveManager || {};
 directiveManager.registerToggleElement = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
         var cachedData = {
             Options: null,
             Picker: null

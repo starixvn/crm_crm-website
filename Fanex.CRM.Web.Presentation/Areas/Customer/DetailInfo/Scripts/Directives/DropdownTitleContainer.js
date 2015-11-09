@@ -2,7 +2,6 @@
     "use strict";
     angular.module('customerdetail-application').directive('dropdownTitleContainer', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.titleList) {
                 var dropdown = element.find("#customerinfodetail-titleoptions");
                 dropdown.empty();

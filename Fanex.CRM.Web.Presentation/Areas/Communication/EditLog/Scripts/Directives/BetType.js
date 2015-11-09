@@ -2,11 +2,9 @@
     "use strict";
     angular.module('communicationlog-edit-application').directive('dropdownBetType', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.betTypeList) {
                 var dropdown = element.find("#betType");
                 dropdown.empty();
-                /* jshint camelcase: false */
                 var betTypeListLength = scope.betTypeList.length;
                 for (var i = 0; i < betTypeListLength; i++) {
                     var betType = scope.betTypeList[i];

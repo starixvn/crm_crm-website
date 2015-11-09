@@ -8,7 +8,6 @@
     yesterday,
     currentTime */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('deleted-feedback-application').controller('deletedFeedbackController', ['$scope', 'deletedFeedbackService', '$uiBlockerService', function (
     $scope, deletedFBService, $uiBlockerService) {
         $scope.fromDateOptions = null;

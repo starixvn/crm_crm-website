@@ -8,7 +8,6 @@
     minReportDate,
     moment,
     viewResources */
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     angular.module('report-statisticreport-application').controller('statisticReportController', [
     '$scope',

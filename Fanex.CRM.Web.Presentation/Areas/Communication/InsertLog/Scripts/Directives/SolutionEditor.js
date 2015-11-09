@@ -7,7 +7,6 @@
     angular.module('communicationlog-insert-application').directive('solutionEditorContainer', function () {
         var editorId = "solutioneditorbox";
         function renderEditor(scope, element) {
-            /* jshint unused: vars */
             var solution = scope.communicationLog ? scope.communicationLog.Solution : '';
             var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +

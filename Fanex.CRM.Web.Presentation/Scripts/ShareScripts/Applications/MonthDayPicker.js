@@ -1,5 +1,5 @@
 ﻿"use strict";
-/* jshint unused: vars */
+/* jshint unused: false */
 angular.module('$monthDayPickerApplication', [])
      .service('$monthDayPickerService', ['$rootScope', function ($rootScope) {
          var pickerOptions = {

@@ -2,8 +2,6 @@
     "use strict";
     /* global crmConstants,
     reportDirectiveHelper */
-    /* jshint unused: vars,
-    camelcase: false */
     angular.module('report-dailystatistics-application').directive('tableLicenseeReportContainer', function () {
         var selfScope;
         var cachedTable;

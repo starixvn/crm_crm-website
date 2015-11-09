@@ -7,8 +7,7 @@
     registerHotkeyFunctions,
     MessageResult,
     crmConstants */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
 
     angular.module('addmintool-settingmanagement-insertnewsetting-application').controller('insertSettingController',
     ['$scope', '$uiBlockerService', 'insertSettingService',

@@ -2,11 +2,9 @@
     "use strict";
     angular.module('communicationlog-insert-application').directive('dropdownRole', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.roleList) {
                 var dropdown = element.find("#role");
                 dropdown.empty();
-                /* jshint camelcase: false */
                 var roleListLength = scope.roleList.length;
                 var roleId = scope.defaultSettings.RoleId;
                 for (var i = 0; i < roleListLength; i++) {

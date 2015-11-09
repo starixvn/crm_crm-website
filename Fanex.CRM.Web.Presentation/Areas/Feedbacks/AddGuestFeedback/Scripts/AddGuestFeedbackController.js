@@ -9,8 +9,7 @@
     sharedScriptManager,
     viewResources,
     moment */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
     window.MessageResult = function (message, isShowMessage, isSuccess) {
         this.Message = message;
         this.IsShowMessage = isShowMessage;

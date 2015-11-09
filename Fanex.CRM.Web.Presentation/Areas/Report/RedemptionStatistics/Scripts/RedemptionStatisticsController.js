@@ -8,8 +8,6 @@
     moment,
     sharedScriptManager */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
-    /* jshint maxstatements: 412 */
     angular.module('report-redemption-statistics-application')
         .controller('redemptionStatisticsController', ['$scope', '$redemptionStatisticsService', 'alertBoxService',
     function ($scope, $redemptionStatisticsService, alertBoxService) {

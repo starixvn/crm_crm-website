@@ -2,11 +2,9 @@
     "use strict";
     angular.module('communicationlog-insert-application').directive('dropdownCommunicationTool', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.communicationToolList) {
                 var dropdown = element.find("#communicationTool");
                 dropdown.empty();
-                /* jshint camelcase: false */
                 var communicationToolListLength = scope.communicationToolList.length;
                 for (var i = 0; i < communicationToolListLength; i++) {
                     var communicationTool = scope.communicationToolList[i];

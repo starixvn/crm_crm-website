@@ -3,7 +3,6 @@
     /* global feedbackStatisticDetailResources,
     sharedScriptManager */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('feedback-statistic-detail-application').directive('tableFeedbackStatisticDetailContainer', function () {
         var isShowSubCategory;
         var gridOptions, tableFeedbackStatisticDetail;

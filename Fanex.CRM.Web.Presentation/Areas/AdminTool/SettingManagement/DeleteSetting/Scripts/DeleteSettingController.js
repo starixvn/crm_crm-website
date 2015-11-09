@@ -3,8 +3,6 @@
     /* global sharedScriptManager,
     MessageResult,
     settingInfo */
-    /* jshint unused: vars,
-    camelcase: false */
 
     angular.module('addmintool-settingmanagement-deletesetting').controller('deleteSettingController',
     ['$scope', '$uiBlockerService', 'deleteSettingService',

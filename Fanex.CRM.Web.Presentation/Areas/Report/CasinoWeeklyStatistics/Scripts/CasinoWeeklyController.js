@@ -6,7 +6,6 @@
     fromDate,
     toDate */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('report-casinoweekly-application').controller('casinoweeklyController', ['$scope', 'CasinoWeeklyService', '$uiBlockerService',
     function ($scope, casinoWeeklyService, $uiBlockerService) {
         $scope.fromDate = fromDate;

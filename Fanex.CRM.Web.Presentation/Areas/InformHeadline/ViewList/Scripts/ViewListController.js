@@ -2,8 +2,6 @@
 "use strict";
 /* global sharedScriptManager,
 viewResources, Site */
-/* jshint unused: vars,
-camelcase: false */
 
 angular.module('informHeadlineApplication').controller('ViewListController',
     ['$scope', '$uiBlockerService', 'viewListService',

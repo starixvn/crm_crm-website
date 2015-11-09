@@ -2,8 +2,6 @@
     "use strict";
     /* global casinoDailyResources,
     crmConstants */
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('report-casinodaily-application').directive('tableDailySummaryContainer', function () {
         function getGridOptions(scope, report, bodyData, footerData) {
             var groupHeaderRows = [{ HeaderText: casinoDailyResources.Category, Name: 'ColCategory', MergeRowNumber: 2}];

@@ -1,22 +1,9 @@
 ﻿"use strict";
 /* global directiveManager: true */
-/* jshint unused: vars */
+/* jshint unused: false */
 directiveManager = directiveManager || {};
 directiveManager.registerWeekPickerContainer = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //    var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
-        //    var defaultOption = {
-        //            MinDate: null,
-        //            MaxDate: null,
-        //            InitDate: null,
-        //            IsRerenderPicker: null,
-        //            OnChangeEvent: null
-        //        };
-
         var selfScope;
         var isAlreadyApply = false;
         function ngModelChange(scope, element, attrs, newVal, oldVal) {
@@ -28,9 +15,7 @@ directiveManager.registerWeekPickerContainer = function (angularApplication, reg
             });
 
             picker.weekpicker('onSelect', onChangeDateEvent);
-            //            isAlreadyApply = true;
-            //            element.find("#" + registerParams.PickerId).weekpicker('updateInitDate', null);
-            //            isAlreadyApply = false;
+            isAlreadyApply = false;
         }
 
         function onChangeDateEvent(fromDate, toDate, picker) {

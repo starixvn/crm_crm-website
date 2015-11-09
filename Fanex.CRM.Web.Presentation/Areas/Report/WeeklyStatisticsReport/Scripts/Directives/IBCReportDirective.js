@@ -2,8 +2,6 @@
     "use strict";
     /* global crmConstants,
     reportDirectiveHelper */
-    /* jshint unused: vars,
-    camelcase: false */
     angular.module('report-weeklystatistics-application').directive('tableIbcReportContainer', function () {
         var selfScope;
         var cachedTable;

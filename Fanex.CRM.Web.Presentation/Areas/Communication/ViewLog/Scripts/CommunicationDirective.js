@@ -201,7 +201,6 @@
                 return;
             }
 
-            /* jshint unused: vars */
             var tableCommunicationLogs = element.find("#table-communication-logs");
             var logList = scope.logs;
             cachedLogs = logList;
@@ -336,7 +335,6 @@
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
                     if (newval && !oldval) {
-                        /* jshint unused: vars */
                         element.find("#handler").focus();
                         scope.completeSetFocus();
                     }

@@ -2,11 +2,9 @@
     "use strict";
     angular.module('communicationlog-edit-application').directive('dropdownSubCategory', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.subCategoryList) {
                 var dropdown = element.find("#subCategory");
                 dropdown.empty();
-                /* jshint camelcase: false */
                 var subCategoryListLength = scope.subCategoryList.length;
                 for (var i = 0; i < subCategoryListLength; i++) {
                     var subCategory = scope.subCategoryList[i];

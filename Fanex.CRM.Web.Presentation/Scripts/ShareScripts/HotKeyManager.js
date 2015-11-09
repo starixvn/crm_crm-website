@@ -1,7 +1,7 @@
 ﻿"use strict";
 /* global sharedScriptManager,
 keyboardManager */
-/* jshint unused: vars,
+/* jshint unused: false,
 camelcase: false,
 maxstatements: false */
 /* Hotkey notes:

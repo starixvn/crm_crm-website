@@ -4,7 +4,6 @@
     viewResources */
     angular.module('communicationlog-edit-application').directive('dropdownSite', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.siteList) {
                 var dropdown = element.find("#site");
                 dropdown.empty();

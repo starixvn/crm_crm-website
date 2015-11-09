@@ -1,4 +1,5 @@
-﻿var DialogManager = function () {
+﻿"use strict";
+var DialogManager = function () {
     var self = this;
 
     self.CachedData = {
@@ -19,7 +20,7 @@
             // position: 'center',
             title: title,
             close: function (event, ui) {
-                /*jshint unused: vars*/
+                /* jshint unused: false */
                 self.CachedData.resultPopup.dialog('destroy');
                 $(document).append('<div id="div-resultpopup" class="selector display-none"></div>');
                 self.CachedData.resultPopup = $('#div-resultpopup');

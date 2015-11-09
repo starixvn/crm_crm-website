@@ -4,7 +4,6 @@
     settingLogResources,
     crmConstants,
     sharedScriptManager */
-    /* jshint unused: vars */
     angular.module('settinglog-application').directive('tableSettingLogsContainer', function () {
         /* jshint camelcase: false */
         function renderSettingLogs(scope, element) {
@@ -18,7 +17,6 @@
                 return false;
             }
 
-            /* jshint unused: vars */
             if (!scope.isSearched) {
                 return;
             }

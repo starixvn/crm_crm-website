@@ -4,7 +4,6 @@
     crmConstants,
     sharedScriptManager */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('feedback-statistic-application').directive('tableFeedbackStatisticContainer', function () {
         var gridOptions, tableFeedbackStatistic;
         function getUsernameColumn(name) {

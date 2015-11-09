@@ -5,7 +5,6 @@
     angular.module('redemption-editlog-application').directive('subjectAutoComplete', function () {
         var suggestionItemNumber = 15;
         function bindingAutoSuggestionSubject(scope, element) {
-            /* jshint unused: vars */
             element.keyup(function (e) {
                 if (isAutoSuggest(e.keyCode)) {
                     var rows = [];

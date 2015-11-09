@@ -2,8 +2,6 @@
     "use strict";
     /* global sharedScriptManager,
     criteria */
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('feedback-statistic-detail-application')
         .controller('feedbackStatisticDetailController', ['$scope', 'FeedbackStatisticDetailService', '$uiBlockerService',
     function ($scope, feedbackStatisticDetailService, $uiBlockerService) {

@@ -9,7 +9,6 @@
     moment,
     sharedScriptManager */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     /* jshint maxstatements: 412 */
     angular.module('report-dynamicreport-application').controller('dynamicReportController', ['$scope', '$dynamicReportService',
     function ($scope, $dynamicReportService) {
@@ -563,7 +562,6 @@
                 }
             },
             function () {
-                /* jshint unused: vars */
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
         };
@@ -582,7 +580,6 @@
                 }
             },
             function () {
-                /* jshint unused: vars */
                 if ($scope.feedbackSubjectTemplateTotalPage === pagingIndex) {
                     $scope.isLoadedFeedbackSubjectTemplate = true;
                     $scope.completedLoadFilterInfo();

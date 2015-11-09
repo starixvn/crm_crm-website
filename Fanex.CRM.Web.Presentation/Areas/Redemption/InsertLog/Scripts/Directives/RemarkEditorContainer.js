@@ -7,7 +7,6 @@
     angular.module('redemption-insertlog-application').directive('remarkEditorContainer', function () {
         var editorId = "remarkeditorbox";
         function renderRemarkEditor(scope, element) {
-            /* jshint unused: vars */
             var remark = scope.redemptionLog.Remark;
             var editorHTML =
         '<textarea id="' + editorId + '" name="' + editorId + '" class="remarkeditorbox">' +

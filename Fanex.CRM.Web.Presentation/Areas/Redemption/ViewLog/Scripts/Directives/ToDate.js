@@ -32,7 +32,6 @@
         }
 
         function selectedDateChange(scope, element) {
-            /* jshint unused: vars */
             var toDatePicker = element.find("#toDate");
             var selectedDate = toDatePicker.val();
             var date = new Date(selectedDate);

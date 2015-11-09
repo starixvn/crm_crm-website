@@ -1,6 +1,5 @@
 ﻿(function () {
     "use strict";
-    /*jshint unused: vars*/
     /* global informStatisticResourceView,
     crmConstants,
     canUpdateStatus */

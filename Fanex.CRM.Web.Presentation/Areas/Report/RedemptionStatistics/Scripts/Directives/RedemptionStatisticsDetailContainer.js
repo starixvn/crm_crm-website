@@ -1,6 +1,5 @@
 ﻿(function () {
     "use strict";
-    /* jshint unused: vars */
     /* jshint camelcase: false */
     angular.module('report-redemption-statistics-application').directive('tableRedemptionStatisticsDetailContainer', function () {
         var selfScope;

@@ -2,7 +2,6 @@
     "use strict";
     angular.module('redemption-editlog-application').directive('dropdownStatusContainer', function () {
         function renderDropdown(scope, element) {
-            /* jshint unused: vars */
             if (scope.statusList) {
                 var dropdown = element.find("#status");
                 dropdown.empty();

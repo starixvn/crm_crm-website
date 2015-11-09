@@ -65,7 +65,6 @@
                 $scope.completedLoadFilterInfo();
             },
             function () {
-                /* jshint unused: vars */
                 $scope.loadedFilter.push({
                     Id: 'Status'
                 });
@@ -86,7 +85,6 @@
                 }
             },
             function () {
-                /* jshint unused: vars */
                 $scope.isLoadedFeedbackSubjectTemplate = true;
             });
         };
@@ -165,7 +163,6 @@
                 $scope.completedInsertLog(data.Result);
             },
             function () {
-                /* jshint unused: vars */
                 $scope.unblockUI();
             });
             } else {

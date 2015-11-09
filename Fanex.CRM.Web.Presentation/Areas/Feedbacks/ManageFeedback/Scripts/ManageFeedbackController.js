@@ -10,7 +10,6 @@
     username,
     isGuest */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('feedback-manage-application').controller('manageFeedbackController', ['$scope', 'manageFeedbackService', '$uiBlockerService', function (
     $scope, manageFBService, $uiBlockerService) {
         $scope.fromDateOptions = null;

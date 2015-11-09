@@ -7,7 +7,6 @@
     casinoDailyResources,
     currentDate */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('report-casinodaily-application').controller('casinoDailyController', ['$scope', 'CasinoDailyService', '$uiBlockerService',
     function ($scope, casinoDailyService, $uiBlockerService) {
         $scope.fromDateOptions = null;

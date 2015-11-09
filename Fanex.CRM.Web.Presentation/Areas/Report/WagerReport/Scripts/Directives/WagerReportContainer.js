@@ -2,8 +2,6 @@
     "use strict";
     /* global wagerReportResources,
     crmConstants */
-    /* jshint camelcase: false */
-    /* jshint unused: vars */
     angular.module('report-wagerreport-application').directive('tableWagerReportContainer', function () {
         function getGridOptions(scope, reportTitle, bodyData, footerData) {
             return {

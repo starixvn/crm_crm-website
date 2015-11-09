@@ -1,6 +1,5 @@
 ﻿(function () {
     "use strict";
-    /* jshint unused: vars */
     angular.module('feedbacks-updatecustomerfeedback-application').directive('relatedcustomerresult', function () {
         var renderRow = function (customer) {
             if (!customer) {

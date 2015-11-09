@@ -7,8 +7,6 @@
     moment,
     sharedScriptManager */
     /* jshint camelcase: false */
-    /* jshint unused: vars */
-    /* jshint maxstatements: 412 */
     angular.module('report-customerreport-application').controller('customerReportController', ['$scope', '$customerReportService',
     function ($scope, $customerReportService) {
         $scope.isShowFilter = true;

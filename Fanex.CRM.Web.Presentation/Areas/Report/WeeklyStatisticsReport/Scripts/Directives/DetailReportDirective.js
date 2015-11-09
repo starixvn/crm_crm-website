@@ -3,8 +3,7 @@
     /* global crmConstants,
     viewResources,
     sharedScriptManager */
-    /* jshint unused: vars,
-    camelcase: false */
+    /* jshint camelcase: false */
     angular.module('report-weeklystatistics-application').directive('tableDetailReportContainer', function () {
         var selfScope;
         var cachedTable;

@@ -1,15 +1,13 @@
 ﻿"use strict";
-/* global directiveManager: true */
-/* jshint unused: vars */
+/* global directiveManager: true,
+sharedScriptManager,
+hotKeyManager,
+currentUsername */
+/* jshint unused: false */
 /* jshint camelcase: false */
 directiveManager = directiveManager || {};
 directiveManager.registerHtmlArea = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
         function isOptionReady(options) {
             return options !== null &&
                 options !== undefined;

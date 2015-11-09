@@ -1,20 +1,9 @@
 ﻿"use strict";
 /* global directiveManager: true */
-/* jshint unused: vars */
+/* jshint unused: false */
 directiveManager = directiveManager || {};
 directiveManager.registerDropdownContainer = function (angularApplication, registerParams) {
     angularApplication.directive(registerParams.PlugInName, function () {
-        //        var defaultRegisterParams = {
-        //            PlugInName: null,
-        //            OptionName: null,
-        //            PickerId: null
-        //        };
-
-        //        var defaultOption = {
-        //            DataList: null,
-        //            OnChangeEvent: null
-        //        };
-
         var dataList = [];
         function renderDropdown(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
@@ -70,7 +59,6 @@ directiveManager.registerDropdownContainer = function (angularApplication, regis
             scope: true,
             link: function (scope, element, attrs) {
                 scope.$watch(attrs.ngModel, function (newval, oldval) {
-                    /* jshint unused: vars */
                     renderDropdown(scope, element, attrs);
                 });
             }

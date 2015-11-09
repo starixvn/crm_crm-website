@@ -1,8 +1,8 @@
 ﻿"use strict";
 /* global hotKeyManager */
-/* jshint unused: vars */
 angular.module('$uiBlockerApplication', [])
     .service('$uiBlockerService', ['$rootScope', function ($rootScope) {
+        /* jshint unused: false */
         this.blockUI = function () {
             try {
                 if (window.hotKeyManager) {
