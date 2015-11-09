@@ -29,9 +29,6 @@ namespace Fanex.CRM.Report.Criteria.FeedbackStatisticReport
         public int SelectionType { get; set; }
 
         [SpParam(Ignored = true)]
-        public bool FromCache { get; set; }
-
-        [SpParam(Ignored = true)]
         public int PageIndex { get; set; }
 
         [SpParam(Ignored = true)]

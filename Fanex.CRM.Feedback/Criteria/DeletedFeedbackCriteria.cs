@@ -43,8 +43,6 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public int TotalItems { get; set; }
 
-        public bool FromCache { get; set; }
-
         public override string GetSettingKey()
         {
             return "FeedbackGetDeleted";

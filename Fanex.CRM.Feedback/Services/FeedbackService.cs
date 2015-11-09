@@ -31,9 +31,6 @@ namespace Fanex.CRM.Feedback.Services
     /// </summary>
     public class FeedbackService : IFeedbackService
     {
-        // Session keys.
-        private const string DeletedFeedbackSessionKey = "Fanex.CRM.Feedback.Services.DeletedFeedback";
-
         private readonly IFeedbackRepository _feedbackRepository;
         private readonly ISettingService _serviceSetting;
 
@@ -97,22 +94,9 @@ namespace Fanex.CRM.Feedback.Services
         /// <returns>The list of deleted feedback.</returns>
         public IEnumerable<DeletedFeedback> GetDeletedFeedbackReport(DeletedFeedbackCriteria criteria)
         {
-            string key = DeletedFeedbackSessionKey;
-
-            IEnumerable<DeletedFeedback> feedbacks = null;
-            if (criteria.FromCache)
-            {
-                feedbacks = (IList<DeletedFeedback>)SessionExtension.GetSession(HttpContext.Current.Session, key);
-            }
-
-            if (feedbacks == null)
-            {
-                // Get data from DB.
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                feedbacks = GetDeletedFeedbacks(criteria);
-                SessionExtension.AddSession(HttpContext.Current.Session, key, feedbacks);
-            }
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            var feedbacks = GetDeletedFeedbacks(criteria);
 
             // pagination.
             int totalItems = feedbacks.Count();

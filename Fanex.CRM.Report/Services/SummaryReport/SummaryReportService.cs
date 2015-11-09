@@ -36,7 +36,6 @@ namespace Fanex.CRM.Report.Services.SummaryReport
     /// </summary>
     public class SummaryReportService : ISummaryReportService
     {
-        private const string SummaryReportSessionKey = "Fanex.CRM.Report.SummaryReport.SummaryReportSessionKey_{0}";
         private readonly ISummaryReportRepository _summaryRepository;
         private readonly ISettingService _settingServices;
 
@@ -75,82 +74,46 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             };
         }
 
-        /// <summary>
-        /// Gets the summary report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The SummaryReportModel object.</returns>
         public SummaryReportModel GetSummaryReport(GetSummaryReportCriteria criteria)
         {
-            SummaryReportModel report = null;
-            string sessionKey = string.Format(SummaryReportSessionKey, criteria.Year);
-            try
-            {
-                report = criteria.IsCached
-                ? (SummaryReportModel)SessionExtension.GetSession(HttpContext.Current.Session, sessionKey)
-                : null;
-                if (report == null)
-                {
-                    report = ParseSummaryReport(criteria);
-                    report.ReportTitle = string.Format(Labels.SummaryReportTitle, criteria.Year);
-                    //// Add to session.
-                    SessionExtension.AddSession(HttpContext.Current.Session, sessionKey, report);
-                }
+            var report = ParseSummaryReport(criteria);
+            report.ReportTitle = string.Format(Labels.SummaryReportTitle, criteria.Year);
 
-                return report;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            return report;
         }
 
-        /// <summary>
-        /// Exports the summary report excel.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportSummaryReportExcel(GetSummaryReportCriteria criteria)
         {
-            criteria.IsCached = true;
             SummaryReportModel report = GetSummaryReport(criteria);
             string excelFileName = string.Format(Labels.SummaryReportExcelName, criteria.Year);
 
-            try
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
-                HSSFWorkbook workbook = new HSSFWorkbook();
-                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = workbook,
-                    Worksheet = workbook.CreateSheet(excelFileName),
-                    StartRow = 0,
-                    StartColumn = 0,
-                    CurrentRow = 0,
-                    MaxColumnIndex = report.Months.Count
-                };
+                ExcelFile = workbook,
+                Worksheet = workbook.CreateSheet(excelFileName),
+                StartRow = 0,
+                StartColumn = 0,
+                CurrentRow = 0,
+                MaxColumnIndex = report.Months.Count
+            };
 
-                ExportTitle(ref exportExcelInfo, report.ReportTitle);
-                ExportHeader(ref exportExcelInfo, report.Months);
-                if (report.CategorySummaries == null || report.CategorySummaries.Count == 0)
-                {
-                    NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
-                }
-                else
-                {
-                    NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.GroupBackgroundColor, NpoiExcelExtensions.GroupBackgroundColorIndex);
-                    NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
-
-                    ExportBody(ref exportExcelInfo, report.CategorySummaries);
-                    ExportFooter(ref exportExcelInfo, report.GrandTotals);
-                }
-
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
-            }
-            catch (Exception ex)
+            ExportTitle(ref exportExcelInfo, report.ReportTitle);
+            ExportHeader(ref exportExcelInfo, report.Months);
+            if (report.CategorySummaries == null || report.CategorySummaries.Count == 0)
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
+                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
             }
+            else
+            {
+                NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, NpoiExcelExtensions.GroupBackgroundColor, NpoiExcelExtensions.GroupBackgroundColorIndex);
+                NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
+
+                ExportBody(ref exportExcelInfo, report.CategorySummaries);
+                ExportFooter(ref exportExcelInfo, report.GrandTotals);
+            }
+
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, excelFileName);
         }
 
         /// <summary>

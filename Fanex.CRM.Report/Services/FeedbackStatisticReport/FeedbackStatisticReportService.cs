@@ -37,10 +37,6 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
     /// </summary>
     public class FeedbackStatisticReportService : IFeedbackStatisticReportService
     {
-        // Session keys.
-        private const string FeedbackStatisticSessionKey = "Fanex.CRM.Report.Services.FeedbackStatistics";
-        private const string FeedbackStatisticDetailSessionKey = "Fanex.CRM.Report.Services.FeedbackStatisticsDetail";
-
         private readonly IFeedbackStatisticReportRepository _feedbackStatisticRepository;
         private readonly ISettingService _settingService;
 
@@ -67,33 +63,11 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <returns>The Feedback statistic object.</returns>
         public FeedbackStatistic GetFeedbackStatistic(GetFeedbackStatisticCriteria criteria)
         {
-            string key = FeedbackStatisticSessionKey;
-            FeedbackStatistic report = null;
-            if (criteria.FromCache)
-            {
-                report = (FeedbackStatistic)SessionExtension.GetSession(HttpContext.Current.Session, key);
-            }
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
 
-            if (report == null)
-            {
-                string title = string.Format(Labels.FeedbackStatisticTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
-
-                // Get data from DB.
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                try
-                {
-                    report = _feedbackStatisticRepository.GetFeedbackStatistic(criteria);
-                    report.Title = title;
-
-                    SessionExtension.AddSession(HttpContext.Current.Session, key, report);
-                }
-                catch (Exception ex)
-                {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
-                }
-            }
+            var report = _feedbackStatisticRepository.GetFeedbackStatistic(criteria);
+            report.Title = string.Format(Labels.FeedbackStatisticTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
 
             // pagination.
             report.TotalItems = report.FeedbackCategories.Count;
@@ -157,30 +131,10 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <returns>The Feedback statistic detail report.</returns>
         public FeedbackStatisticDetail FeedbackStatisticDetail(GetFeedbackStatisticDetailCriteria criteria)
         {
-            string key = FeedbackStatisticDetailSessionKey;
-            string title = string.Format(Labels.FeedbackStatisticDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate());
-            IList<FeedbackDetail> feedbacks = null;
-            if (criteria.FromCache)
-            {
-                feedbacks = (IList<FeedbackDetail>)SessionExtension.GetSession(HttpContext.Current.Session, key);
-            }
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
 
-            if (feedbacks == null)
-            {
-                // Get data from DB.
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                try
-                {
-                    feedbacks = GetFeedbackDetail(criteria);
-                    SessionExtension.AddSession(HttpContext.Current.Session, key, feedbacks);
-                }
-                catch (Exception ex)
-                {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
-                }
-            }
+            var feedbacks = GetFeedbackDetail(criteria);
 
             // pagination.
             int totalItems = feedbacks.Count;
@@ -191,7 +145,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
             return new FeedbackStatisticDetail
             {
-                Title = title,
+                Title = string.Format(Labels.FeedbackStatisticDetailTitle, criteria.FromDate.ToShortFormatedDate(), criteria.ToDate.ToShortFormatedDate()),
                 TotalItems = totalItems,
                 Feedbacks = feedbacks
             };

@@ -42,8 +42,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
     /// </summary>
     public class RedemptionStatisticsService : BaseService, IRedemptionStatisticsService
     {
-        private const string SummaryReportSessionKey = "Fanex.CRM.Report.Services.RedemptionStatisticsReport.SummaryReport";
-
         private readonly ISettingService _serviceSetting;
         private readonly IRedemptionStatisticsRepository _redemptionRepository;
 
@@ -129,74 +127,59 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             Justification = "Reviewed. Suppression is OK here.")]
         public GridOptions GetRedemptionSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
         {
-            string key = SummaryReportSessionKey;
-            GridOptions gridOptions = criteria.FromCache ? (GridOptions)SessionExtension.GetSession(HttpContext.Current.Session, key) : null;
-            if (gridOptions == null || gridOptions.BodyRows == null || gridOptions.BodyRows.Count == 0)
+            var gridOptions = new GridOptions();
+            gridOptions.Columns = this.GenSummaryHeaderRow();
+            gridOptions.ShowDistinctRow = true;
+            gridOptions.ShowHighlightRow = true;
+            gridOptions.ShowTitle = true;
+            gridOptions.ShowFooter = true;
+            gridOptions.TitleInfoText = string.Format(
+                Labels.RedemptionStatisticsReportTitle,
+                criteria.FromDate.ToShortFormatedDate(),
+                criteria.ToDate.ToShortFormatedDate());
+
+            IDictionary<string, decimal> totalHash = new Dictionary<string, decimal>();
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+
+            // Body Row.
+            var rawdata = _redemptionRepository.GetRedemptionSummary(criteria)
+                .GroupBy(r => new { r.Month, r.Year, r.CurrencyId, r.Currency })
+                .OrderByDescending(r => r.Key.Year).ThenByDescending(r => r.Key.Month);
+            foreach (var customGroup in rawdata)
             {
-                gridOptions = new GridOptions();
-                gridOptions.Columns = this.GenSummaryHeaderRow();
-                gridOptions.ShowDistinctRow = true;
-                gridOptions.ShowHighlightRow = true;
-                gridOptions.ShowTitle = true;
-                gridOptions.ShowFooter = true;
-                gridOptions.TitleInfoText = string.Format(
-                    Labels.RedemptionStatisticsReportTitle,
-                    criteria.FromDate.ToShortFormatedDate(),
-                    criteria.ToDate.ToShortFormatedDate());
-
-                IDictionary<string, decimal> totalHash = new Dictionary<string, decimal>();
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                try
+                RedemptionStatisticsEntity entity = new RedemptionStatisticsEntity
                 {
-                    // Body Row.
-                    var rawdata = _redemptionRepository.GetRedemptionSummary(criteria)
-                        .GroupBy(r => new { r.Month, r.Year, r.CurrencyId, r.Currency })
-                        .OrderByDescending(r => r.Key.Year).ThenByDescending(r => r.Key.Month);
-                    foreach (var customGroup in rawdata)
-                    {
-                        RedemptionStatisticsEntity entity = new RedemptionStatisticsEntity 
-                        {
-                            Month = customGroup.Key.Month,
-                            Year = customGroup.Key.Year,
-                            CurrencyId = customGroup.Key.CurrencyId,
-                            Currency = customGroup.Key.Currency
-                        };
+                    Month = customGroup.Key.Month,
+                    Year = customGroup.Key.Year,
+                    CurrencyId = customGroup.Key.CurrencyId,
+                    Currency = customGroup.Key.Currency
+                };
 
-                        foreach (var item in customGroup)
-                        {
-                            entity.Amount += item.Amount;
-                        }
-
-                        gridOptions.BodyRows.Add(GenSummaryDataRow(entity));
-
-                        // Calculate total.
-                        if (!totalHash.ContainsKey(entity.Currency))
-                        {
-                            totalHash.Add(entity.Currency, entity.Amount);    
-                        }
-                        else
-                        {
-                            totalHash[entity.Currency] += entity.Amount;
-                        }
-                    }
-
-                    // Total Row.
-                    int totalCurrency = totalHash.Count;
-                    foreach (var currency in totalHash.Keys)
-                    {
-                        var dataRow = GenSummaryTotalRow(currency, totalHash[currency], ref totalCurrency);
-                        gridOptions.FooterRows.Add(dataRow);
-                    }
-
-                    // Set to cache.
-                    SessionExtension.AddSession(HttpContext.Current.Session, key, gridOptions);
-                }
-                catch (Exception ex)
+                foreach (var item in customGroup)
                 {
-                    LogExtensions.ExceptionHandler(ex);
-                    throw;
+                    entity.Amount += item.Amount;
                 }
+
+                gridOptions.BodyRows.Add(GenSummaryDataRow(entity));
+
+                // Calculate total.
+                if (!totalHash.ContainsKey(entity.Currency))
+                {
+                    totalHash.Add(entity.Currency, entity.Amount);
+                }
+                else
+                {
+                    totalHash[entity.Currency] += entity.Amount;
+                }
+            }
+
+            // Total Row.
+            int totalCurrency = totalHash.Count;
+            foreach (var currency in totalHash.Keys)
+            {
+                var dataRow = GenSummaryTotalRow(currency, totalHash[currency], ref totalCurrency);
+                gridOptions.FooterRows.Add(dataRow);
             }
 
             return gridOptions;
@@ -225,7 +208,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 TitleInfoText = Labels.RedemptionStatisticsDetailReportTitle,
                 ShowPager = true,
                 CustomPager = true,
-                PagerOption = new PagerOption 
+                PagerOption = new PagerOption
                 {
                     CurrentPage = criteria.PageIndex - 1,
                     ItemsPerPage = criteria.ItemsPerPage,
@@ -233,26 +216,18 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 }
             };
 
-            try
+            // Body Row.
+            var detailReportData = _redemptionRepository.GetRedemptionDetail(criteria);
+            if (criteria.TotalRows > 0)
             {
-                //// Body Row.
-                var detailReportData = _redemptionRepository.GetRedemptionDetail(criteria);
-                if (criteria.TotalRows > 0)
+                foreach (var item in detailReportData)
                 {
-                    foreach (var item in detailReportData)
-                    {
-                        var dataRow = GenDetailDataRow(item);
-                        gridOptions.BodyRows.Add(dataRow);
-                    }
+                    var dataRow = GenDetailDataRow(item);
+                    gridOptions.BodyRows.Add(dataRow);
                 }
+            }
 
-                gridOptions.PagerOption.TotalItem = criteria.TotalRows;
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            gridOptions.PagerOption.TotalItem = criteria.TotalRows;
 
             return gridOptions;
         }
@@ -264,7 +239,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         /// <returns>The Workbook Result.</returns>
         public IWorkbook GenerateSummaryExcelWorkbook(GetRedemptionStatisticsSummaryCriteria criteria)
         {
-            criteria.FromCache = true;
             GridOptions gridOption = this.GetRedemptionSummaryReport(criteria);
 
             gridOption.ShowFooterLineBreak = false;
@@ -274,18 +248,13 @@ namespace Fanex.CRM.Report.Services.DynamicReport
                 GrandTotalRowColor.Index,
                 new short[] { NpoiExcelExtensions.GrandTotalRowColor.R, NpoiExcelExtensions.GrandTotalRowColor.G, NpoiExcelExtensions.GrandTotalRowColor.B });
 
-            IWorkbook wb = result.ToExcel2003(Labels.RedemptionStatisticsSheetName);
-            var footerFont = result.GetFooterCellStyles.General.Center.Style.GetFont(wb);
+            var workbook = result.ToExcel2003(Labels.RedemptionStatisticsSheetName);
+            var footerFont = result.GetFooterCellStyles.General.Center.Style.GetFont(workbook);
             footerFont.Color = HSSFColor.White.Index;
 
-            return wb;
+            return workbook;
         }
 
-        /// <summary>
-        /// Generates the detail excel workbook.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <returns>The Workbook Result.</returns>
         public IWorkbook GenerateDetailExcelWorkbook(GetRedemptionStatisticsDetailCriteria criteria)
         {
             criteria.PageIndex = 0;
@@ -296,15 +265,9 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             gridOption.TitleType = Excel.Enums.TitleType.TwoLineBlue;
             FanexExcel result = new FanexExcel(gridOption);
 
-            IWorkbook wb = result.ToExcel2003(Labels.RedemptionStatisticsDetailSheetName);
-
-            return wb;
+            return result.ToExcel2003(Labels.RedemptionStatisticsDetailSheetName);
         }
 
-        /// <summary>
-        /// Gens the summary header row.
-        /// </summary>
-        /// <returns>The Header Columns List.</returns>
         private List<HeaderColumns> GenSummaryHeaderRow()
         {
             var headerRow = new List<HeaderColumns>();
@@ -314,10 +277,6 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return headerRow;
         }
 
-        /// <summary>
-        /// Gens the detail header row.
-        /// </summary>
-        /// <returns>The Header Columns List.</returns>
         private List<HeaderColumns> GenDetailHeaderRow()
         {
             var headerRow = new List<HeaderColumns>();

@@ -38,9 +38,6 @@ namespace Fanex.CRM.Report.Services.StatisticReport
     /// </summary>
     public class StatisticReportService : ServiceBase, IStatisticReportService
     {
-        private readonly string _statisticReportSessionKey = "Fanex.CRM.Report.StatisticReport.StatisticReportSessionKey_" +
-            (AppSession.CurrentUser != null ? AppSession.CurrentUser.Id : 0);
-
         private readonly ISettingService _serviceSetting;
         private readonly IStatisticReportRepository _statisticReportRepository;
 
@@ -156,120 +153,87 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             Justification = "Reviewed. Suppression is OK here.")]
         public StatisticReportInfo StatisticReport(GetStatisticReportCriteria criteria)
         {
-            try
+            StatisticReportInfo statisticReport;
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            var rawData = _statisticReportRepository.GetStatisticReport(criteria);
+
+            var countryList = rawData
+                .GroupBy(statisticReportEntity => statisticReportEntity.CountryId)
+                .Select(group => new Country
+                {
+                    Id = group.First().CountryId,
+                    Name = group.First().CountryId == SettingConstants.NotApply ?
+                        Labels.Symbol_NotApply :
+                        group.First().CountryName
+                })
+                .ToList();
+            var countryDictionary = GetCountryDictionary(countryList);
+            switch (criteria.ReportType)
             {
-                StatisticReportInfo statisticReport = null;
-                if (criteria.IsGetFromCached)
-                {
-                    statisticReport = (StatisticReportInfo)SessionExtension.GetSession(HttpContext.Current.Session, _statisticReportSessionKey);
-                }
-
-                if (statisticReport == null)
-                {
-                    criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                    criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                    var rawData = _statisticReportRepository.GetStatisticReport(criteria);
-
-                    var countryList = rawData
-                        .GroupBy(statisticReportEntity => statisticReportEntity.CountryId)
-                        .Select(group => new Country
-                        {
-                            Id = group.First().CountryId,
-                            Name = group.First().CountryId == SettingConstants.NotApply ?
-                                Labels.Symbol_NotApply :
-                                group.First().CountryName
-                        })
-                        .ToList();
-                    var countryDictionary = GetCountryDictionary(countryList);
-                    switch (criteria.ReportType)
-                    {
-                        case PeriodTypeConstants.Daily:
-                            statisticReport = GetStatisticReportByDaily(
-                                rawData,
-                                countryList,
-                                countryDictionary,
-                                criteria);
-                            break;
-                        case PeriodTypeConstants.Monthly:
-                            statisticReport = GetStatisticReportByMonthly(
-                                rawData,
-                                countryList,
-                                countryDictionary,
-                                criteria);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    statisticReport.ReportTypeId = criteria.ReportType;
-                    statisticReport.TotalChildReports = statisticReport.ChildReports.Count;
-                    statisticReport.ChartInfo = GetChartInfo(statisticReport, countryDictionary);
-                    SessionExtension.AddSession(HttpContext.Current.Session, _statisticReportSessionKey, statisticReport);
-                }
-
-                return new StatisticReportInfo
-                {
-                    Name = statisticReport.Name,
-                    ShortName = statisticReport.ShortName,
-                    ChildReports = criteria.IsGetFullReport ?
-                        statisticReport.ChildReports :
-                        GetPagingLogList(criteria, statisticReport.ChildReports),
-                    Total = statisticReport.Total,
-                    TotalChildReports = statisticReport.TotalChildReports,
-                    ChartInfo = statisticReport.ChartInfo
-                };
+                case PeriodTypeConstants.Daily:
+                    statisticReport = GetStatisticReportByDaily(
+                        rawData,
+                        countryList,
+                        countryDictionary,
+                        criteria);
+                    break;
+                case PeriodTypeConstants.Monthly:
+                    statisticReport = GetStatisticReportByMonthly(
+                        rawData,
+                        countryList,
+                        countryDictionary,
+                        criteria);
+                    break;
+                default:
+                    throw new ArgumentException("Invalid ReportType");
             }
-            catch (Exception ex)
+
+            statisticReport.ReportTypeId = criteria.ReportType;
+            statisticReport.TotalChildReports = statisticReport.ChildReports.Count;
+            statisticReport.ChartInfo = GetChartInfo(statisticReport, countryDictionary);
+
+            return new StatisticReportInfo
             {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+                Name = statisticReport.Name,
+                ShortName = statisticReport.ShortName,
+                ChildReports = criteria.IsGetFullReport ?
+                    statisticReport.ChildReports :
+                    GetPagingLogList(criteria, statisticReport.ChildReports),
+                Total = statisticReport.Total,
+                TotalChildReports = statisticReport.TotalChildReports,
+                ChartInfo = statisticReport.ChartInfo
+            };
         }
 
-        /// <summary>
-        /// Exports the statistic report.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
         public void ExportStatisticReport(GetStatisticReportCriteria criteria)
-        {
-            try
+        {            
+            criteria.IsGetFullReport = true;
+            var statisticReport = StatisticReport(criteria);
+            
+            criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
+            criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
+            ExportExcelInfo exportExcelInfo = new ExportExcelInfo
             {
-                StatisticReportInfo statisticReport = CacheService.Get<StatisticReportInfo>(_statisticReportSessionKey);
-                criteria.IsGetFullReport = true;
-                if (statisticReport == null)
-                {
-                    statisticReport = StatisticReport(criteria);
-                }
+                ExcelFile = new HSSFWorkbook(),
+                StartRow = 0,
+                StartColumn = 0,
+                CurrentRow = 0,
+                MaxColumnIndex = statisticReport != null &&
+                    statisticReport.ChildReports.Count > 0 &&
+                    statisticReport.ChildReports[0].ChildReports.Count > 0 ?
+                    2 + statisticReport.ChildReports[0].ChildReports[0].ChildReports.Count :
+                    2
+            };
 
-                criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
-                criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
-                ExportExcelInfo exportExcelInfo = new ExportExcelInfo
-                {
-                    ExcelFile = new HSSFWorkbook(),
-                    StartRow = 0,
-                    StartColumn = 0,
-                    CurrentRow = 0,
-                    MaxColumnIndex = statisticReport != null &&
-                        statisticReport.ChildReports.Count > 0 &&
-                        statisticReport.ChildReports[0].ChildReports.Count > 0 ?
-                        2 + statisticReport.ChildReports[0].ChildReports[0].ChildReports.Count :
-                        2
-                };
+            ExportStatisticReportBody(ref exportExcelInfo, criteria, statisticReport);
+            string reportName = string.Format(
+                 Labels.StatisticReport_ExcelTitle,
+                 SettingService.GetPeriodTypeName(criteria.ReportType),
+                 criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
+                 criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
 
-                ExportStatisticReportBody(ref exportExcelInfo, criteria, statisticReport);
-                string reportName = string.Format(
-                     Labels.StatisticReport_ExcelTitle,
-                     SettingService.GetPeriodTypeName(criteria.ReportType),
-                     criteria.FromDate.ToShortFormatedDateWithSlash().Replace("/", "_"),
-                     criteria.ToDate.ToShortFormatedDateWithSlash().Replace("/", "_"));
-
-                NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
-            }
-            catch (Exception ex)
-            {
-                LogExtensions.ExceptionHandler(ex);
-                throw;
-            }
+            NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, reportName);
         }
 
         /// <summary>
@@ -397,7 +361,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
                 }
             };
 
-            if (rawData == null || !rawData.Any())
+            if (!rawData.Any())
             {
                 return statisticReport;
             }
