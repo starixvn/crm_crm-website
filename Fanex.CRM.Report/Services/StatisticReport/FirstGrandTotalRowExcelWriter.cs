@@ -30,19 +30,19 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             _exportExcelInfo = exportExcelInfo;
             _rowBackgroundColorIndex = NpoiExcelExtensions.GrandTotalRowColorIndex;
 
-            IntStyle = NpoiExcelExtensions.IntNumberStyle(
+            IntStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
                _exportExcelInfo.ExcelFile,
                _rowBackgroundColorIndex,
                true,
                CRMHorizontalAlignment.Right,
                NpoiExcelExtensions.GrandTotalTextColorIndex);
-            TextStyle = NpoiExcelExtensions.TextStyle(
+            TextStyle = NpoiExcelExtensions.GetTextStyle(
                  _exportExcelInfo.ExcelFile,
                  _rowBackgroundColorIndex,
                  true,
                  CRMHorizontalAlignment.Left,
                  NpoiExcelExtensions.GrandTotalTextColorIndex);
-            CenterTextStyle = NpoiExcelExtensions.TextStyle(
+            CenterTextStyle = NpoiExcelExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,

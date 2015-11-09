@@ -18,25 +18,25 @@ namespace Fanex.CRM.Common.Models
     /// Base Customer Information.
     /// </summary>
     [Serializable]
-    public class BaseCustomerInfo : BaseModel
+    public class BaseCustomer : BaseModel
     {
-        public BaseCustomerInfo()
+        public BaseCustomer()
         {
-            Title = new SettingInfo();
+            Title = new Setting();
             SiteSetting = new BaseModel();
             Country = new BaseModel();
             Languages = new List<BaseModel>();
-            PhoneInfo = new List<PhoneInfo>();
+            PhoneInfo = new List<Phone>();
             PersonalInfoContacts = new List<PersonalInfoContact>();
             BettingCode = new List<string>();
-            UplineInfo = new List<BaseCustomerInfo>();
+            UplineInfo = new List<BaseCustomer>();
         }
 
         #region Customer Info
 
-        public IEnumerable<BaseCustomerInfo> UplineInfo { get; set; }
+        public IEnumerable<BaseCustomer> UplineInfo { get; set; }
 
-        public SettingInfo Title { get; set; }
+        public Setting Title { get; set; }
 
         public string FirstName { get; set; }
 
@@ -76,11 +76,11 @@ namespace Fanex.CRM.Common.Models
 
         #region Communication
 
-        public List<PhoneInfo> PhoneInfo { get; set; }
+        public List<Phone> PhoneInfo { get; set; }
 
-        public FaxInfo FaxInfo { get; set; }
+        public Fax FaxInfo { get; set; }
 
-        public PhoneInfo MobilePhone { get; set; }
+        public Phone MobilePhone { get; set; }
 
         public List<PersonalInfoContact> PersonalInfoContacts { get; set; }
 
@@ -108,7 +108,7 @@ namespace Fanex.CRM.Common.Models
 
         public List<BaseModel> Languages { get; set; }
 
-        public BankInfo BankInfo { get; set; }
+        public Bank BankInfo { get; set; }
 
         public string Question { get; set; }
 
@@ -132,7 +132,7 @@ namespace Fanex.CRM.Common.Models
 
         public List<string> BettingCode { get; set; }
 
-        public AddressInfo AddressInfo { get; set; }
+        public Address AddressInfo { get; set; }
 
         /// <summary>
         /// Gets the name of the status.

@@ -18,7 +18,7 @@ namespace Fanex.CRM.Common.Helpers
     /// </summary>
     public class DateTimeUtilize
     {
-        private static string[] monthName =
+        private static readonly string[] MonthName =
                                     {
                                         "January",
                                         "February", 
@@ -48,7 +48,7 @@ namespace Fanex.CRM.Common.Helpers
 
         public static string GetMonthName(int month)
         {
-            return DateTimeUtilize.monthName[month - 1];
+            return DateTimeUtilize.MonthName[month - 1];
         }
 
         #region Convert time client <->server

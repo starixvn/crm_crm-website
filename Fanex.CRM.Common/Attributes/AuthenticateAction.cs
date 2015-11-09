@@ -7,7 +7,7 @@
 //   <change who="" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Common.Services
+namespace Fanex.CRM.Common.Attributes
 {
     using System;
     using System.Collections.Generic;
@@ -15,6 +15,7 @@ namespace Fanex.CRM.Common.Services
     using System.Web.Mvc;
     using System.Web.Routing;
     using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;
@@ -136,11 +137,10 @@ namespace Fanex.CRM.Common.Services
             }
 
             var result = useMenu.Where(menuItem =>
-                menuItem.Url.Trim().ToLower().Contains(fullActionPath.Trim().ToLower()));
-            var s = result as List<MenuItem> ?? result.ToList();
-            if (s.Any())
+                menuItem.Url.Trim().ToLower().Contains(fullActionPath.Trim().ToLower()));            
+            if (result.Any())
             {
-                var firstOrDefault = s.FirstOrDefault();
+                var firstOrDefault = result.FirstOrDefault();
                 if (firstOrDefault != null)
                 {
                     privilege = firstOrDefault.Policy;

@@ -46,12 +46,12 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             _settingService = settingService ?? new SettingService();
         }
 
-        public IEnumerable<SettingInfo> GetMainSettings()
+        public IEnumerable<Setting> GetMainSettings()
         {
             return _settingService.GetMainSettings();
         }
 
-        public IEnumerable<SettingInfo> GetSettingByTypes(GetSettingByTypeCriteria criteria)
+        public IEnumerable<Setting> GetSettingByTypes(GetSettingByTypeCriteria criteria)
         {
             var allSettings = _settingService.GetAllSettings();
             var result = allSettings
@@ -63,7 +63,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             return result;
         }
 
-        public IEnumerable<SettingInfo> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria)
+        public IEnumerable<Setting> GetMainSettingForAddRelations(GetMainSettingForAddRelationCriteria criteria)
         {
             var mainSetting = GetMainSettings();
             return mainSetting
@@ -71,7 +71,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
                 .ToList();
         }
 
-        public IEnumerable<SettingInfo> MainSettingRelations(GetMainSettingRelationsCriteria criteria)
+        public IEnumerable<Setting> MainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
             return _settingRelationRepository.GetMainSettingRelations(criteria);
         }
@@ -89,9 +89,9 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             return result;
         }
 
-        private IEnumerable<SettingInfo> GetAllSettingRelations()
+        private IEnumerable<Setting> GetAllSettingRelations()
         {
-            var settingRelations = CacheService.Get<IEnumerable<SettingInfo>>(AllSettingRelationSessionKey);
+            var settingRelations = CacheService.Get<IEnumerable<Setting>>(AllSettingRelationSessionKey);
             if (settingRelations == null)
             {
                 settingRelations = _settingRelationRepository.GetAllSettingRelations(new GetAllSettingRelationCriteria());
@@ -101,7 +101,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
             return settingRelations;
         }
 
-        private IEnumerable<SettingInfo> GetSettingByParentId(int parentId)
+        private IEnumerable<Setting> GetSettingByParentId(int parentId)
         {
             var allSettingRelations = GetAllSettingRelations();
             var allSettings = _settingService.GetAllSettings();
@@ -115,7 +115,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingRelation
                 setting => setting.Id,
                 parent => parent.Id,
                 (setting, parent) =>
-                    new SettingInfo
+                    new Setting
                     {
                         Id = setting.Id,
                         DisplayOrder = parent.DisplayOrder,

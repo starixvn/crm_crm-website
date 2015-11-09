@@ -16,9 +16,9 @@ namespace Fanex.CRM.Report.Services.StatisticReport
 
     public interface IStatisticReportService
     {
-        List<SettingInfo> AllPeriodType();
+        List<Setting> AllPeriodType();
 
-        List<SettingInfo> AllMainCategory();
+        List<Setting> AllMainCategory();
 
         StatisticReportInfo StatisticReport(GetStatisticReportCriteria criteria);
 

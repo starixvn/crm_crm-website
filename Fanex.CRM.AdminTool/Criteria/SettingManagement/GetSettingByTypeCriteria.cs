@@ -19,7 +19,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingManagement
     /// </summary>
     public class GetSettingByTypeCriteria : CriteriaBase
     {
-        public SettingInfo MainSetting { get; set; }
+        public Setting MainSetting { get; set; }
 
         /// <summary>
         /// Gets the SP parameters.

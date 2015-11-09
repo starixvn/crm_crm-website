@@ -23,16 +23,16 @@ namespace Fanex.CRM.Setting.Repositories
     /// </summary>
     public class SettingRepository : ISettingRepository
     {
-        public IEnumerable<SettingInfo> GetAllSettings(GetAllSettingCriteria criteria)
+        public IEnumerable<Setting> GetAllSettings(GetAllSettingCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var settings = new List<SettingInfo>();
+                    var settings = new List<Setting>();
                     while (reader.Read())
                     {
-                        settings.Add(new SettingInfo
+                        settings.Add(new Setting
                         {
                             Id = Converter.ToInt(reader["settingid"], 0),
                             SettingType = Converter.ToString2(reader["settingname"]),
@@ -46,16 +46,16 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<SettingInfo> GetSettingRelations(GetSettingRelationByNameCriteria criteria)
+        public IEnumerable<Setting> GetSettingRelations(GetSettingRelationByNameCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var settings = new List<SettingInfo>();
+                    var settings = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new SettingInfo()
+                        var setting = new Setting()
                         {
                             Id = Converter.ToInt(reader["SettingId"]),
                             Value = Converter.ToString2(reader["SettingValue"]),
@@ -71,16 +71,16 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<CountryInfo> GetAllCountries(GetAllCountryCriteria criteria)
+        public IEnumerable<Country> GetAllCountries(GetAllCountryCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var settings = new List<CountryInfo>();
+                    var settings = new List<Country>();
                     while (reader.Read())
                     {
-                        var setting = new CountryInfo()
+                        var setting = new Country()
                         {
                             Id = Converter.ToInt(reader["CountryID"]),
                             Name = Converter.ToString2(reader["CountryName"]),
@@ -97,16 +97,16 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<SettingInfo> GetAllSettingRelations(GetAllSettingRelationCriteria criteria)
+        public IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var settingRelations = new List<SettingInfo>();
+                    var settingRelations = new List<Setting>();
                     while (reader.Read())
                     {
-                        var settingInfo = new SettingInfo()
+                        var settingInfo = new Setting()
                         {
                             Id = Converter.ToInt(reader["SettingID"]),
                             ParentId = Converter.ToInt(reader["ParentId"]),
@@ -121,16 +121,16 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<SettingInfo> GetAllLanguages(GetAllLanguageCriteria criteria)
+        public IEnumerable<Setting> GetAllLanguages(GetAllLanguageCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var allLanguage = new List<SettingInfo>();
+                    var allLanguage = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new SettingInfo()
+                        var setting = new Setting()
                         {
                             Id = Converter.ToInt(reader["LanguageId"]),
                             Name = Converter.ToString2(reader["Name"]),
@@ -146,16 +146,16 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<SettingInfo> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria)
+        public IEnumerable<Setting> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var allCommunicationTool = new List<SettingInfo>();
+                    var allCommunicationTool = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new SettingInfo()
+                        var setting = new Setting()
                         {
                             Id = Converter.ToInt(reader["CommunicationId"]),
                             Name = Converter.ToString2(reader["Name"]),
@@ -171,16 +171,16 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<SettingInfo> GetAllMainCategory(GetAllMainCategoryCriteria criteria)
+        public IEnumerable<Setting> GetAllMainCategory(GetAllMainCategoryCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var allMainCategory = new List<SettingInfo>();
+                    var allMainCategory = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new SettingInfo()
+                        var setting = new Setting()
                         {
                             Id = Converter.ToInt(reader["MainCategoryId"]),
                             Name = Converter.ToString2(reader["Name"]),
@@ -196,16 +196,16 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<SettingInfo> GetAllSubCategory(GetAllSubCategoryCriteria criteria)
+        public IEnumerable<Setting> GetAllSubCategory(GetAllSubCategoryCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var allSubCategory = new List<SettingInfo>();
+                    var allSubCategory = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new SettingInfo()
+                        var setting = new Setting()
                         {
                             ParentId = Converter.ToInt(reader["MainCategoryID"]),
                             Id = Converter.ToInt(reader["SubCategoryId"]),
@@ -222,16 +222,16 @@ namespace Fanex.CRM.Setting.Repositories
             }
         }
 
-        public IEnumerable<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria)
+        public IEnumerable<Setting> GetAllStatus(GetAllStatusCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var allStatus = new List<SettingInfo>();
+                    var allStatus = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new SettingInfo()
+                        var setting = new Setting()
                         {
                             Id = Converter.ToInt(reader["StatusId"]),
                             Name = Converter.ToString2(reader["Name"])
@@ -271,17 +271,17 @@ namespace Fanex.CRM.Setting.Repositories
             return ReadBaseModels(criteria, "InformStatusId", "Name");
         }
 
-        public IEnumerable<SettingInfo> GetAllBetType(GetAllBetTypeCriteria criteria)
+        public IEnumerable<Setting> GetAllBetType(GetAllBetTypeCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 objectDB.AssignParamValues(criteria.GetSpParams());
                 using (var reader = objectDB.ExecuteReader())
                 {
-                    var allBetType = new List<SettingInfo>();
+                    var allBetType = new List<Setting>();
                     while (reader.Read())
                     {
-                        var setting = new SettingInfo()
+                        var setting = new Setting()
                         {
                             Id = Converter.ToInt(reader["BetTypeId"]),
                             Name = Converter.ToString2(reader["Name"]),

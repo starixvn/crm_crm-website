@@ -16,7 +16,7 @@ namespace Fanex.CRM.Customer.Models
     /// Customer Information.
     /// </summary>
     [Serializable]
-    public class CustomerInfo : BaseCustomerInfo
+    public class CustomerInfo : BaseCustomer
     {
         public string BirthDay { get; set; }
     }

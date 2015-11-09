@@ -30,27 +30,27 @@ namespace Fanex.CRM.Feedback.Criteria
 
         public DateTime EndTime { get; set; }
 
-        public SettingInfo CommunicationTool { get; set; }
+        public Setting CommunicationTool { get; set; }
 
-        public SettingInfo Product { get; set; }
+        public Setting Product { get; set; }
 
-        public SettingInfo Language { get; set; }
+        public Setting Language { get; set; }
 
-        public SettingInfo Response { get; set; }
+        public Setting Response { get; set; }
 
-        public SettingInfo MainCategory { get; set; }
+        public Setting MainCategory { get; set; }
 
-        public SettingInfo BetType { get; set; }
+        public Setting BetType { get; set; }
 
-        public SettingInfo Status { get; set; }
+        public Setting Status { get; set; }
 
-        public SettingInfo Extension { get; set; }
+        public Setting Extension { get; set; }
 
-        public SettingInfo SubCategory { get; set; }
+        public Setting SubCategory { get; set; }
 
-        public CountryInfo Country { get; set; }
+        public Country Country { get; set; }
 
-        public SettingInfo Role { get; set; }
+        public Setting Role { get; set; }
 
         public string Subject { get; set; }
 

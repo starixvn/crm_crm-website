@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="AddressInfo.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="CountryInfo.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -10,22 +10,18 @@
 namespace Fanex.CRM.Common.Models
 {
     using System;
-    using System.Collections.Generic;
+    using Fanex.CRM.Infrastructure.Models;
 
     /// <summary>
-    /// Address Information.
+    /// Country Information.
     /// </summary>
     [Serializable]
-    public class AddressInfo
+    public class Country : BaseModel
     {
-        public List<string> LineList { get; set; }
+        public int CountryCode { get; set; }
 
-        public CountryInfo Country { get; set; }
+        public bool IsActive { get; set; }
 
-        public string City { get; set; }
-
-        public string State { get; set; }
-
-        public string PostCode { get; set; }
+        public int DisplayOrder { get; set; }
     }
 }

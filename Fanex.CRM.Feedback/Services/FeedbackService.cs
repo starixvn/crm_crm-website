@@ -48,7 +48,7 @@ namespace Fanex.CRM.Feedback.Services
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        public IEnumerable<BaseModel> GetTop
+        public IEnumerable<BaseModel> GetTopItems
         {
             get
             {
@@ -163,32 +163,32 @@ namespace Fanex.CRM.Feedback.Services
 
         #region Setting helper methods
 
-        private IEnumerable<SettingInfo> GetCustomerTypes()
+        private IEnumerable<Setting> GetCustomerTypes()
         {
-            return new List<SettingInfo>
+            return new List<Setting>
             {
-                new SettingInfo { Id = -1, Name = Labels.All },
-                new SettingInfo { Id = 0, Name = Labels.Customer },
-                new SettingInfo { Id = 1, Name = Labels.Guest }
+                new Setting { Id = -1, Name = Labels.All },
+                new Setting { Id = 0, Name = Labels.Customer },
+                new Setting { Id = 1, Name = Labels.Guest }
             };
         }
 
-        private IEnumerable<SettingInfo> GetReviews()
+        private IEnumerable<Setting> GetReviews()
         {
-            return new List<SettingInfo>
+            return new List<Setting>
             {
-                new SettingInfo { Id = 0, Name = Labels.All },
-                new SettingInfo { Id = -1, Name = Labels.NotReviewed },
-                new SettingInfo { Id = 1, Name = Labels.Reviewed }
+                new Setting { Id = 0, Name = Labels.All },
+                new Setting { Id = -1, Name = Labels.NotReviewed },
+                new Setting { Id = 1, Name = Labels.Reviewed }
             };
         }
 
-        private IEnumerable<SettingInfo> GetCustomerResponse()
+        private IEnumerable<Setting> GetCustomerResponse()
         {
             var response = _serviceSetting.GetAllResponses().ToList();
             response.Insert(
                 0,
-                new SettingInfo
+                new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Value = Labels.All
@@ -197,21 +197,21 @@ namespace Fanex.CRM.Feedback.Services
             return response;
         }
 
-        private IEnumerable<SettingInfo> GetMainCategories()
+        private IEnumerable<Setting> GetMainCategories()
         {
-            var allSubSettingOption = new SettingInfo
+            var allSubSettingOption = new Setting
             {
                 Id = SettingConstants.NotApply,
                 Name = Labels.All,
             };
 
-            var mainCategories = new List<SettingInfo>() 
+            var mainCategories = new List<Setting>() 
             {
-                new SettingInfo
+                new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.All,
-                    ChildSettings = new List<SettingInfo>
+                    ChildSettings = new List<Setting>
                     {
                         allSubSettingOption
                     }
@@ -228,23 +228,23 @@ namespace Fanex.CRM.Feedback.Services
             return mainCategories;
         }
 
-        private IEnumerable<SettingInfo> GetCommunicationTools()
+        private IEnumerable<Setting> GetCommunicationTools()
         {
             var tools = _serviceSetting.GetAllCommunicationTools()
                 .Where(r => r.Id != CommunicationToolConstants.NotApply)
                 .ToList();
-            tools.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
+            tools.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
 
             return tools;
         }
 
-        private IEnumerable<SettingInfo> GetStatus()
+        private IEnumerable<Setting> GetStatus()
         {
             var status = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                 .Where(r => !string.Equals(r.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
                 .ToList();
 
-            status.Insert(0, new SettingInfo { Id = SettingConstants.NotApply, Name = Labels.All });
+            status.Insert(0, new Setting { Id = SettingConstants.NotApply, Name = Labels.All });
             return status;
         }
 

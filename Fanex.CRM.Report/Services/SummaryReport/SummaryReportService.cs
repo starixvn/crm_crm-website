@@ -59,10 +59,10 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         {
             var minReportDate = AppSetting.MinReportDate.Year;
             var currentYear = DateTimeUtilize.CurrentClientTime().Year;
-            var yearRange = new List<SettingInfo>();
+            var yearRange = new List<Setting>();
             for (int i = minReportDate; i <= currentYear; i++)
             {
-                yearRange.Add(new SettingInfo { Id = i, Value = i.ToString() });
+                yearRange.Add(new Setting { Id = i, Value = i.ToString() });
             }
 
             var siteTypes = _settingServices.GetAllSiteTypes();
@@ -264,7 +264,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
             columnWidths.AddRange(Enumerable.Repeat(80, 12));
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -277,7 +277,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         {
             int currentColumn = exportExcelInfo.StartColumn;
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Categories, headerStyle);
             currentColumn++;
@@ -417,7 +417,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         /// <returns>ICellStyle object.</returns>
         private ICellStyle GetCategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.GroupBackgroundColorIndex,
                 true,
@@ -432,7 +432,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
         /// <returns>ICellStyle object.</returns>
         private ICellStyle GetCategoryTotalCellStyle(HSSFWorkbook workbook)
         {
-            ICellStyle cellStyle = NpoiExcelExtensions.IntNumberStyle(
+            ICellStyle cellStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
             workbook,
             NpoiExcelExtensions.GroupBackgroundColorIndex,
             true,
@@ -451,7 +451,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
         private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
             workbook,
             NpoiExcelExtensions.GrandTotalRowColorIndex,
             true,
@@ -461,7 +461,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
         private ICellStyle GetSubCategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
             workbook,
             NpoiExcelExtensions.BackgroundColorIndex,
             false,
@@ -470,7 +470,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
         private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
             workbook,
             NpoiExcelExtensions.BackgroundColorIndex,
             false,
@@ -479,7 +479,7 @@ namespace Fanex.CRM.Report.Services.SummaryReport
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
             workbook,
             NpoiExcelExtensions.GrandTotalRowColorIndex,
             true,

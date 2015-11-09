@@ -87,7 +87,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
         private static void ExportCustomerReportHeader(ref ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
@@ -159,23 +159,23 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             IRow row;
             int currentColumn;
             var reportLength = customerReport.CustomerList.Count;
-            var textStyle = NpoiExcelExtensions.TextStyle(
+            var textStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
-            var centerTextStyle = NpoiExcelExtensions.TextStyle(
+            var centerTextStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Center);
 
-            var evenRowTextStyle = NpoiExcelExtensions.TextStyle(
+            var evenRowTextStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.EvenRowColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
-            var evenRowCenterTextStyle = NpoiExcelExtensions.TextStyle(
+            var evenRowCenterTextStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 NpoiExcelExtensions.EvenRowColorIndex,
                 false,

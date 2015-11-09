@@ -13,11 +13,11 @@ namespace Fanex.CRM.AdminTool.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.AdminTool.Criteria.SettingRelation;
     using Fanex.CRM.AdminTool.Services.SettingRelation;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace Fanex.CRM.AdminTool.Controllers
         {
             return View(
                 "~/Areas/AdminTool/SettingRelation/AddRelation/Index.cshtml",
-                new SettingInfo
+                new Setting
                 {
                     Id = settingId,
                     Value = settingValue,

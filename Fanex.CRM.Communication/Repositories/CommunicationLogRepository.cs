@@ -28,13 +28,13 @@ namespace Fanex.CRM.Communication.Repositories
     /// </summary>
     public class CommunicationLogRepository : BaseRepository, ICommunicationLogRepository
     {
-        public IEnumerable<BaseCommunicationLogInfo> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
+        public IEnumerable<BaseCommunicationLog> GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var logs = new List<BaseCommunicationLogInfo>();
+                    var logs = new List<BaseCommunicationLog>();
                     while (reader.Read())
                     {
                         var log = MappingDataFromSqlToLogInfoObject(reader);
@@ -47,13 +47,13 @@ namespace Fanex.CRM.Communication.Repositories
             }
         }
 
-        public BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
+        public BaseCommunicationLog GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var log = new BaseCommunicationLogInfo();
+                    var log = new BaseCommunicationLog();
                     while (reader.Read())
                     {
                         log = MappingDataFromSqlToLogInfoObjectById(reader);
@@ -106,20 +106,20 @@ namespace Fanex.CRM.Communication.Repositories
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
-        private BaseCommunicationLogInfo MappingDataFromSqlToLogInfoObject(IDataReader reader)
+        private BaseCommunicationLog MappingDataFromSqlToLogInfoObject(IDataReader reader)
         {
             var durationTime = Converter.ToString2(reader["Duration"]);
             var durationTimeArray = durationTime.Split(':');
 
-            var logInfo = new BaseCommunicationLogInfo
+            var logInfo = new BaseCommunicationLog
             {
                 RunningNumber = Converter.ToInt(reader["FeedbackID"]),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
-                MainCategory = new SettingInfo
+                MainCategory = new Setting
                 {
                     Name = Converter.ToString2(reader["MainCategory"])
                 },
-                SubCategory = new SettingInfo
+                SubCategory = new Setting
                 {
                     Name = Converter.ToString2(reader["SubCategory"])
                 },
@@ -146,53 +146,53 @@ namespace Fanex.CRM.Communication.Repositories
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
              "SP2101:MethodMustNotContainMoreLinesThan",
              Justification = "Reviewed. Suppression is OK here.")]
-        private BaseCommunicationLogInfo MappingDataFromSqlToLogInfoObjectById(IDataReader reader)
+        private BaseCommunicationLog MappingDataFromSqlToLogInfoObjectById(IDataReader reader)
         {
-            var logInfo = new BaseCommunicationLogInfo
+            var logInfo = new BaseCommunicationLog
             {
                 RunningNumber = Converter.ToInt(reader["FeedbackID"]),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToShortFormatedDate(),
-                MainCategory = new SettingInfo
+                MainCategory = new Setting
                 {
                     Id = Converter.ToInt(reader["MainCategoryID"])
                 },
-                SubCategory = new SettingInfo
+                SubCategory = new Setting
                 {
                     Id = Converter.ToInt(reader["SubCategoryID"])
                 },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StartTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
                 EndTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ResolutionDate"])).ToLongFormatedDateTime(),
-                Extension = new SettingInfo
+                Extension = new Setting
                 {
                     Id = Converter.ToInt(reader["StationID"])
                 },
-                CommunicationTool = new SettingInfo
+                CommunicationTool = new Setting
                 {
                     Id = Converter.ToInt(reader["CommunicationID"])
                 },
                 LanguageId = Converter.ToInt(reader["LanguageID"]),
-                Product = new SettingInfo
+                Product = new Setting
                 {
                     Id = Converter.ToInt(reader["ProductID"])
                 },
-                BetType = new SettingInfo
+                BetType = new Setting
                 {
                     Id = Converter.ToInt(reader["BetTypeID"])
                 },
-                Status = new SettingInfo
+                Status = new Setting
                 {
                     Id = Converter.ToInt(reader["StatusID"])
                 },
-                SiteInfo = new SettingInfo
+                SiteInfo = new Setting
                 {
                     Id = Converter.ToInt(reader["SiteID"])
                 },
-                RoleInfo = new SettingInfo
+                RoleInfo = new Setting
                 {
                     Id = Converter.ToInt(reader["RoleID"])
                 },
-                Response = new SettingInfo
+                Response = new Setting
                 {
                     Id = Converter.ToInt(reader["ResponseID"])
                 },
@@ -200,7 +200,7 @@ namespace Fanex.CRM.Communication.Repositories
                 Solution = Converter.ToString2(reader["Solution"]),
                 Review = Converter.ToString2(reader["Review"]),
                 IsReviewed = Converter.ToBool(reader["IsReviewed"]),
-                Country = new CountryInfo
+                Country = new Country
                 {
                     Id = Converter.ToInt(reader["CountryID"])
                 },
@@ -210,7 +210,7 @@ namespace Fanex.CRM.Communication.Repositories
                 Reviewer = Converter.ToString2(reader["reviewer"]),
                 ReviewedTimeString = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["SolveDate"])).ToLongFormatedDateTime(),
 
-                LicenseeType = new SettingInfo { Id = Converter.ToInt(reader["LicenseeType"]) }
+                LicenseeType = new Setting { Id = Converter.ToInt(reader["LicenseeType"]) }
             };
 
             return logInfo;

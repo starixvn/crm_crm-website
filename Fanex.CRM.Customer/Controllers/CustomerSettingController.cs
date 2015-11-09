@@ -10,9 +10,9 @@
 namespace Fanex.CRM.Customer.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria;
     using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
@@ -24,7 +24,7 @@ namespace Fanex.CRM.Customer.Controllers
     [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class CustomerSettingController : BaseController
     {
-        private ICustomerService _customerServiceInstance;
+        private ICustomerService _customerService;
 
         public CustomerSettingController()
             : this(null)
@@ -33,7 +33,7 @@ namespace Fanex.CRM.Customer.Controllers
 
         public CustomerSettingController(ICustomerService customerServiceInstance)
         {
-            _customerServiceInstance = customerServiceInstance ?? new CustomerService();
+            _customerService = customerServiceInstance ?? new CustomerService();
         }
         
         public ActionResult ShortCustomerInfo()
@@ -46,14 +46,14 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpPost]
         public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
-            var customerInfo = _customerServiceInstance.GetCustomerInfoByUsername(criteria);
+            var customerInfo = _customerService.GetCustomerInfoByUsername(criteria);
             return Json(customerInfo, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
-            var uplineInfo = _customerServiceInstance.GetUplineInfoOfUser(criteria);
+            var uplineInfo = _customerService.GetUplineInfoOfUser(criteria);
             return Json(uplineInfo, JsonRequestBehavior.AllowGet);
         }
 
@@ -61,7 +61,7 @@ namespace Fanex.CRM.Customer.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
-            var updateResult = _customerServiceInstance.UpdateCustomerInfo(criteria);
+            var updateResult = _customerService.UpdateCustomerInfo(criteria);
             return Json(updateResult, JsonRequestBehavior.AllowGet);
         }
 
@@ -71,7 +71,7 @@ namespace Fanex.CRM.Customer.Controllers
             var jsonResult = new
             {
                 query = criteria.Query,
-                suggestions = _customerServiceInstance.QueryCustomerByUsername(criteria)
+                suggestions = _customerService.QueryCustomerByUsername(criteria)
             };
 
             return Json(jsonResult, JsonRequestBehavior.AllowGet);
@@ -80,7 +80,7 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpPost]
         public JsonResult UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
-            var updateResult = _customerServiceInstance.UpdateCustomerSuggestion(criteria);
+            var updateResult = _customerService.UpdateCustomerSuggestion(criteria);
             var jsonResult = Json(updateResult, JsonRequestBehavior.AllowGet);
             return jsonResult;
         }
@@ -88,7 +88,7 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpGet]
         public JsonResult RelatedCustomerAutoSuggestion(string tag)
         {
-            var result = _customerServiceInstance.RelatedCustomerAutoSuggestion(
+            var result = _customerService.RelatedCustomerAutoSuggestion(
                 new RelatedCustomerAutoSuggestionCriteria
                 {
                     CustomerNamePharse = tag
@@ -108,7 +108,7 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpPost]
         public JsonResult VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
-            var jsonResult = Json(_customerServiceInstance.VerifyUsername(criteria));
+            var jsonResult = Json(_customerService.VerifyUsername(criteria));
             jsonResult.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             return jsonResult;
         }

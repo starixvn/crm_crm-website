@@ -18,23 +18,23 @@ namespace Fanex.CRM.Setting.Repositories
 
     public interface ISettingRepository
     {
-        IEnumerable<SettingInfo> GetAllSettings(GetAllSettingCriteria criteria);
+        IEnumerable<Setting> GetAllSettings(GetAllSettingCriteria criteria);
 
-        IEnumerable<SettingInfo> GetSettingRelations(GetSettingRelationByNameCriteria criteria);
+        IEnumerable<Setting> GetSettingRelations(GetSettingRelationByNameCriteria criteria);
 
-        IEnumerable<CountryInfo> GetAllCountries(GetAllCountryCriteria criteria);
+        IEnumerable<Country> GetAllCountries(GetAllCountryCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllSettingRelations(GetAllSettingRelationCriteria criteria);
+        IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllLanguages(GetAllLanguageCriteria criteria);
+        IEnumerable<Setting> GetAllLanguages(GetAllLanguageCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria);
+        IEnumerable<Setting> GetAllCommunicationTools(GetAllCommunicationToolCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllMainCategory(GetAllMainCategoryCriteria criteria);
+        IEnumerable<Setting> GetAllMainCategory(GetAllMainCategoryCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllSubCategory(GetAllSubCategoryCriteria criteria);
+        IEnumerable<Setting> GetAllSubCategory(GetAllSubCategoryCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllStatus(GetAllStatusCriteria criteria);
+        IEnumerable<Setting> GetAllStatus(GetAllStatusCriteria criteria);
 
         IEnumerable<Status> GetStatuses(GetAllStatusCriteria criteria);
 
@@ -42,7 +42,7 @@ namespace Fanex.CRM.Setting.Repositories
 
         IEnumerable<BaseModel> GetAllLogActions(GetActionCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllBetType(GetAllBetTypeCriteria criteria);
+        IEnumerable<Setting> GetAllBetType(GetAllBetTypeCriteria criteria);
 
         IEnumerable<BaseModel> GetAllStatusInformHeadline(GetAllStatusInformHeadlineCriteria criteria);
 

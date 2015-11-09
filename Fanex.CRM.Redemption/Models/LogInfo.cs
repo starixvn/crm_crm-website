@@ -27,7 +27,7 @@ namespace Fanex.CRM.Redemption.Models
 
         public string ClaimedTime { get; set; }
 
-        public SettingInfo Status { get; set; }
+        public Setting Status { get; set; }
 
         public string Remark { get; set; }
 

@@ -195,7 +195,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
             var columnWidths = new List<int>() { 200, 200, 200, 200 };
             exportExcelInfo.InitColumnWidthByFontWidth(columnWidths);
 
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -207,7 +207,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
         {
             int currentColumn = exportExcelInfo.StartColumn;
             IRow row = exportExcelInfo.Worksheet.CreateRow(exportExcelInfo.CurrentRow);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Month, headerStyle);
             currentColumn++;
@@ -331,7 +331,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 GetRowColorIndex(),
                 true,
@@ -340,7 +340,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetGrandTotalMonthCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -350,7 +350,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetWagersCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 GetRowColorIndex(),
                 false,
@@ -359,7 +359,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetGrandTotalWagersCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -369,7 +369,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetAmountCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 GetRowColorIndex(),
                 false,
@@ -378,7 +378,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetGrandTotalAmountCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -388,7 +388,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetTotalCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 GetRowColorIndex(),
                 true,
@@ -397,7 +397,7 @@ namespace Fanex.CRM.Report.Services.WagerReport
 
         private ICellStyle GetGrandTotalCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,

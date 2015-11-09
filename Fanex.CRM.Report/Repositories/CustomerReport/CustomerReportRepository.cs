@@ -48,7 +48,7 @@ namespace Fanex.CRM.Report.Repositories.CustomerReport
             var customerInfo = new CustomerInfo
              {
                  IsVIP = Converter.ToBool(reader["VIP"]),
-                 Title = new SettingInfo
+                 Title = new Setting
                  {
                      Name = Converter.ToString2(reader["Title"])
                  },

@@ -21,7 +21,7 @@ namespace Fanex.CRM.AdminTool.Criteria.SettingRelation
     {
         public int ParentId { get; set; }
 
-        public SettingInfo MainSetting { get; set; }
+        public Setting MainSetting { get; set; }
 
         /// <summary>
         /// Gets the SP parameters.

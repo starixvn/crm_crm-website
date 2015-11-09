@@ -44,12 +44,12 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             _settingService = settingService ?? new SettingService();
         }
 
-        public IEnumerable<SettingInfo> GetMainSettings()
+        public IEnumerable<Setting> GetMainSettings()
         {
             return _settingService.GetMainSettings();
         }
 
-        public IEnumerable<SettingInfo> GetParentSettings()
+        public IEnumerable<Setting> GetParentSettings()
         {
             var allSettings = _settingService.GetAllSettings();
             return allSettings.OrderBy(s => s.SettingType).ToList();
@@ -70,7 +70,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             return result;
         }
 
-        public IEnumerable<SettingInfo> SettingByType(GetSettingByTypeCriteria criteria)
+        public IEnumerable<Setting> SettingByType(GetSettingByTypeCriteria criteria)
         {
             var allSettings = _settingService.GetAllSettings();
             return allSettings
@@ -79,7 +79,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
                 .ToList();
         }
 
-        public bool IsExistedSetting(SettingInfo setting)
+        public bool IsExistedSetting(Setting setting)
         {
             if (setting == null)
             {
@@ -124,7 +124,7 @@ namespace Fanex.CRM.AdminTool.Services.SettingManagement
             return result;
         }
 
-        public SettingInfo GetSettingById(GetSettingByIdCriteria criteria)
+        public Setting GetSettingById(GetSettingByIdCriteria criteria)
         {
             return _settingService.GetAllSettings()
                 .Where(s => s.Id == criteria.SettingId)

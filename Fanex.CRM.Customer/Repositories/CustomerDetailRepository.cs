@@ -67,7 +67,7 @@ namespace Fanex.CRM.Customer.Repositories
                 Converter.ToDateTime(reader["BirthDay"]).ToShortFormatedDate() :
                 string.Empty;
             customer.BankInfo.HolderName = Converter.ToString2(reader["AccountHolderName"]);
-            customer.BankInfo.AddressInfo = new AddressInfo
+            customer.BankInfo.AddressInfo = new Address
             {
                 LineList = new List<string> 
                 {
@@ -79,7 +79,7 @@ namespace Fanex.CRM.Customer.Repositories
                 City = Converter.ToString2(reader["BankCity"]),
                 State = Converter.ToString2(reader["BankState"]),
                 PostCode = Converter.ToString2(reader["BankCode"]),
-                Country = new CountryInfo
+                Country = new Country
                 {
                     Id = Converter.ToInt(reader["BankCountryID"])
                 }
@@ -93,7 +93,7 @@ namespace Fanex.CRM.Customer.Repositories
                 Name = Converter.ToString2(reader["Passport"])
             };
 
-            customer.AddressInfo = new AddressInfo
+            customer.AddressInfo = new Address
             {
                 LineList = new List<string>
                 {
@@ -104,7 +104,7 @@ namespace Fanex.CRM.Customer.Repositories
                 City = Converter.ToString2(reader["City"]),
                 State = Converter.ToString2(reader["State"]),
                 PostCode = Converter.ToString2(reader["PostCode"]),
-                Country = new CountryInfo
+                Country = new Country
                 {
                     Id = Converter.ToInt(reader["CountryID"])
                 }

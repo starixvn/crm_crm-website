@@ -7,7 +7,7 @@
 //   <change who="Steven.Nguyen" date="2012.10.18">Created</change>
 // </history>
 
-namespace Fanex.CRM.Infrastructure.Services
+namespace Fanex.CRM.Infrastructure.Attributes
 {
     using System;
     using System.Web.Mvc;

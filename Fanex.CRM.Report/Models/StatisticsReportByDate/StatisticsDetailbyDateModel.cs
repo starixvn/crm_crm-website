@@ -23,19 +23,19 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
     {
         public StatisticsDetailbyDateModel()
         {
-            Phones = new List<PhoneInfo>();
+            Phones = new List<Phone>();
             PICs = new List<PersonalInfoContact>();
         }
 
         #region Communication
 
-        public List<PhoneInfo> Phones { get; set; }
+        public List<Phone> Phones { get; set; }
 
         public List<PersonalInfoContact> PICs { get; set; }
 
-        public FaxInfo Fax { get; set; }
+        public Fax Fax { get; set; }
 
-        public PhoneInfo MobilePhone { get; set; }
+        public Phone MobilePhone { get; set; }
 
         public string Skype { get; set; }
 
@@ -69,9 +69,9 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 
         public string Username { get; set; }
 
-        public SettingInfo SiteInfo { get; set; }
+        public Setting SiteInfo { get; set; }
 
-        public SettingInfo CommunicationTool { get; set; }
+        public Setting CommunicationTool { get; set; }
 
         public string Role { get; set; }
 
@@ -79,7 +79,7 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
         {
             get
             {
-                BaseCustomerInfo customer = new BaseCustomerInfo
+                BaseCustomer customer = new BaseCustomer
                 {
                     PhoneInfo = Phones,
                     PersonalInfoContacts = PICs,
@@ -100,15 +100,15 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
             }
         }
 
-        public SettingInfo Extension { get; set; }
+        public Setting Extension { get; set; }
 
-        public SettingInfo Product { get; set; }
+        public Setting Product { get; set; }
 
-        public CountryInfo Country { get; set; }
+        public Country Country { get; set; }
 
-        public SettingInfo MainCategory { get; set; }
+        public Setting MainCategory { get; set; }
 
-        public SettingInfo SubCategory { get; set; }
+        public Setting SubCategory { get; set; }
 
         public string Remark { get; set; }
 
@@ -116,7 +116,7 @@ namespace Fanex.CRM.Report.Models.StatisticsReportByDate
 
         public string StatusName { get; set; }
 
-        public SettingInfo Response { get; set; }
+        public Setting Response { get; set; }
 
         public string Handler { get; set; }
 

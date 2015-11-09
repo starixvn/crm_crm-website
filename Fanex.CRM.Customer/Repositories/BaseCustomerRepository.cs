@@ -30,7 +30,7 @@ namespace Fanex.CRM.Customer.Repositories
         {
             var customer = new CustomerInfo
             {
-                Title = new SettingInfo
+                Title = new Setting
                 {
                     Id = Converter.ToInt(reader["TitleID"]),
                     Name = string.Empty
@@ -39,7 +39,7 @@ namespace Fanex.CRM.Customer.Repositories
                 FirstName = Converter.ToString2(reader["FirstName"]),
                 LastName = Converter.ToString2(reader["LastName"]),
                 Email = Converter.ToString2(reader["Email"]),
-                FaxInfo = new FaxInfo
+                FaxInfo = new Fax
                 {
                     CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
                     AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
@@ -58,7 +58,7 @@ namespace Fanex.CRM.Customer.Repositories
                 {
                     Id = Converter.ToInt(reader["SiteID"])
                 },
-                BankInfo = new BankInfo
+                BankInfo = new Bank
                 {
                     Name = Converter.ToString2(reader["Wire_BankName"]),
                     SwiftCode = Converter.ToString2(reader["Wire_SwiftCode"]),
@@ -119,21 +119,21 @@ namespace Fanex.CRM.Customer.Repositories
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode1"]));
             customer.BettingCode.Add(Converter.ToString2(reader["RefCode2"]));
 
-            customer.PhoneInfo.Add(new PhoneInfo
+            customer.PhoneInfo.Add(new Phone
             {
                 CountryCode = Converter.ToString2(reader["PhoneCountryCode"]),
                 AreaCode = Converter.ToString2(reader["PhoneAreaCode"]),
                 PhoneNumber = Converter.ToString2(reader["Phone"])
             });
 
-            customer.PhoneInfo.Add(new PhoneInfo
+            customer.PhoneInfo.Add(new Phone
             {
                 CountryCode = Converter.ToString2(reader["Phone2CountryCode"]),
                 AreaCode = Converter.ToString2(reader["Phone2AreaCode"]),
                 PhoneNumber = Converter.ToString2(reader["Phone2"])
             });
 
-            customer.PhoneInfo.Add(new PhoneInfo
+            customer.PhoneInfo.Add(new Phone
             {
                 CountryCode = Converter.ToString2(reader["Phone3CountryCode"]),
                 AreaCode = Converter.ToString2(reader["Phone3AreaCode"]),
@@ -143,9 +143,9 @@ namespace Fanex.CRM.Customer.Repositories
             return customer;
         }
 
-        private PhoneInfo ReadPhoneInfo(IDataReader reader, string fieldName)
+        private Phone ReadPhoneInfo(IDataReader reader, string fieldName)
         {
-            return new PhoneInfo
+            return new Phone
             {
                 CountryCode = Converter.ToString2(reader[fieldName + "CountryCode"]),
                 AreaCode = Converter.ToString2(reader[fieldName + "AreaCode"]),

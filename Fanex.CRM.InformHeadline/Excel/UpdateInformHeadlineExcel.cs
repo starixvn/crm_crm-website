@@ -149,14 +149,14 @@ namespace Fanex.CRM.InformHeadline.Excel
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, ColumnWidths[i]);
             }
 
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
             GenerateInformHeadlineTitle(exportExcelInfo, _informHeadlineTitle);
         }
 
         private void GenerateInformHeadlineTitle(ExportExcelInfo exportExcelInfo, string title)
         {
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             var cellRangeAddress = new CellRangeAddress(
                 exportExcelInfo.CurrentRow, 
                 exportExcelInfo.CurrentRow + 1, 
@@ -175,7 +175,7 @@ namespace Fanex.CRM.InformHeadline.Excel
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            var headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());            
+            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());            
             var row = exportExcelInfo.Worksheet.CreateRow(currentRow);
             row.HeightInPoints = 30;
             foreach (var columnHeader in _columnHeaders)
@@ -271,7 +271,7 @@ namespace Fanex.CRM.InformHeadline.Excel
 
         private ICellStyle GetCellStyle(HSSFWorkbook workbook, short color = -1, CRMHorizontalAlignment align = CRMHorizontalAlignment.Left)
         {
-            var cellStyle = NpoiExcelExtensions.TextStyle(
+            var cellStyle = NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 color < 0 ? NpoiExcelExtensions.BackgroundColorIndex : color,
                 false,

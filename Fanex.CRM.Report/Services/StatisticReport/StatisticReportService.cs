@@ -59,18 +59,18 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// Gets all period type.
         /// </summary>
         /// <returns>All period type.</returns>
-        public List<SettingInfo> AllPeriodType()
+        public List<Setting> AllPeriodType()
         {
             try
             {
-                var allPeriodType = new List<SettingInfo>();
-                allPeriodType.Add(new SettingInfo
+                var allPeriodType = new List<Setting>();
+                allPeriodType.Add(new Setting
                 {
                     Id = PeriodTypeConstants.Daily,
                     Name = Labels.Daily
                 });
 
-                allPeriodType.Add(new SettingInfo
+                allPeriodType.Add(new Setting
                 {
                     Id = PeriodTypeConstants.Monthly,
                     Name = Labels.Monthly
@@ -92,39 +92,39 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public List<SettingInfo> AllMainCategory()
+        public List<Setting> AllMainCategory()
         {
             try
             {
-                var allMainCategory = new List<SettingInfo>();
+                var allMainCategory = new List<Setting>();
                 var rawData = _serviceSetting.GetAllMainCategories();
-                var allSubSettingOption = new SettingInfo
+                var allSubSettingOption = new Setting
                 {
                     Id = SettingConstants.AllSetting,
                     Name = Labels.All,
                 };
 
-                var remindSubSettingOption = new SettingInfo
+                var remindSubSettingOption = new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.Please_choose_one,
                 };
 
-                allMainCategory.Add(new SettingInfo
+                allMainCategory.Add(new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.Please_choose_one,
-                    ChildSettings = new List<SettingInfo>
+                    ChildSettings = new List<Setting>
                     {
                        remindSubSettingOption
                     }
                 });
 
-                allMainCategory.Add(new SettingInfo
+                allMainCategory.Add(new Setting
                 {
                     Id = SettingConstants.AllSetting,
                     Name = Labels.All,
-                    ChildSettings = new List<SettingInfo>
+                    ChildSettings = new List<Setting>
                     {
                        allSubSettingOption
                     }
@@ -172,7 +172,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
 
                     var countryList = rawData
                         .GroupBy(statisticReportEntity => statisticReportEntity.CountryId)
-                        .Select(group => new CountryInfo
+                        .Select(group => new Country
                         {
                             Id = group.First().CountryId,
                             Name = group.First().CountryId == SettingConstants.NotApply ?
@@ -287,7 +287,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByMonthly(
             IList<StatisticReportEntity> rawData,
-            IList<CountryInfo> countryList,
+            IList<Country> countryList,
             IDictionary<int, int> countryDictionary,
             GetStatisticReportCriteria criteria)
         {
@@ -377,7 +377,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             Justification = "Reviewed. Suppression is OK here.")]
         private StatisticReportInfo GetStatisticReportByDaily(
             IList<StatisticReportEntity> rawData,
-            IList<CountryInfo> countryList,
+            IList<Country> countryList,
             IDictionary<int, int> countryDictionary,
             GetStatisticReportCriteria criteria)
         {
@@ -459,7 +459,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
                 .ToList();
         }
 
-        private IDictionary<int, int> GetCountryDictionary(IList<CountryInfo> countryList)
+        private IDictionary<int, int> GetCountryDictionary(IList<Country> countryList)
         {
             var countryDictionary = new Dictionary<int, int>();
             var countryLength = countryList.Count;
@@ -490,7 +490,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
         /// </returns>
         private IList<StatisticReportInfo> GetDummyCountryList(
             int countryLength,
-            IList<CountryInfo> countryList,
+            IList<Country> countryList,
             bool isGrandTotal)
         {
             var dummyCountries = new List<StatisticReportInfo>();
@@ -584,7 +584,7 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             }
 
             var countryLength = statisticReport.Total.ChildReports.Count;
-            List<CountryInfo> countryList = new List<CountryInfo>();
+            List<Country> countryList = new List<Country>();
             for (var k = 0; k < countryLength; k++)
             {
                 var reportByCountryInfo = statisticReport.Total.ChildReports[k];
@@ -643,11 +643,11 @@ namespace Fanex.CRM.Report.Services.StatisticReport
             ref ExportExcelInfo exportExcelInfo,
             GetStatisticReportCriteria criteria,
             StatisticReportInfo statisticReport,
-            IList<CountryInfo> countryList)
+            IList<Country> countryList)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            ICellStyle leftHeaderStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle leftHeaderStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam { Alignment = CRMHorizontalAlignment.Left });
 
             var currentColumn = exportExcelInfo.StartColumn;
             exportExcelInfo.Worksheet.SetColumnWidth(currentColumn++, (statisticReport != null ? 160 : 160) * NpoiExcelExtensions.FontWidth);

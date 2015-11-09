@@ -58,7 +58,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
                 {
                     var rawData = GetDynamicData<SettlementReportEntity>(criteria).ToList();
                     var countryList = rawData
-                       .Select(settlementReportEntity => new CountryInfo
+                       .Select(settlementReportEntity => new Country
                        {
                            Id = settlementReportEntity.CountryId,
                            Name = settlementReportEntity.CountryName
@@ -148,7 +148,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
         /// </summary>
         /// <param name="countryList">The country list.</param>
         /// <returns>The country dictionary.</returns>
-        private Dictionary<int, int> GetCountryDictionary(List<CountryInfo> countryList)
+        private Dictionary<int, int> GetCountryDictionary(List<Country> countryList)
         {
             Dictionary<int, int> countryDictionary = new Dictionary<int, int>();
             var countryLength = countryList.Count;
@@ -395,7 +395,7 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             SettlementReportInfo settlementReport)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
 

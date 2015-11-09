@@ -252,7 +252,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 currentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Left });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Left });
             NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
 
@@ -268,7 +268,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             int currentCasinoColumn = exportExcelInfo.StartColumn;
 
             IRow commRow = exportExcelInfo.Worksheet.CreateRow(currentRow + 1);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             CellRangeAddress categoryCellRangeAddress = new CellRangeAddress(currentRow, currentRow + 1, currentCasinoColumn, currentCasinoColumn);
             NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, categoryCellRangeAddress, Labels.Categories, headerStyle);
@@ -387,7 +387,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         private static ICellStyle CategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
@@ -396,7 +396,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         private static ICellStyle TotalCategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -406,7 +406,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         private static ICellStyle CommunicationCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
@@ -415,7 +415,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         private static ICellStyle TotalCommunicationCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -425,7 +425,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         private static ICellStyle GrandTotalCommunicationCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -435,7 +435,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
 
         private static ICellStyle TextCenterCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
@@ -461,7 +461,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
             }
 
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -475,7 +475,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
 
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             IRow row = exportExcelInfo.Worksheet.CreateRow(currentRow);
 
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Category, headerStyle);
@@ -601,7 +601,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 currentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
 
@@ -621,7 +621,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
             int currentColumn = exportExcelInfo.StartColumn;
 
             IRow row = exportExcelInfo.Worksheet.CreateRow(currentRow);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.Date, headerStyle);
             currentColumn++;
             NpoiExcelExtensions.RenderCell(row, currentColumn, Labels.StartTime, headerStyle);
@@ -706,7 +706,7 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(row, currentColumn, item.Role, textCenterCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.ReplaceHtmlTag(item.Contact), textLeftCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.RemoveHtmlTags(item.Contact), textLeftCellStyle);
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(row, currentColumn, item.CountryName, textLeftCellStyle);
                 currentColumn++;
@@ -714,9 +714,9 @@ namespace Fanex.CRM.Report.Services.CasinoReport
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(row, currentColumn, item.SubCategory, textLeftCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.ReplaceHtmlTag(item.Description), textLeftCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.RemoveHtmlTags(item.Description), textLeftCellStyle);
                 currentColumn++;
-                NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.ReplaceHtmlTag(item.Solution), textLeftCellStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn, HtmlHelper.RemoveHtmlTags(item.Solution), textLeftCellStyle);
                 currentColumn++;
                 NpoiExcelExtensions.RenderCell(row, currentColumn, item.Status, textCenterCellStyle);
                 currentColumn++;

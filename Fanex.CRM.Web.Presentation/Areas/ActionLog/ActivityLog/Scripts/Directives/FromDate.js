@@ -32,7 +32,7 @@
             fromDatePicker.datepicker('setDate', new Date(initFromDate));
         }
         function selectedDateChange(scope, element) {
-            /* jshint unused: vars */
+            
             var fromDatePicker = element.find("#fromDate");
             var selectedDate = fromDatePicker.val();
             var date = new Date(selectedDate);

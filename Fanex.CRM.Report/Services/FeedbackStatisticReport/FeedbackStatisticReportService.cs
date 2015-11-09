@@ -298,7 +298,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                 exportExcelInfo.SetColumnWidthByFontWidth(exportExcelInfo.CurrentColumn++, 120);
             }
 
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             exportExcelInfo.RenderHeaderTitle(title, headerStyle);
         }
 
@@ -311,7 +311,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         {
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             IRow subCategoryRow = exportExcelInfo.Worksheet.CreateRow(currentRow);
             NpoiExcelExtensions.RenderCell(subCategoryRow, currentColumn, Labels.SubCategory, headerStyle);
@@ -437,7 +437,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         /// <returns>The cell style of excel.</returns>
         private ICellStyle CategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.GroupBackgroundColorIndex,
                 true,
@@ -447,7 +447,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         private ICellStyle SubCategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
@@ -456,7 +456,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         private ICellStyle ResolveCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
@@ -465,7 +465,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         private ICellStyle SubTotalCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 true,
@@ -474,7 +474,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         private ICellStyle SubTotalResolveCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 true,
@@ -483,7 +483,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         private ICellStyle TotalSubCategoryCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -493,7 +493,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         private ICellStyle GrandTotalResolveCellStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.IntNumberStyle(
+            return NpoiExcelExtensions.GetIntegerNumberStyle(
                 workbook,
                 NpoiExcelExtensions.GrandTotalRowColorIndex,
                 true,
@@ -529,7 +529,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
                 currentRow + 1,
                 exportExcelInfo.StartColumn,
                 exportExcelInfo.MaxColumnIndex);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam() { Alignment = CRMHorizontalAlignment.Center });
             NpoiExcelExtensions.RenderMergedCells(exportExcelInfo, cellRangeAddress, title, headerStyle);
             currentRow += 2;
 
@@ -545,7 +545,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
         {
             int currentRow = exportExcelInfo.CurrentRow;
             int currentColumn = exportExcelInfo.StartColumn;
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             IRow headerRow = exportExcelInfo.Worksheet.CreateRow(currentRow);
             NpoiExcelExtensions.RenderCell(headerRow, currentColumn, Labels.Feedback, headerStyle);
@@ -638,7 +638,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         private ICellStyle FeedbackDetailTextStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.BackgroundColorIndex,
                 false,
@@ -647,7 +647,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         private ICellStyle FeedbackDetailPendingTextStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.PendingStatusColorIndex,
                 false,
@@ -656,7 +656,7 @@ namespace Fanex.CRM.Report.Services.FeedbackStatisticReport
 
         private ICellStyle FeedbackDetailClosedTextStyle(HSSFWorkbook workbook)
         {
-            return NpoiExcelExtensions.TextStyle(
+            return NpoiExcelExtensions.GetTextStyle(
                 workbook,
                 NpoiExcelExtensions.CloseStatusColorIndex,
                 false,

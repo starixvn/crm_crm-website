@@ -142,7 +142,7 @@ namespace Fanex.CRM.Common.Services
             }
         }
 
-        public static string RedirectLink 
+        public static string RedirectionLink 
         {
             get
             {

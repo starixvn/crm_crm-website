@@ -98,8 +98,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Services\HandleAjaxErrorAttribute.cs" />
-    <Compile Include="Services\JsonWithoutNullField.cs" />
+    <Compile Include="Attributes\HandleAjaxErrorAttribute.cs" />
+    <Compile Include="ActionResults\JsonWithoutNullField.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Labels.resx">

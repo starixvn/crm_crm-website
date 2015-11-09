@@ -12,10 +12,10 @@ namespace Fanex.CRM.ActionLog.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.ActionLog.Criteria;
     using Fanex.CRM.ActionLog.Services;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
-    using Fanex.CRM.Common.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
 

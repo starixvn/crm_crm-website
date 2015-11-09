@@ -7,10 +7,11 @@
 //   <change who="Louis" date="2012.12.07">Created</change>
 // </history>
 
-namespace Fanex.CRM.Common.Services
+namespace Fanex.CRM.Common.Attributes
 {
     using System;
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Services;
 
     /// <summary>
     /// CRM Authenticate Attribute.

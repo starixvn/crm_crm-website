@@ -18,43 +18,43 @@ namespace Fanex.CRM.Setting.Services
 
     public interface ISettingService
     {
-        IEnumerable<SettingInfo> GetAllSettings();
+        IEnumerable<Setting> GetAllSettings();
 
-        SettingInfo GetSettingById(GetSettingByIdCriteria criteria);
+        Setting GetSettingById(GetSettingByIdCriteria criteria);
 
         IEnumerable<SiteInfo> GetAllSites(GetAllSiteCriteria criteria = null);
 
         IEnumerable<BaseModel> GetAllSiteWithGroup();
 
-        IEnumerable<SettingInfo> GetAllTitles();
+        IEnumerable<Setting> GetAllTitles();
 
-        IEnumerable<CountryInfo> GetAllCountries();
+        IEnumerable<Country> GetAllCountries();
 
-        IEnumerable<SettingInfo> GetAllLanguages();
+        IEnumerable<Setting> GetAllLanguages();
 
-        IEnumerable<SettingInfo> GetAllExtensions();
+        IEnumerable<Setting> GetAllExtensions();
 
-        IEnumerable<SettingInfo> GetAllCommunicationTools();
+        IEnumerable<Setting> GetAllCommunicationTools();
 
-        IEnumerable<SettingInfo> GetAllMainCategories();
+        IEnumerable<Setting> GetAllMainCategories();
 
-        IEnumerable<SettingInfo> GetAllProducts();
+        IEnumerable<Setting> GetAllProducts();
 
-        IEnumerable<SettingInfo> GetAllStatuses(int statusType);
+        IEnumerable<Setting> GetAllStatuses(int statusType);
 
         IEnumerable<Status> GetInformHeadlineStatuses();
 
         IEnumerable<BaseModel> GetAllCurrencyRedemptions(GetAllCurrencyRedemptionCriteria criteria);
 
-        IEnumerable<SettingInfo> GetAllRoles();
+        IEnumerable<Setting> GetAllRoles();
 
-        IEnumerable<SettingInfo> GetAllResponses();
+        IEnumerable<Setting> GetAllResponses();
 
-        IEnumerable<SettingInfo> GetAllCustomerTypes();
+        IEnumerable<Setting> GetAllCustomerTypes();
 
-        IEnumerable<SettingInfo> GetAllVIPTypes();
+        IEnumerable<Setting> GetAllVIPTypes();
 
-        IEnumerable<SettingInfo> GetAllSiteTypes();
+        IEnumerable<Setting> GetAllSiteTypes();
 
         IEnumerable<BaseModel> GetAllLicenseeTypes();
 
@@ -72,7 +72,7 @@ namespace Fanex.CRM.Setting.Services
 
         void ClearCache();
 
-        IEnumerable<SettingInfo> GetMainSettings();
+        IEnumerable<Setting> GetMainSettings();
 
         IEnumerable<Station> GetStations();
     }

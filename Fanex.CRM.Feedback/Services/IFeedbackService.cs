@@ -21,7 +21,7 @@ namespace Fanex.CRM.Feedback.Services
     /// </summary>
     public interface IFeedbackService
     {
-        IEnumerable<BaseModel> GetTop { get; }
+        IEnumerable<BaseModel> GetTopItems { get; }
 
         dynamic GetAllSettings();
 

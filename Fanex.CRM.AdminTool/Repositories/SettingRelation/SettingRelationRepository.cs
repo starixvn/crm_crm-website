@@ -23,16 +23,16 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
     /// </summary>
     public class SettingRelationRepository : BaseRepository, ISettingRelationRepository
     {
-        public IEnumerable<SettingInfo> GetAllSettingRelations(GetAllSettingRelationCriteria criteria)
+        public IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var result = new List<SettingInfo>();
+                    var result = new List<Setting>();
                     while (reader.Read())
                     {
-                        result.Add(new SettingInfo
+                        result.Add(new Setting
                         {
                             Id = Converter.ToInt(reader["settingid"], 0),
                             ParentId = Converter.ToInt(reader["parentid"], 0),
@@ -45,16 +45,16 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
             }
         }
 
-        public IEnumerable<SettingInfo> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria)
+        public IEnumerable<Setting> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria)
         {
             using (var objectDB = new ObjectDb(criteria.GetSettingKey()))
             {
                 using (var reader = objectDB.ExecuteReader(criteria.GetSpParams()))
                 {
-                    var result = new List<SettingInfo>();
+                    var result = new List<Setting>();
                     while (reader.Read())
                     {
-                        result.Add(new SettingInfo
+                        result.Add(new Setting
                         {
                             Id = Converter.ToInt(reader["settingid"], 0),
                             Value = Converter.ToString2(reader["settingvalue"]),

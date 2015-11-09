@@ -17,9 +17,9 @@ namespace Fanex.CRM.AdminTool.Repositories.SettingRelation
 
     public interface ISettingRelationRepository
     {
-        IEnumerable<SettingInfo> GetAllSettingRelations(GetAllSettingRelationCriteria criteria);
+        IEnumerable<Setting> GetAllSettingRelations(GetAllSettingRelationCriteria criteria);
 
-        IEnumerable<SettingInfo> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria);
+        IEnumerable<Setting> GetMainSettingRelations(GetMainSettingRelationsCriteria criteria);
 
         Result AddSettingRelations(AddSettingRelationsCriteria criteria);
     }

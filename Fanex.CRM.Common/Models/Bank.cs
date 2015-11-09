@@ -16,7 +16,7 @@ namespace Fanex.CRM.Common.Models
     /// Bank Information.
     /// </summary>
     [Serializable]
-    public class BankInfo : BaseModel
+    public class Bank : BaseModel
     {
         public string Address { get; set; }
 
@@ -28,6 +28,6 @@ namespace Fanex.CRM.Common.Models
 
         public string HolderName { get; set; }
 
-        public AddressInfo AddressInfo { get; set; }
+        public Address AddressInfo { get; set; }
     }
 }

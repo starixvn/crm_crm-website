@@ -12,6 +12,7 @@ namespace Fanex.CRM.Feedback.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
@@ -64,19 +65,19 @@ namespace Fanex.CRM.Feedback.Controllers
         /// <returns>All setting to add feedback.</returns>
         public AllSettingToAddFeedback AllSettingToAddFeedback()
         {
-            var languageList = ServiceSetting.GetAllLanguages().ToList();
-            languageList.Insert(
+            var languages = ServiceSetting.GetAllLanguages().ToList();
+            languages.Insert(
                 0,
-                new SettingInfo
+                new Setting
                 {
                     Id = 0,
                     Name = Labels.Symbol_NA
                 });
 
-            var countryList = ServiceSetting.GetAllCountries().ToList();
-            countryList.Insert(
+            var countries = ServiceSetting.GetAllCountries().ToList();
+            countries.Insert(
                 0,
-                new CountryInfo
+                new Country
                 {
                     Id = 0,
                     Name = Labels.Symbol_NA
@@ -84,12 +85,12 @@ namespace Fanex.CRM.Feedback.Controllers
 
             var statusList = ServiceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
                                         .Where(s => s.Id != (int)CRMStatus.Deleted).ToList();
-            var allSetting = new AllSettingToAddFeedback
+            var settings = new AllSettingToAddFeedback
             {
                 ExtensionList = ServiceSetting.GetAllExtensions(),
-                CountryList = countryList,
+                CountryList = countries,
                 CommunicationToolList = ServiceSetting.GetAllCommunicationTools(),
-                LanguageList = languageList,
+                LanguageList = languages,
                 MainCategoryList = ServiceSetting.GetAllMainCategories(),
                 ProductList = ServiceSetting.GetAllProducts(),
                 SiteList = ServiceSetting.GetAllSites(),
@@ -99,7 +100,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 LicenseeType = ServiceSetting.GetAllLicenseeTypes()
             };
 
-            return allSetting;
+            return settings;
         }
     }
 }

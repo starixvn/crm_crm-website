@@ -21,6 +21,6 @@ namespace Fanex.CRM.Communication.Models
     {
         public int CustomerId { get; set; }
 
-        public IEnumerable<BaseCommunicationLogInfo> Logs { get; set; }
+        public IEnumerable<BaseCommunicationLog> Logs { get; set; }
     }
 }

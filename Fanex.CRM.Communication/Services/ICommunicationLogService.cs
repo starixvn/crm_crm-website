@@ -18,11 +18,11 @@ namespace Fanex.CRM.Communication.Services
 
     public interface ICommunicationLogService
     {
-        IEnumerable<SettingInfo> GetAllStatus();
+        IEnumerable<Setting> GetAllStatus();
 
         CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 
-        BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
+        BaseCommunicationLog GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria);
 
         Result UpdateLog(UpdateLogCriteria criteria);
 

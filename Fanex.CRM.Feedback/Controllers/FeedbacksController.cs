@@ -71,9 +71,9 @@ namespace Fanex.CRM.Feedback.Controllers
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult LatestFeedback(int? custId, string custName)
         {
-            ViewBag.CustId = custId ?? 0;
+            ViewBag.CustId = custId;
             ViewBag.Username = custName;
-            return View("~/Areas/Feedbacks/LatestFeedback/Index.cshtml", _feedbackService.GetTop);
+            return View("~/Areas/Feedbacks/LatestFeedback/Index.cshtml", _feedbackService.GetTopItems);
         }
 
         /// <summary>

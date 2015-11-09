@@ -205,19 +205,6 @@ namespace Fanex.CRM.Common.Extensions
         }
 
         /// <summary>
-        /// Same as String.IsNullOrEmpty except that
-        /// it captures the Empty state for whitespace
-        /// strings by Trimming first.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>Check result.</returns>
-        [DebuggerStepThrough]
-        public static bool IsNullOrTrimEmpty(this string value)
-        {
-            return value == null || value.Trim().Length == 0;
-        }
-
-        /// <summary>
         /// Regexes the match.
         /// </summary>
         /// <param name="value">The value.</param>
@@ -228,7 +215,7 @@ namespace Fanex.CRM.Common.Extensions
         [DebuggerStepThrough]
         public static string RegexMatch(this string value, string pattern, RegexOptions options, string groupName)
         {
-            if (groupName.IsNullOrTrimEmpty())
+            if (string.IsNullOrWhiteSpace(groupName))
             {
                 return Regex.Match(value, pattern, options).Value;
             }
@@ -293,36 +280,6 @@ namespace Fanex.CRM.Common.Extensions
         public static string RegexReplace(this string value, string pattern, string replacement)
         {
             return Regex.Replace(value, pattern, replacement, RegexOptions.None);
-        }
-
-        /// <summary>
-        /// Replace function string. Format.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="args">The arguments.</param>
-        /// <returns>Format result.</returns>
-        [DebuggerStepThrough]
-        public static string Format(this string value, params object[] args)
-        {
-            return string.Format(value, args);
-        }
-
-        /// <summary>
-        /// Replace for substring, but shorter format.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="length">The length.</param>
-        /// <returns>Replace result.</returns>
-        [DebuggerStepThrough]
-        public static string Limit(this string value, int length)
-        {
-            if (length > 0)
-            {
-                int stringLength = value.Length;
-                return (stringLength > length) ? value.Substring(0, length) : value;
-            }
-
-            return value;
         }
 
         /// <summary>

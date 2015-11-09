@@ -7,10 +7,11 @@
 //   <change who="Louis" date="2014.12.18">Created</change>
 // </history>
 
-namespace Fanex.CRM.Common.Services
+namespace Fanex.CRM.Common.Attributes
 {
     using System;
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Infrastructure.Constants;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Infrastructure.Resources;

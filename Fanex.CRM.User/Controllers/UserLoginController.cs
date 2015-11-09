@@ -111,10 +111,6 @@ namespace Fanex.CRM.User.Controllers
             return View(LogInViewURL);
         }
 
-        /// <summary>
-        /// Sign in action.
-        /// </summary>
-        /// <returns>Sign in result.</returns>
         public RedirectResult SignIn()
         {
             if (AppSession.CurrentUserMenu == null || AppSession.CurrentUser == null)
@@ -321,7 +317,7 @@ namespace Fanex.CRM.User.Controllers
                     CreateAuthInfo(user);
                     if (redirectUrl != null && !string.IsNullOrEmpty(redirectUrl.ToString()))
                     {
-                        AppSession.RedirectLink = redirectUrl.ToString();
+                        AppSession.RedirectionLink = redirectUrl.ToString();
                     }
 
                     // saves user session & auth info
@@ -461,10 +457,6 @@ namespace Fanex.CRM.User.Controllers
             FormsAuthentication.SignOut();
         }
 
-        /// <summary>
-        /// Add Token To Cookie.
-        /// </summary>
-        /// <param name="loginToken">The login Token.</param>
         private void AddTokenToCookie(string loginToken)
         {
             // Create the non-persistent secure form token cookie
@@ -489,11 +481,6 @@ namespace Fanex.CRM.User.Controllers
             Response.Cookies.Set(responseCookie);
         }
 
-        /// <summary>
-        /// Check Valid Token.
-        /// </summary>
-        /// <param name="loginToken">The login Token.</param>
-        /// <returns>Return validation result.</returns>
         private bool CheckValidToken(string loginToken)
         {
             return !string.IsNullOrWhiteSpace(loginToken)
@@ -502,9 +489,6 @@ namespace Fanex.CRM.User.Controllers
                 && loginToken == Request.Cookies[FormTokenName].Value;
         }
 
-        /// <summary>
-        /// Clear Token.
-        /// </summary>
         private void ClearToken()
         {
             // delete token session
@@ -522,12 +506,8 @@ namespace Fanex.CRM.User.Controllers
             }
         }
 
-        /// <summary>
-        /// Create New Token.
-        /// </summary>
         private void CreateNewToken()
         {
-            // generate a new token
             string loginToken = Guid.NewGuid().ToString("N");
             FormToken = loginToken;
             ViewBag.LoginToken = loginToken;
@@ -559,11 +539,6 @@ namespace Fanex.CRM.User.Controllers
             return GetHash(input);
         }
 
-        /// <summary>
-        /// Assign User Permission To Session.
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="user">The user object.</param>
         private void AssignUserPermissionToSession(string username, User user)
         {
             var criteria = new UserCheckInUserCriteria

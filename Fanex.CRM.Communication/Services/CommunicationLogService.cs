@@ -77,7 +77,7 @@ namespace Fanex.CRM.Communication.Services
             };
         }
 
-        public BaseCommunicationLogInfo GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
+        public BaseCommunicationLog GetLogsByRunningNumber(GetLogByRunningNumberCriteria criteria)
         {
             return _communicationRepositoryLog.GetLogsByRunningNumber(criteria);
         }

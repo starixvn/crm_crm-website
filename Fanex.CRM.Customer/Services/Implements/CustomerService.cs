@@ -27,7 +27,7 @@ namespace Fanex.CRM.Customer.Services
     /// </summary>
     public class CustomerService : ICustomerService
     {
-        private readonly ICustomerRepository _customerRepositoryInstance;
+        private readonly ICustomerRepository _customerRepository;
 
         private readonly ISettingService _settingService;
 
@@ -40,13 +40,13 @@ namespace Fanex.CRM.Customer.Services
             ICustomerRepository customerRepositoryInstance,
             ISettingService settingService)
         {
-            _customerRepositoryInstance = customerRepositoryInstance ?? new CustomerRepository();
+            _customerRepository = customerRepositoryInstance ?? new CustomerRepository();
             _settingService = settingService ?? new SettingService();
         }
 
         public CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
-            var customerInfo = _customerRepositoryInstance.GetCustomerInfoByUsername(criteria);
+            var customerInfo = _customerRepository.GetCustomerInfoByUsername(criteria);
             if (customerInfo != null)
             {
                 customerInfo.Role.Name = RoleSettingService.GetRoleName(customerInfo.Role.Id);
@@ -77,11 +77,11 @@ namespace Fanex.CRM.Customer.Services
             return customerInfo;
         }
 
-        public IEnumerable<BaseCustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
+        public IEnumerable<BaseCustomer> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
-            var uplineInfoResult = new List<BaseCustomerInfo>();
+            var uplineInfoResult = new List<BaseCustomer>();
 
-            var rawData = _customerRepositoryInstance.GetUplineInfoOfUser(criteria);
+            var rawData = _customerRepository.GetUplineInfoOfUser(criteria);
             foreach (var item in rawData)
             {
                 if (criteria.CustomerId == item.Id)
@@ -98,7 +98,7 @@ namespace Fanex.CRM.Customer.Services
 
         public Result UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
-            var result = _customerRepositoryInstance.UpdateCustomerInfo(criteria);
+            var result = _customerRepository.UpdateCustomerInfo(criteria);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 result.Message = Labels.CustomerInfo_UpdateSuccess;
@@ -109,17 +109,17 @@ namespace Fanex.CRM.Customer.Services
 
         public IEnumerable<string> QueryCustomerByUsername(CustomerSuggestionCriteria criteria)
         {
-            return _customerRepositoryInstance.GetCustomersByUsername(criteria);
+            return _customerRepository.GetCustomersByUsername(criteria);
         }
 
         public bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria)
         {
-            return _customerRepositoryInstance.UpdateCustomerSuggestion(criteria);
+            return _customerRepository.UpdateCustomerSuggestion(criteria);
         }
 
         public IEnumerable<dynamic> RelatedCustomerAutoSuggestion(RelatedCustomerAutoSuggestionCriteria criteria)
         {
-            var customers = _customerRepositoryInstance.GetRelatedCustomerAutoSuggestions(criteria);
+            var customers = _customerRepository.GetRelatedCustomerAutoSuggestions(criteria);
             return customers.Select(x => new
             {
                 key = x.Key,
@@ -129,7 +129,7 @@ namespace Fanex.CRM.Customer.Services
 
         public IEnumerable<CustomerInfo> VerifyUsername(VerifyRelatedCustomerCriteria criteria)
         {
-            return _customerRepositoryInstance.VerifyUsername(criteria);
+            return _customerRepository.VerifyUsername(criteria);
         }
     }
 }

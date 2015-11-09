@@ -10,15 +10,12 @@
 
 namespace Fanex.CRM.Common.Services
 {
-    using System;
     using System.Collections.Generic;
     using Fanex.CRM.Common.Extensions;
     using Fanex.CRM.Common.Helpers;
     using Fanex.CRM.Common.Models.Npoi;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.Data.Repository;
     using NPOI.SS.UserModel;
-    using NPOI.SS.Util;
 
     /// <summary>
     /// Service Base.

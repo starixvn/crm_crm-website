@@ -15,7 +15,7 @@ namespace Fanex.CRM.Common.Models
     /// Phone Info.
     /// </summary>
     [Serializable]
-    public class FaxInfo
+    public class Fax
     {
         public string CountryCode { get; set; }
 

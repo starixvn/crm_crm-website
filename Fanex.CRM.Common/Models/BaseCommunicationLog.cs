@@ -16,7 +16,7 @@ namespace Fanex.CRM.Common.Models
     /// Base Communication Log Information.
     /// </summary>
     [Serializable]
-    public class BaseCommunicationLogInfo
+    public class BaseCommunicationLog
     {
         public string FeedbackDate { get; set; }
 
@@ -26,9 +26,9 @@ namespace Fanex.CRM.Common.Models
 
         public int RunningNumber { get; set; }
 
-        public SettingInfo MainCategory { get; set; }
+        public Setting MainCategory { get; set; }
 
-        public SettingInfo SubCategory { get; set; }
+        public Setting SubCategory { get; set; }
 
         public string StatusName { get; set; }
 
@@ -46,27 +46,27 @@ namespace Fanex.CRM.Common.Models
 
         public string EndTime { get; set; }
 
-        public SettingInfo Extension { get; set; }
+        public Setting Extension { get; set; }
 
-        public CountryInfo Country { get; set; }
+        public Country Country { get; set; }
 
-        public SettingInfo CommunicationTool { get; set; }
+        public Setting CommunicationTool { get; set; }
 
         public int LanguageId { get; set; }
 
-        public SettingInfo Product { get; set; }
+        public Setting Product { get; set; }
 
-        public SettingInfo BetType { get; set; }
+        public Setting BetType { get; set; }
 
-        public SettingInfo Status { get; set; }
+        public Setting Status { get; set; }
 
-        public SettingInfo SiteInfo { get; set; }
+        public Setting SiteInfo { get; set; }
 
-        public SettingInfo RoleInfo { get; set; }
+        public Setting RoleInfo { get; set; }
 
-        public SettingInfo Response { get; set; }
+        public Setting Response { get; set; }
 
-        public SettingInfo LicenseeType { get; set; }
+        public Setting LicenseeType { get; set; }
 
         public string RelatedCustomers { get; set; }
 

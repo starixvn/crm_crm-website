@@ -36,15 +36,15 @@ namespace Fanex.CRM.Report.Services.SettlementReport
             _isFirstRow = isFirstRow;
             _rowBackgroundColorIndex = NpoiExcelExtensions.GrandTotalRowColorIndex;
 
-            _intStyle = NpoiExcelExtensions.IntNumberStyleGrandTotal(_exportExcelInfo.ExcelFile);
-            _textStyle = NpoiExcelExtensions.TextStyleGrandTotal(_exportExcelInfo.ExcelFile);
-            _centerTextStyle = NpoiExcelExtensions.TextStyle(
+            _intStyle = NpoiExcelExtensions.GetIntegerNumberStyleGrandTotal(_exportExcelInfo.ExcelFile);
+            _textStyle = NpoiExcelExtensions.GetTextStyleGrandTotal(_exportExcelInfo.ExcelFile);
+            _centerTextStyle = NpoiExcelExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,
                 CRMHorizontalAlignment.Center,
                 NpoiExcelExtensions.GrandTotalTextColorIndex);
-            _centerIntStyle = NpoiExcelExtensions.IntNumberStyle(
+            _centerIntStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 _rowBackgroundColorIndex,
                 true,

@@ -63,7 +63,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             {
                 Id = criteria.SiteType,
                 Name = reportTitle,
-                AliasName = ChartHelper.ViewChartFromToDateTitle(
+                AliasName = ChartHelper.GetViewChartFromToDateTitle(
                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                    DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
                 CommunicationTools = repositoryResult.CommunicationTools,
@@ -226,7 +226,7 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            var headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
 
             exportExcelInfo.ResetCurrentColumn();
             var communicationToolLength = report != null ? report.CommunicationTools.Count : 0;
@@ -269,9 +269,9 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             }
 
             var intNumberStyle =
-                NpoiExcelExtensions.IntNumberStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+                NpoiExcelExtensions.GetIntegerNumberStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
             var textStyle =
-                NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+                NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
             for (var i = 0; i < mainCategoryLength; i++)
             {
                 var mainCategory = report.ChildReports[i];
@@ -306,9 +306,9 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
         {
             NpoiExcelExtensions.SetGroupBackgroundColorIndex(exportExcelInfo);
             var intNumberStyleMainCategory =
-                NpoiExcelExtensions.IntNumberStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+                NpoiExcelExtensions.GetIntegerNumberStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Center);
             var textStyleMainCategory =
-                NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+                NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.GroupBackgroundColorIndex, false, CRMHorizontalAlignment.Left);
 
             var font = exportExcelInfo.ExcelFile.CreateFont();
             font.FontHeightInPoints = NpoiExcelExtensions.FontSize;
@@ -332,9 +332,9 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             int communicationToolLength)
         {
             NpoiExcelExtensions.SetGrandTotalColorIndex(exportExcelInfo);
-            var intNumberStyle = NpoiExcelExtensions.IntNumberStyleGrandTotal(exportExcelInfo.ExcelFile);
+            var intNumberStyle = NpoiExcelExtensions.GetIntegerNumberStyleGrandTotal(exportExcelInfo.ExcelFile);
             intNumberStyle.Alignment = HorizontalAlignment.Center;
-            var textStyle = NpoiExcelExtensions.TextStyleGrandTotal(exportExcelInfo.ExcelFile);
+            var textStyle = NpoiExcelExtensions.GetTextStyleGrandTotal(exportExcelInfo.ExcelFile);
             ExportMainReportRow(issueInfo, exportExcelInfo, intNumberStyle, textStyle, communicationToolLength);
         }
 
@@ -373,8 +373,8 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
         private void ExportDetailReportHeader(StatisticsDetailReportByDateModel report, ExportExcelInfo exportExcelInfo)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            var headerStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
-            var leftTitleStyle = NpoiExcelExtensions.HeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var headerStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
+            var leftTitleStyle = NpoiExcelExtensions.GetHeaderStyle(exportExcelInfo.ExcelFile, new ExcelStyleParam());
             leftTitleStyle.Alignment = HorizontalAlignment.Left;
 
             exportExcelInfo.ResetCurrentColumn();
@@ -425,9 +425,9 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             }
 
             var textStyle =
-                NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
+                NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Left);
             var centerTextStyle =
-                NpoiExcelExtensions.TextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
+                NpoiExcelExtensions.GetTextStyle(exportExcelInfo.ExcelFile, NpoiExcelExtensions.BackgroundColorIndex, false, CRMHorizontalAlignment.Center);
             var childReportLength = report.ChildReports.Count;
             var maxRowPerSheet = NpoiExcelExtensions.MaxRowPerSheet;
             var numberOfSheet = (childReportLength / maxRowPerSheet) +
@@ -480,13 +480,13 @@ namespace Fanex.CRM.Report.Services.StatisticByDateReport
             exportExcelInfo.RenderCell(info.CommunicationTool.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.Extension.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.Role, textStyle);
-            exportExcelInfo.RenderCell(HtmlHelper.ReplaceHtmlTag(info.Contact), textStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Contact), textStyle);
             exportExcelInfo.RenderCell(info.Product.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.Country.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.MainCategory.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.SubCategory.Name, centerTextStyle);
-            exportExcelInfo.RenderCell(HtmlHelper.ReplaceHtmlTag(info.Remark), textStyle);
-            exportExcelInfo.RenderCell(HtmlHelper.ReplaceHtmlTag(info.Solution), textStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Remark), textStyle);
+            exportExcelInfo.RenderCell(HtmlHelper.RemoveHtmlTags(info.Solution), textStyle);
             exportExcelInfo.RenderCell(info.StatusName, centerTextStyle);
             exportExcelInfo.RenderCell(info.Response.Name, centerTextStyle);
             exportExcelInfo.RenderCell(info.Handler, centerTextStyle);

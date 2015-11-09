@@ -45,17 +45,17 @@ namespace Fanex.CRM.ActionLog.Services
             var settingService = new SettingService();
 
             var countries = settingService.GetAllCountries()
-                .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Country" });
+                .Select(c => new Setting { Id = c.Id, Value = c.Name, SettingType = "Country" });
 
             var currencies = settingService.GetAllCurrencies(new GetAllCurrencyCriteria())
-                .Select(c => new SettingInfo { Id = c.Id, Value = c.Name, SettingType = "Currency" });
+                .Select(c => new Setting { Id = c.Id, Value = c.Name, SettingType = "Currency" });
 
             var settings = settingService.GetAllSettings().ToList();
             settings.AddRange(countries);
             settings.AddRange(currencies);
 
             // Add default N/A
-            settings.Add(new SettingInfo { Id = 0, Value = Labels.NA, SettingType = string.Empty });
+            settings.Add(new Setting { Id = 0, Value = Labels.NA, SettingType = string.Empty });
 
             return settings.ToDictionary(x => x.Id + x.SettingType.ToUpperInvariant(), x => x.Value);            
         }

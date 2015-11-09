@@ -22,27 +22,27 @@ namespace Fanex.CRM.Feedback.Models
     [Serializable]
     public class AllSettingToAddFeedback
     {
-        public IEnumerable<SettingInfo> ExtensionList { get; set; }
+        public IEnumerable<Setting> ExtensionList { get; set; }
 
-        public IEnumerable<CountryInfo> CountryList { get; set; }
+        public IEnumerable<Country> CountryList { get; set; }
 
-        public IEnumerable<SettingInfo> CommunicationToolList { get; set; }
+        public IEnumerable<Setting> CommunicationToolList { get; set; }
 
-        public IEnumerable<SettingInfo> LanguageList { get; set; }
+        public IEnumerable<Setting> LanguageList { get; set; }
 
-        public IEnumerable<SettingInfo> MainCategoryList { get; set; }
+        public IEnumerable<Setting> MainCategoryList { get; set; }
 
-        public IEnumerable<SettingInfo> ProductList { get; set; }
+        public IEnumerable<Setting> ProductList { get; set; }
 
         public IEnumerable<SiteInfo> SiteList { get; set; }
 
-        public IEnumerable<SettingInfo> ResponseList { get; set; }
+        public IEnumerable<Setting> ResponseList { get; set; }
 
-        public IEnumerable<SettingInfo> StatusList { get; set; }
+        public IEnumerable<Setting> StatusList { get; set; }
 
-        public IEnumerable<SettingInfo> TitleList { get; set; }
+        public IEnumerable<Setting> TitleList { get; set; }
 
-        public IEnumerable<SettingInfo> RoleList { get; set; }
+        public IEnumerable<Setting> RoleList { get; set; }
 
         public IEnumerable<BaseModel> LicenseeType { get; set; }
     }

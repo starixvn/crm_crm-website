@@ -35,17 +35,17 @@ namespace Fanex.CRM.Report.Services.DynamicReport
         {
             _exportExcelInfo = exportExcelInfo;
 
-            _textStyle = NpoiExcelExtensions.TextStyle(
+            _textStyle = NpoiExcelExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Left);
-            _centerIntStyle = NpoiExcelExtensions.IntNumberStyle(
+            _centerIntStyle = NpoiExcelExtensions.GetIntegerNumberStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,
                 CRMHorizontalAlignment.Center);
-            _centerTextStyle = NpoiExcelExtensions.TextStyle(
+            _centerTextStyle = NpoiExcelExtensions.GetTextStyle(
                 _exportExcelInfo.ExcelFile,
                 rowBackgroundColorIndex,
                 false,

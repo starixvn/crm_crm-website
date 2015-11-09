@@ -10,11 +10,12 @@
 namespace Fanex.CRM.Report.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
-    using Fanex.CRM.Common.Services;
-    using Fanex.CRM.Infrastructure.Services;
+    using Fanex.CRM.Infrastructure.ActionResults;
+    using Fanex.CRM.Infrastructure.Attributes;
     using Fanex.CRM.Report.Criteria.StatisticReport;
     using Fanex.CRM.Report.Services.StatisticReport;
     using Fanex.NAP.Core.Business;

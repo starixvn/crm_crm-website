@@ -19,7 +19,7 @@ namespace Fanex.CRM.Customer.Services
     {
         CustomerInfo GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria);
 
-        IEnumerable<BaseCustomerInfo> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
+        IEnumerable<BaseCustomer> GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria);
 
         bool UpdateCustomerSuggestion(UpdateCustomerSuggestionCriteria criteria);
 

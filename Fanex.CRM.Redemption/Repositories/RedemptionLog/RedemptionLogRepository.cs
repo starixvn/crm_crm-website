@@ -43,7 +43,7 @@ namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
                             Id = Converter.ToInt(reader["Id"]),
                             ClaimedTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ClaimTime"])).ToShortFormatedDate(),
                             Subject = Converter.ToString2(reader["Subject"]),
-                            Status = new SettingInfo
+                            Status = new Setting
                             {
                                 Value = Converter.ToString2(reader["Status"])
                             },
@@ -78,7 +78,7 @@ namespace Fanex.CRM.Redemption.Repositories.RedemptionLog
                             Amount = Converter.ToDecimal(reader["Amount"]),
                             Subject = Converter.ToString2(reader["Subject"]).HtmlEncode(),
                             Remark = Converter.ToString2(reader["Remark"]),
-                            Status = new SettingInfo
+                            Status = new Setting
                             {
                                 Id = Converter.ToInt(reader["StatusID"])
                             }

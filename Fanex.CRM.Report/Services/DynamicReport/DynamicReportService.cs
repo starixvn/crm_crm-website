@@ -60,25 +60,25 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        public IEnumerable<SettingInfo> GetAllPeriodTypes()
+        public IEnumerable<Setting> GetAllPeriodTypes()
         {
-            var types = new List<SettingInfo>();
-            types.Add(new SettingInfo
+            var types = new List<Setting>();
+            types.Add(new Setting
             {
                 Id = PeriodTypeConstants.Daily,
                 Name = Labels.Daily
             });
-            types.Add(new SettingInfo
+            types.Add(new Setting
             {
                 Id = PeriodTypeConstants.Weekly,
                 Name = Labels.Weekly
             });
-            types.Add(new SettingInfo
+            types.Add(new Setting
             {
                 Id = PeriodTypeConstants.Monthly,
                 Name = Labels.Monthly
             });
-            types.Add(new SettingInfo
+            types.Add(new Setting
             {
                 Id = PeriodTypeConstants.Yearly,
                 Name = Labels.Yearly
@@ -87,7 +87,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return types;
         }
 
-        public IEnumerable<SettingInfo> GetAllProducts()
+        public IEnumerable<Setting> GetAllProducts()
         {
             var products = _serviceSetting.GetAllProducts().ToList();
             var notApplyItem = products.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
@@ -96,7 +96,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             {
                 products.Insert(
                     0, 
-                    new SettingInfo
+                    new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Value = Labels.All
@@ -115,7 +115,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return _serviceSetting.GetAllSites();
         }
 
-        public IEnumerable<SettingInfo> GetAllStatuses()
+        public IEnumerable<Setting> GetAllStatuses()
         {
             var rawData = _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                 .Where(s => !string.Equals(s.Name, "Deleted", StringComparison.OrdinalIgnoreCase))
@@ -123,7 +123,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
 
             rawData.Insert(
                 0,
-                new SettingInfo
+                new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.All
@@ -132,12 +132,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return rawData;
         }
 
-        public IEnumerable<SettingInfo> GetAllResponses()
+        public IEnumerable<Setting> GetAllResponses()
         {
             var data = _serviceSetting.GetAllResponses().ToList();
             data.Insert(
                 0, 
-                new SettingInfo
+                new Setting
             {
                 Id = SettingConstants.NotApply,
                 Value = Labels.All
@@ -146,12 +146,12 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return data;
         }
 
-        public IEnumerable<SettingInfo> GetAllRoles()
+        public IEnumerable<Setting> GetAllRoles()
         {
             var data = _serviceSetting.GetAllRoles().ToList();
             data.Insert(
                 0, 
-                new SettingInfo
+                new Setting
             {
                 Id = SettingConstants.NotApply,
                 Value = Labels.All
@@ -160,7 +160,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return data;
         }
 
-        public IEnumerable<SettingInfo> GetAllCommunicationTools()
+        public IEnumerable<Setting> GetAllCommunicationTools()
         {
             var rawData = _serviceSetting.GetAllCommunicationTools().ToList();
             var item = rawData.Where(x => x.Id == SettingConstants.NotApply).FirstOrDefault();
@@ -169,7 +169,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             {
                 rawData.Insert(
                     0, 
-                    new SettingInfo
+                    new Setting
                 {
                     Id = SettingConstants.NotApply,
                     Name = Labels.All
@@ -183,21 +183,21 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return rawData;
         }
 
-        public IEnumerable<SettingInfo> GetAllMainCategories()
+        public IEnumerable<Setting> GetAllMainCategories()
         {
-            var allMainCategory = new List<SettingInfo>();
+            var allMainCategory = new List<Setting>();
             var rawData = _serviceSetting.GetAllMainCategories();
-            var allSubSettingOption = new SettingInfo
+            var allSubSettingOption = new Setting
             {
                 Id = SettingConstants.NotApply,
                 Name = Labels.All,
             };
 
-            allMainCategory.Add(new SettingInfo
+            allMainCategory.Add(new Setting
             {
                 Id = SettingConstants.NotApply,
                 Name = Labels.All,
-                ChildSettings = new List<SettingInfo>
+                ChildSettings = new List<Setting>
                     {
                        allSubSettingOption
                     }
@@ -212,11 +212,11 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             return allMainCategory;
         }
 
-        public IEnumerable<SettingInfo> GetAllExtensions()
+        public IEnumerable<Setting> GetAllExtensions()
         {
-            var extensions = new List<SettingInfo>();
+            var extensions = new List<Setting>();
             var rawData = _serviceSetting.GetAllExtensions();
-            extensions.Add(new SettingInfo
+            extensions.Add(new Setting
             {
                 Id = ExtensionConstants.NotApply,
                 Value = Labels.All
@@ -523,7 +523,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             DynamicReportInfo dynamicReport)
         {
             NpoiExcelExtensions.SetHeaderColorIndex(exportExcelInfo);
-            ICellStyle headerStyle = NpoiExcelExtensions.HeaderStyle(
+            ICellStyle headerStyle = NpoiExcelExtensions.GetHeaderStyle(
                 exportExcelInfo.ExcelFile,
                 new ExcelStyleParam());
             var currentColumn = exportExcelInfo.StartColumn;
@@ -611,7 +611,7 @@ namespace Fanex.CRM.Report.Services.DynamicReport
             var periodGroupBackgroundColor = Color.FromArgb(215, 215, 215);
             var periodGroupBackgroundColorIndex = (short)HSSFColor.DarkYellow.Index;
             NpoiExcelExtensions.SetColorAtIndex(exportExcelInfo, periodGroupBackgroundColor, periodGroupBackgroundColorIndex);
-            ICellStyle periodGroupTitleStyle = NpoiExcelExtensions.TextStyle(
+            ICellStyle periodGroupTitleStyle = NpoiExcelExtensions.GetTextStyle(
                 exportExcelInfo.ExcelFile,
                 periodGroupBackgroundColorIndex,
                 true,

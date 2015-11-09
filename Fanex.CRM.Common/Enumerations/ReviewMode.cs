@@ -9,7 +9,7 @@
 
 namespace Fanex.CRM.Common.Enumerations
 {
-    public enum RevewMode
+    public enum ReviewMode
     {
         /// <summary>
         /// The not update.

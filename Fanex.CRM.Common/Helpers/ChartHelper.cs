@@ -17,7 +17,7 @@ namespace Fanex.CRM.Common.Helpers
     /// </summary>
     public static class ChartHelper
     {
-        public static string ViewChartFromToDateTitle(string fromDate, string toDate)
+        public static string GetViewChartFromToDateTitle(string fromDate, string toDate)
         {
             return string.Equals(fromDate, toDate, StringComparison.OrdinalIgnoreCase) ?
                 fromDate :

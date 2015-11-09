@@ -92,13 +92,13 @@ namespace Fanex.CRM.Setting.Services
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The setting by identifier.</returns>
-        public SettingInfo GetSettingById(GetSettingByIdCriteria criteria)
+        public Setting GetSettingById(GetSettingByIdCriteria criteria)
         {
             var allSettings = GetAllSettings();
             var setting = allSettings.Where(s => s.Id == criteria.SettingId).FirstOrDefault();
             if (setting == null)
             {
-                setting = new SettingInfo()
+                setting = new Setting()
                 {
                     Value = Labels.Symbol_NotApply
                 };
@@ -107,9 +107,9 @@ namespace Fanex.CRM.Setting.Services
             return setting;
         }
 
-        public IEnumerable<SettingInfo> GetAllSettings()
+        public IEnumerable<Setting> GetAllSettings()
         {
-            var allSettings = CacheService.Get<IEnumerable<SettingInfo>>(GetAllSettingSessionKey);
+            var allSettings = CacheService.Get<IEnumerable<Setting>>(GetAllSettingSessionKey);
             if (allSettings == null)
             {
                 allSettings = _settingRepositoryInstance.GetAllSettings(new GetAllSettingCriteria());
@@ -127,7 +127,7 @@ namespace Fanex.CRM.Setting.Services
                 return cache;
             }
 
-            var allSite = new List<SiteInfo>();
+            var allSites = new List<SiteInfo>();
             var crmSite = GetDynamicData<SiteInfo>(criteria ?? new GetAllSiteCriteria());
             var rawDataGroups = crmSite.GroupBy(setting => setting.IsLicensee);
             foreach (var rawDataGroup in rawDataGroups)
@@ -150,11 +150,11 @@ namespace Fanex.CRM.Setting.Services
                     siteGroup.ChildSites.Add(newSite);
                 }
 
-                allSite.Add(siteGroup);
+                allSites.Add(siteGroup);
             }
 
-            CacheService.Set(GetAllSiteSessionKey, allSite);
-            return allSite;
+            CacheService.Set(GetAllSiteSessionKey, allSites);
+            return allSites;
         }
 
         public IEnumerable<BaseModel> GetAllSiteWithGroup()
@@ -177,9 +177,9 @@ namespace Fanex.CRM.Setting.Services
             return sites;
         }
 
-        public IEnumerable<SettingInfo> GetAllTitles()
+        public IEnumerable<Setting> GetAllTitles()
         {
-            var cache = CacheService.Get<IEnumerable<SettingInfo>>(GetAllTitleSessionKey);
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllTitleSessionKey);
             if (cache != null)
             {
                 return cache;
@@ -195,9 +195,9 @@ namespace Fanex.CRM.Setting.Services
             return allTitles;
         }
 
-        public IEnumerable<CountryInfo> GetAllCountries()
+        public IEnumerable<Country> GetAllCountries()
         {
-            var allCountry = CacheService.Get<IEnumerable<CountryInfo>>(GetAllCountrySessionKey);
+            var allCountry = CacheService.Get<IEnumerable<Country>>(GetAllCountrySessionKey);
             if (allCountry != null)
             {
                 return allCountry;
@@ -208,9 +208,9 @@ namespace Fanex.CRM.Setting.Services
             return allCountry;
         }
 
-        public IEnumerable<SettingInfo> GetAllLanguages()
+        public IEnumerable<Setting> GetAllLanguages()
         {
-            var allLanguages = CacheService.Get<IEnumerable<SettingInfo>>(GetAllLanguageSessionKey);
+            var allLanguages = CacheService.Get<IEnumerable<Setting>>(GetAllLanguageSessionKey);
             if (allLanguages != null)
             {
                 return allLanguages;
@@ -221,9 +221,9 @@ namespace Fanex.CRM.Setting.Services
             return allLanguages;
         }
 
-        public IEnumerable<SettingInfo> GetAllExtensions()
+        public IEnumerable<Setting> GetAllExtensions()
         {
-            var allExtensions = CacheService.Get<IEnumerable<SettingInfo>>(GetAllExtensionSessionKey);
+            var allExtensions = CacheService.Get<IEnumerable<Setting>>(GetAllExtensionSessionKey);
             if (allExtensions != null)
             {
                 return allExtensions;
@@ -239,9 +239,9 @@ namespace Fanex.CRM.Setting.Services
             return allExtensions;
         }
 
-        public IEnumerable<SettingInfo> GetAllCommunicationTools()
+        public IEnumerable<Setting> GetAllCommunicationTools()
         {
-            var tools = CacheService.Get<IEnumerable<SettingInfo>>(GetAllCommunicationToolSessionKey);
+            var tools = CacheService.Get<IEnumerable<Setting>>(GetAllCommunicationToolSessionKey);
             if (tools != null)
             {
                 return tools;
@@ -254,9 +254,9 @@ namespace Fanex.CRM.Setting.Services
             return tools;
         }
 
-        public IEnumerable<SettingInfo> GetAllMainCategories()
+        public IEnumerable<Setting> GetAllMainCategories()
         {
-            var cache = CacheService.Get<IEnumerable<SettingInfo>>(GetAllMainCategorySessionKey);
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllMainCategorySessionKey);
             if (cache != null)
             {
                 return cache;
@@ -281,32 +281,32 @@ namespace Fanex.CRM.Setting.Services
         [SuppressMessage("StyleCop.CSharp.Nexcel.NexcelCustomRules",
             "SP2101:MethodMustNotContainMoreLinesThan",
             Justification = "Reviewed. Suppression is OK here.")]
-        public IEnumerable<SettingInfo> GetAllProducts()
+        public IEnumerable<Setting> GetAllProducts()
         {
-            var cache = CacheService.Get<IEnumerable<SettingInfo>>(GetAllProductSessionKey);
+            var cache = CacheService.Get<IEnumerable<Setting>>(GetAllProductSessionKey);
             if (cache != null)
             {
                 return cache;
             }
 
-            var allProducts = new List<SettingInfo>();
+            var allProducts = new List<Setting>();
             var rawData = GetSettingRelationByName(new GetSettingRelationByNameCriteria
             {
                 SettingName = SettingTypeConstants.Product,
                 ParentId = 0
             });
 
-            var notApplySetting = new SettingInfo
+            var notApplySetting = new Setting
             {
                 Id = SettingConstants.NotApply,
                 Name = Labels.Symbol_NotApply
             };
 
-            allProducts.Add(new SettingInfo
+            allProducts.Add(new Setting
             {
                 Id = SettingConstants.NotApply,
                 Value = Labels.Symbol_NotApply,
-                ChildSettings = new List<SettingInfo> { notApplySetting }
+                ChildSettings = new List<Setting> { notApplySetting }
             });
 
             foreach (var data in rawData)
@@ -332,7 +332,7 @@ namespace Fanex.CRM.Setting.Services
         /// <returns>
         /// All status.
         /// </returns>
-        public IEnumerable<SettingInfo> GetAllStatuses(int statusType)
+        public IEnumerable<Setting> GetAllStatuses(int statusType)
         {
             string key = GetAllStatusSessionKey;
             if (statusType == ViewTypeConstants.CommunicationTool)
@@ -344,7 +344,7 @@ namespace Fanex.CRM.Setting.Services
                 key = GetAllStatusRedemption;
             }
 
-            var allStatus = CacheService.Get<IEnumerable<SettingInfo>>(key);
+            var allStatus = CacheService.Get<IEnumerable<Setting>>(key);
             if (allStatus != null)
             {
                 return allStatus;
@@ -401,9 +401,9 @@ namespace Fanex.CRM.Setting.Services
             return currencies;
         }
 
-        public IEnumerable<SettingInfo> GetAllRoles()
+        public IEnumerable<Setting> GetAllRoles()
         {
-            var allRole = CacheService.Get<IEnumerable<SettingInfo>>(GetAllRoleSessionKey);
+            var allRole = CacheService.Get<IEnumerable<Setting>>(GetAllRoleSessionKey);
             if (allRole != null)
             {
                 return allRole;
@@ -419,9 +419,9 @@ namespace Fanex.CRM.Setting.Services
             return allRole;
         }
 
-        public IEnumerable<SettingInfo> GetAllResponses()
+        public IEnumerable<Setting> GetAllResponses()
         {
-            var allResponse = CacheService.Get<IEnumerable<SettingInfo>>(GetAllResponseSessionKey);
+            var allResponse = CacheService.Get<IEnumerable<Setting>>(GetAllResponseSessionKey);
             if (allResponse != null)
             {
                 return allResponse;
@@ -437,22 +437,22 @@ namespace Fanex.CRM.Setting.Services
             return allResponse;
         }
 
-        public IEnumerable<SettingInfo> GetAllCustomerTypes()
+        public IEnumerable<Setting> GetAllCustomerTypes()
         {
-            var allCustomerType = new List<SettingInfo>();
-            allCustomerType.Add(new SettingInfo
+            var allCustomerType = new List<Setting>();
+            allCustomerType.Add(new Setting
             {
                 Id = CustomerTypeConstants.All,
                 Value = Labels.All
             });
 
-            allCustomerType.Add(new SettingInfo
+            allCustomerType.Add(new Setting
             {
                 Id = CustomerTypeConstants.Customer,
                 Value = Labels.Customer
             });
 
-            allCustomerType.Add(new SettingInfo
+            allCustomerType.Add(new Setting
             {
                 Id = CustomerTypeConstants.Guest,
                 Value = Labels.Guest
@@ -461,22 +461,22 @@ namespace Fanex.CRM.Setting.Services
             return allCustomerType;
         }
 
-        public IEnumerable<SettingInfo> GetAllVIPTypes()
+        public IEnumerable<Setting> GetAllVIPTypes()
         {
-            var allVIPType = new List<SettingInfo>();
-            allVIPType.Add(new SettingInfo
+            var allVIPType = new List<Setting>();
+            allVIPType.Add(new Setting
             {
                 Id = VIPTypeConstants.All,
                 Value = Labels.All
             });
 
-            allVIPType.Add(new SettingInfo
+            allVIPType.Add(new Setting
             {
                 Id = VIPTypeConstants.Yes,
                 Value = Labels.Yes
             });
 
-            allVIPType.Add(new SettingInfo
+            allVIPType.Add(new Setting
             {
                 Id = VIPTypeConstants.No,
                 Value = Labels.No
@@ -485,21 +485,21 @@ namespace Fanex.CRM.Setting.Services
             return allVIPType;
         }
 
-        public IEnumerable<SettingInfo> AllHeadlineType()
+        public IEnumerable<Setting> AllHeadlineType()
         {
-            return new List<SettingInfo>() 
+            return new List<Setting>() 
             { 
-                new SettingInfo
+                new Setting
                 {
                     Id = HeadlineTypeConstants.All,
                     Value = Labels.All
                 },
-                new SettingInfo
+                new Setting
                 {
                     Id = HeadlineTypeConstants.Yes,
                     Value = Labels.Yes
                 },
-                new SettingInfo
+                new Setting
                 {
                     Id = HeadlineTypeConstants.No,
                     Value = Labels.No
@@ -565,40 +565,37 @@ namespace Fanex.CRM.Setting.Services
         /// Gets the sub setting by parent identifier.
         /// </summary>
         /// <param name="parentSetting">The parent setting.</param>
-        /// <param name="allSettingRelation">All setting relation.</param>
-        /// <param name="allSetting">All setting.</param>
+        /// <param name="allSettingRelations">All setting relation.</param>
+        /// <param name="allSettings">All setting.</param>
         /// <returns>The sub setting by parent identifier.</returns>
-        public IEnumerable<SettingInfo> GetSubSettingByParentId(
+        public IEnumerable<Setting> GetSubSettingsByParentId(
             BaseModel parentSetting,
-            IEnumerable<SettingInfo> allSettingRelation,
-            IEnumerable<SettingInfo> allSetting)
+            IEnumerable<Setting> allSettingRelations,
+            IEnumerable<Setting> allSettings)
         {
-            var subSettings = new List<SettingInfo>();
-            if (allSettingRelation == null || !allSettingRelation.Any())
+            var subSettings = new List<Setting>();
+            if (allSettingRelations == null || !allSettingRelations.Any())
             {
                 return subSettings;
             }
 
-            foreach (var settingRelation in allSettingRelation)
+            foreach (var settingRelation in allSettingRelations)
             {
                 if (settingRelation.ParentId == parentSetting.Id)
                 {
-                    for (var i = 0; i < allSetting.Count(); i++)
-                    {
-                        var setting = allSetting.ElementAt(i);
-                        if (setting.Id == settingRelation.Id)
-                        {
-                            subSettings.Add(new SettingInfo
+                    var settings = allSettings
+                        .Where(x => x.Id == settingRelation.Id)
+                        .Select(x => new Setting
                             {
-                                Id = setting.Id,
-                                DisplayOrder = setting.DisplayOrder,
-                                Value = setting.Value,
-                                SettingType = setting.SettingType,
+                                Id = x.Id,
+                                DisplayOrder = x.DisplayOrder,
+                                Value = x.Value,
+                                SettingType = x.SettingType,
                                 ParentId = parentSetting.Id,
                                 IsSubSetting = true
                             });
-                        }
-                    }
+                    
+                    subSettings.AddRange(settings);
                 }
             }
 
@@ -649,13 +646,13 @@ namespace Fanex.CRM.Setting.Services
             return actions;
         }
 
-        public IEnumerable<SettingInfo> GetAllSiteTypes()
+        public IEnumerable<Setting> GetAllSiteTypes()
         {
-            return new List<SettingInfo>()
+            return new List<Setting>()
             {
-                new SettingInfo { Id = SiteConstants.All, Value = Labels.All },
-                new SettingInfo { Id = SiteConstants.IBCGroup, Value = Labels.Credit },
-                new SettingInfo { Id = SiteConstants.LicenseeGroup, Value = Labels.Licensee },
+                new Setting { Id = SiteConstants.All, Value = Labels.All },
+                new Setting { Id = SiteConstants.IBCGroup, Value = Labels.Credit },
+                new Setting { Id = SiteConstants.LicenseeGroup, Value = Labels.Licensee },
             };
         }
 
@@ -725,13 +722,13 @@ namespace Fanex.CRM.Setting.Services
             CacheService.Clear();
         }
 
-        public IEnumerable<SettingInfo> GetMainSettings()
+        public IEnumerable<Setting> GetMainSettings()
         {
             var allSettings = GetAllSettings();
             var settingGroups = allSettings
                 .GroupBy(x => new { Type = x.SettingType })
                 .Select(group => new { group.Key, Count = group.Count() });
-            var settingGroupByType = new List<SettingInfo>();
+            var settingGroupByType = new List<Setting>();
             foreach (var s in settingGroups)
             {
                 GetSubSetting(s.Key.Type, settingGroupByType, allSettings);
@@ -745,14 +742,14 @@ namespace Fanex.CRM.Setting.Services
             return _settingRepositoryInstance.GetStations(new GetStationsCriteria());
         }
 
-        private void GetSubSetting(string key, IList<SettingInfo> settingList, IEnumerable<SettingInfo> allSettings)
+        private void GetSubSetting(string key, IList<Setting> settingList, IEnumerable<Setting> allSettings)
         {
             var subList = allSettings.Where(s => s.SettingType == key).Select(s => s).OrderBy(s => s.DisplayOrder).ToList();
-            var setting = new SettingInfo { SettingType = key, ChildSettings = subList };
+            var setting = new Setting { SettingType = key, ChildSettings = subList };
             settingList.Add(setting);
         }
 
-        private IEnumerable<SettingInfo> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria)
+        private IEnumerable<Setting> GetSettingRelationByName(GetSettingRelationByNameCriteria criteria)
         {
             var settingRelations = _settingRepositoryInstance.GetSettingRelations(criteria);
 

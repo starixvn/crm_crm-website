@@ -17,7 +17,7 @@ namespace Fanex.CRM.Common.Models
     /// Setting Information.
     /// </summary>
     [Serializable]
-    public class SettingInfo : BaseModel
+    public class Setting : BaseModel
     {
         public string Value { get; set; }
 
@@ -31,6 +31,6 @@ namespace Fanex.CRM.Common.Models
 
         public int ParentId { get; set; }
 
-        public List<SettingInfo> ChildSettings { get; set; }
+        public List<Setting> ChildSettings { get; set; }
     }
 }

@@ -83,25 +83,25 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
                             Remark = Converter.ToString2(reader["Description"]),
                             Solution = Converter.ToString2(reader["Solution"]),
                             Username = Converter.ToString2(reader["UserName"]),
-                            SiteInfo = new SettingInfo { Name = Converter.ToString2(reader["SiteName"]) },
-                            Product = new SettingInfo { Name = Converter.ToString2(reader["Product"]) },
-                            Extension = new SettingInfo { Name = Converter.ToString2(reader["Station"]) },
-                            Country = new CountryInfo { Name = Converter.ToString2(reader["CountryName"]) },
-                            MainCategory = new SettingInfo { Name = Converter.ToString2(reader["MainCategory"]) },
-                            SubCategory = new SettingInfo { Name = Converter.ToString2(reader["SubCategory"]) },
+                            SiteInfo = new Setting { Name = Converter.ToString2(reader["SiteName"]) },
+                            Product = new Setting { Name = Converter.ToString2(reader["Product"]) },
+                            Extension = new Setting { Name = Converter.ToString2(reader["Station"]) },
+                            Country = new Country { Name = Converter.ToString2(reader["CountryName"]) },
+                            MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
+                            SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                             StatusName = Converter.ToString2(reader["Status"]),
-                            Response = new SettingInfo { Name = Converter.ToString2(reader["Response"]) },
+                            Response = new Setting { Name = Converter.ToString2(reader["Response"]) },
                             Handler = Converter.ToString2(reader["CreatorName"]),
                             CreationTime = Converter.ToDateTime(reader["CreateDate"]),
                             Role = Converter.ToString2(reader["Role"]),
-                            CommunicationTool = new SettingInfo { Name = Converter.ToString2(reader["Communication"]) },
-                            Fax = new FaxInfo
+                            CommunicationTool = new Setting { Name = Converter.ToString2(reader["Communication"]) },
+                            Fax = new Fax
                             {
                                 CountryCode = Converter.ToString2(reader["FaxCountryCode"]),
                                 AreaCode = Converter.ToString2(reader["FaxAreaCode"]),
                                 FaxNumber = Converter.ToString2(reader["Fax"])
                             },
-                            MobilePhone = new PhoneInfo
+                            MobilePhone = new Phone
                             {
                                 CountryCode = Converter.ToString2(reader["MobilePhoneCountryCode"]),
                                 AreaCode = Converter.ToString2(reader["MobilePhoneAreaCode"]),
@@ -144,9 +144,9 @@ namespace Fanex.CRM.Report.Repositories.StatisticByDateReport
             };
         }
 
-        private static PhoneInfo ReadPhoneInfo(IDataReader reader, string prefix)
+        private static Phone ReadPhoneInfo(IDataReader reader, string prefix)
         {
-            return new PhoneInfo
+            return new Phone
             {
                 CountryCode = Converter.ToString2(reader[prefix + "CountryCode"]),
                 AreaCode = Converter.ToString2(reader[prefix + "AreaCode"]),

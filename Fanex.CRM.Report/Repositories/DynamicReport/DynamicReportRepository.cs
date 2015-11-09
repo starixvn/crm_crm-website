@@ -52,8 +52,8 @@ namespace Fanex.CRM.Report.Repositories.DynamicReport
                 {
                     FromDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"]))
                 },
-                MainCategory = new SettingInfo { Name = Converter.ToString2(reader["MainCategory"]) },
-                SubCategory = new SettingInfo { Name = Converter.ToString2(reader["SubCategory"]) },
+                MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
+                SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo

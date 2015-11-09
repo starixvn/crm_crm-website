@@ -131,7 +131,7 @@ namespace Fanex.CRM.Dashboard.Repositories
                 Id = Converter.ToInt(reader["RedemptionId"]),
                 ClaimedTime = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["ClaimTime"])).ToShortFormatedDate(),
                 Subject = Converter.ToString2(reader["Subject"]),
-                Status = new SettingInfo
+                Status = new Setting
                 {
                     Value = Converter.ToString2(reader["Status"])
                 },
@@ -154,8 +154,8 @@ namespace Fanex.CRM.Dashboard.Repositories
             {
                 RunningNumber = Converter.ToInt(reader["FeedbackID"]),
                 FeedbackDate = DateTimeUtilize.ChangeTimeZoneToClientDateTime(Converter.ToDateTime(reader["FeedbackDate"])).ToLongFormatedDateTime(),
-                MainCategory = new SettingInfo { Name = Converter.ToString2(reader["MainCategory"]) },
-                SubCategory = new SettingInfo { Name = Converter.ToString2(reader["SubCategory"]) },
+                MainCategory = new Setting { Name = Converter.ToString2(reader["MainCategory"]) },
+                SubCategory = new Setting { Name = Converter.ToString2(reader["SubCategory"]) },
                 Subject = Converter.ToString2(reader["Subject"]),
                 StatusName = Converter.ToString2(reader["Status"]),
                 Duration = new TimeInfo

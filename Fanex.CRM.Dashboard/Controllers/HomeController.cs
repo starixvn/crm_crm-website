@@ -67,11 +67,11 @@ namespace Fanex.CRM.Dashboard.Controllers
 
             ViewBag.CurrentCustomer = AppSession.CurrentCustomer;
 
-            if (AppSession.RedirectLink != null && 
-                !string.IsNullOrEmpty(AppSession.RedirectLink))
+            if (AppSession.RedirectionLink != null && 
+                !string.IsNullOrEmpty(AppSession.RedirectionLink))
             {
-                ViewBag.RedirectUrl = AppSession.RedirectLink;
-                AppSession.RedirectLink = null;
+                ViewBag.RedirectUrl = AppSession.RedirectionLink;
+                AppSession.RedirectionLink = null;
             }
 
             return View("~/Views/Home/Default.cshtml");

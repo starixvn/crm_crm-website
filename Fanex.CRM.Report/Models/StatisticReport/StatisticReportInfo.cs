@@ -32,7 +32,7 @@ namespace Fanex.CRM.Report.Models.StatisticReport
 
         public bool HasData { get; set; }
 
-        public CountryInfo CountryInfo { get; set; }
+        public Country CountryInfo { get; set; }
 
         public int NumberOfIssues { get; set; }
 

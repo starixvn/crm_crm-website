@@ -10,9 +10,9 @@
 namespace Fanex.CRM.Customer.Controllers
 {
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Services;
@@ -26,24 +26,24 @@ namespace Fanex.CRM.Customer.Controllers
     public class CustomerSettingDetailController : BaseController
     {
         private readonly IPermissionService _permissionService;
-        private ICustomerDetailService _customerServiceInstance;
+        private ICustomerDetailService _customerService;
 
         public CustomerSettingDetailController()
             : this(null, null)
         {
         }
 
-        public CustomerSettingDetailController(IPermissionService permissionService, ICustomerDetailService customerServiceInstance)
+        public CustomerSettingDetailController(IPermissionService permissionService, ICustomerDetailService customerService)
         {
             _permissionService = permissionService ?? new PermissionService();
-            _customerServiceInstance = customerServiceInstance ?? new CustomerDetailService();
+            _customerService = customerService ?? new CustomerDetailService();
         }
         
         public ActionResult Index(string customerId)
         {
             ViewBag.CustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
 
-            CustomerInfo customerDetail = _customerServiceInstance.GetCustomerInfoDetailById(new GetCustomerInfoDetailByIdCriteria
+            CustomerInfo customerDetail = _customerService.GetCustomerInfoDetailById(new GetCustomerInfoDetailByIdCriteria
             {
                 CustomerId = customerId
             });
@@ -54,7 +54,7 @@ namespace Fanex.CRM.Customer.Controllers
         [HttpPost]
         public JsonResult GetCustomerInfoDetailById(GetCustomerInfoDetailByIdCriteria criteria)
         {
-            var customerInfo = _customerServiceInstance.GetCustomerInfoDetailById(criteria);
+            var customerInfo = _customerService.GetCustomerInfoDetailById(criteria);
             return Json(customerInfo, JsonRequestBehavior.AllowGet);
         }
 
@@ -62,13 +62,13 @@ namespace Fanex.CRM.Customer.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfoDetail(UpdateCustomerInfoDetailCriteria criteria)
         {
-            var result = _customerServiceInstance.UpdateCustomerInfoDetail(criteria);
+            var result = _customerService.UpdateCustomerInfoDetail(criteria);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult AllSettings() 
         {
-            return Json(_customerServiceInstance.GetAllSettings(), JsonRequestBehavior.AllowGet);
+            return Json(_customerService.GetAllSettings(), JsonRequestBehavior.AllowGet);
         }
     }
 }

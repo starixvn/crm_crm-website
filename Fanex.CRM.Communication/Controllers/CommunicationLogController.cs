@@ -11,10 +11,9 @@ namespace Fanex.CRM.Communication.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
-    using Fanex.CRM.Common.Enumerations;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services;
