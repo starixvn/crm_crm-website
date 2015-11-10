@@ -226,12 +226,11 @@
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogService.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogController.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\ActivityLogApplication.js" />
-    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ActivitiLogsContainer.js" />
-    <Content Include="Areas\ActionLog\ActivityLog\Scripts\Directives\ToDate.js" />
+    <Content Include="Areas\ActionLog\Common\Scripts\ActionLogDirectiveManager.js" />
+    <Content Include="Areas\ActionLog\Common\Scripts\Directives\ToDate.js" />
+    <Content Include="Areas\ActionLog\Common\Scripts\Directives\FromDate.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\SettingLogsContainer.js" />
-    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\FromDate.js" />
-    <Content Include="Areas\ActionLog\SettingLog\Scripts\Directives\ToDate.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogService.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogController.js" />
     <Content Include="Areas\ActionLog\SettingLog\Scripts\SettingLogApplication.js" />
@@ -875,7 +874,6 @@
     <Content Include="Scripts\ShareScripts\DialogManager.js" />
     <Content Include="Scripts\ShareScripts\CRMConstants.js" />
     <Content Include="Scripts\ShareScripts\DirectiveManager.js" />
-    <Content Include="Scripts\ShareScripts\Directives\BlockUI.js" />
     <Content Include="Scripts\ShareScripts\Directives\DatePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DateTimePicker.js" />
     <Content Include="Scripts\ShareScripts\Directives\DefaultFocus.js" />

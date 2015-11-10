@@ -3,7 +3,7 @@
 keyboardManager,
 moment */
 /* jshint camelcase: false,
-unused: vars */
+unused: false */
 var sharedScriptManager;
 var SharedScriptManager = function () {
     var self = this;
@@ -41,17 +41,17 @@ var SharedScriptManager = function () {
             beforeSend: function () {
             },
             success: function (rs) {
-                if (successFunction && typeof (successFunction) === 'function') {
+                if (typeof (successFunction) === 'function') {
                     successFunction.call(currentHandler, rs);
                 }
             },
             error: function (jqXHR, event, ajaxSettings) {
-                if (errorFunction && typeof (errorFunction) === 'function') {
+                if (typeof (errorFunction) === 'function') {
                     errorFunction.call(currentHandler);
                 }
             },
             complete: function () {
-                if (completeFunction && typeof (completeFunction) === 'function') {
+                if (typeof (completeFunction) === 'function') {
                     completeFunction();
                 }
             }
@@ -74,7 +74,7 @@ var SharedScriptManager = function () {
         return o;
     };
     self.getURLParam = function (paramName) {
-        paramName = paramName.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        paramName = paramName.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]"); // jshint ignore:line
         var regexS = "[\\?&]" + paramName + "=([^&#]*)";
         var regex = new RegExp(regexS);
         var results = regex.exec(window.location.href);
@@ -153,7 +153,7 @@ var SharedScriptManager = function () {
         var version = -1; // Return value assumes failure.
         if (window.navigator.userAgent.indexOf("MSIE") > 0) {
             var usrAgent = navigator.userAgent;
-            var reg = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+            var reg = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})"); // jshint ignore:line
             if (reg.exec(usrAgent) != null) {
                 version = parseFloat(RegExp.$1);
             }

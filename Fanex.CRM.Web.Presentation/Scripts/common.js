@@ -1,54 +1,29 @@
-﻿// Success=0, Error=1, Warning=2
-function showAlertMessage(containerid, msg, type) {
-    switch (type) {
-        case 0:
-            document.getElementById(containerid).innerHTML = "<div class='alertboxscc'><div>" + msg + "</div></div>";
-            break;
-        case 1:
-            document.getElementById(containerid).innerHTML = "<div class='alertboxerr'><div>" + msg + "</div></div>";
-            break;
-        case 2:
-            document.getElementById(containerid).innerHTML = "<div class='alertboxwrn'><div>" + msg + "</div></div>"; ;
-            break;
-        default:
-            break;
-    }
-    /* only clear message if it's type is success. */
-    if (type === 0) {
-        var t = setTimeout("clearMessage('" + containerid + "')", 8000);
-    }
-    window.scroll(0, 0);
-    parent.scroll(0, 0);
-}
-
-function clearMessage(containerid) {
-    document.getElementById(containerid).innerHTML = "";
-}
-
+﻿"use strict";
+/* global m: true */
+/* jshint unused: false */
+/* exported addDays, CheckDecNumber, convertUnitToLocalDatetime, emailListValidate, findMainWindow, formatDate,
+   gup, replaceSpaceForIE9, replaceSpecialHtmlTag, reRenderGrid, trimAllSpace */
+/* jshint maxlen: 200 */
 function gup(name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]"); // jshint ignore:line
     var regexS = "[\\?&]" + name + "=([^&#]*)";
     var regex = new RegExp(regexS);
     var results = regex.exec(window.location.href);
-    if (results == null)
+    if (results == null) {
         return "";
-    else
+    }
+    else {
         return results[1];
+    }
 }
 
 
 function CheckDecNumber(e) {
-
-    var code = "";
-    if (e.which)
-        code = e.which;
-    else if (e.keyCode)
-        code = e.keyCode;
-
-    if (code == 37 || code == 39 || code == 36 || code == 35) //e or E or "-"
-        return true;
-    if ((code < 48 || code > 57) && code != 8 && code != 13 && code != 0 && code != 46 && code != 9)
+    var code = e.which || e.keyCode;
+    if ((code < 48 || code > 57) && code !== 8 && code !== 13 && code !== 0 && code !== 46 && code !== 9) {
         return false;
+    }
+
     return true;
 }
 
@@ -61,7 +36,7 @@ function convertUnitToLocalDatetime(objDatime, strFormat) {
     var okDate = /Date\(([-+]?\d+[-+]?\d+)\)/.exec(objDatime);
     var date;
     if (okDate) {
-        var when = new Date(eval(okDate[1]));
+        var when = new Date(eval(okDate[1])); // jshint ignore:line
         date = when;
     } else {
         var currdate = new Date();
@@ -72,8 +47,7 @@ function convertUnitToLocalDatetime(objDatime, strFormat) {
 }
 
 //add n number of days
-Date.prototype.goto = function (n) {
-    //this.setTime(this.getTime() + n * 86400000);    
+Date.prototype.goto = function (n) {  // jshint ignore:line
     this.setDate(this.getDate() + n);
     return this;
 };
@@ -87,7 +61,7 @@ function addDays(startDate, n) {
 function findMainWindow(wnd) {
     var mainWnd = wnd;
     //Main frame name = content
-    if (mainWnd.name == "content") {
+    if (mainWnd.name === "content") {
         return mainWnd;
     }
     else {
@@ -107,10 +81,12 @@ $.extend({
         var o = ''; var x = 0; c = c.toString(); var r = /(^[a-zA-Z0-9_.]*)/;
         while (x < c.length) {
             var m = r.exec(c.substr(x));
-            if (m != null && m.length > 1 && m[1] != '') {
+            if (m != null && m.length > 1 && m[1] !== '') {
                 o += m[1]; x += m[1].length;
             } else {
-                if (c[x] == ' ') o += '+'; else {
+                if (c[x] === ' ') {
+                    o += '+';
+                } else {
                     var d = c.charCodeAt(x); var h = d.toString(16);
                     o += '%' + (h.length < 2 ? '0' : '') + h.toUpperCase();
                 } x++;
@@ -122,8 +98,8 @@ $.extend({
         var o = s;
         var binVal, t, b;
         var r = /(%[^%]{2}|\+)/;
-        while ((m = r.exec(o)) != null && m.length > 1 && m[1] != '') {
-            if (m[1] == '+') {
+        while ((m = r.exec(o)) != null && m.length > 1 && m[1] !== '') {
+            if (m[1] === '+') {
                 t = ' ';
             } else {
                 b = parseInt(m[1].substr(1), 16);
@@ -138,15 +114,10 @@ $.extend({
 
 function trimAllSpace(str) {
     return str.replace(/(^\s*)|(\s*$)/g, "");
-};
+}
 
-String.prototype.trim = function () {
+String.prototype.trim = function () { // jshint ignore:line
     return this.replace(/^\s*/, "").replace(/\s*$/, "");
-};
-
-function replaceSpecialHtmlTag(content) {
-    content = removeSpecialHtmlTag(content);
-    return content.replace(/(table)|(tr)|(td)|(div)|(colgroup)|(col)/g, "span");
 };
 
 function removeSpecialHtmlTag(content) {
@@ -154,26 +125,33 @@ function removeSpecialHtmlTag(content) {
 
 }
 
+function replaceSpecialHtmlTag(content) {
+    content = removeSpecialHtmlTag(content);
+    return content.replace(/(table)|(tr)|(td)|(div)|(colgroup)|(col)/g, "span");
+}
+
+function emailValidate(email) {
+    var reg = /^([a-zA-Z0-9])(([a-zA-Z0-9])*([\._-])?([a-zA-Z0-9]))*@(([a-zA-Z0-9\-])+(\.))+([a-zA-Z]{2,4})+$/;
+    if (email.search(reg) === -1) {
+        return false;
+    }
+    return true;
+}
+
 function emailListValidate(emailList) {
-    if (emailList.trim() == '')
+    if (emailList.trim() === '') {
         return 1;
+    }
     else {
         var email = emailList.split(',');
         for (var i = 0; i < email.length; i++) {
-            if (!emailValidate(email[i]))
+            if (!emailValidate(email[i])) {
                 return 2;
+            }
         }
     }
     return 0;
-};
-
-function emailValidate(email) {
-
-    var reg = /^([a-zA-Z0-9])(([a-zA-Z0-9])*([\._-])?([a-zA-Z0-9]))*@(([a-zA-Z0-9\-])+(\.))+([a-zA-Z]{2,4})+$/;
-    if (email.search(reg) == -1)
-        return false;
-    return true;
-};
+}
 
 function replaceSpaceForIE9(text) {    
     if ($.browser.msie && $.browser.version < 9 || !$.browser.msie) {
@@ -195,10 +173,12 @@ function reRenderGrid(gridID, frozenID, scrollID, gridHeight, gridFrozenWidth, t
         var scrollHeight = $('#' + scrollID + ' tbody tr:eq(' + i + ') td:eq(0)').height();
 
         var maxHeight = 18;
-        if (frozenHeight > scrollHeight)
+        if (frozenHeight > scrollHeight) {
             maxHeight = frozenHeight + 1;
-        else if (scrollHeight > frozenHeight)
+        }
+        else if (scrollHeight > frozenHeight) {
             maxHeight = scrollHeight + 1;
+        }
         else {
             maxHeight = frozenHeight;
         }
@@ -222,7 +202,7 @@ function reRenderGrid(gridID, frozenID, scrollID, gridHeight, gridFrozenWidth, t
 }
 
 // String Format
-String.prototype.format = function () {
+String.prototype.format = function () { // jshint ignore:line
     var args = arguments;
     return this.replace(/{(\d+)}/g, function (match, number) {
         return typeof args[number] !== 'undefined' ? args[number] : match;
