@@ -1,5 +1,4 @@
 ﻿"use strict";
-/* global m: true */
 /* jshint unused: false */
 /* exported addDays, CheckDecNumber, convertUnitToLocalDatetime, emailListValidate, findMainWindow, formatDate,
    gup, replaceSpaceForIE9, replaceSpecialHtmlTag, reRenderGrid, trimAllSpace */
@@ -97,8 +96,9 @@ $.extend({
         // fixed -- + char decodes to space char
         var o = s;
         var binVal, t, b;
-        var r = /(%[^%]{2}|\+)/;
-        while ((m = r.exec(o)) != null && m.length > 1 && m[1] !== '') {
+        var regex = /(%[^%]{2}|\+)/;
+        var m = regex.exec(o);
+        while (m != null && m.length > 1 && m[1] !== '') {
             if (m[1] === '+') {
                 t = ' ';
             } else {
