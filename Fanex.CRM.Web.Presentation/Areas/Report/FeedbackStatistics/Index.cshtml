@@ -13,6 +13,7 @@
     var settings = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
 @section Styles{
+    @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/FanexGridStyles")
     @RazorHelper.RenderStyles("~/bundles/Report/FeedbackStatisticStyles")
 }
 <div data-ng-app="feedback-statistic-application">
