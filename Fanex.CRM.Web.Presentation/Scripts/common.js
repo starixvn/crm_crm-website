@@ -45,12 +45,6 @@ function convertUnitToLocalDatetime(objDatime, strFormat) {
     return strFormat ? date.format(strFormat) : date;
 }
 
-//add n number of days
-Date.prototype.goto = function (n) {  // jshint ignore:line
-    this.setDate(this.getDate() + n);
-    return this;
-};
-
 function addDays(startDate, n) {
     var endDate = new Date();
     endDate.setDate(startDate.getDate() + n);

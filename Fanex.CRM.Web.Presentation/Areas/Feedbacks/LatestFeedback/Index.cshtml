@@ -5,8 +5,6 @@
 
     ViewBag.Title = Labels.LatestFeedbackDocumentTitle;
 
-    var custId = (int)ViewBag.CustId;
-    var username = ViewBag.Username;
     var model = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
 @section Styles{
@@ -37,8 +35,9 @@
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
 
-        var custId = @custId;
-        var username = '@username';
+        var customer = parent.homeManager.CachedData.currentCustomer;
+        var custId = customer ? customer.Id : 0;
+        var username = customer ? customer.Name : '';
         var tops = @Html.Raw(model);
         var latestFeedbackResources = {
             Feedback: '@Labels.Feedback',

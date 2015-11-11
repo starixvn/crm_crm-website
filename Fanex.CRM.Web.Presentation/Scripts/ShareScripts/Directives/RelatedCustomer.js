@@ -68,11 +68,11 @@ directiveManager.registerRelatedCustomerDirective = function (angularApplication
             isInit = false;
         }
 
-        if (!isInit && options.Action === "checkIsRelated") {
+        if (options.Action === "checkIsRelated") {
             checkIsRelated(scope, element, attrs, options);
         }
 
-        if (!isInit && options.IsUpdate && options.Action === "verifyUserName") {
+        if (options.IsUpdate && options.Action === "verifyUserName") {
             verifyUserName(scope, element, attrs, options);
         }
 

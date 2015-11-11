@@ -11,7 +11,7 @@ directiveManager.registerHtmlArea = function (angularApplication, registerParams
         var editorId = registerParams.PickerId;
         function renderRemarkEditor(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
-            if (options == null) {
+            if (!options) {
                 return;
             }
 
