@@ -12,7 +12,7 @@ directiveManager.registerDatePickerContainer = function (angularApplication, reg
 
         function renderDatePicker(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
-            if (options == null) {
+            if (!options) {
                 return;
             }
 

@@ -11,7 +11,7 @@ directiveManager.registerToggleElement = function (angularApplication, registerP
 
         function bindingEvent(scope, element, attrs) {
             var options = scope[registerParams.OptionName];
-            if (options == null) {
+            if (!options) {
                 return;
             }
 

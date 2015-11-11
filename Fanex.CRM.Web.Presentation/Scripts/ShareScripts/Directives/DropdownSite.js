@@ -7,7 +7,7 @@ directiveManager.registerDropdownSiteContainer = function (angularApplication, r
     angularApplication.directive(registerParams.PlugInName, function () {
         var dataList = [];
         function hasData(options) {
-            return options != null && options.DataList != null;
+            return (options && options.DataList);
         }
 
         function renderDropdown(scope, element, attrs) {
