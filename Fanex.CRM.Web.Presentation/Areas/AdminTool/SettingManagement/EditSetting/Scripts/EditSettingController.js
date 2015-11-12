@@ -9,7 +9,7 @@
     settingInfo */
     /* jshint camelcase: false */
 
-    angular.module('addmintool-settingmanagement-editsetting-application').controller('editSettingController',
+    angular.module('admintool-settingmanagement-editsetting-application').controller('editSettingController',
     ['$scope', '$uiBlockerService', 'editSettingService',
     function ($scope, $uiBlockerService, editSettingService) {
         $scope.sharedScriptManager = sharedScriptManager;

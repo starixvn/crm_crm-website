@@ -1,7 +1,7 @@
 ﻿/* global sharedScriptManager */
 (function () {
     "use strict";
-    angular.module('addmintool-settingmanagement-editsetting-application',
+    angular.module('admintool-settingmanagement-editsetting-application',
         ['$uiBlockerApplication', '$resultMessageApplication']);
-    sharedScriptManager.setNoCachingHttpRequest(angular.module('addmintool-settingmanagement-editsetting-application'));
+    sharedScriptManager.setNoCachingHttpRequest(angular.module('admintool-settingmanagement-editsetting-application'));
 })();

@@ -3,7 +3,7 @@
     /* global sharedScriptManager */
     /* jshint camelcase: false,
     unused: vars */
-    angular.module('addmintool-settingmanagement-editsetting-application').directive('keyPressDirective', function () {
+    angular.module('admintool-settingmanagement-editsetting-application').directive('keyPressDirective', function () {
         return {
             restrict: 'C',
             scope: true,

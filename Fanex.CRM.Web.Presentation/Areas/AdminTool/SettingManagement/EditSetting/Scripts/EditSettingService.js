@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     /* global sharedScriptManager */
-    angular.module('addmintool-settingmanagement-editsetting-application').factory('editSettingService',
+    angular.module('admintool-settingmanagement-editsetting-application').factory('editSettingService',
     ['$http', '$q',
     function ($http, $q) {
         var serviceInstance = {};
