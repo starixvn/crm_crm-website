@@ -16,7 +16,7 @@ directiveManager.registerHtmlArea = function (angularApplication, registerParams
             }
 
             var selectedText = options.SelectedText;
-            if (selectedText !== "") {
+            if (selectedText && selectedText !== "") {
                 selectedText = selectedText.indexOf(" ", selectedText.length - 1) !== -1 ?
                     selectedText.substring(0, selectedText.length - 1) + "&nbsp;" :
                     selectedText;
