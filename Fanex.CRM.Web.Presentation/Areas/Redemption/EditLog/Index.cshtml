@@ -6,6 +6,7 @@
 @using Fanex.CRM.Common.Services;
 @{
     var jsonLogInfo = JsonConvert.SerializeObject(Model);
+    var hasHostCreateUpdatePermission = (bool)ViewBag.HasHostCreateUpdatePermission;
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="redemption-editlog-application">
@@ -91,10 +92,13 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <button class="btn btn-save" button-save>
-                <span class="hotkey">S</span>ave</button>
-        </div>
+        @if (hasHostCreateUpdatePermission)
+        {
+            <div class="row">
+                <button class="btn btn-save" button-save>
+                    <span class="hotkey">S</span>ave</button>
+            </div>
+        }
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts")

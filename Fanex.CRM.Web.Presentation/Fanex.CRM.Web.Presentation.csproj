@@ -20,7 +20,7 @@
     <SccAuxPath>http://10.18.200.210:8080</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
-    <JSLintSkip>\Scripts\Chart\|\Scripts\Directives\|\Scripts\AngularJS\|\Scripts\autocomplete\|\Scripts\FanexGridV2\|\Scripts\Vendors\|\Scripts\Tipsy-Tooltip\|\Scripts\ShareScripts\|\Scripts\Paging\|\Scripts\MultipleSelect\|\Scripts\MonthDayPicker\|\Scripts\JQuery\|\Scripts\Jlinq\|\Scripts\jHtmlArea\|\Scripts\WeekPicker\|\Scripts\InputBox\|\Scripts\BlockUI.js|\Scripts\common.js|\Scripts\CryptoJS.js|\Scripts\ForceNumberic.js|\Scripts\dialogbox.js|\Areas\|\Scripts\</JSLintSkip>
+    <JSLintSkip>\Scripts\Chart\|\Scripts\Directives\|\Scripts\AngularJS\|\Scripts\autocomplete\|\Scripts\FanexGridV2\|\Scripts\Vendors\|\Scripts\Tipsy-Tooltip\|\Scripts\ShareScripts\|\Scripts\Paging\|\Scripts\MultipleSelect\|\Scripts\MonthDayPicker\|\Scripts\JQuery\|\Scripts\Jlinq\|\Scripts\jHtmlArea\|\Scripts\WeekPicker\|\Scripts\InputBox\|\Scripts\BlockUI.js|\Scripts\common.js|\Scripts\CryptoJS.js|\Scripts\ForceNumberic.js|\Scripts\dialogbox.js|\Areas\|\Scripts\|\Views\</JSLintSkip>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -735,7 +735,6 @@
     </Content>
     <Content Include="Scripts\AngularJS\angular-sanitize.min.js" />
     <Content Include="Scripts\AngularJS\sanitize.js" />
-    <Content Include="Scripts\AngularJS\angular.js" />
     <Content Include="Scripts\AngularJS\angular.min.js" />
     <Content Include="Scripts\Chart\ChartJs\ChartJS.js" />
     <Content Include="Scripts\Chart\ChartJs\CRMChart.js" />
@@ -794,7 +793,6 @@
     <Content Include="Scripts\jquery-ui-1.8.6.custom.min.js" />
     <Content Include="Scripts\Global\site.js" />
     <Content Include="Scripts\JQuery\jquery-1.8.2.js" />
-    <Content Include="Scripts\AngularJS\angular.min.js" />
     <Content Include="Scripts\JQuery\jquery.fileDownload.js" />
     <Content Include="Scripts\MonthDayPicker\images\bg-demo-docs-param.gif" />
     <Content Include="Scripts\MonthDayPicker\images\demo-spindown-closed.gif" />

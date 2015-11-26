@@ -38,22 +38,28 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpGet]
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSetting()
         {
-            var settings = _feedbackService.AllSetting();
+            var hasPermission = HasReadPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo) ||
+                                HasReadPermission(FunctionPermissions.DeleteFeedback);
+            dynamic settings = null;
+            if (hasPermission)
+            {
+                settings = _feedbackService.AllSetting();
+            }
+
             return Json(settings, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult ManageFeedback(ManageFeedbackViewModel model)
         {
             return View("~/Areas/Feedbacks/ManageFeedback/Index.cshtml", model);
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult SearchManageFeedback(ManageFeedbackCriteria criteria)
         {
             var feedbacks = _feedbackService.GetManageFeedback(criteria);
@@ -62,6 +68,7 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpGet]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult LatestFeedback(int? custId, string custName)
         {
             ViewBag.CustId = custId ?? 0;
@@ -75,6 +82,7 @@ namespace Fanex.CRM.Feedback.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>The action result.</returns>
         [HttpGet]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult GetLatestFeedback(LatestFeedbackCriteria criteria)
         {
             var feedbacks = _feedbackService.GetLatestFeedbackReport(criteria);
@@ -91,14 +99,14 @@ namespace Fanex.CRM.Feedback.Controllers
         }
 
         [HttpGet]
-        [NapAuth(FunctionKey = FunctionPermissions.DeleteFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.DeleteFeedback, Policy = Constant.Policy.Read)]
         public ActionResult DeletedFeedback()
         {
             return View("~/Areas/Feedbacks/DeletedFeedback/Index.cshtml");
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.DeleteFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.DeleteFeedback, Policy = Constant.Policy.Read)]
         public ActionResult SearchDeletedFeedback(DeletedFeedbackCriteria criteria)
         {
             var feedbacks = _feedbackService.GetDeletedFeedbackReport(criteria);

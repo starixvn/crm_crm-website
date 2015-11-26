@@ -3,7 +3,7 @@
 @using Fanex.CRM.Common.Services;
 @{
     IPermissionService permission = new PermissionService();
-    bool hasCustomerInfoPermission = permission.HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Read);
+    bool hasCustomerInfoPermission = permission.HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Read);
 }
 <ul class="list-unstyled list-inline" id="ulDashboardMenu">
     <li class="active" id="liMain"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liMain');">
@@ -12,25 +12,16 @@
     {
         <li id="liDetail"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liDetail');">
             <span class="hotkey">D</span>etail</a></li>
-    }
-    @if (permission.HasPermission(FunctionPermissions.EditFeedback, Constant.Policy.Read) ||
-        permission.HasPermission(FunctionPermissions.CreateFeedback, Constant.Policy.Read))
-    {
+        
         <li id="liCommnunicationLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liCommnunicationLog');">
             Communication <span class="hotkey">L</span>og</a></li>
-    }
-    @if (hasCustomerInfoPermission)
-    {
+        
         <li id="liSpecialRemark"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liSpecialRemark');">
             Special Remar<span class="hotkey">k</span></a></li>
-    }
-    @if (permission.HasPermission(FunctionPermissions.CRMReport, Constant.Policy.Read))
-    {
+        
         <li id="liRedemption"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liRedemption');">
             Redem<span class="hotkey">p</span>tion</a></li>
-    }
-    @if (hasCustomerInfoPermission)
-    {
+        
         <li id="liActivityLog"><a href="javascript:;" onclick="javascript:dashboardManager.dashboardMenuClick('liActivityLog');">
             Ac<span class="hotkey">t</span>ivity Log</a></li>
     }

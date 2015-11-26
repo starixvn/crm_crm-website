@@ -21,6 +21,7 @@ namespace Fanex.CRM.Customer.Controllers
     /// <summary>
     /// Customer Setting Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class CustomerSettingController : BaseController
     {
         private ICustomerService _customerServiceInstance;
@@ -34,15 +35,15 @@ namespace Fanex.CRM.Customer.Controllers
         {
             _customerServiceInstance = customerServiceInstance ?? new CustomerService();
         }
-
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
+        
         public ActionResult ShortCustomerInfo()
         {
+            ViewBag.CustomerInfoPolicy = GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
+
             return View("~/Areas/Customer/ShortInfo/CustomerInfo.cshtml");
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetCustomerInfoByUsername(GetCustomerInfoByUsernameCriteria criteria)
         {
             var customerInfo = _customerServiceInstance.GetCustomerInfoByUsername(criteria);
@@ -51,7 +52,6 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
         public JsonResult GetUplineInfoOfUser(GetUplineInfoOfUserCriteria criteria)
         {
             var uplineInfo = _customerServiceInstance.GetUplineInfoOfUser(criteria);
@@ -60,7 +60,7 @@ namespace Fanex.CRM.Customer.Controllers
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public JsonResult UpdateCustomerInfo(UpdateCustomerInfoCriteria criteria)
         {
             var updateResult = _customerServiceInstance.UpdateCustomerInfo(criteria);

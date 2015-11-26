@@ -10,6 +10,7 @@
 namespace Fanex.CRM.Customer.Services
 {
     using System;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Repositories;

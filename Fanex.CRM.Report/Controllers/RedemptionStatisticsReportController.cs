@@ -24,6 +24,7 @@ namespace Fanex.CRM.Report.Controllers
     /// <summary>
     /// Feedback statistic report controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.RedemptionStatistics, Policy = Constant.Policy.Read)]
     public class RedemptionStatisticsReportController : BaseController
     {
         private readonly IRedemptionStatisticsService _redemptionStatisticsService;
@@ -43,7 +44,6 @@ namespace Fanex.CRM.Report.Controllers
         /// </summary>
         /// <returns>All setting.</returns>
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult AllSetting()
         {
             var allSetting = new
@@ -57,7 +57,6 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult GetRedemptionStatisticsSummaryReport(GetRedemptionStatisticsSummaryCriteria criteria)
         {
             criteria.Subject = criteria.Subject ?? string.Empty;
@@ -65,7 +64,6 @@ namespace Fanex.CRM.Report.Controllers
         }
 
         [HttpPost]
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult GetRedemptionStatisticsDetailReport(GetRedemptionStatisticsDetailCriteria criteria)
         {
             criteria.Subject = criteria.Subject ?? string.Empty;
@@ -104,7 +102,6 @@ namespace Fanex.CRM.Report.Controllers
             return new EmptyResult();
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View("~/Areas/Report/RedemptionStatistics/Index.cshtml");

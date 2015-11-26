@@ -69,9 +69,10 @@ namespace Fanex.CRM.Dashboard.Controllers
             return PartialView("~/Areas/Dashboard/ViewInfo/CommunicationLogs.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult OpenEditVerifyFlagView(int customerId)
         {
+            ViewBag.HasCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             var customerInfo = _dashboardServiceInstance.GetCustomerInfo(new GetCustomerInfoCriteria
             {
                 CustomerId = customerId
@@ -114,7 +115,7 @@ namespace Fanex.CRM.Dashboard.Controllers
 
         [HttpPost]
         [CRMAuth]
-        [NapAuth(FunctionKey = FunctionPermissions.CustomerInfo, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult UpdateCustomerVerifyFlag(UpdateCustomerVerifyFlagCriteria criteria)
         {
             var updateResult = _dashboardServiceInstance.UpdateCustomerVerifyFlag(criteria);

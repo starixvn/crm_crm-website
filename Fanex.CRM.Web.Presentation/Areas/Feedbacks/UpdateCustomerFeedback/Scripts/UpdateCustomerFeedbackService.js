@@ -1,6 +1,8 @@
 ﻿'use strict';
 /* global updateCustomerFeedbackApplication, sharedScriptManager */
 updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$http', '$q', function ($http, $q) {
+    var DELETED_STATUS_ID = 11004;
+
     var serviceInstance = {};
 
     serviceInstance.getSettings = function () {
@@ -62,9 +64,22 @@ updateCustomerFeedbackApplication.factory('UpdateCustomerFeedbackService', ['$ht
         return sharedScriptManager.registerAngularService($http, $q, url, username);
     };
 
-    serviceInstance.updateFeedback = function (criteria) {
+    serviceInstance.updateFeedback = function (criteria, isDeletedFeedbackView) {
         var url = window.rootUrl + 'UpdateCustomerFeedback/UpdateFeedback';
-        return sharedScriptManager.registerAngularService($http, $q, url, criteria);
+        var params = {
+            criteria: criteria,
+            isDeletedStatus: isDeletedFeedbackView 
+        };
+        return sharedScriptManager.registerAngularService($http, $q, url, params);
+    };
+
+    serviceInstance.removeDeletedStatus = function (statusList) {
+        for (var i = 0; i < statusList.length; i++) {
+            if (statusList[i].Id === DELETED_STATUS_ID) {
+                statusList.splice(i, 1);
+                break;
+            }
+        }
     };
 
     return serviceInstance;

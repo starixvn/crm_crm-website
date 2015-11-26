@@ -13,6 +13,7 @@ namespace Fanex.CRM.Feedback.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Enumerations;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Feedback.Services;
@@ -27,6 +28,8 @@ namespace Fanex.CRM.Feedback.Controllers
     public class UpdateCustomerFeedbackController : BaseController
     {
         private readonly IUpdateCustomerFeedbackService _updateCustomerFeedbackService;
+        private readonly bool hasHostCreateUpdateFeedbackPermission;
+        private readonly bool hasHostDeleteFeedbackPermission;
 
         public UpdateCustomerFeedbackController()
             : this(null)
@@ -36,24 +39,48 @@ namespace Fanex.CRM.Feedback.Controllers
         public UpdateCustomerFeedbackController(IUpdateCustomerFeedbackService updateCustomerFeedbackService)
         {
             _updateCustomerFeedbackService = updateCustomerFeedbackService ?? new UpdateCustomerFeedbackService();
+            hasHostCreateUpdateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            hasHostDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult Index(int id)
+        private static bool IsRelatedDeletedStatus(int currentStatus, bool isDeletedStatus)
+        {
+            bool isChangedStatusFromDeleted = isDeletedStatus && currentStatus != (int)CRMStatus.Deleted;
+            bool isChangedStatusToDeleted = !isDeletedStatus && currentStatus == (int)CRMStatus.Deleted;
+
+            return isChangedStatusFromDeleted || isChangedStatusToDeleted;
+        }
+
+        public ActionResult Index(int id, bool isDeletedFeedbackView = false)
         {
             ViewBag.FeedbackId = id;
             ViewBag.HasReviewFeedbackPermission = HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host);
+            ViewBag.HasUpdateFeedbackPermission = HasUpdateFeedbackPermission(isDeletedFeedbackView);
+            ViewBag.IsDeletedFeedbackView = isDeletedFeedbackView.ToString().ToLower();
+            ViewBag.IsShowDeletedStatus = (isDeletedFeedbackView || hasHostDeleteFeedbackPermission).ToString().ToLower();
+
             return View("~/Areas/Feedbacks/UpdateCustomerFeedback/Index.cshtml");
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
-        public ActionResult AllSettings()
+        private bool HasUpdateFeedbackPermission(bool isDeletedFeedbackView)
         {
-            bool hasDeleteFeedbackPermission = HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host);
-            return Json(_updateCustomerFeedbackService.GetAllSettings(hasDeleteFeedbackPermission), JsonRequestBehavior.AllowGet);
+            if (isDeletedFeedbackView)
+            {
+                return hasHostCreateUpdateFeedbackPermission && hasHostDeleteFeedbackPermission;
+            }
+
+            return hasHostCreateUpdateFeedbackPermission;
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.EditFeedback, Policy = Constant.Policy.Read)]
+        public ActionResult AllSettings()
+        {
+            dynamic settings = null;
+            var hasDeleteFeedbackPermission = HasReadPermission(FunctionPermissions.DeleteFeedback);
+            settings = _updateCustomerFeedbackService.GetAllSettings(hasDeleteFeedbackPermission);
+
+            return Json(settings, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetFeedback(GetFeedbackByIdCriteria criteria)
         {
             return Json(_updateCustomerFeedbackService.GetFeedbackById(criteria), JsonRequestBehavior.AllowGet);
@@ -64,10 +91,11 @@ namespace Fanex.CRM.Feedback.Controllers
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The result object.</returns>
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         [HttpPost]
-        public ActionResult UpdateFeedback(UpdateCustomerFeedbackCriteria criteria)
+        public ActionResult UpdateFeedback(UpdateCustomerFeedbackCriteria criteria, bool isDeletedStatus)
         {
-            Result result = CheckUpdateCustomerFeedbackPermission(criteria);
+            Result result = CheckUpdateCustomerFeedbackPermission(criteria, isDeletedStatus);
             if (result.Code == ErrorCodeConstants.NoneError)
             {
                 _updateCustomerFeedbackService.UpdateFeedback(criteria);
@@ -82,29 +110,23 @@ namespace Fanex.CRM.Feedback.Controllers
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>The permission result.</returns>
-        private Result CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria)
+        private Result CheckUpdateCustomerFeedbackPermission(UpdateCustomerFeedbackCriteria criteria, bool isDeletedStatus)
         {
             int permissionError = ErrorCodeConstants.NoPermission;
-            if (!HasPermission(FunctionPermissions.EditFeedback, Constant.Policy.Host))
+            if (!hasHostCreateUpdateFeedbackPermission)
             {
                 return new Result(permissionError, Labels.Feedback_UpdateCustomerFeedback_NoUpdateFeedbackPermission);
             }
 
-            if (criteria.OverrideCRMInfo && !HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Host))
-            {
-                return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoOverrideCustomerInfoPermission);
-            }
-
-            if (criteria.UpdateReviewMode != (int)RevewMode.NotUpdate &&
-                !HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host))
-            {
-                return new Result(permissionError, Labels.NoPermissionOnReviewFunction);
-            }
-
-            if (criteria.Status.Id == (int)CRMStatus.Deleted &&
-                    !HasPermission(FunctionPermissions.DeleteFeedback, Constant.Policy.Host))
+            if (!hasHostDeleteFeedbackPermission && IsRelatedDeletedStatus(criteria.Status.Id, isDeletedStatus))
             {
                 return new Result(permissionError, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
+            }
+
+            if (!HasPermission(FunctionPermissions.ReviewFeedback, Constant.Policy.Host) &&
+                criteria.UpdateReviewMode != (int)RevewMode.NotUpdate)
+            {
+                return new Result(permissionError, Labels.NoPermissionOnReviewFunction);
             }
 
             return new Result();

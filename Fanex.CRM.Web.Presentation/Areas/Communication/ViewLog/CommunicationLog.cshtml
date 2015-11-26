@@ -3,14 +3,16 @@
 @using Fanex.CRM.Communication.Models;
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
+@using Fanex.NAP.Core.Business;
 @model int
 @{
     var customerId = JsonConvert.SerializeObject(Model);
+    var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="communication-application">
 <head>
-    <title>@Resources.Language.Title_CommunicationTab  </title>
+    <title>@Resources.Language.Title_CommunicationTab </title>
     @RazorHelper.RenderStyles("~/site/common")
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Grid.css")
     @RazorHelper.RenderStyles("~/Scripts/FanexGridV2/Fanex.Pagination.css")
@@ -63,10 +65,13 @@
                 </div>
             </div>
         </div>
-        <div class="row btn-group">
-            <button id="buttoninsert" class="btn" data-ng-click="insertCommunicationLog();">
-                <span class="hotkey">I</span>nsert Case</button>
-        </div>
+        @if (customerInfoPolicy == Constant.Policy.Host)
+        {
+            <div class="row btn-group">
+                <button id="buttoninsert" class="btn" data-ng-click="insertCommunicationLog();">
+                    <span class="hotkey">I</span>nsert Case</button>
+            </div>
+        }
     </div>
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts")
     @RazorHelper.RenderScripts("~/Scripts/AngularJSLibrary")

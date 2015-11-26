@@ -159,9 +159,14 @@ function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
             .then(function (data) {
                 $scope.settings = data.Result;
 
+                if (!isShowDeletedStatus) {
+                    feedbackService.removeDeletedStatus($scope.settings.StatusList);
+                }
+
                 feedbackService.getFeedback(feedbackId)
                     .then(function (dataFeedback) {
                         $scope.feedback = dataFeedback.Result;
+
                         if ($scope.feedback.CustomerInfo.Title.Id === 0) {
                             $scope.feedback.CustomerInfo.Title = $scope.settings.Titles[0];
                         }
@@ -332,7 +337,7 @@ function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
         }
 
         feedback.UpdateReviewMode = !$scope.hasReviewPermission ? 0 : (!feedback.IsReviewed ? 2 : (oldReview === feedback.Review ? 0 : 1));
-        feedbackService.updateFeedback(feedback)
+        feedbackService.updateFeedback(feedback, isDeletedFeedbackView)
             .then(function (data) {
                 var result = data.Result;
                 if (result && result.Code === 0) {
@@ -392,7 +397,7 @@ function ($scope, feedbackService, $uiBlockerService, alertBoxService) {
             orgLengt = arrayTemp.length;
         }
     };
-    
+
     angular.element(document).ready(function () {
         sharedScriptManager.safeApply($scope);
         $scope.initController();

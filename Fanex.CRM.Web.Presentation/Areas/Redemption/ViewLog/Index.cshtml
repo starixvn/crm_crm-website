@@ -3,9 +3,11 @@
 @using Fanex.CRM.Redemption.Models;
 @using Fanex.CRM.Infrastructure.Extensions;
 @using Fanex.CRM.Common.Helpers;
+@using Fanex.NAP.Core.Business;
 @model int
 @{
     var customerId = JsonConvert.SerializeObject(Model);
+    var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
 }
 <!DOCTYPE>
 <html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="redemption-viewlog-application">
@@ -58,10 +60,13 @@
                 </div>
             </div>
         </div>
-        <div class="row btn-group">
-            <button class="btn" data-ng-click="insertLog();">
-                <span class="hotkey">I</span>nsert Case</button>
-        </div>
+        @if (customerInfoPolicy == Constant.Policy.Host)
+        {
+            <div class="row btn-group">
+                <button class="btn" data-ng-click="insertLog();">
+                    <span class="hotkey">I</span>nsert Case</button>
+            </div>
+        }
         <input type="text" class="textbox default-focus-element" default-focus data-ng-model="isSetFocus" />
     </div>
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts")

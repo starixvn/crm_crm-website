@@ -46,9 +46,13 @@ editLogApplication.factory('$editLogService', ['$http', '$q',
 
             return deferred.promise;
         };
-        serviceInstance.updateLog = function (updateCriteria) {
+        serviceInstance.updateLog = function (updateCriteria, isDeletedStatus) {
             var deferred = $q.defer();
-            $http.post(window.rootUrl + "CommunicationLog/UpdateLog", updateCriteria)
+            var params = {
+                criteria: updateCriteria,
+                isDeletedStatus: isDeletedStatus
+            };
+            $http.post(window.rootUrl + "CommunicationLog/UpdateLog", params)
              .success(function (data, status, headers, config) {
                  deferred.resolve({
                      Result: data,

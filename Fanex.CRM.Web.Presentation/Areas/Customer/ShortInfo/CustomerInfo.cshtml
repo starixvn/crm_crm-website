@@ -10,6 +10,9 @@
     @RazorHelper.RenderStyles("~/site/common")
     @RazorHelper.RenderStyles("~/Areas/ShortCustomerInfo/Styles")
     @RazorHelper.RenderStyles("~/Styles/FanexMultipleSelect")
+    @{
+        var customerInfoPolicy = (Constant.Policy)ViewBag.CustomerInfoPolicy;
+    }
 </head>
 <body class="leftPanel">
     <div id="divContent" class="container left-container customerinfo-container display-none"
@@ -109,7 +112,8 @@
             </div>
         </div>
         <div class="row item no-border-bg" data-ng-show="customer.HeadLine">
-            <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">&nbsp;</div>
+            <div class="col-xs-3 col-sm-3 col-md-3 text-left label-left">
+                &nbsp;</div>
             <div class="col-xs-5 col-sm-4 col-md-4">
                 <label for="headline" class="labelforcheckbox checkbox">
                     <input id="headline" type="checkbox" data-ng-model="customer.HeadLine" disabled />
@@ -179,39 +183,33 @@
             <div class="row item no-border-bg">
                 <div class="col-xs-3 col-sm-3 col-md-3 text-left">
                 </div>
-                <div class="col-xs-9 col-sm-9 col-md-9 text-left">
-                    <button class="btn pull-left btn-update" data-ng-click="updateCustomerInfo();" default-focus
-                        data-ng-model="isSetFocus">
-                        <span class="hotkey">U</span>pdate</button>
-                </div>
+                @if (customerInfoPolicy == Constant.Policy.Host)
+                {
+                    <div class="col-xs-9 col-sm-9 col-md-9 text-left">
+                        <button class="btn pull-left btn-update" data-ng-click="updateCustomerInfo();" default-focus
+                            data-ng-model="isSetFocus">
+                            <span class="hotkey">U</span>pdate</button>
+                    </div>
+                }
             </div>
         </div>
         <div class="row item title text-left detail-header" data-ng-click="isShowDetail=!isShowDetail">
             @Labels.Detail
         </div>
         <div data-ng-show="isShowDetail">
-            @{
-                IPermissionService permission = new PermissionService();
-            }
             <div class="row item no-border-bg">
                 <ul class="list-unstyled list-menu pull-left">
-                    @if (permission.HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Read))
-                    { 
-                        <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">@Labels.CRM_Info</a></li>
-                    }
-                    @if (permission.HasPermission(FunctionPermissions.CreateFeedback, Constant.Policy.Read))
+                    <li><a data-ng-href="#" data-ng-click="viewCRMInfo();">@Labels.CRM_Info</a></li>
+                    @if (customerInfoPolicy == Constant.Policy.Host)
                     { 
                         <li><a data-ng-href="#" data-ng-click="addFeedback();">@Labels.Add_Feedback</a></li>
                     }
                 </ul>
                 <ul class="list-unstyled list-menu pull-left no-margin">
-                    @if (permission.HasPermission(FunctionPermissions.EditFeedback, Constant.Policy.Read))
-                    { 
-                        <li><a data-ng-href="#" data-ng-click="viewLatestFeedback();">
-                            @Labels.Latest_Feedback</a></li>
-                        <li><a data-ng-href="#" data-ng-click="manageFeedback();">
-                            @Labels.Manage_Feedback</a></li>
-                    }
+                    <li><a data-ng-href="#" data-ng-click="viewLatestFeedback();">
+                        @Labels.Latest_Feedback</a></li>
+                    <li><a data-ng-href="#" data-ng-click="manageFeedback();">
+                        @Labels.Manage_Feedback</a></li>
                 </ul>
             </div>
         </div>

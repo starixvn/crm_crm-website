@@ -10,20 +10,23 @@
 
 namespace Fanex.CRM.Feedback.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Models;
-    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Web.Attribute;
 
     /// <summary>
     /// Add Feedback Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class AddFeedbackController : BaseController
     {
         public AddFeedbackController()
@@ -39,10 +42,20 @@ namespace Fanex.CRM.Feedback.Controllers
         public ISettingService ServiceSetting { get; set; }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.CreateFeedback, Policy = Constant.Policy.Read)]
         public ActionResult AllSetting()
         {
-            return Json(AllSettingToAddFeedback(), JsonRequestBehavior.AllowGet);
+            var settings = AllSettingToAddFeedback();
+            bool hasCreateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
+            if (hasCreateFeedbackPermission)
+            {
+                var deleteStatus = settings.StatusList.Find(s => s.Name == "Deleted");
+                if (deleteStatus != null)
+                {
+                    settings.StatusList.Remove(deleteStatus);
+                }
+            }
+
+            return Json(settings, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -69,6 +82,8 @@ namespace Fanex.CRM.Feedback.Controllers
                     Name = Labels.Symbol_NA
                 });
 
+            var statusList = ServiceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+                                        .Where(s => s.Id != (int)CRMStatus.Deleted).ToList();
             var allSetting = new AllSettingToAddFeedback
             {
                 ExtensionList = ServiceSetting.AllExtension(),
@@ -79,7 +94,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 ProductList = ServiceSetting.AllProduct(),
                 SiteList = ServiceSetting.AllSite(),
                 ResponseList = ServiceSetting.AllResponse(),
-                StatusList = ServiceSetting.AllStatus(ViewTypeConstants.CommunicationTool),
+                StatusList = statusList,
                 TitleList = ServiceSetting.AllTitle(),
                 LicenseeType = ServiceSetting.AllLicenseeType()
             };

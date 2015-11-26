@@ -501,7 +501,7 @@ function (
 
         if ($scope.validateUpdateLogCriteria(updateCriteria)) {
             $scope.BlockUI();
-            $editLogService.updateLog(updateCriteria)
+            $editLogService.updateLog(updateCriteria, isDeletedStatus)
             .then(function (data) {
                 var updateResult = data.Result;
                 $scope.showUpdateResult(updateResult);

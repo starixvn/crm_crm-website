@@ -7,6 +7,7 @@
 @using Fanex.CRM.Customer.Services
 @using Fanex.CRM.Common.Helpers;
 @using Fanex.CRM.Common.Services;
+@using Fanex.NAP.Core.Business;
 @{
     string userSearched = string.Empty;
     bool isGuest = false;
@@ -19,9 +20,10 @@
     }
     var getClientTime = Fanex.CRM.Common.Helpers.DateTimeUtilize.ChangeFullTimeZoneToClient(DateTime.Now);
     string redirectUrl = ViewBag.RedirectUrl;
-    
+    var createCustomerInfoPolicy = (Constant.Policy)ViewBag.CreateCustomerInfoPolicy;
+    var hasCreateOrUpdateFeedbackPermission = createCustomerInfoPolicy != Constant.Policy.None;
 }
-@section Styles{    
+@section Styles{
     @RazorHelper.RenderStyles("~/Scripts/autocomplete/autocomplete.css")
     @RazorHelper.RenderStyles("~/Views/Home/Styles/default.less")
     @RazorHelper.RenderStyles("~/Views/HomeStyles")
@@ -35,10 +37,10 @@
     <div class="container crm-container">
         <div class="row header">
             <div class="col-xs-3 col-sm-3 col-md-3 leftHeader">
-                <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo touchable-element" 
+                <img alt="" src="~/Content/site/Images/logo-crm.png" class="crm-logo touchable-element"
                     title="@Resources.Language.Home"
                     onclick="javascript:menuManager.getDashboardMenu(parent.dashboardManager.Enums.SubMenuId.Main);"
-                    href="javascript:;"/>
+                    href="javascript:;" />
                 <span id="icon-collapse-expand-leftpanel" class="icon-expand" title="@Labels.Home_Index_CollapseExpandLeftPanel">
                 </span>
             </div>
@@ -60,17 +62,23 @@
         <div class="row search-breadbrumb">
             <div class="col-xs-3 col-sm-3 col-md-3 search-frm">
                 <div class="text-search col-xs-9 col-sm-9 col-md-9">
-                    <input id="txtuserName" type="text" class="inputSearch font-style-italic" 
-                        value="@Resources.Language.Default_SearchTextbox" 
+                    @if (hasCreateOrUpdateFeedbackPermission)
+                    {
+                        <input id="txtuserName" type="text" class="inputSearch font-style-italic"
+                        value="@Resources.Language.Default_SearchTextbox"
                         name="txtuserName"
                         autocomplete="off" tabindex="2" />
-                    <input id="buttonsearch" type="button" class="searchSubmit" value=" " tabindex="1" />
+                        <input id="buttonsearch" type="button" class="searchSubmit" value=" " tabindex="1" />
+                    }
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
-                    <label>
-                        <input id="isGuest" type="checkbox" tabindex="3" />
-                        @Labels.Guest
-                    </label>
+                    @if (hasCreateOrUpdateFeedbackPermission)
+                    {
+                        <label>
+                            <input id="isGuest" type="checkbox" tabindex="3" />
+                            @Labels.Guest
+                        </label>
+                    }
                 </div>
             </div>
             <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb">
@@ -101,7 +109,6 @@
     </div>
     <div id="div-resultpopup" class="selector display-none">
     </div>
-
     @RazorHelper.RenderScripts("~/Scripts/JQuery/jquery-1.8.2.js",
                             "~/Scripts/json2.js",
                             "~/Scripts/ShareScripts/HotKeyManager.js",
@@ -116,7 +123,6 @@
                             "~/Scripts/jquery.blockUI.1.33.js",
                             "~/Scripts/BlockUI.js",
                             "~/Scripts/common.js")
-
     @RazorHelper.RenderScripts("~/Scripts/PopUp")
     @RazorHelper.RenderScripts("~/CRM/Chart/Scripts")
     @RazorHelper.RenderScripts("~/Views/Home/Scripts/Main.js")
@@ -129,8 +135,8 @@
         var accUrlDefault = '@Fanex.CRM.Common.Services.AppSetting.LoginLink';
         var userId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";
-        var redirectUrl = '@redirectUrl';         
-        
+        var redirectUrl = '@redirectUrl';
+
         setInterval('udpateOnlineStatus()', 20000);
     </script>
 </body>

@@ -24,6 +24,7 @@ namespace Fanex.CRM.Feedback.Controllers
     /// <summary>
     /// Add Guest Feedback Controller.
     /// </summary>
+    [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
     public class AddGuestFeedbackController : AddFeedbackController
     {
         private IAddGuestFeedbackService _feedbackService;
@@ -38,7 +39,7 @@ namespace Fanex.CRM.Feedback.Controllers
             _feedbackService = feedbackService ?? new AddGuestFeedbackService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CreateFeedback, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Host)]
         public ActionResult Index()
         {
             return View("~/Areas/Feedbacks/AddGuestFeedback/Index.cshtml");
@@ -73,7 +74,7 @@ namespace Fanex.CRM.Feedback.Controllers
         /// </returns>
         private Result CheckAddCustomerFeedbackPermission(AddGuestFeedbackCriteria criteria)
         {
-            if (!HasPermission(FunctionPermissions.CreateFeedback, Constant.Policy.Host))
+            if (!HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }
@@ -84,7 +85,7 @@ namespace Fanex.CRM.Feedback.Controllers
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoDeletedFeedbackPermission);
             }
 
-            if (!HasPermission(FunctionPermissions.CustomerInfo, Constant.Policy.Host))
+            if (!HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host))
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoUpdateCustomerPermission);
             }

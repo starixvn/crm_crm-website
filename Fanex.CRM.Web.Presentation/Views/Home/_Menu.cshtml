@@ -108,13 +108,18 @@
     List<MenuItem> allMenuItemList,
     int menuLevel,
     List<MenuItem> parentMenuList)
-    {    
+    {   
+        var hasLargeMenu = menuItemList.Count >= 8; 
         for (int i = 0; i < menuItemList.Count; i++)
         {
             var menuItem = menuItemList[i];
-            var menuClassName = (menuLevel == 0 && i == menuItemList.Count - 1) ? "last-menu" : "";
-   
-    @RenderMenu(menuItem, allMenuItemList, menuClassName, parentMenuList, menuLevel);
+            var menuClassName = string.Empty;
+            if(hasLargeMenu)
+            {
+                menuClassName = (menuLevel == 0 && i == menuItemList.Count - 1) ? "last-menu" : "";
+            }
+            
+            @RenderMenu(menuItem, allMenuItemList, menuClassName, parentMenuList, menuLevel);
         }
 }
 <ul class="menu list-unstyle list-inline">

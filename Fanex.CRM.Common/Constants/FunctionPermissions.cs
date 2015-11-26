@@ -14,17 +14,37 @@ namespace Fanex.CRM.Common.Constants
     /// </summary>
     public static class FunctionPermissions
     {
-        public const string CreateFeedback = "CreateFeedback";
-
-        public const string EditFeedback = "EditFeedback";
+        public const string CreateUpdateFeedbackAndCustomerInfo = "CreateUpdateFeedback_CustomerInfo";
 
         public const string ReviewFeedback = "ReviewFeedback";
 
         public const string DeleteFeedback = "DeleteFeedback";
 
-        public const string CustomerInfo = "Customer_Guest";
+        public const string CasinoDailyStatistics = "CasinoDailyStatistics";
 
-        public const string CRMReport = "CRMReport";
+        public const string CasinoWeeklyStatistics = "CasinoWeeklyStatistics";
+
+        public const string DailyStatistics = "DailyStatistics";
+
+        public const string WeeklyStatistics = "WeeklyStatistics";
+
+        public const string FeedbackStatistics = "FeedbackStatistics";
+
+        public const string IssueStatistics = "IssueStatistics";
+
+        public const string RedemptionStatistics = "RedemptionStatistics";
+
+        public const string DeletedFeedbackStatistic = "DeletedFeedbackStatistic";
+
+        public const string CategoriesSummaryReport = "CategoriesSummaryReport";
+
+        public const string CustomerReport = "CustomerReport";
+
+        public const string DynamicReport = "DynamicReport";
+
+        public const string SettlementIssuesReport = "SettlementIssuesReport";
+
+        public const string WagersRelatedReport = "Wagers_RelatedReport";
 
         public const string InformHeadline = "InformHeadline";
 

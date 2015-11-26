@@ -72,7 +72,7 @@ namespace Fanex.CRM.Web.View.AppStart
                 "~/Scripts/FanexGridV2/moment.js"));
 
             bundles.Add(new ScriptBundle("~/Scripts/AngularJSLibrary").Include(
-                "~/Scripts/AngularJS/angular.js"));
+                "~/Scripts/AngularJS/angular.min.js"));
 
             bundles.AddAndInclude(
                 "~/Styles/FanexMultipleSelect",
