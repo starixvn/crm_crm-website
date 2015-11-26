@@ -18,7 +18,9 @@ namespace Fanex.CRM.Communication.Services
 
     public interface ICommunicationLogService
     {
-        IEnumerable<Setting> GetAllStatus();
+        IList<Setting> AllStatusForEdit { get; }
+
+        IList<Setting> AllStatusForInsert { get; }
 
         CustomerLogInfo GetLogsByCustomerId(GetLogsByCustomerIdCriteria criteria);
 

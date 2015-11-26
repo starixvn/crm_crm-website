@@ -14,6 +14,7 @@ namespace Fanex.CRM.Communication.Controllers
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Communication.Criteria;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Communication.Services;
@@ -27,7 +28,7 @@ namespace Fanex.CRM.Communication.Controllers
     /// Communication Log Controller.
     /// </summary>
     public class CommunicationLogController : BaseController
-    {        
+    {
         private readonly ICommunicationLogService _communicationServiceLog;
         private readonly bool hasHostCreateUpdateFeedbackPermission;
 
@@ -140,7 +141,7 @@ namespace Fanex.CRM.Communication.Controllers
 
         [NapAuth(FunctionKey = FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Policy = Constant.Policy.Read)]
         public ActionResult OpenEditView(int logRunningNumber)
-        {                  
+        {
             var logInfo = _communicationServiceLog.GetLogsByRunningNumber(new GetLogByRunningNumberCriteria
             {
                 RunningNumber = logRunningNumber
@@ -207,7 +208,7 @@ namespace Fanex.CRM.Communication.Controllers
                 return new Result(permissionError, Labels.Communication_Logs_NoDeletePermission);
             }
 
-            if (!HasHostPermission(FunctionPermissions.ReviewFeedback) && 
+            if (!HasHostPermission(FunctionPermissions.ReviewFeedback) &&
                 criteria.UpdateReviewedMode != UpdateReviewedModeConstants.NotChange)
             {
                 return new Result(permissionError, Labels.Communication_Logs_NoReviewPermission);

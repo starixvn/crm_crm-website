@@ -49,11 +49,7 @@ namespace Fanex.CRM.Feedback.Controllers
             bool hasCreateFeedbackPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Host);
             if (hasCreateFeedbackPermission)
             {
-                var deleteStatus = settings.StatusList.Find(s => s.Name == "Deleted");
-                if (deleteStatus != null)
-                {
-                    settings.StatusList.Remove(deleteStatus);
-                }
+                settings.StatusList = settings.StatusList.Where(s => !s.Name.Equals("Deleted", System.StringComparison.OrdinalIgnoreCase));
             }
 
             return Json(settings, JsonRequestBehavior.AllowGet);
@@ -83,7 +79,7 @@ namespace Fanex.CRM.Feedback.Controllers
                     Name = Labels.Symbol_NA
                 });
 
-            var statusList = ServiceSetting.AllStatus(ViewTypeConstants.CommunicationTool)
+            var statusList = ServiceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool)
                                         .Where(s => s.Id != (int)CRMStatus.Deleted).ToList();
             var settings = new AllSettingToAddFeedback
             {

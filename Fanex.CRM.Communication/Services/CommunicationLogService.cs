@@ -19,7 +19,6 @@ namespace Fanex.CRM.Communication.Services
     using Fanex.CRM.Communication.Repositories;
     using Fanex.CRM.Communication.Resources;
     using Fanex.CRM.Infrastructure.Constants;
-    using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Setting.Constants;
     using Fanex.CRM.Setting.Services;
@@ -46,10 +45,13 @@ namespace Fanex.CRM.Communication.Services
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        public List<SettingInfo> AllStatusForEdit
+        public IList<Setting> AllStatusForEdit
         {
-            return _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool).ToList();
-		}
+            get
+            {
+                return _serviceSetting.GetAllStatuses(ViewTypeConstants.CommunicationTool).ToList();
+            }
+        }
 
         /// <summary>
         /// Gets all status for insert.
@@ -57,7 +59,7 @@ namespace Fanex.CRM.Communication.Services
         /// <value>
         /// All status for insert.
         /// </value>
-        public List<SettingInfo> AllStatusForInsert
+        public IList<Setting> AllStatusForInsert
         {
             get
             {

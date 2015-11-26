@@ -13,12 +13,13 @@ namespace Fanex.CRM.Customer.Controllers
     using Fanex.CRM.Common.Attributes;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Services;
     using Fanex.CRM.Customer.Criteria.DetailInfo;
     using Fanex.CRM.Customer.Models;
     using Fanex.CRM.Customer.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
-    
+
     /// <summary>
     /// Customer Setting Detail Controller.
     /// </summary>
@@ -38,7 +39,7 @@ namespace Fanex.CRM.Customer.Controllers
             _permissionService = permissionService ?? new PermissionService();
             _customerService = customerService ?? new CustomerDetailService();
         }
-        
+
         public ActionResult Index(string customerId)
         {
             ViewBag.CustomerInfoPolicy = _permissionService.GetPolicy(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo);
@@ -66,7 +67,7 @@ namespace Fanex.CRM.Customer.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AllSettings() 
+        public JsonResult AllSettings()
         {
             return Json(_customerService.GetAllSettings(), JsonRequestBehavior.AllowGet);
         }

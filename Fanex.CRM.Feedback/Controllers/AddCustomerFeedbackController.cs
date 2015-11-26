@@ -12,7 +12,6 @@ namespace Fanex.CRM.Feedback.Controllers
 {
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
-    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Feedback.Criteria;
     using Fanex.CRM.Feedback.Models;
     using Fanex.CRM.Feedback.Resources;
@@ -55,7 +54,7 @@ namespace Fanex.CRM.Feedback.Controllers
         /// Gets all setting for edit.
         /// </summary>
         /// <returns>All setting for edit.</returns>
-        [HttpPost]        
+        [HttpPost]
         public ActionResult AllSettingToAddCustomerFeedback()
         {
             var allSetting = AllSettingToAddFeedback();
@@ -88,7 +87,6 @@ namespace Fanex.CRM.Feedback.Controllers
             {
                 return new Result(ErrorCodeConstants.NoPermission, Labels.Feedback_AddCustomerFeedback_NoCreateFeedbackPermission);
             }
-
 
             return new Result();
         }
