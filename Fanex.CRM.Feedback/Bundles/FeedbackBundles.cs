@@ -99,7 +99,7 @@ namespace Fanex.CRM.Feedback.Bundles
         /// <param name="bundles">The bundles.</param>
         private static void RegisterAddGuestFeedbackBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
+            bundles.Add(new Bundle("~/Areas/Feedbacks/AddGuestFeedback/AddGuestFeedbackScripts")
                 .Include(
                     "~/Scripts/ShareScripts/Applications/BlockUI.js",
                     "~/Scripts/FanexGridV2/moment.js",

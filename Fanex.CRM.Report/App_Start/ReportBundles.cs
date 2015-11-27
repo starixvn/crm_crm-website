@@ -28,6 +28,8 @@ namespace Fanex.CRM.Report
             
             RegisterFeedbackStatisticBundles(bundles);
             RegisterFeedbackStatisticDetailBundles(bundles);
+
+            RegisterCasinoDailyEnhancementStatisticsBundles(bundles);
         }
 
         /// <summary>
@@ -180,6 +182,31 @@ namespace Fanex.CRM.Report
                 "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/FeedbackStatisticDetailService.js",
                 "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/FeedbackStatisticDetailController.js",
                 "~/Areas/Report/FeedbackStatistics/FeedbackStatisticDetail/Scripts/Directives/*.js"));
+        }
+
+        /// <summary>
+        /// Registers the casino daily enhancement statistics bundles.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void RegisterCasinoDailyEnhancementStatisticsBundles(BundleCollection bundles)
+        {
+            AddAndInclude(
+                bundles,
+                "~/bundles/Report/CasinoDailyEnhancementStyles",
+                "~/Scripts/FanexGridV2/Fanex.Grid.css",
+                "~/Content/site/customizeFanexGridV2.less",
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
+                "~/Areas/Report/CasinoDailyStatistics/Styles/casinodaily.less");
+
+            bundles.Add(new ScriptBundle("~/bundles/Report/CasinoDailyEnhancementScripts").Include(
+                "~/Scripts/ShareScripts/Applications/BlockUI.js",
+                "~/Scripts/ShareScripts/HotKeyManager.js",
+                "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
+                "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/CasinoDailyEnhancementApplication.js",
+                "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/CasinoDailyEnhancementService.js",
+                "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/CasinoDailyEnhancementController.js",
+                "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/Directives/*.js"));
         }
 
         private static void AddAndInclude(

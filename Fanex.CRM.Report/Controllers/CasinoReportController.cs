@@ -27,9 +27,9 @@ namespace Fanex.CRM.Report.Controllers
 
         public CasinoReportController()
             : this(null)
-        { 
+        {
         }
-        
+
         public CasinoReportController(ICasinoReportService casinoReportService)
         {
             _casinoReportService = casinoReportService ?? new CasinoReportService();

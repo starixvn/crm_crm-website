@@ -1,0 +1,108 @@
+﻿@using Fanex.CRM.Report.Resources
+@using Fanex.CRM.Infrastructure.Extensions;
+@using Fanex.CRM.Common.Helpers;
+@{ string clientDate = DateTimeUtilize.CurrentClientTime().ToShortFormatedDate(); }
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="report-casinodaily-enhancement-application">
+<head>
+    <title>@Labels.CasinoDailyStatistics_Report</title>
+    @RazorHelper.RenderStyles("~/site/common", "~/bundles/Report/CasinoDailyEnhancementStyles")
+</head>
+<body>
+    <div class="main container" data-ng-controller="casinoDailyEnhancementController">
+        <div class="filter-frm one-row">
+            <form data-ng-submit="getCasinoDailySummary()" novalidate>
+                <div class="row row-item">
+                    <div class="item col-xs-3 col-sm-3 col-md-3">
+                        <label class="col-xs-3 col-sm-3 col-md-3" for="products">@Labels.Product</label>
+                        <div class="display-inline-block">
+                            <select id="products" ng-model="selected"
+                            data-ng-options="product.Value for product in productOptionDataList track by product.Id" style="min-width: 200px;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item item col-xs-2 col-sm-2 col-md-2">
+                        <label for="fromDate">@Labels.From</label>
+                        <div class="display-inline-block date-picker-from-date-container" data-ng-model="fromDateOptions.IsRerenderPicker">
+                            <input id="fromDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="item item col-xs-2 col-sm-2 col-md-2">
+                        <label for="toDate">@Labels.To</label>
+                        <div class="display-inline-block date-picker-to-date-container" data-ng-model="toDateOptions.IsRerenderPicker">
+                            <input id="toDate" type="text" class="textbox txtcalendar" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-item">
+                    <div class="item col-xs-3 col-sm-3 col-md-3">
+                        <label class="col-xs-3 col-sm-3 col-md-3" for="main-category">@Labels.Main_Category</label>
+                        <div class="display-inline-block">
+                            <select id="main-category" style="min-width: 200px;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item col-xs-4 col-sm-4 col-md-4">
+                        <label for="communication-type">@Labels.Communication_Tool</label>
+                        <div class="display-inline-block">
+                            <select id="communication-type" style="min-width: 200px;">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <button class="btn">
+                            <span class="hotkey">S</span>ubmit</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="icon-filter">
+                    </div>
+                    <span class="warning">@Labels.CasinoDailyStatisticsHint</span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        parent.document.title = '@Resources.Language.Title_Report_CasinoDailyStatistics';
+        window.rootUrl = '@Url.Content("~")';
+        var currentDate = new Date('@clientDate');
+        var casinoDailyResources = {
+            Category: '@Labels.Category',
+            ViewChart: '@Labels.ViewChart',
+            ViewDetail: '@Labels.ViewDetail',
+            Date: '@Labels.Date',
+            StartTime: '@Labels.StartTime',
+            EndTime: '@Labels.EndTime',
+            Duration: '@Labels.Duration',
+            Customer: '@Labels.Customer',
+            Site: '@Labels.Site',
+            TypeOfContact: '@Labels.TypeOfContact',
+            ProductName: '@Labels.ProductName',
+            Ext: '@Labels.Ext',
+            Role: '@Labels.Role',
+            Contact: '@Labels.ContactInfo',
+            Country: '@Labels.Country',
+            SubCategory: '@Labels.SubCategory',
+            Description: '@Labels.Description',
+            Solution: '@Labels.Solution',
+            Status: '@Labels.Status',
+            Response: '@Labels.Response',
+            HandleBy: '@Labels.HandleBy',
+            CreationTime: '@Labels.CreationTime',
+            GoBack: '@Labels.GoBack',
+            Feedbacks: '@Labels.Feedbacks',
+            MSN: '@Labels.MSN',
+            Skype: '@Labels.Skype',
+            Email: '@Labels.Email',
+            Phone: '@Labels.Phone',
+            Mobile: '@Labels.Mobile'
+        };
+    </script>
+    @RazorHelper.RenderScripts("~/Scripts/CommomScripts",
+        "~/Scripts/FanexGridScripts",
+        "~/Scripts/FanexGridV2/NumeralScripts",
+        "~/Scripts/AngularJSLibrary",
+        "~/CRM/DownLoadFile/Scripts",
+        "~/bundles/Report/CasinoDailyEnhancementScripts")
+</body>
+</html>
