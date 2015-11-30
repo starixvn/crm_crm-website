@@ -14,6 +14,7 @@ namespace Fanex.CRM.Dashboard.Controllers
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
     using Fanex.CRM.Common.Services;
+    using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Model;
 
     /// <summary>
@@ -85,6 +86,7 @@ namespace Fanex.CRM.Dashboard.Controllers
 
         public PartialViewResult GettingDashboardMenu()
         {
+            ViewBag.HasCustomerInfoPermission = HasPermission(FunctionPermissions.CreateUpdateFeedbackAndCustomerInfo, Constant.Policy.Read);
             return PartialView("~/Views/Home/_DashboardMenu.cshtml");
         }
 

@@ -22,8 +22,6 @@
 		 @RazorHelper.RenderScripts("~/Scripts/Chart/ChartJs/excanvas.js")
 	<![endif]-->
 }
-@*<div id="fullsize" class="fullsize">
-    </div>*@
 <div class="container crm-container">
     <div class="row header">
         <div class="col-xs-3 col-sm-3 col-md-3 leftHeader">
@@ -50,40 +48,31 @@
         </div>
         <div class="row search-breadbrumb">
             <div class="col-xs-3 col-sm-3 col-md-3 search-frm">
-                <div class="text-search col-xs-9 col-sm-9 col-md-9">
-                    @if (hasCreateOrUpdateFeedbackPermission)
-                    {
+                @if (hasCreateOrUpdateFeedbackPermission)
+                {
+                    <div class="text-search col-xs-9 col-sm-9 col-md-9">
                         <input id="txtuserName" type="text" class="inputSearch font-style-italic"
                         value="@Resources.Language.Default_SearchTextbox"
                         name="txtuserName"
                         autocomplete="off" tabindex="2" />
                         <input id="buttonsearch" type="button" class="searchSubmit" value=" " tabindex="1" />
-                    }
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
-                    @if (hasCreateOrUpdateFeedbackPermission)
-                    {
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
                         <label>
                             <input id="isGuest" type="checkbox" tabindex="3" />
                             @Labels.Guest
                         </label>
-                    }
+                    </div>
+                }
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb">
+                <div class="col-xs-9 col-sm-9 col-md-9" id="divSubMenu">
                 </div>
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3 checkbox check-guest">
-                <label>
-                    <input id="isGuest" type="checkbox" tabindex="3" />
-                    @Labels.Guest
-                </label>
-            </div>
-        </div>
-        <div class="col-xs-9 col-sm-9 col-md-9 breadcrumb">
-            <div class="col-xs-9 col-sm-9 col-md-9" id="divSubMenu">
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3">
-                <div class="pull-right timezone">
-                    <span id="span-timezoneContainer">@getClientTime</span>
-                    @Resources.Language.TimeZoneGMT
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="pull-right timezone">
+                        <span id="span-timezoneContainer">@getClientTime</span>
+                        @Resources.Language.TimeZoneGMT
+                    </div>
                 </div>
             </div>
         </div>
