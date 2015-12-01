@@ -538,7 +538,9 @@
     <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\CasinoDailyEnhancementApplication.js" />
     <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\CasinoDailyEnhancementController.js" />
     <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\CasinoDailyEnhancementService.js" />
+    <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\Directives\IBCReportDirective.js" />
     <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\Directives\RegisterSharedDirectives.js" />
+    <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\Directives\ReportDirectiveHelper.js" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyApplication.js" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyController.js" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyService.js" />

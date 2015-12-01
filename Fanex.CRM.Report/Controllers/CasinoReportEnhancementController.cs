@@ -10,8 +10,11 @@ namespace Fanex.CRM.Report.Controllers
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
+    using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Services;
+    using Fanex.CRM.Report.Criteria.CasinoEnhancementReport;
     using Fanex.CRM.Report.Models.CasinoReportEnhancement;
+    using Fanex.CRM.Report.Services.CasinoEnhancementReport;
     using Fanex.CRM.Setting.Services;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
@@ -22,14 +25,18 @@ namespace Fanex.CRM.Report.Controllers
     public class CasinoReportEnhancementController : BaseController
     {
         private readonly ISettingService _serviceSetting;
+        private readonly ICasinoEnhancementReportService _casinoEnhancementReportService;
 
         public CasinoReportEnhancementController()
-            : this(null)
+            : this(null, null)
         { 
         }
 
-        public CasinoReportEnhancementController(ISettingService serviceSetting)
+        public CasinoReportEnhancementController(
+            ICasinoEnhancementReportService casinoEnhancementReportService,
+            ISettingService serviceSetting)
         {
+            _casinoEnhancementReportService = casinoEnhancementReportService ?? new CasinoEnhancementReportService();
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
@@ -37,6 +44,22 @@ namespace Fanex.CRM.Report.Controllers
         public ActionResult CasinoDailyEnhancementStatistics()
         {
             return View("~/Areas/Report/CasinoDailyStatisticsEnhancement/Index.cshtml");
+        }
+
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CasinoReportEnhancement, Policy = Constant.Policy.Read)]
+        [HttpPost]
+        public ActionResult GetMainReport(CasinoEnhancementReportCriteria criteria)
+        {
+            criteria.ProductType = (int)ProductType.Detail;
+            criteria.CategoryType = (int)CategoryType.SubCategory;
+            criteria.SiteType = (int)SiteType.IBC;
+
+            var jsonResult = Json(new
+            {
+                IBCReport = _casinoEnhancementReportService.GetReportData(criteria),
+            });
+
+            return jsonResult;
         }
 
         [HttpPost]

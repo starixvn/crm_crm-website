@@ -4,8 +4,8 @@
     casinoDailyEnhancementRegister.registerDatePicker();
     casinoDailyEnhancementRegister.registerDownloadFile();
     casinoDailyEnhancementRegister.registerProductMultiSelectPicker();
-    casinoDailyEnhancementRegister.registerCommunicationToolPicker();
-    casinoDailyEnhancementRegister.registerMainCategoryPicker();
+    casinoDailyEnhancementRegister.registerCommunicationToolPicker(true);
+    casinoDailyEnhancementRegister.registerCategoryMultiSelectPicker();
 }
 
 registerPickerForCasinoDailyEnhancement();

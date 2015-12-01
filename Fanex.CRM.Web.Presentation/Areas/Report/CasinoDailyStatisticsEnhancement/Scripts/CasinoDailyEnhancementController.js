@@ -11,14 +11,22 @@ casinoDailyEnhancementApplication.controller('casinoDailyEnhancementController',
 function ($scope, casinoDailyService, $uiBlockerService) {
     $scope.allSettings = null;
     $scope.productOptions = null;
+    $scope.categoryOptions = null;
+    $scope.communicationToolOptions = null;
     $scope.fromDateOptions = null;
     $scope.toDateOptions = null;
     $scope.searchCriteria = {
         FromDate: '',
         ToDate: '',
         ProductIds: '',
-        PageIndex: 0,
-        PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
+        CategoryIds: '',
+        CommunicationIds: ''
+    };
+
+    $scope.ibcReportOptions = {
+        DataList: null,
+        IsResize: false,
+        IsUpdateGrid: false
     };
 
     $scope.initController = function () {
@@ -33,7 +41,8 @@ function ($scope, casinoDailyService, $uiBlockerService) {
     $scope.initPicker = function () {
         $scope.initDatePicker();
         $scope.initProductMultiSelectPicker();
-        $scope.initOtherPickers();
+        $scope.initMainCategoryMultiSelectPickers();
+        $scope.initCommunicationMultiSelectPickers();
     }
 
     $scope.initDatePicker = function () {
@@ -98,7 +107,7 @@ function ($scope, casinoDailyService, $uiBlockerService) {
             AllText: casinoDailyEnhancementResources.All,
             MinWidth: 200,
             MaxHeight: 600,
-            NoItemText: "",
+            NoItemText: casinoDailyEnhancementResources.Symbol_NotApply,
             NoneSelectedText: casinoDailyEnhancementResources.Symbol_NotApply,
             NumberOfItemShowShortText: 2
         };
@@ -107,25 +116,65 @@ function ($scope, casinoDailyService, $uiBlockerService) {
         $scope.searchCriteria.ProductIds = productIdList;
     };
 
-    $scope.initOtherPickers = function () {
-        $scope.communicationToolOptions = {
+    $scope.initMainCategoryMultiSelectPickers = function () {
+        $scope.categoryOptions = {
             DataList: [],
-            OnChangeEvent: $scope.updateSelectedCommunicationTool
-        };
-
-        $scope.mainCategoryOptions = {
-            DataList: [],
-            OnChangeEvent: $scope.updateSelectedMainCategory
+            OnChangeEvent: $scope.updateSelectedCategory,
+            AllText: casinoDailyEnhancementResources.All,
+            MaxHeight: 450,
+            NoItemText: casinoDailyEnhancementResources.Symbol_NotApply,
+            NoneSelectedText: casinoDailyEnhancementResources.Symbol_NotApply,
+            NumberOfItemShowShortText: 0
         };
     }
+    $scope.updateSelectedCategory = function (categoryIdList) {
+        $scope.searchCriteria.CategoryIds = categoryIdList;
+    };
+
+    $scope.initCommunicationMultiSelectPickers = function () {
+        $scope.communicationToolOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedCommunicationTool,
+            AllText: casinoDailyEnhancementResources.All,
+            MaxHeight: 450,
+            NoItemText: casinoDailyEnhancementResources.Symbol_NotApply,
+            NoneSelectedText: casinoDailyEnhancementResources.Symbol_NotApply,
+            NumberOfItemShowShortText: 0
+        };
+    }
+    $scope.updateSelectedCommunicationTool = function (communicationIdList) {
+        $scope.searchCriteria.CommunicationIds = communicationIdList;
+    };
 
     $scope.getAllSetting = function () {
         var params = {};
         casinoDailyService.getAllSetting()
                 .then(function (data) {
                     $scope.communicationToolOptions.DataList = data.Result.CommunicationToolList;
-                    $scope.mainCategoryOptions.DataList = data.Result.MainCategoryList;
+                    $scope.categoryOptions.DataList = data.Result.MainCategoryList;
                     $scope.productOptions.DataList = data.Result.ProductList;
+                });
+    };
+
+    $scope.getCasinoDailyEnhancementStatisticsReport = function () {
+        $uiBlockerService.blockUI();
+        var getReportCriteria = {
+            FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+            ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+            ProductId: $scope.searchCriteria.ProductIds,
+            MainCategoryId: $scope.searchCriteria.CategoryIds,
+            CommunicationId: $scope.searchCriteria.CommunicationIds
+        };
+
+        casinoDailyService.getCasinoDailyEnhancementMainReport(getReportCriteria)
+                .then(function (data) {                 
+                    $scope.ibcReportOptions.DataList = data.Result.IBCReport;
+                    $scope.ibcReportOptions.IsUpdateGrid = true;
+
+                    $uiBlockerService.unblockUI();
+                },
+                function (data) {
+                    $uiBlockerService.unblockUI();
                 });
     };
 

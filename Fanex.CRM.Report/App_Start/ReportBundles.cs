@@ -196,7 +196,7 @@ namespace Fanex.CRM.Report
                 "~/Scripts/FanexGridV2/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.css",
-                "~/Areas/Report/CasinoDailyStatistics/Styles/casinodaily.less");
+                "~/Areas/Report/DailyStatisticsReport/Styles/DailyStatisticsReport.less");
 
             bundles.Add(new ScriptBundle("~/bundles/Report/CasinoDailyEnhancementScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",

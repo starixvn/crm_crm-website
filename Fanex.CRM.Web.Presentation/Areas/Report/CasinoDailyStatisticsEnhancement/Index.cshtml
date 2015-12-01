@@ -15,9 +15,9 @@
         <div class="filter-frm one-row">
             <form data-ng-submit="getCasinoDailySummary()" novalidate>
                 <div class="row row-item">
-                    <div class="item col-xs-4 col-sm-4 col-md-4">
-                        <label class="col-xs-3 col-sm-3 col-md-3" for="products">@Labels.Product</label>
-                        <div class="product-Picker-Container display-inline-block" data-ng-model="productOptions.DataList" style="min-width: 260px;">
+                    <div class="item col-xs-5 col-sm-5 col-md-5">
+                        <label class="col-xs-2 col-sm-2 col-md-2" for="products">@Labels.Product</label>
+                        <div class="product-Picker-Container display-inline-block" data-ng-model="productOptions.DataList" style="min-width: 160px;">
                             <select id="product">
                             </select>
                         </div>
@@ -36,26 +36,41 @@
                     </div>
                 </div>
                 <div class="row row-item">
-                    <div class="item col-xs-4 col-sm-4 col-md-4 main-category-picker-container" data-ng-model="mainCategoryOptions.DataList">
-                        <label class="col-xs-3 col-sm-3 col-md-3" for="main-category">@Labels.Main_Category</label>
-                        <div class="display-inline-block">
-                            <select id="main-category" style="min-width: 200px;">
+                    <div class="item col-xs-5 col-sm-5 col-md-5">
+                        <label class="col-xs-2 col-sm-2 col-md-2" for="main-category">@Labels.Main_Category</label>
+                        <div class="display-inline-block" category-picker-container data-ng-model="categoryOptions.DataList" style="min-width: 300px;">
+                            <select id="category">
                             </select>
                         </div>
                     </div>
-                    <div class="item col-xs-4 col-sm-4 col-md-4 communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList">
+                    <div class="item col-xs-4 col-sm-4 col-md-4">
                         <label for="communication-tool">@Labels.Communication_Tool</label>
-                        <div class="display-inline-block">
-                            <select id="communication-tool" style="min-width: 235px;">
+                        <div class="display-inline-block communication-tool-picker-container" data-ng-model="communicationToolOptions.DataList"  style="min-width: 235px;">
+                            <select id="communication-tool">
                             </select>
                         </div>
                     </div>
                     <div class="item">
-                        <button class="btn">
+                        <button class="btn" data-ng-click="getCasinoDailyEnhancementStatisticsReport();">
                             <span class="hotkey">S</span>ubmit</button>
                     </div>
                 </div>
             </form>
+        </div>
+
+        <div>
+            <div data-ng-model="ibcReportOptions.IsUpdateGrid" class="display-none table-ibc-report-container">
+                <div id="table-ibc-report" class="freegrid  table-ibc-report">
+                </div>
+            </div>
+            <div data-ng-model="licenseeReportOptions.IsUpdateGrid" class="display-none table-licensee-report-container">
+                <div id="table-licensee-report" class="freegrid table-licensee-report">
+                </div>
+            </div>
+            <div data-ng-model="detailReportOptions.IsUpdateGrid" class="display-none table-detail-report-container">
+                <div id="table-detail-report" class="freegrid table-detail-report">
+                </div>
+            </div>
         </div>
     </div>
     <script type="text/javascript">
@@ -65,6 +80,11 @@
         var casinoDailyEnhancementResources = {
             All: '@Labels.All',
             Symbol_NotApply: '@Labels.Symbol_NotApply',
+            Grand_Total: '@Labels.Grand_Total',
+            Complaints_Enquiries: '@Labels.Complaints_Enquiries',
+            ViewDetail: '@Labels.ViewDetail',
+            ViewChart: '@Labels.ViewChart',
+            DailyStatisticsReport_ChartSuffix: '@Labels.DailyStatisticsReport_ChartSuffix',
         };
     </script>
     @RazorHelper.RenderScripts("~/Scripts/CommomScripts",

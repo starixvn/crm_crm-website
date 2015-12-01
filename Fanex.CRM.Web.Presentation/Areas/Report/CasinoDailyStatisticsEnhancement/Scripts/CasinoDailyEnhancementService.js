@@ -8,5 +8,10 @@ casinoDailyEnhancementApplication.factory('CasinoDailyEnhancementService', ['$ht
         return sharedScriptManager.registerAngularService($http, $q, url, params);
     }
 
+    serviceInstance.getCasinoDailyEnhancementMainReport = function (params) {
+        var url = window.rootUrl + "CasinoReportEnhancement/GetMainReport";
+        return sharedScriptManager.registerAngularService($http, $q, url, params);
+    }
+
     return serviceInstance;
 } ]);
