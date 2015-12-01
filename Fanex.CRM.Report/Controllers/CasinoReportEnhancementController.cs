@@ -6,6 +6,7 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
+    using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
     using Fanex.CRM.Common.Controllers;
@@ -32,21 +33,37 @@ namespace Fanex.CRM.Report.Controllers
             _serviceSetting = serviceSetting ?? new SettingService();
         }
 
-        [NapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = FunctionPermissions.CasinoReportEnhancement, Policy = Constant.Policy.Read)]
         public ActionResult CasinoDailyEnhancementStatistics()
         {
             return View("~/Areas/Report/CasinoDailyStatisticsEnhancement/Index.cshtml");
         }
 
         [HttpPost]
-        [AjaxNapAuth(FunctionKey = FunctionPermissions.CRMReport, Policy = Constant.Policy.Read)]
+        [AjaxNapAuth(FunctionKey = FunctionPermissions.CasinoReportEnhancement, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
+            var products = _serviceSetting.AllProduct().Select(p => new
+                {
+                    Id = p.Id,
+                    Name = p.Value
+                });
+            var communicationTools = _serviceSetting.AllCommunicationTool().Select(p => new
+                {
+                    Id = p.Id,
+                    Name = p.Name
+                });
+            var mainCategories = _serviceSetting.AllMainCategory().Select(p => new
+                {
+                    Id = p.Id,
+                    Name = p.Name
+                });
+
             var allSetting = new SettingForCasinoDailyStatisticsEnhancement
             {
-                CommunicationToolList = _serviceSetting.AllCommunicationTool(),
-                MainCategoryList = _serviceSetting.AllMainCategory(),
-                ProductList = _serviceSetting.AllProduct(),
+                CommunicationToolList = communicationTools,
+                MainCategoryList = mainCategories,
+                ProductList = products
             };
 
             return Json(allSetting, JsonRequestBehavior.AllowGet);

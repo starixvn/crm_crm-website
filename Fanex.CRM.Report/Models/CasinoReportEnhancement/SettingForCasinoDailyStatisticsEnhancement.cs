@@ -14,10 +14,10 @@ namespace Fanex.CRM.Report.Models.CasinoReportEnhancement
     /// </summary>
     public class SettingForCasinoDailyStatisticsEnhancement
     {
-        public List<SettingInfo> ProductList { get; set; }
+        public dynamic ProductList { get; set; }
 
-        public List<SettingInfo> MainCategoryList { get; set; }
+        public dynamic MainCategoryList { get; set; }
 
-        public List<SettingInfo> CommunicationToolList { get; set; }
+        public dynamic CommunicationToolList { get; set; }
     }
 }

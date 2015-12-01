@@ -4,25 +4,39 @@ hotKeyManager,
 sharedScriptManager,
 crmConstants,
 moment,
-casinoDailyResources,
 currentDate */
 /* jshint camelcase: false */
 /* jshint unused: vars */
 casinoDailyEnhancementApplication.controller('casinoDailyEnhancementController', ['$scope', 'CasinoDailyEnhancementService', '$uiBlockerService',
 function ($scope, casinoDailyService, $uiBlockerService) {
     $scope.allSettings = null;
+    $scope.productOptions = null;
     $scope.fromDateOptions = null;
     $scope.toDateOptions = null;
     $scope.searchCriteria = {
         FromDate: '',
         ToDate: '',
+        ProductIds: '',
         PageIndex: 0,
         PageSize: sharedScriptManager.cachedData.defaultItemsPerPage
     };
 
     $scope.initController = function () {
         $uiBlockerService.blockUI();
+
+        $scope.initPicker();
         $scope.getAllSetting();
+
+        $uiBlockerService.unblockUI();
+    };
+
+    $scope.initPicker = function () {
+        $scope.initDatePicker();
+        $scope.initProductMultiSelectPicker();
+        $scope.initOtherPickers();
+    }
+
+    $scope.initDatePicker = function () {
         $scope.fromDateOptions = {
             CurrentDate: currentDate,
             InitDate: currentDate,
@@ -60,16 +74,13 @@ function ($scope, casinoDailyService, $uiBlockerService) {
             Value: $scope,
             Id: 'CasinoDailyEnhancementStatistics'
         });
-        $uiBlockerService.unblockUI();
-    };
-
+    }
     $scope.updateFromDatePicker = function (isOnApply) {
         $scope.fromDateOptions.IsRerenderPicker = true;
         if (!isOnApply) {
             $scope.$apply();
         }
     };
-
     $scope.updateToDatePicker = function (isOnApply) {
         if ($scope.toDateOptions) {
             $scope.toDateOptions.IsRerenderPicker = true;
@@ -80,14 +91,41 @@ function ($scope, casinoDailyService, $uiBlockerService) {
         }
     };
 
+    $scope.initProductMultiSelectPicker = function () {
+        $scope.productOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedProduct,
+            AllText: casinoDailyEnhancementResources.All,
+            MinWidth: 200,
+            MaxHeight: 600,
+            NoItemText: "",
+            NoneSelectedText: casinoDailyEnhancementResources.Symbol_NotApply,
+            NumberOfItemShowShortText: 2
+        };
+    }
+    $scope.updateSelectedProduct = function (productIdList) {
+        $scope.searchCriteria.ProductIds = productIdList;
+    };
+
+    $scope.initOtherPickers = function () {
+        $scope.communicationToolOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedCommunicationTool
+        };
+
+        $scope.mainCategoryOptions = {
+            DataList: [],
+            OnChangeEvent: $scope.updateSelectedMainCategory
+        };
+    }
+
     $scope.getAllSetting = function () {
         var params = {};
         casinoDailyService.getAllSetting()
                 .then(function (data) {
-                    $scope.communicationToolOptionDataList = data.Result.CommunicationToolList;
-                    $scope.productOptionDataList = data.Result.ProductList;
-                    $scope.selected = $scope.productOptionDataList[0];
-                    $scope.mainCategoryOptionDataList = data.Result.MainCategoryList;
+                    $scope.communicationToolOptions.DataList = data.Result.CommunicationToolList;
+                    $scope.mainCategoryOptions.DataList = data.Result.MainCategoryList;
+                    $scope.productOptions.DataList = data.Result.ProductList;
                 });
     };
 

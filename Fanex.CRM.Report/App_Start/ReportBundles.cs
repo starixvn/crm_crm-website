@@ -202,6 +202,8 @@ namespace Fanex.CRM.Report
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/Directives/DatePicker.js",
+                "~/Scripts/ShareScripts/Directives/MultiSelect.js",
+                "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/CasinoDailyEnhancementApplication.js",
                 "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/CasinoDailyEnhancementService.js",

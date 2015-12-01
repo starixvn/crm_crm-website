@@ -538,6 +538,7 @@
     <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\CasinoDailyEnhancementApplication.js" />
     <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\CasinoDailyEnhancementController.js" />
     <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\CasinoDailyEnhancementService.js" />
+    <Content Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\Directives\RegisterSharedDirectives.js" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyApplication.js" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyController.js" />
     <Content Include="Areas\Report\CasinoDailyStatistics\Scripts\CasinoDailyService.js" />
@@ -1206,7 +1207,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -1219,7 +1222,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Customer\InformHeadlines\CreateTitle\Scripts\Directives\" />
-    <Folder Include="Areas\Report\CasinoDailyStatisticsEnhancement\Scripts\Directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.Setting.config">

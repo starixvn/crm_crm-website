@@ -389,6 +389,21 @@ function RegisterTemplate(application) {
 
         directiveManager.registerMultiSelectContainer(self.application, countryRegisterParams);
     };
+    self.registerProductMultiSelectPicker = function () {
+        var productRegisterParams = {
+            PlugInName: 'productPickerContainer',
+            OptionName: 'productOptions',
+            PickerId: 'product',
+            RestrictType: 'C',
+
+            DataPropertyName: {
+                Id: "Id",
+                Name: "Name"
+            }
+        };
+
+        directiveManager.registerMultiSelectContainer(self.application, productRegisterParams);
+    };
 
     self.registerToggleElement = function () {
         var countryRegisterParams = {
