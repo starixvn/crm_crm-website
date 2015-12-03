@@ -7,10 +7,10 @@
 namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
 {
     using Fanex.CRM.Report.Criteria.CasinoEnhancementReport;
-    using Fanex.CRM.Report.Models.StatisticsReportByDate;
+    using Fanex.CRM.Report.Models.CasinoReportEnhancement;
 
     public interface ICasinoEnhancementReportService
     {
-        StatisticsReportByDateModel GetReportData(CasinoEnhancementReportCriteria criteria);
+        StatisticsReportEnhancementByDateModel GetReportData(CasinoEnhancementReportCriteria criteria);
     }
 }

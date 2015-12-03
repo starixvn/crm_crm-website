@@ -13,24 +13,19 @@ var ReportDirectiveHelper = function () {
         var bodyData = [];
         var footerData = [];
         var communicationToolLength = report ? report.CommunicationTools.length : 0;
+        var productColumnLength = report ? report.Products.length : 0;
         var mainCategoryLength = report ? report.ChildReports.length : 0;
 
         var i, j;
-        for (i = 0; i < mainCategoryLength; i++) {
-            var mainCategory = report.ChildReports[i];
-            var subCategoryLength = mainCategory.ChildReports.length;
-            var subRows = [];
-            for (j = 0; j < subCategoryLength; j++) {
-                var subCategory = mainCategory.ChildReports[j];
-                subRows.push({ Columns: self.getRowColumns(subCategory, communicationToolLength) });
-            }
+            for (i = 0; i < mainCategoryLength; i++) {
+                var mainCategory = report.ChildReports[i];
+                var subRows = self.getDataRows(mainCategory, report.Products, communicationToolLength);
 
-            bodyData.push(
-            {
-                Columns: self.getRowColumns(mainCategory, communicationToolLength),
-                SubRows: subRows
-            });
-        }
+                bodyData.push({
+                    Columns: self.getRowValue(mainCategory, report.Products, communicationToolLength),
+                    SubRows: subRows
+                });
+            }
 
         if (mainCategoryLength) {
             var grandTotal =
@@ -41,20 +36,15 @@ var ReportDirectiveHelper = function () {
                 };
             footerData.push(
             {
-                Columns: self.getRowColumns(grandTotal, communicationToolLength)
+                Columns: self.getRowValue(grandTotal, report.Products, communicationToolLength)
             });
         }
 
         var groupHeaderRows = [{
             HeaderText: casinoDailyEnhancementResources.Complaints_Enquiries,
-            Name: "All_Products",
+            Name: "ColComplaints_Enquiries",
             MergeRowNumber: 2
         }];
-        groupHeaderRows.push({
-            HeaderText: "ALL PRODUCTS",
-            Name: 'ColCategory',
-            MergeColNumber: communicationToolLength + 1
-        });
 
         var headerColumns = [];
         headerColumns.push({
@@ -65,24 +55,34 @@ var ReportDirectiveHelper = function () {
             CellAlign: "left",
             ShowCollapseExpand: true
         });
-        for (i = 0; i < communicationToolLength; i++) {
-            var communicationTool = report.CommunicationTools[i];
+        for (i = 0; i < productColumnLength; i++) {
+            var product = report.Products[i];
+            groupHeaderRows.push({
+                HeaderText: product.Name,
+                Name: product.Id + "_ColCommunicationTool_0",
+                MergeColNumber: communicationToolLength + 1
+            });
+
+            for (j = 0; j < communicationToolLength; j++) {
+                var communicationTool = report.CommunicationTools[j];
+                headerColumns.push({
+                    HeaderText: communicationTool.Name,
+                    Width: 75,
+                    Name: product.Id + "_ColCommunicationTool_" + j,
+                    HeaderAlign: "center",
+                    CellAlign: "center"
+                });
+            }
+
             headerColumns.push({
-                HeaderText: communicationTool.Name,
+                HeaderText: casinoDailyEnhancementResources.Grand_Total,
                 Width: 75,
-                Name: "ColCommunicationTool_" + i,
+                Name: product.Id + "_ColCommunicationTool_GrandTotal",
                 HeaderAlign: "center",
-                CellAlign: "center"
+                CellAlign: "center",
             });
         }
 
-        headerColumns.push({
-            HeaderText: casinoDailyEnhancementResources.Grand_Total,
-            Width: 75,
-            Name: "ColCommunicationTool_GrandTotal",
-            HeaderAlign: "center",
-            CellAlign: "center"
-        });
         var viewChartIcon = '<input class="btnCharting " type="button" title="' + casinoDailyEnhancementResources.ViewChart + '" />';
         var viewDetailIcon = '<input class="btnViewDetail " type="button" title="' + casinoDailyEnhancementResources.ViewDetail + '" />';
         var gridOptions = {
@@ -98,7 +98,7 @@ var ReportDirectiveHelper = function () {
                 customButtons: viewChartIcon + viewDetailIcon
             },
             bodyRows: bodyData,
-            numberOfFrozenColumn: 0,
+            numberOfFrozenColumn: 1,
             fullWidth: true,
             fullHeight: false,
             gridExpandHeight: 0,
@@ -115,21 +115,40 @@ var ReportDirectiveHelper = function () {
 
         return gridOptions;
     };
-    self.getRowColumns = function (categoryIssuesInfo, communicationToolLength) {
-        var rowColumns = [{ Name: "ColComplaints_Enquiries", Value: categoryIssuesInfo.Name}];
-        for (var i = 0; i < communicationToolLength; i++) {
-            rowColumns.push({
-                Name: "ColCommunicationTool_" + i,
-                Value: numeral(categoryIssuesInfo.NumberOfIssueList[i]).format(crmConstants.Enums.FormatConstant.IntNumber)
+    self.getDataRows = function(subReport, products, communicationToolLength){
+        var rows = [];
+
+        for(var i = 0; i < subReport.ChildReports.length; i++){
+            if(subReport.ChildReports[i].ChildReports){
+                self.getDataRows(subReport.ChildReports[i], products, communicationToolLength);
+            }
+        }
+
+        var i;
+        var rowCount = subReport.ChildReports.length;
+        for (i = 0; i < rowCount; i++) {
+            var category = subReport.ChildReports[i];
+            rows.push({ Columns: self.getRowValue(category, products, communicationToolLength) });
+        }
+
+        return rows;
+    };
+    self.getRowValue = function (categoryIssuesInfo, products, communicationToolLength) {
+        var row = [{ Name: "ColComplaints_Enquiries", Value: categoryIssuesInfo.Name}];
+        for(var i = 0; i < products.length; i++){
+            for(var j = 0; j < communicationToolLength; j++){
+                row.push({
+                    Name: products[i].Id + "_ColCommunicationTool_" + j,
+                    Value: numeral(categoryIssuesInfo.NumberOfIssueGrandTotal).format(crmConstants.Enums.FormatConstant.IntNumber)
+                });
+            }
+            row.push({
+                Name: products[i].Id + "_ColCommunicationTool_GrandTotal",
+                Value: numeral(categoryIssuesInfo.NumberOfIssueGrandTotal).format(crmConstants.Enums.FormatConstant.IntNumber)
             });
         }
 
-        rowColumns.push({
-            Name: "ColCommunicationTool_GrandTotal",
-            Value: numeral(categoryIssuesInfo.NumberOfIssueGrandTotal).format(crmConstants.Enums.FormatConstant.IntNumber)
-        });
-
-        return rowColumns;
+        return row;
     };
     self.viewChart = function (scope, report) {
         var crmChart = parent.crmChart;

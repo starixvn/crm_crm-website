@@ -11,8 +11,10 @@
 }
 @helper RenderStyles(params string[] links)
 {
-    var version = AppSetting.ResourceVersion;
-    links = links.Select(x => x + "?v=" + version).ToArray();
-
+    if (!AppSetting.IsLocalTest)
+    {
+        var version = AppSetting.ResourceVersion;
+        links = links.Select(x => x + "?v=" + version).ToArray();
+    }
     @Styles.Render(links)
 }
