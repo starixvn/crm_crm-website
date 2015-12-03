@@ -45,6 +45,17 @@ var ReportDirectiveHelper = function () {
             });
         }
 
+        var groupHeaderRows = [{
+            HeaderText: casinoDailyEnhancementResources.Complaints_Enquiries,
+            Name: "All_Products",
+            MergeRowNumber: 2
+        }];
+        groupHeaderRows.push({
+            HeaderText: "ALL PRODUCTS",
+            Name: 'ColCategory',
+            MergeColNumber: communicationToolLength + 1
+        });
+
         var headerColumns = [];
         headerColumns.push({
             HeaderText: casinoDailyEnhancementResources.Complaints_Enquiries,
@@ -75,6 +86,8 @@ var ReportDirectiveHelper = function () {
         var viewChartIcon = '<input class="btnCharting " type="button" title="' + casinoDailyEnhancementResources.ViewChart + '" />';
         var viewDetailIcon = '<input class="btnViewDetail " type="button" title="' + casinoDailyEnhancementResources.ViewDetail + '" />';
         var gridOptions = {
+            customizeHeader: true,
+            groupHeaderRows: [{ Columns: groupHeaderRows}],
             columns: headerColumns,
             showTitle: true,
             titleInfo: {
