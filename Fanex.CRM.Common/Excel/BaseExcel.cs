@@ -14,6 +14,8 @@ namespace Fanex.CRM.Common.Excel
     /// </summary>
     public abstract class BaseExcel
     {
+        protected const string IntegerFormat = "#,#0";
+
         private readonly string _excelFileName;
         
         private readonly HSSFWorkbook _workBook;

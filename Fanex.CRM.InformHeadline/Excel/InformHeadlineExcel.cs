@@ -162,16 +162,16 @@ namespace Fanex.CRM.InformHeadline.Excel
 
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, HttpUtility.HtmlDecode(inform.Title), leftAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, string.Format("{0:MMM dd, yyyy}", inform.ClientCreatedDate), leftAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Total, centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Total.ToString(IntegerFormat), centerAlignStyle);
                 NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Status, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Done, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.RequestToCallBack, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoNeedToCall, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoReply, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Uncontactable, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.InternalAccount, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NeverTouch, centerAlignStyle);
-                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.KeptForReference, centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Done.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.RequestToCallBack.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoNeedToCall.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NoReply.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.Uncontactable.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.InternalAccount.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.NeverTouch.ToString(IntegerFormat), centerAlignStyle);
+                NpoiExcelExtensions.RenderCell(row, currentColumn++, inform.KeptForReference.ToString(IntegerFormat), centerAlignStyle);
 
                 currentRow++;
                 currentColumn = exportExcelInfo.StartColumn;
