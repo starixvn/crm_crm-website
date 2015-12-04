@@ -4,6 +4,7 @@ viewResources */
 /* jshint camelcase: false,
 unused: vars */
 angular.module('informHeadlineApplication').directive('informHeadlineListContainer', ['$document', function ($document) {
+    var INT_FORMAT = "0,00";
     var selfScope;
     var listData;
 
@@ -53,16 +54,16 @@ angular.module('informHeadlineApplication').directive('informHeadlineListContain
                     { HeaderText: viewResources.Edit, Width: 50, Name: "Edit", HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: viewResources.Title, Width: 250, Name: "Title", HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
                     { HeaderText: viewResources.CreatedDate, Width: 100, Name: "CreatedDate", HeaderAlign: "center", FormatDateTime: "MMM DD, YYYY" },
-                    { HeaderText: viewResources.NoDirectAccounts, Width: 100, Name: "NoDirectAccounts", HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: viewResources.NoDirectAccounts, Width: 100, Name: "NoDirectAccounts", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
                     { HeaderText: viewResources.Status, Width: 100, Name: "Status", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Done, Width: 100, Name: "Done", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.RequestToCallBack, Width: 100, Name: "RequestToCallBack", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NoNeedToCall, Width: 100, Name: "NoNeedToCall", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NoReply, Width: 100, Name: "NoReply", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.Uncontactable, Width: 100, Name: "Uncontactable", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.InternalAccount, Width: 100, Name: "InternalAccount", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.NeverTouch, Width: 100, Name: "NeverTouch", HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: viewResources.KeptForReference, Width: 100, Name: "KeptForReference", HeaderAlign: "center", CellAlign: "center" }
+                    { HeaderText: viewResources.Done, Width: 100, Name: "Done", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.RequestToCallBack, Width: 100, Name: "RequestToCallBack", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.NoNeedToCall, Width: 100, Name: "NoNeedToCall", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.NoReply, Width: 100, Name: "NoReply", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.Uncontactable, Width: 100, Name: "Uncontactable", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.InternalAccount, Width: 100, Name: "InternalAccount", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.NeverTouch, Width: 100, Name: "NeverTouch", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT },
+                    { HeaderText: viewResources.KeptForReference, Width: 100, Name: "KeptForReference", HeaderAlign: "center", CellAlign: "center", FormatNumber: INT_FORMAT }
                 ],
             showTitle: true,
             titleInfo: {
@@ -87,7 +88,7 @@ angular.module('informHeadlineApplication').directive('informHeadlineListContain
             columnsNeedHide: rowsCount === 0 || scope.searchPolicy === "Host" ? null : [0]
         };
 
-        $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);            
+        $table.removeClass(crmConstants.Enums.CssClass.DisplayNone).fanexGrid(gridOptions);
     }
 
     return {
