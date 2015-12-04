@@ -6,6 +6,7 @@
 
 namespace Fanex.CRM.Report.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.CRM.Common.Constants;
@@ -66,17 +67,20 @@ namespace Fanex.CRM.Report.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.CasinoReportEnhancement, Policy = Constant.Policy.Read)]
         public ActionResult GetAllSettings()
         {
-            var products = _serviceSetting.AllProduct().Select(p => new
+            var productSettings = new List<int>() { 8000, 8001, 8003, 8009, 8010, 8013, 8014 };
+            var communicationSettings = new List<int>() { 1000, 1001, 1003, 1006, 1007 };
+            var mainCategorySettings = new List<int>() { 3000, 3001, 3003, 3008, 3009 };
+            var products = _serviceSetting.AllProduct().Where(p => productSettings.Contains(p.Id)).Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Value
                 });
-            var communicationTools = _serviceSetting.AllCommunicationTool().Select(p => new
+            var communicationTools = _serviceSetting.AllCommunicationTool().Where(p => communicationSettings.Contains(p.Id)).Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Name
                 });
-            var mainCategories = _serviceSetting.AllMainCategory().Select(p => new
+            var mainCategories = _serviceSetting.AllMainCategory().Where(p => mainCategorySettings.Contains(p.Id)).Select(p => new
                 {
                     Id = p.Id,
                     Name = p.Name

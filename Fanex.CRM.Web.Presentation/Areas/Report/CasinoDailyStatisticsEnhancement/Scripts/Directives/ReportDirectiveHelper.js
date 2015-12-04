@@ -12,33 +12,33 @@ var ReportDirectiveHelper = function () {
     self.getGridOptions = function (report) {
         var bodyData = [];
         var footerData = [];
-        var communicationToolLength = report ? report.CommunicationTools.length : 0;
-        var productColumnLength = report ? report.Products.length : 0;
-        var mainCategoryLength = report ? report.ChildReports.length : 0;
+
+        var mainCategories = report.MainCategories;
+        var products = report.Products;
+
+        var productColumns = report.ProductColumns;
+        var communicationColumns = report.CommunicationColumns;
+
+        var mainCategoryLength = mainCategories.length;
 
         var i, j;
             for (i = 0; i < mainCategoryLength; i++) {
-                var mainCategory = report.ChildReports[i];
-                var subRows = self.getDataRows(mainCategory, report.Products, communicationToolLength);
+                var mainCategory = mainCategories[i];
+
+                var subCategories = mainCategory.ChildReports;            
+                var subCategoryRows = [];
+                for(var j = 0; j < subCategories.length; j++){
+                    var productsGroup = self.getProductsBySubCategory(subCategories[j].Id, products);
+                    var subCategoryDataRows = self.getSubCategoryData(subCategories[j], productsGroup);
+
+                    subCategoryRows.push({ Columns: subCategoryDataRows });
+                }
 
                 bodyData.push({
-                    Columns: self.getRowValue(mainCategory, report.Products, communicationToolLength),
-                    SubRows: subRows
+                    Columns: self.getMainCategoryDataRows(mainCategory, productColumns),
+                    SubRows: subCategoryRows
                 });
             }
-
-        if (mainCategoryLength) {
-            var grandTotal =
-                {
-                    Name: casinoDailyEnhancementResources.Grand_Total,
-                    NumberOfIssueList: report.NumberOfIssueList,
-                    NumberOfIssueGrandTotal: report.NumberOfIssueGrandTotal
-                };
-            footerData.push(
-            {
-                Columns: self.getRowValue(grandTotal, report.Products, communicationToolLength)
-            });
-        }
 
         var groupHeaderRows = [{
             HeaderText: casinoDailyEnhancementResources.Complaints_Enquiries,
@@ -55,20 +55,18 @@ var ReportDirectiveHelper = function () {
             CellAlign: "left",
             ShowCollapseExpand: true
         });
-        for (i = 0; i < productColumnLength; i++) {
-            var product = report.Products[i];
+        for (i = 0; i < productColumns.length; i++) {
             groupHeaderRows.push({
-                HeaderText: product.Name,
-                Name: product.Id + "_ColCommunicationTool_0",
-                MergeColNumber: communicationToolLength + 1
+                HeaderText: productColumns[i].Name,
+                Name: productColumns[i].Id + "_ColCommunicationTool_0",
+                MergeColNumber: communicationColumns.length + 1
             });
 
-            for (j = 0; j < communicationToolLength; j++) {
-                var communicationTool = report.CommunicationTools[j];
+            for (j = 0; j < communicationColumns.length; j++) {
                 headerColumns.push({
-                    HeaderText: communicationTool.Name,
+                    HeaderText: communicationColumns[j].Name,
                     Width: 75,
-                    Name: product.Id + "_ColCommunicationTool_" + j,
+                    Name: productColumns[i].Id + "_ColCommunicationTool_" + j,
                     HeaderAlign: "center",
                     CellAlign: "center"
                 });
@@ -77,7 +75,7 @@ var ReportDirectiveHelper = function () {
             headerColumns.push({
                 HeaderText: casinoDailyEnhancementResources.Grand_Total,
                 Width: 75,
-                Name: product.Id + "_ColCommunicationTool_GrandTotal",
+                Name: productColumns[i].Id + "_ColCommunicationTool_GrandTotal",
                 HeaderAlign: "center",
                 CellAlign: "center",
             });
@@ -115,41 +113,73 @@ var ReportDirectiveHelper = function () {
 
         return gridOptions;
     };
-    self.getDataRows = function(subReport, products, communicationToolLength){
-        var rows = [];
+    self.getMainCategoryDataRows = function(mainCategory, products, productColumns, communicationColumns) {
+        var mainCategoryRows = [{ Name: "ColComplaints_Enquiries", Value: mainCategory.Name}];
+        var listOfCommunicationCount = mainCategory.NumberOfCommunication;
 
-        for(var i = 0; i < subReport.ChildReports.length; i++){
-            if(subReport.ChildReports[i].ChildReports){
-                self.getDataRows(subReport.ChildReports[i], products, communicationToolLength);
+        for(var i = 0; i < productColumns.length; i++){
+            var product = products[i];
+
+            for(var j = 0; j < communicationColumns; j++){
+                var communicationCountDataRows = self.getCommunicationCountDataRows(communicationColumns, product);
+                mainCategoryRows = mainCategoryRows.concat(communicationCountDataRows);
             }
-        }
 
-        var i;
-        var rowCount = subReport.ChildReports.length;
-        for (i = 0; i < rowCount; i++) {
-            var category = subReport.ChildReports[i];
-            rows.push({ Columns: self.getRowValue(category, products, communicationToolLength) });
-        }
-
-        return rows;
-    };
-    self.getRowValue = function (categoryIssuesInfo, products, communicationToolLength) {
-        var row = [{ Name: "ColComplaints_Enquiries", Value: categoryIssuesInfo.Name}];
-        for(var i = 0; i < products.length; i++){
-            for(var j = 0; j < communicationToolLength; j++){
-                row.push({
-                    Name: products[i].Id + "_ColCommunicationTool_" + j,
-                    Value: numeral(categoryIssuesInfo.NumberOfIssueGrandTotal).format(crmConstants.Enums.FormatConstant.IntNumber)
-                });
-            }
-            row.push({
-                Name: products[i].Id + "_ColCommunicationTool_GrandTotal",
-                Value: numeral(categoryIssuesInfo.NumberOfIssueGrandTotal).format(crmConstants.Enums.FormatConstant.IntNumber)
+            mainCategoryRows.push({
+                Name: product.Id + "_ColCommunicationTool_GrandTotal",
+                Value: numeral(mainCategory.NumberOfIssueGrandTotal).format(crmConstants.Enums.FormatConstant.IntNumber)
             });
         }
 
-        return row;
+        return mainCategoryRows;
     };
+    self.getSubCategoryData = function(subCategory, products) {
+        var subCategoryRows = [{ Name: "ColComplaints_Enquiries", Value: subCategory.Name}];
+
+        var dataDetail = self.getRowValue(products);
+
+        subCategoryRows = subCategoryRows.concat(dataDetail);
+        return subCategoryRows;
+    };
+    self.getProductsBySubCategory = function(subCategoryId, products) {
+        var productsBySubcategory = [];
+        for(var i = 0; i < products.length; i++){
+            if(products[i].SubCategoryId === subCategoryId){
+                productsBySubcategory.push(products[i]);
+            }
+        }
+
+        return productsBySubcategory;
+    };
+
+    self.getRowValue = function (products) {
+        var dataDetail = [];
+        for(var i = 0; i < products.length; i++){
+            var product = products[i];
+            var listOfCommunicationCount = product.NumberOfCommunication;
+            var communicationCountDataRows = self.getCommunicationCountDataRows(listOfCommunicationCount, product);
+            dataDetail = dataDetail.concat(communicationCountDataRows);
+
+            dataDetail.push({
+                Name: product.Id + "_ColCommunicationTool_GrandTotal",
+                Value: numeral(product.NumberOfIssueGrandTotal).format(crmConstants.Enums.FormatConstant.IntNumber)
+            });
+        }
+
+        return dataDetail;
+    };
+    self.getCommunicationCountDataRows = function (listOfCommunicationCount, product){
+        var communicationCountDataRows = [];
+        for(var i = 0; i < listOfCommunicationCount.length; i++){
+            communicationCountDataRows.push({
+                Name: product.Id + "_ColCommunicationTool_" + i,
+                Value: numeral(listOfCommunicationCount[i]).format(crmConstants.Enums.FormatConstant.IntNumber)
+            });
+        }
+
+        return communicationCountDataRows;
+    };
+
     self.viewChart = function (scope, report) {
         var crmChart = parent.crmChart;
         crmChart.title = report ? report.Name : "";

@@ -11,6 +11,6 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
 
     public interface ICasinoEnhancementReportService
     {
-        StatisticsReportEnhancementByDateModel GetReportData(CasinoEnhancementReportCriteria criteria);
+        CasinoReportEnhancementViewModel GetReportData(CasinoEnhancementReportCriteria criteria);
     }
 }

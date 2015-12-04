@@ -6,12 +6,12 @@
 
 namespace Fanex.CRM.Report.Repositories.CasinoReportEnhancement
 {
-    using System;
+    using System.Collections.Generic;
     using Fanex.CRM.Report.Criteria.CasinoEnhancementReport;
-    using Fanex.CRM.Report.Models.CasinoReportEnhancement;
+    using Fanex.CRM.Report.Entities.StatisticsReportByDate;
 
     public interface ICasinoReportEnhancementRepository
     {
-        StatisticsInfoByDateEnhancementRepositoryResultModel GetReportData(CasinoEnhancementReportCriteria criteria);
+        IEnumerable<StatisticByDateEnhancementEntity> GetReportData(CasinoEnhancementReportCriteria criteria);
     }
 }

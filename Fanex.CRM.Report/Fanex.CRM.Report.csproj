@@ -203,9 +203,10 @@
     <Compile Include="Entities\SummaryReport\SummaryRawData.cs" />
     <Compile Include="Entities\WagerReport\WagerRawData.cs" />
     <Compile Include="Helpers\FieldHelper.cs" />
+    <Compile Include="Models\CasinoReportEnhancement\EnhancementReportBaseModel.cs" />
+    <Compile Include="Models\CasinoReportEnhancement\EnhancementReportProduct.cs" />
     <Compile Include="Models\CasinoReportEnhancement\SettingForCasinoDailyStatisticsEnhancement.cs" />
-    <Compile Include="Models\CasinoReportEnhancement\StatisticsInfoByDateEnhancementRepositoryResultModel.cs" />
-    <Compile Include="Models\CasinoReportEnhancement\StatisticsReportEnhancementByDateModel.cs" />
+    <Compile Include="Models\CasinoReportEnhancement\CasinoReportEnhancementViewModel.cs" />
     <Compile Include="Models\CasinoReport\CasinoDailySummary.cs" />
     <Compile Include="Models\CasinoReport\CasinoDetail.cs" />
     <Compile Include="Models\CasinoReport\CasinoGroup.cs" />
