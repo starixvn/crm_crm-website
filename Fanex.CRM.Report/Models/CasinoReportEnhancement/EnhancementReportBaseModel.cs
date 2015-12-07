@@ -14,20 +14,19 @@ namespace Fanex.CRM.Report.Models.CasinoReportEnhancement
     {
         public EnhancementReportBaseModel()
         {
-            ChildReports = new List<EnhancementReportBaseModel>();
-            NumberOfCommunication = new List<int>();
+            ListOfCommunicationCount = new List<int>();
         }
 
-        public IEnumerable<int> NumberOfCommunication { get; set; }
+        public List<int> ListOfCommunicationCount { get; set; }
+
+        public List<int> ListOfCommunicationSumByProduct { get; set; }
 
         public int TotalCommunications
         {
             get
             {
-                return NumberOfCommunication.Sum();
+                return ListOfCommunicationCount.Sum();
             }
         }
-
-        public IEnumerable<EnhancementReportBaseModel> ChildReports { get; set; }
     }
 }

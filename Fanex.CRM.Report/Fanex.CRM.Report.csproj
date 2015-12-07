@@ -204,7 +204,7 @@
     <Compile Include="Entities\WagerReport\WagerRawData.cs" />
     <Compile Include="Helpers\FieldHelper.cs" />
     <Compile Include="Models\CasinoReportEnhancement\EnhancementReportBaseModel.cs" />
-    <Compile Include="Models\CasinoReportEnhancement\EnhancementReportProduct.cs" />
+    <Compile Include="Models\CasinoReportEnhancement\EnhancementReportMainCategory.cs" />
     <Compile Include="Models\CasinoReportEnhancement\SettingForCasinoDailyStatisticsEnhancement.cs" />
     <Compile Include="Models\CasinoReportEnhancement\CasinoReportEnhancementViewModel.cs" />
     <Compile Include="Models\CasinoReport\CasinoDailySummary.cs" />

@@ -50,16 +50,17 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
 
                 var casinoReportEnhancement = new CasinoReportEnhancementViewModel
                 {
-                    Id = criteria.SiteType,
+                    Id = 1,
                     Name = reportTitle,
-                    AliasName = ChartHelper.ViewChartFromToDateTitle(
-                       DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
-                       DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate()),
-                    MainCategories = GetMainCategories(repositoryResult),
-                    Products = GetProducts(repositoryResult),
                     CommunicationColumns = GetCommunicationColumns(repositoryResult),
                     ProductColumns = GetProductColumns(repositoryResult)
                 };
+
+                int productLength = casinoReportEnhancement.ProductColumns.Count();
+                int communicationLength = casinoReportEnhancement.CommunicationColumns.Count();
+
+                casinoReportEnhancement.MainCategories = GetMainCategories(repositoryResult, productLength, communicationLength);
+                SumTotalCommunicationForMainCategory(casinoReportEnhancement.MainCategories);
 
                 return casinoReportEnhancement;
             }
@@ -75,10 +76,9 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
             return string.Empty;
         }
 
-        private IEnumerable<EnhancementReportBaseModel> GetMainCategories(
-            IEnumerable<StatisticByDateEnhancementEntity> repositoryData)
+        private IEnumerable<EnhancementReportMainCategory> GetMainCategories(
+            IEnumerable<StatisticByDateEnhancementEntity> repositoryData, int productLength, int communicationLength)
         {
-            var mainCategories = new List<EnhancementReportBaseModel>();
             var dataGroupByMainCategory = repositoryData.GroupBy(data =>
                      new
                      {
@@ -86,125 +86,94 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
                          MainCategory = data.MainCategory
                      });
 
-            foreach (var reportData in dataGroupByMainCategory)
+            return dataGroupByMainCategory.Select(reportData => new EnhancementReportMainCategory
             {
-                int mainCategoryId = reportData.Key.MainCategoryId;
-                EnhancementReportBaseModel mainCategory = new EnhancementReportBaseModel
-                    {
-                        Id = mainCategoryId,
-                        Name = reportData.Key.MainCategory,
-                        NumberOfCommunication = GetCommunicationCountOfMainCategory(reportData),
-                        ChildReports = GetSubCategories(reportData)
-                    };
-
-                mainCategories.Add(mainCategory);
-            }
-
-            return mainCategories;
-        }
-
-        private IEnumerable<int> GetCommunicationCountOfMainCategory(
-            IGrouping<dynamic, StatisticByDateEnhancementEntity> mainCategoryGroup)
-        {
-            var listOfCommunicationCount = new List<int>();
-            var dataGroupByCommunication = mainCategoryGroup.GroupBy(data =>
-                new
-                {
-                    SubCategoryId = data.SubCategoryId,
-                    CommunicationId = data.CommunicationId,
-                });
-
-            foreach (var data in dataGroupByCommunication)
-            {
-                var sumOfCommunication = data.Sum(p => p.Total);
-                listOfCommunicationCount.Add(sumOfCommunication);
-            }
-
-            return listOfCommunicationCount;
+                Id = reportData.Key.MainCategoryId,
+                Name = reportData.Key.MainCategory,
+                SubCategories = GetSubCategories(reportData),
+                ListOfCommunicationSumByProduct = Enumerable.Repeat(0, productLength).ToList(),
+                ListOfCommunicationCount = Enumerable.Repeat(0, productLength * communicationLength).ToList()
+            }).ToList();
         }
 
         private IEnumerable<EnhancementReportBaseModel> GetSubCategories(
             IGrouping<dynamic, StatisticByDateEnhancementEntity> mainCategoryGroup)
         {
             var dataGroupBySubCategory = mainCategoryGroup.GroupBy(s => new { s.SubCategoryId, s.SubCategory });
-            var subCategories = new List<EnhancementReportBaseModel>();
 
-            foreach (var data in dataGroupBySubCategory)
+            return dataGroupBySubCategory.Select(data => new EnhancementReportBaseModel
             {
-                var subCategory = new EnhancementReportBaseModel
-                {
-                    Id = data.Key.SubCategoryId,
-                    Name = data.Key.SubCategory
-                };
-
-                subCategories.Add(subCategory);
-            }
-
-            return subCategories;
+                Id = data.Key.SubCategoryId,
+                Name = data.Key.SubCategory,
+                ListOfCommunicationSumByProduct = GetSumOfCommunicationByProductForSubCategory(data),
+                ListOfCommunicationCount = GetNumberOfCommunicationForSubCategory(data)
+            }).ToList();
         }
 
-        private IEnumerable<EnhancementReportProduct> GetProducts(
-            IEnumerable<StatisticByDateEnhancementEntity> repositoryData)
+        private List<int> GetSumOfCommunicationByProductForSubCategory(
+            IGrouping<dynamic, StatisticByDateEnhancementEntity> subCategoryGroup)
         {
-            var dataGroupByProduct = repositoryData.GroupBy(s => 
-                new 
-                {
-                    s.MainCategoryId,
-                    s.MainCategory,
-                    s.SubCategoryId,
-                    s.SubCategory,
-                    s.ProductId, 
-                    s.Product 
-                });
+            var communicatonToolGroup = subCategoryGroup.GroupBy(data =>
+                    new
+                    {
+                        ProductId = data.ProductId,
+                    }).ToList();
 
-            var products = new List<EnhancementReportProduct>();
+            return communicatonToolGroup.ToList().Select(data => data.Sum(p => p.Total)).ToList();
+        }
 
-            foreach (var data in dataGroupByProduct)
+        private List<int> GetNumberOfCommunicationForSubCategory(
+            IGrouping<dynamic, StatisticByDateEnhancementEntity> subCategoryGroup)
+        {
+            List<int> numberOfCommunication = new List<int>();
+
+            var communicatonToolGroup = subCategoryGroup.GroupBy(data =>
+                    new
+                    {
+                        ProductId = data.ProductId,
+                    }).ToList();
+
+            foreach (var data in communicatonToolGroup)
             {
-                var product = new EnhancementReportProduct
-                {
-                    Id = data.Key.ProductId,
-                    Name = data.Key.Product,
-                    SubCategoryId = data.Key.SubCategoryId,
-                    ChildReports = GetDataDetail(data),
-                };
+                numberOfCommunication.AddRange(data.Select(p => p.Total));
+            }
 
-                var numberofCommunication = new List<int>();
-                foreach (var communication in data)
+            return numberOfCommunication;
+        }
+
+        private void SumTotalCommunicationForMainCategory(IEnumerable<EnhancementReportMainCategory> mainCategories)
+        {
+            foreach (var mainCategory in mainCategories)
+            {
+                foreach (var subCategory in mainCategory.SubCategories)
                 {
-                    numberofCommunication.Add(communication.Total);
+                    SumCommunicationCountForMainCategory(mainCategory, subCategory.ListOfCommunicationCount);
+                    SumCommunicationCountByProductForMainCategory(mainCategory, subCategory.ListOfCommunicationSumByProduct);
                 }
-
-                product.NumberOfCommunication = numberofCommunication;
-
-                products.Add(product);
             }
-
-            return products;
         }
 
-        private IEnumerable<EnhancementReportBaseModel> GetDataDetail(
-            IGrouping<dynamic, StatisticByDateEnhancementEntity> productGroup)
+        private void SumCommunicationCountForMainCategory(
+            EnhancementReportBaseModel mainCategory, List<int> numBerOfCommunicationBySubCategory)
         {
-            var communications = new List<EnhancementReportBaseModel>();
-            foreach (var data in productGroup)
+            for (int i = 0; i < numBerOfCommunicationBySubCategory.Count; i++)
             {
-                var dataDetail = new EnhancementReportBaseModel
-                {
-                    Id = data.CommunicationId,
-                    Name = data.Communication
-                };
-
-                communications.Add(dataDetail);
+                mainCategory.ListOfCommunicationCount[i] += numBerOfCommunicationBySubCategory[i];
             }
+        }
 
-            return communications;
+        private void SumCommunicationCountByProductForMainCategory(
+            EnhancementReportBaseModel mainCategory, List<int> sumOfCommunicationBySubCategory)
+        {
+            for (int i = 0; i < sumOfCommunicationBySubCategory.Count; i++)
+            {
+                mainCategory.ListOfCommunicationSumByProduct[i] += sumOfCommunicationBySubCategory[i];
+            }
         }
 
         private List<BaseModel> GetCommunicationColumns(
             IEnumerable<StatisticByDateEnhancementEntity> repositoryData)
         {
-            var result = new List<BaseModel>();
             var communicatonToolGroup = repositoryData.GroupBy(data =>
                     new
                     {
@@ -212,23 +181,16 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
                         Name = data.Communication
                     }).ToList();
 
-            foreach (var item in communicatonToolGroup)
+            return communicatonToolGroup.Select(item => new BaseModel
             {
-                var communicationTool = new BaseModel
-                {
-                    Id = item.Key.Id,
-                    Name = item.Key.Name
-                };
-                result.Add(communicationTool);
-            }
-
-            return result;
+                Id = item.Key.Id,
+                Name = item.Key.Name
+            }).ToList();
         }
 
         private List<BaseModel> GetProductColumns(
             IEnumerable<StatisticByDateEnhancementEntity> repositoryData)
         {
-            var result = new List<BaseModel>();
             var productGroup = repositoryData.GroupBy(data =>
                     new
                     {
@@ -236,17 +198,11 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
                         Name = data.Product
                     }).ToList();
 
-            foreach (var item in productGroup)
+            return productGroup.Select(item => new BaseModel
             {
-                var product = new BaseModel
-                {
-                    Id = item.Key.Id,
-                    Name = item.Key.Name
-                };
-                result.Add(product);
-            }
-
-            return result;
+                Id = item.Key.Id,
+                Name = item.Key.Name
+            }).ToList();
         }
     }
 }

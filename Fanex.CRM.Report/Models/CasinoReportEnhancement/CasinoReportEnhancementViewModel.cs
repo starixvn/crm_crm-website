@@ -7,22 +7,61 @@
 namespace Fanex.CRM.Report.Models.CasinoReportEnhancement
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Fanex.CRM.Infrastructure.Models;
 
     public class CasinoReportEnhancementViewModel : BaseModel
     {
         public CasinoReportEnhancementViewModel()
         {
-            MainCategories = new List<EnhancementReportBaseModel>();
-            Products = new List<EnhancementReportProduct>();
+            MainCategories = new List<EnhancementReportMainCategory>();
         }
 
-        public IEnumerable<EnhancementReportBaseModel> MainCategories { get; set; }
-
-        public IEnumerable<EnhancementReportProduct> Products { get; set; }
+        public IEnumerable<EnhancementReportMainCategory> MainCategories { get; set; }
 
         public IEnumerable<BaseModel> ProductColumns { get; set; }
 
         public IEnumerable<BaseModel> CommunicationColumns { get; set; }
+
+        public List<int> GrandTotalOfCommunicationCount
+        {
+            get
+            {
+                List<int> sumOfCommunications =
+                        Enumerable.Repeat(0, ProductColumns.Count() * CommunicationColumns.Count()).ToList();
+                foreach (var mainCategory in MainCategories)
+                {
+                    for (int i = 0; i < mainCategory.ListOfCommunicationCount.Count; i++)
+                    {
+                        sumOfCommunications[i] += mainCategory.ListOfCommunicationCount[i];
+                    }
+                }
+
+                return sumOfCommunications;
+            }
+        }
+
+        public List<int> GrandTotalOfCommunicationSumByProduct
+        {
+            get
+            {
+                List<int> sumOfCommunicationsByProduct =
+                        Enumerable.Repeat(0, ProductColumns.Count()).ToList();
+                foreach (var mainCategory in MainCategories)
+                {
+                    for (int i = 0; i < mainCategory.ListOfCommunicationSumByProduct.Count; i++)
+                    {
+                        sumOfCommunicationsByProduct[i] += mainCategory.ListOfCommunicationSumByProduct[i];
+                    }
+                }
+
+                return sumOfCommunicationsByProduct;
+            }
+        }
+
+        public int GrandTotalAllCommunications
+        {
+            get { return MainCategories.Sum(mainCategory => mainCategory.TotalCommunications); }
+        }
     }
 }

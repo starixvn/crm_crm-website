@@ -54,6 +54,7 @@ namespace Fanex.CRM.Report.Controllers
             criteria.ProductType = (int)ProductType.Detail;
             criteria.CategoryType = (int)CategoryType.SubCategory;
             criteria.SiteType = (int)SiteType.IBC;
+            criteria.FromDate = new System.DateTime(2015, 10, 1);
 
             var jsonResult = Json(new
             {
