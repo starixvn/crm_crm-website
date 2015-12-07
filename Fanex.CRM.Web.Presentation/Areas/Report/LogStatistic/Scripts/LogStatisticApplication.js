@@ -2,5 +2,5 @@
     'use strict';
     /* exported casinoDailyApplication */
     /* global RegisterTemplate */
-    angular.module('report-casinodaily-enhancement-application', ['$uiBlockerApplication']);
+    angular.module('log-statistic-application', ['$uiBlockerApplication']);
 })();

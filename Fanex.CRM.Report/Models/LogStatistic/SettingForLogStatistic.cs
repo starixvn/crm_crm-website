@@ -1,18 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SettingForCasinoDailyStatisticsEnhancement.cs" company="Microsoft">
+// <copyright file="SettingForLogStatistic.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Models.CasinoReportEnhancement
+namespace Fanex.CRM.Report.Models.LogStatistic
 {
     using System.Collections.Generic;
     using Fanex.CRM.Common.Models;
 
-    /// <summary>
-    /// Setting For Casino Daily Statistics Enhancement
-    /// </summary>
-    public class SettingForCasinoDailyStatisticsEnhancement
+    public class SettingForLogStatistic
     {
         public dynamic ProductList { get; set; }
 

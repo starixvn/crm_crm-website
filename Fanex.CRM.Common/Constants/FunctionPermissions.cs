@@ -62,6 +62,6 @@ namespace Fanex.CRM.Common.Constants
 
         public const string FBSubjectTemplateManagement = "FBSubjectTemplateManagement";
 
-        public const string CasinoReportEnhancement = "CasinoReportEnhancement";
+        public const string LogStatistic = "LogStatistic";
     }
 }

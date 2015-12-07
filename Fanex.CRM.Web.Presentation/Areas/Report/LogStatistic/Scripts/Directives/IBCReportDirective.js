@@ -1,11 +1,10 @@
 ﻿(function () {
     "use strict";
-    /* global casinoDailyEnhancementApplication,
-    crmConstants,
+    /* global crmConstants,
     reportDirectiveHelper */
     /* jshint unused: vars,
     camelcase: false */
-    angular.module('report-casinodaily-enhancement-application').directive('tableIbcReportContainer', function () {
+    angular.module('log-statistic-application').directive('tableIbcReportContainer', function () {
         var selfScope;
         var cachedTable;
         var cachedReport;

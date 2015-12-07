@@ -834,4 +834,13 @@
   <data name="Poker" xml:space="preserve">
     <value>Poker</value>
   </data>
+  <data name="LogStatisticsReport_Title" xml:space="preserve">
+    <value>{0} Daily Log Statistics | {1} - {2}</value>
+  </data>
+  <data name="All_Products" xml:space="preserve">
+    <value>All Products</value>
+  </data>
+  <data name="ProductCollapseExpand" xml:space="preserve">
+    <value>Product Collapse/Expand</value>
+  </data>
 </root>

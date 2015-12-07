@@ -36,5 +36,20 @@ namespace Fanex.CRM.Common.Helpers
                     return string.Empty;
             }
         }
+
+        public static string GetLogStatisticSiteTypeName(int siteType)
+        {
+            switch (siteType)
+            {
+                case (int)LogStatisticSiteType.IBC:
+                    return Labels.IBC;
+
+                case (int)LogStatisticSiteType.Licensee:
+                    return Labels.Licensee;
+
+                default:
+                    return string.Empty;
+            }
+        }
     }
 }

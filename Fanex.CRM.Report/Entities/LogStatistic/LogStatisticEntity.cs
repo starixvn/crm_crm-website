@@ -1,14 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="StatisticByDateEnhancementEntity.cs" company="Microsoft">
+// <copyright file="LogStatistic.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Entities.StatisticsReportByDate
+namespace Fanex.CRM.Report.Entities.LogStatistic
 {
     using System;
 
-    public class StatisticByDateEnhancementEntity
+    public class LogStatisticEntity
     {
         public int MainCategoryId { get; set; }
 

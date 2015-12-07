@@ -1,15 +1,15 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CasinoEnhancementReportCriteria.cs" company="Microsoft">
+// <copyright file="LogStatisticCriteria.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Criteria.CasinoEnhancementReport
+namespace Fanex.CRM.Report.Criteria.LogStatistic
 {
     using System;
     using Fanex.Data.Repository;
 
-    public class CasinoEnhancementReportCriteria : CriteriaBase
+    public class LogStatisticCriteria : CriteriaBase
     {
         public DateTime FromDate { get; set; }
 
@@ -29,7 +29,7 @@ namespace Fanex.CRM.Report.Criteria.CasinoEnhancementReport
 
         public override string GetSettingKey()
         {
-            return "Report_CasinoDailyEnhancementStatistics";
+            return "Report_LogStatistic";
         }
 
         public override bool IsValid()

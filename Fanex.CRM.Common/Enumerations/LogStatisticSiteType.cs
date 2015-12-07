@@ -6,7 +6,7 @@
 
 namespace Fanex.CRM.Common.Enumerations
 {
-    public enum SiteType
+    public enum LogStatisticSiteType
     {
         IBC = 0,
 

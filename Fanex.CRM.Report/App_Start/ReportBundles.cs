@@ -29,7 +29,7 @@ namespace Fanex.CRM.Report
             RegisterFeedbackStatisticBundles(bundles);
             RegisterFeedbackStatisticDetailBundles(bundles);
 
-            RegisterCasinoDailyEnhancementStatisticsBundles(bundles);
+            RegisterLogStatisticBundles(bundles);
         }
 
         /// <summary>
@@ -185,30 +185,30 @@ namespace Fanex.CRM.Report
         }
 
         /// <summary>
-        /// Registers the casino daily enhancement statistics bundles.
+        /// Registers the log statistics bundles.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void RegisterCasinoDailyEnhancementStatisticsBundles(BundleCollection bundles)
+        private static void RegisterLogStatisticBundles(BundleCollection bundles)
         {
             AddAndInclude(
                 bundles,
-                "~/bundles/Report/CasinoDailyEnhancementStyles",
+                "~/bundles/Report/LogStatisticStyles",
                 "~/Scripts/FanexGridV2/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
                 "~/Scripts/FanexGridV2/Fanex.Pagination.css",
-                "~/Areas/Report/DailyStatisticsReport/Styles/DailyStatisticsReport.less");
+                "~/Areas/Report/LogStatistic/Styles/DailyStatisticsReport.less");
 
-            bundles.Add(new ScriptBundle("~/bundles/Report/CasinoDailyEnhancementScripts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/Report/LogStatisticScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
                 "~/Scripts/ShareScripts/HotKeyManager.js",
                 "~/Scripts/ShareScripts/Directives/DatePicker.js",
                 "~/Scripts/ShareScripts/Directives/MultiSelect.js",
                 "~/Scripts/ShareScripts/Directives/DropdownList.js",
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
-                "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/CasinoDailyEnhancementApplication.js",
-                "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/CasinoDailyEnhancementService.js",
-                "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/CasinoDailyEnhancementController.js",
-                "~/Areas/Report/CasinoDailyStatisticsEnhancement/Scripts/Directives/*.js"));
+                "~/Areas/Report/LogStatistic/Scripts/LogStatisticApplication.js",
+                "~/Areas/Report/LogStatistic/Scripts/LogStatisticService.js",
+                "~/Areas/Report/LogStatistic/Scripts/LogStatisticController.js",
+                "~/Areas/Report/LogStatistic/Scripts/Directives/*.js"));
         }
 
         private static void AddAndInclude(

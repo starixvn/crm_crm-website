@@ -8,8 +8,8 @@
     currentDate */
     /* jshint camelcase: false */
     /* jshint unused: vars */
-    angular.module('report-casinodaily-enhancement-application').controller('casinoDailyEnhancementController', ['$scope', 'CasinoDailyEnhancementService', '$uiBlockerService',
-    function ($scope, casinoDailyService, $uiBlockerService) {
+    angular.module('log-statistic-application').controller('logStatisticController', ['$scope', 'LogStatisticService', '$uiBlockerService',
+    function ($scope, logStatisticService, $uiBlockerService) {
         $scope.allSettings = null;
         $scope.productOptions = null;
         $scope.categoryOptions = null;
@@ -30,6 +30,8 @@
             IsUpdateGrid: false,
             IsExpand: false
         };
+
+        $scope.downloadFileOptions = null;
 
         $scope.initController = function () {
             $uiBlockerService.blockUI();
@@ -83,7 +85,7 @@
 
             hotKeyManager.CachedData.ActiveDocumentManager.push({
                 Value: $scope,
-                Id: 'CasinoDailyEnhancementStatistics'
+                Id: 'LogStatistic'
             });
         }
         $scope.updateFromDatePicker = function (isOnApply) {
@@ -106,11 +108,11 @@
             $scope.productOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedProduct,
-                AllText: casinoDailyEnhancementResources.All,
+                AllText: viewResources.All,
                 MinWidth: 200,
                 MaxHeight: 600,
-                NoItemText: casinoDailyEnhancementResources.Symbol_NotApply,
-                NoneSelectedText: casinoDailyEnhancementResources.Symbol_NotApply,
+                NoItemText: viewResources.Symbol_NotApply,
+                NoneSelectedText: viewResources.Symbol_NotApply,
                 NumberOfItemShowShortText: 2
             };
         }
@@ -122,10 +124,10 @@
             $scope.categoryOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedCategory,
-                AllText: casinoDailyEnhancementResources.All,
+                AllText: viewResources.All,
                 MaxHeight: 450,
-                NoItemText: casinoDailyEnhancementResources.Symbol_NotApply,
-                NoneSelectedText: casinoDailyEnhancementResources.Symbol_NotApply,
+                NoItemText: viewResources.Symbol_NotApply,
+                NoneSelectedText: viewResources.Symbol_NotApply,
                 NumberOfItemShowShortText: 0
             };
         }
@@ -137,10 +139,10 @@
             $scope.communicationToolOptions = {
                 DataList: [],
                 OnChangeEvent: $scope.updateSelectedCommunicationTool,
-                AllText: casinoDailyEnhancementResources.All,
+                AllText: viewResources.All,
                 MaxHeight: 450,
-                NoItemText: casinoDailyEnhancementResources.Symbol_NotApply,
-                NoneSelectedText: casinoDailyEnhancementResources.Symbol_NotApply,
+                NoItemText: viewResources.Symbol_NotApply,
+                NoneSelectedText: viewResources.Symbol_NotApply,
                 NumberOfItemShowShortText: 0
             };
         }
@@ -150,7 +152,7 @@
 
         $scope.getAllSetting = function () {
             var params = {};
-            casinoDailyService.getAllSetting()
+            logStatisticService.getAllSetting()
                     .then(function (data) {
                         $scope.communicationToolOptions.DataList = data.Result.CommunicationToolList;
                         $scope.categoryOptions.DataList = data.Result.MainCategoryList;
@@ -158,7 +160,7 @@
                     });
         };
 
-        $scope.getCasinoDailyEnhancementStatisticsReport = function () {
+        $scope.getLogStatisticReport = function () {
             $uiBlockerService.blockUI();
             var getReportCriteria = {
                 FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
@@ -168,7 +170,7 @@
                 CommunicationId: $scope.searchCriteria.CommunicationIds
             };
 
-            casinoDailyService.getCasinoDailyEnhancementMainReport(getReportCriteria)
+            logStatisticService.getMainReport(getReportCriteria)
                     .then(function (data) {
                         $scope.ibcReportOptions.DataList = data.Result.IBCReport;
                         $scope.ibcReportOptions.IsUpdateGrid = true;
@@ -188,6 +190,45 @@
             });
             $uiBlockerService.unblockUI();
         }
+
+        $scope.viewDetail = function (siteType) {
+            $uiBlockerService.blockUI();
+            $scope.searchCriteria.SiteType = siteType;
+            var getDetailReportCriteria = {
+                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                SiteType: siteType,
+                PageIndex: 1,
+                PageSize: sharedScriptManager.cachedData.defaultItemsPerPage,
+                IsPagingCallBack: false
+            };
+
+            logStatisticService.getDetailReport(getDetailReportCriteria)
+                .then(function (data) {
+                    $scope.detailReportOptions.DataList = data.Result;
+                    $scope.detailReportOptions.IsUpdateGrid = true;
+                    $uiBlockerService.unblockUI();
+                },
+                function (data) {
+                    $uiBlockerService.unblockUI();
+                });
+        };
+
+        $scope.exportIBCReport = function () {
+            var getReportCriteria = {
+                FromDate: moment($scope.searchCriteria.FromDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                ToDate: moment($scope.searchCriteria.ToDate).format(crmConstants.Enums.FormatConstant.ShortDate_String_Moment),
+                ProductId: $scope.searchCriteria.ProductIds,
+                MainCategoryId: $scope.searchCriteria.CategoryIds,
+                CommunicationId: $scope.searchCriteria.CommunicationIds
+            };
+            $scope.downloadFileOptions = {
+                URL: window.rootUrl + "LogStatistic/ExportIbcReport",
+                Params: getReportCriteria
+            };
+
+            $scope.$apply();
+        };
 
         angular.element(document).ready(function () {
             $scope.initController();

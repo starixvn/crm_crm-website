@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
     /* global
-    casinoDailyEnhancementResources,
+    viewResources,
     crmConstants,
     numeral */
     /* jshint camelcase: false,
@@ -13,14 +13,14 @@
         self.getGridOptions = function (report, isExpand) {
             var groupHeaders = [
             {
-                HeaderText: casinoDailyEnhancementResources.Complaints_Enquiries,
+                HeaderText: viewResources.Complaints_Enquiries,
                 Name: "ColComplaints_Enquiries",
                 MergeRowNumber: 2
             }
         ];
             var headers = [
             {
-                HeaderText: casinoDailyEnhancementResources.Complaints_Enquiries,
+                HeaderText: viewResources.Complaints_Enquiries,
                 Width: 300,
                 Name: "ColComplaints_Enquiries",
                 HeaderAlign: "center",
@@ -29,9 +29,9 @@
             }
         ];
 
-            var horizontalExpansion = '<input class="btnExpansion " type="button" title="' + "Expand / Collapse Horizontally" + '" />';
-            var viewChartIcon = '<input class="btnCharting " type="button" title="' + casinoDailyEnhancementResources.ViewChart + '" />';
-            var viewDetailIcon = '<input class="btnViewDetail " type="button" title="' + casinoDailyEnhancementResources.ViewDetail + '" />';
+            var horizontalExpansion = '<input class="btnExpansion " type="button" title="' + viewResources.ProductCollapseExpand + '" />';
+            var viewChartIcon = '<input class="btnCharting " type="button" title="' + viewResources.ViewChart + '" />';
+            var viewDetailIcon = '<input class="btnViewDetail " type="button" title="' + viewResources.ViewDetail + '" />';
 
             var gridOptions = {
                 customizeHeader: true,
@@ -67,14 +67,14 @@
         };
 
         self.getGridOptionWhenExpanding = function (report, gridOptions, groupHeaders, headers) {
-            self.createReportHeaderWhenExpanding(groupHeaders, headers, report.ProductColumns, report.CommunicationColumns);
+            self.createReportHeader(groupHeaders, headers, report.ProductColumns, report.CommunicationColumns);
             groupHeaders.push({
-                HeaderText: "Grand Total",
+                HeaderText: viewResources.Grand_Total,
                 Name: "GrandTotal",
                 MergeRowNumber: 2
             });
             headers.push({
-                HeaderText: "Grand Total",
+                HeaderText: viewResources.Grand_Total,
                 Width: 100,
                 Name: "GrandTotal",
                 HeaderAlign: "center",
@@ -88,26 +88,6 @@
             self.createReportFooterWhenExpanding(report, footerData);
 
             self.setDataForGridOptions(gridOptions, groupHeaders, headers, bodyData, footerData);
-        };
-        self.createReportHeaderWhenExpanding = function (groupHeaders, headers, productColumns, communicationColumns) {
-            for (var i = 0; i < productColumns.length; i++) {
-                var product = productColumns[i];
-                groupHeaders.push({
-                    HeaderText: productColumns[i].Name,
-                    Name: product.Id + "_ColCommunicationTool_0",
-                    MergeColNumber: communicationColumns.length + 1
-                });
-
-                self.createCommunicationHeader(headers, product, communicationColumns);
-
-                headers.push({
-                    HeaderText: casinoDailyEnhancementResources.Grand_Total,
-                    Width: 120,
-                    Name: product.Id + "_ColCommunicationTool_GrandTotal",
-                    HeaderAlign: "center",
-                    CellAlign: "center"
-                });
-            }
         };
         self.createReportBodyWhenExpanding = function (report, bodyData) {
             var mainCategories = report.MainCategories;
@@ -128,7 +108,7 @@
         };
         self.createReportFooterWhenExpanding = function (report, footerData) {
             var grandTotal = {
-                Name: "Grand Total",
+                Name: viewResources.Grand_Total,
                 ListOfCommunicationCount: report.GrandTotalOfCommunicationCount,
                 ListOfCommunicationSumByProduct: report.GrandTotalOfCommunicationSumByProduct,
                 TotalCommunications: report.GrandTotalAllCommunications
@@ -168,8 +148,8 @@
         };
 
         self.getGridOptionWhenCollapsing = function (report, gridOptions, groupHeaders, headers) {
-            var productHeaderGroup = { Id: 0, Name: "ALL PRODUCTS" };
-            self.createReportHeaderWhenCollapsing(groupHeaders, headers, productHeaderGroup, report.CommunicationColumns);
+            var productHeaderGroup = [{ Id: 0, Name: viewResources.All_Products.toUpperCase() }];
+            self.createReportHeader(groupHeaders, headers, productHeaderGroup, report.CommunicationColumns);
 
             var bodyData = [];
             self.createReportBodyWhenCollapsing(report, bodyData);
@@ -178,28 +158,6 @@
             self.createReportFooterWhenCollapsing(report, footerData);
 
             self.setDataForGridOptions(gridOptions, groupHeaders, headers, bodyData, footerData);
-        };
-        self.createReportHeaderWhenCollapsing = function (groupHeaders, headers, productHeaderGroup, communicationColumns) {
-            groupHeaders.push({
-                HeaderText: productHeaderGroup.Name,
-                Name: productHeaderGroup.Id + "_ColCommunicationTool_0",
-                MergeColNumber: communicationColumns.length
-            });
-
-            self.createCommunicationHeader(headers, productHeaderGroup, communicationColumns);
-
-            groupHeaders.push({
-                HeaderText: casinoDailyEnhancementResources.Grand_Total,
-                Name: productHeaderGroup.Id + "_ColCommunicationTool_GrandTotal",
-                MergeRowNumber: 2
-            });
-            headers.push({
-                HeaderText: casinoDailyEnhancementResources.Grand_Total,
-                Width: 120,
-                Name: productHeaderGroup.Id + "_ColCommunicationTool_GrandTotal",
-                HeaderAlign: "center",
-                CellAlign: "center"
-            });
         };
         self.createReportBodyWhenCollapsing = function (report, bodyData) {
             var mainCategories = report.MainCategories;
@@ -220,7 +178,7 @@
         };
         self.createReportFooterWhenCollapsing = function (report, footerData) {
             var grandTotal = {
-                Name: "Grand Total",
+                Name: viewResources.Grand_Total,
                 ListOfCommunicationCount: report.GrandTotalOfCommunicationCount,
                 ListOfCommunicationSumByProduct: report.GrandTotalOfCommunicationSumByProduct,
                 TotalCommunications: report.GrandTotalAllCommunications
@@ -261,6 +219,26 @@
             return dataDetail;
         };
 
+        self.createReportHeader = function (groupHeaders, headers, productColumns, communicationColumns) {
+            for (var i = 0; i < productColumns.length; i++) {
+                var product = productColumns[i];
+                groupHeaders.push({
+                    HeaderText: productColumns[i].Name,
+                    Name: product.Id + "_ColCommunicationTool_0",
+                    MergeColNumber: communicationColumns.length + 1
+                });
+
+                self.createCommunicationHeader(headers, product, communicationColumns);
+
+                headers.push({
+                    HeaderText: viewResources.Grand_Total,
+                    Width: 120,
+                    Name: product.Id + "_ColCommunicationTool_GrandTotal",
+                    HeaderAlign: "center",
+                    CellAlign: "center"
+                });
+            }
+        };
         self.createCommunicationHeader = function (headers, product, communicationColumns) {
             for (var j = 0; j < communicationColumns.length; j++) {
                 headers.push({
@@ -293,21 +271,21 @@
                 chartType: crmChart.chartType.bar,
                 xAxisLabel: "",
                 yAxisLabel: "",
-                yAxisUnit: casinoDailyEnhancementResources.DailyStatisticsReport_ChartSuffix
+                yAxisUnit: viewResources.DailyStatisticsReport_ChartSuffix
             });
 
             crmChart.viewChart(chartData, chartOption);
             parent.$(".ui-dialog-titlebar-close").click(function () {
-                scope.setFocus();
+                //scope.setFocus();
             });
         };
 
         self.getChartLabels = function (chartInfo) {
             var xAxisCategories = [];
-            var communicationToolLength = chartInfo ? chartInfo.CommunicationTools.length : 0;
-            for (var i = 0; i < communicationToolLength; i++) {
-                var communicationTool = chartInfo.CommunicationTools[i];
-                xAxisCategories.push(communicationTool.Name);
+            var communicationColumnsCount = chartInfo ? chartInfo.CommunicationColumns.length : 0;
+            for (var i = 0; i < communicationColumnsCount; i++) {
+                var communication = chartInfo.CommunicationColumns[i];
+                xAxisCategories.push(communication.Name);
             }
 
             return xAxisCategories;
@@ -315,15 +293,15 @@
         self.getChartDatasets = function (chartInfo, crmChart) {
             var chartSeries = [];
             var chartSerie = null;
-            var childReportLength = chartInfo ? chartInfo.SubCategories.length : 0;
-            for (var xIndex = 0; xIndex < childReportLength; xIndex++) {
-                var mainCategoryReport = chartInfo.SubCategories[xIndex];
+            var mainCategoriesCount = chartInfo ? chartInfo.MainCategories.length : 0;
+            for (var xIndex = 0; xIndex < mainCategoriesCount; xIndex++) {
+                var mainCategory = chartInfo.MainCategories[xIndex];
                 var backgroundColor = crmChart.getBackGroundColor(xIndex);
                 chartSerie = {
                     fillColor: backgroundColor,
                     strokeColor: backgroundColor,
-                    data: mainCategoryReport.NumberOfIssueList,
-                    title: mainCategoryReport.Name
+                    data: mainCategory.ListOfCommunicationCount,
+                    title: mainCategory.Name
                 };
                 chartSeries.push(chartSerie);
             }

@@ -1,23 +1,23 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="StatisticsReportEnhancementByDateModel.cs" company="Microsoft">
+// <copyright file="LogStatisticViewModel.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Models.CasinoReportEnhancement
+namespace Fanex.CRM.Report.Models.LogStatistic
 {
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.CRM.Infrastructure.Models;
 
-    public class CasinoReportEnhancementViewModel : BaseModel
+    public class LogStatisticViewModel : BaseModel
     {
-        public CasinoReportEnhancementViewModel()
+        public LogStatisticViewModel()
         {
-            MainCategories = new List<EnhancementReportMainCategory>();
+            MainCategories = new List<LogStatisticMainCategory>();
         }
 
-        public IEnumerable<EnhancementReportMainCategory> MainCategories { get; set; }
+        public IEnumerable<LogStatisticMainCategory> MainCategories { get; set; }
 
         public IEnumerable<BaseModel> ProductColumns { get; set; }
 

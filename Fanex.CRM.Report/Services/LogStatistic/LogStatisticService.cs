@@ -1,10 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="CasinoEnhancementReportService.cs" company="Microsoft">
+// <copyright file="LogStatisticService.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
+namespace Fanex.CRM.Report.Services.LogStatistic
 {
     using System;
     using System.Collections.Generic;
@@ -13,42 +13,42 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
     using Fanex.CRM.Infrastructure.Extensions;
     using Fanex.CRM.Infrastructure.Helpers;
     using Fanex.CRM.Infrastructure.Models;
-    using Fanex.CRM.Report.Criteria.CasinoEnhancementReport;
-    using Fanex.CRM.Report.Entities.StatisticsReportByDate;
-    using Fanex.CRM.Report.Models;
-    using Fanex.CRM.Report.Models.CasinoReportEnhancement;
-    using Fanex.CRM.Report.Repositories.CasinoReportEnhancement;
+    using Fanex.CRM.Report.Criteria.LogStatistic;
+    using Fanex.CRM.Report.Entities.LogStatistic;
+    using Fanex.CRM.Report.Models.LogStatistic;
+    using Fanex.CRM.Report.Repositories.LogStatistic;
+    using Fanex.CRM.Report.Resources;
 
-    public class CasinoEnhancementReportService : ICasinoEnhancementReportService
+    public class LogStatisticService : ILogStatisticService
     {
-        private readonly ICasinoReportEnhancementRepository _casinoReportEnhancementRepository;
+        private readonly ILogStatisticRepository _logStatisticRepository;
 
-        public CasinoEnhancementReportService()
+        public LogStatisticService()
             : this(null)
         {
         }
 
-        public CasinoEnhancementReportService(ICasinoReportEnhancementRepository casinoReportEnhancementRepository)
+        public LogStatisticService(ILogStatisticRepository logStatisticRepository)
         {
-            _casinoReportEnhancementRepository = casinoReportEnhancementRepository ?? new CasinoReportEnhancementRepository();
+            _logStatisticRepository = logStatisticRepository ?? new LogStatisticRepository();
         }
 
-        public CasinoReportEnhancementViewModel GetReportData(CasinoEnhancementReportCriteria criteria)
+        public LogStatisticViewModel GetReportData(LogStatisticCriteria criteria)
         {
             try
             {
                 criteria.FromDate = DateTimeUtilize.ChangeClientFromTimeToServerTime(criteria.FromDate);
                 criteria.ToDate = DateTimeUtilize.ChangeClientToTimeToServerTime(criteria.ToDate);
 
-                var repositoryResult = _casinoReportEnhancementRepository.GetReportData(criteria);
+                var repositoryResult = _logStatisticRepository.GetReportData(criteria);
 
                 var reportTitle = string.Format(
                     MainReportTitle(),
-                    SiteHelper.SiteTypeName(criteria.SiteType),
+                    SiteHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
 
-                var casinoReportEnhancement = new CasinoReportEnhancementViewModel
+                var logStatistic = new LogStatisticViewModel
                 {
                     Id = 1,
                     Name = reportTitle,
@@ -56,13 +56,13 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
                     ProductColumns = GetProductColumns(repositoryResult)
                 };
 
-                int productLength = casinoReportEnhancement.ProductColumns.Count();
-                int communicationLength = casinoReportEnhancement.CommunicationColumns.Count();
+                int productLength = logStatistic.ProductColumns.Count();
+                int communicationLength = logStatistic.CommunicationColumns.Count();
 
-                casinoReportEnhancement.MainCategories = GetMainCategories(repositoryResult, productLength, communicationLength);
-                SumTotalCommunicationForMainCategory(casinoReportEnhancement.MainCategories);
+                logStatistic.MainCategories = GetMainCategories(repositoryResult, productLength, communicationLength);
+                SumTotalCommunicationForMainCategory(logStatistic.MainCategories);
 
-                return casinoReportEnhancement;
+                return logStatistic;
             }
             catch (Exception ex)
             {
@@ -73,11 +73,11 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
 
         public virtual string MainReportTitle()
         {
-            return string.Empty;
+            return Labels.LogStatisticsReport_Title;
         }
 
-        private IEnumerable<EnhancementReportMainCategory> GetMainCategories(
-            IEnumerable<StatisticByDateEnhancementEntity> repositoryData, int productLength, int communicationLength)
+        private IEnumerable<LogStatisticMainCategory> GetMainCategories(
+            IEnumerable<LogStatisticEntity> repositoryData, int productLength, int communicationLength)
         {
             var dataGroupByMainCategory = repositoryData.GroupBy(data =>
                      new
@@ -86,7 +86,7 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
                          MainCategory = data.MainCategory
                      });
 
-            return dataGroupByMainCategory.Select(reportData => new EnhancementReportMainCategory
+            return dataGroupByMainCategory.Select(reportData => new LogStatisticMainCategory
             {
                 Id = reportData.Key.MainCategoryId,
                 Name = reportData.Key.MainCategory,
@@ -96,12 +96,12 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
             }).ToList();
         }
 
-        private IEnumerable<EnhancementReportBaseModel> GetSubCategories(
-            IGrouping<dynamic, StatisticByDateEnhancementEntity> mainCategoryGroup)
+        private IEnumerable<LogStatisticBaseModel> GetSubCategories(
+            IGrouping<dynamic, LogStatisticEntity> mainCategoryGroup)
         {
             var dataGroupBySubCategory = mainCategoryGroup.GroupBy(s => new { s.SubCategoryId, s.SubCategory });
 
-            return dataGroupBySubCategory.Select(data => new EnhancementReportBaseModel
+            return dataGroupBySubCategory.Select(data => new LogStatisticBaseModel
             {
                 Id = data.Key.SubCategoryId,
                 Name = data.Key.SubCategory,
@@ -111,7 +111,7 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
         }
 
         private List<int> GetSumOfCommunicationByProductForSubCategory(
-            IGrouping<dynamic, StatisticByDateEnhancementEntity> subCategoryGroup)
+            IGrouping<dynamic, LogStatisticEntity> subCategoryGroup)
         {
             var communicatonToolGroup = subCategoryGroup.GroupBy(data =>
                     new
@@ -123,7 +123,7 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
         }
 
         private List<int> GetNumberOfCommunicationForSubCategory(
-            IGrouping<dynamic, StatisticByDateEnhancementEntity> subCategoryGroup)
+            IGrouping<dynamic, LogStatisticEntity> subCategoryGroup)
         {
             List<int> numberOfCommunication = new List<int>();
 
@@ -141,7 +141,7 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
             return numberOfCommunication;
         }
 
-        private void SumTotalCommunicationForMainCategory(IEnumerable<EnhancementReportMainCategory> mainCategories)
+        private void SumTotalCommunicationForMainCategory(IEnumerable<LogStatisticMainCategory> mainCategories)
         {
             foreach (var mainCategory in mainCategories)
             {
@@ -154,7 +154,7 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
         }
 
         private void SumCommunicationCountForMainCategory(
-            EnhancementReportBaseModel mainCategory, List<int> numBerOfCommunicationBySubCategory)
+            LogStatisticBaseModel mainCategory, List<int> numBerOfCommunicationBySubCategory)
         {
             for (int i = 0; i < numBerOfCommunicationBySubCategory.Count; i++)
             {
@@ -163,7 +163,7 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
         }
 
         private void SumCommunicationCountByProductForMainCategory(
-            EnhancementReportBaseModel mainCategory, List<int> sumOfCommunicationBySubCategory)
+            LogStatisticBaseModel mainCategory, List<int> sumOfCommunicationBySubCategory)
         {
             for (int i = 0; i < sumOfCommunicationBySubCategory.Count; i++)
             {
@@ -172,7 +172,7 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
         }
 
         private List<BaseModel> GetCommunicationColumns(
-            IEnumerable<StatisticByDateEnhancementEntity> repositoryData)
+            IEnumerable<LogStatisticEntity> repositoryData)
         {
             var communicatonToolGroup = repositoryData.GroupBy(data =>
                     new
@@ -189,7 +189,7 @@ namespace Fanex.CRM.Report.Services.CasinoEnhancementReport
         }
 
         private List<BaseModel> GetProductColumns(
-            IEnumerable<StatisticByDateEnhancementEntity> repositoryData)
+            IEnumerable<LogStatisticEntity> repositoryData)
         {
             var productGroup = repositoryData.GroupBy(data =>
                     new

@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="EnhancementReportProductModel.cs" company="Microsoft">
+// <copyright file="LogStatisticBaseModel.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Report.Models.CasinoReportEnhancement
+namespace Fanex.CRM.Report.Models.LogStatistic
 {
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.CRM.Infrastructure.Models;
 
-    public class EnhancementReportBaseModel : BaseModel
+    public class LogStatisticBaseModel : BaseModel
     {
-        public EnhancementReportBaseModel()
+        public LogStatisticBaseModel()
         {
             ListOfCommunicationCount = new List<int>();
         }
