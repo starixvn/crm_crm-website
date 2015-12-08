@@ -50,7 +50,7 @@
             restrict: 'C',
             scope: true,
             link: function (scope, element, attrs) {
-                scope.$parent.$watch(attrs.ngModel, function (oldval, newval) {
+                scope.$watch(attrs.ngModel, function (oldval, newval) {
                     if (!scope.ibcReportOptions ||
                     !scope.ibcReportOptions.IsUpdateGrid) {
                         return;

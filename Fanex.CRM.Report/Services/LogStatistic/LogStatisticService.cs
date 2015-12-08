@@ -15,6 +15,7 @@ namespace Fanex.CRM.Report.Services.LogStatistic
     using Fanex.CRM.Infrastructure.Models;
     using Fanex.CRM.Report.Criteria.LogStatistic;
     using Fanex.CRM.Report.Entities.LogStatistic;
+    using Fanex.CRM.Report.Helpers;
     using Fanex.CRM.Report.Models.LogStatistic;
     using Fanex.CRM.Report.Repositories.LogStatistic;
     using Fanex.CRM.Report.Resources;
@@ -44,7 +45,7 @@ namespace Fanex.CRM.Report.Services.LogStatistic
 
                 var reportTitle = string.Format(
                     MainReportTitle(),
-                    SiteHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
+                    ReportHelper.GetLogStatisticSiteTypeName(criteria.SiteType),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.FromDate).ToShortFormatedDate(),
                     DateTimeUtilize.ChangeTimeZoneToClientDateTime(criteria.ToDate).ToShortFormatedDate());
 

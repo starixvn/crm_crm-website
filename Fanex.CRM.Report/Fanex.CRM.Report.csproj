@@ -202,8 +202,10 @@
     <Compile Include="Criteria\StatisticReport\GetStatisticReportCriteria.cs" />
     <Compile Include="Entities\SummaryReport\SummaryRawData.cs" />
     <Compile Include="Entities\WagerReport\WagerRawData.cs" />
+    <Compile Include="Enums\LogStatisticReportType.cs" />
     <Compile Include="Excels\LogStatistic\LogStatisticExcel.cs" />
     <Compile Include="Helpers\FieldHelper.cs" />
+    <Compile Include="Helpers\ReportHelper.cs" />
     <Compile Include="Models\LogStatistic\LogStatisticBaseModel.cs" />
     <Compile Include="Models\LogStatistic\LogStatisticMainCategory.cs" />
     <Compile Include="Models\LogStatistic\SettingForLogStatistic.cs" />

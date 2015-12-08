@@ -42,17 +42,9 @@ namespace Fanex.CRM.Report.Excels.LogStatistic
 
             SetColumnsWidth(exportExcelInfo);
             GenerateTitle(exportExcelInfo, _logStatisticReport.Name);
+
             GenerateHeader(exportExcelInfo);
-
-            if (_logStatisticReport == null || _logStatisticReport.MainCategories.Count() == 0)
-            {
-                NpoiExcelExtensions.RenderNoInfoMessage(exportExcelInfo, exportExcelInfo.CurrentRow);
-            }
-            else
-            {
-                GenerateBodyData(exportExcelInfo);
-            }
-
+            GenerateBodyData(exportExcelInfo);
             GenerateFooterData(exportExcelInfo);
 
             NpoiExcelExtensions.ResponseStreamExcel(exportExcelInfo.ExcelFile, ExcelFileName);

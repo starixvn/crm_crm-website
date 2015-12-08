@@ -1,12 +1,12 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SiteType.cs" company="Microsoft">
+// <copyright file="LogStatisticSiteType.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.CRM.Common.Enumerations
+namespace Fanex.CRM.Report.Enums
 {
-    public enum LogStatisticSiteType
+    public enum LogStatisticReportType
     {
         IBC = 0,
 

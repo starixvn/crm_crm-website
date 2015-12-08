@@ -15,6 +15,7 @@ namespace Fanex.CRM.Report.Controllers
     using Fanex.CRM.Common.Enumerations;
     using Fanex.CRM.Common.Services;
     using Fanex.CRM.Report.Criteria.LogStatistic;
+    using Fanex.CRM.Report.Enums;
     using Fanex.CRM.Report.Excels.LogStatistic;
     using Fanex.CRM.Report.Models.LogStatistic;
     using Fanex.CRM.Report.Services.LogStatistic;
@@ -83,30 +84,44 @@ namespace Fanex.CRM.Report.Controllers
         [AjaxNapAuth(FunctionKey = FunctionPermissions.LogStatistic, Policy = Constant.Policy.Read)]
         public ActionResult GetMainReport(LogStatisticCriteria criteria)
         {
-            criteria.ProductType = (int)ProductType.Detail;
-            criteria.CategoryType = (int)CategoryType.SubCategory;
-            criteria.SiteType = (int)LogStatisticSiteType.IBC;
-            criteria.FromDate = new System.DateTime(2015, 10, 1);
-
-            var jsonResult = Json(new
+            return Json(new
             {
-                IBCReport = _logStatisticService.GetReportData(criteria),
-            });
+                IBCReport = _logStatisticService.GetReportData(new LogStatisticCriteria
+                {
+                    ProductId = criteria.ProductId,
+                    MainCategoryId = criteria.MainCategoryId,
+                    CommunicationId = criteria.CommunicationId,
+                    FromDate = criteria.FromDate,
+                    ToDate = criteria.ToDate,
+                    ProductType = (int)ProductType.Detail,
+                    CategoryType = (int)CategoryType.SubCategory,
+                    SiteType = (int)LogStatisticReportType.IBC
+                }),
 
-            return jsonResult;
+                LicenseeReport = _logStatisticService.GetReportData(new LogStatisticCriteria
+                {
+                    ProductId = criteria.ProductId,
+                    MainCategoryId = criteria.MainCategoryId,
+                    CommunicationId = criteria.CommunicationId,
+                    FromDate = criteria.FromDate,
+                    ToDate = criteria.ToDate,
+                    ProductType = (int)ProductType.Detail,
+                    CategoryType = (int)CategoryType.SubCategory,
+                    SiteType = (int)LogStatisticReportType.Licensee
+                })
+            });
         }
 
-        public void ExportIbcReport(LogStatisticCriteria criteria)
+        public void ExportReport(LogStatisticCriteria criteria)
         {
             criteria.ProductType = (int)ProductType.Detail;
             criteria.CategoryType = (int)CategoryType.SubCategory;
-            criteria.SiteType = (int)LogStatisticSiteType.IBC;
-            criteria.FromDate = new System.DateTime(2015, 10, 1);
-            var ibcReport = _logStatisticService.GetReportData(criteria);
 
-            var excelFileName = Regex.Replace(ibcReport.Name, @"\W+", "_");
+            var report = _logStatisticService.GetReportData(criteria);
 
-            LogStatisticExcel logStatisticExcel = new LogStatisticExcel(ibcReport, excelFileName);
+            var excelFileName = Regex.Replace(report.Name, @"\W+", "_");
+
+            LogStatisticExcel logStatisticExcel = new LogStatisticExcel(report, excelFileName);
             logStatisticExcel.BuildWorkBook();
         }
     }

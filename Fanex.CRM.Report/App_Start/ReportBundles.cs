@@ -195,8 +195,7 @@ namespace Fanex.CRM.Report
                 "~/bundles/Report/LogStatisticStyles",
                 "~/Scripts/FanexGridV2/Fanex.Grid.css",
                 "~/Content/site/customizeFanexGridV2.less",
-                "~/Scripts/FanexGridV2/Fanex.Pagination.css",
-                "~/Areas/Report/LogStatistic/Styles/DailyStatisticsReport.less");
+                "~/Scripts/FanexGridV2/Fanex.Pagination.css");
 
             bundles.Add(new ScriptBundle("~/bundles/Report/LogStatisticScripts").Include(
                 "~/Scripts/ShareScripts/Applications/BlockUI.js",
@@ -207,6 +206,8 @@ namespace Fanex.CRM.Report
                 "~/Scripts/ShareScripts/Directives/RegisterTemplate.js",
                 "~/Areas/Report/LogStatistic/Scripts/LogStatisticApplication.js",
                 "~/Areas/Report/LogStatistic/Scripts/LogStatisticService.js",
+                "~/Areas/Report/LogStatistic/Scripts/LogStatisticOptions.js",
+                "~/Areas/Report/LogStatistic/Scripts/LogStatisticInitialPickers.js",
                 "~/Areas/Report/LogStatistic/Scripts/LogStatisticController.js",
                 "~/Areas/Report/LogStatistic/Scripts/Directives/*.js"));
         }
