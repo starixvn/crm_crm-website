@@ -35,9 +35,8 @@
         parent.document.title = document.title;
         window.rootUrl = '@Url.Content("~")';
 
-        var customer = parent.homeManager.CachedData.currentCustomer;
-        var custId = customer ? customer.Id : 0;
-        var username = customer ? customer.Name : '';
+        var custId = @ViewBag.CustId;
+        var username = "@ViewBag.Username";
         var tops = @Html.Raw(model);
         var latestFeedbackResources = {
             Feedback: '@Labels.Feedback',
