@@ -122,7 +122,11 @@
         var userId = @(Fanex.CRM.Common.Services.AppSession.CurrentUser != null ? Fanex.CRM.Common.Services.AppSession.CurrentUser.Id : 0);
         var clientTime = "@getClientTime";
         var redirectUrl = '@redirectUrl';
-
+        @if(Fanex.CRM.Common.Services.AppSetting.IsLocalTest == false)
+        {
+        <text>
         setInterval('udpateOnlineStatus()', 20000);
+        </text>
+        }
     </script>
 }
